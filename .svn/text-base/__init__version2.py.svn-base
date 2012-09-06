@@ -1,0 +1,417 @@
+# -*- Mode: python; coding: utf-8; tab-width: 8; indent-tabs-mode: t; -*-
+#
+# Copyright (C) 2007 - Alexandre Rosenfeld
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
+
+import string
+import sys
+import re
+import os, threading
+from threading import Thread
+from sets import Set
+from Queue import Queue
+import cgi
+import traceback
+import gobject
+import gtk, gtk.glade, gtk.gdk
+import rb
+import rhythmdb
+
+ui_str = """
+<ui>
+    <toolbar name="ToolBar">
+    	<placeholder name="ToolBarPluginPlaceholder">
+            <toolitem name="CoverArtBrowser" action="CoverArtBrowser"/>
+    	</placeholder>
+    </toolbar>
+</ui>
+"""
+
+CoverSize = 92
+
+class CoverArtBrowserPlugin (rb.Plugin):
+    def __init__(self):
+        rb.Plugin.__init__(self)
+    def activate(self, shell):
+	print "CoverArtBrowser DEBUG - activate()"
+        self.shell = shell
+        self.db = shell.get_property('db')
+        self.running = False
+        self.cover_db = None
+        self.local_search = None
+        self.dialog = None
+
+        data = dict()
+        manager = shell.get_player().get_property('ui-manager')
+
+	icon_file_name = self.find_file("bmp.png")
+        iconsource = gtk.IconSource()
+        iconsource.set_filename(icon_file_name)
+        iconset = gtk.IconSet()
+        iconset.add_source(iconsource)
+        iconfactory = gtk.IconFactory()
+        iconfactory.add("covermgr_icon", iconset)
+        iconfactory.add_default()
+        data['action_group'] = gtk.ActionGroup('CoverArtBrowserPluginActions')
+
+        action = gtk.Action('CoverArtBrowser', _('Cover Art _Browser'),
+                            _("Show a cover art browser"),
+                            "covermgr_icon")
+        action.connect('activate', self.show_browser_dialog, shell)
+        data['action_group'].add_action(action)
+
+        manager.insert_action_group(data['action_group'], 0)
+        data['ui_id'] = manager.add_ui_from_string(ui_str)
+        manager.ensure_update()
+
+        shell.set_data('CoverArtBrowserPluginInfo', data)
+
+    def deactivate(self, shell):
+	print "CoverArtBrowser DEBUG - deactivate()"
+        data = shell.get_data('CoverArtBrowserPluginInfo')
+
+        manager = shell.get_player().get_property('ui-manager')
+        manager.remove_ui(data['ui_id'])
+        manager.remove_action_group(data['action_group'])
+        manager.ensure_update()
+
+        shell.set_data('CoverArtBrowserPluginInfo', None)
+
+        self.shell = None
+        self.db = None
+        self.dialog = None
+        self.running = False
+
+    def create_configure_dialog(self, dialog=None):
+        if not dialog:
+            dialog = self.create_dialog()
+        return dialog
+
+    def show_browser_dialog(self, action, shell):
+        self.create_dialog().show()
+
+    def create_dialog(self):
+	print "CoverArtBrowser DEBUG - create_dialog()"
+        if self.dialog:
+            return self.dialog
+        #Only load it after all plugins are loaded
+        import CoverArtDatabase
+        import LocalCoverArtSearch
+        CoverArtDatabase.ART_SEARCHES_LOCAL = []
+        if not self.cover_db:
+            self.cover_db = CoverArtDatabase.CoverArtDatabase()
+        if not self.local_search:
+            self.loader = rb.Loader()
+            #self.local_search = LocalCoverArtSearch.LocalCoverArtSearch(self.loader)
+	self.local_search = LocalCoverArtSearch.LocalCoverArtSearch()
+        glade_file = self.find_file("coverart_browser.glade")
+        self.gladexml = gtk.glade.XML(glade_file)
+        
+	self.dialog = gtk.VBox()
+
+	self.start_button = self.gladexml.get_widget("start_button")
+        self.close_button = self.gladexml.get_widget("close_button")
+        self.status_label = self.gladexml.get_widget("status_label")
+        self.covers_view = self.gladexml.get_widget("covers_view")
+
+	# pour mettre le fond en noir
+	#self.scrollwindow = self.gladexml.get_widget("scrolledwindow1")
+    	style = self.covers_view.get_style().copy()
+    	#style_sw = self.scrollwindow.get_style()
+    	for state in (gtk.STATE_NORMAL, gtk.STATE_PRELIGHT,gtk.STATE_ACTIVE):
+		style.base[state] = gtk.gdk.Color(0,0,0)
+        	#style.base[state] = style_sw.bg[gtk.STATE_NORMAL]
+    	self.covers_view.set_style(style)
+	
+	self.vbox=self.gladexml.get_widget("dialog-vbox1")
+	self.vbox.reparent(self.dialog)
+	self.vbox.show_all()
+	self.dialog.show_all()
+	self.shell.add_widget(self.dialog, rb.SHELL_UI_LOCATION_MAIN_NOTEBOOK)
+	self.shell.notebook_set_page(self.dialog)
+
+        self.covers_model = gtk.ListStore(gobject.TYPE_STRING, gtk.gdk.Pixbuf, rhythmdb.Entry)
+        self.covers_view.set_model(self.covers_model)
+	targets = None	
+	targets = gtk.target_list_add_image_targets (targets, writable=True)
+	targets = gtk.target_list_add_image_targets (targets)
+	targets = gtk.target_list_add_uri_targets (targets)
+	#self.covers_view.enable_model_drag_dest(targets,gtk.gdk.ACTION_DEFAULT | gtk.gdk.ACTION_MOVE)
+	self.covers_view.drag_source_set (gtk.gdk.BUTTON1_MASK, targets, gtk.gdk.ACTION_COPY)
+	self.covers_view.drag_dest_set (gtk.DEST_DEFAULT_ALL, targets, gtk.gdk.ACTION_COPY)
+	#self.covers_view.enable_model_drag_dest([('image/x-xpixmap', 0, 0)],gtk.gdk.ACTION_DEFAULT | gtk.gdk.ACTION_MOVE)
+	self.covers_view.connect("item-activated", self.coverdoubleclicked_callback)
+	self.covers_view.connect("activate-cursor-item",self.coverclicked_callback)
+	self.covers_view.connect("drag-data-received", self.dragimage_callback)
+	#self.covers_view.connect("pixbuf-dropped", self.dragimage_callback)
+	self.covers_view.connect("delete-event",self.coverdelete_callback)
+	
+        self.start_button.connect("clicked", self.startstop_callback)
+        self.close_button.connect("clicked", self.close_callback)
+        self.unknown_cover = gtk.gdk.pixbuf_new_from_file_at_size(\
+                self.find_file('rhythmbox-missing-artwork.svg'), CoverSize, CoverSize)
+        self.error_cover = gtk.gdk.pixbuf_new_from_file_at_size(\
+                self.find_file('rhythmbox-error-artwork.svg'), CoverSize, CoverSize)
+        self.iter = None
+        print "Loading albums"
+        self.load_albums()
+        return self.dialog
+
+    def close_callback(self, widget):
+	print "CoverArtBrowser DEBUG - close_callback()"
+	self.dialog.hide()
+	self.dialog.destroy()
+	self.dialog=None
+	
+    def coverclicked_callback(self, widget,item):
+	print "CoverArtBrowser DEBUG - coverclicked_callback()"
+	model=widget.get_model()
+	entry = model[item][2]
+	self.get_pixbuf(self.db, entry, self.load_entry)
+	    
+    def coverdoubleclicked_callback(self, widget,item):
+	print "CoverArtBrowser DEBUG - coverdoubleclicked_callback()"
+	model=widget.get_model()
+	entry = model[item][2]
+        st_album = self.db.entry_get (entry, rhythmdb.PROP_ALBUM) or _("Unknown")
+	print `st_album`
+	st_song = self.db.entry_get (entry, rhythmdb.PROP_TITLE) or _("Unknown")
+	print `st_song`
+	st_track = self.db.entry_get (entry, rhythmdb.PROP_TRACK_NUMBER) or _("Unknown")
+	print `st_track`
+	self.shell.props.shell_player.play_entry(entry)
+	
+	#search = (rhythmdb.QUERY_PROP_EQUALS, rhythmdb.PROP_ALBUM,st_album)
+	#query = self.db.query_new()
+        #self.db.query_append(query, search)
+        #query_model = self.db.query_model_new_empty()
+        #self.db.do_full_query_parsed(query_model, query)
+	
+	#def process_entry(model, path, iter, data):
+	#    (parsed_entry,) = model.get(iter, 0)
+	#    st_track_found = self.db.entry_get (parsed_entry, rhythmdb.PROP_TRACK_NUMBER) or _("Unknown")
+	#    print `st_track_found`
+	#    if st_track_found==1:
+	#	self.shell.props.shell_player.play_entry(parsed_entry)
+	    
+	#query_model.foreach(process_entry, None)
+
+	#result = query_model.get(query_model.get_iter_first(), 0)[0]
+	
+	#q = self.db.query_new()
+        #self.db.query_append(q, [rhythmdb.QUERY_PROP_EQUALS, rhythmdb.PROP_ALBUM, st_album])
+        #qm = self.db.query_model_new(q)
+        #self.db.do_full_query_parsed(qm, q)
+        #self.shell.props.library_source.get_entry_view().set_model(qm)
+        #self.library_source.props.query_model = qm
+
+	
+
+	
+    def dragimage_callback(self, widget, drag_context, x, y, selection_data, info, timestamp):
+	print "CoverArtBrowser DEBUG - dragimage_callback()"
+	item = self.covers_view.get_item_at_pos(x, y)
+	print `item`
+	entry = None
+	if item:
+		model = widget.get_model()
+		entry = model[item][2]
+		print `entry`
+		uris = selection_data.get_uris ()
+		if urls:
+			print `urls`
+			self.art_db.set_pixbuf_from_uri (db, entry, urls[0], self.on_get_pixbuf_completed)
+		pixbuf = selection_data.get_pixbuf()
+		if pixbuf:
+	    		pixbuf = pixbuf.scale_simple(CoverSize, CoverSize, gtk.gdk.INTERP_BILINEAR)
+			self.covers_model.set(item, 1, pixbuf)
+	
+    def coverdelete_callback(self, widget, event, data=None):
+	print "CoverArtBrowser DEBUG - coverdelete_callback()"
+	item = self.covers_model.get_selected_items()[0][0]
+	self.covers_model.set(item, 1, None)
+	
+    def startstop_callback(self, widget):
+	print "CoverArtBrowser DEBUG - startstop_callback()"
+        self.set_running(not self.running)
+
+    def load_albums(self):
+	print "CoverArtBrowser DEBUG - load_albums()"
+        self.album_queue = Queue()
+        self.album_loader = Thread(target = self.album_load)
+        self.album_loader.start()
+        self.albums = Set()
+        self.album_count = 0
+        self.cover_count = 0
+        self.db.entry_foreach_by_type(self.db.entry_type_get_by_name("song"), \
+                                      self.load_entry_callback)
+        #for album, artist_info in self.albums.iteritems():
+        #    for artist, info in artist_info:
+        #        entry = info[0]
+
+    def load_entry_callback(self, entry):
+	print "CoverArtBrowser DEBUG - load_entry_callback()"
+	track = self.db.entry_get(entry, rhythmdb.PROP_TRACK_NUMBER)
+	# we only deal with the first track of album
+	if track==1:
+	    album = self.db.entry_get(entry, rhythmdb.PROP_ALBUM)
+	    pixbuf = self.unknown_cover
+	    add = False
+	    if album not in self.albums:
+		artist = self.db.entry_get(entry, rhythmdb.PROP_ARTIST)
+	        self.album_count += 1
+	        self.albums.add(album)
+	        #self.album_queue.put([artist, album, entry])
+	        tree_iter = self.covers_model.append((cgi.escape('%s - %s' % (artist, album)),pixbuf,entry))
+	        print "CoverArtBrowser DEBUG - load_entry_callback"
+	        self.iter = self.iter or tree_iter
+	        self.album_queue.put([artist, album, entry, tree_iter])
+
+    def album_load(self):
+	print "CoverArtBrowser DEBUG - album_load()"
+        while True:
+            artist, album, entry, tree_iter = self.album_queue.get()
+            art_location = self.cover_db.build_art_cache_filename (self.db, entry, 'jpg')
+	    print "CoverArtBrowser DEBUG - album_load, art_location = "
+	    print `art_location`
+            if os.path.exists (art_location):
+                pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(art_location, CoverSize, CoverSize)
+		print "CoverArtBrowser DEBUG - album_load OK"
+                self.cover_count += 1
+                gtk.gdk.threads_enter()
+                self.covers_model.set(tree_iter, 1, pixbuf)
+		self.set_status()
+                gtk.gdk.threads_leave()
+
+    def set_running(self, value):
+        self.running = value
+        if self.running:
+	    print "CoverArtBrowser DEBUG - set_running() = TRUE"
+            self.start_button.set_label("Cancel")
+            self.load_iter()
+        else:
+	    print "CoverArtBrowser DEBUG - set_running() = FALSE"
+            self.start_button.set_label("Fetch covers")
+
+    def load_iter(self):
+	print "CoverArtBrowser DEBUG - load_iter()"
+        if (not self.running) or (not self.iter):
+            self.set_running(False)
+            return
+        entry = self.covers_model.get(self.iter, 2)[0]
+        self.get_pixbuf(self.db, entry, self.load_entry)
+
+
+    def get_pixbuf (self, db, entry, callback):
+	print "CoverArtBrowser DEBUG - get_pixbuf()"
+        if entry is None:
+            callback (entry, None, None)
+            return
+
+        st_artist = db.entry_get (entry, rhythmdb.PROP_ARTIST) or _("Unknown")
+        st_album = db.entry_get (entry, rhythmdb.PROP_ALBUM) or _("Unknown")
+
+        # replace quote characters
+        # don't replace single quote: could be important punctuation
+        for char in ["\""]:
+            st_artist = st_artist.replace (char, '')
+            st_album = st_album.replace (char, '')
+
+        Coroutine (self.next, self.cover_db.image_search, db, st_album, st_artist,entry, False, callback).begin()
+
+    def load_entry(self, entry, pixbuf, location):
+	print "CoverArtBrowser DEBUG - load_entry()"
+        if self.dialog:
+            pixbuf = pixbuf.scale_simple(CoverSize, CoverSize, gtk.gdk.INTERP_BILINEAR)
+            self.covers_model.set(self.iter, 1, pixbuf)
+            self.next()
+
+    def next(self):
+	print "CoverArtBrowser DEBUG - next()"
+	if self.iter is None:
+	    self.set_running(False)
+	    return
+        else:
+            if (self.covers_model.get(self.iter, 1)[0] == self.unknown_cover):
+                self.covers_model.set(self.iter, 1, self.error_cover)
+            self.iter = self.covers_model.iter_next(self.iter)
+            current_cover=None
+	    if self.iter:
+            	current_cover = (self.covers_model.get(self.iter, 1)[0])
+            	while self.iter and (current_cover != self.unknown_cover):
+                	self.iter = self.covers_model.iter_next(self.iter)
+                	if self.iter:
+				current_cover = (self.covers_model.get(self.iter, 1)[0])
+            self.load_iter()
+
+    def set_status(self):
+	albumleft = self.album_count-self.cover_count
+        self.status_label.set_label("%d covers left to download" % albumleft)
+
+    def reset(self):
+	albumleft = self.album_count-self.cover_count
+        self.status_label.set_label("%d covers left to download" % albumleft)
+class Coroutine:
+    """A simple message-passing coroutine implementation.
+    Not thread- or signal-safe.
+    Usage:
+            def my_iter (plexer, args):
+                    some_async_task (..., callback=plexer.send (tokens))
+                    yield None
+                    tokens, (data, ) = plexer.receive ()
+                    ...
+            Coroutine (my_iter, args).begin ()
+    """
+    def __init__ (self, error_callback, iter, *args):
+	print "CoverArtBrowser DEBUG - Coroutine::__init__()"
+        self._continuation = iter (self, *args)
+        self.error_callback = error_callback
+        self._executing = False
+    def _resume (self):
+	print "CoverArtBrowser DEBUG - Coroutine::_resume()"
+        if not self._executing:
+            self._executing = True
+            try:
+                try:
+                    self._continuation.next ()
+                    while self._data:
+		        print "CoverArtBrowser DEBUG - Coroutine::_resume, OK()"
+                        self._continuation.next ()
+                except StopIteration:
+                    print "CoverArtBrowser DEBUG - Coroutine::_resume, STOPITERATION()"
+		    pass
+                # Catch all exceptions for faulty art plugins
+                except Exception:
+		    print "CoverArtBrowser DEBUG - Coroutine::_resume, EXCEPTION()"
+                    self.error_callback()
+            finally:
+                self._executing = False
+    def clear (self):
+	print "CoverArtBrowser DEBUG - Coroutine::clear()"
+        self._data = []
+    def begin (self):
+	print "CoverArtBrowser DEBUG - Coroutine::begin()"
+        self.clear ()
+        self._resume ()
+    def send (self, *tokens):
+	print "CoverArtBrowser DEBUG - Coroutine::send()"
+        def callback (*args):
+            self._data.append ((tokens, args))
+            self._resume ()
+        return callback
+    def receive (self):
+	print "CoverArtBrowser DEBUG - Coroutine::receive()"
+        return self._data.pop (0)
