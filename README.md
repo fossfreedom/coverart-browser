@@ -14,6 +14,14 @@ How it works:
 2. Albums are displayed as clickable buttons containing their album cover
 3. Double-click the cover to play the album.
 
+How to install:
+
+1. install git
+N.B. for debian - sudo apt-get install git
+2. git clone https://github.com/fossfreedom/coverart-browser.git
+3. cd coverart-browser
+4. sh ./install.sh
+
 Notes:
 
  - this will be a port of the GUI cover-art browser capability.
