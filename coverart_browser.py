@@ -442,13 +442,16 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
 	    #print "CoverArtBrowser DEBUG - album_load, art_location = "
 	    art_location = self.cover_db.lookup(key)
             if art_location is not None and os.path.exists (art_location):
-                pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(art_location, CoverSize, CoverSize)
-		#print "CoverArtBrowser DEBUG - album_load OK"
-                self.cover_count += 1
-                Gdk.threads_enter()
-                self.covers_model.set(tree_iter, 1, pixbuf)
-		self.set_status()
-                Gdk.threads_leave()
+            	try:
+                    pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(art_location, CoverSize, CoverSize)
+		    #print "CoverArtBrowser DEBUG - album_load OK"
+                    self.cover_count += 1
+                    Gdk.threads_enter()
+                    self.covers_model.set(tree_iter, 1, pixbuf)
+		    self.set_status()
+                    Gdk.threads_leave()
+	    	except:
+	    	    pass
 	    if self.album_queue.empty():
 		Gdk.threads_enter()
 		print "CoverArtBrowser DEBUG - album_load() FINISHED"
