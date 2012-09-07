@@ -160,10 +160,10 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
 #	self.start_button.set_sensitive(False)
 #	self.close_button.set_sensitive(False)
 	# pour mettre le fond en noir
-    	style = self.covers_view.get_style().copy()
-    	for state in (Gtk.StateFlags.NORMAL, Gtk.StateFlags.PRELIGHT,Gtk.StateFlags.ACTIVE):
-		style.base[state] = Gdk.Color(0,0,0)
-    	self.covers_view.set_style(style)
+    	#style = self.covers_view.get_style().copy()
+    	#for state in (Gtk.StateFlags.NORMAL, Gtk.StateFlags.PRELIGHT,Gtk.StateFlags.ACTIVE):
+	#	style.base[state] = Gdk.Color(0,0,0)
+    	#self.covers_view.set_style(style)
 	
 	self.vbox=self.ui.get_object("dialog-vbox1")
 	self.vbox.reparent(self.dialog)
