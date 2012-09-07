@@ -14,6 +14,7 @@ How it works:
 3. Double-click the cover to play the album.
 
 To Do:
+
 1. step 3 - via playlist or Queue?
 2. Remove close and the other button to free-up screen estate.
 3. make toolbar button a true toggle to display/hide the albums
