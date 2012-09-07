@@ -125,13 +125,13 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         return dialog
 
     def show_browser_dialog(self, action):
-        self.create_dialog().show()
+        self.create_dialog()
 
     def create_dialog(self):
 	print "CoverArtBrowser DEBUG - create_dialog()"
-        if self.dialog:
+        if self.dialog is not None:
 	    self.close_callback(None)
-            #return self.dialog
+            return
         #Only load it after all plugins are loaded
         #import CoverArtDatabase
         #import LocalCoverArtSearch
@@ -154,11 +154,11 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
 	self.dialog = Gtk.VBox()
         self.status_label = self.ui.get_object("status_label")
         self.covers_view = self.ui.get_object("covers_view")
-	self.start_button = self.ui.get_object("start_button")
-        self.close_button = self.ui.get_object("close_button")
+#	self.start_button = self.ui.get_object("start_button")
+#       self.close_button = self.ui.get_object("close_button")
 
-	self.start_button.set_sensitive(False)
-	self.close_button.set_sensitive(False)
+#	self.start_button.set_sensitive(False)
+#	self.close_button.set_sensitive(False)
 	# pour mettre le fond en noir
     	style = self.covers_view.get_style().copy()
     	for state in (Gtk.StateFlags.NORMAL, Gtk.StateFlags.PRELIGHT,Gtk.StateFlags.ACTIVE):
@@ -187,10 +187,10 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         
     def enable_controls_and_cb(self):
 	print "CoverArtBrowser DEBUG - enable_controls_and_cb"
-	self.start_button.set_sensitive(True)
-	self.close_button.set_sensitive(True)
-	self.start_button.connect("clicked", self.startstop_callback)
-        self.close_button.connect("clicked", self.close_callback)
+#	self.start_button.set_sensitive(True)
+#	self.close_button.set_sensitive(True)
+#	self.start_button.connect("clicked", self.startstop_callback)
+#       self.close_button.connect("clicked", self.close_callback)
 	#targets = None	
 	#targets = Gtk.target_list_add_image_targets (targets, writable=True)
 	#targets = Gtk.target_list_add_image_targets (targets)
