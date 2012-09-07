@@ -29,7 +29,7 @@ Random Musings:
 1. Consider when double clicking the album whether to create a playlist to play the album from or just to wipe the Queue and add the tracks from the album
 2. May be add a right click option to queue the album
 3. Maybe hover over the album to display important facts - number of tracks, duration etc.  Have a look how clementine/banshee handles this
-                                                         - 
+
 Other random stuff.
 
 1. Integration with other plugins - e.g. WebMenu via right-click - should be useful
