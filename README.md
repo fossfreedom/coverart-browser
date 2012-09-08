@@ -13,6 +13,7 @@ How it works:
 1. Click the toolbar button
 2. Albums are displayed as clickable buttons containing their album cover
 3. Double-click the cover to play the album.
+4. Right click menu option to queue an album.
 
 How to install:
 
@@ -30,9 +31,8 @@ Notes:
 Random Musings:
 
 1. Consider when double clicking the album whether to create a playlist to play the album from or like currently just to wipe the Queue and add the tracks from the album
-2. May be add a right click option to queue or create a playlist the album
-3. Maybe hover over the album to display important facts - number of tracks, duration etc.  Have a look how clementine/banshee handles this
-4. Possible right click and display all tracks in a submenu to allow you to play a given track.
+2. Maybe hover over the album to display important facts - number of tracks, duration etc.  Have a look how other media players handles this
+3. Possible right click and display all tracks in a submenu to allow you to play a given track.
 
 Other random stuff.
 
