@@ -148,7 +148,6 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         
 
         def process_entry(model, path, iter, data):
-            print "CoverArtBrowser DEBUG - process_entry"
             (entry,) = model.get(iter, 0)		
             album = entry.get_string( RB.RhythmDBPropType.ALBUM )
 
@@ -161,9 +160,14 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
                 tree_iter = self.covers_model.append((cgi.escape('%s - %s' % (artist, album)),pixbuf,entry))
                 self.iter = self.iter or tree_iter
                 self.album_queue.put([artist, album, entry, tree_iter])
-            print "CoverArtBrowser DEBUG - end process_entry"
 
+	# temporarily disconnect the covers_view from the model to stop the flickering
+	# whilst updating
+	self.covers_view.freeze_child_notify()
+	self.covers_view.set_model(None)
 	qm.foreach(process_entry, None)
+	self.covers_view.set_model(self.covers_model)
+	self.covers_view.thaw_child_notify()
 	print "CoverArtBrowser DEBUG - end show_browser_dialog"
         return self.dialog
         	
@@ -221,11 +225,37 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         #stub
         return
         
-    def rightclick_callback(self, treeview, event):
-        #stub
-        # from treeview what is the album
-        #self.queue_album(st_album)
+    def rightclick_callback(self, iconview, event):     
+	print "CoverArtBrowser DEBUG - rightclick_callback()"
+        
+        if event.button == 3:
+        	x = int(event.x)
+        	y = int(event.y)
+        	time = event.time
+        	pthinfo = iconview.get_path_at_pos(x, y)
+        	if pthinfo is not None:
+            		iconview.grab_focus()
+			       			
+       			model=iconview.get_model()
+        		entry = model[pthinfo][2]        		
+			st_album = entry.get_string( RB.RhythmDBPropType.ALBUM )
+			
+			self.popup_menu = Gtk.Menu()
+			main_menu = Gtk.MenuItem("Queue Album")
+			main_menu.connect("activate", self.queue_menu_callback, st_album)
+       			self.popup_menu.append(main_menu)
+       			self.popup_menu.show_all()
+			
+           		self.popup_menu.popup( None, None, None, None, event.button, time)
+	print "CoverArtBrowser DEBUG - end rightclick_callback()"
         return
+        
+    def queue_menu_callback(self, menu, item):
+    	print "CoverArtBrowser DEBUG - queue_menu_callback()"
+        
+    	self.queue_album( item )
+        
+        print "CoverArtBrowser DEBUG - queue_menu_callback()"
         
     def album_load(self):
     	print "CoverArtBrowser DEBUG - album_load"
@@ -253,6 +283,6 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
                 self.covers_view.connect("item-activated", self.coverdoubleclicked_callback)
                 #self.covers_view.connect("activate-cursor-item",self.coverclicked_callback)
                 #self.covers_view.connect("drag-data-received", self.dragimage_callback)
-                #self.covers_view.connect('button-press-event',self.rightclick_callback)
+                self.covers_view.connect('button-press-event',self.rightclick_callback)
                 Gdk.threads_leave()
         print "CoverArtBrowser DEBUG - end album_load"
