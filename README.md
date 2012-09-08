@@ -33,7 +33,6 @@ Random Musings:
 2. May be add a right click option to queue or create a playlist the album
 3. Maybe hover over the album to display important facts - number of tracks, duration etc.  Have a look how clementine/banshee handles this
 4. Possible right click and display all tracks in a submenu to allow you to play a given track.
-5. Possible right click and add the same "shuffle" mechanism you get in the main menu.
 
 Other random stuff.
 
