@@ -51,7 +51,7 @@ STOCK_IMAGE = "stock-coverart-button"
 class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
     __gtype_name = 'CoverArtBrowserPlugin'
     object = GObject.property(type=GObject.Object)
-
+    
     def __init__(self):
         GObject.Object.__init__(self)
 
@@ -171,10 +171,6 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         print "CoverArtBrowser DEBUG - end show_browser_dialog"
         return self.dialog
             
-    def coverclicked_callback(self, widget,item):
-        # stub
-        return
-        
     def coverdoubleclicked_callback(self, widget,item):
         # callback when double clicking on an album 
         print "CoverArtBrowser DEBUG - coverdoubleclicked_callback"
@@ -221,33 +217,35 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
             self.shell.props.queue_source.add_entry(song, -1)
         print "CoverArtBrowser DEBUG - end queue_album"
         
-    def dragimage_callback(self, widget, drag_context, x, y, selection_data, info, timestamp):
-        #stub
-        return
-        
-    def rightclick_callback(self, iconview, event):     
-        print "CoverArtBrowser DEBUG - rightclick_callback()"
-        
-        if event.button == 3:
-            x = int(event.x)
-            y = int(event.y)
-            time = event.time
-            pthinfo = iconview.get_path_at_pos(x, y)
-            if pthinfo is not None:
-                iconview.grab_focus()
+    def mouseclick_callback(self, iconview, event):     
+        print "CoverArtBrowser DEBUG - mouseclick_callback()"
+
+        x = int(event.x)
+        y = int(event.y)
+        time = event.time
+        pthinfo = iconview.get_path_at_pos(x, y)
+
+        if pthinfo is None:
+            return
+
+        iconview.grab_focus()
                             
-                model=iconview.get_model()
-                entry = model[pthinfo][2]               
-                st_album = entry.get_string( RB.RhythmDBPropType.ALBUM )
+        model=iconview.get_model()
+        entry = model[pthinfo][2]               
+     
+        if event.button == 3:
+            # when right-click then...
+            st_album = entry.get_string( RB.RhythmDBPropType.ALBUM )
             
-                self.popup_menu = Gtk.Menu()
-                main_menu = Gtk.MenuItem("Queue Album")
-                main_menu.connect("activate", self.queue_menu_callback, st_album)
-                self.popup_menu.append(main_menu)
-                self.popup_menu.show_all()
+            self.popup_menu = Gtk.Menu()
+            main_menu = Gtk.MenuItem("Queue Album")
+            main_menu.connect("activate", self.queue_menu_callback, st_album)
+            self.popup_menu.append(main_menu)
+            self.popup_menu.show_all()
             
-                self.popup_menu.popup( None, None, None, None, event.button, time)
-        print "CoverArtBrowser DEBUG - end rightclick_callback()"
+            self.popup_menu.popup( None, None, None, None, event.button, time)
+
+        print "CoverArtBrowser DEBUG - end mouseclick_callback()"
         return
         
     def queue_menu_callback(self, menu, item):
@@ -281,8 +279,52 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
                 Gdk.threads_enter()
                 
                 self.covers_view.connect("item-activated", self.coverdoubleclicked_callback)
-                #self.covers_view.connect("activate-cursor-item",self.coverclicked_callback)
-                #self.covers_view.connect("drag-data-received", self.dragimage_callback)
-                self.covers_view.connect('button-press-event',self.rightclick_callback)
+                self.covers_view.connect('button-press-event', self.mouseclick_callback)
+                self.covers_view.connect('selection_changed', self.selectionchanged_callback)
                 Gdk.threads_leave()
         print "CoverArtBrowser DEBUG - end album_load"
+        
+    def selectionchanged_callback(self, widget):
+        print "CoverArtBrowser DEBUG - selectionchanged_callback"
+        # callback when focus had changed on an album
+        model=widget.get_model()
+        entry = model[widget.get_selected_items()[0]][2]
+
+        # now lets build up a status label containing some 'interesting stuff' about the album
+        st_album = entry.get_string( RB.RhythmDBPropType.ALBUM )
+
+        label = "%s - %s" % (st_album, \
+                            entry.get_string( RB.RhythmDBPropType.ARTIST ) )
+
+
+        query = GLib.PtrArray()
+        self.db.query_append_params(query, \
+                        RB.RhythmDBQueryType.EQUALS, \
+                        RB.RhythmDBPropType.ALBUM, st_album)
+        query_model = RB.RhythmDBQueryModel.new_empty(self.db)
+        self.db.do_full_query_parsed(query_model, query)
+    
+        # Find duration and number of tracks from that album
+        track_count = 0
+        album_duration = 0
+        for row in query_model:
+            track_count = track_count + 1
+            album_duration = album_duration + \
+                             row[0].get_ulong(RB.RhythmDBPropType.DURATION )
+
+        if track_count == 1:
+            label = label + ", 1 track"
+        else:
+            label = label + ", %d tracks" % track_count
+
+        minutes = int(album_duration / 60)
+
+        if minutes == 1:
+            label = label + ", duration of 1 minute"
+        else:
+            label = label + ", duration of %d minutes" % minutes
+
+        label = label + ", genre is %s" % query_model[0][0].get_string(RB.RhythmDBPropType.GENRE )
+
+        self.status_label.set_label( label )
+        
