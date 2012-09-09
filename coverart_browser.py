@@ -95,12 +95,32 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
     def show_browser_dialog(self, action):
         print "CoverArtBrowser DEBUG - show_browser_dialog"
         # first decide if this is a toggle to display or turn-off
-        if self.dialog is not None:
-            # dialog has been created so we need to toggle-off
-            self.dialog.hide()
-            self.dialog.destroy()
-            self.dialog=None
+        # this is messy - need to work on this to tidy
+        
+        if action.get_active() and self.dialog is not None:
+            # toggled on but previously created therefore just display
+            self.shell.activate_source( self.shell.props.library_source, 0 )
+            self.dialog.show_all()
+            self.shell.add_widget(self.dialog, RB.ShellUILocation.MAIN_TOP,True,True)
             return
+
+        if not action.get_active():
+            # toggle-off - just remove widget
+            #self.dialog is not None:
+            self.dialog.hide()
+            self.shell.remove_widget(self.dialog, RB.ShellUILocation.MAIN_TOP)
+
+            #self.dialog.destroy()
+            #self.dialog=None
+            return
+
+        #TODO
+        #need to connect to a "signal" when source changes -
+        #function to hide the dialog if not the library_source
+
+        # activate music source
+        self.shell.activate_source( self.shell.props.library_source, 0 )
+
 
         # dialog has not been created so lets do so.
         self.cover_db = RB.ExtDB(name="album-art")
