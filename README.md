@@ -30,9 +30,15 @@ Notes:
 To Do:
 
 1. investigate performance with large music collections
+2. When clicking the toolbar option, it should automatically activate the music library source
+N.B. currently, the albums are displayed at the top of any source that is currently active.
 
 Random Musings:
+
 1. Possible right click and display all tracks in a submenu to allow you to play a given track.
+2. The code currently looks through all the songs in the library and works out what albums are there... but this is already done in the list view on the music source library.  Can we someone get hold of the album info thus saving all this processing.
+3. If its possible to workout what signal is being sent when clicking on the album in the music source, should be possible to change focus on the plugin covers view.
+4. likewise, clicking on the plugin covers icon, could we send a signal to the music source to the album list thus forcing a filter on the bottom of the screen to show all the tracks for the album
 
 Other random stuff.
 
