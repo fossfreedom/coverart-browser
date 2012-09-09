@@ -1,4 +1,4 @@
-# -*- Mode: python; coding: utf-8; tab-width: 8; indent-tabs-mode: t; -*-
+# -*- Mode: python; coding: utf-8; tab-width: 4; indent-tabs-mode: nil; -*-
 #
 # Copyright (C) 2012 - fossfreedom
 #
@@ -35,18 +35,7 @@ from gi.repository import Peas
 from gi.repository import Gdk
 from gi.repository import GLib
 
-ui_str = """
-<ui>
-    <toolbar name="ToolBar">
-        <placeholder name="ToolBarPluginPlaceholder">
-            <toolitem name="CoverArtBrowser" action="CoverArtBrowser"/>
-        </placeholder>
-    </toolbar>
-</ui>
-"""
-
 CoverSize = 92
-STOCK_IMAGE = "stock-coverart-button"
 
 class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
     __gtype_name = 'CoverArtBrowserPlugin'
@@ -54,82 +43,75 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
     
     def __init__(self):
         GObject.Object.__init__(self)
+        
 
     def do_activate(self):
         print "CoverArtBrowser DEBUG - do_activate"
-        self.shell = self.object
-        self.db = self.shell.props.db
-        self.uim = self.shell.props.ui_manager
-        self.cover_db = None
-        self.dialog = None
+        shell = self.object       
         
         icon_file_name = rb.find_plugin_file(self, "coverbrowser.png")
-        icon_factory = Gtk.IconFactory()
-        pxbf = GdkPixbuf.Pixbuf.new_from_file(icon_file_name)
-        icon_factory.add(STOCK_IMAGE, Gtk.IconSet.new_from_pixbuf(pxbf))
-        icon_factory.add_default()
-    
-        action = ('CoverArtBrowser', STOCK_IMAGE, _('Browse Covers'), None, _('Show a coverart browser'), self.show_browser_dialog, False)
-
-        self.action_group = Gtk.ActionGroup('CoverArtBrowserPluginActions')
-        self.action_group.add_toggle_actions([action])
-
-        self.uim.insert_action_group(self.action_group, -1)
-        self.ui_tb = self.uim.add_ui_from_string(ui_str)
-        self.uim.ensure_update()
+        size = Gtk.icon_size_lookup( Gtk.IconSize.LARGE_TOOLBAR )
+        pxbf = GdkPixbuf.Pixbuf.new_from_file_at_size(icon_file_name, size[1], size[2] )
+        
+        self.dialog = GObject.new ( CoverArtDisplay, plugin=self, 
+        			    name=_("Cover Art Browser"), pixbuf=pxbf )
+        group = RB.DisplayPageGroup.get_by_id( "library" )
+        shell.append_display_page( self.dialog, group )
+        
         print "CoverArtBrowser DEBUG - end do_activate"
         
     def do_deactivate(self):
         print "CoverArtBrowser DEBUG - do_deactivate"
-        manager = self.shell.props.ui_manager
-        manager.remove_ui(self.ui_tb)
-        manager.remove_action_group(self.action_group)
-        manager.ensure_update()
-
-        self.shell = None
-        self.db = None
-        self.dialog = None
-        self.running = False
+        self.dialog.delete_thyself()
         print "CoverArtBrowser DEBUG - end do_deactivate"
-
-    def show_browser_dialog(self, action):
-        print "CoverArtBrowser DEBUG - show_browser_dialog"
-        # first decide if this is a toggle to display or turn-off
-        if self.dialog is not None:
-            # dialog has been created so we need to toggle-off
-            self.dialog.hide()
-            self.dialog.destroy()
-            self.dialog=None
+            
+class CoverArtDisplay( RB.DisplayPage ):
+	def __init__(self):
+        super( CoverArtDisplay, self ).__init__()     
+        self.has_activated = False   
+        self.cover_db = RB.ExtDB( name="album-art" )           
+         	                	
+    def do_selected(self):
+        print "CoverArtBrowser DEBUG - initialise_source"
+        
+        if self.has_activated:
             return
-
+        else:
+            self.has_activated = True
+        
+        plugin = self.props.plugin
+        self.ui_file = rb.find_plugin_file(plugin,"coverart_browser.ui")
+		self.shell = plugin.object
+		self.db = self.shell.props.db         
+        
         # dialog has not been created so lets do so.
-        self.cover_db = RB.ExtDB(name="album-art")
         self.ui = Gtk.Builder()
-        self.ui.add_from_file(rb.find_plugin_file(self,"coverart_browser.ui"))
-        self.dialog = Gtk.VBox()
+        self.ui.add_from_file( self.ui_file )
+        
         self.status_label = self.ui.get_object("status_label")
         self.covers_view = self.ui.get_object("covers_view")
     
         self.vbox=self.ui.get_object("dialog-vbox1")
-        self.vbox.reparent(self.dialog)
+        self.vbox.reparent(self)
         self.vbox.show_all()
-        self.dialog.show_all()
-        self.shell.add_widget(self.dialog, RB.ShellUILocation.MAIN_TOP,True,True)
+        self.show_all()
+        #self.shell.add_widget(self.dialog, RB.ShellUILocation.MAIN_TOP,True,True)
 
         self.covers_model = Gtk.ListStore(GObject.TYPE_STRING, GdkPixbuf.Pixbuf, object)
         self.covers_view.set_model(self.covers_model)
         self.unknown_cover = GdkPixbuf.Pixbuf.new_from_file_at_size(\
-                    rb.find_plugin_file(self, 'rhythmbox-missing-artwork.svg'), \
+                    rb.find_plugin_file(plugin, 'rhythmbox-missing-artwork.svg'), \
                     CoverSize, \
                     CoverSize)
         self.error_cover = GdkPixbuf.Pixbuf.new_from_file_at_size(\
-                    rb.find_plugin_file(self, 'rhythmbox-error-artwork.svg'), \
+                    rb.find_plugin_file(plugin, 'rhythmbox-error-artwork.svg'), \
                     CoverSize, \
                     CoverSize)
         self.iter = None
 
         # for performance - the actual loading of album pictures is done in another thread
         self.album_loader = Thread(target = self.album_load)
+
         self.album_loader.start()
 
         # ok - lets query for all the albums names
@@ -168,8 +150,8 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         qm.foreach(process_entry, None)
         self.covers_view.set_model(self.covers_model)
         self.covers_view.thaw_child_notify()
-        print "CoverArtBrowser DEBUG - end show_browser_dialog"
-        return self.dialog
+
+        print "CoverArtBrowser DEBUG - end show_browser_dialog"       
             
     def coverdoubleclicked_callback(self, widget,item):
         # callback when double clicking on an album 
@@ -257,6 +239,7 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         
     def album_load(self):
         print "CoverArtBrowser DEBUG - album_load"
+        
         while True:
             artist, album, entry, tree_iter = self.album_queue.get()
 
@@ -327,4 +310,6 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         label = label + ", genre is %s" % query_model[0][0].get_string(RB.RhythmDBPropType.GENRE )
 
         self.status_label.set_label( label )
-        
+        	
+GObject.type_register( CoverArtDisplay )
+	
