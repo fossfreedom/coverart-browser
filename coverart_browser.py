@@ -86,8 +86,9 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         print "CoverArtBrowser DEBUG - do_deactivate"
         manager = self.shell.props.ui_manager
         manager.ensure_update()
-
+        self.source.delete_thyself()
         self.shell = None
+        self.source = None
         print "CoverArtBrowser DEBUG - end do_deactivate"
 
  
