@@ -17,6 +17,8 @@ from gi.repository import Peas
 from gi.repository import Gdk
 from gi.repository import GLib
 
+from coverart_album import AlbumLoader
+
 CoverSize = 92
 
 class CoverArtBrowserSource(RB.Source):
@@ -40,11 +42,13 @@ class CoverArtBrowserSource(RB.Source):
             self.db = self.shell.props.db;
             self.entry_type = self.props.entry_type
             self.hasActivated = True
+            
+            self.loader = AlbumLoader( self.plugin )
         else:
             return
             
         # dialog has not been created so lets do so.
-        self.cover_db = RB.ExtDB(name="album-art")
+#        self.cover_db = RB.ExtDB(name="album-art")
         self.ui = Gtk.Builder()
         self.ui.add_from_file(rb.find_plugin_file(self.plugin, "coverart_browser.ui"))
         self.dialog = Gtk.VBox()
@@ -63,56 +67,60 @@ class CoverArtBrowserSource(RB.Source):
             
         self.covers_model = Gtk.ListStore(GObject.TYPE_STRING, GdkPixbuf.Pixbuf, object)
         self.covers_view.set_model(self.covers_model)
-        self.unknown_cover = GdkPixbuf.Pixbuf.new_from_file_at_size(\
-                    rb.find_plugin_file(self.plugin, "rhythmbox-missing-artwork.svg"), \
-                    CoverSize, \
-                    CoverSize)
-        self.error_cover = GdkPixbuf.Pixbuf.new_from_file_at_size(\
-                    rb.find_plugin_file(self.plugin, "rhythmbox-error-artwork.svg"), \
-                    CoverSize, \
-                    CoverSize)
-        self.iter = None
+        
+        self.loader.load( self.db )
+        self.loader.load_model( self.covers_model )            
+        
+#        self.unknown_cover = GdkPixbuf.Pixbuf.new_from_file_at_size(\
+#                    rb.find_plugin_file(self.plugin, "rhythmbox-missing-artwork.svg"), \
+#                    CoverSize, \
+#                    CoverSize)
+#        self.error_cover = GdkPixbuf.Pixbuf.new_from_file_at_size(\
+#                    rb.find_plugin_file(self.plugin, "rhythmbox-error-artwork.svg"), \
+#                    CoverSize, \
+#                    CoverSize)
+#        self.iter = None
 
         # for performance - the actual loading of album pictures is done in another thread
-        self.album_loader = Thread(target = self.album_load)
-        self.album_loader.start()
+#        self.album_loader = Thread(target = self.album_load)
+#        self.album_loader.start()
 
         # ok - lets query for all the albums names
-        self.album_queue = Queue()
-        self.albums = Set()
-        self.album_count = 0
-        self.cover_count = 0
+#        self.album_queue = Queue()
+#        self.albums = Set()
+#        self.album_count = 0
+#        self.cover_count = 0
 
-        q = GLib.PtrArray()
-        self.db.query_append_params(q, \
-                RB.RhythmDBQueryType.EQUALS, \
-                RB.RhythmDBPropType.TYPE, \
-        self.db.entry_type_get_by_name("song"))
-        qm = RB.RhythmDBQueryModel.new_empty(self.db)
-        self.db.do_full_query_parsed(qm,q)
+#        q = GLib.PtrArray()
+#        self.db.query_append_params(q, \
+#                RB.RhythmDBQueryType.EQUALS, \
+#                RB.RhythmDBPropType.TYPE, \
+#        self.db.entry_type_get_by_name("song"))
+#        qm = RB.RhythmDBQueryModel.new_empty(self.db)
+#        self.db.do_full_query_parsed(qm,q)
         
 
-        def process_entry(model, path, iter, data):
-            (entry,) = model.get(iter, 0)       
-            album = entry.get_string( RB.RhythmDBPropType.ALBUM )
+#        def process_entry(model, path, iter, data):
+#            (entry,) = model.get(iter, 0)       
+#            album = entry.get_string( RB.RhythmDBPropType.ALBUM )
 
-            if album not in self.albums:
-                pixbuf = self.unknown_cover
-                artist = entry.get_string( RB.RhythmDBPropType.ARTIST ) 
+#            if album not in self.albums:
+#                pixbuf = self.unknown_cover
+#                artist = entry.get_string( RB.RhythmDBPropType.ARTIST ) 
 
-                self.album_count += 1
-                self.albums.add(album)
-                tree_iter = self.covers_model.append((cgi.escape('%s - %s' % (artist, album)),pixbuf,entry))
-                self.iter = self.iter or tree_iter
-                self.album_queue.put([artist, album, entry, tree_iter])
+#                self.album_count += 1
+#                self.albums.add(album)
+#                tree_iter = self.covers_model.append((cgi.escape('%s - %s' % (artist, album)),pixbuf,entry))
+#                self.iter = self.iter or tree_iter
+#                self.album_queue.put([artist, album, entry, tree_iter])
 
         # temporarily disconnect the covers_view from the model to stop the flickering
         # whilst updating
-        self.covers_view.freeze_child_notify()
-        self.covers_view.set_model(None)
-        qm.foreach(process_entry, None)
-        self.covers_view.set_model(self.covers_model)
-        self.covers_view.thaw_child_notify()
+#        self.covers_view.freeze_child_notify()
+#        self.covers_view.set_model(None)
+#        qm.foreach(process_entry, None)
+#        self.covers_view.set_model(self.covers_model)
+#        self.covers_view.thaw_child_notify()
         print "CoverArtBrowser DEBUG - end show_browser_dialog"
         return self.dialog
             
