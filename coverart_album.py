@@ -63,9 +63,7 @@ class AlbumLoader( object ):
 
     def _idle_load_callback( self, data ):
         model, albums = data
-        
-        print 'enter idle'
-    
+     
         for i in range( AlbumLoader.DEFAULT_LOAD_CHUNK ):
             try:
                 album = albums.pop()
