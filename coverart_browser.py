@@ -1,6 +1,7 @@
 # -*- Mode: python; coding: utf-8; tab-width: 8; indent-tabs-mode: t; -*-
 #
 # Copyright (C) 2012 - fossfreedom
+# Copyright (C) 2012 - Agustin Carrasco
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,15 +17,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
-import string
-import sys
-import re
-import os, threading
-from threading import Thread
-from sets import Set
-from Queue import Queue
-import cgi
-import traceback
 import rb
 
 from gi.repository import GObject
@@ -32,8 +24,6 @@ from gi.repository import Gtk
 from gi.repository import RB
 from gi.repository import GdkPixbuf
 from gi.repository import Peas
-from gi.repository import Gdk
-from gi.repository import GLib
 
 from coverart_browser_source import CoverArtBrowserSource
 

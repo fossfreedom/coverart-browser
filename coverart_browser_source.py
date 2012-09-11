@@ -1,23 +1,31 @@
-import string
-import sys
-import re
-import os, threading
-from threading import Thread
-from sets import Set
-from Queue import Queue
-import cgi
-import traceback
+# -*- Mode: python; coding: utf-8; tab-width: 4; indent-tabs-mode: nil; -*-
+#
+# Copyright (C) 2012 - fossfreedom
+# Copyright (C) 2012 - Agustin Carrasco
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
+
 import rb
 
 from gi.repository import GObject
 from gi.repository import Gtk
 from gi.repository import RB
 from gi.repository import GdkPixbuf
-from gi.repository import Peas
-from gi.repository import Gdk
-from gi.repository import GLib
 
-from coverart_album import AlbumLoader, Album
+from coverart_album import AlbumLoader
+from coverart_album import Album
 
 class CoverArtBrowserSource(RB.Source):
     def __init__( self ):
@@ -166,9 +174,9 @@ class CoverArtBrowserSource(RB.Source):
         duration = album.calculate_duration_in_mins()
         
         if track_count == 1:
-            label += ' haves 1 track'
+            label += ' has 1 track'
         else:
-            label += ' haves %d tracks' % track_count
+            label += ' has %d tracks' % track_count
 
         if duration == 1:
             label += ' and a duration of 1 minute'
