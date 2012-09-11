@@ -49,7 +49,7 @@ class CoverArtBrowserSource(RB.Source):
             
         # dialog has not been created so lets do so.
         ui = Gtk.Builder()
-        ui.add_from_file(rb.find_plugin_file(self.plugin, "coverart_browser_test.ui"))
+        ui.add_from_file(rb.find_plugin_file(self.plugin, "coverart_browser.ui"))
         
         # load the page and put it in the source
         self.page = ui.get_object( 'main_box' )
