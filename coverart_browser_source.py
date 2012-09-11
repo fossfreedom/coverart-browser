@@ -68,8 +68,7 @@ class CoverArtBrowserSource(RB.Source):
         self.covers_model = Gtk.ListStore(GObject.TYPE_STRING, GdkPixbuf.Pixbuf, object)
         self.covers_view.set_model(self.covers_model)
         
-        self.loader.load( self.db )
-        self.loader.load_model( self.covers_model )            
+        self.loader.load_albums( self.db, self.covers_model )   
         
 #        self.unknown_cover = GdkPixbuf.Pixbuf.new_from_file_at_size(\
 #                    rb.find_plugin_file(self.plugin, "rhythmbox-missing-artwork.svg"), \

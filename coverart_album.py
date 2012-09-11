@@ -30,17 +30,25 @@ class AlbumLoader( object ):
         
         Album.init_unknown_cover( plugin )
         
-    def load( self, db ):
+    def load_albums( self, db, cover_model ):
+        #build the query
         q = GLib.PtrArray()
         db.query_append_params( q,
               RB.RhythmDBQueryType.EQUALS, 
               RB.RhythmDBPropType.TYPE, 
               db.entry_type_get_by_name( 'song' ) )
               
+        #creathe the model and connect to the completed signal
         qm = RB.RhythmDBQueryModel.new_empty( db )
-        db.do_full_query_parsed( qm, q )
         
+        qm.connect( 'complete', self._query_complete_callback, cover_model )
+        
+        db.do_full_query_async_parsed( qm, q )
+        
+    def _query_complete_callback( self, qm, cover_model ):     
         qm.foreach( self._process_entry, None )
+    
+        self._fill_model( cover_model )
         
     def _process_entry( self, model, tree_path, tree_iter, _ ):
         (entry,) = model.get( tree_iter, 0 )
@@ -56,7 +64,7 @@ class AlbumLoader( object ):
             
         album.append_entry( entry )
         
-    def load_model( self, model ):
+    def _fill_model( self, model ):
         Gdk.threads_add_idle( GLib.PRIORITY_DEFAULT_IDLE, 
                               self._idle_load_callback, 
                               (model, self.albums.values()) )
