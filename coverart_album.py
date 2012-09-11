@@ -32,7 +32,7 @@ class AlbumLoader( object ):
     def __init__( self, plugin ):
         self.albums = {}
         self.cover_db = RB.ExtDB( name='album-art' )
-        
+
         Album.init_unknown_cover( plugin )
         
     def load_albums( self, db, cover_model ):
@@ -43,7 +43,7 @@ class AlbumLoader( object ):
               RB.RhythmDBPropType.TYPE, 
               db.entry_type_get_by_name( 'song' ) )
               
-        #creathe the model and connect to the completed signal
+        #create the model and connect to the completed signal
         qm = RB.RhythmDBQueryModel.new_empty( db )
         
         qm.connect( 'complete', self._query_complete_callback, cover_model )
@@ -91,10 +91,16 @@ class Album( object ):
     UNKNOWN_COVER = 'rhythmbox-missing-artwork.svg'
 
     def __init__( self, name, artist ):
+        # name is the album name
+        # artist is the artist name
+        
         self.name = name
         self.artist = artist
         self.entries = []
         self.cover = Album.UNKNOWN_COVER
+
+    def match( self, name, artist ):
+        return (name == self.name and artist == self.artist)
         
     def append_entry( self, entry ):
         self.entries.append( entry )
@@ -107,7 +113,10 @@ class Album( object ):
             try:
                 self.cover = Cover( art_location )
             except:
-                self.cover = Album.UNKNOWN_COVER                    
+                self.cover = Album.UNKNOWN_COVER
+
+    def update_coverart( self, model ):
+        model[1] = self.cover.pixbuf
         
     def add_to_model( self, model ):   
         model.append( (cgi.escape( '%s - %s' % (self.artist, self.name) ),
