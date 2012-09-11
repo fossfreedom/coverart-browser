@@ -68,6 +68,13 @@ class CoverArtBrowserSource(RB.Source):
         self.covers_model = Gtk.ListStore(GObject.TYPE_STRING, GdkPixbuf.Pixbuf, object)
         self.covers_view.set_model(self.covers_model)
         
+        self.covers_view.connect( 'item-activated', 
+                                  self.coverdoubleclicked_callback)
+        self.covers_view.connect( 'button-press-event', 
+                                  self.mouseclick_callback)
+        self.covers_view.connect( 'selection_changed',
+                                  self.selectionchanged_callback)
+        
         self.loader.load_albums( self.db, self.covers_model )   
         
 #        self.unknown_cover = GdkPixbuf.Pixbuf.new_from_file_at_size(\
@@ -121,29 +128,38 @@ class CoverArtBrowserSource(RB.Source):
 #        self.covers_view.set_model(self.covers_model)
 #        self.covers_view.thaw_child_notify()
         print "CoverArtBrowser DEBUG - end show_browser_dialog"
-        return self.dialog
+#        return self.dialog
             
     def coverdoubleclicked_callback(self, widget,item):
         # callback when double clicking on an album 
         print "CoverArtBrowser DEBUG - coverdoubleclicked_callback"
-        model=widget.get_model()
-        entry = model[item][2]
+        model = widget.get_model()
+#        entry = model[item][2]
+        album = model[item][2]
 
         # clear the queue
         play_queue = self.shell.props.queue_source
         for row in play_queue.props.query_model:
             play_queue.remove_entry(row[0])
 
-        st_album = entry.get_string( RB.RhythmDBPropType.ALBUM ) or _("Unknown")
-        self.queue_album(st_album)  
+#        st_album = entry.get_string( RB.RhythmDBPropType.ALBUM ) or _("Unknown")
+#        self.queue_album(st_album)  
+
+        # Retrieve and sort the entries of the album
+        songs = sorted( album.entries, 
+                        key=lambda song: song.get_ulong( 
+                            RB.RhythmDBPropType.TRACK_NUMBER) )
+        
+        # Add the songs to the play queue
+        for song in songs:
+            self.shell.props.queue_source.add_entry( song, -1 )
     
         # Start the music
         player = self.shell.props.shell_player
         player.stop()
-        player.set_playing_source(self.shell.props.queue_source)
-        player.playpause(True)
+        player.set_playing_source( self.shell.props.queue_source )
+        player.playpause( True )
         print "CoverArtBrowser DEBUG - end coverdoubleclicked_callback"
-
 
     def queue_album(self, st_album):
         print "CoverArtBrowser DEBUG - queue_album"
