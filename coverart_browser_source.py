@@ -19,8 +19,6 @@ from gi.repository import GLib
 
 from coverart_album import AlbumLoader, Album
 
-CoverSize = 92
-
 class CoverArtBrowserSource(RB.Source):
     def __init__( self ):
         self.hasActivated = False
@@ -71,13 +69,21 @@ class CoverArtBrowserSource(RB.Source):
         self.covers_view.connect( 'button-press-event', 
                                   self.mouseclick_callback)
         self.covers_view.connect( 'selection_changed',
-                                  self.selectionchanged_callback)                
-        
+                                  self.selectionchanged_callback) 
+                                          
+        # size change workaround
+        scrolled_window = ui.get_object( 'scrolled_window' )
+        scrolled_window.connect( 'size-allocate', self.size_allocate_callback )
+                                          
         # load the albums
         self.loader.load_albums( self.db, self.covers_model )   
         
-        print "CoverArtBrowser DEBUG - end show_browser_dialog"        
-            
+        print "CoverArtBrowser DEBUG - end show_browser_dialog"       
+         
+    def size_allocate_callback( self, allocation, _ ):
+        self.covers_view.set_columns( 0 )
+        self.covers_view.set_columns( -1 )
+                       
     def coverdoubleclicked_callback(self, widget,item):
         # callback when double clicking on an album 
         print "CoverArtBrowser DEBUG - coverdoubleclicked_callback"
