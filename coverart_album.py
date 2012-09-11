@@ -109,6 +109,19 @@ class Album( object ):
                        self.cover.pixbuf, 
                        self) )
 
+    def get_track_count( self ):
+        return len( self.entries )
+        
+    def calculate_duration_in_secs( self ):
+        duration = 0
+        
+        for entry in self.entries:
+            duration += entry.get_ulong( RB.RhythmDBPropType.DURATION )
+        
+        return duration
+    
+    def calculate_duration_in_mins( self ):
+        return self.calculate_duration_in_secs() / 60        
                     
     @classmethod
     def init_unknown_cover( cls, plugin ):
