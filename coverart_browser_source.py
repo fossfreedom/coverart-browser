@@ -64,11 +64,16 @@ class CoverArtBrowserSource(RB.Source):
         # get widgets
         self.status_label = ui.get_object( 'status_label' )
         self.covers_view = ui.get_object( 'covers_view' )
+        self.search_entry = ui.get_object( 'search_entry' )
          
         # set the model for the icon view              
         self.covers_model = Gtk.ListStore( GObject.TYPE_STRING, 
                                            GdkPixbuf.Pixbuf, 
                                            object )
+        self.filter_model = Gtk.ListStore( GObject.TYPE_STRING, 
+                                           GdkPixbuf.Pixbuf, 
+                                           object )
+                                           
         self.covers_view.set_model( self.covers_model )
         
         # connect signals
@@ -78,6 +83,9 @@ class CoverArtBrowserSource(RB.Source):
                                   self.mouseclick_callback)
         self.covers_view.connect( 'selection_changed',
                                   self.selectionchanged_callback)
+
+        self.search_entry.connect( 'changed',
+                                   self.searchchanged_callback)
                                           
         # size change workaround
         scrolled_window = ui.get_object( 'scrolled_window' )
@@ -87,7 +95,27 @@ class CoverArtBrowserSource(RB.Source):
         self.loader.load_albums( self.db, self.covers_model )   
         
         print "CoverArtBrowser DEBUG - end show_browser_dialog"
+
+    def searchchanged_callback( self, gtk_entry ):
+        print "CoverArtBrowser DEBUG - searchchanged_callback"
+
+        searchtext = self.search_entry.get_text()
+
+        if searchtext == "":
+            self.covers_view.set_model( self.covers_model )
+            return
+
+        self.filter_model.clear()
                 
+        for row in self.covers_model:
+            if row[2].contains( searchtext ):
+                row[2].add_to_model( self.filter_model )
+
+        self.covers_view.set_model( self.filter_model )
+        
+        print self.search_entry.get_text()
+        print "CoverArtBrowser DEBUG - end searchchanged_callback"
+        
     def size_allocate_callback( self, allocation, _ ):
         self.covers_view.set_columns( 0 )
         self.covers_view.set_columns( -1 )

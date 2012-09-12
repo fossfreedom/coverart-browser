@@ -222,7 +222,16 @@ class Album( object ):
     def init_unknown_cover( cls, plugin ):
         if type( cls.UNKNOWN_COVER ) is str:
             cls.UNKNOWN_COVER = Cover( rb.find_plugin_file( plugin, 
-                                                           cls.UNKNOWN_COVER ) )                         
+                                                           cls.UNKNOWN_COVER ) )
+
+    def contains( self, searchtext ):
+        if searchtext == "":
+            return True
+
+        if searchtext.lower() in self.name.lower():
+            return True
+
+        return searchtext.lower() in self.artist.lower()
         
 class Cover( object ):
     COVER_SIZE = 92
