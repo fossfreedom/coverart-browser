@@ -29,16 +29,19 @@ import rb
 class AlbumLoader( object ):
     DEFAULT_LOAD_CHUNK = 10
 
-    def __init__( self, plugin ):
+    def __init__( self, plugin, cover_model ):
         self.albums = {}
+        self.db = plugin.shell.props.db
+        self.cover_model = cover_model
         self.cover_db = RB.ExtDB( name='album-art' )
 
+        # connect the signal to update cover arts when added
         self.req_id = self.cover_db.connect( 'added',
                                              self._albumart_added_callback )
         
-        # get rhyhthmbox db and conenct signals for updating the albums
-        db = plugin.shell.props.db
-        db.connect( 'entry-changed', self._entry_changed_callback )
+        # connect signals for updating the albums        
+        self.entry_changed_id = self.db.connect( 'entry-changed', 
+                                                  self._entry_changed_callback )
         
         # initialise unkown cover for albums without cover
         Album.init_unknown_cover( plugin )
@@ -52,7 +55,6 @@ class AlbumLoader( object ):
         print "CoverArtBrowser DEBUG - albumart_added_callback"
         
         album_name = obj.get_field("album")
-        print album_name
 
         # use the name to get the album and update the cover
         self.albums[album_name].update_cover( p1 )
@@ -71,7 +73,7 @@ class AlbumLoader( object ):
                     
                 changes.remove( 0 )
         except:
-            return          
+            pass          
         
         print "CoverArtBrowser DEBUG - end entry_changed_callback"
            
@@ -100,23 +102,20 @@ class AlbumLoader( object ):
         
         print "CoverArtBrowser DEBUG - end album_modified_callback"
                
-    def load_albums( self, db, cover_model ):
-        #save the cover_model for future use
-        self.cover_model = cover_model
-    
+    def load_albums( self ):    
         #build the query
         q = GLib.PtrArray()
-        db.query_append_params( q,
+        self.db.query_append_params( q,
               RB.RhythmDBQueryType.EQUALS, 
               RB.RhythmDBPropType.TYPE, 
-              db.entry_type_get_by_name( 'song' ) )
+              self.db.entry_type_get_by_name( 'song' ) )
               
         #create the model and connect to the completed signal
-        qm = RB.RhythmDBQueryModel.new_empty( db )
+        qm = RB.RhythmDBQueryModel.new_empty( self.db )
         
         qm.connect( 'complete', self._query_complete_callback )
         
-        db.do_full_query_async_parsed( qm, q )
+        self.db.do_full_query_async_parsed( qm, q )
         
     def _query_complete_callback( self, qm ):     
         qm.foreach( self._process_entry, None )

@@ -42,16 +42,15 @@ class CoverArtBrowserSource(RB.Source):
     """ on source actiavation, e.g. double click on source or playing something in this source """
     def do_impl_activate( self ):
         # first time of activation -> add graphical stuff
-        if not self.hasActivated:
-            self.plugin = self.props.plugin
-            self.shell = self.props.shell
-            self.db = self.shell.props.db;
-            self.entry_type = self.props.entry_type
-            self.hasActivated = True
-            
-            self.loader = AlbumLoader( self.plugin )
-        else:
+        if self.hasActivated:
             return
+        
+        # initialise some variables
+        self.plugin = self.props.plugin
+        self.shell = self.props.shell
+        
+        #indicate that the source was activated before
+        self.hasActivated = True
             
         # dialog has not been created so lets do so.
         ui = Gtk.Builder()
@@ -84,7 +83,8 @@ class CoverArtBrowserSource(RB.Source):
         scrolled_window.connect( 'size-allocate', self.size_allocate_callback )
                                           
         # load the albums
-        self.loader.load_albums( self.db, self.covers_model )   
+        self.loader = AlbumLoader( self.plugin, self.covers_model )
+        self.loader.load_albums()   
         
         print "CoverArtBrowser DEBUG - end show_browser_dialog"
                 
