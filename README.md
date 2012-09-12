@@ -15,13 +15,15 @@ How it works:
 3. Double-click or press space to play the album.
 4. Right click menu option to queue an album.
 
-How to install:
+How to install (64bit linux distro users only):
 
 1. install git
 N.B. for debian - sudo apt-get install git
 2. git clone https://github.com/fossfreedom/coverart-browser.git
 3. cd coverart-browser
 4. sh ./install.sh
+
+N.B. 32bit users have a bug that prevents querying the database - this prevents this plugin from working.  Sorry!
 
 Notes:
 
