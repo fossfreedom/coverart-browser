@@ -163,7 +163,7 @@ class CoverArtBrowserSource(RB.Source):
         try:
             album = model[widget.get_selected_items()[0]][2]
         except:
-            print "nothing to do"
+            self.status_label.set_label( '' )
             return
 
         # now lets build up a status label containing some 'interesting stuff' about the album
