@@ -78,9 +78,6 @@ class CoverArtBrowserSource(RB.Source):
                                   self.mouseclick_callback)
         self.covers_view.connect( 'selection_changed',
                                   self.selectionchanged_callback)
-
-        self.cover_db = RB.ExtDB( name='album-art' )
-        self.req_id = self.cover_db.connect("added", self.albumart_added_callback)
                                           
         # size change workaround
         scrolled_window = ui.get_object( 'scrolled_window' )
@@ -90,29 +87,6 @@ class CoverArtBrowserSource(RB.Source):
         self.loader.load_albums( self.db, self.covers_model )   
         
         print "CoverArtBrowser DEBUG - end show_browser_dialog"
-
-    def albumart_added_callback( self, ext_db, obj, p0, p1 ):
-        # called when new album art added
-        # parameters: ext_db - this is the album-art database
-        # obj = RB.ExtDBKey
-        # p0 = full path to cached album art file
-        # p1 = pixbuf of the album art file
-        print "CoverArtBrowser DEBUG - albumart_added_callback"
-        
-        album_name = obj.get_field("album")
-        artist = obj.get_field("artist")
-        print album_name
-        print artist
-
-        #need to iterate through albums until we find the matching album
-        for row in self.covers_model:
-            if row[2].match(album_name, artist):
-                row[2].load_cover( self.cover_db )
-                row[2].update_coverart( row )
-                break
-
-        print "CoverArtBrowser DEBUG - end albumart_added_callback"
-
                 
     def size_allocate_callback( self, allocation, _ ):
         self.covers_view.set_columns( 0 )

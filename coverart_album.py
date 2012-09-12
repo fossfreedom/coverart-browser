@@ -33,8 +33,27 @@ class AlbumLoader( object ):
         self.albums = {}
         self.cover_db = RB.ExtDB( name='album-art' )
 
+        self.req_id = self.cover_db.connect( 'added',
+                                             self.albumart_added_callback )
+
         Album.init_unknown_cover( plugin )
+    
+    def albumart_added_callback( self, ext_db, obj, p0, p1 ):
+        # called when new album art added
+        # parameters: ext_db - this is the album-art database
+        # obj = RB.ExtDBKey
+        # p0 = full path to cached album art file
+        # p1 = pixbuf of the album art file
+        print "CoverArtBrowser DEBUG - albumart_added_callback"
         
+        album_name = obj.get_field("album")
+        print album_name
+
+        # use the name to get the album and update the cover
+        self.albums[album_name].update_cover( p1 )
+
+        print "CoverArtBrowser DEBUG - end albumart_added_callback"
+       
     def load_albums( self, db, cover_model ):
         #build the query
         q = GLib.PtrArray()
@@ -98,9 +117,6 @@ class Album( object ):
         self.artist = artist
         self.entries = []
         self.cover = Album.UNKNOWN_COVER
-
-    def match( self, name, artist ):
-        return (name == self.name and artist == self.artist)
         
     def append_entry( self, entry ):
         self.entries.append( entry )
@@ -114,14 +130,17 @@ class Album( object ):
                 self.cover = Cover( art_location )
             except:
                 self.cover = Album.UNKNOWN_COVER
-
-    def update_coverart( self, model ):
-        model[1] = self.cover.pixbuf
         
     def add_to_model( self, model ):   
-        model.append( (cgi.escape( '%s - %s' % (self.artist, self.name) ),
-                       self.cover.pixbuf, 
-                       self) )
+        self.model = model
+        self.tree_iter = model.append( 
+            (cgi.escape( '%s - %s' % (self.artist, self.name) ),
+            self.cover.pixbuf, 
+            self) )
+
+    def update_cover( self, pixbuf ):
+        self.cover.change_pixbuf( pixbuf )
+        self.model.set_value( self.tree_iter, 1, self.cover.pixbuf )
 
     def get_track_count( self ):
         return len( self.entries )
@@ -147,5 +166,14 @@ class Cover( object ):
     COVER_SIZE = 92
     
     def __init__( self, file_path, width=COVER_SIZE, height=COVER_SIZE ):
+        self.width = width
+        self.height = height
+    
         self.pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size( file_path, 
-                                                              width, height )
+                                                              self.width, 
+                                                              self.height )
+                                                              
+    def change_pixbuf( self, pixbuf ):
+        self.pixbuf = pixbuf.scale_simple( self.width, 
+                                           self.height,
+                                           GdkPixbuf.InterpType.BILINEAR )
