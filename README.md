@@ -10,7 +10,7 @@ GTK3 port of code.google.com/p/rhythmbox-cover-art-browser
 
 How it works:
 
-1. Click the toolbar button
+1. Click the new CoverArt source button (left hand side of screen)
 2. Albums are displayed as clickable buttons containing their album cover
 3. Double-click or press space to play the album.
 4. Right click menu option to queue an album.
