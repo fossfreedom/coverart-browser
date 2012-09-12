@@ -6,6 +6,8 @@ Basics work - at least I think it does :)
 
 Browse your cover-art albums in Rhythmbox
 
+![Imgur](http://i.imgur.com/2mzD5.png)
+
 GTK3 port of code.google.com/p/rhythmbox-cover-art-browser
 
 How it works:
