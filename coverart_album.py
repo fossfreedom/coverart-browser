@@ -34,11 +34,16 @@ class AlbumLoader( object ):
         self.cover_db = RB.ExtDB( name='album-art' )
 
         self.req_id = self.cover_db.connect( 'added',
-                                             self.albumart_added_callback )
-
+                                             self._albumart_added_callback )
+        
+        # get rhyhthmbox db and conenct signals for updating the albums
+        db = plugin.shell.props.db
+        db.connect( 'entry-changed', self._entry_changed_callback )
+        
+        # initialise unkown cover for albums without cover
         Album.init_unknown_cover( plugin )
     
-    def albumart_added_callback( self, ext_db, obj, p0, p1 ):
+    def _albumart_added_callback( self, ext_db, obj, p0, p1 ):
         # called when new album art added
         # parameters: ext_db - this is the album-art database
         # obj = RB.ExtDBKey
@@ -53,8 +58,52 @@ class AlbumLoader( object ):
         self.albums[album_name].update_cover( p1 )
 
         print "CoverArtBrowser DEBUG - end albumart_added_callback"
-       
+        
+    def _entry_changed_callback( self, db, entry, changes ):
+        print "CoverArtBrowser DEBUG - entry_changed_callback"
+        # look at all the changes and update the albums acordingly
+        try:
+            while True:
+                change = changes.values
+                            
+                if change.prop is RB.RhythmDBPropType.ALBUM:
+                    self._entry_album_modified( entry, change.old, change.new )
+                    
+                changes.remove( 0 )
+        except:
+            return          
+        
+        print "CoverArtBrowser DEBUG - end entry_changed_callback"
+           
+    def _entry_album_modified( self, entry, old_name, new_name ):
+        print "CoverArtBrowser DEBUG - album_modified_callback"
+        # find the old album and remove the entry        
+        if old_name in self.albums:
+            album = self.albums[old_name]
+            album.remove_entry( entry )
+            
+            # if the album is empty, remove it's reference
+            if album.get_track_count() == 0:
+                del self.albums[old_name]
+                
+        # add the entry to the album it belongs now
+        if new_name in self.albums:
+            album = self.albums[new_name]
+        else:
+            artist = entry.get_string( RB.RhythmDBPropType.ARTIST ) 
+            album = Album( new_name, artist )
+            self.albums[new_name] = album
+         
+        album.append_entry( entry )   
+        album.load_cover( self.cover_db )
+        album.add_to_model( self.cover_model )              
+        
+        print "CoverArtBrowser DEBUG - end album_modified_callback"
+               
     def load_albums( self, db, cover_model ):
+        #save the cover_model for future use
+        self.cover_model = cover_model
+    
         #build the query
         q = GLib.PtrArray()
         db.query_append_params( q,
@@ -65,14 +114,14 @@ class AlbumLoader( object ):
         #create the model and connect to the completed signal
         qm = RB.RhythmDBQueryModel.new_empty( db )
         
-        qm.connect( 'complete', self._query_complete_callback, cover_model )
+        qm.connect( 'complete', self._query_complete_callback )
         
         db.do_full_query_async_parsed( qm, q )
         
-    def _query_complete_callback( self, qm, cover_model ):     
+    def _query_complete_callback( self, qm ):     
         qm.foreach( self._process_entry, None )
     
-        self._fill_model( cover_model )
+        self._fill_model()
         
     def _process_entry( self, model, tree_path, tree_iter, _ ):
         (entry,) = model.get( tree_iter, 0 )
@@ -88,19 +137,17 @@ class AlbumLoader( object ):
             
         album.append_entry( entry )
         
-    def _fill_model( self, model ):
+    def _fill_model( self ):
         Gdk.threads_add_idle( GLib.PRIORITY_DEFAULT_IDLE, 
                               self._idle_load_callback, 
-                              (model, self.albums.values()) )
+                              self.albums.values() )
 
-    def _idle_load_callback( self, data ):
-        model, albums = data
-     
+    def _idle_load_callback( self, albums ):     
         for i in range( AlbumLoader.DEFAULT_LOAD_CHUNK ):
             try:
                 album = albums.pop()
                 album.load_cover( self.cover_db  )
-                album.add_to_model( model )
+                album.add_to_model( self.cover_model )
             except:
                 return False
         
@@ -118,8 +165,19 @@ class Album( object ):
         self.entries = []
         self.cover = Album.UNKNOWN_COVER
         
-    def append_entry( self, entry ):
+    def append_entry( self, entry ):        
         self.entries.append( entry )
+        
+    def remove_entry( self, entry ):
+        # remove the entry from the entries list
+        for e in self.entries:
+            if rb.entry_equal( e, entry ):
+                self.entries.remove( e )
+                break
+                
+        # if there aren't entries left, remove the album from the model
+        if self.get_track_count() == 0:
+            self.remove_from_model()        
         
     def load_cover( self, cover_db ):
         key = self.entries[0].create_ext_db_key( RB.RhythmDBPropType.ALBUM )
@@ -137,6 +195,9 @@ class Album( object ):
             (cgi.escape( '%s - %s' % (self.artist, self.name) ),
             self.cover.pixbuf, 
             self) )
+    
+    def remove_from_model( self ):
+        self.model.remove( self.tree_iter )
 
     def update_cover( self, pixbuf ):
         if pixbuf:
