@@ -139,8 +139,9 @@ class Album( object ):
             self) )
 
     def update_cover( self, pixbuf ):
-        self.cover.change_pixbuf( pixbuf )
-        self.model.set_value( self.tree_iter, 1, self.cover.pixbuf )
+        if pixbuf:
+            self.cover = Cover( pixbuf=pixbuf )
+            self.model.set_value( self.tree_iter, 1, self.cover.pixbuf )
 
     def get_track_count( self ):
         return len( self.entries )
@@ -165,15 +166,21 @@ class Album( object ):
 class Cover( object ):
     COVER_SIZE = 92
     
-    def __init__( self, file_path, width=COVER_SIZE, height=COVER_SIZE ):
+    def __init__( self, file_path=None, pixbuf=None, width=COVER_SIZE, 
+                                                     height=COVER_SIZE ):
+        '''
+        Either a file path or a pixbuf should be given to the cover to 
+        initialize it's own pixbuf.
+        '''
         self.width = width
         self.height = height
-    
-        self.pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size( file_path, 
-                                                              self.width, 
-                                                              self.height )
-                                                              
-    def change_pixbuf( self, pixbuf ):
-        self.pixbuf = pixbuf.scale_simple( self.width, 
-                                           self.height,
-                                           GdkPixbuf.InterpType.BILINEAR )
+        
+        if pixbuf:
+            self.pixbuf = pixbuf.scale_simple( self.width, 
+                                               self.height,
+                                               GdkPixbuf.InterpType.BILINEAR )
+        else:              
+            self.pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size( file_path, 
+                                                                  self.width, 
+                                                                  self.height )
+        
