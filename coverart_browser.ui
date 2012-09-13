@@ -20,6 +20,7 @@
         <property name="secondary_icon_stock">gtk-clear</property>
         <property name="primary_icon_tooltip_text" translatable="yes">Search through your albums</property>
         <property name="secondary_icon_tooltip_text" translatable="yes">Clear the search text</property>
+        <property name="placeholder_text">Search album</property>
         <signal name="icon-press" handler="icon_press_callback" swapped="no"/>
       </object>
       <packing>
