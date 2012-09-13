@@ -67,13 +67,13 @@ class CoverArtBrowserSource(RB.Source):
         self.search_entry = ui.get_object( 'search_entry' )
          
         # set the model for the icon view              
-        self.covers_model = Gtk.ListStore( GObject.TYPE_STRING, 
-                                           GdkPixbuf.Pixbuf, 
-                                           object )
-        self.filter_model = Gtk.ListStore( GObject.TYPE_STRING, 
-                                           GdkPixbuf.Pixbuf, 
-                                           object )
+        self.covers_model_store = Gtk.ListStore( GObject.TYPE_STRING, 
+                                                 GdkPixbuf.Pixbuf, 
+                                                 object )
                                            
+        self.covers_model = self.covers_model_store.filter_new()
+        self.covers_model.set_visible_func( self.visible_covers_callback )
+        
         self.covers_view.set_model( self.covers_model )
         
         # connect signals
@@ -92,10 +92,18 @@ class CoverArtBrowserSource(RB.Source):
         scrolled_window.connect( 'size-allocate', self.size_allocate_callback )
                                           
         # load the albums
-        self.loader = AlbumLoader( self.plugin, self.covers_model )
+        self.loader = AlbumLoader( self.plugin, self.covers_model_store )
         self.loader.load_albums()   
         
         print "CoverArtBrowser DEBUG - end show_browser_dialog"
+    
+    def visible_covers_callback( self, model, iter, data ):
+        searchtext = self.search_entry.get_text()
+        
+        if searchtext == "":
+            return True
+            
+        return model[iter][2].contains( searchtext )
     
     def icon_press_callback( self, entry, pos, event ):
         if pos is Gtk.EntryIconPosition.SECONDARY:
@@ -106,21 +114,8 @@ class CoverArtBrowserSource(RB.Source):
     def searchchanged_callback( self, gtk_entry ):
         print "CoverArtBrowser DEBUG - searchchanged_callback"
 
-        searchtext = self.search_entry.get_text()
-
-        if searchtext == "":
-            self.covers_view.set_model( self.covers_model )
-            return
-
-        self.filter_model.clear()
-                
-        for row in self.covers_model:
-            if row[2].contains( searchtext ):
-                row[2].add_to_model( self.filter_model )
-
-        self.covers_view.set_model( self.filter_model )
+        self.covers_model.refilter()
         
-        print self.search_entry.get_text()
         print "CoverArtBrowser DEBUG - end searchchanged_callback"
         
     def size_allocate_callback( self, allocation, _ ):
