@@ -70,6 +70,7 @@ class AlbumLoader( object ):
                             
                 if change.prop is RB.RhythmDBPropType.ALBUM:
                     self._entry_album_modified( entry, change.old, change.new )
+
                     
                 changes.remove( 0 )
         except:
@@ -91,14 +92,15 @@ class AlbumLoader( object ):
         # add the entry to the album it belongs now
         if new_name in self.albums:
             album = self.albums[new_name]
+            album.append_entry( entry )
         else:
             artist = entry.get_string( RB.RhythmDBPropType.ARTIST ) 
             album = Album( new_name, artist )
             self.albums[new_name] = album
          
-        album.append_entry( entry )   
-        album.load_cover( self.cover_db )
-        album.add_to_model( self.cover_model )              
+            album.append_entry( entry )
+            album.load_cover( self.cover_db )
+            album.add_to_model( self.cover_model )              
         
         print "CoverArtBrowser DEBUG - end album_modified_callback"
                
