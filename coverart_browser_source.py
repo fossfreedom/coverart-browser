@@ -55,6 +55,7 @@ class CoverArtBrowserSource(RB.Source):
         # dialog has not been created so lets do so.
         ui = Gtk.Builder()
         ui.add_from_file(rb.find_plugin_file(self.plugin, "coverart_browser.ui"))
+        ui.connect_signals( self )
         
         # load the page and put it in the source
         self.page = ui.get_object( 'main_box' )
@@ -85,7 +86,7 @@ class CoverArtBrowserSource(RB.Source):
 
         self.search_entry.connect( 'changed',
                                    self.searchchanged_callback)
-                                          
+        
         # size change workaround
         scrolled_window = ui.get_object( 'scrolled_window' )
         scrolled_window.connect( 'size-allocate', self.size_allocate_callback )
@@ -95,7 +96,13 @@ class CoverArtBrowserSource(RB.Source):
         self.loader.load_albums()   
         
         print "CoverArtBrowser DEBUG - end show_browser_dialog"
-
+    
+    def icon_press_callback( self, entry, pos, event ):
+        if pos is Gtk.EntryIconPosition.SECONDARY:
+            entry.set_text( '' )
+        
+        self.searchchanged_callback( entry )
+    
     def searchchanged_callback( self, gtk_entry ):
         print "CoverArtBrowser DEBUG - searchchanged_callback"
 
