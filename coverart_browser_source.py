@@ -83,7 +83,6 @@ class CoverArtBrowserSource(RB.Source):
                                   self.mouseclick_callback)
         self.covers_view.connect( 'selection_changed',
                                   self.selectionchanged_callback)
-
         self.search_entry.connect( 'changed',
                                    self.searchchanged_callback)
         
@@ -169,15 +168,28 @@ class CoverArtBrowserSource(RB.Source):
             album = model[pthinfo][2]               
                  
             self.popup_menu = Gtk.Menu()
-            main_menu = Gtk.MenuItem("Queue Album")
-            main_menu.connect( "activate", self.queue_menu_callback, album )
-            self.popup_menu.append( main_menu )
+            queue_album_menu = Gtk.MenuItem("Queue Album")
+            queue_album_menu.connect( "activate", self.queue_menu_callback, album )
+            self.popup_menu.append( queue_album_menu )
+            
+            cover_search_menu = Gtk.MenuItem("Search for covers")
+            cover_search_menu.connect( "activate", self.cover_search_menu_callback, album )
+            self.popup_menu.append( cover_search_menu )
+            
             self.popup_menu.show_all()
             
             self.popup_menu.popup( None, None, None, None, event.button, time )
 
         print "CoverArtBrowser DEBUG - end mouseclick_callback()"
         return
+        
+    def cover_search_menu_callback( self, _, album ):
+        print "CoverArtBrowser DEBUG - cover_search_menu_callback()"
+
+        album.cover_search()
+        
+        
+        print "CoverArtBrowser DEBUG - cover_search_menu_callback()"
         
     def queue_menu_callback( self, _, album ):
         print "CoverArtBrowser DEBUG - queue_menu_callback()"

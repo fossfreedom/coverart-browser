@@ -189,6 +189,24 @@ class Album( object ):
                 self.cover = Cover( art_location )
             except:
                 self.cover = Album.UNKNOWN_COVER
+
+    def cover_search( self ):
+
+        key = self.entries[0].create_ext_db_key( RB.RhythmDBPropType.ALBUM )
+ 
+        from lastfm import LastFMSearch
+        from local import LocalSearch
+        from musicbrainz import MusicBrainzSearch
+        from artsearch import Search
+        
+        searches = []
+		searches.append(LocalSearch())
+		searches.append(MusicBrainzSearch())
+		searches.append(LastFMSearch())
+
+        s = AlbumSearch(self.name, self.artist, searches)
+		print s.next_search()
+    
         
     def add_to_model( self, model ):   
         self.model = model
@@ -254,4 +272,30 @@ class Cover( object ):
             self.pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size( file_path, 
                                                                   self.width, 
                                                                   self.height )
+
+class AlbumSearch(object):
+	def __init__(self, albumname, artist, searches):
         
+		self.albumname = albumname
+        self.artist = artist
+        print self.albumname
+        print self.artist
+		self.searches = searches
+        self.store = RB.ExtDB( name='album-art' )
+        self.key = RB.ExtDBKey.create_storage("album", self.albumname)
+        self.key.add_field("artist", self.artist)
+        self.lasttime = None
+        
+	def next_search(self):
+		if len(self.searches) == 0:
+            print "in store"
+			self.store.store(self.key, RB.ExtDBSourceType.NONE, None)
+			return False
+
+		search = self.searches.pop(0)
+		search.search(self.key, self.lasttime, self.store, self.search_done, None)
+        print "next_search"
+		return True
+
+	def search_done(self, args):
+		self.next_search()
