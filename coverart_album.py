@@ -42,6 +42,10 @@ class AlbumLoader( object ):
         # connect signals for updating the albums        
         self.entry_changed_id = self.db.connect( 'entry-changed', 
                                                   self._entry_changed_callback )
+        self.entry_added_id = self.db.connect( 'entry-added',
+                                               self._entry_added_callback )
+        self.entry_deleted_id = self.db.connect( 'entry-deleted',
+                                                 self._entry_deleted_callback )
         
         # initialise unkown cover for albums without cover
         Album.init_unknown_cover( plugin )
@@ -70,7 +74,6 @@ class AlbumLoader( object ):
                             
                 if change.prop is RB.RhythmDBPropType.ALBUM:
                     self._entry_album_modified( entry, change.old, change.new )
-
                     
                 changes.remove( 0 )
         except:
@@ -81,29 +84,53 @@ class AlbumLoader( object ):
     def _entry_album_modified( self, entry, old_name, new_name ):
         print "CoverArtBrowser DEBUG - album_modified_callback"
         # find the old album and remove the entry        
-        if old_name in self.albums:
-            album = self.albums[old_name]
+        self._remove_entry( entry, old_name )
+                
+        # add the entry to the album it belongs now
+        self._allocate_entry( entry, new_name )            
+        
+        print "CoverArtBrowser DEBUG - end album_modified_callback"
+        
+    def _entry_added_callback( self, db, entry ):
+        print "CoverArtBrowser DEBUG - entry_added_callback"
+        self._allocate_entry( entry )
+        
+        print "CoverArtBrowser DEBUG - end entry_added_callback"
+        
+    def _entry_deleted_callback( self, db, entry ):
+        print "CoverArtBrowser DEBUG - entry_deleted_callback"        
+        self._remove_entry( entry )
+        
+        print "CoverArtBrowser DEBUG - end entry_deleted_callback"
+        
+    def _allocate_entry( self, entry, album_name=None ):                
+        if not album_name:
+            album_name = entry.get_string( RB.RhythmDBPropType.ALBUM )
+    
+        if album_name in self.albums:
+            album = self.albums[album_name]
+            album.append_entry( entry )
+        else:
+            artist = entry.get_string( RB.RhythmDBPropType.ARTIST ) 
+            album = Album( album_name, artist )
+            self.albums[album_name] = album
+         
+            album.append_entry( entry )
+            album.load_cover( self.cover_db )
+            album.add_to_model( self.cover_model )  
+               
+    def _remove_entry( self, entry, album_name=None ):    
+        if not album_name:
+            album_name = entry.get_string( RB.RhythmDBPropType.ALBUM )
+    
+        if album_name in self.albums:
+            album = self.albums[album_name]
             album.remove_entry( entry )
             
             # if the album is empty, remove it's reference
             if album.get_track_count() == 0:
-                del self.albums[old_name]
-                
-        # add the entry to the album it belongs now
-        if new_name in self.albums:
-            album = self.albums[new_name]
-            album.append_entry( entry )
-        else:
-            artist = entry.get_string( RB.RhythmDBPropType.ARTIST ) 
-            album = Album( new_name, artist )
-            self.albums[new_name] = album
-         
-            album.append_entry( entry )
-            album.load_cover( self.cover_db )
-            album.add_to_model( self.cover_model )              
-        
-        print "CoverArtBrowser DEBUG - end album_modified_callback"
-               
+                del self.albums[album_name]
+    
     def load_albums( self ):    
         #build the query
         q = GLib.PtrArray()
