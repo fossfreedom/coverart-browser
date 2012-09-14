@@ -75,6 +75,9 @@ class AlbumLoader( object ):
                 if change.prop is RB.RhythmDBPropType.ALBUM:
                     self._entry_album_modified( entry, change.old, change.new )
                     
+                elif change.prop is RB.RhythmDBPropType.HIDDEN:
+                    self._entry_hidden( db, entry, change.new )
+                    
                 changes.remove( 0 )
         except:
             pass          
@@ -82,15 +85,24 @@ class AlbumLoader( object ):
         print "CoverArtBrowser DEBUG - end entry_changed_callback"
            
     def _entry_album_modified( self, entry, old_name, new_name ):
-        print "CoverArtBrowser DEBUG - album_modified_callback"
+        print "CoverArtBrowser DEBUG - entry_album_modified"
         # find the old album and remove the entry        
         self._remove_entry( entry, old_name )
                 
         # add the entry to the album it belongs now
         self._allocate_entry( entry, new_name )            
         
-        print "CoverArtBrowser DEBUG - end album_modified_callback"
+        print "CoverArtBrowser DEBUG - end entry_album_modified"
+     
+    def _entry_hidden( self, db, entry, hidden ):
+        print "CoverArtBrowser DEBUG - entry_hidden"
+        if hidden:
+            self._entry_deleted_callback( db, entry )
+        else:
+            self._entry_added_callback( db, entry )
         
+        print "CoverArtBrowser DEBUG - end entry_hidden"
+       
     def _entry_added_callback( self, db, entry ):
         print "CoverArtBrowser DEBUG - entry_added_callback"
         self._allocate_entry( entry )
