@@ -186,8 +186,7 @@ class CoverArtBrowserSource(RB.Source):
     def cover_search_menu_callback( self, _, album ):
         print "CoverArtBrowser DEBUG - cover_search_menu_callback()"
 
-        album.cover_search()
-        
+        self.loader.search_cover_for_album( album )     
         
         print "CoverArtBrowser DEBUG - cover_search_menu_callback()"
         
