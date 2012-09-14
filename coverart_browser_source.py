@@ -86,9 +86,11 @@ class CoverArtBrowserSource(RB.Source):
         self.search_entry.connect( 'changed',
                                    self.searchchanged_callback)
         
-        # size change workaround
+        # size change and pixbuf updated workaround
         scrolled_window = ui.get_object( 'scrolled_window' )
-        scrolled_window.connect( 'size-allocate', self.size_allocate_callback )
+        scrolled_window.connect( 'size-allocate', self.update_iconview_callback )
+        self.covers_model_store.connect( 'row-changed', 
+                                         self.update_iconview_callback )
                                           
         # load the albums
         self.loader = AlbumLoader( self.plugin, self.covers_model_store )
@@ -117,7 +119,7 @@ class CoverArtBrowserSource(RB.Source):
         
         print "CoverArtBrowser DEBUG - end searchchanged_callback"
         
-    def size_allocate_callback( self, allocation, _ ):
+    def update_iconview_callback( self, *args ):
         self.covers_view.set_columns( 0 )
         self.covers_view.set_columns( -1 )
                        
