@@ -20,12 +20,13 @@
 import rb
 
 from gi.repository import GObject
+from gi.repository import GLib
 from gi.repository import Gtk
 from gi.repository import RB
+from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 
 from coverart_album import AlbumLoader
-from coverart_album import Album
 
 class CoverArtBrowserSource(RB.Source):
     def __init__( self ):
@@ -65,6 +66,10 @@ class CoverArtBrowserSource(RB.Source):
         self.status_label = ui.get_object( 'status_label' )
         self.covers_view = ui.get_object( 'covers_view' )
         self.search_entry = ui.get_object( 'search_entry' )
+        self.request_status_box = ui.get_object( 'request_status_box' )
+        self.request_spinner = ui.get_object( 'request_spinner' )
+        self.request_statusbar = ui.get_object( 'request_statusbar' )
+        self.request_cancel_button = ui.get_object( 'request_cancel_button' ) 
          
         # set the model for the icon view              
         self.covers_model_store = Gtk.ListStore( GObject.TYPE_STRING, 
@@ -175,10 +180,37 @@ class CoverArtBrowserSource(RB.Source):
         
     def cover_search_menu_callback( self, _, album ):
         print "CoverArtBrowser DEBUG - cover_search_menu_callback()"
-
-        self.loader.search_cover_for_album( album )     
+        # don't start another fetch if we are in middle of one right now
+        if self.request_status_box.get_visible():
+            return
+             
+        print 'hello'
+        # fetch the album and hide the status_box once finished                     
+        def hide_status_box( *args ):
+            self.request_spinner.hide()    
         
-        print "CoverArtBrowser DEBUG - cover_search_menu_callback()"
+            # all args except for args[0] are None if no cover was found
+            if args[1]:
+                self.request_statusbar.set_text( 'Cover found!' )
+            else:
+                self.request_statusbar.set_text( 'No cover found.' )
+
+            # set a timeout to hide the box
+            Gdk.threads_add_timeout( GLib.PRIORITY_DEFAULT, 1500, 
+                lambda _: self.request_status_box.hide(), None )
+                  
+        self.loader.search_cover_for_album( album, hide_status_box )
+                
+        # show the status bar indicating we're fetching the cover
+        self.request_statusbar.set_text( 
+            'Requesting cover for %s - %s...' % (album.name, album.artist) )
+        self.request_status_box.show_all()
+        self.request_cancel_button.set_visible( False )
+        
+        print "CoverArtBrowser DEBUG - end cover_search_menu_callback()"
+        
+    def cancel_request_callback( self, _ ):
+        pass
         
     def queue_menu_callback( self, _, album ):
         print "CoverArtBrowser DEBUG - queue_menu_callback()"
