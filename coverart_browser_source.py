@@ -75,20 +75,8 @@ class CoverArtBrowserSource(RB.Source):
         self.covers_model.set_visible_func( self.visible_covers_callback )
         
         self.covers_view.set_model( self.covers_model )
-        
-        # connect signals
-        self.covers_view.connect( 'item-activated', 
-                                  self.coverdoubleclicked_callback)
-        self.covers_view.connect( 'button-press-event', 
-                                  self.mouseclick_callback)
-        self.covers_view.connect( 'selection_changed',
-                                  self.selectionchanged_callback)
-        self.search_entry.connect( 'changed',
-                                   self.searchchanged_callback)
-        
-        # size change and pixbuf updated workaround
-        scrolled_window = ui.get_object( 'scrolled_window' )
-        scrolled_window.connect( 'size-allocate', self.update_iconview_callback )
+                
+        # size pixbuf updated workaround
         self.covers_model_store.connect( 'row-changed', 
                                          self.update_iconview_callback )
                                           
