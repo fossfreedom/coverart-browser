@@ -200,7 +200,7 @@ class CoverArtBrowserSource(RB.Source):
             return
 
         # now lets build up a status label containing some 'interesting stuff' about the album
-        label = '%s - %s' % ( album.name, album.artist )
+        label = ('%s - %s' % ( album.name, album.artist )).decode('UTF-8')
     
         # Calculate duration and number of tracks from that album
         track_count = album.get_track_count()
@@ -209,12 +209,12 @@ class CoverArtBrowserSource(RB.Source):
         if track_count == 1:
             label += _(' has 1 track')
         else:
-            label += ' has %d tracks' % track_count
+            label+= _(' has %d tracks') % track_count
 
         if duration == 1:
             label += _(' and a duration of 1 minute')
         else:
-            label += ' and a duration of %d minutes' % duration
+            label += _(' and a duration of %d minutes') % duration
 
         self.status_label.set_label( label )
         
