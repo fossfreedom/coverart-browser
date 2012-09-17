@@ -156,15 +156,15 @@ class CoverArtBrowserSource(RB.Source):
             album = model[pthinfo][2]               
                  
             self.popup_menu = Gtk.Menu()
-            play_album_menu = Gtk.MenuItem("Play Album")
+            play_album_menu = Gtk.MenuItem( _("Play Album") )
             play_album_menu.connect( "activate", self.play_menu_callback, album )
             self.popup_menu.append( play_album_menu )
             
-            queue_album_menu = Gtk.MenuItem("Queue Album")
+            queue_album_menu = Gtk.MenuItem( _("Queue Album") )
             queue_album_menu.connect( "activate", self.queue_menu_callback, album )
             self.popup_menu.append( queue_album_menu )
             
-            cover_search_menu = Gtk.MenuItem("Search for covers")
+            cover_search_menu = Gtk.MenuItem( _("Search for covers") )
             cover_search_menu.connect( "activate", self.cover_search_menu_callback, album )
             self.popup_menu.append( cover_search_menu )
             
@@ -207,14 +207,14 @@ class CoverArtBrowserSource(RB.Source):
         duration = album.calculate_duration_in_mins()
         
         if track_count == 1:
-            label += ' has 1 track'
+            label += _(' has 1 track')
         else:
-            label += ' has %d tracks' % track_count
+            label += _(' has %d tracks') % (track_count)
 
         if duration == 1:
-            label += ' and a duration of 1 minute'
+            label += _(' and a duration of 1 minute')
         else:
-            label += ' and a duration of %d minutes' % duration
+            label += _(' and a duration of %d minutes') % (duration)
 
         self.status_label.set_label( label )
         
