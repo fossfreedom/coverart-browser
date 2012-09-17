@@ -39,7 +39,7 @@ class CoverArtBrowserSource(RB.Source):
     def do_selected( self ):
         self.do_impl_activate()
 
-    """ on source actiavation, e.g. double click on source or playing something in this source """
+    """ on source activation """
     def do_impl_activate( self ):
         # first time of activation -> add graphical stuff
         if self.hasActivated:
