@@ -1,9 +1,6 @@
 coverart-browser
 ================
 
-UNDER DEVELOPMENT - Feel free to look & help out!
-Basics work - at least I think it does :)
-
 Browse your cover-art albums in Rhythmbox
 
 ![Imgur](http://i.imgur.com/2mzD5.png)
@@ -14,8 +11,7 @@ How it works:
 
 1. Click the new CoverArt source button (left hand side of screen)
 2. Albums are displayed as clickable buttons containing their album cover
-3. Double-click or press space to play the album.
-4. Right click menu option to queue an album.
+3. Right click menu option to play, queue & search for cover art for an album.
 
 How to install (64bit linux distro users only):
 
@@ -31,9 +27,3 @@ Notes:
 
  - this is a port of the GUI cover-art browser capability.
  
-Random Musings:
-
-1. Possible right click and display all tracks in a submenu to allow you to play a given track.
-2. Integration with other plugins - e.g. WebMenu via right-click - should be useful
-3. If the destination drop is enabled for the buttons then maybe possible to drop from file-manager a JPG to update the cover
-
