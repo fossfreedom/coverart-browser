@@ -40,7 +40,7 @@ class CoverArtBrowserSource(RB.Source):
     def do_selected( self ):
         self.do_impl_activate()
 
-    """ on source actiavation, e.g. double click on source or playing something in this source """
+    """ on source activation """
     def do_impl_activate( self ):
         # first time of activation -> add graphical stuff
         if self.hasActivated:
@@ -116,12 +116,10 @@ class CoverArtBrowserSource(RB.Source):
         self.covers_view.set_columns( 0 )
         self.covers_view.set_columns( -1 )
                        
-    def coverdoubleclicked_callback(self, widget,item):
-        # callback when double clicking on an album 
-        print "CoverArtBrowser DEBUG - coverdoubleclicked_callback"
-        model = widget.get_model()
-        album = model[item][2]
-
+    def play_menu_callback(self, _, album):
+        # callback when play an album  
+        print "CoverArtBrowser DEBUG - play_menu_callback"
+ 
         # clear the queue
         play_queue = self.shell.props.queue_source
         for row in play_queue.props.query_model:
@@ -134,7 +132,7 @@ class CoverArtBrowserSource(RB.Source):
         player.stop()
         player.set_playing_source( self.shell.props.queue_source )
         player.playpause( True )
-        print "CoverArtBrowser DEBUG - end coverdoubleclicked_callback"
+        print "CoverArtBrowser DEBUG - end play_menu_callback"
 
     def queue_album( self, album ):
         # Retrieve and sort the entries of the album
@@ -163,6 +161,10 @@ class CoverArtBrowserSource(RB.Source):
             album = model[pthinfo][2]               
                  
             self.popup_menu = Gtk.Menu()
+            play_album_menu = Gtk.MenuItem("Play Album")
+            play_album_menu.connect( "activate", self.play_menu_callback, album )
+            self.popup_menu.append( play_album_menu )
+            
             queue_album_menu = Gtk.MenuItem("Queue Album")
             queue_album_menu.connect( "activate", self.queue_menu_callback, album )
             self.popup_menu.append( queue_album_menu )

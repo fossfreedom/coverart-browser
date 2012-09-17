@@ -70,7 +70,8 @@ class AlbumLoader(object):
         album_name = key.get_field("album")
 
         # use the name to get the album and update the cover
-        self.albums[album_name].update_cover(pixbuf)
+        if album_name in self.albums:
+            self.albums[album_name].update_cover(pixbuf)
 
         print "CoverArtBrowser DEBUG - end albumart_added_callback"
 
@@ -256,7 +257,7 @@ class AlbumLoader(object):
         for i in range(AlbumLoader.DEFAULT_LOAD_CHUNK):
             try:
                 album = albums.pop()
-                album.load_cover(self.cover_db )
+                album.load_cover(self.cover_db)
                 album.add_to_model(self.cover_model)
             except:
                 # we finished loading

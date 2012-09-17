@@ -53,7 +53,6 @@
             <property name="pixbuf_column">1</property>
             <signal name="button-press-event" handler="mouseclick_callback" swapped="no"/>
             <signal name="selection-changed" handler="selectionchanged_callback" swapped="no"/>
-            <signal name="item-activated" handler="coverdoubleclicked_callback" swapped="no"/>
           </object>
         </child>
       </object>
