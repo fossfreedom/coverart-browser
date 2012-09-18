@@ -1,0 +1,15 @@
+#create a new template file called po/package.pot by running
+
+pygettext -d package -k _ -k N_ -p po *.py *.h coverart_browser.plugin.in
+
+#create a new locale file from this template:
+cd po; msginit --no-translator
+
+#create a new specific (e.g. spanish) locale file from this template:
+cd po; msginit --no-translator -l es
+
+#run update.sh to update the .plugin file with the language specific name & description
+
+#run lang.sh to compile and install the po files
+
+sudo ./lang.sh /usr/share/locale/

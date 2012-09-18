@@ -1,0 +1,60 @@
+# Spanish translations for PACKAGE package.
+# Copyright (C) 2012 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Automatically generated, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-09-18 20:57+0100\n"
+"PO-Revision-Date: 2012-09-18 20:57+0100\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../coverart_browser.py:65
+msgid "CoverArt"
+msgstr "arte de la cubierta"
+
+#: ../coverart_browser_source.py:159
+msgid "Play Album"
+msgstr "desempeñar álbum"
+
+#: ../coverart_browser_source.py:163
+msgid "Queue Album"
+msgstr "cola álbum"
+
+#: ../coverart_browser_source.py:167
+msgid "Search for covers"
+msgstr "búsqueda de cubiertas"
+
+#: ../coverart_browser_source.py:210
+msgid " has 1 track"
+msgstr " tiene una pista"
+
+#: ../coverart_browser_source.py:212
+#, python-format
+msgid " has %d tracks"
+msgstr " dispone de %d pistas"
+
+#: ../coverart_browser_source.py:215
+msgid " and a duration of 1 minute"
+msgstr " y una duración de 1 minuto"
+
+#: ../coverart_browser_source.py:217
+#, python-format
+msgid " and a duration of %d minutes"
+msgstr " y una duración de %d minutos"
+
+#: ../coverart_browser.plugin.in.h:1
+msgid "Cover Art Browser"
+msgstr "cubrir navegador arte"
+
+#: ../coverart_browser.plugin.in.h:2
+msgid "Browse and play your albums."
+msgstr "buscar y reproducir tus álbumes"

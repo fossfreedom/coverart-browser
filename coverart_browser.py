@@ -17,6 +17,19 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
+import locale, os, gettext, sys
+	 
+# setup translation support
+(lang_code, encoding) = locale.getlocale()
+
+LOCALE_DOMAIN = 'coverart_browser'
+LOCALE_DIR = os.path.join(sys.prefix, 'local', 'share', 'locale')
+ 
+gettext.bindtextdomain(LOCALE_DOMAIN, LOCALE_DIR)
+gettext.textdomain(LOCALE_DOMAIN)
+gettext.install(LOCALE_DOMAIN)
+
+# define plugin
 import rb
 
 from gi.repository import GObject

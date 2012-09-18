@@ -11,3 +11,7 @@ cp -r "${SCRIPT_PATH}"* "$PLUGIN_PATH"
 
 #remove the install script from the dir (not needed)
 rm "${PLUGIN_PATH}${SCRIPT_NAME}"
+
+#install translations
+cd po; sudo ./lang.sh /usr/share/locale/
+

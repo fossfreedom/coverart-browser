@@ -209,12 +209,12 @@ class CoverArtBrowserSource(RB.Source):
         if track_count == 1:
             label += _(' has 1 track')
         else:
-            label+= _(' has %d tracks') % track_count
+            label+= (_(' has %d tracks') % track_count).decode('UTF-8')
 
         if duration == 1:
             label += _(' and a duration of 1 minute')
         else:
-            label += _(' and a duration of %d minutes') % duration
+            label += (_(' and a duration of %d minutes') % duration).decode('UTF-8')
 
         self.status_label.set_label( label )
         
