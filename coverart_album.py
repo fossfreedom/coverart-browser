@@ -266,13 +266,49 @@ class AlbumLoader(object):
         # the list still got albums, keep going
         return True
 
-    def search_cover_for_album(self, album, callback=lambda *_: None):
+    def search_cover_for_album(self, album, callback=lambda *_: None,
+        data=None):
         '''
         Request to a given album to find it's cover. This call is generally
         made asynchronously, so a callback can be given to be called upon
         the finishing of the process.
         '''
-        album.cover_search(self.cover_db, callback)
+        album.cover_search(self.cover_db, callback, data)
+
+    def search_all_covers(self, callback=lambda *_: None):
+        '''
+        Request all the albums' covers, one by one, periodically calling a
+        callback to inform the status of the process.
+        The callback should accept one argument: the album which cover is
+        being requested. When the argument passed is None, it means the
+        proccess has finished.
+        '''
+        def search_next_cover(*args):
+            iterator, callback = args[-1]
+
+            print iterator
+            print callback
+
+            #try to obtain the next album
+            try:
+                while True:
+                    album = iterator.next()
+
+                    if album.model and not album.has_cover():
+                        break
+            except:
+                # inform we finished
+                callback(None)
+                return
+
+            # inform we are starting a new search
+            callback(album)
+
+            # request the cover for the next album
+            self.search_cover_for_album(album, search_next_cover,
+                [iterator, callback])
+
+        search_next_cover([self.albums.values().__iter__(), callback])
 
 
 class Album(object):
@@ -313,6 +349,10 @@ class Album(object):
         if self.get_track_count() == 0:
             self.remove_from_model()
 
+    def has_cover(self):
+        ''' Indicates if this album has his cover loaded. '''
+        return not self.cover is Album.UNKNOWN_COVER
+
     def load_cover(self, cover_db):
         '''
         Tries to load the Album's cover from the provided cover_db. If no cover
@@ -327,7 +367,7 @@ class Album(object):
             except:
                 self.cover = Album.UNKNOWN_COVER
 
-    def cover_search(self, cover_db, callback):
+    def cover_search(self, cover_db, callback, data):
         '''
         Activelly requests the Album's cover to the provided cover_db, calling
         the callback given once the process finishes (since it generally is
@@ -335,7 +375,7 @@ class Album(object):
         '''
         key = self.entries[0].create_ext_db_key(RB.RhythmDBPropType.ALBUM)
 
-        cover_db.request(key, callback, None)
+        cover_db.request(key, callback, data)
 
     def add_to_model(self, model):
         '''

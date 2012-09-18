@@ -211,6 +211,15 @@ class CoverArtBrowserSource(RB.Source):
         
         print "CoverArtBrowser DEBUG - end cover_search_menu_callback()"
         
+    def cover_search_all_callback( self, _ ):
+        print "CoverArtBrowser DEBUG - cover_search_all_callback()"
+        self.loader.search_all_covers( self.update_request_status_bar )
+        
+        print "CoverArtBrowser DEBUG - end cover_search_all_callback()"
+        
+    def update_request_status_bar( self, album ):
+        print album.name
+        
     def cancel_request_callback( self, _ ):
         pass
         

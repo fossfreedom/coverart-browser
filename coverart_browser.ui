@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
-  <object class="GtkAction" id="request_cancel_action">
-    <property name="tooltip" translatable="yes">Cancel the cover request</property>
-    <property name="stock_id">gtk-cancel</property>
-    <property name="is_important">True</property>
-    <property name="always_show_image">True</property>
-    <signal name="activate" handler="cancel_request_callback" swapped="no"/>
+  <object class="GtkImage" id="cancel-icon">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-cancel</property>
+  </object>
+  <object class="GtkImage" id="request-icon">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-go-down</property>
   </object>
   <object class="GtkBox" id="main_box">
     <property name="visible">True</property>
@@ -63,11 +66,39 @@
       </packing>
     </child>
     <child>
-      <object class="GtkLabel" id="status_label">
+      <object class="GtkBox" id="status_box">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="justify">center</property>
-        <property name="wrap">True</property>
+        <child>
+          <object class="GtkButton" id="request_all_covers_button">
+            <property name="use_action_appearance">False</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="tooltip_text" translatable="yes">Download covers for all albums.</property>
+            <property name="use_action_appearance">False</property>
+            <property name="image">request-icon</property>
+            <signal name="clicked" handler="cover_search_all_callback" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="status_label">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="justify">center</property>
+            <property name="wrap">True</property>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
       </object>
       <packing>
         <property name="expand">False</property>
@@ -124,12 +155,14 @@
             </child>
             <child>
               <object class="GtkButton" id="request_cancel_button">
-                <property name="related_action">request_cancel_action</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="related_action">request_cancel_action</property>
-                <property name="use_stock">True</property>
+                <property name="tooltip_text" translatable="yes">Stop coverart fetch.</property>
+                <property name="use_action_appearance">False</property>
+                <property name="image">cancel-icon</property>
+                <signal name="clicked" handler="cancel_request_callback" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
