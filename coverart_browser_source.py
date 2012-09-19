@@ -18,6 +18,9 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
 import rb
+import locale
+import gettext
+
 
 from gi.repository import GObject
 from gi.repository import Gtk
@@ -28,6 +31,8 @@ from coverart_album import AlbumLoader
 from coverart_album import Album
 
 class CoverArtBrowserSource(RB.Source):
+    LOCALE_DOMAIN = 'coverart_browser'
+ 
     def __init__( self ):
         self.hasActivated = False
         RB.Source.__init__( self,name="CoverArtBrowserPlugin" )
@@ -41,20 +46,30 @@ class CoverArtBrowserSource(RB.Source):
 
     """ on source activation """
     def do_impl_activate( self ):
+        print "do_impl_activate"
         # first time of activation -> add graphical stuff
         if self.hasActivated:
             return
+        print "do_impl_activate again"
         
         # initialise some variables
         self.plugin = self.props.plugin
         self.shell = self.props.shell
-        
+
+        # setup translation support
+        locale.setlocale(locale.LC_ALL, '')
+        locale.bindtextdomain(self.LOCALE_DOMAIN, "/usr/share/locale")
+        locale.textdomain(self.LOCALE_DOMAIN)
+        gettext.bindtextdomain(self.LOCALE_DOMAIN, "/usr/share/locale")
+        gettext.textdomain(self.LOCALE_DOMAIN)
+        gettext.install(self.LOCALE_DOMAIN)
+
         #indicate that the source was activated before
         self.hasActivated = True
             
         # dialog has not been created so lets do so.
         ui = Gtk.Builder()
-        ui.set_translation_domain('coverart_browser')
+        ui.set_translation_domain(self.LOCALE_DOMAIN)
         ui.add_from_file(rb.find_plugin_file(self.plugin, "coverart_browser.ui"))
         ui.connect_signals( self )
         

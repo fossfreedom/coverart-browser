@@ -30,7 +30,6 @@ msgid "Clear the search text"
 msgstr "mnop"
 
 #: coverart_browser.ui.h:3
-#, fuzzy
 msgid "Search album"
 msgstr "abcd"
 
