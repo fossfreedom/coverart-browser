@@ -71,12 +71,11 @@
         <property name="can_focus">False</property>
         <child>
           <object class="GtkButton" id="request_all_covers_button">
-            <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
+            <property name="sensitive">False</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="tooltip_text" translatable="yes">Download covers for all albums.</property>
-            <property name="use_action_appearance">False</property>
             <property name="image">request-icon</property>
             <signal name="clicked" handler="cover_search_all_callback" swapped="no"/>
           </object>
@@ -155,12 +154,10 @@
             </child>
             <child>
               <object class="GtkButton" id="request_cancel_button">
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="tooltip_text" translatable="yes">Stop coverart fetch.</property>
-                <property name="use_action_appearance">False</property>
                 <property name="image">cancel-icon</property>
                 <signal name="clicked" handler="cancel_request_callback" swapped="no"/>
               </object>

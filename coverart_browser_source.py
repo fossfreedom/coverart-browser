@@ -69,6 +69,8 @@ class CoverArtBrowserSource(RB.Source):
         self.request_status_box = ui.get_object( 'request_status_box' )
         self.request_spinner = ui.get_object( 'request_spinner' )
         self.request_statusbar = ui.get_object( 'request_statusbar' )
+        self.request_all_covers_button = ui.get_object( 
+            'request_all_covers_button' )
         self.request_cancel_button = ui.get_object( 'request_cancel_button' ) 
          
         # set the model for the icon view              
@@ -87,9 +89,14 @@ class CoverArtBrowserSource(RB.Source):
                                           
         # load the albums
         self.loader = AlbumLoader( self.plugin, self.covers_model_store )
+        self.loader.connect( 'load-finished', self.load_finished_callback)
         self.loader.load_albums()   
         
         print "CoverArtBrowser DEBUG - end show_browser_dialog"
+    
+    def load_finished_callback( self, _ ):
+        print 'CoverArt Load Finished'
+        self.request_all_covers_button.set_sensitive( True )
     
     def visible_covers_callback( self, model, iter, data ):
         searchtext = self.search_entry.get_text()
@@ -213,15 +220,24 @@ class CoverArtBrowserSource(RB.Source):
         
     def cover_search_all_callback( self, _ ):
         print "CoverArtBrowser DEBUG - cover_search_all_callback()"
+        self.request_status_box.show_all()
+        self.request_all_covers_button.set_sensitive( False )
         self.loader.search_all_covers( self.update_request_status_bar )
         
         print "CoverArtBrowser DEBUG - end cover_search_all_callback()"
         
     def update_request_status_bar( self, album ):
-        print album.name
+        if album:
+            self.request_statusbar.set_text( 
+                'Requesting cover for %s - %s...' % (album.name, album.artist) )
+        else:
+            self.request_status_box.hide()
+            self.request_all_covers_button.set_sensitive( True )
+            self.request_cancel_button.set_sensitive( True )
         
     def cancel_request_callback( self, _ ):
-        pass
+        self.request_cancel_button.set_sensitive( False )
+        self.loader.cancel_cover_request()        
         
     def queue_menu_callback( self, _, album ):
         print "CoverArtBrowser DEBUG - queue_menu_callback()"
