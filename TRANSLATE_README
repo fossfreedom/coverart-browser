@@ -1,9 +1,20 @@
+# This README is dividied into two sections - 
+# first section is for the coverart-browser developers
+# second section is for Translators
+
+# Section 1: Developers Only
+#+++++++++++++++++++++++++++
 #for each ui file run the following to create translation .h files
 intltool-extract --type=gettext/glade  *.ui
 
 #create a new template file called po/package.pot by running
 pygettext -d package -k _ -k N_ -p po *.py *.h coverart_browser.plugin.in
 
+
+# Section 2: Translators
+#+++++++++++++++++++++++
+
+# Carry out the following - one or the other (or both!)
 #create a new locale file from this template:
 cd po; msginit --no-translator
 
@@ -11,6 +22,7 @@ cd po; msginit --no-translator
 cd po; msginit --no-translator -l es
 
 #run update.sh to update the .plugin file with the language specific name & description
+./update.sh
 
 #run lang.sh to compile and install the po files
 
