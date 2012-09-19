@@ -18,6 +18,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
 from gi.repository import RB
+from gi.repository import GObject
 from gi.repository import GLib
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
@@ -27,11 +28,16 @@ import cgi
 import rb
 
 
-class AlbumLoader(object):
+class AlbumLoader(GObject.Object):
     '''
     Utility class that manages the albums created for the coverart browser's
     source.
     '''
+    # signals
+    __gsignals__ = {
+        'load-finished': (GObject.SIGNAL_RUN_LAST, None, ())
+        }
+
     # default chunk of albums to load at a time while filling the model
     DEFAULT_LOAD_CHUNK = 10
 
@@ -40,6 +46,8 @@ class AlbumLoader(object):
         Initialises the loader, getting the needed objects from the plugin and
         saving the model that will be used to assign the loaded albums.
         '''
+        super(AlbumLoader, self).__init__()
+
         self.albums = {}
         self.db = plugin.shell.props.db
         self.cover_model = cover_model
@@ -261,6 +269,7 @@ class AlbumLoader(object):
                 album.add_to_model(self.cover_model)
             except:
                 # we finished loading
+                self.emit('load-finished')
                 return False
 
         # the list still got albums, keep going
@@ -284,10 +293,14 @@ class AlbumLoader(object):
         proccess has finished.
         '''
         def search_next_cover(*args):
+            # unpack the data
             iterator, callback = args[-1]
 
-            print iterator
-            print callback
+            # if the operation was canceled, break the recursion
+            if self._cancel_cover_request:
+                del self._cancel_cover_request
+                callback(None)
+                return
 
             #try to obtain the next album
             try:
@@ -306,9 +319,19 @@ class AlbumLoader(object):
 
             # request the cover for the next album
             self.search_cover_for_album(album, search_next_cover,
-                [iterator, callback])
+                (iterator, callback))
 
-        search_next_cover([self.albums.values().__iter__(), callback])
+        self._cancel_cover_request = False
+        search_next_cover((self.albums.values().__iter__(), callback))
+
+    def cancel_cover_request(self):
+        '''
+        Cancel the current cover request, if there is one running.
+        '''
+        try:
+            self._cancel_cover_request = True
+        except:
+            pass
 
 
 class Album(object):
