@@ -19,28 +19,28 @@ msgstr ""
 
 #: ../coverart_browser.py:65
 msgid "CoverArt"
-msgstr "arte de la cubierta"
+msgstr "CoverArt"
 
 #: ../coverart_browser_source.py:159
 msgid "Play Album"
-msgstr "desempeñar álbum"
+msgstr "Reproducir Álbum"
 
 #: ../coverart_browser_source.py:163
 msgid "Queue Album"
-msgstr "cola álbum"
+msgstr "Encolar Álbum"
 
 #: ../coverart_browser_source.py:167
 msgid "Search for covers"
-msgstr "búsqueda de cubiertas"
+msgstr "Buscar portadas"
 
 #: ../coverart_browser_source.py:210
 msgid " has 1 track"
-msgstr " tiene una pista"
+msgstr " tiene una canción"
 
 #: ../coverart_browser_source.py:212
 #, python-format
 msgid " has %d tracks"
-msgstr " dispone de %d pistas"
+msgstr " tiene %d canciones"
 
 #: ../coverart_browser_source.py:215
 msgid " and a duration of 1 minute"
@@ -53,8 +53,8 @@ msgstr " y una duración de %d minutos"
 
 #: ../coverart_browser.plugin.in.h:1
 msgid "Cover Art Browser"
-msgstr "cubrir navegador arte"
+msgstr "Cover Art Browser"
 
 #: ../coverart_browser.plugin.in.h:2
 msgid "Browse and play your albums."
-msgstr "buscar y reproducir tus álbumes"
+msgstr "Busca y reproduce tus álbums."
