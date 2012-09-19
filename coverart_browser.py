@@ -25,6 +25,8 @@ import locale, os, gettext, sys
 LOCALE_DOMAIN = 'coverart_browser'
 LOCALE_DIR = os.path.join(sys.prefix, 'local', 'share', 'locale')
  
+#locale.setlocale(locale.LC_ALL, '')
+locale.bindtextdomain(LOCALE_DOMAIN, LOCALE_DIR)
 gettext.bindtextdomain(LOCALE_DOMAIN, LOCALE_DIR)
 gettext.textdomain(LOCALE_DOMAIN)
 gettext.install(LOCALE_DOMAIN)

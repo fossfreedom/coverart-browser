@@ -54,6 +54,7 @@ class CoverArtBrowserSource(RB.Source):
             
         # dialog has not been created so lets do so.
         ui = Gtk.Builder()
+        ui.set_translation_domain('coverart_browser')
         ui.add_from_file(rb.find_plugin_file(self.plugin, "coverart_browser.ui"))
         ui.connect_signals( self )
         
@@ -207,12 +208,12 @@ class CoverArtBrowserSource(RB.Source):
         duration = album.calculate_duration_in_mins()
         
         if track_count == 1:
-            label += _(' has 1 track')
+            label += (_(' has 1 track')).decode('UTF-8')
         else:
             label+= (_(' has %d tracks') % track_count).decode('UTF-8')
 
         if duration == 1:
-            label += _(' and a duration of 1 minute')
+            label += (_(' and a duration of 1 minute')).decode('UTF-8')
         else:
             label += (_(' and a duration of %d minutes') % duration).decode('UTF-8')
 

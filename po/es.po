@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-19 13:43+BST\n"
+"POT-Creation-Date: 2012-09-19 14:32+BST\n"
 "PO-Revision-Date: 2012-09-18 20:57+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -23,37 +23,42 @@ msgstr "CoverArt"
 
 #: coverart_browser.ui.h:1
 msgid "Search through your albums"
-msgstr ""
+msgstr "abcd"
 
 #: coverart_browser.ui.h:2
 msgid "Clear the search text"
-msgstr ""
+msgstr "mnop"
 
-#: coverart_browser_source.py:159
+#: coverart_browser.ui.h:3
+#, fuzzy
+msgid "Search album"
+msgstr "abcd"
+
+#: coverart_browser_source.py:160
 msgid "Play Album"
 msgstr "Reproducir Álbum"
 
-#: coverart_browser_source.py:163
+#: coverart_browser_source.py:164
 msgid "Queue Album"
 msgstr "Encolar Álbum"
 
-#: coverart_browser_source.py:167
+#: coverart_browser_source.py:168
 msgid "Search for covers"
 msgstr "Buscar portadas"
 
-#: coverart_browser_source.py:210
+#: coverart_browser_source.py:211
 msgid " has 1 track"
 msgstr " tiene una canción"
 
-#: coverart_browser_source.py:212
+#: coverart_browser_source.py:213
 msgid " has %d tracks"
 msgstr " tiene %d canciones"
 
-#: coverart_browser_source.py:215
+#: coverart_browser_source.py:216
 msgid " and a duration of 1 minute"
 msgstr " y una duración de 1 minuto"
 
-#: coverart_browser_source.py:217
+#: coverart_browser_source.py:218
 msgid " and a duration of %d minutes"
 msgstr " y una duración de %d minutos"
 

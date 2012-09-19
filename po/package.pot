@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-09-19 13:43+BST\n"
+"POT-Creation-Date: 2012-09-19 14:32+BST\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,31 +27,35 @@ msgstr ""
 msgid "Clear the search text"
 msgstr ""
 
-#: coverart_browser_source.py:159
+#: coverart_browser.ui.h:3
+msgid "Search album"
+msgstr ""
+
+#: coverart_browser_source.py:160
 msgid "Play Album"
 msgstr ""
 
-#: coverart_browser_source.py:163
+#: coverart_browser_source.py:164
 msgid "Queue Album"
 msgstr ""
 
-#: coverart_browser_source.py:167
+#: coverart_browser_source.py:168
 msgid "Search for covers"
 msgstr ""
 
-#: coverart_browser_source.py:210
+#: coverart_browser_source.py:211
 msgid " has 1 track"
 msgstr ""
 
-#: coverart_browser_source.py:212
+#: coverart_browser_source.py:213
 msgid " has %d tracks"
 msgstr ""
 
-#: coverart_browser_source.py:215
+#: coverart_browser_source.py:216
 msgid " and a duration of 1 minute"
 msgstr ""
 
-#: coverart_browser_source.py:217
+#: coverart_browser_source.py:218
 msgid " and a duration of %d minutes"
 msgstr ""
 
