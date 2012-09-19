@@ -1,0 +1,61 @@
+# Portuguese translations for PACKAGE package.
+# Copyright (C) 2012 ORGANIZATION
+# Automatically generated, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2012-09-19 14:32+BST\n"
+"PO-Revision-Date: 2012-09-19 14:32+BST\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: coverart_browser.py:78
+msgid "CoverArt"
+msgstr "Arte das Capas"
+
+#: coverart_browser.ui.h:1
+msgid "Search through your albums"
+msgstr "Procurar através de seus álbuns"
+
+#: coverart_browser.ui.h:2
+msgid "Clear the search text"
+msgstr "Limpar o texto da pesquisa"
+
+#: coverart_browser.ui.h:3
+msgid "Search album"
+msgstr "Procurar álbum"
+
+#: coverart_browser_source.py:160
+msgid "Play Album"
+msgstr "Reproduzir Álbum"
+
+#: coverart_browser_source.py:164
+msgid "Queue Album"
+msgstr "Adicionar Álbum à Fila"
+
+#: coverart_browser_source.py:168
+msgid "Search for covers"
+msgstr "Procurar por capas"
+
+#: coverart_browser_source.py:211
+msgid " has 1 track"
+msgstr "possui 1 música"
+
+#: coverart_browser_source.py:213
+msgid " has %d tracks"
+msgstr "possui %d músicas"
+
+#: coverart_browser_source.py:216
+msgid " and a duration of 1 minute"
+msgstr "e dura 1 minuto"
+
+#: coverart_browser_source.py:218
+msgid " and a duration of %d minutes"
+msgstr "e dura %d minutos"
