@@ -46,16 +46,16 @@ msgstr "Procurar por capas"
 
 #: coverart_browser_source.py:211
 msgid " has 1 track"
-msgstr "possui 1 música"
+msgstr " possui 1 música"
 
 #: coverart_browser_source.py:213
 msgid " has %d tracks"
-msgstr "possui %d músicas"
+msgstr " possui %d músicas"
 
 #: coverart_browser_source.py:216
 msgid " and a duration of 1 minute"
-msgstr "e dura 1 minuto"
+msgstr " e dura 1 minuto"
 
 #: coverart_browser_source.py:218
 msgid " and a duration of %d minutes"
-msgstr "e dura %d minutos"
+msgstr " e dura %d minutos"
