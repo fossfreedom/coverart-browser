@@ -10,6 +10,8 @@ intltool-extract --type=gettext/glade  *.ui
 #create a new template file called po/package.pot by running
 pygettext -d package -k _ -k N_ -p po *.py *.h coverart_browser.plugin.in
 
+#now update existing po's with changes in the template file package.pot 
+./update_all_po.sh
 
 # Section 2: Translators
 #+++++++++++++++++++++++
@@ -25,5 +27,4 @@ cd po; msginit --no-translator -l es
 ./update.sh
 
 #run lang.sh to compile and install the po files
-
 sudo ./lang.sh /usr/share/locale/
