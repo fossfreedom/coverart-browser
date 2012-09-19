@@ -23,15 +23,15 @@ msgstr "CoverArt"
 
 #: coverart_browser.ui.h:1
 msgid "Search through your albums"
-msgstr "abcd"
+msgstr "Busca entre tus álbums"
 
 #: coverart_browser.ui.h:2
 msgid "Clear the search text"
-msgstr "mnop"
+msgstr "Limpia el campo de búsqueda"
 
 #: coverart_browser.ui.h:3
 msgid "Search album"
-msgstr "abcd"
+msgstr "Buscar álbum"
 
 #: coverart_browser_source.py:160
 msgid "Play Album"
