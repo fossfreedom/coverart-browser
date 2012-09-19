@@ -16,7 +16,9 @@ How it works:
 How to install (64bit linux distro users only):
 
 1. install git
-N.B. for debian - sudo apt-get install git
+N.B. for debian based distros - sudo apt-get install git
+2. install the package "gettext"
+N.B. for debian based distros - sudo apt-get install gettext
 2. git clone https://github.com/fossfreedom/coverart-browser.git
 3. cd coverart-browser
 4. sh ./install.sh
