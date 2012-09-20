@@ -256,8 +256,8 @@ class CoverArtBrowserSource(RB.Source):
         
         print "CoverArtBrowser DEBUG - end cover_search_menu_callback()"
     
-    def do_show_popup( source ):
-        source.source_menu.popup( None, None, None, None, 0, 
+    def do_show_popup( self ):
+        self.source_menu.popup( None, None, None, None, 0, 
             Gtk.get_current_event_time() )   
             
         return True
