@@ -239,7 +239,8 @@ class CoverArtBrowserSource(RB.Source):
             def restore( _ ):
                 self.request_status_box.hide()
                 self.cover_search_menu_item.set_sensitive( True )
-                self.source_menu_search_all_item.set_sensitive( True )
+                self.source_menu_search_all_item.set_sensitive( 
+                    self.loader.progress == 1 )
 
             # set a timeout to hide the box and enable items
             Gdk.threads_add_timeout( GLib.PRIORITY_DEFAULT, 1500, restore, 
