@@ -52,6 +52,7 @@ class AlbumLoader(GObject.Object):
         self.db = plugin.shell.props.db
         self.cover_model = cover_model
         self.cover_db = RB.ExtDB(name='album-art')
+        self.progress = 0
 
         # connect the signal to update cover arts when added
         self.req_id = self.cover_db.connect('added',
@@ -272,8 +273,17 @@ class AlbumLoader(GObject.Object):
                 self.emit('load-finished')
                 return False
 
+        # update the progress
+        self.progress = 1 - len(albums) / float(len(self.albums))
+
         # the list still got albums, keep going
         return True
+
+    def do_load_finished(self):
+        '''
+        Updates progress to indicate we finished loading.
+        '''
+        self.progress = 1
 
     def search_cover_for_album(self, album, callback=lambda *_: None,
         data=None):
