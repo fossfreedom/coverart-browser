@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-09-19 14:32+BST\n"
+"POT-Creation-Date: 2012-09-20 21:19+BST\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Generated-By: pygettext.py 1.5\n"
 
 
-#: coverart_browser.py:78
+#: coverart_browser.py:66
 msgid "CoverArt"
 msgstr ""
 
@@ -31,31 +31,47 @@ msgstr ""
 msgid "Search album"
 msgstr ""
 
-#: coverart_browser_source.py:160
+#: coverart_browser.ui.h:4
+msgid "Stop coverart fetch."
+msgstr ""
+
+#: coverart_browser.ui.h:5
+msgid "Play this album"
+msgstr ""
+
+#: coverart_browser.ui.h:6
 msgid "Play Album"
 msgstr ""
 
-#: coverart_browser_source.py:164
+#: coverart_browser.ui.h:7
+msgid "Add this album to your playing queue"
+msgstr ""
+
+#: coverart_browser.ui.h:8
 msgid "Queue Album"
 msgstr ""
 
-#: coverart_browser_source.py:168
+#: coverart_browser.ui.h:9
+msgid "Search for this album cover"
+msgstr ""
+
+#: coverart_browser.ui.h:10
 msgid "Search for covers"
 msgstr ""
 
-#: coverart_browser_source.py:211
+#: coverart_browser_source.py:299
 msgid " has 1 track"
 msgstr ""
 
-#: coverart_browser_source.py:213
+#: coverart_browser_source.py:301
 msgid " has %d tracks"
 msgstr ""
 
-#: coverart_browser_source.py:216
+#: coverart_browser_source.py:304
 msgid " and a duration of 1 minute"
 msgstr ""
 
-#: coverart_browser_source.py:218
+#: coverart_browser_source.py:306
 msgid " and a duration of %d minutes"
 msgstr ""
 
