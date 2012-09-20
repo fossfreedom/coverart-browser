@@ -102,7 +102,6 @@ class CoverArtBrowserSource(RB.Source):
         self.pack_start( self.page, True, True, 0 )               
         
         # get widgets
-        self.status_label = ui.get_object( 'status_label' )
         self.covers_view = ui.get_object( 'covers_view' )
         self.search_entry = ui.get_object( 'search_entry' )
         self.popup_menu = ui.get_object( 'popup_menu' )
