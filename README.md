@@ -31,9 +31,10 @@ N.B. for debian based distros - `sudo apt-get install git`
 N.B. for debian based distros - `sudo apt-get install gettext`
 
 <pre>
+rm -rf ~/.local/share/rhythmbox/plugins/coverart_browser
 git clone https://github.com/fossfreedom/coverart-browser.git
 cd coverart-browser
-sudo make install
+sh ./install.sh
 </pre>
 
 N.B. 32bit users have a serious bug leading to a *segmentation fault*
