@@ -164,4 +164,41 @@
       </packing>
     </child>
   </object>
+  <object class="GtkMenu" id="popup_menu">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkMenuItem" id="play_album_menu_item">
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text" translatable="yes">Play this album</property>
+        <property name="label" translatable="yes">Play Album</property>
+        <property name="use_underline">True</property>
+        <signal name="activate" handler="play_album_menu_item_callback" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="queue_album_menu_item">
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text" translatable="yes">Add this album to your playing queue</property>
+        <property name="label" translatable="yes">Queue Album</property>
+        <property name="use_underline">True</property>
+        <signal name="activate" handler="queue_album_menu_item_callback" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="cover_search_menu_item">
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text" translatable="yes">Search for this album cover</property>
+        <property name="label" translatable="yes">Search for covers</property>
+        <property name="use_underline">True</property>
+        <signal name="activate" handler="cover_search_menu_item_callback" swapped="no"/>
+      </object>
+    </child>
+  </object>
 </interface>

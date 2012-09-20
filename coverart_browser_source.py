@@ -92,6 +92,8 @@ class CoverArtBrowserSource(RB.Source):
         self.status_label = ui.get_object( 'status_label' )
         self.covers_view = ui.get_object( 'covers_view' )
         self.search_entry = ui.get_object( 'search_entry' )
+        self.popup_menu = ui.get_object( 'popup_menu' )
+        self.cover_search_menu_item = ui.get_object( 'cover_search_menu_item' )
         self.request_status_box = ui.get_object( 'request_status_box' )
         self.request_spinner = ui.get_object( 'request_spinner' )
         self.request_statusbar = ui.get_object( 'request_statusbar' )
@@ -147,36 +149,8 @@ class CoverArtBrowserSource(RB.Source):
         
     def update_iconview_callback( self, *args ):
         self.covers_view.set_columns( 0 )
-        self.covers_view.set_columns( -1 )
-                       
-    def play_menu_callback(self, _, album):
-        # callback when play an album  
-        print "CoverArtBrowser DEBUG - play_menu_callback"
- 
-        # clear the queue
-        play_queue = self.shell.props.queue_source
-        for row in play_queue.props.query_model:
-            play_queue.remove_entry(row[0])
- 
-        self.queue_album( album )        
-    
-        # Start the music
-        player = self.shell.props.shell_player
-        player.stop()
-        player.set_playing_source( self.shell.props.queue_source )
-        player.playpause( True )
-        print "CoverArtBrowser DEBUG - end play_menu_callback"
-
-    def queue_album( self, album ):
-        # Retrieve and sort the entries of the album
-        songs = sorted( album.entries, 
-                        key=lambda song: song.get_ulong( 
-                            RB.RhythmDBPropType.TRACK_NUMBER) )
-        
-        # Add the songs to the play queue
-        for song in songs:
-            self.shell.props.queue_source.add_entry( song, -1 )
-        
+        self.covers_view.set_columns( -1 )                  
+            
     def mouseclick_callback(self, iconview, event):     
         print "CoverArtBrowser DEBUG - mouseclick_callback()"
         if event.button == 3:
@@ -191,37 +165,57 @@ class CoverArtBrowserSource(RB.Source):
             iconview.grab_focus()
                                 
             model = iconview.get_model()
-            album = model[pthinfo][2]               
-                 
-            self.popup_menu = Gtk.Menu()
-            play_album_menu = Gtk.MenuItem( _("Play Album") )
-            play_album_menu.connect( "activate", self.play_menu_callback, album )
-            self.popup_menu.append( play_album_menu )
-            
-            queue_album_menu = Gtk.MenuItem( _("Queue Album") )
-            queue_album_menu.connect( "activate", self.queue_menu_callback, album )
-            self.popup_menu.append( queue_album_menu )
-            
-            cover_search_menu = Gtk.MenuItem( _("Search for covers") )
-            cover_search_menu.connect( "activate", self.cover_search_menu_callback, album )
-            self.popup_menu.append( cover_search_menu )
-            
-            self.popup_menu.show_all()
-            
+            self.selected_album = model[pthinfo][2]               
+                        
             self.popup_menu.popup( None, None, None, None, event.button, time )
 
         print "CoverArtBrowser DEBUG - end mouseclick_callback()"
         return
         
-    def cover_search_menu_callback( self, _, album ):
-        print "CoverArtBrowser DEBUG - cover_search_menu_callback()"
+    def play_album_menu_item_callback(self, _):
+        # callback when play an album  
+        print "CoverArtBrowser DEBUG - play_menu_callback"
+ 
+        # clear the queue
+        play_queue = self.shell.props.queue_source
+        for row in play_queue.props.query_model:
+            play_queue.remove_entry(row[0])
+ 
+        self.queue_selected_album()        
+    
+        # Start the music
+        player = self.shell.props.shell_player
+        player.stop()
+        player.set_playing_source( self.shell.props.queue_source )
+        player.playpause( True )
+        print "CoverArtBrowser DEBUG - end play_menu_callback"
+        
+    def queue_album_menu_item_callback( self, _):
+        print "CoverArtBrowser DEBUG - queue_menu_callback()"
+        
+        self.queue_selected_album()
+        
+        print "CoverArtBrowser DEBUG - queue_menu_callback()"
+
+    def queue_selected_album( self):
+        # Retrieve and sort the entries of the album
+        songs = sorted( self.selected_album.entries, 
+                        key=lambda song: song.get_ulong( 
+                            RB.RhythmDBPropType.TRACK_NUMBER) )
+        
+        # Add the songs to the play queue
+        for song in songs:
+            self.shell.props.queue_source.add_entry( song, -1 )
+        
+    def cover_search_menu_item_callback( self, _ ):
+        print "CoverArtBrowser DEBUG - cover_search_menu_item_callback()"
         # don't start another fetch if we are in middle of one right now
         if self.request_status_box.get_visible():
             return
              
         print 'hello'
         # fetch the album and hide the status_box once finished                     
-        def hide_status_box( *args ):
+        def cover_search_callback( *args ):
             self.request_spinner.hide()    
         
             # all args except for args[0] are None if no cover was found
@@ -230,19 +224,30 @@ class CoverArtBrowserSource(RB.Source):
             else:
                 self.request_statusbar.set_text( 'No cover found.' )
 
-            # set a timeout to hide the box
-            Gdk.threads_add_timeout( GLib.PRIORITY_DEFAULT, 1500, 
-                lambda _: self.request_status_box.hide(), None )
+            def restore( _ ):
+                self.request_status_box.hide()
+                self.cover_search_menu_item.set_sensitive( True )
+                self.source_menu_search_all_item.set_sensitive( True )
+
+            # set a timeout to hide the box and enable items
+            Gdk.threads_add_timeout( GLib.PRIORITY_DEFAULT, 1500, restore, 
+                None )
                   
-        self.loader.search_cover_for_album( album, hide_status_box )
+        self.loader.search_cover_for_album( self.selected_album, 
+            cover_search_callback )
                 
         # show the status bar indicating we're fetching the cover
         self.request_statusbar.set_text( 
-            'Requesting cover for %s - %s...' % (album.name, album.artist) )
+            'Requesting cover for %s - %s...' % 
+            (self.selected_album.name, self.selected_album.artist) )
         self.request_status_box.show_all()
         self.request_cancel_button.set_visible( False )
         
-        print "CoverArtBrowser DEBUG - end cover_search_menu_callback()"
+        # disable full cover search and cover search items
+        self.cover_search_menu_item.set_sensitive( False )
+        self.source_menu_search_all_item.set_sensitive( False )
+        
+        print "CoverArtBrowser DEBUG - end cover_search_menu_item_callback()"
     
     def do_show_popup( self ):
         self.source_menu.popup( None, None, None, None, 0, 
@@ -254,6 +259,7 @@ class CoverArtBrowserSource(RB.Source):
         print "CoverArtBrowser DEBUG - search_all_covers_callback()"
         self.request_status_box.show_all()
         self.source_menu_search_all_item.set_sensitive( False )
+        self.cover_search_menu_item.set_sensitive( False )
         self.loader.search_all_covers( self.update_request_status_bar )
         
         print "CoverArtBrowser DEBUG - end search_all_covers_callback()"
@@ -265,19 +271,13 @@ class CoverArtBrowserSource(RB.Source):
         else:
             self.request_status_box.hide()
             self.source_menu_search_all_item.set_sensitive( True )
+            self.cover_search_menu_item.set_sensitive( True )
             self.request_cancel_button.set_sensitive( True )
         
     def cancel_request_callback( self, _ ):
         self.request_cancel_button.set_sensitive( False )
         self.loader.cancel_cover_request()        
-        
-    def queue_menu_callback( self, _, album ):
-        print "CoverArtBrowser DEBUG - queue_menu_callback()"
-        
-        self.queue_album( album )
-        
-        print "CoverArtBrowser DEBUG - queue_menu_callback()"
-                
+                        
     def selectionchanged_callback( self, widget ):
         print "CoverArtBrowser DEBUG - selectionchanged_callback"
         # callback when focus had changed on an album
