@@ -23,12 +23,13 @@ import gettext
 
 
 from gi.repository import GObject
+from gi.repository import GLib
 from gi.repository import Gtk
 from gi.repository import RB
+from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 
 from coverart_album import AlbumLoader
-from coverart_album import Album
 
 class CoverArtBrowserSource(RB.Source):
     LOCALE_DOMAIN = 'coverart_browser'
@@ -36,6 +37,16 @@ class CoverArtBrowserSource(RB.Source):
     def __init__( self ):
         self.hasActivated = False
         RB.Source.__init__( self,name="CoverArtBrowserPlugin" )
+        
+        # create the source pop up
+        self.source_menu = Gtk.Menu()
+        
+        self.source_menu_search_all_item = Gtk.MenuItem( 
+            'Download all the covers' )
+        self.source_menu_search_all_item.set_sensitive( False )
+        self.source_menu.append( self.source_menu_search_all_item )
+        
+        self.source_menu.show_all()
 
     def do_set_property( self, property, value ):
         if property.name == 'plugin':
@@ -81,6 +92,10 @@ class CoverArtBrowserSource(RB.Source):
         self.status_label = ui.get_object( 'status_label' )
         self.covers_view = ui.get_object( 'covers_view' )
         self.search_entry = ui.get_object( 'search_entry' )
+        self.request_status_box = ui.get_object( 'request_status_box' )
+        self.request_spinner = ui.get_object( 'request_spinner' )
+        self.request_statusbar = ui.get_object( 'request_statusbar' )
+        self.request_cancel_button = ui.get_object( 'request_cancel_button' ) 
          
         # set the model for the icon view              
         self.covers_model_store = Gtk.ListStore( GObject.TYPE_STRING, 
@@ -98,9 +113,16 @@ class CoverArtBrowserSource(RB.Source):
                                           
         # load the albums
         self.loader = AlbumLoader( self.plugin, self.covers_model_store )
+        self.loader.connect( 'load-finished', self.load_finished_callback)
         self.loader.load_albums()   
         
         print "CoverArtBrowser DEBUG - end show_browser_dialog"
+    
+    def load_finished_callback( self, _ ):
+        print 'CoverArt Load Finished'
+        self.source_menu_search_all_item.set_sensitive( True )
+        self.source_menu_search_all_item.connect( 'activate', 
+            self.search_all_covers_callback )
     
     def visible_covers_callback( self, model, iter, data ):
         searchtext = self.search_entry.get_text()
@@ -193,10 +215,61 @@ class CoverArtBrowserSource(RB.Source):
         
     def cover_search_menu_callback( self, _, album ):
         print "CoverArtBrowser DEBUG - cover_search_menu_callback()"
-
-        self.loader.search_cover_for_album( album )     
+        # don't start another fetch if we are in middle of one right now
+        if self.request_status_box.get_visible():
+            return
+             
+        print 'hello'
+        # fetch the album and hide the status_box once finished                     
+        def hide_status_box( *args ):
+            self.request_spinner.hide()    
         
-        print "CoverArtBrowser DEBUG - cover_search_menu_callback()"
+            # all args except for args[0] are None if no cover was found
+            if args[1]:
+                self.request_statusbar.set_text( 'Cover found!' )
+            else:
+                self.request_statusbar.set_text( 'No cover found.' )
+
+            # set a timeout to hide the box
+            Gdk.threads_add_timeout( GLib.PRIORITY_DEFAULT, 1500, 
+                lambda _: self.request_status_box.hide(), None )
+                  
+        self.loader.search_cover_for_album( album, hide_status_box )
+                
+        # show the status bar indicating we're fetching the cover
+        self.request_statusbar.set_text( 
+            'Requesting cover for %s - %s...' % (album.name, album.artist) )
+        self.request_status_box.show_all()
+        self.request_cancel_button.set_visible( False )
+        
+        print "CoverArtBrowser DEBUG - end cover_search_menu_callback()"
+    
+    def do_show_popup( source ):
+        source.source_menu.popup( None, None, None, None, 0, 
+            Gtk.get_current_event_time() )   
+            
+        return True
+        
+    def search_all_covers_callback( self, _ ):
+        print "CoverArtBrowser DEBUG - search_all_covers_callback()"
+        self.request_status_box.show_all()
+        self.source_menu_search_all_item.set_sensitive( False )
+        self.loader.search_all_covers( self.update_request_status_bar )
+        
+        print "CoverArtBrowser DEBUG - end search_all_covers_callback()"
+        
+    def update_request_status_bar( self, album ):
+        if album:
+            self.request_statusbar.set_text( 
+                'Requesting cover for %s - %s...' % (album.name, album.artist) )
+        else:
+            self.request_status_box.hide()
+            self.source_menu_search_all_item.set_sensitive( True )
+            self.request_cancel_button.set_sensitive( True )
+        
+    def cancel_request_callback( self, _ ):
+        self.request_cancel_button.set_sensitive( False )
+        self.loader.cancel_cover_request()        
         
     def queue_menu_callback( self, _, album ):
         print "CoverArtBrowser DEBUG - queue_menu_callback()"

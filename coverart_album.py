@@ -18,6 +18,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
 from gi.repository import RB
+from gi.repository import GObject
 from gi.repository import GLib
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
@@ -27,11 +28,16 @@ import cgi
 import rb
 
 
-class AlbumLoader(object):
+class AlbumLoader(GObject.Object):
     '''
     Utility class that manages the albums created for the coverart browser's
     source.
     '''
+    # signals
+    __gsignals__ = {
+        'load-finished': (GObject.SIGNAL_RUN_LAST, None, ())
+        }
+
     # default chunk of albums to load at a time while filling the model
     DEFAULT_LOAD_CHUNK = 10
 
@@ -40,6 +46,8 @@ class AlbumLoader(object):
         Initialises the loader, getting the needed objects from the plugin and
         saving the model that will be used to assign the loaded albums.
         '''
+        super(AlbumLoader, self).__init__()
+
         self.albums = {}
         self.db = plugin.shell.props.db
         self.cover_model = cover_model
@@ -261,18 +269,69 @@ class AlbumLoader(object):
                 album.add_to_model(self.cover_model)
             except:
                 # we finished loading
+                self.emit('load-finished')
                 return False
 
         # the list still got albums, keep going
         return True
 
-    def search_cover_for_album(self, album, callback=lambda *_: None):
+    def search_cover_for_album(self, album, callback=lambda *_: None,
+        data=None):
         '''
         Request to a given album to find it's cover. This call is generally
         made asynchronously, so a callback can be given to be called upon
         the finishing of the process.
         '''
-        album.cover_search(self.cover_db, callback)
+        album.cover_search(self.cover_db, callback, data)
+
+    def search_all_covers(self, callback=lambda *_: None):
+        '''
+        Request all the albums' covers, one by one, periodically calling a
+        callback to inform the status of the process.
+        The callback should accept one argument: the album which cover is
+        being requested. When the argument passed is None, it means the
+        proccess has finished.
+        '''
+        def search_next_cover(*args):
+            # unpack the data
+            iterator, callback = args[-1]
+
+            # if the operation was canceled, break the recursion
+            if self._cancel_cover_request:
+                del self._cancel_cover_request
+                callback(None)
+                return
+
+            #try to obtain the next album
+            try:
+                while True:
+                    album = iterator.next()
+
+                    if album.model and not album.has_cover():
+                        break
+            except:
+                # inform we finished
+                callback(None)
+                return
+
+            # inform we are starting a new search
+            callback(album)
+
+            # request the cover for the next album
+            self.search_cover_for_album(album, search_next_cover,
+                (iterator, callback))
+
+        self._cancel_cover_request = False
+        search_next_cover((self.albums.values().__iter__(), callback))
+
+    def cancel_cover_request(self):
+        '''
+        Cancel the current cover request, if there is one running.
+        '''
+        try:
+            self._cancel_cover_request = True
+        except:
+            pass
 
 
 class Album(object):
@@ -313,6 +372,10 @@ class Album(object):
         if self.get_track_count() == 0:
             self.remove_from_model()
 
+    def has_cover(self):
+        ''' Indicates if this album has his cover loaded. '''
+        return not self.cover is Album.UNKNOWN_COVER
+
     def load_cover(self, cover_db):
         '''
         Tries to load the Album's cover from the provided cover_db. If no cover
@@ -327,7 +390,7 @@ class Album(object):
             except:
                 self.cover = Album.UNKNOWN_COVER
 
-    def cover_search(self, cover_db, callback):
+    def cover_search(self, cover_db, callback, data):
         '''
         Activelly requests the Album's cover to the provided cover_db, calling
         the callback given once the process finishes (since it generally is
@@ -335,7 +398,7 @@ class Album(object):
         '''
         key = self.entries[0].create_ext_db_key(RB.RhythmDBPropType.ALBUM)
 
-        cover_db.request(key, callback, None)
+        cover_db.request(key, callback, data)
 
     def add_to_model(self, model):
         '''
