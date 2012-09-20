@@ -48,9 +48,22 @@ class CoverArtBrowserSource(RB.Source):
         
         self.source_menu.show_all()
 
+        # status to show in the status bar
+        self.status = ''
+
     def do_set_property( self, property, value ):
         if property.name == 'plugin':
             self.plugin = value
+
+    def do_get_status( self, *args ):    
+        try:
+            progress = self.loader.progress
+            progress_text = 'Loading...' if progress < 1 else ''
+        except:
+            progress = 1
+            progress_text = ''
+    
+        return (self.status, progress_text, progress)
 
     def do_selected( self ):
         self.do_impl_activate()
@@ -219,7 +232,6 @@ class CoverArtBrowserSource(RB.Source):
         if self.request_status_box.get_visible():
             return
              
-        print 'hello'
         # fetch the album and hide the status_box once finished                     
         def hide_status_box( *args ):
             self.request_spinner.hide()    
@@ -285,27 +297,31 @@ class CoverArtBrowserSource(RB.Source):
         try:
             album = model[widget.get_selected_items()[0]][2]
         except:
-            self.status_label.set_label( '' )
+            self.status = ''
             return
 
-        # now lets build up a status label containing some 'interesting stuff' about the album
-        label = ('%s - %s' % ( album.name, album.artist )).decode('UTF-8')
+        # now lets build up a status label containing some 'interesting stuff' 
+        #about the album
+        status = ('%s - %s' % ( album.name, album.artist )).decode('UTF-8')
+
     
         # Calculate duration and number of tracks from that album
         track_count = album.get_track_count()
         duration = album.calculate_duration_in_mins()
         
         if track_count == 1:
-            label += (_(' has 1 track')).decode('UTF-8')
+            status += (_(' has 1 track')).decode('UTF-8')
         else:
-            label+= (_(' has %d tracks') % track_count).decode('UTF-8')
+            status+= (_(' has %d tracks') % track_count).decode('UTF-8')
 
         if duration == 1:
-            label += (_(' and a duration of 1 minute')).decode('UTF-8')
+            status += (_(' and a duration of 1 minute')).decode('UTF-8')
         else:
-            label += (_(' and a duration of %d minutes') % duration).decode('UTF-8')
+            status += (_(' and a duration of %d minutes') % duration).decode('UTF-8')
 
-        self.status_label.set_label( label )
+        self.status = status
+        
+        self.notify_status_changed()
         
 GObject.type_register(CoverArtBrowserSource)
 
