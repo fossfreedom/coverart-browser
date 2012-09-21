@@ -127,7 +127,8 @@ class CoverArtBrowserSource(RB.Source):
                                           
         # load the albums
         self.loader = AlbumLoader( self.plugin, self.covers_model_store )
-        self.loader.connect( 'load-finished', self.load_finished_callback)
+        self.loader.connect( 'load-finished', self.load_finished_callback )
+        self.loader.connect( 'album-modified', self.album_modified_callback )
         self.loader.load_albums()   
         
         print "CoverArtBrowser DEBUG - end show_browser_dialog"
@@ -137,7 +138,19 @@ class CoverArtBrowserSource(RB.Source):
         self.source_menu_search_all_item.set_sensitive( True )
         self.source_menu_search_all_item.connect( 'activate', 
             self.search_all_covers_callback )
+            
+    def album_modified_callback( self, _, modified_album ):
+        print "CoverArtBrowser DEBUG - album_modified_callback"
+        try:
+            album = \
+                self.covers_model[self.covers_view.get_selected_items()[0]][2]
+        except:
+            return
+            
+        if album is modified_album:
+            self.selectionchanged_callback( self.covers_view )
     
+        print "CoverArtBrowser DEBUG - end album_modified_callback"
     def visible_covers_callback( self, model, iter, data ):
         searchtext = self.search_entry.get_text()
         
@@ -302,8 +315,7 @@ class CoverArtBrowserSource(RB.Source):
 
         # now lets build up a status label containing some 'interesting stuff' 
         #about the album
-        status = ('%s - %s' % ( album.name, album.artist )).decode('UTF-8')
-
+        status = ('%s - %s' % ( album.name, album.album_artist )).decode('UTF-8')
     
         # Calculate duration and number of tracks from that album
         track_count = album.get_track_count()
