@@ -69,6 +69,18 @@ class AlbumLoader(GObject.Object):
         # initialise unkown cover for albums without cover
         Album.init_unknown_cover(plugin)
 
+    def _get_album_name_and_artist(self, entry):
+        '''
+        Looks and retrieves an entry's album name and artist
+        '''
+        album_name = entry.get_string(RB.RhythmDBPropType.ALBUM)
+        album_artist = entry.get_string(RB.RhythmDBPropType.ALBUM_ARTIST)
+
+        if not album_artist:
+            album_artist = entry.get_string(RB.RhythmDBPropType.ARTIST)
+
+        return album_name, album_artist
+
     def _albumart_added_callback(self, ext_db, key, path, pixbuf):
         '''
         Callback called when new album art added. It updates the pixbuf to the
@@ -76,7 +88,7 @@ class AlbumLoader(GObject.Object):
         '''
         print "CoverArtBrowser DEBUG - albumart_added_callback"
 
-        album_name = key.get_field("album")
+        album_name = key.get_field('album')
 
         # use the name to get the album and update the cover
         if album_name in self.albums:
@@ -157,12 +169,13 @@ class AlbumLoader(GObject.Object):
         print "CoverArtBrowser DEBUG - entry_artist_modified"
         # find the album and inform of the change
         album_name = entry.get_string(RB.RhythmDBPropType.ALBUM)
-        album = self.albums[album_name]
 
-        album.entry_artist_modified(entry, old_artist, new_artist)
+        if album_name in self.albums:
+            self[album_name].entry_artist_modified(entry,
+                old_artist, new_artist)
 
-        # emit a signal indicating the album has changed
-        self.emit('album-modified', album)
+            # emit a signal indicating the album has changed
+            self.emit('album-modified', self[album_name])
 
         print "CoverArtBrowser DEBUG - end entry_artist_modified"
 
@@ -184,23 +197,24 @@ class AlbumLoader(GObject.Object):
 
         print "CoverArtBrowser DEBUG - end entry_deleted_callback"
 
-    def _allocate_entry(self, entry, album_name=None):
+    def _allocate_entry(self, entry, new_album_name=None):
         '''
         Allocates a given entry in to an album. If not album name is given,
         it's inferred from the entry metadata.
         '''
-        if not album_name:
-            album_name = entry.get_string(RB.RhythmDBPropType.ALBUM)
+        album_name, album_artist = self._get_album_name_and_artist(entry)
+
+        if new_album_name:
+            album_name = new_album_name
 
         if album_name in self.albums:
-            album = self.albums[album_name]
-            album.append_entry(entry)
+            self.albums[album_name].append_entry(entry)
 
             # emit a signal indicating the album has changed
-            self.emit('album-modified', album)
+            self.emit('album-modified', self.albums[album_name])
         else:
-            album = Album(album_name)
-            self.albums[album_name] = album
+            album = Album(album_name, album_artist)
+            self.albums.append(album)
 
             album.append_entry(entry)
             album.load_cover(self.cover_db)
@@ -221,7 +235,7 @@ class AlbumLoader(GObject.Object):
             if album.get_track_count() == 0:
                 # if the album is empty, remove it from the model remove it's
                 #reference
-                self.albums[album_name].remove_from_model()
+                album.remove_from_model()
                 del self.albums[album_name]
             else:
                 # emit a signal indicating the album has changed
@@ -267,12 +281,14 @@ class AlbumLoader(GObject.Object):
         '''
         (entry,) = model.get(tree_iter, 0)
 
-        album_name = entry.get_string(RB.RhythmDBPropType.ALBUM)
+        # retrieve album metadata
+        album_name, album_artist = self._get_album_name_and_artist(entry)
 
+        # look for the album or create it
         if album_name in self.albums.keys():
             album = self.albums[album_name]
         else:
-            album = Album(album_name)
+            album = Album(album_name, album_artist)
             self.albums[album_name] = album
 
         album.append_entry(entry)
@@ -371,13 +387,14 @@ class Album(object):
     # cover used for those albums without one
     UNKNOWN_COVER = 'rhythmbox-missing-artwork.svg'
 
-    def __init__(self, name):
+    def __init__(self, name, album_artist=None):
         '''
-        Initialises the album with it's name.
+        Initialises the album with it's name and artist.
         Initially, the album haves no cover, so the default Unknown cover is
         asigned.
         '''
         self.name = name
+        self._album_artist = album_artist
         self._artist = set()
         self.entries = []
         self.cover = Album.UNKNOWN_COVER
@@ -389,6 +406,20 @@ class Album(object):
         that have entries on this album.
         '''
         return ' ,'.join(self._artist)
+
+    @property
+    def album_artist(self):
+        '''
+        Returns this album's artist.
+        '''
+        album_artist = self._album_artist
+
+        if len(self._artist) > 1:
+            # if the album haves multiple entries,
+            #ignore the setted album artist
+            album_artist = 'Various Artists'
+
+        return album_artist
 
     def _remove_artist(self, artist):
         '''
