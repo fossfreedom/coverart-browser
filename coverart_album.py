@@ -193,8 +193,10 @@ class AlbumLoader(GObject.Object):
             album = self.albums[album_name]
             album.remove_entry(entry)
 
-            # if the album is empty, remove it's reference
+            # if the album is empty, remove it from the model and delete
+            # it's reference
             if album.get_track_count() == 0:
+                self.albums[album_name].remove_from_model()
                 del self.albums[album_name]
 
     def load_albums(self):
@@ -238,12 +240,11 @@ class AlbumLoader(GObject.Object):
         (entry,) = model.get(tree_iter, 0)
 
         album_name = entry.get_string(RB.RhythmDBPropType.ALBUM)
-        artist = entry.get_string(RB.RhythmDBPropType.ARTIST)
 
         if album_name in self.albums.keys():
             album = self.albums[album_name]
         else:
-            album = Album(album_name, artist)
+            album = Album(album_name)
             self.albums[album_name] = album
 
         album.append_entry(entry)
@@ -342,20 +343,32 @@ class Album(object):
     # cover used for those albums without one
     UNKNOWN_COVER = 'rhythmbox-missing-artwork.svg'
 
-    def __init__(self, name, artist):
+    def __init__(self, name):
         '''
         Initialises the album with a name and it's artist's name.
         Initially, the album haves no cover, so the default Unknown cover is
         asigned.
         '''
         self.name = name
-        self.artist = artist
+        self._artist = set()
         self.entries = []
         self.cover = Album.UNKNOWN_COVER
+
+    @property
+    def artist(self):
+        '''
+        Returns a string representation of the conjuction of all the artist
+        that have entries on this album.
+        '''
+        return ' ,'.join(self._artist)
 
     def append_entry(self, entry):
         ''' Appends an entry to the album entries' list. '''
         self.entries.append(entry)
+
+        # also, add the artist to the artist list
+        artist = entry.get_string(RB.RhythmDBPropType.ARTIST)
+        self._artist.add(artist)
 
     def remove_entry(self, entry):
         '''
@@ -368,9 +381,16 @@ class Album(object):
                 self.entries.remove(e)
                 break
 
-        # if there aren't entries left, remove the album from the model
-        if self.get_track_count() == 0:
-            self.remove_from_model()
+        # if there isn't any other entry with the same artist, remove it
+        artist = entry.get_string(RB.RhythmDBPropType.ARTIST)
+
+        same_artist = False
+        for e in self.entries:
+            if entry.get_string(RB.RhythmDBPropType.ARTIST) == entry:
+                same_artist = True
+
+        if not same_artist:
+            self._artist.discard(artist)
 
     def has_cover(self):
         ''' Indicates if this album has his cover loaded. '''
@@ -446,6 +466,15 @@ class Album(object):
         '''
         return self.calculate_duration_in_secs() / 60
 
+    def contains(self, searchtext):
+        '''
+        Indicates if the text provided is contained either in this album's name
+        or artist's name.
+        '''
+        return searchtext == "" \
+        or searchtext.lower() in self.artist.lower() \
+        or searchtext.lower() in self.name.lower()
+
     @classmethod
     def init_unknown_cover(cls, plugin):
         '''
@@ -455,15 +484,6 @@ class Album(object):
         if type(cls.UNKNOWN_COVER) is str:
             cls.UNKNOWN_COVER = Cover(
                 rb.find_plugin_file(plugin, cls.UNKNOWN_COVER))
-
-    def contains(self, searchtext):
-        '''
-        Indicates if the text provided is contained either in this album's name
-        or artist's name.
-        '''
-        return searchtext == "" \
-        or searchtext.lower() in self.artist.lower() \
-        or searchtext.lower() in self.name.lower()
 
 
 class Cover(object):
