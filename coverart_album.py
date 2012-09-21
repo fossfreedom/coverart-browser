@@ -440,7 +440,7 @@ class Album(object):
         if len(self._artist) > 1:
             # if the album haves multiple entries,
             #ignore the setted album artist
-            album_artist = 'Various Artists'
+            album_artist = _('Various Artists')
 
         return album_artist
 

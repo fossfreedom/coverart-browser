@@ -41,8 +41,7 @@ class CoverArtBrowserSource(RB.Source):
         # create the source pop up
         self.source_menu = Gtk.Menu()
         
-        self.source_menu_search_all_item = Gtk.MenuItem( 
-            'Download all the covers' )
+        self.source_menu_search_all_item = Gtk.MenuItem(label=_('Download all the covers'))
         self.source_menu_search_all_item.set_sensitive( False )
         self.source_menu.append( self.source_menu_search_all_item )
         
@@ -233,9 +232,9 @@ class CoverArtBrowserSource(RB.Source):
         
             # all args except for args[0] are None if no cover was found
             if args[1]:
-                self.request_statusbar.set_text( 'Cover found!' )
+                self.request_statusbar.set_text( _('Cover found!') )
             else:
-                self.request_statusbar.set_text( 'No cover found.' )
+                self.request_statusbar.set_text( _('No cover found.') )
 
             def restore( _ ):
                 self.request_status_box.hide()
@@ -251,8 +250,8 @@ class CoverArtBrowserSource(RB.Source):
                 
         # show the status bar indicating we're fetching the cover
         self.request_statusbar.set_text( 
-            'Requesting cover for %s - %s...' % 
-            (self.selected_album.name, self.selected_album.artist) )
+            (_('Requesting cover for %s - %s...') % 
+            (self.selected_album.name, self.selected_album.artist)).decode('UTF-8') )
         self.request_status_box.show_all()
         self.request_cancel_button.set_visible( False )
         
@@ -280,7 +279,7 @@ class CoverArtBrowserSource(RB.Source):
     def update_request_status_bar( self, album ):
         if album:
             self.request_statusbar.set_text( 
-                'Requesting cover for %s - %s...' % (album.name, album.artist) )
+                (_('Requesting cover for %s - %s...') % (album.name, album.artist)).decode('UTF-8') )
         else:
             self.request_status_box.hide()
             self.source_menu_search_all_item.set_sensitive( True )

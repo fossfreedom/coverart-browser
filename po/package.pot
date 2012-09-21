@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-09-20 21:19+BST\n"
+"POT-Creation-Date: 2012-09-21 23:24+BST\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,6 +14,10 @@ msgstr ""
 "Content-Transfer-Encoding: ENCODING\n"
 "Generated-By: pygettext.py 1.5\n"
 
+
+#: coverart_album.py:443
+msgid "Various Artists"
+msgstr ""
 
 #: coverart_browser.py:66
 msgid "CoverArt"
@@ -59,19 +63,35 @@ msgstr ""
 msgid "Search for covers"
 msgstr ""
 
-#: coverart_browser_source.py:299
+#: coverart_browser_source.py:45
+msgid "Download all the covers"
+msgstr ""
+
+#: coverart_browser_source.py:236
+msgid "Cover found!"
+msgstr ""
+
+#: coverart_browser_source.py:238
+msgid "No cover found."
+msgstr ""
+
+#: coverart_browser_source.py:254 coverart_browser_source.py:283
+msgid "Requesting cover for %s - %s..."
+msgstr ""
+
+#: coverart_browser_source.py:312
 msgid " has 1 track"
 msgstr ""
 
-#: coverart_browser_source.py:301
+#: coverart_browser_source.py:314
 msgid " has %d tracks"
 msgstr ""
 
-#: coverart_browser_source.py:304
+#: coverart_browser_source.py:317
 msgid " and a duration of 1 minute"
 msgstr ""
 
-#: coverart_browser_source.py:306
+#: coverart_browser_source.py:319
 msgid " and a duration of %d minutes"
 msgstr ""
 

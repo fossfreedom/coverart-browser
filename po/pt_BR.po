@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
-"POT-Creation-Date: 2012-09-20 21:19+BST\n"
+"POT-Creation-Date: 2012-09-21 23:24+BST\n"
 "PO-Revision-Date: 2012-09-19 14:32+BST\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,6 +15,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: coverart_album.py:443
+msgid "Various Artists"
+msgstr ""
 
 #: coverart_browser.py:66
 msgid "CoverArt"
@@ -60,18 +64,34 @@ msgstr "Procurar por capas"
 msgid "Search for covers"
 msgstr "Procurar por capas"
 
-#: coverart_browser_source.py:299
+#: coverart_browser_source.py:45
+msgid "Download all the covers"
+msgstr ""
+
+#: coverart_browser_source.py:236
+msgid "Cover found!"
+msgstr ""
+
+#: coverart_browser_source.py:238
+msgid "No cover found."
+msgstr ""
+
+#: coverart_browser_source.py:254 coverart_browser_source.py:283
+msgid "Requesting cover for %s - %s..."
+msgstr ""
+
+#: coverart_browser_source.py:312
 msgid " has 1 track"
 msgstr " possui 1 música"
 
-#: coverart_browser_source.py:301
+#: coverart_browser_source.py:314
 msgid " has %d tracks"
 msgstr " possui %d músicas"
 
-#: coverart_browser_source.py:304
+#: coverart_browser_source.py:317
 msgid " and a duration of 1 minute"
 msgstr " e dura 1 minuto"
 
-#: coverart_browser_source.py:306
+#: coverart_browser_source.py:319
 msgid " and a duration of %d minutes"
 msgstr " e dura %d minutos"
