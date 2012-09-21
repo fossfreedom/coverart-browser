@@ -35,7 +35,8 @@ class AlbumLoader(GObject.Object):
     '''
     # signals
     __gsignals__ = {
-        'load-finished': (GObject.SIGNAL_RUN_LAST, None, ())
+        'load-finished': (GObject.SIGNAL_RUN_LAST, None, ()),
+        'album-modified': (GObject.SIGNAL_RUN_LAST, object, (object,))
         }
 
     # default chunk of albums to load at a time while filling the model
@@ -191,6 +192,9 @@ class AlbumLoader(GObject.Object):
         if album_name in self.albums:
             album = self.albums[album_name]
             album.append_entry(entry)
+
+            # emit a signal indicating the album has changed
+            self.emit('album-modified', album)
         else:
             artist = entry.get_string(RB.RhythmDBPropType.ARTIST)
             album = Album(album_name, artist)
@@ -212,11 +216,14 @@ class AlbumLoader(GObject.Object):
             album = self.albums[album_name]
             album.remove_entry(entry)
 
-            # if the album is empty, remove it from the model and delete
-            # it's reference
             if album.get_track_count() == 0:
+                # if the album is empty, remove it from the model remove it's
+                #reference
                 self.albums[album_name].remove_from_model()
                 del self.albums[album_name]
+            else:
+                # emit a signal indicating the album has changed
+                self.emit('album-modified', album)
 
     def load_albums(self):
         '''
