@@ -123,6 +123,10 @@ class AlbumLoader(GObject.Object):
                     # called when the artist of an entry gets modified
                     self._entry_artist_modified(entry, change.old, change.new)
 
+                elif change.prop is RB.RhythmDBPropType.ALBUM_ARTIST:
+                    # called when the album artist of an entry gets modified
+                    self._entry_album_artist_modified(entry, change.new)
+
                 # removes the last change from the GValueArray
                 changes.remove(0)
         except:
@@ -178,6 +182,25 @@ class AlbumLoader(GObject.Object):
             self.emit('album-modified', self[album_name])
 
         print "CoverArtBrowser DEBUG - end entry_artist_modified"
+
+    def _entry_album_artist_modified(self, entry, new_album_artist):
+        '''
+        Called by entry_changed_callback when the modified prop is the album
+        artist of the entry.
+        It informs the album of the change on the album artist name.
+        '''
+        print "CoverArtBrowser DEBUG - entry_album_artist_modified"
+        # find the album and inform of the change
+        album_name = entry.get_string(RB.RhythmDBPropType.ALBUM)
+
+        if album_name in self.albums:
+            self.albums[album_name].entry_album_artist_modified(entry,
+                new_album_artist)
+
+            # emit a signal indicating the album has changed
+            self.emit('album-modified', self.albums[album_name])
+
+        print "CoverArtBrowser DEBUG - end entry_album_artist_modified"
 
     def _entry_added_callback(self, db, entry):
         '''
@@ -479,6 +502,21 @@ class Album(object):
 
         # add our new artist
         self._artist.add(new_artist)
+
+    def entry_album_artist_modified(self, entry, new_album_artist):
+        '''
+        This method should be called when an entry belonging to this album got
+        it's album artist modified.
+        '''
+        # find and replace the entry
+        for e in self.entries:
+            if rb.entry_equal(e, entry):
+                self.entries.remove(e)
+                self.entries.append(entry)
+                break
+
+        # replace the album_artist
+        self._album_artist = new_album_artist
 
     def has_cover(self):
         ''' Indicates if this album has his cover loaded. '''
