@@ -196,8 +196,7 @@ class AlbumLoader(GObject.Object):
             # emit a signal indicating the album has changed
             self.emit('album-modified', album)
         else:
-            artist = entry.get_string(RB.RhythmDBPropType.ARTIST)
-            album = Album(album_name, artist)
+            album = Album(album_name)
             self.albums[album_name] = album
 
             album.append_entry(entry)
@@ -371,7 +370,7 @@ class Album(object):
 
     def __init__(self, name):
         '''
-        Initialises the album with a name and it's artist's name.
+        Initialises the album with it's name.
         Initially, the album haves no cover, so the default Unknown cover is
         asigned.
         '''
