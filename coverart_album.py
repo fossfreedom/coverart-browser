@@ -175,11 +175,11 @@ class AlbumLoader(GObject.Object):
         album_name = entry.get_string(RB.RhythmDBPropType.ALBUM)
 
         if album_name in self.albums:
-            self[album_name].entry_artist_modified(entry,
+            self.albums[album_name].entry_artist_modified(entry,
                 old_artist, new_artist)
 
             # emit a signal indicating the album has changed
-            self.emit('album-modified', self[album_name])
+            self.emit('album-modified', self.albums[album_name])
 
         print "CoverArtBrowser DEBUG - end entry_artist_modified"
 
@@ -502,6 +502,10 @@ class Album(object):
 
         # add our new artist
         self._artist.add(new_artist)
+
+        # update the model's tooltip for this album
+        self.model.set_value(self.tree_iter, 0,
+            (cgi.escape('%s - %s' % (self.artist, self.name))))
 
     def entry_album_artist_modified(self, entry, new_album_artist):
         '''
