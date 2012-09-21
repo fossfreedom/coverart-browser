@@ -106,6 +106,10 @@ class AlbumLoader(GObject.Object):
                     # removed.
                     self._entry_hidden(db, entry, change.new)
 
+                elif change.prop is RB.RhythmDBPropType.ARTIST:
+                    # called when the artist of an entry gets modified
+                    self._entry_artist_modified(entry, change.old, change.new)
+
                 # removes the last change from the GValueArray
                 changes.remove(0)
         except:
@@ -142,6 +146,21 @@ class AlbumLoader(GObject.Object):
             self._entry_added_callback(db, entry)
 
         print "CoverArtBrowser DEBUG - end entry_hidden"
+
+    def _entry_artist_modified(self, entry, old_artist, new_artist):
+        '''
+        Called by entry_changed_callback when the modified prop is the artist
+        of the entry.
+        It informs the album of the change on the artist name.
+        '''
+        print "CoverArtBrowser DEBUG - entry_artist_modified"
+        # find the album and inform of the change
+        album_name = entry.get_string(RB.RhythmDBPropType.ALBUM)
+        album = self.albums[album_name]
+
+        album.entry_artist_modified(entry, old_artist, new_artist)
+
+        print "CoverArtBrowser DEBUG - end entry_artist_modified"
 
     def _entry_added_callback(self, db, entry):
         '''
@@ -362,6 +381,21 @@ class Album(object):
         '''
         return ' ,'.join(self._artist)
 
+    def _remove_artist(self, artist):
+        '''
+        Allows to remove a orphaned artist. If the artist isn't orphaned (e.g.
+        there still exist an entry with the artist), this request will be
+        ignored.
+        '''
+        same_artist = False
+        for e in self.entries:
+            if e.get_string(RB.RhythmDBPropType.ARTIST) == artist:
+                same_artist = True
+                break
+
+        if not same_artist:
+            self._artist.discard(artist)
+
     def append_entry(self, entry):
         ''' Appends an entry to the album entries' list. '''
         self.entries.append(entry)
@@ -376,6 +410,7 @@ class Album(object):
         was the last one on the Album, it automatically removes itself from
         it's tree model.
         '''
+        # find and remove the entry
         for e in self.entries:
             if rb.entry_equal(e, entry):
                 self.entries.remove(e)
@@ -384,13 +419,26 @@ class Album(object):
         # if there isn't any other entry with the same artist, remove it
         artist = entry.get_string(RB.RhythmDBPropType.ARTIST)
 
-        same_artist = False
-        for e in self.entries:
-            if entry.get_string(RB.RhythmDBPropType.ARTIST) == entry:
-                same_artist = True
+        self._remove_artist(artist)
 
-        if not same_artist:
-            self._artist.discard(artist)
+    def entry_artist_modified(self, entry, old_artist, new_artist):
+        '''
+        This method should be called when an entry belonging to this album got
+        it's artist modified. It takes care of removing and adding the new
+        artist if necesary.
+        '''
+        # find and replace the entry
+        for e in self.entries:
+            if rb.entry_equal(e, entry):
+                self.entries.remove(e)
+                self.entries.append(entry)
+                break
+
+        # if there isn't any other entry with the old artist, remove it
+        self._remove_artist(old_artist)
+
+        # add our new artist
+        self._artist.add(new_artist)
 
     def has_cover(self):
         ''' Indicates if this album has his cover loaded. '''
