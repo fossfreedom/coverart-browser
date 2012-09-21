@@ -161,6 +161,9 @@ class AlbumLoader(GObject.Object):
 
         album.entry_artist_modified(entry, old_artist, new_artist)
 
+        # emit a signal indicating the album has changed
+        self.emit('album-modified', album)
+
         print "CoverArtBrowser DEBUG - end entry_artist_modified"
 
     def _entry_added_callback(self, db, entry):
