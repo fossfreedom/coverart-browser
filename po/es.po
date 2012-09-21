@@ -35,11 +35,11 @@ msgstr "Buscar álbum"
 
 #: coverart_browser.ui.h:4
 msgid "Stop coverart fetch."
-msgstr ""
+msgstr "Detener la búsqueda de portadas."
 
 #: coverart_browser.ui.h:5
 msgid "Play this album"
-msgstr "Reproducir Álbum"
+msgstr "Reproduce este álbum"
 
 #: coverart_browser.ui.h:6
 msgid "Play Album"
@@ -47,7 +47,7 @@ msgstr "Reproducir Álbum"
 
 #: coverart_browser.ui.h:7
 msgid "Add this album to your playing queue"
-msgstr ""
+msgstr "Agrega este álbum a tu cola de reproducción"
 
 #: coverart_browser.ui.h:8
 msgid "Queue Album"
@@ -55,7 +55,7 @@ msgstr "Encolar Álbum"
 
 #: coverart_browser.ui.h:9
 msgid "Search for this album cover"
-msgstr "Buscar portadas"
+msgstr "Busca portada para este álbum"
 
 #: coverart_browser.ui.h:10
 msgid "Search for covers"
