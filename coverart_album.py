@@ -428,7 +428,7 @@ class Album(object):
         Returns a string representation of the conjuction of all the artist
         that have entries on this album.
         '''
-        return ' ,'.join(self._artist)
+        return ', '.join(self._artist)
 
     @property
     def album_artist(self):
