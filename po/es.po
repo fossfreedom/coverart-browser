@@ -19,7 +19,7 @@ msgstr ""
 
 #: coverart_album.py:443
 msgid "Various Artists"
-msgstr ""
+msgstr "Varios Artistas"
 
 #: coverart_browser.py:66
 msgid "CoverArt"
@@ -67,19 +67,19 @@ msgstr "Buscar portadas"
 
 #: coverart_browser_source.py:45
 msgid "Download all the covers"
-msgstr ""
+msgstr "Descarga todas las portadas"
 
 #: coverart_browser_source.py:236
 msgid "Cover found!"
-msgstr ""
+msgstr "Portada encontrada!"
 
 #: coverart_browser_source.py:238
 msgid "No cover found."
-msgstr ""
+msgstr "Ningúna portada encontrada."
 
 #: coverart_browser_source.py:254 coverart_browser_source.py:283
 msgid "Requesting cover for %s - %s..."
-msgstr ""
+msgstr "Buscando portada para %s - %s..."
 
 #: coverart_browser_source.py:312
 msgid " has 1 track"
