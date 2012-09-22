@@ -274,7 +274,8 @@ class CoverArtBrowserSource(RB.Source):
     def update_request_status_bar( self, album ):
         if album:
             self.request_statusbar.set_text( 
-                (_('Requesting cover for %s - %s...') % (album.name, album.artist)).decode('UTF-8') )
+                (_('Requesting cover for %s - %s...') % (album.name, 
+                album.album_artist)).decode('UTF-8') )
         else:
             self.request_status_box.hide()
             self.source_menu_search_all_item.set_sensitive( True )
