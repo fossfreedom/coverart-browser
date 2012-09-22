@@ -26,6 +26,7 @@ from gi.repository import RB
 from gi.repository import GdkPixbuf
 from gi.repository import Peas
 
+from coverart_browser_prefs import Preferences
 from coverart_browser_source import CoverArtBrowserSource
 
 class CoverArtBrowserEntryType(RB.RhythmDBEntryType):
