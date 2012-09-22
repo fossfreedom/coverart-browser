@@ -214,7 +214,7 @@ class CoverArtBrowserSource(RB.Source):
         for song in songs:
             self.shell.props.queue_source.add_entry( song, -1 )
         
-    def cover_search_menu_item_callback( self, _ ):
+    def cover_search_menu_item_callback( self, menuItem ):
         print "CoverArtBrowser DEBUG - cover_search_menu_item_callback()"
         # don't start another fetch if we are in middle of one right now
         if self.request_status_box.get_visible():
@@ -245,7 +245,7 @@ class CoverArtBrowserSource(RB.Source):
                 
         # show the status bar indicating we're fetching the cover
         self.request_statusbar.set_text( 
-            (_('Requesting cover for %s - %s...') % 
+            (_('Requesting cover for %s - %s...') %
             (self.selected_album.name, self.selected_album.artist)).decode('UTF-8') )
         self.request_status_box.show_all()
         self.request_cancel_button.set_visible( False )
