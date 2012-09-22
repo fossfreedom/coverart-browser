@@ -410,6 +410,11 @@ class Album(object):
     # cover used for those albums without one
     UNKNOWN_COVER = 'rhythmbox-missing-artwork.svg'
 
+    # filter types
+    FILTER_ALL = 1
+    FILTER_ARTIST = 2
+    FILTER_ALBUM = 3
+
     def __init__(self, name, album_artist=None):
         '''
         Initialises the album with it's name and artist.
@@ -596,14 +601,25 @@ class Album(object):
         '''
         return self.calculate_duration_in_secs() / 60
 
-    def contains(self, searchtext):
+    def contains(self, searchtext, filter_type):
         '''
         Indicates if the text provided is contained either in this album's name
         or artist's name.
         '''
-        return searchtext == "" \
-        or searchtext.lower() in self.artist.lower() \
-        or searchtext.lower() in self.name.lower()
+
+        if searchtext == "":
+            return True
+
+        if filter_type == Album.FILTER_ALL:
+            return searchtext.lower() in self.artist.lower() \
+                    or searchtext.lower() in self.name.lower()
+        if filter_type == Album.FILTER_ARTIST:
+            return searchtext.lower() in self.artist.lower()
+
+        if filter_type == Album.FILTER_ALBUM:
+            return searchtext.lower() in self.name.lower()
+            
+        return False
 
     @classmethod
     def init_unknown_cover(cls, plugin):

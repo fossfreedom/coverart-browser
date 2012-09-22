@@ -30,9 +30,11 @@ from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 
 from coverart_album import AlbumLoader
+from coverart_album import Album
 
 class CoverArtBrowserSource(RB.Source):
     LOCALE_DOMAIN = 'coverart_browser'
+    filter_type = Album.FILTER_ALL
  
     def __init__( self ):
         self.hasActivated = False
@@ -92,6 +94,13 @@ class CoverArtBrowserSource(RB.Source):
         # get widgets for source popup
         self.source_menu = ui.get_object( 'source_menu' )
         self.source_menu_search_all_item = ui.get_object( 'source_search_menu_item' )
+
+
+        # get widgets for filter popup
+        self.filter_menu = ui.get_object( 'filter_menu' )
+        self.filter_menu_all_item = ui.get_object( 'filter_all_menu_item' )
+        self.filter_menu_artist_item = ui.get_object( 'filter_artist_menu_item' )
+        self.filter_menu_album_item = ui.get_object( 'filter_album_menu_item' )
          
         # set the model for the icon view              
         self.covers_model_store = Gtk.ListStore( GObject.TYPE_STRING, 
@@ -139,13 +148,15 @@ class CoverArtBrowserSource(RB.Source):
         if searchtext == "":
             return True
             
-        return model[iter][2].contains( searchtext )
+        return model[iter][2].contains( searchtext, self.filter_type )
     
     def icon_press_callback( self, entry, pos, event ):
         if pos is Gtk.EntryIconPosition.SECONDARY:
             entry.set_text( '' )
-        
-        self.searchchanged_callback( entry )
+            self.searchchanged_callback( entry )
+        else:
+            self.filter_menu.popup( None, None, None, None, 0, 
+                Gtk.get_current_event_time() )
     
     def searchchanged_callback( self, gtk_entry ):
         print "CoverArtBrowser DEBUG - searchchanged_callback"
@@ -313,6 +324,18 @@ class CoverArtBrowserSource(RB.Source):
             label += (_(' and a duration of %d minutes') % duration).decode('UTF-8')
 
         self.status_label.set_label( label )
-        
+
+    def filter_menu_callback( self, radiomenu ):
+        # radiomenu is of type GtkRadioMenuItem
+
+        if radiomenu == self.filter_menu_all_item:
+            self.filter_type = Album.FILTER_ALL
+        elif radiomenu == self.filter_menu_album_item:
+            self.filter_type = Album.FILTER_ARTIST
+        elif radiomenu == self.filter_menu_artist_item:
+            self.filter_type = Album.FILTER_ALBUM
+        else:
+            assert "unknown radiomenu"
+            
 GObject.type_register(CoverArtBrowserSource)
 
