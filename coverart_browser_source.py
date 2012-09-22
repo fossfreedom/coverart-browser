@@ -38,15 +38,6 @@ class CoverArtBrowserSource(RB.Source):
         self.hasActivated = False
         RB.Source.__init__( self,name="CoverArtBrowserPlugin" )
         
-        # create the source pop up
-        self.source_menu = Gtk.Menu()
-        
-        self.source_menu_search_all_item = Gtk.MenuItem(label=_('Download all the covers'))
-        self.source_menu_search_all_item.set_sensitive( False )
-        self.source_menu.append( self.source_menu_search_all_item )
-        
-        self.source_menu.show_all()
-
     def do_set_property( self, property, value ):
         if property.name == 'plugin':
             self.plugin = value
@@ -76,7 +67,7 @@ class CoverArtBrowserSource(RB.Source):
 
         #indicate that the source was activated before
         self.hasActivated = True
-            
+           
         # dialog has not been created so lets do so.
         ui = Gtk.Builder()
         ui.set_translation_domain(self.LOCALE_DOMAIN)
@@ -87,7 +78,7 @@ class CoverArtBrowserSource(RB.Source):
         self.page = ui.get_object( 'main_box' )
         self.pack_start( self.page, True, True, 0 )               
         
-        # get widgets
+        # get widgets for main icon-view
         self.status_label = ui.get_object( 'status_label' )
         self.covers_view = ui.get_object( 'covers_view' )
         self.search_entry = ui.get_object( 'search_entry' )
@@ -96,7 +87,11 @@ class CoverArtBrowserSource(RB.Source):
         self.request_status_box = ui.get_object( 'request_status_box' )
         self.request_spinner = ui.get_object( 'request_spinner' )
         self.request_statusbar = ui.get_object( 'request_statusbar' )
-        self.request_cancel_button = ui.get_object( 'request_cancel_button' ) 
+        self.request_cancel_button = ui.get_object( 'request_cancel_button' )
+
+        # get widgets for source popup
+        self.source_menu = ui.get_object( 'source_menu' )
+        self.source_menu_search_all_item = ui.get_object( 'source_search_menu_item' )
          
         # set the model for the icon view              
         self.covers_model_store = Gtk.ListStore( GObject.TYPE_STRING, 
