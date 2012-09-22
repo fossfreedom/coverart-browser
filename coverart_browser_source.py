@@ -337,5 +337,7 @@ class CoverArtBrowserSource(RB.Source):
         else:
             assert "unknown radiomenu"
             
+        self.searchchanged_callback( self.search_entry )
+            
 GObject.type_register(CoverArtBrowserSource)
 
