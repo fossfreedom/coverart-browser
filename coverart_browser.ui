@@ -209,9 +209,9 @@
         <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="sensitive">False</property>
         <property name="tooltip_text" translatable="yes">Search for covers where an album does not currently have one</property>
         <property name="label" translatable="yes">Download all the covers</property>
-        <property name="use_underline">True</property>
       </object>
     </child>
   </object>
