@@ -50,11 +50,6 @@ class CoverArtBrowserSource(RB.Source):
         
         self.source_menu.show_all()
 
-        # status to show in the status bar
-        self.status = ''
-        
-        #TODO: create preferences instance
-
     def do_set_property( self, property, value ):
         if property.name == 'plugin':
             self.plugin = value
@@ -83,6 +78,7 @@ class CoverArtBrowserSource(RB.Source):
         # initialise some variables
         self.plugin = self.props.plugin
         self.shell = self.props.shell
+        self.status = ''
         
         # connect properties signals
         self.connect( 'notify::custom-statusbar-enabled', 
