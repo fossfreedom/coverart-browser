@@ -28,7 +28,7 @@ from gi.repository import GdkPixbuf
 from gi.repository import Peas
 
 import coverart_browser_prefs as prefs
-from prefs import Preferences
+from coverart_browser_prefs import Preferences
 from coverart_browser_source import CoverArtBrowserSource
 
 class CoverArtBrowserEntryType(RB.RhythmDBEntryType):
@@ -78,8 +78,8 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         # from the source to it's configuration setting
         preferences = Preferences()
         preferences.settings.bind(prefs.CUSTOM_STATUSBAR, self.source,
-        	'custom_statusbar_enabled', Gio.SettingsBindFlags.DEFAULT)
-        
+        	'custom_statusbar_enabled', Gio.SettingsBindFlags.GET)
+        	       
         print "CoverArtBrowser DEBUG - end do_activate"
         
     def do_deactivate(self):
