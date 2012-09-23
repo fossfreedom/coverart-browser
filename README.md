@@ -15,17 +15,29 @@ How it works:
 
 ![Imgur](http://i.imgur.com/XCAdF.png)
 
- - *NEW* - Right click to search for missing covers
+ - Right click to search for missing covers
 
 ![Imgur](http://i.imgur.com/QmHzi.png)
 
- - *NEW* - locale support has been added to display text in your native language.
+ - locale support has been added to display text in your native language.
 
 **HELP WANTED** - We need your help to translate - please help out! (see below)
+ - *NEW* - Filter your albums
 
-*How to install (64bit linux distro users only):*
+![Imgur](http://i.imgur.com/1QEfH.png)
 
-1. install *git&
+ - *NEW* - position of status bar text is configurable
+
+![Imgur](http://i.imgur.com/LWSFR.png)
+
+ - *NEW* - 32bit support now available
+ - *NEW* - icon-tooltip now show all the track artists for multi-artist albums
+ - *NEW* - automatic album focus when right-click an album to display album choices.
+ - ... and a number of bug-fixes as well.
+
+*How to install:*
+
+1. install *git*
 N.B. for debian based distros - `sudo apt-get install git`
 2. install the package *gettext*
 N.B. for debian based distros - `sudo apt-get install gettext`
@@ -36,10 +48,6 @@ git clone https://github.com/fossfreedom/coverart-browser.git
 cd coverart-browser
 sh ./install.sh
 </pre>
-
-N.B. 32bit users have a serious bug leading to a *segmentation fault*
-     The bug occurs when querying the rhythmbox database - 
-     Sorry! (https://bugzilla.gnome.org/show_bug.cgi?id=682294)
 
 *For Ubuntu 12.04 & 12.10:*
 
