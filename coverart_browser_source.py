@@ -33,7 +33,9 @@ from coverart_album import AlbumLoader
 
 class CoverArtBrowserSource(RB.Source):
     LOCALE_DOMAIN = 'coverart_browser'
- 
+    
+    custom_statusbar_enabled = GObject.property(type=bool, default=False)
+    
     def __init__( self ):
         self.hasActivated = False
         RB.Source.__init__( self,name="CoverArtBrowserPlugin" )
@@ -41,6 +43,16 @@ class CoverArtBrowserSource(RB.Source):
     def do_set_property( self, property, value ):
         if property.name == 'plugin':
             self.plugin = value
+
+    def do_get_status( self, *args ):    
+        try:
+            progress = self.loader.progress
+            progress_text = 'Loading...' if progress < 1 else ''
+        except:
+            progress = 1
+            progress_text = ''
+    
+        return (self.status, progress_text, progress)
 
     def do_selected( self ):
         self.do_impl_activate()
@@ -56,6 +68,11 @@ class CoverArtBrowserSource(RB.Source):
         # initialise some variables
         self.plugin = self.props.plugin
         self.shell = self.props.shell
+        self.status = ''
+        
+        # connect properties signals
+        self.connect( 'notify::custom-statusbar-enabled', 
+            self.on_notify_custom_statusbar_enabled )
 
         # setup translation support
         locale.setlocale(locale.LC_ALL, '')
@@ -78,12 +95,13 @@ class CoverArtBrowserSource(RB.Source):
         self.page = ui.get_object( 'main_box' )
         self.pack_start( self.page, True, True, 0 )               
         
-        # get widgets for main icon-view
-        self.status_label = ui.get_object( 'status_label' )
+        # get widgets
         self.covers_view = ui.get_object( 'covers_view' )
         self.search_entry = ui.get_object( 'search_entry' )
         self.popup_menu = ui.get_object( 'popup_menu' )
         self.cover_search_menu_item = ui.get_object( 'cover_search_menu_item' )
+        self.status_label = ui.get_object( 'status_label' )
+        self.status_separator = ui.get_object( 'status_separator' )
         self.request_status_box = ui.get_object( 'request_status_box' )
         self.request_spinner = ui.get_object( 'request_spinner' )
         self.request_statusbar = ui.get_object( 'request_statusbar' )
@@ -112,15 +130,25 @@ class CoverArtBrowserSource(RB.Source):
         self.loader.connect( 'load-finished', self.load_finished_callback )
         self.loader.connect( 'album-modified', self.album_modified_callback )
         self.loader.load_albums()   
-        
+                
         print "CoverArtBrowser DEBUG - end show_browser_dialog"
     
     def load_finished_callback( self, _ ):
         print 'CoverArt Load Finished'
         if not self.request_status_box.get_visible():
             # it should only be enabled if no cover request is going on
-            self.source_menu_search_all_item.set_sensitive( True )
-                        
+            self.source_menu_search_all_item.set_sensitive( True )                      
+
+    def on_notify_custom_statusbar_enabled( self, *args ):
+        if self.custom_statusbar_enabled:
+            self.status = ''
+            self.notify_status_changed()
+        else:        
+            self.status_label.hide()
+            self.status_separator.hide()
+        
+        self.selectionchanged_callback( self.covers_view )
+        
     def album_modified_callback( self, _, modified_album ):
         print "CoverArtBrowser DEBUG - album_modified_callback"
         try:
@@ -133,6 +161,7 @@ class CoverArtBrowserSource(RB.Source):
             self.selectionchanged_callback( self.covers_view )
     
         print "CoverArtBrowser DEBUG - end album_modified_callback"
+        
     def visible_covers_callback( self, model, iter, data ):
         searchtext = self.search_entry.get_text()
         
@@ -221,7 +250,6 @@ class CoverArtBrowserSource(RB.Source):
         if self.request_status_box.get_visible():
             return
              
-        print 'hello'
         # fetch the album and hide the status_box once finished                     
         def cover_search_callback( *args ):
             self.request_spinner.hide()    
@@ -235,7 +263,11 @@ class CoverArtBrowserSource(RB.Source):
             def restore( _ ):
                 self.request_status_box.hide()
                 self.cover_search_menu_item.set_sensitive( True )
-                self.source_menu_search_all_item.set_sensitive( True )
+                self.source_menu_search_all_item.set_sensitive( 
+                    self.loader.progress == 1 )
+                
+                # hide separator just in case
+                self.status_separator.hide()
 
             # set a timeout to hide the box and enable items
             Gdk.threads_add_timeout( GLib.PRIORITY_DEFAULT, 1500, restore, 
@@ -249,7 +281,10 @@ class CoverArtBrowserSource(RB.Source):
             (_('Requesting cover for %s - %s...') %
             (self.selected_album.name, self.selected_album.artist)).decode('UTF-8') )
         self.request_status_box.show_all()
-        self.request_cancel_button.set_visible( False )
+        self.request_cancel_button.hide()
+        
+        if self.status_label.get_visible():
+            self.status_separator.show()
         
         # disable full cover search and cover search items
         self.cover_search_menu_item.set_sensitive( False )
@@ -294,27 +329,50 @@ class CoverArtBrowserSource(RB.Source):
         try:
             album = model[widget.get_selected_items()[0]][2]
         except:
-            self.status_label.set_label( '' )
+            if self.custom_statusbar_enabled:
+                # if the custom statusbar is enabled, this should hide it and 
+                # the separator 
+                # Note: we hide just in case, maybe they are already hided
+                self.status_label.hide()
+                self.status_separator.hide()
+            else:
+                # set the status to an empty string and notify the change
+                self.status = ''
+                self.notify_status_changed()
             return
 
-        # now lets build up a status label containing some 'interesting stuff' about the album
-        label = ('%s - %s' % ( album.name, album.album_artist )).decode('UTF-8')
+        # now lets build up a status label containing some 'interesting stuff' 
+        #about the album
+        status = ('%s - %s' % ( album.name, album.album_artist )).decode('UTF-8')
     
         # Calculate duration and number of tracks from that album
         track_count = album.get_track_count()
         duration = album.calculate_duration_in_mins()
         
         if track_count == 1:
-            label += (_(' has 1 track')).decode('UTF-8')
+            status += (_(' has 1 track')).decode('UTF-8')
         else:
-            label+= (_(' has %d tracks') % track_count).decode('UTF-8')
+            status+= (_(' has %d tracks') % track_count).decode('UTF-8')
 
         if duration == 1:
-            label += (_(' and a duration of 1 minute')).decode('UTF-8')
+            status += (_(' and a duration of 1 minute')).decode('UTF-8')
         else:
-            label += (_(' and a duration of %d minutes') % duration).decode('UTF-8')
+            status += (_(' and a duration of %d minutes') % duration).decode('UTF-8')
 
-        self.status_label.set_label( label )
+
+        if self.custom_statusbar_enabled:
+            # if the custom statusbar is enabled... use it.
+            self.status_label.set_text( status )
+            self.status_label.show()
+            
+            if self.request_status_box.get_visible():
+                self.status_separator.show()
+        
+        else:
+            # use the global statusbar from Rhythmbox
+            self.status = status
+        
+            self.notify_status_changed()
         
 GObject.type_register(CoverArtBrowserSource)
 
