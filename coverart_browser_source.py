@@ -35,6 +35,7 @@ from coverart_album import Album
 class CoverArtBrowserSource(RB.Source):
     LOCALE_DOMAIN = 'coverart_browser'
     filter_type = Album.FILTER_ALL
+    search_text = ''
  
     def __init__( self ):
         self.hasActivated = False
@@ -83,13 +84,17 @@ class CoverArtBrowserSource(RB.Source):
         # get widgets for main icon-view
         self.status_label = ui.get_object( 'status_label' )
         self.covers_view = ui.get_object( 'covers_view' )
-        self.search_entry = ui.get_object( 'search_entry' )
         self.popup_menu = ui.get_object( 'popup_menu' )
         self.cover_search_menu_item = ui.get_object( 'cover_search_menu_item' )
         self.request_status_box = ui.get_object( 'request_status_box' )
         self.request_spinner = ui.get_object( 'request_spinner' )
         self.request_statusbar = ui.get_object( 'request_statusbar' )
         self.request_cancel_button = ui.get_object( 'request_cancel_button' )
+
+        # workaround for some RBSearchEntry's problems
+        search_entry = ui.get_object( 'search_entry' )
+        search_entry.set_placeholder(_('Search album'))
+        search_entry.show_all()
 
         # get widgets for source popup
         self.source_menu = ui.get_object( 'source_menu' )
@@ -143,24 +148,28 @@ class CoverArtBrowserSource(RB.Source):
     
         print "CoverArtBrowser DEBUG - end album_modified_callback"
     def visible_covers_callback( self, model, iter, data ):
-        searchtext = self.search_entry.get_text()
+#        searchtext = self.search_entry.get_text()
         
-        if searchtext == "":
+        if self.search_text == "":
             return True
             
-        return model[iter][2].contains( searchtext, self.filter_type )
-    
-    def icon_press_callback( self, entry, pos, event ):
-        if pos is Gtk.EntryIconPosition.SECONDARY:
-            entry.set_text( '' )
-            self.searchchanged_callback( entry )
-        else:
+        return model[iter][2].contains( self.search_text, self.filter_type )
+
+    def search_show_popup_callback( self, entry ):
+#        pass
+#        
+#    def icon_press_callback( self, entry, pos, event ):
+#        if pos is Gtk.EntryIconPosition.SECONDARY:
+#            entry.set_text( '' )
+#            self.searchchanged_callback( entry )
+#        else:
             self.filter_menu.popup( None, None, None, None, 0, 
                 Gtk.get_current_event_time() )
     
-    def searchchanged_callback( self, gtk_entry ):
+    def searchchanged_callback( self, entry, text ):
         print "CoverArtBrowser DEBUG - searchchanged_callback"
 
+        self.search_text = text
         self.covers_model.refilter()
         
         print "CoverArtBrowser DEBUG - end searchchanged_callback"
