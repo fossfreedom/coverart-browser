@@ -117,7 +117,10 @@ class CoverArtBrowserSource(RB.Source):
     
     def load_finished_callback( self, _ ):
         print 'CoverArt Load Finished'
-        self.source_menu_search_all_item.set_sensitive( True )
+        if not self.request_status_box.get_visible():
+            # it should only be enabled if no cover request is going on
+            self.source_menu_search_all_item.set_sensitive( True )
+            
         self.source_menu_search_all_item.connect( 'activate', 
             self.search_all_covers_callback )
             
