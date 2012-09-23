@@ -340,11 +340,13 @@ class CoverArtBrowserSource(RB.Source):
         if radiomenu == self.filter_menu_all_item:
             self.filter_type = Album.FILTER_ALL
         elif radiomenu == self.filter_menu_album_item:
-            self.filter_type = Album.FILTER_ARTIST
-        elif radiomenu == self.filter_menu_artist_item:
             self.filter_type = Album.FILTER_ALBUM
+        elif radiomenu == self.filter_menu_artist_item:
+            self.filter_type = Album.FILTER_ARTIST
         else:
             assert "unknown radiomenu"
+            
+        self.searchchanged_callback( self.search_entry )
             
 GObject.type_register(CoverArtBrowserSource)
 
