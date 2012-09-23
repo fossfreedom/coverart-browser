@@ -237,7 +237,7 @@ class AlbumLoader(GObject.Object):
             self.emit('album-modified', self.albums[album_name])
         else:
             album = Album(album_name, album_artist)
-            self.albums.append(album)
+            self.albums[album_name] = album
 
             album.append_entry(entry)
             album.load_cover(self.cover_db)
