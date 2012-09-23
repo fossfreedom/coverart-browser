@@ -156,15 +156,8 @@ class CoverArtBrowserSource(RB.Source):
         return model[iter][2].contains( self.search_text, self.filter_type )
 
     def search_show_popup_callback( self, entry ):
-#        pass
-#        
-#    def icon_press_callback( self, entry, pos, event ):
-#        if pos is Gtk.EntryIconPosition.SECONDARY:
-#            entry.set_text( '' )
-#            self.searchchanged_callback( entry )
-#        else:
-            self.filter_menu.popup( None, None, None, None, 0, 
-                Gtk.get_current_event_time() )
+        self.filter_menu.popup( None, None, None, None, 0, 
+                                Gtk.get_current_event_time() )
     
     def searchchanged_callback( self, entry, text ):
         print "CoverArtBrowser DEBUG - searchchanged_callback"
@@ -346,7 +339,7 @@ class CoverArtBrowserSource(RB.Source):
         else:
             assert "unknown radiomenu"
             
-        self.searchchanged_callback( self.search_entry )
+        self.searchchanged_callback( _, self.search_text )
             
 GObject.type_register(CoverArtBrowserSource)
 
