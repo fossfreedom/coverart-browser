@@ -415,6 +415,7 @@ class Album(object):
     FILTER_ARTIST = 2
     FILTER_ALBUM = 3
     FILTER_ALBUM_ARTIST = 4
+    FILTER_TRACK_TITLE = 5
 
     def __init__(self, name, album_artist=None):
         '''
@@ -435,6 +436,19 @@ class Album(object):
         that have entries on this album.
         '''
         return ', '.join(self._artist)
+
+    @property
+    def track_title(self):
+        '''
+        Returns a string representation of the conjuction of all the track
+        titles that have entries on this album.
+        '''
+        title = set()
+        
+        for e in self.entries:
+            title.add( e.get_string(RB.RhythmDBPropType.TITLE) )
+        
+        return ', '.join( title )
 
     @property
     def album_artist(self):
@@ -614,16 +628,20 @@ class Album(object):
         if filter_type == Album.FILTER_ALL:
             return searchtext.lower() in self.artist.lower() \
                     or searchtext.lower() in self.name.lower() \
-                    or searchtext.lower() in self._album_artist.lower()                    
+                    or searchtext.lower() in self.album_artist.lower() \
+                    or searchtext.lower() in self.track_title.lower()                   
                     
         if filter_type == Album.FILTER_ALBUM_ARTIST:
-            return searchtext.lower() in self._album_artist.lower()
+            return searchtext.lower() in self.album_artist.lower()
 
         if filter_type == Album.FILTER_ARTIST:
             return searchtext.lower() in self.artist.lower()
 
         if filter_type == Album.FILTER_ALBUM:
             return searchtext.lower() in self.name.lower()
+
+        if filter_type == Album.FILTER_TRACK_TITLE:
+            return searchtext.lower() in self.track_title.lower()
             
         return False
 

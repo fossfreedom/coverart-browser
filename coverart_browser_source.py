@@ -100,13 +100,14 @@ class CoverArtBrowserSource(RB.Source):
         self.source_menu = ui.get_object( 'source_menu' )
         self.source_menu_search_all_item = ui.get_object( 'source_search_menu_item' )
 
-
         # get widgets for filter popup
         self.filter_menu = ui.get_object( 'filter_menu' )
         self.filter_menu_all_item = ui.get_object( 'filter_all_menu_item' )
         self.filter_menu_artist_item = ui.get_object( 'filter_artist_menu_item' )
         self.filter_menu_album_artist_item = ui.get_object( 'filter_album_artist_menu_item' )
         self.filter_menu_album_item = ui.get_object( 'filter_album_menu_item' )
+        self.filter_menu_track_title_item = ui.get_object( 'filter_track_title_menu_item' )
+        
          
         # set the model for the icon view              
         self.covers_model_store = Gtk.ListStore( GObject.TYPE_STRING, 
@@ -339,6 +340,8 @@ class CoverArtBrowserSource(RB.Source):
             self.filter_type = Album.FILTER_ARTIST
         elif radiomenu == self.filter_menu_album_artist_item:
             self.filter_type = Album.FILTER_ALBUM_ARTIST
+        elif radiomenu == self.filter_menu_track_title_item:
+            self.filter_type = Album.FILTER_TRACK_TITLE
         else:
             assert "unknown radiomenu"
             
