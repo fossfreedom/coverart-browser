@@ -170,6 +170,7 @@ class CoverArtBrowserSource(RB.Source):
                 return
 
             iconview.grab_focus()
+            iconview.select_path(pthinfo)
                                 
             model = iconview.get_model()
             self.selected_album = model[pthinfo][2]               
