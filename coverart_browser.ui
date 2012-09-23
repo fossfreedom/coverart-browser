@@ -212,6 +212,7 @@
         <property name="sensitive">False</property>
         <property name="tooltip_text" translatable="yes">Search for covers where an album does not currently have one</property>
         <property name="label" translatable="yes">Download all the covers</property>
+        <signal name="activate" handler="search_all_covers_callback" swapped="no"/>
       </object>
     </child>
   </object>

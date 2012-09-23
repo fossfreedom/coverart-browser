@@ -120,10 +120,7 @@ class CoverArtBrowserSource(RB.Source):
         if not self.request_status_box.get_visible():
             # it should only be enabled if no cover request is going on
             self.source_menu_search_all_item.set_sensitive( True )
-            
-        self.source_menu_search_all_item.connect( 'activate', 
-            self.search_all_covers_callback )
-            
+                        
     def album_modified_callback( self, _, modified_album ):
         print "CoverArtBrowser DEBUG - album_modified_callback"
         try:
