@@ -2,6 +2,9 @@ DESTDIR=
 SUBDIR=/usr/lib/rhythmbox/plugins/coverart_browser/
 DATADIR=/usr/share/rhythmbox/plugins/coverart_browser/
 LOCALEDIR=/usr/share/locale/
+GLIB_SCHEME=org.gnome.rhythmbox.plugins.coverart_browser.gschema.xml
+GLIB_DIR=/usr/share/glib-2.0/schemas/
+
 
 all:
 clean:
@@ -15,4 +18,5 @@ install:
 	install -m 644 *.svg $(DESTDIR)$(DATADIR)
 	install -m 644 *.ui $(DESTDIR)$(DATADIR)
 	install -m 644 coverart_browser.plugin $(DESTDIR)$(SUBDIR)
+	install -m 644 $(GLIB_SCHEME) $(GLIB_DIR) 
 	cd po;./lang.sh $(DESTDIR)$(LOCALEDIR)
