@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
-"POT-Creation-Date: 2012-09-21 23:24+BST\n"
+"POT-Creation-Date: 2012-09-23 20:08+BST\n"
 "PO-Revision-Date: 2012-09-19 14:32+BST\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,82 +16,139 @@ msgstr ""
 "Generated-By: pygettext.py 1.5\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: coverart_album.py:443
+#: coverart_album.py:473
 msgid "Various Artists"
 msgstr ""
 
-#: coverart_browser.py:66
+#: coverart_browser.py:69
 msgid "CoverArt"
 msgstr "Arte das Capas"
 
 #: coverart_browser.ui.h:1
-msgid "Search through your albums"
-msgstr "Procurar através de seus álbuns"
-
-#: coverart_browser.ui.h:2
-msgid "Clear the search text"
-msgstr "Limpar o texto da pesquisa"
-
-#: coverart_browser.ui.h:3
-msgid "Search album"
-msgstr "Procurar álbum"
-
-#: coverart_browser.ui.h:4
 msgid "Stop coverart fetch."
 msgstr "Parar a busca por capas"
 
-#: coverart_browser.ui.h:5
+#: coverart_browser.ui.h:2
 msgid "Play this album"
 msgstr "Reproduzir Álbum"
 
-#: coverart_browser.ui.h:6
+#: coverart_browser.ui.h:3
 msgid "Play Album"
 msgstr "Reproduzir Álbum"
 
-#: coverart_browser.ui.h:7
+#: coverart_browser.ui.h:4
 msgid "Add this album to your playing queue"
 msgstr "Adicionar este álbum à sua fila de reprodução"
 
-#: coverart_browser.ui.h:8
+#: coverart_browser.ui.h:5
 msgid "Queue Album"
 msgstr "Enfileirar Álbum"
 
-#: coverart_browser.ui.h:9
+#: coverart_browser.ui.h:6
 msgid "Search for this album cover"
 msgstr "Procurar por capas"
 
-#: coverart_browser.ui.h:10
+#: coverart_browser.ui.h:7
 msgid "Search for covers"
 msgstr "Procurar por capas"
 
-#: coverart_browser_source.py:45
+#: coverart_browser.ui.h:8
+msgid "Search for covers where an album does not currently have one"
+msgstr ""
+
+#: coverart_browser.ui.h:9
 msgid "Download all the covers"
 msgstr ""
 
-#: coverart_browser_source.py:236
+#: coverart_browser.ui.h:10
+msgid "Search using all fields"
+msgstr ""
+
+#: coverart_browser.ui.h:11
+#, fuzzy
+msgid "Search all fields"
+msgstr "Procurar álbum"
+
+#: coverart_browser.ui.h:12
+msgid "Search using album artist names"
+msgstr ""
+
+#: coverart_browser.ui.h:13
+#, fuzzy
+msgid "Search album artists"
+msgstr "Procurar álbum"
+
+#: coverart_browser.ui.h:14
+msgid "Search using track artist names"
+msgstr ""
+
+#: coverart_browser.ui.h:15
+msgid "Search track artists"
+msgstr ""
+
+#: coverart_browser.ui.h:16
+#, fuzzy
+msgid "Search using album titles"
+msgstr "Procurar álbum"
+
+#: coverart_browser.ui.h:17
+#, fuzzy
+msgid "Search albums"
+msgstr "Procurar álbum"
+
+#: coverart_browser.ui.h:18
+msgid "Search using track titles"
+msgstr ""
+
+#: coverart_browser.ui.h:19
+#, fuzzy
+msgid "Search tracks"
+msgstr "Procurar por capas"
+
+#: coverart_browser_prefs.ui.h:1
+msgid "Use source's custom statusbar."
+msgstr ""
+
+#: coverart_browser_prefs.ui.h:2
+msgid ""
+"Use the source's custom statusbar to show the current selected album's "
+"related information instead of the global Rhythmbox's statusbar."
+msgstr ""
+
+#: coverart_browser_source.py:116
+msgid "Search album"
+msgstr "Procurar álbum"
+
+#: coverart_browser_source.py:274
 msgid "Cover found!"
 msgstr ""
 
-#: coverart_browser_source.py:238
+#: coverart_browser_source.py:276
 msgid "No cover found."
 msgstr ""
 
-#: coverart_browser_source.py:254 coverart_browser_source.py:283
+#: coverart_browser_source.py:296 coverart_browser_source.py:328
 msgid "Requesting cover for %s - %s..."
 msgstr ""
 
-#: coverart_browser_source.py:312
+#: coverart_browser_source.py:368
 msgid " has 1 track"
 msgstr " possui 1 música"
 
-#: coverart_browser_source.py:314
+#: coverart_browser_source.py:370
 msgid " has %d tracks"
 msgstr " possui %d músicas"
 
-#: coverart_browser_source.py:317
+#: coverart_browser_source.py:373
 msgid " and a duration of 1 minute"
 msgstr " e dura 1 minuto"
 
-#: coverart_browser_source.py:319
+#: coverart_browser_source.py:375
 msgid " and a duration of %d minutes"
 msgstr " e dura %d minutos"
+
+#~ msgid "Search through your albums"
+#~ msgstr "Procurar através de seus álbuns"
+
+#~ msgid "Clear the search text"
+#~ msgstr "Limpar o texto da pesquisa"

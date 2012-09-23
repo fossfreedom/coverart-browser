@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
-"POT-Creation-Date: 2012-09-22 21:22+BST\n"
+"POT-Creation-Date: 2012-09-23 20:08+BST\n"
 "PO-Revision-Date: 2012-09-22 21:22+BST\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,114 +16,144 @@ msgstr ""
 "Generated-By: pygettext.py 1.5\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: coverart_album.py:448
+#: coverart_album.py:473
 msgid "Various Artists"
 msgstr ""
 
-#: coverart_browser.py:66
+#: coverart_browser.py:69
 msgid "CoverArt"
 msgstr "Pochettes"
 
 #: coverart_browser.ui.h:1
-msgid "Search through your albums"
-msgstr "Rechercher dans vos albums"
-
-#: coverart_browser.ui.h:2
-msgid "Clear the search text"
-msgstr "Effacer le texte de recherche"
-
-#: coverart_browser.ui.h:3
-msgid "Search album"
-msgstr "Rechercher"
-
-#: coverart_browser.ui.h:4
 msgid "Stop coverart fetch."
 msgstr "Arrêter de chercher les pochettes"
 
-#: coverart_browser.ui.h:5
+#: coverart_browser.ui.h:2
 msgid "Play this album"
 msgstr "Jouer cet album"
 
-#: coverart_browser.ui.h:6
+#: coverart_browser.ui.h:3
 msgid "Play Album"
 msgstr "Jouer l'album"
 
-#: coverart_browser.ui.h:7
+#: coverart_browser.ui.h:4
 msgid "Add this album to your playing queue"
 msgstr "Ajouter cet album à votre liste d'attente"
 
-#: coverart_browser.ui.h:8
+#: coverart_browser.ui.h:5
 msgid "Queue Album"
 msgstr "Mettre l'album en attente"
 
-#: coverart_browser.ui.h:9
+#: coverart_browser.ui.h:6
 msgid "Search for this album cover"
 msgstr "Rechercher la pochette de cet album"
 
-#: coverart_browser.ui.h:10
+#: coverart_browser.ui.h:7
 msgid "Search for covers"
 msgstr "Rechercher les pochettes"
 
-#: coverart_browser.ui.h:11
+#: coverart_browser.ui.h:8
 msgid "Search for covers where an album does not currently have one"
 msgstr ""
 
-#: coverart_browser.ui.h:12
+#: coverart_browser.ui.h:9
 msgid "Download all the covers"
 msgstr ""
 
-#: coverart_browser.ui.h:13
+#: coverart_browser.ui.h:10
+#, fuzzy
 msgid "Search using all fields"
-msgstr ""
+msgstr "Rechercher"
 
-#: coverart_browser.ui.h:14
+#: coverart_browser.ui.h:11
 #, fuzzy
 msgid "Search all fields"
 msgstr "Rechercher"
 
-#: coverart_browser.ui.h:15
-msgid "Search using album artist names"
-msgstr ""
-
-#: coverart_browser.ui.h:16
+#: coverart_browser.ui.h:12
 #, fuzzy
-msgid "Search artists"
+msgid "Search using album artist names"
 msgstr "Rechercher"
 
-#: coverart_browser.ui.h:17
+#: coverart_browser.ui.h:13
+#, fuzzy
+msgid "Search album artists"
+msgstr "Rechercher"
+
+#: coverart_browser.ui.h:14
+#, fuzzy
+msgid "Search using track artist names"
+msgstr "Rechercher"
+
+#: coverart_browser.ui.h:15
+#, fuzzy
+msgid "Search track artists"
+msgstr "Rechercher"
+
+#: coverart_browser.ui.h:16
 #, fuzzy
 msgid "Search using album titles"
 msgstr "Rechercher"
 
-#: coverart_browser.ui.h:18
+#: coverart_browser.ui.h:17
 #, fuzzy
 msgid "Search albums"
 msgstr "Rechercher"
 
-#: coverart_browser_source.py:241
+#: coverart_browser.ui.h:18
+#, fuzzy
+msgid "Search using track titles"
+msgstr "Rechercher"
+
+#: coverart_browser.ui.h:19
+#, fuzzy
+msgid "Search tracks"
+msgstr "Rechercher"
+
+#: coverart_browser_prefs.ui.h:1
+msgid "Use source's custom statusbar."
+msgstr ""
+
+#: coverart_browser_prefs.ui.h:2
+msgid ""
+"Use the source's custom statusbar to show the current selected album's "
+"related information instead of the global Rhythmbox's statusbar."
+msgstr ""
+
+#: coverart_browser_source.py:116
+msgid "Search album"
+msgstr "Rechercher"
+
+#: coverart_browser_source.py:274
 msgid "Cover found!"
 msgstr ""
 
-#: coverart_browser_source.py:243
+#: coverart_browser_source.py:276
 msgid "No cover found."
 msgstr ""
 
-#: coverart_browser_source.py:259 coverart_browser_source.py:288
+#: coverart_browser_source.py:296 coverart_browser_source.py:328
 msgid "Requesting cover for %s - %s..."
 msgstr ""
 
-#: coverart_browser_source.py:317
+#: coverart_browser_source.py:368
 msgid " has 1 track"
 msgstr " a 1 piste"
 
-#: coverart_browser_source.py:319
+#: coverart_browser_source.py:370
 msgid " has %d tracks"
 msgstr " a %d pistes"
 
-#: coverart_browser_source.py:322
+#: coverart_browser_source.py:373
 msgid " and a duration of 1 minute"
 msgstr " et une durée de 1 minute"
 
-#: coverart_browser_source.py:324
+#: coverart_browser_source.py:375
 msgid " and a duration of %d minutes"
 msgstr " et une durée de %d minutes"
+
+#~ msgid "Search through your albums"
+#~ msgstr "Rechercher dans vos albums"
+
+#~ msgid "Clear the search text"
+#~ msgstr "Effacer le texte de recherche"
