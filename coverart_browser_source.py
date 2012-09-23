@@ -33,7 +33,9 @@ from coverart_album import AlbumLoader
 
 class CoverArtBrowserSource(RB.Source):
     LOCALE_DOMAIN = 'coverart_browser'
- 
+    
+    custom_statusbar_enabled = GObject.property(type=bool, default=False)
+    
     def __init__( self ):
         self.hasActivated = False
         RB.Source.__init__( self,name="CoverArtBrowserPlugin" )
@@ -106,6 +108,8 @@ class CoverArtBrowserSource(RB.Source):
         self.search_entry = ui.get_object( 'search_entry' )
         self.popup_menu = ui.get_object( 'popup_menu' )
         self.cover_search_menu_item = ui.get_object( 'cover_search_menu_item' )
+        self.status_label = ui.get_object( 'status_label' )
+        self.status_separator = ui.get_object( 'status_separator' )
         self.request_status_box = ui.get_object( 'request_status_box' )
         self.request_spinner = ui.get_object( 'request_spinner' )
         self.request_statusbar = ui.get_object( 'request_statusbar' )

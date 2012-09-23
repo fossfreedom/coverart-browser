@@ -20,13 +20,15 @@
 # define plugin
 import rb
 
+from gi.repository import Gio
 from gi.repository import GObject
 from gi.repository import Gtk
 from gi.repository import RB
 from gi.repository import GdkPixbuf
 from gi.repository import Peas
 
-from coverart_browser_prefs import Preferences
+import coverart_browser_prefs as prefs
+from prefs import Preferences
 from coverart_browser_source import CoverArtBrowserSource
 
 class CoverArtBrowserEntryType(RB.RhythmDBEntryType):
@@ -71,6 +73,12 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
 
         self.shell.register_entry_type_for_source(self.source, entry_type)
         self.shell.append_display_page(self.source, group)
+        
+        # create a preferences object and bind the custom_statusbar property
+        # from the source to it's configuration setting
+        preferences = Preferences()
+        preferences.settings.bind(prefs.CUSTOM_STATUSBAR, self.source,
+        	'custom_statusbar_enabled', Gio.SettingsBindFlags.DEFAULT)
         
         print "CoverArtBrowser DEBUG - end do_activate"
         
