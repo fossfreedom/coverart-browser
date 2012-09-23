@@ -454,10 +454,10 @@ class Album(object):
         titles that have entries on this album.
         '''
         title = set()
-        
+
         for e in self.entries:
             title.add( e.get_string(RB.RhythmDBPropType.TITLE) )
-        
+
         return ', '.join( title )
 
     @property
@@ -628,8 +628,8 @@ class Album(object):
 
     def contains(self, searchtext, filter_type):
         '''
-        Indicates if the text provided is contained either in this album's name
-        or artist's name.
+        Indicates if the text provided coincides with the property defined
+        by the indicated filter type.
         '''
 
         if searchtext == "":
@@ -639,8 +639,8 @@ class Album(object):
             return searchtext.lower() in self.artist.lower() \
                     or searchtext.lower() in self.name.lower() \
                     or searchtext.lower() in self.album_artist.lower() \
-                    or searchtext.lower() in self.track_title.lower()                   
-                    
+                    or searchtext.lower() in self.track_title.lower()
+
         if filter_type == Album.FILTER_ALBUM_ARTIST:
             return searchtext.lower() in self.album_artist.lower()
 
@@ -652,7 +652,7 @@ class Album(object):
 
         if filter_type == Album.FILTER_TRACK_TITLE:
             return searchtext.lower() in self.track_title.lower()
-            
+
         return False
 
     @classmethod
