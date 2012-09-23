@@ -208,7 +208,10 @@ class AlbumLoader(GObject.Object):
         Callback called when a new entry is added to the Rhythmbox's db.
         '''
         print "CoverArtBrowser DEBUG - entry_added_callback"
-        self._allocate_entry(entry)
+        # before trying to allocate the entry, found out if this entry is
+        # really a song, querying it's duration
+        if entry.get_ulong(RB.RhythmDBPropType.DURATION):
+            self._allocate_entry(entry)
 
         print "CoverArtBrowser DEBUG - end entry_added_callback"
 
