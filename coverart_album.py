@@ -268,30 +268,20 @@ class AlbumLoader(GObject.Object):
                 # emit a signal indicating the album has changed
                 self.emit('album-modified', album)
 
-    def load_albums(self):
+    def load_albums(self, query_model):
         '''
         Initiates the process of recover, create and load all the albums from
         the Rhythmbox's db and their covers provided by artsearch plugin.
         Specifically, it throws the query against the RhythmDB.
         '''
         print "CoverArtBrowser DEBUG - load_albums"
-        # build the query
-        q = GLib.PtrArray()
-        self.db.query_append_params(q,
-            RB.RhythmDBQueryType.EQUALS,
-            RB.RhythmDBPropType.TYPE,
-            self.db.entry_type_get_by_name('song'))
-
-        # create the model and connect to the completed signal
-        qm = RB.RhythmDBQueryModel.new_empty(self.db)
-        qm.connect('complete', self._query_complete_callback)
-
-        # throw the query
-        self.db.do_full_query_async_parsed(qm, q)
+        # process the entries and load albums asynchronously
+        Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
+            self._proccess_query_model, query_model)
 
         print "CoverArtBrowser DEBUG - end load_albums"
 
-    def _query_complete_callback(self, qm):
+    def _proccess_query_model(self, qm):
         '''
         Callback called when the asynchronous query made by load_albums
         finishes.

@@ -147,7 +147,8 @@ class CoverArtBrowserSource(RB.Source):
         self.loader = AlbumLoader( self.plugin, self.covers_model_store )
         self.loader.connect( 'load-finished', self.load_finished_callback )
         self.loader.connect( 'album-modified', self.album_modified_callback )
-        self.loader.load_albums()   
+        self.loader.load_albums(
+            self.shell.props.library_source.props.base_query_model)   
         
         print "CoverArtBrowser DEBUG - end show_browser_dialog"
     
