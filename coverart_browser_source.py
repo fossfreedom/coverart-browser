@@ -36,6 +36,8 @@ class CoverArtBrowserSource(RB.Source):
     LOCALE_DOMAIN = 'coverart_browser'
     filter_type = Album.FILTER_ALL
     search_text = ''
+    
+    custom_statusbar_enabled = GObject.property(type=bool, default=False)
  
     def __init__( self ):
         self.hasActivated = False
@@ -178,9 +180,7 @@ class CoverArtBrowserSource(RB.Source):
     
         print "CoverArtBrowser DEBUG - end album_modified_callback"
         
-    def visible_covers_callback( self, model, iter, data ):
-#        searchtext = self.search_entry.get_text()
-        
+    def visible_covers_callback( self, model, iter, data ):        
         if self.search_text == "":
             return True
             
@@ -265,7 +265,6 @@ class CoverArtBrowserSource(RB.Source):
         if self.request_status_box.get_visible():
             return
              
-        print 'hello'
         # fetch the album and hide the status_box once finished                     
         def cover_search_callback( *args ):
             self.request_spinner.hide()    
@@ -375,8 +374,6 @@ class CoverArtBrowserSource(RB.Source):
         else:
             status += (_(' and a duration of %d minutes') % duration).decode('UTF-8')
 
-        self.status_label.set_label( label )
-
         if self.custom_statusbar_enabled:
             # if the custom statusbar is enabled... use it.
             self.status_label.set_text( status )
@@ -390,6 +387,24 @@ class CoverArtBrowserSource(RB.Source):
             self.status = status
         
             self.notify_status_changed()
+            
+    def filter_menu_callback( self, radiomenu ):
+        # radiomenu is of type GtkRadioMenuItem
+
+        if radiomenu == self.filter_menu_all_item:
+            self.filter_type = Album.FILTER_ALL
+        elif radiomenu == self.filter_menu_album_item:
+            self.filter_type = Album.FILTER_ALBUM
+        elif radiomenu == self.filter_menu_artist_item:
+            self.filter_type = Album.FILTER_ARTIST
+        elif radiomenu == self.filter_menu_album_artist_item:
+            self.filter_type = Album.FILTER_ALBUM_ARTIST
+        elif radiomenu == self.filter_menu_track_title_item:
+            self.filter_type = Album.FILTER_TRACK_TITLE
+        else:
+            assert "unknown radiomenu"
+            
+        self.searchchanged_callback( _, self.search_text )
         
 GObject.type_register(CoverArtBrowserSource)
 
