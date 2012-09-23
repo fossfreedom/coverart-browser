@@ -105,6 +105,7 @@ class CoverArtBrowserSource(RB.Source):
         self.filter_menu = ui.get_object( 'filter_menu' )
         self.filter_menu_all_item = ui.get_object( 'filter_all_menu_item' )
         self.filter_menu_artist_item = ui.get_object( 'filter_artist_menu_item' )
+        self.filter_menu_album_artist_item = ui.get_object( 'filter_album_artist_menu_item' )
         self.filter_menu_album_item = ui.get_object( 'filter_album_menu_item' )
          
         # set the model for the icon view              
@@ -336,6 +337,8 @@ class CoverArtBrowserSource(RB.Source):
             self.filter_type = Album.FILTER_ALBUM
         elif radiomenu == self.filter_menu_artist_item:
             self.filter_type = Album.FILTER_ARTIST
+        elif radiomenu == self.filter_menu_album_artist_item:
+            self.filter_type = Album.FILTER_ALBUM_ARTIST
         else:
             assert "unknown radiomenu"
             

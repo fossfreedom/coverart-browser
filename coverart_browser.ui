@@ -228,12 +228,26 @@
       </object>
     </child>
     <child>
-      <object class="GtkRadioMenuItem" id="filter_artist_menu_item">
+      <object class="GtkRadioMenuItem" id="filter_album_artist_menu_item">
         <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="tooltip_text" translatable="yes">Search using album artist names</property>
-        <property name="label" translatable="yes">Search artists</property>
+        <property name="label" translatable="yes">Search album artists</property>
+        <property name="use_underline">True</property>
+        <property name="receives_default">False</property>
+        <property name="use_action_appearance">False</property>
+        <property name="group">filter_all_menu_item</property>
+        <signal name="toggled" handler="filter_menu_callback" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkRadioMenuItem" id="filter_artist_menu_item">
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text" translatable="yes">Search using track artist names</property>
+        <property name="label" translatable="yes">Search track artists</property>
         <property name="use_underline">True</property>
         <property name="receives_default">False</property>
         <property name="use_action_appearance">False</property>

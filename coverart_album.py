@@ -414,6 +414,7 @@ class Album(object):
     FILTER_ALL = 1
     FILTER_ARTIST = 2
     FILTER_ALBUM = 3
+    FILTER_ALBUM_ARTIST = 4
 
     def __init__(self, name, album_artist=None):
         '''
@@ -612,7 +613,12 @@ class Album(object):
 
         if filter_type == Album.FILTER_ALL:
             return searchtext.lower() in self.artist.lower() \
-                    or searchtext.lower() in self.name.lower()
+                    or searchtext.lower() in self.name.lower() \
+                    or searchtext.lower() in self._album_artist.lower()                    
+                    
+        if filter_type == Album.FILTER_ALBUM_ARTIST:
+            return searchtext.lower() in self._album_artist.lower()
+
         if filter_type == Album.FILTER_ARTIST:
             return searchtext.lower() in self.artist.lower()
 
