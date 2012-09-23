@@ -30,12 +30,13 @@ from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 
 from coverart_album import AlbumLoader
+from coverart_album import Album
 
 class CoverArtBrowserSource(RB.Source):
     LOCALE_DOMAIN = 'coverart_browser'
-    
-    custom_statusbar_enabled = GObject.property(type=bool, default=False)
-    
+    filter_type = Album.FILTER_ALL
+    search_text = ''
+ 
     def __init__( self ):
         self.hasActivated = False
         RB.Source.__init__( self,name="CoverArtBrowserPlugin" )
@@ -95,7 +96,8 @@ class CoverArtBrowserSource(RB.Source):
         self.page = ui.get_object( 'main_box' )
         self.pack_start( self.page, True, True, 0 )               
         
-        # get widgets
+        # get widgets for main icon-view
+        self.status_label = ui.get_object( 'status_label' )
         self.covers_view = ui.get_object( 'covers_view' )
         self.search_entry = ui.get_object( 'search_entry' )
         self.popup_menu = ui.get_object( 'popup_menu' )
@@ -107,9 +109,23 @@ class CoverArtBrowserSource(RB.Source):
         self.request_statusbar = ui.get_object( 'request_statusbar' )
         self.request_cancel_button = ui.get_object( 'request_cancel_button' )
 
+        # workaround for some RBSearchEntry's problems
+        search_entry = ui.get_object( 'search_entry' )
+        search_entry.set_placeholder(_('Search album'))
+        search_entry.show_all()
+
         # get widgets for source popup
         self.source_menu = ui.get_object( 'source_menu' )
         self.source_menu_search_all_item = ui.get_object( 'source_search_menu_item' )
+
+        # get widgets for filter popup
+        self.filter_menu = ui.get_object( 'filter_menu' )
+        self.filter_menu_all_item = ui.get_object( 'filter_all_menu_item' )
+        self.filter_menu_artist_item = ui.get_object( 'filter_artist_menu_item' )
+        self.filter_menu_album_artist_item = ui.get_object( 'filter_album_artist_menu_item' )
+        self.filter_menu_album_item = ui.get_object( 'filter_album_menu_item' )
+        self.filter_menu_track_title_item = ui.get_object( 'filter_track_title_menu_item' )
+        
          
         # set the model for the icon view              
         self.covers_model_store = Gtk.ListStore( GObject.TYPE_STRING, 
@@ -130,7 +146,7 @@ class CoverArtBrowserSource(RB.Source):
         self.loader.connect( 'load-finished', self.load_finished_callback )
         self.loader.connect( 'album-modified', self.album_modified_callback )
         self.loader.load_albums()   
-                
+        
         print "CoverArtBrowser DEBUG - end show_browser_dialog"
     
     def load_finished_callback( self, _ ):
@@ -163,22 +179,21 @@ class CoverArtBrowserSource(RB.Source):
         print "CoverArtBrowser DEBUG - end album_modified_callback"
         
     def visible_covers_callback( self, model, iter, data ):
-        searchtext = self.search_entry.get_text()
+#        searchtext = self.search_entry.get_text()
         
-        if searchtext == "":
+        if self.search_text == "":
             return True
             
-        return model[iter][2].contains( searchtext )
+        return model[iter][2].contains( self.search_text, self.filter_type )
+
+    def search_show_popup_callback( self, entry ):
+        self.filter_menu.popup( None, None, None, None, 0, 
+                                Gtk.get_current_event_time() )
     
-    def icon_press_callback( self, entry, pos, event ):
-        if pos is Gtk.EntryIconPosition.SECONDARY:
-            entry.set_text( '' )
-        
-        self.searchchanged_callback( entry )
-    
-    def searchchanged_callback( self, gtk_entry ):
+    def searchchanged_callback( self, entry, text ):
         print "CoverArtBrowser DEBUG - searchchanged_callback"
 
+        self.search_text = text
         self.covers_model.refilter()
         
         print "CoverArtBrowser DEBUG - end searchchanged_callback"
@@ -244,12 +259,13 @@ class CoverArtBrowserSource(RB.Source):
         for song in songs:
             self.shell.props.queue_source.add_entry( song, -1 )
         
-    def cover_search_menu_item_callback( self, menuItem ):
+    def cover_search_menu_item_callback( self, _ ):
         print "CoverArtBrowser DEBUG - cover_search_menu_item_callback()"
         # don't start another fetch if we are in middle of one right now
         if self.request_status_box.get_visible():
             return
              
+        print 'hello'
         # fetch the album and hide the status_box once finished                     
         def cover_search_callback( *args ):
             self.request_spinner.hide()    
@@ -359,6 +375,7 @@ class CoverArtBrowserSource(RB.Source):
         else:
             status += (_(' and a duration of %d minutes') % duration).decode('UTF-8')
 
+        self.status_label.set_label( label )
 
         if self.custom_statusbar_enabled:
             # if the custom statusbar is enabled... use it.
