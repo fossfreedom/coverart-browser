@@ -38,6 +38,7 @@ class CoverArtBrowserSource(RB.Source):
     search_text = ''
     
     custom_statusbar_enabled = GObject.property(type=bool, default=False)
+    display_tracks_enabled = GObject.property(type=bool, default=False)
  
     def __init__( self ):
         self.hasActivated = False
@@ -76,6 +77,10 @@ class CoverArtBrowserSource(RB.Source):
         # connect properties signals
         self.connect( 'notify::custom-statusbar-enabled', 
             self.on_notify_custom_statusbar_enabled )
+
+        self.connect( 'notify::display-tracks-enabled', 
+            self.on_notify_display_tracks_enabled )
+
 
         # setup translation support
         locale.setlocale(locale.LC_ALL, '')
@@ -178,6 +183,9 @@ class CoverArtBrowserSource(RB.Source):
             self.status_label.hide()
             self.status_separator.hide()
         
+        self.selectionchanged_callback( self.covers_view )
+
+    def on_notify_display_tracks_enabled( self, *args ):
         self.selectionchanged_callback( self.covers_view )
         
     def album_modified_callback( self, _, modified_album ):
@@ -404,7 +412,11 @@ class CoverArtBrowserSource(RB.Source):
         qm = RB.RhythmDBQueryModel()
         album.get_entries(qm)
         self.entry_view.set_model(qm)
-        self.entry_view_expander.show_all()
+
+        if self.display_tracks_enabled:
+            self.entry_view_expander.show_all()
+        else:
+            self.entry_view_expander.hide()
             
     def filter_menu_callback( self, radiomenu ):
         # radiomenu is of type GtkRadioMenuItem
@@ -423,10 +435,6 @@ class CoverArtBrowserSource(RB.Source):
             assert "unknown radiomenu"
             
         self.searchchanged_callback( _, self.search_text )
-
-    def entry_view_expander_callback( self, action ):
-        print action
-
 
     def entry_view_expander_expanded_callback( self, action, param):
         expand = action.get_expanded()

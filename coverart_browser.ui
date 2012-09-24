@@ -57,11 +57,8 @@
     </child>
     <child>
         <object class="GtkExpander" id="entryviewexpander">
-            <signal name="activate" handler="entry_view_expander_callback" swapped="no"/>
+            <property name="label" translatable="yes">Display Tracks</property>
             <signal name="notify::expanded" handler="entry_view_expander_expanded_callback" swapped="no"/>
-            <child type="label">
-                <object class="GtkLabel" id="expander-label"/>
-            </child>
             <child>
                 <object class="RBEntryView" id="entryview">
                     <property name="visible">True</property>
