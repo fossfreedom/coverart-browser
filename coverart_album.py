@@ -39,6 +39,9 @@ class AlbumLoader(GObject.Object):
         'album-modified': (GObject.SIGNAL_RUN_LAST, object, (object,))
         }
 
+    # properties
+    progress = GObject.property(type=float, default=0)
+
     # default chunk of albums to load at a time while filling the model
     DEFAULT_LOAD_CHUNK = 10
 
@@ -53,7 +56,6 @@ class AlbumLoader(GObject.Object):
         self.db = plugin.shell.props.db
         self.cover_model = cover_model
         self.cover_db = RB.ExtDB(name='album-art')
-        self.progress = 0
 
         # connect the signal to update cover arts when added
         self.req_id = self.cover_db.connect('added',
