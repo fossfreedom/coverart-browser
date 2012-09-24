@@ -18,7 +18,7 @@ msgstr ""
 
 #: coverart_album.py:473
 msgid "Various Artists"
-msgstr ""
+msgstr "Artistes variés"
 
 #: coverart_browser.py:69
 msgid "CoverArt"
@@ -54,71 +54,63 @@ msgstr "Rechercher les pochettes"
 
 #: coverart_browser.ui.h:8
 msgid "Search for covers where an album does not currently have one"
-msgstr ""
+msgstr "Rechercher les pochettes des albums qui n'en ont pas"
 
 #: coverart_browser.ui.h:9
 msgid "Download all the covers"
-msgstr ""
+msgstr "Télécharger toutes les pochettes"
 
 #: coverart_browser.ui.h:10
-#, fuzzy
 msgid "Search using all fields"
-msgstr "Rechercher"
+msgstr "Rechercher en utilisant tous les champs"
 
 #: coverart_browser.ui.h:11
-#, fuzzy
 msgid "Search all fields"
-msgstr "Rechercher"
+msgstr "Rechercher tous les champs"
 
 #: coverart_browser.ui.h:12
-#, fuzzy
 msgid "Search using album artist names"
-msgstr "Rechercher"
+msgstr "Rechercher en utilisant les noms d'artiste d'album"
 
 #: coverart_browser.ui.h:13
-#, fuzzy
 msgid "Search album artists"
-msgstr "Rechercher"
+msgstr "Rechercher les artistes d'album"
 
 #: coverart_browser.ui.h:14
-#, fuzzy
 msgid "Search using track artist names"
-msgstr "Rechercher"
+msgstr "Rechercher en utilisant les noms d'artiste de piste"
 
 #: coverart_browser.ui.h:15
-#, fuzzy
 msgid "Search track artists"
-msgstr "Rechercher"
+msgstr "Rechercher les artistes de piste"
 
 #: coverart_browser.ui.h:16
-#, fuzzy
 msgid "Search using album titles"
-msgstr "Rechercher"
+msgstr "Rechercher en utilisant les titres d'album"
 
 #: coverart_browser.ui.h:17
-#, fuzzy
 msgid "Search albums"
-msgstr "Rechercher"
+msgstr "Rechercher les albums"
 
 #: coverart_browser.ui.h:18
-#, fuzzy
 msgid "Search using track titles"
-msgstr "Rechercher"
+msgstr "Rechercher en utilisant les titres de pistes"
 
 #: coverart_browser.ui.h:19
-#, fuzzy
 msgid "Search tracks"
-msgstr "Rechercher"
+msgstr "Rechercher les pistes"
 
 #: coverart_browser_prefs.ui.h:1
 msgid "Use source's custom statusbar."
-msgstr ""
+msgstr "Utiliser la barre d'état custom de ce code"
 
 #: coverart_browser_prefs.ui.h:2
 msgid ""
 "Use the source's custom statusbar to show the current selected album's "
 "related information instead of the global Rhythmbox's statusbar."
 msgstr ""
+"Utiliser la barre d'état custom pour montrer l'information reliée à "
+"l'album sélectionné au lieu de la barre d'état globale de Rhythmbox."
 
 #: coverart_browser_source.py:116
 msgid "Search album"
@@ -126,15 +118,15 @@ msgstr "Rechercher"
 
 #: coverart_browser_source.py:274
 msgid "Cover found!"
-msgstr ""
+msgstr "Pochette trouvée"
 
 #: coverart_browser_source.py:276
 msgid "No cover found."
-msgstr ""
+msgstr "Pochette non trouvée"
 
 #: coverart_browser_source.py:296 coverart_browser_source.py:328
 msgid "Requesting cover for %s - %s..."
-msgstr ""
+msgstr "Demande de la pochette pour %s - %s..."
 
 #: coverart_browser_source.py:368
 msgid " has 1 track"
