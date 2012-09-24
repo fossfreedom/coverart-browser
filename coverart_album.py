@@ -587,6 +587,12 @@ class Album(object):
             self.cover.pixbuf,
             self))
 
+    def get_entries( self, model ):
+        ''' adds all entries to the model'''
+
+        for e in self.entries:
+            model.add_entry(e, -1)
+
     def remove_from_model(self):
         ''' Removes this album from it's model. '''
         self.model.remove(self.tree_iter)

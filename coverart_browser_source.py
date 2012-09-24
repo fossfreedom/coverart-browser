@@ -116,6 +116,18 @@ class CoverArtBrowserSource(RB.Source):
         search_entry.set_placeholder(_('Search album'))
         search_entry.show_all()
 
+        # setup entry-view
+        self.entry_view = ui.get_object( 'entryview' )
+        self.entry_view.append_column(RB.EntryViewColumn.TRACK_NUMBER, True)
+        self.entry_view.append_column(RB.EntryViewColumn.GENRE, True)
+        self.entry_view.append_column(RB.EntryViewColumn.TITLE, True)
+        self.entry_view.append_column(RB.EntryViewColumn.ARTIST, True)
+        self.entry_view.append_column(RB.EntryViewColumn.ALBUM, True)
+        self.entry_view.append_column(RB.EntryViewColumn.DURATION, True)
+
+        self.entry_view_expander = ui.get_object( 'entryviewexpander' )
+        self.entry_view.show_all()
+
         # get widgets for source popup
         self.source_menu = ui.get_object( 'source_menu' )
         self.source_menu_search_all_item = ui.get_object( 'source_search_menu_item' )
@@ -388,6 +400,11 @@ class CoverArtBrowserSource(RB.Source):
             self.status = status
         
             self.notify_status_changed()
+
+        qm = RB.RhythmDBQueryModel()
+        album.get_entries(qm)
+        self.entry_view.set_model(qm)
+        self.entry_view_expander.show_all()
             
     def filter_menu_callback( self, radiomenu ):
         # radiomenu is of type GtkRadioMenuItem
@@ -406,6 +423,16 @@ class CoverArtBrowserSource(RB.Source):
             assert "unknown radiomenu"
             
         self.searchchanged_callback( _, self.search_text )
+
+    def entry_view_expander_callback( self, action ):
+        print action
+
+
+    def entry_view_expander_expanded_callback( self, action, param):
+        expand = action.get_expanded()
+            
+        self.entry_view_expander.set_property("expand", expand)
+        self.entry_view.set_property("vexpand", expand)
         
 GObject.type_register(CoverArtBrowserSource)
 
