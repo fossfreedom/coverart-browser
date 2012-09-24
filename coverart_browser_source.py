@@ -298,7 +298,7 @@ class CoverArtBrowserSource(RB.Source):
         # show the status bar indicating we're fetching the cover
         self.request_statusbar.set_text( 
             (_('Requesting cover for %s - %s...') %
-            (self.selected_album.name, self.selected_album.artist)).decode('UTF-8') )
+            (self.selected_album.name, self.selected_album.album_artist)).decode('UTF-8') )
         self.request_status_box.show_all()
         self.request_cancel_button.hide()
         
