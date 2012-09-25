@@ -68,6 +68,16 @@ class CoverArtBrowserSource(RB.Source):
 
         return (self.status, progress_text, progress)
 
+    def do_show_popup(self):
+        '''
+        Method called by Rhythmbox when an action on our source prompts it
+        to show a popup.
+        '''
+        self.source_menu.popup(None, None, None, None, 0,
+            Gtk.get_current_event_time())
+
+        return True
+
     def do_selected(self):
         '''
         Called by Rhythmbox when the source is selected. It makes sure to
@@ -163,11 +173,11 @@ class CoverArtBrowserSource(RB.Source):
             self.update_iconview_callback)
 
         # load the albums
-        self.loader = AlbumLoader( self.plugin, self.covers_model_store )
-        self.loader.connect( 'load-finished', self.load_finished_callback )
-        self.loader.connect( 'album-modified', self.album_modified_callback )
-        self.loader.connect( 'notify::progress', lambda *args: 
-            self.notify_status_changed() )
+        self.loader = AlbumLoader(self.plugin, self.covers_model_store)
+        self.loader.connect('load-finished', self.load_finished_callback)
+        self.loader.connect('album-modified', self.album_modified_callback)
+        self.loader.connect('notify::progress', lambda *args:
+            self.notify_status_changed())
 
         self.loader.load_albums(
             self.shell.props.library_source.props.base_query_model)
@@ -175,12 +185,20 @@ class CoverArtBrowserSource(RB.Source):
         print "CoverArtBrowser DEBUG - end show_browser_dialog"
 
     def load_finished_callback(self, _):
+        '''
+        Callback called when the loader finishes loading albums into the
+        covers view model.
+        '''
         print 'CoverArt Load Finished'
         if not self.request_status_box.get_visible():
             # it should only be enabled if no cover request is going on
             self.source_menu_search_all_item.set_sensitive(True)
 
     def on_notify_custom_statusbar_enabled(self, *args):
+        '''
+        Callback for when the option to show the custom statusbar is enabled
+        or disabled from the plugin's preferences dialog.
+        '''
         if self.custom_statusbar_enabled:
             self.status = ''
             self.notify_status_changed()
@@ -191,6 +209,10 @@ class CoverArtBrowserSource(RB.Source):
         self.selectionchanged_callback(self.covers_view)
 
     def album_modified_callback(self, _, modified_album):
+        '''
+        Callback called by the album loader when one of the albums managed
+        by him gets modified in some way.
+        '''
         print "CoverArtBrowser DEBUG - album_modified_callback"
         try:
             album = \
@@ -204,16 +226,28 @@ class CoverArtBrowserSource(RB.Source):
         print "CoverArtBrowser DEBUG - end album_modified_callback"
 
     def visible_covers_callback(self, model, iter, data):
+        '''
+        Callback called by the model filter to decide wheter to filter or not
+        an album.
+        '''
         if self.search_text == "":
             return True
 
         return model[iter][2].contains(self.search_text, self.filter_type)
 
     def search_show_popup_callback(self, entry):
+        '''
+        Callback called by the search entry when the magnifier is clicked.
+        It prompts the user through a popup to select a filter type.
+        '''
         self.filter_menu.popup(None, None, None, None, 0,
             Gtk.get_current_event_time())
 
     def searchchanged_callback(self, entry, text):
+        '''
+        Callback called by the search entry when a new search must
+        be performed.
+        '''
         print "CoverArtBrowser DEBUG - searchchanged_callback"
 
         self.search_text = text
@@ -222,10 +256,20 @@ class CoverArtBrowserSource(RB.Source):
         print "CoverArtBrowser DEBUG - end searchchanged_callback"
 
     def update_iconview_callback(self, *args):
+        '''
+        Callback called by the cover view when its view port gets resized.
+        It forces the cover_view to redraw it's contents to fill the available
+        space.
+        '''
         self.covers_view.set_columns(0)
         self.covers_view.set_columns(-1)
 
     def mouseclick_callback(self, iconview, event):
+        '''
+        Callback called when the user clicks somewhere on the cover_view.
+        If it's a right click, it shows a popup showing different actions to
+        perform with the selected album.
+        '''
         print "CoverArtBrowser DEBUG - mouseclick_callback()"
         if event.button == 3:
             x = int(event.x)
@@ -248,6 +292,10 @@ class CoverArtBrowserSource(RB.Source):
         return
 
     def play_album_menu_item_callback(self, _):
+        '''
+        Callback called when the play album item from the cover view popup is
+        selected. It cleans the play queue and queues the selected album.
+        '''
         # callback when play an album
         print "CoverArtBrowser DEBUG - play_menu_callback"
 
@@ -266,6 +314,10 @@ class CoverArtBrowserSource(RB.Source):
         print "CoverArtBrowser DEBUG - end play_menu_callback"
 
     def queue_album_menu_item_callback(self, _):
+        '''
+        Callback called when the queue album item from the cover view popup is
+        selected. It queues the selected album at the end of the play queue.
+        '''
         print "CoverArtBrowser DEBUG - queue_menu_callback()"
 
         self.queue_selected_album()
@@ -273,6 +325,10 @@ class CoverArtBrowserSource(RB.Source):
         print "CoverArtBrowser DEBUG - queue_menu_callback()"
 
     def queue_selected_album(self):
+        '''
+        Utilitary method that queues all entries from an album into the play
+        queue.
+        '''
         # Retrieve and sort the entries of the album
         songs = sorted(self.selected_album.entries,
             key=lambda song: song.get_ulong(RB.RhythmDBPropType.TRACK_NUMBER))
@@ -282,6 +338,11 @@ class CoverArtBrowserSource(RB.Source):
             self.shell.props.queue_source.add_entry(song, -1)
 
     def cover_search_menu_item_callback(self, menu_item):
+        '''
+        Callback called when the search cover option is selected from the
+        cover view popup. It promps the album loader to retrieve the selected
+        album cover
+        '''
         print "CoverArtBrowser DEBUG - cover_search_menu_item_callback()"
         # don't start another fetch if we are in middle of one right now
         if self.request_status_box.get_visible():
@@ -301,7 +362,7 @@ class CoverArtBrowserSource(RB.Source):
                 self.request_status_box.hide()
                 self.cover_search_menu_item.set_sensitive(True)
                 self.source_menu_search_all_item.set_sensitive(
-                    self.loader.progress == 1 )
+                    self.loader.progress == 1)
 
                 # hide separator just in case
                 self.status_separator.hide()
@@ -330,13 +391,12 @@ class CoverArtBrowserSource(RB.Source):
 
         print "CoverArtBrowser DEBUG - end cover_search_menu_item_callback()"
 
-    def do_show_popup( self ):
-        self.source_menu.popup(None, None, None, None, 0,
-            Gtk.get_current_event_time())
-
-        return True
-
     def search_all_covers_callback(self, _):
+        '''
+        Callback called when the search all covers option is selected from the
+        source's popup. It prompts the album loader to request ALL album's
+        covers
+        '''
         print "CoverArtBrowser DEBUG - search_all_covers_callback()"
         self.request_status_box.show_all()
         self.source_menu_search_all_item.set_sensitive(False)
@@ -346,6 +406,11 @@ class CoverArtBrowserSource(RB.Source):
         print "CoverArtBrowser DEBUG - end search_all_covers_callback()"
 
     def update_request_status_bar(self, album):
+        '''
+        Callback called by the album loader starts performing a new cover
+        request. It prompts the source to change the content of the request
+        statusbar.
+        '''
         if album:
             self.request_statusbar.set_text(
                 (_('Requesting cover for %s - %s...') % (album.name,
@@ -357,10 +422,21 @@ class CoverArtBrowserSource(RB.Source):
             self.request_cancel_button.set_sensitive(True)
 
     def cancel_request_callback(self, _):
+        '''
+        Callback connected to the cancel button on the request statusbar.
+        When called, it prompts the album loader to cancel the full cover
+        search after the current cover.
+        '''
         self.request_cancel_button.set_sensitive(False)
         self.loader.cancel_cover_request()
 
     def selectionchanged_callback(self, widget):
+        '''
+        Callback called when an item from the cover view gets selected.
+        It changes the content of the statusbar (which statusbar is dependant
+        on the custom_statusbar_enabled property) to show info about the
+        current selected album.
+        '''
         print "CoverArtBrowser DEBUG - selectionchanged_callback"
         # callback when focus had changed on an album
         model = widget.get_model()
@@ -413,6 +489,11 @@ class CoverArtBrowserSource(RB.Source):
             self.notify_status_changed()
 
     def filter_menu_callback(self, radiomenu):
+        '''
+        Callback called when an item from the filters popup menu is clicked.
+        It changes the current filter type for the search to the one selected
+        on the popup.
+        '''
         # radiomenu is of type GtkRadioMenuItem
 
         if radiomenu == self.filter_menu_all_item:
