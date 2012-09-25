@@ -148,7 +148,7 @@ class CoverArtBrowserSource(RB.Source):
         self.loader.connect( 'load-finished', self.load_finished_callback )
         self.loader.connect( 'album-modified', self.album_modified_callback )
         self.loader.connect( 'notify::progress', lambda *args: 
-            self.notify_status_changed )
+            self.notify_status_changed() )
         
         self.loader.load_albums(
             self.shell.props.library_source.props.base_query_model)   
