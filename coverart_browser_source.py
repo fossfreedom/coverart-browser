@@ -164,8 +164,8 @@ class CoverArtBrowserSource(RB.Source):
         self.loader = AlbumLoader( self.plugin, self.covers_model_store )
         self.loader.connect( 'load-finished', self.load_finished_callback )
         self.loader.connect( 'album-modified', self.album_modified_callback )
-        self.loader.connect( 'notify::progress', lambda args*: 
-            self.notify_status_changed )
+        self.loader.connect( 'notify::progress', lambda *args: 
+            self.notify_status_changed() )
         
         self.loader.load_albums(
             self.shell.props.library_source.props.base_query_model)   
@@ -318,7 +318,7 @@ class CoverArtBrowserSource(RB.Source):
         # show the status bar indicating we're fetching the cover
         self.request_statusbar.set_text( 
             (_('Requesting cover for %s - %s...') %
-            (self.selected_album.name, self.selected_album.artist)).decode('UTF-8') )
+            (self.selected_album.name, self.selected_album.album_artist)).decode('UTF-8') )
         self.request_status_box.show_all()
         self.request_cancel_button.hide()
         
