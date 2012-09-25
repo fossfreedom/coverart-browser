@@ -18,5 +18,6 @@ install:
 	install -m 644 *.svg $(DESTDIR)$(DATADIR)
 	install -m 644 *.ui $(DESTDIR)$(DATADIR)
 	install -m 644 coverart_browser.plugin $(DESTDIR)$(SUBDIR)
-	install -m 644 $(GLIB_SCHEME) $(GLIB_DIR) 
+	install -d $(DESTDIR)$(GLIB_DIR)
+	install -m 644 $(GLIB_SCHEME) $(DESTDIR)$(GLIB_DIR) 
 	cd po;./lang.sh $(DESTDIR)$(LOCALEDIR)
