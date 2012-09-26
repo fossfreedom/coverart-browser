@@ -159,6 +159,9 @@ class CoverArtBrowserSource(RB.Source):
         self.entry_view = CoverArtEntryView(self.shell)
         self.entry_view_expander.add(self.entry_view)
 
+        if self.display_tracks_enabled:
+            self.show_entry_view()
+
         # get widgets for source popup
         self.source_menu = ui.get_object('source_menu')
         self.source_menu_search_all_item = ui.get_object(
@@ -209,6 +212,11 @@ class CoverArtBrowserSource(RB.Source):
             # it should only be enabled if no cover request is going on
             self.source_menu_search_all_item.set_sensitive(True)
 
+    def show_entry_view(self):
+        self.entry_view_expander.show_all()
+        (x, y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
+        self.paned.set_position(y - 10)
+
     def on_notify_custom_statusbar_enabled(self, *args):
         '''
         Callback for when the option to show the custom statusbar is enabled
@@ -224,7 +232,20 @@ class CoverArtBrowserSource(RB.Source):
         self.selectionchanged_callback(self.covers_view)
 
     def on_notify_display_tracks_enabled(self, *args):
-        self.selectionchanged_callback(self.covers_view)
+        if self.display_tracks_enabled:
+            # make the entry view visible
+            self.show_entry_view()
+
+            # update it with the current selected album
+            self.selectionchanged_callback(self.covers_view)
+
+        else:
+            # clear and hide the entry view
+            self.entry_view_expander.hide()
+            self.entry_view.clear()
+
+            (x, y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
+            self.paned.set_position(y)
 
     def album_modified_callback(self, _, modified_album):
         '''
@@ -471,6 +492,10 @@ class CoverArtBrowserSource(RB.Source):
                 # set the status to an empty string and notify the change
                 self.status = ''
                 self.notify_status_changed()
+
+            # clear the entry view
+            if self.display_tracks_enabled:
+                self.entry_view.clear()
             return
 
         # now lets build up a status label containing some 'interesting stuff'
@@ -506,15 +531,9 @@ class CoverArtBrowserSource(RB.Source):
 
             self.notify_status_changed()
 
+        # if the display tracks option is enabled, add the album to the entry
         if self.display_tracks_enabled:
             self.entry_view.add_album(album)
-
-            (x, y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
-
-            self.paned.set_position(y - 10)
-            self.entry_view_expander.show_all()
-        else:
-            self.entry_view_expander.hide()
 
     def filter_menu_callback(self, radiomenu):
         '''
