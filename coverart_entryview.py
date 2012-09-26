@@ -74,6 +74,9 @@ class CoverArtEntryView(RB.EntryView):
         self.popup_menu = uim.get_widget( "/EntryViewPopup" )
         uim.ensure_update()
 
+        self.shell.props.shell_player.connect('playing-song-changed', self.playing_song_changed)
+        self.shell.props.shell_player.connect('playing-changed', self.playing_changed)
+        
     def __del__(self):
         uim = self.shell.props.ui_manager
 
@@ -89,6 +92,10 @@ class CoverArtEntryView(RB.EntryView):
         qm = RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
         album.get_entries(qm)
         self.set_model(qm)
+
+        (_, playing) = self.shell.props.shell_player.get_playing()
+        self.playing_changed(   self.shell.props.shell_player,
+                                playing )
 
     def clear(self):
         self.set_model(RB.RhythmDBQueryModel.new_empty(self.shell.props.db))
@@ -114,4 +121,29 @@ class CoverArtEntryView(RB.EntryView):
         for entry in selected:
             self.shell.props.queue_source.add_entry( entry, 0 )
 
+    def playing_song_changed(self, shell_player, entry):
+        print "playing_song_changed"
+        print shell_player
+        print entry
+        
+        if entry != None and self.get_entry_contained(entry):
+            self.set_state(RB.EntryViewState.PLAYING)
+        else:
+            self.set_state(RB.EntryViewState.NOT_PLAYING)
+
+    def playing_changed(self, shell_player, playing):
+        print "playing_changed"
+        print shell_player
+        print playing
+        entry = shell_player.get_playing_entry()
+
+        if entry != None and self.get_entry_contained(entry):
+            if playing:
+                self.set_state(RB.EntryViewState.PLAYING)
+            else:
+                self.set_state(RB.EntryViewState.PAUSED)
+        else:
+            self.set_state(RB.EntryViewState.NOT_PLAYING)
+
+    
 GObject.type_register(CoverArtEntryView)
