@@ -77,15 +77,7 @@
                         <object class="GtkExpander" id="entryviewexpander">
                             <property name="label" translatable="yes">Display Tracks</property>
                             <signal name="notify::expanded" handler="entry_view_expander_expanded_callback" swapped="no"/>
-                            <child>
-                                <object class="RBEntryView" id="entryview">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="hexpand">True</property>
-                                    <property name="vexpand">False</property>
-                                    <property name="shadow_type">in</property>
-                                </object>
-                            </child>
+                            
                         </object>
                     </child>
                 </object>

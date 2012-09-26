@@ -120,18 +120,22 @@ class CoverArtBrowserSource(RB.Source):
         search_entry = ui.get_object( 'search_entry' )
         search_entry.set_placeholder(_('Search album'))
         search_entry.show_all()
+        
+        self.paned = ui.get_object( 'paned')
 
         # setup entry-view
-        self.entry_view = ui.get_object( 'entryview' )
+        self.entry_view_expander = ui.get_object( 'entryviewexpander' )
+        self.entry_view = RB.EntryView.new(self.shell.props.db, self.shell.props.shell_player, True,False)
         self.entry_view.append_column(RB.EntryViewColumn.TRACK_NUMBER, True)
         self.entry_view.append_column(RB.EntryViewColumn.GENRE, True)
         self.entry_view.append_column(RB.EntryViewColumn.TITLE, True)
         self.entry_view.append_column(RB.EntryViewColumn.ARTIST, True)
         self.entry_view.append_column(RB.EntryViewColumn.ALBUM, True)
         self.entry_view.append_column(RB.EntryViewColumn.DURATION, True)
-
-        self.entry_view_expander = ui.get_object( 'entryviewexpander' )
+        self.entry_view.set_columns_clickable(False)
         self.entry_view.show_all()
+        self.entry_view_expander.add(self.entry_view)
+        
 
         # get widgets for source popup
         self.source_menu = ui.get_object( 'source_menu' )
@@ -164,8 +168,8 @@ class CoverArtBrowserSource(RB.Source):
         self.loader = AlbumLoader( self.plugin, self.covers_model_store )
         self.loader.connect( 'load-finished', self.load_finished_callback )
         self.loader.connect( 'album-modified', self.album_modified_callback )
-        self.loader.connect( 'notify::progress', lambda args*: 
-            self.notify_status_changed )
+        self.loader.connect( 'notify::progress', lambda *args: 
+            self.notify_status_changed() )
         
         self.loader.load_albums(
             self.shell.props.library_source.props.base_query_model)   
@@ -412,15 +416,16 @@ class CoverArtBrowserSource(RB.Source):
         
             self.notify_status_changed()
 
-        qm = RB.RhythmDBQueryModel()
+        qm = RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
         album.get_entries(qm)
         self.entry_view.set_model(qm)
 
         if self.display_tracks_enabled:
+        #    self.paned.set_position( self.status_label.get_position() - 10)
             self.entry_view_expander.show_all()
         else:
             self.entry_view_expander.hide()
-            
+        
     def filter_menu_callback( self, radiomenu ):
         # radiomenu is of type GtkRadioMenuItem
 
@@ -443,7 +448,7 @@ class CoverArtBrowserSource(RB.Source):
         expand = action.get_expanded()
             
         self.entry_view_expander.set_property("expand", expand)
-        self.entry_view.set_property("vexpand", expand)
+        #self.entry_view.set_property("vexpand", expand)
         
 GObject.type_register(CoverArtBrowserSource)
 
