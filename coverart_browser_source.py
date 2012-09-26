@@ -154,7 +154,8 @@ class CoverArtBrowserSource(RB.Source):
         search_entry.show_all()
 
         # setup entry-view
-        self.entry_view_expander = ui.get_object( 'entryviewexpander' )
+        self.paned = ui.get_object('paned')
+        self.entry_view_expander = ui.get_object('entryviewexpander')
         self.entry_view = CoverArtEntryView(self.shell)
         self.entry_view_expander.add(self.entry_view)
         
@@ -513,7 +514,9 @@ class CoverArtBrowserSource(RB.Source):
         self.entry_view.add_album(album)
 
         if self.display_tracks_enabled:
-        #    self.paned.set_position( self.status_label.get_position() - 10)
+            (x,y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
+            
+            self.paned.set_position( y - 10)
             self.entry_view_expander.show_all()
         else:
             self.entry_view_expander.hide()
@@ -546,6 +549,9 @@ class CoverArtBrowserSource(RB.Source):
 
         self.entry_view_expander.set_property("expand", expand)
         #self.entry_view.set_property("vexpand", expand)
+        if not expand:
+            (x,y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
+            self.paned.set_position( y - 10)
         
 GObject.type_register(CoverArtBrowserSource)
 
