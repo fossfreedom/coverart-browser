@@ -158,6 +158,7 @@ class CoverArtBrowserSource(RB.Source):
         self.entry_view_expander = ui.get_object('entryviewexpander')
         self.entry_view = CoverArtEntryView(self.shell)
         self.entry_view_expander.add(self.entry_view)
+        self.paned_position=0
 
         if self.display_tracks_enabled:
             self.show_entry_view()
@@ -565,7 +566,14 @@ class CoverArtBrowserSource(RB.Source):
         #self.entry_view.set_property("vexpand", expand)
         if not expand:
             (x,y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
+            self.paned_position=self.paned.get_position()
             self.paned.set_position( y - 10)
+        else:
+            (x, y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
+            if self.paned_position == 0:
+                self.paned_position = (y/2)
+                
+            self.paned.set_position(self.paned_position)
 
 GObject.type_register(CoverArtBrowserSource)
 
