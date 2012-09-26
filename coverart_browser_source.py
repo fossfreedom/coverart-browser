@@ -31,6 +31,7 @@ from gi.repository import GdkPixbuf
 
 from coverart_album import AlbumLoader
 from coverart_album import Album
+from coverart_entryview import CoverArtEntryView
 
 
 class CoverArtBrowserSource(RB.Source):
@@ -154,15 +155,7 @@ class CoverArtBrowserSource(RB.Source):
 
         # setup entry-view
         self.entry_view_expander = ui.get_object( 'entryviewexpander' )
-        self.entry_view = RB.EntryView.new(self.shell.props.db, self.shell.props.shell_player, True,False)
-        self.entry_view.append_column(RB.EntryViewColumn.TRACK_NUMBER, True)
-        self.entry_view.append_column(RB.EntryViewColumn.GENRE, True)
-        self.entry_view.append_column(RB.EntryViewColumn.TITLE, True)
-        self.entry_view.append_column(RB.EntryViewColumn.ARTIST, True)
-        self.entry_view.append_column(RB.EntryViewColumn.ALBUM, True)
-        self.entry_view.append_column(RB.EntryViewColumn.DURATION, True)
-        self.entry_view.set_columns_clickable(False)
-        self.entry_view.show_all()
+        self.entry_view = CoverArtEntryView(self.shell)
         self.entry_view_expander.add(self.entry_view)
         
 
@@ -517,9 +510,7 @@ class CoverArtBrowserSource(RB.Source):
 
             self.notify_status_changed()
 
-        qm = RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
-        album.get_entries(qm)
-        self.entry_view.set_model(qm)
+        self.entry_view.add_album(album)
 
         if self.display_tracks_enabled:
         #    self.paned.set_position( self.status_label.get_position() - 10)
