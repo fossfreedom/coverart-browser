@@ -153,16 +153,18 @@ class CoverArtBrowserSource(RB.Source):
         search_entry.set_placeholder(_('Search album'))
         search_entry.show_all()
 
-        # setup entry-view
+        # setup entry-view objects and widgets
         self.paned = ui.get_object('paned')
         self.entry_view_expander = ui.get_object('entryviewexpander')
         self.entry_view = CoverArtEntryView(self.shell)
         self.entry_view_expander.add(self.entry_view)
         self.paned_position=0
+        self.entry_view_box = ui.get_object('entryview_box')
 
-        if self.display_tracks_enabled:
-            self.show_entry_view()
-
+        #if self.display_tracks_enabled:
+        #    self.show_entry_view()
+        self.on_notify_display_tracks_enabled(_)
+        
         # get widgets for source popup
         self.source_menu = ui.get_object('source_menu')
         self.source_menu_search_all_item = ui.get_object(
@@ -214,6 +216,7 @@ class CoverArtBrowserSource(RB.Source):
             self.source_menu_search_all_item.set_sensitive(True)
 
     def show_entry_view(self):
+        self.entry_view_box.set_visible(True)
         self.entry_view_expander.show_all()
         (x, y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
         self.paned.set_position(y - 10)
@@ -242,11 +245,12 @@ class CoverArtBrowserSource(RB.Source):
 
         else:
             # clear and hide the entry view
-            self.entry_view_expander.hide()
-            self.entry_view.clear()
+            #self.entry_view_expander.hide()
+            #self.entry_view.clear()
 
-            (x, y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
-            self.paned.set_position(y)
+            #(x, y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
+            #self.paned.set_position(y)
+            self.entry_view_box.set_visible(False)
 
     def album_modified_callback(self, _, modified_album):
         '''
