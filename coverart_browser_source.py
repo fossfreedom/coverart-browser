@@ -123,7 +123,7 @@ class CoverArtBrowserSource(RB.Source):
 
         #indicate that the source was activated before
         self.hasActivated = True
-           
+
         # dialog has not been created so lets do so.
         ui = Gtk.Builder()
         ui.set_translation_domain(self.LOCALE_DOMAIN)
@@ -158,7 +158,6 @@ class CoverArtBrowserSource(RB.Source):
         self.entry_view_expander = ui.get_object('entryviewexpander')
         self.entry_view = CoverArtEntryView(self.shell)
         self.entry_view_expander.add(self.entry_view)
-        
 
         # get widgets for source popup
         self.source_menu = ui.get_object('source_menu')
@@ -221,7 +220,7 @@ class CoverArtBrowserSource(RB.Source):
         else:
             self.status_label.hide()
             self.status_separator.hide()
-        
+
         self.selectionchanged_callback( self.covers_view )
 
         self.selectionchanged_callback(self.covers_view)
@@ -253,7 +252,7 @@ class CoverArtBrowserSource(RB.Source):
         '''
         if self.search_text == "":
             return True
-            
+
         return model[iter][2].contains( self.search_text, self.filter_type )
 
         return model[iter][2].contains(self.search_text, self.filter_type)
@@ -511,12 +510,12 @@ class CoverArtBrowserSource(RB.Source):
 
             self.notify_status_changed()
 
-        self.entry_view.add_album(album)
-
         if self.display_tracks_enabled:
-            (x,y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
-            
-            self.paned.set_position( y - 10)
+            self.entry_view.add_album(album)
+
+            (x, y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
+
+            self.paned.set_position(y - 10)
             self.entry_view_expander.show_all()
         else:
             self.entry_view_expander.hide()
@@ -552,6 +551,6 @@ class CoverArtBrowserSource(RB.Source):
         if not expand:
             (x,y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
             self.paned.set_position( y - 10)
-        
+
 GObject.type_register(CoverArtBrowserSource)
 
