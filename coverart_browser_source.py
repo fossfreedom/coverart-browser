@@ -221,8 +221,6 @@ class CoverArtBrowserSource(RB.Source):
             self.status_label.hide()
             self.status_separator.hide()
 
-        self.selectionchanged_callback( self.covers_view )
-
         self.selectionchanged_callback(self.covers_view)
 
     def on_notify_display_tracks_enabled(self, *args):
@@ -252,8 +250,6 @@ class CoverArtBrowserSource(RB.Source):
         '''
         if self.search_text == "":
             return True
-
-        return model[iter][2].contains( self.search_text, self.filter_type )
 
         return model[iter][2].contains(self.search_text, self.filter_type)
 
