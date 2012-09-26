@@ -589,7 +589,7 @@ class Album(object):
             self.cover.pixbuf,
             self))
 
-    def get_entries( self, model ):
+    def get_entries(self, model):
         ''' adds all entries to the model'''
 
         for e in self.entries:
