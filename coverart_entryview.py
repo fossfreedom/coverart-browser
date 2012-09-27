@@ -48,7 +48,7 @@ class CoverArtEntryView(RB.EntryView):
         self.append_column(RB.EntryViewColumn.ARTIST, True)
         self.append_column(RB.EntryViewColumn.ALBUM, True)
         self.append_column(RB.EntryViewColumn.DURATION, True)
-        self.set_columns_clickable(False)
+        #self.set_columns_clickable(False)
 
         uim = self.shell.props.ui_manager	
         self.play_action = Gtk.Action( 'EntryViewPlay',
