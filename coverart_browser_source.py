@@ -334,6 +334,17 @@ class CoverArtBrowserSource(RB.Source):
         print "CoverArtBrowser DEBUG - end mouseclick_callback()"
         return
 
+    def item_activated_callback(self, iconview, path):
+
+        iconview.grab_focus()
+        iconview.select_path(path)
+        
+        model = iconview.get_model()
+        self.selected_album = model[path][2]
+        
+        self.play_album_menu_item_callback(_)
+        return True
+
     def play_album_menu_item_callback(self, _):
         '''
         Callback called when the play album item from the cover view popup is
