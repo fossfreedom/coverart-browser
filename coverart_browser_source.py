@@ -160,17 +160,12 @@ class CoverArtBrowserSource(RB.Source):
             'filter_track_title_menu_item')
 
         # set the model for the icon view
-        self.covers_model_store = Gtk.ListStore(GObject.TYPE_STRING,
-            GdkPixbuf.Pixbuf, object)
+        self.covers_model_store = ui.get_object('covers_model')
 
         self.covers_model = self.covers_model_store.filter_new()
         self.covers_model.set_visible_func(self.visible_covers_callback)
 
         self.covers_view.set_model(self.covers_model)
-
-        # size pixbuf updated workaround
-        self.covers_model_store.connect('row-changed',
-            self.update_iconview_callback)
 
         # load the albums
         self.loader = AlbumLoader(self.plugin, self.covers_model_store)

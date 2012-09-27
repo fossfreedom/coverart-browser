@@ -6,6 +6,17 @@
     <property name="can_focus">False</property>
     <property name="stock">gtk-cancel</property>
   </object>
+  <object class="GtkListStore" id="covers_model">
+    <columns>
+      <!-- column-name tooltip -->
+      <column type="gchararray"/>
+      <!-- column-name pixbuf -->
+      <column type="GdkPixbuf"/>
+      <!-- column-name album -->
+      <column type="PyObject"/>
+    </columns>
+    <signal name="row-changed" handler="update_iconview_callback" swapped="no"/>
+  </object>
   <object class="GtkBox" id="main_box">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
