@@ -31,6 +31,7 @@ from gi.repository import GdkPixbuf
 
 from coverart_album import AlbumLoader
 from coverart_album import Album
+from coverart_entryview import CoverArtEntryView
 
 
 class CoverArtBrowserSource(RB.Source):
@@ -42,11 +43,13 @@ class CoverArtBrowserSource(RB.Source):
     search_text = ''
 
     custom_statusbar_enabled = GObject.property(type=bool, default=False)
+    display_tracks_enabled = GObject.property(type=bool, default=False)
 
     def __init__(self):
         '''
         Initializes the source.
         '''
+
         self.hasActivated = False
         super(CoverArtBrowserSource, self).__init__(
             name="CoverArtBrowserPlugin")
@@ -107,6 +110,9 @@ class CoverArtBrowserSource(RB.Source):
         self.connect('notify::custom-statusbar-enabled',
             self.on_notify_custom_statusbar_enabled)
 
+        self.connect('notify::display-tracks-enabled',
+            self.on_notify_display_tracks_enabled)
+
         # setup translation support
         locale.setlocale(locale.LC_ALL, '')
         locale.bindtextdomain(self.LOCALE_DOMAIN, "/usr/share/locale")
@@ -114,6 +120,9 @@ class CoverArtBrowserSource(RB.Source):
         gettext.bindtextdomain(self.LOCALE_DOMAIN, "/usr/share/locale")
         gettext.textdomain(self.LOCALE_DOMAIN)
         gettext.install(self.LOCALE_DOMAIN)
+
+        #indicate that the source was activated before
+        self.hasActivated = True
 
         # dialog has not been created so lets do so.
         ui = Gtk.Builder()
@@ -144,6 +153,21 @@ class CoverArtBrowserSource(RB.Source):
         search_entry.set_placeholder(_('Search album'))
         search_entry.show_all()
 
+        # setup entry-view objects and widgets
+        # note: two GtkExpander widgets exist - one when expanded to allow
+        # the movable paned separator, the second, when non-expanded to
+        # disable the paned separator
+        self.paned = ui.get_object('paned')
+        self.entry_view_expander = ui.get_object('entryviewexpander')
+        self.entry_view_expander_hidden = ui.get_object('entryviewexpander_hidden')
+        self.entry_view = CoverArtEntryView(self.shell)
+        self.entry_view_expander.add(self.entry_view)
+        self.paned_position=0
+        self.entry_view_box = ui.get_object('entryview_box')
+        self.entry_view_box_hidden = ui.get_object('entryview_box_hidden')
+
+        self.on_notify_display_tracks_enabled(_)
+        
         # get widgets for source popup
         self.source_menu = ui.get_object('source_menu')
         self.source_menu_search_all_item = ui.get_object(
@@ -202,6 +226,30 @@ class CoverArtBrowserSource(RB.Source):
             self.status_separator.hide()
 
         self.selectionchanged_callback(self.covers_view)
+
+    def on_notify_display_tracks_enabled(self, *args):
+        if self.display_tracks_enabled:
+            # make the entry view visible
+            self.entry_view_box.set_visible(False)
+            self.entry_view_box_hidden.set_visible(True)
+            self.entry_view_expander.show_all()
+            self.entry_view_expander_hidden.show_all()
+            
+            (x, y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
+            self.paned.set_position(y - 10)
+            # update it with the current selected album
+            self.selectionchanged_callback(self.covers_view)
+
+        else:
+            # clear and hide the entry view
+            #self.entry_view_expander.hide()
+            #self.entry_view.clear()
+
+            #(x, y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
+            #self.paned.set_position(y)
+            self.entry_view_box.set_visible(False)
+            self.entry_view_box_hidden.set_visible(False)
+            
 
     def album_modified_callback(self, _, modified_album):
         '''
@@ -353,7 +401,7 @@ class CoverArtBrowserSource(RB.Source):
             else:
                 self.request_statusbar.set_text(_('No cover found.'))
 
-            def restore( _ ):
+            def restore(_):
                 self.request_status_box.hide()
                 self.cover_search_menu_item.set_sensitive(True)
                 self.source_menu_search_all_item.set_sensitive(
@@ -448,6 +496,10 @@ class CoverArtBrowserSource(RB.Source):
                 # set the status to an empty string and notify the change
                 self.status = ''
                 self.notify_status_changed()
+
+            # clear the entry view
+            if self.display_tracks_enabled:
+                self.entry_view.clear()
             return
 
         # now lets build up a status label containing some 'interesting stuff'
@@ -483,6 +535,10 @@ class CoverArtBrowserSource(RB.Source):
 
             self.notify_status_changed()
 
+        # if the display tracks option is enabled, add the album to the entry
+        if self.display_tracks_enabled:
+            self.entry_view.add_album(album)
+
     def filter_menu_callback(self, radiomenu):
         '''
         Callback called when an item from the filters popup menu is clicked.
@@ -506,5 +562,55 @@ class CoverArtBrowserSource(RB.Source):
 
         self.searchchanged_callback(_, self.search_text)
 
+    def entry_view_expander_expanded_callback( self, action, param):
+        '''
+        Callback connected to the paned GtkExpander
+        Note - two GtkExpanders exist - this callback is made when
+        in "paned" mode.
+        '''
+        expand = action.get_expanded()
+
+        self.entry_view_expander.set_property("expand", expand)
+        if not expand:
+            (x,y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
+            self.paned_position=self.paned.get_position()
+            self.paned.set_position( y - 10)
+            print y
+            self.entry_view_box_hidden.set_visible(True)
+            self.entry_view_box.set_visible(False)
+            self.entry_view_expander.set_expanded(False)
+            self.entry_view_expander_hidden.set_expanded(False)
+        else:
+            self.entry_view_box_hidden.set_visible(False)
+            self.entry_view_box.set_visible(True)
+            self.entry_view_expander.set_expanded(True)
+            self.entry_view_expander_hidden.set_expanded(True)
+            
+            (x, y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
+            if self.paned_position == 0:
+                self.paned_position = (y/2)
+
+            print y
+            self.paned.set_position(self.paned_position)
+
+    def entry_view_expander_expanded_hidden_callback( self, action, param):
+        '''
+        Callback connected to the non-paned GtkExpander
+        Note - two GtkExpanders exist - this callback is made when
+        in non expanded "non-paned" mode.
+        '''
+        expand = action.get_expanded()
+
+        if not expand:
+            self.entry_view_box_hidden.set_visible(True)
+            self.entry_view_box.set_visible(False)
+            self.entry_view_expander.set_expanded(False)
+            self.entry_view_expander_hidden.set_expanded(False)
+        else:
+            self.entry_view_box_hidden.set_visible(False)
+            self.entry_view_box.set_visible(True)
+            self.entry_view_expander.set_expanded(True)
+            self.entry_view_expander_hidden.set_expanded(True)
+                        
 GObject.type_register(CoverArtBrowserSource)
 

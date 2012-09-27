@@ -42,29 +42,85 @@
       </packing>
     </child>
     <child>
-      <object class="GtkScrolledWindow" id="scrolled_window">
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="hexpand">True</property>
-        <property name="vexpand">True</property>
-        <property name="shadow_type">in</property>
-        <signal name="size-allocate" handler="update_iconview_callback" swapped="no"/>
-        <child>
-          <object class="GtkIconView" id="covers_view">
+        <object class="GtkPaned" id="paned">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="tooltip_column">0</property>
-            <property name="pixbuf_column">1</property>
-            <signal name="button-press-event" handler="mouseclick_callback" swapped="no"/>
-            <signal name="selection-changed" handler="selectionchanged_callback" swapped="no"/>
-          </object>
-        </child>
-      </object>
-      <packing>
-        <property name="expand">True</property>
-        <property name="fill">True</property>
-        <property name="position">1</property>
-      </packing>
+            <property name="orientation">vertical</property>
+            <child>
+                <object class="GtkScrolledWindow" id="scrolled_window">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="hexpand">True</property>
+                    <property name="vexpand">True</property>
+                    <property name="shadow_type">in</property>
+                    <signal name="size-allocate" handler="update_iconview_callback" swapped="no"/>
+                    <child>
+                      <object class="GtkIconView" id="covers_view">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="tooltip_column">0</property>
+                        <property name="pixbuf_column">1</property>
+                        <signal name="button-press-event" handler="mouseclick_callback" swapped="no"/>
+                        <signal name="selection-changed" handler="selectionchanged_callback" swapped="no"/>
+                      </object>
+                    </child>
+                </object>
+                <packing>
+                   <property name="resize">True</property>
+                   <property name="shrink">True</property>
+                </packing>
+            </child>
+            <child>
+                <object class="GtkBox" id="entryview_box">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="hexpand">True</property>
+                    <property name="vexpand">True</property>
+                    <property name="orientation">vertical</property>
+                    <child>
+                        <object class="GtkExpander" id="entryviewexpander">
+                            <property name="label" translatable="yes">Display Tracks</property>
+                            <signal name="notify::expanded" handler="entry_view_expander_expanded_callback" swapped="no"/>
+                            
+                        </object>
+                    </child>
+                </object>
+                <packing>
+                    <property name="resize">False</property>
+                    <property name="shrink">False</property>
+                </packing>
+            </child>
+        </object>
+        <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">20</property>
+        </packing>
+    </child>
+    <child>
+        <object class="GtkBox" id="entryview_box_hidden">
+            <property name="visible">False</property>
+            <property name="can_focus">False</property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">False</property>
+            <property name="orientation">vertical</property>
+            <child>
+                <object class="GtkExpander" id="entryviewexpander_hidden">
+                    <property name="label" translatable="yes">Display Tracks</property>
+                    <signal name="notify::expanded" handler="entry_view_expander_expanded_hidden_callback" swapped="no"/>
+                </object>
+                <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
+                    <property name="position">1</property>
+                </packing>
+            </child>
+        </object>
+        <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">25</property>
+        </packing>
     </child>
     <child>
       <object class="GtkLabel" id="status_label">
@@ -79,7 +135,7 @@
       <packing>
         <property name="expand">False</property>
         <property name="fill">False</property>
-        <property name="position">2</property>
+        <property name="position">30</property>
       </packing>
     </child>
     <child>
@@ -89,7 +145,7 @@
       <packing>
         <property name="expand">False</property>
         <property name="fill">True</property>
-        <property name="position">3</property>
+        <property name="position">40</property>
       </packing>
     </child>
     <child>
@@ -147,7 +203,7 @@
       <packing>
         <property name="expand">False</property>
         <property name="fill">True</property>
-        <property name="position">4</property>
+        <property name="position">50</property>
       </packing>
     </child>
   </object>
