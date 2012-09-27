@@ -49,7 +49,7 @@ class CoverArtBrowserSource(RB.Source):
         '''
         Initializes the source.
         '''
-
+        self.loader = None
         self.hasActivated = False
         super(CoverArtBrowserSource, self).__init__(
             name="CoverArtBrowserPlugin")
@@ -179,23 +179,32 @@ class CoverArtBrowserSource(RB.Source):
         self.filter_menu_track_title_item = ui.get_object(
             'filter_track_title_menu_item')
 
-        # set the model for the icon view
-        self.covers_model_store = ui.get_object('covers_model')
+        if not self.loader:
+            # create the model for the icon view
+            self.covers_model_store = ui.get_object('covers_model')
 
+            # load the albums
+            self.loader = AlbumLoader(self.plugin, self.covers_model_store)
+            self.loader.load_albums(
+                self.shell.props.library_source.props.base_query_model)
+        else:
+            self.covers_model_store = self.loader.cover_model
+
+            # if the source is fully loaded, enable the full cover search item
+            self.source_menu_search_all_item.set_sensitive(
+                self.loader.progress == 1)
+
+        # connect some signals to get informed when an album is modified
+        self.loader.connect('album-modified', self.album_modified_callback)
+        self.loader.connect('load-finished', self.load_finished_callback)
+        self.loader.connect('notify::progress', lambda *args:
+            self.notify_status_changed())
+
+        # create and set the filter
         self.covers_model = self.covers_model_store.filter_new()
         self.covers_model.set_visible_func(self.visible_covers_callback)
 
         self.covers_view.set_model(self.covers_model)
-
-        # load the albums
-        self.loader = AlbumLoader(self.plugin, self.covers_model_store)
-        self.loader.connect('load-finished', self.load_finished_callback)
-        self.loader.connect('album-modified', self.album_modified_callback)
-        self.loader.connect('notify::progress', lambda *args:
-            self.notify_status_changed())
-
-        self.loader.load_albums(
-            self.shell.props.library_source.props.base_query_model)
 
         print "CoverArtBrowser DEBUG - end show_browser_dialog"
 
@@ -589,6 +598,64 @@ class CoverArtBrowserSource(RB.Source):
         the expanded state of the entry_view
         '''
         return not self.entry_view_expander.get_expanded()
+
+    def do_delete_thyself(self):
+        '''
+        Method called by Rhythmbox's when the source is deleted. It makes sure
+        to free all the source's related resources to avoid memory leaking and
+        loose signals.
+        '''
+        # delete variables that always exist
+        del self.loader
+
+        if not self.hasActivated:
+            del self.hasActivated
+
+            return
+
+        # destroy the ui
+        self.page.destroy()
+
+        # disconnect signals
+        self.covers_model_store.disconnect(self.row_ch_id)
+        self.loader.disconnect(self.load_fin_id)
+        self.loader.disconnect(self.album_mod_id)
+        self.loader.disconnect(self.notify_prog_id)
+
+        # delete references
+        del self.shell
+        del self.plugin
+        del self.loader
+        del self.covers_model_store
+        del self.covers_model
+        del self.covers_view
+        del self.filter_menu
+        del self.filter_menu_album_artist_item
+        del self.filter_menu_album_item
+        del self.filter_menu_all_item
+        del self.filter_menu_artist_item
+        del self.filter_menu_track_title_item
+        del self.filter_type
+        del self.page
+        del self.paned
+        del self.popup_menu
+        del self.request_cancel_button
+        del self.request_spinner
+        del self.request_status_box
+        del self.request_statusbar
+        del self.selected_album
+        del self.search_entry
+        del self.search_text
+        del self.source_menu
+        del self.source_menu_search_all_item
+        del self.status
+        del self.status_label
+        del self.status_separator
+        del self.row_ch_id
+        del self.load_fin_id
+        del self.album_mod_id
+        del self.notify_prog_id
+        del self.hasActivated
 
 GObject.type_register(CoverArtBrowserSource)
 
