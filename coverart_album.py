@@ -377,7 +377,7 @@ class AlbumLoader(GObject.Object):
         callback to inform the status of the process.
         The callback should accept one argument: the album which cover is
         being requested. When the argument passed is None, it means the
-        proccess has finished.
+        process has finished.
         '''
         def search_next_cover(*args):
             # unpack the data
@@ -410,6 +410,47 @@ class AlbumLoader(GObject.Object):
 
         self._cancel_cover_request = False
         search_next_cover((self.albums.values().__iter__(), callback))
+
+    def search_selected_covers(self, selected_albums, callback=lambda *_: None):
+        '''
+        Request selected albums' covers, one by one, periodically calling a
+        callback to inform the status of the process.
+        The callback should accept one argument: the album which cover is
+        being requested. When the argument passed is None, it means the
+        process has finished.
+        '''
+        def search_next_cover(*args):
+            # unpack the data
+            iterator, callback = args[-1]
+
+            # if the operation was canceled, break the recursion
+            if self._cancel_cover_request:
+                del self._cancel_cover_request
+                callback(None)
+                return
+
+            #try to obtain the next album
+            try:
+                while True:
+                    album = iterator.next()
+
+                    if album.model and not album.has_cover():
+                        break
+            except:
+                # inform we finished
+                callback(None)
+                return
+
+            # inform we are starting a new search
+            callback(album)
+
+            # request the cover for the next album
+            self.search_cover_for_album(album, search_next_cover,
+                (iterator, callback))
+
+        self._cancel_cover_request = False
+        search_next_cover((selected_albums.values().__iter__(), callback))
+
 
     def cancel_cover_request(self):
         '''
@@ -447,6 +488,13 @@ class Album(object):
         self._artist = set()
         self.entries = []
         self.cover = Album.UNKNOWN_COVER
+
+    @property
+    def album_name(self):
+        '''
+        Returns the name of the album.
+        '''
+        return self.name
 
     @property
     def artist(self):

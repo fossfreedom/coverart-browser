@@ -411,50 +411,21 @@ class CoverArtBrowserSource(RB.Source):
         if self.request_status_box.get_visible():
             return
 
-        # fetch the album and hide the status_box once finished
-        def cover_search_callback(*args):
-            self.request_spinner.hide()
+        self.request_status_box.show_all()
+        self.source_menu_search_all_item.set_sensitive(False)
+        self.cover_search_menu_item.set_sensitive(False)
 
-            # all args except for args[0] are None if no cover was found
-            if args[1]:
-                self.request_statusbar.set_text(_('Cover found!'))
-            else:
-                self.request_statusbar.set_text(_('No cover found.'))
-
-            def restore(_):
-                self.request_status_box.hide()
-                self.cover_search_menu_item.set_sensitive(True)
-                self.source_menu_search_all_item.set_sensitive(
-                    self.loader.progress == 1)
-
-                # hide separator just in case
-                self.status_separator.hide()
-
-            # set a timeout to hide the box and enable items
-            Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT, 1500, restore,
-                None)
-
+        selected_albums = {}
+        
         model = self.covers_view.get_model()
 
-        for selected in self.selected_album:
+        print "hi"
+        for selected in self.covers_view.get_selected_items():
             album=model[selected][2]
-            self.loader.search_cover_for_album(album,
-                cover_search_callback)
-
-            # show the status bar indicating we're fetching the cover
-            self.request_statusbar.set_text(
-                (_('Requesting cover for %s - %s...') %
-                (album.name,
-                 album.album_artist)).decode('UTF-8'))
-            self.request_status_box.show_all()
-            self.request_cancel_button.hide()
-
-            if self.status_label.get_visible():
-                self.status_separator.show()
-
-            # disable full cover search and cover search items
-            self.cover_search_menu_item.set_sensitive(False)
-            self.source_menu_search_all_item.set_sensitive(False)
+            print album.album_name
+            selected_albums[album.album_name] = album
+            
+        self.loader.search_selected_covers(selected_albums, self.update_request_status_bar )
 
         print "CoverArtBrowser DEBUG - end cover_search_menu_item_callback()"
 
