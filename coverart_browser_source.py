@@ -326,8 +326,9 @@ class CoverArtBrowserSource(RB.Source):
             iconview.grab_focus()
             iconview.select_path(pthinfo)
 
-            model = iconview.get_model()
-            self.selected_album = model[pthinfo][2]
+            #model = iconview.get_model()
+
+            self.selected_album = iconview.get_selected_items()#model[pthinfo][2]
 
             self.popup_menu.popup(None, None, None, None, event.button, time)
 
@@ -335,12 +336,15 @@ class CoverArtBrowserSource(RB.Source):
         return
 
     def item_activated_callback(self, iconview, path):
-
+        '''
+        Callback called when the cover view is double clicked or space-bar
+        is pressed. It plays the selected album
+        '''
         iconview.grab_focus()
         iconview.select_path(path)
         
-        model = iconview.get_model()
-        self.selected_album = model[path][2]
+        #model = iconview.get_model()
+        self.selected_album = iconview.get_selected_items()#model[path][2]
         
         self.play_album_menu_item_callback(_)
         return True
@@ -383,13 +387,16 @@ class CoverArtBrowserSource(RB.Source):
         Utilitary method that queues all entries from an album into the play
         queue.
         '''
-        # Retrieve and sort the entries of the album
-        songs = sorted(self.selected_album.entries,
-            key=lambda song: song.get_ulong(RB.RhythmDBPropType.TRACK_NUMBER))
 
-        # Add the songs to the play queue
-        for song in songs:
-            self.shell.props.queue_source.add_entry(song, -1)
+        model = self.covers_view.get_model()
+        for selected in self.selected_album:
+            # Retrieve and sort the entries of the album
+            songs = sorted(model[selected][2].entries,
+                key=lambda song: song.get_ulong(RB.RhythmDBPropType.TRACK_NUMBER))
+
+            # Add the songs to the play queue
+            for song in songs:
+                self.shell.props.queue_source.add_entry(song, -1)
 
     def cover_search_menu_item_callback(self, menu_item):
         '''
@@ -425,23 +432,27 @@ class CoverArtBrowserSource(RB.Source):
             Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT, 1500, restore,
                 None)
 
-        self.loader.search_cover_for_album(self.selected_album,
-            cover_search_callback)
+        model = self.covers_view.get_model()
 
-        # show the status bar indicating we're fetching the cover
-        self.request_statusbar.set_text(
-            (_('Requesting cover for %s - %s...') %
-            (self.selected_album.name,
-                self.selected_album.album_artist)).decode('UTF-8'))
-        self.request_status_box.show_all()
-        self.request_cancel_button.hide()
+        for selected in self.selected_album:
+            album=model[selected][2]
+            self.loader.search_cover_for_album(album,
+                cover_search_callback)
 
-        if self.status_label.get_visible():
-            self.status_separator.show()
+            # show the status bar indicating we're fetching the cover
+            self.request_statusbar.set_text(
+                (_('Requesting cover for %s - %s...') %
+                (album.name,
+                 album.album_artist)).decode('UTF-8'))
+            self.request_status_box.show_all()
+            self.request_cancel_button.hide()
 
-        # disable full cover search and cover search items
-        self.cover_search_menu_item.set_sensitive(False)
-        self.source_menu_search_all_item.set_sensitive(False)
+            if self.status_label.get_visible():
+                self.status_separator.show()
+
+            # disable full cover search and cover search items
+            self.cover_search_menu_item.set_sensitive(False)
+            self.source_menu_search_all_item.set_sensitive(False)
 
         print "CoverArtBrowser DEBUG - end cover_search_menu_item_callback()"
 
