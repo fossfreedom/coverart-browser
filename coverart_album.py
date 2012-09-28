@@ -39,6 +39,9 @@ class AlbumLoader(GObject.Object):
         'album-modified': (GObject.SIGNAL_RUN_LAST, object, (object,))
         }
 
+    #singleton instance
+    instance = None
+
     # properties
     progress = GObject.property(type=float, default=0)
 
@@ -71,6 +74,17 @@ class AlbumLoader(GObject.Object):
 
         # initialise unkown cover for albums without cover
         Album.init_unknown_cover(plugin)
+
+    @classmethod
+    def get_instance(cls, plugin, model, query_model):
+        '''
+        Singleton method to allow to access the unique loader instance.
+        '''
+        if not cls.instance:
+            cls.instance = AlbumLoader(plugin, model)
+            cls.instance.load_albums(query_model)
+
+        return cls.instance
 
     def _get_album_name_and_artist(self, entry):
         '''

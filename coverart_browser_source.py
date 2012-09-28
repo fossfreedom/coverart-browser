@@ -105,6 +105,9 @@ class CoverArtBrowserSource(RB.Source):
         self.plugin = self.props.plugin
         self.shell = self.props.shell
         self.status = ''
+        self.search_text = ''
+        self.filter_type = Album.FILTER_ALL
+        self.selected_album = None
 
         # connect properties signals
         self.connect('notify::custom-statusbar-enabled',
@@ -154,20 +157,16 @@ class CoverArtBrowserSource(RB.Source):
         search_entry.show_all()
 
         # setup entry-view objects and widgets
-        # note: two GtkExpander widgets exist - one when expanded to allow
-        # the movable paned separator, the second, when non-expanded to
-        # disable the paned separator
         self.paned = ui.get_object('paned')
         self.entry_view_expander = ui.get_object('entryviewexpander')
-        self.entry_view_expander_hidden = ui.get_object('entryviewexpander_hidden')
         self.entry_view = CoverArtEntryView(self.shell)
+        self.entry_view.show_all()
         self.entry_view_expander.add(self.entry_view)
-        self.paned_position=0
+        self.paned_position = 0
         self.entry_view_box = ui.get_object('entryview_box')
-        self.entry_view_box_hidden = ui.get_object('entryview_box_hidden')
 
         self.on_notify_display_tracks_enabled(_)
-        
+
         # get widgets for source popup
         self.source_menu = ui.get_object('source_menu')
         self.source_menu_search_all_item = ui.get_object(
@@ -183,23 +182,29 @@ class CoverArtBrowserSource(RB.Source):
         self.filter_menu_track_title_item = ui.get_object(
             'filter_track_title_menu_item')
 
-        # set the model for the icon view
-        self.covers_model_store = ui.get_object('covers_model')
+        # get the loader
+        self.loader = AlbumLoader.get_instance(self.plugin,
+            ui.get_object('covers_model'),
+            self.shell.props.library_source.props.base_query_model)
 
+        # if the source is fully loaded, enable the full cover search item
+        self.source_menu_search_all_item.set_sensitive(
+            self.loader.progress == 1)
+
+        # retrieve and set the model and it's filter
+        self.covers_model_store = self.loader.cover_model
         self.covers_model = self.covers_model_store.filter_new()
         self.covers_model.set_visible_func(self.visible_covers_callback)
 
         self.covers_view.set_model(self.covers_model)
 
-        # load the albums
-        self.loader = AlbumLoader(self.plugin, self.covers_model_store)
-        self.loader.connect('load-finished', self.load_finished_callback)
-        self.loader.connect('album-modified', self.album_modified_callback)
-        self.loader.connect('notify::progress', lambda *args:
-            self.notify_status_changed())
-
-        self.loader.load_albums(
-            self.shell.props.library_source.props.base_query_model)
+        # connect some signals to get informed when an album is modified
+        self.album_mod_id = self.loader.connect('album-modified',
+            self.album_modified_callback)
+        self.load_fin_id = self.loader.connect(
+            'load-finished', self.load_finished_callback)
+        self.notify_prog_id = self.loader.connect('notify::progress',
+            lambda *args: self.notify_status_changed())
 
         print "CoverArtBrowser DEBUG - end show_browser_dialog"
 
@@ -228,28 +233,25 @@ class CoverArtBrowserSource(RB.Source):
         self.selectionchanged_callback(self.covers_view)
 
     def on_notify_display_tracks_enabled(self, *args):
+        '''
+        Callback called when the option 'display tracks' is enabled or disabled
+        on the plugin's preferences dialog
+        '''
         if self.display_tracks_enabled:
             # make the entry view visible
-            self.entry_view_box.set_visible(False)
-            self.entry_view_box_hidden.set_visible(True)
-            self.entry_view_expander.show_all()
-            self.entry_view_expander_hidden.show_all()
-            
-            (x, y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
-            self.paned.set_position(y - 10)
+            self.entry_view_box.set_visible(True)
+
+            self.entry_view_expander_expanded_callback(
+                self.entry_view_expander, None)
+
             # update it with the current selected album
             self.selectionchanged_callback(self.covers_view)
 
         else:
-            # clear and hide the entry view
-            #self.entry_view_expander.hide()
-            #self.entry_view.clear()
+            if self.entry_view_expander.get_expanded():
+                self.paned_position = self.paned.get_position()
 
-            #(x, y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
-            #self.paned.set_position(y)
             self.entry_view_box.set_visible(False)
-            self.entry_view_box_hidden.set_visible(False)
-            
 
     def album_modified_callback(self, _, modified_album):
         '''
@@ -387,7 +389,7 @@ class CoverArtBrowserSource(RB.Source):
         Utilitary method that queues all entries from an album into the play
         queue.
         '''
-
+ 
         model = self.covers_view.get_model()
         for selected in self.selected_album:
             # Retrieve and sort the entries of the album
@@ -565,6 +567,7 @@ class CoverArtBrowserSource(RB.Source):
 
             if self.request_status_box.get_visible():
                 self.status_separator.show()
+
         else:
             # use the global statusbar from Rhythmbox
             self.status = status
@@ -593,55 +596,82 @@ class CoverArtBrowserSource(RB.Source):
 
         self.searchchanged_callback(_, self.search_text)
 
-    def entry_view_expander_expanded_callback( self, action, param):
+    def entry_view_expander_expanded_callback(self, action, param):
         '''
-        Callback connected to the paned GtkExpander
-        Note - two GtkExpanders exist - this callback is made when
-        in "paned" mode.
+        Callback connected to expanded signal of the paned GtkExpander
         '''
         expand = action.get_expanded()
 
-        self.entry_view_expander.set_property("expand", expand)
         if not expand:
-            (x,y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
-            self.paned_position=self.paned.get_position()
-            self.paned.set_position( y - 10)
-            print y
-            self.entry_view_box_hidden.set_visible(True)
-            self.entry_view_box.set_visible(False)
-            self.entry_view_expander.set_expanded(False)
-            self.entry_view_expander_hidden.set_expanded(False)
+            (x, y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
+            self.paned_position = self.paned.get_position()
+            self.paned.set_position(y - 10)
         else:
-            self.entry_view_box_hidden.set_visible(False)
-            self.entry_view_box.set_visible(True)
-            self.entry_view_expander.set_expanded(True)
-            self.entry_view_expander_hidden.set_expanded(True)
-            
             (x, y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
             if self.paned_position == 0:
-                self.paned_position = (y/2)
+                self.paned_position = (y / 2)
 
-            print y
             self.paned.set_position(self.paned_position)
 
-    def entry_view_expander_expanded_hidden_callback( self, action, param):
+    def paned_button_press_callback(self, *args):
         '''
-        Callback connected to the non-paned GtkExpander
-        Note - two GtkExpanders exist - this callback is made when
-        in non expanded "non-paned" mode.
+        This callback allows or denies the paned handle to move depending on
+        the expanded state of the entry_view
         '''
-        expand = action.get_expanded()
+        return not self.entry_view_expander.get_expanded()
 
-        if not expand:
-            self.entry_view_box_hidden.set_visible(True)
-            self.entry_view_box.set_visible(False)
-            self.entry_view_expander.set_expanded(False)
-            self.entry_view_expander_hidden.set_expanded(False)
-        else:
-            self.entry_view_box_hidden.set_visible(False)
-            self.entry_view_box.set_visible(True)
-            self.entry_view_expander.set_expanded(True)
-            self.entry_view_expander_hidden.set_expanded(True)
-                        
+    def do_delete_thyself(self):
+        '''
+        Method called by Rhythmbox's when the source is deleted. It makes sure
+        to free all the source's related resources to avoid memory leaking and
+        loose signals.
+        '''
+        if not self.hasActivated:
+            del self.hasActivated
+
+            return
+
+        # destroy the ui
+        self.page.destroy()
+
+        # disconnect signals
+        self.loader.disconnect(self.load_fin_id)
+        self.loader.disconnect(self.album_mod_id)
+        self.loader.disconnect(self.notify_prog_id)
+
+        # delete references
+        del self.shell
+        del self.plugin
+        del self.loader
+        del self.covers_model_store
+        del self.covers_model
+        del self.covers_view
+        del self.filter_menu
+        del self.filter_menu_album_artist_item
+        del self.filter_menu_album_item
+        del self.filter_menu_all_item
+        del self.filter_menu_artist_item
+        del self.filter_menu_track_title_item
+        del self.filter_type
+        del self.page
+        del self.paned
+        del self.popup_menu
+        del self.request_cancel_button
+        del self.request_spinner
+        del self.request_status_box
+        del self.request_statusbar
+        del self.selected_album
+        del self.search_entry
+        del self.search_text
+        del self.source_menu
+        del self.source_menu_search_all_item
+        del self.status
+        del self.status_label
+        del self.status_separator
+        del self.load_fin_id
+        del self.album_mod_id
+        del self.notify_prog_id
+        del self.hasActivated
+
 GObject.type_register(CoverArtBrowserSource)
 
