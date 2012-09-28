@@ -148,6 +148,12 @@ class CoverArtBrowserSource(RB.Source):
         self.request_spinner = ui.get_object('request_spinner')
         self.request_statusbar = ui.get_object('request_statusbar')
         self.request_cancel_button = ui.get_object('request_cancel_button')
+        self.sort_by_album_toggle = ui.get_object('album_name_sort_toggle')
+        self.sort_by_artist_toggle = ui.get_object('artist_name_sort_toggle')
+
+        # use the radiobuttons as buttons
+        self.sort_by_album_toggle.set_mode(False)
+        self.sort_by_artist_toggle.set_mode(False)
 
         # workaround for some RBSearchEntry's problems
         search_entry = ui.get_object('search_entry')
@@ -597,6 +603,9 @@ class CoverArtBrowserSource(RB.Source):
         '''
         return not self.entry_view_expander.get_expanded()
 
+    def sorting_criteria_changed(self, toggle):
+        pass
+
     def do_delete_thyself(self):
         '''
         Method called by Rhythmbox's when the source is deleted. It makes sure
@@ -642,6 +651,8 @@ class CoverArtBrowserSource(RB.Source):
         del self.search_text
         del self.source_menu
         del self.source_menu_search_all_item
+        del self.sort_by_album_toggle
+        del self.sort_by_artist_toggle
         del self.status
         del self.status_label
         del self.status_separator
