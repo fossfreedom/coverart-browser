@@ -51,8 +51,6 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
     __gtype_name = 'CoverArtBrowserPlugin'
     object = GObject.property(type=GObject.Object)
 
-    loader = None
-
     def __init__(self):
         '''
         Initialises the plugin object.
@@ -93,8 +91,6 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
             shell=self.shell, name=_("CoverArt"), entry_type=entry_type,
             plugin=self, pixbuf=pxbf)
 
-        self.source.loader = CoverArtBrowserPlugin.loader
-
         self.shell.register_entry_type_for_source(self.source, entry_type)
         self.shell.append_display_page(self.source, group)
 
@@ -114,7 +110,6 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         free all the resources used by the plugin.
         '''
         print "CoverArtBrowser DEBUG - do_deactivate"
-        CoverArtBrowserPlugin.loader = self.source.loader
         self.source.delete_thyself()
 
         del self.shell

@@ -39,7 +39,6 @@ class CoverArtBrowserSource(RB.Source):
     Source utilized by the plugin to show all it's ui.
     '''
     LOCALE_DOMAIN = 'coverart_browser'
-    filter_type = Album.FILTER_ALL
     search_text = ''
 
     custom_statusbar_enabled = GObject.property(type=bool, default=False)
@@ -49,7 +48,6 @@ class CoverArtBrowserSource(RB.Source):
         '''
         Initializes the source.
         '''
-        self.loader = None
         self.hasActivated = False
         super(CoverArtBrowserSource, self).__init__(
             name="CoverArtBrowserPlugin")
@@ -105,6 +103,9 @@ class CoverArtBrowserSource(RB.Source):
         self.plugin = self.props.plugin
         self.shell = self.props.shell
         self.status = ''
+        self.search_text = ''
+        self.filter_type = Album.FILTER_ALL
+        self.selected_album = None
 
         # connect properties signals
         self.connect('notify::custom-statusbar-enabled',
@@ -179,32 +180,29 @@ class CoverArtBrowserSource(RB.Source):
         self.filter_menu_track_title_item = ui.get_object(
             'filter_track_title_menu_item')
 
-        if not self.loader:
-            # create the model for the icon view
-            self.covers_model_store = ui.get_object('covers_model')
+        # get the loader
+        self.loader = AlbumLoader.get_instance(self.plugin,
+            ui.get_object('covers_model'),
+            self.shell.props.library_source.props.base_query_model)
 
-            # load the albums
-            self.loader = AlbumLoader(self.plugin, self.covers_model_store)
-            self.loader.load_albums(
-                self.shell.props.library_source.props.base_query_model)
-        else:
-            self.covers_model_store = self.loader.cover_model
+        # if the source is fully loaded, enable the full cover search item
+        self.source_menu_search_all_item.set_sensitive(
+            self.loader.progress == 1)
 
-            # if the source is fully loaded, enable the full cover search item
-            self.source_menu_search_all_item.set_sensitive(
-                self.loader.progress == 1)
-
-        # connect some signals to get informed when an album is modified
-        self.loader.connect('album-modified', self.album_modified_callback)
-        self.loader.connect('load-finished', self.load_finished_callback)
-        self.loader.connect('notify::progress', lambda *args:
-            self.notify_status_changed())
-
-        # create and set the filter
+        # retrieve and set the model and it's filter
+        self.covers_model_store = self.loader.cover_model
         self.covers_model = self.covers_model_store.filter_new()
         self.covers_model.set_visible_func(self.visible_covers_callback)
 
         self.covers_view.set_model(self.covers_model)
+
+        # connect some signals to get informed when an album is modified
+        self.album_mod_id = self.loader.connect('album-modified',
+            self.album_modified_callback)
+        self.load_fin_id = self.loader.connect(
+            'load-finished', self.load_finished_callback)
+        self.notify_prog_id = self.loader.connect('notify::progress',
+            lambda *args: self.notify_status_changed())
 
         print "CoverArtBrowser DEBUG - end show_browser_dialog"
 
@@ -605,9 +603,6 @@ class CoverArtBrowserSource(RB.Source):
         to free all the source's related resources to avoid memory leaking and
         loose signals.
         '''
-        # delete variables that always exist
-        del self.loader
-
         if not self.hasActivated:
             del self.hasActivated
 
@@ -617,7 +612,6 @@ class CoverArtBrowserSource(RB.Source):
         self.page.destroy()
 
         # disconnect signals
-        self.covers_model_store.disconnect(self.row_ch_id)
         self.loader.disconnect(self.load_fin_id)
         self.loader.disconnect(self.album_mod_id)
         self.loader.disconnect(self.notify_prog_id)
@@ -651,7 +645,6 @@ class CoverArtBrowserSource(RB.Source):
         del self.status
         del self.status_label
         del self.status_separator
-        del self.row_ch_id
         del self.load_fin_id
         del self.album_mod_id
         del self.notify_prog_id
