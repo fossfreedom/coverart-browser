@@ -76,6 +76,9 @@ class CoverArtEntryView(RB.EntryView):
 
         self.shell.props.shell_player.connect('playing-song-changed', self.playing_song_changed)
         self.shell.props.shell_player.connect('playing-changed', self.playing_changed)
+
+        self.qm = RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
+        self.set_model(self.qm)
         
     def __del__(self):
         uim = self.shell.props.ui_manager
@@ -90,10 +93,8 @@ class CoverArtEntryView(RB.EntryView):
 
     def add_album(self, album):
         print "CoverArtBrowser DEBUG - add_album()"
-        qm = RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
-        album.get_entries(qm)
-        self.set_model(qm)
-
+        album.get_entries(self.qm)
+        
         (_, playing) = self.shell.props.shell_player.get_playing()
         self.playing_changed(   self.shell.props.shell_player,
                                 playing )
@@ -101,7 +102,9 @@ class CoverArtEntryView(RB.EntryView):
 
     def clear(self):
         print "CoverArtBrowser DEBUG - clear()"
-        self.set_model(RB.RhythmDBQueryModel.new_empty(self.shell.props.db))
+        #self.set_model(RB.RhythmDBQueryModel.new_empty(self.shell.props.db))
+        for row in self.qm:
+            self.qm.remove_entry(row[0])
         print "CoverArtBrowser DEBUG - clear()"
 
     def do_entry_activated(self, entry):

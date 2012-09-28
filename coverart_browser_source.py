@@ -492,15 +492,18 @@ class CoverArtBrowserSource(RB.Source):
         current selected album.
         '''
         print "CoverArtBrowser DEBUG - selectionchanged_callback"
-        # callback when focus had changed on an album
+
+        # clear the entry view
+        if self.display_tracks_enabled:
+            self.entry_view.clear()
+            
         model = widget.get_model()
-        try:
-            album = model[widget.get_selected_items()[0]][2]
-        except:
+    
+        if model == None:
             if self.custom_statusbar_enabled:
                 # if the custom statusbar is enabled, this should hide it and
                 # the separator
-                # Note: we hide just in case, maybe they are already hided
+                # Note: we hide just in case, maybe they are already hidden
                 self.status_label.hide()
                 self.status_separator.hide()
             else:
@@ -508,23 +511,35 @@ class CoverArtBrowserSource(RB.Source):
                 self.status = ''
                 self.notify_status_changed()
 
-            # clear the entry view
-            if self.display_tracks_enabled:
-                self.entry_view.clear()
             return
-
+            
+        selected = widget.get_selected_items()
+        
+        track_count = 0
+        duration = 0
+        
+        for select in selected:
+            album = model[select][2]
+            # Calculate duration and number of tracks from that album
+            track_count += album.get_track_count()
+            duration += album.calculate_duration_in_mins()
+            
+            # if the display tracks option is enabled, add the album to the entry
+            if self.display_tracks_enabled:
+                self.entry_view.add_album(album)
+                
         # now lets build up a status label containing some 'interesting stuff'
         #about the album
-        status = ('%s - %s' % (album.name, album.album_artist)).decode('UTF-8')
-
-        # Calculate duration and number of tracks from that album
-        track_count = album.get_track_count()
-        duration = album.calculate_duration_in_mins()
-
-        if track_count == 1:
-            status += (_(' has 1 track')).decode('UTF-8')
+        if len(selected) == 1:
+            status = ('%s - %s' % (album.name, album.album_artist)).decode('UTF-8')
         else:
-            status += (_(' has %d tracks') % track_count).decode('UTF-8')
+            status = ('%d selected albums ' % (len(selected))).decode('UTF-8')
+
+        
+        if track_count == 1:
+            status += (_(' with 1 track')).decode('UTF-8')
+        else:
+            status += (_(' with %d tracks') % track_count).decode('UTF-8')
 
         if duration == 1:
             status += (_(' and a duration of 1 minute')).decode('UTF-8')
@@ -539,16 +554,10 @@ class CoverArtBrowserSource(RB.Source):
 
             if self.request_status_box.get_visible():
                 self.status_separator.show()
-
         else:
             # use the global statusbar from Rhythmbox
             self.status = status
-
             self.notify_status_changed()
-
-        # if the display tracks option is enabled, add the album to the entry
-        if self.display_tracks_enabled:
-            self.entry_view.add_album(album)
 
     def filter_menu_callback(self, radiomenu):
         '''
