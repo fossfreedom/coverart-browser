@@ -27,7 +27,6 @@ from gi.repository import GLib
 from gi.repository import Gtk
 from gi.repository import RB
 from gi.repository import Gdk
-from gi.repository import GdkPixbuf
 
 from coverart_album import AlbumLoader
 from coverart_album import Album
@@ -106,6 +105,7 @@ class CoverArtBrowserSource(RB.Source):
         self.search_text = ''
         self.filter_type = Album.FILTER_ALL
         self.selected_album = None
+        self.compare_albums = Album.compare_albums_by_name
 
         # connect properties signals
         self.connect('notify::custom-statusbar-enabled',
@@ -148,12 +148,12 @@ class CoverArtBrowserSource(RB.Source):
         self.request_spinner = ui.get_object('request_spinner')
         self.request_statusbar = ui.get_object('request_statusbar')
         self.request_cancel_button = ui.get_object('request_cancel_button')
-        self.sort_by_album_toggle = ui.get_object('album_name_sort_toggle')
-        self.sort_by_artist_toggle = ui.get_object('artist_name_sort_toggle')
+        self.sort_by_album_radio = ui.get_object('album_name_sort_toggle')
+        self.sort_by_artist_radio = ui.get_object('artist_name_sort_toggle')
 
-        # use the radiobuttons as buttons
-        self.sort_by_album_toggle.set_mode(False)
-        self.sort_by_artist_toggle.set_mode(False)
+        # setup the sorting
+        self.sort_by_album_radio.set_mode(False)
+        self.sort_by_artist_radio.set_mode(False)
 
         # workaround for some RBSearchEntry's problems
         search_entry = ui.get_object('search_entry')
@@ -195,14 +195,18 @@ class CoverArtBrowserSource(RB.Source):
         self.source_menu_search_all_item.set_sensitive(
             self.loader.progress == 1)
 
-        # retrieve and set the model and it's filter
+        # retrieve and set the model, it's filter and the sorting column
         self.covers_model_store = self.loader.cover_model
+
+        self.covers_model_store.set_sort_column_id(2, Gtk.SortType.DESCENDING)
+        self.covers_model_store.set_sort_func(2, self.sort_albums)
+
         self.covers_model = self.covers_model_store.filter_new()
         self.covers_model.set_visible_func(self.visible_covers_callback)
 
         self.covers_view.set_model(self.covers_model)
 
-        # connect some signals to get informed when an album is modified
+        # connect some signals to the loader to keep the source informed
         self.album_mod_id = self.loader.connect('album-modified',
             self.album_modified_callback)
         self.load_fin_id = self.loader.connect(
@@ -603,8 +607,28 @@ class CoverArtBrowserSource(RB.Source):
         '''
         return not self.entry_view_expander.get_expanded()
 
-    def sorting_criteria_changed(self, toggle):
-        pass
+    def sorting_criteria_changed(self, radio):
+        '''
+        Callback called when a radio corresponding to a sorting order is
+        toggled. It changes the sorting function and reorders the cover model.
+        '''
+        if not radio.get_active():
+            return
+
+        if radio is self.sort_by_album_radio:
+            self.compare_albums = Album.compare_albums_by_name
+        else:
+            self.compare_albums = Album.compare_albums_by_album_artist
+
+        self.covers_model_store.sort_column_changed()
+
+    def sort_albums(self, model, iter1, iter2, _):
+        '''
+        Utility function used as the sorting function for our model.
+        It actually just retrieves the albums and delegates the comparison
+        to the current comparation function.
+        '''
+        return self.compare_albums(model[iter1][2], model[iter2][2])
 
     def do_delete_thyself(self):
         '''
@@ -651,8 +675,8 @@ class CoverArtBrowserSource(RB.Source):
         del self.search_text
         del self.source_menu
         del self.source_menu_search_all_item
-        del self.sort_by_album_toggle
-        del self.sort_by_artist_toggle
+        del self.sort_by_album_radio
+        del self.sort_by_artist_radio
         del self.status
         del self.status_label
         del self.status_separator

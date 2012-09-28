@@ -465,9 +465,9 @@ class Album(object):
         title = set()
 
         for e in self.entries:
-            title.add( e.get_string(RB.RhythmDBPropType.TITLE) )
+            title.add(e.get_string(RB.RhythmDBPropType.TITLE))
 
-        return ', '.join( title )
+        return ' '.join(title)
 
     @property
     def album_artist(self):
@@ -679,6 +679,34 @@ class Album(object):
         if type(cls.UNKNOWN_COVER) is str:
             cls.UNKNOWN_COVER = Cover(
                 rb.find_plugin_file(plugin, cls.UNKNOWN_COVER))
+
+    @classmethod
+    def compare_albums_by_name(cls, album1, album2):
+        '''
+        Classmethod that compares two albums by their names.
+        Returns -1 if album1 goes before album2, 0 if their are considered
+        equal and 1 if album1 goes after album2.
+        '''
+        if album1.name < album2.name:
+            return 1
+        if album1.name > album2.name:
+            return -1
+        else:
+            return 0
+
+    @classmethod
+    def compare_albums_by_album_artist(cls, album1, album2):
+        '''
+        Classmethod that compares two albums by their album artist names.
+        Returns -1 if album1 goes before album2, 0 if their are considered
+        equal and 1 if album1 goes after album2.
+        '''
+        if album1.album_artist < album2.album_artist:
+            return 1
+        if album1.album_artist > album2.album_artist:
+            return -1
+        else:
+            return 0
 
 
 class Cover(object):
