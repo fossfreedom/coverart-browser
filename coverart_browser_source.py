@@ -104,7 +104,6 @@ class CoverArtBrowserSource(RB.Source):
         self.status = ''
         self.search_text = ''
         self.filter_type = Album.FILTER_ALL
-        self.selected_album = None
         self.compare_albums = Album.compare_albums_by_name
 
         # connect properties signals
@@ -340,10 +339,6 @@ class CoverArtBrowserSource(RB.Source):
             iconview.grab_focus()
             iconview.select_path(pthinfo)
 
-            #model = iconview.get_model()
-
-            self.selected_album = iconview.get_selected_items()
-
             self.popup_menu.popup(None, None, None, None, event.button, time)
 
         print "CoverArtBrowser DEBUG - end mouseclick_callback()"
@@ -357,11 +352,21 @@ class CoverArtBrowserSource(RB.Source):
         iconview.grab_focus()
         iconview.select_path(path)
 
-        #model = iconview.get_model()
-        self.selected_album = iconview.get_selected_items()
-
         self.play_album_menu_item_callback(_)
         return True
+
+    def get_selected_albums(self):
+        '''
+        Retrieves the currently selected albums on the cover_view.
+        '''
+        selected_albums = []
+
+        model = self.covers_model_store
+
+        for selected in self.covers_view.get_selected_items():
+            selected_albums.append(model[selected][2])
+
+        return selected_albums
 
     def play_album_menu_item_callback(self, _):
         '''
@@ -401,13 +406,12 @@ class CoverArtBrowserSource(RB.Source):
         Utilitary method that queues all entries from an album into the play
         queue.
         '''
+        selected_albums = self.get_selected_albums()
 
-        model = self.covers_view.get_model()
-        for selected in self.selected_album:
+        for album in selected_albums:
             # Retrieve and sort the entries of the album
-            songs = sorted(model[selected][2].entries,
-                key=lambda song:
-                    song.get_ulong(RB.RhythmDBPropType.TRACK_NUMBER))
+            songs = sorted(album.entries, key=lambda song:
+                song.get_ulong(RB.RhythmDBPropType.TRACK_NUMBER))
 
             # Add the songs to the play queue
             for song in songs:
@@ -420,13 +424,7 @@ class CoverArtBrowserSource(RB.Source):
         album cover
         '''
         print "CoverArtBrowser DEBUG - cover_search_menu_item_callback()"
-        selected_albums = []
-
-        model = self.covers_model_store
-
-        print "hi"
-        for selected in self.covers_view.get_selected_items():
-            selected_albums.append(model[selected][2])
+        selected_albums = self.get_selected_albums()
 
         self.request_status_box.show_all()
         self.source_menu_search_all_item.set_sensitive(False)
@@ -679,7 +677,6 @@ class CoverArtBrowserSource(RB.Source):
         del self.request_spinner
         del self.request_status_box
         del self.request_statusbar
-        del self.selected_album
         del self.search_entry
         del self.search_text
         del self.source_menu
