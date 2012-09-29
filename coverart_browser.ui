@@ -6,6 +6,16 @@
     <property name="can_focus">False</property>
     <property name="stock">gtk-cancel</property>
   </object>
+  <object class="GtkImage" id="arrow_up">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-go-up</property>
+  </object>
+  <object class="GtkImage" id="arrow_down">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-go-down</property>
+  </object>
   <object class="GtkListStore" id="covers_model">
     <columns>
       <!-- column-name tooltip -->
@@ -29,27 +39,17 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <child>
-          <object class="GtkLabel" id="label_sort">
+          <object class="GtkButtonBox" id="sorting_criteria_button_box">
             <property name="visible">True</property>
+            <property name="spacing">1</property>
             <property name="can_focus">False</property>
             <property name="margin_left">5</property>
-            <property name="label" translatable="yes">Sort By: </property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButtonBox" id="sorting_button_box">
-            <property name="visible">True</property>
-            <property name="spacing">0</property>
-            <property name="can_focus">False</property>
+            <property name="margin_right">5</property>
             <property name="layout_style">start</property>
             <child>
-              <object class="GtkRadioButton" id="album_name_sort_toggle">
+              <object class="GtkRadioButton" id="album_name_sort_radio">
                 <property name="label" translatable="yes">Album</property>
+                <property name="tooltip_text" translatable="yes">Sort by album name</property>
                 <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
@@ -64,14 +64,15 @@
               </packing>
             </child>
             <child>
-              <object class="GtkRadioButton" id="artist_name_sort_toggle">
+              <object class="GtkRadioButton" id="artist_name_sort_radio">
                 <property name="label" translatable="yes">Artist</property>
+                <property name="tooltip_text" translatable="yes">Sort by album artist</property>
                 <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="relief">none</property>
                 <property name="xalign">0.5</property>
-                <property name="group">album_name_sort_toggle</property>
+                <property name="group">album_name_sort_radio</property>
                 <signal name="toggled" handler="sorting_criteria_changed" swapped="no"/>
               </object>
               <packing>
@@ -84,7 +85,47 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="descending_sort_radio">
+            <property name="tooltip_text" translatable="yes">Sort in descending order</property>
+            <property name="use_action_appearance">False</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="relief">none</property>
+            <property name="xalign">0.5</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+            <property name="margin_right">1</property>
+            <property name="image">arrow_down</property>
+            <signal name="toggled" handler="sorting_direction_changed" swapped="no"/>                
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
             <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="ascending_sort_radio">
+            <property name="tooltip_text" translatable="yes">Sort in ascending order</property>
+            <property name="use_action_appearance">False</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="relief">none</property>
+            <property name="xalign">0.5</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+            <property name="image">arrow_up</property>
+            <property name="group">descending_sort_radio</property>
+            <signal name="toggled" handler="sorting_direction_changed" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
           </packing>
         </child>
         <child>
@@ -109,14 +150,14 @@
           <packing>
             <property name="expand">True</property>
             <property name="fill">True</property>
-            <property name="position">2</property>
+            <property name="position">3</property>
           </packing>
         </child>
       </object>
       <packing>
         <property name="expand">False</property>
         <property name="fill">True</property>
-        <property name="position">0</property>
+        <property name="position">2</property>
       </packing>
     </child>
     <child>

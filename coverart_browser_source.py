@@ -148,12 +148,16 @@ class CoverArtBrowserSource(RB.Source):
         self.request_spinner = ui.get_object('request_spinner')
         self.request_statusbar = ui.get_object('request_statusbar')
         self.request_cancel_button = ui.get_object('request_cancel_button')
-        self.sort_by_album_radio = ui.get_object('album_name_sort_toggle')
-        self.sort_by_artist_radio = ui.get_object('artist_name_sort_toggle')
+        self.sort_by_album_radio = ui.get_object('album_name_sort_radio')
+        self.sort_by_artist_radio = ui.get_object('artist_name_sort_radio')
+        self.descending_sort_radio = ui.get_object('descending_sort_radio')
+        self.ascending_sort_radio = ui.get_object('ascending_sort_radio')
 
         # setup the sorting
         self.sort_by_album_radio.set_mode(False)
         self.sort_by_artist_radio.set_mode(False)
+        self.descending_sort_radio.set_mode(False)
+        self.ascending_sort_radio.set_mode(False)
 
         # workaround for some RBSearchEntry's problems
         search_entry = ui.get_object('search_entry')
@@ -622,6 +626,21 @@ class CoverArtBrowserSource(RB.Source):
 
         self.covers_model_store.set_sort_func(2, self.sort_albums)
 
+    def sorting_direction_changed(self, radio):
+        '''
+        Callback calledn when a radio corresponding to a sorting direction is
+        toggled. It changes the sorting direction and reorders the cover model
+        '''
+        if not radio.get_active():
+            return
+
+        if radio is self.descending_sort_radio:
+            sort_direction = Gtk.SortType.DESCENDING
+        else:
+            sort_direction = Gtk.SortType.ASCENDING
+
+        self.covers_model_store.set_sort_column_id(2, sort_direction)
+
     def sort_albums(self, model, iter1, iter2, _):
         '''
         Utility function used as the sorting function for our model.
@@ -677,6 +696,8 @@ class CoverArtBrowserSource(RB.Source):
         del self.source_menu_search_all_item
         del self.sort_by_album_radio
         del self.sort_by_artist_radio
+        del self.descending_sort_radio
+        del self.ascending_sort_radio
         del self.status
         del self.status_label
         del self.status_separator
