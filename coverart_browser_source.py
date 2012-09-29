@@ -344,10 +344,10 @@ class CoverArtBrowserSource(RB.Source):
         '''
         iconview.grab_focus()
         iconview.select_path(path)
-        
+
         #model = iconview.get_model()
         self.selected_album = iconview.get_selected_items()#model[path][2]
-        
+
         self.play_album_menu_item_callback(_)
         return True
 
@@ -389,12 +389,13 @@ class CoverArtBrowserSource(RB.Source):
         Utilitary method that queues all entries from an album into the play
         queue.
         '''
- 
+
         model = self.covers_view.get_model()
         for selected in self.selected_album:
             # Retrieve and sort the entries of the album
             songs = sorted(model[selected][2].entries,
-                key=lambda song: song.get_ulong(RB.RhythmDBPropType.TRACK_NUMBER))
+                key = lambda song:
+                    song.get_ulong(RB.RhythmDBPropType.TRACK_NUMBER))
 
             # Add the songs to the play queue
             for song in songs:
@@ -407,25 +408,20 @@ class CoverArtBrowserSource(RB.Source):
         album cover
         '''
         print "CoverArtBrowser DEBUG - cover_search_menu_item_callback()"
-        # don't start another fetch if we are in middle of one right now
-        if self.request_status_box.get_visible():
-            return
+        selected_albums = []
+
+        model = self.covers_model_store
+
+        print "hi"
+        for selected in self.covers_view.get_selected_items():
+            selected_albums.append(model[selected][2])
 
         self.request_status_box.show_all()
         self.source_menu_search_all_item.set_sensitive(False)
         self.cover_search_menu_item.set_sensitive(False)
 
-        selected_albums = {}
-        
-        model = self.covers_view.get_model()
-
-        print "hi"
-        for selected in self.covers_view.get_selected_items():
-            album=model[selected][2]
-            print album.album_name
-            selected_albums[album.album_name] = album
-            
-        self.loader.search_selected_covers(selected_albums, self.update_request_status_bar )
+        self.loader.search_covers(selected_albums,
+            self.update_request_status_bar)
 
         print "CoverArtBrowser DEBUG - end cover_search_menu_item_callback()"
 
@@ -439,7 +435,7 @@ class CoverArtBrowserSource(RB.Source):
         self.request_status_box.show_all()
         self.source_menu_search_all_item.set_sensitive(False)
         self.cover_search_menu_item.set_sensitive(False)
-        self.loader.search_all_covers(self.update_request_status_bar)
+        self.loader.search_covers(callback=self.update_request_status_bar)
 
         print "CoverArtBrowser DEBUG - end search_all_covers_callback()"
 
@@ -480,10 +476,10 @@ class CoverArtBrowserSource(RB.Source):
         # clear the entry view
         if self.display_tracks_enabled:
             self.entry_view.clear()
-            
+
         model = widget.get_model()
-    
-        if model == None:
+
+        if model is None:
             if self.custom_statusbar_enabled:
                 # if the custom statusbar is enabled, this should hide it and
                 # the separator
@@ -496,30 +492,31 @@ class CoverArtBrowserSource(RB.Source):
                 self.notify_status_changed()
 
             return
-            
+
         selected = widget.get_selected_items()
-        
+
         track_count = 0
         duration = 0
-        
+
         for select in selected:
             album = model[select][2]
             # Calculate duration and number of tracks from that album
             track_count += album.get_track_count()
             duration += album.calculate_duration_in_mins()
-            
-            # if the display tracks option is enabled, add the album to the entry
+
+            # if the display tracks option is enabled, add the album to the
+            # entry
             if self.display_tracks_enabled:
                 self.entry_view.add_album(album)
-                
+
         # now lets build up a status label containing some 'interesting stuff'
         #about the album
         if len(selected) == 1:
-            status = ('%s - %s' % (album.name, album.album_artist)).decode('UTF-8')
+            status = ('%s - %s' % (album.name, album.album_artist)).decode(
+                'UTF-8')
         else:
             status = ('%d selected albums ' % (len(selected))).decode('UTF-8')
 
-        
         if track_count == 1:
             status += (_(' with 1 track')).decode('UTF-8')
         else:

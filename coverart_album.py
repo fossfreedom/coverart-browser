@@ -371,7 +371,7 @@ class AlbumLoader(GObject.Object):
         '''
         album.cover_search(self.cover_db, callback, data)
 
-    def search_all_covers(self, callback=lambda *_: None):
+    def search_covers(self, albums=None, callback=lambda *_: None):
         '''
         Request all the albums' covers, one by one, periodically calling a
         callback to inform the status of the process.
@@ -379,6 +379,9 @@ class AlbumLoader(GObject.Object):
         being requested. When the argument passed is None, it means the
         process has finished.
         '''
+        if albums is None:
+            albums = self.albums.values()
+
         def search_next_cover(*args):
             # unpack the data
             iterator, callback = args[-1]
@@ -409,48 +412,7 @@ class AlbumLoader(GObject.Object):
                 (iterator, callback))
 
         self._cancel_cover_request = False
-        search_next_cover((self.albums.values().__iter__(), callback))
-
-    def search_selected_covers(self, selected_albums, callback=lambda *_: None):
-        '''
-        Request selected albums' covers, one by one, periodically calling a
-        callback to inform the status of the process.
-        The callback should accept one argument: the album which cover is
-        being requested. When the argument passed is None, it means the
-        process has finished.
-        '''
-        def search_next_cover(*args):
-            # unpack the data
-            iterator, callback = args[-1]
-
-            # if the operation was canceled, break the recursion
-            if self._cancel_cover_request:
-                del self._cancel_cover_request
-                callback(None)
-                return
-
-            #try to obtain the next album
-            try:
-                while True:
-                    album = iterator.next()
-
-                    if album.model and not album.has_cover():
-                        break
-            except:
-                # inform we finished
-                callback(None)
-                return
-
-            # inform we are starting a new search
-            callback(album)
-
-            # request the cover for the next album
-            self.search_cover_for_album(album, search_next_cover,
-                (iterator, callback))
-
-        self._cancel_cover_request = False
-        search_next_cover((selected_albums.values().__iter__(), callback))
-
+        search_next_cover((albums.__iter__(), callback))
 
     def cancel_cover_request(self):
         '''
