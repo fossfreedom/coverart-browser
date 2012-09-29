@@ -89,7 +89,8 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
 
         self.source = GObject.new(CoverArtBrowserSource,
             shell=self.shell, name=_("CoverArt"), entry_type=entry_type,
-            plugin=self, pixbuf=pxbf)
+            plugin=self, pixbuf=pxbf,
+            query_model=self.shell.props.library_source.props.base_query_model)
 
         self.shell.register_entry_type_for_source(self.source, entry_type)
         self.shell.append_display_page(self.source, group)

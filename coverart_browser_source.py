@@ -104,7 +104,6 @@ class CoverArtBrowserSource(RB.Source):
         self.status = ''
         self.search_text = ''
         self.filter_type = Album.FILTER_ALL
-        self.selected_album = None
         self.compare_albums = Album.compare_albums_by_name
 
         # connect properties signals
@@ -193,7 +192,7 @@ class CoverArtBrowserSource(RB.Source):
         # get the loader
         self.loader = AlbumLoader.get_instance(self.plugin,
             ui.get_object('covers_model'),
-            self.shell.props.library_source.props.base_query_model)
+            self.props.query_model)
 
         # if the source is fully loaded, enable the full cover search item
         self.source_menu_search_all_item.set_sensitive(
@@ -340,10 +339,6 @@ class CoverArtBrowserSource(RB.Source):
             iconview.grab_focus()
             iconview.select_path(pthinfo)
 
-            #model = iconview.get_model()
-
-            self.selected_album = iconview.get_selected_items()
-
             self.popup_menu.popup(None, None, None, None, event.button, time)
 
         print "CoverArtBrowser DEBUG - end mouseclick_callback()"
@@ -357,11 +352,21 @@ class CoverArtBrowserSource(RB.Source):
         iconview.grab_focus()
         iconview.select_path(path)
 
-        #model = iconview.get_model()
-        self.selected_album = iconview.get_selected_items()
-
         self.play_album_menu_item_callback(_)
         return True
+
+    def get_selected_albums(self):
+        '''
+        Retrieves the currently selected albums on the cover_view.
+        '''
+        selected_albums = []
+
+        model = self.covers_model_store
+
+        for selected in self.covers_view.get_selected_items():
+            selected_albums.append(model[selected][2])
+
+        return selected_albums
 
     def play_album_menu_item_callback(self, _):
         '''
@@ -401,13 +406,12 @@ class CoverArtBrowserSource(RB.Source):
         Utilitary method that queues all entries from an album into the play
         queue.
         '''
+        selected_albums = self.get_selected_albums()
 
-        model = self.covers_view.get_model()
-        for selected in self.selected_album:
+        for album in selected_albums:
             # Retrieve and sort the entries of the album
-            songs = sorted(model[selected][2].entries,
-                key=lambda song:
-                    song.get_ulong(RB.RhythmDBPropType.TRACK_NUMBER))
+            songs = sorted(album.entries, key=lambda song:
+                song.get_ulong(RB.RhythmDBPropType.TRACK_NUMBER))
 
             # Add the songs to the play queue
             for song in songs:
@@ -416,17 +420,11 @@ class CoverArtBrowserSource(RB.Source):
     def cover_search_menu_item_callback(self, menu_item):
         '''
         Callback called when the search cover option is selected from the
-        cover view popup. It promps the album loader to retrieve the selected
+        cover view popup. It prompts the album loader to retrieve the selected
         album cover
         '''
         print "CoverArtBrowser DEBUG - cover_search_menu_item_callback()"
-        selected_albums = []
-
-        model = self.covers_model_store
-
-        print "hi"
-        for selected in self.covers_view.get_selected_items():
-            selected_albums.append(model[selected][2])
+        selected_albums = self.get_selected_albums()
 
         self.request_status_box.show_all()
         self.source_menu_search_all_item.set_sensitive(False)
@@ -436,6 +434,18 @@ class CoverArtBrowserSource(RB.Source):
             self.update_request_status_bar)
 
         print "CoverArtBrowser DEBUG - end cover_search_menu_item_callback()"
+
+    def show_properties_menu_item_callback(self, menu_item):
+        '''
+        Callback called when the show album properties option is selected from
+        the cover view popup. It shows a SongInfo dialog showing the selected
+        albums' entries info, which can be modified.
+        '''
+        self.entry_view.select_all()
+
+        info_dialog = RB.SongInfo(source=self, entry_view=self.entry_view)
+
+        info_dialog.show_all()
 
     def search_all_covers_callback(self, _):
         '''
@@ -486,8 +496,7 @@ class CoverArtBrowserSource(RB.Source):
         print "CoverArtBrowser DEBUG - selectionchanged_callback"
 
         # clear the entry view
-        if self.display_tracks_enabled:
-            self.entry_view.clear()
+        self.entry_view.clear()
 
         model = widget.get_model()
 
@@ -505,21 +514,18 @@ class CoverArtBrowserSource(RB.Source):
 
             return
 
-        selected = widget.get_selected_items()
+        selected = self.get_selected_albums()
 
         track_count = 0
         duration = 0
 
-        for select in selected:
-            album = model[select][2]
+        for album in selected:
             # Calculate duration and number of tracks from that album
             track_count += album.get_track_count()
             duration += album.calculate_duration_in_mins()
 
-            # if the display tracks option is enabled, add the album to the
-            # entry
-            if self.display_tracks_enabled:
-                self.entry_view.add_album(album)
+            # add teh album to the entry_view
+            self.entry_view.add_album(album)
 
         # now lets build up a status label containing some 'interesting stuff'
         #about the album
@@ -679,7 +685,6 @@ class CoverArtBrowserSource(RB.Source):
         del self.request_spinner
         del self.request_status_box
         del self.request_statusbar
-        del self.selected_album
         del self.search_entry
         del self.search_text
         del self.source_menu
