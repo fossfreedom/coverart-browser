@@ -624,7 +624,7 @@ class CoverArtBrowserSource(RB.Source):
         else:
             self.compare_albums = Album.compare_albums_by_album_artist
 
-        self.covers_model_store.set_sort_func(2, self.sort_albums)
+        self.loader.reload_model()
 
     def sorting_direction_changed(self, radio):
         '''
@@ -639,6 +639,7 @@ class CoverArtBrowserSource(RB.Source):
         else:
             sort_direction = Gtk.SortType.ASCENDING
 
+        self.loader.reload_model()
         self.covers_model_store.set_sort_column_id(2, sort_direction)
 
     def sort_albums(self, model, iter1, iter2, _):

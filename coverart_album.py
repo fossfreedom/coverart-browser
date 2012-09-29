@@ -362,6 +362,35 @@ class AlbumLoader(GObject.Object):
         '''
         self.progress = 1
 
+    def reload_model(self):
+        '''
+        This method allows to remove and readd all the albums that are
+        currently in this loader model.
+        '''
+        albums = [album for album in self.albums.values() if hasattr(album,
+            'model')]
+
+        for album in albums:
+            album.remove_from_model()
+
+        Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
+            self._readd_albums_to_model,
+            albums)
+
+    def _readd_albums_to_model(self, albums):
+        '''
+        Idle callback that readds the albums removed from the modle by
+        'reload_model' in chunks to improve ui resposiveness.
+        '''
+        for i in range(AlbumLoader.DEFAULT_LOAD_CHUNK):
+            try:
+                album = albums.pop()
+                album.add_to_model(self.cover_model)
+            except:
+                return False
+
+        return True
+
     def search_cover_for_album(self, album, callback=lambda *_: None,
         data=None):
         '''
@@ -615,6 +644,9 @@ class Album(object):
     def remove_from_model(self):
         ''' Removes this album from it's model. '''
         self.model.remove(self.tree_iter)
+
+        del self.model
+        del self.tree_iter
 
     def update_cover(self, pixbuf):
         ''' Updates this Album's cover using the given pixbuf. '''
