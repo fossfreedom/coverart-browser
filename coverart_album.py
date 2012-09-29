@@ -561,6 +561,9 @@ class Album(object):
         # replace the album_artist
         self._album_artist = new_album_artist
 
+        # inform the model of the change
+        self.model.set_value(self.tree_iter, 2, self)
+
     def has_cover(self):
         ''' Indicates if this album has his cover loaded. '''
         return not self.cover is Album.UNKNOWN_COVER
