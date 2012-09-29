@@ -620,7 +620,7 @@ class CoverArtBrowserSource(RB.Source):
         else:
             self.compare_albums = Album.compare_albums_by_album_artist
 
-        self.covers_model_store.sort_column_changed()
+        self.covers_model_store.set_sort_func(2, self.sort_albums)
 
     def sort_albums(self, model, iter1, iter2, _):
         '''
