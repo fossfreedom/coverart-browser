@@ -166,7 +166,7 @@ class CoverArtBrowserSource(RB.Source):
         # setup entry-view objects and widgets
         self.paned = ui.get_object('paned')
         self.entry_view_expander = ui.get_object('entryviewexpander')
-        self.entry_view = CoverArtEntryView(self.shell)
+        self.entry_view = CoverArtEntryView(self.shell, self)
         self.entry_view.show_all()
         self.entry_view_expander.add(self.entry_view)
         self.paned_position = 0

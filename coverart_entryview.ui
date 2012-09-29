@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- interface-requires gtk+ 3.0 -->
+  <object class="GtkMenu" id="entryview_popup_menu">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkMenuItem" id="play_track_menu_item">
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text" translatable="yes">Play this track</property>
+        <property name="label" translatable="yes">Play Track</property>
+        <property name="use_underline">True</property>
+        <signal name="activate" handler="play_track_menu_item_callback" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="queue_track_menu_item">
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text" translatable="yes">Add this track to your playing queue</property>
+        <property name="label" translatable="yes">Queue Track</property>
+        <property name="use_underline">True</property>
+        <signal name="activate" handler="queue_track_menu_item_callback" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkSeparatorMenuItem" id="popup_separator">
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="show_properties_menu_item">
+        <property name="label">gtk-properties</property>
+        <property name="tooltip_text" translatable="yes">Show track properties</property>
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="use_stock">True</property>
+        <signal name="activate" handler="show_properties_menu_item_callback" swapped="no"/>
+      </object>
+    </child>
+   </object>
+</interface>

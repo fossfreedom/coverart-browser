@@ -21,23 +21,20 @@ from gi.repository import RB
 from gi.repository import Gtk
 from gi.repository import GObject
 
-ui_context_menu = """
-<ui>
-    <popup name="EntryViewPopup">
-        <menuitem name="EntryViewPlay" action="EntryViewPlay"/>
-        <menuitem name="EntryViewQueue" action="EntryViewQueue"/>
-        <separator/>
-        <placeholder name="PluginPlaceholder"/>
-    </popup>
-</ui>
-"""
+import rb
+import locale
+import gettext
 
 class CoverArtEntryView(RB.EntryView):
-    def __init__(self, shell):
+    LOCALE_DOMAIN = 'coverart_browser'
+    
+    def __init__(self, shell, source):
         '''
         Initializes the source.
         '''
         self.shell = shell
+        self.source = source
+        self.plugin = self.source.props.plugin
 
         super(RB.EntryView, self).__init__(db=shell.props.db,
             shell_player=shell.props.shell_player, is_drag_source=True)
@@ -50,28 +47,15 @@ class CoverArtEntryView(RB.EntryView):
         self.append_column(RB.EntryViewColumn.DURATION, True)
         self.set_columns_clickable(False)
 
-        uim = self.shell.props.ui_manager
+        # UI elements need to be imported.
+        ui = Gtk.Builder()
+        ui.set_translation_domain(self.LOCALE_DOMAIN)
+        ui.add_from_file(rb.find_plugin_file(self.plugin,
+            'coverart_entryview.ui'))
+        ui.connect_signals(self)
 
-        self.play_action = Gtk.Action('EntryViewPlay',
-            _('Play'), _('Add selected tracks to play queue and play'),
-            _)
-
-        self.play_action.connect('activate', self.play_tracks)
-
-        self.queue_action = Gtk.Action('EntryViewQueue', _('Queue'),
-            _('Queue selected tracks'), _)
-
-        self.queue_action.connect('activate', self.queue_tracks)
-
-        self.action_group = Gtk.ActionGroup('CoverArtEntryViewActionGroup')
-        self.action_group.add_action(self.play_action)
-        self.action_group.add_action(self.queue_action)
-        uim.insert_action_group(self.action_group, -1)
-
-        self.ui_id = uim.add_ui_from_string(ui_context_menu)
-        self.popup_menu = uim.get_widget('/EntryViewPopup')
-        uim.ensure_update()
-
+        self.popup_menu = ui.get_object('entryview_popup_menu')
+        
         self.shell.props.shell_player.connect('playing-song-changed',
             self.playing_song_changed)
         self.shell.props.shell_player.connect('playing-changed',
@@ -110,7 +94,7 @@ class CoverArtEntryView(RB.EntryView):
         print "CoverArtBrowser DEBUG - do_entry_activated()"
         print entry
         self.select_entry(entry)
-        self.play_tracks(entry)
+        self.play_track_menu_item_callback(entry)
         print "CoverArtBrowser DEBUG - do_entry_activated()"
         return True
 
@@ -122,25 +106,25 @@ class CoverArtEntryView(RB.EntryView):
         print "CoverArtBrowser DEBUG - do_show_popup()"
         return True
 
-    def play_tracks(self, entry):
-        print "CoverArtBrowser DEBUG - play_tracks()"
+    def play_track_menu_item_callback(self, entry):
+        print "CoverArtBrowser DEBUG - play_track_menu_item_callback()"
 
         # clear the queue
         play_queue = self.shell.props.queue_source
         for row in play_queue.props.query_model:
             play_queue.remove_entry(row[0])
 
-        self.queue_tracks(entry)
+        self.queue_track_menu_item_callback(entry)
         # Start the music
         player = self.shell.props.shell_player
         player.stop()
         player.set_playing_source(self.shell.props.queue_source)
 
         player.playpause(True)
-        print "CoverArtBrowser DEBUG - play_tracks()"
+        print "CoverArtBrowser DEBUG - play_track_menu_item_callback()"
 
-    def queue_tracks(self, entry):
-        print "CoverArtBrowser DEBUG - queue_tracks()"
+    def queue_track_menu_item_callback(self, entry):
+        print "CoverArtBrowser DEBUG - queue_track_menu_item_callback()"
         selected = self.get_selected_entries()
         selected.reverse()
 
@@ -150,7 +134,17 @@ class CoverArtEntryView(RB.EntryView):
         for entry in selected:
             self.shell.props.queue_source.add_entry(entry, -1)
 
-        print "CoverArtBrowser DEBUG - queue_tracks()"
+        print "CoverArtBrowser DEBUG - queue_track_menu_item_callback()"
+
+
+    def show_properties_menu_item_callback(self, entry):
+        print "CoverArtBrowser DEBUG - show_properties_menu_item_callback()"
+
+        info_dialog = RB.SongInfo(source=self.source, entry_view=self)
+
+        info_dialog.show_all()
+        
+        print "CoverArtBrowser DEBUG - show_properties_menu_item_callback()"
 
     def playing_song_changed(self, shell_player, entry):
         print "CoverArtBrowser DEBUG - playing_song_changed()"
