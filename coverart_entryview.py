@@ -20,15 +20,14 @@
 from gi.repository import RB
 from gi.repository import Gtk
 from gi.repository import GObject
-from coverart_album import Album
 
 ui_context_menu = """
 <ui>
     <popup name="EntryViewPopup">
-        <placeholder name="PluginPlaceholder">
-            <menuitem name="EntryViewPlay" action="EntryViewPlay"/>
-            <menuitem name="EntryViewQueue" action="EntryViewQueue"/>
-        </placeholder>
+        <menuitem name="EntryViewPlay" action="EntryViewPlay"/>
+        <menuitem name="EntryViewQueue" action="EntryViewQueue"/>
+        <separator/>
+        <placeholder name="PluginPlaceholder"/>
     </popup>
 </ui>
 """
@@ -40,7 +39,8 @@ class CoverArtEntryView(RB.EntryView):
         '''
         self.shell = shell
 
-        super(RB.EntryView, self).__init__(db=shell.props.db, shell_player=shell.props.shell_player, is_drag_source=True)
+        super(RB.EntryView, self).__init__(db=shell.props.db,
+            shell_player=shell.props.shell_player, is_drag_source=True)
 
         self.append_column(RB.EntryViewColumn.TRACK_NUMBER, True)
         self.append_column(RB.EntryViewColumn.GENRE, True)
@@ -50,36 +50,36 @@ class CoverArtEntryView(RB.EntryView):
         self.append_column(RB.EntryViewColumn.DURATION, True)
         self.set_columns_clickable(False)
 
-        uim = self.shell.props.ui_manager	
-        self.play_action = Gtk.Action( 'EntryViewPlay',
-                                       _('Play'),
-                                       _('Add selected tracks to play queue and play'),
-                                       _ )
+        uim = self.shell.props.ui_manager
 
-        self.play_action.connect ( 'activate', self.play_tracks )
+        self.play_action = Gtk.Action('EntryViewPlay',
+            _('Play'), _('Add selected tracks to play queue and play'),
+            _)
 
-        self.queue_action = Gtk.Action( 'EntryViewQueue',
-                                       _('Queue'),
-                                       _('Queue selected tracks'),
-                                       _ )
+        self.play_action.connect('activate', self.play_tracks)
 
-        self.queue_action.connect ( 'activate', self.queue_tracks )
+        self.queue_action = Gtk.Action('EntryViewQueue', _('Queue'),
+            _('Queue selected tracks'), _)
 
-        self.action_group = Gtk.ActionGroup( 'CoverArtEntryViewActionGroup' )
-        self.action_group.add_action( self.play_action )
-        self.action_group.add_action( self.queue_action )
-        uim.insert_action_group( self.action_group, -1 )
+        self.queue_action.connect('activate', self.queue_tracks)
 
-        self.ui_id = uim.add_ui_from_string( ui_context_menu )
-        self.popup_menu = uim.get_widget( "/EntryViewPopup" )
+        self.action_group = Gtk.ActionGroup('CoverArtEntryViewActionGroup')
+        self.action_group.add_action(self.play_action)
+        self.action_group.add_action(self.queue_action)
+        uim.insert_action_group(self.action_group, -1)
+
+        self.ui_id = uim.add_ui_from_string(ui_context_menu)
+        self.popup_menu = uim.get_widget('/EntryViewPopup')
         uim.ensure_update()
 
-        self.shell.props.shell_player.connect('playing-song-changed', self.playing_song_changed)
-        self.shell.props.shell_player.connect('playing-changed', self.playing_changed)
+        self.shell.props.shell_player.connect('playing-song-changed',
+            self.playing_song_changed)
+        self.shell.props.shell_player.connect('playing-changed',
+            self.playing_changed)
 
         self.qm = RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
         self.set_model(self.qm)
-        
+
     def __del__(self):
         uim = self.shell.props.ui_manager
 
@@ -94,10 +94,9 @@ class CoverArtEntryView(RB.EntryView):
     def add_album(self, album):
         print "CoverArtBrowser DEBUG - add_album()"
         album.get_entries(self.qm)
-        
+
         (_, playing) = self.shell.props.shell_player.get_playing()
-        self.playing_changed(   self.shell.props.shell_player,
-                                playing )
+        self.playing_changed(self.shell.props.shell_player, playing)
         print "CoverArtBrowser DEBUG - add_album()"
 
     def clear(self):
@@ -130,13 +129,13 @@ class CoverArtEntryView(RB.EntryView):
         play_queue = self.shell.props.queue_source
         for row in play_queue.props.query_model:
             play_queue.remove_entry(row[0])
-            
-        self.queue_tracks( entry )
+
+        self.queue_tracks(entry)
         # Start the music
         player = self.shell.props.shell_player
         player.stop()
         player.set_playing_source(self.shell.props.queue_source)
-        
+
         player.playpause(True)
         print "CoverArtBrowser DEBUG - play_tracks()"
 
@@ -149,7 +148,7 @@ class CoverArtEntryView(RB.EntryView):
             key=lambda song: song.get_ulong(RB.RhythmDBPropType.TRACK_NUMBER))
 
         for entry in selected:
-            self.shell.props.queue_source.add_entry( entry, -1 )
+            self.shell.props.queue_source.add_entry(entry, -1)
 
         print "CoverArtBrowser DEBUG - queue_tracks()"
 
@@ -157,8 +156,8 @@ class CoverArtEntryView(RB.EntryView):
         print "CoverArtBrowser DEBUG - playing_song_changed()"
         print shell_player
         print entry
-        
-        if entry != None and self.get_entry_contained(entry):
+
+        if entry is not None and self.get_entry_contained(entry):
             self.set_state(RB.EntryViewState.PLAYING)
         else:
             self.set_state(RB.EntryViewState.NOT_PLAYING)
@@ -171,7 +170,7 @@ class CoverArtEntryView(RB.EntryView):
         print playing
         entry = shell_player.get_playing_entry()
 
-        if entry != None and self.get_entry_contained(entry):
+        if entry is not None and self.get_entry_contained(entry):
             if playing:
                 self.set_state(RB.EntryViewState.PLAYING)
             else:
@@ -180,5 +179,5 @@ class CoverArtEntryView(RB.EntryView):
             self.set_state(RB.EntryViewState.NOT_PLAYING)
 
         print "CoverArtBrowser DEBUG - playing_changed()"
-    
+
 GObject.type_register(CoverArtEntryView)
