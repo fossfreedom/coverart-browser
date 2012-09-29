@@ -7,6 +7,7 @@
 #for each ui file run the following to create translation .h files
 intltool-extract --type=gettext/glade coverart_browser_prefs.ui
 intltool-extract --type=gettext/glade coverart_browser.ui
+intltool-extract --type=gettext/glade coverart_entryview.ui
 
 #create a new template file called po/package.pot by running
 pygettext -d package -k _ -k N_ -p po *.py *.h
