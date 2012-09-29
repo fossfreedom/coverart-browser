@@ -192,7 +192,7 @@ class CoverArtBrowserSource(RB.Source):
         # get the loader
         self.loader = AlbumLoader.get_instance(self.plugin,
             ui.get_object('covers_model'),
-            self.shell.props.library_source.props.base_query_model)
+            self.props.query_model)
 
         # if the source is fully loaded, enable the full cover search item
         self.source_menu_search_all_item.set_sensitive(
@@ -420,7 +420,7 @@ class CoverArtBrowserSource(RB.Source):
     def cover_search_menu_item_callback(self, menu_item):
         '''
         Callback called when the search cover option is selected from the
-        cover view popup. It promps the album loader to retrieve the selected
+        cover view popup. It prompts the album loader to retrieve the selected
         album cover
         '''
         print "CoverArtBrowser DEBUG - cover_search_menu_item_callback()"
@@ -434,6 +434,18 @@ class CoverArtBrowserSource(RB.Source):
             self.update_request_status_bar)
 
         print "CoverArtBrowser DEBUG - end cover_search_menu_item_callback()"
+
+    def show_properties_menu_item_callback(self, menu_item):
+        '''
+        Callback called when the show album properties option is selected from
+        the cover view popup. It shows a SongInfo dialog showing the selected
+        albums' entries info, which can be modified.
+        '''
+        self.entry_view.select_all()
+
+        info_dialog = RB.SongInfo(source=self, entry_view=self.entry_view)
+
+        info_dialog.show_all()
 
     def search_all_covers_callback(self, _):
         '''
@@ -484,8 +496,7 @@ class CoverArtBrowserSource(RB.Source):
         print "CoverArtBrowser DEBUG - selectionchanged_callback"
 
         # clear the entry view
-        if self.display_tracks_enabled:
-            self.entry_view.clear()
+        self.entry_view.clear()
 
         model = widget.get_model()
 
@@ -503,21 +514,18 @@ class CoverArtBrowserSource(RB.Source):
 
             return
 
-        selected = widget.get_selected_items()
+        selected = self.get_selected_albums()
 
         track_count = 0
         duration = 0
 
-        for select in selected:
-            album = model[select][2]
+        for album in selected:
             # Calculate duration and number of tracks from that album
             track_count += album.get_track_count()
             duration += album.calculate_duration_in_mins()
 
-            # if the display tracks option is enabled, add the album to the
-            # entry
-            if self.display_tracks_enabled:
-                self.entry_view.add_album(album)
+            # add teh album to the entry_view
+            self.entry_view.add_album(album)
 
         # now lets build up a status label containing some 'interesting stuff'
         #about the album

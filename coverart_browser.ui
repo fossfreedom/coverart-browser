@@ -345,6 +345,24 @@
         <signal name="activate" handler="cover_search_menu_item_callback" swapped="no"/>
       </object>
     </child>
+    <child>
+      <object class="GtkSeparatorMenuItem" id="popup_separator">
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="show_properties_menu_item">
+        <property name="label">gtk-properties</property>
+        <property name="tooltip_text" translatable="yes">Show album properties</property>
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="use_stock">True</property>
+        <signal name="activate" handler="show_properties_menu_item_callback" swapped="no"/>
+      </object>
+    </child>
    </object>
    <object class="GtkMenu" id="source_menu">
     <property name="visible">True</property>
