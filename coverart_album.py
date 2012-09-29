@@ -362,6 +362,35 @@ class AlbumLoader(GObject.Object):
         '''
         self.progress = 1
 
+    def reload_model(self):
+        '''
+        This method allows to remove and readd all the albums that are
+        currently in this loader model.
+        '''
+        albums = [album for album in self.albums.values() if hasattr(album,
+            'model')]
+
+        for album in albums:
+            album.remove_from_model()
+
+        Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
+            self._readd_albums_to_model,
+            albums)
+
+    def _readd_albums_to_model(self, albums):
+        '''
+        Idle callback that readds the albums removed from the modle by
+        'reload_model' in chunks to improve ui resposiveness.
+        '''
+        for i in range(AlbumLoader.DEFAULT_LOAD_CHUNK):
+            try:
+                album = albums.pop()
+                album.add_to_model(self.cover_model)
+            except:
+                return False
+
+        return True
+
     def search_cover_for_album(self, album, callback=lambda *_: None,
         data=None):
         '''
@@ -475,9 +504,9 @@ class Album(object):
         title = set()
 
         for e in self.entries:
-            title.add( e.get_string(RB.RhythmDBPropType.TITLE) )
+            title.add(e.get_string(RB.RhythmDBPropType.TITLE))
 
-        return ', '.join( title )
+        return ' '.join(title)
 
     @property
     def album_artist(self):
@@ -571,6 +600,9 @@ class Album(object):
         # replace the album_artist
         self._album_artist = new_album_artist
 
+        # inform the model of the change
+        self.model.set_value(self.tree_iter, 2, self)
+
     def has_cover(self):
         ''' Indicates if this album has his cover loaded. '''
         return not self.cover is Album.UNKNOWN_COVER
@@ -622,6 +654,9 @@ class Album(object):
     def remove_from_model(self):
         ''' Removes this album from it's model. '''
         self.model.remove(self.tree_iter)
+
+        del self.model
+        del self.tree_iter
 
     def update_cover(self, pixbuf):
         ''' Updates this Album's cover using the given pixbuf. '''
@@ -689,6 +724,34 @@ class Album(object):
         if type(cls.UNKNOWN_COVER) is str:
             cls.UNKNOWN_COVER = Cover(
                 rb.find_plugin_file(plugin, cls.UNKNOWN_COVER))
+
+    @classmethod
+    def compare_albums_by_name(cls, album1, album2):
+        '''
+        Classmethod that compares two albums by their names.
+        Returns -1 if album1 goes before album2, 0 if their are considered
+        equal and 1 if album1 goes after album2.
+        '''
+        if album1.name < album2.name:
+            return 1
+        if album1.name > album2.name:
+            return -1
+        else:
+            return 0
+
+    @classmethod
+    def compare_albums_by_album_artist(cls, album1, album2):
+        '''
+        Classmethod that compares two albums by their album artist names.
+        Returns -1 if album1 goes before album2, 0 if their are considered
+        equal and 1 if album1 goes after album2.
+        '''
+        if album1.album_artist < album2.album_artist:
+            return 1
+        if album1.album_artist > album2.album_artist:
+            return -1
+        else:
+            return 0
 
 
 class Cover(object):
