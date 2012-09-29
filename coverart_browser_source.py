@@ -23,10 +23,8 @@ import gettext
 
 
 from gi.repository import GObject
-from gi.repository import GLib
 from gi.repository import Gtk
 from gi.repository import RB
-from gi.repository import Gdk
 
 from coverart_album import AlbumLoader
 from coverart_album import Album
@@ -344,7 +342,7 @@ class CoverArtBrowserSource(RB.Source):
 
             #model = iconview.get_model()
 
-            self.selected_album = iconview.get_selected_items()#model[pthinfo][2]
+            self.selected_album = iconview.get_selected_items()
 
             self.popup_menu.popup(None, None, None, None, event.button, time)
 
@@ -360,7 +358,7 @@ class CoverArtBrowserSource(RB.Source):
         iconview.select_path(path)
 
         #model = iconview.get_model()
-        self.selected_album = iconview.get_selected_items()#model[path][2]
+        self.selected_album = iconview.get_selected_items()
 
         self.play_album_menu_item_callback(_)
         return True
@@ -408,7 +406,7 @@ class CoverArtBrowserSource(RB.Source):
         for selected in self.selected_album:
             # Retrieve and sort the entries of the album
             songs = sorted(model[selected][2].entries,
-                key = lambda song:
+                key=lambda song:
                     song.get_ulong(RB.RhythmDBPropType.TRACK_NUMBER))
 
             # Add the songs to the play queue
@@ -699,4 +697,3 @@ class CoverArtBrowserSource(RB.Source):
         del self.hasActivated
 
 GObject.type_register(CoverArtBrowserSource)
-
