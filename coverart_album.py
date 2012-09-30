@@ -652,6 +652,7 @@ class Album(object):
 
         # update the model's tooltip and markup for this
         self.model.set_value(self.tree_iter, 0, self._create_tooltip())
+        self.model.set_value(self.tree_iter, 3, self._create_markup())
 
     def entry_album_artist_modified(self, entry, new_album_artist):
         '''
