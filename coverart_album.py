@@ -503,7 +503,7 @@ class Album(object):
     FILTER_TRACK_TITLE = 5
 
     # markup format
-    MARKUP_FORMAT = '''<span font='%d'><b>%s</b>\n<i>from %s</i></span>'''
+    MARKUP_FORMAT = '''<span font='%d'><b>%s</b>\n<i>by %s</i></span>'''
 
     # font size for the markup text
     FONT_SIZE = Cover.COVER_SIZE / 10
