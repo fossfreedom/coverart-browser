@@ -28,32 +28,31 @@ msgstr "CoverArt"
 #: coverart_browser.ui.h:1
 #, fuzzy
 msgid "Album"
-msgstr "Reproducir Álbum"
+msgstr "Álbum"
 
 #: coverart_browser.ui.h:2
 msgid "Sort by album name"
-msgstr ""
+msgstr "Ordenar por nombre del álbum"
 
 #: coverart_browser.ui.h:3
 msgid "Artist"
-msgstr ""
+msgstr "Artista"
 
 #: coverart_browser.ui.h:4
-#, fuzzy
 msgid "Sort by album artist"
 msgstr "Buscar por artista del álbum"
 
 #: coverart_browser.ui.h:5
 msgid "Sort in descending order"
-msgstr ""
+msgstr "Ordenar en orden descendente"
 
 #: coverart_browser.ui.h:6
 msgid "Sort in ascending order"
-msgstr ""
+msgstr "Ordenar en orden ascendente"
 
 #: coverart_browser.ui.h:7 coverart_browser_prefs.ui.h:3
 msgid "Display Tracks"
-msgstr ""
+msgstr "Mostrar canciones"
 
 #: coverart_browser.ui.h:8
 msgid "Stop coverart fetch."
@@ -84,9 +83,8 @@ msgid "Search for covers"
 msgstr "Buscar portadas"
 
 #: coverart_browser.ui.h:15
-#, fuzzy
 msgid "Show album properties"
-msgstr "Buscar por artista del álbum"
+msgstr "Mostrar propiedades del álbum"
 
 #: coverart_browser.ui.h:16
 msgid "Search for covers where an album does not currently have one"
@@ -123,12 +121,10 @@ msgid "Search track artists"
 msgstr "Buscar por artista de canción"
 
 #: coverart_browser.ui.h:24
-#, fuzzy
 msgid "Search using album titles"
 msgstr "Busca utilizando el título de los álbums"
 
 #: coverart_browser.ui.h:25
-#, fuzzy
 msgid "Search albums"
 msgstr "Buscar álbums"
 
@@ -137,7 +133,6 @@ msgid "Search using track titles"
 msgstr "Busca por los nombres de cada canción en el álbum"
 
 #: coverart_browser.ui.h:27
-#, fuzzy
 msgid "Search tracks"
 msgstr "Buscar por canción"
 
@@ -159,6 +154,8 @@ msgid ""
 "Add a toggle-option to the coverart view to display tracks for the chosen "
 "album"
 msgstr ""
+"Agrega una ventana desplegable a la vista de portadas para mostrar "
+"las canciones del álbum seleccionado"
 
 #: coverart_browser_source.py:163
 msgid "Search album"
@@ -193,21 +190,19 @@ msgstr "Reproduce este álbum"
 
 #: coverart_entryview.ui.h:2
 msgid "Play Track"
-msgstr ""
+msgstr "Reproducir canción"
 
 #: coverart_entryview.ui.h:3
-#, fuzzy
 msgid "Add this track to your playing queue"
-msgstr "Agrega este álbum a tu cola de reproducción"
+msgstr "Agrega esta canción a tu cola de reproducción"
 
 #: coverart_entryview.ui.h:4
 msgid "Queue Track"
-msgstr ""
+msgstr "Encolar canción"
 
 #: coverart_entryview.ui.h:5
-#, fuzzy
 msgid "Show track properties"
-msgstr "Buscar por artista de canción"
+msgstr "Mostrar propiedades de la canción"
 
 #~ msgid "Cover found!"
 #~ msgstr "Portada encontrada!"
