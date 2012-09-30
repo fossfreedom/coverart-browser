@@ -47,7 +47,10 @@ class AlbumLoader(GObject.Object):
     progress = GObject.property(type=float, default=0)
 
     # default chunk of albums to load at a time while filling the model
-    DEFAULT_LOAD_CHUNK = 10
+    DEFAULT_LOAD_CHUNK = 15
+
+    # default chunk of albums to reload at a time while reloading the model
+    DEFAULT_RELOAD_CHUNK = 30
 
     def __init__(self, plugin, cover_model):
         '''
@@ -387,7 +390,7 @@ class AlbumLoader(GObject.Object):
         Idle callback that readds the albums removed from the modle by
         'reload_model' in chunks to improve ui resposiveness.
         '''
-        for i in range(AlbumLoader.DEFAULT_LOAD_CHUNK):
+        for i in range(AlbumLoader.DEFAULT_RELOAD_CHUNK):
             try:
                 album = albums.pop()
                 album.add_to_model(self.cover_model)
