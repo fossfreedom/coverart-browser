@@ -195,8 +195,7 @@ class CoverArtBrowserSource(RB.Source):
 
         # get the loader
         self.loader = AlbumLoader.get_instance(self.plugin,
-            ui.get_object('covers_model'),
-            self.props.query_model)
+            ui.get_object('covers_model'), self.props.query_model)
 
         # if the source is fully loaded, enable the full cover search item
         self.source_menu_search_all_item.set_sensitive(
@@ -232,6 +231,9 @@ class CoverArtBrowserSource(RB.Source):
         if not self.request_status_box.get_visible():
             # it should only be enabled if no cover request is going on
             self.source_menu_search_all_item.set_sensitive(True)
+
+        # enable markup if necesary
+        self.on_notify_display_text_enabled()
 
     def on_notify_custom_statusbar_enabled(self, *args):
         '''
