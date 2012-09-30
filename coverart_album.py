@@ -638,12 +638,15 @@ class Album(object):
             column 0 -> string containing the album name and artist
             column 1 -> pixbuf of the album's cover.
             column 2 -> instance of this same album.
+            column 3 -> markup text showed under the cover.
         '''
         self.model = model
-        self.tree_iter = model.append(
-            (cgi.escape('%s - %s' % (self.artist, self.name)),
-            self.cover.pixbuf,
-            self))
+        tooltip = cgi.escape('%s - %s' % (self.artist, self.name))
+        markup = GLib.markup_escape_text('%s - %s' % (self.name,
+            self.album_artist))
+
+        self.tree_iter = model.append((tooltip, self.cover.pixbuf, self,
+            markup))
 
     def get_entries(self, model):
         ''' adds all entries to the model'''

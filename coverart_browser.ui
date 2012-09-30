@@ -24,6 +24,8 @@
       <column type="GdkPixbuf"/>
       <!-- column-name album -->
       <column type="PyObject"/>
+      <!-- column-name markup -->
+      <column type="gchararray"/>
     </columns>
     <signal name="row-changed" handler="update_iconview_callback" swapped="no"/>
   </object>

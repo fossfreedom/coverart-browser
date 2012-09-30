@@ -102,6 +102,8 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
             'custom_statusbar_enabled', Gio.SettingsBindFlags.GET)
         preferences.settings.bind(prefs.DISPLAY_TRACKS, self.source,
             'display_tracks_enabled', Gio.SettingsBindFlags.GET)
+        preferences.settings.bind(prefs.DISPLAY_TEXT, self.source,
+            'display_text_enabled', Gio.SettingsBindFlags.GET)
 
         print "CoverArtBrowser DEBUG - end do_activate"
 

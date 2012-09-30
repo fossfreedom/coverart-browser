@@ -41,6 +41,7 @@ class CoverArtBrowserSource(RB.Source):
 
     custom_statusbar_enabled = GObject.property(type=bool, default=False)
     display_tracks_enabled = GObject.property(type=bool, default=False)
+    display_text_enabled = GObject.property(type=bool, default=False)
 
     def __init__(self):
         '''
@@ -112,6 +113,9 @@ class CoverArtBrowserSource(RB.Source):
 
         self.connect('notify::display-tracks-enabled',
             self.on_notify_display_tracks_enabled)
+
+        self.connect('notify::display-text-enabled',
+            self.on_notify_display_text_enabled)
 
         # setup translation support
         locale.setlocale(locale.LC_ALL, '')
@@ -263,6 +267,14 @@ class CoverArtBrowserSource(RB.Source):
                 self.paned_position = self.paned.get_position()
 
             self.entry_view_box.set_visible(False)
+
+    def on_notify_display_text_enabled(self, *args):
+        '''
+        Callback calledn when the option 'display text under cover' is enabled
+        or disabled on the plugin's preferences dialog'
+        '''
+        self.covers_view.set_markup_column(
+            3 if self.display_text_enabled else -1)
 
     def album_modified_callback(self, _, modified_album):
         '''

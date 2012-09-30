@@ -26,7 +26,9 @@ import rb
 PATH = 'org.gnome.rhythmbox.plugins.coverart_browser'
 CUSTOM_STATUSBAR = 'custom-statusbar'
 DISPLAY_TRACKS = 'display-tracks'
+DISPLAY_TEXT = 'display-text'
 DIALOG_FILE = 'coverart_browser_prefs.ui'
+
 
 class Preferences(GObject.Object, PeasGtk.Configurable):
     '''
@@ -35,7 +37,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
     '''
     __gtype_name__ = 'CoverArtBrowserPreferences'
     object = GObject.property(type=GObject.Object)
-    
+
     def __init__(self):
         '''
         Initialises the preferences, getting an instance of the settings saved
@@ -59,6 +61,10 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
 
         toggle_tracks = builder.get_object('display_tracks_checkbox')
         self.settings.bind(DISPLAY_TRACKS, toggle_tracks, 'active',
+            Gio.SettingsBindFlags.DEFAULT)
+
+        toggle_text = builder.get_object('display_text_checkbox')
+        self.settings.bind(DISPLAY_TEXT, toggle_text, 'active',
             Gio.SettingsBindFlags.DEFAULT)
 
         # return the dialog
