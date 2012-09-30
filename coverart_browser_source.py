@@ -336,6 +336,12 @@ class CoverArtBrowserSource(RB.Source):
             if pthinfo is None:
                 return
 
+            # if the current item isn't selected, then we should clear the
+            # current selection
+            if len(iconview.get_selected_items()) > 0 and \
+                not iconview.path_is_selected(pthinfo):
+                iconview.unselect_all()
+
             iconview.grab_focus()
             iconview.select_path(pthinfo)
 
