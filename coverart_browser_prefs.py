@@ -27,6 +27,7 @@ PATH = 'org.gnome.rhythmbox.plugins.coverart_browser'
 CUSTOM_STATUSBAR = 'custom-statusbar'
 DISPLAY_TRACKS = 'display-tracks'
 DISPLAY_TEXT = 'display-text'
+DISPLAY_TEXT_LOADING = 'display-text-loading'
 DIALOG_FILE = 'coverart_browser_prefs.ui'
 
 
@@ -54,7 +55,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         builder = Gtk.Builder()
         builder.add_from_file(rb.find_plugin_file(self, DIALOG_FILE))
 
-        # bind the toggle to the settings
+        # bind the toggles to the settings
         toggle_statusbar = builder.get_object('custom_statusbar_checkbox')
         self.settings.bind(CUSTOM_STATUSBAR, toggle_statusbar, 'active',
             Gio.SettingsBindFlags.DEFAULT)
@@ -66,6 +67,13 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         toggle_text = builder.get_object('display_text_checkbox')
         self.settings.bind(DISPLAY_TEXT, toggle_text, 'active',
             Gio.SettingsBindFlags.DEFAULT)
+
+        toggle_text_loading = builder.get_object(
+            'display_text_loading_checkbox')
+        self.settings.bind(DISPLAY_TEXT_LOADING, toggle_text_loading, 'active',
+            Gio.SettingsBindFlags.DEFAULT)
+        self.settings.bind(DISPLAY_TEXT, toggle_text_loading, 'sensitive',
+            Gio.SettingsBindFlags.GET)
 
         # return the dialog
         return builder.get_object('main_box')

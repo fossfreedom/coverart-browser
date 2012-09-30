@@ -43,6 +43,7 @@ class CoverArtBrowserSource(RB.Source):
     custom_statusbar_enabled = GObject.property(type=bool, default=False)
     display_tracks_enabled = GObject.property(type=bool, default=False)
     display_text_enabled = GObject.property(type=bool, default=False)
+    display_text_loading_enabled = GObject.property(type=bool, default=True)
 
     def __init__(self):
         '''
@@ -117,6 +118,9 @@ class CoverArtBrowserSource(RB.Source):
 
         self.connect('notify::display-text-enabled',
             self.on_notify_display_text_enabled)
+
+        self.connect('notify::display-text-loading-enabled',
+            self.on_notify_display_text_loading_enabled)
 
         # setup translation support
         locale.setlocale(locale.LC_ALL, '')
@@ -202,6 +206,10 @@ class CoverArtBrowserSource(RB.Source):
         if self.loader.progress == 1:
             self.load_finished_callback()
 
+        # if the text during load is enabled, activate it
+        if self.display_text_loading_enabled:
+            self.on_notify_display_text_enabled()
+
         # retrieve and set the model, it's filter and the sorting column
         self.covers_model_store = self.loader.cover_model
 
@@ -273,10 +281,27 @@ class CoverArtBrowserSource(RB.Source):
 
     def on_notify_display_text_enabled(self, *args):
         '''
-        Callback calledn when the option 'display text under cover' is enabled
-        or disabled on the plugin's preferences dialog'
+        Callback called when the option 'display text under cover' is enabled
+        or disabled on the plugin's preferences dialog
         '''
-        if self.display_text_enabled:
+        self.activate_markup(self.display_text_enabled)
+
+    def on_notify_display_text_loading_enabled(self, *args):
+        '''
+        Callback called when the option 'show text while loading' is enabled
+        or disabled on the plugin's prefereces dialog.
+        This option only makes a visible effect if it's toggled during the
+        album loading.
+        '''
+        if self.loader.progress < 1:
+            self.activate_markup(self.display_text_loading_enabled)
+
+    def activate_markup(self, activate):
+        '''
+        Utility method to activate/deactivate the markup text on the
+        cover view.
+        '''
+        if activate:
             column = 3
             item_width = Cover.COVER_SIZE + 20
         else:

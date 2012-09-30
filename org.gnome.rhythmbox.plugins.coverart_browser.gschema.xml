@@ -16,5 +16,10 @@
             <summary>Display album's info under cover</summary>
             <description>Show the album's basic information under the cover image.</description>
         </key>
+        <key type="b" name="display-text-loading">
+            <default>true</default>
+            <summary>Show text while loading</summary>
+            <description>Show's the text for each album during the source load. Deactivating this option may help with the loading performance.</description>
+        </key>
     </schema>
 </schemalist>
