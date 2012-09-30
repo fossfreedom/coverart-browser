@@ -29,6 +29,7 @@ from gi.repository import RB
 
 from coverart_album import AlbumLoader
 from coverart_album import Album
+from coverart_album import Cover
 from coverart_entryview import CoverArtEntryView
 
 
@@ -42,6 +43,10 @@ class CoverArtBrowserSource(RB.Source):
 
     custom_statusbar_enabled = GObject.property(type=bool, default=False)
     display_tracks_enabled = GObject.property(type=bool, default=False)
+    display_text_enabled = GObject.property(type=bool, default=False)
+    display_text_loading_enabled = GObject.property(type=bool, default=True)
+    display_text_ellipsize_enabled = GObject.property(type=bool, default=False)
+    display_text_ellipsize_length = GObject.property(type=int, default=20)
 
     def __init__(self):
         '''
@@ -107,12 +112,27 @@ class CoverArtBrowserSource(RB.Source):
         self.filter_type = Album.FILTER_ALL
         self.compare_albums = Album.compare_albums_by_name
 
+        # set the ellipsize
+        Album.set_ellipsize_length(self.display_text_ellipsize_length)
+
         # connect properties signals
         self.connect('notify::custom-statusbar-enabled',
             self.on_notify_custom_statusbar_enabled)
 
         self.connect('notify::display-tracks-enabled',
             self.on_notify_display_tracks_enabled)
+
+        self.connect('notify::display-text-enabled',
+            self.on_notify_display_text_enabled)
+
+        self.connect('notify::display-text-loading-enabled',
+            self.on_notify_display_text_loading_enabled)
+
+        self.connect('notify::display-text-ellipsize-enabled',
+            self.on_notify_display_text_ellipsize)
+
+        self.connect('notify::display-text-ellipsize-length',
+            self.on_notify_display_text_ellipsize)
 
         # setup translation support
         locale.setlocale(locale.LC_ALL, '')
@@ -192,12 +212,15 @@ class CoverArtBrowserSource(RB.Source):
 
         # get the loader
         self.loader = AlbumLoader.get_instance(self.plugin,
-            ui.get_object('covers_model'),
-            self.props.query_model)
+            ui.get_object('covers_model'), self.props.query_model)
 
         # if the source is fully loaded, enable the full cover search item
-        self.source_menu_search_all_item.set_sensitive(
-            self.loader.progress == 1)
+        if self.loader.progress == 1:
+            self.load_finished_callback()
+
+        # if the text during load is enabled, activate it
+        if self.display_text_loading_enabled:
+            self.activate_markup(self.display_text_enabled)
 
         # retrieve and set the model, it's filter and the sorting column
         self.covers_model_store = self.loader.cover_model
@@ -213,8 +236,10 @@ class CoverArtBrowserSource(RB.Source):
         # connect some signals to the loader to keep the source informed
         self.album_mod_id = self.loader.connect('album-modified',
             self.album_modified_callback)
-        self.load_fin_id = self.loader.connect(
-            'load-finished', self.load_finished_callback)
+        self.load_fin_id = self.loader.connect('load-finished',
+            self.load_finished_callback)
+        self.reload_fin_id = self.loader.connect('reload-finished',
+            self.reload_finished_callback)
         self.notify_prog_id = self.loader.connect('notify::progress',
             lambda *args: self.notify_status_changed())
 
@@ -229,6 +254,20 @@ class CoverArtBrowserSource(RB.Source):
         if not self.request_status_box.get_visible():
             # it should only be enabled if no cover request is going on
             self.source_menu_search_all_item.set_sensitive(True)
+
+        # enable markup if necesary
+        if self.display_text_enabled and not self.display_text_loading_enabled:
+            self.activate_markup(True)
+
+    def reload_finished_callback(self, _):
+        '''
+        Callback called when the loader finishes reloading albums into the
+        covers view model.
+        '''
+        if self.display_text_enabled and \
+            not self.display_text_loading_enabled \
+            and self.loader.progress == 1:
+            self.activate_markup(True)
 
     def on_notify_custom_statusbar_enabled(self, *args):
         '''
@@ -264,6 +303,52 @@ class CoverArtBrowserSource(RB.Source):
                 self.paned_position = self.paned.get_position()
 
             self.entry_view_box.set_visible(False)
+
+    def on_notify_display_text_enabled(self, *args):
+        '''
+        Callback called when the option 'display text under cover' is enabled
+        or disabled on the plugin's preferences dialog
+        '''
+        self.activate_markup(self.display_text_enabled)
+
+    def on_notify_display_text_loading_enabled(self, *args):
+        '''
+        Callback called when the option 'show text while loading' is enabled
+        or disabled on the plugin's prefereces dialog.
+        This option only makes a visible effect if it's toggled during the
+        album loading.
+        '''
+        if self.loader.progress < 1 or self.loader.reloading:
+            self.activate_markup(self.display_text_loading_enabled)
+
+    def activate_markup(self, activate):
+        '''
+        Utility method to activate/deactivate the markup text on the
+        cover view.
+        '''
+        if activate:
+            column = 3
+            item_width = Cover.COVER_SIZE + 20
+        else:
+            column = item_width = -1
+
+        self.covers_view.set_markup_column(column)
+        self.covers_view.set_item_width(item_width)
+
+    def on_notify_display_text_ellipsize(self, *args):
+        '''
+        Callback called when one of the properties related with the ellipsize
+        option is changed.
+        '''
+        if self.display_text_ellipsize_enabled:
+            Album.set_ellipsize_length(self.display_text_ellipsize_length)
+        else:
+            Album.set_ellipsize_length(0)
+
+        if not self.display_text_loading_enabled:
+            self.activate_markup(False)
+
+        self.loader.reload_model()
 
     def album_modified_callback(self, _, modified_album):
         '''
@@ -537,10 +622,11 @@ class CoverArtBrowserSource(RB.Source):
         # now lets build up a status label containing some 'interesting stuff'
         #about the album
         if len(selected) == 1:
-            status = ('%s - %s' % (album.name, album.album_artist)).decode(
+            status = (_('%s by %s') % (album.name, album.album_artist)).decode(
                 'UTF-8')
         else:
-            status = ('%d selected albums ' % (len(selected))).decode('UTF-8')
+            status = (_('%d selected albums ') % (len(selected))).decode(
+                'UTF-8')
 
         if track_count == 1:
             status += (_(' with 1 track')).decode('UTF-8')
@@ -626,6 +712,9 @@ class CoverArtBrowserSource(RB.Source):
         else:
             self.compare_albums = Album.compare_albums_by_album_artist
 
+        if self.display_text_enabled and not self.display_text_loading_enabled:
+            self.activate_markup(False)
+
         self.loader.reload_model()
 
     def sorting_direction_changed(self, radio):
@@ -640,6 +729,9 @@ class CoverArtBrowserSource(RB.Source):
             sort_direction = Gtk.SortType.DESCENDING
         else:
             sort_direction = Gtk.SortType.ASCENDING
+
+        if self.display_text_enabled and not self.display_text_loading_enabled:
+            self.activate_markup(False)
 
         self.loader.reload_model()
         self.covers_model_store.set_sort_column_id(2, sort_direction)
@@ -668,6 +760,7 @@ class CoverArtBrowserSource(RB.Source):
 
         # disconnect signals
         self.loader.disconnect(self.load_fin_id)
+        self.loader.disconnect(self.reload_fin_id)
         self.loader.disconnect(self.album_mod_id)
         self.loader.disconnect(self.notify_prog_id)
 
@@ -703,6 +796,7 @@ class CoverArtBrowserSource(RB.Source):
         del self.status
         del self.status_label
         del self.status_separator
+        del self.reload_fin_id
         del self.load_fin_id
         del self.album_mod_id
         del self.notify_prog_id

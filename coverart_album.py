@@ -36,6 +36,7 @@ class AlbumLoader(GObject.Object):
     # signals
     __gsignals__ = {
         'load-finished': (GObject.SIGNAL_RUN_LAST, None, ()),
+        'reload-finished': (GObject.SIGNAL_RUN_LAST, None, ()),
         'album-modified': (GObject.SIGNAL_RUN_LAST, object, (object,))
         }
 
@@ -46,7 +47,10 @@ class AlbumLoader(GObject.Object):
     progress = GObject.property(type=float, default=0)
 
     # default chunk of albums to load at a time while filling the model
-    DEFAULT_LOAD_CHUNK = 10
+    DEFAULT_LOAD_CHUNK = 15
+
+    # default chunk of albums to reload at a time while reloading the model
+    DEFAULT_RELOAD_CHUNK = 30
 
     def __init__(self, plugin, cover_model):
         '''
@@ -59,6 +63,7 @@ class AlbumLoader(GObject.Object):
         self.db = plugin.shell.props.db
         self.cover_model = cover_model
         self.cover_db = RB.ExtDB(name='album-art')
+        self.reloading = 0
 
         # connect the signal to update cover arts when added
         self.req_id = self.cover_db.connect('added',
@@ -367,6 +372,9 @@ class AlbumLoader(GObject.Object):
         This method allows to remove and readd all the albums that are
         currently in this loader model.
         '''
+        # add one to the reloading accum
+        self.reloading += 1
+
         albums = [album for album in self.albums.values() if hasattr(album,
             'model')]
 
@@ -382,11 +390,17 @@ class AlbumLoader(GObject.Object):
         Idle callback that readds the albums removed from the modle by
         'reload_model' in chunks to improve ui resposiveness.
         '''
-        for i in range(AlbumLoader.DEFAULT_LOAD_CHUNK):
+        for i in range(AlbumLoader.DEFAULT_RELOAD_CHUNK):
             try:
                 album = albums.pop()
                 album.add_to_model(self.cover_model)
             except:
+                # only emit the signal when there isn't any reloading going on
+                self.reloading -= 1
+
+                if not self.reloading:
+                    self.emit('reload_finished')
+
                 return False
 
         return True
@@ -453,6 +467,26 @@ class AlbumLoader(GObject.Object):
             pass
 
 
+class Cover(object):
+    ''' Cover of an Album. '''
+    # default cover size
+    COVER_SIZE = 92
+
+    def __init__(self, file_path=None, pixbuf=None, width=COVER_SIZE,
+        height=COVER_SIZE):
+        '''
+        Initialises a cover, creating it's pixbuf or adapting a given one.
+        Either a file path or a pixbuf should be given to it's correct
+        initialization.
+        '''
+        if pixbuf:
+            self.pixbuf = pixbuf.scale_simple(width, height,
+                 GdkPixbuf.InterpType.BILINEAR)
+        else:
+            self.pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(file_path,
+                width, height)
+
+
 class Album(object):
     '''
     An specific album defined by it's name and with the ability to obtain it's
@@ -468,6 +502,15 @@ class Album(object):
     FILTER_ALBUM_ARTIST = 4
     FILTER_TRACK_TITLE = 5
 
+    # markup format
+    MARKUP_FORMAT = '''<span font='%d'><b>%s</b>\n<i>by %s</i></span>'''
+
+    # font size for the markup text
+    FONT_SIZE = Cover.COVER_SIZE / 10
+
+    # ellipsize length
+    ELLIPSIZE = 0
+
     def __init__(self, name, album_artist=None):
         '''
         Initialises the album with it's name and artist.
@@ -479,6 +522,7 @@ class Album(object):
         self._artist = set()
         self.entries = []
         self.cover = Album.UNKNOWN_COVER
+        self.model = None
 
     @property
     def album_name(self):
@@ -522,6 +566,32 @@ class Album(object):
 
         return album_artist
 
+    def _create_tooltip(self):
+        '''
+        Utility function that creates the tooltip for this album to set into
+        the model.
+        '''
+        return cgi.escape('%s by %s' % (self.name, self.artist))
+
+    def _create_markup(self):
+        '''
+        Utility function that creates the markup text for this album to set
+        into the model.
+        '''
+        # we use unicode to avoid problems with non ascii albums
+        name = unicode(self.name, 'utf-8')
+
+        if self.ELLIPSIZE and len(name) > self.ELLIPSIZE:
+            name = name[:self.ELLIPSIZE] + '...'
+
+        name = name.encode('utf-8')
+
+        # scape odd chars
+        artist = GLib.markup_escape_text(self.album_artist)
+        name = GLib.markup_escape_text(name)
+
+        return self.MARKUP_FORMAT % (self.FONT_SIZE, name, artist)
+
     def _remove_artist(self, artist):
         '''
         Allows to remove a orphaned artist. If the artist isn't orphaned (e.g.
@@ -545,6 +615,11 @@ class Album(object):
         artist = entry.get_string(RB.RhythmDBPropType.ARTIST)
         self._artist.add(artist)
 
+        if self.model:
+            # update the model's tooltip and markup for this album
+            self.model.set_value(self.tree_iter, 0, self._create_tooltip())
+            self.model.set_value(self.tree_iter, 3, self._create_markup())
+
     def remove_entry(self, entry):
         '''
         Removes an entry from the album entrie's list. If the removed entry
@@ -561,6 +636,11 @@ class Album(object):
         artist = entry.get_string(RB.RhythmDBPropType.ARTIST)
 
         self._remove_artist(artist)
+
+        if self.model:
+            # update the model's tooltip and markup for this album
+            self.model.set_value(self.tree_iter, 0, self._create_tooltip())
+            self.model.set_value(self.tree_iter, 3, self._create_markup())
 
     def entry_artist_modified(self, entry, old_artist, new_artist):
         '''
@@ -581,9 +661,10 @@ class Album(object):
         # add our new artist
         self._artist.add(new_artist)
 
-        # update the model's tooltip for this album
-        self.model.set_value(self.tree_iter, 0,
-            (cgi.escape('%s - %s' % (self.artist, self.name))))
+        if self.model:
+            # update the model's tooltip and markup for this album
+            self.model.set_value(self.tree_iter, 0, self._create_tooltip())
+            self.model.set_value(self.tree_iter, 3, self._create_markup())
 
     def entry_album_artist_modified(self, entry, new_album_artist):
         '''
@@ -600,8 +681,12 @@ class Album(object):
         # replace the album_artist
         self._album_artist = new_album_artist
 
-        # inform the model of the change
-        self.model.set_value(self.tree_iter, 2, self)
+        if self.model:
+            # inform the model of the change
+            self.model.set_value(self.tree_iter, 2, self)
+
+            # update the markup
+            self.model.set_value(self.tree_iter, 3, self._create_markup())
 
     def has_cover(self):
         ''' Indicates if this album has his cover loaded. '''
@@ -638,12 +723,14 @@ class Album(object):
             column 0 -> string containing the album name and artist
             column 1 -> pixbuf of the album's cover.
             column 2 -> instance of this same album.
+            column 3 -> markup text showed under the cover.
         '''
         self.model = model
-        self.tree_iter = model.append(
-            (cgi.escape('%s - %s' % (self.artist, self.name)),
-            self.cover.pixbuf,
-            self))
+        tooltip = self._create_tooltip()
+        markup = self._create_markup()
+
+        self.tree_iter = model.append((tooltip, self.cover.pixbuf, self,
+            markup))
 
     def get_entries(self, model):
         ''' adds all entries to the model'''
@@ -655,7 +742,7 @@ class Album(object):
         ''' Removes this album from it's model. '''
         self.model.remove(self.tree_iter)
 
-        del self.model
+        self.model = None
         del self.tree_iter
 
     def update_cover(self, pixbuf):
@@ -753,22 +840,12 @@ class Album(object):
         else:
             return 0
 
-
-class Cover(object):
-    ''' Cover of an Album. '''
-    # default cover size
-    COVER_SIZE = 92
-
-    def __init__(self, file_path=None, pixbuf=None, width=COVER_SIZE,
-        height=COVER_SIZE):
+    @classmethod
+    def set_ellipsize_length(cls, length):
         '''
-        Initialises a cover, creating it's pixbuf or adapting a given one.
-        Either a file path or a pixbuf should be given to it's correct
-        initialization.
+        Utility method to set the ELLIPSIZE length for the albums markup.
         '''
-        if pixbuf:
-            self.pixbuf = pixbuf.scale_simple(width, height,
-                 GdkPixbuf.InterpType.BILINEAR)
-        else:
-            self.pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(file_path,
-                width, height)
+        cls.ELLIPSIZE = length
+
+        if cls.ELLIPSIZE < 0:
+            cls.ELLIPSIZE = 0
