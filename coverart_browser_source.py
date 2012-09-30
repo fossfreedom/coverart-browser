@@ -589,10 +589,11 @@ class CoverArtBrowserSource(RB.Source):
         # now lets build up a status label containing some 'interesting stuff'
         #about the album
         if len(selected) == 1:
-            status = ('%s - %s' % (album.name, album.album_artist)).decode(
+            status = (_('%s by %s') % (album.name, album.album_artist)).decode(
                 'UTF-8')
         else:
-            status = ('%d selected albums ' % (len(selected))).decode('UTF-8')
+            status = (_('%d selected albums ') % (len(selected))).decode(
+                'UTF-8')
 
         if track_count == 1:
             status += (_(' with 1 track')).decode('UTF-8')

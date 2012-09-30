@@ -567,7 +567,7 @@ class Album(object):
         Utility function that creates the tooltip for this album to set into
         the model.
         '''
-        return cgi.escape('%s - %s' % (self.artist, self.name))
+        return cgi.escape('%s by %s' % (self.name, self.artist))
 
     def _create_markup(self):
         '''
