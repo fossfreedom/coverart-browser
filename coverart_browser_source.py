@@ -224,8 +224,10 @@ class CoverArtBrowserSource(RB.Source):
         # connect some signals to the loader to keep the source informed
         self.album_mod_id = self.loader.connect('album-modified',
             self.album_modified_callback)
-        self.load_fin_id = self.loader.connect(
-            'load-finished', self.load_finished_callback)
+        self.load_fin_id = self.loader.connect('load-finished',
+            self.load_finished_callback)
+        self.reload_fin_id = self.loader.connect('reload-finished',
+            self.reload_finished_callback)
         self.notify_prog_id = self.loader.connect('notify::progress',
             lambda *args: self.notify_status_changed())
 
@@ -242,7 +244,18 @@ class CoverArtBrowserSource(RB.Source):
             self.source_menu_search_all_item.set_sensitive(True)
 
         # enable markup if necesary
-        self.on_notify_display_text_enabled()
+        if self.display_text_enabled and not self.display_text_loading_enabled:
+            self.activate_markup(True)
+
+    def reload_finished_callback(self, _):
+        '''
+        Callback called when the loader finishes reloading albums into the
+        covers view model.
+        '''
+        if self.display_text_enabled and \
+            not self.display_text_loading_enabled \
+            and self.loader.progress == 1:
+            self.activate_markup(True)
 
     def on_notify_custom_statusbar_enabled(self, *args):
         '''
@@ -665,6 +678,9 @@ class CoverArtBrowserSource(RB.Source):
         else:
             self.compare_albums = Album.compare_albums_by_album_artist
 
+        if self.display_text_enabled and not self.display_text_loading_enabled:
+            self.activate_markup(False)
+
         self.loader.reload_model()
 
     def sorting_direction_changed(self, radio):
@@ -679,6 +695,9 @@ class CoverArtBrowserSource(RB.Source):
             sort_direction = Gtk.SortType.DESCENDING
         else:
             sort_direction = Gtk.SortType.ASCENDING
+
+        if self.display_text_enabled and not self.display_text_loading_enabled:
+            self.activate_markup(False)
 
         self.loader.reload_model()
         self.covers_model_store.set_sort_column_id(2, sort_direction)
@@ -707,6 +726,7 @@ class CoverArtBrowserSource(RB.Source):
 
         # disconnect signals
         self.loader.disconnect(self.load_fin_id)
+        self.loader.disconnect(self.reload_fin_id)
         self.loader.disconnect(self.album_mod_id)
         self.loader.disconnect(self.notify_prog_id)
 
@@ -742,6 +762,7 @@ class CoverArtBrowserSource(RB.Source):
         del self.status
         del self.status_label
         del self.status_separator
+        del self.reload_fin_id
         del self.load_fin_id
         del self.album_mod_id
         del self.notify_prog_id

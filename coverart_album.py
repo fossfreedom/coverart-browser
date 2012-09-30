@@ -36,6 +36,7 @@ class AlbumLoader(GObject.Object):
     # signals
     __gsignals__ = {
         'load-finished': (GObject.SIGNAL_RUN_LAST, None, ()),
+        'reload-finished': (GObject.SIGNAL_RUN_LAST, None, ()),
         'album-modified': (GObject.SIGNAL_RUN_LAST, object, (object,))
         }
 
@@ -59,6 +60,7 @@ class AlbumLoader(GObject.Object):
         self.db = plugin.shell.props.db
         self.cover_model = cover_model
         self.cover_db = RB.ExtDB(name='album-art')
+        self.reloading = 0
 
         # connect the signal to update cover arts when added
         self.req_id = self.cover_db.connect('added',
@@ -367,6 +369,9 @@ class AlbumLoader(GObject.Object):
         This method allows to remove and readd all the albums that are
         currently in this loader model.
         '''
+        # add one to the reloading accum
+        self.reloading += 1
+
         albums = [album for album in self.albums.values() if hasattr(album,
             'model')]
 
@@ -387,6 +392,12 @@ class AlbumLoader(GObject.Object):
                 album = albums.pop()
                 album.add_to_model(self.cover_model)
             except:
+                # only emit the signal when there isn't any reloading going on
+                self.reloading -= 1
+
+                if not self.reloading:
+                    self.emit('reload_finished')
+
                 return False
 
         return True
