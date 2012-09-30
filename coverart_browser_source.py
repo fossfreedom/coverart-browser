@@ -361,7 +361,7 @@ class CoverArtBrowserSource(RB.Source):
         '''
         selected_albums = []
 
-        model = self.covers_model_store
+        model = self.covers_model
 
         for selected in self.covers_view.get_selected_items():
             selected_albums.append(model[selected][2])
