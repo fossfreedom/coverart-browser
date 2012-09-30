@@ -306,7 +306,7 @@ class CoverArtBrowserSource(RB.Source):
         This option only makes a visible effect if it's toggled during the
         album loading.
         '''
-        if self.loader.progress < 1:
+        if self.loader.progress < 1 or self.loader.reloading:
             self.activate_markup(self.display_text_loading_enabled)
 
     def activate_markup(self, activate):
