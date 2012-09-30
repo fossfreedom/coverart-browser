@@ -2,6 +2,7 @@
 Loader=python
 Module=coverart_browser
 IAge=2
+Depends=rb
 Name=Cover Art Browser
 Description=Browse and play your albums.
 Authors=fossfreedom <foss.freedom@gmail.com>, Agustín Carrasco <asermax@gmail.com> based on the work of E.Wagner and Alexandre Rosenfeld <airmind@gmail.com>
