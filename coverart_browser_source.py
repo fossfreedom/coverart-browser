@@ -111,6 +111,9 @@ class CoverArtBrowserSource(RB.Source):
         self.filter_type = Album.FILTER_ALL
         self.compare_albums = Album.compare_albums_by_name
 
+        # set the ellipsize
+        Album.set_ellipsize_length(self.display_text_ellipsize_length)
+
         # connect properties signals
         self.connect('notify::custom-statusbar-enabled',
             self.on_notify_custom_statusbar_enabled)
@@ -206,10 +209,6 @@ class CoverArtBrowserSource(RB.Source):
         self.filter_menu_track_title_item = ui.get_object(
             'filter_track_title_menu_item')
 
-        # set the ellipsize
-        if self.display_text_ellipsize_enabled:
-            Album.set_ellipsize_length(self.display_text_ellipsize_length)
-
         # get the loader
         self.loader = AlbumLoader.get_instance(self.plugin,
             ui.get_object('covers_model'), self.props.query_model)
@@ -220,7 +219,7 @@ class CoverArtBrowserSource(RB.Source):
 
         # if the text during load is enabled, activate it
         if self.display_text_loading_enabled:
-            self.on_notify_display_text_enabled()
+            self.activate_markup(self.display_text_enabled)
 
         # retrieve and set the model, it's filter and the sorting column
         self.covers_model_store = self.loader.cover_model
