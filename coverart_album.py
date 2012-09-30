@@ -468,6 +468,9 @@ class Album(object):
     FILTER_ALBUM_ARTIST = 4
     FILTER_TRACK_TITLE = 5
 
+    # markup format
+    MARKUP_FORMAT = '<b>%s</b>\n<i>from %s</i>'
+
     def __init__(self, name, album_artist=None):
         '''
         Initialises the album with it's name and artist.
@@ -521,6 +524,17 @@ class Album(object):
             album_artist = _('Various Artists')
 
         return album_artist
+
+    def _create_tooltip_and_markup(self):
+        '''
+        Utility function that creates the tooltip and markup text for this
+        album to set into the model.
+        '''
+        tooltip = cgi.escape('%s - %s' % (self.artist, self.name))
+        markup = self.MARKUP_FORMAT % (GLib.markup_escape_text(self.name),
+            GLib.markup_escape_text(self.album_artist))
+
+        return tooltip, markup
 
     def _remove_artist(self, artist):
         '''
@@ -581,9 +595,9 @@ class Album(object):
         # add our new artist
         self._artist.add(new_artist)
 
-        # update the model's tooltip for this album
-        self.model.set_value(self.tree_iter, 0,
-            (cgi.escape('%s - %s' % (self.artist, self.name))))
+        # update the model's tooltip and markup for this
+        tooltip, _ = self._create_tooltip_and_markup()
+        self.model.set_value(self.tree_iter, 0, tooltip)
 
     def entry_album_artist_modified(self, entry, new_album_artist):
         '''
@@ -602,6 +616,10 @@ class Album(object):
 
         # inform the model of the change
         self.model.set_value(self.tree_iter, 2, self)
+
+        # update the markup
+        _, markup = self._create_tooltip_and_markup()
+        self.model.set_value(self.tree_iter, 3, markup)
 
     def has_cover(self):
         ''' Indicates if this album has his cover loaded. '''
@@ -641,9 +659,7 @@ class Album(object):
             column 3 -> markup text showed under the cover.
         '''
         self.model = model
-        tooltip = cgi.escape('%s - %s' % (self.artist, self.name))
-        markup = GLib.markup_escape_text('%s - %s' % (self.name,
-            self.album_artist))
+        tooltip, markup = self._create_tooltip_and_markup()
 
         self.tree_iter = model.append((tooltip, self.cover.pixbuf, self,
             markup))
