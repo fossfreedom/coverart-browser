@@ -44,6 +44,8 @@ class CoverArtBrowserSource(RB.Source):
     display_tracks_enabled = GObject.property(type=bool, default=False)
     display_text_enabled = GObject.property(type=bool, default=False)
     display_text_loading_enabled = GObject.property(type=bool, default=True)
+    display_text_ellipsize_enabled = GObject.property(type=bool, default=False)
+    display_text_ellipsize_length = GObject.property(type=int, default=20)
 
     def __init__(self):
         '''
@@ -122,6 +124,12 @@ class CoverArtBrowserSource(RB.Source):
         self.connect('notify::display-text-loading-enabled',
             self.on_notify_display_text_loading_enabled)
 
+        self.connect('notify::display-text-ellipsize-enabled',
+            self.on_notify_display_text_ellipsize)
+
+        self.connect('notify::display-text-ellipsize-length',
+            self.on_notify_display_text_ellipsize)
+
         # setup translation support
         locale.setlocale(locale.LC_ALL, '')
         locale.bindtextdomain(self.LOCALE_DOMAIN, "/usr/share/locale")
@@ -197,6 +205,10 @@ class CoverArtBrowserSource(RB.Source):
         self.filter_menu_album_item = ui.get_object('filter_album_menu_item')
         self.filter_menu_track_title_item = ui.get_object(
             'filter_track_title_menu_item')
+
+        # set the ellipsize
+        if self.display_text_ellipsize_enabled:
+            Album.set_ellipsize_length(self.display_text_ellipsize_length)
 
         # get the loader
         self.loader = AlbumLoader.get_instance(self.plugin,
@@ -322,6 +334,21 @@ class CoverArtBrowserSource(RB.Source):
 
         self.covers_view.set_markup_column(column)
         self.covers_view.set_item_width(item_width)
+
+    def on_notify_display_text_ellipsize(self, *args):
+        '''
+        Callback called when one of the properties related with the ellipsize
+        option is changed.
+        '''
+        if self.display_text_ellipsize_enabled:
+            Album.set_ellipsize_length(self.display_text_ellipsize_length)
+        else:
+            Album.set_ellipsize_length(0)
+
+        if not self.display_text_loading_enabled:
+            self.activate_markup(False)
+
+        self.loader.reload_model()
 
     def album_modified_callback(self, _, modified_album):
         '''

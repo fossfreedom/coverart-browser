@@ -508,6 +508,9 @@ class Album(object):
     # font size for the markup text
     FONT_SIZE = Cover.COVER_SIZE / 10
 
+    # ellipsize length
+    ELLIPSIZE = 0
+
     def __init__(self, name, album_artist=None):
         '''
         Initialises the album with it's name and artist.
@@ -574,9 +577,19 @@ class Album(object):
         Utility function that creates the markup text for this album to set
         into the model.
         '''
-        return self.MARKUP_FORMAT % (self.FONT_SIZE,
-            GLib.markup_escape_text(self.name),
-            GLib.markup_escape_text(self.album_artist))
+        # we use unicode to avoid problems with non ascii albums
+        name = unicode(self.name, 'utf-8')
+
+        if self.ELLIPSIZE and len(name) > self.ELLIPSIZE:
+            name = name[:self.ELLIPSIZE] + '...'
+
+        name = name.encode('utf-8')
+
+        # scape odd chars
+        artist = GLib.markup_escape_text(self.album_artist)
+        name = GLib.markup_escape_text(name)
+
+        return self.MARKUP_FORMAT % (self.FONT_SIZE, name, artist)
 
     def _remove_artist(self, artist):
         '''
@@ -812,3 +825,13 @@ class Album(object):
             return -1
         else:
             return 0
+
+    @classmethod
+    def set_ellipsize_length(cls, length):
+        '''
+        Utility method to set the ELLIPSIZE length for the albums markup.
+        '''
+        cls.ELLIPSIZE = length
+
+        if cls.ELLIPSIZE < 0:
+            cls.ELLIPSIZE = 0

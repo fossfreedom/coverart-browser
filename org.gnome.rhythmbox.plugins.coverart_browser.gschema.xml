@@ -21,5 +21,15 @@
             <summary>Show text while loading</summary>
             <description>Show's the text for each album during the source load. Deactivating this option may help with the loading performance.</description>
         </key>
+        <key type="b" name="display-text-ellipsize">
+            <default>false</default>
+            <summary>Ellipsize albums names</summary>
+            <description>Ellipsizes the albums names to a fixed length when the display text option is enabled.</description>
+        </key>
+        <key type="u" name="display-text-ellipsize-length">
+            <default>20</default>
+            <summary>Maximum length for the ellipsizing</summary>
+            <description>This is the maximum allowed size for an album's name before being ellipsized.</description>
+        </key>
     </schema>
 </schemalist>
