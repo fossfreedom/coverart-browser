@@ -608,6 +608,11 @@ class CoverArtBrowserSource(RB.Source):
 
         selected = self.get_selected_albums()
 
+        # if no album selected, clean the status
+        if not selected:
+            self.update_statusbar()
+            return
+
         track_count = 0
         duration = 0
 
@@ -639,6 +644,12 @@ class CoverArtBrowserSource(RB.Source):
             status += (_(' and a duration of %d minutes') % duration).decode(
                 'UTF-8')
 
+        self.update_statusbar(status)
+
+    def update_statusbar(self, status=''):
+        '''
+        Utility method that updates the status bar.
+        '''
         if self.custom_statusbar_enabled:
             # if the custom statusbar is enabled... use it.
             self.status_label.set_text(status)
