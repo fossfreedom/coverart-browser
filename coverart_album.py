@@ -522,6 +522,7 @@ class Album(object):
         self._artist = set()
         self.entries = []
         self.cover = Album.UNKNOWN_COVER
+        self.model = None
 
     @property
     def album_name(self):
@@ -614,6 +615,11 @@ class Album(object):
         artist = entry.get_string(RB.RhythmDBPropType.ARTIST)
         self._artist.add(artist)
 
+        if self.model:
+            # update the model's tooltip and markup for this album
+            self.model.set_value(self.tree_iter, 0, self._create_tooltip())
+            self.model.set_value(self.tree_iter, 3, self._create_markup())
+
     def remove_entry(self, entry):
         '''
         Removes an entry from the album entrie's list. If the removed entry
@@ -630,6 +636,11 @@ class Album(object):
         artist = entry.get_string(RB.RhythmDBPropType.ARTIST)
 
         self._remove_artist(artist)
+
+        if self.model:
+            # update the model's tooltip and markup for this album
+            self.model.set_value(self.tree_iter, 0, self._create_tooltip())
+            self.model.set_value(self.tree_iter, 3, self._create_markup())
 
     def entry_artist_modified(self, entry, old_artist, new_artist):
         '''
@@ -650,9 +661,10 @@ class Album(object):
         # add our new artist
         self._artist.add(new_artist)
 
-        # update the model's tooltip and markup for this
-        self.model.set_value(self.tree_iter, 0, self._create_tooltip())
-        self.model.set_value(self.tree_iter, 3, self._create_markup())
+        if self.model:
+            # update the model's tooltip and markup for this album
+            self.model.set_value(self.tree_iter, 0, self._create_tooltip())
+            self.model.set_value(self.tree_iter, 3, self._create_markup())
 
     def entry_album_artist_modified(self, entry, new_album_artist):
         '''
@@ -669,11 +681,12 @@ class Album(object):
         # replace the album_artist
         self._album_artist = new_album_artist
 
-        # inform the model of the change
-        self.model.set_value(self.tree_iter, 2, self)
+        if self.model:
+            # inform the model of the change
+            self.model.set_value(self.tree_iter, 2, self)
 
-        # update the markup
-        self.model.set_value(self.tree_iter, 3, self._create_markup())
+            # update the markup
+            self.model.set_value(self.tree_iter, 3, self._create_markup())
 
     def has_cover(self):
         ''' Indicates if this album has his cover loaded. '''
@@ -729,7 +742,7 @@ class Album(object):
         ''' Removes this album from it's model. '''
         self.model.remove(self.tree_iter)
 
-        del self.model
+        self.model = None
         del self.tree_iter
 
     def update_cover(self, pixbuf):
