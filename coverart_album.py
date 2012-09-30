@@ -453,6 +453,26 @@ class AlbumLoader(GObject.Object):
             pass
 
 
+class Cover(object):
+    ''' Cover of an Album. '''
+    # default cover size
+    COVER_SIZE = 92
+
+    def __init__(self, file_path=None, pixbuf=None, width=COVER_SIZE,
+        height=COVER_SIZE):
+        '''
+        Initialises a cover, creating it's pixbuf or adapting a given one.
+        Either a file path or a pixbuf should be given to it's correct
+        initialization.
+        '''
+        if pixbuf:
+            self.pixbuf = pixbuf.scale_simple(width, height,
+                 GdkPixbuf.InterpType.BILINEAR)
+        else:
+            self.pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(file_path,
+                width, height)
+
+
 class Album(object):
     '''
     An specific album defined by it's name and with the ability to obtain it's
@@ -469,7 +489,10 @@ class Album(object):
     FILTER_TRACK_TITLE = 5
 
     # markup format
-    MARKUP_FORMAT = '<b>%s</b>\n<i>from %s</i>'
+    MARKUP_FORMAT = '''<span font='%d'><b>%s</b>\n<i>from %s</i></span>'''
+
+    # font size for the markup text
+    FONT_SIZE = Cover.COVER_SIZE / 10
 
     def __init__(self, name, album_artist=None):
         '''
@@ -525,16 +548,21 @@ class Album(object):
 
         return album_artist
 
-    def _create_tooltip_and_markup(self):
+    def _create_tooltip(self):
         '''
-        Utility function that creates the tooltip and markup text for this
-        album to set into the model.
+        Utility function that creates the tooltip for this album to set into
+        the model.
         '''
-        tooltip = cgi.escape('%s - %s' % (self.artist, self.name))
-        markup = self.MARKUP_FORMAT % (GLib.markup_escape_text(self.name),
-            GLib.markup_escape_text(self.album_artist))
+        return cgi.escape('%s - %s' % (self.artist, self.name))
 
-        return tooltip, markup
+    def _create_markup(self):
+        '''
+        Utility function that creates the markup text for this album to set
+        into the model.
+        '''
+        return self.MARKUP_FORMAT % (self.FONT_SIZE,
+            GLib.markup_escape_text(self.name),
+            GLib.markup_escape_text(self.album_artist))
 
     def _remove_artist(self, artist):
         '''
@@ -596,8 +624,7 @@ class Album(object):
         self._artist.add(new_artist)
 
         # update the model's tooltip and markup for this
-        tooltip, _ = self._create_tooltip_and_markup()
-        self.model.set_value(self.tree_iter, 0, tooltip)
+        self.model.set_value(self.tree_iter, 0, self._create_tooltip())
 
     def entry_album_artist_modified(self, entry, new_album_artist):
         '''
@@ -618,8 +645,7 @@ class Album(object):
         self.model.set_value(self.tree_iter, 2, self)
 
         # update the markup
-        _, markup = self._create_tooltip_and_markup()
-        self.model.set_value(self.tree_iter, 3, markup)
+        self.model.set_value(self.tree_iter, 3, self._create_markup())
 
     def has_cover(self):
         ''' Indicates if this album has his cover loaded. '''
@@ -659,7 +685,8 @@ class Album(object):
             column 3 -> markup text showed under the cover.
         '''
         self.model = model
-        tooltip, markup = self._create_tooltip_and_markup()
+        tooltip = self._create_tooltip()
+        markup = self._create_markup()
 
         self.tree_iter = model.append((tooltip, self.cover.pixbuf, self,
             markup))
@@ -771,23 +798,3 @@ class Album(object):
             return -1
         else:
             return 0
-
-
-class Cover(object):
-    ''' Cover of an Album. '''
-    # default cover size
-    COVER_SIZE = 92
-
-    def __init__(self, file_path=None, pixbuf=None, width=COVER_SIZE,
-        height=COVER_SIZE):
-        '''
-        Initialises a cover, creating it's pixbuf or adapting a given one.
-        Either a file path or a pixbuf should be given to it's correct
-        initialization.
-        '''
-        if pixbuf:
-            self.pixbuf = pixbuf.scale_simple(width, height,
-                 GdkPixbuf.InterpType.BILINEAR)
-        else:
-            self.pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(file_path,
-                width, height)

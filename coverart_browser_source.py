@@ -28,6 +28,7 @@ from gi.repository import RB
 
 from coverart_album import AlbumLoader
 from coverart_album import Album
+from coverart_album import Cover
 from coverart_entryview import CoverArtEntryView
 
 
@@ -198,8 +199,8 @@ class CoverArtBrowserSource(RB.Source):
             ui.get_object('covers_model'), self.props.query_model)
 
         # if the source is fully loaded, enable the full cover search item
-        self.source_menu_search_all_item.set_sensitive(
-            self.loader.progress == 1)
+        if self.loader.progress == 1:
+            self.load_finished_callback()
 
         # retrieve and set the model, it's filter and the sorting column
         self.covers_model_store = self.loader.cover_model
@@ -275,8 +276,14 @@ class CoverArtBrowserSource(RB.Source):
         Callback calledn when the option 'display text under cover' is enabled
         or disabled on the plugin's preferences dialog'
         '''
-        self.covers_view.set_markup_column(
-            3 if self.display_text_enabled else -1)
+        if self.display_text_enabled:
+            column = 3
+            item_width = Cover.COVER_SIZE + 20
+        else:
+            column = item_width = -1
+
+        self.covers_view.set_markup_column(column)
+        self.covers_view.set_item_width(item_width)
 
     def album_modified_callback(self, _, modified_album):
         '''
