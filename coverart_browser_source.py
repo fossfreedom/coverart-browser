@@ -23,6 +23,7 @@ import gettext
 
 
 from gi.repository import GObject
+from gi.repository import Gdk
 from gi.repository import Gtk
 from gi.repository import RB
 
@@ -327,10 +328,10 @@ class CoverArtBrowserSource(RB.Source):
         perform with the selected album.
         '''
         print "CoverArtBrowser DEBUG - mouseclick_callback()"
-        if event.button == 3:
+        if event.triggers_context_menu() and \
+            event.type is Gdk.EventType.BUTTON_PRESS:
             x = int(event.x)
             y = int(event.y)
-            time = event.time
             pthinfo = iconview.get_path_at_pos(x, y)
 
             if pthinfo is None:
@@ -345,10 +346,10 @@ class CoverArtBrowserSource(RB.Source):
             iconview.grab_focus()
             iconview.select_path(pthinfo)
 
-            self.popup_menu.popup(None, None, None, None, event.button, time)
+            self.popup_menu.popup(None, None, None, None, event.button,
+                event.time)
 
         print "CoverArtBrowser DEBUG - end mouseclick_callback()"
-        return
 
     def item_activated_callback(self, iconview, path):
         '''
