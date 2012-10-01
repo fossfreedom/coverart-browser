@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
     <schema path="/org/gnome/rhythmbox/plugins/coverart_browser/" id="org.gnome.rhythmbox.plugins.coverart_browser">
-        <key type="i" name="coverart-size">
+        <key type="i" name="cover-size">
             <default>92</default>
-            <summary>Defines the covers size.</summary>
+            <summary>Covers size in pixels.</summary>
             <description>Defines the size for the covers showed on the source.</description>
         </key>
         <key type="b" name="custom-statusbar">

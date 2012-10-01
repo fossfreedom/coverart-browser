@@ -52,10 +52,7 @@ class AlbumLoader(GObject.Object):
     # default chunk of albums to reload at a time while reloading the model
     DEFAULT_RELOAD_CHUNK = 30
 
-    # cover size for it's albums
-    COVER_SIZE = 0
-
-    def __init__(self, plugin, cover_model):
+    def __init__(self, plugin, cover_model, cover_size):
         '''
         Initialises the loader, getting the needed objects from the plugin and
         saving the model that will be used to assign the loaded albums.
@@ -66,6 +63,7 @@ class AlbumLoader(GObject.Object):
         self.db = plugin.shell.props.db
         self.cover_model = cover_model
         self.cover_db = RB.ExtDB(name='album-art')
+        self.cover_size = cover_size
         self.reloading = 0
 
         # connect the signal to update cover arts when added
@@ -81,23 +79,35 @@ class AlbumLoader(GObject.Object):
             self._entry_deleted_callback)
 
         # initialise unkown cover for albums without cover
-        Album.init_unknown_cover(plugin, self.COVER_SIZE)
+        Album.init_unknown_cover(plugin, self.cover_size)
+        Album.FONT_SIZE = cover_size / 10
 
     @classmethod
     def get_instance(cls, plugin, model, query_model, cover_size):
         '''
         Singleton method to allow to access the unique loader instance.
         '''
-        old_size = cls.COVER_SIZE
-        cls.COVER_SIZE = cover_size
 
-        if cls.instance and cover_size != old_size:
-            cls.instance.reload_covers()
-        elif not cls.instance:
-            cls.instance = AlbumLoader(plugin, model)
+        if cls.instance:
+            if cover_size != cls.instance.cover_size:
+                cls.instance.update_cover_size(cover_size)
+        else:
+            cls.instance = AlbumLoader(plugin, model, cover_size)
             cls.instance.load_albums(query_model)
 
         return cls.instance
+
+    def update_cover_size(self, cover_size):
+        '''
+        Updates the loader's albums' cover size and forces a model reload.
+        '''
+        self.cover_size = cover_size
+
+        # update album variables
+        Album.FONT_SIZE = cover_size / 10
+        Album.UNKNOWN_COVER.resize(self.cover_size)
+
+        self.reload_model(True)
 
     def _get_album_name_and_artist(self, entry):
         '''
@@ -122,7 +132,7 @@ class AlbumLoader(GObject.Object):
 
         # use the name to get the album and update the cover
         if album_name in self.albums:
-            self.albums[album_name].update_cover(pixbuf, self.COVER_SIZE)
+            self.albums[album_name].update_cover(pixbuf, self.cover_size)
 
         print "CoverArtBrowser DEBUG - end albumart_added_callback"
 
@@ -356,7 +366,7 @@ class AlbumLoader(GObject.Object):
         for i in range(AlbumLoader.DEFAULT_LOAD_CHUNK):
             try:
                 album = albums.pop()
-                album.load_cover(self.cover_db, self.COVER_SIZE)
+                album.load_cover(self.cover_db, self.cover_size)
                 album.add_to_model(self.cover_model)
             except:
                 # we finished loading
@@ -375,7 +385,7 @@ class AlbumLoader(GObject.Object):
         '''
         self.progress = 1
 
-    def reload_model(self):
+    def reload_model(self, reload_covers=False):
         '''
         This method allows to remove and readd all the albums that are
         currently in this loader model.
@@ -383,24 +393,28 @@ class AlbumLoader(GObject.Object):
         # add one to the reloading accum
         self.reloading += 1
 
-        albums = [album for album in self.albums.values() if hasattr(album,
-            'model')]
+        albums = [album for album in self.albums.values() if album.model]
 
         for album in albums:
             album.remove_from_model()
 
         Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
-            self._readd_albums_to_model,
-            albums)
+            self._readd_albums_to_model, (albums, reload_covers))
 
-    def _readd_albums_to_model(self, albums):
+    def _readd_albums_to_model(self, data):
         '''
         Idle callback that readds the albums removed from the modle by
         'reload_model' in chunks to improve ui resposiveness.
         '''
+        albums, reload_covers = data
+
         for i in range(AlbumLoader.DEFAULT_RELOAD_CHUNK):
             try:
                 album = albums.pop()
+
+                if reload_covers and album.cover is not Album.UNKNOWN_COVER:
+                    album.cover.resize(self.cover_size)
+
                 album.add_to_model(self.cover_model)
             except:
                 # only emit the signal when there isn't any reloading going on
@@ -412,9 +426,6 @@ class AlbumLoader(GObject.Object):
                 return False
 
         return True
-
-    def reload_covers(self):
-        pass
 
     def search_cover_for_album(self, album, callback=lambda *_: None,
         data=None):
@@ -500,6 +511,8 @@ class Cover(object):
         '''
         Resizes the cover's pixbuf.
         '''
+        del self.pixbuf
+
         try:
             self.pixbuf = self.original.scale_simple(size, size,
                  GdkPixbuf.InterpType.BILINEAR)
@@ -527,7 +540,7 @@ class Album(object):
     MARKUP_FORMAT = '''<span font='%d'><b>%s</b>\n<i>by %s</i></span>'''
 
     # font size for the markup text
-    FONT_SIZE = AlbumLoader.COVER_SIZE / 10
+    FONT_SIZE = 0
 
     # ellipsize length
     ELLIPSIZE = 0

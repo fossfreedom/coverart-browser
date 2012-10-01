@@ -111,6 +111,8 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         preferences.settings.bind(prefs.DISPLAY_TEXT_ELLIPSIZE_LENGTH,
             self.source, 'display_text_ellipsize_length',
             Gio.SettingsBindFlags.GET)
+        preferences.settings.bind(prefs.COVER_SIZE, self.source, 'cover_size',
+            Gio.SettingsBindFlags.GET)
 
         print "CoverArtBrowser DEBUG - end do_activate"
 
