@@ -48,6 +48,8 @@ class CoverArtBrowserSource(RB.Source):
     display_text_ellipsize_enabled = GObject.property(type=bool, default=False)
     display_text_ellipsize_length = GObject.property(type=int, default=20)
 
+    entry_view = None
+
     def __init__(self):
         '''
         Initializes the source.
@@ -186,9 +188,7 @@ class CoverArtBrowserSource(RB.Source):
         # setup entry-view objects and widgets
         self.paned = ui.get_object('paned')
         self.entry_view_expander = ui.get_object('entryviewexpander')
-        self.entry_view = CoverArtEntryView(self.shell, self)
-        self.entry_view.show_all()
-        self.entry_view_expander.add(self.entry_view)
+        self.load_entry_view()
         self.paned_position = 0
         self.entry_view_box = ui.get_object('entryview_box')
 
@@ -243,6 +243,35 @@ class CoverArtBrowserSource(RB.Source):
             lambda *args: self.notify_status_changed())
 
         print "CoverArtBrowser DEBUG - end show_browser_dialog"
+
+    def on_visible_columns_changed(self, settings, key):
+        print 'on_visible_columns_changed'
+        try:
+            if self.entry_view.new_visible_column():
+                print "new value"
+                self.load_entry_view()
+        except:
+            pass
+
+    def load_entry_view(self):
+        print "load_entry_view"
+        if not self.entry_view == None:
+            print "delete old entry view"
+            self.entry_view_expander.remove(self.entry_view)
+            current_albums = self.entry_view.get_album_list()
+            del self.entry_view
+            
+        self.entry_view = CoverArtEntryView(self.shell, self)
+        self.entry_view.show_all()
+        self.entry_view_expander.add(self.entry_view)
+
+        #try:
+        #    for album in current_albums:
+        #        self.entry_view.add_album(album)
+        #except:
+        #    pass
+            
+        print "finished load_entry_view"
 
     def load_finished_callback(self, _):
         '''
@@ -604,7 +633,7 @@ class CoverArtBrowserSource(RB.Source):
             track_count += album.get_track_count()
             duration += album.calculate_duration_in_mins()
 
-            # add teh album to the entry_view
+            # add the album to the entry_view
             self.entry_view.add_album(album)
 
         # now lets build up a status label containing some 'interesting stuff'

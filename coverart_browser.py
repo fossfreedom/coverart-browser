@@ -112,6 +112,10 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
             self.source, 'display_text_ellipsize_length',
             Gio.SettingsBindFlags.GET)
 
+        self.settings = Gio.Settings('org.gnome.rhythmbox.sources')
+
+        self.settings.connect('changed::visible-columns', self.source.on_visible_columns_changed)
+
         print "CoverArtBrowser DEBUG - end do_activate"
 
     def do_deactivate(self):
