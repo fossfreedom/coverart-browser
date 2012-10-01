@@ -398,17 +398,20 @@ class AlbumLoader(GObject.Object):
         for album in albums:
             album.remove_from_model()
 
+        chunk = AlbumLoader.DEFAULT_LOAD_CHUNK if reload_covers else \
+            AlbumLoader.DEFAULT_RELOAD_CHUNK
+
         Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
-            self._readd_albums_to_model, (albums, reload_covers))
+            self._readd_albums_to_model, (albums, reload_covers, chunk))
 
     def _readd_albums_to_model(self, data):
         '''
         Idle callback that readds the albums removed from the modle by
         'reload_model' in chunks to improve ui resposiveness.
         '''
-        albums, reload_covers = data
+        albums, reload_covers, chunk = data
 
-        for i in range(AlbumLoader.DEFAULT_RELOAD_CHUNK):
+        for i in range(chunk):
             try:
                 album = albums.pop()
 
