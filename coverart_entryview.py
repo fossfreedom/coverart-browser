@@ -27,7 +27,7 @@ import gettext
 
 class CoverArtEntryView(RB.EntryView):
     LOCALE_DOMAIN = 'coverart_browser'
-    
+
     def __init__(self, shell, source):
         '''
         Initializes the source.
@@ -37,14 +37,16 @@ class CoverArtEntryView(RB.EntryView):
         self.plugin = self.source.props.plugin
 
         super(RB.EntryView, self).__init__(db=shell.props.db,
-            shell_player=shell.props.shell_player, is_drag_source=True)
+            shell_player=shell.props.shell_player, is_drag_source=True,
+            visible_columns=['track-number', 'genre', 'title', 'artist',
+                'album', 'duration'])
 
-        self.append_column(RB.EntryViewColumn.TRACK_NUMBER, True)
-        self.append_column(RB.EntryViewColumn.GENRE, True)
-        self.append_column(RB.EntryViewColumn.TITLE, True)
-        self.append_column(RB.EntryViewColumn.ARTIST, True)
-        self.append_column(RB.EntryViewColumn.ALBUM, True)
-        self.append_column(RB.EntryViewColumn.DURATION, True)
+        self.append_column(RB.EntryViewColumn.TRACK_NUMBER, False)
+        self.append_column(RB.EntryViewColumn.GENRE, False)
+        self.append_column(RB.EntryViewColumn.TITLE, False)
+        self.append_column(RB.EntryViewColumn.ARTIST, False)
+        self.append_column(RB.EntryViewColumn.ALBUM, False)
+        self.append_column(RB.EntryViewColumn.DURATION, False)
         self.set_columns_clickable(False)
 
         # UI elements need to be imported.
@@ -55,7 +57,7 @@ class CoverArtEntryView(RB.EntryView):
         ui.connect_signals(self)
 
         self.popup_menu = ui.get_object('entryview_popup_menu')
-        
+
         self.shell.props.shell_player.connect('playing-song-changed',
             self.playing_song_changed)
         self.shell.props.shell_player.connect('playing-changed',
@@ -143,7 +145,7 @@ class CoverArtEntryView(RB.EntryView):
         info_dialog = RB.SongInfo(source=self.source, entry_view=self)
 
         info_dialog.show_all()
-        
+
         print "CoverArtBrowser DEBUG - show_properties_menu_item_callback()"
 
     def playing_song_changed(self, shell_player, entry):
