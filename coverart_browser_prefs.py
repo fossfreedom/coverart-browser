@@ -31,7 +31,59 @@ DISPLAY_TEXT_LOADING = 'display-text-loading'
 DISPLAY_TEXT_ELLIPSIZE = 'display-text-ellipsize'
 DISPLAY_TEXT_ELLIPSIZE_LENGTH = 'display-text-ellipsize-length'
 DIALOG_FILE = 'coverart_browser_prefs.ui'
+class GSetting:
+    """ A python singleton """
 
+    class __impl:
+        """ Implementation of the singleton interface """
+
+
+        def settings(self, schema):
+            try:
+                return setting_list[schema]
+            except:
+                setting_list[schema] = Gio.Settings(schema)
+                return setting_list[schema]
+
+    # storage for the instance reference
+    __instance = None
+    setting_list=[]
+
+    def __init__(self):
+        """ Create singleton instance """
+        # Check whether we already have an instance
+        if GSetting.__instance is None:
+            # Create and remember instance
+            GSetting.__instance = GSetting.__impl()
+
+        # Store instance reference as the only member in the handle
+        self.__dict__['_GSetting__instance'] = GSetting.__instance
+
+    def __getattr__(self, attr):
+        """ Delegate access to implementation """
+        return getattr(self.__instance, attr)
+
+    def __setattr__(self, attr, value):
+        """ Delegate access to implementation """
+        return setattr(self.__instance, attr, value)
+        
+#class GSetting(GObject.Object):
+
+    #singleton instance
+#    instance = None
+    
+#    def __init__(self):
+#        super(GObject, self).__init__()
+
+#    @classmethod
+#    def get_instance(cls):
+#        '''
+#        Singleton method to allow to access the unique loader instance.
+#        '''
+#        if not cls.instance:
+#            cls.instance = GSetting()
+
+#        return cls.instance
 
 class Preferences(GObject.Object, PeasGtk.Configurable):
     '''
@@ -47,7 +99,10 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         by Gio.
         '''
         GObject.Object.__init__(self)
-        self.settings = Gio.Settings(PATH)
+        #self.settings = Gio.Settings(PATH)
+
+        self.settings = GSetting().settings(PATH)
+
 
     def do_create_configure_widget(self):
         '''

@@ -187,8 +187,11 @@ class CoverArtBrowserSource(RB.Source):
 
         # setup entry-view objects and widgets
         self.paned = ui.get_object('paned')
-        self.entry_view_expander = ui.get_object('entryviewexpander')
-        self.load_entry_view()
+        self.entry_view_expander = ui.get_object('entryviewexpander')                    
+        self.entry_view = CoverArtEntryView(self.shell, self)
+        self.entry_view.show_all()
+        self.entry_view_expander.add(self.entry_view)
+
         self.paned_position = 0
         self.entry_view_box = ui.get_object('entryview_box')
 
@@ -247,31 +250,9 @@ class CoverArtBrowserSource(RB.Source):
     def on_visible_columns_changed(self, settings, key):
         print 'on_visible_columns_changed'
         try:
-            if self.entry_view.new_visible_column():
-                print "new value"
-                self.load_entry_view()
+            self.entry_view.set_visible_cols()
         except:
             pass
-
-    def load_entry_view(self):
-        print "load_entry_view"
-        if not self.entry_view == None:
-            print "delete old entry view"
-            self.entry_view_expander.remove(self.entry_view)
-            current_albums = self.entry_view.get_album_list()
-            del self.entry_view
-            
-        self.entry_view = CoverArtEntryView(self.shell, self)
-        self.entry_view.show_all()
-        self.entry_view_expander.add(self.entry_view)
-
-        #try:
-        #    for album in current_albums:
-        #        self.entry_view.add_album(album)
-        #except:
-        #    pass
-            
-        print "finished load_entry_view"
 
     def load_finished_callback(self, _):
         '''

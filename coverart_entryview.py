@@ -36,28 +36,43 @@ class CoverArtEntryView(RB.EntryView):
         self.shell = shell
         self.source = source
         self.plugin = self.source.props.plugin
-        self.albums = []
 
         super(RB.EntryView, self).__init__(db=shell.props.db,
-            shell_player=shell.props.shell_player, is_drag_source=True)
+            shell_player=shell.props.shell_player, is_drag_source=True,
+            visible_columns=[])
 
-        self.visible_cols = None
-        self.new_visible_column()
+        #'track-number':
+        self.append_column(RB.EntryViewColumn.TRACK_NUMBER, False)
+        #'title': # not a user defined column i.e. will always exist
+        self.append_column(RB.EntryViewColumn.TITLE, True)
+        #'artist': 
+        self.append_column(RB.EntryViewColumn.ARTIST, False)
+        #'album': 
+        self.append_column(RB.EntryViewColumn.ALBUM, False)
+        #'genre': 
+        self.append_column(RB.EntryViewColumn.GENRE, False)
+        #'comment': 
+        self.append_column(RB.EntryViewColumn.COMMENT, False)
+        #'duration': 
+        self.append_column(RB.EntryViewColumn.DURATION, False)
+        #'rating': 
+        self.append_column(RB.EntryViewColumn.RATING, False)
+        #'bitrate': 
+        self.append_column(RB.EntryViewColumn.QUALITY, False)
+        #'play-count': 
+        self.append_column(RB.EntryViewColumn.PLAY_COUNT, False)
+        #'last-played': 
+        self.append_column(RB.EntryViewColumn.LAST_PLAYED, False)
+        #'date': 
+        self.append_column(RB.EntryViewColumn.YEAR, False)
+        #'first-seen': 
+        self.append_column(RB.EntryViewColumn.FIRST_SEEN, False)
+        #'location': 
+        self.append_column(RB.EntryViewColumn.LOCATION, False)
+        #'beats-per-minute': 
+        self.append_column(RB.EntryViewColumn.BPM, False)
         
-        ordered_cols = ['track-number', 'genre', 'title', 'artist', 'album', 'duration']
-
-        for val in ordered_cols:
-            if val in self.visible_cols or val=='title':
-                print val
-                self._add_column(val)
-
-        itercols = iter(self.visible_cols)
-
-        for col in itercols:
-            if col not in ordered_cols:
-                print col
-                self._add_column(col)
-
+        self.set_visible_cols() #self.new_visible_column()
         self.set_columns_clickable(False)
 
         # UI elements need to be imported.
@@ -88,115 +103,40 @@ class CoverArtEntryView(RB.EntryView):
         del self.play_action
         del self.queue_action
 
-    def new_visible_column(self):
+
+    def set_visible_cols(self):
+        print "set_visible_cols"
+        #reset current columns
+        self.props.visible_columns=['title']
+
         setting = Gio.Settings('org.gnome.rhythmbox.sources')
-        current_visible_cols = setting.get_value('visible-columns')
-        #print self.visible_cols
-        #print current_visible_cols
+
+        visible_cols = setting.get_value('visible-columns')
+        print visible_cols
         
-        if self.visible_cols == None:
-            self.visible_cols = current_visible_cols
-            print "new column from empty"
-            return True
-
-        itercol = iter(self.visible_cols)
-        itercompare = iter(current_visible_cols)
-
-        same=True
-
-        try:
-            for i in self.visible_cols:
-                print self.visible_cols[i]
-                print current_visible_cols[i]
+        ordered_cols = ['track-number', 'genre', 'title', 'artist', 'album', 'duration']
+        new_cols = []
+        for val in ordered_cols:
+            if val in visible_cols or val=='title':
+                print val
+                #self._add_column(val)
+                new_cols.append(val)
                 
-                if self.visible_cols[1] != current_visible_cols[i]:
-                    print "not the same"
-                    same=False
-        except:
-            pass
+        #itercols = iter(visible_cols)
 
-        return same
+        for col in visible_cols: #itercols:
+            if col not in ordered_cols:
+                print col
+                #self._add_column(col)
+                new_cols.append(col)
 
-    def _add_column(self, visible_column):
-        # org.gnome.rhythmbox.sources visible-columns
-        # default ['track-number', 'artist', 'album', 'genre', 'post-time']
-        # with all columns visible ['post-time',
+        print new_cols
 
-        if visible_column == 'track-number':
-            self.append_column(RB.EntryViewColumn.TRACK_NUMBER, True)
-            return
-
-        if visible_column == 'title': # not a user defined column i.e. will always exist
-            self.append_column(RB.EntryViewColumn.TITLE, True)
-            return
-
-        if visible_column == 'artist': 
-            self.append_column(RB.EntryViewColumn.ARTIST, True)
-            return
-
-        if visible_column == 'album': 
-            self.append_column(RB.EntryViewColumn.ALBUM, True)
-            return
-
-        if visible_column == 'genre': 
-            self.append_column(RB.EntryViewColumn.GENRE, True)
-            return
-
-        if visible_column == 'comment': 
-            self.append_column(RB.EntryViewColumn.COMMENT, True)
-            return
-
-        if visible_column == 'duration': 
-            self.append_column(RB.EntryViewColumn.DURATION, True)
-            return
-
-        if visible_column == 'rating': 
-            self.append_column(RB.EntryViewColumn.RATING, True)
-            return
-
-        if visible_column == 'bitrate': 
-            self.append_column(RB.EntryViewColumn.QUALITY, True)
-            return
-
-        if visible_column == 'play-count': 
-            self.append_column(RB.EntryViewColumn.PLAY_COUNT, True)
-            return
-
-        if visible_column == 'last-played': 
-            self.append_column(RB.EntryViewColumn.LAST_PLAYED, True)
-            return
-
-        if visible_column == 'date': 
-            self.append_column(RB.EntryViewColumn.YEAR, True)
-            return
-
-        if visible_column == 'first-seen': 
-            self.append_column(RB.EntryViewColumn.FIRST_SEEN, True)
-            return
-
-        if visible_column == 'location': 
-            self.append_column(RB.EntryViewColumn.LOCATION, True)
-            return
-
-        if visible_column == 'beats-per-minute': 
-            self.append_column(RB.EntryViewColumn.BPM, True)
-            return
-
-        if visible_column == 'post-time':
-            return
-
-        # no mapping
-        #EntryViewColumn.ERROR :
-        #EntryViewColumn.LAST_SEEN :
-        assert False, 'unknown column %s' % visible_column
-
-    def get_album_list(self):
-        return albums
-
+        self.props.visible_columns = new_cols
+                
     def add_album(self, album):
         print "CoverArtBrowser DEBUG - add_album()"
         album.get_entries(self.qm)
-        self.albums.append(album)
         
         (_, playing) = self.shell.props.shell_player.get_playing()
         self.playing_changed(self.shell.props.shell_player, playing)
@@ -208,7 +148,6 @@ class CoverArtEntryView(RB.EntryView):
         for row in self.qm:
             self.qm.remove_entry(row[0])
 
-        del self.albums[:]
         print "CoverArtBrowser DEBUG - clear()"
 
     def do_entry_activated(self, entry):
