@@ -258,7 +258,8 @@ class CoverArtBrowserSource(RB.Source):
             self.source_menu_search_all_item.set_sensitive(True)
 
         # enable markup if necesary
-        if self.display_text_enabled and not self.display_text_loading_enabled:
+        if not self.loader.reloading and self.display_text_enabled and \
+            not self.display_text_loading_enabled:
             self.activate_markup(True)
 
     def reload_finished_callback(self, _):
