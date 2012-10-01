@@ -211,7 +211,7 @@ class CoverArtBrowserSource(RB.Source):
 
         # get the loader
         self.loader = AlbumLoader.get_instance(self.plugin,
-            ui.get_object('covers_model'), self.props.query_model)
+            ui.get_object('covers_model'), self.props.query_model, 50)
 
         # if the source is fully loaded, enable the full cover search item
         if self.loader.progress == 1:
@@ -326,7 +326,7 @@ class CoverArtBrowserSource(RB.Source):
         '''
         if activate:
             column = 3
-            item_width = Cover.COVER_SIZE + 20
+            item_width = AlbumLoader.COVER_SIZE + 20
         else:
             column = item_width = -1
 
