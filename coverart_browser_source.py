@@ -453,10 +453,11 @@ class CoverArtBrowserSource(RB.Source):
         '''
         selected_albums = []
 
-        model = self.covers_model
+        if hasattr(self, covers_model):
+            model = self.covers_model
 
-        for selected in self.covers_view.get_selected_items():
-            selected_albums.append(model[selected][2])
+            for selected in self.covers_view.get_selected_items():
+                selected_albums.append(model[selected][2])
 
         return selected_albums
 
@@ -564,6 +565,7 @@ class CoverArtBrowserSource(RB.Source):
                 (_('Requesting cover for %s - %s...') % (album.name,
                 album.album_artist)).decode('UTF-8'))
         else:
+            self.status_separator.hide()
             self.request_status_box.hide()
             self.source_menu_search_all_item.set_sensitive(True)
             self.cover_search_menu_item.set_sensitive(True)
@@ -589,22 +591,6 @@ class CoverArtBrowserSource(RB.Source):
 
         # clear the entry view
         self.entry_view.clear()
-
-        model = widget.get_model()
-
-        if model is None:
-            if self.custom_statusbar_enabled:
-                # if the custom statusbar is enabled, this should hide it and
-                # the separator
-                # Note: we hide just in case, maybe they are already hidden
-                self.status_label.hide()
-                self.status_separator.hide()
-            else:
-                # set the status to an empty string and notify the change
-                self.status = ''
-                self.notify_status_changed()
-
-            return
 
         selected = self.get_selected_albums()
 
