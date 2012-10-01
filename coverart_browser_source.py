@@ -163,7 +163,6 @@ class CoverArtBrowserSource(RB.Source):
         self.popup_menu = ui.get_object('popup_menu')
         self.cover_search_menu_item = ui.get_object('cover_search_menu_item')
         self.status_label = ui.get_object('status_label')
-        self.status_separator = ui.get_object('status_separator')
         self.request_status_box = ui.get_object('request_status_box')
         self.request_spinner = ui.get_object('request_spinner')
         self.request_statusbar = ui.get_object('request_statusbar')
@@ -279,7 +278,6 @@ class CoverArtBrowserSource(RB.Source):
             self.notify_status_changed()
         else:
             self.status_label.hide()
-            self.status_separator.hide()
 
         self.selectionchanged_callback(self.covers_view)
 
@@ -453,7 +451,7 @@ class CoverArtBrowserSource(RB.Source):
         '''
         selected_albums = []
 
-        if hasattr(self, covers_model):
+        if hasattr(self, 'covers_model'):
             model = self.covers_model
 
             for selected in self.covers_view.get_selected_items():
@@ -565,7 +563,6 @@ class CoverArtBrowserSource(RB.Source):
                 (_('Requesting cover for %s - %s...') % (album.name,
                 album.album_artist)).decode('UTF-8'))
         else:
-            self.status_separator.hide()
             self.request_status_box.hide()
             self.source_menu_search_all_item.set_sensitive(True)
             self.cover_search_menu_item.set_sensitive(True)
@@ -640,10 +637,6 @@ class CoverArtBrowserSource(RB.Source):
             # if the custom statusbar is enabled... use it.
             self.status_label.set_text(status)
             self.status_label.show()
-
-            if self.request_status_box.get_visible():
-                self.status_separator.show()
-
         else:
             # use the global statusbar from Rhythmbox
             self.status = status
@@ -792,7 +785,6 @@ class CoverArtBrowserSource(RB.Source):
         del self.ascending_sort_radio
         del self.status
         del self.status_label
-        del self.status_separator
         del self.reload_fin_id
         del self.load_fin_id
         del self.album_mod_id
