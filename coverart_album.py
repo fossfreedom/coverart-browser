@@ -49,9 +49,6 @@ class AlbumLoader(GObject.Object):
     # default chunk of albums to load at a time while filling the model
     DEFAULT_LOAD_CHUNK = 15
 
-    # default chunk of albums to reload at a time while reloading the model
-    DEFAULT_RELOAD_CHUNK = 30
-
     def __init__(self, plugin, cover_model, cover_size):
         '''
         Initialises the loader, getting the needed objects from the plugin and
@@ -64,7 +61,7 @@ class AlbumLoader(GObject.Object):
         self.cover_model = cover_model
         self.cover_db = RB.ExtDB(name='album-art')
         self.cover_size = cover_size
-        self.reloading = 0
+        self.reloading = None
 
         # connect the signal to update cover arts when added
         self.req_id = self.cover_db.connect('added',
@@ -390,19 +387,21 @@ class AlbumLoader(GObject.Object):
         This method allows to remove and readd all the albums that are
         currently in this loader model.
         '''
-        # add one to the reloading accum
-        self.reloading += 1
-
+        # get those albums in te model and remove them
         albums = [album for album in self.albums.values() if album.model]
 
         for album in albums:
             album.remove_from_model()
 
-        chunk = AlbumLoader.DEFAULT_LOAD_CHUNK if reload_covers else \
-            AlbumLoader.DEFAULT_RELOAD_CHUNK
-
-        Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
-            self._readd_albums_to_model, (albums, reload_covers, chunk))
+        if self.reloading:
+            # if there is already a reloading process going on, just add the
+            # albums to the list
+            self.reloading.extend(albums)
+        else:
+            # initiate the idle process
+            Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
+                self._readd_albums_to_model, (albums, reload_covers,
+                    AlbumLoader.DEFAULT_LOAD_CHUNK))
 
     def _readd_albums_to_model(self, data):
         '''
@@ -420,11 +419,9 @@ class AlbumLoader(GObject.Object):
 
                 album.add_to_model(self.cover_model)
             except:
-                # only emit the signal when there isn't any reloading going on
-                self.reloading -= 1
-
-                if not self.reloading:
-                    self.emit('reload_finished')
+                # clean the reloading list and emit the signal
+                self.reloading = None
+                self.emit('reload_finished')
 
                 return False
 
