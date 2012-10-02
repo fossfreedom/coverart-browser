@@ -360,6 +360,9 @@ class CoverArtBrowserSource(RB.Source):
         self.activate_markup(self.display_text_enabled and
             self.display_text_loading_enabled)
 
+        # update the iconview since the new size would change the free space
+        self.update_iconview_callback()
+
     def album_modified_callback(self, _, modified_album):
         '''
         Callback called by the album loader when one of the albums managed
