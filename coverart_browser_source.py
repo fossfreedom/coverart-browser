@@ -29,7 +29,6 @@ from gi.repository import RB
 
 from coverart_album import AlbumLoader
 from coverart_album import Album
-from coverart_album import Cover
 from coverart_entryview import CoverArtEntryView
 
 
@@ -47,6 +46,7 @@ class CoverArtBrowserSource(RB.Source):
     display_text_loading_enabled = GObject.property(type=bool, default=True)
     display_text_ellipsize_enabled = GObject.property(type=bool, default=False)
     display_text_ellipsize_length = GObject.property(type=int, default=20)
+    cover_size = GObject.property(type=int, default=92)
 
     def __init__(self):
         '''
@@ -134,6 +134,8 @@ class CoverArtBrowserSource(RB.Source):
         self.connect('notify::display-text-ellipsize-length',
             self.on_notify_display_text_ellipsize)
 
+        self.connect('notify::cover-size', self.on_notifiy_cover_size)
+
         # setup translation support
         locale.setlocale(locale.LC_ALL, '')
         locale.bindtextdomain(self.LOCALE_DOMAIN, "/usr/share/locale")
@@ -211,7 +213,8 @@ class CoverArtBrowserSource(RB.Source):
 
         # get the loader
         self.loader = AlbumLoader.get_instance(self.plugin,
-            ui.get_object('covers_model'), self.props.query_model)
+            ui.get_object('covers_model'), self.props.query_model,
+            self.cover_size)
 
         # if the source is fully loaded, enable the full cover search item
         if self.loader.progress == 1:
@@ -255,7 +258,8 @@ class CoverArtBrowserSource(RB.Source):
             self.source_menu_search_all_item.set_sensitive(True)
 
         # enable markup if necesary
-        if self.display_text_enabled and not self.display_text_loading_enabled:
+        if not self.loader.reloading and self.display_text_enabled and \
+            not self.display_text_loading_enabled:
             self.activate_markup(True)
 
     def reload_finished_callback(self, _):
@@ -326,7 +330,7 @@ class CoverArtBrowserSource(RB.Source):
         '''
         if activate:
             column = 3
-            item_width = Cover.COVER_SIZE + 20
+            item_width = self.loader.cover_size + 20
         else:
             column = item_width = -1
 
@@ -347,6 +351,17 @@ class CoverArtBrowserSource(RB.Source):
             self.activate_markup(False)
 
         self.loader.reload_model()
+
+    def on_notifiy_cover_size(self, *args):
+        '''
+        Callback callend when the coverart size property is changed.
+        '''
+        self.loader.update_cover_size(self.cover_size)
+        self.activate_markup(self.display_text_enabled and
+            self.display_text_loading_enabled)
+
+        # update the iconview since the new size would change the free space
+        self.update_iconview_callback()
 
     def album_modified_callback(self, _, modified_album):
         '''
