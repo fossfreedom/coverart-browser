@@ -44,7 +44,8 @@ class GSetting:
                                         DISPLAY_TEXT = 'display-text',
                                         DISPLAY_TEXT_LOADING = 'display-text-loading',
                                         DISPLAY_TEXT_ELLIPSIZE = 'display-text-ellipsize',
-                                        DISPLAY_TEXT_ELLIPSIZE_LENGTH = 'display-text-ellipsize-length'
+                                        DISPLAY_TEXT_ELLIPSIZE_LENGTH = 'display-text-ellipsize-length',
+                                        COVER_SIZE = 'cover-size'
                                      )
 
             self.setting={}
@@ -152,6 +153,11 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
             'display_text_ellipsize_length_spin')
         self.settings.bind( gs.PluginKey.DISPLAY_TEXT_ELLIPSIZE_LENGTH,
                             spinner_text_ellipsize_length, 'value',
+                            Gio.SettingsBindFlags.DEFAULT)
+
+        cover_size_scale = builder.get_object('cover_size_adjustment')
+        self.settings.bind( gs.PluginKey.COVER_SIZE,
+                            cover_size_scale, 'value',
                             Gio.SettingsBindFlags.DEFAULT)
 
         # return the dialog

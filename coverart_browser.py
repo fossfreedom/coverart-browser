@@ -113,7 +113,8 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         setting.bind(gs.PluginKey.DISPLAY_TEXT_ELLIPSIZE_LENGTH,
             self.source, 'display_text_ellipsize_length',
             Gio.SettingsBindFlags.GET)
-        preferences.settings.bind(prefs.COVER_SIZE, self.source, 'cover_size',
+        setting.bind(gs.PluginKey.COVER_SIZE,
+            self.source, 'cover_size',
             Gio.SettingsBindFlags.GET)
 
         setting = gs.get_setting( gs.Path.RBSOURCE)
