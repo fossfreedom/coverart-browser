@@ -23,31 +23,47 @@ from gi.repository import PeasGtk
 
 import rb
 
-PATH = 'org.gnome.rhythmbox.plugins.coverart_browser'
-CUSTOM_STATUSBAR = 'custom-statusbar'
-DISPLAY_TRACKS = 'display-tracks'
-DISPLAY_TEXT = 'display-text'
-DISPLAY_TEXT_LOADING = 'display-text-loading'
-DISPLAY_TEXT_ELLIPSIZE = 'display-text-ellipsize'
-DISPLAY_TEXT_ELLIPSIZE_LENGTH = 'display-text-ellipsize-length'
-DIALOG_FILE = 'coverart_browser_prefs.ui'
 class GSetting:
     """ A python singleton """
 
-    class __impl:
-        """ Implementation of the singleton interface """
-
-
-        def settings(self, schema):
-            try:
-                return setting_list[schema]
-            except:
-                setting_list[schema] = Gio.Settings(schema)
-                return setting_list[schema]
-
     # storage for the instance reference
     __instance = None
-    setting_list=[]
+
+    class __impl:
+        """ Implementation of the singleton interface """
+        # below public variables and methods that can be called for GSetting
+        def __init__(self):
+            ##
+            self.Path=self._enum(   PLUGIN='org.gnome.rhythmbox.plugins.coverart_browser',
+                                    RBSOURCE='org.gnome.rhythmbox.sources')
+
+            self.RBSourceKey=self._enum(VISIBLE_COLS='visible-columns')
+
+            self.PluginKey=self._enum(  CUSTOM_STATUSBAR = 'custom-statusbar',
+                                        DISPLAY_TRACKS = 'display-tracks',
+                                        DISPLAY_TEXT = 'display-text',
+                                        DISPLAY_TEXT_LOADING = 'display-text-loading',
+                                        DISPLAY_TEXT_ELLIPSIZE = 'display-text-ellipsize',
+                                        DISPLAY_TEXT_ELLIPSIZE_LENGTH = 'display-text-ellipsize-length'
+                                     )
+
+            self.setting={}
+
+        def get_setting(self, path):
+            try:
+                setting = self.setting[path]
+            except:
+                self.setting[path]=Gio.Settings(path)
+                setting = self.setting[path]
+
+            return setting
+
+        def get_value(self, path, key):
+            
+            return self.get_setting(path).get_value(key) 
+ 
+        def _enum(self, **enums):
+            return type('Enum', (), enums)
 
     def __init__(self):
         """ Create singleton instance """
@@ -67,24 +83,6 @@ class GSetting:
         """ Delegate access to implementation """
         return setattr(self.__instance, attr, value)
         
-#class GSetting(GObject.Object):
-
-    #singleton instance
-#    instance = None
-    
-#    def __init__(self):
-#        super(GObject, self).__init__()
-
-#    @classmethod
-#    def get_instance(cls):
-#        '''
-#        Singleton method to allow to access the unique loader instance.
-#        '''
-#        if not cls.instance:
-#            cls.instance = GSetting()
-
-#        return cls.instance
-
 class Preferences(GObject.Object, PeasGtk.Configurable):
     '''
     Preferences for the CoverArt Browser Plugins. It holds the settings for
@@ -99,10 +97,8 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         by Gio.
         '''
         GObject.Object.__init__(self)
-        #self.settings = Gio.Settings(PATH)
-
-        self.settings = GSetting().settings(PATH)
-
+        gs = GSetting()
+        self.settings = gs.get_setting(gs.Path.PLUGIN)
 
     def do_create_configure_widget(self):
         '''
@@ -110,45 +106,53 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         '''
         # create the ui
         builder = Gtk.Builder()
-        builder.add_from_file(rb.find_plugin_file(self, DIALOG_FILE))
+        builder.add_from_file(rb.find_plugin_file(self, 'coverart_browser_prefs.ui'))
 
+        gs = GSetting()
         # bind the toggles to the settings
         toggle_statusbar = builder.get_object('custom_statusbar_checkbox')
-        self.settings.bind(CUSTOM_STATUSBAR, toggle_statusbar, 'active',
-            Gio.SettingsBindFlags.DEFAULT)
+        self.settings.bind( gs.PluginKey.CUSTOM_STATUSBAR,
+                            toggle_statusbar, 'active',
+                            Gio.SettingsBindFlags.DEFAULT)
 
         toggle_tracks = builder.get_object('display_tracks_checkbox')
-        self.settings.bind(DISPLAY_TRACKS, toggle_tracks, 'active',
-            Gio.SettingsBindFlags.DEFAULT)
+        self.settings.bind( gs.PluginKey.DISPLAY_TRACKS,
+                            toggle_tracks, 'active',
+                            Gio.SettingsBindFlags.DEFAULT)
 
         toggle_text = builder.get_object('display_text_checkbox')
-        self.settings.bind(DISPLAY_TEXT, toggle_text, 'active',
-            Gio.SettingsBindFlags.DEFAULT)
+        self.settings.bind( gs.PluginKey.DISPLAY_TEXT,
+                            toggle_text, 'active',
+                            Gio.SettingsBindFlags.DEFAULT)
 
         box_text = builder.get_object('display_text_box')
-        self.settings.bind(DISPLAY_TEXT, box_text, 'sensitive',
-            Gio.SettingsBindFlags.GET)
+        self.settings.bind( gs.PluginKey.DISPLAY_TEXT,
+                            box_text, 'sensitive',
+                            Gio.SettingsBindFlags.GET)
 
         toggle_text_loading = builder.get_object(
             'display_text_loading_checkbox')
-        self.settings.bind(DISPLAY_TEXT_LOADING, toggle_text_loading, 'active',
-            Gio.SettingsBindFlags.DEFAULT)
+        self.settings.bind( gs.PluginKey.DISPLAY_TEXT_LOADING,
+                            toggle_text_loading, 'active',
+                            Gio.SettingsBindFlags.DEFAULT)
 
         toggle_text_ellipsize = builder.get_object(
             'display_text_ellipsize_checkbox')
-        self.settings.bind(DISPLAY_TEXT_ELLIPSIZE, toggle_text_ellipsize,
-            'active', Gio.SettingsBindFlags.DEFAULT)
+        self.settings.bind( gs.PluginKey.DISPLAY_TEXT_ELLIPSIZE,
+                            toggle_text_ellipsize, 'active',
+                            Gio.SettingsBindFlags.DEFAULT)
 
         box_text_ellipsize_length = builder.get_object(
             'display_text_ellipsize_length_box')
-        self.settings.bind(DISPLAY_TEXT_ELLIPSIZE, box_text_ellipsize_length,
-            'sensitive', Gio.SettingsBindFlags.GET)
+        self.settings.bind( gs.PluginKey.DISPLAY_TEXT_ELLIPSIZE,
+                            box_text_ellipsize_length, 'sensitive',
+                            Gio.SettingsBindFlags.GET)
 
         spinner_text_ellipsize_length = builder.get_object(
             'display_text_ellipsize_length_spin')
-        self.settings.bind(DISPLAY_TEXT_ELLIPSIZE_LENGTH,
-            spinner_text_ellipsize_length, 'value',
-            Gio.SettingsBindFlags.DEFAULT)
+        self.settings.bind( gs.PluginKey.DISPLAY_TEXT_ELLIPSIZE_LENGTH,
+                            spinner_text_ellipsize_length, 'value',
+                            Gio.SettingsBindFlags.DEFAULT)
 
         # return the dialog
         return builder.get_object('main_box')

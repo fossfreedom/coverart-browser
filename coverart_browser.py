@@ -27,8 +27,8 @@ from gi.repository import RB
 from gi.repository import GdkPixbuf
 from gi.repository import Peas
 
-import coverart_browser_prefs as prefs
 from coverart_browser_prefs import Preferences
+from coverart_browser_prefs import GSetting
 from coverart_browser_source import CoverArtBrowserSource
 
 
@@ -98,23 +98,25 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         # create a preferences object and bind properties of the source to
         # their respective settings
         preferences = Preferences()
-        preferences.settings.bind(prefs.CUSTOM_STATUSBAR, self.source,
+        setting=preferences.settings
+        gs=GSetting()
+        setting.bind(gs.PluginKey.CUSTOM_STATUSBAR, self.source,
             'custom_statusbar_enabled', Gio.SettingsBindFlags.GET)
-        preferences.settings.bind(prefs.DISPLAY_TRACKS, self.source,
+        setting.bind(gs.PluginKey.DISPLAY_TRACKS, self.source,
             'display_tracks_enabled', Gio.SettingsBindFlags.GET)
-        preferences.settings.bind(prefs.DISPLAY_TEXT, self.source,
+        setting.bind(gs.PluginKey.DISPLAY_TEXT, self.source,
             'display_text_enabled', Gio.SettingsBindFlags.GET)
-        preferences.settings.bind(prefs.DISPLAY_TEXT_LOADING, self.source,
+        setting.bind(gs.PluginKey.DISPLAY_TEXT_LOADING, self.source,
             'display_text_loading_enabled', Gio.SettingsBindFlags.GET)
-        preferences.settings.bind(prefs.DISPLAY_TEXT_ELLIPSIZE, self.source,
+        setting.bind(gs.PluginKey.DISPLAY_TEXT_ELLIPSIZE, self.source,
             'display_text_ellipsize_enabled', Gio.SettingsBindFlags.GET)
-        preferences.settings.bind(prefs.DISPLAY_TEXT_ELLIPSIZE_LENGTH,
+        setting.bind(gs.PluginKey.DISPLAY_TEXT_ELLIPSIZE_LENGTH,
             self.source, 'display_text_ellipsize_length',
             Gio.SettingsBindFlags.GET)
 
-        self.settings = Gio.Settings('org.gnome.rhythmbox.sources')
+        setting = gs.get_setting( gs.Path.RBSOURCE)
 
-        self.settings.connect('changed::visible-columns', self.source.on_visible_columns_changed)
+        setting.connect('changed::visible-columns', self.source.on_visible_columns_changed)
 
         print "CoverArtBrowser DEBUG - end do_activate"
 

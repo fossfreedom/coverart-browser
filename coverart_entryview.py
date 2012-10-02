@@ -20,11 +20,12 @@
 from gi.repository import RB
 from gi.repository import Gtk
 from gi.repository import GObject
-from gi.repository import Gio
 
 import rb
 import locale
 import gettext
+
+from coverart_browser_prefs import GSetting
 
 class CoverArtEntryView(RB.EntryView):
     LOCALE_DOMAIN = 'coverart_browser'
@@ -41,38 +42,23 @@ class CoverArtEntryView(RB.EntryView):
             shell_player=shell.props.shell_player, is_drag_source=True,
             visible_columns=[])
 
-        #'track-number':
-        self.append_column(RB.EntryViewColumn.TRACK_NUMBER, False)
-        #'title': # not a user defined column i.e. will always exist
-        self.append_column(RB.EntryViewColumn.TITLE, True)
-        #'artist': 
-        self.append_column(RB.EntryViewColumn.ARTIST, False)
-        #'album': 
-        self.append_column(RB.EntryViewColumn.ALBUM, False)
-        #'genre': 
-        self.append_column(RB.EntryViewColumn.GENRE, False)
-        #'comment': 
-        self.append_column(RB.EntryViewColumn.COMMENT, False)
-        #'duration': 
-        self.append_column(RB.EntryViewColumn.DURATION, False)
-        #'rating': 
-        self.append_column(RB.EntryViewColumn.RATING, False)
-        #'bitrate': 
-        self.append_column(RB.EntryViewColumn.QUALITY, False)
-        #'play-count': 
-        self.append_column(RB.EntryViewColumn.PLAY_COUNT, False)
-        #'last-played': 
-        self.append_column(RB.EntryViewColumn.LAST_PLAYED, False)
-        #'date': 
-        self.append_column(RB.EntryViewColumn.YEAR, False)
-        #'first-seen': 
-        self.append_column(RB.EntryViewColumn.FIRST_SEEN, False)
-        #'location': 
-        self.append_column(RB.EntryViewColumn.LOCATION, False)
-        #'beats-per-minute': 
-        self.append_column(RB.EntryViewColumn.BPM, False)
-        
-        self.set_visible_cols() #self.new_visible_column()
+        self.append_column(RB.EntryViewColumn.TRACK_NUMBER, False) #'track-number'
+        self.append_column(RB.EntryViewColumn.TITLE, True) #'title' - n.b. default and never manually defined
+        self.append_column(RB.EntryViewColumn.GENRE, False) #'genre'
+        self.append_column(RB.EntryViewColumn.ARTIST, False) #'artist'
+        self.append_column(RB.EntryViewColumn.ALBUM, False) #'album'
+        self.append_column(RB.EntryViewColumn.DURATION, False) #'duration'
+        self.append_column(RB.EntryViewColumn.COMMENT, False) #'comment'
+        self.append_column(RB.EntryViewColumn.RATING, False) #'rating'
+        self.append_column(RB.EntryViewColumn.QUALITY, False) #'bitrate'
+        self.append_column(RB.EntryViewColumn.PLAY_COUNT, False) #'play-count'
+        self.append_column(RB.EntryViewColumn.LAST_PLAYED, False) #'last-played'
+        self.append_column(RB.EntryViewColumn.YEAR, False) #'date'
+        self.append_column(RB.EntryViewColumn.FIRST_SEEN, False) #'first-seen': 
+        self.append_column(RB.EntryViewColumn.LOCATION, False) #'location'
+        self.append_column(RB.EntryViewColumn.BPM, False) #'beats-per-minute'
+
+        self.set_visible_cols()
         self.set_columns_clickable(False)
 
         # UI elements need to be imported.
@@ -105,34 +91,26 @@ class CoverArtEntryView(RB.EntryView):
 
 
     def set_visible_cols(self):
-        print "set_visible_cols"
+        print "CoverArtBrowser DEBUG - set_visible_cols()"
         #reset current columns
         self.props.visible_columns=['title']
 
-        setting = Gio.Settings('org.gnome.rhythmbox.sources')
-
-        visible_cols = setting.get_value('visible-columns')
-        print visible_cols
+        gs = GSetting()
+        visible_cols = gs.get_value( gs.Path.RBSOURCE,
+                                     gs.RBSourceKey.VISIBLE_COLS )
         
         ordered_cols = ['track-number', 'genre', 'title', 'artist', 'album', 'duration']
         new_cols = []
         for val in ordered_cols:
             if val in visible_cols or val=='title':
-                print val
-                #self._add_column(val)
                 new_cols.append(val)
                 
-        #itercols = iter(visible_cols)
-
-        for col in visible_cols: #itercols:
+        for col in visible_cols:
             if col not in ordered_cols:
-                print col
-                #self._add_column(col)
                 new_cols.append(col)
 
-        print new_cols
-
         self.props.visible_columns = new_cols
+        print "CoverArtBrowser DEBUG - set_visible_cols()"
                 
     def add_album(self, album):
         print "CoverArtBrowser DEBUG - add_album()"
@@ -152,7 +130,6 @@ class CoverArtEntryView(RB.EntryView):
 
     def do_entry_activated(self, entry):
         print "CoverArtBrowser DEBUG - do_entry_activated()"
-        print entry
         self.select_entry(entry)
         self.play_track_menu_item_callback(entry)
         print "CoverArtBrowser DEBUG - do_entry_activated()"
@@ -208,8 +185,6 @@ class CoverArtEntryView(RB.EntryView):
 
     def playing_song_changed(self, shell_player, entry):
         print "CoverArtBrowser DEBUG - playing_song_changed()"
-        print shell_player
-        print entry
 
         if entry is not None and self.get_entry_contained(entry):
             self.set_state(RB.EntryViewState.PLAYING)
@@ -220,8 +195,6 @@ class CoverArtEntryView(RB.EntryView):
 
     def playing_changed(self, shell_player, playing):
         print "CoverArtBrowser DEBUG - playing_changed()"
-        print shell_player
-        print playing
         entry = shell_player.get_playing_entry()
 
         if entry is not None and self.get_entry_contained(entry):
