@@ -49,10 +49,7 @@ class AlbumLoader(GObject.Object):
     # default chunk of albums to load at a time while filling the model
     DEFAULT_LOAD_CHUNK = 15
 
-    # default chunk of albums to reload at a time while reloading the model
-    DEFAULT_RELOAD_CHUNK = 30
-
-    def __init__(self, plugin, cover_model):
+    def __init__(self, plugin, cover_model, cover_size):
         '''
         Initialises the loader, getting the needed objects from the plugin and
         saving the model that will be used to assign the loaded albums.
@@ -63,7 +60,8 @@ class AlbumLoader(GObject.Object):
         self.db = plugin.shell.props.db
         self.cover_model = cover_model
         self.cover_db = RB.ExtDB(name='album-art')
-        self.reloading = 0
+        self.cover_size = cover_size
+        self.reloading = None
 
         # connect the signal to update cover arts when added
         self.req_id = self.cover_db.connect('added',
@@ -78,18 +76,35 @@ class AlbumLoader(GObject.Object):
             self._entry_deleted_callback)
 
         # initialise unkown cover for albums without cover
-        Album.init_unknown_cover(plugin)
+        Album.init_unknown_cover(plugin, self.cover_size)
+        Album.FONT_SIZE = cover_size / 10
 
     @classmethod
-    def get_instance(cls, plugin, model, query_model):
+    def get_instance(cls, plugin, model, query_model, cover_size):
         '''
         Singleton method to allow to access the unique loader instance.
         '''
-        if not cls.instance:
-            cls.instance = AlbumLoader(plugin, model)
+
+        if cls.instance:
+            if cover_size != cls.instance.cover_size:
+                cls.instance.update_cover_size(cover_size)
+        else:
+            cls.instance = AlbumLoader(plugin, model, cover_size)
             cls.instance.load_albums(query_model)
 
         return cls.instance
+
+    def update_cover_size(self, cover_size):
+        '''
+        Updates the loader's albums' cover size and forces a model reload.
+        '''
+        self.cover_size = cover_size
+
+        # update album variables
+        Album.FONT_SIZE = cover_size / 10
+        Album.UNKNOWN_COVER.resize(self.cover_size)
+
+        self.reload_model(True)
 
     def _get_album_name_and_artist(self, entry):
         '''
@@ -114,7 +129,7 @@ class AlbumLoader(GObject.Object):
 
         # use the name to get the album and update the cover
         if album_name in self.albums:
-            self.albums[album_name].update_cover(pixbuf)
+            self.albums[album_name].update_cover(pixbuf, self.cover_size)
 
         print "CoverArtBrowser DEBUG - end albumart_added_callback"
 
@@ -348,7 +363,7 @@ class AlbumLoader(GObject.Object):
         for i in range(AlbumLoader.DEFAULT_LOAD_CHUNK):
             try:
                 album = albums.pop()
-                album.load_cover(self.cover_db)
+                album.load_cover(self.cover_db, self.cover_size)
                 album.add_to_model(self.cover_model)
             except:
                 # we finished loading
@@ -367,39 +382,46 @@ class AlbumLoader(GObject.Object):
         '''
         self.progress = 1
 
-    def reload_model(self):
+    def reload_model(self, reload_covers=False):
         '''
         This method allows to remove and readd all the albums that are
         currently in this loader model.
         '''
-        # add one to the reloading accum
-        self.reloading += 1
-
-        albums = [album for album in self.albums.values() if hasattr(album,
-            'model')]
+        # get those albums in te model and remove them
+        albums = [album for album in self.albums.values() if album.model]
 
         for album in albums:
             album.remove_from_model()
 
-        Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
-            self._readd_albums_to_model,
-            albums)
+        if self.reloading:
+            # if there is already a reloading process going on, just add the
+            # albums to the list
+            self.reloading.extend(albums)
+        else:
+            # initiate the idle process
+            Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
+                self._readd_albums_to_model, (albums, reload_covers,
+                    AlbumLoader.DEFAULT_LOAD_CHUNK))
 
-    def _readd_albums_to_model(self, albums):
+    def _readd_albums_to_model(self, data):
         '''
         Idle callback that readds the albums removed from the modle by
         'reload_model' in chunks to improve ui resposiveness.
         '''
-        for i in range(AlbumLoader.DEFAULT_RELOAD_CHUNK):
+        albums, reload_covers, chunk = data
+
+        for i in range(chunk):
             try:
                 album = albums.pop()
+
+                if reload_covers and album.cover is not Album.UNKNOWN_COVER:
+                    album.cover.resize(self.cover_size)
+
                 album.add_to_model(self.cover_model)
             except:
-                # only emit the signal when there isn't any reloading going on
-                self.reloading -= 1
-
-                if not self.reloading:
-                    self.emit('reload_finished')
+                # clean the reloading list and emit the signal
+                self.reloading = None
+                self.emit('reload_finished')
 
                 return False
 
@@ -469,22 +491,34 @@ class AlbumLoader(GObject.Object):
 
 class Cover(object):
     ''' Cover of an Album. '''
-    # default cover size
-    COVER_SIZE = 92
 
-    def __init__(self, file_path=None, pixbuf=None, width=COVER_SIZE,
-        height=COVER_SIZE):
+    def __init__(self, size, file_path=None, pixbuf=None):
         '''
         Initialises a cover, creating it's pixbuf or adapting a given one.
         Either a file path or a pixbuf should be given to it's correct
         initialization.
         '''
         if pixbuf:
-            self.pixbuf = pixbuf.scale_simple(width, height,
+            self.original = pixbuf
+            self.pixbuf = pixbuf.scale_simple(size, size,
                  GdkPixbuf.InterpType.BILINEAR)
         else:
+            self.original = file_path
             self.pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(file_path,
-                width, height)
+                size, size)
+
+    def resize(self, size):
+        '''
+        Resizes the cover's pixbuf.
+        '''
+        del self.pixbuf
+
+        try:
+            self.pixbuf = self.original.scale_simple(size, size,
+                 GdkPixbuf.InterpType.BILINEAR)
+        except:
+            self.pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(self.original,
+                size, size)
 
 
 class Album(object):
@@ -506,7 +540,7 @@ class Album(object):
     MARKUP_FORMAT = '''<span font='%d'><b>%s</b>\n<i>by %s</i></span>'''
 
     # font size for the markup text
-    FONT_SIZE = Cover.COVER_SIZE / 10
+    FONT_SIZE = 0
 
     # ellipsize length
     ELLIPSIZE = 0
@@ -692,7 +726,7 @@ class Album(object):
         ''' Indicates if this album has his cover loaded. '''
         return not self.cover is Album.UNKNOWN_COVER
 
-    def load_cover(self, cover_db):
+    def load_cover(self, cover_db, size):
         '''
         Tries to load the Album's cover from the provided cover_db. If no cover
         is found upon lookup, the Unknown cover is used.
@@ -702,7 +736,7 @@ class Album(object):
 
         if art_location and os.path.exists(art_location):
             try:
-                self.cover = Cover(art_location)
+                self.cover = Cover(size, art_location)
             except:
                 self.cover = Album.UNKNOWN_COVER
 
@@ -745,10 +779,10 @@ class Album(object):
         self.model = None
         del self.tree_iter
 
-    def update_cover(self, pixbuf):
+    def update_cover(self, pixbuf, size):
         ''' Updates this Album's cover using the given pixbuf. '''
         if pixbuf:
-            self.cover = Cover(pixbuf=pixbuf)
+            self.cover = Cover(size, pixbuf=pixbuf)
             self.model.set_value(self.tree_iter, 1, self.cover.pixbuf)
 
     def get_track_count(self):
@@ -803,13 +837,13 @@ class Album(object):
         return False
 
     @classmethod
-    def init_unknown_cover(cls, plugin):
+    def init_unknown_cover(cls, plugin, cover_size):
         '''
         Classmethod that should be called to initialize the the global Unknown
         cover.
         '''
         if type(cls.UNKNOWN_COVER) is str:
-            cls.UNKNOWN_COVER = Cover(
+            cls.UNKNOWN_COVER = Cover(cover_size,
                 rb.find_plugin_file(plugin, cls.UNKNOWN_COVER))
 
     @classmethod
