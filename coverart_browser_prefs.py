@@ -45,7 +45,8 @@ class GSetting:
                                         DISPLAY_TEXT_LOADING = 'display-text-loading',
                                         DISPLAY_TEXT_ELLIPSIZE = 'display-text-ellipsize',
                                         DISPLAY_TEXT_ELLIPSIZE_LENGTH = 'display-text-ellipsize-length',
-                                        COVER_SIZE = 'cover-size'
+                                        COVER_SIZE = 'cover-size',
+                                        PANED_POSITION = 'paned-position'
                                      )
 
             self.setting={}

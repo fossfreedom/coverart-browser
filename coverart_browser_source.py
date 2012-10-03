@@ -47,6 +47,7 @@ class CoverArtBrowserSource(RB.Source):
     display_text_ellipsize_enabled = GObject.property(type=bool, default=False)
     display_text_ellipsize_length = GObject.property(type=int, default=20)
     cover_size = GObject.property(type=int, default=92)
+    paned_position = GObject.property(type=int, default=0)
 
     entry_view = None
 
@@ -105,7 +106,7 @@ class CoverArtBrowserSource(RB.Source):
         correct behavior.
         '''
         print "do_impl_activate"
-
+        print self.paned_position
         # initialise some variables
         self.plugin = self.props.plugin
         self.shell = self.props.shell
@@ -136,7 +137,7 @@ class CoverArtBrowserSource(RB.Source):
         self.connect('notify::display-text-ellipsize-length',
             self.on_notify_display_text_ellipsize)
 
-        self.connect('notify::cover-size', self.on_notifiy_cover_size)
+        self.connect('notify::cover-size', self.on_notify_cover_size)
 
         # setup translation support
         locale.setlocale(locale.LC_ALL, '')
@@ -193,8 +194,6 @@ class CoverArtBrowserSource(RB.Source):
         self.entry_view = CoverArtEntryView(self.shell, self)
         self.entry_view.show_all()
         self.entry_view_expander.add(self.entry_view)
-
-        self.paned_position = 0
         self.entry_view_box = ui.get_object('entryview_box')
 
         self.on_notify_display_tracks_enabled(_)
@@ -312,7 +311,10 @@ class CoverArtBrowserSource(RB.Source):
 
         else:
             if self.entry_view_expander.get_expanded():
-                self.paned_position = self.paned.get_position()
+                print self.paned_position
+                y=self.paned.get_position()
+                self.paned_position = y
+                print self.paned_position
 
             self.entry_view_box.set_visible(False)
 
@@ -362,7 +364,7 @@ class CoverArtBrowserSource(RB.Source):
 
         self.loader.reload_model()
 
-    def on_notifiy_cover_size(self, *args):
+    def on_notify_cover_size(self, *args):
         '''
         Callback callend when the coverart size property is changed.
         '''
@@ -698,13 +700,18 @@ class CoverArtBrowserSource(RB.Source):
 
         if not expand:
             (x, y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
-            self.paned_position = self.paned.get_position()
+            print "a %d " % self.paned_position
+            new_y = self.paned.get_position()
+            self.paned_position = new_y
+            print self.paned.get_position()
+            print "b %d " % self.paned_position
             self.paned.set_position(y - 10)
         else:
             (x, y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
+            print "c %d " % self.paned_position
             if self.paned_position == 0:
                 self.paned_position = (y / 2)
-
+            print "d %d " % self.paned_position
             self.paned.set_position(self.paned_position)
 
     def paned_button_press_callback(self, *args):
