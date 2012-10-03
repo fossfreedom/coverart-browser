@@ -491,6 +491,9 @@ class AlbumLoader(GObject.Object):
         except:
             pass
 
+    def update_cover(self, album, pixbuf):
+        album.update_cover(pixbuf, self.cover_size)
+
 
 class Cover(object):
     ''' Cover of an Album. '''

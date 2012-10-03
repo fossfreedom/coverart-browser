@@ -174,6 +174,13 @@ class CoverArtBrowserSource(RB.Source):
         self.descending_sort_radio = ui.get_object('descending_sort_radio')
         self.ascending_sort_radio = ui.get_object('ascending_sort_radio')
 
+        # setup iconview drag&drop support
+        self.covers_view.enable_model_drag_dest([], Gdk.DragAction.COPY)
+        self.covers_view.drag_dest_add_image_targets()
+        self.covers_view.connect('drag-drop', self.on_drag_drop)
+        self.covers_view.connect('drag-data-received',
+            self.on_drag_data_received)
+
         # setup the sorting
         self.sort_by_album_radio.set_mode(False)
         self.sort_by_artist_radio.set_mode(False)
@@ -748,6 +755,28 @@ class CoverArtBrowserSource(RB.Source):
         to the current comparation function.
         '''
         return self.compare_albums(model[iter1][2], model[iter2][2])
+
+    def on_drag_drop(self, widget, context, x, y, time):
+        widget.stop_emission('drag-drop')
+        path = widget.get_path_at_pos(x, y)
+        result = path is not None
+
+        if result:
+            self.covers_view.set_drag_dest_item(path,
+                Gtk.IconViewDropPosition.DROP_INTO)
+            target = self.covers_view.drag_dest_find_target(context, None)
+            widget.drag_get_data(context, target, time)
+
+        return result
+
+    def on_drag_data_received(self, widget, drag_context, x, y, data, info,
+        time):
+        widget.stop_emission('drag-data-received')
+        album_path, pos = self.covers_view.get_drag_dest_item()
+
+        pixbuf = data.get_pixbuf()
+        album = self.covers_model[album_path][2]
+        self.loader.update_cover(album, pixbuf)
 
     def do_delete_thyself(self):
         '''
