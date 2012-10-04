@@ -758,12 +758,14 @@ class CoverArtBrowserSource(RB.Source):
 
     def on_drag_drop(self, widget, context, x, y, time):
         widget.stop_emission('drag-drop')
-        path = widget.get_path_at_pos(x, y)
+        path, pos = widget.get_dest_item_at_pos(x, y)
         result = path is not None
 
         if result:
-            self.covers_view.set_drag_dest_item(path,
-                Gtk.IconViewDropPosition.DROP_INTO)
+            widget.unselect_all()
+            widget.grab_focus()
+            widget.select_path(path)
+
             target = self.covers_view.drag_dest_find_target(context, None)
             widget.drag_get_data(context, target, time)
 
@@ -772,10 +774,9 @@ class CoverArtBrowserSource(RB.Source):
     def on_drag_data_received(self, widget, drag_context, x, y, data, info,
         time):
         widget.stop_emission('drag-data-received')
-        album_path, pos = self.covers_view.get_drag_dest_item()
 
         pixbuf = data.get_pixbuf()
-        album = self.covers_model[album_path][2]
+        album = self.get_selected_albums()[0]
         self.loader.update_cover(album, pixbuf)
 
     def do_delete_thyself(self):
