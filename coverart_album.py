@@ -492,7 +492,9 @@ class AlbumLoader(GObject.Object):
             pass
 
     def update_cover(self, album, pixbuf):
-        album.update_cover(pixbuf, self.cover_size)
+        key = RB.ExtDBKey.create_storage('album', album.name)
+        key.add_field('artist', album.album_artist)
+        self.cover_db.store(key, RB.ExtDBSourceType.USER_EXPLICIT, pixbuf)
 
 
 class Cover(object):
