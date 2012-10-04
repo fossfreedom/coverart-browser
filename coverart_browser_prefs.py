@@ -62,7 +62,19 @@ class GSetting:
 
         def get_value(self, path, key):
             
-            return self.get_setting(path).get_value(key) 
+            return self.get_setting(path).get_value(key)
+
+        def set_value(self, path, key, value):
+            
+            return self.get_setting(path).set_value(key, value)
+
+        def get_int(self, path, key):
+            
+            return self.get_setting(path).get_int(key)
+
+        def set_int(self, path, key, value):
+            
+            return self.get_setting(path).set_int(key, value) 
  
         def _enum(self, **enums):
             return type('Enum', (), enums)

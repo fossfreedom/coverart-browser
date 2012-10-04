@@ -116,8 +116,8 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         setting.bind(gs.PluginKey.COVER_SIZE,
             self.source, 'cover_size',
             Gio.SettingsBindFlags.GET)
+        
         setting = gs.get_setting( gs.Path.RBSOURCE)
-
         setting.connect('changed::visible-columns', self.source.on_visible_columns_changed)
 
         print "CoverArtBrowser DEBUG - end do_activate"

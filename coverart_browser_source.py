@@ -31,7 +31,7 @@ from coverart_album import AlbumLoader
 from coverart_album import Album
 from coverart_entryview import CoverArtEntryView
 from coverart_browser_prefs import GSetting
-from gi.repository import Gio
+#from gi.repository import Gio
 
 
 class CoverArtBrowserSource(RB.Source):
@@ -49,8 +49,8 @@ class CoverArtBrowserSource(RB.Source):
     display_text_ellipsize_enabled = GObject.property(type=bool, default=False)
     display_text_ellipsize_length = GObject.property(type=int, default=20)
     cover_size = GObject.property(type=int, default=92)
-    paned_position = GObject.property(type=int, default=0)
-
+    gs=GSetting()
+    
     entry_view = None
 
     def __init__(self):
@@ -108,7 +108,6 @@ class CoverArtBrowserSource(RB.Source):
         correct behavior.
         '''
         print "do_impl_activate"
-        print self.paned_position
         # initialise some variables
         self.plugin = self.props.plugin
         self.shell = self.props.shell
@@ -116,13 +115,6 @@ class CoverArtBrowserSource(RB.Source):
         self.search_text = ''
         self.filter_type = Album.FILTER_ALL
         self.compare_albums = Album.compare_albums_by_name
-
-        gs=GSetting()
-        setting = gs.get_setting(gs.Path.PLUGIN)
-        setting.bind(gs.PluginKey.PANED_POSITION,
-            self, 'paned_position',
-            Gio.SettingsBindFlags.SET)
-        self.paned_position = 443
 
         # set the ellipsize
         Album.set_ellipsize_length(self.display_text_ellipsize_length)
@@ -206,6 +198,12 @@ class CoverArtBrowserSource(RB.Source):
 
         # setup entry-view objects and widgets
         self.paned = ui.get_object('paned')
+        y=self.gs.get_int(  self.gs.Path.PLUGIN,
+                                self.gs.PluginKey.PANED_POSITION)
+        self.paned.set_position(y)
+        self.paned.connect( 'button-release-event',
+                            self.on_paned_button_release_event )
+
         self.entry_view_expander = ui.get_object('entryviewexpander')                    
         self.entry_view = CoverArtEntryView(self.shell, self)
         self.entry_view.show_all()
@@ -327,10 +325,11 @@ class CoverArtBrowserSource(RB.Source):
 
         else:
             if self.entry_view_expander.get_expanded():
-                print self.paned_position
                 y=self.paned.get_position()
-                self.paned_position = y
-                print self.paned_position
+                print "c %d" % y
+                self.gs.set_int(self.gs.Path.PLUGIN,
+                                  self.gs.PluginKey.PANED_POSITION,
+                                  y)
 
             self.entry_view_box.set_visible(False)
 
@@ -390,6 +389,17 @@ class CoverArtBrowserSource(RB.Source):
 
         # update the iconview since the new size would change the free space
         self.update_iconview_callback()
+
+    def on_paned_button_release_event(self, *args):
+        '''
+        Callback when the paned handle is released from its mouse click.
+        '''
+        if self.entry_view_expander.get_expanded():
+            new_y = self.paned.get_position()
+            print "e %d" % new_y
+            self.gs.set_int(  self.gs.Path.PLUGIN,
+                                    self.gs.PluginKey.PANED_POSITION,
+                                    new_y)
 
     def album_modified_callback(self, _, modified_album):
         '''
@@ -712,23 +722,29 @@ class CoverArtBrowserSource(RB.Source):
         '''
         Callback connected to expanded signal of the paned GtkExpander
         '''
+        
         expand = action.get_expanded()
 
         if not expand:
             (x, y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
-            print "a %d " % self.paned_position
             new_y = self.paned.get_position()
-            self.paned_position = new_y
-            print self.paned.get_position()
-            print "b %d " % self.paned_position
+            print "b %d" % new_y
+            self.gs.set_int(  self.gs.Path.PLUGIN,
+                                self.gs.PluginKey.PANED_POSITION,
+                                new_y)
             self.paned.set_position(y - 10)
         else:
             (x, y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
-            print "c %d " % self.paned_position
-            if self.paned_position == 0:
-                self.paned_position = (y / 2)
-            print "d %d " % self.paned_position
-            self.paned.set_position(self.paned_position)
+            new_y = self.gs.get_int(  self.gs.Path.PLUGIN,
+                                        self.gs.PluginKey.PANED_POSITION )
+                                
+            if new_y == 0: 
+                new_y = (y/2)
+                print "a %d" % new_y
+                self.gs.set_int(self.gs.Path.PLUGIN,
+                                  self.gs.PluginKey.PANED_POSITION,
+                                  new_y)
+            self.paned.set_position(new_y)
 
     def paned_button_press_callback(self, *args):
         '''
