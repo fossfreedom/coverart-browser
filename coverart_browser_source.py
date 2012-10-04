@@ -757,11 +757,20 @@ class CoverArtBrowserSource(RB.Source):
         return self.compare_albums(model[iter1][2], model[iter2][2])
 
     def on_drag_drop(self, widget, context, x, y, time):
+        '''
+        Callback called when a drag operation finishes over the cover view
+        of the source. It decides if the dropped item can be processed as
+        an image to use as a cover.
+        '''
+        # stop the propagation of the signal (deactivates superclass callback)
         widget.stop_emission('drag-drop')
+
+        # obtain the path of the icon over which the drag operation finished
         path, pos = widget.get_dest_item_at_pos(x, y)
         result = path is not None
 
         if result:
+            # if there was an album, select it
             widget.unselect_all()
             widget.grab_focus()
             widget.select_path(path)
@@ -773,8 +782,14 @@ class CoverArtBrowserSource(RB.Source):
 
     def on_drag_data_received(self, widget, drag_context, x, y, data, info,
         time):
+        '''
+        Callback called when the drag source has prepared the data (pixbuf)
+        for us to use.
+        '''
+        # stop the propagation of the signal (deactivates superclass callback)
         widget.stop_emission('drag-data-received')
 
+        # get the album and the pixbuf and ask the loader to update the cover
         pixbuf = data.get_pixbuf()
         album = self.get_selected_albums()[0]
         self.loader.update_cover(album, pixbuf)

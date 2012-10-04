@@ -492,6 +492,10 @@ class AlbumLoader(GObject.Object):
             pass
 
     def update_cover(self, album, pixbuf):
+        '''
+        Updates the cover database, inserting the pixbuf as the cover art for
+        all the entries on the album.
+        '''
         for artist in album._artist:
             key = RB.ExtDBKey.create_storage('album', album.name)
             key.add_field('artist', artist)
