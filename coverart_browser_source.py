@@ -30,6 +30,8 @@ from gi.repository import RB
 from coverart_album import AlbumLoader
 from coverart_album import Album
 from coverart_entryview import CoverArtEntryView
+from coverart_browser_prefs import GSetting
+from gi.repository import Gio
 
 
 class CoverArtBrowserSource(RB.Source):
@@ -114,6 +116,13 @@ class CoverArtBrowserSource(RB.Source):
         self.search_text = ''
         self.filter_type = Album.FILTER_ALL
         self.compare_albums = Album.compare_albums_by_name
+
+        gs=GSetting()
+        setting = gs.get_setting(gs.Path.PLUGIN)
+        setting.bind(gs.PluginKey.PANED_POSITION,
+            self, 'paned_position',
+            Gio.SettingsBindFlags.SET)
+        self.paned_position = 443
 
         # set the ellipsize
         Album.set_ellipsize_length(self.display_text_ellipsize_length)
