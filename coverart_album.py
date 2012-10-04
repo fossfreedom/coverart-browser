@@ -398,9 +398,12 @@ class AlbumLoader(GObject.Object):
             # albums to the list
             self.reloading.extend(albums)
         else:
+            # generate the reloading list
+            self.reloading = albums
+
             # initiate the idle process
             Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
-                self._readd_albums_to_model, (albums, reload_covers,
+                self._readd_albums_to_model, (reload_covers,
                     AlbumLoader.DEFAULT_LOAD_CHUNK))
 
     def _readd_albums_to_model(self, data):
@@ -408,11 +411,11 @@ class AlbumLoader(GObject.Object):
         Idle callback that readds the albums removed from the modle by
         'reload_model' in chunks to improve ui resposiveness.
         '''
-        albums, reload_covers, chunk = data
+        reload_covers, chunk = data
 
         for i in range(chunk):
             try:
-                album = albums.pop()
+                album = self.reloading.pop()
 
                 if reload_covers and album.cover is not Album.UNKNOWN_COVER:
                     album.cover.resize(self.cover_size)
@@ -487,6 +490,16 @@ class AlbumLoader(GObject.Object):
             self._cancel_cover_request = True
         except:
             pass
+
+    def update_cover(self, album, pixbuf):
+        '''
+        Updates the cover database, inserting the pixbuf as the cover art for
+        all the entries on the album.
+        '''
+        for artist in album._artist:
+            key = RB.ExtDBKey.create_storage('album', album.name)
+            key.add_field('artist', artist)
+            self.cover_db.store(key, RB.ExtDBSourceType.USER_EXPLICIT, pixbuf)
 
 
 class Cover(object):
