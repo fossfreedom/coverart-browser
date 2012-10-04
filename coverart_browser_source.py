@@ -794,6 +794,9 @@ class CoverArtBrowserSource(RB.Source):
         album = self.get_selected_albums()[0]
         self.loader.update_cover(album, pixbuf)
 
+        # call the context drag_finished to inform the source about it
+        drag_context.finish(True, False, time)
+
     def do_delete_thyself(self):
         '''
         Method called by Rhythmbox's when the source is deleted. It makes sure
