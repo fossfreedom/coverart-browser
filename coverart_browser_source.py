@@ -49,15 +49,17 @@ class CoverArtBrowserSource(RB.Source):
     display_text_ellipsize_length = GObject.property(type=int, default=20)
     cover_size = GObject.property(type=int, default=92)
 
-    def __init__(self):
+    def __init__(self, **kargs):
         '''
         Initializes the source.
         '''
         super(CoverArtBrowserSource, self).__init__(
-            name="CoverArtBrowserPlugin")
+            **kargs)
 
         # create source_source_settings and connect the source's properties
         self.gs = GSetting()
+
+        self.connect_properties()
 
         self.filter_type = Album.FILTER_ALL
         self.search_text = ''
