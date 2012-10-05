@@ -31,7 +31,7 @@ from coverart_album import AlbumLoader
 from coverart_album import Album
 from coverart_entryview import CoverArtEntryView
 from coverart_browser_prefs import GSetting
-#from gi.repository import Gio
+from gi.repository import Gio
 
 
 class CoverArtBrowserSource(RB.Source):
@@ -178,6 +178,20 @@ class CoverArtBrowserSource(RB.Source):
         self.descending_sort_radio = ui.get_object('descending_sort_radio')
         self.ascending_sort_radio = ui.get_object('ascending_sort_radio')
 
+        self.settings = self.gs.get_setting(self.gs.Path.PLUGIN)
+        self.settings.bind( self.gs.PluginKey.SORT_BY_ALBUM,
+                            self.sort_by_album_radio, 'active',
+                            Gio.SettingsBindFlags.DEFAULT)
+        self.settings.bind( self.gs.PluginKey.SORT_BY_ARTIST,
+                            self.sort_by_artist_radio, 'active',
+                            Gio.SettingsBindFlags.DEFAULT)
+        self.settings.bind( self.gs.PluginKey.DESC_SORT,
+                            self.descending_sort_radio, 'active',
+                            Gio.SettingsBindFlags.DEFAULT)
+        self.settings.bind( self.gs.PluginKey.ASC_SORT,
+                            self.ascending_sort_radio, 'active',
+                            Gio.SettingsBindFlags.DEFAULT)
+
         # setup iconview drag&drop support
         self.covers_view.enable_model_drag_dest([], Gdk.DragAction.COPY)
         self.covers_view.drag_dest_add_image_targets()
@@ -198,8 +212,8 @@ class CoverArtBrowserSource(RB.Source):
 
         # setup entry-view objects and widgets
         self.paned = ui.get_object('paned')
-        y=self.gs.get_int(  self.gs.Path.PLUGIN,
-                                self.gs.PluginKey.PANED_POSITION)
+        y=self.gs.get_value(self.gs.Path.PLUGIN,
+                            self.gs.PluginKey.PANED_POSITION)
         self.paned.set_position(y)
         self.paned.connect( 'button-release-event',
                             self.on_paned_button_release_event )
@@ -243,9 +257,15 @@ class CoverArtBrowserSource(RB.Source):
         # retrieve and set the model, it's filter and the sorting column
         self.covers_model_store = self.loader.cover_model
 
-        self.covers_model_store.set_sort_column_id(2, Gtk.SortType.DESCENDING)
+        if self.descending_sort_radio.get_active():
+            print "desc"
+            self.covers_model_store.set_sort_column_id(2, Gtk.SortType.DESCENDING)
+        else:
+            print "asc"
+            self.covers_model_store.set_sort_column_id(2, Gtk.SortType.ASCENDING)
+        
         self.covers_model_store.set_sort_func(2, self.sort_albums)
-
+        
         self.covers_model = self.covers_model_store.filter_new()
         self.covers_model.set_visible_func(self.visible_covers_callback)
 
@@ -327,7 +347,7 @@ class CoverArtBrowserSource(RB.Source):
             if self.entry_view_expander.get_expanded():
                 y=self.paned.get_position()
                 print "c %d" % y
-                self.gs.set_int(self.gs.Path.PLUGIN,
+                self.gs.set_value(self.gs.Path.PLUGIN,
                                   self.gs.PluginKey.PANED_POSITION,
                                   y)
 
@@ -397,9 +417,9 @@ class CoverArtBrowserSource(RB.Source):
         if self.entry_view_expander.get_expanded():
             new_y = self.paned.get_position()
             print "e %d" % new_y
-            self.gs.set_int(  self.gs.Path.PLUGIN,
-                                    self.gs.PluginKey.PANED_POSITION,
-                                    new_y)
+            self.gs.set_value(  self.gs.Path.PLUGIN,
+                                self.gs.PluginKey.PANED_POSITION,
+                                new_y)
 
     def album_modified_callback(self, _, modified_album):
         '''
@@ -729,19 +749,19 @@ class CoverArtBrowserSource(RB.Source):
             (x, y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
             new_y = self.paned.get_position()
             print "b %d" % new_y
-            self.gs.set_int(  self.gs.Path.PLUGIN,
+            self.gs.set_value(  self.gs.Path.PLUGIN,
                                 self.gs.PluginKey.PANED_POSITION,
                                 new_y)
             self.paned.set_position(y - 10)
         else:
             (x, y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
-            new_y = self.gs.get_int(  self.gs.Path.PLUGIN,
+            new_y = self.gs.get_value(  self.gs.Path.PLUGIN,
                                         self.gs.PluginKey.PANED_POSITION )
                                 
             if new_y == 0: 
                 new_y = (y/2)
                 print "a %d" % new_y
-                self.gs.set_int(self.gs.Path.PLUGIN,
+                self.gs.set_value(self.gs.Path.PLUGIN,
                                   self.gs.PluginKey.PANED_POSITION,
                                   new_y)
             self.paned.set_position(new_y)
@@ -769,7 +789,10 @@ class CoverArtBrowserSource(RB.Source):
         if self.display_text_enabled and not self.display_text_loading_enabled:
             self.activate_markup(False)
 
-        self.loader.reload_model()
+        try:
+            self.loader.reload_model()
+        except:
+            pass
 
     def sorting_direction_changed(self, radio):
         '''

@@ -46,7 +46,11 @@ class GSetting:
                                         DISPLAY_TEXT_ELLIPSIZE = 'display-text-ellipsize',
                                         DISPLAY_TEXT_ELLIPSIZE_LENGTH = 'display-text-ellipsize-length',
                                         COVER_SIZE = 'cover-size',
-                                        PANED_POSITION = 'paned-position'
+                                        PANED_POSITION = 'paned-position',
+                                        SORT_BY_ALBUM = 'sort-by-album',
+                                        SORT_BY_ARTIST = 'sort-by-artist',
+                                        DESC_SORT = 'desc-sort',
+                                        ASC_SORT = 'asc-sort'
                                      )
 
             self.setting={}
@@ -61,21 +65,11 @@ class GSetting:
             return setting
 
         def get_value(self, path, key):
-            
-            return self.get_setting(path).get_value(key)
+            return self.get_setting(path)[key]
 
         def set_value(self, path, key, value):
-            
-            return self.get_setting(path).set_value(key, value)
+            self.get_setting(path)[key]=value
 
-        def get_int(self, path, key):
-            
-            return self.get_setting(path).get_int(key)
-
-        def set_int(self, path, key, value):
-            
-            return self.get_setting(path).set_int(key, value) 
- 
         def _enum(self, **enums):
             return type('Enum', (), enums)
 
