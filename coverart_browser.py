@@ -83,7 +83,7 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
 
         what, width, height = Gtk.icon_size_lookup(Gtk.IconSize.LARGE_TOOLBAR)
         pxbf = GdkPixbuf.Pixbuf.new_from_file_at_size(
-            rb.find_plugin_file(self, 'covermgr.png'), width, height)
+            rb.find_plugin_file(self, 'img/covermgr.png'), width, height)
 
         group = RB.DisplayPageGroup.get_by_id('library')
 

@@ -540,7 +540,7 @@ class Album(object):
     cover and set itself in a treemodel.
     '''
     # cover used for those albums without one
-    UNKNOWN_COVER = 'rhythmbox-missing-artwork.svg'
+    UNKNOWN_COVER = 'img/rhythmbox-missing-artwork.svg'
 
     # filter types
     FILTER_ALL = 1
