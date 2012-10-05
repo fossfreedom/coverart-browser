@@ -202,7 +202,7 @@
                     <property name="orientation">vertical</property>
                     <child>
                         <object class="GtkExpander" id="entryviewexpander">
-                            <property name="label" translatable="yes">Tracks & Covers</property>
+                            <property name="label" translatable="yes">Tracks &amp; Covers</property>
                             <property name="visible">True</property>
                             <signal name="notify::expanded" handler="entry_view_expander_expanded_callback" swapped="no"/>    
                             <child>
