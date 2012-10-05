@@ -30,6 +30,7 @@ from gi.repository import RB
 from coverart_album import AlbumLoader
 from coverart_album import Album
 from coverart_entryview import CoverArtEntryView
+from coverart_search import CoverSearchPane
 
 
 class CoverArtBrowserSource(RB.Source):
@@ -173,6 +174,7 @@ class CoverArtBrowserSource(RB.Source):
         self.sort_by_artist_radio = ui.get_object('artist_name_sort_radio')
         self.descending_sort_radio = ui.get_object('descending_sort_radio')
         self.ascending_sort_radio = ui.get_object('ascending_sort_radio')
+        self.notebook = ui.get_object('bottom_notebook')
 
         # setup iconview drag&drop support
         self.covers_view.enable_model_drag_dest([], Gdk.DragAction.COPY)
@@ -197,11 +199,15 @@ class CoverArtBrowserSource(RB.Source):
         self.entry_view_expander = ui.get_object('entryviewexpander')
         self.entry_view = CoverArtEntryView(self.shell, self)
         self.entry_view.show_all()
-        self.entry_view_expander.add(self.entry_view)
+        self.notebook.append_page(self.entry_view, Gtk.Label('Tracks'))
         self.paned_position = 0
         self.entry_view_box = ui.get_object('entryview_box')
 
         self.on_notify_display_tracks_enabled(_)
+
+        # setup cover search
+        self.cover_search_pane = CoverSearchPane(self.plugin)
+        self.notebook.append_page(self.cover_search_pane, Gtk.Label('Covers'))
 
         # get widgets for source popup
         self.source_menu = ui.get_object('source_menu')
@@ -797,6 +803,13 @@ class CoverArtBrowserSource(RB.Source):
         # call the context drag_finished to inform the source about it
         drag_context.finish(True, False, time)
 
+    def notebook_switch_page_callback(self, notebook, page, page_num):
+        if page_num == 1:
+            selected_albums = self.get_selected_albums()
+
+            if selected_albums:
+                self.cover_search_pane.do_search(selected_albums[0])
+
     def do_delete_thyself(self):
         '''
         Method called by Rhythmbox's when the source is deleted. It makes sure
@@ -824,6 +837,7 @@ class CoverArtBrowserSource(RB.Source):
         del self.covers_model_store
         del self.covers_model
         del self.covers_view
+        del self.cover_search_pane
         del self.filter_menu
         del self.filter_menu_album_artist_item
         del self.filter_menu_album_item
@@ -831,6 +845,7 @@ class CoverArtBrowserSource(RB.Source):
         del self.filter_menu_artist_item
         del self.filter_menu_track_title_item
         del self.filter_type
+        del self.notebook
         del self.page
         del self.paned
         del self.popup_menu
