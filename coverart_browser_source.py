@@ -810,9 +810,13 @@ class CoverArtBrowserSource(RB.Source):
         if self.display_text_enabled and not self.display_text_loading_enabled:
             self.activate_markup(False)
 
-        self.loader.reload_model()
-        self.covers_model_store.set_sort_column_id(2, sort_direction)
-
+        try:
+            self.loader.reload_model()
+            self.covers_model_store.set_sort_column_id(2, sort_direction)
+        except:
+            pass
+            
+        
     def sort_albums(self, model, iter1, iter2, _):
         '''
         Utility function used as the sorting function for our model.
