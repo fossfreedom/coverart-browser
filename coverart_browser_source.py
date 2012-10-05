@@ -63,8 +63,6 @@ class CoverArtBrowserSource(RB.Source):
         self.search_text = ''
         self.hasActivated = False
 
-        print 'end init'
-
     def connect_properties(self):
         '''
         Connects the source properties to the saved preferences.
@@ -138,7 +136,6 @@ class CoverArtBrowserSource(RB.Source):
         self.shell = self.props.shell
         self.status = ''
         self.search_text = ''
-        self.filter_type = Album.FILTER_ALL
         self.compare_albums = Album.compare_albums_by_name
 
         # set the ellipsize
@@ -436,7 +433,6 @@ class CoverArtBrowserSource(RB.Source):
         '''
         if self.entry_view_expander.get_expanded():
             new_y = self.paned.get_position()
-            print "e %d" % new_y
             self.gs.set_value(self.gs.Path.PLUGIN,
                 self.gs.PluginKey.PANED_POSITION, new_y)
 
@@ -765,23 +761,24 @@ class CoverArtBrowserSource(RB.Source):
         expand = action.get_expanded()
 
         if not expand:
+            # move the lower pane to the bottom since it's collapsed
             (x, y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
             new_y = self.paned.get_position()
-            print "b %d" % new_y
             self.gs.set_value(self.gs.Path.PLUGIN,
                 self.gs.PluginKey.PANED_POSITION, new_y)
             self.paned.set_position(y - 10)
         else:
-            (x, y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
+            # restitute the lower pane to it's expanded size
             new_y = self.gs.get_value(self.gs.Path.PLUGIN,
                 self.gs.PluginKey.PANED_POSITION)
 
             if new_y == 0:
+                # if there isn't a saved size, use half of the space
+                (x, y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
                 new_y = (y / 2)
-                print "a %d" % new_y
                 self.gs.set_value(self.gs.Path.PLUGIN,
-                                  self.gs.PluginKey.PANED_POSITION,
-                                  new_y)
+                    self.gs.PluginKey.PANED_POSITION, new_y)
+
             self.paned.set_position(new_y)
 
     def paned_button_press_callback(self, *args):
@@ -934,7 +931,5 @@ class CoverArtBrowserSource(RB.Source):
         del self.notify_prog_id
         del self.hasActivated
         del self.gs
-        del self.filter_type
-        del self.search_text
 
 GObject.type_register(CoverArtBrowserSource)
