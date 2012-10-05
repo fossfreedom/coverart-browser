@@ -114,7 +114,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         '''
         # create the ui
         builder = Gtk.Builder()
-        builder.add_from_file(rb.find_plugin_file(self, 'coverart_browser_prefs.ui'))
+        builder.add_from_file(rb.find_plugin_file(self, 'ui/coverart_browser_prefs.ui'))
 
         gs = GSetting()
         # bind the toggles to the settings

@@ -65,7 +65,7 @@ class CoverArtEntryView(RB.EntryView):
         ui = Gtk.Builder()
         ui.set_translation_domain(self.LOCALE_DOMAIN)
         ui.add_from_file(rb.find_plugin_file(self.plugin,
-            'coverart_entryview.ui'))
+            'ui/coverart_entryview.ui'))
         ui.connect_signals(self)
 
         self.popup_menu = ui.get_object('entryview_popup_menu')

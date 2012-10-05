@@ -155,7 +155,7 @@ class CoverArtBrowserSource(RB.Source):
         ui = Gtk.Builder()
         ui.set_translation_domain(self.LOCALE_DOMAIN)
         ui.add_from_file(rb.find_plugin_file(self.plugin,
-            'coverart_browser.ui'))
+            'ui/coverart_browser.ui'))
         ui.connect_signals(self)
 
         # load the page and put it in the source
