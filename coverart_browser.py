@@ -92,33 +92,10 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
             plugin=self, pixbuf=pxbf,
             query_model=self.shell.props.library_source.props.base_query_model)
 
+        self.source.connect_properties()
+
         self.shell.register_entry_type_for_source(self.source, entry_type)
         self.shell.append_display_page(self.source, group)
-
-        # create a preferences object and bind properties of the source to
-        # their respective settings
-        preferences = Preferences()
-        setting=preferences.settings
-        gs=GSetting()
-        setting.bind(gs.PluginKey.CUSTOM_STATUSBAR, self.source,
-            'custom_statusbar_enabled', Gio.SettingsBindFlags.GET)
-        setting.bind(gs.PluginKey.DISPLAY_TRACKS, self.source,
-            'display_tracks_enabled', Gio.SettingsBindFlags.GET)
-        setting.bind(gs.PluginKey.DISPLAY_TEXT, self.source,
-            'display_text_enabled', Gio.SettingsBindFlags.GET)
-        setting.bind(gs.PluginKey.DISPLAY_TEXT_LOADING, self.source,
-            'display_text_loading_enabled', Gio.SettingsBindFlags.GET)
-        setting.bind(gs.PluginKey.DISPLAY_TEXT_ELLIPSIZE, self.source,
-            'display_text_ellipsize_enabled', Gio.SettingsBindFlags.GET)
-        setting.bind(gs.PluginKey.DISPLAY_TEXT_ELLIPSIZE_LENGTH,
-            self.source, 'display_text_ellipsize_length',
-            Gio.SettingsBindFlags.GET)
-        setting.bind(gs.PluginKey.COVER_SIZE,
-            self.source, 'cover_size',
-            Gio.SettingsBindFlags.GET)
-        
-        setting = gs.get_setting( gs.Path.RBSOURCE)
-        setting.connect('changed::visible-columns', self.source.on_visible_columns_changed)
 
         print "CoverArtBrowser DEBUG - end do_activate"
 
