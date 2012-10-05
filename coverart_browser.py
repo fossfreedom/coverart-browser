@@ -20,7 +20,6 @@
 # define plugin
 import rb
 
-from gi.repository import Gio
 from gi.repository import GObject
 from gi.repository import Gtk
 from gi.repository import RB
@@ -28,7 +27,6 @@ from gi.repository import GdkPixbuf
 from gi.repository import Peas
 
 from coverart_browser_prefs import Preferences
-from coverart_browser_prefs import GSetting
 from coverart_browser_source import CoverArtBrowserSource
 
 
