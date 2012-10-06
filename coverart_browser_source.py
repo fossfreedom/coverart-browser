@@ -856,7 +856,7 @@ class CoverArtBrowserSource(RB.Source):
         Callback called when the notebook page gets switched. It initiates
         the cover search when the cover search pane's page is selected.
         '''
-        if page == self.cover_search_pane:
+        if page_num == 1:
             selected_albums = self.get_selected_albums()
 
             if selected_albums:
