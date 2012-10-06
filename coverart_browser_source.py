@@ -28,12 +28,10 @@ from gi.repository import Gdk
 from gi.repository import Gtk
 from gi.repository import RB
 
-
 from coverart_album import AlbumLoader
 from coverart_album import Album
 from coverart_entryview import CoverArtEntryView
 from coverart_browser_prefs import GSetting
-
 
 class CoverArtBrowserSource(RB.Source):
     '''
@@ -187,7 +185,6 @@ class CoverArtBrowserSource(RB.Source):
         self.sort_by_artist_radio = ui.get_object('artist_name_sort_radio')
         self.descending_sort_radio = ui.get_object('descending_sort_radio')
         self.ascending_sort_radio = ui.get_object('ascending_sort_radio')
-        self.popup_separator_favourites = ui.get_object('popup_separator_favourites')
         self.play_favourites_album_menu_item = ui.get_object('play_favourites_album_menu_item')
         self.queue_favourites_album_menu_item = ui.get_object('queue_favourites_album_menu_item')
         self.on_notify_rating_threshold( _ )
@@ -292,8 +289,8 @@ class CoverArtBrowserSource(RB.Source):
         source_settings.bind(self.gs.PluginKey.ASC_SORT,
             self.ascending_sort_radio, 'active', Gio.SettingsBindFlags.DEFAULT)
 
-        rhyhtm_settings = self.gs.get_setting(self.gs.Path.RBSOURCE)
-        rhyhtm_settings.connect('changed::visible-columns',
+        rhythm_settings = self.gs.get_setting(self.gs.Path.RBSOURCE)
+        rhythm_settings.connect('changed::visible-columns',
             self.on_visible_columns_changed)
 
         print "CoverArtBrowser DEBUG - end show_browser_dialog"
@@ -355,7 +352,6 @@ class CoverArtBrowserSource(RB.Source):
         else:
             enable_menus = False
             
-        self.popup_separator_favourites.set_sensitive(enable_menus)
         self.play_favourites_album_menu_item.set_sensitive(enable_menus)
         self.queue_favourites_album_menu_item.set_sensitive(enable_menus)
 
