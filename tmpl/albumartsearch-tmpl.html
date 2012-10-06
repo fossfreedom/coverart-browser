@@ -14,171 +14,161 @@
 
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-		<title>Rhythmbox album art search</title>
-		<link rel="stylesheet" href="${stylesheet}" type="text/css" />
-		<script src="http://www.google.com/jsapi"></script>
-		<script type="text/javascript">
-		var artist = "${artist}";
-		var album = "${album}";
-		var query = "${artist} ${album}";
-		var imageSearch;
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+        <title>Rhythmbox album art search</title>
+        <link rel="stylesheet" href="${stylesheet}" type="text/css" />
+        <script src="http://www.google.com/jsapi"></script>
+        <script type="text/javascript">
+            var artist = "${artist}";
+            var album = "${album}";
+            var query = "${artist} ${album}";
+            var imageSearch;
 
-		google.load('search', '1');
+            google.load('search', '1');
 
-		function searchComplete(searcher)
-		{
-			// Check that we got results
-			if (searcher.results && searcher.results.length > 0) {
-				// Grab our content div, clear it.
-				var contentDiv = document.getElementById('content');
-				contentDiv.innerHTML = '';
+            function searchComplete(searcher) {
+                // Check that we got results
+                if (searcher.results && searcher.results.length > 0) {
 
-				// Loop through our results, printing them to the page.
-				var results = searcher.results;
-				for (var i = 0; i < results.length; i++) {
-					// For each result write its image to the screen
-					var result = results[i];
-					var imgContainer = document.createElement('div');
-					imgContainer.setAttribute("id", "imgcontainer");
+                // Grab our content div, clear it.
+                var contentDiv = document.getElementById('content');
+                contentDiv.innerHTML = '';
 
-					var newImg = document.createElement('img');
-					newImg.src = result.tbUrl;
-					newImg.id = result.url;
-					newImg.setAttribute("class", "srchresult");
-					imgContainer.appendChild(newImg);
+                // Loop through our results, printing them to the page.
+                var results = searcher.results;
 
-					// Put our image in the content
-					contentDiv.appendChild(imgContainer);
-				}
-			}
-		}
+                    for (var i = 0; i < results.length; i++) {
+                        // For each result write its image to the screen
+                        var result = results[i];
+                        var imgContainer = document.createElement('div');
+                        imgContainer.setAttribute("id", "imgcontainer");
 
-		function onSearchText()
-		{
-			var txt = document.getElementById('searchtext').value;
-			imageSearch.execute(txt);
-		}
+                        var newImg = document.createElement('img');
+                        newImg.src = result.tbUrl;
+                        newImg.id = result.url;
+                        newImg.setAttribute("class", "srchresult");
+                        imgContainer.appendChild(newImg);
 
-		function onOptionChange(selObj)
-		{
-			if (selObj.id == "searchmode") {
-				var idx = selObj.selectedIndex;
-				var which = selObj.options[idx].value;
-				if (which == "artist") {
-					query = artist;
-				}
-				else if (which == "album") {
-					query = album;
-				}
-				else if (which == "both") {
-					query = artist + " " + album;
-				}
-				imageSearch.execute(query);
-			} else if (selObj.id == "imagesize") {
-				var idx = selObj.selectedIndex;
-				var which = selObj.options[idx].value;
-				if (which == "small") {
-					imageSearch.setRestriction(
-					  google.search.ImageSearch.RESTRICT_IMAGESIZE,
-					  google.search.ImageSearch.IMAGESIZE_SMALL
-					);
-				}
-				else if (which == "medium") {
-					imageSearch.setRestriction(
-					  google.search.ImageSearch.RESTRICT_IMAGESIZE,
-					  google.search.ImageSearch.IMAGESIZE_MEDIUM
-					);
-				}
-				else if (which == "large") {
-					imageSearch.setRestriction(
-					  google.search.ImageSearch.RESTRICT_IMAGESIZE,
-					  google.search.ImageSearch.IMAGESIZE_LARGE
-					);
-				}
-				else if (which == "x-large") {
-					imageSearch.setRestriction(
-					  google.search.ImageSearch.RESTRICT_IMAGESIZE,
-					  google.search.ImageSearch.IMAGESIZE_EXTRA_LARGE
-					);
-				}
-				imageSearch.execute(query);
-			}
-		}
+                        // Put our image in the content
+                        contentDiv.appendChild(imgContainer);
+                    }
+                }
+            }
+
+            function onSearchText() {
+                var txt = document.getElementById('searchtext').value;
+                imageSearch.execute(txt);
+            }
+
+            function onOptionChange(selObj) {
+                var idx = selObj.selectedIndex;
+                var which = selObj.options[idx].value;
+
+                if (selObj.id == "searchmode") {
+                    if (which == "artist") { query = artist; }
+                    else if (which == "album") { query = album; }
+                    else if (which == "both") { query = artist + " " + album; }
+
+                } else if (selObj.id == "imagesize") {
+                    var image_size = google.search.ImageSearch.IMAGESIZE_SMALL;
+
+                    if (which == "medium") {
+                        image_size =
+                            google.search.ImageSearch.IMAGESIZE_MEDIUM;
+
+                    } else if (which == "large") {
+                        image_size = google.search.ImageSearch.IMAGESIZE_LARGE;
+
+                    } else if (which == "x-large") {
+                        image_size =
+                            google.search.ImageSearch.IMAGESIZE_EXTRA_LARGE;
+                    }
+			
+		imageSearch.setRestriction(
+		    google.search.ImageSearch.RESTRICT_IMAGESIZE,
+		    image_size);				
+                }
+
+                imageSearch.execute(query);
+            }
 		
-		function toggleSelectOption(linkObj)
-		{
-			var searchdiv = document.getElementById('searchoption');
-			if (searchdiv.style.display=="none") {
-				searchdiv.style.display="block";
-				linkObj.innerText="Search Options: [-]";
-			}
-			else {
-				searchdiv.style.display="none";
-				linkObj.innerText="Search Options: [+]";
-			}
-		}
+            function toggleSelectOption(linkObj) {
+                var searchdiv = document.getElementById('searchoption');
+	
+                if (searchdiv.style.display=="none") {
+                    searchdiv.style.display="block";
+                    linkObj.innerText="Search Options: [-]";
 
-		function OnLoad()
-		{
-			// Our ImageSearch instance.
-			imageSearch = new google.search.ImageSearch();
+                } else {
+                    searchdiv.style.display="none";
+                    linkObj.innerText="Search Options: [+]";
+                }
+            }
 
-			imageSearch.setResultSetSize(google.search.Search.LARGE_RESULTSET);
-			imageSearch.setRestriction(
-			  google.search.ImageSearch.RESTRICT_FILETYPE,
-			  google.search.ImageSearch.FILETYPE_JPG
-			);
-			imageSearch.setRestriction(
-			  google.search.ImageSearch.RESTRICT_IMAGESIZE,
-			  google.search.ImageSearch.IMAGESIZE_LARGE
-			);
+            function OnLoad() {
+                // Our ImageSearch instance.
+                imageSearch = new google.search.ImageSearch();
 
-			// Here we set a callback so that anytime a search is executed, it will call
-			// the searchComplete function and pass it our ImageSearch searcher.
-			// When a search completes, our ImageSearch object is automatically
-			// populated with the results.
-			imageSearch.setSearchCompleteCallback(this, searchComplete, [imageSearch]);
+                imageSearch.setResultSetSize(
+                    google.search.Search.LARGE_RESULTSET);
 
-			// Find me the artist and album image
-			imageSearch.execute(query);
-		}
-		google.setOnLoadCallback(OnLoad);
-	</script>
-  </head>
-  <body>
-	  <p id="heading"> Album art search </p>
-	  <div id="info">
-		  <label> Artist: ${artist} </label><br/>
-		  <label> Album: ${album} </label>
-	  </div>
-	  <hr/>
-	  <div id="searchoptioncontainer">
-		  <a href="#" onclick="toggleSelectOption(this); return false;">Search Options: [+]</a>
-		  <div id="searchoption" style="display:none;">
-			  <label>Search Mode: </label>
-			  <select id="searchmode" onchange="onOptionChange(this);">
-				  <option value="artist">Artist</option>
-				  <option value="album">Album</option>
-				  <option value="both" selected>Artist and album</option>
-			  </select>
-			  <hr/>
-			  <label>Search text: </label>
-			  <input type="text" id="searchtext" width="75%"/>
-			  <button type="button" id="searchbutton" onclick="onSearchText();">Search</button>
-			  <hr/>
-			  <label>Image Size: </label>
-			  <select id="imagesize" onchange="onOptionChange(this);">
-				  <option value="small">Small</option>
-				  <option value="medium">Medium</option>
-				  <option value="large" selected>Large</option>
-				  <option value="x-large">Extra Large</option>
-			  </select>
-			  <hr/>
-	  	</div>
-	  </div>
-	  <hr/>
-	  <div id="content">Loading...</div>
-  </body>
+                //imageSearch.setRestriction(
+                //    google.search.ImageSearch.RESTRICT_FILETYPE,
+                //    google.search.ImageSearch.FILETYPE_JPG);
+                imageSearch.setRestriction(
+                    google.search.ImageSearch.RESTRICT_IMAGESIZE,
+                    google.search.ImageSearch.IMAGESIZE_LARGE);
+
+                // Here we set a callback so that anytime a search is executed,
+                // it will call the searchComplete function and pass it our
+                //ImageSearch searcher.
+                // When a search completes, our ImageSearch object is
+                //automatically populated with the results.
+                imageSearch.setSearchCompleteCallback(this, searchComplete,
+                    [imageSearch]);
+
+                // Find me the artist and album image
+                imageSearch.execute(query);
+
+            }
+
+            google.setOnLoadCallback(OnLoad);
+        </script>
+    </head>
+    <body>
+        <p id="heading"> Album art search </p>
+        <div id="info">
+            <label> Artist: ${artist} </label><br/>
+            <label> Album: ${album} </label>
+        </div>
+        <hr/>
+        <div id="searchoptioncontainer">
+            <a href="#" onclick="toggleSelectOption(this); return false;">
+                Search Options: [+]</a>
+            <div id="searchoption" style="display:none;">
+                <label>Search Mode: </label>
+                <select id="searchmode" onchange="onOptionChange(this);">
+                    <option value="artist">Artist</option>
+                    <option value="album">Album</option>
+                    <option value="both" selected>Artist and album</option>
+                </select>
+                <hr/>
+                <label>Search text: </label>
+                <input type="text" id="searchtext" width="75%"/>
+                <button type="button" id="searchbutton"
+                    onclick="onSearchText();">Search</button>
+                <hr/>
+                <label>Image Size: </label>
+                <select id="imagesize" onchange="onOptionChange(this);">
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large" selected>Large</option>
+                    <option value="x-large">Extra Large</option>
+                </select>
+            </div>
+        </div>
+        <hr/>
+        <div id="content">Loading...</div>
+    </body>
 </html>
