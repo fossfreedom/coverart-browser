@@ -19,9 +19,12 @@
 
 from gi.repository import RB
 from gi.repository import GObject
+from gi.repository import Gio
 from gi.repository import GLib
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
+
+from coverart_browser_prefs import GSetting
 
 import os
 import cgi
@@ -33,6 +36,9 @@ class AlbumLoader(GObject.Object):
     Utility class that manages the albums created for the coverart browser's
     source.
     '''
+    # singleton instance
+    instance = None
+
     # signals
     __gsignals__ = {
         'load-finished': (GObject.SIGNAL_RUN_LAST, None, ()),
@@ -40,16 +46,16 @@ class AlbumLoader(GObject.Object):
         'album-modified': (GObject.SIGNAL_RUN_LAST, object, (object,))
         }
 
-    #singleton instance
-    instance = None
-
     # properties
     progress = GObject.property(type=float, default=0)
+    display_text_ellipsize_enabled = GObject.property(type=bool, default=False)
+    display_text_ellipsize_length = GObject.property(type=int, default=0)
+    cover_size = GObject.property(type=int, default=0)
 
     # default chunk of albums to load at a time while filling the model
     DEFAULT_LOAD_CHUNK = 15
 
-    def __init__(self, plugin, cover_model, cover_size):
+    def __init__(self, plugin, cover_model):
         '''
         Initialises the loader, getting the needed objects from the plugin and
         saving the model that will be used to assign the loaded albums.
@@ -60,8 +66,25 @@ class AlbumLoader(GObject.Object):
         self.db = plugin.shell.props.db
         self.cover_model = cover_model
         self.cover_db = RB.ExtDB(name='album-art')
-        self.cover_size = cover_size
         self.reloading = None
+
+        # set the unknown cover path
+        Album.UNKNOWN_COVER = rb.find_plugin_file(plugin, Album.UNKNOWN_COVER)
+
+        # connect properties and signals
+        self._connect_signals()
+        self._connect_properties()
+
+    def _connect_signals(self):
+        '''
+        Connects the loader to all the needed signals for it to work.
+        '''
+        # connect signals for the loader properties
+        self.connect('notify::display-text-ellipsize-enabled',
+            self._on_notify_display_text_ellipsize)
+        self.connect('notify::display-text-ellipsize-length',
+            self._on_notify_display_text_ellipsize)
+        self.connect('notify::cover-size', self._on_notify_cover_size)
 
         # connect the signal to update cover arts when added
         self.req_id = self.cover_db.connect('added',
@@ -75,36 +98,53 @@ class AlbumLoader(GObject.Object):
         self.entry_deleted_id = self.db.connect('entry-deleted',
             self._entry_deleted_callback)
 
-        # initialise unkown cover for albums without cover
-        Album.init_unknown_cover(plugin, self.cover_size)
-        Album.FONT_SIZE = cover_size / 10
+    def _connect_properties(self):
+        '''
+        Connects the loader properties to the saved preferences.
+        '''
+        gs = GSetting()
+        setting = gs.get_setting(gs.Path.PLUGIN)
+
+        setting.bind(gs.PluginKey.DISPLAY_TEXT_ELLIPSIZE, self,
+            'display_text_ellipsize_enabled', Gio.SettingsBindFlags.GET)
+        setting.bind(gs.PluginKey.DISPLAY_TEXT_ELLIPSIZE_LENGTH, self,
+            'display_text_ellipsize_length',
+            Gio.SettingsBindFlags.GET)
+        setting.bind(gs.PluginKey.COVER_SIZE, self, 'cover_size',
+            Gio.SettingsBindFlags.GET)
 
     @classmethod
-    def get_instance(cls, plugin, model, query_model, cover_size):
+    def get_instance(cls, plugin, model, query_model):
         '''
         Singleton method to allow to access the unique loader instance.
         '''
-
-        if cls.instance:
-            if cover_size != cls.instance.cover_size:
-                cls.instance.update_cover_size(cover_size)
-        else:
-            cls.instance = AlbumLoader(plugin, model, cover_size)
+        if not cls.instance:
+            cls.instance = AlbumLoader(plugin, model)
             cls.instance.load_albums(query_model)
 
         return cls.instance
 
-    def update_cover_size(self, cover_size):
+    def _on_notify_cover_size(self, *args):
         '''
         Updates the loader's albums' cover size and forces a model reload.
         '''
-        self.cover_size = cover_size
-
         # update album variables
-        Album.FONT_SIZE = cover_size / 10
-        Album.UNKNOWN_COVER.resize(self.cover_size)
+        Album.FONT_SIZE = self.cover_size / 10
+        Album.update_unknown_cover(self.cover_size)
 
         self.reload_model(True)
+
+    def _on_notify_display_text_ellipsize(self, *args):
+        '''
+        Callback called when one of the properties related with the ellipsize
+        option is changed.
+        '''
+        if self.display_text_ellipsize_enabled:
+            Album.set_ellipsize_length(self.display_text_ellipsize_length)
+        else:
+            Album.set_ellipsize_length(0)
+
+        self.reload_model()
 
     def _get_album_name_and_artist(self, entry):
         '''
@@ -367,6 +407,7 @@ class AlbumLoader(GObject.Object):
                 album.add_to_model(self.cover_model)
             except:
                 # we finished loading
+                self.progress = 1
                 self.emit('load-finished')
                 return False
 
@@ -830,10 +871,25 @@ class Album(object):
             return True
 
         if filter_type == Album.FILTER_ALL:
-            return searchtext.lower() in self.artist.lower() \
-                    or searchtext.lower() in self.name.lower() \
-                    or searchtext.lower() in self.album_artist.lower() \
-                    or searchtext.lower() in self.track_title.lower()
+            # this filter is more complicated: for each word in the search
+            # text, it tries to find at least one match on the params of
+            # the album. If no match is given, then the album doesn't match
+            words = searchtext.split()
+            params = [self.name.lower(), self.album_artist.lower(),
+                self.artist.lower(), self.track_title.lower()]
+            matches = []
+
+            for word in words:
+                match = False
+
+                for param in params:
+                    if word in param:
+                        match = True
+                        break
+
+                matches.append(match)
+
+            return False not in matches
 
         if filter_type == Album.FILTER_ALBUM_ARTIST:
             return searchtext.lower() in self.album_artist.lower()
@@ -850,14 +906,15 @@ class Album(object):
         return False
 
     @classmethod
-    def init_unknown_cover(cls, plugin, cover_size):
+    def update_unknown_cover(cls, cover_size):
         '''
-        Classmethod that should be called to initialize the the global Unknown
-        cover.
+        Updates the unknown cover size or creates it if it isn't already
+        created.
         '''
         if type(cls.UNKNOWN_COVER) is str:
-            cls.UNKNOWN_COVER = Cover(cover_size,
-                rb.find_plugin_file(plugin, cls.UNKNOWN_COVER))
+            cls.UNKNOWN_COVER = Cover(cover_size, cls.UNKNOWN_COVER)
+        else:
+            cls.UNKNOWN_COVER.resize(cover_size)
 
     @classmethod
     def compare_albums_by_name(cls, album1, album2):

@@ -36,5 +36,30 @@
             <summary>Maximum length for the ellipsizing</summary>
             <description>This is the maximum allowed size for an album's name before being ellipsized.</description>
         </key>
+        <key type="i" name="paned-position">
+            <default>0</default>
+            <summary>Position of paned handle</summary>
+            <description>Position of the horizontal paned-handle divider.</description>
+        </key>
+        <key type="b" name="sort-by-album">
+            <default>true</default>
+            <summary>Sort by album.</summary>
+            <description>Determines if the coverview should be sorted by album-name.</description>
+        </key>
+        <key type="b" name="sort-by-artist">
+            <default>false</default>
+            <summary>Sort by artist.</summary>
+            <description>Determines if the coverview should be sorted by album-artist name.</description>
+        </key>
+        <key type="b" name="desc-sort">
+            <default>true</default>
+            <summary>Sort in descending order.</summary>
+            <description>Using the chosen sort type, sort the coverview in descending order.</description>
+        </key>
+        <key type="b" name="asc-sort">
+            <default>false</default>
+            <summary>Sort in ascending order.</summary>
+            <description>Using the chosen sort type, sort the coverview in ascending order.</description>
+        </key>
     </schema>
 </schemalist>

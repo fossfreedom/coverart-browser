@@ -25,9 +25,11 @@ import rb
 import locale
 import gettext
 
+from coverart_browser_prefs import GSetting
+
 class CoverArtEntryView(RB.EntryView):
     LOCALE_DOMAIN = 'coverart_browser'
-
+    
     def __init__(self, shell, source):
         '''
         Initializes the source.
@@ -38,26 +40,36 @@ class CoverArtEntryView(RB.EntryView):
 
         super(RB.EntryView, self).__init__(db=shell.props.db,
             shell_player=shell.props.shell_player, is_drag_source=True,
-            visible_columns=['track-number', 'genre', 'title', 'artist',
-                'album', 'duration'])
+            visible_columns=[])
 
-        self.append_column(RB.EntryViewColumn.TRACK_NUMBER, False)
-        self.append_column(RB.EntryViewColumn.GENRE, False)
-        self.append_column(RB.EntryViewColumn.TITLE, False)
-        self.append_column(RB.EntryViewColumn.ARTIST, False)
-        self.append_column(RB.EntryViewColumn.ALBUM, False)
-        self.append_column(RB.EntryViewColumn.DURATION, False)
+        self.append_column(RB.EntryViewColumn.TRACK_NUMBER, False) #'track-number'
+        self.append_column(RB.EntryViewColumn.TITLE, True) #'title' - n.b. default and never manually defined
+        self.append_column(RB.EntryViewColumn.GENRE, False) #'genre'
+        self.append_column(RB.EntryViewColumn.ARTIST, False) #'artist'
+        self.append_column(RB.EntryViewColumn.ALBUM, False) #'album'
+        self.append_column(RB.EntryViewColumn.DURATION, False) #'duration'
+        self.append_column(RB.EntryViewColumn.COMMENT, False) #'comment'
+        self.append_column(RB.EntryViewColumn.RATING, False) #'rating'
+        self.append_column(RB.EntryViewColumn.QUALITY, False) #'bitrate'
+        self.append_column(RB.EntryViewColumn.PLAY_COUNT, False) #'play-count'
+        self.append_column(RB.EntryViewColumn.LAST_PLAYED, False) #'last-played'
+        self.append_column(RB.EntryViewColumn.YEAR, False) #'date'
+        self.append_column(RB.EntryViewColumn.FIRST_SEEN, False) #'first-seen': 
+        self.append_column(RB.EntryViewColumn.LOCATION, False) #'location'
+        self.append_column(RB.EntryViewColumn.BPM, False) #'beats-per-minute'
+
+        self.set_visible_cols()
         self.set_columns_clickable(False)
 
         # UI elements need to be imported.
         ui = Gtk.Builder()
         ui.set_translation_domain(self.LOCALE_DOMAIN)
         ui.add_from_file(rb.find_plugin_file(self.plugin,
-            'coverart_entryview.ui'))
+            'ui/coverart_entryview.ui'))
         ui.connect_signals(self)
 
         self.popup_menu = ui.get_object('entryview_popup_menu')
-
+        
         self.shell.props.shell_player.connect('playing-song-changed',
             self.playing_song_changed)
         self.shell.props.shell_player.connect('playing-changed',
@@ -77,10 +89,33 @@ class CoverArtEntryView(RB.EntryView):
         del self.play_action
         del self.queue_action
 
+
+    def set_visible_cols(self):
+        print "CoverArtBrowser DEBUG - set_visible_cols()"
+        #reset current columns
+        self.props.visible_columns=['title']
+
+        gs = GSetting()
+        visible_cols = gs.get_value( gs.Path.RBSOURCE,
+                                     gs.RBSourceKey.VISIBLE_COLS )
+        
+        ordered_cols = ['track-number', 'genre', 'title', 'artist', 'album', 'duration']
+        new_cols = []
+        for val in ordered_cols:
+            if val in visible_cols or val=='title':
+                new_cols.append(val)
+                
+        for col in visible_cols:
+            if col not in ordered_cols:
+                new_cols.append(col)
+
+        self.props.visible_columns = new_cols
+        print "CoverArtBrowser DEBUG - set_visible_cols()"
+                
     def add_album(self, album):
         print "CoverArtBrowser DEBUG - add_album()"
         album.get_entries(self.qm)
-
+        
         (_, playing) = self.shell.props.shell_player.get_playing()
         self.playing_changed(self.shell.props.shell_player, playing)
         print "CoverArtBrowser DEBUG - add_album()"
@@ -90,11 +125,11 @@ class CoverArtEntryView(RB.EntryView):
         #self.set_model(RB.RhythmDBQueryModel.new_empty(self.shell.props.db))
         for row in self.qm:
             self.qm.remove_entry(row[0])
+
         print "CoverArtBrowser DEBUG - clear()"
 
     def do_entry_activated(self, entry):
         print "CoverArtBrowser DEBUG - do_entry_activated()"
-        print entry
         self.select_entry(entry)
         self.play_track_menu_item_callback(entry)
         print "CoverArtBrowser DEBUG - do_entry_activated()"
@@ -145,13 +180,11 @@ class CoverArtEntryView(RB.EntryView):
         info_dialog = RB.SongInfo(source=self.source, entry_view=self)
 
         info_dialog.show_all()
-
+        
         print "CoverArtBrowser DEBUG - show_properties_menu_item_callback()"
 
     def playing_song_changed(self, shell_player, entry):
         print "CoverArtBrowser DEBUG - playing_song_changed()"
-        print shell_player
-        print entry
 
         if entry is not None and self.get_entry_contained(entry):
             self.set_state(RB.EntryViewState.PLAYING)
@@ -162,8 +195,6 @@ class CoverArtEntryView(RB.EntryView):
 
     def playing_changed(self, shell_player, playing):
         print "CoverArtBrowser DEBUG - playing_changed()"
-        print shell_player
-        print playing
         entry = shell_player.get_playing_entry()
 
         if entry is not None and self.get_entry_contained(entry):

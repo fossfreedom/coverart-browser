@@ -23,14 +23,17 @@ import gettext
 
 
 from gi.repository import GObject
+from gi.repository import Gio
 from gi.repository import Gdk
 from gi.repository import Gtk
 from gi.repository import RB
+
 
 from coverart_album import AlbumLoader
 from coverart_album import Album
 from coverart_entryview import CoverArtEntryView
 from coverart_search import CoverSearchPane
+from coverart_browser_prefs import GSetting
 
 
 class CoverArtBrowserSource(RB.Source):
@@ -38,25 +41,42 @@ class CoverArtBrowserSource(RB.Source):
     Source utilized by the plugin to show all it's ui.
     '''
     LOCALE_DOMAIN = 'coverart_browser'
-    filter_type = Album.FILTER_ALL
-    search_text = ''
 
     custom_statusbar_enabled = GObject.property(type=bool, default=False)
     display_tracks_enabled = GObject.property(type=bool, default=False)
     display_text_enabled = GObject.property(type=bool, default=False)
     display_text_loading_enabled = GObject.property(type=bool, default=True)
-    display_text_ellipsize_enabled = GObject.property(type=bool, default=False)
-    display_text_ellipsize_length = GObject.property(type=int, default=20)
-    cover_size = GObject.property(type=int, default=92)
 
-    def __init__(self):
+    def __init__(self, **kargs):
         '''
         Initializes the source.
         '''
-
-        self.hasActivated = False
         super(CoverArtBrowserSource, self).__init__(
-            name="CoverArtBrowserPlugin")
+            **kargs)
+
+        # create source_source_settings and connect the source's properties
+        self.gs = GSetting()
+
+        self._connect_properties()
+
+        self.filter_type = Album.FILTER_ALL
+        self.search_text = ''
+        self.hasActivated = False
+
+    def _connect_properties(self):
+        '''
+        Connects the source properties to the saved preferences.
+        '''
+        setting = self.gs.get_setting(self.gs.Path.PLUGIN)
+
+        setting.bind(self.gs.PluginKey.CUSTOM_STATUSBAR, self,
+            'custom_statusbar_enabled', Gio.SettingsBindFlags.GET)
+        setting.bind(self.gs.PluginKey.DISPLAY_TRACKS, self,
+            'display_tracks_enabled', Gio.SettingsBindFlags.GET)
+        setting.bind(self.gs.PluginKey.DISPLAY_TEXT, self,
+            'display_text_enabled', Gio.SettingsBindFlags.GET)
+        setting.bind(self.gs.PluginKey.DISPLAY_TEXT_LOADING, self,
+            'display_text_loading_enabled', Gio.SettingsBindFlags.GET)
 
     def do_get_status(self, *args):
         '''
@@ -104,17 +124,12 @@ class CoverArtBrowserSource(RB.Source):
         correct behavior.
         '''
         print "do_impl_activate"
-
         # initialise some variables
         self.plugin = self.props.plugin
         self.shell = self.props.shell
         self.status = ''
         self.search_text = ''
-        self.filter_type = Album.FILTER_ALL
         self.compare_albums = Album.compare_albums_by_name
-
-        # set the ellipsize
-        Album.set_ellipsize_length(self.display_text_ellipsize_length)
 
         # connect properties signals
         self.connect('notify::custom-statusbar-enabled',
@@ -124,18 +139,10 @@ class CoverArtBrowserSource(RB.Source):
             self.on_notify_display_tracks_enabled)
 
         self.connect('notify::display-text-enabled',
-            self.on_notify_display_text_enabled)
+            self.activate_markup)
 
         self.connect('notify::display-text-loading-enabled',
-            self.on_notify_display_text_loading_enabled)
-
-        self.connect('notify::display-text-ellipsize-enabled',
-            self.on_notify_display_text_ellipsize)
-
-        self.connect('notify::display-text-ellipsize-length',
-            self.on_notify_display_text_ellipsize)
-
-        self.connect('notify::cover-size', self.on_notifiy_cover_size)
+            self.activate_markup)
 
         # setup translation support
         locale.setlocale(locale.LC_ALL, '')
@@ -152,7 +159,7 @@ class CoverArtBrowserSource(RB.Source):
         ui = Gtk.Builder()
         ui.set_translation_domain(self.LOCALE_DOMAIN)
         ui.add_from_file(rb.find_plugin_file(self.plugin,
-            'coverart_browser.ui'))
+            'ui/coverart_browser.ui'))
         ui.connect_signals(self)
 
         # load the page and put it in the source
@@ -196,11 +203,16 @@ class CoverArtBrowserSource(RB.Source):
 
         # setup entry-view objects and widgets
         self.paned = ui.get_object('paned')
+        y = self.gs.get_value(self.gs.Path.PLUGIN,
+            self.gs.PluginKey.PANED_POSITION)
+        self.paned.set_position(y)
+        self.paned.connect('button-release-event',
+            self.on_paned_button_release_event)
+
         self.entry_view_expander = ui.get_object('entryviewexpander')
         self.entry_view = CoverArtEntryView(self.shell, self)
         self.entry_view.show_all()
         self.notebook.append_page(self.entry_view, Gtk.Label('Tracks'))
-        self.paned_position = 0
         self.entry_view_box = ui.get_object('entryview_box')
 
         self.on_notify_display_tracks_enabled(_)
@@ -226,21 +238,18 @@ class CoverArtBrowserSource(RB.Source):
 
         # get the loader
         self.loader = AlbumLoader.get_instance(self.plugin,
-            ui.get_object('covers_model'), self.props.query_model,
-            self.cover_size)
+            ui.get_object('covers_model'), self.props.query_model)
 
         # if the source is fully loaded, enable the full cover search item
         if self.loader.progress == 1:
             self.load_finished_callback()
 
         # if the text during load is enabled, activate it
-        if self.display_text_loading_enabled:
-            self.activate_markup(self.display_text_enabled)
+        self.activate_markup()
 
         # retrieve and set the model, it's filter and the sorting column
         self.covers_model_store = self.loader.cover_model
 
-        self.covers_model_store.set_sort_column_id(2, Gtk.SortType.DESCENDING)
         self.covers_model_store.set_sort_func(2, self.sort_albums)
 
         self.covers_model = self.covers_model_store.filter_new()
@@ -257,8 +266,40 @@ class CoverArtBrowserSource(RB.Source):
             self.reload_finished_callback)
         self.notify_prog_id = self.loader.connect('notify::progress',
             lambda *args: self.notify_status_changed())
+        self.notify_ellipsize = self.loader.connect(
+            'notify::display-text-ellipsize-enabled',
+            self.on_notify_display_text_ellipsize)
+        self.notify_ellipsize_length = self.loader.connect(
+            'notify::display-text-ellipsize-length',
+            self.on_notify_display_text_ellipsize)
+        self.notify_cover_size = self.loader.connect('notify::cover-size',
+            self.on_notify_cover_size)
+
+        # apply some settings
+        source_settings = self.gs.get_setting(self.gs.Path.PLUGIN)
+        source_settings.bind(self.gs.PluginKey.SORT_BY_ALBUM,
+            self.sort_by_album_radio, 'active', Gio.SettingsBindFlags.DEFAULT)
+        source_settings.bind(self.gs.PluginKey.SORT_BY_ARTIST,
+            self.sort_by_artist_radio, 'active', Gio.SettingsBindFlags.DEFAULT)
+        source_settings.bind(self.gs.PluginKey.DESC_SORT,
+            self.descending_sort_radio, 'active',
+            Gio.SettingsBindFlags.DEFAULT)
+        source_settings.bind(self.gs.PluginKey.ASC_SORT,
+            self.ascending_sort_radio, 'active', Gio.SettingsBindFlags.DEFAULT)
+
+        rhyhtm_settings = self.gs.get_setting(self.gs.Path.RBSOURCE)
+        rhyhtm_settings.connect('changed::visible-columns',
+            self.on_visible_columns_changed)
 
         print "CoverArtBrowser DEBUG - end show_browser_dialog"
+
+    def on_visible_columns_changed(self, settings, key):
+        '''
+        Callback called when the visible columns on the rhythmbox preferences
+        are changed.
+        '''
+        print 'on_visible_columns_changed'
+        self.entry_view.set_visible_cols()
 
     def load_finished_callback(self, _):
         '''
@@ -271,9 +312,7 @@ class CoverArtBrowserSource(RB.Source):
             self.source_menu_search_all_item.set_sensitive(True)
 
         # enable markup if necesary
-        if not self.loader.reloading and self.display_text_enabled and \
-            not self.display_text_loading_enabled:
-            self.activate_markup(True)
+        self.activate_markup()
 
     def reload_finished_callback(self, _):
         '''
@@ -283,7 +322,7 @@ class CoverArtBrowserSource(RB.Source):
         if self.display_text_enabled and \
             not self.display_text_loading_enabled \
             and self.loader.progress == 1:
-            self.activate_markup(True)
+            self.activate_markup()
 
     def on_notify_custom_statusbar_enabled(self, *args):
         '''
@@ -315,32 +354,22 @@ class CoverArtBrowserSource(RB.Source):
 
         else:
             if self.entry_view_expander.get_expanded():
-                self.paned_position = self.paned.get_position()
+                y = self.paned.get_position()
+                self.gs.set_value(self.gs.Path.PLUGIN,
+                                  self.gs.PluginKey.PANED_POSITION,
+                                  y)
 
             self.entry_view_box.set_visible(False)
 
-    def on_notify_display_text_enabled(self, *args):
-        '''
-        Callback called when the option 'display text under cover' is enabled
-        or disabled on the plugin's preferences dialog
-        '''
-        self.activate_markup(self.display_text_enabled)
-
-    def on_notify_display_text_loading_enabled(self, *args):
-        '''
-        Callback called when the option 'show text while loading' is enabled
-        or disabled on the plugin's prefereces dialog.
-        This option only makes a visible effect if it's toggled during the
-        album loading.
-        '''
-        if self.loader.progress < 1 or self.loader.reloading:
-            self.activate_markup(self.display_text_loading_enabled)
-
-    def activate_markup(self, activate):
+    def activate_markup(self, *args):
         '''
         Utility method to activate/deactivate the markup text on the
         cover view.
         '''
+        activate = self.display_text_enabled and \
+            (self.display_text_loading_enabled or (self.loader.progress == 1
+            and not self.loader.reloading))
+
         if activate:
             column = 3
             item_width = self.loader.cover_size + 20
@@ -355,26 +384,27 @@ class CoverArtBrowserSource(RB.Source):
         Callback called when one of the properties related with the ellipsize
         option is changed.
         '''
-        if self.display_text_ellipsize_enabled:
-            Album.set_ellipsize_length(self.display_text_ellipsize_length)
-        else:
-            Album.set_ellipsize_length(0)
-
         if not self.display_text_loading_enabled:
             self.activate_markup(False)
 
-        self.loader.reload_model()
-
-    def on_notifiy_cover_size(self, *args):
+    def on_notify_cover_size(self, *args):
         '''
         Callback callend when the coverart size property is changed.
         '''
-        self.loader.update_cover_size(self.cover_size)
         self.activate_markup(self.display_text_enabled and
             self.display_text_loading_enabled)
 
         # update the iconview since the new size would change the free space
         self.update_iconview_callback()
+
+    def on_paned_button_release_event(self, *args):
+        '''
+        Callback when the paned handle is released from its mouse click.
+        '''
+        if self.entry_view_expander.get_expanded():
+            new_y = self.paned.get_position()
+            self.gs.set_value(self.gs.Path.PLUGIN,
+                self.gs.PluginKey.PANED_POSITION, new_y)
 
     def album_modified_callback(self, _, modified_album):
         '''
@@ -632,7 +662,7 @@ class CoverArtBrowserSource(RB.Source):
             track_count += album.get_track_count()
             duration += album.calculate_duration_in_mins()
 
-            # add teh album to the entry_view
+            # add the album to the entry_view
             self.entry_view.add_album(album)
 
         # now lets build up a status label containing some 'interesting stuff'
@@ -697,18 +727,29 @@ class CoverArtBrowserSource(RB.Source):
         '''
         Callback connected to expanded signal of the paned GtkExpander
         '''
+
         expand = action.get_expanded()
 
         if not expand:
+            # move the lower pane to the bottom since it's collapsed
             (x, y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
-            self.paned_position = self.paned.get_position()
+            new_y = self.paned.get_position()
+            self.gs.set_value(self.gs.Path.PLUGIN,
+                self.gs.PluginKey.PANED_POSITION, new_y)
             self.paned.set_position(y - 10)
         else:
-            (x, y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
-            if self.paned_position == 0:
-                self.paned_position = (y / 2)
+            # restitute the lower pane to it's expanded size
+            new_y = self.gs.get_value(self.gs.Path.PLUGIN,
+                self.gs.PluginKey.PANED_POSITION)
 
-            self.paned.set_position(self.paned_position)
+            if new_y == 0:
+                # if there isn't a saved size, use half of the space
+                (x, y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
+                new_y = (y / 2)
+                self.gs.set_value(self.gs.Path.PLUGIN,
+                    self.gs.PluginKey.PANED_POSITION, new_y)
+
+            self.paned.set_position(new_y)
 
     def paned_button_press_callback(self, *args):
         '''
@@ -829,6 +870,9 @@ class CoverArtBrowserSource(RB.Source):
         self.loader.disconnect(self.reload_fin_id)
         self.loader.disconnect(self.album_mod_id)
         self.loader.disconnect(self.notify_prog_id)
+        self.loader.disconnect(self.notify_ellipsize)
+        self.loader.disconnect(self.notify_ellipsize_length)
+        self.loader.disconnect(self.notify_cover_size)
 
         # delete references
         del self.shell
@@ -868,5 +912,6 @@ class CoverArtBrowserSource(RB.Source):
         del self.album_mod_id
         del self.notify_prog_id
         del self.hasActivated
+        del self.gs
 
 GObject.type_register(CoverArtBrowserSource)
