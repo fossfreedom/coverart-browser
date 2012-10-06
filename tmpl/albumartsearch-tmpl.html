@@ -25,47 +25,72 @@
             var query = "${artist} ${album}";
             var imageSearch;
             var currentPage = 0;
+            var clear = true;
 
             google.load('search', '1');
 
             function searchComplete(searcher) {
+                var moreLink = document.getElementById('more');
+
+                if (clear == true) {
+                    // Grab our content div, clear it.
+                    var contentDiv = document.getElementById('content');
+                    contentDiv.innerHTML = '';
+
+                    // reset the page counter
+                    currentPage = 0
+
+                    // create the image container
+                    var imgContainer = document.createElement('div');
+                    imgContainer.setAttribute("id", "imgcontainer");
+                    contentDiv.appendChild(imgContainer);
+
+                    //show the more link
+                    moreLink.style.display="block";
+                }
+
+                // add the results to the content div
+                var imgContainer = document.getElementById('imgcontainer');
+	
                 // Check that we got results
                 if (searcher.results && searcher.results.length > 0) {
-
-                // Grab our content div, clear it.
-                var contentDiv = document.getElementById('content');
-                contentDiv.innerHTML = '';
-
-                // Loop through our results, printing them to the page.
-                var results = searcher.results;
+                    // Loop through our results, printing them to the page.
+                    var results = searcher.results;
 
                     for (var i = 0; i < results.length; i++) {
                         // For each result write its image to the screen
                         var result = results[i];
-                        var imgContainer = document.createElement('div');
-                        imgContainer.setAttribute("id", "imgcontainer");
 
                         var newImg = document.createElement('img');
                         newImg.src = result.tbUrl;
                         newImg.id = result.url;
                         newImg.setAttribute("class", "srchresult");
                         imgContainer.appendChild(newImg);
-
-                        // Put our image in the content
-                        contentDiv.appendChild(imgContainer);
                     }
+
+                } else {
+                    // no more results, hide the link
+                    moreLink.style.display="none";
                 }
             }
 
             function moreResults() {
-                currentPage = (currentPage + 1) % 8
+                currentPage++;
 
+                if (currentPage == 7) {
+                    // eight is the max amount of pages we can get
+                    // so, no more pages, hide the link
+                    var moreLink = document.getElementById('more');
+                    moreLink.style.display="none";
+                }
+
+                clear = false;
                 imageSearch.gotoPage(currentPage)
-                searchComplete(imageSearch)
             }
 
             function onSearchText() {
                 var txt = document.getElementById('searchtext').value;
+                clear = true;
                 imageSearch.execute(txt);
             }
 
@@ -98,6 +123,7 @@
 		    image_size);				
                 }
 
+                clear = true;
                 imageSearch.execute(query);
             }
 		
@@ -178,7 +204,7 @@
         </div>
         <hr/>
         <div id="content">Loading...</div>
-        <a href="#" onclick="moreResults(); return false;">
-            Get more results</a>
+        <a id="more" href="#" onclick="moreResults(); return false;">
+            Show more results</a>
     </body>
 </html>
