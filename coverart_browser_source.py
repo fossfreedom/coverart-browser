@@ -181,6 +181,9 @@ class CoverArtBrowserSource(RB.Source):
         self.sort_by_artist_radio = ui.get_object('artist_name_sort_radio')
         self.descending_sort_radio = ui.get_object('descending_sort_radio')
         self.ascending_sort_radio = ui.get_object('ascending_sort_radio')
+        self.paned = ui.get_object('paned')
+        self.bottom_box = ui.get_object('bottom_box')
+        self.bottom_expander = ui.get_object('bottom_expander')
         self.notebook = ui.get_object('bottom_notebook')
 
         # setup iconview drag&drop support
@@ -202,18 +205,13 @@ class CoverArtBrowserSource(RB.Source):
         search_entry.show_all()
 
         # setup entry-view objects and widgets
-        self.paned = ui.get_object('paned')
         y = self.gs.get_value(self.gs.Path.PLUGIN,
             self.gs.PluginKey.PANED_POSITION)
         self.paned.set_position(y)
-        self.paned.connect('button-release-event',
-            self.on_paned_button_release_event)
 
-        self.entry_view_expander = ui.get_object('entryviewexpander')
         self.entry_view = CoverArtEntryView(self.shell, self)
         self.entry_view.show_all()
         self.notebook.append_page(self.entry_view, Gtk.Label('Tracks'))
-        self.entry_view_box = ui.get_object('entryview_box')
 
         # setup cover search
         self.cover_search_pane = CoverSearchPane(self.plugin)
@@ -345,22 +343,22 @@ class CoverArtBrowserSource(RB.Source):
         '''
         if self.display_bottom_enabled:
             # make the entry view visible
-            self.entry_view_box.set_visible(True)
+            self.bottom_box.set_visible(True)
 
-            self.entry_view_expander_expanded_callback(
-                self.entry_view_expander, None)
+            self.bottom_expander_expanded_callback(
+                self.bottom_expander, None)
 
             # update it with the current selected album
             self.selectionchanged_callback(self.covers_view)
 
         else:
-            if self.entry_view_expander.get_expanded():
+            if self.bottom_expander.get_expanded():
                 y = self.paned.get_position()
                 self.gs.set_value(self.gs.Path.PLUGIN,
                                   self.gs.PluginKey.PANED_POSITION,
                                   y)
 
-            self.entry_view_box.set_visible(False)
+            self.bottom_box.set_visible(False)
 
     def activate_markup(self, *args):
         '''
@@ -402,7 +400,7 @@ class CoverArtBrowserSource(RB.Source):
         '''
         Callback when the paned handle is released from its mouse click.
         '''
-        if self.entry_view_expander.get_expanded():
+        if self.bottom_expander.get_expanded():
             new_y = self.paned.get_position()
             self.gs.set_value(self.gs.Path.PLUGIN,
                 self.gs.PluginKey.PANED_POSITION, new_y)
@@ -736,7 +734,7 @@ class CoverArtBrowserSource(RB.Source):
 
         self.searchchanged_callback(_, self.search_text)
 
-    def entry_view_expander_expanded_callback(self, action, param):
+    def bottom_expander_expanded_callback(self, action, param):
         '''
         Callback connected to expanded signal of the paned GtkExpander
         '''
@@ -769,7 +767,7 @@ class CoverArtBrowserSource(RB.Source):
         This callback allows or denies the paned handle to move depending on
         the expanded state of the entry_view
         '''
-        return not self.entry_view_expander.get_expanded()
+        return not self.bottom_expander.get_expanded()
 
     def sorting_criteria_changed(self, radio):
         '''
