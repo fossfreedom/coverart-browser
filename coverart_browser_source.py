@@ -215,11 +215,12 @@ class CoverArtBrowserSource(RB.Source):
         self.notebook.append_page(self.entry_view, Gtk.Label('Tracks'))
         self.entry_view_box = ui.get_object('entryview_box')
 
-        self.on_notify_display_tracks_enabled(_)
-
         # setup cover search
         self.cover_search_pane = CoverSearchPane(self.plugin)
         self.notebook.append_page(self.cover_search_pane, Gtk.Label('Covers'))
+
+        # force display of bottom notebook if it's enabled
+        self.on_notify_display_tracks_enabled(_)
 
         # get widgets for source popup
         self.source_menu = ui.get_object('source_menu')
@@ -649,9 +650,17 @@ class CoverArtBrowserSource(RB.Source):
 
         selected = self.get_selected_albums()
 
-        # if no album selected, clean the status
+        cover_search_pane_visible = self.notebook.get_current_page() == \
+            self.notebook.page_num(self.cover_search_pane)
+
         if not selected:
+            # if no album selected, clean the status and the cover tab if
+            # if selected
             self.update_statusbar()
+
+            if cover_search_pane_visible:
+                self.cover_search_pane.clear()
+
             return
 
         track_count = 0
@@ -666,7 +675,7 @@ class CoverArtBrowserSource(RB.Source):
             self.entry_view.add_album(album)
 
         # now lets build up a status label containing some 'interesting stuff'
-        #about the album
+        # about the album
         if len(selected) == 1:
             status = (_('%s by %s') % (album.name, album.album_artist)).decode(
                 'UTF-8')
@@ -686,6 +695,10 @@ class CoverArtBrowserSource(RB.Source):
                 'UTF-8')
 
         self.update_statusbar(status)
+
+        # update the cover search pane with the first selected album
+        if cover_search_pane_visible:
+            self.cover_search_pane.do_search(selected[0])
 
     def update_statusbar(self, status=''):
         '''
@@ -845,7 +858,7 @@ class CoverArtBrowserSource(RB.Source):
         drag_context.finish(True, False, time)
 
     def notebook_switch_page_callback(self, notebook, page, page_num):
-        if page_num == 1:
+        if page == self.cover_search_pane:
             selected_albums = self.get_selected_albums()
 
             if selected_albums:

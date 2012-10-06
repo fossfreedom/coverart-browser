@@ -44,6 +44,9 @@ class CoverSearchPane(Gtk.VBox):
         path = rb.find_plugin_file(plugin,
             'tmpl/albumartsearch-tmpl.html')
         self.template = Template(filename=path, module_directory='/tmp/')
+        path = rb.find_plugin_file(plugin,
+            'tmpl/albumartsearchempty-tmpl.html')
+        self.empty_template = Template(filename=path, module_directory='/tmp/')
         self.styles = rb.find_plugin_file(plugin, 'tmpl/main.css')
 
     def init_gui(self) :
@@ -71,6 +74,12 @@ class CoverSearchPane(Gtk.VBox):
                 'utf-8')
             album_name = unicode(album_name.replace('&', '&amp;'), 'utf-8')
             self.render_album_art_search(artist, album_name)
+
+    def clear(self):
+        temp_file = self.empty_template.render(stylesheet=self.styles)
+
+        self.webview.load_string(temp_file, 'text/html', 'utf-8',
+            self.basepath)
 
     def render_album_art_search(self, artist, album_name):
         temp_file = self.template.render(artist=artist, album=album_name,
