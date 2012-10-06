@@ -56,7 +56,7 @@ class AlbumLoader(GObject.Object):
     DEFAULT_LOAD_CHUNK = 15
 
     # list of album names exceptions that should be treated as different albums
-    EXCEPTIONS = ['single', 'unknown']
+    EXCEPTIONS = ['single', 'unknown', '[non-album tracks]']
 
     def __init__(self, plugin, cover_model):
         '''
