@@ -407,6 +407,7 @@ class AlbumLoader(GObject.Object):
                 album.add_to_model(self.cover_model)
             except:
                 # we finished loading
+                self.progress = 1
                 self.emit('load-finished')
                 return False
 
