@@ -209,16 +209,20 @@
                     <property name="orientation">vertical</property>
                     <child>
                         <object class="GtkExpander" id="entryviewexpander">
-                            <property name="label" translatable="yes">Display Tracks</property>
+                            <property name="label" translatable="yes">Tracks &amp; Covers</property>
                             <property name="visible">True</property>
-                            <signal name="notify::expanded" handler="entry_view_expander_expanded_callback" swapped="no"/>                            
-                        </object>
-                        <packing>
-                            <property name="expand">True</property>
-                            <property name="fill">True</property>
-                            <property name="position">1</property>
-                        </packing>
-                    </child>
+                            <signal name="notify::expanded" handler="entry_view_expander_expanded_callback" swapped="no"/>    
+                            <child>
+                                <object class="GtkNotebook" id="bottom_notebook">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="tab_pos">right</property>
+                                    <property name="vexpand">True</property>
+                                    <signal name="switch-page" handler="notebook_switch_page_callback" swapped="no"/>  
+                                </object>                          
+                            </child>                        
+                        </object>   
+                    </child>                     
                 </object>
                 <packing>
                     <property name="resize">True</property>

@@ -48,7 +48,7 @@ class GSetting:
 
             self.PluginKey = self._enum(
                 CUSTOM_STATUSBAR='custom-statusbar',
-                DISPLAY_TRACKS='display-tracks',
+                DISPLAY_BOTTOM='display-bottom',
                 DISPLAY_TEXT='display-text',
                 DISPLAY_TEXT_LOADING='display-text-loading',
                 DISPLAY_TEXT_ELLIPSIZE='display-text-ellipsize',
@@ -143,8 +143,8 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         self.settings.bind(gs.PluginKey.CUSTOM_STATUSBAR,
             toggle_statusbar, 'active', Gio.SettingsBindFlags.DEFAULT)
 
-        toggle_tracks = builder.get_object('display_tracks_checkbox')
-        self.settings.bind(gs.PluginKey.DISPLAY_TRACKS, toggle_tracks,
+        toggle_bottom = builder.get_object('display_bottom_checkbox')
+        self.settings.bind(gs.PluginKey.DISPLAY_BOTTOM, toggle_bottom,
         'active', Gio.SettingsBindFlags.DEFAULT)
 
         toggle_text = builder.get_object('display_text_checkbox')

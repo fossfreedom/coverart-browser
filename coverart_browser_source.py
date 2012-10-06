@@ -32,6 +32,7 @@ from gi.repository import RB
 from coverart_album import AlbumLoader
 from coverart_album import Album
 from coverart_entryview import CoverArtEntryView
+from coverart_search import CoverSearchPane
 from coverart_browser_prefs import GSetting
 
 
@@ -42,7 +43,7 @@ class CoverArtBrowserSource(RB.Source):
     LOCALE_DOMAIN = 'coverart_browser'
 
     custom_statusbar_enabled = GObject.property(type=bool, default=False)
-    display_tracks_enabled = GObject.property(type=bool, default=False)
+    display_bottom_enabled = GObject.property(type=bool, default=False)
     display_text_enabled = GObject.property(type=bool, default=False)
     display_text_loading_enabled = GObject.property(type=bool, default=True)
 
@@ -70,8 +71,8 @@ class CoverArtBrowserSource(RB.Source):
 
         setting.bind(self.gs.PluginKey.CUSTOM_STATUSBAR, self,
             'custom_statusbar_enabled', Gio.SettingsBindFlags.GET)
-        setting.bind(self.gs.PluginKey.DISPLAY_TRACKS, self,
-            'display_tracks_enabled', Gio.SettingsBindFlags.GET)
+        setting.bind(self.gs.PluginKey.DISPLAY_BOTTOM, self,
+            'display_bottom_enabled', Gio.SettingsBindFlags.GET)
         setting.bind(self.gs.PluginKey.DISPLAY_TEXT, self,
             'display_text_enabled', Gio.SettingsBindFlags.GET)
         setting.bind(self.gs.PluginKey.DISPLAY_TEXT_LOADING, self,
@@ -134,8 +135,8 @@ class CoverArtBrowserSource(RB.Source):
         self.connect('notify::custom-statusbar-enabled',
             self.on_notify_custom_statusbar_enabled)
 
-        self.connect('notify::display-tracks-enabled',
-            self.on_notify_display_tracks_enabled)
+        self.connect('notify::display-bottom-enabled',
+            self.on_notify_display_bottom_enabled)
 
         self.connect('notify::display-text-enabled',
             self.activate_markup)
@@ -180,6 +181,7 @@ class CoverArtBrowserSource(RB.Source):
         self.sort_by_artist_radio = ui.get_object('artist_name_sort_radio')
         self.descending_sort_radio = ui.get_object('descending_sort_radio')
         self.ascending_sort_radio = ui.get_object('ascending_sort_radio')
+        self.notebook = ui.get_object('bottom_notebook')
 
         # setup iconview drag&drop support
         self.covers_view.enable_model_drag_dest([], Gdk.DragAction.COPY)
@@ -210,10 +212,15 @@ class CoverArtBrowserSource(RB.Source):
         self.entry_view_expander = ui.get_object('entryviewexpander')
         self.entry_view = CoverArtEntryView(self.shell, self)
         self.entry_view.show_all()
-        self.entry_view_expander.add(self.entry_view)
+        self.notebook.append_page(self.entry_view, Gtk.Label('Tracks'))
         self.entry_view_box = ui.get_object('entryview_box')
 
-        self.on_notify_display_tracks_enabled(_)
+        # setup cover search
+        self.cover_search_pane = CoverSearchPane(self.plugin)
+        self.notebook.append_page(self.cover_search_pane, Gtk.Label('Covers'))
+
+        # force display of bottom notebook if it's enabled
+        self.on_notify_display_bottom_enabled(_)
 
         # get widgets for source popup
         self.source_menu = ui.get_object('source_menu')
@@ -331,12 +338,12 @@ class CoverArtBrowserSource(RB.Source):
 
         self.selectionchanged_callback(self.covers_view)
 
-    def on_notify_display_tracks_enabled(self, *args):
+    def on_notify_display_bottom_enabled(self, *args):
         '''
         Callback called when the option 'display tracks' is enabled or disabled
         on the plugin's preferences dialog
         '''
-        if self.display_tracks_enabled:
+        if self.display_bottom_enabled:
             # make the entry view visible
             self.entry_view_box.set_visible(True)
 
@@ -643,9 +650,17 @@ class CoverArtBrowserSource(RB.Source):
 
         selected = self.get_selected_albums()
 
-        # if no album selected, clean the status
+        cover_search_pane_visible = self.notebook.get_current_page() == \
+            self.notebook.page_num(self.cover_search_pane)
+
         if not selected:
+            # if no album selected, clean the status and the cover tab if
+            # if selected
             self.update_statusbar()
+
+            if cover_search_pane_visible:
+                self.cover_search_pane.clear()
+
             return
 
         track_count = 0
@@ -660,7 +675,7 @@ class CoverArtBrowserSource(RB.Source):
             self.entry_view.add_album(album)
 
         # now lets build up a status label containing some 'interesting stuff'
-        #about the album
+        # about the album
         if len(selected) == 1:
             status = (_('%s by %s') % (album.name, album.album_artist)).decode(
                 'UTF-8')
@@ -680,6 +695,10 @@ class CoverArtBrowserSource(RB.Source):
                 'UTF-8')
 
         self.update_statusbar(status)
+
+        # update the cover search pane with the first selected album
+        if cover_search_pane_visible:
+            self.cover_search_pane.do_search(selected[0])
 
     def update_statusbar(self, status=''):
         '''
@@ -811,11 +830,6 @@ class CoverArtBrowserSource(RB.Source):
         result = path is not None
 
         if result:
-            # if there was an album, select it
-            widget.unselect_all()
-            widget.grab_focus()
-            widget.select_path(path)
-
             target = self.covers_view.drag_dest_find_target(context, None)
             widget.drag_get_data(context, target, time)
 
@@ -831,12 +845,24 @@ class CoverArtBrowserSource(RB.Source):
         widget.stop_emission('drag-data-received')
 
         # get the album and the pixbuf and ask the loader to update the cover
+        path, pos = widget.get_dest_item_at_pos(x, y)
         pixbuf = data.get_pixbuf()
-        album = self.get_selected_albums()[0]
+        album = widget.get_model()[path][2]
         self.loader.update_cover(album, pixbuf)
 
         # call the context drag_finished to inform the source about it
         drag_context.finish(True, False, time)
+
+    def notebook_switch_page_callback(self, notebook, page, page_num):
+        '''
+        Callback called when the notebook page gets switched. It initiates
+        the cover search when the cover search pane's page is selected.
+        '''
+        if page == self.cover_search_pane:
+            selected_albums = self.get_selected_albums()
+
+            if selected_albums:
+                self.cover_search_pane.do_search(selected_albums[0])
 
     def do_delete_thyself(self):
         '''
@@ -868,6 +894,7 @@ class CoverArtBrowserSource(RB.Source):
         del self.covers_model_store
         del self.covers_model
         del self.covers_view
+        del self.cover_search_pane
         del self.filter_menu
         del self.filter_menu_album_artist_item
         del self.filter_menu_album_item
@@ -875,6 +902,7 @@ class CoverArtBrowserSource(RB.Source):
         del self.filter_menu_artist_item
         del self.filter_menu_track_title_item
         del self.filter_type
+        del self.notebook
         del self.page
         del self.paned
         del self.popup_menu
