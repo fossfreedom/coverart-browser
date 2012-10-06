@@ -43,7 +43,7 @@ class CoverArtBrowserSource(RB.Source):
     LOCALE_DOMAIN = 'coverart_browser'
 
     custom_statusbar_enabled = GObject.property(type=bool, default=False)
-    display_tracks_enabled = GObject.property(type=bool, default=False)
+    display_bottom_enabled = GObject.property(type=bool, default=False)
     display_text_enabled = GObject.property(type=bool, default=False)
     display_text_loading_enabled = GObject.property(type=bool, default=True)
 
@@ -71,8 +71,8 @@ class CoverArtBrowserSource(RB.Source):
 
         setting.bind(self.gs.PluginKey.CUSTOM_STATUSBAR, self,
             'custom_statusbar_enabled', Gio.SettingsBindFlags.GET)
-        setting.bind(self.gs.PluginKey.DISPLAY_TRACKS, self,
-            'display_tracks_enabled', Gio.SettingsBindFlags.GET)
+        setting.bind(self.gs.PluginKey.DISPLAY_BOTTOM, self,
+            'display_bottom_enabled', Gio.SettingsBindFlags.GET)
         setting.bind(self.gs.PluginKey.DISPLAY_TEXT, self,
             'display_text_enabled', Gio.SettingsBindFlags.GET)
         setting.bind(self.gs.PluginKey.DISPLAY_TEXT_LOADING, self,
@@ -135,8 +135,8 @@ class CoverArtBrowserSource(RB.Source):
         self.connect('notify::custom-statusbar-enabled',
             self.on_notify_custom_statusbar_enabled)
 
-        self.connect('notify::display-tracks-enabled',
-            self.on_notify_display_tracks_enabled)
+        self.connect('notify::display-bottom-enabled',
+            self.on_notify_display_bottom_enabled)
 
         self.connect('notify::display-text-enabled',
             self.activate_markup)
@@ -220,7 +220,7 @@ class CoverArtBrowserSource(RB.Source):
         self.notebook.append_page(self.cover_search_pane, Gtk.Label('Covers'))
 
         # force display of bottom notebook if it's enabled
-        self.on_notify_display_tracks_enabled(_)
+        self.on_notify_display_bottom_enabled(_)
 
         # get widgets for source popup
         self.source_menu = ui.get_object('source_menu')
@@ -338,12 +338,12 @@ class CoverArtBrowserSource(RB.Source):
 
         self.selectionchanged_callback(self.covers_view)
 
-    def on_notify_display_tracks_enabled(self, *args):
+    def on_notify_display_bottom_enabled(self, *args):
         '''
         Callback called when the option 'display tracks' is enabled or disabled
         on the plugin's preferences dialog
         '''
-        if self.display_tracks_enabled:
+        if self.display_bottom_enabled:
             # make the entry view visible
             self.entry_view_box.set_visible(True)
 
