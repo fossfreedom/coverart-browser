@@ -114,7 +114,7 @@ class AlbumLoader(GObject.Object):
             Gio.SettingsBindFlags.GET)
 
     @classmethod
-    def get_instance(cls, plugin, model, query_model):
+    def get_instance(cls, plugin=None, model=None, query_model=None):
         '''
         Singleton method to allow to access the unique loader instance.
         '''
@@ -540,6 +540,7 @@ class AlbumLoader(GObject.Object):
         for artist in album._artist:
             key = RB.ExtDBKey.create_storage('album', album.name)
             key.add_field('artist', artist)
+
             self.cover_db.store(key, RB.ExtDBSourceType.USER_EXPLICIT, pixbuf)
 
 
