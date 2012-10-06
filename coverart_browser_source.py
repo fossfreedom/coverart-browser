@@ -45,9 +45,6 @@ class CoverArtBrowserSource(RB.Source):
     display_tracks_enabled = GObject.property(type=bool, default=False)
     display_text_enabled = GObject.property(type=bool, default=False)
     display_text_loading_enabled = GObject.property(type=bool, default=True)
-    display_text_ellipsize_enabled = GObject.property(type=bool, default=False)
-    display_text_ellipsize_length = GObject.property(type=int, default=20)
-    cover_size = GObject.property(type=int, default=92)
 
     def __init__(self, **kargs):
         '''
@@ -59,13 +56,13 @@ class CoverArtBrowserSource(RB.Source):
         # create source_source_settings and connect the source's properties
         self.gs = GSetting()
 
-        self.connect_properties()
+        self._connect_properties()
 
         self.filter_type = Album.FILTER_ALL
         self.search_text = ''
         self.hasActivated = False
 
-    def connect_properties(self):
+    def _connect_properties(self):
         '''
         Connects the source properties to the saved preferences.
         '''
@@ -79,13 +76,6 @@ class CoverArtBrowserSource(RB.Source):
             'display_text_enabled', Gio.SettingsBindFlags.GET)
         setting.bind(self.gs.PluginKey.DISPLAY_TEXT_LOADING, self,
             'display_text_loading_enabled', Gio.SettingsBindFlags.GET)
-        setting.bind(self.gs.PluginKey.DISPLAY_TEXT_ELLIPSIZE, self,
-            'display_text_ellipsize_enabled', Gio.SettingsBindFlags.GET)
-        setting.bind(self.gs.PluginKey.DISPLAY_TEXT_ELLIPSIZE_LENGTH, self,
-            'display_text_ellipsize_length',
-            Gio.SettingsBindFlags.GET)
-        setting.bind(self.gs.PluginKey.COVER_SIZE, self, 'cover_size',
-            Gio.SettingsBindFlags.GET)
 
     def do_get_status(self, *args):
         '''
@@ -140,9 +130,6 @@ class CoverArtBrowserSource(RB.Source):
         self.search_text = ''
         self.compare_albums = Album.compare_albums_by_name
 
-        # set the ellipsize
-        Album.set_ellipsize_length(self.display_text_ellipsize_length)
-
         # connect properties signals
         self.connect('notify::custom-statusbar-enabled',
             self.on_notify_custom_statusbar_enabled)
@@ -151,18 +138,10 @@ class CoverArtBrowserSource(RB.Source):
             self.on_notify_display_tracks_enabled)
 
         self.connect('notify::display-text-enabled',
-            self.on_notify_display_text_enabled)
+            self.activate_markup)
 
         self.connect('notify::display-text-loading-enabled',
-            self.on_notify_display_text_loading_enabled)
-
-        self.connect('notify::display-text-ellipsize-enabled',
-            self.on_notify_display_text_ellipsize)
-
-        self.connect('notify::display-text-ellipsize-length',
-            self.on_notify_display_text_ellipsize)
-
-        self.connect('notify::cover-size', self.on_notify_cover_size)
+            self.activate_markup)
 
         # setup translation support
         locale.setlocale(locale.LC_ALL, '')
@@ -253,16 +232,14 @@ class CoverArtBrowserSource(RB.Source):
 
         # get the loader
         self.loader = AlbumLoader.get_instance(self.plugin,
-            ui.get_object('covers_model'), self.props.query_model,
-            self.cover_size)
+            ui.get_object('covers_model'), self.props.query_model)
 
         # if the source is fully loaded, enable the full cover search item
         if self.loader.progress == 1:
             self.load_finished_callback()
 
         # if the text during load is enabled, activate it
-        if self.display_text_loading_enabled:
-            self.activate_markup(self.display_text_enabled)
+        self.activate_markup()
 
         # retrieve and set the model, it's filter and the sorting column
         self.covers_model_store = self.loader.cover_model
@@ -283,6 +260,14 @@ class CoverArtBrowserSource(RB.Source):
             self.reload_finished_callback)
         self.notify_prog_id = self.loader.connect('notify::progress',
             lambda *args: self.notify_status_changed())
+        self.notify_ellipsize = self.loader.connect(
+            'notify::display-text-ellipsize-enabled',
+            self.on_notify_display_text_ellipsize)
+        self.notify_ellipsize_length = self.loader.connect(
+            'notify::display-text-ellipsize-length',
+            self.on_notify_display_text_ellipsize)
+        self.notify_cover_size = self.loader.connect('notify::cover-size',
+            self.on_notify_cover_size)
 
         # apply some settings
         source_settings = self.gs.get_setting(self.gs.Path.PLUGIN)
@@ -323,7 +308,7 @@ class CoverArtBrowserSource(RB.Source):
         # enable markup if necesary
         if not self.loader.reloading and self.display_text_enabled and \
             not self.display_text_loading_enabled:
-            self.activate_markup(True)
+            self.activate_markup()
 
     def reload_finished_callback(self, _):
         '''
@@ -333,7 +318,7 @@ class CoverArtBrowserSource(RB.Source):
         if self.display_text_enabled and \
             not self.display_text_loading_enabled \
             and self.loader.progress == 1:
-            self.activate_markup(True)
+            self.activate_markup()
 
     def on_notify_custom_statusbar_enabled(self, *args):
         '''
@@ -372,28 +357,15 @@ class CoverArtBrowserSource(RB.Source):
 
             self.entry_view_box.set_visible(False)
 
-    def on_notify_display_text_enabled(self, *args):
-        '''
-        Callback called when the option 'display text under cover' is enabled
-        or disabled on the plugin's preferences dialog
-        '''
-        self.activate_markup(self.display_text_enabled)
-
-    def on_notify_display_text_loading_enabled(self, *args):
-        '''
-        Callback called when the option 'show text while loading' is enabled
-        or disabled on the plugin's prefereces dialog.
-        This option only makes a visible effect if it's toggled during the
-        album loading.
-        '''
-        if self.loader.progress < 1 or self.loader.reloading:
-            self.activate_markup(self.display_text_loading_enabled)
-
-    def activate_markup(self, activate):
+    def activate_markup(self, *args):
         '''
         Utility method to activate/deactivate the markup text on the
         cover view.
         '''
+        activate = self.display_text_enabled and \
+            (self.display_text_loading_enabled or (self.loader.progress == 1
+            and not self.loader.reloading))
+
         if activate:
             column = 3
             item_width = self.loader.cover_size + 20
@@ -408,21 +380,13 @@ class CoverArtBrowserSource(RB.Source):
         Callback called when one of the properties related with the ellipsize
         option is changed.
         '''
-        if self.display_text_ellipsize_enabled:
-            Album.set_ellipsize_length(self.display_text_ellipsize_length)
-        else:
-            Album.set_ellipsize_length(0)
-
         if not self.display_text_loading_enabled:
             self.activate_markup(False)
-
-        self.loader.reload_model()
 
     def on_notify_cover_size(self, *args):
         '''
         Callback callend when the coverart size property is changed.
         '''
-        self.loader.update_cover_size(self.cover_size)
         self.activate_markup(self.display_text_enabled and
             self.display_text_loading_enabled)
 
@@ -895,6 +859,9 @@ class CoverArtBrowserSource(RB.Source):
         self.loader.disconnect(self.reload_fin_id)
         self.loader.disconnect(self.album_mod_id)
         self.loader.disconnect(self.notify_prog_id)
+        self.loader.disconnect(self.notify_ellipsize)
+        self.loader.disconnect(self.notify_ellipsize_length)
+        self.loader.disconnect(self.notify_cover_size)
 
         # delete references
         del self.shell
