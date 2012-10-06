@@ -830,11 +830,6 @@ class CoverArtBrowserSource(RB.Source):
         result = path is not None
 
         if result:
-            # if there was an album, select it
-            widget.unselect_all()
-            widget.grab_focus()
-            widget.select_path(path)
-
             target = self.covers_view.drag_dest_find_target(context, None)
             widget.drag_get_data(context, target, time)
 
@@ -850,14 +845,19 @@ class CoverArtBrowserSource(RB.Source):
         widget.stop_emission('drag-data-received')
 
         # get the album and the pixbuf and ask the loader to update the cover
+        path, pos = widget.get_dest_item_at_pos(x, y)
         pixbuf = data.get_pixbuf()
-        album = self.get_selected_albums()[0]
+        album = widget.get_model()[path][2]
         self.loader.update_cover(album, pixbuf)
 
         # call the context drag_finished to inform the source about it
         drag_context.finish(True, False, time)
 
     def notebook_switch_page_callback(self, notebook, page, page_num):
+        '''
+        Callback called when the notebook page gets switched. It initiates
+        the cover search when the cover search pane's page is selected.
+        '''
         if page == self.cover_search_pane:
             selected_albums = self.get_selected_albums()
 
