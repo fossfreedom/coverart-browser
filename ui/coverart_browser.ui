@@ -334,6 +334,42 @@
       </object>
     </child>
     <child>
+      <object class="GtkSeparatorMenuItem" id="popup_separator3">
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="play_favourites_album_menu_item">
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text" translatable="yes">Play favourites tracks from this album</property>
+        <property name="label" translatable="yes">Play Favourites</property>
+        <property name="use_underline">True</property>
+        <signal name="activate" handler="play_favourites_album_menu_item_callback" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="queue_favourites_album_menu_item">
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text" translatable="yes">Add favourite tracks from this album to your playing queue</property>
+        <property name="label" translatable="yes">Queue Favourites</property>
+        <property name="use_underline">True</property>
+        <signal name="activate" handler="queue_favourites_album_menu_item_callback" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkSeparatorMenuItem" id="popup_separator2">
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+      </object>
+    </child>
+    <child>
       <object class="GtkMenuItem" id="cover_search_menu_item">
         <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
@@ -345,7 +381,7 @@
       </object>
     </child>
     <child>
-      <object class="GtkSeparatorMenuItem" id="popup_separator">
+      <object class="GtkSeparatorMenuItem" id="popup_separator1">
         <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>

@@ -61,5 +61,10 @@
             <summary>Sort in ascending order.</summary>
             <description>Using the chosen sort type, sort the coverview in ascending order.</description>
         </key>
+        <key type="d" name="rating-threshold">
+            <default>0</default>
+            <summary>Track Rating Threshold.</summary>
+            <description>Level above which is regarded as a favourite rated track.</description>
+        </key>
     </schema>
 </schemalist>

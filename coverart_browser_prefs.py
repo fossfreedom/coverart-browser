@@ -58,7 +58,8 @@ class GSetting:
                 SORT_BY_ALBUM='sort-by-album',
                 SORT_BY_ARTIST='sort-by-artist',
                 DESC_SORT='desc-sort',
-                ASC_SORT='asc-sort')
+                ASC_SORT='asc-sort',
+                RATING='rating-threshold')
 
             self.setting = {}
 
@@ -178,6 +179,10 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
 
         cover_size_scale = builder.get_object('cover_size_adjustment')
         self.settings.bind(gs.PluginKey.COVER_SIZE, cover_size_scale, 'value',
+            Gio.SettingsBindFlags.DEFAULT)
+
+        rated_adjustment = builder.get_object('rated_adjustment')
+        self.settings.bind(gs.PluginKey.RATING, rated_adjustment, 'value',
             Gio.SettingsBindFlags.DEFAULT)
 
         # return the dialog

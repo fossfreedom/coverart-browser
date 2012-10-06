@@ -45,6 +45,8 @@ class CoverArtBrowserSource(RB.Source):
     display_tracks_enabled = GObject.property(type=bool, default=False)
     display_text_enabled = GObject.property(type=bool, default=False)
     display_text_loading_enabled = GObject.property(type=bool, default=True)
+    rating_threshold = GObject.property(type=float, default=0)
+
 
     def __init__(self, **kargs):
         '''
@@ -76,6 +78,8 @@ class CoverArtBrowserSource(RB.Source):
             'display_text_enabled', Gio.SettingsBindFlags.GET)
         setting.bind(self.gs.PluginKey.DISPLAY_TEXT_LOADING, self,
             'display_text_loading_enabled', Gio.SettingsBindFlags.GET)
+        setting.bind(self.gs.PluginKey.RATING, self,
+            'rating_threshold', Gio.SettingsBindFlags.GET)
 
     def do_get_status(self, *args):
         '''
@@ -516,6 +520,15 @@ class CoverArtBrowserSource(RB.Source):
         Callback called when the play album item from the cover view popup is
         selected. It cleans the play queue and queues the selected album.
         '''
+        self.play_selected_album()
+        
+        print "CoverArtBrowser DEBUG - end play_menu_callback"
+
+    def play_selected_album(self, favourites=False):
+        '''
+        Utilitary method that plays all entries from an album into the play
+        queue.
+        '''
         # callback when play an album
         print "CoverArtBrowser DEBUG - play_menu_callback"
 
@@ -524,14 +537,37 @@ class CoverArtBrowserSource(RB.Source):
         for row in play_queue.props.query_model:
             play_queue.remove_entry(row[0])
 
-        self.queue_selected_album()
+        self.queue_selected_album(favourites)
 
         # Start the music
         player = self.shell.props.shell_player
         player.stop()
         player.set_playing_source(self.shell.props.queue_source)
         player.playpause(True)
-        print "CoverArtBrowser DEBUG - end play_menu_callback"
+
+
+    def queue_favourites_album_menu_item_callback(self, _):
+        '''
+        Callback called when the queue-favourites album item from the cover view popup is
+        selected. It queues the selected album at the end of the play queue.
+        '''
+        print "CoverArtBrowser DEBUG - queue favourites menu_callback()"
+
+        self.queue_selected_album(True)
+
+        print "CoverArtBrowser DEBUG - queue favourites menu_callback()"
+
+    def play_favourites_album_menu_item_callback(self, _):
+        '''
+        Callback called when the play favourites album item from the cover view popup is
+        selected. It queues the selected album at the end of the play queue.
+        '''
+        print "CoverArtBrowser DEBUG - play favourites menu_callback()"
+
+        self.play_selected_album(True)
+
+        print "CoverArtBrowser DEBUG - play favourites menu_callback()"
+
 
     def queue_album_menu_item_callback(self, _):
         '''
@@ -544,7 +580,7 @@ class CoverArtBrowserSource(RB.Source):
 
         print "CoverArtBrowser DEBUG - queue_menu_callback()"
 
-    def queue_selected_album(self):
+    def queue_selected_album(self, favourites=False):
         '''
         Utilitary method that queues all entries from an album into the play
         queue.
@@ -556,9 +592,28 @@ class CoverArtBrowserSource(RB.Source):
             songs = sorted(album.entries, key=lambda song:
                 song.get_ulong(RB.RhythmDBPropType.TRACK_NUMBER))
 
+            if favourites:
+                # first look for any songs with a rating
+                # if none then we are not restricting what is queued
+
+                rating=0
+                for song in songs:
+                    rating = song.get_double(RB.RhythmDBPropType.RATING)
+                    
+                    if rating !=0:
+                        break
+
+                if rating == 0:
+                    favourites=False
+
             # Add the songs to the play queue
             for song in songs:
-                self.shell.props.queue_source.add_entry(song, -1)
+                rating = 0
+                if favourites:
+                    rating = song.get_double(RB.RhythmDBPropType.RATING)
+
+                if rating >=self.rating_threshold or not favourites:
+                    self.shell.props.queue_source.add_entry(song, -1)
 
     def cover_search_menu_item_callback(self, menu_item):
         '''

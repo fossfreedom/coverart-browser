@@ -173,6 +173,28 @@ class CoverArtEntryView(RB.EntryView):
 
         print "CoverArtBrowser DEBUG - queue_track_menu_item_callback()"
 
+    def love_track_menu_item_callback(self, entry):
+        print "CoverArtBrowser DEBUG - love_track_menu_item_callback()"
+        selected = self.get_selected_entries()
+
+        for entry in selected:
+            self.shell.props.db.entry_set( entry, RB.RhythmDBPropType.RATING, 5)
+
+        self.shell.props.db.commit()
+        
+        print "CoverArtBrowser DEBUG - love_track_menu_item_callback()"
+
+    def ban_track_menu_item_callback(self, entry):
+        print "CoverArtBrowser DEBUG - ban_track_menu_item_callback()"
+        selected = self.get_selected_entries()
+
+        for entry in selected:
+            self.shell.props.db.entry_set( entry, RB.RhythmDBPropType.RATING, 0)
+
+        self.shell.props.db.commit()
+        
+        print "CoverArtBrowser DEBUG - ban_track_menu_item_callback()"
+
 
     def show_properties_menu_item_callback(self, entry):
         print "CoverArtBrowser DEBUG - show_properties_menu_item_callback()"
