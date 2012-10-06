@@ -654,6 +654,36 @@ class Album(object):
 
         return album_artist
 
+    def favourite_entries(self, threshold):
+        '''
+        Returns the RBRhythmDBEntry's for the album
+        the meet the rating threshold
+        i.e. all the tracks >= Rating
+        '''
+
+        # first look for any songs with a rating
+        # if none then we are not restricting what is queued
+
+        rating=0
+        for entry in self.entries:
+            rating = entry.get_double(RB.RhythmDBPropType.RATING)
+            
+            if rating !=0:
+                break
+
+        if rating == 0:
+            return self.entries
+
+        songs=[]
+        # Add the songs to the play queue
+        for entry in self.entries:
+            rating = entry.get_double(RB.RhythmDBPropType.RATING)
+
+            if rating >=threshold:
+                songs.append(entry)
+                
+        return songs
+
     def _create_tooltip(self):
         '''
         Utility function that creates the tooltip for this album to set into

@@ -147,6 +147,9 @@ class CoverArtBrowserSource(RB.Source):
         self.connect('notify::display-text-loading-enabled',
             self.activate_markup)
 
+        self.connect('notify::rating-threshold',
+            self.on_notify_rating_threshold)
+        
         # setup translation support
         locale.setlocale(locale.LC_ALL, '')
         locale.bindtextdomain(self.LOCALE_DOMAIN, "/usr/share/locale")
@@ -184,6 +187,10 @@ class CoverArtBrowserSource(RB.Source):
         self.sort_by_artist_radio = ui.get_object('artist_name_sort_radio')
         self.descending_sort_radio = ui.get_object('descending_sort_radio')
         self.ascending_sort_radio = ui.get_object('ascending_sort_radio')
+        self.popup_separator_favourites = ui.get_object('popup_separator_favourites')
+        self.play_favourites_album_menu_item = ui.get_object('play_favourites_album_menu_item')
+        self.queue_favourites_album_menu_item = ui.get_object('queue_favourites_album_menu_item')
+        self.on_notify_rating_threshold( _ )
 
         # setup iconview drag&drop support
         self.covers_view.enable_model_drag_dest([], Gdk.DragAction.COPY)
@@ -334,6 +341,23 @@ class CoverArtBrowserSource(RB.Source):
             self.status_label.hide()
 
         self.selectionchanged_callback(self.covers_view)
+
+    def on_notify_rating_threshold(self, *args):
+        '''
+        Callback called when the option rating threshold is changed
+        on the plugin's preferences dialog
+        If the threshold is zero then the rating menu options in the
+        coverview should not be enabled
+        '''
+    
+        if self.rating_threshold > 0:
+            enable_menus = True
+        else:
+            enable_menus = False
+            
+        self.popup_separator_favourites.set_sensitive(enable_menus)
+        self.play_favourites_album_menu_item.set_sensitive(enable_menus)
+        self.queue_favourites_album_menu_item.set_sensitive(enable_menus)
 
     def on_notify_display_tracks_enabled(self, *args):
         '''
@@ -589,31 +613,17 @@ class CoverArtBrowserSource(RB.Source):
 
         for album in selected_albums:
             # Retrieve and sort the entries of the album
-            songs = sorted(album.entries, key=lambda song:
-                song.get_ulong(RB.RhythmDBPropType.TRACK_NUMBER))
-
             if favourites:
-                # first look for any songs with a rating
-                # if none then we are not restricting what is queued
-
-                rating=0
-                for song in songs:
-                    rating = song.get_double(RB.RhythmDBPropType.RATING)
-                    
-                    if rating !=0:
-                        break
-
-                if rating == 0:
-                    favourites=False
+                songs=album.favourite_entries(self.rating_threshold)
+            else:
+                songs=album.entries
+                
+            songs = sorted(songs, key=lambda song:
+                song.get_ulong(RB.RhythmDBPropType.TRACK_NUMBER))
 
             # Add the songs to the play queue
             for song in songs:
-                rating = 0
-                if favourites:
-                    rating = song.get_double(RB.RhythmDBPropType.RATING)
-
-                if rating >=self.rating_threshold or not favourites:
-                    self.shell.props.queue_source.add_entry(song, -1)
+                self.shell.props.queue_source.add_entry(song, -1)
 
     def cover_search_menu_item_callback(self, menu_item):
         '''

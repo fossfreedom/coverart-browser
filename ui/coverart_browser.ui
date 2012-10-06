@@ -334,7 +334,7 @@
       </object>
     </child>
     <child>
-      <object class="GtkSeparatorMenuItem" id="popup_separator3">
+      <object class="GtkSeparatorMenuItem" id="popup_separator_favourites">
         <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
