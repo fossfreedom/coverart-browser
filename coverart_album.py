@@ -892,10 +892,25 @@ class Album(object):
             return True
 
         if filter_type == Album.FILTER_ALL:
-            return searchtext.lower() in self.artist.lower() \
-                    or searchtext.lower() in self.name.lower() \
-                    or searchtext.lower() in self.album_artist.lower() \
-                    or searchtext.lower() in self.track_title.lower()
+            # this filter is more complicated: for each word in the search
+            # text, it tries to find at least one match on the params of
+            # the album. If no match is given, then the album doesn't match
+            words = searchtext.split()
+            params = [self.name.lower(), self.album_artist.lower(),
+                self.artist.lower(), self.track_title.lower()]
+            matches = []
+
+            for word in words:
+                match = False
+
+                for param in params:
+                    if word in param:
+                        match = True
+                        break
+
+                matches.append(match)
+
+            return False not in matches
 
         if filter_type == Album.FILTER_ALBUM_ARTIST:
             return searchtext.lower() in self.album_artist.lower()
