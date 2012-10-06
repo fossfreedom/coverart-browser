@@ -62,6 +62,7 @@
                         var result = results[i];
 
                         var newImg = document.createElement('img');
+                        newImg.ondblclick = setCover;
                         newImg.src = result.tbUrl;
                         newImg.id = result.url;
                         newImg.setAttribute("class", "srchresult");
@@ -86,6 +87,10 @@
 
                 clear = false;
                 imageSearch.gotoPage(currentPage)
+            }
+
+            function setCover(event) {
+                document.title = this.id
             }
 
             function onSearchText() {

@@ -20,7 +20,6 @@
 
 import rb
 import re
-import os
 import gettext
 
 from gi.repository import Gtk
@@ -28,12 +27,14 @@ from gi.repository import RB
 from gi.repository import WebKit
 from mako.template import Template
 
+from coverart_album import AlbumLoader
+
 gettext.install('rhythmbox', RB.locale_dir(), unicode=True)
 
 class CoverSearchPane(Gtk.VBox):
     def __init__(self, plugin):
         super(CoverSearchPane, self).__init__()
-
+        self.current_album = None
         self.file = ""
         self.basepath = 'file://' + plugin.plugin_info.get_data_dir()
 
@@ -59,7 +60,15 @@ class CoverSearchPane(Gtk.VBox):
         self.pack_start(scroll, expand=True, fill=True, padding=0)
         self.show_all()
 
+        # connect the title changed signal
+        self.webview.connect('title-changed', self.set_cover)
+
     def do_search (self, album) :
+        if album is self.current_album:
+            return
+
+        self.current_album = album
+
         artist = album.album_artist
         album_name = album.name
 
@@ -87,3 +96,9 @@ class CoverSearchPane(Gtk.VBox):
 
         self.webview.load_string(temp_file, 'text/html', 'utf-8',
             self.basepath)
+
+    def set_cover(self, webview, frame, title):
+        # get the loader
+        loader = AlbumLoader.get_instance()
+
+        loader.update_cover(self.current_album, uri=title)
