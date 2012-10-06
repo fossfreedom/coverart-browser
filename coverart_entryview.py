@@ -173,29 +173,38 @@ class CoverArtEntryView(RB.EntryView):
 
         print "CoverArtBrowser DEBUG - queue_track_menu_item_callback()"
 
-    def love_track_menu_item_callback(self, entry):
-        print "CoverArtBrowser DEBUG - love_track_menu_item_callback()"
+
+    def love_track_menu_item_callback5(self, entry):
+        self.love_track(5)
+
+    def love_track_menu_item_callback4(self, entry):
+        self.love_track(4)
+
+    def love_track_menu_item_callback3(self, entry):
+        self.love_track(3)
+
+    def love_track_menu_item_callback2(self, entry):
+        self.love_track(2)
+
+    def love_track_menu_item_callback1(self, entry):
+        self.love_track(1)
+
+    def love_track_menu_item_callback0(self, entry):
+        self.love_track(0)
+
+
+    def love_track(self, rating):
+        '''
+        utility function to set the rating for selected tracks
+        '''
         selected = self.get_selected_entries()
 
         for entry in selected:
-            self.shell.props.db.entry_set( entry, RB.RhythmDBPropType.RATING, 5)
+            self.shell.props.db.entry_set( entry, RB.RhythmDBPropType.RATING, rating)
 
         self.shell.props.db.commit()
         
-        print "CoverArtBrowser DEBUG - love_track_menu_item_callback()"
-
-    def ban_track_menu_item_callback(self, entry):
-        print "CoverArtBrowser DEBUG - ban_track_menu_item_callback()"
-        selected = self.get_selected_entries()
-
-        for entry in selected:
-            self.shell.props.db.entry_set( entry, RB.RhythmDBPropType.RATING, 0)
-
-        self.shell.props.db.commit()
         
-        print "CoverArtBrowser DEBUG - ban_track_menu_item_callback()"
-
-
     def show_properties_menu_item_callback(self, entry):
         print "CoverArtBrowser DEBUG - show_properties_menu_item_callback()"
 

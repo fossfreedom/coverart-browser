@@ -41,18 +41,78 @@
         <property name="tooltip_text" translatable="yes">Give the track a favourite rating</property>
         <property name="label" translatable="yes">Rate Track</property>
         <property name="use_underline">True</property>
-        <signal name="activate" handler="love_track_menu_item_callback" swapped="no"/>
-      </object>
-    </child>
-    <child>
-      <object class="GtkMenuItem" id="ban_track_menu_item">
-        <property name="use_action_appearance">False</property>
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="tooltip_text" translatable="yes">Remove the rating from a track</property>
-        <property name="label" translatable="yes">Remove Track Rating</property>
-        <property name="use_underline">True</property>
-        <signal name="activate" handler="ban_track_menu_item_callback" swapped="no"/>
+        <child type="submenu">
+            <object class="GtkMenu" id="rating_sub_menu_item">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                    <object class="GtkMenuItem" id="love_track_menu_item5">
+                        <property name="use_action_appearance">False</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">Give the track a 5 star rating</property>
+                        <property name="label" translatable="yes">5 Stars</property>
+                        <property name="use_underline">True</property>
+                        <signal name="select" handler="love_track_menu_item_callback5" swapped="no"/>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkMenuItem" id="love_track_menu_item4">
+                        <property name="use_action_appearance">False</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">Give the track a 4 star rating</property>
+                        <property name="label" translatable="yes">4 Stars</property>
+                        <property name="use_underline">True</property>
+                        <signal name="select" handler="love_track_menu_item_callback4" swapped="no"/>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkMenuItem" id="love_track_menu_item3">
+                        <property name="use_action_appearance">False</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">Give the track a 3 star rating</property>
+                        <property name="label" translatable="yes">3 Stars</property>
+                        <property name="use_underline">True</property>
+                        <signal name="select" handler="love_track_menu_item_callback3" swapped="no"/>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkMenuItem" id="love_track_menu_item2">
+                        <property name="use_action_appearance">False</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">Give the track a 2 star rating</property>
+                        <property name="label" translatable="yes">2 Stars</property>
+                        <property name="use_underline">True</property>
+                        <signal name="select" handler="love_track_menu_item_callback2" swapped="no"/>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkMenuItem" id="love_track_menu_item1">
+                        <property name="use_action_appearance">False</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">Give the track a 1 star rating</property>
+                        <property name="label" translatable="yes">1 Star</property>
+                        <property name="use_underline">True</property>
+                        <signal name="select" handler="love_track_menu_item_callback1" swapped="no"/>
+                    </object>
+                </child>
+                <child>
+                    <object class="GtkMenuItem" id="love_track_menu_item0">
+                        <property name="use_action_appearance">False</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">Give the track a 0 star rating</property>
+                        <property name="label" translatable="yes">0 Stars</property>
+                        <property name="use_underline">True</property>
+                        <signal name="select" handler="love_track_menu_item_callback0" swapped="no"/>
+                    </object>
+                </child>
+            </object>
+        </child>
       </object>
     </child>
     <child>
