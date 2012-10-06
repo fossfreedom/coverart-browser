@@ -24,6 +24,7 @@
             var album = "${album}";
             var query = "${artist} ${album}";
             var imageSearch;
+            var currentPage = 0;
 
             google.load('search', '1');
 
@@ -54,6 +55,13 @@
                         contentDiv.appendChild(imgContainer);
                     }
                 }
+            }
+
+            function moreResults() {
+                currentPage = (currentPage + 1) % 8
+
+                imageSearch.gotoPage(currentPage)
+                searchComplete(imageSearch)
             }
 
             function onSearchText() {
@@ -170,5 +178,8 @@
         </div>
         <hr/>
         <div id="content">Loading...</div>
+        <a href="#" onclick="moreResults(); return false;">
+            Get more results</a>
+        </div>
     </body>
 </html>
