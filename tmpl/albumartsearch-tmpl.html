@@ -1,18 +1,5 @@
 <%page args="artist, album, stylesheet" />
 
-<%!
-    import re
-    remove_links = re.compile ('</?a[^>]*> ',re.VERBOSE)
-
-    def cleanup(text) :
-        if text is None :
-            return "No information available"
-        text = remove_links.sub ('', text)
-        text = text.replace('\n', '</p><p>')
-        return text
-%>
-
-
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
