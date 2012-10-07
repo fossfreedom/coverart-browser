@@ -10,22 +10,24 @@ Browse your coverart albums in Rhythmbox v2.96 and later
 Summary: whats new in this release
 
  - Tracks & Covers pane - display tracks for the selected album and built-in coverart web-search
- - Drag & Drop coverart update
+ - Drag & Drop coverart update support
  - Display Album & Artist name under the cover
  - Support for assigning track-rating and playing/queuing your favourite rated tracks
  - Multiple album selection
  - Double click playing of albums
  - Sort covers by album name and artist, both in ascending and descending order
- - Set the coverart size
+ - Set the coverart size displayed in the main view
  - Multiple user-configurable options to tailor what you see and use.
+ - Examine and change properties for an Album
+ - Examine and change properties for a track
 
 How it works:
 
  - Click the new CoverArt source button (left hand side of screen)
  - Albums are displayed as clickable buttons containing their album cover
- - Right click menu option to play, queue & search for cover art for an album.
+ - Right click menu option to play, queue & search for coverart for an album.
 
-![Imgur](http://i.imgur.com/XCAdF.png)
+![Imgur](http://i.imgur.com/D5Nq9.png)
 
  - Right click to search for missing covers
 
@@ -38,9 +40,27 @@ How it works:
 
 ![Imgur](http://i.imgur.com/1QEfH.png)
 
- - position of status bar text is configurable
+ - Display tracks for an album
 
-![Imgur](http://i.imgur.com/LWSFR.png)
+![Imgur](http://i.imgur.com/0QG1g.png)
+
+ - Find additional coverart
+
+![Imgur](http://i.imgur.com/78pkf.png)
+
+Either double-click the picture or drag-and-drop to update the coverart for the selected album
+
+ - Rate the selected tracks
+
+![Imgur](http://i.imgur.com/ju5Yl.png)
+
+ - Define your own preferences
+
+![Imgur](http://i.imgur.com/XIevz.png)
+
+ - Display the name and artist for covers
+
+![Imgur](http://i.imgur.com/3xDfI.png)
 
  - 32bit support now available
  - icon-tooltip now show all the track artists for multi-artist albums
