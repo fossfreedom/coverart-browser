@@ -12,9 +12,9 @@
             <description>Determines if the plugin should use the source's custom statusbar to show the current selected album's related information instead of the global Rhythmbox's statusbar.</description>
         </key>
         <key type="b" name="display-bottom">
-            <default>false</default>
-            <summary>Display bottom pane</summary>
-            <description>Add a toggle-option to the coverart view to display a bottom pane where you can see tracks and covers for the chosen album</description>
+            <default>true</default>
+            <summary>Display tracks and covers pane</summary>
+            <description>Add a toggle-option to the coverart view to display a tracks and covers pane where you can see these for the chosen album</description>
         </key>
         <key type="b" name="display-text">
             <default>false</default>
