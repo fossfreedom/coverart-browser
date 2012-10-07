@@ -20,10 +20,8 @@
 
 import rb
 import gettext
-import tempfile
 
 from gi.repository import Gtk
-from gi.repository import GdkPixbuf
 from gi.repository import RB
 from gi.repository import WebKit
 from mako.template import Template
@@ -133,15 +131,4 @@ class CoverSearchPane(Gtk.VBox):
         # get the loader
         loader = AlbumLoader.get_instance()
 
-        def cover_update(data, album):
-            # save the cover on a temp file and open it as a pixbuf
-            with tempfile.NamedTemporaryFile(mode='w') as tmp:
-                tmp.write(data)
-
-                cover = GdkPixbuf.Pixbuf.new_from_file(tmp.name)
-
-                # set the new cover
-                loader.update_cover(album, cover)
-
-        async = rb.Loader()
-        async.get_url(title, cover_update, self.current_album)
+        loader.update_cover(self.current_album, uri=title)

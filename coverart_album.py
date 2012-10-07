@@ -28,6 +28,7 @@ from coverart_browser_prefs import GSetting
 
 import os
 import cgi
+import tempfile
 import rb
 
 
@@ -539,16 +540,36 @@ class AlbumLoader(GObject.Object):
         except:
             pass
 
-    def update_cover(self, album, pixbuf):
+    def update_cover(self, album, pixbuf=None, uri=None):
         '''
         Updates the cover database, inserting the pixbuf as the cover art for
         all the entries on the album.
         '''
-        for artist in album._artist:
-            key = RB.ExtDBKey.create_storage('album', album.name)
-            key.add_field('artist', artist)
+        if pixbuf:
+            # if it's a pixbuf, asign it to all the artist for the album
+            for artist in album._artist:
+                key = RB.ExtDBKey.create_storage('album', album.name)
+                key.add_field('artist', artist)
 
-            self.cover_db.store(key, RB.ExtDBSourceType.USER_EXPLICIT, pixbuf)
+                self.cover_db.store(key, RB.ExtDBSourceType.USER_EXPLICIT,
+                    pixbuf)
+        elif uri:
+            # if it's an uri, we have to retrieve te data first
+            def cover_update(data, album):
+                # save the cover on a temp file and open it as a pixbuf
+                with tempfile.NamedTemporaryFile(mode='w') as tmp:
+                    tmp.write(data)
+
+                    try:
+                        cover = GdkPixbuf.Pixbuf.new_from_file(tmp.name)
+
+                        # set the new cover
+                        self.update_cover(album, cover)
+                    except:
+                        print "The URI doesn't point to an image."
+
+            async = rb.Loader()
+            async.get_url(uri, cover_update, album)
 
 
 class Cover(object):
@@ -668,26 +689,25 @@ class Album(object):
         the meet the rating threshold
         i.e. all the tracks >= Rating
         '''
-
         # first look for any songs with a rating
         # if none then we are not restricting what is queued
-
-        rating=0
+        rating = 0
         for entry in self.entries:
             rating = entry.get_double(RB.RhythmDBPropType.RATING)
 
-            if rating !=0:
+            if rating != 0:
                 break
 
         if rating == 0:
             return self.entries
 
-        songs=[]
+        songs = []
+
         # Add the songs to the play queue
         for entry in self.entries:
             rating = entry.get_double(RB.RhythmDBPropType.RATING)
 
-            if rating >=threshold:
+            if rating >= threshold:
                 songs.append(entry)
 
         return songs
