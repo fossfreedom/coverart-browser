@@ -119,6 +119,7 @@ class CoverSearchPane(Gtk.VBox):
         '''
         Clears the webview of any album's specific info/covers.
         '''
+        self.current_album = None
         temp_file = self.empty_template.render(stylesheet=self.styles)
 
         self.webview.load_string(temp_file, 'text/html', 'utf-8',

@@ -438,14 +438,18 @@ class CoverArtBrowserSource(RB.Source):
         by him gets modified in some way.
         '''
         print "CoverArtBrowser DEBUG - album_modified_callback"
-        try:
-            album = \
-                self.covers_model[self.covers_view.get_selected_items()[0]][2]
-        except:
-            return
+        selected = self.get_selected_albums()
 
-        if album is modified_album:
+        if modified_album in selected:
+            # update the selection since it may have changed
             self.selectionchanged_callback(self.covers_view)
+
+            if modified_album is selected[0] and \
+                self.notebook.get_current_page() == \
+                self.notebook.page_num(self.cover_search_pane):
+                # also, if it's the first, update the cover search pane
+                self.cover_search_pane.clear()
+                self.cover_search_pane.do_search(modified_album)
 
         print "CoverArtBrowser DEBUG - end album_modified_callback"
 
