@@ -29,16 +29,25 @@ How it works:
 
 ![Imgur](http://i.imgur.com/D5Nq9.png)
 
- - Right click to search for missing covers
+ - multi-select albums to play, queue, search for covers and edit properties
 
-![Imgur](http://i.imgur.com/QmHzi.png)
+![Imgur](http://i.imgur.com/LF6nh.png)
+
+ - Right click to see and edit the properties for an album:
+
+![Imgur](http://i.imgur.com/U1YyX.png)
 
  - locale support has been added to display text in your native language.
 
 **HELP WANTED** - We need your help to translate - please help out! (see below)
+
  - Filter your albums
 
 ![Imgur](http://i.imgur.com/1QEfH.png)
+
+ - Right click to search for missing covers
+
+![Imgur](http://i.imgur.com/QmHzi.png)
 
  - Display tracks for an album
 
@@ -50,9 +59,23 @@ How it works:
 
 Either double-click the picture or drag-and-drop to update the coverart for the selected album
 
- - Rate the selected tracks
+Tailor the search for album covers:
+
+![Imgur](http://i.imgur.com/N7cy6.png)
+
+ - Rate tracks and play your favourite tracks from albums
+
+Rate your tracks:
 
 ![Imgur](http://i.imgur.com/ju5Yl.png)
+
+Then use the Rate Threshold...
+
+![Imgur](http://i.imgur.com/3flms.png)
+
+... to enable you to play your favourite tracks from an album:
+
+![Imgur](http://i.imgur.com/NrJAe.png)
 
  - Define your own preferences
 
@@ -62,8 +85,8 @@ Either double-click the picture or drag-and-drop to update the coverart for the 
 
 ![Imgur](http://i.imgur.com/3xDfI.png)
 
- - 32bit support now available
- - icon-tooltip now show all the track artists for multi-artist albums
+ - both 32bit & 64bit support available
+ - icon-tooltip shows all the track artists for multi-artist albums
  - automatic album focus when right-click an album to display album choices.
  - ... and a number of bug-fixes as well.
 
@@ -106,5 +129,16 @@ When emailing - tell me your locale & language.  You can find these by typing:
     echo $LANGUAGE
 
 -------
+
+Authors:
+
+The authors of this plugin are fossfreedom <foss.freedom@gmail.com>, Agustín Carrasco <asermax@gmail.com>
+
+-------
+
+Credits:
+
+ - thanks to Luqman Aden <laden@uwaterloo.ca> for the coverart-search plugin which our cover-search pane is based upon
+ - our Translators: jrbastien, asermax, mateuswetah
 
 GTK3 port of code.google.com/p/rhythmbox-cover-art-browser
