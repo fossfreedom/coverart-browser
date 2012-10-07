@@ -1,11 +1,23 @@
-coverart-browser
+coverart-browser v0.5
 ================
 
 Browse your coverart albums in Rhythmbox v2.96 and later
 
 ![Imgur](http://i.imgur.com/JRJKF.png)
 
-GTK3 port of code.google.com/p/rhythmbox-cover-art-browser
+-----------
+
+Summary: whats new in this release
+
+ - Tracks & Covers pane - display tracks for the selected album and built-in coverart web-search
+ - Drag & Drop coverart update
+ - Display Album & Artist name under the cover
+ - Support for assigning track-rating and playing/queuing your favourite rated tracks
+ - Multiple album selection
+ - Double click playing of albums
+ - Sort covers by album name and artist, both in ascending and descending order
+ - Set the coverart size
+ - Multiple user-configurable options to tailor what you see and use.
 
 How it works:
 
@@ -22,17 +34,17 @@ How it works:
  - locale support has been added to display text in your native language.
 
 **HELP WANTED** - We need your help to translate - please help out! (see below)
- - *NEW* - Filter your albums
+ - Filter your albums
 
 ![Imgur](http://i.imgur.com/1QEfH.png)
 
- - *NEW* - position of status bar text is configurable
+ - position of status bar text is configurable
 
 ![Imgur](http://i.imgur.com/LWSFR.png)
 
- - *NEW* - 32bit support now available
- - *NEW* - icon-tooltip now show all the track artists for multi-artist albums
- - *NEW* - automatic album focus when right-click an album to display album choices.
+ - 32bit support now available
+ - icon-tooltip now show all the track artists for multi-artist albums
+ - automatic album focus when right-click an album to display album choices.
  - ... and a number of bug-fixes as well.
 
 *How to install:*
@@ -72,3 +84,7 @@ When emailing - tell me your locale & language.  You can find these by typing:
 
     echo $LANG
     echo $LANGUAGE
+
+-------
+
+GTK3 port of code.google.com/p/rhythmbox-cover-art-browser
