@@ -146,17 +146,22 @@ class AlbumLoader(GObject.Object):
 
         self.reload_model()
 
-    def _get_album_name_and_artist(self, entry):
+    def _get_album_artist(self, entry):
         '''
-        Looks and retrieves an entry's album name and artist
+        Looks and retrieves an entry's album artist.
         '''
-        album_name = entry.get_string(RB.RhythmDBPropType.ALBUM)
         album_artist = entry.get_string(RB.RhythmDBPropType.ALBUM_ARTIST)
 
         if not album_artist:
             album_artist = entry.get_string(RB.RhythmDBPropType.ARTIST)
 
-        return album_name, album_artist
+        return album_artist
+
+    def _get_album_name(self, entry):
+        '''
+        Looks and retrieves an entry's album name.
+        '''
+        return entry.get_string(RB.RhythmDBPropType.ALBUM)
 
     def _albumart_added_callback(self, ext_db, key, path, pixbuf):
         '''
@@ -249,7 +254,7 @@ class AlbumLoader(GObject.Object):
         '''
         print "CoverArtBrowser DEBUG - entry_artist_modified"
         # find the album and inform of the change
-        album_name = entry.get_string(RB.RhythmDBPropType.ALBUM)
+        album_name = self._get_album_name(entry)
 
         if album_name in self.albums:
             self.albums[album_name].entry_artist_modified(entry,
@@ -268,7 +273,7 @@ class AlbumLoader(GObject.Object):
         '''
         print "CoverArtBrowser DEBUG - entry_album_artist_modified"
         # find the album and inform of the change
-        album_name = entry.get_string(RB.RhythmDBPropType.ALBUM)
+        album_name = self._get_album_name(entry)
 
         if album_name in self.albums:
             self.albums[album_name].entry_album_artist_modified(entry,
@@ -305,7 +310,8 @@ class AlbumLoader(GObject.Object):
         Allocates a given entry in to an album. If not album name is given,
         it's inferred from the entry metadata.
         '''
-        album_name, album_artist = self._get_album_name_and_artist(entry)
+        album_name = self._get_album_name(entry)
+        album_artist = self._get_album_artist(entry)
 
         if new_album_name:
             album_name = new_album_name
@@ -320,7 +326,7 @@ class AlbumLoader(GObject.Object):
             self.albums[album_name] = album
 
             album.append_entry(entry)
-            album.load_cover(self.cover_db)
+            album.load_cover(self.cover_db, self.cover_size)
             album.add_to_model(self.cover_model)
 
     def _remove_entry(self, entry, album_name=None):
@@ -329,7 +335,7 @@ class AlbumLoader(GObject.Object):
         it's inferred from the entry metatada.
         '''
         if not album_name:
-            album_name = entry.get_string(RB.RhythmDBPropType.ALBUM)
+            album_name = self._get_album_name(entry)
 
         if album_name in self.albums:
             album = self.albums[album_name]
@@ -375,7 +381,8 @@ class AlbumLoader(GObject.Object):
         (entry,) = model.get(tree_iter, 0)
 
         # retrieve album metadata
-        album_name, album_artist = self._get_album_name_and_artist(entry)
+        album_name = self._get_album_name(entry)
+        album_artist = self._get_album_artist(entry)
 
         # look for the album or create it
         if album_name in self.albums.keys():
@@ -668,7 +675,7 @@ class Album(object):
         rating=0
         for entry in self.entries:
             rating = entry.get_double(RB.RhythmDBPropType.RATING)
-            
+
             if rating !=0:
                 break
 
@@ -682,7 +689,7 @@ class Album(object):
 
             if rating >=threshold:
                 songs.append(entry)
-                
+
         return songs
 
     def _create_tooltip(self):
