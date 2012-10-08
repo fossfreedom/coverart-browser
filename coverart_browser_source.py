@@ -21,7 +21,6 @@ import rb
 import locale
 import gettext
 
-
 from gi.repository import GObject
 from gi.repository import Gio
 from gi.repository import Gdk
@@ -200,6 +199,7 @@ class CoverArtBrowserSource(RB.Source):
         # setup iconview drag&drop support
         self.covers_view.enable_model_drag_dest([], Gdk.DragAction.COPY)
         self.covers_view.drag_dest_add_image_targets()
+        self.covers_view.drag_dest_add_text_targets()
         self.covers_view.connect('drag-drop', self.on_drag_drop)
         self.covers_view.connect('drag-data-received',
             self.on_drag_data_received)
@@ -910,11 +910,17 @@ class CoverArtBrowserSource(RB.Source):
         # stop the propagation of the signal (deactivates superclass callback)
         widget.stop_emission('drag-data-received')
 
-        # get the album and the pixbuf and ask the loader to update the cover
+        # get the album and the info and ask the loader to update the cover
         path, pos = widget.get_dest_item_at_pos(x, y)
-        pixbuf = data.get_pixbuf()
         album = widget.get_model()[path][2]
-        self.loader.update_cover(album, pixbuf)
+
+        pixbuf = data.get_pixbuf()
+
+        if pixbuf:
+            self.loader.update_cover(album, pixbuf)
+        else:
+            uri = data.get_text()
+            self.loader.update_cover(album, uri=uri)
 
         # call the context drag_finished to inform the source about it
         drag_context.finish(True, False, time)

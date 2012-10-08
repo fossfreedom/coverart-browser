@@ -26,6 +26,8 @@ from gi.repository import GdkPixbuf
 
 from coverart_browser_prefs import GSetting
 
+from urlparse import urlparse
+import urllib
 import os
 import cgi
 import tempfile
@@ -553,23 +555,36 @@ class AlbumLoader(GObject.Object):
 
                 self.cover_db.store(key, RB.ExtDBSourceType.USER_EXPLICIT,
                     pixbuf)
+
         elif uri:
-            # if it's an uri, we have to retrieve te data first
-            def cover_update(data, album):
-                # save the cover on a temp file and open it as a pixbuf
-                with tempfile.NamedTemporaryFile(mode='w') as tmp:
-                    tmp.write(data)
+            parsed = urlparse(uri)
 
-                    try:
-                        cover = GdkPixbuf.Pixbuf.new_from_file(tmp.name)
+            if parsed.scheme == 'file':
+                # local file, load it on a pixbuf and asign it
+                path = urllib.url2pathname(uri.strip()).replace('file://', '')
 
-                        # set the new cover
-                        self.update_cover(album, cover)
-                    except:
-                        print "The URI doesn't point to an image."
+                if os.path.exists(path):
+                    cover = GdkPixbuf.Pixbuf.new_from_file(path)
 
-            async = rb.Loader()
-            async.get_url(uri, cover_update, album)
+                    self.update_cover(album, cover)
+
+            else:
+                # assume is a remote uri and we have to retrieve the data
+                def cover_update(data, album):
+                    # save the cover on a temp file and open it as a pixbuf
+                    with tempfile.NamedTemporaryFile(mode='w') as tmp:
+                        tmp.write(data)
+
+                        try:
+                            cover = GdkPixbuf.Pixbuf.new_from_file(tmp.name)
+
+                            # set the new cover
+                            self.update_cover(album, cover)
+                        except:
+                            print "The URI doesn't point to an image."
+
+                async = rb.Loader()
+                async.get_url(uri, cover_update, album)
 
 
 class Cover(object):
