@@ -99,6 +99,8 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
+        <property name="margin_left">5</property>
+        <property name="margin_bottom">5</property>
         <child>
           <object class="GtkCheckButton" id="display_text_loading_checkbox">
             <property name="label" translatable="yes">Show text while loading</property>
@@ -106,7 +108,7 @@
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
             <property name="tooltip_text" translatable="yes">Show's the text for each album during the source load. Deactivating this option may help with the loading performance.</property>
-            <property name="margin_left">25</property>
+            <property name="margin_left">20</property>
             <property name="margin_right">5</property>
             <property name="margin_top">5</property>
             <property name="margin_bottom">5</property>
@@ -127,7 +129,7 @@
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
             <property name="tooltip_text" translatable="yes">Ellipsizes the albums names to a fixed length when the display text option is enabled.</property>
-            <property name="margin_left">25</property>
+            <property name="margin_left">20</property>
             <property name="margin_right">5</property>
             <property name="margin_top">5</property>
             <property name="margin_bottom">5</property>
@@ -145,12 +147,12 @@
           <object class="GtkBox" id="display_text_ellipsize_length_box">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="margin_left">50</property>
             <child>
               <object class="GtkLabel" id="display_text_ellipsize_length_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="tooltip_text" translatable="yes">This is the maximum allowed size for an album's name before being ellipsized.</property>
-                <property name="margin_left">50</property>
                 <property name="label" translatable="yes">Maximum length:</property>
               </object>
               <packing>
@@ -197,11 +199,13 @@
           <object class="GtkBox" id="rated_box">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="margin_left">5</property>
+            <property name="margin_top">5</property>
+            <property name="margin_bottom">5</property>
             <child>
               <object class="GtkLabel" id="rated_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="margin_left">5</property>
                 <property name="tooltip_text" translatable="yes">Level above which is regarded as being a rated track.</property>
                 <property name="label" translatable="yes">Rated Threshold:</property>
               </object>
@@ -215,6 +219,7 @@
               <object class="GtkSpinButton" id="rated_spin">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="margin_left">5</property>
                 <property name="max_length">1</property>
                 <property name="width_chars">3</property>
                 <property name="adjustment">rated_adjustment</property>
@@ -238,14 +243,14 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
+        <property name="margin_left">5</property>
+        <property name="margin_top">5</property>
         <child>
           <object class="GtkLabel" id="cover_size_label">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="tooltip_text" translatable="yes">Defines the size for the covers showed on the source.</property>
             <property name="halign">start</property>
-            <property name="margin_left">5</property>
-            <property name="margin_top">5</property>
             <property name="label" translatable="yes">Cover size in pixels:</property>
           </object>
           <packing>
@@ -258,8 +263,7 @@
           <object class="GtkScale" id="cover_size_scale">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="margin_left">10</property>
-            <property name="margin_right">10</property>
+            <property name="margin_right">5</property>
             <property name="margin_top">5</property>
             <property name="margin_bottom">5</property>
             <property name="adjustment">cover_size_adjustment</property>
