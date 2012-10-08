@@ -5,12 +5,12 @@
 # Section 1: Developers Only
 #+++++++++++++++++++++++++++
 #for each ui file run the following to create translation .h files
-intltool-extract --type=gettext/glade coverart_browser_prefs.ui
-intltool-extract --type=gettext/glade coverart_browser.ui
-intltool-extract --type=gettext/glade coverart_entryview.ui
+intltool-extract --type=gettext/glade ui/coverart_browser_prefs.ui
+intltool-extract --type=gettext/glade ui/coverart_browser.ui
+intltool-extract --type=gettext/glade ui/coverart_entryview.ui
 
 #create a new template file called po/package.pot by running
-pygettext -d package -k _ -k N_ -p po *.py *.h
+pygettext -d package -k _ -k N_ -p po *.py ui/*.h
 
 #now update existing po's with changes in the template file package.pot 
 ./update_all_po.sh
