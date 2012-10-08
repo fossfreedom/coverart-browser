@@ -63,6 +63,8 @@ Tailor the search for album covers:
 
 ![Imgur](http://i.imgur.com/N7cy6.png)
 
+The cover-view accept images dropped from nautilus (for example) or URLs from the web.
+
  - Rate tracks and play your favourite tracks from albums
 
 Rate your tracks:
