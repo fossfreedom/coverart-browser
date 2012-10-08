@@ -159,6 +159,15 @@ class CoverArtBrowserSource(RB.Source):
         #indicate that the source was activated before
         self.hasActivated = True
 
+        self._create_ui()
+        self._setup_source()
+        self._apply_settings()
+
+    def _create_ui(self):
+        '''
+        Creates the ui for the source and saves the important widgets onto
+        properties.
+        '''
         # dialog has not been created so lets do so.
         ui = Gtk.Builder()
         ui.set_translation_domain(self.LOCALE_DOMAIN)
@@ -169,6 +178,9 @@ class CoverArtBrowserSource(RB.Source):
         # load the page and put it in the source
         self.page = ui.get_object('main_box')
         self.pack_start(self.page, True, True, 0)
+
+        # covers model
+        self.covers_model_store = ui.get_object('covers_model')
 
         # get widgets for main icon-view
         self.status_label = ui.get_object('status_label')
@@ -189,52 +201,20 @@ class CoverArtBrowserSource(RB.Source):
         self.bottom_box = ui.get_object('bottom_box')
         self.bottom_expander = ui.get_object('bottom_expander')
         self.notebook = ui.get_object('bottom_notebook')
-        self.play_favourites_album_menu_item = ui.get_object(
-            'play_favourites_album_menu_item')
-        self.queue_favourites_album_menu_item = ui.get_object(
-            'queue_favourites_album_menu_item')
 
-        self.on_notify_rating_threshold(_)
-
-        # setup iconview drag&drop support
-        self.covers_view.enable_model_drag_dest([], Gdk.DragAction.COPY)
-        self.covers_view.drag_dest_add_image_targets()
-        self.covers_view.drag_dest_add_text_targets()
-        self.covers_view.connect('drag-drop', self.on_drag_drop)
-        self.covers_view.connect('drag-data-received',
-            self.on_drag_data_received)
-
-        # setup the sorting
-        self.sort_by_album_radio.set_mode(False)
-        self.sort_by_artist_radio.set_mode(False)
-        self.descending_sort_radio.set_mode(False)
-        self.ascending_sort_radio.set_mode(False)
-
-        # workaround for some RBSearchEntry's problems
+        # get widget for search and apply some workarounds
         search_entry = ui.get_object('search_entry')
         search_entry.set_placeholder(_('Search album'))
         search_entry.show_all()
-
-        # setup entry-view objects and widgets
-        y = self.gs.get_value(self.gs.Path.PLUGIN,
-            self.gs.PluginKey.PANED_POSITION)
-        self.paned.set_position(y)
-
-        self.entry_view = CoverArtEntryView(self.shell, self)
-        self.entry_view.show_all()
-        self.notebook.append_page(self.entry_view, Gtk.Label('Tracks'))
-
-        # setup cover search
-        self.cover_search_pane = CoverSearchPane(self.plugin)
-        self.notebook.append_page(self.cover_search_pane, Gtk.Label('Covers'))
-
-        # force display of bottom notebook if it's enabled
-        self.on_notify_display_bottom_enabled(_)
 
         # get widgets for source popup
         self.source_menu = ui.get_object('source_menu')
         self.source_menu_search_all_item = ui.get_object(
             'source_search_menu_item')
+        self.play_favourites_album_menu_item = ui.get_object(
+            'play_favourites_album_menu_item')
+        self.queue_favourites_album_menu_item = ui.get_object(
+            'queue_favourites_album_menu_item')
 
         # get widgets for filter popup
         self.filter_menu = ui.get_object('filter_menu')
@@ -246,18 +226,42 @@ class CoverArtBrowserSource(RB.Source):
         self.filter_menu_track_title_item = ui.get_object(
             'filter_track_title_menu_item')
 
-        # get the loader
+    def _setup_source(self):
+        '''
+        Setups the differents parts of the source so they are ready to be used
+        by the user. It also creates and configure some custom widgets.
+        '''
+        # setup the sorting
+        self.sort_by_album_radio.set_mode(False)
+        self.sort_by_artist_radio.set_mode(False)
+        self.descending_sort_radio.set_mode(False)
+        self.ascending_sort_radio.set_mode(False)
+
+        # setup iconview drag&drop support
+        self.covers_view.enable_model_drag_dest([], Gdk.DragAction.COPY)
+        self.covers_view.drag_dest_add_image_targets()
+        self.covers_view.drag_dest_add_text_targets()
+        self.covers_view.connect('drag-drop', self.on_drag_drop)
+        self.covers_view.connect('drag-data-received',
+            self.on_drag_data_received)
+
+        # setup entry-view objects and widgets
+        y = self.gs.get_value(self.gs.Path.PLUGIN,
+            self.gs.PluginKey.PANED_POSITION)
+        self.paned.set_position(y)
+
+        self.entry_view = CoverArtEntryView(self.shell, self)
+        self.entry_view.show_all()
+        self.notebook.append_page(self.entry_view, Gtk.Label('Tracks'))
+
+        # setup cover search pane
+        self.cover_search_pane = CoverSearchPane(self.plugin)
+        self.notebook.append_page(self.cover_search_pane, Gtk.Label('Covers'))
+
+        # setup the album loader and the cover view to use it's model + filter
         self.loader = AlbumLoader.get_instance(self.plugin,
-            ui.get_object('covers_model'), self.props.query_model)
+            self.covers_model_store, self.props.query_model)
 
-        # if the source is fully loaded, enable the full cover search item
-        if self.loader.progress == 1:
-            self.load_finished_callback()
-
-        # if the text during load is enabled, activate it
-        self.activate_markup()
-
-        # retrieve and set the model, it's filter and the sorting column
         self.covers_model_store = self.loader.cover_model
 
         self.covers_model_store.set_sort_func(2, self.sort_albums)
@@ -267,6 +271,12 @@ class CoverArtBrowserSource(RB.Source):
 
         self.covers_view.set_model(self.covers_model)
 
+    def _apply_settings(self):
+        '''
+        Applies all the settings related to the source and connects those that
+        must be updated when the preferences dialog changes it's values. Also
+        enables differents parts of the ui if the settings says so.
+        '''
         # connect some signals to the loader to keep the source informed
         self.album_mod_id = self.loader.connect('album-modified',
             self.album_modified_callback)
@@ -285,7 +295,7 @@ class CoverArtBrowserSource(RB.Source):
         self.notify_cover_size = self.loader.connect('notify::cover-size',
             self.on_notify_cover_size)
 
-        # apply some settings
+        # apply/connect some settings
         source_settings = self.gs.get_setting(self.gs.Path.PLUGIN)
         source_settings.bind(self.gs.PluginKey.SORT_BY_ALBUM,
             self.sort_by_album_radio, 'active', Gio.SettingsBindFlags.DEFAULT)
@@ -300,6 +310,15 @@ class CoverArtBrowserSource(RB.Source):
         rhythm_settings = self.gs.get_setting(self.gs.Path.RBSOURCE)
         rhythm_settings.connect('changed::visible-columns',
             self.on_visible_columns_changed)
+
+        # enable some ui if necesary
+        self.on_notify_rating_threshold(_)
+        self.on_notify_display_bottom_enabled(_)
+        self.activate_markup()
+
+        if self.loader.progress == 1:
+            # if the source is fully loaded, enable the full cover search item
+            self.load_finished_callback()
 
         print "CoverArtBrowser DEBUG - end show_browser_dialog"
 
