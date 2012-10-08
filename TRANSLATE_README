@@ -25,5 +25,9 @@ cd po; msginit --no-translator
 #create a new specific (e.g. spanish) locale file from this template:
 cd po; msginit --no-translator -l es
 
+#Take special care with "Fuzzy" translations.  "Fuzzy" lines should be
+#removed - the string should be carefully examined since these are often
+#automated translations.
+
 #run lang.sh to compile and install the po files
 sudo ./lang.sh /usr/share/locale/
