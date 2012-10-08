@@ -42,12 +42,10 @@ msgid "%d selected albums "
 msgstr ""
 
 #: coverart_browser_source.py:753
-#, fuzzy
 msgid " with 1 track"
 msgstr " tiene una canción"
 
 #: coverart_browser_source.py:755
-#, fuzzy
 msgid " with %d tracks"
 msgstr " tiene %d canciones"
 
@@ -60,7 +58,6 @@ msgid " and a duration of %d minutes"
 msgstr " y una duración de %d minutos"
 
 #: ui/coverart_browser.ui.h:1
-#, fuzzy
 msgid "Album"
 msgstr "Álbum"
 
@@ -117,9 +114,8 @@ msgid "Play Favourites"
 msgstr ""
 
 #: ui/coverart_browser.ui.h:15
-#, fuzzy
 msgid "Add favourite tracks from this album to your playing queue"
-msgstr "Agrega este álbum a tu cola de reproducción"
+msgstr "Agrega las canciones favoritas de este álbum a tu cola de reproducción"
 
 #: ui/coverart_browser.ui.h:16
 msgid "Queue Favourites"
@@ -150,7 +146,6 @@ msgid "Search using all fields"
 msgstr "Busca utilizando todos los campos"
 
 #: ui/coverart_browser.ui.h:23
-#, fuzzy
 msgid "Search all fields"
 msgstr "Buscar por todos los campos"
 
@@ -159,7 +154,6 @@ msgid "Search using album artist names"
 msgstr "Busca por el nombre de artista del álbum"
 
 #: ui/coverart_browser.ui.h:25
-#, fuzzy
 msgid "Search album artists"
 msgstr "Buscar por artista del álbum"
 
@@ -202,74 +196,77 @@ msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:3
 msgid "Display tracks and covers pane"
-msgstr ""
+msgstr "Mostrar panel de canciones y portadas"
 
 #: ui/coverart_browser_prefs.ui.h:4
-#, fuzzy
 msgid ""
 "Add a toggle-option to the coverart view to display the tracks and covers "
 "for the chosen album"
 msgstr ""
 "Agrega una ventana desplegable a la vista de portadas para mostrar las "
-"canciones del álbum seleccionado"
+"canciones y portadas del álbum seleccionado"
 
 #: ui/coverart_browser_prefs.ui.h:5
 msgid "Display album's info under cover"
-msgstr ""
+msgstr "Mostrar información del albúm debajo de su portada"
 
 #: ui/coverart_browser_prefs.ui.h:6
 msgid "Show the album's basic information under the cover image."
-msgstr ""
+msgstr "Muestra información básica del album debajo de su imagen de portada."
 
 #: ui/coverart_browser_prefs.ui.h:7
 msgid "Show text while loading"
-msgstr ""
+msgstr "Mostrar texto al cargar"
 
 #: ui/coverart_browser_prefs.ui.h:8
 msgid ""
 "Show's the text for each album during the source load. Deactivating this "
 "option may help with the loading performance."
 msgstr ""
+"Muestra el texto para cada álbum mientras se carga el plugin. Desactivar "
+"esta opción puede mejorar la eficiencia de la carga."
 
 #: ui/coverart_browser_prefs.ui.h:9
 msgid "Ellipsize albums names"
-msgstr ""
+msgstr "Acortar el nombre de los álbums"
 
 #: ui/coverart_browser_prefs.ui.h:10
 msgid ""
 "Ellipsizes the albums names to a fixed length when the display text option "
 "is enabled."
 msgstr ""
+"Acorta los nombres de los álbums a un tamaño fijo, mostrando puntos suspensivos "
+"cuando la opción para mostrar texto esta activada."
 
 #: ui/coverart_browser_prefs.ui.h:11
 msgid ""
 "This is the maximum allowed size for an album's name before being ellipsized."
 msgstr ""
+"Este es el largo máximo permitido para el nombre del álbum antes de ser acortado."
 
 #: ui/coverart_browser_prefs.ui.h:12
 msgid "Maximum length:"
-msgstr ""
+msgstr "Largo máximo:"
 
 #: ui/coverart_browser_prefs.ui.h:13
 msgid "Level above which is regarded as being a rated track."
-msgstr ""
+msgstr "Nivel a partir del cual se considera que un track es favorito."
 
 #: ui/coverart_browser_prefs.ui.h:14
 msgid "Rating Threshold:"
-msgstr ""
+msgstr "Umbral de puntuación"
 
 #: ui/coverart_browser_prefs.ui.h:15
 msgid "Defines the size for the covers showed on the source."
-msgstr ""
+msgstr "Define el tamaño para las portadas mostradas en el plugin."
 
 #: ui/coverart_browser_prefs.ui.h:16
 msgid "Cover size in pixels:"
-msgstr ""
+msgstr "Tamaño de portada en pixels:"
 
 #: ui/coverart_entryview.ui.h:1
-#, fuzzy
 msgid "Play this track"
-msgstr "Reproduce este álbum"
+msgstr "Reproduce esta canción"
 
 #: ui/coverart_entryview.ui.h:2
 msgid "Play Track"
@@ -285,60 +282,59 @@ msgstr "Encolar canción"
 
 #: ui/coverart_entryview.ui.h:5
 msgid "Give the track a favourite rating"
-msgstr ""
+msgstr "Marca esta canción como favorita"
 
 #: ui/coverart_entryview.ui.h:6
-#, fuzzy
 msgid "Rate Track"
-msgstr "Reproducir canción"
+msgstr "Puntuar canción"
 
 #: ui/coverart_entryview.ui.h:7
 msgid "Give the track a 5 star rating"
-msgstr ""
+msgstr "Da a la canción un puntaje de 5 estrellas"
 
 #: ui/coverart_entryview.ui.h:8
 msgid "5 Stars"
-msgstr ""
+msgstr "5 Estrellas"
 
 #: ui/coverart_entryview.ui.h:9
 msgid "Give the track a 4 star rating"
-msgstr ""
+msgstr "Da a la canción un puntaje de 4 estrellas"
 
 #: ui/coverart_entryview.ui.h:10
 msgid "4 Stars"
-msgstr ""
+msgstr "4 Estrellas"
 
 #: ui/coverart_entryview.ui.h:11
 msgid "Give the track a 3 star rating"
-msgstr ""
+msgstr "Da a la canción un puntaje de 3 estrellas"
 
 #: ui/coverart_entryview.ui.h:12
 msgid "3 Stars"
-msgstr ""
+msgstr "3 Estrellas"
 
 #: ui/coverart_entryview.ui.h:13
 msgid "Give the track a 2 star rating"
-msgstr ""
+msgstr "Da a la canción un puntaje de 2 estrellas"
 
 #: ui/coverart_entryview.ui.h:14
 msgid "2 Stars"
-msgstr ""
+msgstr "2 Estrellas"
 
 #: ui/coverart_entryview.ui.h:15
 msgid "Give the track a 1 star rating"
-msgstr ""
+msgstr "Da a la canción un puntaje de 1 estrellas"
 
 #: ui/coverart_entryview.ui.h:16
 msgid "1 Star"
-msgstr ""
+msgstr "1 Estrellas"
 
 #: ui/coverart_entryview.ui.h:17
 msgid "Give the track a 0 star rating"
-msgstr ""
+msgstr "Da a la canción un puntaje de 0 estrellas"
 
 #: ui/coverart_entryview.ui.h:18
 msgid "0 Stars"
-msgstr ""
+msgstr "0 Estrellas"
 
 #: ui/coverart_entryview.ui.h:19
 msgid "Show track properties"
