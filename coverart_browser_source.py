@@ -252,11 +252,11 @@ class CoverArtBrowserSource(RB.Source):
 
         self.entry_view = CoverArtEntryView(self.shell, self)
         self.entry_view.show_all()
-        self.notebook.append_page(self.entry_view, Gtk.Label(_('Tracks')))
+        self.notebook.append_page(self.entry_view, Gtk.Label(_("Tracks")))
 
         # setup cover search pane
         self.cover_search_pane = CoverSearchPane(self.plugin)
-        self.notebook.append_page(self.cover_search_pane, Gtk.Label(_('Covers')))
+        self.notebook.append_page(self.cover_search_pane, Gtk.Label(_("Covers")))
 
         # setup the album loader and the cover view to use it's model + filter
         self.loader = AlbumLoader.get_instance(self.plugin,

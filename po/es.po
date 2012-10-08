@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-08 18:37+BST\n"
+"POT-Creation-Date: 2012-10-08 20:29+BST\n"
 "PO-Revision-Date: 2012-09-18 20:57+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -25,35 +25,43 @@ msgstr "Varios Artistas"
 msgid "CoverArt"
 msgstr "CoverArt"
 
-#: coverart_browser_source.py:215
+#: coverart_browser_source.py:207
 msgid "Search album"
 msgstr "Buscar álbum"
 
-#: coverart_browser_source.py:688
+#: coverart_browser_source.py:255
+msgid "Tracks"
+msgstr "Reproducir canción"
+
+#: coverart_browser_source.py:259
+msgid "Covers"
+msgstr "CoverArt"
+
+#: coverart_browser_source.py:695
 msgid "Requesting cover for %s - %s..."
 msgstr "Buscando portada para %s - %s..."
 
-#: coverart_browser_source.py:746
+#: coverart_browser_source.py:753
 msgid "%s by %s"
 msgstr ""
 
-#: coverart_browser_source.py:749
+#: coverart_browser_source.py:756
 msgid "%d selected albums "
 msgstr ""
 
-#: coverart_browser_source.py:753
+#: coverart_browser_source.py:760
 msgid " with 1 track"
 msgstr " tiene una canción"
 
-#: coverart_browser_source.py:755
+#: coverart_browser_source.py:762
 msgid " with %d tracks"
 msgstr " tiene %d canciones"
 
-#: coverart_browser_source.py:758
+#: coverart_browser_source.py:765
 msgid " and a duration of 1 minute"
 msgstr " y una duración de 1 minuto"
 
-#: coverart_browser_source.py:760
+#: coverart_browser_source.py:767
 msgid " and a duration of %d minutes"
 msgstr " y una duración de %d minutos"
 
@@ -83,7 +91,7 @@ msgstr "Ordenar en orden ascendente"
 
 #: ui/coverart_browser.ui.h:7
 msgid "Tracks & Covers"
-msgstr ""
+msgstr "Reproducir canción y CoverArt"
 
 #: ui/coverart_browser.ui.h:8
 msgid "Stop coverart fetch."
@@ -235,14 +243,15 @@ msgid ""
 "Ellipsizes the albums names to a fixed length when the display text option "
 "is enabled."
 msgstr ""
-"Acorta los nombres de los álbums a un tamaño fijo, mostrando puntos suspensivos "
-"cuando la opción para mostrar texto esta activada."
+"Acorta los nombres de los álbums a un tamaño fijo, mostrando puntos "
+"suspensivos cuando la opción para mostrar texto esta activada."
 
 #: ui/coverart_browser_prefs.ui.h:11
 msgid ""
 "This is the maximum allowed size for an album's name before being ellipsized."
 msgstr ""
-"Este es el largo máximo permitido para el nombre del álbum antes de ser acortado."
+"Este es el largo máximo permitido para el nombre del álbum antes de ser "
+"acortado."
 
 #: ui/coverart_browser_prefs.ui.h:12
 msgid "Maximum length:"

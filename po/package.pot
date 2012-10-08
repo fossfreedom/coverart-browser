@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-10-08 18:37+BST\n"
+"POT-Creation-Date: 2012-10-08 20:29+BST\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,35 +23,43 @@ msgstr ""
 msgid "CoverArt"
 msgstr ""
 
-#: coverart_browser_source.py:215
+#: coverart_browser_source.py:207
 msgid "Search album"
 msgstr ""
 
-#: coverart_browser_source.py:688
+#: coverart_browser_source.py:255
+msgid "Tracks"
+msgstr ""
+
+#: coverart_browser_source.py:259
+msgid "Covers"
+msgstr ""
+
+#: coverart_browser_source.py:695
 msgid "Requesting cover for %s - %s..."
 msgstr ""
 
-#: coverart_browser_source.py:746
+#: coverart_browser_source.py:753
 msgid "%s by %s"
 msgstr ""
 
-#: coverart_browser_source.py:749
+#: coverart_browser_source.py:756
 msgid "%d selected albums "
 msgstr ""
 
-#: coverart_browser_source.py:753
+#: coverart_browser_source.py:760
 msgid " with 1 track"
 msgstr ""
 
-#: coverart_browser_source.py:755
+#: coverart_browser_source.py:762
 msgid " with %d tracks"
 msgstr ""
 
-#: coverart_browser_source.py:758
+#: coverart_browser_source.py:765
 msgid " and a duration of 1 minute"
 msgstr ""
 
-#: coverart_browser_source.py:760
+#: coverart_browser_source.py:767
 msgid " and a duration of %d minutes"
 msgstr ""
 
