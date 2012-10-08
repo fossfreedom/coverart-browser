@@ -27,12 +27,13 @@ import gettext
 
 from coverart_browser_prefs import GSetting
 
+
 class CoverArtEntryView(RB.EntryView):
     LOCALE_DOMAIN = 'coverart_browser'
-    
+
     def __init__(self, shell, source):
         '''
-        Initializes the source.
+        Initializes the entryview.
         '''
         self.shell = shell
         self.source = source
@@ -54,11 +55,10 @@ class CoverArtEntryView(RB.EntryView):
         self.append_column(RB.EntryViewColumn.PLAY_COUNT, False) #'play-count'
         self.append_column(RB.EntryViewColumn.LAST_PLAYED, False) #'last-played'
         self.append_column(RB.EntryViewColumn.YEAR, False) #'date'
-        self.append_column(RB.EntryViewColumn.FIRST_SEEN, False) #'first-seen': 
+        self.append_column(RB.EntryViewColumn.FIRST_SEEN, False) #'first-seen':
         self.append_column(RB.EntryViewColumn.LOCATION, False) #'location'
         self.append_column(RB.EntryViewColumn.BPM, False) #'beats-per-minute'
 
-        self.set_visible_cols()
         self.set_columns_clickable(False)
 
         # UI elements need to be imported.
@@ -69,11 +69,19 @@ class CoverArtEntryView(RB.EntryView):
         ui.connect_signals(self)
 
         self.popup_menu = ui.get_object('entryview_popup_menu')
-        
+
+        # connect signals to the shell to know when the playing state changes
         self.shell.props.shell_player.connect('playing-song-changed',
             self.playing_song_changed)
         self.shell.props.shell_player.connect('playing-changed',
             self.playing_changed)
+
+        # connect the visible-columns global setting to update our entryview
+        gs = GSetting()
+        rhythm_settings = gs.get_setting(gs.Path.RBSOURCE)
+        rhythm_settings.connect('changed::visible-columns',
+            self.on_visible_columns_changed)
+        self.on_visible_columns_changed(rhythm_settings, 'visible-columns')
 
         self.qm = RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
         self.set_model(self.qm)
@@ -89,33 +97,16 @@ class CoverArtEntryView(RB.EntryView):
         del self.play_action
         del self.queue_action
 
-
-    def set_visible_cols(self):
-        print "CoverArtBrowser DEBUG - set_visible_cols()"
+    def on_visible_columns_changed(self, settings, key):
+        print "CoverArtBrowser DEBUG - on_visible_columns_changed()"
         #reset current columns
-        self.props.visible_columns=['title']
+        self.props.visible_columns = settings[key]
+        print "CoverArtBrowser DEBUG - end on_visible_columns_changed()"
 
-        gs = GSetting()
-        visible_cols = gs.get_value( gs.Path.RBSOURCE,
-                                     gs.RBSourceKey.VISIBLE_COLS )
-        
-        ordered_cols = ['track-number', 'genre', 'title', 'artist', 'album', 'duration']
-        new_cols = []
-        for val in ordered_cols:
-            if val in visible_cols or val=='title':
-                new_cols.append(val)
-                
-        for col in visible_cols:
-            if col not in ordered_cols:
-                new_cols.append(col)
-
-        self.props.visible_columns = new_cols
-        print "CoverArtBrowser DEBUG - set_visible_cols()"
-                
     def add_album(self, album):
         print "CoverArtBrowser DEBUG - add_album()"
         album.get_entries(self.qm)
-        
+
         (_, playing) = self.shell.props.shell_player.get_playing()
         self.playing_changed(self.shell.props.shell_player, playing)
         print "CoverArtBrowser DEBUG - add_album()"
@@ -173,7 +164,6 @@ class CoverArtEntryView(RB.EntryView):
 
         print "CoverArtBrowser DEBUG - queue_track_menu_item_callback()"
 
-
     def love_track_menu_item_callback5(self, entry):
         self.love_track(5)
 
@@ -192,7 +182,6 @@ class CoverArtEntryView(RB.EntryView):
     def love_track_menu_item_callback0(self, entry):
         self.love_track(0)
 
-
     def love_track(self, rating):
         '''
         utility function to set the rating for selected tracks
@@ -200,18 +189,18 @@ class CoverArtEntryView(RB.EntryView):
         selected = self.get_selected_entries()
 
         for entry in selected:
-            self.shell.props.db.entry_set( entry, RB.RhythmDBPropType.RATING, rating)
+            self.shell.props.db.entry_set(entry, RB.RhythmDBPropType.RATING,
+                rating)
 
         self.shell.props.db.commit()
-        
-        
+
     def show_properties_menu_item_callback(self, entry):
         print "CoverArtBrowser DEBUG - show_properties_menu_item_callback()"
 
         info_dialog = RB.SongInfo(source=self.source, entry_view=self)
 
         info_dialog.show_all()
-        
+
         print "CoverArtBrowser DEBUG - show_properties_menu_item_callback()"
 
     def playing_song_changed(self, shell_player, entry):

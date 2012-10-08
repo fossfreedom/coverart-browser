@@ -307,10 +307,6 @@ class CoverArtBrowserSource(RB.Source):
         source_settings.bind(self.gs.PluginKey.ASC_SORT,
             self.ascending_sort_radio, 'active', Gio.SettingsBindFlags.DEFAULT)
 
-        rhythm_settings = self.gs.get_setting(self.gs.Path.RBSOURCE)
-        rhythm_settings.connect('changed::visible-columns',
-            self.on_visible_columns_changed)
-
         # enable some ui if necesary
         self.on_notify_rating_threshold(_)
         self.on_notify_display_bottom_enabled(_)
@@ -321,14 +317,6 @@ class CoverArtBrowserSource(RB.Source):
             self.load_finished_callback()
 
         print "CoverArtBrowser DEBUG - end show_browser_dialog"
-
-    def on_visible_columns_changed(self, settings, key):
-        '''
-        Callback called when the visible columns on the rhythmbox preferences
-        are changed.
-        '''
-        print 'on_visible_columns_changed'
-        self.entry_view.set_visible_cols()
 
     def load_finished_callback(self, _):
         '''
