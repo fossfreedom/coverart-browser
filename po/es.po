@@ -356,60 +356,56 @@ msgid "Show track properties"
 msgstr "Mostrar propiedades de la canción"
 
 #: tmpl/albumartsearch-tmpl.html:126 tmpl/albumartsearch-tmpl.html:176
-#, fuzzy
 msgid "Search Options"
-msgstr "Buscar por canción"
+msgstr "Opciones de búsqueda"
 
 #: tmpl/albumartsearch-tmpl.html:168
 msgid "Album art search"
-msgstr ""
+msgstr "Búsqueda de portadas"
 
 #: tmpl/albumartsearch-tmpl.html:178
-#, fuzzy
 msgid "Search Mode"
-msgstr "Buscar portadas"
+msgstr "Modo de búsqueda"
 
 #: tmpl/albumartsearch-tmpl.html:182
 msgid "Artist and album"
-msgstr ""
+msgstr "Artista y álbum"
 
 #: tmpl/albumartsearch-tmpl.html:185
-#, fuzzy
 msgid "Search text"
-msgstr "Buscar por canción"
+msgstr "Buscar texto"
 
 #: tmpl/albumartsearch-tmpl.html:188
-#, fuzzy
 msgid "Search"
-msgstr "Buscar álbum"
+msgstr "Buscar"
 
 #: tmpl/albumartsearch-tmpl.html:190
 msgid "Image Size"
-msgstr ""
+msgstr "Tamaño de imagen"
 
 #: tmpl/albumartsearch-tmpl.html:192
 msgid "Small"
-msgstr ""
+msgstr "Pequeña"
 
 #: tmpl/albumartsearch-tmpl.html:193
 msgid "Medium"
-msgstr ""
+msgstr "Mediana"
 
 #: tmpl/albumartsearch-tmpl.html:194
 msgid "Large"
-msgstr ""
+msgstr "Granda"
 
 #: tmpl/albumartsearch-tmpl.html:195
 msgid "Extra Large"
-msgstr ""
+msgstr "Muy Grande"
 
 #: tmpl/albumartsearch-tmpl.html:202
 msgid "Show more results"
-msgstr ""
+msgstr "Mostrar mas resultados"
 
 #: tmpl/albumartsearchempty-tmpl.html:11
 msgid " Album art search - Select an album"
-msgstr ""
+msgstr "Búsqueda de portadas - Seleccione un álbum"
 
 #~ msgid "Display Tracks"
 #~ msgstr "Mostrar canciones"
