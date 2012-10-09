@@ -5,7 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
-"POT-Creation-Date: 2012-10-08 20:29+BST\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2012-10-09 23:14+BST\n"
 "PO-Revision-Date: 2012-09-19 14:32+BST\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -23,6 +24,10 @@ msgstr "Vários Artistas"
 #: coverart_browser.py:89
 msgid "CoverArt"
 msgstr "Arte das Capas"
+
+#: coverart_browser_source.py:92 tmpl/albumartsearch-tmpl.html:200
+msgid "Loading..."
+msgstr ""
 
 #: coverart_browser_source.py:207
 msgid "Search album"
@@ -67,7 +72,8 @@ msgstr " e dura 1 minuto"
 msgid " and a duration of %d minutes"
 msgstr " e dura %d minutos"
 
-#: ui/coverart_browser.ui.h:1
+#: ui/coverart_browser.ui.h:1 tmpl/albumartsearch-tmpl.html:171
+#: tmpl/albumartsearch-tmpl.html:181
 #, fuzzy
 msgid "Album"
 msgstr "Reproduzir Álbum"
@@ -76,7 +82,8 @@ msgstr "Reproduzir Álbum"
 msgid "Sort by album name"
 msgstr ""
 
-#: ui/coverart_browser.ui.h:3
+#: ui/coverart_browser.ui.h:3 tmpl/albumartsearch-tmpl.html:170
+#: tmpl/albumartsearch-tmpl.html:180
 msgid "Artist"
 msgstr ""
 
@@ -354,6 +361,62 @@ msgstr ""
 #, fuzzy
 msgid "Show track properties"
 msgstr "Procurar artistas das faixas"
+
+#: tmpl/albumartsearch-tmpl.html:126 tmpl/albumartsearch-tmpl.html:176
+#, fuzzy
+msgid "Search Options"
+msgstr "Procurar por faixas"
+
+#: tmpl/albumartsearch-tmpl.html:168
+msgid "Album art search"
+msgstr ""
+
+#: tmpl/albumartsearch-tmpl.html:178
+#, fuzzy
+msgid "Search Mode"
+msgstr "Procurar por capas"
+
+#: tmpl/albumartsearch-tmpl.html:182
+msgid "Artist and album"
+msgstr ""
+
+#: tmpl/albumartsearch-tmpl.html:185
+#, fuzzy
+msgid "Search text"
+msgstr "Procurar por faixas"
+
+#: tmpl/albumartsearch-tmpl.html:188
+#, fuzzy
+msgid "Search"
+msgstr "Procurar álbum"
+
+#: tmpl/albumartsearch-tmpl.html:190
+msgid "Image Size"
+msgstr ""
+
+#: tmpl/albumartsearch-tmpl.html:192
+msgid "Small"
+msgstr ""
+
+#: tmpl/albumartsearch-tmpl.html:193
+msgid "Medium"
+msgstr ""
+
+#: tmpl/albumartsearch-tmpl.html:194
+msgid "Large"
+msgstr ""
+
+#: tmpl/albumartsearch-tmpl.html:195
+msgid "Extra Large"
+msgstr ""
+
+#: tmpl/albumartsearch-tmpl.html:202
+msgid "Show more results"
+msgstr ""
+
+#: tmpl/albumartsearchempty-tmpl.html:11
+msgid " Album art search - Select an album"
+msgstr ""
 
 #~ msgid "Cover found!"
 #~ msgstr "Capa encontrada!"
