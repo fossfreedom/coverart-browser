@@ -35,11 +35,11 @@ msgstr "Buscar álbum"
 
 #: coverart_browser_source.py:255
 msgid "Tracks"
-msgstr "Reproducir canción"
+msgstr "Canciones"
 
 #: coverart_browser_source.py:259
 msgid "Covers"
-msgstr "CoverArt"
+msgstr "Portadas"
 
 #: coverart_browser_source.py:695
 msgid "Requesting cover for %s - %s..."
