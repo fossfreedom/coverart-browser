@@ -10,7 +10,14 @@ intltool-extract --type=gettext/glade ui/coverart_browser.ui
 intltool-extract --type=gettext/glade ui/coverart_entryview.ui
 
 #create a new template file called po/package.pot by running
-pygettext -d package -k _ -k N_ -p po *.py ui/*.h
+pygettext -d ui -k _ -k N_ -p po *.py ui/*.h
+
+#create a template file for the mako templates
+pybabel extract -F babel.cfg -o po/tmpl.pot .
+
+#now combine the pot files
+cd po
+msgcat ui.pot tmpl.pot -o package.pot
 
 #now update existing po's with changes in the template file package.pot 
 ./update_all_po.sh

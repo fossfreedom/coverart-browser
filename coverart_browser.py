@@ -93,6 +93,8 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         self.shell.register_entry_type_for_source(self.source, entry_type)
         self.shell.append_display_page(self.source, group)
 
+        self.shell.props.display_page_tree.select(self.source)
+
         print "CoverArtBrowser DEBUG - end do_activate"
 
     def do_deactivate(self):

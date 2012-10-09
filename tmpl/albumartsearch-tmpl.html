@@ -123,11 +123,12 @@
 	
                 if (searchdiv.style.display=="none") {
                     searchdiv.style.display="block";
-                    linkObj.innerText="Search Options: [-]";
+                    linkObj.innerText=${_("Search Options")}+": [-]";
 
                 } else {
                     searchdiv.style.display="none";
-                    linkObj.innerText="Search Options: [+]";
+                    ## TRANSLATORS: jkjkjkj
+                    linkObj.innerText=${_("Search Options")}+": [+]";
                 }
             }
 
@@ -162,40 +163,40 @@
         </script>
     </head>
     <body>
-        <p id="heading"> Album art search </p>
+        <p id="heading"> ${_("Album art search")} </p>
         <div id="info">
-            <label> Artist: ${artist} </label><br/>
-            <label> Album: ${album} </label>
+            <label> ${_("Artist")}: ${artist} </label><br/>
+            <label> ${_("Album")}: ${album} </label>
         </div>
         <hr/>
         <div id="searchoptioncontainer">
             <a href="#" onclick="toggleSelectOption(this); return false;">
-                Search Options: [+]</a>
+                ${_("Search Options")}: [+]</a>
             <div id="searchoption" style="display:none;">
-                <label>Search Mode: </label>
+                <label>${_("Search Mode")}: </label>
                 <select id="searchmode" onchange="onOptionChange(this);">
-                    <option value="artist">Artist</option>
-                    <option value="album">Album</option>
-                    <option value="both" selected>Artist and album</option>
+                    <option value="artist">${_("Artist")}</option>
+                    <option value="album">${_("Album")}</option>
+                    <option value="both" selected>${_("Artist and album")}</option>
                 </select>
                 <hr/>
-                <label>Search text: </label>
+                <label>${_("Search text")}: </label>
                 <input type="text" id="searchtext" width="75%"/>
                 <button type="button" id="searchbutton"
-                    onclick="onSearchText();">Search</button>
+                    onclick="onSearchText();">${_("Search")}</button>
                 <hr/>
                 <label>Image Size: </label>
                 <select id="imagesize" onchange="onOptionChange(this);">
-                    <option value="small">Small</option>
-                    <option value="medium">Medium</option>
-                    <option value="large" selected>Large</option>
-                    <option value="x-large">Extra Large</option>
+                    <option value="small">${_("Small")}</option>
+                    <option value="medium">${_("Medium")}</option>
+                    <option value="large" selected>${_("Large")}</option>
+                    <option value="x-large">${_("Extra Large")}</option>
                 </select>
             </div>
         </div>
         <hr/>
-        <div id="content">Loading...</div>
+        <div id="content">${_("Loading...")}</div>
         <a id="more" href="#" onclick="moreResults(); return false;">
-            Show more results</a>
+            ${_("Show more results")}</a>
     </body>
 </html>
