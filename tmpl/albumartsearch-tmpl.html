@@ -122,15 +122,15 @@
 		
             function toggleSelectOption(linkObj) {
                 var searchdiv = document.getElementById('searchoption');
-	
+
+                searchstr="${_('Search Options')}";
                 if (searchdiv.style.display=="none") {
                     searchdiv.style.display="block";
-                    linkObj.innerText=${_("Search Options")}+": [-]";
+                    linkObj.innerText=searchstr+": [-]";
 
                 } else {
                     searchdiv.style.display="none";
-                    ## TRANSLATORS: jkjkjkj
-                    linkObj.innerText=${_("Search Options")}+": [+]";
+                    linkObj.innerText=searchstr+": [+]";
                 }
             }
 
