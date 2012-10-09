@@ -56,10 +56,18 @@ class CoverSearchPane(Gtk.VBox):
         '''
         path = rb.find_plugin_file(plugin,
             'tmpl/albumartsearch-tmpl.html')
-        self.template = Template(filename=path, module_directory='/tmp/')
+        self.template = Template(filename=path,
+            module_directory='/tmp/',
+            input_encoding='utf-8',
+            output_encoding='utf-8',
+            encoding_errors='replace')
         path = rb.find_plugin_file(plugin,
             'tmpl/albumartsearchempty-tmpl.html')
-        self.empty_template = Template(filename=path, module_directory='/tmp/')
+        self.empty_template = Template(filename=path,
+            module_directory='/tmp/',
+            input_encoding='utf-8',
+            output_encoding='utf-8',
+            encoding_errors='replace')
         self.styles = rb.find_plugin_file(plugin, 'tmpl/main.css')
 
     def init_gui(self):
