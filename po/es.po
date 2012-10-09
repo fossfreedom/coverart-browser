@@ -43,11 +43,11 @@ msgstr "Buscando portada para %s - %s..."
 
 #: coverart_browser_source.py:753
 msgid "%s by %s"
-msgstr ""
+msgstr "%s por %s"
 
 #: coverart_browser_source.py:756
 msgid "%d selected albums "
-msgstr ""
+msgstr "%d álbums seleccionados"
 
 #: coverart_browser_source.py:760
 msgid " with 1 track"
@@ -91,7 +91,7 @@ msgstr "Ordenar en orden ascendente"
 
 #: ui/coverart_browser.ui.h:7
 msgid "Tracks & Covers"
-msgstr "Reproducir canción y CoverArt"
+msgstr "Canciones & Portadas"
 
 #: ui/coverart_browser.ui.h:8
 msgid "Stop coverart fetch."
@@ -115,11 +115,11 @@ msgstr "Encolar Álbum"
 
 #: ui/coverart_browser.ui.h:13
 msgid "Play favourites tracks from this album"
-msgstr ""
+msgstr "Reproduce las canciones favoritas de este álbum"
 
 #: ui/coverart_browser.ui.h:14
 msgid "Play Favourites"
-msgstr ""
+msgstr "Reproduce favoritos"
 
 #: ui/coverart_browser.ui.h:15
 msgid "Add favourite tracks from this album to your playing queue"
@@ -127,7 +127,7 @@ msgstr "Agrega las canciones favoritas de este álbum a tu cola de reproducción
 
 #: ui/coverart_browser.ui.h:16
 msgid "Queue Favourites"
-msgstr ""
+msgstr "Encolar favoritos"
 
 #: ui/coverart_browser.ui.h:17
 msgid "Search for this album cover"
