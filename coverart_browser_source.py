@@ -89,7 +89,7 @@ class CoverArtBrowserSource(RB.Source):
         '''
         try:
             progress = self.loader.progress
-            progress_text = 'Loading...' if progress < 1 else ''
+            progress_text = _('Loading...') if progress < 1 else ''
         except:
             progress = 1
             progress_text = ''

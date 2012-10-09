@@ -28,7 +28,8 @@ from mako.template import Template
 
 from coverart_album import AlbumLoader
 
-gettext.install('rhythmbox', RB.locale_dir(), unicode=True)
+#gettext.install('rhythmbox', RB.locale_dir(), unicode=True)
+#gettext.install('coverart_browser', '/usr/share/locale', unicode=False)
 
 
 class CoverSearchPane(Gtk.VBox):
@@ -54,18 +55,20 @@ class CoverSearchPane(Gtk.VBox):
         '''
         Loads the templates and stylesheets to be used by the pane.
         '''
+#            input_encoding='utf-8',
+
         path = rb.find_plugin_file(plugin,
             'tmpl/albumartsearch-tmpl.html')
         self.template = Template(filename=path,
+            default_filters=['decode.utf8'],
             module_directory='/tmp/',
-            input_encoding='utf-8',
             output_encoding='utf-8',
             encoding_errors='replace')
         path = rb.find_plugin_file(plugin,
             'tmpl/albumartsearchempty-tmpl.html')
         self.empty_template = Template(filename=path,
+            default_filters=['decode.utf8'],
             module_directory='/tmp/',
-            input_encoding='utf-8',
             output_encoding='utf-8',
             encoding_errors='replace')
         self.styles = rb.find_plugin_file(plugin, 'tmpl/main.css')
