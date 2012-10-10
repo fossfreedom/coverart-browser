@@ -3,7 +3,7 @@ coverart-browser v0.5
 
 Browse your coverart albums in Rhythmbox v2.96 and later
 
-![Imgur](http://i.imgur.com/JRJKF.png)
+![Imgur](http://i.imgur.com/LJUif.png)
 
 -----------
 
