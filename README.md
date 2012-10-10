@@ -104,7 +104,7 @@ N.B. for debian based distros - `sudo apt-get install gettext`
 
 <pre>
 rm -rf ~/.local/share/rhythmbox/plugins/coverart_browser
-git clone https://github.com/fossfreedom/coverart-browser.git
+git clone https://github.com/fossfreedom/coverart-browser.git -b master
 cd coverart-browser
 sh ./install.sh
 </pre>
