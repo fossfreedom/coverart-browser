@@ -27,6 +27,7 @@ from gi.repository import GdkPixbuf
 from gi.repository import Peas
 
 from coverart_browser_prefs import Preferences
+from coverart_browser_prefs import GSetting
 from coverart_browser_source import CoverArtBrowserSource
 
 
@@ -93,8 +94,8 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         self.shell.register_entry_type_for_source(self.source, entry_type)
         self.shell.append_display_page(self.source, group)
 
-        self.shell.props.display_page_tree.select(self.source)
-
+        self.shell.props.db.connect('load-complete', self.load_complete)
+        
         print "CoverArtBrowser DEBUG - end do_activate"
 
     def do_deactivate(self):
@@ -109,3 +110,14 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         del self.db
         del self.source
         print "CoverArtBrowser DEBUG - end do_deactivate"
+
+    def load_complete(self, *args, **kwargs):
+        '''
+        Called by Rhythmbox when it has completed loading all data
+        Used to automatically switch to the browser if the user
+        has set in the preferences
+        '''
+        gs = GSetting()
+        setting = gs.get_setting(gs.Path.PLUGIN)
+        if setting[gs.PluginKey.AUTOSTART]:
+            self.shell.props.display_page_tree.select(self.source)

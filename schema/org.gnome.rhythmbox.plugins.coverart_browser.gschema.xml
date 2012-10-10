@@ -66,5 +66,10 @@
             <summary>Track Rating Threshold.</summary>
             <description>Level above which is regarded as a favourite rated track.</description>
         </key>
+        <key type="b" name="autostart">
+            <default>false</default>
+            <summary>Automatically Start</summary>
+            <description>When rhythmbox starts, switch automatically to the coverart browser.</description>
+        </key>
     </schema>
 </schemalist>

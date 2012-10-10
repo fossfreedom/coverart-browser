@@ -59,7 +59,8 @@ class GSetting:
                 SORT_BY_ARTIST='sort-by-artist',
                 DESC_SORT='desc-sort',
                 ASC_SORT='asc-sort',
-                RATING='rating-threshold')
+                RATING='rating-threshold',
+                AUTOSTART='autostart')
 
             self.setting = {}
 
@@ -184,6 +185,10 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         rated_adjustment = builder.get_object('rated_adjustment')
         self.settings.bind(gs.PluginKey.RATING, rated_adjustment, 'value',
             Gio.SettingsBindFlags.DEFAULT)
+
+        autostart = builder.get_object('autostart_checkbox')
+        self.settings.bind(gs.PluginKey.AUTOSTART,
+            autostart, 'active', Gio.SettingsBindFlags.DEFAULT)
 
         # return the dialog
         return builder.get_object('main_box')
