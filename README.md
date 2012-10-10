@@ -20,6 +20,7 @@ Summary: whats new in this release
  - Multiple user-configurable options to tailor what you see and use.
  - Examine and change properties for an Album
  - Examine and change properties for a track
+ - Optionally start in coverart view with rhythmbox starts
 
 How it works:
 
