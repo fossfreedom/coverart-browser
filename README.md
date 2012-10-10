@@ -31,14 +31,14 @@ How it works:
 
  - multi-select albums to play, queue, search for covers and edit properties
 
-*hint* - change both the album name and album artist and all the tracks for 
-  the selected album will be combined under one album.
-
 ![Imgur](http://i.imgur.com/LF6nh.png)
 
  - Right click to see and edit the properties for an album:
 
 ![Imgur](http://i.imgur.com/U1YyX.png)
+
+*hint* - change both the album name and album artist and all the tracks for 
+  the selected album will be combined under one album.
 
  - locale support has been added to display text in your native language.
 
