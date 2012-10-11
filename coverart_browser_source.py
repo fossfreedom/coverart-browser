@@ -18,8 +18,6 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
 import rb
-import locale
-import gettext
 
 from gi.repository import GObject
 from gi.repository import Gio
@@ -38,13 +36,12 @@ class CoverArtBrowserSource(RB.Source):
     '''
     Source utilized by the plugin to show all it's ui.
     '''
-    LOCALE_DOMAIN = 'coverart_browser'
-
     custom_statusbar_enabled = GObject.property(type=bool, default=False)
     display_bottom_enabled = GObject.property(type=bool, default=False)
     display_text_enabled = GObject.property(type=bool, default=False)
     display_text_loading_enabled = GObject.property(type=bool, default=True)
     rating_threshold = GObject.property(type=float, default=0)
+    LOCALE_DOMAIN = 'coverart_browser'
 
     def __init__(self, **kargs):
         '''
@@ -147,14 +144,6 @@ class CoverArtBrowserSource(RB.Source):
 
         self.connect('notify::rating-threshold',
             self.on_notify_rating_threshold)
-
-        # setup translation support
-        locale.setlocale(locale.LC_ALL, '')
-        locale.bindtextdomain(self.LOCALE_DOMAIN, "/usr/share/locale")
-        locale.textdomain(self.LOCALE_DOMAIN)
-        gettext.bindtextdomain(self.LOCALE_DOMAIN, "/usr/share/locale")
-        gettext.textdomain(self.LOCALE_DOMAIN)
-        gettext.install(self.LOCALE_DOMAIN)
 
         #indicate that the source was activated before
         self.hasActivated = True

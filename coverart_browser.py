@@ -19,6 +19,9 @@
 
 # define plugin
 import rb
+import locale
+import gettext
+
 
 from gi.repository import GObject
 from gi.repository import Gtk
@@ -49,6 +52,8 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
     '''
     __gtype_name = 'CoverArtBrowserPlugin'
     object = GObject.property(type=GObject.Object)
+    LOCALE_DOMAIN = 'coverart_browser'
+
 
     def __init__(self):
         '''
@@ -73,6 +78,14 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         except NotImplementedError:
             entry_type = self.db.entry_register_type(
                 'CoverArtBrowserEntryType')
+
+        # setup translation support
+        locale.setlocale(locale.LC_ALL, '')
+        locale.bindtextdomain(self.LOCALE_DOMAIN, "/usr/share/locale")
+        locale.textdomain(self.LOCALE_DOMAIN)
+        gettext.bindtextdomain(self.LOCALE_DOMAIN, "/usr/share/locale")
+        gettext.textdomain(self.LOCALE_DOMAIN)
+        gettext.install(self.LOCALE_DOMAIN)
 
         entry_type.category = RB.RhythmDBEntryCategory.NORMAL
 
