@@ -634,9 +634,6 @@ class Album(object):
     FILTER_ALBUM_ARTIST = 4
     FILTER_TRACK_TITLE = 5
 
-    # markup format
-    MARKUP_FORMAT = '''<span font='%d'><b>%s</b>\n<i>by %s</i></span>'''
-
     # font size for the markup text
     FONT_SIZE = 0
 
@@ -732,7 +729,7 @@ class Album(object):
         Utility function that creates the tooltip for this album to set into
         the model.
         '''
-        return cgi.escape('%s by %s' % (self.name, self.artist))
+        return cgi.escape(_('%s by %s') % (self.name, self.artist))
 
     def _create_markup(self):
         '''
@@ -747,11 +744,23 @@ class Album(object):
 
         name = name.encode('utf-8')
 
-        # scape odd chars
+        # escape odd chars
         artist = GLib.markup_escape_text(self.album_artist)
         name = GLib.markup_escape_text(name)
 
-        return self.MARKUP_FORMAT % (self.FONT_SIZE, name, artist)
+        # markup format
+        #MARKUP_FORMAT = _("<span font='%d'><b>%s</b>\n<i>by %s</i></span>")
+        #we need to now achieve the above markup format
+        #however its a little difficult for translators to see the "by"
+        #lets take the current translation string used elsewhere,
+        #substitute the markup strings around the translation
+        #and finally substitute the real strings
+        str=_("%s by %s")
+
+        strformatted = str % ("<span font='%d'><b>%s</b>\n<i>", "%s</i></span>")
+
+        return strformatted % (self.FONT_SIZE, name, artist)
+        #return self.MARKUP_FORMAT % (self.FONT_SIZE, name, artist)
 
     def _remove_artist(self, artist):
         '''
