@@ -44,12 +44,14 @@ class CoverSearchPane(Gtk.VBox):
         Initializes the pane, loading it's html templates and it's ui.
         '''
         super(CoverSearchPane, self).__init__()
-        self.current_album = None
         self.file = ""
         self.basepath = 'file://' + plugin.plugin_info.get_data_dir()
 
         self.load_templates(plugin)
         self.init_gui()
+
+        # init the pane with the empty template
+        self.clear()
 
     def load_templates(self, plugin):
         '''
