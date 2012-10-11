@@ -31,7 +31,7 @@ msgstr "Pochettes"
 
 #: coverart_browser_source.py:89 tmpl/albumartsearch-tmpl.html:200
 msgid "Loading..."
-msgstr "Chargement"
+msgstr "Chargement..."
 
 #: coverart_browser_source.py:196
 msgid "Search album"
@@ -216,7 +216,7 @@ msgid ""
 "Add a toggle-option to the coverart view to display the tracks and covers "
 "for the chosen album"
 msgstr ""
-"Ajouter une option pour basculer entre l'affichage pochettes seulems et et "
+"Ajouter une option pour basculer entre l'affichage pochettes seules et "
 "l'affichage pistes et pochettes des albums choisis"
 
 #: ui/coverart_browser_prefs.ui.h:5
@@ -263,7 +263,7 @@ msgstr "Longueur maximale"
 
 #: ui/coverart_browser_prefs.ui.h:13
 msgid "Level above which is regarded as being a rated track."
-msgstr "Niveau à lequel une piste est considéré comme étant bien notée"
+msgstr "Note à laquelle une piste est considéré comme étant favorite"
 
 #: ui/coverart_browser_prefs.ui.h:14
 msgid "Rating Threshold:"
@@ -279,11 +279,11 @@ msgstr "Taille de pochette en pixels:"
 
 #: ui/coverart_browser_prefs.ui.h:17
 msgid "Automatically Start"
-msgstr ""
+msgstr "Démarrage automatique"
 
 #: ui/coverart_browser_prefs.ui.h:18
 msgid "When rhythmbox starts, switch automatically to the coverart browser."
-msgstr ""
+msgstr "Quand rhythmbox démarre, basculer automatiquement vers le navigateur de pochettes"
 
 #: ui/coverart_entryview.ui.h:1
 msgid "Play this track"
