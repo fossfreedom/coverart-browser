@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "#-#-#-#-#  ui.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-10-09 23:14+BST\n"
+"POT-Creation-Date: 2012-10-11 21:05+BST\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,7 @@ msgstr ""
 "#-#-#-#-#  tmpl.pot (PROJECT VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-10-09 23:14+0100\n"
+"POT-Creation-Date: 2012-10-11 21:55+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,55 +34,55 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: coverart_album.py:697
+#: coverart_album.py:694
 msgid "Various Artists"
 msgstr ""
 
-#: coverart_browser.py:89
-msgid "CoverArt"
-msgstr ""
-
-#: coverart_browser_source.py:92 tmpl/albumartsearch-tmpl.html:200
-msgid "Loading..."
-msgstr ""
-
-#: coverart_browser_source.py:207
-msgid "Search album"
-msgstr ""
-
-#: coverart_browser_source.py:255
-msgid "Tracks"
-msgstr ""
-
-#: coverart_browser_source.py:259
-msgid "Covers"
-msgstr ""
-
-#: coverart_browser_source.py:695
-msgid "Requesting cover for %s - %s..."
-msgstr ""
-
-#: coverart_browser_source.py:753
+#: coverart_album.py:732 coverart_album.py:758 coverart_browser_source.py:742
 msgid "%s by %s"
 msgstr ""
 
-#: coverart_browser_source.py:756
+#: coverart_browser.py:103
+msgid "CoverArt"
+msgstr ""
+
+#: coverart_browser_source.py:89 tmpl/albumartsearch-tmpl.html:200
+msgid "Loading..."
+msgstr ""
+
+#: coverart_browser_source.py:196
+msgid "Search album"
+msgstr ""
+
+#: coverart_browser_source.py:244
+msgid "Tracks"
+msgstr ""
+
+#: coverart_browser_source.py:248
+msgid "Covers"
+msgstr ""
+
+#: coverart_browser_source.py:684
+msgid "Requesting cover for %s - %s..."
+msgstr ""
+
+#: coverart_browser_source.py:745
 msgid "%d selected albums "
 msgstr ""
 
-#: coverart_browser_source.py:760
+#: coverart_browser_source.py:749
 msgid " with 1 track"
 msgstr ""
 
-#: coverart_browser_source.py:762
+#: coverart_browser_source.py:751
 msgid " with %d tracks"
 msgstr ""
 
-#: coverart_browser_source.py:765
+#: coverart_browser_source.py:754
 msgid " and a duration of 1 minute"
 msgstr ""
 
-#: coverart_browser_source.py:767
+#: coverart_browser_source.py:756
 msgid " and a duration of %d minutes"
 msgstr ""
 
@@ -283,6 +283,14 @@ msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:16
 msgid "Cover size in pixels:"
+msgstr ""
+
+#: ui/coverart_browser_prefs.ui.h:17
+msgid "Automatically Start"
+msgstr ""
+
+#: ui/coverart_browser_prefs.ui.h:18
+msgid "When rhythmbox starts, switch automatically to the coverart browser."
 msgstr ""
 
 #: ui/coverart_entryview.ui.h:1
