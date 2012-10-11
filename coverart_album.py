@@ -755,9 +755,10 @@ class Album(object):
         #lets take the current translation string used elsewhere,
         #substitute the markup strings around the translation
         #and finally substitute the real strings
-        str=_("%s by %s")
+        translated = _("%s by %s")
 
-        strformatted = str % ("<span font='%d'><b>%s</b>\n<i>", "%s</i></span>")
+        strformatted = translated % ("<span font='%d'><b>%s</b>\n<i>",
+            "%s</i></span>")
 
         return strformatted % (self.FONT_SIZE, name, artist)
         #return self.MARKUP_FORMAT % (self.FONT_SIZE, name, artist)

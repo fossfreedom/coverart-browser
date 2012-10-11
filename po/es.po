@@ -27,7 +27,7 @@ msgstr "CoverArt"
 
 #: coverart_browser_source.py:92 tmpl/albumartsearch-tmpl.html:200
 msgid "Loading..."
-msgstr ""
+msgstr "Cargando..."
 
 #: coverart_browser_source.py:207
 msgid "Search album"
