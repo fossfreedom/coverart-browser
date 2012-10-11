@@ -38,7 +38,6 @@ msgid "Tracks"
 msgstr "Faixas"
 
 #: coverart_browser_source.py:259
-#, fuzzy
 msgid "Covers"
 msgstr "Capas"
 
@@ -55,12 +54,10 @@ msgid "%d selected albums "
 msgstr "%d álbuns selecionados "
 
 #: coverart_browser_source.py:760
-#, fuzzy
 msgid " with 1 track"
 msgstr " possui 1 música"
 
 #: coverart_browser_source.py:762
-#, fuzzy
 msgid " with %d tracks"
 msgstr " possui %d músicas"
 
@@ -74,7 +71,6 @@ msgstr " e dura %d minutos"
 
 #: ui/coverart_browser.ui.h:1 tmpl/albumartsearch-tmpl.html:171
 #: tmpl/albumartsearch-tmpl.html:181
-#, fuzzy
 msgid "Album"
 msgstr "Reproduzir Álbum"
 
@@ -88,7 +84,6 @@ msgid "Artist"
 msgstr "Artista"
 
 #: ui/coverart_browser.ui.h:4
-#, fuzzy
 msgid "Sort by album artist"
 msgstr "Procurar artistas do álbum"
 
@@ -133,7 +128,6 @@ msgid "Play Favourites"
 msgstr "Tocar Favoritas"
 
 #: ui/coverart_browser.ui.h:15
-#, fuzzy
 msgid "Add favourite tracks from this album to your playing queue"
 msgstr "Adicionar faixas favoritas deste álbum à sua fila de reprodução"
 
@@ -150,7 +144,6 @@ msgid "Search for covers"
 msgstr "Procurar por capas"
 
 #: ui/coverart_browser.ui.h:19
-#, fuzzy
 msgid "Show album properties"
 msgstr "Mostrar propriedades do álbum"
 
@@ -167,7 +160,6 @@ msgid "Search using all fields"
 msgstr "Procurar utilizando todos os campos"
 
 #: ui/coverart_browser.ui.h:23
-#, fuzzy
 msgid "Search all fields"
 msgstr "Procurar todos os campos"
 
@@ -176,7 +168,6 @@ msgid "Search using album artist names"
 msgstr "Procurar utilizando o nome do artista do álbum"
 
 #: ui/coverart_browser.ui.h:25
-#, fuzzy
 msgid "Search album artists"
 msgstr "Procurar artistas do álbum"
 
@@ -189,12 +180,10 @@ msgid "Search track artists"
 msgstr "Procurar artistas das faixas"
 
 #: ui/coverart_browser.ui.h:28
-#, fuzzy
 msgid "Search using album titles"
 msgstr "Procurar utilizando o nome de álbuns"
 
 #: ui/coverart_browser.ui.h:29
-#, fuzzy
 msgid "Search albums"
 msgstr "Procurar álbum"
 
@@ -203,7 +192,6 @@ msgid "Search using track titles"
 msgstr "Procurar utilizando nome de faixas"
 
 #: ui/coverart_browser.ui.h:31
-#, fuzzy
 msgid "Search tracks"
 msgstr "Procurar por faixas"
 
@@ -229,8 +217,8 @@ msgid ""
 "Add a toggle-option to the coverart view to display the tracks and covers "
 "for the chosen album"
 msgstr ""
-"Adiciona uma opção de troca entre a visualização de capas e exibir "
-"as faixas e capas para o álbum escolhido"
+"Adiciona uma opção de troca entre a visualização de capas e exibir as faixas "
+"e capas para o álbum escolhido"
 
 #: ui/coverart_browser_prefs.ui.h:5
 msgid "Display album's info under cover"
@@ -249,8 +237,8 @@ msgid ""
 "Show's the text for each album during the source load. Deactivating this "
 "option may help with the loading performance."
 msgstr ""
-"Exibe o texo para cada album enquanto a fonte é carregada. Desativar"
-"essa opção pode ajudar com a performance do carregamento."
+"Exibe o texo para cada album enquanto a fonte é carregada. Desativaressa "
+"opção pode ajudar com a performance do carregamento."
 
 #: ui/coverart_browser_prefs.ui.h:9
 msgid "Ellipsize albums names"
@@ -261,14 +249,15 @@ msgid ""
 "Ellipsizes the albums names to a fixed length when the display text option "
 "is enabled."
 msgstr ""
-"Adicona reticências aos nomes dos álbuns para um tamanho fixo quando a opção"
-"exibir texto está ativada."
+"Adicona reticências aos nomes dos álbuns para um tamanho fixo quando a "
+"opçãoexibir texto está ativada."
 
 #: ui/coverart_browser_prefs.ui.h:11
 msgid ""
 "This is the maximum allowed size for an album's name before being ellipsized."
 msgstr ""
-"Este é o tamanho máximo permitido para um nome de álbum antes de ter reticências"
+"Este é o tamanho máximo permitido para um nome de álbum antes de ter "
+"reticências"
 
 #: ui/coverart_browser_prefs.ui.h:12
 msgid "Maximum length:"
@@ -291,7 +280,6 @@ msgid "Cover size in pixels:"
 msgstr "Tamanho da capa em pixels:"
 
 #: ui/coverart_entryview.ui.h:1
-#, fuzzy
 msgid "Play this track"
 msgstr "Reproduzir esta faixa"
 
@@ -300,7 +288,6 @@ msgid "Play Track"
 msgstr "Reproduzir Faixa"
 
 #: ui/coverart_entryview.ui.h:3
-#, fuzzy
 msgid "Add this track to your playing queue"
 msgstr "Adicionar esta faixa à sua fila de reprodução"
 
@@ -365,12 +352,10 @@ msgid "0 Stars"
 msgstr "0 Estrelas"
 
 #: ui/coverart_entryview.ui.h:19
-#, fuzzy
 msgid "Show track properties"
 msgstr "Exibir propriedades da faixa"
 
 #: tmpl/albumartsearch-tmpl.html:126 tmpl/albumartsearch-tmpl.html:176
-#, fuzzy
 msgid "Search Options"
 msgstr "Opções de Pesquisa"
 
@@ -379,7 +364,6 @@ msgid "Album art search"
 msgstr "Procurar por arte do Álbum"
 
 #: tmpl/albumartsearch-tmpl.html:178
-#, fuzzy
 msgid "Search Mode"
 msgstr "Modo de Pesquisa"
 
@@ -388,12 +372,10 @@ msgid "Artist and album"
 msgstr "Artista e Álbum"
 
 #: tmpl/albumartsearch-tmpl.html:185
-#, fuzzy
 msgid "Search text"
 msgstr "Texto da pesquisa"
 
 #: tmpl/albumartsearch-tmpl.html:188
-#, fuzzy
 msgid "Search"
 msgstr "Pesquisa"
 
