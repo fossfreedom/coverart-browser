@@ -216,7 +216,7 @@
                                 <object class="GtkNotebook" id="bottom_notebook">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <property name="tab_pos">right</property>
+                                    <property name="tab_pos">bottom</property>
                                     <property name="vexpand">True</property>
                                     <signal name="switch-page" handler="notebook_switch_page_callback" swapped="no"/>  
                                 </object>                          
