@@ -281,11 +281,11 @@ msgstr "Tamaño de portada en pixels:"
 
 #: ui/coverart_browser_prefs.ui.h:17
 msgid "Automatically Start"
-msgstr ""
+msgstr "Iniciar automáticamente"
 
 #: ui/coverart_browser_prefs.ui.h:18
 msgid "When rhythmbox starts, switch automatically to the coverart browser."
-msgstr ""
+msgstr "Abrir el navegador de portadas automáticamente cuando Rhythmbox inicia."
 
 #: ui/coverart_entryview.ui.h:1
 msgid "Play this track"
