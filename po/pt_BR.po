@@ -72,7 +72,7 @@ msgstr " e dura %d minutos"
 #: ui/coverart_browser.ui.h:1 tmpl/albumartsearch-tmpl.html:171
 #: tmpl/albumartsearch-tmpl.html:181
 msgid "Album"
-msgstr "Reproduzir Álbum"
+msgstr "Álbum"
 
 #: ui/coverart_browser.ui.h:2
 msgid "Sort by album name"
@@ -85,7 +85,7 @@ msgstr "Artista"
 
 #: ui/coverart_browser.ui.h:4
 msgid "Sort by album artist"
-msgstr "Procurar artistas do álbum"
+msgstr "Ordenar por artistas do álbum"
 
 #: ui/coverart_browser.ui.h:5
 msgid "Sort in descending order"
@@ -197,7 +197,7 @@ msgstr "Procurar por faixas"
 
 #: ui/coverart_browser_prefs.ui.h:1
 msgid "Use source's custom statusbar."
-msgstr "Utilzar barra de status customizada da fonte"
+msgstr "Utilizar barra de status customizada da fonte"
 
 #: ui/coverart_browser_prefs.ui.h:2
 msgid ""
@@ -205,7 +205,7 @@ msgid ""
 "related information instead of the global Rhythmbox's statusbar."
 msgstr ""
 "Utilizar a barra de status customizada da fonte para mostrar a "
-"informaçãorelacionada ao álbum selecionado ao invés da barra de status "
+"informação relacionada ao álbum selecionado ao invés da barra de status "
 "global do Rhythmbox"
 
 #: ui/coverart_browser_prefs.ui.h:3
@@ -281,11 +281,11 @@ msgstr "Tamanho da capa em pixels:"
 
 #: ui/coverart_browser_prefs.ui.h:17
 msgid "Automatically Start"
-msgstr ""
+msgstr "Iniciar automaticamente"
 
 #: ui/coverart_browser_prefs.ui.h:18
 msgid "When rhythmbox starts, switch automatically to the coverart browser."
-msgstr ""
+msgstr "Quando o rhythmbox inicia, muda automaticamente para o navegador de capas."
 
 #: ui/coverart_entryview.ui.h:1
 msgid "Play this track"
@@ -413,7 +413,7 @@ msgstr "Exibir mais resultados"
 
 #: tmpl/albumartsearchempty-tmpl.html:11
 msgid " Album art search - Select an album"
-msgstr " Pesquisa por arte do Álbum - Escolha um álbum"
+msgstr " Pesquisa por arte do álbum - Escolha um álbum"
 
 #~ msgid "Cover found!"
 #~ msgstr "Capa encontrada!"
