@@ -94,8 +94,8 @@ class AlbumLoader(GObject.Object):
             self._albumart_added_callback)
 
         # connect signals for updating the albums
-        #self.entry_changed_id = self.db.connect('entry-changed',
-        #    self._entry_changed_callback)
+        self.entry_changed_id = self.db.connect('entry-changed',
+            self._entry_changed_callback)
         self.entry_added_id = self.db.connect('entry-added',
             self._entry_added_callback)
         self.entry_deleted_id = self.db.connect('entry-deleted',
@@ -220,8 +220,6 @@ class AlbumLoader(GObject.Object):
             pass
 
         print "CoverArtBrowser DEBUG - end entry_changed_callback"
-
-        return True
         
     def _entry_album_modified(self, entry, old_name, new_name):
         '''
