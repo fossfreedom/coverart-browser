@@ -190,7 +190,7 @@ class AlbumLoader(GObject.Object):
         entry.
         '''
         print "CoverArtBrowser DEBUG - entry_changed_callback"
-        
+
         # look at all the changes and update the albums acordingly
         try:
             while True:
@@ -220,7 +220,7 @@ class AlbumLoader(GObject.Object):
             pass
 
         print "CoverArtBrowser DEBUG - end entry_changed_callback"
-        
+
     def _entry_album_modified(self, entry, old_name, new_name):
         '''
         Called by entry_changed_callback when the modified prop is the album.
@@ -730,7 +730,8 @@ class Album(object):
         Utility function that creates the tooltip for this album to set into
         the model.
         '''
-        return cgi.escape(_('%s by %s') % (self.name, self.artist))
+        return cgi.escape(_('%s by %s').encode('utf-8') % (self.name,
+            self.artist))
 
     def _create_markup(self):
         '''
@@ -756,7 +757,7 @@ class Album(object):
         #lets take the current translation string used elsewhere,
         #substitute the markup strings around the translation
         #and finally substitute the real strings
-        translated = _("%s by %s")
+        translated = _("%s by %s").encode('utf-8')
 
         strformatted = translated % ("<span font='%d'><b>%s</b>\n<i>",
             "%s</i></span>")
