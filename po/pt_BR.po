@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-10-11 21:05+BST\n"
+"POT-Creation-Date: 2012-10-13 21:19+BST\n"
 "PO-Revision-Date: 2012-09-19 14:32+BST\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,15 +17,24 @@ msgstr ""
 "Generated-By: pygettext.py 1.5\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: coverart_album.py:694
+#: coverart_album.py:695
 msgid "Various Artists"
 msgstr "Vários Artistas"
 
-#: coverart_album.py:732 coverart_album.py:758 coverart_browser_source.py:742
+#: coverart_album.py:733 coverart_album.py:760 coverart_browser_source.py:743
 msgid "%s by %s"
 msgstr "%s por %s"
 
-#: coverart_browser.py:103
+#: coverart_browser.py:72
+#, fuzzy
+msgid "CoverArt Browser"
+msgstr "Arte das Capas"
+
+#: coverart_browser.py:73
+msgid "Browse and play your albums through their covers"
+msgstr ""
+
+#: coverart_browser.py:102
 msgid "CoverArt"
 msgstr "Arte das Capas"
 
@@ -33,39 +42,39 @@ msgstr "Arte das Capas"
 msgid "Loading..."
 msgstr "Carregando..."
 
-#: coverart_browser_source.py:196
+#: coverart_browser_source.py:197
 msgid "Search album"
 msgstr "Procurar álbum"
 
-#: coverart_browser_source.py:244
+#: coverart_browser_source.py:245
 msgid "Tracks"
 msgstr "Faixas"
 
-#: coverart_browser_source.py:248
+#: coverart_browser_source.py:249
 msgid "Covers"
 msgstr "Capas"
 
-#: coverart_browser_source.py:684
+#: coverart_browser_source.py:685
 msgid "Requesting cover for %s - %s..."
 msgstr "Requisitando capa para %s - %s..."
 
-#: coverart_browser_source.py:745
+#: coverart_browser_source.py:746
 msgid "%d selected albums "
 msgstr "%d álbuns selecionados "
 
-#: coverart_browser_source.py:749
+#: coverart_browser_source.py:750
 msgid " with 1 track"
 msgstr " possui 1 música"
 
-#: coverart_browser_source.py:751
+#: coverart_browser_source.py:752
 msgid " with %d tracks"
 msgstr " possui %d músicas"
 
-#: coverart_browser_source.py:754
+#: coverart_browser_source.py:755
 msgid " and a duration of 1 minute"
 msgstr " e dura 1 minuto"
 
-#: coverart_browser_source.py:756
+#: coverart_browser_source.py:757
 msgid " and a duration of %d minutes"
 msgstr " e dura %d minutos"
 
@@ -204,9 +213,9 @@ msgid ""
 "Use the source's custom statusbar to show the current selected album's "
 "related information instead of the global Rhythmbox's statusbar."
 msgstr ""
-"Utilizar a barra de status customizada da fonte para mostrar a "
-"informação relacionada ao álbum selecionado ao invés da barra de status "
-"global do Rhythmbox"
+"Utilizar a barra de status customizada da fonte para mostrar a informação "
+"relacionada ao álbum selecionado ao invés da barra de status global do "
+"Rhythmbox"
 
 #: ui/coverart_browser_prefs.ui.h:3
 msgid "Display tracks and covers pane"
@@ -285,7 +294,8 @@ msgstr "Iniciar automaticamente"
 
 #: ui/coverart_browser_prefs.ui.h:18
 msgid "When rhythmbox starts, switch automatically to the coverart browser."
-msgstr "Quando o rhythmbox inicia, muda automaticamente para o navegador de capas."
+msgstr ""
+"Quando o rhythmbox inicia, muda automaticamente para o navegador de capas."
 
 #: ui/coverart_entryview.ui.h:1
 msgid "Play this track"

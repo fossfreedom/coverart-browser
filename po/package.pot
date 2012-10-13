@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "#-#-#-#-#  ui.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-10-11 21:05+BST\n"
+"POT-Creation-Date: 2012-10-13 21:19+BST\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,7 @@ msgstr ""
 "#-#-#-#-#  tmpl.pot (PROJECT VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-10-11 21:55+0100\n"
+"POT-Creation-Date: 2012-10-13 21:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,15 +34,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: coverart_album.py:694
+#: coverart_album.py:695
 msgid "Various Artists"
 msgstr ""
 
-#: coverart_album.py:732 coverart_album.py:758 coverart_browser_source.py:742
+#: coverart_album.py:733 coverart_album.py:760 coverart_browser_source.py:743
 msgid "%s by %s"
 msgstr ""
 
-#: coverart_browser.py:103
+#: coverart_browser.py:72
+msgid "CoverArt Browser"
+msgstr ""
+
+#: coverart_browser.py:73
+msgid "Browse and play your albums through their covers"
+msgstr ""
+
+#: coverart_browser.py:102
 msgid "CoverArt"
 msgstr ""
 
@@ -50,39 +58,39 @@ msgstr ""
 msgid "Loading..."
 msgstr ""
 
-#: coverart_browser_source.py:196
+#: coverart_browser_source.py:197
 msgid "Search album"
 msgstr ""
 
-#: coverart_browser_source.py:244
+#: coverart_browser_source.py:245
 msgid "Tracks"
 msgstr ""
 
-#: coverart_browser_source.py:248
+#: coverart_browser_source.py:249
 msgid "Covers"
 msgstr ""
 
-#: coverart_browser_source.py:684
+#: coverart_browser_source.py:685
 msgid "Requesting cover for %s - %s..."
 msgstr ""
 
-#: coverart_browser_source.py:745
+#: coverart_browser_source.py:746
 msgid "%d selected albums "
 msgstr ""
 
-#: coverart_browser_source.py:749
+#: coverart_browser_source.py:750
 msgid " with 1 track"
 msgstr ""
 
-#: coverart_browser_source.py:751
+#: coverart_browser_source.py:752
 msgid " with %d tracks"
 msgstr ""
 
-#: coverart_browser_source.py:754
+#: coverart_browser_source.py:755
 msgid " and a duration of 1 minute"
 msgstr ""
 
-#: coverart_browser_source.py:756
+#: coverart_browser_source.py:757
 msgid " and a duration of %d minutes"
 msgstr ""
 
