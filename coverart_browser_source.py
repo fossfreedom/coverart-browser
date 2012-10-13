@@ -30,6 +30,7 @@ from coverart_album import Album
 from coverart_entryview import CoverArtEntryView
 from coverart_search import CoverSearchPane
 from coverart_browser_prefs import GSetting
+from coverart_browser_prefs import CoverLocale
 
 
 class CoverArtBrowserSource(RB.Source):
@@ -41,8 +42,7 @@ class CoverArtBrowserSource(RB.Source):
     display_text_enabled = GObject.property(type=bool, default=False)
     display_text_loading_enabled = GObject.property(type=bool, default=True)
     rating_threshold = GObject.property(type=float, default=0)
-    LOCALE_DOMAIN = 'coverart_browser'
-
+    
     def __init__(self, **kargs):
         '''
         Initializes the source.
@@ -158,8 +158,9 @@ class CoverArtBrowserSource(RB.Source):
         properties.
         '''
         # dialog has not been created so lets do so.
+        cl = CoverLocale()
         ui = Gtk.Builder()
-        ui.set_translation_domain(self.LOCALE_DOMAIN)
+        ui.set_translation_domain(cl.Locale.LOCALE_DOMAIN)
         ui.add_from_file(rb.find_plugin_file(self.plugin,
             'ui/coverart_browser.ui'))
         ui.connect_signals(self)

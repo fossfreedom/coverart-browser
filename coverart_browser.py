@@ -31,6 +31,8 @@ from gi.repository import Peas
 
 from coverart_browser_prefs import Preferences
 from coverart_browser_prefs import GSetting
+from coverart_browser_prefs import CoverLocale
+
 from coverart_browser_source import CoverArtBrowserSource
 
 
@@ -52,9 +54,7 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
     '''
     __gtype_name = 'CoverArtBrowserPlugin'
     object = GObject.property(type=GObject.Object)
-    LOCALE_DOMAIN = 'coverart_browser'
-
-
+    
     def __init__(self):
         '''
         Initialises the plugin object.
@@ -79,13 +79,8 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
             entry_type = self.db.entry_register_type(
                 'CoverArtBrowserEntryType')
 
-        # setup translation support
-        locale.setlocale(locale.LC_ALL, '')
-        locale.bindtextdomain(self.LOCALE_DOMAIN, "/usr/share/locale")
-        locale.textdomain(self.LOCALE_DOMAIN)
-        gettext.bindtextdomain(self.LOCALE_DOMAIN, "/usr/share/locale")
-        gettext.textdomain(self.LOCALE_DOMAIN)
-        gettext.install(self.LOCALE_DOMAIN)
+        cl = CoverLocale()
+        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
 
         entry_type.category = RB.RhythmDBEntryCategory.NORMAL
 

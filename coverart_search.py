@@ -28,10 +28,6 @@ from mako.template import Template
 
 from coverart_album import AlbumLoader
 
-#gettext.install('rhythmbox', RB.locale_dir(), unicode=True)
-#gettext.install('coverart_browser', '/usr/share/locale', unicode=False)
-
-
 class CoverSearchPane(Gtk.VBox):
     '''
     This UI represents a pane where different album's covers can be presented

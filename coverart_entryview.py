@@ -22,14 +22,11 @@ from gi.repository import Gtk
 from gi.repository import GObject
 
 import rb
-import locale
-import gettext
 
 from coverart_browser_prefs import GSetting
-
+from coverart_browser_prefs import CoverLocale
 
 class CoverArtEntryView(RB.EntryView):
-    LOCALE_DOMAIN = 'coverart_browser'
 
     def __init__(self, shell, source):
         '''
@@ -43,6 +40,9 @@ class CoverArtEntryView(RB.EntryView):
             shell_player=shell.props.shell_player, is_drag_source=True,
             visible_columns=[])
 
+        cl = CoverLocale()
+        cl.switch_locale(cl.Locale.RB)
+        
         self.append_column(RB.EntryViewColumn.TRACK_NUMBER, False) #'track-number'
         self.append_column(RB.EntryViewColumn.TITLE, True) #'title' - n.b. default and never manually defined
         self.append_column(RB.EntryViewColumn.GENRE, False) #'genre'
@@ -59,11 +59,13 @@ class CoverArtEntryView(RB.EntryView):
         self.append_column(RB.EntryViewColumn.LOCATION, False) #'location'
         self.append_column(RB.EntryViewColumn.BPM, False) #'beats-per-minute'
 
+        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+        
         self.set_columns_clickable(False)
 
         # UI elements need to be imported.
         ui = Gtk.Builder()
-        ui.set_translation_domain(self.LOCALE_DOMAIN)
+        ui.set_translation_domain(cl.Locale.LOCALE_DOMAIN)
         ui.add_from_file(rb.find_plugin_file(self.plugin,
             'ui/coverart_entryview.ui'))
         ui.connect_signals(self)
