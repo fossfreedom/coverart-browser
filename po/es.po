@@ -27,11 +27,11 @@ msgstr "%s por %s"
 
 #: coverart_browser.py:72
 msgid "CoverArt Browser"
-msgstr "CoverArt"
+msgstr "Navegador de Portadas"
 
 #: coverart_browser.py:73
 msgid "Browse and play your albums through their covers"
-msgstr ""
+msgstr "Navega y reproduce tu librería de álbums a través de sus portadas"
 
 #: coverart_browser.py:102
 msgid "CoverArt"
