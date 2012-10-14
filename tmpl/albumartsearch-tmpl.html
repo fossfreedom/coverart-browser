@@ -1,5 +1,5 @@
 ## -*- coding: utf-8 -*-
- 
+
 <%page args="artist, album, stylesheet" />
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -14,6 +14,7 @@
             var imageSearch;
             var currentPage = 0;
             var clear = true;
+            var selected;
 
             google.load('search', '1');
 
@@ -51,6 +52,7 @@
 
                         var newImg = document.createElement('img');
                         newImg.ondblclick = setCover;
+                        newImg.onclick = highlight;
                         newImg.src = result.tbUrl;
                         newImg.id = result.url;
                         newImg.setAttribute("class", "srchresult");
@@ -79,6 +81,17 @@
 
             function setCover(event) {
                 document.title = this.id
+            }
+
+            function highlight(event) {
+                if ( selected !== undefined ) {
+                    selected.style.border = "hidden"
+                    selected.style.margin = "5px"
+                }
+
+                selected = this
+                selected.style.border = "solid 3px blue"
+                selected.style.margin = "2px"
             }
 
             function onSearchText() {
