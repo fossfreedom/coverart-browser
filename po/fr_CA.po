@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-10-11 21:05+BST\n"
+"POT-Creation-Date: 2012-10-13 21:19+BST\n"
 "PO-Revision-Date: 2012-09-22 21:22+BST\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,15 +17,23 @@ msgstr ""
 "Generated-By: pygettext.py 1.5\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: coverart_album.py:694
+#: coverart_album.py:695
 msgid "Various Artists"
 msgstr "Artistes variés"
 
-#: coverart_album.py:732 coverart_album.py:758 coverart_browser_source.py:742
+#: coverart_album.py:733 coverart_album.py:760 coverart_browser_source.py:743
 msgid "%s by %s"
 msgstr "%s par %s"
 
-#: coverart_browser.py:103
+#: coverart_browser.py:72
+msgid "CoverArt Browser"
+msgstr "Navigateur de pochettes"
+
+#: coverart_browser.py:73
+msgid "Browse and play your albums through their covers"
+msgstr "Parcoure les pochettes de vos albums et les joue"
+
+#: coverart_browser.py:102
 msgid "CoverArt"
 msgstr "Pochettes"
 
@@ -33,39 +41,39 @@ msgstr "Pochettes"
 msgid "Loading..."
 msgstr "Chargement..."
 
-#: coverart_browser_source.py:196
+#: coverart_browser_source.py:197
 msgid "Search album"
 msgstr "Rechercher des albums"
 
-#: coverart_browser_source.py:244
+#: coverart_browser_source.py:245
 msgid "Tracks"
 msgstr "Pistes"
 
-#: coverart_browser_source.py:248
+#: coverart_browser_source.py:249
 msgid "Covers"
 msgstr "Pochettes"
 
-#: coverart_browser_source.py:684
+#: coverart_browser_source.py:685
 msgid "Requesting cover for %s - %s..."
 msgstr "Demande de la pochette pour %s - %s..."
 
-#: coverart_browser_source.py:745
+#: coverart_browser_source.py:746
 msgid "%d selected albums "
 msgstr "%d albums sélectionés"
 
-#: coverart_browser_source.py:749
+#: coverart_browser_source.py:750
 msgid " with 1 track"
 msgstr " avec 1 piste"
 
-#: coverart_browser_source.py:751
+#: coverart_browser_source.py:752
 msgid " with %d tracks"
 msgstr " avec %d pistes"
 
-#: coverart_browser_source.py:754
+#: coverart_browser_source.py:755
 msgid " and a duration of 1 minute"
 msgstr " et une durée de 1 minute"
 
-#: coverart_browser_source.py:756
+#: coverart_browser_source.py:757
 msgid " and a duration of %d minutes"
 msgstr " et une durée de %d minutes"
 
@@ -249,13 +257,13 @@ msgid ""
 "is enabled."
 msgstr ""
 "Réduire à une longueur fixe le nom des albums quand l'affichage des textes "
-"est activée."
+"est activé."
 
 #: ui/coverart_browser_prefs.ui.h:11
 msgid ""
 "This is the maximum allowed size for an album's name before being ellipsized."
 msgstr ""
-"C'est la grandeur maximum permise pour un nom d'album avant d'être réduite."
+"C'est la taille maximum permise pour un nom d'album avant d'être réduite."
 
 #: ui/coverart_browser_prefs.ui.h:12
 msgid "Maximum length:"
@@ -263,7 +271,7 @@ msgstr "Longueur maximale"
 
 #: ui/coverart_browser_prefs.ui.h:13
 msgid "Level above which is regarded as being a rated track."
-msgstr "Note à laquelle une piste est considéré comme étant favorite"
+msgstr "Note à laquelle une piste est considérée comme étant favorite"
 
 #: ui/coverart_browser_prefs.ui.h:14
 msgid "Rating Threshold:"
@@ -283,7 +291,9 @@ msgstr "Démarrage automatique"
 
 #: ui/coverart_browser_prefs.ui.h:18
 msgid "When rhythmbox starts, switch automatically to the coverart browser."
-msgstr "Quand rhythmbox démarre, basculer automatiquement vers le navigateur de pochettes"
+msgstr ""
+"Quand rhythmbox démarre, basculer automatiquement vers le navigateur de "
+"pochettes"
 
 #: ui/coverart_entryview.ui.h:1
 msgid "Play this track"
