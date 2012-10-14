@@ -27,11 +27,11 @@ msgstr "%s par %s"
 
 #: coverart_browser.py:72
 msgid "CoverArt Browser"
-msgstr ""
+msgstr "Navigateur de pochettes"
 
 #: coverart_browser.py:73
 msgid "Browse and play your albums through their covers"
-msgstr ""
+msgstr "Parcoure les pochettes de vos albums et les joue"
 
 #: coverart_browser.py:102
 msgid "CoverArt"
@@ -257,13 +257,13 @@ msgid ""
 "is enabled."
 msgstr ""
 "Réduire à une longueur fixe le nom des albums quand l'affichage des textes "
-"est activée."
+"est activé."
 
 #: ui/coverart_browser_prefs.ui.h:11
 msgid ""
 "This is the maximum allowed size for an album's name before being ellipsized."
 msgstr ""
-"C'est la grandeur maximum permise pour un nom d'album avant d'être réduite."
+"C'est la taille maximum permise pour un nom d'album avant d'être réduite."
 
 #: ui/coverart_browser_prefs.ui.h:12
 msgid "Maximum length:"
@@ -271,7 +271,7 @@ msgstr "Longueur maximale"
 
 #: ui/coverart_browser_prefs.ui.h:13
 msgid "Level above which is regarded as being a rated track."
-msgstr "Note à laquelle une piste est considéré comme étant favorite"
+msgstr "Note à laquelle une piste est considérée comme étant favorite"
 
 #: ui/coverart_browser_prefs.ui.h:14
 msgid "Rating Threshold:"
