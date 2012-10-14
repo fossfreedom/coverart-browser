@@ -173,9 +173,23 @@ class CoverArtBrowserSource(RB.Source):
         self.covers_model_store = ui.get_object('covers_model')
 
         # get widgets for main icon-view
+        # the first part is to first remove the current search-entry
+        # before recreating it again - we have to do this to ensure
+        # the locale is set correctly i.e. the overall ui is coverart
+        # locale but the search-entry uses rhythmbox translation
+        align = ui.get_object('entry_search_alignment')
+        align.remove(align.get_child())
+        cl.switch_locale(cl.Locale.RB)
+        self.search_entry = RB.SearchEntry(has_popup=True)
+        align.add(self.search_entry)
+        align.show_all()
+        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+
         self.status_label = ui.get_object('status_label')
         self.covers_view = ui.get_object('covers_view')
-        self.search_entry = ui.get_object('search_entry')
+        self.search_entry.connect('search', self.searchchanged_callback)
+        self.search_entry.connect('show-popup', self.search_show_popup_callback)
+        
         self.popup_menu = ui.get_object('popup_menu')
         self.cover_search_menu_item = ui.get_object('cover_search_menu_item')
         self.status_label = ui.get_object('status_label')
