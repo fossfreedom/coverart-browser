@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-10-13 21:19+BST\n"
+"POT-Creation-Date: 2012-10-14 23:10+BST\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,7 +30,7 @@ msgstr ""
 msgid "Various Artists"
 msgstr ""
 
-#: coverart_album.py:733 coverart_album.py:760 coverart_browser_source.py:743
+#: coverart_album.py:733 coverart_album.py:760 coverart_browser_source.py:757
 msgid "%s by %s"
 msgstr ""
 
@@ -46,48 +46,48 @@ msgstr ""
 msgid "CoverArt"
 msgstr ""
 
-#: coverart_browser_source.py:89 tmpl/albumartsearch-tmpl.html:200
+#: coverart_browser_source.py:89 tmpl/albumartsearch-tmpl.html:214
 msgid "Loading..."
 msgstr ""
 
-#: coverart_browser_source.py:197
+#: coverart_browser_source.py:211
 msgid "Search album"
 msgstr ""
 
-#: coverart_browser_source.py:245
+#: coverart_browser_source.py:259
 msgid "Tracks"
 msgstr ""
 
-#: coverart_browser_source.py:249
+#: coverart_browser_source.py:263
 msgid "Covers"
 msgstr ""
 
-#: coverart_browser_source.py:685
+#: coverart_browser_source.py:699
 msgid "Requesting cover for %s - %s..."
 msgstr ""
 
-#: coverart_browser_source.py:746
+#: coverart_browser_source.py:760
 msgid "%d selected albums "
 msgstr ""
 
-#: coverart_browser_source.py:750
+#: coverart_browser_source.py:764
 msgid " with 1 track"
 msgstr ""
 
-#: coverart_browser_source.py:752
+#: coverart_browser_source.py:766
 msgid " with %d tracks"
 msgstr ""
 
-#: coverart_browser_source.py:755
+#: coverart_browser_source.py:769
 msgid " and a duration of 1 minute"
 msgstr ""
 
-#: coverart_browser_source.py:757
+#: coverart_browser_source.py:771
 msgid " and a duration of %d minutes"
 msgstr ""
 
-#: ui/coverart_browser.ui.h:1 tmpl/albumartsearch-tmpl.html:171
-#: tmpl/albumartsearch-tmpl.html:181
+#: ui/coverart_browser.ui.h:1 tmpl/albumartsearch-tmpl.html:184
+#: tmpl/albumartsearch-tmpl.html:194
 msgid "Album"
 msgstr ""
 
@@ -95,8 +95,8 @@ msgstr ""
 msgid "Sort by album name"
 msgstr ""
 
-#: ui/coverart_browser.ui.h:3 tmpl/albumartsearch-tmpl.html:170
-#: tmpl/albumartsearch-tmpl.html:180
+#: ui/coverart_browser.ui.h:3 tmpl/albumartsearch-tmpl.html:183
+#: tmpl/albumartsearch-tmpl.html:193
 msgid "Artist"
 msgstr ""
 
@@ -369,51 +369,55 @@ msgstr ""
 msgid "Show track properties"
 msgstr ""
 
-#: tmpl/albumartsearch-tmpl.html:126 tmpl/albumartsearch-tmpl.html:176
+#: tmpl/albumartsearch-tmpl.html:139 tmpl/albumartsearch-tmpl.html:189
 msgid "Search Options"
 msgstr ""
 
-#: tmpl/albumartsearch-tmpl.html:168
+#: tmpl/albumartsearch-tmpl.html:181
 msgid "Album art search"
 msgstr ""
 
-#: tmpl/albumartsearch-tmpl.html:178
+#: tmpl/albumartsearch-tmpl.html:191
 msgid "Search Mode"
 msgstr ""
 
-#: tmpl/albumartsearch-tmpl.html:182
+#: tmpl/albumartsearch-tmpl.html:195
 msgid "Artist and album"
 msgstr ""
 
-#: tmpl/albumartsearch-tmpl.html:185
+#: tmpl/albumartsearch-tmpl.html:198
 msgid "Search text"
 msgstr ""
 
-#: tmpl/albumartsearch-tmpl.html:188
+#: tmpl/albumartsearch-tmpl.html:201
 msgid "Search"
 msgstr ""
 
-#: tmpl/albumartsearch-tmpl.html:190
+#: tmpl/albumartsearch-tmpl.html:203
 msgid "Image Size"
 msgstr ""
 
-#: tmpl/albumartsearch-tmpl.html:192
+#: tmpl/albumartsearch-tmpl.html:205
 msgid "Small"
 msgstr ""
 
-#: tmpl/albumartsearch-tmpl.html:193
+#: tmpl/albumartsearch-tmpl.html:206
 msgid "Medium"
 msgstr ""
 
-#: tmpl/albumartsearch-tmpl.html:194
+#: tmpl/albumartsearch-tmpl.html:207
 msgid "Large"
 msgstr ""
 
-#: tmpl/albumartsearch-tmpl.html:195
+#: tmpl/albumartsearch-tmpl.html:208
 msgid "Extra Large"
 msgstr ""
 
-#: tmpl/albumartsearch-tmpl.html:202
+#: tmpl/albumartsearch-tmpl.html:213
+msgid "Tip: doubleclick or drag a cover to use it as the album cover"
+msgstr ""
+
+#: tmpl/albumartsearch-tmpl.html:216
 msgid "Show more results"
 msgstr ""
 
