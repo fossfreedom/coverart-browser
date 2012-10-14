@@ -418,7 +418,8 @@ msgstr "Muy Grande"
 
 #: tmpl/albumartsearch-tmpl.html:213
 msgid "Tip: doubleclick or drag a cover to use it as the album cover"
-msgstr ""
+msgstr "Consejo: puedes hacer doble-click o arrastrar una portada para usarla "
+"como portada para el álbum"
 
 #: tmpl/albumartsearch-tmpl.html:216
 msgid "Show more results"
