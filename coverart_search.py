@@ -77,6 +77,9 @@ class CoverSearchPane(Gtk.VBox):
         '''
         #---- set up webkit pane -----#
         self.webview = WebKit.WebView()
+        settings = self.webview.get_settings()
+        settings.set_property('enable-default-context-menu', False)
+        self.webview.set_settings(settings)
         scroll = Gtk.ScrolledWindow()
         scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         scroll.add(self.webview)
