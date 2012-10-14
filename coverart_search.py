@@ -28,6 +28,7 @@ from mako.template import Template
 
 from coverart_album import AlbumLoader
 
+
 class CoverSearchPane(Gtk.VBox):
     '''
     This UI represents a pane where different album's covers can be presented
@@ -35,11 +36,14 @@ class CoverSearchPane(Gtk.VBox):
     customize the default search and select covers from the pane and use them
     as the album covers (either with a double click or draging them).
     '''
-    def __init__(self, plugin):
+    def __init__(self, plugin, selection_color):
         '''
         Initializes the pane, loading it's html templates and it's ui.
         '''
         super(CoverSearchPane, self).__init__()
+
+        self.selection_color = selection_color
+
         self.file = ""
         self.basepath = 'file://' + plugin.plugin_info.get_data_dir()
 
@@ -120,7 +124,7 @@ class CoverSearchPane(Gtk.VBox):
         Renders the template on the webview.
         '''
         temp_file = self.template.render(artist=artist, album=album_name,
-            stylesheet=self.styles)
+            stylesheet=self.styles, selection_color=self.selection_color)
 
         self.webview.load_string(temp_file, 'text/html', 'utf-8',
             self.basepath)

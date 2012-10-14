@@ -42,7 +42,7 @@ class CoverArtBrowserSource(RB.Source):
     display_text_enabled = GObject.property(type=bool, default=False)
     display_text_loading_enabled = GObject.property(type=bool, default=True)
     rating_threshold = GObject.property(type=float, default=0)
-    
+
     def __init__(self, **kargs):
         '''
         Initializes the source.
@@ -188,8 +188,9 @@ class CoverArtBrowserSource(RB.Source):
         self.status_label = ui.get_object('status_label')
         self.covers_view = ui.get_object('covers_view')
         self.search_entry.connect('search', self.searchchanged_callback)
-        self.search_entry.connect('show-popup', self.search_show_popup_callback)
-        
+        self.search_entry.connect('show-popup',
+            self.search_show_popup_callback)
+
         self.popup_menu = ui.get_object('popup_menu')
         self.cover_search_menu_item = ui.get_object('cover_search_menu_item')
         self.status_label = ui.get_object('status_label')
@@ -259,8 +260,14 @@ class CoverArtBrowserSource(RB.Source):
         self.notebook.append_page(self.entry_view, Gtk.Label(_("Tracks")))
 
         # setup cover search pane
-        self.cover_search_pane = CoverSearchPane(self.plugin)
-        self.notebook.append_page(self.cover_search_pane, Gtk.Label(_("Covers")))
+        color = self.covers_view.get_style().bg[Gtk.StateType.SELECTED]
+        color = '#%s%s%s' % (str(hex(color.red // 257)).replace('0x', ''),
+            str(hex(color.green // 257)).replace('0x', ''),
+            str(hex(color.blue // 257)).replace('0x', ''))
+        print color
+        self.cover_search_pane = CoverSearchPane(self.plugin, color)
+        self.notebook.append_page(self.cover_search_pane, Gtk.Label(
+            ("Covers")))
 
         # setup the album loader and the cover view to use it's model + filter
         self.loader = AlbumLoader.get_instance(self.plugin,

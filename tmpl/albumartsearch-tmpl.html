@@ -1,6 +1,6 @@
 ## -*- coding: utf-8 -*-
 
-<%page args="artist, album, stylesheet" />
+<%page args="artist, album, stylesheet, selection_color" />
 
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -90,7 +90,7 @@
                 }
 
                 selected = this
-                selected.style.border = "solid 3px blue"
+                selected.style.border = "solid 3px ${selection_color}"
                 selected.style.margin = "2px"
             }
 
