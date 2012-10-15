@@ -1,4 +1,4 @@
-# -*- Mode: python; coding: utf-8; tab-width: 4; indent-tabs-mode: nil; -*-
+# -*- Mode: python; coding: utf-8; tab-width: 8; indent-tabs-mode: t; -*-
 #
 # Copyright (C) 2012 - fossfreedom
 # Copyright (C) 2012 - Agustin Carrasco
@@ -19,117 +19,76 @@
 
 # define plugin
 import rb
-import locale
-import gettext
 
-
+from gi.repository import Gio
 from gi.repository import GObject
 from gi.repository import Gtk
 from gi.repository import RB
 from gi.repository import GdkPixbuf
 from gi.repository import Peas
 
+import coverart_browser_prefs as prefs
 from coverart_browser_prefs import Preferences
-from coverart_browser_prefs import GSetting
-from coverart_browser_prefs import CoverLocale
-
 from coverart_browser_source import CoverArtBrowserSource
 
-
 class CoverArtBrowserEntryType(RB.RhythmDBEntryType):
-    '''
-    Entry type for our source.
-    '''
     def __init__(self):
-        '''
-        Initializes the entry type.
-        '''
         RB.RhythmDBEntryType.__init__(self, name='CoverArtBrowserEntryType')
 
-
 class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
-    '''
-    Main class of the plugin. Manages the activation and deactivation of the
-    plugin.
-    '''
     __gtype_name = 'CoverArtBrowserPlugin'
     object = GObject.property(type=GObject.Object)
     
     def __init__(self):
-        '''
-        Initialises the plugin object.
-        '''
         GObject.Object.__init__(self)
 
     def do_activate(self):
-        '''
-        Called by Rhythmbox when the plugin is activated. It creates the
-        plugin's source and connects signals to manage the plugin's
-        preferences.
-        '''
-
-        #define .plugin text strings used for translation
-        plugin = _('CoverArt Browser')
-        desc = _('Browse and play your albums through their covers')
-
         print "CoverArtBrowser DEBUG - do_activate"
         self.shell = self.object
         self.db = self.shell.props.db
-
+        
         try:
             entry_type = CoverArtBrowserEntryType()
             self.db.register_entry_type(entry_type)
         except NotImplementedError:
-            entry_type = self.db.entry_register_type(
-                'CoverArtBrowserEntryType')
-
-        cl = CoverLocale()
-        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+            entry_type = db.entry_register_type("CoverArtBrowserEntryType")
 
         entry_type.category = RB.RhythmDBEntryCategory.NORMAL
 
         # load plugin icon
         theme = Gtk.IconTheme.get_default()
-        rb.append_plugin_source_path(theme, '/icons')
+        rb.append_plugin_source_path(theme, "/icons")
 
         what, width, height = Gtk.icon_size_lookup(Gtk.IconSize.LARGE_TOOLBAR)
-        pxbf = GdkPixbuf.Pixbuf.new_from_file_at_size(
-            rb.find_plugin_file(self, 'img/covermgr.png'), width, height)
+        pxbf = GdkPixbuf.Pixbuf.new_from_file_at_size(rb.find_plugin_file(self, "covermgr.png"), width, height)
 
-        group = RB.DisplayPageGroup.get_by_id('library')
+        group = RB.DisplayPageGroup.get_by_id ("library")
 
-        self.source = CoverArtBrowserSource(shell=self.shell,
-            name=_("CoverArt"), entry_type=entry_type,
-            plugin=self, pixbuf=pxbf,
-            query_model=self.shell.props.library_source.props.base_query_model)
+        self.source = GObject.new ( CoverArtBrowserSource,
+                                    shell=self.shell,
+                                    name=_("CoverArt"),
+                                    entry_type=entry_type,
+                                    plugin=self,
+                                    pixbuf=pxbf)
 
         self.shell.register_entry_type_for_source(self.source, entry_type)
         self.shell.append_display_page(self.source, group)
-
-        self.shell.props.db.connect('load-complete', self.load_complete)
         
+        # create a preferences object and bind the custom_statusbar property
+        # from the source to it's configuration setting
+        preferences = Preferences()
+        preferences.settings.bind(prefs.CUSTOM_STATUSBAR, self.source,
+        	'custom_statusbar_enabled', Gio.SettingsBindFlags.GET)
+        	       
         print "CoverArtBrowser DEBUG - end do_activate"
-
+        
     def do_deactivate(self):
-        '''
-        Called by Rhythmbox when the plugin is deactivated. It makes sure to
-        free all the resources used by the plugin.
-        '''
         print "CoverArtBrowser DEBUG - do_deactivate"
+        manager = self.shell.props.ui_manager
+        manager.ensure_update()
         self.source.delete_thyself()
-
-        del self.shell
-        del self.db
-        del self.source
+        self.shell = None
+        self.source = None
         print "CoverArtBrowser DEBUG - end do_deactivate"
 
-    def load_complete(self, *args, **kwargs):
-        '''
-        Called by Rhythmbox when it has completed loading all data
-        Used to automatically switch to the browser if the user
-        has set in the preferences
-        '''
-        gs = GSetting()
-        setting = gs.get_setting(gs.Path.PLUGIN)
-        if setting[gs.PluginKey.AUTOSTART]:
-            self.shell.props.display_page_tree.select(self.source)
+ 
