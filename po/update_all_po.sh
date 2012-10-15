@@ -5,3 +5,7 @@ for i in *.po; do
 	echo "updating $lang"
     intltool-update --dist $lang -g package
 done
+
+echo "update plugin file"
+
+intltool-merge -d . ../coverart_browser.plugin.in ../coverart_browser.plugin
