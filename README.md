@@ -3,7 +3,7 @@ coverart-browser v0.5
 
 Browse your coverart albums in Rhythmbox v2.96 and later
 
-![Imgur](http://i.imgur.com/LJUif.png)
+![Imgur](http://i.imgur.com/QyCXA.png)
 
 -----------
 
@@ -20,7 +20,7 @@ Summary: whats new in this release
  - Multiple user-configurable options to tailor what you see and use.
  - Examine and change properties for an Album
  - Examine and change properties for a track
- - Optionally start in coverart view with rhythmbox starts
+ - Optionally start in coverart view when rhythmbox starts
 
 How it works:
 
@@ -55,11 +55,11 @@ How it works:
 
  - Display tracks for an album
 
-![Imgur](http://i.imgur.com/0QG1g.png)
+![Imgur](http://i.imgur.com/TFzgM.png)
 
  - Find additional coverart
 
-![Imgur](http://i.imgur.com/78pkf.png)
+![Imgur](http://i.imgur.com/swQ7R.png)
 
 Either double-click the picture or drag-and-drop to update the coverart for the selected album
 
@@ -85,7 +85,7 @@ Then use the Rate Threshold...
 
  - Define your own preferences
 
-![Imgur](http://i.imgur.com/XIevz.png)
+![Imgur](http://i.imgur.com/n2OcH.png)
 
  - Display the name and artist for covers
 
@@ -116,6 +116,28 @@ This is now available in my rhythmbox PPA - installation instructions in this As
 
 http://askubuntu.com/questions/147942/how-do-i-install-third-party-rhythmbox-plugins
 
+**IMPORTANT NOTE**
+
+For Ubuntu 12.04 users that have upgraded to Rhythmbox v2.98 using the webupd8 PPA, this version 
+of rhythmbox crashes when used with python plugins such as coverart-browser and replaygain.
+
+It is strongly recommended that you either upgrade to 12.10 where v2.98 works great, or 
+downgrade to v2.96 or v2.97 as per:
+ - http://askubuntu.com/questions/201093/how-do-i-downgrade-rhythmbox-v2-98
+
+You can use this plugin with v2.98 but you'll need to change the file *coverart_album.py* and
+comment out the following lines (i.e. add a # as shown)
+
+<pre>
+#self.entry_changed_id = self.db.connect('entry-changed',
+#            self._entry_changed_callback)
+</pre>
+
+If you do this, rhythmbox does not crash - however, if you change and album or track details
+via the properties option in the music pane, these changes are not updated in the plugin until
+you restart rhythmbox.
+
+
 **Please help out with translating**
 
 We need you to help us translate the english text to your native language.
@@ -145,6 +167,6 @@ The authors of this plugin are fossfreedom <foss.freedom@gmail.com>, Agustín Ca
 Credits:
 
  - thanks to Luqman Aden <laden@uwaterloo.ca> for the coverart-search plugin which our cover-search pane is based upon
- - our Translators: jrbastien, asermax, mateuswetah
+ - our Translators: jrbastien (fr_CA), asermax (es), mateuswetah (pt_BR), jrbastien & lannic (fr.po)
 
 GTK3 port of code.google.com/p/rhythmbox-cover-art-browser
