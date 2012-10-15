@@ -37,7 +37,7 @@ msgstr ""
 
 #: coverart_album.py:695
 msgid "Various Artists"
-msgstr "Artistes variés"
+msgstr "Différents Artistes"
 
 #: coverart_album.py:733 coverart_album.py:760 coverart_browser_source.py:757
 msgid "%s by %s"
@@ -45,15 +45,15 @@ msgstr "%s par %s"
 
 #: coverart_browser.py:72
 msgid "CoverArt Browser"
-msgstr "Navigateur de pochettes"
+msgstr "Navigateur de Jacquettes"
 
 #: coverart_browser.py:73
 msgid "Browse and play your albums through their covers"
-msgstr "Parcoure les pochettes de vos albums et les joue"
+msgstr "Parcourer les jacquettes de vos albums et jouer les"
 
 #: coverart_browser.py:102
 msgid "CoverArt"
-msgstr "Pochettes"
+msgstr "Jacquettes"
 
 #: coverart_browser_source.py:89 tmpl/albumartsearch-tmpl.html:214
 msgid "Loading..."
@@ -69,11 +69,11 @@ msgstr "Pistes"
 
 #: coverart_browser_source.py:263
 msgid "Covers"
-msgstr "Pochettes"
+msgstr "Jacquettes"
 
 #: coverart_browser_source.py:699
 msgid "Requesting cover for %s - %s..."
-msgstr "Demande de la pochette pour %s - %s..."
+msgstr "Demande de la jacquette pour %s - %s..."
 
 #: coverart_browser_source.py:760
 msgid "%d selected albums "
@@ -102,7 +102,7 @@ msgstr "Album"
 
 #: ui/coverart_browser.ui.h:2
 msgid "Sort by album name"
-msgstr "Trier par nom d'album"
+msgstr "Trier par le nom de l'album"
 
 #: ui/coverart_browser.ui.h:3 tmpl/albumartsearch-tmpl.html:183
 #: tmpl/albumartsearch-tmpl.html:193
@@ -111,23 +111,23 @@ msgstr "Artiste"
 
 #: ui/coverart_browser.ui.h:4
 msgid "Sort by album artist"
-msgstr "Trier par artiste d'album"
+msgstr "Trier par le nom de l'artiste"
 
 #: ui/coverart_browser.ui.h:5
 msgid "Sort in descending order"
-msgstr "Trier en ordre descendant"
+msgstr "Trier en ordre décroissant"
 
 #: ui/coverart_browser.ui.h:6
 msgid "Sort in ascending order"
-msgstr "Trier en ordre ascendant"
+msgstr "Trier en ordre croissant"
 
 #: ui/coverart_browser.ui.h:7
 msgid "Tracks & Covers"
-msgstr "Pistes & Pochettes"
+msgstr "Pistes & Jacquettes"
 
 #: ui/coverart_browser.ui.h:8
 msgid "Stop coverart fetch."
-msgstr "Arrêter de chercher les pochettes"
+msgstr "Arrêter de chercher les jacquettes"
 
 #: ui/coverart_browser.ui.h:9
 msgid "Play this album"
@@ -151,7 +151,7 @@ msgstr "Jouer les pistes favorites de cet album"
 
 #: ui/coverart_browser.ui.h:14
 msgid "Play Favourites"
-msgstr "Jouer les favorites"
+msgstr "Jouer les favoris"
 
 #: ui/coverart_browser.ui.h:15
 msgid "Add favourite tracks from this album to your playing queue"
@@ -159,15 +159,15 @@ msgstr "Ajouter les pistes favorites de cet album à votre liste d'attente"
 
 #: ui/coverart_browser.ui.h:16
 msgid "Queue Favourites"
-msgstr "Mettre en attente les favorites"
+msgstr "Mettre en attente les favoris"
 
 #: ui/coverart_browser.ui.h:17
 msgid "Search for this album cover"
-msgstr "Rechercher la pochette de cet album"
+msgstr "Rechercher la jacquette de cet album"
 
 #: ui/coverart_browser.ui.h:18
 msgid "Search for covers"
-msgstr "Rechercher les pochettes"
+msgstr "Rechercher les jacquettes"
 
 #: ui/coverart_browser.ui.h:19
 msgid "Show album properties"
@@ -175,11 +175,11 @@ msgstr "Afficher les propriétés de l'album"
 
 #: ui/coverart_browser.ui.h:20
 msgid "Search for covers where an album does not currently have one"
-msgstr "Rechercher les pochettes des albums qui n'en ont pas"
+msgstr "Rechercher les jacquettes des albums qui n'en ont pas"
 
 #: ui/coverart_browser.ui.h:21
 msgid "Download all the covers"
-msgstr "Télécharger toutes les pochettes"
+msgstr "Télécharger toutes les jacquettes"
 
 #: ui/coverart_browser.ui.h:22
 msgid "Search using all fields"
@@ -191,23 +191,23 @@ msgstr "Rechercher tous les champs"
 
 #: ui/coverart_browser.ui.h:24
 msgid "Search using album artist names"
-msgstr "Rechercher en utilisant les noms d'artiste d'album"
+msgstr "Rechercher en utilisant les noms des artistes de l'album"
 
 #: ui/coverart_browser.ui.h:25
 msgid "Search album artists"
-msgstr "Rechercher les artistes d'album"
+msgstr "Rechercher les artistes de l'album"
 
 #: ui/coverart_browser.ui.h:26
 msgid "Search using track artist names"
-msgstr "Rechercher en utilisant les noms d'artiste de piste"
+msgstr "Rechercher en utilisant les noms des artistes de la piste"
 
 #: ui/coverart_browser.ui.h:27
 msgid "Search track artists"
-msgstr "Rechercher les artistes de piste"
+msgstr "Rechercher les artistes de la piste"
 
 #: ui/coverart_browser.ui.h:28
 msgid "Search using album titles"
-msgstr "Rechercher en utilisant les titres d'album"
+msgstr "Rechercher en utilisant les titres de l'album"
 
 #: ui/coverart_browser.ui.h:29
 msgid "Search albums"
@@ -223,35 +223,35 @@ msgstr "Rechercher les pistes"
 
 #: ui/coverart_browser_prefs.ui.h:1
 msgid "Use source's custom statusbar."
-msgstr "Utiliser la barre d'état custom de ce code"
+msgstr "Utiliser comme source la barre d'état personnalisée"
 
 #: ui/coverart_browser_prefs.ui.h:2
 msgid ""
 "Use the source's custom statusbar to show the current selected album's "
 "related information instead of the global Rhythmbox's statusbar."
 msgstr ""
-"Utiliser la barre d'état custom pour montrer l'information reliée à l'album "
+"Utiliser la source de la barre d'état personnalisée pour montrer l'information reliée à l'album "
 "sélectionné au lieu de la barre d'état globale de Rhythmbox."
 
 #: ui/coverart_browser_prefs.ui.h:3
 msgid "Display tracks and covers pane"
-msgstr "Afficher les pistes et le volet pochettes"
+msgstr "Afficher les pistes et le volet des jacquettes"
 
 #: ui/coverart_browser_prefs.ui.h:4
 msgid ""
 "Add a toggle-option to the coverart view to display the tracks and covers "
 "for the chosen album"
 msgstr ""
-"Ajouter une option pour basculer entre l'affichage pochettes seules et "
-"l'affichage pistes et pochettes des albums choisis"
+"Ajouter une option pour basculer entre l'affichage des jacquettes seules et "
+"l'affichage des pistes et des jacquettes pour l'album choisi"
 
 #: ui/coverart_browser_prefs.ui.h:5
 msgid "Display album's info under cover"
-msgstr "Afficher les infos de l'album sous la pochette"
+msgstr "Afficher les infos de l'album sous la jacquette"
 
 #: ui/coverart_browser_prefs.ui.h:6
 msgid "Show the album's basic information under the cover image."
-msgstr "Afficher les informations de base sous l'image de la pochette"
+msgstr "Afficher les informations de base sous l'image de la jacquette"
 
 #: ui/coverart_browser_prefs.ui.h:7
 msgid "Show text while loading"
@@ -267,14 +267,14 @@ msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:9
 msgid "Ellipsize albums names"
-msgstr "Réduire le noms des albums"
+msgstr "Réduire les noms des albums"
 
 #: ui/coverart_browser_prefs.ui.h:10
 msgid ""
 "Ellipsizes the albums names to a fixed length when the display text option "
 "is enabled."
 msgstr ""
-"Réduire à une longueur fixe le nom des albums quand l'affichage des textes "
+"Réduire à une longueur fixe les noms des albums quand l'option de l'affichage des textes "
 "est activé."
 
 #: ui/coverart_browser_prefs.ui.h:11
@@ -297,11 +297,11 @@ msgstr "Seuil de notation"
 
 #: ui/coverart_browser_prefs.ui.h:15
 msgid "Defines the size for the covers showed on the source."
-msgstr "Défini la taille des pochettes montrées dans le volet"
+msgstr "Défini la taille des jacquettes montrées dans le volet"
 
 #: ui/coverart_browser_prefs.ui.h:16
 msgid "Cover size in pixels:"
-msgstr "Taille de pochette en pixels:"
+msgstr "Taille de la jacquette en pixels:"
 
 #: ui/coverart_browser_prefs.ui.h:17
 msgid "Automatically Start"
@@ -309,9 +309,8 @@ msgstr "Démarrage automatique"
 
 #: ui/coverart_browser_prefs.ui.h:18
 msgid "When rhythmbox starts, switch automatically to the coverart browser."
-msgstr ""
-"Quand rhythmbox démarre, basculer automatiquement vers le navigateur de "
-"pochettes"
+msgstr "Quand rhythmbox démarre, basculer automatiquement vers le navigateur de "
+"jacquettes."
 
 #: ui/coverart_entryview.ui.h:1
 msgid "Play this track"
@@ -395,7 +394,7 @@ msgstr "Options de recherche"
 
 #: tmpl/albumartsearch-tmpl.html:181
 msgid "Album art search"
-msgstr "Recherche de pochette"
+msgstr "Recherche de jacquette"
 
 #: tmpl/albumartsearch-tmpl.html:191
 msgid "Search Mode"
@@ -436,7 +435,7 @@ msgstr "Énorme"
 #: tmpl/albumartsearch-tmpl.html:213
 msgid "Tip: doubleclick or drag a cover to use it as the album cover"
 msgstr ""
-"Astuce:  Double-cliquer ou glisser-déposer l'image pour l'utiliser comme pochette"
+"Astuce:  Double-cliquer ou glisser-déposer l'image pour l'utiliser comme jacquette"
 
 #: tmpl/albumartsearch-tmpl.html:216
 msgid "Show more results"
@@ -444,13 +443,13 @@ msgstr "Afficher plus de résultats"
 
 #: tmpl/albumartsearchempty-tmpl.html:11
 msgid " Album art search - Select an album"
-msgstr " Recherche de pochette d'album - Choisir un album"
+msgstr " Recherche de jacquette d'album - Sélectionner un album"
 
 #~ msgid "Cover found!"
-#~ msgstr "Pochette trouvée"
+#~ msgstr "Jacquette trouvée"
 
 #~ msgid "No cover found."
-#~ msgstr "Pochette non trouvée"
+#~ msgstr "Jacquette non trouvée"
 
 #~ msgid "Search through your albums"
 #~ msgstr "Rechercher dans vos albums"
