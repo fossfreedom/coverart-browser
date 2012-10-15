@@ -418,6 +418,7 @@ msgstr "Énorme"
 #: tmpl/albumartsearch-tmpl.html:213
 msgid "Tip: doubleclick or drag a cover to use it as the album cover"
 msgstr ""
+"Astuce:  Double-cliquer ou glisser-déposer l'image pour l'utiliser comme pochette"
 
 #: tmpl/albumartsearch-tmpl.html:216
 msgid "Show more results"
