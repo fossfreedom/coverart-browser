@@ -37,399 +37,423 @@ msgstr ""
 
 #: coverart_album.py:695
 msgid "Various Artists"
-msgstr ""
+msgstr "Artistes variés"
 
 #: coverart_album.py:733 coverart_album.py:760 coverart_browser_source.py:757
 msgid "%s by %s"
-msgstr ""
+msgstr "%s par %s"
 
 #: coverart_browser.py:72
 msgid "CoverArt Browser"
-msgstr ""
+msgstr "Navigateur de pochettes"
 
 #: coverart_browser.py:73
 msgid "Browse and play your albums through their covers"
-msgstr ""
+msgstr "Parcoure les pochettes de vos albums et les joue"
 
 #: coverart_browser.py:102
 msgid "CoverArt"
-msgstr ""
+msgstr "Pochettes"
 
 #: coverart_browser_source.py:89 tmpl/albumartsearch-tmpl.html:214
 msgid "Loading..."
-msgstr ""
+msgstr "Chargement..."
 
 #: coverart_browser_source.py:211
 msgid "Search album"
-msgstr ""
+msgstr "Rechercher des albums"
 
 #: coverart_browser_source.py:259
 msgid "Tracks"
-msgstr ""
+msgstr "Pistes"
 
 #: coverart_browser_source.py:263
 msgid "Covers"
-msgstr ""
+msgstr "Pochettes"
 
 #: coverart_browser_source.py:699
 msgid "Requesting cover for %s - %s..."
-msgstr ""
+msgstr "Demande de la pochette pour %s - %s..."
 
 #: coverart_browser_source.py:760
 msgid "%d selected albums "
-msgstr ""
+msgstr "%d albums sélectionés"
 
 #: coverart_browser_source.py:764
 msgid " with 1 track"
-msgstr ""
+msgstr " avec 1 piste"
 
 #: coverart_browser_source.py:766
 msgid " with %d tracks"
-msgstr ""
+msgstr " avec %d pistes"
 
 #: coverart_browser_source.py:769
 msgid " and a duration of 1 minute"
-msgstr ""
+msgstr " et une durée de 1 minute"
 
 #: coverart_browser_source.py:771
 msgid " and a duration of %d minutes"
-msgstr ""
+msgstr " et une durée de %d minutes"
 
 #: ui/coverart_browser.ui.h:1 tmpl/albumartsearch-tmpl.html:184
 #: tmpl/albumartsearch-tmpl.html:194
 msgid "Album"
-msgstr ""
+msgstr "Album"
 
 #: ui/coverart_browser.ui.h:2
 msgid "Sort by album name"
-msgstr ""
+msgstr "Trier par nom d'album"
 
 #: ui/coverart_browser.ui.h:3 tmpl/albumartsearch-tmpl.html:183
 #: tmpl/albumartsearch-tmpl.html:193
 msgid "Artist"
-msgstr ""
+msgstr "Artiste"
 
 #: ui/coverart_browser.ui.h:4
 msgid "Sort by album artist"
-msgstr ""
+msgstr "Trier par artiste d'album"
 
 #: ui/coverart_browser.ui.h:5
 msgid "Sort in descending order"
-msgstr ""
+msgstr "Trier en ordre descendant"
 
 #: ui/coverart_browser.ui.h:6
 msgid "Sort in ascending order"
-msgstr ""
+msgstr "Trier en ordre ascendant"
 
 #: ui/coverart_browser.ui.h:7
 msgid "Tracks & Covers"
-msgstr ""
+msgstr "Pistes & Pochettes"
 
 #: ui/coverart_browser.ui.h:8
 msgid "Stop coverart fetch."
-msgstr ""
+msgstr "Arrêter de chercher les pochettes"
 
 #: ui/coverart_browser.ui.h:9
 msgid "Play this album"
-msgstr ""
+msgstr "Jouer cet album"
 
 #: ui/coverart_browser.ui.h:10
 msgid "Play Album"
-msgstr ""
+msgstr "Jouer l'album"
 
 #: ui/coverart_browser.ui.h:11
 msgid "Add this album to your playing queue"
-msgstr ""
+msgstr "Ajouter cet album à votre liste d'attente"
 
 #: ui/coverart_browser.ui.h:12
 msgid "Queue Album"
-msgstr ""
+msgstr "Mettre l'album en attente"
 
 #: ui/coverart_browser.ui.h:13
 msgid "Play favourites tracks from this album"
-msgstr ""
+msgstr "Jouer les pistes favorites de cet album"
 
 #: ui/coverart_browser.ui.h:14
 msgid "Play Favourites"
-msgstr ""
+msgstr "Jouer les favorites"
 
 #: ui/coverart_browser.ui.h:15
 msgid "Add favourite tracks from this album to your playing queue"
-msgstr ""
+msgstr "Ajouter les pistes favorites de cet album à votre liste d'attente"
 
 #: ui/coverart_browser.ui.h:16
 msgid "Queue Favourites"
-msgstr ""
+msgstr "Mettre en attente les favorites"
 
 #: ui/coverart_browser.ui.h:17
 msgid "Search for this album cover"
-msgstr ""
+msgstr "Rechercher la pochette de cet album"
 
 #: ui/coverart_browser.ui.h:18
 msgid "Search for covers"
-msgstr ""
+msgstr "Rechercher les pochettes"
 
 #: ui/coverart_browser.ui.h:19
 msgid "Show album properties"
-msgstr ""
+msgstr "Afficher les propriétés de l'album"
 
 #: ui/coverart_browser.ui.h:20
 msgid "Search for covers where an album does not currently have one"
-msgstr ""
+msgstr "Rechercher les pochettes des albums qui n'en ont pas"
 
 #: ui/coverart_browser.ui.h:21
 msgid "Download all the covers"
-msgstr ""
+msgstr "Télécharger toutes les pochettes"
 
 #: ui/coverart_browser.ui.h:22
 msgid "Search using all fields"
-msgstr ""
+msgstr "Rechercher en utilisant tous les champs"
 
 #: ui/coverart_browser.ui.h:23
 msgid "Search all fields"
-msgstr ""
+msgstr "Rechercher tous les champs"
 
 #: ui/coverart_browser.ui.h:24
 msgid "Search using album artist names"
-msgstr ""
+msgstr "Rechercher en utilisant les noms d'artiste d'album"
 
 #: ui/coverart_browser.ui.h:25
 msgid "Search album artists"
-msgstr ""
+msgstr "Rechercher les artistes d'album"
 
 #: ui/coverart_browser.ui.h:26
 msgid "Search using track artist names"
-msgstr ""
+msgstr "Rechercher en utilisant les noms d'artiste de piste"
 
 #: ui/coverart_browser.ui.h:27
 msgid "Search track artists"
-msgstr ""
+msgstr "Rechercher les artistes de piste"
 
 #: ui/coverart_browser.ui.h:28
 msgid "Search using album titles"
-msgstr ""
+msgstr "Rechercher en utilisant les titres d'album"
 
 #: ui/coverart_browser.ui.h:29
 msgid "Search albums"
-msgstr ""
+msgstr "Rechercher les albums"
 
 #: ui/coverart_browser.ui.h:30
 msgid "Search using track titles"
-msgstr ""
+msgstr "Rechercher en utilisant les titres de pistes"
 
 #: ui/coverart_browser.ui.h:31
 msgid "Search tracks"
-msgstr ""
+msgstr "Rechercher les pistes"
 
 #: ui/coverart_browser_prefs.ui.h:1
 msgid "Use source's custom statusbar."
-msgstr ""
+msgstr "Utiliser la barre d'état custom de ce code"
 
 #: ui/coverart_browser_prefs.ui.h:2
 msgid ""
 "Use the source's custom statusbar to show the current selected album's "
 "related information instead of the global Rhythmbox's statusbar."
 msgstr ""
+"Utiliser la barre d'état custom pour montrer l'information reliée à l'album "
+"sélectionné au lieu de la barre d'état globale de Rhythmbox."
 
 #: ui/coverart_browser_prefs.ui.h:3
 msgid "Display tracks and covers pane"
-msgstr ""
+msgstr "Afficher les pistes et le volet pochettes"
 
 #: ui/coverart_browser_prefs.ui.h:4
 msgid ""
 "Add a toggle-option to the coverart view to display the tracks and covers "
 "for the chosen album"
 msgstr ""
+"Ajouter une option pour basculer entre l'affichage pochettes seules et "
+"l'affichage pistes et pochettes des albums choisis"
 
 #: ui/coverart_browser_prefs.ui.h:5
 msgid "Display album's info under cover"
-msgstr ""
+msgstr "Afficher les infos de l'album sous la pochette"
 
 #: ui/coverart_browser_prefs.ui.h:6
 msgid "Show the album's basic information under the cover image."
-msgstr ""
+msgstr "Afficher les informations de base sous l'image de la pochette"
 
 #: ui/coverart_browser_prefs.ui.h:7
 msgid "Show text while loading"
-msgstr ""
+msgstr "Afficher le texte lors du chargement"
 
 #: ui/coverart_browser_prefs.ui.h:8
 msgid ""
 "Show's the text for each album during the source load. Deactivating this "
 "option may help with the loading performance."
 msgstr ""
+"Afficher le texte de chaque album durant le chargement. Désactiver cette "
+"option peut aider à la performance du chargement."
 
 #: ui/coverart_browser_prefs.ui.h:9
 msgid "Ellipsize albums names"
-msgstr ""
+msgstr "Réduire le noms des albums"
 
 #: ui/coverart_browser_prefs.ui.h:10
 msgid ""
 "Ellipsizes the albums names to a fixed length when the display text option "
 "is enabled."
 msgstr ""
+"Réduire à une longueur fixe le nom des albums quand l'affichage des textes "
+"est activé."
 
 #: ui/coverart_browser_prefs.ui.h:11
 msgid ""
 "This is the maximum allowed size for an album's name before being ellipsized."
 msgstr ""
+"C'est la taille maximum permise pour un nom d'album avant d'être réduite."
 
 #: ui/coverart_browser_prefs.ui.h:12
 msgid "Maximum length:"
-msgstr ""
+msgstr "Longueur maximale"
 
 #: ui/coverart_browser_prefs.ui.h:13
 msgid "Level above which is regarded as being a rated track."
-msgstr ""
+msgstr "Note à laquelle une piste est considérée comme étant favorite"
 
 #: ui/coverart_browser_prefs.ui.h:14
 msgid "Rating Threshold:"
-msgstr ""
+msgstr "Seuil de notation"
 
 #: ui/coverart_browser_prefs.ui.h:15
 msgid "Defines the size for the covers showed on the source."
-msgstr ""
+msgstr "Défini la taille des pochettes montrées dans le volet"
 
 #: ui/coverart_browser_prefs.ui.h:16
 msgid "Cover size in pixels:"
-msgstr ""
+msgstr "Taille de pochette en pixels:"
 
 #: ui/coverart_browser_prefs.ui.h:17
 msgid "Automatically Start"
-msgstr ""
+msgstr "Démarrage automatique"
 
 #: ui/coverart_browser_prefs.ui.h:18
 msgid "When rhythmbox starts, switch automatically to the coverart browser."
 msgstr ""
+"Quand rhythmbox démarre, basculer automatiquement vers le navigateur de "
+"pochettes"
 
 #: ui/coverart_entryview.ui.h:1
 msgid "Play this track"
-msgstr ""
+msgstr "Jouer cette piste"
 
 #: ui/coverart_entryview.ui.h:2
 msgid "Play Track"
-msgstr ""
+msgstr "Jouer la piste"
 
 #: ui/coverart_entryview.ui.h:3
 msgid "Add this track to your playing queue"
-msgstr ""
+msgstr "Ajouter cette piste à votre liste d'attente"
 
 #: ui/coverart_entryview.ui.h:4
 msgid "Queue Track"
-msgstr ""
+msgstr "Mettre la piste en attente"
 
 #: ui/coverart_entryview.ui.h:5
 msgid "Give the track a favourite rating"
-msgstr ""
+msgstr "Donner une note favorite à la piste"
 
 #: ui/coverart_entryview.ui.h:6
 msgid "Rate Track"
-msgstr ""
+msgstr "Noter la piste"
 
 #: ui/coverart_entryview.ui.h:7
 msgid "Give the track a 5 star rating"
-msgstr ""
+msgstr "Donner à la piste une note de 5 étoiles"
 
 #: ui/coverart_entryview.ui.h:8
 msgid "5 Stars"
-msgstr ""
+msgstr "5 étoiles"
 
 #: ui/coverart_entryview.ui.h:9
 msgid "Give the track a 4 star rating"
-msgstr ""
+msgstr "Donner à la piste une note de 4 étoiles"
 
 #: ui/coverart_entryview.ui.h:10
 msgid "4 Stars"
-msgstr ""
+msgstr "4 étoiles"
 
 #: ui/coverart_entryview.ui.h:11
 msgid "Give the track a 3 star rating"
-msgstr ""
+msgstr "Donner à la piste une note de 3 étoiles"
 
 #: ui/coverart_entryview.ui.h:12
 msgid "3 Stars"
-msgstr ""
+msgstr "3 étoiles"
 
 #: ui/coverart_entryview.ui.h:13
 msgid "Give the track a 2 star rating"
-msgstr ""
+msgstr "Donner à la piste une note de 2 étoiles"
 
 #: ui/coverart_entryview.ui.h:14
 msgid "2 Stars"
-msgstr ""
+msgstr "2 étoiles"
 
 #: ui/coverart_entryview.ui.h:15
 msgid "Give the track a 1 star rating"
-msgstr ""
+msgstr "Donner à la piste une note de 1 étoile"
 
 #: ui/coverart_entryview.ui.h:16
 msgid "1 Star"
-msgstr ""
+msgstr "1 étoile"
 
 #: ui/coverart_entryview.ui.h:17
 msgid "Give the track a 0 star rating"
-msgstr ""
+msgstr "Donner à la piste une note de 0 étoile"
 
 #: ui/coverart_entryview.ui.h:18
 msgid "0 Stars"
-msgstr ""
+msgstr "0 étoile"
 
 #: ui/coverart_entryview.ui.h:19
 msgid "Show track properties"
-msgstr ""
+msgstr "Afficher les propriétés de la piste"
 
 #: tmpl/albumartsearch-tmpl.html:139 tmpl/albumartsearch-tmpl.html:189
 msgid "Search Options"
-msgstr ""
+msgstr "Options de recherche"
 
 #: tmpl/albumartsearch-tmpl.html:181
 msgid "Album art search"
-msgstr ""
+msgstr "Recherche de pochette"
 
 #: tmpl/albumartsearch-tmpl.html:191
 msgid "Search Mode"
-msgstr ""
+msgstr "Mode de recherche"
 
 #: tmpl/albumartsearch-tmpl.html:195
 msgid "Artist and album"
-msgstr ""
+msgstr "Artiste et album"
 
 #: tmpl/albumartsearch-tmpl.html:198
 msgid "Search text"
-msgstr ""
+msgstr "Texte de recherche"
 
 #: tmpl/albumartsearch-tmpl.html:201
 msgid "Search"
-msgstr ""
+msgstr "Rechercher"
 
 #: tmpl/albumartsearch-tmpl.html:203
 msgid "Image Size"
-msgstr ""
+msgstr "Taille de l'image"
 
 #: tmpl/albumartsearch-tmpl.html:205
 msgid "Small"
-msgstr ""
+msgstr "Petite"
 
 #: tmpl/albumartsearch-tmpl.html:206
 msgid "Medium"
-msgstr ""
+msgstr "Moyenne"
 
 #: tmpl/albumartsearch-tmpl.html:207
 msgid "Large"
-msgstr ""
+msgstr "Grande"
 
 #: tmpl/albumartsearch-tmpl.html:208
 msgid "Extra Large"
-msgstr ""
+msgstr "Énorme"
 
 #: tmpl/albumartsearch-tmpl.html:213
 msgid "Tip: doubleclick or drag a cover to use it as the album cover"
 msgstr ""
+"Astuce:  Double-cliquer ou glisser-déposer l'image pour l'utiliser comme pochette"
 
 #: tmpl/albumartsearch-tmpl.html:216
 msgid "Show more results"
-msgstr ""
+msgstr "Afficher plus de résultats"
 
 #: tmpl/albumartsearchempty-tmpl.html:11
 msgid " Album art search - Select an album"
-msgstr ""
+msgstr " Recherche de pochette d'album - Choisir un album"
+
+#~ msgid "Cover found!"
+#~ msgstr "Pochette trouvée"
+
+#~ msgid "No cover found."
+#~ msgstr "Pochette non trouvée"
+
+#~ msgid "Search through your albums"
+#~ msgstr "Rechercher dans vos albums"
+
+#~ msgid "Clear the search text"
+#~ msgstr "Effacer le texte de recherche"
