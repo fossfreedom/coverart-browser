@@ -5,11 +5,19 @@
 # Section 1: Developers Only
 #+++++++++++++++++++++++++++
 #for each ui file run the following to create translation .h files
-intltool-extract --type=gettext/glade coverart_browser_prefs.ui
-intltool-extract --type=gettext/glade coverart_browser.ui
+intltool-extract --type=gettext/glade ui/coverart_browser_prefs.ui
+intltool-extract --type=gettext/glade ui/coverart_browser.ui
+intltool-extract --type=gettext/glade ui/coverart_entryview.ui
 
 #create a new template file called po/package.pot by running
-pygettext -d package -k _ -k N_ -p po *.py *.h
+pygettext -d ui -k _ -k N_ -p po *.py ui/*.h
+
+#create a template file for the mako templates
+pybabel extract -F babel.cfg -o po/tmpl.pot .
+
+#now combine the pot files
+cd po
+msgcat ui.pot tmpl.pot -o package.pot
 
 #now update existing po's with changes in the template file package.pot 
 ./update_all_po.sh
@@ -23,6 +31,10 @@ cd po; msginit --no-translator
 
 #create a new specific (e.g. spanish) locale file from this template:
 cd po; msginit --no-translator -l es
+
+#Take special care with "Fuzzy" translations.  "Fuzzy" lines should be
+#removed - the string should be carefully examined since these are often
+#automated translations.
 
 #run lang.sh to compile and install the po files
 sudo ./lang.sh /usr/share/locale/

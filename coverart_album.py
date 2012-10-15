@@ -19,12 +19,18 @@
 
 from gi.repository import RB
 from gi.repository import GObject
+from gi.repository import Gio
 from gi.repository import GLib
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 
+from coverart_browser_prefs import GSetting
+
+from urlparse import urlparse
+import urllib
 import os
 import cgi
+import tempfile
 import rb
 
 
@@ -33,14 +39,24 @@ class AlbumLoader(GObject.Object):
     Utility class that manages the albums created for the coverart browser's
     source.
     '''
+    # singleton instance
+    instance = None
+
     # signals
     __gsignals__ = {
         'load-finished': (GObject.SIGNAL_RUN_LAST, None, ()),
+        'reload-finished': (GObject.SIGNAL_RUN_LAST, None, ()),
         'album-modified': (GObject.SIGNAL_RUN_LAST, object, (object,))
         }
 
+    # properties
+    progress = GObject.property(type=float, default=0)
+    display_text_ellipsize_enabled = GObject.property(type=bool, default=False)
+    display_text_ellipsize_length = GObject.property(type=int, default=0)
+    cover_size = GObject.property(type=int, default=0)
+
     # default chunk of albums to load at a time while filling the model
-    DEFAULT_LOAD_CHUNK = 10
+    DEFAULT_LOAD_CHUNK = 15
 
     def __init__(self, plugin, cover_model):
         '''
@@ -53,7 +69,25 @@ class AlbumLoader(GObject.Object):
         self.db = plugin.shell.props.db
         self.cover_model = cover_model
         self.cover_db = RB.ExtDB(name='album-art')
-        self.progress = 0
+        self.reloading = None
+
+        # set the unknown cover path
+        Album.UNKNOWN_COVER = rb.find_plugin_file(plugin, Album.UNKNOWN_COVER)
+
+        # connect properties and signals
+        self._connect_signals()
+        self._connect_properties()
+
+    def _connect_signals(self):
+        '''
+        Connects the loader to all the needed signals for it to work.
+        '''
+        # connect signals for the loader properties
+        self.connect('notify::display-text-ellipsize-enabled',
+            self._on_notify_display_text_ellipsize)
+        self.connect('notify::display-text-ellipsize-length',
+            self._on_notify_display_text_ellipsize)
+        self.connect('notify::cover-size', self._on_notify_cover_size)
 
         # connect the signal to update cover arts when added
         self.req_id = self.cover_db.connect('added',
@@ -67,20 +101,70 @@ class AlbumLoader(GObject.Object):
         self.entry_deleted_id = self.db.connect('entry-deleted',
             self._entry_deleted_callback)
 
-        # initialise unkown cover for albums without cover
-        Album.init_unknown_cover(plugin)
+    def _connect_properties(self):
+        '''
+        Connects the loader properties to the saved preferences.
+        '''
+        gs = GSetting()
+        setting = gs.get_setting(gs.Path.PLUGIN)
 
-    def _get_album_name_and_artist(self, entry):
+        setting.bind(gs.PluginKey.DISPLAY_TEXT_ELLIPSIZE, self,
+            'display_text_ellipsize_enabled', Gio.SettingsBindFlags.GET)
+        setting.bind(gs.PluginKey.DISPLAY_TEXT_ELLIPSIZE_LENGTH, self,
+            'display_text_ellipsize_length',
+            Gio.SettingsBindFlags.GET)
+        setting.bind(gs.PluginKey.COVER_SIZE, self, 'cover_size',
+            Gio.SettingsBindFlags.GET)
+
+    @classmethod
+    def get_instance(cls, plugin=None, model=None, query_model=None):
         '''
-        Looks and retrieves an entry's album name and artist
+        Singleton method to allow to access the unique loader instance.
         '''
-        album_name = entry.get_string(RB.RhythmDBPropType.ALBUM)
+        if not cls.instance:
+            cls.instance = AlbumLoader(plugin, model)
+            cls.instance.load_albums(query_model)
+
+        return cls.instance
+
+    def _on_notify_cover_size(self, *args):
+        '''
+        Updates the loader's albums' cover size and forces a model reload.
+        '''
+        # update album variables
+        Album.FONT_SIZE = self.cover_size / 10
+        Album.update_unknown_cover(self.cover_size)
+
+        self.reload_model(True)
+
+    def _on_notify_display_text_ellipsize(self, *args):
+        '''
+        Callback called when one of the properties related with the ellipsize
+        option is changed.
+        '''
+        if self.display_text_ellipsize_enabled:
+            Album.set_ellipsize_length(self.display_text_ellipsize_length)
+        else:
+            Album.set_ellipsize_length(0)
+
+        self.reload_model()
+
+    def _get_album_artist(self, entry):
+        '''
+        Looks and retrieves an entry's album artist.
+        '''
         album_artist = entry.get_string(RB.RhythmDBPropType.ALBUM_ARTIST)
 
         if not album_artist:
             album_artist = entry.get_string(RB.RhythmDBPropType.ARTIST)
 
-        return album_name, album_artist
+        return album_artist
+
+    def _get_album_name(self, entry):
+        '''
+        Looks and retrieves an entry's album name.
+        '''
+        return entry.get_string(RB.RhythmDBPropType.ALBUM)
 
     def _albumart_added_callback(self, ext_db, key, path, pixbuf):
         '''
@@ -93,7 +177,7 @@ class AlbumLoader(GObject.Object):
 
         # use the name to get the album and update the cover
         if album_name in self.albums:
-            self.albums[album_name].update_cover(pixbuf)
+            self.albums[album_name].update_cover(pixbuf, self.cover_size)
 
         print "CoverArtBrowser DEBUG - end albumart_added_callback"
 
@@ -106,6 +190,7 @@ class AlbumLoader(GObject.Object):
         entry.
         '''
         print "CoverArtBrowser DEBUG - entry_changed_callback"
+
         # look at all the changes and update the albums acordingly
         try:
             while True:
@@ -173,7 +258,7 @@ class AlbumLoader(GObject.Object):
         '''
         print "CoverArtBrowser DEBUG - entry_artist_modified"
         # find the album and inform of the change
-        album_name = entry.get_string(RB.RhythmDBPropType.ALBUM)
+        album_name = self._get_album_name(entry)
 
         if album_name in self.albums:
             self.albums[album_name].entry_artist_modified(entry,
@@ -192,7 +277,7 @@ class AlbumLoader(GObject.Object):
         '''
         print "CoverArtBrowser DEBUG - entry_album_artist_modified"
         # find the album and inform of the change
-        album_name = entry.get_string(RB.RhythmDBPropType.ALBUM)
+        album_name = self._get_album_name(entry)
 
         if album_name in self.albums:
             self.albums[album_name].entry_album_artist_modified(entry,
@@ -229,7 +314,8 @@ class AlbumLoader(GObject.Object):
         Allocates a given entry in to an album. If not album name is given,
         it's inferred from the entry metadata.
         '''
-        album_name, album_artist = self._get_album_name_and_artist(entry)
+        album_name = self._get_album_name(entry)
+        album_artist = self._get_album_artist(entry)
 
         if new_album_name:
             album_name = new_album_name
@@ -244,7 +330,7 @@ class AlbumLoader(GObject.Object):
             self.albums[album_name] = album
 
             album.append_entry(entry)
-            album.load_cover(self.cover_db)
+            album.load_cover(self.cover_db, self.cover_size)
             album.add_to_model(self.cover_model)
 
     def _remove_entry(self, entry, album_name=None):
@@ -253,7 +339,7 @@ class AlbumLoader(GObject.Object):
         it's inferred from the entry metatada.
         '''
         if not album_name:
-            album_name = entry.get_string(RB.RhythmDBPropType.ALBUM)
+            album_name = self._get_album_name(entry)
 
         if album_name in self.albums:
             album = self.albums[album_name]
@@ -299,7 +385,8 @@ class AlbumLoader(GObject.Object):
         (entry,) = model.get(tree_iter, 0)
 
         # retrieve album metadata
-        album_name, album_artist = self._get_album_name_and_artist(entry)
+        album_name = self._get_album_name(entry)
+        album_artist = self._get_album_artist(entry)
 
         # look for the album or create it
         if album_name in self.albums.keys():
@@ -327,10 +414,11 @@ class AlbumLoader(GObject.Object):
         for i in range(AlbumLoader.DEFAULT_LOAD_CHUNK):
             try:
                 album = albums.pop()
-                album.load_cover(self.cover_db)
+                album.load_cover(self.cover_db, self.cover_size)
                 album.add_to_model(self.cover_model)
             except:
                 # we finished loading
+                self.progress = 1
                 self.emit('load-finished')
                 return False
 
@@ -346,6 +434,54 @@ class AlbumLoader(GObject.Object):
         '''
         self.progress = 1
 
+    def reload_model(self, reload_covers=False):
+        '''
+        This method allows to remove and readd all the albums that are
+        currently in this loader model.
+        '''
+        # get those albums in te model and remove them
+        albums = [album for album in self.albums.values() if album.model]
+
+        for album in albums:
+            album.remove_from_model()
+
+        if self.reloading:
+            # if there is already a reloading process going on, just add the
+            # albums to the list
+            self.reloading.extend(albums)
+        else:
+            # generate the reloading list
+            self.reloading = albums
+
+            # initiate the idle process
+            Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
+                self._readd_albums_to_model, (reload_covers,
+                    AlbumLoader.DEFAULT_LOAD_CHUNK))
+
+    def _readd_albums_to_model(self, data):
+        '''
+        Idle callback that readds the albums removed from the modle by
+        'reload_model' in chunks to improve ui resposiveness.
+        '''
+        reload_covers, chunk = data
+
+        for i in range(chunk):
+            try:
+                album = self.reloading.pop()
+
+                if reload_covers and album.cover is not Album.UNKNOWN_COVER:
+                    album.cover.resize(self.cover_size)
+
+                album.add_to_model(self.cover_model)
+            except:
+                # clean the reloading list and emit the signal
+                self.reloading = None
+                self.emit('reload_finished')
+
+                return False
+
+        return True
+
     def search_cover_for_album(self, album, callback=lambda *_: None,
         data=None):
         '''
@@ -355,14 +491,17 @@ class AlbumLoader(GObject.Object):
         '''
         album.cover_search(self.cover_db, callback, data)
 
-    def search_all_covers(self, callback=lambda *_: None):
+    def search_covers(self, albums=None, callback=lambda *_: None):
         '''
         Request all the albums' covers, one by one, periodically calling a
         callback to inform the status of the process.
         The callback should accept one argument: the album which cover is
         being requested. When the argument passed is None, it means the
-        proccess has finished.
+        process has finished.
         '''
+        if albums is None:
+            albums = self.albums.values()
+
         def search_next_cover(*args):
             # unpack the data
             iterator, callback = args[-1]
@@ -393,7 +532,7 @@ class AlbumLoader(GObject.Object):
                 (iterator, callback))
 
         self._cancel_cover_request = False
-        search_next_cover((self.albums.values().__iter__(), callback))
+        search_next_cover((albums.__iter__(), callback))
 
     def cancel_cover_request(self):
         '''
@@ -404,6 +543,82 @@ class AlbumLoader(GObject.Object):
         except:
             pass
 
+    def update_cover(self, album, pixbuf=None, uri=None):
+        '''
+        Updates the cover database, inserting the pixbuf as the cover art for
+        all the entries on the album.
+        '''
+        if pixbuf:
+            # if it's a pixbuf, asign it to all the artist for the album
+            for artist in album._artist:
+                key = RB.ExtDBKey.create_storage('album', album.name)
+                key.add_field('artist', artist)
+
+                self.cover_db.store(key, RB.ExtDBSourceType.USER_EXPLICIT,
+                    pixbuf)
+
+        elif uri:
+            parsed = urlparse(uri)
+
+            if parsed.scheme == 'file':
+                # local file, load it on a pixbuf and asign it
+                path = urllib.url2pathname(uri.strip()).replace('file://', '')
+
+                if os.path.exists(path):
+                    cover = GdkPixbuf.Pixbuf.new_from_file(path)
+
+                    self.update_cover(album, cover)
+
+            else:
+                # assume is a remote uri and we have to retrieve the data
+                def cover_update(data, album):
+                    # save the cover on a temp file and open it as a pixbuf
+                    with tempfile.NamedTemporaryFile(mode='w') as tmp:
+                        tmp.write(data)
+
+                        try:
+                            cover = GdkPixbuf.Pixbuf.new_from_file(tmp.name)
+
+                            # set the new cover
+                            self.update_cover(album, cover)
+                        except:
+                            print "The URI doesn't point to an image."
+
+                async = rb.Loader()
+                async.get_url(uri, cover_update, album)
+
+
+class Cover(object):
+    ''' Cover of an Album. '''
+
+    def __init__(self, size, file_path=None, pixbuf=None):
+        '''
+        Initialises a cover, creating it's pixbuf or adapting a given one.
+        Either a file path or a pixbuf should be given to it's correct
+        initialization.
+        '''
+        if pixbuf:
+            self.original = pixbuf
+            self.pixbuf = pixbuf.scale_simple(size, size,
+                 GdkPixbuf.InterpType.BILINEAR)
+        else:
+            self.original = file_path
+            self.pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(file_path,
+                size, size)
+
+    def resize(self, size):
+        '''
+        Resizes the cover's pixbuf.
+        '''
+        del self.pixbuf
+
+        try:
+            self.pixbuf = self.original.scale_simple(size, size,
+                 GdkPixbuf.InterpType.BILINEAR)
+        except:
+            self.pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(self.original,
+                size, size)
+
 
 class Album(object):
     '''
@@ -411,7 +626,7 @@ class Album(object):
     cover and set itself in a treemodel.
     '''
     # cover used for those albums without one
-    UNKNOWN_COVER = 'rhythmbox-missing-artwork.svg'
+    UNKNOWN_COVER = 'img/rhythmbox-missing-artwork.svg'
 
     # filter types
     FILTER_ALL = 1
@@ -419,6 +634,12 @@ class Album(object):
     FILTER_ALBUM = 3
     FILTER_ALBUM_ARTIST = 4
     FILTER_TRACK_TITLE = 5
+
+    # font size for the markup text
+    FONT_SIZE = 0
+
+    # ellipsize length
+    ELLIPSIZE = 0
 
     def __init__(self, name, album_artist=None):
         '''
@@ -431,6 +652,14 @@ class Album(object):
         self._artist = set()
         self.entries = []
         self.cover = Album.UNKNOWN_COVER
+        self.model = None
+
+    @property
+    def album_name(self):
+        '''
+        Returns the name of the album.
+        '''
+        return self.name
 
     @property
     def artist(self):
@@ -449,9 +678,9 @@ class Album(object):
         title = set()
 
         for e in self.entries:
-            title.add( e.get_string(RB.RhythmDBPropType.TITLE) )
+            title.add(e.get_string(RB.RhythmDBPropType.TITLE))
 
-        return ', '.join( title )
+        return ' '.join(title)
 
     @property
     def album_artist(self):
@@ -466,6 +695,75 @@ class Album(object):
             album_artist = _('Various Artists')
 
         return album_artist
+
+    def favourite_entries(self, threshold):
+        '''
+        Returns the RBRhythmDBEntry's for the album
+        the meet the rating threshold
+        i.e. all the tracks >= Rating
+        '''
+        # first look for any songs with a rating
+        # if none then we are not restricting what is queued
+        rating = 0
+        for entry in self.entries:
+            rating = entry.get_double(RB.RhythmDBPropType.RATING)
+
+            if rating != 0:
+                break
+
+        if rating == 0:
+            return self.entries
+
+        songs = []
+
+        # Add the songs to the play queue
+        for entry in self.entries:
+            rating = entry.get_double(RB.RhythmDBPropType.RATING)
+
+            if rating >= threshold:
+                songs.append(entry)
+
+        return songs
+
+    def _create_tooltip(self):
+        '''
+        Utility function that creates the tooltip for this album to set into
+        the model.
+        '''
+        return cgi.escape(_('%s by %s').encode('utf-8') % (self.name,
+            self.artist))
+
+    def _create_markup(self):
+        '''
+        Utility function that creates the markup text for this album to set
+        into the model.
+        '''
+        # we use unicode to avoid problems with non ascii albums
+        name = unicode(self.name, 'utf-8')
+
+        if self.ELLIPSIZE and len(name) > self.ELLIPSIZE:
+            name = name[:self.ELLIPSIZE] + '...'
+
+        name = name.encode('utf-8')
+
+        # escape odd chars
+        artist = GLib.markup_escape_text(self.album_artist)
+        name = GLib.markup_escape_text(name)
+
+        # markup format
+        #MARKUP_FORMAT = _("<span font='%d'><b>%s</b>\n<i>by %s</i></span>")
+        #we need to now achieve the above markup format
+        #however its a little difficult for translators to see the "by"
+        #lets take the current translation string used elsewhere,
+        #substitute the markup strings around the translation
+        #and finally substitute the real strings
+        translated = _("%s by %s").encode('utf-8')
+
+        strformatted = translated % ("<span font='%d'><b>%s</b>\n<i>",
+            "%s</i></span>")
+
+        return strformatted % (self.FONT_SIZE, name, artist)
+        #return self.MARKUP_FORMAT % (self.FONT_SIZE, name, artist)
 
     def _remove_artist(self, artist):
         '''
@@ -490,6 +788,11 @@ class Album(object):
         artist = entry.get_string(RB.RhythmDBPropType.ARTIST)
         self._artist.add(artist)
 
+        if self.model:
+            # update the model's tooltip and markup for this album
+            self.model.set_value(self.tree_iter, 0, self._create_tooltip())
+            self.model.set_value(self.tree_iter, 3, self._create_markup())
+
     def remove_entry(self, entry):
         '''
         Removes an entry from the album entrie's list. If the removed entry
@@ -506,6 +809,11 @@ class Album(object):
         artist = entry.get_string(RB.RhythmDBPropType.ARTIST)
 
         self._remove_artist(artist)
+
+        if self.model:
+            # update the model's tooltip and markup for this album
+            self.model.set_value(self.tree_iter, 0, self._create_tooltip())
+            self.model.set_value(self.tree_iter, 3, self._create_markup())
 
     def entry_artist_modified(self, entry, old_artist, new_artist):
         '''
@@ -526,9 +834,10 @@ class Album(object):
         # add our new artist
         self._artist.add(new_artist)
 
-        # update the model's tooltip for this album
-        self.model.set_value(self.tree_iter, 0,
-            (cgi.escape('%s - %s' % (self.artist, self.name))))
+        if self.model:
+            # update the model's tooltip and markup for this album
+            self.model.set_value(self.tree_iter, 0, self._create_tooltip())
+            self.model.set_value(self.tree_iter, 3, self._create_markup())
 
     def entry_album_artist_modified(self, entry, new_album_artist):
         '''
@@ -545,11 +854,18 @@ class Album(object):
         # replace the album_artist
         self._album_artist = new_album_artist
 
+        if self.model:
+            # inform the model of the change
+            self.model.set_value(self.tree_iter, 2, self)
+
+            # update the markup
+            self.model.set_value(self.tree_iter, 3, self._create_markup())
+
     def has_cover(self):
         ''' Indicates if this album has his cover loaded. '''
         return not self.cover is Album.UNKNOWN_COVER
 
-    def load_cover(self, cover_db):
+    def load_cover(self, cover_db, size):
         '''
         Tries to load the Album's cover from the provided cover_db. If no cover
         is found upon lookup, the Unknown cover is used.
@@ -559,7 +875,7 @@ class Album(object):
 
         if art_location and os.path.exists(art_location):
             try:
-                self.cover = Cover(art_location)
+                self.cover = Cover(size, art_location)
             except:
                 self.cover = Album.UNKNOWN_COVER
 
@@ -580,21 +896,32 @@ class Album(object):
             column 0 -> string containing the album name and artist
             column 1 -> pixbuf of the album's cover.
             column 2 -> instance of this same album.
+            column 3 -> markup text showed under the cover.
         '''
         self.model = model
-        self.tree_iter = model.append(
-            (cgi.escape('%s - %s' % (self.artist, self.name)),
-            self.cover.pixbuf,
-            self))
+        tooltip = self._create_tooltip()
+        markup = self._create_markup()
+
+        self.tree_iter = model.append((tooltip, self.cover.pixbuf, self,
+            markup))
+
+    def get_entries(self, model):
+        ''' adds all entries to the model'''
+
+        for e in self.entries:
+            model.add_entry(e, -1)
 
     def remove_from_model(self):
         ''' Removes this album from it's model. '''
         self.model.remove(self.tree_iter)
 
-    def update_cover(self, pixbuf):
+        self.model = None
+        del self.tree_iter
+
+    def update_cover(self, pixbuf, size):
         ''' Updates this Album's cover using the given pixbuf. '''
         if pixbuf:
-            self.cover = Cover(pixbuf=pixbuf)
+            self.cover = Cover(size, pixbuf=pixbuf)
             self.model.set_value(self.tree_iter, 1, self.cover.pixbuf)
 
     def get_track_count(self):
@@ -629,10 +956,25 @@ class Album(object):
             return True
 
         if filter_type == Album.FILTER_ALL:
-            return searchtext.lower() in self.artist.lower() \
-                    or searchtext.lower() in self.name.lower() \
-                    or searchtext.lower() in self.album_artist.lower() \
-                    or searchtext.lower() in self.track_title.lower()
+            # this filter is more complicated: for each word in the search
+            # text, it tries to find at least one match on the params of
+            # the album. If no match is given, then the album doesn't match
+            words = searchtext.split()
+            params = [self.name.lower(), self.album_artist.lower(),
+                self.artist.lower(), self.track_title.lower()]
+            matches = []
+
+            for word in words:
+                match = False
+
+                for param in params:
+                    if word in param:
+                        match = True
+                        break
+
+                matches.append(match)
+
+            return False not in matches
 
         if filter_type == Album.FILTER_ALBUM_ARTIST:
             return searchtext.lower() in self.album_artist.lower()
@@ -649,31 +991,50 @@ class Album(object):
         return False
 
     @classmethod
-    def init_unknown_cover(cls, plugin):
+    def update_unknown_cover(cls, cover_size):
         '''
-        Classmethod that should be called to initialize the the global Unknown
-        cover.
+        Updates the unknown cover size or creates it if it isn't already
+        created.
         '''
         if type(cls.UNKNOWN_COVER) is str:
-            cls.UNKNOWN_COVER = Cover(
-                rb.find_plugin_file(plugin, cls.UNKNOWN_COVER))
-
-
-class Cover(object):
-    ''' Cover of an Album. '''
-    # default cover size
-    COVER_SIZE = 92
-
-    def __init__(self, file_path=None, pixbuf=None, width=COVER_SIZE,
-        height=COVER_SIZE):
-        '''
-        Initialises a cover, creating it's pixbuf or adapting a given one.
-        Either a file path or a pixbuf should be given to it's correct
-        initialization.
-        '''
-        if pixbuf:
-            self.pixbuf = pixbuf.scale_simple(width, height,
-                 GdkPixbuf.InterpType.BILINEAR)
+            cls.UNKNOWN_COVER = Cover(cover_size, cls.UNKNOWN_COVER)
         else:
-            self.pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(file_path,
-                width, height)
+            cls.UNKNOWN_COVER.resize(cover_size)
+
+    @classmethod
+    def compare_albums_by_name(cls, album1, album2):
+        '''
+        Classmethod that compares two albums by their names.
+        Returns -1 if album1 goes before album2, 0 if their are considered
+        equal and 1 if album1 goes after album2.
+        '''
+        if album1.name < album2.name:
+            return 1
+        if album1.name > album2.name:
+            return -1
+        else:
+            return 0
+
+    @classmethod
+    def compare_albums_by_album_artist(cls, album1, album2):
+        '''
+        Classmethod that compares two albums by their album artist names.
+        Returns -1 if album1 goes before album2, 0 if their are considered
+        equal and 1 if album1 goes after album2.
+        '''
+        if album1.album_artist < album2.album_artist:
+            return 1
+        if album1.album_artist > album2.album_artist:
+            return -1
+        else:
+            return 0
+
+    @classmethod
+    def set_ellipsize_length(cls, length):
+        '''
+        Utility method to set the ELLIPSIZE length for the albums markup.
+        '''
+        cls.ELLIPSIZE = length
+
+        if cls.ELLIPSIZE < 0:
+            cls.ELLIPSIZE = 0
