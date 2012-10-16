@@ -77,7 +77,7 @@ msgstr "Demande de la jaquette pour %s - %s..."
 
 #: coverart_browser_source.py:760
 msgid "%d selected albums "
-msgstr "%d albums sélectionés"
+msgstr "%d albums sélectionnés"
 
 #: coverart_browser_source.py:764
 msgid " with 1 track"
