@@ -267,7 +267,7 @@ class CoverArtBrowserSource(RB.Source):
         print color
         self.cover_search_pane = CoverSearchPane(self.plugin, color)
         self.notebook.append_page(self.cover_search_pane, Gtk.Label(
-            ("Covers")))
+            _("Covers")))
 
         # setup the album loader and the cover view to use it's model + filter
         self.loader = AlbumLoader.get_instance(self.plugin,
