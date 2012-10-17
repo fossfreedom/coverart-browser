@@ -178,15 +178,9 @@
         </script>
     </head>
     <body>
-        <p id="heading"> ${_("Album art search")} </p>
-        <div id="info">
-            <label> ${_("Artist")}: ${artist} </label><br/>
-            <label> ${_("Album")}: ${album} </label>
-        </div>
-        <hr/>
         <div id="searchoptioncontainer">
             <a href="#" onclick="toggleSelectOption(this); return false;">
-                ${_("Search Options")}: [+]</a>
+                ${_("Search Options")}: [+]</a> ${_("Tip: doubleclick or drag a cover to use it as the album cover")}
             <div id="searchoption" style="display:none;">
                 <label>${_("Search Mode")}: </label>
                 <select id="searchmode" onchange="onOptionChange(this);">
@@ -208,9 +202,8 @@
                     <option value="x-large">${_("Extra Large")}</option>
                 </select>
             </div>
-        </div>
+        </div> 
         <hr/>
-        ${_("Tip: doubleclick or drag a cover to use it as the album cover")}
         <div id="content">${_("Loading...")}</div>
         <a id="more" href="#" onclick="moreResults(); return false;">
             ${_("Show more results")}</a>
