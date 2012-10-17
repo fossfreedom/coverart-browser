@@ -740,30 +740,24 @@ class Album(object):
         '''
         # we use unicode to avoid problems with non ascii albums
         name = unicode(self.name, 'utf-8')
+        artist = unicode(self.album_artist, 'utf-8')
 
         if self.ELLIPSIZE and len(name) > self.ELLIPSIZE:
             name = name[:self.ELLIPSIZE] + '...'
 
+        if self.ELLIPSIZE and len(artist) > self.ELLIPSIZE:
+            artist = artist[:self.ELLIPSIZE] + '...'
+
         name = name.encode('utf-8')
+        artist = artist.encode('utf-8')
 
         # escape odd chars
-        artist = GLib.markup_escape_text(self.album_artist)
+        artist = GLib.markup_escape_text(artist)
         name = GLib.markup_escape_text(name)
 
         # markup format
-        #MARKUP_FORMAT = _("<span font='%d'><b>%s</b>\n<i>by %s</i></span>")
-        #we need to now achieve the above markup format
-        #however its a little difficult for translators to see the "by"
-        #lets take the current translation string used elsewhere,
-        #substitute the markup strings around the translation
-        #and finally substitute the real strings
-        translated = _("%s by %s").encode('utf-8')
-
-        strformatted = translated % ("<span font='%d'><b>%s</b>\n<i>",
-            "%s</i></span>")
-
-        return strformatted % (self.FONT_SIZE, name, artist)
-        #return self.MARKUP_FORMAT % (self.FONT_SIZE, name, artist)
+        MARKUP_FORMAT = "<span font='%d'><b>%s</b>\n<i>%s</i></span>"
+        return MARKUP_FORMAT % (self.FONT_SIZE, name, artist)
 
     def _remove_artist(self, artist):
         '''
