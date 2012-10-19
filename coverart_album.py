@@ -32,6 +32,7 @@ import os
 import cgi
 import tempfile
 import rb
+import gc
 
 
 class AlbumLoader(GObject.Object):
@@ -611,6 +612,7 @@ class Cover(object):
         Resizes the cover's pixbuf.
         '''
         del self.pixbuf
+		gc.collect()
 
         try:
             self.pixbuf = self.original.scale_simple(size, size,
