@@ -69,6 +69,7 @@ class AlbumLoader(GObject.Object):
         self.cover_model = cover_model
         self.cover_db = RB.ExtDB(name='album-art')
         self.reloading = None
+        self.reload_covers = False
 
         # set the unknown cover path
         Album.UNKNOWN_COVER = rb.find_plugin_file(plugin, Album.UNKNOWN_COVER)
@@ -438,6 +439,9 @@ class AlbumLoader(GObject.Object):
         This method allows to remove and readd all the albums that are
         currently in this loader model.
         '''
+        # set the reload_covers flag
+        self.reload_covers = self.reload_covers or reload_covers
+
         # get those albums in te model and remove them
         albums = [album for album in self.albums.values() if album.model]
 
@@ -454,26 +458,25 @@ class AlbumLoader(GObject.Object):
 
             # initiate the idle process
             Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
-                self._readd_albums_to_model, (reload_covers,
-                    AlbumLoader.DEFAULT_LOAD_CHUNK))
+                self._readd_albums_to_model, None)
 
-    def _readd_albums_to_model(self, data):
+    def _readd_albums_to_model(self, *args):
         '''
         Idle callback that readds the albums removed from the modle by
         'reload_model' in chunks to improve ui resposiveness.
         '''
-        reload_covers, chunk = data
-
-        for i in range(chunk):
+        for i in range(AlbumLoader.DEFAULT_LOAD_CHUNK):
             try:
                 album = self.reloading.pop()
 
-                if reload_covers and album.cover is not Album.UNKNOWN_COVER:
+                if self.reload_covers and \
+                    album.cover is not Album.UNKNOWN_COVER:
                     album.cover.resize(self.cover_size)
 
                 album.add_to_model(self.cover_model)
             except:
                 # clean the reloading list and emit the signal
+                self.reload_covers = False
                 self.reloading = None
                 self.emit('reload_finished')
 
