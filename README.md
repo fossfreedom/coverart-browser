@@ -38,8 +38,8 @@ How it works:
 
 ![Imgur](http://i.imgur.com/U1YyX.png)
 
-*hint* - change both the album name and album artist and all the tracks for 
-  the selected album will be combined under one album.
+*hint* - Select multiple albums - change both the album name and album artist and all the tracks for 
+  the selected albums will be combined under one album.
 
  - locale support has been added to display text in your native language.
 
