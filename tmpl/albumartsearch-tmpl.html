@@ -59,7 +59,9 @@
                         imgContainer.appendChild(newImg);
                     }
 
-                } else {
+                }
+
+                if (searcher.results.length < 8) {
                     // no more results, hide the link
                     moreLink.style.display="none";
                 }
@@ -202,7 +204,7 @@
                     <option value="x-large">${_("Extra Large")}</option>
                 </select>
             </div>
-        </div> 
+        </div>
         <hr/>
         <div id="content">${_("Loading...")}</div>
         <a id="more" href="#" onclick="moreResults(); return false;">
