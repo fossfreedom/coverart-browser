@@ -260,11 +260,14 @@ class CoverArtBrowserSource(RB.Source):
         self.notebook.append_page(self.entry_view, Gtk.Label(_("Tracks")))
 
         # setup cover search pane
-        color = self.covers_view.get_style().bg[Gtk.StateType.SELECTED]
-        color = '#%s%s%s' % (str(hex(color.red // 257)).replace('0x', ''),
-            str(hex(color.green // 257)).replace('0x', ''),
-            str(hex(color.blue // 257)).replace('0x', ''))
-        print color
+        try:
+			color = self.covers_view.get_style_context().get_background_color(Gtk.StateFlags.SELECTED)
+			color = '#%s%s%s' % (str(hex(int(color.red*255))).replace('0x', ''),
+				str(hex(int(color.green*255))).replace('0x', ''),
+				str(hex(int(color.blue*255))).replace('0x', ''))
+		except:
+			color = '#0000FF'
+			
         self.cover_search_pane = CoverSearchPane(self.plugin, color)
         self.notebook.append_page(self.cover_search_pane, Gtk.Label(
             _("Covers")))
