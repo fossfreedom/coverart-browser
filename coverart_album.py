@@ -636,6 +636,7 @@ class Album(object):
     FILTER_ALBUM = 3
     FILTER_ALBUM_ARTIST = 4
     FILTER_TRACK_TITLE = 5
+    FILTER_GENRE = 6
 
     # font size for the markup text
     FONT_SIZE = 0
@@ -674,7 +675,7 @@ class Album(object):
     @property
     def track_title(self):
         '''
-        Returns a string representation of the conjuction of all the track
+        Returns a string representation of the conjunction of all the track
         titles that have entries on this album.
         '''
         title = set()
@@ -697,6 +698,16 @@ class Album(object):
             album_artist = _('Various Artists')
 
         return album_artist
+
+    def has_genre(self, test_genre):
+        '''
+        Returns boolean value if any track is of test_genre
+        '''
+        for e in self.entries:
+            if e.get_string(RB.RhythmDBPropType.GENRE) == test_genre:
+                return True 
+
+        return False
 
     def favourite_entries(self, threshold):
         '''
@@ -983,6 +994,9 @@ class Album(object):
 
         if filter_type == Album.FILTER_TRACK_TITLE:
             return searchtext.lower() in self.track_title.lower()
+
+        if filter_type == Album.FILTER_GENRE:
+            return self.has_genre(searchtext)
 
         return False
 

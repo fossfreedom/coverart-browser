@@ -114,8 +114,7 @@ class GSetting:
                 PANED_POSITION='paned-position',
                 SORT_BY_ALBUM='sort-by-album',
                 SORT_BY_ARTIST='sort-by-artist',
-                DESC_SORT='desc-sort',
-                ASC_SORT='asc-sort',
+                SORT_ORDER='sort-order',
                 RATING='rating-threshold',
                 AUTOSTART='autostart')
 

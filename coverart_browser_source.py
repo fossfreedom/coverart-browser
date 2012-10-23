@@ -200,8 +200,9 @@ class CoverArtBrowserSource(RB.Source):
         self.request_cancel_button = ui.get_object('request_cancel_button')
         self.sort_by_album_radio = ui.get_object('album_name_sort_radio')
         self.sort_by_artist_radio = ui.get_object('artist_name_sort_radio')
-        self.descending_sort_radio = ui.get_object('descending_sort_radio')
-        self.ascending_sort_radio = ui.get_object('ascending_sort_radio')
+        self.sort_order = ui.get_object('sort_order')
+        self.arrow_down = ui.get_object('arrow_down')
+        self.arrow_up = ui.get_object('arrow_up')
         self.paned = ui.get_object('paned')
         self.bottom_box = ui.get_object('bottom_box')
         self.bottom_expander = ui.get_object('bottom_expander')
@@ -211,6 +212,7 @@ class CoverArtBrowserSource(RB.Source):
         search_entry = ui.get_object('search_entry')
         search_entry.set_placeholder(_('Search album'))
         search_entry.show_all()
+        self.search_entry.set_placeholder(ui.get_object('filter_all_menu_item').get_label())
 
         # get widgets for source popup
         self.source_menu = ui.get_object('source_menu')
@@ -231,6 +233,38 @@ class CoverArtBrowserSource(RB.Source):
         self.filter_menu_track_title_item = ui.get_object(
             'filter_track_title_menu_item')
 
+        # genre
+        self.genre_combobox = ui.get_object('genre_combobox')
+
+    def _fill_genre(self):
+        '''
+        fills the genre combobox with all current genres found
+        in the library source
+        '''
+        views = self.shell.props.library_source.get_property_views()
+        view = views[0] # seems like view 0 is the genre property view
+        model = view.get_model()
+        
+        def process_entry(model, tree_path, tree_iter, _):
+            (entry,) = model.get(tree_iter, 0)
+            self.genre_combobox.append_text(entry)
+
+        model.foreach(process_entry, None)
+        self.genre_combobox.set_active(0)
+
+    def genre_changed(self, widget):
+        '''
+        signal called when genre value changed
+        '''
+
+        if widget.get_active() == 0:
+            self.filter_type = Album.FILTER_ALL
+            self.filter_menu_all_item.set_active(True)
+        else:
+            self.filter_type = Album.FILTER_GENRE
+
+        self.covers_model.refilter()
+
     def _setup_source(self):
         '''
         Setups the differents parts of the source so they are ready to be used
@@ -239,9 +273,7 @@ class CoverArtBrowserSource(RB.Source):
         # setup the sorting
         self.sort_by_album_radio.set_mode(False)
         self.sort_by_artist_radio.set_mode(False)
-        self.descending_sort_radio.set_mode(False)
-        self.ascending_sort_radio.set_mode(False)
-
+        
         # setup iconview drag&drop support
         self.covers_view.enable_model_drag_dest([], Gdk.DragAction.COPY)
         self.covers_view.drag_dest_add_image_targets()
@@ -277,13 +309,12 @@ class CoverArtBrowserSource(RB.Source):
             self.covers_model_store, self.props.query_model)
 
         self.covers_model_store = self.loader.cover_model
-
         self.covers_model_store.set_sort_func(2, self.sort_albums)
-
         self.covers_model = self.covers_model_store.filter_new()
         self.covers_model.set_visible_func(self.visible_covers_callback)
-
         self.covers_view.set_model(self.covers_model)
+
+        self._fill_genre()
 
     def _apply_settings(self):
         '''
@@ -315,16 +346,15 @@ class CoverArtBrowserSource(RB.Source):
             self.sort_by_album_radio, 'active', Gio.SettingsBindFlags.DEFAULT)
         source_settings.bind(self.gs.PluginKey.SORT_BY_ARTIST,
             self.sort_by_artist_radio, 'active', Gio.SettingsBindFlags.DEFAULT)
-        source_settings.bind(self.gs.PluginKey.DESC_SORT,
-            self.descending_sort_radio, 'active',
+        source_settings.bind(self.gs.PluginKey.SORT_ORDER,
+            self.sort_order, 'active',
             Gio.SettingsBindFlags.DEFAULT)
-        source_settings.bind(self.gs.PluginKey.ASC_SORT,
-            self.ascending_sort_radio, 'active', Gio.SettingsBindFlags.DEFAULT)
 
         # enable some ui if necesary
         self.on_notify_rating_threshold(_)
         self.on_notify_display_bottom_enabled(_)
         self.activate_markup()
+        self.sorting_direction_changed(self.sort_order)
 
         if self.loader.progress == 1:
             # if the source is fully loaded, enable the full cover search item
@@ -479,6 +509,10 @@ class CoverArtBrowserSource(RB.Source):
         Callback called by the model filter to decide wheter to filter or not
         an album.
         '''
+
+        if self.genre_combobox.get_active() != 0:
+            return model[iter][2].contains(self.genre_combobox.get_active_text(), self.filter_type)
+
         if self.search_text == "":
             return True
 
@@ -500,6 +534,7 @@ class CoverArtBrowserSource(RB.Source):
         print "CoverArtBrowser DEBUG - searchchanged_callback"
 
         self.search_text = text
+        self.genre_combobox.set_active(0)
         self.covers_model.refilter()
 
         print "CoverArtBrowser DEBUG - end searchchanged_callback"
@@ -821,6 +856,10 @@ class CoverArtBrowserSource(RB.Source):
         else:
             assert "unknown radiomenu"
 
+        if self.search_text == '':
+            self.search_entry.set_placeholder(radiomenu.get_label())
+
+
         self.searchchanged_callback(_, self.search_text)
 
     def bottom_expander_expanded_callback(self, action, param):
@@ -876,19 +915,20 @@ class CoverArtBrowserSource(RB.Source):
 
         self.loader.reload_model()
 
-    def sorting_direction_changed(self, radio):
+    def sorting_direction_changed(self, toggle):
         '''
-        Callback calledn when a radio corresponding to a sorting direction is
+        Callback called when the sort toggle button is
         toggled. It changes the sorting direction and reorders the cover model
         '''
-        if not radio.get_active():
-            return
-
-        if radio is self.descending_sort_radio:
-            sort_direction = Gtk.SortType.DESCENDING
-        else:
+        if not toggle.get_active():
             sort_direction = Gtk.SortType.ASCENDING
-
+            toggle.set_image(self.arrow_down)
+            toggle.set_tooltip_text(_('Sort in descending order'))
+        else:
+            sort_direction = Gtk.SortType.DESCENDING
+            toggle.set_image(self.arrow_up)
+            toggle.set_tooltip_text(_('Sort in ascending order'))
+                        
         if self.display_text_enabled and not self.display_text_loading_enabled:
             self.activate_markup(False)
 
@@ -1009,8 +1049,7 @@ class CoverArtBrowserSource(RB.Source):
         del self.source_menu_search_all_item
         del self.sort_by_album_radio
         del self.sort_by_artist_radio
-        del self.descending_sort_radio
-        del self.ascending_sort_radio
+        del self.sort_order
         del self.status
         del self.status_label
         del self.reload_fin_id
