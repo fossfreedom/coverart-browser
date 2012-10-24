@@ -1026,6 +1026,20 @@ class Album(object):
             return 0
 
     @classmethod
+    def compare_albums_by_year(cls, year1, year2):
+        '''
+        Classmethod that compares two albums by their album year.
+        Returns -1 if album1 goes before album2, 0 if their are considered
+        equal and 1 if album1 goes after album2.
+        '''
+        if album1.album_year < album2.album_year:
+            return 1
+        if album1.album_year > album2.album_year:
+            return -1
+        else:
+            return 0
+
+    @classmethod
     def compare_albums_by_album_artist(cls, album1, album2):
         '''
         Classmethod that compares two albums by their album artist names.

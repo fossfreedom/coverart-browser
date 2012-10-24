@@ -42,6 +42,7 @@ class CoverArtBrowserSource(RB.Source):
     display_text_enabled = GObject.property(type=bool, default=False)
     display_text_loading_enabled = GObject.property(type=bool, default=True)
     rating_threshold = GObject.property(type=float, default=0)
+    toolbar_pos = GObject.property(type=int, default=0)
 
     def __init__(self, **kargs):
         '''
@@ -58,6 +59,7 @@ class CoverArtBrowserSource(RB.Source):
         self.filter_type = Album.FILTER_ALL
         self.search_text = ''
         self.hasActivated = False
+        self.last_toolbar_pos = 0
 
     def _connect_properties(self):
         '''
@@ -75,6 +77,9 @@ class CoverArtBrowserSource(RB.Source):
             'display_text_loading_enabled', Gio.SettingsBindFlags.GET)
         setting.bind(self.gs.PluginKey.RATING, self,
             'rating_threshold', Gio.SettingsBindFlags.GET)
+        setting.bind(self.gs.PluginKey.TOOLBAR_POS, self,
+            'toolbar_pos', Gio.SettingsBindFlags.GET)
+        
 
     def do_get_status(self, *args):
         '''
@@ -164,6 +169,7 @@ class CoverArtBrowserSource(RB.Source):
         ui.add_from_file(rb.find_plugin_file(self.plugin,
             'ui/coverart_browser.ui'))
         ui.connect_signals(self)
+        self.toolbar_box = ui.get_object('toolbar_box')
         
         si = Gtk.Builder()
         si.set_translation_domain(cl.Locale.LOCALE_DOMAIN)
@@ -173,25 +179,16 @@ class CoverArtBrowserSource(RB.Source):
         # load the page and put it in the source
         self.sidebar = si.get_object('main_box')
         
-        self.shell.add_widget( 	self.sidebar,
-								RB.ShellUILocation.SIDEBAR,
-								expand=True,
-								fill=True) #RIGHT_SIDEBAR
-
         # load the page and put it in the source
         self.page = ui.get_object('main_box')
         self.pack_start(self.page, True, True, 0)
         
-        self._toolbar(ui)
-        self._toolbar(si)
-
         # covers model
         self.covers_model_store = ui.get_object('covers_model')
 
         # get widgets for main icon-view
         self.status_label = ui.get_object('status_label')
         self.covers_view = ui.get_object('covers_view')
-        
         self.popup_menu = ui.get_object('popup_menu')
         self.cover_search_menu_item = ui.get_object('cover_search_menu_item')
         self.status_label = ui.get_object('status_label')
@@ -199,7 +196,6 @@ class CoverArtBrowserSource(RB.Source):
         self.request_spinner = ui.get_object('request_spinner')
         self.request_statusbar = ui.get_object('request_statusbar')
         self.request_cancel_button = ui.get_object('request_cancel_button')
-        
         self.paned = ui.get_object('paned')
         self.bottom_box = ui.get_object('bottom_box')
         self.bottom_expander = ui.get_object('bottom_expander')
@@ -223,6 +219,9 @@ class CoverArtBrowserSource(RB.Source):
         self.filter_menu_album_item = ui.get_object('filter_album_menu_item')
         self.filter_menu_track_title_item = ui.get_object(
             'filter_track_title_menu_item')
+
+        self._toolbar(ui)
+        self._toolbar(si)
 
 	def _toolbar( self, ui ):
 		'''
@@ -266,6 +265,7 @@ class CoverArtBrowserSource(RB.Source):
 
         # genre
         self.genre_combobox = ui.get_object('genre_combobox')
+        self._fill_genre()
         
     def _fill_genre(self):
         '''
@@ -294,8 +294,11 @@ class CoverArtBrowserSource(RB.Source):
         else:
             self.filter_type = Album.FILTER_GENRE
 
-        self.covers_model.refilter()
-
+        try:
+            self.covers_model.refilter()
+        except:
+            pass
+            
     def _setup_source(self):
         '''
         Setups the differents parts of the source so they are ready to be used
@@ -341,8 +344,6 @@ class CoverArtBrowserSource(RB.Source):
         self.covers_model.set_visible_func(self.visible_covers_callback)
         self.covers_view.set_model(self.covers_model)
 
-        self._fill_genre()
-
     def _apply_settings(self):
         '''
         Applies all the settings related to the source and connects those that
@@ -366,6 +367,8 @@ class CoverArtBrowserSource(RB.Source):
             self.on_notify_display_text_ellipsize)
         self.notify_cover_size = self.loader.connect('notify::cover-size',
             self.on_notify_cover_size)
+        self.toolbar_pos = self.connect('notify::toolbar-pos',
+            self.on_notify_toolbar_pos)
 
         # apply/connect some settings
         source_settings = self.gs.get_setting(self.gs.Path.PLUGIN)
@@ -382,6 +385,7 @@ class CoverArtBrowserSource(RB.Source):
         self.on_notify_display_bottom_enabled(_)
         self.activate_markup()
         self.sorting_direction_changed(self.sort_order)
+        self.on_notify_toolbar_pos(_)
 
         if self.loader.progress == 1:
             # if the source is fully loaded, enable the full cover search item
@@ -440,6 +444,42 @@ class CoverArtBrowserSource(RB.Source):
 
         self.play_favourites_album_menu_item.set_sensitive(enable_menus)
         self.queue_favourites_album_menu_item.set_sensitive(enable_menus)
+
+    def on_notify_toolbar_pos(self, *args):
+        '''
+        Callback called when the toolbar position is changed in
+        preferences
+        '''
+
+        setting = self.gs.get_setting(self.gs.Path.PLUGIN)
+
+        toolbar_pos = setting[self.gs.PluginKey.TOOLBAR_POS]
+
+        if toolbar_pos == 0:
+            self.toolbar_box.set_visible(True)
+
+        if toolbar_pos == 1:
+            self.toolbar_box.set_visible(False)
+            self.shell.add_widget( 	self.sidebar,
+                        RB.ShellUILocation.SIDEBAR,
+                        expand=True,
+                        fill=True)
+
+        if toolbar_pos == 2:
+            self.toolbar_box.set_visible(False)
+            self.shell.add_widget( 	self.sidebar,
+                        RB.ShellUILocation.RIGHT_SIDEBAR,
+                        expand=True,
+                        fill=True) 
+
+        if self.last_toolbar_pos == 1:
+            self.shell.remove_widget(   self.sidebar,
+                                        RB.ShellUILocation.SIDEBAR )
+        if self.last_toolbar_pos == 2:
+            self.shell.remove_widget(   self.sidebar,
+                                        RB.ShellUILocation.RIGHT_SIDEBAR )
+
+        self.last_toolbar_pos = toolbar_pos
 
     def on_notify_display_bottom_enabled(self, *args):
         '''

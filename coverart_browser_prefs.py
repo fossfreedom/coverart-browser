@@ -116,7 +116,8 @@ class GSetting:
                 SORT_BY_ARTIST='sort-by-artist',
                 SORT_ORDER='sort-order',
                 RATING='rating-threshold',
-                AUTOSTART='autostart')
+                AUTOSTART='autostart',
+                TOOLBAR_POS='toolbar-pos')
 
             self.setting = {}
 
@@ -194,6 +195,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         builder = Gtk.Builder()
         builder.add_from_file(rb.find_plugin_file(self,
             'ui/coverart_browser_prefs.ui'))
+        builder.connect_signals(self)
 
         gs = GSetting()
         # bind the toggles to the settings
@@ -246,5 +248,27 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         self.settings.bind(gs.PluginKey.AUTOSTART,
             autostart, 'active', Gio.SettingsBindFlags.DEFAULT)
 
+        self.toolbar_left_radio=builder.get_object('toolbar_left_radio')
+        self.toolbar_right_radio=builder.get_object('toolbar_right_radio')
+        self.toolbar_main_radio=builder.get_object('toolbar_main_radio')
+
+        toolbar_pos = self.settings[gs.PluginKey.TOOLBAR_POS]
+        if toolbar_pos == 0:
+            self.toolbar_main_radio.set_active(True)
+        if toolbar_pos == 1:
+            self.toolbar_left_radio.set_active(True)
+        if toolbar_pos == 2:
+            self.toolbar_right_radio.set_active(True)
+
         # return the dialog
         return builder.get_object('main_box')
+
+    def toolbar_callback( self, radio ):
+        gs = GSetting()
+        if radio == self.toolbar_main_radio:
+            self.settings[gs.PluginKey.TOOLBAR_POS] = 0
+        if radio == self.toolbar_left_radio:
+            self.settings[gs.PluginKey.TOOLBAR_POS] = 1
+        if radio == self.toolbar_right_radio:
+            self.settings[gs.PluginKey.TOOLBAR_POS] = 2
+            
