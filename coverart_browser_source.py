@@ -278,15 +278,9 @@ class CoverArtBrowserSource(RB.Source):
         
         self.genre_combobox.remove_all()
         
-        #def process_entry(model, tree_path, tree_iter, _):
-        #    (entry,) = model.get(tree_iter, 0)
-        #    self.genre_combobox.append_text(entry)
-
-        #model.foreach(process_entry, None)
         entry = model[0][0]
         self.genre_combobox.append_text(entry)
 
-        print len(self.loader.get_genres())
         for entry in self.loader.get_genres():
             print entry
             self.genre_combobox.append_text(entry)
@@ -593,10 +587,12 @@ class CoverArtBrowserSource(RB.Source):
         Callback called by the model filter to decide wheter to filter or not
         an album.
         '''
-
-        if self.genre_combobox.get_active() != 0:
-            return model[iter][2].contains(self.genre_combobox.get_active_text(), self.filter_type)
-
+		try:
+			if self.genre_combobox.get_active() != 0:
+				return model[iter][2].contains(self.genre_combobox.get_active_text(), self.filter_type)
+		except:
+			return False
+			
         if self.search_text == "":
             return True
 
@@ -1087,6 +1083,8 @@ class CoverArtBrowserSource(RB.Source):
         to free all the source's related resources to avoid memory leaking and
         loose signals.
         '''
+        print "do_delete_thyself"
+        
         if not self.hasActivated:
             del self.hasActivated
 
@@ -1103,7 +1101,6 @@ class CoverArtBrowserSource(RB.Source):
         self.loader.disconnect(self.notify_ellipsize)
         self.loader.disconnect(self.notify_ellipsize_length)
         self.loader.disconnect(self.notify_cover_size)
-
         # delete references
         del self.shell
         del self.plugin
