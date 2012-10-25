@@ -64,7 +64,7 @@
 		<property name="visible">True</property>
 		<property name="can_focus">False</property>
 		<property name="tooltip_text" translatable="yes">Filter by genre</property>
-		<property name="has_entry">True</property>
+        <property name="has_entry">True</property>
 		<signal name="changed" handler="genre_changed" swapped="no"/>
 		<child internal-child="entry">
 		  <object class="GtkEntry" id="combobox-entry">
