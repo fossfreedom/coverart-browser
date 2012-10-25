@@ -363,11 +363,11 @@ class AlbumLoader(GObject.Object):
         print "CoverArtBrowser DEBUG - load_albums"
         # process the entries and load albums asynchronously
         Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
-            self._proccess_query_model, query_model)
+            self._process_query_model, query_model)
 
         print "CoverArtBrowser DEBUG - end load_albums"
 
-    def _proccess_query_model(self, qm):
+    def _process_query_model(self, qm):
         '''
         Callback called when the asynchronous query made by load_albums
         finishes.
@@ -1021,20 +1021,6 @@ class Album(object):
         if album1.name < album2.name:
             return 1
         if album1.name > album2.name:
-            return -1
-        else:
-            return 0
-
-    @classmethod
-    def compare_albums_by_year(cls, year1, year2):
-        '''
-        Classmethod that compares two albums by their album year.
-        Returns -1 if album1 goes before album2, 0 if their are considered
-        equal and 1 if album1 goes after album2.
-        '''
-        if album1.album_year < album2.album_year:
-            return 1
-        if album1.album_year > album2.album_year:
             return -1
         else:
             return 0

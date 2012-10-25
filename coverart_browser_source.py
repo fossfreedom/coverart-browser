@@ -168,14 +168,14 @@ class CoverArtBrowserSource(RB.Source):
         ui.set_translation_domain(cl.Locale.LOCALE_DOMAIN)
         ui.add_from_file(rb.find_plugin_file(self.plugin,
             'ui/coverart_browser.ui'))
-        ui.connect_signals(self)
+        
         self.toolbar_box = ui.get_object('toolbar_box')
         
         si = Gtk.Builder()
         si.set_translation_domain(cl.Locale.LOCALE_DOMAIN)
         si.add_from_file(rb.find_plugin_file(self.plugin,
             'ui/coverart_sidebar.ui'))
-        si.connect_signals(self)
+        
         # load the page and put it in the source
         self.sidebar = si.get_object('main_box')
         
@@ -220,9 +220,9 @@ class CoverArtBrowserSource(RB.Source):
         self.filter_menu_track_title_item = ui.get_object(
             'filter_track_title_menu_item')
 
-        self._toolbar(ui)
-        self._toolbar(si)
-
+		self.ui = ui
+		self.si = si
+		
 	def _toolbar( self, ui ):
 		'''
         setup toolbar ui - called for sidebar and main-view
@@ -274,7 +274,13 @@ class CoverArtBrowserSource(RB.Source):
         '''
         views = self.shell.props.library_source.get_property_views()
         view = views[0] # seems like view 0 is the genre property view
-        model = view.get_model()
+        model = view.get_model()   
+        
+        #ok the above is wrong for the moment since library genres 
+        #can be filtered.  Need a function on probably AlbumLoader
+        #to find all possible genres.
+        
+        self.genre_combobox.remove_all()
         
         def process_entry(model, tree_path, tree_iter, _):
             (entry,) = model.get(tree_iter, 0)
@@ -351,6 +357,8 @@ class CoverArtBrowserSource(RB.Source):
         enables differents parts of the ui if the settings says so.
         '''
         # connect some signals to the loader to keep the source informed
+        self.si.connect_signals(self)
+        self.ui.connect_signals(self)
         self.album_mod_id = self.loader.connect('album-modified',
             self.album_modified_callback)
         self.load_fin_id = self.loader.connect('load-finished',
@@ -385,7 +393,7 @@ class CoverArtBrowserSource(RB.Source):
         self.on_notify_display_bottom_enabled(_)
         self.activate_markup()
         self.sorting_direction_changed(self.sort_order)
-        self.on_notify_toolbar_pos(_)
+        #self.on_notify_toolbar_pos(_)
 
         if self.loader.progress == 1:
             # if the source is fully loaded, enable the full cover search item
@@ -456,21 +464,26 @@ class CoverArtBrowserSource(RB.Source):
         toolbar_pos = setting[self.gs.PluginKey.TOOLBAR_POS]
 
         if toolbar_pos == 0:
+			self._toolbar(self.ui)
             self.toolbar_box.set_visible(True)
-
+			
         if toolbar_pos == 1:
             self.toolbar_box.set_visible(False)
+            print "hi"
+            self._toolbar(self.si)
             self.shell.add_widget( 	self.sidebar,
                         RB.ShellUILocation.SIDEBAR,
-                        expand=True,
-                        fill=True)
+                        expand=False,
+                        fill=False)
+            print "bye"
 
         if toolbar_pos == 2:
             self.toolbar_box.set_visible(False)
+			self._toolbar(self.si)
             self.shell.add_widget( 	self.sidebar,
                         RB.ShellUILocation.RIGHT_SIDEBAR,
-                        expand=True,
-                        fill=True) 
+                        expand=False,
+                        fill=False) 
 
         if self.last_toolbar_pos == 1:
             self.shell.remove_widget(   self.sidebar,
