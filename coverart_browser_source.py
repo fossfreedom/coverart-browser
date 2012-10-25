@@ -164,33 +164,34 @@ class CoverArtBrowserSource(RB.Source):
         ui.add_from_file(rb.find_plugin_file(self.plugin,
             'ui/coverart_browser.ui'))
         ui.connect_signals(self)
+        
+        si = Gtk.Builder()
+        si.set_translation_domain(cl.Locale.LOCALE_DOMAIN)
+        si.add_from_file(rb.find_plugin_file(self.plugin,
+            'ui/coverart_sidebar.ui'))
+        si.connect_signals(self)
+        # load the page and put it in the source
+        self.sidebar = si.get_object('main_box')
+        
+        self.shell.add_widget( 	self.sidebar,
+								RB.ShellUILocation.SIDEBAR,
+								expand=True,
+								fill=True) #RIGHT_SIDEBAR
 
         # load the page and put it in the source
         self.page = ui.get_object('main_box')
         self.pack_start(self.page, True, True, 0)
+        
+        self._toolbar(ui)
+        self._toolbar(si)
 
         # covers model
         self.covers_model_store = ui.get_object('covers_model')
 
         # get widgets for main icon-view
-        # the first part is to first remove the current search-entry
-        # before recreating it again - we have to do this to ensure
-        # the locale is set correctly i.e. the overall ui is coverart
-        # locale but the search-entry uses rhythmbox translation
-        align = ui.get_object('entry_search_alignment')
-        align.remove(align.get_child())
-        cl.switch_locale(cl.Locale.RB)
-        self.search_entry = RB.SearchEntry(has_popup=True)
-        align.add(self.search_entry)
-        align.show_all()
-        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
-
         self.status_label = ui.get_object('status_label')
         self.covers_view = ui.get_object('covers_view')
-        self.search_entry.connect('search', self.searchchanged_callback)
-        self.search_entry.connect('show-popup',
-            self.search_show_popup_callback)
-
+        
         self.popup_menu = ui.get_object('popup_menu')
         self.cover_search_menu_item = ui.get_object('cover_search_menu_item')
         self.status_label = ui.get_object('status_label')
@@ -198,21 +199,11 @@ class CoverArtBrowserSource(RB.Source):
         self.request_spinner = ui.get_object('request_spinner')
         self.request_statusbar = ui.get_object('request_statusbar')
         self.request_cancel_button = ui.get_object('request_cancel_button')
-        self.sort_by_album_radio = ui.get_object('album_name_sort_radio')
-        self.sort_by_artist_radio = ui.get_object('artist_name_sort_radio')
-        self.sort_order = ui.get_object('sort_order')
-        self.arrow_down = ui.get_object('arrow_down')
-        self.arrow_up = ui.get_object('arrow_up')
+        
         self.paned = ui.get_object('paned')
         self.bottom_box = ui.get_object('bottom_box')
         self.bottom_expander = ui.get_object('bottom_expander')
         self.notebook = ui.get_object('bottom_notebook')
-
-        # get widget for search and apply some workarounds
-        search_entry = ui.get_object('search_entry')
-        search_entry.set_placeholder(_('Search album'))
-        search_entry.show_all()
-        self.search_entry.set_placeholder(ui.get_object('filter_all_menu_item').get_label())
 
         # get widgets for source popup
         self.source_menu = ui.get_object('source_menu')
@@ -233,9 +224,49 @@ class CoverArtBrowserSource(RB.Source):
         self.filter_menu_track_title_item = ui.get_object(
             'filter_track_title_menu_item')
 
+	def _toolbar( self, ui ):
+		'''
+        setup toolbar ui - called for sidebar and main-view
+        '''
+		# dialog has not been created so lets do so.
+        cl = CoverLocale()
+        
+        # get widgets for main icon-view
+        # the first part is to first remove the current search-entry
+        # before recreating it again - we have to do this to ensure
+        # the locale is set correctly i.e. the overall ui is coverart
+        # locale but the search-entry uses rhythmbox translation
+        align = ui.get_object('entry_search_alignment')
+        align.remove(align.get_child())
+        cl.switch_locale(cl.Locale.RB)
+        self.search_entry = RB.SearchEntry(has_popup=True)
+        align.add(self.search_entry)
+        align.show_all()
+        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+
+        self.search_entry.connect('search', self.searchchanged_callback)
+        self.search_entry.connect('show-popup',
+            self.search_show_popup_callback)
+
+        self.sort_by_album_radio = ui.get_object('album_name_sort_radio')
+        self.sort_by_artist_radio = ui.get_object('artist_name_sort_radio')
+        self.sort_order = ui.get_object('sort_order')
+        self.arrow_down = ui.get_object('arrow_down')
+        self.arrow_up = ui.get_object('arrow_up')
+
+        # setup the sorting
+        self.sort_by_album_radio.set_mode(False)
+        self.sort_by_artist_radio.set_mode(False)
+
+        # get widget for search and apply some workarounds
+        search_entry = ui.get_object('search_entry')
+        search_entry.set_placeholder(_('Search album'))
+        search_entry.show_all()
+        self.search_entry.set_placeholder(ui.get_object('filter_all_menu_item').get_label())
+
         # genre
         self.genre_combobox = ui.get_object('genre_combobox')
-
+        
     def _fill_genre(self):
         '''
         fills the genre combobox with all current genres found
@@ -269,11 +300,7 @@ class CoverArtBrowserSource(RB.Source):
         '''
         Setups the differents parts of the source so they are ready to be used
         by the user. It also creates and configure some custom widgets.
-        '''
-        # setup the sorting
-        self.sort_by_album_radio.set_mode(False)
-        self.sort_by_artist_radio.set_mode(False)
-        
+        '''        
         # setup iconview drag&drop support
         self.covers_view.enable_model_drag_dest([], Gdk.DragAction.COPY)
         self.covers_view.drag_dest_add_image_targets()

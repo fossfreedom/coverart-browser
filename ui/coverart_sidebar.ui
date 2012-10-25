@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- interface-requires gtk+ 3.0 -->
+  <object class="GtkImage" id="cancel-icon">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-cancel</property>
+  </object>
+  <object class="GtkImage" id="arrow_up">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-go-up</property>
+  </object>
+  <object class="GtkImage" id="arrow_down">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-go-down</property>
+  </object>
+  <object class="GtkBox" id="main_box">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="hexpand">True</property>
+    <property name="vexpand">True</property>
+    <property name="margin_top">1</property>
+    <property name="orientation">vertical</property>
+	<child>
+	  <object class="GtkComboBoxText" id="genre_combobox">
+		<property name="visible">True</property>
+		<property name="can_focus">False</property>
+		<property name="tooltip_text" translatable="yes">Filter by genre</property>
+		<property name="has_entry">True</property>
+		<signal name="changed" handler="genre_changed" swapped="no"/>
+		<child internal-child="entry">
+		  <object class="GtkEntry" id="combobox-entry">
+			<property name="can_focus">False</property>
+		  </object>
+		</child>
+	  </object>
+	  <packing>
+		<property name="expand">False</property>
+		<property name="fill">True</property>
+		<property name="position">0</property>
+	  </packing>
+	</child>
+	<child>
+	  <object class="GtkButtonBox" id="sorting_criteria_button_box">
+		<property name="visible">True</property>
+		<property name="spacing">1</property>
+		<property name="can_focus">False</property>
+		<property name="margin_left">5</property>
+		<property name="margin_right">5</property>
+		<property name="layout_style">start</property>
+		<child>
+		  <object class="GtkRadioButton" id="album_name_sort_radio">
+			<property name="label" translatable="yes">Album</property>
+			<property name="tooltip_text" translatable="yes">Sort by album name</property>
+			<property name="use_action_appearance">False</property>
+			<property name="visible">True</property>
+			<property name="can_focus">False</property>
+			<property name="relief">none</property>
+			<property name="xalign">0.5</property>
+			<signal name="toggled" handler="sorting_criteria_changed" swapped="no"/>
+		  </object>
+		  <packing>
+			<property name="expand">False</property>
+			<property name="fill">True</property>
+			<property name="position">0</property>
+		  </packing>
+		</child>
+		<child>
+		  <object class="GtkRadioButton" id="artist_name_sort_radio">
+			<property name="label" translatable="yes">Artist</property>
+			<property name="tooltip_text" translatable="yes">Sort by album artist</property>
+			<property name="use_action_appearance">False</property>
+			<property name="visible">True</property>
+			<property name="can_focus">False</property>
+			<property name="relief">none</property>
+			<property name="xalign">0.5</property>
+			<property name="group">album_name_sort_radio</property>
+			<signal name="toggled" handler="sorting_criteria_changed" swapped="no"/>
+		  </object>
+		  <packing>
+			<property name="expand">False</property>
+			<property name="fill">True</property>
+			<property name="position">1</property>
+		  </packing>
+		</child>
+	  </object>
+	  <packing>
+		<property name="expand">False</property>
+		<property name="fill">True</property>
+		<property name="position">1</property>
+	  </packing>
+	</child>
+	<child>
+	  <object class="GtkToggleButton" id="sort_order">
+		<property name="visible">True</property>
+		<property name="can_focus">False</property>
+		<property name="relief">none</property>
+		<property name="xalign">0.5</property>
+		<property name="halign">center</property>
+		<property name="valign">center</property>
+		<property name="margin_right">1</property>
+		<property name="image">arrow_up</property>
+		<signal name="toggled" handler="sorting_direction_changed" swapped="no"/>                
+	  </object>
+	  <packing>
+		<property name="expand">False</property>
+		<property name="fill">True</property>
+		<property name="position">2</property>
+	  </packing>
+	</child>
+	<child>
+	  <object class="GtkAlignment" id="entry_search_alignment">
+		<property name="visible">True</property>
+		<property name="can_focus">False</property>
+		<property name="xalign">1</property>
+		<property name="xscale">0.25</property>
+		<child>
+		  <object class="RBSearchEntry" id="search_entry">
+			<property name="visible">True</property>
+			<property name="can_focus">True</property>
+			<property name="margin_right">5</property>
+			<property name="margin_top">5</property>
+			<property name="margin_bottom">5</property>
+			<property name="has_popup">True</property>
+			<signal name="search" handler="searchchanged_callback" swapped="no"/>
+			<signal name="show-popup" handler="search_show_popup_callback" swapped="no"/>
+		  </object>
+		</child>
+	  </object>
+	  <packing>
+		<property name="expand">True</property>
+		<property name="fill">True</property>
+		<property name="position">4</property>
+	  </packing>
+	</child>
+  </object>
+  <object class="GtkMenu" id="filter_menu">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkRadioMenuItem" id="filter_all_menu_item">
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text" translatable="yes">Search using all fields</property>
+        <property name="label" translatable="yes">Search all fields</property>
+        <property name="use_underline">True</property>
+        <property name="receives_default">True</property>
+        <property name="use_action_appearance">False</property>
+        <property name="active">True</property>
+        <signal name="toggled" handler="filter_menu_callback" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkRadioMenuItem" id="filter_album_artist_menu_item">
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text" translatable="yes">Search using album artist names</property>
+        <property name="label" translatable="yes">Search album artists</property>
+        <property name="use_underline">True</property>
+        <property name="receives_default">False</property>
+        <property name="use_action_appearance">False</property>
+        <property name="group">filter_all_menu_item</property>
+        <signal name="toggled" handler="filter_menu_callback" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkRadioMenuItem" id="filter_artist_menu_item">
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text" translatable="yes">Search using track artist names</property>
+        <property name="label" translatable="yes">Search track artists</property>
+        <property name="use_underline">True</property>
+        <property name="receives_default">False</property>
+        <property name="use_action_appearance">False</property>
+        <property name="group">filter_all_menu_item</property>
+        <signal name="toggled" handler="filter_menu_callback" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkRadioMenuItem" id="filter_album_menu_item">
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text" translatable="yes">Search using album titles</property>
+        <property name="label" translatable="yes">Search albums</property>
+        <property name="use_underline">True</property>
+        <property name="receives_default">False</property>
+        <property name="use_action_appearance">False</property>
+        <property name="group">filter_all_menu_item</property>
+        <signal name="toggled" handler="filter_menu_callback" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkRadioMenuItem" id="filter_track_title_menu_item">
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text" translatable="yes">Search using track titles</property>
+        <property name="label" translatable="yes">Search tracks</property>
+        <property name="use_underline">True</property>
+        <property name="receives_default">False</property>
+        <property name="use_action_appearance">False</property>
+        <property name="group">filter_all_menu_item</property>
+        <signal name="toggled" handler="filter_menu_callback" swapped="no"/>
+      </object>
+    </child>
+  </object>
+</interface>
