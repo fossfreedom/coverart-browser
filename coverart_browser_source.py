@@ -265,9 +265,9 @@ class CoverArtBrowserSource(RB.Source):
 
         # genre
         self.genre_combobox = ui.get_object('genre_combobox')
-        self._fill_genre()
+        self.genre_fill_combo(_)
         
-    def _fill_genre(self):
+    def genre_fill_combo(self, *args):
         '''
         fills the genre combobox with all current genres found
         in the library source
@@ -276,17 +276,21 @@ class CoverArtBrowserSource(RB.Source):
         view = views[0] # seems like view 0 is the genre property view
         model = view.get_model()   
         
-        #ok the above is wrong for the moment since library genres 
-        #can be filtered.  Need a function on probably AlbumLoader
-        #to find all possible genres.
-        
         self.genre_combobox.remove_all()
         
-        def process_entry(model, tree_path, tree_iter, _):
-            (entry,) = model.get(tree_iter, 0)
+        #def process_entry(model, tree_path, tree_iter, _):
+        #    (entry,) = model.get(tree_iter, 0)
+        #    self.genre_combobox.append_text(entry)
+
+        #model.foreach(process_entry, None)
+        entry = model[0][0]
+        self.genre_combobox.append_text(entry)
+
+        print len(self.loader.get_genres())
+        for entry in self.loader.get_genres():
+            print entry
             self.genre_combobox.append_text(entry)
 
-        model.foreach(process_entry, None)
         self.genre_combobox.set_active(0)
 
     def genre_changed(self, widget):

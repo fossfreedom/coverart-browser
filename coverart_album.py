@@ -70,6 +70,7 @@ class AlbumLoader(GObject.Object):
         self.cover_db = RB.ExtDB(name='album-art')
         self.reloading = None
         self.reload_covers = False
+        self.cover_genres = {}
 
         # set the unknown cover path
         Album.UNKNOWN_COVER = rb.find_plugin_file(plugin, Album.UNKNOWN_COVER)
@@ -165,6 +166,12 @@ class AlbumLoader(GObject.Object):
         Looks and retrieves an entry's album name.
         '''
         return entry.get_string(RB.RhythmDBPropType.ALBUM)
+
+    def _get_genre(self, entry):
+        '''
+        Looks and retrieves an entry's genre.
+        '''
+        return entry.get_string(RB.RhythmDBPropType.GENRE)
 
     def _albumart_added_callback(self, ext_db, key, path, pixbuf):
         '''
@@ -354,6 +361,12 @@ class AlbumLoader(GObject.Object):
                 # emit a signal indicating the album has changed
                 self.emit('album-modified', album)
 
+    def get_genres(self):
+        '''
+        return a set of genres
+        '''
+        return self.cover_genres
+
     def load_albums(self, query_model):
         '''
         Initiates the process of recover, create and load all the albums from
@@ -387,6 +400,11 @@ class AlbumLoader(GObject.Object):
         # retrieve album metadata
         album_name = self._get_album_name(entry)
         album_artist = self._get_album_artist(entry)
+        genre = self._get_genre(entry)
+
+        if genre not in self.cover_genres.keys():
+            print genre
+            self.cover_genres[genre] = genre
 
         # look for the album or create it
         if album_name in self.albums.keys():
