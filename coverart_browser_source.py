@@ -300,7 +300,11 @@ class CoverArtBrowserSource(RB.Source):
         '''
         print "CoverArtBrowser DEBUG - genre_fill_combo"
 		
-		self.genre_changed_ignore = True
+		genres = self.loader.get_genres()
+		if len(genres) == (len(self.genre_combobox.get_model())-1):
+			return # nothing to do
+			
+		self.genre_changed_ignore = True ## we dont want the combobox signal to fire
         views = self.shell.props.library_source.get_property_views()
         view = views[0] # seems like view 0 is the genre property view
         model = view.get_model()   
@@ -310,7 +314,7 @@ class CoverArtBrowserSource(RB.Source):
         entry = model[0][0]
         self.genre_combobox.append_text(entry)
 
-        for entry in self.loader.get_genres():
+        for entry in genres:
             self.genre_combobox.append_text(entry)
 
         self.genre_combobox.set_active(0)
