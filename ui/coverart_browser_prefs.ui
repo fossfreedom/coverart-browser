@@ -22,180 +22,19 @@
     <property name="step_increment">1</property>
     <property name="page_increment">1</property>
   </object>
-  <object class="GtkBox" id="main_box">
+  <object class="GtkGrid" id="maingrid">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="margin_left">5</property>
-    <property name="margin_right">5</property>
-    <property name="margin_top">5</property>
-    <property name="margin_bottom">5</property>
-    <property name="orientation">vertical</property>
     <child>
-      <object class="GtkCheckButton" id="custom_statusbar_checkbox">
-        <property name="label" translatable="yes">Use source's custom statusbar.</property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">False</property>
-        <property name="tooltip_text" translatable="yes">Use the source's custom statusbar to show the current selected album's related information instead of the global Rhythmbox's statusbar.</property>
-        <property name="margin_left">5</property>
-        <property name="margin_right">5</property>
-        <property name="margin_top">5</property>
-        <property name="margin_bottom">5</property>
-        <property name="use_action_appearance">False</property>
-        <property name="xalign">0</property>
-        <property name="draw_indicator">True</property>
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-        <property name="position">0</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkCheckButton" id="display_bottom_checkbox">
-        <property name="label" translatable="yes">Display tracks and covers pane</property>
-        <property name="use_action_appearance">False</property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">False</property>
-        <property name="tooltip_text" translatable="yes">Add a toggle-option to the coverart view to display the tracks and covers for the chosen album</property>
-        <property name="margin_left">5</property>
-        <property name="margin_right">5</property>
-        <property name="margin_top">5</property>
-        <property name="margin_bottom">5</property>
-        <property name="use_action_appearance">False</property>
-        <property name="xalign">0</property>
-        <property name="draw_indicator">True</property>
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-        <property name="position">1</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkCheckButton" id="display_text_checkbox">
-        <property name="label" translatable="yes">Display album's info under cover</property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">False</property>
-        <property name="tooltip_text" translatable="yes">Show the album's basic information under the cover image.</property>
-        <property name="margin_left">5</property>
-        <property name="margin_right">5</property>
-        <property name="margin_top">5</property>
-        <property name="margin_bottom">5</property>
-        <property name="use_action_appearance">False</property>
-        <property name="xalign">0</property>
-        <property name="draw_indicator">True</property>
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-        <property name="position">2</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkBox" id="display_text_box">
+      <object class="GtkBox" id="boxright">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
         <property name="margin_left">5</property>
+        <property name="margin_right">5</property>
+        <property name="margin_top">5</property>
         <property name="margin_bottom">5</property>
+        <property name="orientation">vertical</property>
         <child>
-          <object class="GtkCheckButton" id="display_text_loading_checkbox">
-            <property name="label" translatable="yes">Show text while loading</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">False</property>
-            <property name="tooltip_text" translatable="yes">Show's the text for each album during the source load. Deactivating this option may help with the loading performance.</property>
-            <property name="margin_left">20</property>
-            <property name="margin_right">5</property>
-            <property name="margin_top">5</property>
-            <property name="margin_bottom">5</property>
-            <property name="use_action_appearance">False</property>
-            <property name="xalign">0</property>
-            <property name="draw_indicator">True</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">3</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkCheckButton" id="display_text_ellipsize_checkbox">
-            <property name="label" translatable="yes">Ellipsize albums names</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">False</property>
-            <property name="tooltip_text" translatable="yes">Ellipsizes the albums names to a fixed length when the display text option is enabled.</property>
-            <property name="margin_left">20</property>
-            <property name="margin_right">5</property>
-            <property name="margin_top">5</property>
-            <property name="margin_bottom">5</property>
-            <property name="use_action_appearance">False</property>
-            <property name="xalign">0</property>
-            <property name="draw_indicator">True</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">4</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkBox" id="display_text_ellipsize_length_box">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="margin_left">50</property>
-            <child>
-              <object class="GtkLabel" id="display_text_ellipsize_length_label">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="tooltip_text" translatable="yes">This is the maximum allowed size for an album's name before being ellipsized.</property>
-                <property name="label" translatable="yes">Maximum length:</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkSpinButton" id="display_text_ellipsize_length_spin">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="margin_left">5</property>
-                <property name="buffer">display_text_ellipsize_length_buffer</property>
-                <property name="max_length">3</property>
-                <property name="invisible_char">•</property>
-                <property name="width_chars">3</property>
-                <property name="adjustment">display_text_ellipsize_length_adjustment</property>
-                <property name="climb_rate">5</property>
-                <property name="numeric">True</property>
-                <property name="update_policy">if-valid</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">5</property>
-          </packing>
-        </child>
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-        <property name="position">3</property>
-      </packing>
-    </child>
-    <child>
           <object class="GtkBox" id="rated_box">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
@@ -231,27 +70,194 @@
                 <property name="position">1</property>
               </packing>
             </child>
-        </object>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">4</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="cover_size_box">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_left">5</property>
+            <property name="margin_top">5</property>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkLabel" id="cover_size_label">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="tooltip_text" translatable="yes">Defines the size for the covers showed on the source.</property>
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Cover size in pixels:</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkScale" id="cover_size_scale">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="margin_right">5</property>
+                <property name="margin_top">5</property>
+                <property name="margin_bottom">5</property>
+                <property name="adjustment">cover_size_adjustment</property>
+                <property name="round_digits">1</property>
+                <property name="digits">0</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">5</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="autostart_checkbox">
+            <property name="label" translatable="yes">Automatically Start</property>
+            <property name="use_action_appearance">False</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text" translatable="yes">When rhythmbox starts, switch automatically to the coverart browser.</property>
+            <property name="margin_left">5</property>
+            <property name="margin_right">5</property>
+            <property name="margin_top">5</property>
+            <property name="margin_bottom">5</property>
+            <property name="use_action_appearance">False</property>
+            <property name="xalign">0</property>
+            <property name="draw_indicator">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">6</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="toolbar_box">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_left">5</property>
+            <property name="margin_bottom">5</property>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkRadioButton" id="toolbar_main_radio">
+                <property name="label" translatable="yes">Show toolbar in main cover-view</property>
+                <property name="use_action_appearance">False</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="tooltip_text" translatable="yes">Show's the toolbar at the top of the cover-view</property>
+                <property name="margin_right">5</property>
+                <property name="margin_top">5</property>
+                <property name="margin_bottom">5</property>
+                <property name="use_action_appearance">False</property>
+                <property name="xalign">0</property>
+                <property name="draw_indicator">True</property>
+                <signal name="toggled" handler="toolbar_callback" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">8</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkRadioButton" id="toolbar_left_radio">
+                <property name="label" translatable="yes">Show toolbar in the left sidebar</property>
+                <property name="use_action_appearance">False</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="tooltip_text" translatable="yes">Show's the toolbar in the left side of the Rhythmbox window</property>
+                <property name="margin_right">5</property>
+                <property name="margin_top">5</property>
+                <property name="margin_bottom">5</property>
+                <property name="use_action_appearance">False</property>
+                <property name="xalign">0</property>
+                <property name="draw_indicator">True</property>
+                <property name="group">toolbar_main_radio</property>
+                <signal name="toggled" handler="toolbar_callback" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">9</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkRadioButton" id="toolbar_right_radio">
+                <property name="label" translatable="yes">Show toolbar in the right sidebar</property>
+                <property name="use_action_appearance">False</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="tooltip_text" translatable="yes">Show's the toolbar in the right side of the Rhythmbox window</property>
+                <property name="margin_right">5</property>
+                <property name="margin_top">5</property>
+                <property name="margin_bottom">5</property>
+                <property name="use_action_appearance">False</property>
+                <property name="xalign">0</property>
+                <property name="draw_indicator">True</property>
+                <property name="group">toolbar_main_radio</property>
+                <signal name="toggled" handler="toolbar_callback" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">10</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">11</property>
+          </packing>
+        </child>
+      </object>
       <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-        <property name="position">4</property>
+        <property name="left_attach">1</property>
+        <property name="top_attach">0</property>
+        <property name="width">1</property>
+        <property name="height">1</property>
       </packing>
     </child>
     <child>
-      <object class="GtkBox" id="cover_size_box">
+      <object class="GtkBox" id="boxleft">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
         <property name="margin_left">5</property>
+        <property name="margin_right">5</property>
         <property name="margin_top">5</property>
+        <property name="margin_bottom">5</property>
+        <property name="orientation">vertical</property>
         <child>
-          <object class="GtkLabel" id="cover_size_label">
+          <object class="GtkCheckButton" id="custom_statusbar_checkbox">
+            <property name="label" translatable="yes">Use source's custom statusbar.</property>
+            <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="tooltip_text" translatable="yes">Defines the size for the covers showed on the source.</property>
-            <property name="halign">start</property>
-            <property name="label" translatable="yes">Cover size in pixels:</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text" translatable="yes">Use the source's custom statusbar to show the current selected album's related information instead of the global Rhythmbox's statusbar.</property>
+            <property name="margin_left">5</property>
+            <property name="margin_right">5</property>
+            <property name="margin_top">5</property>
+            <property name="margin_bottom">5</property>
+            <property name="use_action_appearance">False</property>
+            <property name="xalign">0</property>
+            <property name="draw_indicator">True</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -260,15 +266,20 @@
           </packing>
         </child>
         <child>
-          <object class="GtkScale" id="cover_size_scale">
+          <object class="GtkCheckButton" id="display_bottom_checkbox">
+            <property name="label" translatable="yes">Display tracks and covers pane</property>
+            <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text" translatable="yes">Add a toggle-option to the coverart view to display the tracks and covers for the chosen album</property>
+            <property name="margin_left">5</property>
             <property name="margin_right">5</property>
             <property name="margin_top">5</property>
             <property name="margin_bottom">5</property>
-            <property name="adjustment">cover_size_adjustment</property>
-            <property name="round_digits">1</property>
-            <property name="digits">0</property>
+            <property name="use_action_appearance">False</property>
+            <property name="xalign">0</property>
+            <property name="draw_indicator">True</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -276,114 +287,137 @@
             <property name="position">1</property>
           </packing>
         </child>
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-        <property name="position">5</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkCheckButton" id="autostart_checkbox">
-        <property name="label" translatable="yes">Automatically Start</property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">False</property>
-        <property name="tooltip_text" translatable="yes">When rhythmbox starts, switch automatically to the coverart browser.</property>
-        <property name="margin_left">5</property>
-        <property name="margin_right">5</property>
-        <property name="margin_top">5</property>
-        <property name="margin_bottom">5</property>
-        <property name="use_action_appearance">False</property>
-        <property name="xalign">0</property>
-        <property name="draw_indicator">True</property>
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-        <property name="position">6</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkBox" id="toolbar_box">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
-        <property name="margin_left">5</property>
-        <property name="margin_bottom">5</property>
         <child>
-          <object class="GtkRadioButton" id="toolbar_main_radio">
-            <property name="label" translatable="yes">Show toolbar in main cover-view</property>
+          <object class="GtkCheckButton" id="display_text_checkbox">
+            <property name="label" translatable="yes">Display album's info under cover</property>
+            <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
-            <property name="tooltip_text" translatable="yes">Show's the toolbar at the top of the cover-view</property>
-            <property name="margin_left">0</property>
+            <property name="tooltip_text" translatable="yes">Show the album's basic information under the cover image.</property>
+            <property name="margin_left">5</property>
             <property name="margin_right">5</property>
             <property name="margin_top">5</property>
             <property name="margin_bottom">5</property>
             <property name="use_action_appearance">False</property>
             <property name="xalign">0</property>
             <property name="draw_indicator">True</property>
-            <signal name="toggled" handler="toolbar_callback" swapped="no"/>
           </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">8</property>
+            <property name="position">2</property>
           </packing>
         </child>
         <child>
-          <object class="GtkRadioButton" id="toolbar_left_radio">
-            <property name="label" translatable="yes">Show toolbar in the left sidebar</property>
+          <object class="GtkBox" id="display_text_box">
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">False</property>
-            <property name="tooltip_text" translatable="yes">Show's the toolbar in the left side of the Rhythmbox window</property>
-            <property name="margin_left">0</property>
-            <property name="margin_right">5</property>
-            <property name="margin_top">5</property>
+            <property name="can_focus">False</property>
+            <property name="margin_left">5</property>
             <property name="margin_bottom">5</property>
-            <property name="use_action_appearance">False</property>
-            <property name="xalign">0</property>
-            <property name="draw_indicator">True</property>
-            <property name="group">toolbar_main_radio</property>
-            <signal name="toggled" handler="toolbar_callback" swapped="no"/>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkCheckButton" id="display_text_loading_checkbox">
+                <property name="label" translatable="yes">Show text while loading</property>
+                <property name="use_action_appearance">False</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="tooltip_text" translatable="yes">Show's the text for each album during the source load. Deactivating this option may help with the loading performance.</property>
+                <property name="margin_left">20</property>
+                <property name="margin_right">5</property>
+                <property name="margin_top">5</property>
+                <property name="margin_bottom">5</property>
+                <property name="use_action_appearance">False</property>
+                <property name="xalign">0</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="display_text_ellipsize_checkbox">
+                <property name="label" translatable="yes">Ellipsize albums names</property>
+                <property name="use_action_appearance">False</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="tooltip_text" translatable="yes">Ellipsizes the albums names to a fixed length when the display text option is enabled.</property>
+                <property name="margin_left">20</property>
+                <property name="margin_right">5</property>
+                <property name="margin_top">5</property>
+                <property name="margin_bottom">5</property>
+                <property name="use_action_appearance">False</property>
+                <property name="xalign">0</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">4</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox" id="display_text_ellipsize_length_box">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="margin_left">50</property>
+                <child>
+                  <object class="GtkLabel" id="display_text_ellipsize_length_label">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="tooltip_text" translatable="yes">This is the maximum allowed size for an album's name before being ellipsized.</property>
+                    <property name="label" translatable="yes">Maximum length:</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSpinButton" id="display_text_ellipsize_length_spin">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="margin_left">5</property>
+                    <property name="buffer">display_text_ellipsize_length_buffer</property>
+                    <property name="max_length">3</property>
+                    <property name="invisible_char">•</property>
+                    <property name="width_chars">3</property>
+                    <property name="adjustment">display_text_ellipsize_length_adjustment</property>
+                    <property name="climb_rate">5</property>
+                    <property name="numeric">True</property>
+                    <property name="update_policy">if-valid</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">5</property>
+              </packing>
+            </child>
           </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">9</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkRadioButton" id="toolbar_right_radio">
-            <property name="label" translatable="yes">Show toolbar in the right sidebar</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">False</property>
-            <property name="tooltip_text" translatable="yes">Show's the toolbar in the right side of the Rhythmbox window</property>
-            <property name="margin_left">0</property>
-            <property name="margin_right">5</property>
-            <property name="margin_top">5</property>
-            <property name="margin_bottom">5</property>
-            <property name="use_action_appearance">False</property>
-            <property name="xalign">0</property>
-            <property name="draw_indicator">True</property>
-            <property name="group">toolbar_main_radio</property>
-            <signal name="toggled" handler="toolbar_callback" swapped="no"/>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">10</property>
+            <property name="position">3</property>
           </packing>
         </child>
       </object>
       <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-        <property name="position">11</property>
+        <property name="left_attach">0</property>
+        <property name="top_attach">0</property>
+        <property name="width">1</property>
+        <property name="height">1</property>
       </packing>
     </child>
   </object>
