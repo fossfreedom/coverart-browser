@@ -261,7 +261,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
             self.toolbar_right_radio.set_active(True)
 
         # return the dialog
-        return builder.get_object('main_box')
+        return builder.get_object('maingrid')
 
     def toolbar_callback( self, radio ):
         gs = GSetting()
@@ -271,4 +271,4 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
             self.settings[gs.PluginKey.TOOLBAR_POS] = 1
         if radio == self.toolbar_right_radio:
             self.settings[gs.PluginKey.TOOLBAR_POS] = 2
-            
+
