@@ -71,5 +71,30 @@
             <summary>Toolbar position.</summary>
             <description>0 = Main, 1 = left, 2 = right</description>
         </key>
+        <key type="b" name="sort-by-rating">
+            <default>false</default>
+            <summary>Sort by rating</summary>
+            <description>Determines if the coverview should be sorted by album rating.</description>
+        </key>
+        <key type="b" name="sort-by-year">
+            <default>false</default>
+            <summary>Sort by year</summary>
+            <description>Determines if the coverview should be sorted by album-year.</description>
+        </key>
+        <key type="b" name="year-sort-visible">
+            <default>false</default>
+            <summary>Year sort visibility</summary>
+            <description>Determines if the year sorting option should be visible.</description>
+        </key>
+        <key type="b" name="rating-sort-visible">
+            <default>false</default>
+            <summary>Rating sort visibility</summary>
+            <description>Determines if the rating sorting option should be visible.</description>
+        </key>
+        <key type="b" name="genre-filter-visible">
+            <default>true</default>
+            <summary>Genre filter visibility</summary>
+            <description>Determines if the genre filter should be visible.</description>
+        </key>
     </schema>
 </schemalist>

@@ -114,7 +114,12 @@ class GSetting:
                 PANED_POSITION='paned-position',
                 SORT_BY_ALBUM='sort-by-album',
                 SORT_BY_ARTIST='sort-by-artist',
+                SORT_BY_RATING='sort-by-rating',
+                SORT_BY_YEAR='sort-by-year',
                 SORT_ORDER='sort-order',
+                YEAR_SORT_VISIBLE='year-sort-visible',
+                RATING_SORT_VISIBLE='rating-sort-visible',
+                GENRE_FILTER_VISIBLE='genre-filter-visible',
                 RATING='rating-threshold',
                 AUTOSTART='autostart',
                 TOOLBAR_POS='toolbar-pos')
@@ -247,6 +252,18 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         autostart = builder.get_object('autostart_checkbox')
         self.settings.bind(gs.PluginKey.AUTOSTART,
             autostart, 'active', Gio.SettingsBindFlags.DEFAULT)
+
+        year_sort_visible = builder.get_object('year_sort_checkbox')
+        self.settings.bind(gs.PluginKey.YEAR_SORT_VISIBLE,
+            year_sort_visible, 'active', Gio.SettingsBindFlags.DEFAULT)
+
+        rating_sort_visible = builder.get_object('rating_sort_checkbox')
+        self.settings.bind(gs.PluginKey.RATING_SORT_VISIBLE,
+            rating_sort_visible, 'active', Gio.SettingsBindFlags.DEFAULT)
+
+        genre_filter_visible = builder.get_object('genre_filter_checkbox')
+        self.settings.bind(gs.PluginKey.GENRE_FILTER_VISIBLE,
+            genre_filter_visible, 'active', Gio.SettingsBindFlags.DEFAULT)
 
         self.toolbar_left_radio=builder.get_object('toolbar_left_radio')
         self.toolbar_right_radio=builder.get_object('toolbar_right_radio')
