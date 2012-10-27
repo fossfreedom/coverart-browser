@@ -273,6 +273,8 @@ class CoverArtBrowserSource(RB.Source):
 
         self.sort_by_album_radio = ui.get_object('album_name_sort_radio')
         self.sort_by_artist_radio = ui.get_object('artist_name_sort_radio')
+        self.sort_by_year_radio = ui.get_object('year_sort_radio')
+        self.sort_by_rating_radio = ui.get_object('rating_sort_radio')
         self.sort_order = ui.get_object('sort_order')
         self.arrow_down = ui.get_object('arrow_down')
         self.arrow_up = ui.get_object('arrow_up')
@@ -280,6 +282,8 @@ class CoverArtBrowserSource(RB.Source):
         # setup the sorting
         self.sort_by_album_radio.set_mode(False)
         self.sort_by_artist_radio.set_mode(False)
+        self.sort_by_year_radio.set_mode(False)
+        self.sort_by_rating_radio.set_mode(False)
 
         # get widget for search and apply some workarounds
         search_entry = ui.get_object('search_entry')
@@ -1149,8 +1153,12 @@ class CoverArtBrowserSource(RB.Source):
 
         if radio is self.sort_by_album_radio:
             self.compare_albums = Album.compare_albums_by_name
-        else:
+        if radio is self.sort_by_artist_radio:
             self.compare_albums = Album.compare_albums_by_album_artist
+        if radio is self.sort_by_year_radio:
+            self.compare_albums = Album.compare_albums_by_year
+        if radio is self.sort_by_rating_radio:
+            self.compare_albums = Album.compare_albums_by_rating
 
         if self.display_text_enabled and not self.display_text_loading_enabled:
             self.activate_markup(False)

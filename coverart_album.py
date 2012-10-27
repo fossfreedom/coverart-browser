@@ -203,6 +203,8 @@ class AlbumLoader(GObject.Object):
             while True:
                 change = changes.values
 
+                print change.prop
+
                 if change.prop is RB.RhythmDBPropType.ALBUM:
                     # called when the album of a entry is modified
                     self._entry_album_modified(entry, change.old, change.new)
@@ -220,6 +222,19 @@ class AlbumLoader(GObject.Object):
                     # called when the album artist of an entry gets modified
                     self._entry_album_artist_modified(entry, change.new)
 
+                elif change.prop is RB.RhythmDBPropType.RATING:
+                    # called when the rating of an entry gets modified
+                    self._entry_album_rating_modified(entry)
+
+                elif change.prop is RB.RhythmDBPropType.YEAR:
+                    # called when the year of an entry gets modified
+                    self._entry_album_year_modified(entry, change.new)
+
+                elif change.prop is RB.RhythmDBPropType.GENRE:
+                    # called when the genre of an entry gets modified
+                    self._entry_album_genre_modified(change.new)
+
+                
                 # removes the last change from the GValueArray
                 changes.remove(0)
         except:
@@ -228,6 +243,18 @@ class AlbumLoader(GObject.Object):
 
         print "CoverArtBrowser DEBUG - end entry_changed_callback"
 
+    def _entry_album_genre_modified(self, new_genre):
+        '''
+        Called by entry_changed_callback when the modified prop is the genre.
+        If this is a new genre, it is added to the overall genre list
+        '''
+        print "CoverArtBrowser DEBUG - entry_album_genre_modified"
+        
+        if new_genre not in self.cover_genres.keys():
+            self.cover_genres[new_genre] = new_genre
+
+        print "CoverArtBrowser DEBUG - end entry_album_genre_modified"
+        
     def _entry_album_modified(self, entry, old_name, new_name):
         '''
         Called by entry_changed_callback when the modified prop is the album.
@@ -275,6 +302,46 @@ class AlbumLoader(GObject.Object):
             self.emit('album-modified', self.albums[album_name])
 
         print "CoverArtBrowser DEBUG - end entry_artist_modified"
+
+    def _entry_album_year_modified(self, entry, new_year):
+        '''
+        Called by entry_changed_callback when the modified prop is the year
+        of the entry.
+        It informs the album of the change.
+        '''
+        print "CoverArtBrowser DEBUG - entry_year_modified"
+        # find the album and inform of the change
+        album_name = self._get_album_name(entry)
+
+        if album_name in self.albums:
+            self.albums[album_name].entry_year_modified(entry,
+                new_year)
+
+            # emit a signal indicating the album has changed
+            self.emit('album-modified', self.albums[album_name])
+
+        print "CoverArtBrowser DEBUG - end entry_year_modified"
+
+    def _entry_album_rating_modified(self, entry):
+        '''
+        Called by entry_changed_callback when the modified prop is the rating
+        of the entry.
+        It informs the album of the change.
+        '''
+        print "CoverArtBrowser DEBUG - entry_rating_modified"
+        # find the album and inform of the change
+        album_name = self._get_album_name(entry)
+
+        if album_name in self.albums:
+            print "here"
+            print album_name
+            self.albums[album_name].entry_rating_modified()
+
+            # emit a signal indicating the album has changed
+            self.emit('album-modified', self.albums[album_name])
+
+        print "CoverArtBrowser DEBUG - end entry_rating_modified"
+
 
     def _entry_album_artist_modified(self, entry, new_album_artist):
         '''
@@ -403,7 +470,6 @@ class AlbumLoader(GObject.Object):
         genre = self._get_genre(entry)
 
         if genre not in self.cover_genres.keys():
-            print genre
             self.cover_genres[genre] = genre
 
         # look for the album or create it
@@ -674,6 +740,8 @@ class Album(object):
         self.entries = []
         self.cover = Album.UNKNOWN_COVER
         self.model = None
+        self._year = -1
+        self._rating = -1
 
     @property
     def album_name(self):
@@ -716,6 +784,49 @@ class Album(object):
             album_artist = _('Various Artists')
 
         return album_artist
+
+    @property
+    def year(self):
+        '''
+        Returns this album's year.
+        '''
+        year = self._year
+        if year == -1:
+            for e in self.entries:
+                track_year = e.get_ulong(RB.RhythmDBPropType.YEAR)
+                if track_year > 0:
+                    if year == -1:
+                        year = track_year
+                    elif track_year < year:
+                        year = track_year
+                        
+            self._year = year
+            
+        return year
+
+    @property
+    def rating(self):
+        '''
+        Returns this album's rating.
+        '''
+        rating = self._rating
+        if rating == -1:
+            num = 0
+            
+            for e in self.entries:
+                track_rating = e.get_double(RB.RhythmDBPropType.RATING)
+                if track_rating > 0:
+                    rating += track_rating
+                    num += 1
+
+            if num > 0 and rating > 0:
+                rating = rating / num
+            else:
+                rating = 0
+
+            self._rating = rating
+            
+        return rating
 
     def has_genre(self, test_genre):
         '''
@@ -864,6 +975,24 @@ class Album(object):
             self.model.set_value(self.tree_iter, 0, self._create_tooltip())
             self.model.set_value(self.tree_iter, 3, self._create_markup())
 
+    def entry_year_modified(self, new_year):
+        '''
+        This method should be called when an entry belonging to this album got
+        it's year modified. It takes care of recalculating the album year
+        '''
+        if self._year == -1:
+            y = self.year
+        elif new_year < self._year:
+            self._year = new_year
+
+    def entry_rating_modified(self):
+        '''
+        This method should be called when an entry belonging to this album got
+        it's rating modified. It takes care of recalculating the album rating
+        '''
+        self._rating = -1
+        r = self.rating
+ 
     def entry_album_artist_modified(self, entry, new_album_artist):
         '''
         This method should be called when an entry belonging to this album got
@@ -1053,6 +1182,34 @@ class Album(object):
         if album1.album_artist < album2.album_artist:
             return 1
         if album1.album_artist > album2.album_artist:
+            return -1
+        else:
+            return 0
+
+    @classmethod
+    def compare_albums_by_year(cls, album1, album2):
+        '''
+        Classmethod that compares two albums by their year.
+        Returns -1 if album1 goes before album2, 0 if their are considered
+        equal and 1 if album1 goes after album2.
+        '''
+        if album1.year < album2.year:
+            return 1
+        if album1.year > album2.year:
+            return -1
+        else:
+            return 0
+
+    @classmethod
+    def compare_albums_by_rating(cls, album1, album2):
+        '''
+        Classmethod that compares two albums by their rating.
+        Returns -1 if album1 goes before album2, 0 if their are considered
+        equal and 1 if album1 goes after album2.
+        '''
+        if album1.rating < album2.rating:
+            return 1
+        if album1.rating > album2.rating:
             return -1
         else:
             return 0
