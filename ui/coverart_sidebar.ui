@@ -29,9 +29,8 @@
   <object class="GtkBox" id="main_box">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
+    <property name="valign">start</property>
     <property name="margin_top">1</property>
-    <property name="hexpand">True</property>
-    <property name="vexpand">False</property>
     <property name="border_width">5</property>
     <property name="orientation">vertical</property>
     <child>
@@ -53,15 +52,14 @@
       <object class="GtkAlignment" id="entry_search_alignment">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="xalign">1</property>
-        <property name="xscale">0.25</property>
+        <property name="xalign">0</property>
         <child>
           <object class="RBSearchEntry" id="search_entry">
 		  </object>
         </child>
       </object>
       <packing>
-        <property name="expand">True</property>
+        <property name="expand">False</property>
         <property name="fill">True</property>
         <property name="position">20</property>
       </packing>
@@ -71,6 +69,7 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="tooltip_text" translatable="yes">Filter by genre</property>
+        <property name="halign">end</property>
         <property name="has_entry">True</property>
         <signal name="changed" handler="genre_changed" swapped="no"/>
         <signal name="set-focus-child" handler="genre_fill_combo" swapped="no"/>
@@ -94,9 +93,9 @@
         <property name="can_focus">False</property>
         <property name="margin_left">5</property>
         <property name="margin_right">5</property>
+        <property name="orientation">vertical</property>
         <property name="spacing">1</property>
         <property name="layout_style">start</property>
-        <property name="orientation">vertical</property>
         <child>
           <object class="GtkRadioButton" id="album_name_sort_radio">
             <property name="label" translatable="yes">Album</property>
@@ -139,41 +138,47 @@
           </packing>
         </child>
         <child>
-		  <object class="GtkRadioButton" id="year_sort_radio">
-			<property name="label" translatable="yes">Year</property>
-			<property name="tooltip_text" translatable="yes">Sort by year</property>
-			<property name="use_action_appearance">False</property>
-			<property name="visible">True</property>
-			<property name="can_focus">False</property>
-			<property name="relief">none</property>
-			<property name="xalign">0.5</property>
-			<property name="group">album_name_sort_radio</property>
-			<signal name="toggled" handler="sorting_criteria_changed" swapped="no"/>
-		  </object>
-		  <packing>
-			<property name="expand">False</property>
-			<property name="fill">True</property>
-			<property name="position">2</property>
-		  </packing>
-		</child>
+          <object class="GtkRadioButton" id="year_sort_radio">
+            <property name="label" translatable="yes">Year</property>
+            <property name="use_action_appearance">False</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text" translatable="yes">Sort by year</property>
+            <property name="use_action_appearance">False</property>
+            <property name="relief">none</property>
+            <property name="xalign">0.5</property>
+            <property name="draw_indicator">False</property>
+            <property name="group">album_name_sort_radio</property>
+            <signal name="toggled" handler="sorting_criteria_changed" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
         <child>
-		  <object class="GtkRadioButton" id="rating_sort_radio">
-			<property name="label" translatable="yes">Rating</property>
-			<property name="tooltip_text" translatable="yes">Sort by rating</property>
-			<property name="use_action_appearance">False</property>
-			<property name="visible">True</property>
-			<property name="can_focus">False</property>
-			<property name="relief">none</property>
-			<property name="xalign">0.5</property>
-			<property name="group">album_name_sort_radio</property>
-			<signal name="toggled" handler="sorting_criteria_changed" swapped="no"/>
-		  </object>
-		  <packing>
-			<property name="expand">False</property>
-			<property name="fill">True</property>
-			<property name="position">3</property>
-		  </packing>
-		</child>
+          <object class="GtkRadioButton" id="rating_sort_radio">
+            <property name="label" translatable="yes">Rating</property>
+            <property name="use_action_appearance">False</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text" translatable="yes">Sort by rating</property>
+            <property name="use_action_appearance">False</property>
+            <property name="relief">none</property>
+            <property name="xalign">0.5</property>
+            <property name="draw_indicator">False</property>
+            <property name="group">album_name_sort_radio</property>
+            <signal name="toggled" handler="sorting_criteria_changed" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">3</property>
+          </packing>
+        </child>
       </object>
       <packing>
         <property name="expand">False</property>
