@@ -226,9 +226,9 @@ class AlbumLoader(GObject.Object):
                     # called when the rating of an entry gets modified
                     self._entry_album_rating_modified(entry)
 
-                elif change.prop is RB.RhythmDBPropType.YEAR:
+                elif change.prop is RB.RhythmDBPropType.DATE:
                     # called when the year of an entry gets modified
-                    self._entry_album_year_modified(entry, change.new)
+                    self._entry_album_year_modified(entry)
 
                 elif change.prop is RB.RhythmDBPropType.GENRE:
                     # called when the genre of an entry gets modified
@@ -303,7 +303,7 @@ class AlbumLoader(GObject.Object):
 
         print "CoverArtBrowser DEBUG - end entry_artist_modified"
 
-    def _entry_album_year_modified(self, entry, new_year):
+    def _entry_album_year_modified(self, entry):
         '''
         Called by entry_changed_callback when the modified prop is the year
         of the entry.
@@ -312,10 +312,10 @@ class AlbumLoader(GObject.Object):
         print "CoverArtBrowser DEBUG - entry_year_modified"
         # find the album and inform of the change
         album_name = self._get_album_name(entry)
-
+        print album_name
         if album_name in self.albums:
-            self.albums[album_name].entry_year_modified(entry,
-                new_year)
+            print "here"
+            self.albums[album_name].entry_year_modified()
 
             # emit a signal indicating the album has changed
             self.emit('album-modified', self.albums[album_name])
@@ -333,8 +333,6 @@ class AlbumLoader(GObject.Object):
         album_name = self._get_album_name(entry)
 
         if album_name in self.albums:
-            print "here"
-            print album_name
             self.albums[album_name].entry_rating_modified()
 
             # emit a signal indicating the album has changed
@@ -793,7 +791,7 @@ class Album(object):
         year = self._year
         if year == -1:
             for e in self.entries:
-                track_year = e.get_ulong(RB.RhythmDBPropType.YEAR)
+                track_year = e.get_ulong(RB.RhythmDBPropType.DATE)
                 if track_year > 0:
                     if year == -1:
                         year = track_year
@@ -975,23 +973,23 @@ class Album(object):
             self.model.set_value(self.tree_iter, 0, self._create_tooltip())
             self.model.set_value(self.tree_iter, 3, self._create_markup())
 
-    def entry_year_modified(self, new_year):
+    def entry_year_modified(self):
         '''
         This method should be called when an entry belonging to this album got
         it's year modified. It takes care of recalculating the album year
         '''
-        if self._year == -1:
-            y = self.year
-        elif new_year < self._year:
-            self._year = new_year
-
+        self._year = -1
+        y = self.year #force a recalculation
+        
     def entry_rating_modified(self):
         '''
         This method should be called when an entry belonging to this album got
         it's rating modified. It takes care of recalculating the album rating
         '''
         self._rating = -1
-        r = self.rating
+        r = self.rating #force a recalculation
+
+        print self._rating
  
     def entry_album_artist_modified(self, entry, new_album_artist):
         '''
