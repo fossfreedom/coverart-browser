@@ -54,6 +54,7 @@ class AlbumLoader(GObject.Object):
     display_text_ellipsize_enabled = GObject.property(type=bool, default=False)
     display_text_ellipsize_length = GObject.property(type=int, default=0)
     cover_size = GObject.property(type=int, default=0)
+    display_font_size = GObject.property(type=int, default=0)
 
     # default chunk of albums to load at a time while filling the model
     DEFAULT_LOAD_CHUNK = 15
@@ -90,6 +91,8 @@ class AlbumLoader(GObject.Object):
         self.connect('notify::display-text-ellipsize-length',
             self._on_notify_display_text_ellipsize)
         self.connect('notify::cover-size', self._on_notify_cover_size)
+        self.connect('notify::display-font-size', self._on_notify_cover_size)
+
 
         # connect the signal to update cover arts when added
         self.req_id = self.cover_db.connect('added',
@@ -117,6 +120,8 @@ class AlbumLoader(GObject.Object):
             Gio.SettingsBindFlags.GET)
         setting.bind(gs.PluginKey.COVER_SIZE, self, 'cover_size',
             Gio.SettingsBindFlags.GET)
+        setting.bind(gs.PluginKey.DISPLAY_FONT_SIZE, self, 'display_font_size',
+            Gio.SettingsBindFlags.GET)
 
     @classmethod
     def get_instance(cls, plugin=None, model=None, query_model=None):
@@ -134,7 +139,7 @@ class AlbumLoader(GObject.Object):
         Updates the loader's albums' cover size and forces a model reload.
         '''
         # update album variables
-        Album.FONT_SIZE = self.cover_size / 10
+        Album.FONT_SIZE =  self.display_font_size
         Album.update_unknown_cover(self.cover_size)
 
         self.reload_model(True)

@@ -46,6 +46,7 @@ class CoverArtBrowserSource(RB.Source):
     genre_filter_visible = GObject.property(type=bool, default=True)
     rating_sort_visible = GObject.property(type=bool, default=False)
     year_sort_visible = GObject.property(type=bool, default=False)
+    store_sort_order = GObject.property(type=bool, default=False)
 
     def __init__(self, **kargs):
         '''
@@ -465,14 +466,14 @@ class CoverArtBrowserSource(RB.Source):
         source_settings.bind(self.gs.PluginKey.SORT_BY_YEAR,
             self.sort_by_year_radio, 'active', Gio.SettingsBindFlags.DEFAULT)
         source_settings.bind(self.gs.PluginKey.SORT_ORDER,
-            self.sort_order, 'active',
+            self, 'store_sort_order',
             Gio.SettingsBindFlags.DEFAULT)
 
         # enable some ui if necesary
         self.on_notify_rating_threshold(_)
         self.on_notify_display_bottom_enabled(_)
         self.activate_markup()
-        self.sorting_direction_changed(self.sort_order)
+        self.sorting_direction_changed(_, True)
         #self.on_notify_toolbar_pos(_)
 
         if self.loader.progress == 1:
@@ -1256,21 +1257,26 @@ class CoverArtBrowserSource(RB.Source):
         print "CoverArtBrowser DEBUG - end sorting_criteria_changed"
 
 
-    def sorting_direction_changed(self, toggle):
+    def sorting_direction_changed(self, _, first_activate=False):
         '''
         Callback called when the sort toggle button is
         toggled. It changes the sorting direction and reorders the cover model
         '''
         print "CoverArtBrowser DEBUG - sorting_direction_changed"
 
-        if not toggle.get_active():
+        if not first_activate:
+            self.store_sort_order = not self.store_sort_order
+            
+        if not self.store_sort_order:
             sort_direction = Gtk.SortType.ASCENDING
-            toggle.set_image(self.arrow_down)
-            toggle.set_tooltip_text(_('Sort in descending order'))
+            self.sort_order.set_image(self.arrow_down)
+            #self.sort_order.set_tooltip_text(_('Sort in descending order'))
         else:
             sort_direction = Gtk.SortType.DESCENDING
-            toggle.set_image(self.arrow_up)
-            toggle.set_tooltip_text(_('Sort in ascending order'))
+            self.sort_order.set_image(self.arrow_up)
+            #self.sort_order.set_tooltip_text(_('Sort in ascending order'))
+
+            #for some reason trying to set the tooltip throws an error - need to look at this later
                         
         if self.display_text_enabled and not self.display_text_loading_enabled:
             self.activate_markup(False)

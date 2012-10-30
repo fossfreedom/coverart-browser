@@ -17,6 +17,12 @@
     <property name="text">0</property>
     <property name="max_length">3</property>
   </object>
+  <object class="GtkAdjustment" id="font_adjustment">
+    <property name="lower">4</property>
+    <property name="upper">72</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">1</property>
+  </object>
   <object class="GtkAdjustment" id="rated_adjustment">
     <property name="upper">5</property>
     <property name="step_increment">1</property>
@@ -391,7 +397,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">3</property>
+                <property name="position">0</property>
               </packing>
             </child>
             <child>
@@ -413,7 +419,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">4</property>
+                <property name="position">1</property>
               </packing>
             </child>
             <child>
@@ -445,6 +451,48 @@
                     <property name="width_chars">3</property>
                     <property name="adjustment">display_text_ellipsize_length_adjustment</property>
                     <property name="climb_rate">5</property>
+                    <property name="numeric">True</property>
+                    <property name="update_policy">if-valid</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox" id="display_font_box">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkLabel" id="label6">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_left">20</property>
+                    <property name="label" translatable="yes">Font Size:</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSpinButton" id="display_font_spin">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="margin_left">5</property>
+                    <property name="max_length">2</property>
+                    <property name="width_chars">2</property>
+                    <property name="adjustment">font_adjustment</property>
+                    <property name="climb_rate">1</property>
                     <property name="numeric">True</property>
                     <property name="update_policy">if-valid</property>
                   </object>
