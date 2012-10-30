@@ -45,7 +45,8 @@ class AlbumLoader(GObject.Object):
     __gsignals__ = {
         'load-finished': (GObject.SIGNAL_RUN_LAST, None, ()),
         'reload-finished': (GObject.SIGNAL_RUN_LAST, None, ()),
-        'album-modified': (GObject.SIGNAL_RUN_LAST, object, (object,))
+        'album-modified': (GObject.SIGNAL_RUN_LAST, object, (object,)),
+        'album-post-view-modified': (GObject.SIGNAL_RUN_LAST, object, (object,))
         }
 
     # properties
@@ -203,7 +204,7 @@ class AlbumLoader(GObject.Object):
             while True:
                 change = changes.values
 
-                print change.prop
+                #print change.prop
 
                 if change.prop is RB.RhythmDBPropType.ALBUM:
                     # called when the album of a entry is modified
@@ -305,39 +306,67 @@ class AlbumLoader(GObject.Object):
 
     def _entry_album_year_modified(self, entry):
         '''
-        Called by entry_changed_callback when the modified prop is the year
-        of the entry.
-        It informs the album of the change.
+        Called by entry_changed_callback when an year value is changed
+        which should cause the associated album information to be
+        recalculated.
         '''
-        print "CoverArtBrowser DEBUG - entry_year_modified"
+        print "CoverArtBrowser DEBUG - _entry_album_year_modified"
         # find the album and inform of the change
         album_name = self._get_album_name(entry)
-        print album_name
+
         if album_name in self.albums:
-            print "here"
-            self.albums[album_name].entry_year_modified()
+            album = self.albums[album_name]
+            if album.has_year_changed():
+                album_artist=album.album_artist
+                qm = RB.RhythmDBQueryModel.new_empty(self.db)
+                album.get_entries(qm)
+                album.remove_from_model()
+                del self.albums[album_name]
+                album = Album(album_name, album_artist)
+                for row in qm:
+                    album.append_entry(row[0])
+                    
+                album.load_cover(self.cover_db, self.cover_size)
+                treeiter = album.add_to_model(self.cover_model)
+                self.albums[album_name] = album
 
-            # emit a signal indicating the album has changed
-            self.emit('album-modified', self.albums[album_name])
-
-        print "CoverArtBrowser DEBUG - end entry_year_modified"
+                path = self.cover_model.get_path(treeiter)
+                self.emit('album-post-view-modified', path)
+                self.emit('album-modified', self.albums[album_name])
+                
+        print "CoverArtBrowser DEBUG - end _entry_album_year_modified"
 
     def _entry_album_rating_modified(self, entry):
         '''
-        Called by entry_changed_callback when the modified prop is the rating
-        of the entry.
-        It informs the album of the change.
+        Called by entry_changed_callback when an rating value is changed
+        which should cause the associated album information to be
+        recalculated.
         '''
         print "CoverArtBrowser DEBUG - entry_rating_modified"
         # find the album and inform of the change
         album_name = self._get_album_name(entry)
 
         if album_name in self.albums:
-            self.albums[album_name].entry_rating_modified()
+            album = self.albums[album_name]
+            if album.has_rating_changed():
+                album_artist=album.album_artist
+                qm = RB.RhythmDBQueryModel.new_empty(self.db)
+                album.get_entries(qm)
+                album.remove_from_model()
+                del self.albums[album_name]
+                album = Album(album_name, album_artist)
+                for row in qm:
+                    album.append_entry(row[0])
+                    
+                album.load_cover(self.cover_db, self.cover_size)
+                treeiter = album.add_to_model(self.cover_model)
+                self.albums[album_name] = album
 
-            # emit a signal indicating the album has changed
-            self.emit('album-modified', self.albums[album_name])
+                path = self.cover_model.get_path(treeiter)
 
+                self.emit('album-post-view-modified', path)
+                self.emit('album-modified', self.albums[album_name])
+ 
         print "CoverArtBrowser DEBUG - end entry_rating_modified"
 
 
@@ -788,43 +817,56 @@ class Album(object):
         '''
         Returns this album's year.
         '''
-        year = self._year
-        if year == -1:
+        y = self._year
+
+        if y == -1:        
             for e in self.entries:
                 track_year = e.get_ulong(RB.RhythmDBPropType.DATE)
+                
                 if track_year > 0:
-                    if year == -1:
-                        year = track_year
-                    elif track_year < year:
-                        year = track_year
-                        
-            self._year = year
+                    track_year = int(track_year/365)
+                    if y == -1:
+                        y = track_year
+                    elif track_year < y:
+                        y = track_year
+
+        if y < 0:
+            y=0
+
+        #print y
+        self._year = y
             
-        return year
+        return y
 
     @property
     def rating(self):
         '''
         Returns this album's rating.
         '''
-        rating = self._rating
-        if rating == -1:
+        r = self._rating
+        #print "here"
+        #print r
+        
+        if r == -1:
             num = 0
+            r = 0
             
             for e in self.entries:
                 track_rating = e.get_double(RB.RhythmDBPropType.RATING)
+                #print track_rating
                 if track_rating > 0:
-                    rating += track_rating
+                    r += track_rating
                     num += 1
-
-            if num > 0 and rating > 0:
-                rating = rating / num
+                                
+            if num > 0 and r > 0:
+                r = r / num
             else:
-                rating = 0
+                r = 0
 
-            self._rating = rating
+            self._rating = r
+        #print r
             
-        return rating
+        return r
 
     def has_genre(self, test_genre):
         '''
@@ -973,23 +1015,29 @@ class Album(object):
             self.model.set_value(self.tree_iter, 0, self._create_tooltip())
             self.model.set_value(self.tree_iter, 3, self._create_markup())
 
-    def entry_year_modified(self):
+    def has_year_changed(self):
         '''
         This method should be called when an entry belonging to this album got
         it's year modified. It takes care of recalculating the album year
         '''
+        old_year = self._year
+        print old_year
         self._year = -1
         y = self.year #force a recalculation
+        print y
+        return not old_year == self._year
         
-    def entry_rating_modified(self):
+    def has_rating_changed(self):
         '''
         This method should be called when an entry belonging to this album got
         it's rating modified. It takes care of recalculating the album rating
         '''
+        old_rating = self._rating
+        #print old_rating
         self._rating = -1
         r = self.rating #force a recalculation
-
-        print self._rating
+        #print r
+        return not old_rating == self._rating
  
     def entry_album_artist_modified(self, entry, new_album_artist):
         '''
@@ -1056,6 +1104,8 @@ class Album(object):
 
         self.tree_iter = model.append((tooltip, self.cover.pixbuf, self,
             markup))
+
+        return self.tree_iter
 
     def get_entries(self, model):
         ''' adds all entries to the model'''

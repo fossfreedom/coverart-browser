@@ -435,6 +435,8 @@ class CoverArtBrowserSource(RB.Source):
         self.ui.connect_signals(self)
         self.album_mod_id = self.loader.connect('album-modified',
             self.album_modified_callback)
+        self.album_post_view_mod_id = self.loader.connect('album-post-view-modified',
+            self.album_post_view_callback)
         self.load_fin_id = self.loader.connect('load-finished',
             self.load_finished_callback)
         self.reload_fin_id = self.loader.connect('reload-finished',
@@ -742,6 +744,34 @@ class CoverArtBrowserSource(RB.Source):
                 self.cover_search_pane.do_search(modified_album)
 
         print "CoverArtBrowser DEBUG - end album_modified_callback"
+
+    def album_post_view_callback(self, _, path):
+        '''
+        Callback called by the album loader when one of the albums managed
+        by him gets modified in some way - this reselects what was
+        selected in the view before modification.
+        '''
+        print "CoverArtBrowser DEBUG - album_post_view_callback"
+        
+        #if self.selected_albums is None:
+        #    return
+            
+        #tm = self.covers_view.get_model()
+        #print tree_iter
+        #path = tm.get_path(tree_iter)
+        #print path
+        self.covers_view.select_path(path)
+        #for album in self.selected_albums:
+        #    for item in qm:
+        #        if item[2].album_name == album.album_name and \
+        #           item[2].album_artist == album.album_artist:
+        #            print "found"
+                    #
+                    # now what? how do we go from the tree-model to selecting the
+                    # equivalent in the cover-view
+                    #self.covers_view.select_path(i)
+
+        print "CoverArtBrowser DEBUG - end album_post_view_callback"
 
     def visible_covers_callback(self, model, iter, data):
         '''
@@ -1347,6 +1377,7 @@ class CoverArtBrowserSource(RB.Source):
         self.loader.disconnect(self.load_fin_id)
         self.loader.disconnect(self.reload_fin_id)
         self.loader.disconnect(self.album_mod_id)
+        self.loader.disconnect(self.album_post_view_mod_id)
         self.loader.disconnect(self.notify_prog_id)
         self.loader.disconnect(self.notify_ellipsize)
         self.loader.disconnect(self.notify_ellipsize_length)
@@ -1388,6 +1419,7 @@ class CoverArtBrowserSource(RB.Source):
         del self.reload_fin_id
         del self.load_fin_id
         del self.album_mod_id
+        del self.album_post_view_mod_id
         del self.notify_prog_id
         del self.hasActivated
         del self.gs
