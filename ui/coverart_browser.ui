@@ -147,7 +147,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkToggleButton" id="sort_order">
+          <object class="GtkButton" id="sort_order">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="relief">none</property>
@@ -156,7 +156,9 @@
             <property name="valign">center</property>
             <property name="margin_right">1</property>
             <property name="image">arrow_up</property>
-            <signal name="toggled" handler="sorting_direction_changed" swapped="no"/>                
+            <property name="relief">half</property>
+            <property name="has_tooltip">True</property>
+            <signal name="clicked" handler="sorting_direction_changed" swapped="no"/>                
           </object>
           <packing>
             <property name="expand">False</property>

@@ -187,18 +187,19 @@
       </packing>
     </child>
     <child>
-      <object class="GtkToggleButton" id="sort_order">
+      <object class="GtkButton" id="sort_order">
         <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="receives_default">False</property>
+        <property name="has_tooltip">True</property>
         <property name="halign">center</property>
         <property name="valign">center</property>
         <property name="margin_right">1</property>
         <property name="use_action_appearance">False</property>
         <property name="image">arrow_up</property>
-        <property name="relief">none</property>
-        <signal name="toggled" handler="sorting_direction_changed" swapped="no"/>
+        <property name="relief">half</property>
+        <signal name="clicked" handler="sorting_direction_changed" swapped="no"/>
       </object>
       <packing>
         <property name="expand">False</property>
