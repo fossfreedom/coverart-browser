@@ -108,7 +108,7 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         self.shell.props.db.connect('load-complete', self.load_complete)
 
         uim = self.shell.props.ui_manager
-        uim.add_ui_from_file(rb.find_plugin_file(self,
+        self.cover_ui = uim.add_ui_from_file(rb.find_plugin_file(self,
             'ui/coverart_plugin.ui'))
         
         action = Gtk.Action(name="PlaylistCover", label=_("CoverArt"),
@@ -148,8 +148,13 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         free all the resources used by the plugin.
         '''
         print "CoverArtBrowser DEBUG - do_deactivate"
-        self.source.delete_thyself()
+        
+        self.shell.props.ui_manager.remove_ui(self.cover_ui)
+        self.shell.props.ui_manager.remove_action_group(self.action_group)
+        self.shell.props.ui_manager.ensure_update()
 
+        self.source.delete_thyself()
+        del self.cover_ui
         del self.shell
         del self.db
         del self.source
