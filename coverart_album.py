@@ -466,6 +466,20 @@ class AlbumLoader(GObject.Object):
         '''
         return self.cover_genres
 
+    def reload_albums(self, query_model):
+        '''
+        This clears old albums before loading new albums from query_model
+        '''
+        print "CoverArtBrowser DEBUG - reload_albums"
+ 
+        for album in self.albums.values():
+            album_name = album.album_name
+            album.remove_from_model()
+            del self.albums[album_name]
+
+        self.load_albums(query_model)
+        print "CoverArtBrowser DEBUG - reload_albums"
+ 
     def load_albums(self, query_model):
         '''
         Initiates the process of recover, create and load all the albums from
@@ -499,8 +513,8 @@ class AlbumLoader(GObject.Object):
         # retrieve album metadata
         album_name = self._get_album_name(entry)
         album_artist = self._get_album_artist(entry)
+        
         genre = self._get_genre(entry)
-
         if genre not in self.cover_genres.keys():
             self.cover_genres[genre] = genre
 

@@ -35,7 +35,6 @@ from coverart_browser_prefs import CoverLocale
 
 from coverart_browser_source import CoverArtBrowserSource
 
-
 class CoverArtBrowserEntryType(RB.RhythmDBEntryType):
     '''
     Entry type for our source.
@@ -107,8 +106,41 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         self.shell.append_display_page(self.source, group)
 
         self.shell.props.db.connect('load-complete', self.load_complete)
+
+        uim = self.shell.props.ui_manager
+        uim.add_ui_from_file(rb.find_plugin_file(self,
+            'ui/coverart_plugin.ui'))
         
+        action = Gtk.Action(name="PlaylistCover", label=_("CoverArt"),
+                            tooltip=_("Display Covers for Playlist"),
+                            stock_id='gnome-mime-text-x-python')
+        action.connect('activate', self.display_covers_for_source)
+        self.action_group = Gtk.ActionGroup(name="PlayListCoverActions")
+        self.action_group.add_action(action)
+        uim.insert_action_group(self.action_group, 0)
+        uim.ensure_update()
+
         print "CoverArtBrowser DEBUG - end do_activate"
+
+    def display_covers_for_source(self, action):
+        '''
+        Called by Rhythmbox when the user select coverart from popup
+        menu from a playlist, music or queue source.
+        This resets the coverart query model to what was chosen before
+        switching to the coverart browser
+        '''
+        print "CoverArtBrowser DEBUG - display_covers_for_source"
+        page = self.shell.props.selected_page
+
+        try:
+            model = page.get_query_model()
+        except:
+            model = self.shell.props.library_source.props.base_query_model
+            
+        self.source.reset_coverview(model)
+        self.shell.props.display_page_tree.select(self.source)
+
+        print "CoverArtBrowser DEBUG - display_covers_for_source"
 
     def do_deactivate(self):
         '''
@@ -121,6 +153,8 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         del self.shell
         del self.db
         del self.source
+        del self.action_group
+        
         print "CoverArtBrowser DEBUG - end do_deactivate"
 
     def load_complete(self, *args, **kwargs):

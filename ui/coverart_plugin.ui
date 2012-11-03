@@ -1,0 +1,20 @@
+<ui>
+
+<popup name="PlaylistViewPopup">
+<placeholder name="PluginPlaceholder">
+<menuitem name="PlaylistCoverPopup" action="PlaylistCover"/>
+</placeholder>
+</popup>
+
+<popup name="QueuePlaylistViewPopup">
+<placeholder name="PluginPlaceholder">
+<menuitem name="PlaylistCoverPopup" action="PlaylistCover"/>
+</placeholder>
+</popup>
+
+<popup name="BrowserSourceViewPopup">
+<placeholder name="PluginPlaceholder">
+<menuitem name="PlaylistCoverPopup" action="PlaylistCover"/>
+</placeholder>
+</popup>
+</ui>
