@@ -157,7 +157,12 @@ class CoverArtBrowserSource(RB.Source):
         self.status = ''
         self.search_text = ''
         self.compare_albums = Album.compare_albums_by_name
-
+        self.actiongroup = Gtk.ActionGroup('coverplaylist_submenu')
+        self.favourite_actiongroup = Gtk.ActionGroup('favourite_coverplaylist_submenu')
+        uim = self.shell.props.ui_manager
+        uim.insert_action_group(self.actiongroup)
+        uim.insert_action_group(self.favourite_actiongroup)
+        
         # connect properties signals
         self.connect('notify::custom-statusbar-enabled',
             self.on_notify_custom_statusbar_enabled)
@@ -247,6 +252,8 @@ class CoverArtBrowserSource(RB.Source):
             'play_favourites_album_menu_item')
         self.queue_favourites_album_menu_item = ui.get_object(
             'queue_favourites_album_menu_item')
+        self.playlist_sub_menu_item = ui.get_object('playlist_sub_menu_item')
+        self.favourite_playlist_sub_menu_item = ui.get_object('favourite_playlist_sub_menu_item')
 
         # get widgets for filter popup
         self.filter_menu = ui.get_object('filter_menu')
@@ -932,7 +939,7 @@ class CoverArtBrowserSource(RB.Source):
         for row in play_queue.props.query_model:
             play_queue.remove_entry(row[0])
 
-        self.queue_selected_album(favourites)
+        self.queue_selected_album(self.shell.props.queue_source, favourites)
 
         # Start the music
         player = self.shell.props.shell_player
@@ -950,7 +957,7 @@ class CoverArtBrowserSource(RB.Source):
         '''
         print "CoverArtBrowser DEBUG - queue_favourites_album_menu_item_callback()"
 
-        self.queue_selected_album(True)
+        self.queue_selected_album(self.shell.props.queue_source, True)
 
         print "CoverArtBrowser DEBUG - end queue_favourites_album_menu_item_callback()"
 
@@ -973,11 +980,11 @@ class CoverArtBrowserSource(RB.Source):
         '''
         print "CoverArtBrowser DEBUG - queue_album_menu_item_callback()"
 
-        self.queue_selected_album()
+        self.queue_selected_album(self.shell.props.queue_source)
 
         print "CoverArtBrowser DEBUG - end queue_album_menu_item_callback()"
 
-    def queue_selected_album(self, favourites=False):
+    def queue_selected_album(self, source, favourites=False):
         '''
         Utilitary method that queues all entries from an album into the play
         queue.
@@ -998,10 +1005,75 @@ class CoverArtBrowserSource(RB.Source):
 
             # Add the songs to the play queue
             for song in songs:
-                self.shell.props.queue_source.add_entry(song, -1)
+                source.add_entry(song, -1)
                 
         print "CoverArtBrowser DEBUG - end queue_select_album"
 
+    def playlist_menu_item_callback( self, menu_item ):
+        print "CoverArtBrowser DEBUG - playlist_menu_item_callback"
+
+        self.playlist_fillmenu(self.playlist_sub_menu_item, self.actiongroup, False)
+
+    def favourite_playlist_menu_item_callback( self, menu_item ):
+        print "CoverArtBrowser DEBUG - favourite_playlist_menu_item_callback"
+
+        self.playlist_fillmenu(self.favourite_playlist_sub_menu_item, self.favourite_actiongroup, True)
+    
+    def playlist_fillmenu( self, menubar, actiongroup, favourite ):
+        print "CoverArtBrowser DEBUG - playlist_fillmenu"
+
+        uim = self.shell.props.ui_manager
+        
+        playlist_manager = self.shell.props.playlist_manager
+        playlists_entries = playlist_manager.get_playlists()
+
+        #tidy up old playlists menu items before recreating the list
+        for action in actiongroup.list_actions():
+            actiongroup.remove_action(action)
+
+        count = 0
+        for menu_item in menubar:
+            if count > 1: # ignore the first two menu items
+                menubar.remove(menu_item)
+            count += 1
+
+            menubar.show_all()
+            uim.ensure_update()
+            
+        if playlists_entries:
+            for playlist in playlists_entries:
+                if playlist.props.is_local and \
+                    isinstance(playlist, RB.StaticPlaylistSource):
+
+                    new_menu_item = Gtk.MenuItem(label=playlist.props.name)
+                    
+                    action = Gtk.Action(label=playlist.props.name, name=playlist.props.name,
+                       tooltip='', stock_id=Gtk.STOCK_CLEAR)
+                    action.connect('activate', self.add_to_static_playlist_menu_item_callback, playlist, favourite)
+                    new_menu_item.set_related_action(action)
+                    menubar.append(new_menu_item)
+                    actiongroup.add_action(action)
+                    
+            menubar.show_all()
+            uim.ensure_update()
+        
+    def add_to_static_playlist_menu_item_callback(self, action, playlist, favourite):
+        print "CoverArtBrowser DEBUG - add_to_static_playlist_menu_item_callback"
+        self.queue_selected_album(playlist, favourite)
+        
+    def add_playlist_menu_item_callback( self, menu_item ):
+        print "CoverArtBrowser DEBUG - add_playlist_menu_item_callback"
+        playlist_manager = self.shell.props.playlist_manager
+        playlist = playlist_manager.new_playlist( '', False )
+
+        self.queue_selected_album(playlist, False)
+
+    def favourite_add_playlist_menu_item_callback( self, menu_item ):
+        print "CoverArtBrowser DEBUG - favourite_add_playlist_menu_item_callback"
+        playlist_manager = self.shell.props.playlist_manager
+        playlist = playlist_manager.new_playlist( '', False )
+
+        self.queue_selected_album(playlist, True)
 
     def cover_search_menu_item_callback(self, menu_item):
         '''
