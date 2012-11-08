@@ -1012,14 +1012,19 @@ class CoverArtBrowserSource(RB.Source):
     def playlist_menu_item_callback( self, menu_item ):
         print "CoverArtBrowser DEBUG - playlist_menu_item_callback"
 
-        self.playlist_fillmenu(self.playlist_sub_menu_item, self.actiongroup, False)
+        self.playlist_fillmenu( self.playlist_sub_menu_item,
+                                self.actiongroup,
+                                self.add_to_static_playlist_menu_item_callback)
 
     def favourite_playlist_menu_item_callback( self, menu_item ):
         print "CoverArtBrowser DEBUG - favourite_playlist_menu_item_callback"
 
-        self.playlist_fillmenu(self.favourite_playlist_sub_menu_item, self.favourite_actiongroup, True)
-    
-    def playlist_fillmenu( self, menubar, actiongroup, favourite ):
+        self.playlist_fillmenu( self.favourite_playlist_sub_menu_item,
+                                self.favourite_actiongroup,
+                                self.add_to_static_playlist_menu_item_callback,
+                                True)
+                                
+    def playlist_fillmenu( self, menubar, actiongroup, func, favourite=False ):
         print "CoverArtBrowser DEBUG - playlist_fillmenu"
 
         uim = self.shell.props.ui_manager
@@ -1049,7 +1054,7 @@ class CoverArtBrowserSource(RB.Source):
                     
                     action = Gtk.Action(label=playlist.props.name, name=playlist.props.name,
                        tooltip='', stock_id=Gtk.STOCK_CLEAR)
-                    action.connect('activate', self.add_to_static_playlist_menu_item_callback, playlist, favourite)
+                    action.connect('activate', func, playlist, favourite)
                     new_menu_item.set_related_action(action)
                     menubar.append(new_menu_item)
                     actiongroup.add_action(action)

@@ -71,12 +71,17 @@ class CoverArtEntryView(RB.EntryView):
         ui.connect_signals(self)
 
         self.popup_menu = ui.get_object('entryview_popup_menu')
-
+        
         # connect signals to the shell to know when the playing state changes
         self.shell.props.shell_player.connect('playing-song-changed',
             self.playing_song_changed)
         self.shell.props.shell_player.connect('playing-changed',
             self.playing_changed)
+
+        self.playlist_sub_menu_item = ui.get_object('playlist_sub_menu_item')
+        self.actiongroup = Gtk.ActionGroup('coverentryplaylist_submenu')
+        uim = self.shell.props.ui_manager
+        uim.insert_action_group(self.actiongroup)
 
         # connect the visible-columns global setting to update our entryview
         gs = GSetting()
@@ -144,7 +149,7 @@ class CoverArtEntryView(RB.EntryView):
         for row in play_queue.props.query_model:
             play_queue.remove_entry(row[0])
 
-        self.queue_track_menu_item_callback(entry)
+        self.add_tracks_to_source(self.shell.props.queue_source)
         # Start the music
         player = self.shell.props.shell_player
         player.stop()
@@ -155,6 +160,10 @@ class CoverArtEntryView(RB.EntryView):
 
     def queue_track_menu_item_callback(self, entry):
         print "CoverArtBrowser DEBUG - queue_track_menu_item_callback()"
+
+        self.add_tracks_to_source(self.shell.props.queue_source)
+
+    def add_tracks_to_source(self, source):
         selected = self.get_selected_entries()
         selected.reverse()
 
@@ -162,7 +171,7 @@ class CoverArtEntryView(RB.EntryView):
             key=lambda song: song.get_ulong(RB.RhythmDBPropType.TRACK_NUMBER))
 
         for entry in selected:
-            self.shell.props.queue_source.add_entry(entry, -1)
+            source.add_entry(entry, -1)
 
         print "CoverArtBrowser DEBUG - queue_track_menu_item_callback()"
 
@@ -228,5 +237,23 @@ class CoverArtEntryView(RB.EntryView):
             self.set_state(RB.EntryViewState.NOT_PLAYING)
 
         print "CoverArtBrowser DEBUG - playing_changed()"
+
+    def add_playlist_menu_item_callback( self, menu_item ):
+        print "CoverArtBrowser DEBUG - add_playlist_menu_item_callback"
+        playlist_manager = self.shell.props.playlist_manager
+        playlist = playlist_manager.new_playlist( '', False )
+
+        self.add_tracks_to_source(playlist)
+
+    def playlist_menu_item_callback( self, menu_item ):
+        print "CoverArtBrowser DEBUG - playlist_menu_item_callback"
+
+        self.source.playlist_fillmenu(  self.playlist_sub_menu_item,
+                                        self.actiongroup,
+                                        self.add_to_static_playlist_menu_item_callback)
+
+    def add_to_static_playlist_menu_item_callback(self, action, playlist, favourite):
+        print "CoverArtBrowser DEBUG - add_to_static_playlist_menu_item_callback"
+        self.add_tracks_to_source(playlist)
 
 GObject.type_register(CoverArtEntryView)
