@@ -852,7 +852,6 @@ class Album(object):
         if y < 0:
             y=0
 
-        #print y
         self._year = y
             
         return y
@@ -863,8 +862,6 @@ class Album(object):
         Returns this album's rating.
         '''
         r = self._rating
-        #print "here"
-        #print r
         
         if r == -1:
             num = 0
@@ -872,7 +869,7 @@ class Album(object):
             
             for e in self.entries:
                 track_rating = e.get_double(RB.RhythmDBPropType.RATING)
-                #print track_rating
+
                 if track_rating > 0:
                     r += track_rating
                     num += 1
@@ -883,7 +880,6 @@ class Album(object):
                 r = 0
 
             self._rating = r
-        #print r
             
         return r
 
@@ -925,6 +921,20 @@ class Album(object):
                 songs.append(entry)
 
         return songs
+
+    def set_rating(self, rating):
+        '''
+        sets all the RBRhythmDBEntry's for the album
+        to have the given rating
+        '''
+
+        for entry in self.entries:
+            db = AlbumLoader.get_instance().db
+            db.entry_set(entry, RB.RhythmDBPropType.RATING,
+                rating)
+
+
+        AlbumLoader.get_instance().emit('album-modified', self)
 
     def _create_tooltip(self):
         '''

@@ -31,6 +31,7 @@ from coverart_entryview import CoverArtEntryView
 from coverart_search import CoverSearchPane
 from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import CoverLocale
+from stars import ReactiveStar
 
 
 class CoverArtBrowserSource(RB.Source):
@@ -394,6 +395,8 @@ class CoverArtBrowserSource(RB.Source):
         self.covers_view.connect('drag-drop', self.on_drag_drop)
         self.covers_view.connect('drag-data-received',
             self.on_drag_data_received)
+        self.covers_view.connect('selection-changed',
+            self.on_selection_changed)
 
         # setup entry-view objects and widgets
         y = self.gs.get_value(self.gs.Path.PLUGIN,
@@ -401,8 +404,18 @@ class CoverArtBrowserSource(RB.Source):
         self.paned.set_position(y)
 
         self.entry_view = CoverArtEntryView(self.shell, self)
-        self.entry_view.show_all()
-        self.notebook.append_page(self.entry_view, Gtk.Label(_("Tracks")))
+        self.stars = ReactiveStar()
+        self.stars.set_rating(0)
+        a = Gtk.Alignment.new(0.5, 0.5, 0, 0)
+        a.add(self.stars)
+
+        self.stars.connect('changed', self.rating_changed_callback)
+
+        vbox = Gtk.VBox()
+        vbox.pack_start(self.entry_view, True, True, 0)
+        vbox.pack_start(a, False, False, 1)
+        vbox.show_all()
+        self.notebook.append_page(vbox, Gtk.Label(_("Tracks")))
 
         # setup cover search pane
         try:
@@ -1410,6 +1423,19 @@ class CoverArtBrowserSource(RB.Source):
 
         return result
 
+    def on_selection_changed(self, widget):
+        '''
+        Callback called when the iconview selection changes
+        '''
+        print "CoverArtBrowser DEBUG - on_selection_changed"
+
+        if len(self.get_selected_albums()) == 1:
+            self.stars.set_rating(self.get_selected_albums()[0].rating)
+        else:
+            self.stars.set_rating(0)
+        
+        print "CoverArtBrowser DEBUG - end on_selection_changed"
+
     def on_drag_data_received(self, widget, drag_context, x, y, data, info,
         time):
         '''
@@ -1453,6 +1479,24 @@ class CoverArtBrowserSource(RB.Source):
                 self.cover_search_pane.do_search(selected_albums[0])
                 
         print "CoverArtBrowser DEBUG - end notebook_switch_page_callback"
+
+    def rating_changed_callback(self, widget):
+        '''
+        Callback called when the Rating stars is changed
+        '''
+        print "CoverArtBrowser DEBUG - rating_changed_callback"
+
+        rating = widget.get_rating()
+
+        if len(self.entry_view.get_selected_entries()) > 0:
+            self.entry_view.love_track(rating)
+            return
+
+        if len(self.get_selected_albums()) > 0:
+            for album in self.get_selected_albums():
+                album.set_rating(rating)
+        
+        print "CoverArtBrowser DEBUG - end rating_changed_callback"
 
 
     def do_delete_thyself(self):
