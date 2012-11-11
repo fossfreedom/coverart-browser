@@ -8,6 +8,7 @@
 intltool-extract --type=gettext/glade ui/coverart_browser_prefs.ui
 intltool-extract --type=gettext/glade ui/coverart_browser.ui
 intltool-extract --type=gettext/glade ui/coverart_entryview.ui
+intltool-extract --type=gettext/glade ui/coverart_sidebar.ui
 
 #create a new template file called po/package.pot by running
 pygettext -d ui -k _ -k N_ -p po *.py ui/*.h

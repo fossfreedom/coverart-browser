@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-10-14 23:10+BST\n"
+"POT-Creation-Date: 2012-11-11 22:31+GMT\n"
 "PO-Revision-Date: 2012-09-18 20:57+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,197 +17,300 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: coverart_album.py:695
+#: coverart_album.py:830
 msgid "Various Artists"
 msgstr "Varios Artistas"
 
-#: coverart_album.py:733 coverart_album.py:760 coverart_browser_source.py:757
+#: coverart_album.py:944 coverart_browser_source.py:1221
 msgid "%s by %s"
 msgstr "%s por %s"
 
-#: coverart_browser.py:72
+#: coverart_browser.py:71
 msgid "CoverArt Browser"
 msgstr "Navegador de Portadas"
 
-#: coverart_browser.py:73
+#: coverart_browser.py:72
 msgid "Browse and play your albums through their covers"
 msgstr "Navega y reproduce tu librería de álbums a través de sus portadas"
 
-#: coverart_browser.py:102
+#: coverart_browser.py:101 coverart_browser.py:114 ui/coverart_sidebar.ui.h:2
 msgid "CoverArt"
 msgstr "CoverArt"
 
-#: coverart_browser_source.py:89 tmpl/albumartsearch-tmpl.html:214
+#: coverart_browser.py:115
+msgid "Display Covers for Playlist"
+msgstr ""
+
+#: coverart_browser_source.py:110 tmpl/albumartsearch-tmpl.html:209
 msgid "Loading..."
 msgstr "Cargando..."
 
-#: coverart_browser_source.py:211
+#: coverart_browser_source.py:319
 msgid "Search album"
 msgstr "Buscar álbum"
 
-#: coverart_browser_source.py:259
+#: coverart_browser_source.py:418
 msgid "Tracks"
 msgstr "Canciones"
 
-#: coverart_browser_source.py:263
+#: coverart_browser_source.py:431
 msgid "Covers"
 msgstr "Portadas"
 
-#: coverart_browser_source.py:699
+#: coverart_browser_source.py:1155
 msgid "Requesting cover for %s - %s..."
 msgstr "Buscando portada para %s - %s..."
 
-#: coverart_browser_source.py:760
+#: coverart_browser_source.py:1224
 msgid "%d selected albums "
 msgstr "%d álbums seleccionados"
 
-#: coverart_browser_source.py:764
+#: coverart_browser_source.py:1228
 msgid " with 1 track"
 msgstr " tiene una canción"
 
-#: coverart_browser_source.py:766
+#: coverart_browser_source.py:1230
 msgid " with %d tracks"
 msgstr " tiene %d canciones"
 
-#: coverart_browser_source.py:769
+#: coverart_browser_source.py:1233
 msgid " and a duration of 1 minute"
 msgstr " y una duración de 1 minuto"
 
-#: coverart_browser_source.py:771
+#: coverart_browser_source.py:1235
 msgid " and a duration of %d minutes"
 msgstr " y una duración de %d minutos"
 
-#: ui/coverart_browser.ui.h:1 tmpl/albumartsearch-tmpl.html:184
-#: tmpl/albumartsearch-tmpl.html:194
+#: ui/coverart_browser.ui.h:1 ui/coverart_sidebar.ui.h:3
+msgid "Filter by genre"
+msgstr ""
+
+#: ui/coverart_browser.ui.h:2 ui/coverart_sidebar.ui.h:4
+#: tmpl/albumartsearch-tmpl.html:190
 msgid "Album"
 msgstr "Álbum"
 
-#: ui/coverart_browser.ui.h:2
+#: ui/coverart_browser.ui.h:3 ui/coverart_sidebar.ui.h:5
 msgid "Sort by album name"
 msgstr "Ordenar por nombre del álbum"
 
-#: ui/coverart_browser.ui.h:3 tmpl/albumartsearch-tmpl.html:183
-#: tmpl/albumartsearch-tmpl.html:193
+#: ui/coverart_browser.ui.h:4 ui/coverart_sidebar.ui.h:6
+#: tmpl/albumartsearch-tmpl.html:189
 msgid "Artist"
 msgstr "Artista"
 
-#: ui/coverart_browser.ui.h:4
+#: ui/coverart_browser.ui.h:5 ui/coverart_sidebar.ui.h:7
 msgid "Sort by album artist"
 msgstr "Buscar por artista del álbum"
 
-#: ui/coverart_browser.ui.h:5
-msgid "Sort in descending order"
-msgstr "Ordenar en orden descendente"
+#: ui/coverart_browser.ui.h:6 ui/coverart_sidebar.ui.h:8
+msgid "Year"
+msgstr ""
 
-#: ui/coverart_browser.ui.h:6
-msgid "Sort in ascending order"
-msgstr "Ordenar en orden ascendente"
+#: ui/coverart_browser.ui.h:7 ui/coverart_sidebar.ui.h:9
+#, fuzzy
+msgid "Sort by year"
+msgstr "Buscar por artista del álbum"
 
-#: ui/coverart_browser.ui.h:7
+#: ui/coverart_browser.ui.h:8 ui/coverart_sidebar.ui.h:10
+msgid "Rating"
+msgstr ""
+
+#: ui/coverart_browser.ui.h:9 ui/coverart_sidebar.ui.h:11
+#, fuzzy
+msgid "Sort by rating"
+msgstr "Buscar por artista del álbum"
+
+#: ui/coverart_browser.ui.h:10
 msgid "Tracks & Covers"
 msgstr "Canciones & Portadas"
 
-#: ui/coverart_browser.ui.h:8
+#: ui/coverart_browser.ui.h:11
 msgid "Stop coverart fetch."
 msgstr "Detener la búsqueda de portadas."
 
-#: ui/coverart_browser.ui.h:9
+#: ui/coverart_browser.ui.h:12
 msgid "Play this album"
 msgstr "Reproduce este álbum"
 
-#: ui/coverart_browser.ui.h:10
+#: ui/coverart_browser.ui.h:13
 msgid "Play Album"
 msgstr "Reproducir Álbum"
 
-#: ui/coverart_browser.ui.h:11
+#: ui/coverart_browser.ui.h:14
 msgid "Add this album to your playing queue"
 msgstr "Agrega este álbum a tu cola de reproducción"
 
-#: ui/coverart_browser.ui.h:12
+#: ui/coverart_browser.ui.h:15
 msgid "Queue Album"
 msgstr "Encolar Álbum"
 
-#: ui/coverart_browser.ui.h:13
+#: ui/coverart_browser.ui.h:16 ui/coverart_entryview.ui.h:5
+#, fuzzy
+msgid "Add this album to a playlist"
+msgstr "Agrega este álbum a tu cola de reproducción"
+
+#: ui/coverart_browser.ui.h:17 ui/coverart_entryview.ui.h:6
+msgid "Add to Playlist"
+msgstr ""
+
+#: ui/coverart_browser.ui.h:18 ui/coverart_entryview.ui.h:7
+#, fuzzy
+msgid "Add this album to a new playlist"
+msgstr "Agrega este álbum a tu cola de reproducción"
+
+#: ui/coverart_browser.ui.h:19 ui/coverart_entryview.ui.h:8
+msgid "New Playlist"
+msgstr ""
+
+#: ui/coverart_browser.ui.h:20
 msgid "Play favourites tracks from this album"
 msgstr "Reproduce las canciones favoritas de este álbum"
 
-#: ui/coverart_browser.ui.h:14
+#: ui/coverart_browser.ui.h:21
 msgid "Play Favourites"
 msgstr "Reproduce favoritos"
 
-#: ui/coverart_browser.ui.h:15
+#: ui/coverart_browser.ui.h:22
 msgid "Add favourite tracks from this album to your playing queue"
 msgstr "Agrega las canciones favoritas de este álbum a tu cola de reproducción"
 
-#: ui/coverart_browser.ui.h:16
+#: ui/coverart_browser.ui.h:23
 msgid "Queue Favourites"
 msgstr "Encolar favoritos"
 
-#: ui/coverart_browser.ui.h:17
+#: ui/coverart_browser.ui.h:24
 msgid "Search for this album cover"
 msgstr "Busca portada para este álbum"
 
-#: ui/coverart_browser.ui.h:18
+#: ui/coverart_browser.ui.h:25
 msgid "Search for covers"
 msgstr "Buscar portadas"
 
-#: ui/coverart_browser.ui.h:19
+#: ui/coverart_browser.ui.h:26
 msgid "Show album properties"
 msgstr "Mostrar propiedades del álbum"
 
-#: ui/coverart_browser.ui.h:20
+#: ui/coverart_browser.ui.h:27
 msgid "Search for covers where an album does not currently have one"
 msgstr "Busca portadas para aquellos álbums que no tienen una"
 
-#: ui/coverart_browser.ui.h:21
+#: ui/coverart_browser.ui.h:28
 msgid "Download all the covers"
 msgstr "Descarga todas las portadas"
 
-#: ui/coverart_browser.ui.h:22
+#: ui/coverart_browser.ui.h:29
 msgid "Search using all fields"
 msgstr "Busca utilizando todos los campos"
 
-#: ui/coverart_browser.ui.h:23
+#: ui/coverart_browser.ui.h:30 ui/coverart_sidebar.ui.h:1
 msgid "Search all fields"
 msgstr "Buscar por todos los campos"
 
-#: ui/coverart_browser.ui.h:24
+#: ui/coverart_browser.ui.h:31
 msgid "Search using album artist names"
 msgstr "Busca por el nombre de artista del álbum"
 
-#: ui/coverart_browser.ui.h:25
+#: ui/coverart_browser.ui.h:32
 msgid "Search album artists"
 msgstr "Buscar por artista del álbum"
 
-#: ui/coverart_browser.ui.h:26
+#: ui/coverart_browser.ui.h:33
 msgid "Search using track artist names"
 msgstr "Buscar por el nombre de artista de cada canción"
 
-#: ui/coverart_browser.ui.h:27
+#: ui/coverart_browser.ui.h:34
 msgid "Search track artists"
 msgstr "Buscar por artista de canción"
 
-#: ui/coverart_browser.ui.h:28
+#: ui/coverart_browser.ui.h:35
 msgid "Search using album titles"
 msgstr "Busca utilizando el título de los álbums"
 
-#: ui/coverart_browser.ui.h:29
+#: ui/coverart_browser.ui.h:36
 msgid "Search albums"
 msgstr "Buscar álbums"
 
-#: ui/coverart_browser.ui.h:30
+#: ui/coverart_browser.ui.h:37
 msgid "Search using track titles"
 msgstr "Busca por los nombres de cada canción en el álbum"
 
-#: ui/coverart_browser.ui.h:31
+#: ui/coverart_browser.ui.h:38
 msgid "Search tracks"
 msgstr "Buscar por canción"
 
 #: ui/coverart_browser_prefs.ui.h:1
+#, fuzzy
+msgid "Ratings:"
+msgstr "Umbral de puntuación"
+
+#: ui/coverart_browser_prefs.ui.h:2
+msgid "Level above which is regarded as being a rated track."
+msgstr "Nivel a partir del cual se considera que un track es favorito."
+
+#: ui/coverart_browser_prefs.ui.h:3
+msgid "Rating Threshold:"
+msgstr "Umbral de puntuación"
+
+#: ui/coverart_browser_prefs.ui.h:4
+msgid "Defines the size for the covers showed on the source."
+msgstr "Define el tamaño para las portadas mostradas en el plugin."
+
+#: ui/coverart_browser_prefs.ui.h:5
+msgid "Cover size in pixels:"
+msgstr "Tamaño de portada en pixels:"
+
+#: ui/coverart_browser_prefs.ui.h:6
+msgid "Plugin Action:"
+msgstr ""
+
+#: ui/coverart_browser_prefs.ui.h:7
+msgid "Automatically Start"
+msgstr "Iniciar automáticamente"
+
+#: ui/coverart_browser_prefs.ui.h:8
+msgid "When rhythmbox starts, switch automatically to the coverart browser."
+msgstr ""
+"Abrir el navegador de portadas automáticamente cuando Rhythmbox inicia."
+
+#: ui/coverart_browser_prefs.ui.h:9
+msgid "Toolbar position:"
+msgstr ""
+
+#: ui/coverart_browser_prefs.ui.h:10
+msgid "Show toolbar in main cover-view"
+msgstr ""
+
+#: ui/coverart_browser_prefs.ui.h:11
+msgid "Show's the toolbar at the top of the cover-view"
+msgstr ""
+
+#: ui/coverart_browser_prefs.ui.h:12
+msgid "Show toolbar in the left sidebar"
+msgstr ""
+
+#: ui/coverart_browser_prefs.ui.h:13
+msgid "Show's the toolbar in the left side of the Rhythmbox window"
+msgstr ""
+
+#: ui/coverart_browser_prefs.ui.h:14
+msgid "Show toolbar in the right sidebar"
+msgstr ""
+
+#: ui/coverart_browser_prefs.ui.h:15
+msgid "Show's the toolbar in the right side of the Rhythmbox window"
+msgstr ""
+
+#: ui/coverart_browser_prefs.ui.h:16
+#, fuzzy
+msgid "Show album information:"
+msgstr "Mostrar propiedades del álbum"
+
+#: ui/coverart_browser_prefs.ui.h:17
 msgid "Use source's custom statusbar."
 msgstr "Utilizar la barra de estado personalizada del plugin"
 
-#: ui/coverart_browser_prefs.ui.h:2
+#: ui/coverart_browser_prefs.ui.h:18
 msgid ""
 "Use the source's custom statusbar to show the current selected album's "
 "related information instead of the global Rhythmbox's statusbar."
@@ -216,11 +319,11 @@ msgstr ""
 "relacionada con el álbum, en lugar de utilizar la barra de estado global de "
 "Rhythmbox"
 
-#: ui/coverart_browser_prefs.ui.h:3
+#: ui/coverart_browser_prefs.ui.h:19
 msgid "Display tracks and covers pane"
 msgstr "Mostrar panel de canciones y portadas"
 
-#: ui/coverart_browser_prefs.ui.h:4
+#: ui/coverart_browser_prefs.ui.h:20
 msgid ""
 "Add a toggle-option to the coverart view to display the tracks and covers "
 "for the chosen album"
@@ -228,19 +331,19 @@ msgstr ""
 "Agrega una ventana desplegable a la vista de portadas para mostrar las "
 "canciones y portadas del álbum seleccionado"
 
-#: ui/coverart_browser_prefs.ui.h:5
+#: ui/coverart_browser_prefs.ui.h:21
 msgid "Display album's info under cover"
 msgstr "Mostrar información del albúm debajo de su portada"
 
-#: ui/coverart_browser_prefs.ui.h:6
+#: ui/coverart_browser_prefs.ui.h:22
 msgid "Show the album's basic information under the cover image."
 msgstr "Muestra información básica del album debajo de su imagen de portada."
 
-#: ui/coverart_browser_prefs.ui.h:7
+#: ui/coverart_browser_prefs.ui.h:23
 msgid "Show text while loading"
 msgstr "Mostrar texto al cargar"
 
-#: ui/coverart_browser_prefs.ui.h:8
+#: ui/coverart_browser_prefs.ui.h:24
 msgid ""
 "Show's the text for each album during the source load. Deactivating this "
 "option may help with the loading performance."
@@ -248,11 +351,11 @@ msgstr ""
 "Muestra el texto para cada álbum mientras se carga el plugin. Desactivar "
 "esta opción puede mejorar la eficiencia de la carga."
 
-#: ui/coverart_browser_prefs.ui.h:9
+#: ui/coverart_browser_prefs.ui.h:25
 msgid "Ellipsize albums names"
 msgstr "Acortar el nombre de los álbums"
 
-#: ui/coverart_browser_prefs.ui.h:10
+#: ui/coverart_browser_prefs.ui.h:26
 msgid ""
 "Ellipsizes the albums names to a fixed length when the display text option "
 "is enabled."
@@ -260,41 +363,50 @@ msgstr ""
 "Acorta los nombres de los álbums a un tamaño fijo, mostrando puntos "
 "suspensivos cuando la opción para mostrar texto esta activada."
 
-#: ui/coverart_browser_prefs.ui.h:11
+#: ui/coverart_browser_prefs.ui.h:27
 msgid ""
 "This is the maximum allowed size for an album's name before being ellipsized."
 msgstr ""
 "Este es el largo máximo permitido para el nombre del álbum antes de ser "
 "acortado."
 
-#: ui/coverart_browser_prefs.ui.h:12
+#: ui/coverart_browser_prefs.ui.h:28
 msgid "Maximum length:"
 msgstr "Largo máximo:"
 
-#: ui/coverart_browser_prefs.ui.h:13
-msgid "Level above which is regarded as being a rated track."
-msgstr "Nivel a partir del cual se considera que un track es favorito."
-
-#: ui/coverart_browser_prefs.ui.h:14
-msgid "Rating Threshold:"
-msgstr "Umbral de puntuación"
-
-#: ui/coverart_browser_prefs.ui.h:15
-msgid "Defines the size for the covers showed on the source."
-msgstr "Define el tamaño para las portadas mostradas en el plugin."
-
-#: ui/coverart_browser_prefs.ui.h:16
-msgid "Cover size in pixels:"
-msgstr "Tamaño de portada en pixels:"
-
-#: ui/coverart_browser_prefs.ui.h:17
-msgid "Automatically Start"
-msgstr "Iniciar automáticamente"
-
-#: ui/coverart_browser_prefs.ui.h:18
-msgid "When rhythmbox starts, switch automatically to the coverart browser."
+#: ui/coverart_browser_prefs.ui.h:29
+msgid "Font Size:"
 msgstr ""
-"Abrir el navegador de portadas automáticamente cuando Rhythmbox inicia."
+
+#: ui/coverart_browser_prefs.ui.h:30
+msgid "Toolbar contents:"
+msgstr ""
+
+#: ui/coverart_browser_prefs.ui.h:31
+msgid "Display genre filter"
+msgstr ""
+
+#: ui/coverart_browser_prefs.ui.h:32
+msgid "Display the genre filter option in the toolbar"
+msgstr ""
+
+#: ui/coverart_browser_prefs.ui.h:33
+#, fuzzy
+msgid "Display rating sort"
+msgstr "Mostrar canciones"
+
+#: ui/coverart_browser_prefs.ui.h:34
+msgid "Display the rating sorting option in the toolbar"
+msgstr ""
+
+#: ui/coverart_browser_prefs.ui.h:35
+#, fuzzy
+msgid "Display year sort"
+msgstr "Mostrar canciones"
+
+#: ui/coverart_browser_prefs.ui.h:36
+msgid "Display the year sorting option in the toolbar"
+msgstr ""
 
 #: ui/coverart_entryview.ui.h:1
 msgid "Play this track"
@@ -312,125 +424,113 @@ msgstr "Agrega esta canción a tu cola de reproducción"
 msgid "Queue Track"
 msgstr "Encolar canción"
 
-#: ui/coverart_entryview.ui.h:5
-msgid "Give the track a favourite rating"
-msgstr "Marca esta canción como favorita"
-
-#: ui/coverart_entryview.ui.h:6
-msgid "Rate Track"
-msgstr "Puntuar canción"
-
-#: ui/coverart_entryview.ui.h:7
-msgid "Give the track a 5 star rating"
-msgstr "Da a la canción un puntaje de 5 estrellas"
-
-#: ui/coverart_entryview.ui.h:8
-msgid "5 Stars"
-msgstr "5 Estrellas"
-
 #: ui/coverart_entryview.ui.h:9
-msgid "Give the track a 4 star rating"
-msgstr "Da a la canción un puntaje de 4 estrellas"
-
-#: ui/coverart_entryview.ui.h:10
-msgid "4 Stars"
-msgstr "4 Estrellas"
-
-#: ui/coverart_entryview.ui.h:11
-msgid "Give the track a 3 star rating"
-msgstr "Da a la canción un puntaje de 3 estrellas"
-
-#: ui/coverart_entryview.ui.h:12
-msgid "3 Stars"
-msgstr "3 Estrellas"
-
-#: ui/coverart_entryview.ui.h:13
-msgid "Give the track a 2 star rating"
-msgstr "Da a la canción un puntaje de 2 estrellas"
-
-#: ui/coverart_entryview.ui.h:14
-msgid "2 Stars"
-msgstr "2 Estrellas"
-
-#: ui/coverart_entryview.ui.h:15
-msgid "Give the track a 1 star rating"
-msgstr "Da a la canción un puntaje de 1 estrellas"
-
-#: ui/coverart_entryview.ui.h:16
-msgid "1 Star"
-msgstr "1 Estrellas"
-
-#: ui/coverart_entryview.ui.h:17
-msgid "Give the track a 0 star rating"
-msgstr "Da a la canción un puntaje de 0 estrellas"
-
-#: ui/coverart_entryview.ui.h:18
-msgid "0 Stars"
-msgstr "0 Estrellas"
-
-#: ui/coverart_entryview.ui.h:19
 msgid "Show track properties"
 msgstr "Mostrar propiedades de la canción"
 
-#: tmpl/albumartsearch-tmpl.html:139 tmpl/albumartsearch-tmpl.html:189
+#: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:185
 msgid "Search Options"
 msgstr "Opciones de búsqueda"
 
-#: tmpl/albumartsearch-tmpl.html:181
-msgid "Album art search"
-msgstr "Búsqueda de portadas"
+#: tmpl/albumartsearch-tmpl.html:185
+msgid "Tip: doubleclick or drag a cover to use it as the album cover"
+msgstr ""
+"Consejo: puedes hacer doble-click o arrastrar una portada para usarla como "
+"portada para el álbum"
 
-#: tmpl/albumartsearch-tmpl.html:191
+#: tmpl/albumartsearch-tmpl.html:187
 msgid "Search Mode"
 msgstr "Modo de búsqueda"
 
-#: tmpl/albumartsearch-tmpl.html:195
+#: tmpl/albumartsearch-tmpl.html:191
 msgid "Artist and album"
 msgstr "Artista y álbum"
 
-#: tmpl/albumartsearch-tmpl.html:198
+#: tmpl/albumartsearch-tmpl.html:194
 msgid "Search text"
 msgstr "Buscar texto"
 
-#: tmpl/albumartsearch-tmpl.html:201
+#: tmpl/albumartsearch-tmpl.html:197
 msgid "Search"
 msgstr "Buscar"
 
-#: tmpl/albumartsearch-tmpl.html:203
+#: tmpl/albumartsearch-tmpl.html:199
 msgid "Image Size"
 msgstr "Tamaño de imagen"
 
-#: tmpl/albumartsearch-tmpl.html:205
+#: tmpl/albumartsearch-tmpl.html:201
 msgid "Small"
 msgstr "Pequeña"
 
-#: tmpl/albumartsearch-tmpl.html:206
+#: tmpl/albumartsearch-tmpl.html:202
 msgid "Medium"
 msgstr "Mediana"
 
-#: tmpl/albumartsearch-tmpl.html:207
+#: tmpl/albumartsearch-tmpl.html:203
 msgid "Large"
 msgstr "Granda"
 
-#: tmpl/albumartsearch-tmpl.html:208
+#: tmpl/albumartsearch-tmpl.html:204
 msgid "Extra Large"
 msgstr "Muy Grande"
 
-#: tmpl/albumartsearch-tmpl.html:213
-msgid "Tip: doubleclick or drag a cover to use it as the album cover"
-msgstr "Consejo: puedes hacer doble-click o arrastrar una portada para usarla "
-"como portada para el álbum"
-
-#: tmpl/albumartsearch-tmpl.html:216
+#: tmpl/albumartsearch-tmpl.html:211
 msgid "Show more results"
 msgstr "Mostrar mas resultados"
 
-#: tmpl/albumartsearchempty-tmpl.html:11
-msgid " Album art search - Select an album"
-msgstr "Búsqueda de portadas - Seleccione un álbum"
+#~ msgid "Sort in descending order"
+#~ msgstr "Ordenar en orden descendente"
 
-#~ msgid "Display Tracks"
-#~ msgstr "Mostrar canciones"
+#~ msgid "Sort in ascending order"
+#~ msgstr "Ordenar en orden ascendente"
+
+#~ msgid "Give the track a favourite rating"
+#~ msgstr "Marca esta canción como favorita"
+
+#~ msgid "Rate Track"
+#~ msgstr "Puntuar canción"
+
+#~ msgid "Give the track a 5 star rating"
+#~ msgstr "Da a la canción un puntaje de 5 estrellas"
+
+#~ msgid "5 Stars"
+#~ msgstr "5 Estrellas"
+
+#~ msgid "Give the track a 4 star rating"
+#~ msgstr "Da a la canción un puntaje de 4 estrellas"
+
+#~ msgid "4 Stars"
+#~ msgstr "4 Estrellas"
+
+#~ msgid "Give the track a 3 star rating"
+#~ msgstr "Da a la canción un puntaje de 3 estrellas"
+
+#~ msgid "3 Stars"
+#~ msgstr "3 Estrellas"
+
+#~ msgid "Give the track a 2 star rating"
+#~ msgstr "Da a la canción un puntaje de 2 estrellas"
+
+#~ msgid "2 Stars"
+#~ msgstr "2 Estrellas"
+
+#~ msgid "Give the track a 1 star rating"
+#~ msgstr "Da a la canción un puntaje de 1 estrellas"
+
+#~ msgid "1 Star"
+#~ msgstr "1 Estrellas"
+
+#~ msgid "Give the track a 0 star rating"
+#~ msgstr "Da a la canción un puntaje de 0 estrellas"
+
+#~ msgid "0 Stars"
+#~ msgstr "0 Estrellas"
+
+#~ msgid "Album art search"
+#~ msgstr "Búsqueda de portadas"
+
+#~ msgid " Album art search - Select an album"
+#~ msgstr "Búsqueda de portadas - Seleccione un álbum"
 
 #~ msgid "Cover found!"
 #~ msgstr "Portada encontrada!"

@@ -363,9 +363,9 @@ class CoverArtBrowserSource(RB.Source):
         signal called when genre value changed
         '''
         if self.genre_changed_ignore:
-			return
-			
-		print "CoverArtBrowser DEBUG - genre_changed"
+            return
+
+        print "CoverArtBrowser DEBUG - genre changed"
 
         if widget.get_active() == 0:
             self.filter_type = Album.FILTER_ALL
@@ -378,7 +378,7 @@ class CoverArtBrowserSource(RB.Source):
         except:
             pass
             
-        print "CoverArtBrowser DEBUG - end genre_changed"
+        print "CoverArtBrowser DEBUG - end genre changed"
 
             
     def _setup_source(self):
@@ -423,8 +423,8 @@ class CoverArtBrowserSource(RB.Source):
 			color = '#%s%s%s' % (str(hex(int(color.red*255))).replace('0x', ''),
 				str(hex(int(color.green*255))).replace('0x', ''),
 				str(hex(int(color.blue*255))).replace('0x', ''))
-		except:
-			color = '#0000FF'
+        except:
+            color = '#0000FF'
 			
         self.cover_search_pane = CoverSearchPane(self.plugin, color)
         self.notebook.append_page(self.cover_search_pane, Gtk.Label(
@@ -632,7 +632,7 @@ class CoverArtBrowserSource(RB.Source):
         toolbar_pos = setting[self.gs.PluginKey.TOOLBAR_POS]
 
         if toolbar_pos == 0:
-			self._toolbar(self.ui)
+            self._toolbar(self.ui)
             self.toolbar_box.set_visible(True)
 			
         if toolbar_pos == 1:
