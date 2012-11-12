@@ -23,11 +23,6 @@
     <property name="step_increment">1</property>
     <property name="page_increment">1</property>
   </object>
-  <object class="GtkAdjustment" id="rated_adjustment">
-    <property name="upper">5</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">1</property>
-  </object>
   <object class="GtkGrid" id="maingrid">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -40,20 +35,6 @@
         <property name="margin_top">5</property>
         <property name="margin_bottom">5</property>
         <property name="orientation">vertical</property>
-        <child>
-          <object class="GtkLabel" id="label2">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="margin_left">5</property>
-            <property name="xalign">0</property>
-            <property name="label" translatable="yes">Ratings:</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
         <child>
           <object class="GtkBox" id="rated_box">
             <property name="visible">True</property>
@@ -72,22 +53,6 @@
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkSpinButton" id="rated_spin">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="margin_left">5</property>
-                <property name="max_length">1</property>
-                <property name="width_chars">3</property>
-                <property name="adjustment">rated_adjustment</property>
-                <property name="numeric">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
               </packing>
             </child>
           </object>

@@ -78,6 +78,8 @@ class CoverArtEntryView(RB.EntryView):
         self.shell.props.shell_player.connect('playing-changed',
             self.playing_changed)
 
+        self.connect('selection-changed', self.selection_changed_callback)
+
         self.playlist_sub_menu_item = ui.get_object('playlist_sub_menu_item')
         self.actiongroup = Gtk.ActionGroup('coverentryplaylist_submenu')
         uim = self.shell.props.ui_manager
@@ -237,5 +239,14 @@ class CoverArtEntryView(RB.EntryView):
     def add_to_static_playlist_menu_item_callback(self, action, playlist, favourite):
         print "CoverArtBrowser DEBUG - add_to_static_playlist_menu_item_callback"
         self.add_tracks_to_source(playlist)
+
+    def selection_changed_callback(self,entry_view):
+        print "CoverArtBrowser DEBUG - selection_changed_callback"
+
+        if len(entry_view.get_selected_entries()) == 1:
+            entry = entry_view.get_selected_entries()[0]
+            self.source.stars.set_rating(entry.get_double(RB.RhythmDBPropType.RATING))
+        else:
+            self.source.stars.set_rating(0)
 
 GObject.type_register(CoverArtEntryView)

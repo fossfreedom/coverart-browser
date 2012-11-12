@@ -25,6 +25,7 @@ from gi.repository import RB
 import rb
 import locale
 import gettext
+from stars import ReactiveStar
 
 
 class CoverLocale:
@@ -252,10 +253,15 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         self.settings.bind(gs.PluginKey.COVER_SIZE, cover_size_scale, 'value',
             Gio.SettingsBindFlags.DEFAULT)
 
-        rated_adjustment = builder.get_object('rated_adjustment')
-        self.settings.bind(gs.PluginKey.RATING, rated_adjustment, 'value',
-            Gio.SettingsBindFlags.DEFAULT)
+        rated_box = builder.get_object('rated_box')
+        self.stars = ReactiveStar()
+        
+        self.stars.connect('changed', self.rating_changed_callback)
 
+        rated_box.pack_start(self.stars, False, False, 1)
+
+        self.stars.set_rating(self.settings[gs.PluginKey.RATING])
+        
         autostart = builder.get_object('autostart_checkbox')
         self.settings.bind(gs.PluginKey.AUTOSTART,
             autostart, 'active', Gio.SettingsBindFlags.DEFAULT)
@@ -296,3 +302,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         if radio == self.toolbar_right_radio:
             self.settings[gs.PluginKey.TOOLBAR_POS] = 2
 
+    def rating_changed_callback(self, stars):
+        print "rating_changed_callback"
+        gs = GSetting()
+        self.settings[gs.PluginKey.RATING] = self.stars.get_rating()
