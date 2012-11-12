@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "#-#-#-#-#  ui.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-11-11 22:31+GMT\n"
+"POT-Creation-Date: 2012-11-12 21:23+GMT\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,7 @@ msgstr ""
 "#-#-#-#-#  tmpl.pot (PROJECT VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-11-11 22:28+0000\n"
+"POT-Creation-Date: 2012-11-12 21:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -253,155 +253,151 @@ msgid "Search tracks"
 msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:1
-msgid "Ratings:"
-msgstr ""
-
-#: ui/coverart_browser_prefs.ui.h:2
 msgid "Level above which is regarded as being a rated track."
 msgstr ""
 
-#: ui/coverart_browser_prefs.ui.h:3
+#: ui/coverart_browser_prefs.ui.h:2
 msgid "Rating Threshold:"
 msgstr ""
 
-#: ui/coverart_browser_prefs.ui.h:4
+#: ui/coverart_browser_prefs.ui.h:3
 msgid "Defines the size for the covers showed on the source."
 msgstr ""
 
-#: ui/coverart_browser_prefs.ui.h:5
+#: ui/coverart_browser_prefs.ui.h:4
 msgid "Cover size in pixels:"
 msgstr ""
 
-#: ui/coverart_browser_prefs.ui.h:6
-msgid "Plugin Action:"
+#: ui/coverart_browser_prefs.ui.h:5
+msgid "Action on Rhythmbox start:"
 msgstr ""
 
-#: ui/coverart_browser_prefs.ui.h:7
+#: ui/coverart_browser_prefs.ui.h:6
 msgid "Automatically Start"
 msgstr ""
 
-#: ui/coverart_browser_prefs.ui.h:8
+#: ui/coverart_browser_prefs.ui.h:7
 msgid "When rhythmbox starts, switch automatically to the coverart browser."
 msgstr ""
 
-#: ui/coverart_browser_prefs.ui.h:9
+#: ui/coverart_browser_prefs.ui.h:8
 msgid "Toolbar position:"
 msgstr ""
 
-#: ui/coverart_browser_prefs.ui.h:10
+#: ui/coverart_browser_prefs.ui.h:9
 msgid "Show toolbar in main cover-view"
 msgstr ""
 
-#: ui/coverart_browser_prefs.ui.h:11
+#: ui/coverart_browser_prefs.ui.h:10
 msgid "Show's the toolbar at the top of the cover-view"
 msgstr ""
 
-#: ui/coverart_browser_prefs.ui.h:12
+#: ui/coverart_browser_prefs.ui.h:11
 msgid "Show toolbar in the left sidebar"
 msgstr ""
 
-#: ui/coverart_browser_prefs.ui.h:13
+#: ui/coverart_browser_prefs.ui.h:12
 msgid "Show's the toolbar in the left side of the Rhythmbox window"
 msgstr ""
 
-#: ui/coverart_browser_prefs.ui.h:14
+#: ui/coverart_browser_prefs.ui.h:13
 msgid "Show toolbar in the right sidebar"
 msgstr ""
 
-#: ui/coverart_browser_prefs.ui.h:15
+#: ui/coverart_browser_prefs.ui.h:14
 msgid "Show's the toolbar in the right side of the Rhythmbox window"
 msgstr ""
 
-#: ui/coverart_browser_prefs.ui.h:16
+#: ui/coverart_browser_prefs.ui.h:15
 msgid "Show album information:"
 msgstr ""
 
-#: ui/coverart_browser_prefs.ui.h:17
+#: ui/coverart_browser_prefs.ui.h:16
 msgid "Use source's custom statusbar."
 msgstr ""
 
-#: ui/coverart_browser_prefs.ui.h:18
+#: ui/coverart_browser_prefs.ui.h:17
 msgid ""
 "Use the source's custom statusbar to show the current selected album's "
 "related information instead of the global Rhythmbox's statusbar."
 msgstr ""
 
-#: ui/coverart_browser_prefs.ui.h:19
+#: ui/coverart_browser_prefs.ui.h:18
 msgid "Display tracks and covers pane"
 msgstr ""
 
-#: ui/coverart_browser_prefs.ui.h:20
+#: ui/coverart_browser_prefs.ui.h:19
 msgid ""
 "Add a toggle-option to the coverart view to display the tracks and covers "
 "for the chosen album"
 msgstr ""
 
-#: ui/coverart_browser_prefs.ui.h:21
+#: ui/coverart_browser_prefs.ui.h:20
 msgid "Display album's info under cover"
 msgstr ""
 
-#: ui/coverart_browser_prefs.ui.h:22
+#: ui/coverart_browser_prefs.ui.h:21
 msgid "Show the album's basic information under the cover image."
 msgstr ""
 
-#: ui/coverart_browser_prefs.ui.h:23
+#: ui/coverart_browser_prefs.ui.h:22
 msgid "Show text while loading"
 msgstr ""
 
-#: ui/coverart_browser_prefs.ui.h:24
+#: ui/coverart_browser_prefs.ui.h:23
 msgid ""
 "Show's the text for each album during the source load. Deactivating this "
 "option may help with the loading performance."
 msgstr ""
 
-#: ui/coverart_browser_prefs.ui.h:25
+#: ui/coverart_browser_prefs.ui.h:24
 msgid "Ellipsize albums names"
 msgstr ""
 
-#: ui/coverart_browser_prefs.ui.h:26
+#: ui/coverart_browser_prefs.ui.h:25
 msgid ""
 "Ellipsizes the albums names to a fixed length when the display text option "
 "is enabled."
 msgstr ""
 
-#: ui/coverart_browser_prefs.ui.h:27
+#: ui/coverart_browser_prefs.ui.h:26
 msgid ""
 "This is the maximum allowed size for an album's name before being ellipsized."
 msgstr ""
 
-#: ui/coverart_browser_prefs.ui.h:28
+#: ui/coverart_browser_prefs.ui.h:27
 msgid "Maximum length:"
 msgstr ""
 
-#: ui/coverart_browser_prefs.ui.h:29
+#: ui/coverart_browser_prefs.ui.h:28
 msgid "Font Size:"
 msgstr ""
 
-#: ui/coverart_browser_prefs.ui.h:30
+#: ui/coverart_browser_prefs.ui.h:29
 msgid "Toolbar contents:"
 msgstr ""
 
-#: ui/coverart_browser_prefs.ui.h:31
+#: ui/coverart_browser_prefs.ui.h:30
 msgid "Display genre filter"
 msgstr ""
 
-#: ui/coverart_browser_prefs.ui.h:32
+#: ui/coverart_browser_prefs.ui.h:31
 msgid "Display the genre filter option in the toolbar"
 msgstr ""
 
-#: ui/coverart_browser_prefs.ui.h:33
+#: ui/coverart_browser_prefs.ui.h:32
 msgid "Display rating sort"
 msgstr ""
 
-#: ui/coverart_browser_prefs.ui.h:34
+#: ui/coverart_browser_prefs.ui.h:33
 msgid "Display the rating sorting option in the toolbar"
 msgstr ""
 
-#: ui/coverart_browser_prefs.ui.h:35
+#: ui/coverart_browser_prefs.ui.h:34
 msgid "Display year sort"
 msgstr ""
 
-#: ui/coverart_browser_prefs.ui.h:36
+#: ui/coverart_browser_prefs.ui.h:35
 msgid "Display the year sorting option in the toolbar"
 msgstr ""
 

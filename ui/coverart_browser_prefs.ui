@@ -113,7 +113,7 @@
             <property name="can_focus">False</property>
             <property name="margin_left">5</property>
             <property name="xalign">0</property>
-            <property name="label" translatable="yes">Plugin Action:</property>
+            <property name="label" translatable="yes">Action on Rhythmbox start:</property>
           </object>
           <packing>
             <property name="expand">False</property>
