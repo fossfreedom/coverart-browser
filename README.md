@@ -16,8 +16,11 @@ Summary: whats new in this release
  - Ratings: update album and track ratings from easy-to-use Star visual object
  - Sort & Search bar: optional display of these options on the left or right side of Rhythmbox panes
  - Sort & Search bar: optional year and rating sort options
+ - Sort & Search bar: optional genre filter list
  - Covers pane: simplified view showing album art first hiding initial search options until requested.
  - Plugin Preferences: revamped the preferences dialog to tailor what your see and use.
+ - Plugin Preferences: both album and artist text under icons are ellipsized to save space
+ - Plugin Preferences: both album and artist text can use a user defined fixed font size
 
 How it works:
 
