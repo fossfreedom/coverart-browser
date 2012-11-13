@@ -1,7 +1,9 @@
-coverart-browser v0.5
+coverart-browser v0.6
 ================
 
 Browse your coverart albums in Rhythmbox v2.96 and later
+
+*update pictures below*
 
 ![Imgur](http://i.imgur.com/QyCXA.png)
 
@@ -9,18 +11,13 @@ Browse your coverart albums in Rhythmbox v2.96 and later
 
 Summary: whats new in this release
 
- - Tracks & Covers pane - display tracks for the selected album and built-in coverart web-search
- - Drag & Drop coverart update support
- - Display Album & Artist name under the cover
- - Support for assigning track-rating and playing/queuing your favourite rated tracks
- - Multiple album selection
- - Double click playing of albums
- - Sort covers by album name and artist, both in ascending and descending order
- - Set the coverart size displayed in the main view
- - Multiple user-configurable options to tailor what you see and use.
- - Examine and change properties for an Album
- - Examine and change properties for a track
- - Optionally start in coverart view when rhythmbox starts
+ - Playlist support: display coverart from a playlist, queue & main library
+ - Playlist support: add albums and selected tracks from the coverart browser to playlists
+ - Ratings: update album and track ratings from easy-to-use Star visual object
+ - Sort & Search bar: optional display of these options on the left or right side of Rhythmbox panes
+ - Sort & Search bar: optional year and rating sort options
+ - Covers pane: simplified view showing album art first hiding initial search options until requested.
+ - Plugin Preferences: revamped the preferences dialog to tailor what your see and use.
 
 How it works:
 
@@ -49,9 +46,17 @@ How it works:
 
 ![Imgur](http://i.imgur.com/1QEfH.png)
 
+ - Open Coverart Browser from playlist, music queue or music library views
+
+*picture*
+
  - Right click to search for missing covers
 
 ![Imgur](http://i.imgur.com/QmHzi.png)
+
+ - Right click to add albums or tracks to Playlists
+
+*picture*
 
  - Display tracks for an album
 
@@ -69,7 +74,11 @@ Tailor the search for album covers:
 
 The cover-view accept images dropped from nautilus (for example) or URLs from the web.
 
- - Rate tracks and play your favourite tracks from albums
+ - Rate whole albums & individual tracks to play your favourite albums & tracks from albums
+
+Rate your albums:
+
+*picture*
 
 Rate your tracks:
 
@@ -79,7 +88,7 @@ Then use the Rate Threshold...
 
 ![Imgur](http://i.imgur.com/3flms.png)
 
-... to enable you to play your favourite tracks from an album:
+... to enable you to play your favourite albums and tracks in those albums:
 
 ![Imgur](http://i.imgur.com/NrJAe.png)
 
@@ -91,9 +100,7 @@ Then use the Rate Threshold...
 
 ![Imgur](http://i.imgur.com/3xDfI.png)
 
- - both 32bit & 64bit support available
  - icon-tooltip shows all the track artists for multi-artist albums
- - automatic album focus when right-click an album to display album choices.
  - ... and a number of bug-fixes as well.
 
 *How to install:*
