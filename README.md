@@ -174,6 +174,7 @@ The authors of this plugin are fossfreedom <foss.freedom@gmail.com>, Agustín Ca
 Credits:
 
  - thanks to Luqman Aden <laden@uwaterloo.ca> for the coverart-search plugin which our cover-search pane is based upon
+ - thanks to Canonical for the Star widget which the ratings capabilities use
  - our Translators: jrbastien (fr_CA), asermax (es), mateuswetah (pt_BR), jrbastien & lannic (fr.po)
 
 GTK3 port of code.google.com/p/rhythmbox-cover-art-browser
