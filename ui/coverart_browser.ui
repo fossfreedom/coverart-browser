@@ -428,8 +428,8 @@
         <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="tooltip_text" translatable="yes">Add this album to a playlist</property>
-        <property name="label" translatable="yes">Add to Playlist</property>
+        <property name="tooltip_text" translatable="yes">Add favourite tracks from this album to a playlist</property>
+        <property name="label" translatable="yes">Add favourites to Playlist</property>
         <property name="use_underline">True</property>
         <signal name="select" handler="favourite_playlist_menu_item_callback" swapped="no"/>
         <child type="submenu">
@@ -441,7 +441,6 @@
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="tooltip_text" translatable="yes">Add this album to a new playlist</property>
                         <property name="label" translatable="yes">New Playlist</property>
                         <property name="use_underline">True</property>
                         <signal name="activate" handler="favourite_add_playlist_menu_item_callback" swapped="no"/>

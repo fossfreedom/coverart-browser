@@ -253,6 +253,8 @@ class CoverArtBrowserSource(RB.Source):
             'play_favourites_album_menu_item')
         self.queue_favourites_album_menu_item = ui.get_object(
             'queue_favourites_album_menu_item')
+        self.favourite_playlist_menu_item = ui.get_object(
+            'favourite_playlist_menu_item')
         self.playlist_sub_menu_item = ui.get_object('playlist_sub_menu_item')
         self.favourite_playlist_sub_menu_item = ui.get_object('favourite_playlist_sub_menu_item')
 
@@ -583,6 +585,7 @@ class CoverArtBrowserSource(RB.Source):
 
         self.play_favourites_album_menu_item.set_sensitive(enable_menus)
         self.queue_favourites_album_menu_item.set_sensitive(enable_menus)
+        self.favourite_playlist_menu_item.set_sensitive(enable_menus)
         
         print "CoverArtBrowser DEBUG - end on_notify_rating_threshold"
 
