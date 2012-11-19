@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "#-#-#-#-#  ui.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-11-12 21:23+GMT\n"
+"POT-Creation-Date: 2012-11-19 15:36+GMT\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,7 @@ msgstr ""
 "#-#-#-#-#  tmpl.pot (PROJECT VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-11-12 21:23+0000\n"
+"POT-Creation-Date: 2012-11-19 15:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,7 +38,7 @@ msgstr ""
 msgid "Various Artists"
 msgstr ""
 
-#: coverart_album.py:944 coverart_browser_source.py:1221
+#: coverart_album.py:944 coverart_browser_source.py:1224
 msgid "%s by %s"
 msgstr ""
 
@@ -62,39 +62,39 @@ msgstr ""
 msgid "Loading..."
 msgstr ""
 
-#: coverart_browser_source.py:319
+#: coverart_browser_source.py:321
 msgid "Search album"
 msgstr ""
 
-#: coverart_browser_source.py:418
+#: coverart_browser_source.py:420
 msgid "Tracks"
 msgstr ""
 
-#: coverart_browser_source.py:431
+#: coverart_browser_source.py:433
 msgid "Covers"
 msgstr ""
 
-#: coverart_browser_source.py:1155
+#: coverart_browser_source.py:1158
 msgid "Requesting cover for %s - %s..."
 msgstr ""
 
-#: coverart_browser_source.py:1224
+#: coverart_browser_source.py:1227
 msgid "%d selected albums "
 msgstr ""
 
-#: coverart_browser_source.py:1228
+#: coverart_browser_source.py:1231
 msgid " with 1 track"
 msgstr ""
 
-#: coverart_browser_source.py:1230
+#: coverart_browser_source.py:1233
 msgid " with %d tracks"
 msgstr ""
 
-#: coverart_browser_source.py:1233
+#: coverart_browser_source.py:1236
 msgid " and a duration of 1 minute"
 msgstr ""
 
-#: coverart_browser_source.py:1235
+#: coverart_browser_source.py:1238
 msgid " and a duration of %d minutes"
 msgstr ""
 
@@ -193,71 +193,79 @@ msgid "Queue Favourites"
 msgstr ""
 
 #: ui/coverart_browser.ui.h:24
-msgid "Search for this album cover"
+msgid "Add favourite tracks from this album to a playlist"
 msgstr ""
 
 #: ui/coverart_browser.ui.h:25
-msgid "Search for covers"
+msgid "Add favourites to Playlist"
 msgstr ""
 
 #: ui/coverart_browser.ui.h:26
-msgid "Show album properties"
+msgid "Search for this album cover"
 msgstr ""
 
 #: ui/coverart_browser.ui.h:27
-msgid "Search for covers where an album does not currently have one"
+msgid "Search for covers"
 msgstr ""
 
 #: ui/coverart_browser.ui.h:28
-msgid "Download all the covers"
+msgid "Show album properties"
 msgstr ""
 
 #: ui/coverart_browser.ui.h:29
-msgid "Search using all fields"
+msgid "Search for covers where an album does not currently have one"
 msgstr ""
 
-#: ui/coverart_browser.ui.h:30 ui/coverart_sidebar.ui.h:1
-msgid "Search all fields"
+#: ui/coverart_browser.ui.h:30
+msgid "Download all the covers"
 msgstr ""
 
 #: ui/coverart_browser.ui.h:31
-msgid "Search using album artist names"
+msgid "Search using all fields"
 msgstr ""
 
-#: ui/coverart_browser.ui.h:32
-msgid "Search album artists"
+#: ui/coverart_browser.ui.h:32 ui/coverart_sidebar.ui.h:1
+msgid "Search all fields"
 msgstr ""
 
 #: ui/coverart_browser.ui.h:33
-msgid "Search using track artist names"
+msgid "Search using album artist names"
 msgstr ""
 
 #: ui/coverart_browser.ui.h:34
-msgid "Search track artists"
+msgid "Search album artists"
 msgstr ""
 
 #: ui/coverart_browser.ui.h:35
-msgid "Search using album titles"
+msgid "Search using track artist names"
 msgstr ""
 
 #: ui/coverart_browser.ui.h:36
-msgid "Search albums"
+msgid "Search track artists"
 msgstr ""
 
 #: ui/coverart_browser.ui.h:37
-msgid "Search using track titles"
+msgid "Search using album titles"
 msgstr ""
 
 #: ui/coverart_browser.ui.h:38
+msgid "Search albums"
+msgstr ""
+
+#: ui/coverart_browser.ui.h:39
+msgid "Search using track titles"
+msgstr ""
+
+#: ui/coverart_browser.ui.h:40
 msgid "Search tracks"
 msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:1
-msgid "Level above which is regarded as being a rated track."
+msgid "Level above which is regarded as being a favourite track or album"
 msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:2
-msgid "Rating Threshold:"
+msgid "Favourite Threshold:"
 msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:3

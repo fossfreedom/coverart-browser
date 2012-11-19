@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-11-12 21:23+GMT\n"
+"POT-Creation-Date: 2012-11-19 15:36+GMT\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,7 +31,7 @@ msgstr ""
 msgid "Various Artists"
 msgstr "Différents Artistes"
 
-#: coverart_album.py:944 coverart_browser_source.py:1221
+#: coverart_album.py:944 coverart_browser_source.py:1224
 msgid "%s by %s"
 msgstr "%s par %s"
 
@@ -55,39 +55,39 @@ msgstr ""
 msgid "Loading..."
 msgstr "Chargement..."
 
-#: coverart_browser_source.py:319
+#: coverart_browser_source.py:321
 msgid "Search album"
 msgstr "Rechercher des albums"
 
-#: coverart_browser_source.py:418
+#: coverart_browser_source.py:420
 msgid "Tracks"
 msgstr "Pistes"
 
-#: coverart_browser_source.py:431
+#: coverart_browser_source.py:433
 msgid "Covers"
 msgstr "Jaquettes"
 
-#: coverart_browser_source.py:1155
+#: coverart_browser_source.py:1158
 msgid "Requesting cover for %s - %s..."
 msgstr "Demande de la jaquette pour %s - %s..."
 
-#: coverart_browser_source.py:1224
+#: coverart_browser_source.py:1227
 msgid "%d selected albums "
 msgstr "%d albums sélectionnés"
 
-#: coverart_browser_source.py:1228
+#: coverart_browser_source.py:1231
 msgid " with 1 track"
 msgstr " avec 1 piste"
 
-#: coverart_browser_source.py:1230
+#: coverart_browser_source.py:1233
 msgid " with %d tracks"
 msgstr " avec %d pistes"
 
-#: coverart_browser_source.py:1233
+#: coverart_browser_source.py:1236
 msgid " and a duration of 1 minute"
 msgstr " et une durée de 1 minute"
 
-#: coverart_browser_source.py:1235
+#: coverart_browser_source.py:1238
 msgid " and a duration of %d minutes"
 msgstr " et une durée de %d minutes"
 
@@ -190,71 +190,83 @@ msgid "Queue Favourites"
 msgstr "Mettre en attente les favoris"
 
 #: ui/coverart_browser.ui.h:24
+#, fuzzy
+msgid "Add favourite tracks from this album to a playlist"
+msgstr "Ajouter les pistes favorites de cet album à votre liste d'attente"
+
+#: ui/coverart_browser.ui.h:25
+#, fuzzy
+msgid "Add favourites to Playlist"
+msgstr "Ajouter cet album à votre liste d'attente"
+
+#: ui/coverart_browser.ui.h:26
 msgid "Search for this album cover"
 msgstr "Rechercher la jaquette de cet album"
 
-#: ui/coverart_browser.ui.h:25
+#: ui/coverart_browser.ui.h:27
 msgid "Search for covers"
 msgstr "Rechercher les jaquettes"
 
-#: ui/coverart_browser.ui.h:26
+#: ui/coverart_browser.ui.h:28
 msgid "Show album properties"
 msgstr "Afficher les propriétés de l'album"
 
-#: ui/coverart_browser.ui.h:27
+#: ui/coverart_browser.ui.h:29
 msgid "Search for covers where an album does not currently have one"
 msgstr "Rechercher les jaquettes des albums qui n'en ont pas"
 
-#: ui/coverart_browser.ui.h:28
+#: ui/coverart_browser.ui.h:30
 msgid "Download all the covers"
 msgstr "Télécharger toutes les jaquettes"
 
-#: ui/coverart_browser.ui.h:29
+#: ui/coverart_browser.ui.h:31
 msgid "Search using all fields"
 msgstr "Rechercher en utilisant tous les champs"
 
-#: ui/coverart_browser.ui.h:30 ui/coverart_sidebar.ui.h:1
+#: ui/coverart_browser.ui.h:32 ui/coverart_sidebar.ui.h:1
 msgid "Search all fields"
 msgstr "Rechercher tous les champs"
 
-#: ui/coverart_browser.ui.h:31
+#: ui/coverart_browser.ui.h:33
 msgid "Search using album artist names"
 msgstr "Rechercher en utilisant les noms des artistes de l'album"
 
-#: ui/coverart_browser.ui.h:32
+#: ui/coverart_browser.ui.h:34
 msgid "Search album artists"
 msgstr "Rechercher les artistes de l'album"
 
-#: ui/coverart_browser.ui.h:33
+#: ui/coverart_browser.ui.h:35
 msgid "Search using track artist names"
 msgstr "Rechercher en utilisant les noms des artistes de la piste"
 
-#: ui/coverart_browser.ui.h:34
+#: ui/coverart_browser.ui.h:36
 msgid "Search track artists"
 msgstr "Rechercher les artistes de la piste"
 
-#: ui/coverart_browser.ui.h:35
+#: ui/coverart_browser.ui.h:37
 msgid "Search using album titles"
 msgstr "Rechercher en utilisant les titres de l'album"
 
-#: ui/coverart_browser.ui.h:36
+#: ui/coverart_browser.ui.h:38
 msgid "Search albums"
 msgstr "Rechercher les albums"
 
-#: ui/coverart_browser.ui.h:37
+#: ui/coverart_browser.ui.h:39
 msgid "Search using track titles"
 msgstr "Rechercher en utilisant les titres de pistes"
 
-#: ui/coverart_browser.ui.h:38
+#: ui/coverart_browser.ui.h:40
 msgid "Search tracks"
 msgstr "Rechercher les pistes"
 
 #: ui/coverart_browser_prefs.ui.h:1
-msgid "Level above which is regarded as being a rated track."
+#, fuzzy
+msgid "Level above which is regarded as being a favourite track or album"
 msgstr "Note à laquelle une piste est considérée comme étant favorite"
 
 #: ui/coverart_browser_prefs.ui.h:2
-msgid "Rating Threshold:"
+#, fuzzy
+msgid "Favourite Threshold:"
 msgstr "Seuil de notation"
 
 #: ui/coverart_browser_prefs.ui.h:3

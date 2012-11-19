@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-11-12 21:23+GMT\n"
+"POT-Creation-Date: 2012-11-19 15:36+GMT\n"
 "PO-Revision-Date: 2012-09-18 20:57+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -21,7 +21,7 @@ msgstr ""
 msgid "Various Artists"
 msgstr "Varios Artistas"
 
-#: coverart_album.py:944 coverart_browser_source.py:1221
+#: coverart_album.py:944 coverart_browser_source.py:1224
 msgid "%s by %s"
 msgstr "%s por %s"
 
@@ -45,39 +45,39 @@ msgstr ""
 msgid "Loading..."
 msgstr "Cargando..."
 
-#: coverart_browser_source.py:319
+#: coverart_browser_source.py:321
 msgid "Search album"
 msgstr "Buscar álbum"
 
-#: coverart_browser_source.py:418
+#: coverart_browser_source.py:420
 msgid "Tracks"
 msgstr "Canciones"
 
-#: coverart_browser_source.py:431
+#: coverart_browser_source.py:433
 msgid "Covers"
 msgstr "Portadas"
 
-#: coverart_browser_source.py:1155
+#: coverart_browser_source.py:1158
 msgid "Requesting cover for %s - %s..."
 msgstr "Buscando portada para %s - %s..."
 
-#: coverart_browser_source.py:1224
+#: coverart_browser_source.py:1227
 msgid "%d selected albums "
 msgstr "%d álbums seleccionados"
 
-#: coverart_browser_source.py:1228
+#: coverart_browser_source.py:1231
 msgid " with 1 track"
 msgstr " tiene una canción"
 
-#: coverart_browser_source.py:1230
+#: coverart_browser_source.py:1233
 msgid " with %d tracks"
 msgstr " tiene %d canciones"
 
-#: coverart_browser_source.py:1233
+#: coverart_browser_source.py:1236
 msgid " and a duration of 1 minute"
 msgstr " y una duración de 1 minuto"
 
-#: coverart_browser_source.py:1235
+#: coverart_browser_source.py:1238
 msgid " and a duration of %d minutes"
 msgstr " y una duración de %d minutos"
 
@@ -180,71 +180,83 @@ msgid "Queue Favourites"
 msgstr "Encolar favoritos"
 
 #: ui/coverart_browser.ui.h:24
+#, fuzzy
+msgid "Add favourite tracks from this album to a playlist"
+msgstr "Agrega las canciones favoritas de este álbum a tu cola de reproducción"
+
+#: ui/coverart_browser.ui.h:25
+#, fuzzy
+msgid "Add favourites to Playlist"
+msgstr "Agrega este álbum a tu cola de reproducción"
+
+#: ui/coverart_browser.ui.h:26
 msgid "Search for this album cover"
 msgstr "Busca portada para este álbum"
 
-#: ui/coverart_browser.ui.h:25
+#: ui/coverart_browser.ui.h:27
 msgid "Search for covers"
 msgstr "Buscar portadas"
 
-#: ui/coverart_browser.ui.h:26
+#: ui/coverart_browser.ui.h:28
 msgid "Show album properties"
 msgstr "Mostrar propiedades del álbum"
 
-#: ui/coverart_browser.ui.h:27
+#: ui/coverart_browser.ui.h:29
 msgid "Search for covers where an album does not currently have one"
 msgstr "Busca portadas para aquellos álbums que no tienen una"
 
-#: ui/coverart_browser.ui.h:28
+#: ui/coverart_browser.ui.h:30
 msgid "Download all the covers"
 msgstr "Descarga todas las portadas"
 
-#: ui/coverart_browser.ui.h:29
+#: ui/coverart_browser.ui.h:31
 msgid "Search using all fields"
 msgstr "Busca utilizando todos los campos"
 
-#: ui/coverart_browser.ui.h:30 ui/coverart_sidebar.ui.h:1
+#: ui/coverart_browser.ui.h:32 ui/coverart_sidebar.ui.h:1
 msgid "Search all fields"
 msgstr "Buscar por todos los campos"
 
-#: ui/coverart_browser.ui.h:31
+#: ui/coverart_browser.ui.h:33
 msgid "Search using album artist names"
 msgstr "Busca por el nombre de artista del álbum"
 
-#: ui/coverart_browser.ui.h:32
+#: ui/coverart_browser.ui.h:34
 msgid "Search album artists"
 msgstr "Buscar por artista del álbum"
 
-#: ui/coverart_browser.ui.h:33
+#: ui/coverart_browser.ui.h:35
 msgid "Search using track artist names"
 msgstr "Buscar por el nombre de artista de cada canción"
 
-#: ui/coverart_browser.ui.h:34
+#: ui/coverart_browser.ui.h:36
 msgid "Search track artists"
 msgstr "Buscar por artista de canción"
 
-#: ui/coverart_browser.ui.h:35
+#: ui/coverart_browser.ui.h:37
 msgid "Search using album titles"
 msgstr "Busca utilizando el título de los álbums"
 
-#: ui/coverart_browser.ui.h:36
+#: ui/coverart_browser.ui.h:38
 msgid "Search albums"
 msgstr "Buscar álbums"
 
-#: ui/coverart_browser.ui.h:37
+#: ui/coverart_browser.ui.h:39
 msgid "Search using track titles"
 msgstr "Busca por los nombres de cada canción en el álbum"
 
-#: ui/coverart_browser.ui.h:38
+#: ui/coverart_browser.ui.h:40
 msgid "Search tracks"
 msgstr "Buscar por canción"
 
 #: ui/coverart_browser_prefs.ui.h:1
-msgid "Level above which is regarded as being a rated track."
+#, fuzzy
+msgid "Level above which is regarded as being a favourite track or album"
 msgstr "Nivel a partir del cual se considera que un track es favorito."
 
 #: ui/coverart_browser_prefs.ui.h:2
-msgid "Rating Threshold:"
+#, fuzzy
+msgid "Favourite Threshold:"
 msgstr "Umbral de puntuación"
 
 #: ui/coverart_browser_prefs.ui.h:3
