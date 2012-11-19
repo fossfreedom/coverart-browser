@@ -240,7 +240,7 @@ class AlbumLoader(GObject.Object):
                     # called when the genre of an entry gets modified
                     self._entry_album_genre_modified(change.new)
 
-                
+
                 # removes the last change from the GValueArray
                 changes.remove(0)
         except:
@@ -255,12 +255,12 @@ class AlbumLoader(GObject.Object):
         If this is a new genre, it is added to the overall genre list
         '''
         print "CoverArtBrowser DEBUG - entry_album_genre_modified"
-        
+
         if new_genre not in self.cover_genres.keys():
             self.cover_genres[new_genre] = new_genre
 
         print "CoverArtBrowser DEBUG - end entry_album_genre_modified"
-        
+
     def _entry_album_modified(self, entry, old_name, new_name):
         '''
         Called by entry_changed_callback when the modified prop is the album.
@@ -330,7 +330,7 @@ class AlbumLoader(GObject.Object):
                 album = Album(album_name, album_artist)
                 for row in qm:
                     album.append_entry(row[0])
-                    
+
                 album.load_cover(self.cover_db, self.cover_size)
                 treeiter = album.add_to_model(self.cover_model)
                 self.albums[album_name] = album
@@ -338,7 +338,7 @@ class AlbumLoader(GObject.Object):
                 path = self.cover_model.get_path(treeiter)
                 self.emit('album-post-view-modified', path)
                 self.emit('album-modified', self.albums[album_name])
-                
+
         print "CoverArtBrowser DEBUG - end _entry_album_year_modified"
 
     def _entry_album_rating_modified(self, entry):
@@ -362,7 +362,7 @@ class AlbumLoader(GObject.Object):
                 album = Album(album_name, album_artist)
                 for row in qm:
                     album.append_entry(row[0])
-                    
+
                 album.load_cover(self.cover_db, self.cover_size)
                 treeiter = album.add_to_model(self.cover_model)
                 self.albums[album_name] = album
@@ -371,7 +371,7 @@ class AlbumLoader(GObject.Object):
 
                 self.emit('album-post-view-modified', path)
                 self.emit('album-modified', self.albums[album_name])
- 
+
         print "CoverArtBrowser DEBUG - end entry_rating_modified"
 
 
@@ -471,7 +471,7 @@ class AlbumLoader(GObject.Object):
         This clears old albums before loading new albums from query_model
         '''
         print "CoverArtBrowser DEBUG - reload_albums"
- 
+
         for album in self.albums.values():
             album_name = album.album_name
             album.remove_from_model()
@@ -479,7 +479,7 @@ class AlbumLoader(GObject.Object):
 
         self.load_albums(query_model)
         print "CoverArtBrowser DEBUG - reload_albums"
- 
+
     def load_albums(self, query_model):
         '''
         Initiates the process of recover, create and load all the albums from
@@ -513,7 +513,7 @@ class AlbumLoader(GObject.Object):
         # retrieve album metadata
         album_name = self._get_album_name(entry)
         album_artist = self._get_album_artist(entry)
-        
+
         genre = self._get_genre(entry)
         if genre not in self.cover_genres.keys():
             self.cover_genres[genre] = genre
@@ -838,10 +838,10 @@ class Album(object):
         '''
         y = self._year
 
-        if y == -1:        
+        if y == -1:
             for e in self.entries:
                 track_year = e.get_ulong(RB.RhythmDBPropType.DATE)
-                
+
                 if track_year > 0:
                     track_year = int(track_year/365)
                     if y == -1:
@@ -853,7 +853,7 @@ class Album(object):
             y=0
 
         self._year = y
-            
+
         return y
 
     @property
@@ -862,25 +862,25 @@ class Album(object):
         Returns this album's rating.
         '''
         r = self._rating
-        
+
         if r == -1:
             num = 0
             r = 0
-            
+
             for e in self.entries:
                 track_rating = e.get_double(RB.RhythmDBPropType.RATING)
 
                 if track_rating > 0:
                     r += track_rating
                     num += 1
-                                
+
             if num > 0 and r > 0:
                 r = r / num
             else:
                 r = 0
 
             self._rating = r
-            
+
         return r
 
     def has_genre(self, test_genre):
@@ -889,7 +889,7 @@ class Album(object):
         '''
         for e in self.entries:
             if e.get_string(RB.RhythmDBPropType.GENRE) == test_genre:
-                return True 
+                return True
 
         return False
 
@@ -1055,7 +1055,7 @@ class Album(object):
         y = self.year #force a recalculation
         print y
         return not old_year == self._year
-        
+
     def has_rating_changed(self):
         '''
         This method should be called when an entry belonging to this album got
@@ -1067,7 +1067,7 @@ class Album(object):
         r = self.rating #force a recalculation
         #print r
         return not old_rating == self._rating
- 
+
     def entry_album_artist_modified(self, entry, new_album_artist):
         '''
         This method should be called when an entry belonging to this album got
@@ -1116,7 +1116,11 @@ class Album(object):
         '''
         key = self.entries[0].create_ext_db_key(RB.RhythmDBPropType.ALBUM)
 
-        cover_db.request(key, callback, data)
+        provides = cover_db.request(key, callback, data)
+
+        if not provides:
+            # in case there is no provider, call the callback inmediatly
+            callback(data)
 
     def add_to_model(self, model):
         '''
