@@ -1,4 +1,4 @@
-# French Canadian translations for PACKAGE package.
+# French Canadian translations for coverart-browser package.
 # Copyright (C) 2012 ORGANIZATION
 # Automatically generated, 2012.
 #
@@ -176,14 +176,12 @@ msgid "Queue Favourites"
 msgstr "Mettre en attente les favorites"
 
 #: ui/coverart_browser.ui.h:24
-#, fuzzy
 msgid "Add favourite tracks from this album to a playlist"
-msgstr "Ajouter les pistes favorites de cet album à votre liste d'attente"
+msgstr "Ajouter les pistes favorites de cet album à une liste de lecture"
 
 #: ui/coverart_browser.ui.h:25
-#, fuzzy
 msgid "Add favourites to Playlist"
-msgstr "Ajouter à une liste de lecture"
+msgstr "Ajouter les favorites à une liste de lecture"
 
 #: ui/coverart_browser.ui.h:26
 msgid "Search for this album cover"
@@ -246,14 +244,12 @@ msgid "Search tracks"
 msgstr "Rechercher les pistes"
 
 #: ui/coverart_browser_prefs.ui.h:1
-#, fuzzy
 msgid "Level above which is regarded as being a favourite track or album"
 msgstr "Note à laquelle une piste est considérée comme étant favorite"
 
 #: ui/coverart_browser_prefs.ui.h:2
-#, fuzzy
 msgid "Favourite Threshold:"
-msgstr "Seuil de notation"
+msgstr "Seuil de notation des favorites: "
 
 #: ui/coverart_browser_prefs.ui.h:3
 msgid "Defines the size for the covers showed on the source."
