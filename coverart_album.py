@@ -25,8 +25,8 @@ from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 
 from coverart_browser_prefs import GSetting
-
 from urlparse import urlparse
+
 import urllib
 import os
 import cgi
@@ -843,7 +843,6 @@ class Album(object):
                 track_year = e.get_ulong(RB.RhythmDBPropType.DATE)
 
                 if track_year > 0:
-                    track_year = int(track_year/365)
                     if y == -1:
                         y = track_year
                     elif track_year < y:
