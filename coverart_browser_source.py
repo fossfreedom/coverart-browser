@@ -32,7 +32,7 @@ from coverart_search import CoverSearchPane
 from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import CoverLocale
 from stars import ReactiveStar
-
+from coverart_timer import ttimer
 
 class CoverArtBrowserSource(RB.Source):
     '''
@@ -163,6 +163,7 @@ class CoverArtBrowserSource(RB.Source):
         uim = self.shell.props.ui_manager
         uim.insert_action_group(self.actiongroup)
         uim.insert_action_group(self.favourite_actiongroup)
+        self.coversearchtimer=ttimer (30, -1, self.update_request_status_bar, None)
         
         # connect properties signals
         self.connect('notify::custom-statusbar-enabled',
@@ -1109,6 +1110,8 @@ class CoverArtBrowserSource(RB.Source):
         self.source_menu_search_all_item.set_sensitive(False)
         self.cover_search_menu_item.set_sensitive(False)
 
+        self.coversearchtimer.Start()
+        
         self.loader.search_covers(selected_albums,
             self.update_request_status_bar)
 
@@ -1141,6 +1144,9 @@ class CoverArtBrowserSource(RB.Source):
         self.request_status_box.show_all()
         self.source_menu_search_all_item.set_sensitive(False)
         self.cover_search_menu_item.set_sensitive(False)
+        
+        self.coversearchtimer.Start()
+        
         self.loader.search_covers(callback=self.update_request_status_bar)
 
         print "CoverArtBrowser DEBUG - end search_all_covers_callback()"
@@ -1157,11 +1163,15 @@ class CoverArtBrowserSource(RB.Source):
             self.request_statusbar.set_text(
                 (_('Requesting cover for %s - %s...') % (album.name,
                 album.album_artist)).decode('UTF-8'))
+            if self.coversearchtimer:
+                self.coversearchtimer.Stop()
+                self.coversearchtimer.Start()
         else:
             self.request_status_box.hide()
             self.source_menu_search_all_item.set_sensitive(True)
             self.cover_search_menu_item.set_sensitive(True)
             self.request_cancel_button.set_sensitive(True)
+            self.coversearchtimer.Stop()
             
         print "CoverArtBrowser DEBUG - end update_request_status_bar"
 
@@ -1568,6 +1578,7 @@ class CoverArtBrowserSource(RB.Source):
         del self.notify_prog_id
         del self.hasActivated
         del self.gs
+        del self.coversearchtimer
         
         print "CoverArtBrowser DEBUG - end do_delete_thyself"
 

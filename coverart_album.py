@@ -621,7 +621,9 @@ class AlbumLoader(GObject.Object):
         made asynchronously, so a callback can be given to be called upon
         the finishing of the process.
         '''
+        print "search_cover_for_album"
         album.cover_search(self.cover_db, callback, data)
+        print "end search_cover_for_album"
 
     def search_covers(self, albums=None, callback=lambda *_: None):
         '''
@@ -631,10 +633,13 @@ class AlbumLoader(GObject.Object):
         being requested. When the argument passed is None, it means the
         process has finished.
         '''
+        print "search_covers"
+        
         if albums is None:
             albums = self.albums.values()
 
         def search_next_cover(*args):
+            print "search_next_cover"
             # unpack the data
             iterator, callback = args[-1]
 
@@ -642,34 +647,44 @@ class AlbumLoader(GObject.Object):
             if self._cancel_cover_request:
                 del self._cancel_cover_request
                 callback(None)
+                print "a"
                 return
 
             #try to obtain the next album
             try:
                 while True:
+                    print "in loop"
                     album = iterator.next()
 
                     if album.model and not album.has_cover():
+                        print "about to break"
                         break
             except:
                 # inform we finished
+                print "callback"
                 callback(None)
+                print "end callback"
                 return
 
             # inform we are starting a new search
             callback(album)
+            print "second callback"
 
             # request the cover for the next album
             self.search_cover_for_album(album, search_next_cover,
                 (iterator, callback))
+            print "b"
 
         self._cancel_cover_request = False
+        print "about to test if go around again"
         search_next_cover((albums.__iter__(), callback))
+        print "end search_covers"
 
     def cancel_cover_request(self):
         '''
         Cancel the current cover request, if there is one running.
         '''
+        print "cancel_cover"
         try:
             self._cancel_cover_request = True
         except:
@@ -680,6 +695,7 @@ class AlbumLoader(GObject.Object):
         Updates the cover database, inserting the pixbuf as the cover art for
         all the entries on the album.
         '''
+        print "update_cover"
         if pixbuf:
             # if it's a pixbuf, asign it to all the artist for the album
             for artist in album._artist:
@@ -1113,13 +1129,17 @@ class Album(object):
         the callback given once the process finishes (since it generally is
         asyncrhonous).
         '''
+        print "cover_search"
         key = self.entries[0].create_ext_db_key(RB.RhythmDBPropType.ALBUM)
 
         provides = cover_db.request(key, callback, data)
 
         if not provides:
+            print "not provides"
             # in case there is no provider, call the callback inmediatly
             callback(data)
+            print "callback"
+        print "end cover_search"
 
     def add_to_model(self, model):
         '''

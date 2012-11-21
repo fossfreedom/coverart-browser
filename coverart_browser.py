@@ -59,6 +59,7 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         Initialises the plugin object.
         '''
         GObject.Object.__init__(self)
+        GObject.threads_init()
 
     def do_activate(self):
         '''
