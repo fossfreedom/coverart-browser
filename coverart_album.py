@@ -33,6 +33,7 @@ import cgi
 import tempfile
 import rb
 
+
 class AlbumLoader(GObject.Object):
     '''
     Utility class that manages the albums created for the coverart browser's
@@ -46,7 +47,8 @@ class AlbumLoader(GObject.Object):
         'load-finished': (GObject.SIGNAL_RUN_LAST, None, ()),
         'reload-finished': (GObject.SIGNAL_RUN_LAST, None, ()),
         'album-modified': (GObject.SIGNAL_RUN_LAST, object, (object,)),
-        'album-post-view-modified': (GObject.SIGNAL_RUN_LAST, object, (object,))
+        'album-post-view-modified':
+            (GObject.SIGNAL_RUN_LAST, object, (object,))
         }
 
     # properties
@@ -93,7 +95,6 @@ class AlbumLoader(GObject.Object):
         self.connect('notify::cover-size', self._on_notify_cover_size)
         self.connect('notify::display-font-size', self._on_notify_cover_size)
 
-
         # connect the signal to update cover arts when added
         self.req_id = self.cover_db.connect('added',
             self._albumart_added_callback)
@@ -139,7 +140,7 @@ class AlbumLoader(GObject.Object):
         Updates the loader's albums' cover size and forces a model reload.
         '''
         # update album variables
-        Album.FONT_SIZE =  self.display_font_size
+        Album.FONT_SIZE = self.display_font_size
         Album.update_unknown_cover(self.cover_size)
 
         self.reload_model(True)
@@ -240,7 +241,6 @@ class AlbumLoader(GObject.Object):
                     # called when the genre of an entry gets modified
                     self._entry_album_genre_modified(change.new)
 
-
                 # removes the last change from the GValueArray
                 changes.remove(0)
         except:
@@ -322,7 +322,7 @@ class AlbumLoader(GObject.Object):
         if album_name in self.albums:
             album = self.albums[album_name]
             if album.has_year_changed():
-                album_artist=album.album_artist
+                album_artist = album.album_artist
                 qm = RB.RhythmDBQueryModel.new_empty(self.db)
                 album.get_entries(qm)
                 album.remove_from_model()
@@ -354,7 +354,7 @@ class AlbumLoader(GObject.Object):
         if album_name in self.albums:
             album = self.albums[album_name]
             if album.has_rating_changed():
-                album_artist=album.album_artist
+                album_artist = album.album_artist
                 qm = RB.RhythmDBQueryModel.new_empty(self.db)
                 album.get_entries(qm)
                 album.remove_from_model()
@@ -373,7 +373,6 @@ class AlbumLoader(GObject.Object):
                 self.emit('album-modified', self.albums[album_name])
 
         print "CoverArtBrowser DEBUG - end entry_rating_modified"
-
 
     def _entry_album_artist_modified(self, entry, new_album_artist):
         '''
@@ -865,7 +864,7 @@ class Album(object):
                         y = track_year
 
         if y < 0:
-            y=0
+            y = 0
 
         self._year = y
 
@@ -947,7 +946,6 @@ class Album(object):
             db = AlbumLoader.get_instance().db
             db.entry_set(entry, RB.RhythmDBPropType.RATING,
                 rating)
-
 
         AlbumLoader.get_instance().emit('album-modified', self)
 
@@ -1067,7 +1065,7 @@ class Album(object):
         old_year = self._year
         print old_year
         self._year = -1
-        y = self.year #force a recalculation
+        y = self.year  # force a recalculation
         print y
         return not old_year == self._year
 
@@ -1079,7 +1077,7 @@ class Album(object):
         old_rating = self._rating
         #print old_rating
         self._rating = -1
-        r = self.rating #force a recalculation
+        r = self.rating  # force a recalculation
         #print r
         return not old_rating == self._rating
 
