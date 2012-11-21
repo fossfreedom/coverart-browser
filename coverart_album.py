@@ -1134,11 +1134,11 @@ class Album(object):
 
         provides = cover_db.request(key, callback, data)
 
-        if not provides:
-            print "not provides"
-            # in case there is no provider, call the callback inmediatly
-            callback(data)
-            print "callback"
+        #if not provides:
+        #    print "not provides"
+        #    # in case there is no provider, call the callback inmediatly
+        #    callback(data)
+        #    print "callback"
         print "end cover_search"
 
     def add_to_model(self, model):

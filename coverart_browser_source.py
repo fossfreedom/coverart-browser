@@ -163,6 +163,7 @@ class CoverArtBrowserSource(RB.Source):
         uim = self.shell.props.ui_manager
         uim.insert_action_group(self.actiongroup)
         uim.insert_action_group(self.favourite_actiongroup)
+
         self.coversearchtimer=ttimer (30, -1, self.update_request_status_bar, None)
         
         # connect properties signals
@@ -1144,7 +1145,8 @@ class CoverArtBrowserSource(RB.Source):
         self.request_status_box.show_all()
         self.source_menu_search_all_item.set_sensitive(False)
         self.cover_search_menu_item.set_sensitive(False)
-        
+
+        #self.coversearchtimer=ttimer (30, -1, self.update_request_status_bar, None)
         self.coversearchtimer.Start()
         
         self.loader.search_covers(callback=self.update_request_status_bar)
@@ -1160,19 +1162,22 @@ class CoverArtBrowserSource(RB.Source):
         print "CoverArtBrowser DEBUG - update_request_status_bar"
 
         if album:
+            Gdk.threads_enter()
             self.request_statusbar.set_text(
                 (_('Requesting cover for %s - %s...') % (album.name,
                 album.album_artist)).decode('UTF-8'))
+            Gdk.threads_leave()
             if self.coversearchtimer:
                 self.coversearchtimer.Stop()
                 self.coversearchtimer.Start()
         else:
+            Gdk.threads_enter()
             self.request_status_box.hide()
             self.source_menu_search_all_item.set_sensitive(True)
             self.cover_search_menu_item.set_sensitive(True)
             self.request_cancel_button.set_sensitive(True)
             self.coversearchtimer.Stop()
-            
+            Gdk.threads_leave()
         print "CoverArtBrowser DEBUG - end update_request_status_bar"
 
 
