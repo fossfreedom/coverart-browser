@@ -3,9 +3,7 @@ coverart-browser v0.6
 
 Browse your coverart albums in Rhythmbox v2.96 and later
 
-*update pictures below*
-
-![Imgur](http://i.imgur.com/QyCXA.png)
+![Imgur](http://i.imgur.com/XM7KW.png)
 
 -----------
 
@@ -28,11 +26,11 @@ How it works:
  - Albums are displayed as clickable buttons containing their album cover
  - Right click menu option to play, queue & search for coverart for an album.
 
-![Imgur](http://i.imgur.com/D5Nq9.png)
+![Imgur](http://i.imgur.com/cGUTr.png)
 
- - multi-select albums to play, queue, search for covers and edit properties
+ - multi-select albums to play, queue, add to playlists, search for covers and edit properties
 
-![Imgur](http://i.imgur.com/LF6nh.png)
+![Imgur](http://i.imgur.com/Od0Bc.png)
 
  - Right click to see and edit the properties for an album:
 
@@ -51,7 +49,7 @@ How it works:
 
  - Open Coverart Browser from playlist, music queue or music library views
 
-*picture*
+![Imgur](http://i.imgur.com/i7rGj.png)
 
  - Right click to search for missing covers
 
@@ -59,7 +57,7 @@ How it works:
 
  - Right click to add albums or tracks to Playlists
 
-*picture*
+![Imgur](http://i.imgur.com/gN6Xd.png)
 
  - Display tracks for an album
 
@@ -77,27 +75,45 @@ Tailor the search for album covers:
 
 The cover-view accept images dropped from nautilus (for example) or URLs from the web.
 
+ - Display Filter and sort options in left or right side of Rhythmbox
+
+![Imgur](http://i.imgur.com/MDfCP.png)
+
+ - Optional extra genre filter & new sort options by Favourite Rating and Album Year
+
+![Imgur](http://i.imgur.com/xJIN9.png)
+
  - Rate whole albums & individual tracks to play your favourite albums & tracks from albums
 
 Rate your albums:
 
-*picture*
+![Imgur](http://i.imgur.com/k0rTU.png)
 
-Rate your tracks:
+Rate your favourite tracks:
 
-![Imgur](http://i.imgur.com/ju5Yl.png)
+![Imgur](http://i.imgur.com/JWNVH.png)
 
-Then use the Rate Threshold...
+Then use the Favourites Threshold...
 
-![Imgur](http://i.imgur.com/3flms.png)
+![Imgur](http://i.imgur.com/SMyrL.png)
 
 ... to enable you to play your favourite albums and tracks in those albums:
 
-![Imgur](http://i.imgur.com/NrJAe.png)
+![Imgur](http://i.imgur.com/0fnzv.png)
+
+
+Lets say you have given some albums a rating - 5 stars, 4 stars, 3 stars etc.
+
+You select lots of albums - right click and chose "add to rated playlist" - only those albums that have a rating are added to the playlist.
+
+You can adjust this in the preferences - favourites threshold. If you set a threshold of - for example - 3 stars, then only albums rated 3 stars and higher are added.
+
+You can fine-tune this with individual tracks - lets say you have 10 tracks in an album. You like only 5 of them. Give the 5 tracks a rating. Then you can play, queue or add just those "favourite" tracks to a playlist.
+
 
  - Define your own preferences
 
-![Imgur](http://i.imgur.com/n2OcH.png)
+![Imgur](http://i.imgur.com/rro0A.png)
 
  - Display the name and artist for covers
 
