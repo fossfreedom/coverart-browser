@@ -32,7 +32,7 @@ msgstr "Arte das Capas"
 
 #: coverart_browser.py:72
 msgid "Browse and play your albums through their covers"
-msgstr ""
+msgstr "Navegue e toque seus álbums através de suas capas"
 
 #: coverart_browser.py:101 coverart_browser.py:114 ui/coverart_sidebar.ui.h:2
 msgid "CoverArt"
@@ -40,7 +40,7 @@ msgstr "Arte das Capas"
 
 #: coverart_browser.py:115
 msgid "Display Covers for Playlist"
-msgstr ""
+msgstr "Exibir Capas para Fila de Reprodução"
 
 #: coverart_browser_source.py:110 tmpl/albumartsearch-tmpl.html:209
 msgid "Loading..."
@@ -84,7 +84,7 @@ msgstr " e dura %d minutos"
 
 #: ui/coverart_browser.ui.h:1 ui/coverart_sidebar.ui.h:3
 msgid "Filter by genre"
-msgstr ""
+msgstr "Filtro por gênero"
 
 #: ui/coverart_browser.ui.h:2 ui/coverart_sidebar.ui.h:4
 #: tmpl/albumartsearch-tmpl.html:190
@@ -106,21 +106,21 @@ msgstr "Ordenar por artistas do álbum"
 
 #: ui/coverart_browser.ui.h:6 ui/coverart_sidebar.ui.h:8
 msgid "Year"
-msgstr ""
+msgstr "Ano"
 
 #: ui/coverart_browser.ui.h:7 ui/coverart_sidebar.ui.h:9
 #, fuzzy
 msgid "Sort by year"
-msgstr "Ordenar por artistas do álbum"
+msgstr "Ordenar por ano"
 
 #: ui/coverart_browser.ui.h:8 ui/coverart_sidebar.ui.h:10
 msgid "Rating"
-msgstr ""
+msgstr "Pontuação"
 
 #: ui/coverart_browser.ui.h:9 ui/coverart_sidebar.ui.h:11
 #, fuzzy
 msgid "Sort by rating"
-msgstr "Ordenar por artistas do álbum"
+msgstr "Ordenar por pontuação"
 
 #: ui/coverart_browser.ui.h:10
 msgid "Tracks & Covers"
@@ -153,16 +153,16 @@ msgstr "Adicionar este álbum à sua fila de reprodução"
 
 #: ui/coverart_browser.ui.h:17 ui/coverart_entryview.ui.h:6
 msgid "Add to Playlist"
-msgstr ""
+msgstr "Adicionar à fila de reprodução"
 
 #: ui/coverart_browser.ui.h:18 ui/coverart_entryview.ui.h:7
 #, fuzzy
 msgid "Add this album to a new playlist"
-msgstr "Adicionar este álbum à sua fila de reprodução"
+msgstr "Adicionar este álbum à uma nova fila de reprodução"
 
 #: ui/coverart_browser.ui.h:19 ui/coverart_entryview.ui.h:8
 msgid "New Playlist"
-msgstr ""
+msgstr "Nova Fila de Reprodução"
 
 #: ui/coverart_browser.ui.h:20
 msgid "Play favourites tracks from this album"
@@ -188,7 +188,7 @@ msgstr "Adicionar faixas favoritas deste álbum à sua fila de reprodução"
 #: ui/coverart_browser.ui.h:25
 #, fuzzy
 msgid "Add favourites to Playlist"
-msgstr "Adicionar este álbum à sua fila de reprodução"
+msgstr "Adicionar favoritas à fila de reprodução"
 
 #: ui/coverart_browser.ui.h:26
 msgid "Search for this album cover"
@@ -258,11 +258,11 @@ msgstr "Nível acima do qual é considerada como sendo uma faixa pontuada."
 #: ui/coverart_browser_prefs.ui.h:2
 #, fuzzy
 msgid "Favourite Threshold:"
-msgstr "Limite de Pontuação:"
+msgstr "Limite de Favorito"
 
 #: ui/coverart_browser_prefs.ui.h:3
 msgid "Defines the size for the covers showed on the source."
-msgstr "Define o tamanho das capas exibidas exibidas."
+msgstr "Define o tamanho das capas exibidas."
 
 #: ui/coverart_browser_prefs.ui.h:4
 msgid "Cover size in pixels:"
@@ -270,7 +270,7 @@ msgstr "Tamanho da capa em pixels:"
 
 #: ui/coverart_browser_prefs.ui.h:5
 msgid "Action on Rhythmbox start:"
-msgstr ""
+msgstr "Ação ao iníciar do Rhythmbox:"
 
 #: ui/coverart_browser_prefs.ui.h:6
 msgid "Automatically Start"
@@ -278,41 +278,40 @@ msgstr "Iniciar automaticamente"
 
 #: ui/coverart_browser_prefs.ui.h:7
 msgid "When rhythmbox starts, switch automatically to the coverart browser."
-msgstr ""
-"Quando o rhythmbox inicia, muda automaticamente para o navegador de capas."
+msgstr "Quando o rhythmbox inicia, muda automaticamente para o navegador de capas."
 
 #: ui/coverart_browser_prefs.ui.h:8
 msgid "Toolbar position:"
-msgstr ""
+msgstr "Posição da Barra de Ferramentas"
 
 #: ui/coverart_browser_prefs.ui.h:9
 msgid "Show toolbar in main cover-view"
-msgstr ""
+msgstr "Mostrar barra de ferramentas na visualização de capas principal"
 
 #: ui/coverart_browser_prefs.ui.h:10
 msgid "Show's the toolbar at the top of the cover-view"
-msgstr ""
+msgstr "Exibe a barra de ferramentas no topo da visualização de capas"
 
 #: ui/coverart_browser_prefs.ui.h:11
 msgid "Show toolbar in the left sidebar"
-msgstr ""
+msgstr "Mostrar barra de ferramentas na barra lateral esquerda"
 
 #: ui/coverart_browser_prefs.ui.h:12
 msgid "Show's the toolbar in the left side of the Rhythmbox window"
-msgstr ""
+msgstr "Exibe a barra de ferramentas no lado esquerdo da janela do Rhythmbox"
 
 #: ui/coverart_browser_prefs.ui.h:13
 msgid "Show toolbar in the right sidebar"
-msgstr ""
+msgstr "Mostrar a barra de ferramentas na barra lateral direita"
 
 #: ui/coverart_browser_prefs.ui.h:14
 msgid "Show's the toolbar in the right side of the Rhythmbox window"
-msgstr ""
+msgstr "Exibe a barra de ferramentas no lado direito da janela do Rhythmbox"
 
 #: ui/coverart_browser_prefs.ui.h:15
 #, fuzzy
 msgid "Show album information:"
-msgstr "Mostrar propriedades do álbum"
+msgstr "Mostrar informações do álbum"
 
 #: ui/coverart_browser_prefs.ui.h:16
 msgid "Use source's custom statusbar."
@@ -356,7 +355,7 @@ msgid ""
 "Show's the text for each album during the source load. Deactivating this "
 "option may help with the loading performance."
 msgstr ""
-"Exibe o texo para cada album enquanto a fonte é carregada. Desativaressa "
+"Exibe o texto para cada album enquanto a fonte é carregada. Desativar essa "
 "opção pode ajudar com a performance do carregamento."
 
 #: ui/coverart_browser_prefs.ui.h:24
@@ -384,35 +383,35 @@ msgstr "Comprimento máximo"
 
 #: ui/coverart_browser_prefs.ui.h:28
 msgid "Font Size:"
-msgstr ""
+msgstr "Tamanho da Fonte"
 
 #: ui/coverart_browser_prefs.ui.h:29
 msgid "Toolbar contents:"
-msgstr ""
+msgstr "Conteúdo da Barra de Ferramentas"
 
 #: ui/coverart_browser_prefs.ui.h:30
 msgid "Display genre filter"
-msgstr ""
+msgstr "Exibir filtro por gênero"
 
 #: ui/coverart_browser_prefs.ui.h:31
 msgid "Display the genre filter option in the toolbar"
-msgstr ""
+msgstr "Exibe o a opção de filtrar por gênero na barra de ferramentas"
 
 #: ui/coverart_browser_prefs.ui.h:32
 msgid "Display rating sort"
-msgstr ""
+msgstr "Exibir ordenação por pontuação"
 
 #: ui/coverart_browser_prefs.ui.h:33
 msgid "Display the rating sorting option in the toolbar"
-msgstr ""
+msgstr "Exibe a opção de ordenar por pontuação na barra de ferramentas"
 
 #: ui/coverart_browser_prefs.ui.h:34
 msgid "Display year sort"
-msgstr ""
+msgstr "Exibir ordenação por ano"
 
 #: ui/coverart_browser_prefs.ui.h:35
 msgid "Display the year sorting option in the toolbar"
-msgstr ""
+msgstr "Exibe a opção de ordenar por ano na barra de ferramentas"
 
 #: ui/coverart_entryview.ui.h:1
 msgid "Play this track"
@@ -440,7 +439,7 @@ msgstr "Opções de Pesquisa"
 
 #: tmpl/albumartsearch-tmpl.html:185
 msgid "Tip: doubleclick or drag a cover to use it as the album cover"
-msgstr ""
+msgstr "Dica: clique duplo ou arraste uma capa para usar como capa do álbum"
 
 #: tmpl/albumartsearch-tmpl.html:187
 msgid "Search Mode"
