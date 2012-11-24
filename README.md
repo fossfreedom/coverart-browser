@@ -1,4 +1,4 @@
-coverart-browser v0.6
+coverart-browser v0.7 - in development
 ================
 
 Browse your coverart albums in Rhythmbox v2.96 and later
@@ -9,16 +9,7 @@ Browse your coverart albums in Rhythmbox v2.96 and later
 
 Summary: whats new in this release
 
- - Playlist support: display coverart from a playlist, queue & main library
- - Playlist support: add albums and selected tracks from the coverart browser to playlists
- - Ratings: update album and track ratings from easy-to-use Star visual object
- - Sort & Search bar: optional display of these options on the left or right side of Rhythmbox panes
- - Sort & Search bar: optional year and rating sort options
- - Sort & Search bar: optional genre filter list
- - Covers pane: simplified view showing album art first hiding initial search options until requested.
- - Plugin Preferences: revamped the preferences dialog to tailor what your see and use.
- - Plugin Preferences: both album and artist text under icons are ellipsized to save space
- - Plugin Preferences: both album and artist text can use a user defined fixed font size
+ - *to add*
 
 How it works:
 
@@ -128,6 +119,8 @@ You can fine-tune this with individual tracks - lets say you have 10 tracks in a
 N.B. for debian based distros - `sudo apt-get install git`
 2. install the package *gettext*
 N.B. for debian based distros - `sudo apt-get install gettext`
+3. install the package *python-mako*
+N.B. for debian based distros - `sudo apt-get install python-mako`
 
 <pre>
 rm -rf ~/.local/share/rhythmbox/plugins/coverart_browser
