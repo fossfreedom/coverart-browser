@@ -128,6 +128,8 @@ You can fine-tune this with individual tracks - lets say you have 10 tracks in a
 N.B. for debian based distros - `sudo apt-get install git`
 2. install the package *gettext*
 N.B. for debian based distros - `sudo apt-get install gettext`
+3. install the package *python-mako*
+N.B. for debian based distros - `sudo apt-get install python-mako`
 
 <pre>
 rm -rf ~/.local/share/rhythmbox/plugins/coverart_browser
