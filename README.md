@@ -9,7 +9,7 @@ Browse your coverart albums in Rhythmbox v2.96 and later
 
 Summary: whats new in this release
 
- - *to add*
+ - find embedded covers in MP3, MP4, FLAC & OGG files
 
 How it works:
 
@@ -110,6 +110,12 @@ You can fine-tune this with individual tracks - lets say you have 10 tracks in a
 
 ![Imgur](http://i.imgur.com/3xDfI.png)
 
+ - Find embedded covers
+
+ New plugin (Edit - Plugins - CoverArt Embedded Cover Search).  When enabled, searches for cover images embedded in tracks within an album.
+
+ *Tip* - untick the default Cover Art Search plugin if you only want to force the search for embedded covers. 
+
  - icon-tooltip shows all the track artists for multi-artist albums
  - ... and a number of bug-fixes as well.
 
@@ -121,6 +127,9 @@ N.B. for debian based distros - `sudo apt-get install git`
 N.B. for debian based distros - `sudo apt-get install gettext`
 3. install the package *python-mako*
 N.B. for debian based distros - `sudo apt-get install python-mako`
+3. install the package *python-mutagen*
+N.B. for debian based distros - `sudo apt-get install python-mutagen`
+
 
 <pre>
 rm -rf ~/.local/share/rhythmbox/plugins/coverart_browser
