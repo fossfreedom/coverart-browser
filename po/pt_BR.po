@@ -26,7 +26,6 @@ msgid "%s by %s"
 msgstr "%s por %s"
 
 #: coverart_browser.py:71
-#, fuzzy
 msgid "CoverArt Browser"
 msgstr "Arte das Capas"
 
@@ -109,7 +108,6 @@ msgid "Year"
 msgstr "Ano"
 
 #: ui/coverart_browser.ui.h:7 ui/coverart_sidebar.ui.h:9
-#, fuzzy
 msgid "Sort by year"
 msgstr "Ordenar por ano"
 
@@ -118,7 +116,6 @@ msgid "Rating"
 msgstr "Pontuação"
 
 #: ui/coverart_browser.ui.h:9 ui/coverart_sidebar.ui.h:11
-#, fuzzy
 msgid "Sort by rating"
 msgstr "Ordenar por pontuação"
 
@@ -147,7 +144,6 @@ msgid "Queue Album"
 msgstr "Enfileirar Álbum"
 
 #: ui/coverart_browser.ui.h:16 ui/coverart_entryview.ui.h:5
-#, fuzzy
 msgid "Add this album to a playlist"
 msgstr "Adicionar este álbum à sua fila de reprodução"
 
@@ -156,7 +152,6 @@ msgid "Add to Playlist"
 msgstr "Adicionar à fila de reprodução"
 
 #: ui/coverart_browser.ui.h:18 ui/coverart_entryview.ui.h:7
-#, fuzzy
 msgid "Add this album to a new playlist"
 msgstr "Adicionar este álbum à uma nova fila de reprodução"
 
@@ -181,12 +176,10 @@ msgid "Queue Favourites"
 msgstr "Enfileirar Favoritas"
 
 #: ui/coverart_browser.ui.h:24
-#, fuzzy
 msgid "Add favourite tracks from this album to a playlist"
 msgstr "Adicionar faixas favoritas deste álbum à sua fila de reprodução"
 
 #: ui/coverart_browser.ui.h:25
-#, fuzzy
 msgid "Add favourites to Playlist"
 msgstr "Adicionar favoritas à fila de reprodução"
 
@@ -251,12 +244,10 @@ msgid "Search tracks"
 msgstr "Procurar por faixas"
 
 #: ui/coverart_browser_prefs.ui.h:1
-#, fuzzy
 msgid "Level above which is regarded as being a favourite track or album"
 msgstr "Nível acima do qual é considerada como sendo uma faixa pontuada."
 
 #: ui/coverart_browser_prefs.ui.h:2
-#, fuzzy
 msgid "Favourite Threshold:"
 msgstr "Limite de Favorito"
 
@@ -278,7 +269,8 @@ msgstr "Iniciar automaticamente"
 
 #: ui/coverart_browser_prefs.ui.h:7
 msgid "When rhythmbox starts, switch automatically to the coverart browser."
-msgstr "Quando o rhythmbox inicia, muda automaticamente para o navegador de capas."
+msgstr ""
+"Quando o rhythmbox inicia, muda automaticamente para o navegador de capas."
 
 #: ui/coverart_browser_prefs.ui.h:8
 msgid "Toolbar position:"
@@ -309,7 +301,6 @@ msgid "Show's the toolbar in the right side of the Rhythmbox window"
 msgstr "Exibe a barra de ferramentas no lado direito da janela do Rhythmbox"
 
 #: ui/coverart_browser_prefs.ui.h:15
-#, fuzzy
 msgid "Show album information:"
 msgstr "Mostrar informações do álbum"
 

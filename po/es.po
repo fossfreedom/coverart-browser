@@ -177,7 +177,8 @@ msgstr "Encolar favoritos"
 
 #: ui/coverart_browser.ui.h:24
 msgid "Add favourite tracks from this album to a playlist"
-msgstr "Agrega las canciones favoritas de este álbum a una lista de reproducción"
+msgstr ""
+"Agrega las canciones favoritas de este álbum a una lista de reproducción"
 
 #: ui/coverart_browser.ui.h:25
 msgid "Add favourites to Playlist"
@@ -269,8 +270,7 @@ msgstr "Iniciar automáticamente"
 
 #: ui/coverart_browser_prefs.ui.h:7
 msgid "When rhythmbox starts, switch automatically to the coverart browser."
-msgstr ""
-"Abrir el navegador de portadas automáticamente."
+msgstr "Abrir el navegador de portadas automáticamente."
 
 #: ui/coverart_browser_prefs.ui.h:8
 msgid "Toolbar position:"
@@ -291,8 +291,8 @@ msgstr "Mstrar en la barra lateral izquierda"
 #: ui/coverart_browser_prefs.ui.h:12
 msgid "Show's the toolbar in the left side of the Rhythmbox window"
 msgstr ""
-"Muestra la barra de herramientas en la barra lateral izquierda de la"
-"ventana de rhythmbox"
+"Muestra la barra de herramientas en la barra lateral izquierda de laventana "
+"de rhythmbox"
 
 #: ui/coverart_browser_prefs.ui.h:13
 msgid "Show toolbar in the right sidebar"
@@ -301,8 +301,8 @@ msgstr "Mostrar en la barra lateral derecha"
 #: ui/coverart_browser_prefs.ui.h:14
 msgid "Show's the toolbar in the right side of the Rhythmbox window"
 msgstr ""
-"Muestra la barra de herramientas en la barra lateral derecha de la"
-"ventana de rhythmbox"
+"Muestra la barra de herramientas en la barra lateral derecha de laventana de "
+"rhythmbox"
 
 #: ui/coverart_browser_prefs.ui.h:15
 msgid "Show album information:"
@@ -398,7 +398,8 @@ msgstr "Mostrar opción de ordenamiento por puntuación"
 
 #: ui/coverart_browser_prefs.ui.h:33
 msgid "Display the rating sorting option in the toolbar"
-msgstr "Mostrar la opción de ordenamiento por puntación en la barra de herramientas"
+msgstr ""
+"Mostrar la opción de ordenamiento por puntación en la barra de herramientas"
 
 #: ui/coverart_browser_prefs.ui.h:34
 msgid "Display year sort"
