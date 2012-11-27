@@ -1159,10 +1159,15 @@ class Album(object):
 
         return self.tree_iter
 
-    def get_entries(self, model):
+    def get_entries(self, model, sort_by=False):
         ''' adds all entries to the model'''
+        songs = self.entries
+        
+        if sorted:
+            songs = sorted(songs, key=lambda song:
+                song.get_ulong(RB.RhythmDBPropType.TRACK_NUMBER))
 
-        for e in self.entries:
+        for e in songs:
             model.add_entry(e, -1)
 
     def remove_from_model(self):

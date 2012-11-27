@@ -114,7 +114,7 @@ class CoverArtEntryView(RB.EntryView):
 
     def add_album(self, album):
         print "CoverArtBrowser DEBUG - add_album()"
-        album.get_entries(self.qm)
+        album.get_entries(self.qm, sort_by=True)
 
         (_, playing) = self.shell.props.shell_player.get_playing()
         self.playing_changed(self.shell.props.shell_player, playing)
