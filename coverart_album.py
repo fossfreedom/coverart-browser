@@ -1163,7 +1163,7 @@ class Album(object):
         ''' adds all entries to the model'''
         songs = self.entries
         
-        if sorted:
+        if sort_by:
             songs = sorted(songs, key=lambda song:
                 song.get_ulong(RB.RhythmDBPropType.TRACK_NUMBER))
 
