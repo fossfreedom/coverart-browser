@@ -21,7 +21,6 @@ from gi.repository import RB
 from gi.repository import GObject
 from gi.repository import Gio
 from gi.repository import GLib
-from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 
 from coverart_browser_prefs import GSetting
@@ -331,8 +330,9 @@ class Album(object):
         self._remove_artist(artist)
 
         if self.model:
-            # update the model's tooltip and markup for this album
+            # update the album on the model
             self.model.set_value(self.tree_iter, 0, self._create_tooltip())
+            self.model.set_value(self.tree_iter, 2, self)
             self.model.set_value(self.tree_iter, 3, self._create_markup())
 
     def entry_artist_modified(self, entry, old_artist, new_artist):
@@ -341,13 +341,6 @@ class Album(object):
         it's artist modified. It takes care of removing and adding the new
         artist if necesary.
         '''
-        # find and replace the entry
-        for e in self.entries:
-            if rb.entry_equal(e, entry):
-                self.entries.remove(e)
-                self.entries.append(entry)
-                break
-
         # if there isn't any other entry with the old artist, remove it
         self._remove_artist(old_artist)
 
@@ -355,55 +348,48 @@ class Album(object):
         self._artist.add(new_artist)
 
         if self.model:
-            # update the model's tooltip and markup for this album
+            # update the album on the model
             self.model.set_value(self.tree_iter, 0, self._create_tooltip())
+            self.model.set_value(self.tree_iter, 2, self)
             self.model.set_value(self.tree_iter, 3, self._create_markup())
 
-    def has_year_changed(self):
+    def year_changed(self):
         '''
         This method should be called when an entry belonging to this album got
         it's year modified. It takes care of recalculating the album year
         '''
         old_year = self._year
-
         self._year = -1
-        y = self.year  # force a recalculation
 
-        return not old_year == y
+        if old_year != self.year and self.model:
+            self.model.set_value(self.tree_iter, 2, self)
 
-    def has_rating_changed(self):
+    def rating_changed(self):
         '''
         This method should be called when an entry belonging to this album got
         it's rating modified. It takes care of recalculating the album rating
         '''
         old_rating = self._rating
-
         self._rating = -1
-        r = self.rating  # force a recalculation
 
-        return not old_rating == r
+        if old_rating != self.rating and self.model:
+            self.model.set_value(self.tree_iter, 2, self)
 
     def entry_album_artist_modified(self, entry, new_album_artist):
         '''
         This method should be called when an entry belonging to this album got
         it's album artist modified.
         '''
-        # find and replace the entry
-        for e in self.entries:
-            if rb.entry_equal(e, entry):
-                self.entries.remove(e)
-                self.entries.append(entry)
-                break
-
         # replace the album_artist
-        self._album_artist = new_album_artist
+        if self._album_artist != new_album_artist:
+            self._album_artist = new_album_artist
 
-        if self.model:
-            # inform the model of the change
-            self.model.set_value(self.tree_iter, 2, self)
+            if self.model:
+                # inform the model of the change
+                self.model.set_value(self.tree_iter, 2, self)
 
-            # update the markup
-            self.model.set_value(self.tree_iter, 3, self._create_markup())
+                # update the markup
+                self.model.set_value(self.tree_iter, 3, self._create_markup())
 
     def has_cover(self):
         ''' Indicates if this album has his cover loaded. '''
@@ -437,6 +423,14 @@ class Album(object):
             # in case there is no provider, call the callback inmediatly
             callback(data)
 
+    def update_cover(self, size, pixbuf=None):
+        ''' Updates this Album's cover using the given pixbuf. '''
+        if pixbuf:
+            self.cover = Cover(size, pixbuf=pixbuf)
+            self.model.set_value(self.tree_iter, 1, self.cover.pixbuf)
+        else:
+            self.cover.resize(size)
+
     def add_to_model(self, model):
         '''
         Add this model to the tree model. For default, the info is assigned
@@ -455,12 +449,6 @@ class Album(object):
 
         return self.tree_iter
 
-    def get_entries(self, model):
-        ''' adds all entries to the model'''
-
-        for e in self.entries:
-            model.add_entry(e, -1)
-
     def remove_from_model(self):
         ''' Removes this album from it's model. '''
         self.model.remove(self.tree_iter)
@@ -468,13 +456,15 @@ class Album(object):
         self.model = None
         del self.tree_iter
 
-    def update_cover(self, size, pixbuf=None):
-        ''' Updates this Album's cover using the given pixbuf. '''
-        if pixbuf:
-            self.cover = Cover(size, pixbuf=pixbuf)
-            self.model.set_value(self.tree_iter, 1, self.cover.pixbuf)
-        else:
-            self.cover.resize(size)
+    def recreate_text(self):
+        # update the markup
+        self.model.set_value(self.tree_iter, 3, self._create_markup())
+
+    def get_entries(self, model):
+        ''' adds all entries to the model'''
+
+        for e in self.entries:
+            model.add_entry(e, -1)
 
     def get_track_count(self):
         ''' Returns the quantity of tracks stored on this Album. '''
@@ -525,13 +515,9 @@ class AlbumLoader(GObject.Object):
     Utility class that manages the albums created for the coverart browser's
     source.
     '''
-    # singleton instance
-    instance = None
-
     # signals
     __gsignals__ = {
-        'load-finished': (GObject.SIGNAL_RUN_LAST, None, ()),
-        'reload-finished': (GObject.SIGNAL_RUN_LAST, None, ())
+        'load-finished': (GObject.SIGNAL_RUN_LAST, None, ())
         }
 
     # properties
@@ -670,13 +656,14 @@ class AlbumLoader(GObject.Object):
         if new_album_name:
             album_name = new_album_name
 
-        if album_name in self._album_manager.albums:
-            self.albums[album_name].append_entry(entry)
-        else:
+        if album_name not in self._album_manager.albums:
             album = Album(album_name, album_artist)
-            self._album_manager.add_album(album)
+            self._album_manager.albums[album_name] = album
 
-            album.append_entry(entry)
+        self._album_manager.albums[album_name].append_entry(entry)
+
+        self._album_manager.emit('album-modified',
+            self._album_manager.albums[album_name])
 
     def _remove_entry(self, entry, album_name=None):
         '''
@@ -689,6 +676,14 @@ class AlbumLoader(GObject.Object):
         if album_name in self._album_manager.albums:
             album = self.albums[album_name]
             album.remove_entry(entry)
+
+            if album.get_track_count() == 0:
+                # if the album is empty, remove it from the model remove it's
+                #reference
+                album.remove_from_model()
+                del self._album_manager.albums[album_name]
+            else:
+                self._album_manager.emit('album-modified', album)
 
     def load_albums(self, query_model):
         '''
@@ -714,82 +709,102 @@ class AlbumLoader(GObject.Object):
 
         # look for the album or create it
         if album_name in self._album_manager.albums:
-            album = self.albums[album_name]
+            album = self._album_manager.albums[album_name]
         else:
             album = Album(album_name, album_artist)
-            self._album_manager.add_album(album)
+            self._album_manager.albums[album_name] = album
 
         album.append_entry(entry)
 
-    def reload_albums(self, query_model):
+
+class AlbumShowingPolicy(GObject.Object):
+
+    def __init__(self, cover_model, cover_view, album_manager):
+        super(AlbumShowingPolicy, self).__init__()
+
+        self._cover_model = cover_model
+        self._cover_view = cover_view
+        self._album_manager = album_manager
+        self.showing = []
+
+    def show(self):
+        pass
+
+
+class ShowAllPolicy(AlbumShowingPolicy):
+
+    def __init__(self):
+        super(ShowAllPolicy, self).__init__()
+
+    def show(self):
         '''
-        This clears old albums before loading new albums from query_model
+        Fills the model defined for this loader with the info a covers from
+        all the albums loaded.
         '''
-        print "CoverArtBrowser DEBUG - reload_albums"
+        for album in self._album_manager.albums.values():
+            album.add_to_model(self._cover_model)
 
-        for album in self.albums.values():
-            album_name = album.album_name
-            album.remove_from_model()
-            del self.albums[album_name]
 
-        self.load_albums(query_model)
-        print "CoverArtBrowser DEBUG - reload_albums"
+class ShowProgessivePolicy(AlbumShowingPolicy):
 
-    def do_load_finished(self):
+    def __init__(self):
+        super(ShowProgessivePolicy, self).__init__()
+
+
+class CoverManager(GObject.Object):
+
+    # properties
+    cover_size = GObject.property(type=int, default=0)
+
+    def __init__(self, plugin, album_manager):
+        super(CoverManager, self).__init__()
+
+        self._cover_db = RB.ExtDB(name='album-art')
+        self._album_manager = album_manager
+
+        # set the unknown cover path
+        Album.UNKNOWN_COVER = rb.find_plugin_file(plugin, Album.UNKNOWN_COVER)
+
+        self._connect_signals()
+        self._connect_properties()
+
+    def _connect_signals(self):
+        self.connect('notify::cover-size', self._on_notify_cover_size)
+
+        # connect the signal to update cover arts when added
+        self.req_id = self._cover_db.connect('added',
+            self._albumart_added_callback)
+
+    def _connect_properties(self):
+        gs = GSetting()
+        setting = gs.get_setting(gs.Path.PLUGIN)
+
+        setting.bind(gs.PluginKey.COVER_SIZE, self, 'cover_size',
+            Gio.SettingsBindFlags.GET)
+
+    def _on_notify_cover_size(self, *args):
         '''
-        Updates progress to indicate we finished loading.
+        Updates the showing albums cover size.
         '''
-        self.progress = 1
+        # update the album's covers
+        for album in self._album_manger.get_showing_albums():
+            album.update_cover(self.cover_size)
 
-    def reload_model(self, reload_covers=False):
+    def _albumart_added_callback(self, ext_db, key, path, pixbuf):
         '''
-        This method allows to remove and readd all the albums that are
-        currently in this loader model.
+        Callback called when new album art added. It updates the pixbuf to the
+        album defined by key.
         '''
-        # set the reload_covers flag
-        self.reload_covers = self.reload_covers or reload_covers
+        print "CoverArtBrowser DEBUG - albumart_added_callback"
 
-        # get those albums in te model and remove them
-        albums = [album for album in self.albums.values() if album.model]
+        album_name = key.get_field('album')
 
-        for album in albums:
-            album.remove_from_model()
+        # use the name to get the album and update the cover
+        if album_name in self.albums:
+            self._album_manager.albums[album_name].update_cover(pixbuf,
+                self.cover_size)
 
-        if self.reloading:
-            # if there is already a reloading process going on, just add the
-            # albums to the list
-            self.reloading.extend(albums)
-        else:
-            # generate the reloading list
-            self.reloading = albums
-
-            # initiate the idle process
-            Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
-                self._readd_albums_to_model, None)
-
-    def _readd_albums_to_model(self, *args):
-        '''
-        Idle callback that readds the albums removed from the modle by
-        'reload_model' in chunks to improve ui resposiveness.
-        '''
-        for i in range(AlbumLoader.DEFAULT_LOAD_CHUNK):
-            try:
-                album = self.reloading.pop()
-
-                if self.reload_covers and \
-                    album.cover is not Album.UNKNOWN_COVER:
-                    album.cover.resize(self.cover_size)
-
-                album.add_to_model(self.cover_model)
-            except:
-                # clean the reloading list and emit the signal
-                self.reload_covers = False
-                self.reloading = None
-                self.emit('reload_finished')
-
-                return False
-
-        return True
+        print "CoverArtBrowser DEBUG - end albumart_added_callback"
 
     def search_cover_for_album(self, album, callback=lambda *_: None,
         data=None):
@@ -897,96 +912,6 @@ class AlbumLoader(GObject.Object):
                 async.get_url(uri, cover_update, album)
 
 
-class AlbumShowingPolicy(GObject.Object):
-
-    def __init__(self, cover_model, cover_view, album_manager):
-        super(AlbumShowingPolicy, self).__init__()
-
-        self._cover_model = cover_model
-        self._cover_view = cover_view
-        self._album_manager = album_manager
-        self.showing = []
-
-    def show(self):
-        pass
-
-
-class ShowAllPolicy(AlbumShowingPolicy):
-
-    def __init__(self):
-        super(ShowAllPolicy, self).__init__()
-
-    def show(self):
-        '''
-        Fills the model defined for this loader with the info a covers from
-        all the albums loaded.
-        '''
-        for album in self._album_manager.albums.values():
-            album.add_to_model(self._cover_model)
-
-
-class ShowProgessivePolicy(AlbumShowingPolicy):
-
-    def __init__(self):
-        super(ShowProgessivePolicy, self).__init__()
-
-
-class CoverManager(GObject.Object):
-
-    # properties
-    cover_size = GObject.property(type=int, default=0)
-
-    def __init__(self, plugin, album_manager):
-        super(CoverManager, self).__init__()
-
-        self._cover_db = RB.ExtDB(name='album-art')
-        self._album_manager = album_manager
-
-        # set the unknown cover path
-        Album.UNKNOWN_COVER = rb.find_plugin_file(plugin, Album.UNKNOWN_COVER)
-
-        self._connect_signals()
-        self._connect_properties()
-
-    def _connect_signals(self):
-        self.connect('notify::cover-size', self._on_notify_cover_size)
-
-        # connect the signal to update cover arts when added
-        self.req_id = self._cover_db.connect('added',
-            self._albumart_added_callback)
-
-    def _connect_properties(self):
-        gs = GSetting()
-        setting = gs.get_setting(gs.Path.PLUGIN)
-
-        setting.bind(gs.PluginKey.COVER_SIZE, self, 'cover_size',
-            Gio.SettingsBindFlags.GET)
-
-    def _on_notify_cover_size(self, *args):
-        '''
-        Updates the showing albums cover size.
-        '''
-        # update the album's covers
-        for album in self._album_manger.get_showing_albums():
-            album.update_cover(self.cover_size)
-
-    def _albumart_added_callback(self, ext_db, key, path, pixbuf):
-        '''
-        Callback called when new album art added. It updates the pixbuf to the
-        album defined by key.
-        '''
-        print "CoverArtBrowser DEBUG - albumart_added_callback"
-
-        album_name = key.get_field('album')
-
-        # use the name to get the album and update the cover
-        if album_name in self.albums:
-            self._album_manager.albums[album_name].update_cover(pixbuf,
-                self.cover_size)
-
-        print "CoverArtBrowser DEBUG - end albumart_added_callback"
-
-
 class GenresManager(GObject.Object):
 
     def __init__(self, album_manager):
@@ -1043,8 +968,10 @@ class TextManager(GObject.Object):
     display_text_ellipsize_length = GObject.property(type=int, default=0)
     display_font_size = GObject.property(type=int, default=0)
 
-    def __init__(self):
+    def __init__(self, album_manager):
         super(TextManager, self).__init__()
+
+        self._album_manager = album_manager
 
         # connect properties and signals
         self._connect_signals()
@@ -1086,7 +1013,8 @@ class TextManager(GObject.Object):
         else:
             Album.set_ellipsize_length(0)
 
-        self.reload_model()
+        for album in self._album_manager.albums.get_showing_albums():
+            album.recreate_text()
 
 
 class AlbumSorters(object):
@@ -1246,9 +1174,7 @@ class AlbumManager(GObject.Object):
 
     # signals
     __gsignals__ = {
-        'album-modified': (GObject.SIGNAL_RUN_LAST, object, (object,)),
-        'album-post-view-modified':
-            (GObject.SIGNAL_RUN_LAST, object, (object,))
+        'album-modified': (GObject.SIGNAL_RUN_LAST, object, (object,))
         }
 
     def __init__(self, plugin, cover_model, policy=ShowAllPolicy()):
@@ -1343,21 +1269,6 @@ class AlbumManager(GObject.Object):
         if album_name in self.albums:
             album = self.albums[album_name]
             if album.has_year_changed():
-                album_artist = album.album_artist
-                qm = RB.RhythmDBQueryModel.new_empty(self.db)
-                album.get_entries(qm)
-                album.remove_from_model()
-                del self.albums[album_name]
-                album = Album(album_name, album_artist)
-                for row in qm:
-                    album.append_entry(row[0])
-
-                album.load_cover(self.cover_db, self.cover_size)
-                treeiter = album.add_to_model(self.cover_model)
-                self.albums[album_name] = album
-
-                path = self.cover_model.get_path(treeiter)
-                self.emit('album-post-view-modified', path)
                 self.emit('album-modified', self.albums[album_name])
 
         print "CoverArtBrowser DEBUG - end _entry_album_year_modified"
@@ -1375,22 +1286,6 @@ class AlbumManager(GObject.Object):
         if album_name in self.albums:
             album = self.albums[album_name]
             if album.has_rating_changed():
-                album_artist = album.album_artist
-                qm = RB.RhythmDBQueryModel.new_empty(self.db)
-                album.get_entries(qm)
-                album.remove_from_model()
-                del self.albums[album_name]
-                album = Album(album_name, album_artist)
-                for row in qm:
-                    album.append_entry(row[0])
-
-                album.load_cover(self.cover_db, self.cover_size)
-                treeiter = album.add_to_model(self.cover_model)
-                self.albums[album_name] = album
-
-                path = self.cover_model.get_path(treeiter)
-
-                self.emit('album-post-view-modified', path)
                 self.emit('album-modified', self.albums[album_name])
 
         print "CoverArtBrowser DEBUG - end entry_rating_modified"
