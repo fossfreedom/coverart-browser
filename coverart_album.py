@@ -21,6 +21,7 @@ from gi.repository import RB
 from gi.repository import GObject
 from gi.repository import Gio
 from gi.repository import GLib
+from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 
 from coverart_browser_prefs import GSetting
@@ -706,6 +707,11 @@ class AlbumLoader(GObject.Object):
 
 class CoverManager(GObject.Object):
 
+    # signals
+    __gsignals__ = {
+        'load-finished': (GObject.SIGNAL_RUN_LAST, None, ())
+        }
+
     # properties
     cover_size = GObject.property(type=int, default=0)
 
@@ -766,8 +772,32 @@ class CoverManager(GObject.Object):
             album.load_cover(album, self._cover_db, self.cover_size)
 
     def load_covers(self):
-        for album in self._album_manager._albums.values():
-            album.load_cover(self._cover_db, self.cover_size)
+        Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
+            self._idle_load_callback,
+             self._album_manager._albums.values())
+
+    def _idle_load_callback(self, albums):
+        '''
+        Idle callback that loads the albums by chunks, to avoid blocking the
+        ui while doing it.
+        '''
+        for i in range(DEFAULT_LOAD_CHUNK):
+            try:
+                album = albums.pop()
+                album.load_cover(self._cover_db, self.cover_size)
+
+            except:
+                # we finished loading
+                self._album_manager.progress = 1
+                self.emit('load-finished')
+                return False
+
+        # update the progress
+        self._album_manager.progress = 1 - len(albums) / float(
+            len(self._album_manager._albums))
+
+        # the list still got albums, keep going
+        return True
 
     def search_cover_for_album(self, album, callback=lambda *_: None,
         data=None):
@@ -974,8 +1004,6 @@ class TextManager(GObject.Object):
             Gio.SettingsBindFlags.GET)
         setting.bind(gs.PluginKey.DISPLAY_TEXT, self,
             'display_text_enabled', Gio.SettingsBindFlags.GET)
-        setting.bind(gs.PluginKey.DISPLAY_TEXT_LOADING, self,
-            'display_text_loading_enabled', Gio.SettingsBindFlags.GET)
 
     def _on_notify_display_text_ellipsize(self, *args):
         '''
@@ -1255,8 +1283,10 @@ class AlbumManager(GObject.Object):
             self._entry_changed_callback)
 
         # connect signal to the loader so it shows the albums when it finishes
-        self.load_finished_id = self.loader.connect('load-finished',
-            self._load_finished_callback)
+        self.album_load_finished_id = self.loader.connect('load-finished',
+            self._album_load_finished_callback)
+        self.cover_load_finished_id = self.covers_man.connect('load-finished',
+            self._cover_load_finished_callback)
 
     def _entry_changed_callback(self, db, entry, changes):
         '''
@@ -1369,10 +1399,12 @@ class AlbumManager(GObject.Object):
 
         print "CoverArtBrowser DEBUG - end entry_album_artist_modified"
 
-    def _load_finished_callback(self, *args):
-        self._show_policy.autoshow = True
+    def _album_load_finished_callback(self, *args):
         self.covers_man.autoload = True
         self.covers_man.load_covers()
+
+    def _cover_load_finished_callback(self, *args):
+        self._show_policy.autoshow = True
         self.show()
 
     def add(self, album_name, album):

@@ -100,7 +100,7 @@ class CoverArtBrowserSource(RB.Source):
         '''
         print "CoverArtBrowser DEBUG - do_get_status"
         try:
-            progress = self.album_manager.loader.progress
+            progress = self.album_manager.progress
             progress_text = _('Loading...') if progress < 1 else ''
         except:
             progress = 1
@@ -482,7 +482,7 @@ class CoverArtBrowserSource(RB.Source):
         self.sorting_direction_changed(_, True)
         #self.on_notify_toolbar_pos(_)
 
-        if self.album_manager.loader.progress == 1:
+        if self.album_manager.progress == 1:
             # if the source is fully loaded, enable the full cover search item
             self.load_finished_callback()
 
