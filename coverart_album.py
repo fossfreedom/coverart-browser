@@ -464,8 +464,10 @@ class Album(object):
 
     def get_entries(self, model):
         ''' adds all entries to the model'''
+        songs = sorted(self.entries, key=lambda song:
+                song.get_ulong(RB.RhythmDBPropType.TRACK_NUMBER))
 
-        for e in self.entries:
+        for e in songs:
             model.add_entry(e, -1)
 
     def get_track_count(self):
