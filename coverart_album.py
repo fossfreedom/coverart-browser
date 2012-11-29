@@ -433,7 +433,7 @@ class Album(object):
         else:
             self.cover.resize(size)
 
-    def add_to_model(self, model):
+    def add_to_model(self, model, position=-1):
         '''
         Add this model to the tree model. For default, the info is assigned
         in the next order:
@@ -446,8 +446,8 @@ class Album(object):
         tooltip = self._create_tooltip()
         markup = self._create_markup()
 
-        self.tree_iter = model.append((tooltip, self.cover.pixbuf, self,
-            markup))
+        self.tree_iter = model.insert(position,
+            (tooltip, self.cover.pixbuf, self, markup))
 
         return self.tree_iter
 
@@ -1216,14 +1216,16 @@ class ShowAllPolicy(AlbumShowingPolicy):
         remove = [album for album in self._filtered if album in self.showing]
 
         for album in add:
+            self.showing.append(album)
             self.show_one(album)
 
         for album in remove:
+            self.showing.remove(album)
             self.hide_one(album)
 
     def show_one(self, album):
         self.showing.append(album)
-        album.add_to_model(self._cover_model)
+        album.add_to_model(self._cover_model, self._filtered.index(album))
 
     def hide_one(self, album):
         self.showing.remove(album)
