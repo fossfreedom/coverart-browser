@@ -145,12 +145,7 @@ class SortedCollection(object):
         self._keys.insert(i, k)
         self._items.insert(i, item)
 
-    def insert_right(self, item):
-        'Insert a new item.  If equal keys are found, add to the right'
-        k = self._key(item)
-        i = bisect_right(self._keys, k)
-        self._keys.insert(i, k)
-        self._items.insert(i, item)
+        return i
 
     def insert_all(self, items):
         for item in items:
@@ -161,38 +156,3 @@ class SortedCollection(object):
         i = self.index(item)
         del self._keys[i]
         del self._items[i]
-
-    def find(self, k):
-        'Return first item with a key == k.  Raise ValueError if not found.'
-        i = bisect_left(self._keys, k)
-        if i != len(self) and self._keys[i] == k:
-            return self._items[i]
-        raise ValueError('No item found with key equal to: %r' % (k,))
-
-    def find_le(self, k):
-        'Return last item with a key <= k.  Raise ValueError if not found.'
-        i = bisect_right(self._keys, k)
-        if i:
-            return self._items[i-1]
-        raise ValueError('No item found with key at or below: %r' % (k,))
-
-    def find_lt(self, k):
-        'Return last item with a key < k.  Raise ValueError if not found.'
-        i = bisect_left(self._keys, k)
-        if i:
-            return self._items[i-1]
-        raise ValueError('No item found with key below: %r' % (k,))
-
-    def find_ge(self, k):
-        'Return first item with a key >= equal to k.  Raise ValueError if not found'
-        i = bisect_left(self._keys, k)
-        if i != len(self):
-            return self._items[i]
-        raise ValueError('No item found with key at or above: %r' % (k,))
-
-    def find_gt(self, k):
-        'Return first item with a key > k.  Raise ValueError if not found'
-        i = bisect_right(self._keys, k)
-        if i != len(self):
-            return self._items[i]
-        raise ValueError('No item found with key above: %r' % (k,))
