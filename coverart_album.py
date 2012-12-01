@@ -21,6 +21,7 @@ from gi.repository import RB
 from gi.repository import GObject
 from gi.repository import Gio
 from gi.repository import GLib
+from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 
@@ -36,7 +37,7 @@ import rb
 
 
 # default chunk of albums to process
-DEFAULT_LOAD_CHUNK = 15
+DEFAULT_LOAD_CHUNK = 20
 
 
 class Cover(GObject.Object):
@@ -88,11 +89,14 @@ class Track(GObject.Object):
         'deleted': (GObject.SIGNAL_RUN_LAST, None, ())
         }
 
-    def __init__(self, entry, db):
+    def __init__(self, entry, db=None):
         super(Track, self).__init__()
 
         self.entry = entry
         self._db = db
+
+    def __eq__(self, other):
+        return rb.entry_equal(self.entry, other.entry)
 
     @property
     def title(self):
@@ -130,8 +134,12 @@ class Track(GObject.Object):
     def duration(self):
         return self.entry.get_ulong(RB.RhythmDBPropType.DURATION)
 
+    @property
+    def location(self):
+        return self.entry.get_string(RB.RhythmDBPropType.LOCATION)
+
     def create_ext_db_key(self):
-        self.entry.create_ext_db_key(RB.RhythmDBPropType.ALBUM)
+        return self.entry.create_ext_db_key(RB.RhythmDBPropType.ALBUM)
 
 
 class Album(GObject.Object):
@@ -143,7 +151,7 @@ class Album(GObject.Object):
     __gsignals__ = {
         'modified': (GObject.SIGNAL_RUN_FIRST, None, ()),
         'emptied': (GObject.SIGNAL_RUN_LAST, None, ()),
-        'cover-updated': (GObject.SIGNAL_RUN_LAST, None())
+        'cover-updated': (GObject.SIGNAL_RUN_LAST, None, ())
         }
 
     def __init__(self, name, cover):
@@ -154,7 +162,7 @@ class Album(GObject.Object):
         '''
         super(Album, self).__init__()
 
-        self._name = name
+        self.name = name
         self._album_artist = None
         self._artist = None
         self._title = None
@@ -164,12 +172,7 @@ class Album(GObject.Object):
         self._year = None
         self._rating = None
 
-    @property
-    def album_name(self):
-        '''
-        Returns the name of the album.
-        '''
-        return self._name
+        self._signals_id = {}
 
     @property
     def album_artist(self):
@@ -198,7 +201,8 @@ class Album(GObject.Object):
         that have entries on this album.
         '''
         if not self._artist:
-            self._artist = set([track.artist for track in self._tracks])
+            self._artist = ', '.join(
+                set([track.artist for track in self._tracks]))
 
         return self._artist
 
@@ -209,7 +213,8 @@ class Album(GObject.Object):
         titles that have entries on this album.
         '''
         if not self._title:
-            self._title = set([track.title for track in self._tracks])
+            self._title = ' '.join(
+                set([track.title for track in self._tracks]))
 
         return self._title
 
@@ -226,7 +231,8 @@ class Album(GObject.Object):
     @property
     def genres(self):
         if not self._genre:
-            self._genre = set([track.genre for track in self._tracks])
+            self._genre = ' '.join(
+                set([track.genre for track in self._tracks]))
 
         return self._genre
 
@@ -297,26 +303,34 @@ class Album(GObject.Object):
         ''' Appends an track to the album's tracks list. '''
         self._tracks.append(track)
 
-        track._connect('modified', self._track_modified)
-        track._connect('deleted', self._track_deleted)
+        ids = (track.connect('modified', self._track_modified),
+            track.connect('deleted', self._track_deleted))
+
+        self._signals_id[track] = ids
 
         self.emit('modified')
 
     def _track_modified(self, track):
         if track.album != self.name:
-            self._tracks.remove(track)
+            self._track_deleted(track)
 
-        self.emit('emptied')
+        self.emit('modified')
 
     def _track_deleted(self, track):
         self._tracks.remove(track)
+
+        mod_id, del_id = self._signals_id[track]
+        del self._signals_id[track]
+
+        track.disconnect(mod_id)
+        track.disconnect(del_id)
 
         if len(self._tracks) == 0:
             self.emit('emptied')
         else:
             self.emit('modified')
 
-    def creat_ext_db_key(self):
+    def create_ext_db_key(self):
         return self._tracks[0].create_ext_db_key()
 
     def do_modified(self):
@@ -327,17 +341,157 @@ class Album(GObject.Object):
         self._year = None
         self._rating = None
 
-class AlbumsCoverModel(GObject.Object):
 
-    columns = ['tooltip', 'pixbuf', 'album', 'markup', 'show']
+class AlbumFilters(object):
 
-    def __init__(self, tree_store):
-        super(AlbumsCoverModel, self).__init__()
+    @classmethod
+    def nay_filter(cls, *args):
+        def filt(*args):
+            return False
+
+        return filt
+
+    @classmethod
+    def global_filter(cls, searchtext=''):
+        def filt(album):
+            # this filter is more complicated: for each word in the search
+            # text, it tries to find at least one match on the params of
+            # the album. If no match is given, then the album doesn't match
+            if searchtext == "":
+                return True
+
+            words = searchtext.split()
+            params = [album.name.lower(), album.album_artist.lower(),
+                album.artists.lower(), album.track_titles.lower()]
+            matches = []
+
+            for word in words:
+                match = False
+
+                for param in params:
+                    if word in param:
+                        match = True
+                        break
+
+                matches.append(match)
+
+            return False not in matches
+
+        return filt
+
+    @classmethod
+    def album_artist_filter(cls, searchtext=''):
+        def filt(album):
+            if searchtext == "":
+                return True
+
+            return searchtext.lower() in album.album_artist.lower()
+
+        return filt
+
+    @classmethod
+    def artist_filter(cls, searchtext=''):
+        def filt(album):
+            if searchtext == "":
+                return True
+
+            return searchtext.lower() in album.artists.lower()
+
+        return filt
+
+    @classmethod
+    def album_name_filter(cls, searchtext=''):
+        def filt(album):
+            if searchtext == "":
+                return True
+
+            return searchtext.lower() in album.name.lower()
+
+        return filt
+
+    @classmethod
+    def track_title_filter(cls, searchtext=''):
+        def filt(album):
+            if searchtext == "":
+                return True
+
+            return searchtext.lower() in album.track_titles
+
+        return filt
+
+    @classmethod
+    def genre_filter(cls, searchtext=''):
+        def filt(album):
+            if searchtext == "":
+                return True
+
+            return searchtext in album.genres
+
+        return filt
+
+AlbumFilters.keys = {'nay': AlbumFilters.nay_filter,
+        'all': AlbumFilters.global_filter,
+        'album_artist': AlbumFilters.album_artist_filter,
+        'artist': AlbumFilters.artist_filter,
+        'album_name': AlbumFilters.album_name_filter,
+        'track': AlbumFilters.track_title_filter,
+        'genre': AlbumFilters.genre_filter
+        }
+
+
+class AlbumsModel(GObject.Object):
+
+    # signals
+    __gsignals__ = {
+        'generate-tooltip': (GObject.SIGNAL_RUN_LAST, str, (object,)),
+        'generate-markup': (GObject.SIGNAL_RUN_LAST, str, (object,)),
+        'album-updated': ((GObject.SIGNAL_RUN_LAST, None, (object, object)))
+        }
+
+    columns = {'tooltip': 0, 'pixbuf': 1, 'album': 2, 'markup': 3, 'show': 4}
+
+    def __init__(self):
+        super(AlbumsModel, self).__init__()
 
         self._iters = {}
-        self._tree_store = tree_store
+        self._albums = SortedCollection(
+            key=lambda album: getattr(album, 'name'))
+        self._tree_store = Gtk.ListStore(str, GdkPixbuf.Pixbuf, object, str,
+            bool)
 
-    def add(self, album, pixbuf, tooltip, markup, position=-1):
+        # filters
+        self._filters = {}
+
+        # create the filtered store that's used with the view
+        self._filtered_store = self._tree_store.filter_new()
+        self._filtered_store.set_visible_column(4)
+
+    @property
+    def store(self):
+        return self._filtered_store
+
+    def _album_modified(self, album):
+        tree_iter = self._iters[album.name][1]
+        tooltip = self.emit('generate-tooltip', album)
+        markup = self.emit('generate-markup', album)
+        show = self._album_filter(album)
+
+        self._tree_store.set(tree_iter, self.columns['tooltip'], tooltip,
+            self.columns['markup'], markup, self.columns['show'], show)
+
+        self.emit('album-updated', self._tree_store.get_path(tree_iter),
+            tree_iter)
+
+    def _cover_updated(self, album):
+        tree_iter = self._iters[album.name][1]
+        pixbuf = album.cover.pixbuf
+
+        self._tree_store.set_value(tree_iter, self.columns['pixbuf'], pixbuf)
+
+        self.emit('album-updated', self._tree_store.get_path(tree_iter),
+            tree_iter)
+
+    def add(self, album):
         '''
         Add album to the tree model. For default, the info is assigned
         in the next order:
@@ -347,34 +501,88 @@ class AlbumsCoverModel(GObject.Object):
             column 3 -> markup text showed under the cover.
             column 4 -> boolean that indicates if the row should be shown
         '''
-        tree_iter = self._tree_store.insert(position,
-            (tooltip, pixbuf, album, markup, True))
+        # generate necesary values
+        tooltip = self.emit('generate-tooltip', album)
+        markup = self.emit('generate-markup', album)
+        pixbuf = album.cover.pixbuf
+        hidden = self._album_filter(album)
 
-        self._iters[album.name] = tree_iter
+        # insert the values
+        tree_iter = self._tree_store.insert(self._albums.insert(album),
+            (tooltip, pixbuf, album, markup, hidden))
+
+        # connect signals
+        ids = (album.connect('modified', self._album_modified),
+            album.connect('cover-updated', self._cover_updated),
+            album.connect('emptied', self.remove))
+
+        self._iters[album.name] = (album, tree_iter, ids)
 
         return tree_iter
 
     def remove(self, album):
         ''' Removes this album from it's model. '''
-        self._tree_store.remove(self._iters[album.name])
+        self._albums.remove(album)
+        self._tree_store.remove(self._iters[album.name][1])
+
+        # disconnect signals
+        for sig_id in self._iters[album.name][2]:
+            album.disconnect(sig_id)
 
         del self._iters[album.name]
 
-    def update(self, album, **kwargs):
-        for key in kwargs.keys():
-            if key in self.columns:
-                self._tree_store.set_value(self._iters[album.name],
-                   self.columns.index('show'), kwargs[key])
+    def contains(self, album_name):
+        return album_name in self._iters
 
-    def hide(self, albums):
-        for album in albums:
-            self._tree_store.set_value(self._iters[album.name],
-                self.columns.index('show'), False)
+    def get(self, album_name):
+        return self._iters[album_name][0]
 
-    def show(self, albums):
-        for album in albums:
-            self._tree_store.set_value(self._iters[album.name],
-                self.columns.index('show'), True)
+    def get_all(self):
+        return self._albums
+
+    def show(self, album, show):
+        self._tree_store.set_value(self._iters[album.name][1],
+                self.columns['show'], show)
+
+    def sort(self, key):
+        old_positions = self._albums.copy()
+
+        self._albums.key = key
+        positions = []
+
+        for new_pos in range(0, len(self._albums)):
+            album = self._albums(new_pos)
+            old_pos = old_positions.index(album)
+
+            positions.append(old_pos)
+
+        self._tree_store.reorder(positions)
+
+    def replace_filter(self, filter_key, filter_text=''):
+        self._filters[filter_key] = AlbumFilters.keys[filter_key](filter_text)
+
+        self._refilter()
+
+    def remove_filter(self, filter_key):
+        del self._filters[filter_key]
+
+        self._refilter()
+
+    def clear_filters(self):
+        self._filters.clear()
+
+        self._refilter()
+
+    def _refilter(self):
+        for album in self._albums:
+            self.show(album, self._album_filter(album))
+
+    def _album_filter(self, album):
+            for f in self._filters.values():
+                if not f(album):
+                    return False
+
+            return True
 
 
 class AlbumLoader(GObject.Object):
@@ -395,6 +603,7 @@ class AlbumLoader(GObject.Object):
         super(AlbumLoader, self).__init__()
 
         self._album_manager = album_manager
+        self._tracks = {}
 
         self._connect_signals()
 
@@ -410,23 +619,6 @@ class AlbumLoader(GObject.Object):
         self.entry_deleted_id = self._album_manager.db.connect('entry-deleted',
             self._entry_deleted_callback)
 
-    def _get_album_artist(self, entry):
-        '''
-        Looks and retrieves an entry's album artist.
-        '''
-        album_artist = entry.get_string(RB.RhythmDBPropType.ALBUM_ARTIST)
-
-        if not album_artist:
-            album_artist = entry.get_string(RB.RhythmDBPropType.ARTIST)
-
-        return album_artist
-
-    def _get_album_name(self, entry):
-        '''
-        Looks and retrieves an entry's album name.
-        '''
-        return entry.get_string(RB.RhythmDBPropType.ALBUM)
-
     def _entry_changed_callback(self, db, entry, changes):
         '''
         Callback called when a RhythDB entry is modified. Loads/Unloads albums
@@ -439,17 +631,23 @@ class AlbumLoader(GObject.Object):
 
         # look at all the changes and update the albums acordingly
         try:
+            track = self._tracks[Track(entry).location]
+
             while True:
                 change = changes.values
 
                 if change.prop is RB.RhythmDBPropType.ALBUM:
                     # called when the album of a entry is modified
-                    self._entry_album_modified(entry, change.old, change.new)
+                    track.emit('deleted')
+                    self._allocate_entry(track, change.new)
 
                 elif change.prop is RB.RhythmDBPropType.HIDDEN:
                     # called when an entry gets hidden (e.g.:the sound file is
                     # removed.
-                    self._entry_hidden(db, entry, change.new)
+                    if changes.new:
+                        track.emit('deleted')
+                    else:
+                        self._allocate_track(track)
 
                 # removes the last change from the GValueArray
                 changes.remove(0)
@@ -459,35 +657,6 @@ class AlbumLoader(GObject.Object):
 
         print "CoverArtBrowser DEBUG - end entry_changed_callback"
 
-    def _entry_album_modified(self, entry, old_name, new_name):
-        '''
-        Called by entry_changed_callback when the modified prop is the album.
-        Reallocates the entry into the album defined by new_name, removing
-        it from the old_name album previously.
-        '''
-        print "CoverArtBrowser DEBUG - entry_album_modified"
-        # find the old album and remove the entry
-        self._remove_entry(entry, old_name)
-
-        # add the entry to the album it belongs now
-        self._allocate_entry(entry, new_name)
-
-        print "CoverArtBrowser DEBUG - end entry_album_modified"
-
-    def _entry_hidden(self, db, entry, hidden):
-        '''
-        Called by entry_changed_callback when the modified prop is the hidden
-        prop.
-        It removes/adds the entry to the albums acordingly.
-        '''
-        print "CoverArtBrowser DEBUG - entry_hidden"
-        if hidden:
-            self._entry_deleted_callback(db, entry)
-        else:
-            self._entry_added_callback(db, entry)
-
-        print "CoverArtBrowser DEBUG - end entry_hidden"
-
     def _entry_added_callback(self, db, entry):
         '''
         Callback called when a new entry is added to the Rhythmbox's db.
@@ -495,8 +664,7 @@ class AlbumLoader(GObject.Object):
         print "CoverArtBrowser DEBUG - entry_added_callback"
         # before trying to allocate the entry, found out if this entry is
         # really a song, querying it's duration
-        if entry.get_ulong(RB.RhythmDBPropType.DURATION):
-            self._allocate_entry(entry)
+        self._allocate_track(Track(entry, db))
 
         print "CoverArtBrowser DEBUG - end entry_added_callback"
 
@@ -505,50 +673,29 @@ class AlbumLoader(GObject.Object):
         Callback called when a entry is deleted from the Rhythmbox's db.
         '''
         print "CoverArtBrowser DEBUG - entry_deleted_callback"
-        self._remove_entry(entry)
+        track = self._tracks[Track(entry).location]
+
+        track.emit('deleted')
 
         print "CoverArtBrowser DEBUG - end entry_deleted_callback"
 
-    def _allocate_entry(self, entry, new_album_name=None):
+    def _allocate_track(self, track):
         '''
         Allocates a given entry in to an album. If not album name is given,
         it's inferred from the entry metadata.
         '''
-        album_name = self._get_album_name(entry)
-        album_artist = self._get_album_artist(entry)
+        self._tracks[track.location] = track
 
-        if new_album_name:
-            album_name = new_album_name
+        album_name = track.album
 
-        if self._album_manager.has(album_name):
-            album = self._album_manager.get(album_name)
+        if self._album_manager.model.contains(album_name):
+            album = self._album_manager.model.get(album_name)
         else:
-            album = Album(album_name, album_artist)
-            self._album_manager.add(album_name, album)
+            album = Album(album_name,
+                self._album_manager.cover_man.unknown_cover)
+            self._album_manager.model.add(album)
 
-        album.append_entry(entry)
-
-        self._album_manager.emit('album-modified', album)
-
-    def _remove_entry(self, entry, album_name=None):
-        '''
-        Removes an entry from the an album. If the album name is not provided,
-        it's inferred from the entry metatada.
-        '''
-        if not album_name:
-            album_name = self._get_album_name(entry)
-
-        if self._album_manager.has(album_name):
-            album = self._album_manager.get(album_name)
-            album.remove_entry(entry)
-
-            if album.get_track_count() == 0:
-                # if the album is empty, remove it from the model remove it's
-                #reference
-                album.remove_from_model()
-                self._album_manager.remove(album_name)
-            else:
-                self._album_manager.emit('album-modified', album)
+        album.add_track(track)
 
     def load_albums(self, query_model):
         '''
@@ -557,30 +704,60 @@ class AlbumLoader(GObject.Object):
         Specifically, it throws the query against the RhythmDB.
         '''
         print "CoverArtBrowser DEBUG - load_albums"
-        query_model.foreach(self._process_entry, None)
+        albums = {}
 
-        self.emit('load-finished')
+        query_model.foreach(self._process_entry, albums)
+
+        # load the albums to the model
+        self._album_manager.model.replace_filter('nay')
+        Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
+            self._idle_add_albums, albums.values())
+
         print "CoverArtBrowser DEBUG - load finished"
 
-    def _process_entry(self, model, tree_path, tree_iter, _):
+    def _process_entry(self, model, tree_path, tree_iter, albums):
         '''
         Process a single entry, allocating it to it's correspondent album or
         creating a new one if necesary.
         '''
         (entry,) = model.get(tree_iter, 0)
 
-        # retrieve album metadata
-        album_name = self._get_album_name(entry)
-        album_artist = self._get_album_artist(entry)
+        # allocate the track
+        track = Track(entry, self._album_manager.db)
 
-        # look for the album or create it
-        if self._album_manager.has(album_name):
-            album = self._album_manager.get(album_name)
+        self._tracks[track.location] = track
+
+        album_name = track.album
+
+        if album_name in albums:
+            album = albums[album_name]
         else:
-            album = Album(album_name, album_artist)
-            self._album_manager.add(album_name, album)
+            album = Album(album_name,
+                self._album_manager.cover_man.unknown_cover)
+            albums[album_name] = album
 
-        album.append_entry(entry)
+        album.add_track(track)
+
+    def _idle_add_albums(self, albums):
+        for i in range(DEFAULT_LOAD_CHUNK):
+            try:
+                album = albums.pop()
+
+                self._album_manager.model.add(album)
+
+            except IndexError:
+                # we finished loading
+                self.emit('load-finished')
+                return False
+
+            except Exception as e:
+                print 'Error while adding albums to the model: ' + str(e)
+
+        # the list still got albums, keep going
+        return True
+
+    def do_load_finished(self):
+        self._album_manager.model.remove_filter('nay')
 
 
 class CoverManager(GObject.Object):
@@ -604,7 +781,7 @@ class CoverManager(GObject.Object):
 
         # create the unknown cover
         self.unknown_cover = Cover(self.cover_size,
-            'img/rhythmbox-missing-artwork.svg')
+            rb.find_plugin_file(plugin, 'img/rhythmbox-missing-artwork.svg'))
 
     def _connect_signals(self):
         self.connect('notify::cover-size', self._on_notify_cover_size)
@@ -625,8 +802,32 @@ class CoverManager(GObject.Object):
         Updates the showing albums cover size.
         '''
         # update the album's covers
-        for album in self._album_manager.get_showing_albums():
-            album.cover = album.cover.resize(self.cover_size)
+        albums = list(self._album_manager.get_showing_albums())
+        albums.reverse()
+
+        Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
+            self._idle_resize_callback, (albums, float(len(albums))))
+
+    def _idle_resize_callback(self, args):
+        albums, total = args
+
+        for i in range(DEFAULT_LOAD_CHUNK):
+            try:
+                album = albums.pop()
+
+                album.cover = album.cover.resize(self.cover_size)
+
+            except:
+                # we finished loading
+                self._album_manager.progress = 1
+                self.emit('load-finished')
+                return False
+
+        # update the progress
+        self._album_manager.progress = 1 - len(albums) / total
+
+        # the list still got albums, keep going
+        return True
 
     def _albumart_added_callback(self, ext_db, key, path, pixbuf):
         '''
@@ -647,8 +848,8 @@ class CoverManager(GObject.Object):
 
     def load_cover(self, album):
         '''
-        Tries to load an Album's cover from the provided cover_db. If no cover
-        is found upon lookup, the Unknown cover is used.
+        Tries to load an Album's cover . If no cover is found upon lookup,
+        the Unknown cover is used.
         '''
         key = album.create_ext_db_key()
         art_location = self._cover_db.lookup(key)
@@ -659,31 +860,38 @@ class CoverManager(GObject.Object):
             except:
                 pass  # ignore
 
-    def load_covers(self, albums):
-        Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
-            self._idle_load_callback, albums)
+    def load_covers(self):
+        albums = list(self._album_manager.model.get_all())
+        albums.reverse()
 
-    def _idle_load_callback(self, albums):
+        Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
+            self._idle_load_callback, (albums, float(len(albums))))
+
+    def _idle_load_callback(self, args):
         '''
         Idle callback that loads the albums by chunks, to avoid blocking the
         ui while doing it.
         '''
+        albums, total = args
+
         for i in range(DEFAULT_LOAD_CHUNK):
             try:
                 album = albums.pop()
 
-                if not album.has_cover():
+                if album.cover == self.unknown_cover:
                     self.load_cover(album)
 
-            except:
+            except IndexError:
                 # we finished loading
                 self._album_manager.progress = 1
                 self.emit('load-finished')
                 return False
 
+            except Exception as e:
+                print 'Error while loading covers: ' + str(e)
+
         # update the progress
-        self._album_manager.progress = 1 - len(albums) / float(
-            len(self._album_manager.get_albums()))
+        self._album_manager.progress = 1 - len(albums) / total
 
         # the list still got albums, keep going
         return True
@@ -697,7 +905,7 @@ class CoverManager(GObject.Object):
         process has finished.
         '''
         if albums is None:
-            albums = self.album_manager.albums.values()
+            albums = self._album_manager.model.get_all()
 
         def search_next_cover(*args):
             # unpack the data
@@ -714,7 +922,7 @@ class CoverManager(GObject.Object):
                 while True:
                     album = iterator.next()
 
-                    if album.model and not album.has_cover():
+                    if not album.has_cover():
                         break
             except:
                 # inform we finished
@@ -747,7 +955,7 @@ class CoverManager(GObject.Object):
         the callback given once the process finishes (since it generally is
         asyncrhonous).
         '''
-        key = album.creat_ext_db_key()
+        key = album.create_ext_db_key()
 
         provides = self._cover_db.request(key, callback, data)
 
@@ -811,7 +1019,6 @@ class GenresManager(GObject.Object):
         super(GenresManager, self).__init__()
 
         self._album_manager = album_manager
-        self.genres
 
         self._connect_signals()
 
@@ -881,6 +1088,11 @@ class TextManager(GObject.Object):
         self.connect('notify::display-text-enabled',
             self._activate_markup)
 
+        self._album_manager.model.connect('generate-tooltip',
+            self._generate_tooltip)
+        self._album_manager.model.connect('generate-markup',
+            self._generate_markup_text)
+
     def _connect_properties(self):
         '''
         Connects the loader properties to the saved preferences.
@@ -917,7 +1129,7 @@ class TextManager(GObject.Object):
 
         if activate:
             column = 3
-            item_width = self._album_manager.covers_man.cover_size + 20
+            item_width = self._album_manager.cover_man.cover_size + 20
         else:
             column = item_width = -1
 
@@ -926,15 +1138,15 @@ class TextManager(GObject.Object):
 
         print "CoverArtBrowser DEBUG - end activate_markup"
 
-    def create_tooltip(self, album):
+    def _generate_tooltip(self, model, album):
         '''
         Utility function that creates the tooltip for this album to set into
         the model.
         '''
         return cgi.escape(_('%s by %s').encode('utf-8') % (album.name,
-            album.artist))
+            album.artists))
 
-    def create_markup_text(self, album):
+    def _generate_markup_text(self, model, album):
         '''
         Utility function that creates the markup text for this album to set
         into the model.
@@ -964,226 +1176,41 @@ class TextManager(GObject.Object):
         return markup % (self.display_font_size, name, artist)
 
 
-class AlbumFilters(object):
-
-    @classmethod
-    def global_filter(cls, searchtext=''):
-        def filt(album):
-            # this filter is more complicated: for each word in the search
-            # text, it tries to find at least one match on the params of
-            # the album. If no match is given, then the album doesn't match
-            if searchtext == "":
-                return True
-
-            words = searchtext.split()
-            params = [album.name.lower(), album.album_artist.lower(),
-                album.artist.lower(), album.track_title.lower()]
-            matches = []
-
-            for word in words:
-                match = False
-
-                for param in params:
-                    if word in param:
-                        match = True
-                        break
-
-                matches.append(match)
-
-            return False not in matches
-
-        return filt
-
-    @classmethod
-    def album_artist_filter(cls, searchtext=''):
-        def filt(album):
-            if searchtext == "":
-                return True
-
-            return searchtext.lower() in album.album_artist.lower()
-
-        return filt
-
-    @classmethod
-    def artist_filter(cls, searchtext=''):
-        def filt(album):
-            if searchtext == "":
-                return True
-
-            return searchtext.lower() in album.artist.lower()
-
-        return filt
-
-    @classmethod
-    def album_name_filter(cls, searchtext=''):
-        def filt(album):
-            if searchtext == "":
-                return True
-
-            return searchtext.lower() in album.name.lower()
-
-        return filt
-
-    @classmethod
-    def track_title_filter(cls, searchtext=''):
-        def filt(album):
-            if searchtext == "":
-                return True
-
-            return searchtext.lower() in album.track_title.lower()
-
-        return filt
-
-    @classmethod
-    def genre_filter(cls, searchtext=''):
-        def filt(album):
-            if searchtext == "":
-                return True
-
-            return album.has_genre(searchtext)
-
-        return filt
-
-AlbumFilters.keys = {'all': AlbumFilters.global_filter,
-        'album_artist': AlbumFilters.album_artist_filter,
-        'artist': AlbumFilters.artist_filter,
-        'album_name': AlbumFilters.album_name_filter,
-        'track': AlbumFilters.track_title_filter,
-        'genre': AlbumFilters.genre_filter
-        }
-
-
 class AlbumShowingPolicy(GObject.Object):
 
-    def __init__(self, cover_model, cover_view, album_manager):
+    def __init__(self, cover_view, album_manager):
         super(AlbumShowingPolicy, self).__init__()
 
-        self._cover_model = cover_model
         self._cover_view = cover_view
-        self._album_manager = album_manager
-        self._filters = {}
-        self._filtered = SortedCollection(self._album_manager.get_albums())
-        self.showing = []
-        self.autoshow = False
+        self._model = album_manager.model
+        self._visible_paths = None
 
-    def album_added(self, album):
-        if self._album_filter(album):
-            self._filtered.insert(album)
+        self._connect_signals()
 
-            if self.autoshow:
-                self.show_one(album)
+    def _connect_signals(self):
+        self._cover_view.props.vadjustment.connect('value-changed',
+            self._viewport_changed)
+        self._model.connect('album-updated', self._album_updated)
 
-    def album_removed(self, album):
-        if self._album_filter(album):
-            self._filtered.remove(album)
+    def _viewport_changed(self, *args):
+        init, end = self._cover_view.get_visible_range()
 
-            if album in self.showing:
-                self.hide_one(album)
+        self._visible_paths = []
 
-    def resort(self, key_attr='name'):
-        self._filtered.key = lambda album: getattr(album, key_attr)
+        while init and init != end:
+            self._visible_paths.append(init)
 
-        self.clear()
-        self.show()
+            init = init.next()
 
-    def replace_filter(self, filter_key, filter_text):
-        self._filters[filter_key] = AlbumFilters.keys[filter_key](filter_text)
+        self._visible_paths.append(end)
 
-        self._refilter()
+    def _album_updated(self, model, album_path, album_iter):
+        # get the currently showing paths
+        if not self._visible_paths:
+            self._viewport_changed()
 
-    def remove_filter(self, filter_key):
-        try:
-            del self._filters[filter_key]
-
-            self.refilter()
-        except:
-            pass
-
-    def _album_filter(self, album):
-        for f in self._filters.values():
-            if not f(album):
-                return False
-
-        return True
-
-    def _refilter(self):
-        filtered = filter(self._album_filter,
-            self._album_manager.get_album())
-
-        self._filtered.clear()
-
-        self._filtered.insert_all(filtered)
-
-        self.show()
-
-    def clear(self):
-        for album in self.showing:
-            album.remove_from_model()
-
-        del self.showing[:]
-
-    def show(self):
-        raise Exception('show not overrided')
-
-    def show_one(self, album):
-        raise Exception('show_one not overrided')
-
-    def hide_one(self):
-        raise Exception('hide_one not overrided')
-
-
-class ShowAllPolicy(AlbumShowingPolicy):
-
-    def __init__(self, cover_model, cover_view, album_manager):
-        super(ShowAllPolicy, self).__init__(cover_model, cover_view,
-            album_manager)
-
-        self.first = True
-
-    def _cover_loaded_callback(self, *args):
-        self.clear()
-        self.show()
-
-    def show(self):
-        '''
-        Fills the model defined for this loader with the info a covers from
-        all the albums loaded.
-        '''
-        if self.first:
-            self._cover_loaded_id = self._album_manager.covers_man.connect(
-                'load-finished', self._cover_loaded_callback)
-            self._album_manager.covers_man.load_covers(list(self._filtered))
-            self.first = False
-        else:
-            remove = [album for album in self.showing
-                if album not in self._filtered]
-            add = [album for album in self._filtered
-                if album not in self.showing]
-
-            for album in remove:
-                self.showing.remove(album)
-                album.remove_from_model()
-
-            for album in add:
-                self.showing.append(album)
-                album.add_to_model(self._cover_model,
-                    self._filtered.index(album))
-
-    def show_one(self, album):
-        self.showing.append(album)
-        self._album_manager.covers_man.load_cover(album)
-        album.add_to_model(self._cover_model, self._filtered.index(album))
-
-    def hide_one(self, album):
-        self.showing.remove(album)
-        album.remove_from_model()
-
-
-class ShowProgessivePolicy(AlbumShowingPolicy):
-
-    def __init__(self, cover_model, cover_view, album_manager):
-        super(ShowProgessivePolicy, self).__init__(cover_model, cover_view,
-            album_manager)
+        if album_path in self._visible_paths:
+            self._model.store.row_changed(album_path, album_iter)
 
 
 class AlbumManager(GObject.Object):
@@ -1199,26 +1226,24 @@ class AlbumManager(GObject.Object):
     # properties
     progress = GObject.property(type=float, default=0)
 
-    def __init__(self, plugin, cover_model, cover_view):
+    def __init__(self, plugin, cover_view):
         super(AlbumManager, self).__init__()
 
-        self.cover_model = cover_model
         self.cover_view = cover_view
-        self._albums = {}
         self.db = plugin.shell.props.db
 
+        self.model = AlbumsModel()
+
         # initialize showing policy
-        policy = ShowAllPolicy(cover_model, cover_view, self)
+        policy = AlbumShowingPolicy(cover_view, self)
 
         self._show_policy = policy
 
         # initialize managers
         self.loader = AlbumLoader(self)
-        self.covers_man = CoverManager(plugin, self)
-        self.genres_man = GenresManager(self)
-
-        # set the text manager for the albums
-        Album.TEXT_MAN = TextManager(self)
+        self.cover_man = CoverManager(plugin, self)
+        self.text_man = TextManager(self)
+        self.genre_man = GenresManager(self)
 
         # connect signals
         self._connect_signals()
@@ -1347,42 +1372,11 @@ class AlbumManager(GObject.Object):
         print "CoverArtBrowser DEBUG - end entry_album_artist_modified"
 
     def _load_finished_callback(self, *args):
-        self._show_policy.autoshow = True
-        self.show()
-
-    def add(self, album_name, album):
-        self._albums[album_name] = album
-        self._show_policy.album_added(album)
-
-    def get(self, album_name):
-        return self._albums[album_name]
-
-    def remove(self, album_name):
-        self._show_policy.album_removed(self._albums[album_name])
-
-        del self._albums[album_name]
-
-    def has(self, album_name):
-        return album_name in self._albums
-
-    def get_albums(self):
-        return self._albums.values()
-
-    def get_showing_albums(self):
-        return self._show_policy.showing
-
-    def show(self):
-        self._show_policy.show()
-
-    def replace_filter(self, filter_key, filter_text):
-        self._show_policy.replace_filter(filter_key, filter_text)
-
-    def remove_filter(self, filter_key):
-        self._show_policy.remove_filter(filter_key)
+        self.cover_man.load_covers()
 
     @classmethod
-    def get_instance(cls, plugin, cover_model, cover_view):
+    def get_instance(cls, plugin, cover_view):
         if not cls.instance:
-            cls.instance = AlbumManager(plugin, cover_model, cover_view)
+            cls.instance = AlbumManager(plugin, cover_view)
 
         return cls.instance
