@@ -39,7 +39,7 @@ import rb
 DEFAULT_LOAD_CHUNK = 15
 
 
-class Cover(object):
+class Cover(GObject.Object):
     ''' Cover of an Album. '''
 
     def __init__(self, size, file_path=None, pixbuf=None):
@@ -77,428 +77,304 @@ class Cover(object):
 
         self.size = size
 
+        return self
 
-class Album(object):
+
+class Track(GObject.Object):
+
+    # signals
+    __gsignals__ = {
+        'modified': (GObject.SIGNAL_RUN_LAST, None, ()),
+        'deleted': (GObject.SIGNAL_RUN_LAST, None, ())
+        }
+
+    def __init__(self, entry, db):
+        super(Track, self).__init__()
+
+        self.entry = entry
+        self._db = db
+
+    @property
+    def title(self):
+        return self.entry.get_string(RB.RhythmDBPropType.TITLE)
+
+    @property
+    def artist(self):
+        return self.entry.get_string(RB.RhythmDBPropType.ARTIST)
+
+    @property
+    def album(self):
+        return self.entry.get_string(RB.RhythmDBPropType.ALBUM)
+
+    @property
+    def album_artist(self):
+        return self.entry.get_string(RB.RhythmDBPropType.ALBUM_ARTIST)
+
+    @property
+    def genre(self):
+        return self.entry.get_string(RB.RhythmDBPropType.GENRE)
+
+    @property
+    def year(self):
+        return self.entry.get_ulong(RB.RhythmDBPropType.DATE)
+
+    @property
+    def rating(self):
+        return self.entry.get_double(RB.RhythmDBPropType.RATING)
+
+    @rating.setter
+    def rating(self, new_rating):
+        self._db.entry_set(self.entry, RB.RhythmDBPropType.RATING, new_rating)
+
+    @property
+    def duration(self):
+        return self.entry.get_ulong(RB.RhythmDBPropType.DURATION)
+
+    def create_ext_db_key(self):
+        self.entry.create_ext_db_key(RB.RhythmDBPropType.ALBUM)
+
+
+class Album(GObject.Object):
     '''
     An specific album defined by it's name and with the ability to obtain it's
     cover and set itself in a treemodel.
     '''
-    # cover used for those albums without one
-    UNKNOWN_COVER = 'img/rhythmbox-missing-artwork.svg'
+    # signals
+    __gsignals__ = {
+        'modified': (GObject.SIGNAL_RUN_FIRST, None, ()),
+        'emptied': (GObject.SIGNAL_RUN_LAST, None, ()),
+        'cover-updated': (GObject.SIGNAL_RUN_LAST, None())
+        }
 
-    # text manager that haves all the info necesary to create markup text
-    TEXT_MAN = None
-
-    def __init__(self, name, album_artist=None):
+    def __init__(self, name, cover):
         '''
         Initialises the album with it's name and artist.
         Initially, the album haves no cover, so the default Unknown cover is
         asigned.
         '''
-        self.name = name
-        self._album_artist = album_artist
-        self._artist = set()
-        self.entries = []
-        self.cover = Album.UNKNOWN_COVER
-        self.model = None
-        self._year = -1
-        self._rating = -1
+        super(Album, self).__init__()
+
+        self._name = name
+        self._album_artist = None
+        self._artist = None
+        self._title = None
+        self._genres = None
+        self._tracks = []
+        self._cover = cover
+        self._year = None
+        self._rating = None
 
     @property
     def album_name(self):
         '''
         Returns the name of the album.
         '''
-        return self.name
-
-    @property
-    def artist(self):
-        '''
-        Returns a string representation of the conjuction of all the artist
-        that have entries on this album.
-        '''
-        return ', '.join(self._artist)
-
-    @property
-    def track_title(self):
-        '''
-        Returns a string representation of the conjunction of all the track
-        titles that have entries on this album.
-        '''
-        title = set()
-
-        for e in self.entries:
-            title.add(e.get_string(RB.RhythmDBPropType.TITLE))
-
-        return ' '.join(title)
+        return self._name
 
     @property
     def album_artist(self):
         '''
         Returns this album's artist.
         '''
-        album_artist = self._album_artist
+        if not self._album_artist:
+            multiple_artist = False
 
-        if len(self._artist) > 1:
-            # if the album haves multiple entries,
-            #ignore the setted album artist
-            album_artist = _('Various Artists')
+            for track in self._tracks:
+                if not self._album_artist:
+                    self._album_artist = track.album_artist
+                elif track.album_artist != self._album_artist:
+                    multiple_artist = True
+                    break
 
-        return album_artist
+            if not self._album_artist or multiple_artist:
+                self._album_artist = _('Various Artist')
+
+        return self._album_artist
+
+    @property
+    def artists(self):
+        '''
+        Returns a string representation of the conjuction of all the artist
+        that have entries on this album.
+        '''
+        if not self._artist:
+            self._artist = set([track.artist for track in self._tracks])
+
+        return self._artist
+
+    @property
+    def track_titles(self):
+        '''
+        Returns a string representation of the conjunction of all the track
+        titles that have entries on this album.
+        '''
+        if not self._title:
+            self._title = set([track.title for track in self._tracks])
+
+        return self._title
 
     @property
     def year(self):
         '''
         Returns this album's year.
         '''
-        y = self._year
+        if not self._year:
+            self._year = min([track.year for track in self._tracks])
 
-        if y == -1:
-            for e in self.entries:
-                track_year = e.get_ulong(RB.RhythmDBPropType.DATE)
+        return self._year
 
-                if track_year > 0:
-                    if y == -1:
-                        y = track_year
-                    elif track_year < y:
-                        y = track_year
+    @property
+    def genres(self):
+        if not self._genre:
+            self._genre = set([track.genre for track in self._tracks])
 
-        if y < 0:
-            y = 0
-
-        self._year = y
-
-        return y
+        return self._genre
 
     @property
     def rating(self):
         '''
         Returns this album's rating.
         '''
-        r = self._rating
+        if not self._rating:
+            ratings = [track.rating for track in self._tracks
+                if track.rating != 0]
 
-        if r == -1:
-            num = 0
-            r = 0
-
-            for e in self.entries:
-                track_rating = e.get_double(RB.RhythmDBPropType.RATING)
-
-                if track_rating > 0:
-                    r += track_rating
-                    num += 1
-
-            if num > 0 and r > 0:
-                r = r / num
+            if len(ratings) > 0:
+                self._rating = float(sum(ratings)) / len(ratings)
             else:
-                r = 0
+                self._rating = 0
 
-            self._rating = r
+        return self._rating
 
-        return r
-
-    def has_genre(self, test_genre):
+    @rating.setter
+    def rating(self, new_rating):
         '''
-        Returns boolean value if any track is of test_genre
+        sets all the RBRhythmDBEntry's for the album
+        to have the given rating
         '''
-        for e in self.entries:
-            if e.get_string(RB.RhythmDBPropType.GENRE) == test_genre:
-                return True
+        for track in self._tracks:
+            track.rating = new_rating
 
-        return False
+    @property
+    def track_count(self):
+        return len(self._tracks)
 
-    def favourite_entries(self, threshold):
+    @property
+    def duration(self):
+        return sum([track.duration for track in self._tracks])
+
+    @property
+    def cover(self):
+        return self._cover
+
+    @cover.setter
+    def cover(self, new_cover):
+        self._cover = new_cover
+
+        self.emit('cover-updated')
+
+    def get_entries(self, rating_threshold=0):
         '''
         Returns the RBRhythmDBEntry's for the album
         the meet the rating threshold
         i.e. all the tracks >= Rating
         '''
-        # first look for any songs with a rating
-        # if none then we are not restricting what is queued
-        rating = 0
-        for entry in self.entries:
-            rating = entry.get_double(RB.RhythmDBPropType.RATING)
+        if not rating_threshold or not self.rating:
+            # if no song has rating, or no threshold is set, return all
+            entries = [track.entry for track in self._tracks]
 
-            if rating != 0:
-                break
-
-        if rating == 0:
-            return self.entries
-
-        songs = []
-
-        # Add the songs to the play queue
-        for entry in self.entries:
-            rating = entry.get_double(RB.RhythmDBPropType.RATING)
-
-            if rating >= threshold:
-                songs.append(entry)
-
-        return songs
-
-    def set_rating(self, rating):
-        '''
-        sets all the RBRhythmDBEntry's for the album
-        to have the given rating
-        '''
-
-        for entry in self.entries:
-            db = AlbumLoader.get_instance().db
-            db.entry_set(entry, RB.RhythmDBPropType.RATING,
-                rating)
-
-        AlbumLoader.get_instance().emit('album-modified', self)
-
-    def _remove_artist(self, artist):
-        '''
-        Allows to remove a orphaned artist. If the artist isn't orphaned (e.g.
-        there still exist an entry with the artist), this request will be
-        ignored.
-        '''
-        same_artist = False
-        for e in self.entries:
-            if e.get_string(RB.RhythmDBPropType.ARTIST) == artist:
-                same_artist = True
-                break
-
-        if not same_artist:
-            self._artist.discard(artist)
-
-    def _create_tooltip(self):
-        '''
-        Utility function that creates the tooltip for this album to set into
-        the model.
-        '''
-        return cgi.escape(_('%s by %s').encode('utf-8') % (self.name,
-            self.artist))
-
-    def _create_markup(self):
-        '''
-        Utility function that creates the markup text for this album to set
-        into the model.
-        '''
-        # we use unicode to avoid problems with non ascii albums
-        name = unicode(self.name, 'utf-8')
-        artist = unicode(self.album_artist, 'utf-8')
-
-        if self.TEXT_MAN.display_text_ellipsize_enabled:
-            ellipsize = self.TEXT_MAN.display_text_ellipsize_length
-
-            if len(name) > ellipsize:
-                name = name[:ellipsize] + '...'
-
-            if len(artist) > ellipsize:
-                artist = artist[:ellipsize] + '...'
-
-        name = name.encode('utf-8')
-        artist = artist.encode('utf-8')
-
-        # escape odd chars
-        artist = GLib.markup_escape_text(artist)
-        name = GLib.markup_escape_text(name)
-
-        # markup format
-        MARKUP_FORMAT = "<span font='%d'><b>%s</b>\n<i>%s</i></span>"
-        return MARKUP_FORMAT % (self.TEXT_MAN.display_font_size, name, artist)
-
-    def append_entry(self, entry):
-        ''' Appends an entry to the album entries' list. '''
-        self.entries.append(entry)
-
-        # also, add the artist to the artist list
-        artist = entry.get_string(RB.RhythmDBPropType.ARTIST)
-        self._artist.add(artist)
-
-        if self.model:
-            # update the model's tooltip and markup for this album
-            self.model.set_value(self.tree_iter, 0, self._create_tooltip())
-            self.model.set_value(self.tree_iter, 3, self._create_markup())
-
-    def remove_entry(self, entry):
-        '''
-        Removes an entry from the album entrie's list. If the removed entry
-        was the last one on the Album, it automatically removes itself from
-        it's tree model.
-        '''
-        # find and remove the entry
-        for e in self.entries:
-            if rb.entry_equal(e, entry):
-                self.entries.remove(e)
-                break
-
-        # if there isn't any other entry with the same artist, remove it
-        artist = entry.get_string(RB.RhythmDBPropType.ARTIST)
-
-        self._remove_artist(artist)
-
-        if self.model:
-            # update the album on the model
-            self.model.set_value(self.tree_iter, 0, self._create_tooltip())
-            self.model.set_value(self.tree_iter, 2, self)
-            self.model.set_value(self.tree_iter, 3, self._create_markup())
-
-    def entry_artist_modified(self, entry, old_artist, new_artist):
-        '''
-        This method should be called when an entry belonging to this album got
-        it's artist modified. It takes care of removing and adding the new
-        artist if necesary.
-        '''
-        # if there isn't any other entry with the old artist, remove it
-        self._remove_artist(old_artist)
-
-        # add our new artist
-        self._artist.add(new_artist)
-
-        if self.model:
-            # update the album on the model
-            self.model.set_value(self.tree_iter, 0, self._create_tooltip())
-            self.model.set_value(self.tree_iter, 2, self)
-            self.model.set_value(self.tree_iter, 3, self._create_markup())
-
-    def year_changed(self):
-        '''
-        This method should be called when an entry belonging to this album got
-        it's year modified. It takes care of recalculating the album year
-        '''
-        old_year = self._year
-        self._year = -1
-
-        if old_year != self.year and self.model:
-            self.model.set_value(self.tree_iter, 2, self)
-
-    def rating_changed(self):
-        '''
-        This method should be called when an entry belonging to this album got
-        it's rating modified. It takes care of recalculating the album rating
-        '''
-        old_rating = self._rating
-        self._rating = -1
-
-        if old_rating != self.rating and self.model:
-            self.model.set_value(self.tree_iter, 2, self)
-
-    def entry_album_artist_modified(self, entry, new_album_artist):
-        '''
-        This method should be called when an entry belonging to this album got
-        it's album artist modified.
-        '''
-        # replace the album_artist
-        if self._album_artist != new_album_artist:
-            self._album_artist = new_album_artist
-
-            if self.model:
-                # inform the model of the change
-                self.model.set_value(self.tree_iter, 2, self)
-
-                # update the markup
-                self.model.set_value(self.tree_iter, 3, self._create_markup())
-
-    def has_cover(self):
-        ''' Indicates if this album has his cover loaded. '''
-        return not self.cover is Album.UNKNOWN_COVER
-
-    def load_cover(self, cover_db, size):
-        '''
-        Tries to load the Album's cover from the provided cover_db. If no cover
-        is found upon lookup, the Unknown cover is used.
-        '''
-        key = self.entries[0].create_ext_db_key(RB.RhythmDBPropType.ALBUM)
-        art_location = cover_db.lookup(key)
-
-        if art_location and os.path.exists(art_location):
-            try:
-                self.cover = Cover(size, art_location)
-            except:
-                pass  # ignore
-
-    def cover_search(self, cover_db, callback, data):
-        '''
-        Activelly requests the Album's cover to the provided cover_db, calling
-        the callback given once the process finishes (since it generally is
-        asyncrhonous).
-        '''
-        key = self.entries[0].create_ext_db_key(RB.RhythmDBPropType.ALBUM)
-
-        provides = cover_db.request(key, callback, data)
-
-        if not provides:
-            # in case there is no provider, call the callback inmediatly
-            callback(data)
-
-    def update_cover(self, size, pixbuf=None):
-        ''' Updates this Album's cover using the given pixbuf. '''
-        if pixbuf:
-            self.cover = Cover(size, pixbuf=pixbuf)
-            self.model.set_value(self.tree_iter, 1, self.cover.pixbuf)
         else:
-            self.cover.resize(size)
+            # otherwise, only return the entries over the threshold
+            entries = []
 
-    def add_to_model(self, model, position=-1):
+            for track in self._tracks:
+                if track.rating > rating_threshold:
+                    entries.append(track.entry)
+
+        return entries
+
+    def add_track(self, track):
+        ''' Appends an track to the album's tracks list. '''
+        self._tracks.append(track)
+
+        track._connect('modified', self._track_modified)
+        track._connect('deleted', self._track_deleted)
+
+        self.emit('modified')
+
+    def _track_modified(self, track):
+        if track.album != self.name:
+            self._tracks.remove(track)
+
+        self.emit('emptied')
+
+    def _track_deleted(self, track):
+        self._tracks.remove(track)
+
+        if len(self._tracks) == 0:
+            self.emit('emptied')
+        else:
+            self.emit('modified')
+
+    def creat_ext_db_key(self):
+        return self._tracks[0].create_ext_db_key()
+
+    def do_modified(self):
+        self._album_artist = None
+        self._artist = None
+        self._title = None
+        self._genres = None
+        self._year = None
+        self._rating = None
+
+class AlbumsCoverModel(GObject.Object):
+
+    columns = ['tooltip', 'pixbuf', 'album', 'markup', 'show']
+
+    def __init__(self, tree_store):
+        super(AlbumsCoverModel, self).__init__()
+
+        self._iters = {}
+        self._tree_store = tree_store
+
+    def add(self, album, pixbuf, tooltip, markup, position=-1):
         '''
-        Add this model to the tree model. For default, the info is assigned
+        Add album to the tree model. For default, the info is assigned
         in the next order:
             column 0 -> string containing the album name and artist
             column 1 -> pixbuf of the album's cover.
-            column 2 -> instance of this same album.
+            column 2 -> instance of the album itself.
             column 3 -> markup text showed under the cover.
+            column 4 -> boolean that indicates if the row should be shown
         '''
-        self.model = model
-        tooltip = self._create_tooltip()
-        markup = self._create_markup()
+        tree_iter = self._tree_store.insert(position,
+            (tooltip, pixbuf, album, markup, True))
 
-        self.tree_iter = model.insert(position,
-            (tooltip, self.cover.pixbuf, self, markup))
+        self._iters[album.name] = tree_iter
 
-        return self.tree_iter
+        return tree_iter
 
-    def remove_from_model(self):
+    def remove(self, album):
         ''' Removes this album from it's model. '''
-        self.model.remove(self.tree_iter)
+        self._tree_store.remove(self._iters[album.name])
 
-        self.model = None
-        del self.tree_iter
+        del self._iters[album.name]
 
-    def recreate_text(self):
-        # update the markup
-        self.model.set_value(self.tree_iter, 3, self._create_markup())
+    def update(self, album, **kwargs):
+        for key in kwargs.keys():
+            if key in self.columns:
+                self._tree_store.set_value(self._iters[album.name],
+                   self.columns.index('show'), kwargs[key])
 
-    def get_entries(self, model):
-        ''' adds all entries to the model'''
-        songs = sorted(self.entries, key=lambda song:
-                song.get_ulong(RB.RhythmDBPropType.TRACK_NUMBER))
+    def hide(self, albums):
+        for album in albums:
+            self._tree_store.set_value(self._iters[album.name],
+                self.columns.index('show'), False)
 
-        for e in songs:
-            model.add_entry(e, -1)
-
-    def get_track_count(self):
-        ''' Returns the quantity of tracks stored on this Album. '''
-        return len(self.entries)
-
-    def calculate_duration_in_secs(self):
-        '''
-        Returns the duration of this album (given by it's tracks) in seconds.
-        '''
-        duration = 0
-
-        for entry in self.entries:
-            duration += entry.get_ulong(RB.RhythmDBPropType.DURATION)
-
-        return duration
-
-    def calculate_duration_in_mins(self):
-        '''
-        Returns the duration of this album in minutes. The duration is
-        truncated.
-        '''
-        return self.calculate_duration_in_secs() / 60
-
-    @classmethod
-    def create_unknown_cover(cls, cover_size, cover_path):
-        '''
-        Updates the unknown cover size or creates it if it isn't already
-        created.
-        '''
-        cls.UNKNOWN_COVER = Cover(cover_size, cover_path)
+    def show(self, albums):
+        for album in albums:
+            self._tree_store.set_value(self._iters[album.name],
+                self.columns.index('show'), True)
 
 
 class AlbumLoader(GObject.Object):
@@ -727,8 +603,8 @@ class CoverManager(GObject.Object):
         self._connect_properties()
 
         # create the unknown cover
-        Album.create_unknown_cover(self.cover_size,
-            rb.find_plugin_file(plugin, Album.UNKNOWN_COVER))
+        self.unknown_cover = Cover(self.cover_size,
+            'img/rhythmbox-missing-artwork.svg')
 
     def _connect_signals(self):
         self.connect('notify::cover-size', self._on_notify_cover_size)
@@ -750,7 +626,7 @@ class CoverManager(GObject.Object):
         '''
         # update the album's covers
         for album in self._album_manager.get_showing_albums():
-            album.update_cover(self.cover_size)
+            album.cover = album.cover.resize(self.cover_size)
 
     def _albumart_added_callback(self, ext_db, key, path, pixbuf):
         '''
@@ -763,14 +639,25 @@ class CoverManager(GObject.Object):
 
         # use the name to get the album and update the cover
         if self.album_manager.has(album_name):
-            self._album_manager.get(album_name).update_cover(pixbuf,
-                self.cover_size)
+            album = self._album_manager.get(album_name)
+
+            album.cover = Cover(self.cover_size, pixbuf=pixbuf)
 
         print "CoverArtBrowser DEBUG - end albumart_added_callback"
 
     def load_cover(self, album):
-        if not album.cover.has_cover():
-            album.load_cover(album, self._cover_db, self.cover_size)
+        '''
+        Tries to load an Album's cover from the provided cover_db. If no cover
+        is found upon lookup, the Unknown cover is used.
+        '''
+        key = album.create_ext_db_key()
+        art_location = self._cover_db.lookup(key)
+
+        if art_location and os.path.exists(art_location):
+            try:
+                album.cover = Cover(self.cover_size, art_location)
+            except:
+                pass  # ignore
 
     def load_covers(self, albums):
         Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
@@ -786,7 +673,7 @@ class CoverManager(GObject.Object):
                 album = albums.pop()
 
                 if not album.has_cover():
-                    album.load_cover(self._cover_db, self.cover_size)
+                    self.load_cover(album)
 
             except:
                 # we finished loading
@@ -796,19 +683,10 @@ class CoverManager(GObject.Object):
 
         # update the progress
         self._album_manager.progress = 1 - len(albums) / float(
-            len(self._album_manager._albums))
+            len(self._album_manager.get_albums()))
 
         # the list still got albums, keep going
         return True
-
-    def search_cover_for_album(self, album, callback=lambda *_: None,
-        data=None):
-        '''
-        Request to a given album to find it's cover. This call is generally
-        made asynchronously, so a callback can be given to be called upon
-        the finishing of the process.
-        '''
-        album.cover_search(self.cover_db, callback, data)
 
     def search_covers(self, albums=None, callback=lambda *_: None):
         '''
@@ -862,6 +740,21 @@ class CoverManager(GObject.Object):
         except:
             pass
 
+    def search_cover_for_album(self, album, callback=lambda *_: None,
+        data=None):
+        '''
+        Activelly requests an Album's cover to the cover_db, calling
+        the callback given once the process finishes (since it generally is
+        asyncrhonous).
+        '''
+        key = album.creat_ext_db_key()
+
+        provides = self._cover_db.request(key, callback, data)
+
+        if not provides:
+            # in case there is no provider, call the callback inmediatly
+            callback(data)
+
     def update_cover(self, album, pixbuf=None, uri=None):
         '''
         Updates the cover database, inserting the pixbuf as the cover art for
@@ -909,17 +802,18 @@ class CoverManager(GObject.Object):
 
 class GenresManager(GObject.Object):
 
+    # signals
+    __gsignals__ = {
+        'genres-changed': (GObject.SIGNAL_RUN_LAST, None, ())
+        }
+
     def __init__(self, album_manager):
         super(GenresManager, self).__init__()
 
         self._album_manager = album_manager
-        self._genres = set()
+        self.genres
 
-    def _get_genre(self, entry):
-        '''
-        Looks and retrieves an entry's genre.
-        '''
-        return entry.get_string(RB.RhythmDBPropType.GENRE)
+        self._connect_signals()
 
     def _connect_signals(self):
         self.entry_changed_id = self._album_manager.db.connect('entry-changed',
@@ -942,7 +836,7 @@ class GenresManager(GObject.Object):
 
                 if change.prop is RB.RhythmDBPropType.GENRE:
                     # called when the genre of an entry gets modified
-                    self._genres.add(change.new)
+                    self.emit('genres-changed')
 
                 # removes the last change from the GValueArray
                 changes.remove(0)
@@ -951,9 +845,6 @@ class GenresManager(GObject.Object):
             pass
 
         print "CoverArtBrowser DEBUG - end entry_changed_callback"
-
-    def get_genres(self):
-        return list(self._genres)
 
 
 class TextManager(GObject.Object):
@@ -1034,6 +925,43 @@ class TextManager(GObject.Object):
         self._album_manager.cover_view.set_item_width(item_width)
 
         print "CoverArtBrowser DEBUG - end activate_markup"
+
+    def create_tooltip(self, album):
+        '''
+        Utility function that creates the tooltip for this album to set into
+        the model.
+        '''
+        return cgi.escape(_('%s by %s').encode('utf-8') % (album.name,
+            album.artist))
+
+    def create_markup_text(self, album):
+        '''
+        Utility function that creates the markup text for this album to set
+        into the model.
+        '''
+        # we use unicode to avoid problems with non ascii albums
+        name = unicode(album.name, 'utf-8')
+        artist = unicode(album.album_artist, 'utf-8')
+
+        if self.display_text_ellipsize_enabled:
+            ellipsize = self.display_text_ellipsize_length
+
+            if len(name) > ellipsize:
+                name = name[:ellipsize] + '...'
+
+            if len(artist) > ellipsize:
+                artist = artist[:ellipsize] + '...'
+
+        name = name.encode('utf-8')
+        artist = artist.encode('utf-8')
+
+        # escape odd chars
+        artist = GLib.markup_escape_text(artist)
+        name = GLib.markup_escape_text(name)
+
+        # markup format
+        markup = "<span font='%d'><b>%s</b>\n<i>%s</i></span>"
+        return markup % (self.display_font_size, name, artist)
 
 
 class AlbumFilters(object):
@@ -1134,7 +1062,7 @@ class AlbumShowingPolicy(GObject.Object):
         self._cover_view = cover_view
         self._album_manager = album_manager
         self._filters = {}
-        self._filtered = SortedCollection(self._album_manager._albums.values())
+        self._filtered = SortedCollection(self._album_manager.get_albums())
         self.showing = []
         self.autoshow = False
 
@@ -1180,7 +1108,7 @@ class AlbumShowingPolicy(GObject.Object):
 
     def _refilter(self):
         filtered = filter(self._album_filter,
-            self._album_manager._albums.values())
+            self._album_manager.get_album())
 
         self._filtered.clear()
 
@@ -1437,6 +1365,9 @@ class AlbumManager(GObject.Object):
     def has(self, album_name):
         return album_name in self._albums
 
+    def get_albums(self):
+        return self._albums.values()
+
     def get_showing_albums(self):
         return self._show_policy.showing
 
@@ -1450,10 +1381,8 @@ class AlbumManager(GObject.Object):
         self._show_policy.remove_filter(filter_key)
 
     @classmethod
-    def get_instance(cls, plugin, cover_model, cover_view, query_model):
+    def get_instance(cls, plugin, cover_model, cover_view):
         if not cls.instance:
             cls.instance = AlbumManager(plugin, cover_model, cover_view)
-
-            cls.instance.loader.load_albums(query_model)
 
         return cls.instance
