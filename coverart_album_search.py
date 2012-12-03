@@ -296,9 +296,9 @@ class DiscogsSearch (object):
         #pool = mp.Pool()
         #pool.apply_async(self.get_release_cb, args = (key, store, url, args), callback = callback)
 
-        Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
-            self.get_release_cb, (key, store, url, args, callback))
-        #self.get_release_cb( (key, store, url, args, callback) )
+        #Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
+        #    self.get_release_cb, (key, store, url, args, callback))
+        self.get_release_cb( (key, store, url, args, callback) )
         
         
 		
