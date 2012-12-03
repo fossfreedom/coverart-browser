@@ -192,6 +192,8 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
             searches.append(CoverAlbumSearch())
         if setting[gs.PluginKey.DISCOGS_SEARCH]:
             searches.append(DiscogsSearch())
-        
+
+        print "about to search"
 		s = CoverSearch(store, key, last_time, searches)
+        print "finished about to return"
 		return s.next_search()

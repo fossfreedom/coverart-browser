@@ -37,8 +37,8 @@ class APIBase(object):
                 raise DiscogsAPIError, 'Invalid or no User-Agent set'
             try:
                 print "here"
-                proxydict = {'http': '' }
-                self._cached_response = requests.get(self._uri, params=self._params, headers=self._headers, proxie=proxydict)
+                #proxydict = {'http': '' }
+                self._cached_response = requests.get(self._uri, params=self._params, headers=self._headers)
                 print "here2"
             except:
                 print "here3"

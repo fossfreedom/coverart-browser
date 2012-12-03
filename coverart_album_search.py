@@ -58,14 +58,19 @@ class CoverSearch(object):
 		self.searches = searches
 
 	def next_search(self):
+        print "next search"
 		if len(self.searches) == 0:
+            print "no more searches"
 			key = RB.ExtDBKey.create_storage("album", self.key.get_field("album"))
 			key.add_field("artist", self.key.get_field("artist"))
 			self.store.store(key, RB.ExtDBSourceType.NONE, None)
+            print "end of next_search False"
 			return False
 
 		search = self.searches.pop(0)
+        print "calling search"
 		search.search(self.key, self.last_time, self.store, self.search_done, None)
+        print "end of next_search TRUE"
 		return True
 
 	def search_done(self, args):
@@ -227,7 +232,7 @@ class CoverAlbumSearch:
 
 class DiscogsSearch (object):
 	def __init__(self):
-        discogs.user_agent = 'CoverartBrowserSearch/0.6 +https://github.com/fossfreedom/coverart-browser'
+        discogs.user_agent = 'CoverartBrowserSearch/0.7alpha +https://github.com/fossfreedom/coverart-browser'
 
 	def search_url (self, artist, album):
 		# Remove variants of Disc/CD [1-9] from album title before search
@@ -246,8 +251,8 @@ class DiscogsSearch (object):
 		
 		try:
             s = discogs.Search(url)
-            #url = s.results()[0].data['images'][0]['uri150']
-            #self.store.store_uri(self.current_key, RB.ExtDBSourceType.SEARCH, url)
+            url = s.results()[0].data['images'][0]['uri150']
+            self.store.store_uri(self.current_key, RB.ExtDBSourceType.SEARCH, url)
         except:
             print "not found"
 			pass
