@@ -1226,7 +1226,6 @@ class AlbumShowingPolicy(GObject.Object):
     def _connect_signals(self):
         self._cover_view.props.vadjustment.connect('value-changed',
             self._viewport_changed)
-        self._model.connect('filter-changed', self._viewport_changed)
         self._model.connect('album-updated', self._album_updated)
 
     def _viewport_changed(self, *args):
@@ -1236,12 +1235,17 @@ class AlbumShowingPolicy(GObject.Object):
         if visible_range:
             init, end = visible_range
 
+            # i have to use the tree iter instead of the path to iterate since
+            # for some reason path.next doesn't work whit the filtermodel
+            tree_iter = self._model.store.get_iter(init)
+
             self._visible_paths = []
 
             while init and init != end:
                 self._visible_paths.append(init)
 
-                init = init.next()
+                tree_iter = self._model.store.iter_next(tree_iter)
+                init = self._model.store.get_path(tree_iter)
 
             self._visible_paths.append(end)
 
@@ -1250,7 +1254,12 @@ class AlbumShowingPolicy(GObject.Object):
         if not self._visible_paths:
             self._viewport_changed()
 
-        if album_path in self._visible_paths:
+        # we gotta use the filter path insteand of the model one
+        album_path = model.store.convert_child_path_to_path(album_path)
+
+        if album_path and album_path in self._visible_paths:
+            # if our path is on the viewport, emit the signal to update it
+            album_iter = model.store.get_iter(album_path)
             self._model.store.row_changed(album_path, album_iter)
 
 
