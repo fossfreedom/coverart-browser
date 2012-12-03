@@ -25,13 +25,27 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
-from gi.repository import GObject, Peas, RB, GdkPixbuf
-import os
+from gi.repository import RB
+from gi.repository import GLib
+from gi.repository import Gdk
+from gi.repository import Gio
 
-from gi.repository import GLib, Gio
+import os, time,re, urllib
+import discogs_client as discogs
 
 ITEMS_PER_NOTIFICATION = 10
 IGNORED_SCHEMES = ('http', 'cdda', 'daap', 'mms')
+REPEAT_SEARCH_PERIOD = 86400 * 7
+
+DISC_NUMBER_REGEXS = (
+	"\(disc *[0-9]+\)",
+	"\(cd *[0-9]+\)",
+	"\[disc *[0-9]+\]",
+	"\[cd *[0-9]+\]",
+	" - disc *[0-9]+$",
+	" - cd *[0-9]+$",
+	" disc *[0-9]+$",
+	" cd *[0-9]+$")
 
 def file_root (f_name):
 	return os.path.splitext (f_name)[0].lower ()
@@ -56,30 +70,6 @@ class CoverSearch(object):
 
 	def search_done(self, args):
 		self.next_search()
-
-class CoverArtSearchPlugin (GObject.GObject, Peas.Activatable):
-	__gtype_name__ = 'CoverArtSearchPlugin'
-	object = GObject.property(type=GObject.GObject)
-
-	def __init__ (self):
-		GObject.GObject.__init__ (self)
-
-	def do_activate (self):
-		self.art_store = RB.ExtDB(name="album-art")
-		self.req_id = self.art_store.connect("request", self.album_art_requested)
-
-	def do_deactivate (self):
-		self.art_store.disconnect(self.req_id)
-		self.req_id = 0
-		self.art_store = None
-		self.object = None
-
-	def album_art_requested(self, store, key, last_time):
-		searches = []
-		searches.append(CoverAlbumSearch())
-
-		s = CoverSearch(store, key, last_time, searches)
-		return s.next_search()
 
 class CoverAlbumSearch:
 	def __init__ (self):
@@ -162,7 +152,7 @@ class CoverAlbumSearch:
 		enumfiles = parent.enumerate_children_async("standard::content-type,access::can-read,standard::name", 0, 0, None, self._enum_children_cb, None)
 
 	def get_embedded_image(self, search):
-		
+		print "get_embedded_image"
 		import tempfile
 		imagefilename = tempfile.NamedTemporaryFile(delete=False)
 		
@@ -233,4 +223,77 @@ class CoverAlbumSearch:
 		imagefilename.close()
 		
 		return False
+
+
+class DiscogsSearch (object):
+	def __init__(self):
+        discogs.user_agent = 'CoverartBrowserSearch/0.6 +https://github.com/fossfreedom/coverart-browser'
+
+	def search_url (self, artist, album):
+		# Remove variants of Disc/CD [1-9] from album title before search
+		orig_album = album
+		for exp in DISC_NUMBER_REGEXS:
+			p = re.compile (exp, re.IGNORECASE)
+			album = p.sub ('', album)
+
+		album.strip()
+        url = "%s/%s" % (artist,album)
+		print "discogs url = %s" % url
+		return url
+
+	def get_release_cb (self, data):
+        (key, store, url, cbargs, callback) = data
+		
+		try:
+            s = discogs.Search(url)
+            #url = s.results()[0].data['images'][0]['uri150']
+            #self.store.store_uri(self.current_key, RB.ExtDBSourceType.SEARCH, url)
+        except:
+            print "not found"
+			pass
+
+        self.callback(cbargs)
+        return False
+	
+	def search(self, key, last_time, store, callback, args):
+		if last_time > (time.time() - REPEAT_SEARCH_PERIOD):
+			print "we already tried this one"
+			callback (args)
+			return
+
+		album = key.get_field("album")
+		artists = key.get_field_values("artist")
+
+		artists = filter(lambda x: x not in (None, "", _("Unknown")), artists)
+		if album in ("", _("Unknown")):
+			album = None
+
+		if album == None or len(artists) == 0:
+			print "can't search: no useful details"
+			callback (args)
+			return
+
+		self.searches = []
+		for a in artists:
+			self.searches.append([a, album])
+		self.searches.append(["Various Artists", album])
+
+        self.current_key = RB.ExtDBKey.create_storage("album", album)
+		self.current_key.add_field("artist", artists[0])
+
+		self.store = store
+		self.callback = callback
+		self.callback_args = args
+
+        print artists
+        url = self.search_url(album, artists[0])
+        
+        #pool = mp.Pool()
+        #pool.apply_async(self.get_release_cb, args = (key, store, url, args), callback = callback)
+
+        Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
+            self.get_release_cb, (key, store, url, args, callback))
+        #self.get_release_cb( (key, store, url, args, callback) )
+        
+        
 		

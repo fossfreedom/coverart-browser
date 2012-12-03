@@ -127,8 +127,10 @@ N.B. for debian based distros - `sudo apt-get install git`
 N.B. for debian based distros - `sudo apt-get install gettext`
 3. install the package *python-mako*
 N.B. for debian based distros - `sudo apt-get install python-mako`
-3. install the package *python-mutagen*
+4. install the package *python-mutagen*
 N.B. for debian based distros - `sudo apt-get install python-mutagen`
+5. install the package *python-requests*
+N.B. for debian based distros - `sudo apt-get install python-requests`
 
 
 <pre>
