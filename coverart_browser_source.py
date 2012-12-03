@@ -98,7 +98,6 @@ class CoverArtBrowserSource(RB.Source):
         show the selected album info.
         Also, it makes sure to show the progress on the album loading.s
         '''
-        print "CoverArtBrowser DEBUG - do_get_status"
         try:
             progress = self.album_manager.progress
             progress_text = _('Loading...') if progress < 1 else ''
@@ -106,7 +105,6 @@ class CoverArtBrowserSource(RB.Source):
             progress = 1
             progress_text = ''
 
-        print "CoverArtBrowser DEBUG - end do_get_status"
         return (self.status, progress_text, progress)
 
     def do_show_popup(self):
@@ -216,9 +214,6 @@ class CoverArtBrowserSource(RB.Source):
         self.page = ui.get_object('main_box')
         self.pack_start(self.page, True, True, 0)
 
-        # covers model
-        self.covers_model = ui.get_object('covers_model')
-
         # get widgets for main icon-view
         self.status_label = ui.get_object('status_label')
         self.covers_view = ui.get_object('covers_view')
@@ -260,6 +255,8 @@ class CoverArtBrowserSource(RB.Source):
 
         self.ui = ui
         self.si = si
+
+        self.on_notify_toolbar_pos()
 
         print "CoverArtBrowser DEBUG - end _create_ui"
 
@@ -315,57 +312,7 @@ class CoverArtBrowserSource(RB.Source):
         # genre
         self.genre_combobox = ui.get_object('genre_combobox')
         self.on_notify_genre_filter_visible(_)
-        self.genre_fill_combo(_)
         print "CoverArtBrowser DEBUG - end _toolbar"
-
-    def genre_fill_combo(self, *args):
-        '''
-        fills the genre combobox with all current genres found
-        in the library source
-        '''
-        print "CoverArtBrowser DEBUG - genre_fill_combo"
-        genres = self.album_manager.genres_man.get_genres()
-
-        if genres == self.genre_combobox.get_model():
-            return  # nothing to do
-
-        # we dont want the combobox signal to fire
-        self.genre_changed_ignore = True
-
-        views = self.shell.props.library_source.get_property_views()
-        view = views[0]  # seems like view 0 is the genre property view
-        model = view.get_model()
-
-        self.genre_combobox.remove_all()
-
-        entry = model[0][0]
-        self.genre_combobox.append_text(entry)
-
-        for entry in genres:
-            self.genre_combobox.append_text(entry)
-
-        self.genre_combobox.set_active(0)
-
-        self.genre_changed_ignore = False
-
-        print "CoverArtBrowser DEBUG - end genre_fill_combo"
-
-    def genre_changed(self, widget):
-        '''
-        signal called when genre value changed
-        '''
-        genre = widget.get_active_text()
-
-        if self.genre_changed_ignore:
-            return
-
-        print "CoverArtBrowser DEBUG - genre changed"
-
-        if genre == 'All':
-            self.album_manager.remove_filter('genre')
-        else:
-            self.album_manager.replace_filter('genre')
-        print "CoverArtBrowser DEBUG - end genre changed"
 
     def _setup_source(self):
         '''
@@ -420,9 +367,16 @@ class CoverArtBrowserSource(RB.Source):
 
         # setup the album loader and the cover view to use it's model + filter
         self.album_manager = AlbumManager.get_instance(self.plugin,
-            self.covers_model, self.covers_view, self.props.query_model)
+            self.covers_view)
 
-        self.covers_model = self.album_manager.cover_model
+        # connect a signal to when the info of albums is ready
+        self.load_fin_id = self.album_manager.loader.connect(
+            'model-load-finished', self.load_finished_callback)
+
+        # prompt the loader to load the albums
+        self.album_manager.loader.load_albums(self.props.query_model)
+
+        self.covers_model = self.album_manager.model.store
         self.covers_view.set_model(self.covers_model)
 
         print "CoverArtBrowser DEBUG - end _setup_source"
@@ -455,12 +409,12 @@ class CoverArtBrowserSource(RB.Source):
         self.ui.connect_signals(self)
         self.album_mod_id = self.album_manager.connect('album-modified',
             self.album_modified_callback)
-        self.load_fin_id = self.album_manager.loader.connect('load-finished',
-            self.load_finished_callback)
         self.notify_prog_id = self.album_manager.connect(
             'notify::progress', lambda *args: self.notify_status_changed())
         self.toolbar_pos = self.connect('notify::toolbar-pos',
             self.on_notify_toolbar_pos)
+        self.genre_changed_id = self.album_manager.genre_man.connect(
+            'genres-changed', self.genre_fill_combo)
 
         # apply/connect some settings
         source_settings = self.gs.get_setting(self.gs.Path.PLUGIN)
@@ -585,7 +539,7 @@ class CoverArtBrowserSource(RB.Source):
         if toolbar_pos == 0:
             self._toolbar(self.ui)
             self.toolbar_box.set_visible(True)
-	
+
         if toolbar_pos == 1:
             self.toolbar_box.set_visible(False)
             print "hi"
@@ -613,7 +567,50 @@ class CoverArtBrowserSource(RB.Source):
 
         self.last_toolbar_pos = toolbar_pos
 
+        self.genre_fill_combo()
+
         print "CoverArtBrowser DEBUG - end on_notify_toolbar_pos"
+
+    def genre_fill_combo(self, *args):
+        '''
+        fills the genre combobox with all current genres found
+        in the library source
+        '''
+        print "CoverArtBrowser DEBUG - genre_fill_combo"
+        # we dont want the combobox signal to fire
+        self.genre_changed_ignore = True
+
+        views = self.shell.props.library_source.get_property_views()
+        view = views[0]  # seems like view 0 is the genre property view
+        model = view.get_model()
+
+        self.genre_combobox.remove_all()
+
+        for entry in model:
+            self.genre_combobox.append_text(entry[0])
+
+        self.genre_combobox.set_active(0)
+
+        self.genre_changed_ignore = False
+
+        print "CoverArtBrowser DEBUG - end genre_fill_combo"
+
+    def genre_changed(self, widget):
+        '''
+        signal called when genre value changed
+        '''
+        genre = widget.get_active_text()
+
+        if self.genre_changed_ignore:
+            return
+
+        print "CoverArtBrowser DEBUG - genre changed"
+
+        if genre == 'All':
+            self.album_manager.remove_filter('genre')
+        else:
+            self.album_manager.replace_filter('genre')
+        print "CoverArtBrowser DEBUG - end genre changed"
 
     def on_notify_display_bottom_enabled(self, *args):
         '''
@@ -713,7 +710,7 @@ class CoverArtBrowserSource(RB.Source):
         '''
         print "CoverArtBrowser DEBUG - searchchanged_callback"
         self.search_text = text
-        self.album_manager.replace_filter(self.filter_type, text)
+        self.album_manager.model.replace_filter(self.filter_type, text)
 
         print "CoverArtBrowser DEBUG - end searchchanged_callback"
 
@@ -1111,8 +1108,8 @@ class CoverArtBrowserSource(RB.Source):
 
         for album in selected:
             # Calculate duration and number of tracks from that album
-            track_count += album.get_track_count()
-            duration += album.calculate_duration_in_mins()
+            track_count += album.track_count
+            duration += album.duration / 60
 
             # add the album to the entry_view
             self.entry_view.add_album(album)

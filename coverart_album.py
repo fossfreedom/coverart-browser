@@ -37,7 +37,7 @@ import rb
 
 
 # default chunk of albums to process
-DEFAULT_LOAD_CHUNK = 20
+DEFAULT_LOAD_CHUNK = 25
 
 
 class Cover(GObject.Object):
@@ -171,6 +171,7 @@ class Album(GObject.Object):
         self._cover = cover
         self._year = None
         self._rating = None
+        self._duration = None
 
         self._signals_id = {}
 
@@ -267,7 +268,10 @@ class Album(GObject.Object):
 
     @property
     def duration(self):
-        return sum([track.duration for track in self._tracks])
+        if not self._duration:
+            self._duration = sum([track.duration for track in self._tracks])
+
+        return self._duration
 
     @property
     def cover(self):
@@ -340,6 +344,7 @@ class Album(GObject.Object):
         self._genres = None
         self._year = None
         self._rating = None
+        self._duration = None
 
 
 class AlbumFilters(object):
@@ -592,7 +597,8 @@ class AlbumLoader(GObject.Object):
     '''
     # signals
     __gsignals__ = {
-        'load-finished': (GObject.SIGNAL_RUN_LAST, None, ())
+        'albums-load-finished': (GObject.SIGNAL_RUN_LAST, None, (object,)),
+        'model-load-finished': (GObject.SIGNAL_RUN_LAST, None, ())
         }
 
     def __init__(self, album_manager):
@@ -704,41 +710,60 @@ class AlbumLoader(GObject.Object):
         Specifically, it throws the query against the RhythmDB.
         '''
         print "CoverArtBrowser DEBUG - load_albums"
-        albums = {}
-
-        query_model.foreach(self._process_entry, albums)
-
-        # load the albums to the model
-        self._album_manager.model.replace_filter('nay')
+        # load the albums from the query_model
         Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
-            self._idle_add_albums, albums.values())
+            self._idle_process_entry, [{}, query_model, len(query_model), 0.,
+                query_model.get_iter_first()])
 
-        print "CoverArtBrowser DEBUG - load finished"
+        print "CoverArtBrowser DEBUG - load_albums finished"
 
-    def _process_entry(self, model, tree_path, tree_iter, albums):
+    def _idle_process_entry(self, args):
         '''
         Process a single entry, allocating it to it's correspondent album or
         creating a new one if necesary.
         '''
-        (entry,) = model.get(tree_iter, 0)
+        albums, model, total, count, tree_iter = args
 
-        # allocate the track
-        track = Track(entry, self._album_manager.db)
+        for i in range(DEFAULT_LOAD_CHUNK):
+            if tree_iter is None:
+                self._album_manager.progress = 1
+                self.emit('albums-load-finished', albums)
+                return False
 
-        self._tracks[track.location] = track
+            (entry,) = model.get(tree_iter, 0)
 
-        album_name = track.album
+            # allocate the track
+            track = Track(entry, self._album_manager.db)
 
-        if album_name in albums:
-            album = albums[album_name]
-        else:
-            album = Album(album_name,
-                self._album_manager.cover_man.unknown_cover)
-            albums[album_name] = album
+            self._tracks[track.location] = track
 
-        album.add_track(track)
+            album_name = track.album
 
-    def _idle_add_albums(self, albums):
+            if album_name in albums:
+                album = albums[album_name]
+            else:
+                album = Album(album_name,
+                    self._album_manager.cover_man.unknown_cover)
+                albums[album_name] = album
+
+            album.add_track(track)
+
+            tree_iter = model.iter_next(tree_iter)
+
+        # update the iter
+        args[4] = tree_iter
+
+        # update the progress
+        count += DEFAULT_LOAD_CHUNK
+        args[3] = count
+
+        self._album_manager.progress = count / total
+
+        return True
+
+    def _idle_add_albums(self, args):
+        albums, total = args
+
         for i in range(DEFAULT_LOAD_CHUNK):
             try:
                 album = albums.pop()
@@ -747,16 +772,26 @@ class AlbumLoader(GObject.Object):
 
             except IndexError:
                 # we finished loading
-                self.emit('load-finished')
+                self._album_manager.progress = 1
+                self.emit('model-load-finished')
                 return False
 
             except Exception as e:
                 print 'Error while adding albums to the model: ' + str(e)
 
+        # update the progress
+        self._album_manager.progress = 1 - len(albums) / float(total)
+
         # the list still got albums, keep going
         return True
 
-    def do_load_finished(self):
+    def do_albums_load_finished(self, albums):
+        # load the albums to the model
+        self._album_manager.model.replace_filter('nay')
+        Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
+            self._idle_add_albums, (albums.values(), len(albums)))
+
+    def do_model_load_finished(self):
         self._album_manager.model.remove_filter('nay')
 
 
@@ -802,7 +837,7 @@ class CoverManager(GObject.Object):
         Updates the showing albums cover size.
         '''
         # update the album's covers
-        albums = list(self._album_manager.get_showing_albums())
+        albums = list(self._album_manager.model.get_all())
         albums.reverse()
 
         Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
@@ -1115,7 +1150,7 @@ class TextManager(GObject.Object):
         Callback called when one of the properties related with the ellipsize
         option is changed.
         '''
-        for album in self._album_manager.get_showing_albums():
+        for album in self._album_manager.model.get_all():
             album.recreate_text(self)
 
     def _activate_markup(self, *args):
@@ -1245,6 +1280,12 @@ class AlbumManager(GObject.Object):
         self.text_man = TextManager(self)
         self.genre_man = GenresManager(self)
 
+        # list of important props which changes should listen to
+        self._important_props = [RB.RhythmDBPropType.TITLE,
+            RB.RhythmDBPropType.ARTIST, RB.RhythmDBPropType.ALBUM_ARTIST,
+            RB.RhythmDBPropType.RATING, RB.RhythmDBPropType.DATE,
+            RB.RhythmDBPropType.DURATION, RB.RhythmDBPropType.GENRE]
+
         # connect signals
         self._connect_signals()
 
@@ -1257,7 +1298,7 @@ class AlbumManager(GObject.Object):
             self._entry_changed_callback)
 
         # connect signal to the loader so it shows the albums when it finishes
-        self._load_finished_id = self.loader.connect('load-finished',
+        self._load_finished_id = self.loader.connect('model-load-finished',
             self._load_finished_callback)
 
     def _entry_changed_callback(self, db, entry, changes):
@@ -1275,21 +1316,11 @@ class AlbumManager(GObject.Object):
             while True:
                 change = changes.values
 
-                if change.prop is RB.RhythmDBPropType.ARTIST:
-                    # called when the artist of an entry gets modified
-                    self._entry_artist_modified(entry, change.old, change.new)
+                if change.prop in self._important_props:
+                    track = self.loader._tracks[Track(entry).location]
+                    track.emit('modified')
 
-                elif change.prop is RB.RhythmDBPropType.ALBUM_ARTIST:
-                    # called when the album artist of an entry gets modified
-                    self._entry_album_artist_modified(entry, change.new)
-
-                elif change.prop is RB.RhythmDBPropType.RATING:
-                    # called when the rating of an entry gets modified
-                    self._entry_album_rating_modified(entry)
-
-                elif change.prop is RB.RhythmDBPropType.DATE:
-                    # called when the year of an entry gets modified
-                    self._entry_album_year_modified(entry)
+                    break
 
                 # removes the last change from the GValueArray
                 changes.remove(0)
@@ -1298,78 +1329,6 @@ class AlbumManager(GObject.Object):
             pass
 
         print "CoverArtBrowser DEBUG - end entry_changed_callback"
-
-    def _entry_artist_modified(self, entry, old_artist, new_artist):
-        '''
-        Called by entry_changed_callback when the modified prop is the artist
-        of the entry.
-        It informs the album of the change on the artist name.
-        '''
-        print "CoverArtBrowser DEBUG - entry_artist_modified"
-        # find the album and inform of the change
-        album_name = self._get_album_name(entry)
-
-        if album_name in self._albums:
-            self._albums[album_name].entry_artist_modified(entry,
-                old_artist, new_artist)
-
-            # emit a signal indicating the album has changed
-            self.emit('album-modified', self._albums[album_name])
-
-        print "CoverArtBrowser DEBUG - end entry_artist_modified"
-
-    def _entry_album_year_modified(self, entry):
-        '''
-        Called by entry_changed_callback when an year value is changed
-        which should cause the associated album information to be
-        recalculated.
-        '''
-        print "CoverArtBrowser DEBUG - _entry_album_year_modified"
-        # find the album and inform of the change
-        album_name = self._get_album_name(entry)
-
-        if album_name in self._albums:
-            album = self._albums[album_name]
-            if album.has_year_changed():
-                self.emit('album-modified', self._albums[album_name])
-
-        print "CoverArtBrowser DEBUG - end _entry_album_year_modified"
-
-    def _entry_album_rating_modified(self, entry):
-        '''
-        Called by entry_changed_callback when an rating value is changed
-        which should cause the associated album information to be
-        recalculated.
-        '''
-        print "CoverArtBrowser DEBUG - entry_rating_modified"
-        # find the album and inform of the change
-        album_name = self._get_album_name(entry)
-
-        if album_name in self._albums:
-            album = self._albums[album_name]
-            if album.has_rating_changed():
-                self.emit('album-modified', self._albums[album_name])
-
-        print "CoverArtBrowser DEBUG - end entry_rating_modified"
-
-    def _entry_album_artist_modified(self, entry, new_album_artist):
-        '''
-        Called by entry_changed_callback when the modified prop is the album
-        artist of the entry.
-        It informs the album of the change on the album artist name.
-        '''
-        print "CoverArtBrowser DEBUG - entry_album_artist_modified"
-        # find the album and inform of the change
-        album_name = self._get_album_name(entry)
-
-        if album_name in self._albums:
-            self._albums[album_name].entry_album_artist_modified(entry,
-                new_album_artist)
-
-            # emit a signal indicating the album has changed
-            self.emit('album-modified', self._albums[album_name])
-
-        print "CoverArtBrowser DEBUG - end entry_album_artist_modified"
 
     def _load_finished_callback(self, *args):
         self.cover_man.load_covers()
