@@ -450,7 +450,8 @@ class AlbumsModel(GObject.Object):
     __gsignals__ = {
         'generate-tooltip': (GObject.SIGNAL_RUN_LAST, str, (object,)),
         'generate-markup': (GObject.SIGNAL_RUN_LAST, str, (object,)),
-        'album-updated': ((GObject.SIGNAL_RUN_LAST, None, (object, object)))
+        'album-updated': ((GObject.SIGNAL_RUN_LAST, None, (object, object))),
+        'filter-changed': ((GObject.SIGNAL_RUN_FIRST, None, ()))
         }
 
     columns = {'tooltip': 0, 'pixbuf': 1, 'album': 2, 'markup': 3, 'show': 4}
@@ -566,19 +567,19 @@ class AlbumsModel(GObject.Object):
     def replace_filter(self, filter_key, filter_text=''):
         self._filters[filter_key] = AlbumFilters.keys[filter_key](filter_text)
 
-        self._refilter()
+        self.emit('filter-changed')
 
     def remove_filter(self, filter_key):
         del self._filters[filter_key]
 
-        self._refilter()
+        self.emit('filter-changed')
 
     def clear_filters(self):
         self._filters.clear()
 
-        self._refilter()
+        self.emit('filter-changed')
 
-    def _refilter(self):
+    def do_filter_changed(self):
         for album in self._albums:
             self.show(album, self._album_filter(album))
 
@@ -1225,19 +1226,24 @@ class AlbumShowingPolicy(GObject.Object):
     def _connect_signals(self):
         self._cover_view.props.vadjustment.connect('value-changed',
             self._viewport_changed)
+        self._model.connect('filter-changed', self._viewport_changed)
         self._model.connect('album-updated', self._album_updated)
 
     def _viewport_changed(self, *args):
-        init, end = self._cover_view.get_visible_range()
+        print "CoverArtBrowser DEBUG - viewport_changed"
+        visible_range = self._cover_view.get_visible_range()
 
-        self._visible_paths = []
+        if visible_range:
+            init, end = visible_range
 
-        while init and init != end:
-            self._visible_paths.append(init)
+            self._visible_paths = []
 
-            init = init.next()
+            while init and init != end:
+                self._visible_paths.append(init)
 
-        self._visible_paths.append(end)
+                init = init.next()
+
+            self._visible_paths.append(end)
 
     def _album_updated(self, model, album_path, album_iter):
         # get the currently showing paths
