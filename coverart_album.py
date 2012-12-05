@@ -164,8 +164,8 @@ class Album(GObject.Object):
 
         self.name = name
         self._album_artist = None
-        self._artist = None
-        self._title = None
+        self._artists = None
+        self._titles = None
         self._genres = None
         self._tracks = []
         self._cover = cover
@@ -201,11 +201,11 @@ class Album(GObject.Object):
         Returns a string representation of the conjuction of all the artist
         that have entries on this album.
         '''
-        if not self._artist:
-            self._artist = ', '.join(
+        if not self._artists:
+            self._artists = ', '.join(
                 set([track.artist for track in self._tracks]))
 
-        return self._artist
+        return self._artists
 
     @property
     def track_titles(self):
@@ -213,11 +213,11 @@ class Album(GObject.Object):
         Returns a string representation of the conjunction of all the track
         titles that have entries on this album.
         '''
-        if not self._title:
-            self._title = ' '.join(
+        if not self._titles:
+            self._titles = ' '.join(
                 set([track.title for track in self._tracks]))
 
-        return self._title
+        return self._titles
 
     @property
     def year(self):
@@ -231,11 +231,11 @@ class Album(GObject.Object):
 
     @property
     def genres(self):
-        if not self._genre:
-            self._genre = ' '.join(
+        if not self._genres:
+            self._genres = ' '.join(
                 set([track.genre for track in self._tracks]))
 
-        return self._genre
+        return self._genres
 
     @property
     def rating(self):
@@ -569,15 +569,18 @@ class AlbumsModel(GObject.Object):
 
         self.emit('filter-changed')
 
-    def remove_filter(self, filter_key):
-        del self._filters[filter_key]
+    def remove_filter(self, filter_key, refilter=True):
+        if filter_key in self._filters:
+            del self._filters[filter_key]
 
-        self.emit('filter-changed')
+            if refilter:
+                self.emit('filter-changed')
 
     def clear_filters(self):
-        self._filters.clear()
+        if self._filters:
+            self._filters.clear()
 
-        self.emit('filter-changed')
+            self.emit('filter-changed')
 
     def do_filter_changed(self):
         for album in self._albums:
