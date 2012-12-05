@@ -1283,6 +1283,7 @@ class AlbumShowingPolicy(GObject.Object):
             album_iter = model.store.get_iter(album_path)
             self._model.store.row_changed(album_path, album_iter)
 
+
 class AlbumManager(GObject.Object):
 
     # singleton instance

@@ -328,8 +328,6 @@ class CoverArtBrowserSource(RB.Source):
         self.covers_view.connect('drag-drop', self.on_drag_drop)
         self.covers_view.connect('drag-data-received',
             self.on_drag_data_received)
-        self.covers_view.connect('selection-changed',
-            self.on_selection_changed)
 
         # setup entry-view objects and widgets
         y = self.gs.get_value(self.gs.Path.PLUGIN,
@@ -1092,6 +1090,10 @@ class CoverArtBrowserSource(RB.Source):
                 self.cover_search_pane.clear()
 
             return
+        elif len(selected) == 1:
+            self.stars.set_rating(selected[0].rating)
+        else:
+            self.stars.set_rating(0)
 
         track_count = 0
         duration = 0
@@ -1132,7 +1134,6 @@ class CoverArtBrowserSource(RB.Source):
 
         print "CoverArtBrowser DEBUG - end selection_changed_callback"
 
-
     def update_statusbar(self, status=''):
         '''
         Utility method that updates the status bar.
@@ -1150,14 +1151,11 @@ class CoverArtBrowserSource(RB.Source):
 
         print "CoverArtBrowser DEBUG - end update_statusbar"
 
-
-
-
     def bottom_expander_expanded_callback(self, action, param):
         '''
         Callback connected to expanded signal of the paned GtkExpander
         '''
-		print "CoverArtBrowser DEBUG - bottom_expander_expanded_callback"
+        print "CoverArtBrowser DEBUG - bottom_expander_expanded_callback"
 
         expand = action.get_expanded()
 
@@ -1183,7 +1181,6 @@ class CoverArtBrowserSource(RB.Source):
             self.paned.set_position(new_y)
 
         print "CoverArtBrowser DEBUG - end bottom_expander_expanded_callback"
-
 
     def paned_button_press_callback(self, *args):
         '''
@@ -1215,7 +1212,6 @@ class CoverArtBrowserSource(RB.Source):
 
         print "CoverArtBrowser DEBUG - end sorting_criteria_changed"
 
-
     def sorting_direction_changed(self, _, first_activate=False):
         '''
         Callback called when the sort toggle button is
@@ -1235,12 +1231,12 @@ class CoverArtBrowserSource(RB.Source):
             self.sort_order.set_image(self.arrow_up)
             #self.sort_order.set_tooltip_text(_('Sort in ascending order'))
 
-            #for some reason trying to set the tooltip throws an error - need to look at this later
+            # for some reason trying to set the tooltip throws an error -
+            # need to look at this later
 
         self.covers_model_store.set_sort_column_id(2, sort_direction)
 
         print "CoverArtBrowser DEBUG - end sorting_direction_changed"
-
 
     def sort_albums(self, model, iter1, iter2, _):
         '''
@@ -1269,22 +1265,9 @@ class CoverArtBrowserSource(RB.Source):
             target = self.covers_view.drag_dest_find_target(context, None)
             widget.drag_get_data(context, target, time)
 
-		print "CoverArtBrowser DEBUG - end on_drag_drop"
+        print "CoverArtBrowser DEBUG - end on_drag_drop"
 
         return result
-
-    def on_selection_changed(self, widget):
-        '''
-        Callback called when the iconview selection changes
-        '''
-        print "CoverArtBrowser DEBUG - on_selection_changed"
-
-        if len(self.get_selected_albums()) == 1:
-            self.stars.set_rating(self.get_selected_albums()[0].rating)
-        else:
-            self.stars.set_rating(0)
-
-        print "CoverArtBrowser DEBUG - end on_selection_changed"
 
     def on_drag_data_received(self, widget, drag_context, x, y, data, info,
         time):
@@ -1313,7 +1296,6 @@ class CoverArtBrowserSource(RB.Source):
         drag_context.finish(True, False, time)
 
         print "CoverArtBrowser DEBUG - end on_drag_data_received"
-
 
     def notebook_switch_page_callback(self, notebook, page, page_num):
         '''
@@ -1347,7 +1329,6 @@ class CoverArtBrowserSource(RB.Source):
                 album.set_rating(rating)
 
         print "CoverArtBrowser DEBUG - end rating_changed_callback"
-
 
     def do_delete_thyself(self):
         '''
