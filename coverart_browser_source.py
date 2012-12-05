@@ -599,17 +599,16 @@ class CoverArtBrowserSource(RB.Source):
         '''
         signal called when genre value changed
         '''
+        print "CoverArtBrowser DEBUG - genre changed"
         genre = widget.get_active_text()
 
         if self.genre_changed_ignore:
             return
 
-        print "CoverArtBrowser DEBUG - genre changed"
-
         if genre == 'All':
-            self.album_manager.remove_filter('genre')
+            self.album_manager.model.remove_filter('genre')
         else:
-            self.album_manager.replace_filter('genre')
+            self.album_manager.model.replace_filter('genre', genre)
         print "CoverArtBrowser DEBUG - end genre changed"
 
     def on_notify_display_bottom_enabled(self, *args):
@@ -723,7 +722,7 @@ class CoverArtBrowserSource(RB.Source):
         print "CoverArtBrowser DEBUG - filter_menu_callback"
 
         # remove old filter
-        self.album_manager.remove_filter(self.filter_type)
+        self.album_manager.model.remove_filter(self.filter_type, False)
 
         # radiomenu is of type GtkRadioMenuItem
 
