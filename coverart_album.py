@@ -349,8 +349,8 @@ class Album(GObject.Object):
 
     def do_modified(self):
         self._album_artist = None
-        self._artist = None
-        self._title = None
+        self._artists = None
+        self._titles = None
         self._genres = None
         self._year = None
         self._rating = None
