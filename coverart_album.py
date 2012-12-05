@@ -37,7 +37,7 @@ import rb
 
 
 # default chunk of albums to process
-DEFAULT_LOAD_CHUNK = 25
+DEFAULT_LOAD_CHUNK = 15
 
 
 class Cover(GObject.Object):
@@ -781,7 +781,7 @@ class AlbumLoader(GObject.Object):
                 print 'Error while adding albums to the model: ' + str(e)
 
         # update the progress
-        self._album_manager.progress = 1 - len(albums) / float(total)
+        self._album_manager.progress = len(albums) / float(total)
 
         # the list still got albums, keep going
         return True
