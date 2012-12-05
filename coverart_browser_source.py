@@ -856,8 +856,6 @@ class CoverArtBrowserSource(RB.Source):
             # Retrieve and sort the entries of the album
             tracks = album.get_tracks(threshold)
 
-            tracks.sort(key=lambda track: track.track_number)
-
             # Add the songs to the play queue
             for track in tracks:
                 source.add_entry(track.entry, -1)
@@ -1005,7 +1003,7 @@ class CoverArtBrowserSource(RB.Source):
 
         self.coversearchtimer.Start()
 
-        self.album_manager.covers_man.search_covers(selected_albums,
+        self.album_manager.cover_man.search_covers(selected_albums,
             self.update_request_status_bar)
 
         print "CoverArtBrowser DEBUG - end cover_search_menu_item_callback()"
@@ -1023,7 +1021,7 @@ class CoverArtBrowserSource(RB.Source):
 
         self.coversearchtimer.Start()
 
-        self.album_manager.covers_man.search_covers(
+        self.album_manager.cover_man.search_covers(
             callback=self.update_request_status_bar)
 
         print "CoverArtBrowser DEBUG - end search_all_covers_callback()"
@@ -1055,7 +1053,6 @@ class CoverArtBrowserSource(RB.Source):
             Gdk.threads_leave()
         print "CoverArtBrowser DEBUG - end update_request_status_bar"
 
-
     def cancel_request_callback(self, _):
         '''
         Callback connected to the cancel button on the request statusbar.
@@ -1065,10 +1062,9 @@ class CoverArtBrowserSource(RB.Source):
         print "CoverArtBrowser DEBUG - cancel_request_callback"
 
         self.request_cancel_button.set_sensitive(False)
-        self.albums_manager.covers_man.cancel_cover_request()
+        self.album_manager.cover_man.cancel_cover_request()
 
         print "CoverArtBrowser DEBUG - end cancel_request_callback"
-
 
     def selectionchanged_callback(self, widget):
         '''
@@ -1308,10 +1304,10 @@ class CoverArtBrowserSource(RB.Source):
         pixbuf = data.get_pixbuf()
 
         if pixbuf:
-            self.albums_manager.covers_man.update_cover(album, pixbuf)
+            self.album_manager.cover_man.update_cover(album, pixbuf)
         else:
             uri = data.get_text()
-            self.albums_manager.covers_man.update_cover(album, uri=uri)
+            self.album_manager.cover_man.update_cover(album, uri=uri)
 
         # call the context drag_finished to inform the source about it
         drag_context.finish(True, False, time)

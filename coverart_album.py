@@ -43,12 +43,18 @@ DEFAULT_LOAD_CHUNK = 15
 class Cover(GObject.Object):
     ''' Cover of an Album. '''
 
+    __gsignals__ = {
+        'resized': (GObject.SIGNAL_RUN_LAST, None, ())
+        }
+
     def __init__(self, size, file_path=None, pixbuf=None):
         '''
         Initialises a cover, creating it's pixbuf or adapting a given one.
         Either a file path or a pixbuf should be given to it's correct
         initialization.
         '''
+        super(Cover, self).__init__()
+
         if pixbuf:
             self.original = pixbuf
             self.pixbuf = pixbuf.scale_simple(size, size,
@@ -78,7 +84,7 @@ class Cover(GObject.Object):
 
         self.size = size
 
-        return self
+        self.emit('resized')
 
 
 class Track(GObject.Object):
@@ -284,6 +290,7 @@ class Album(GObject.Object):
     @cover.setter
     def cover(self, new_cover):
         self._cover = new_cover
+        self._cover.connect('resized', lambda: self.emit('cover-updated'))
 
         self.emit('cover-updated')
 
@@ -304,7 +311,7 @@ class Album(GObject.Object):
                 if track.rating > rating_threshold:
                     tracks.append(track)
 
-        return tracks
+        return sorted(tracks, key=lambda track: track.track_number)
 
     def add_track(self, track):
         ''' Appends an track to the album's tracks list. '''
@@ -488,8 +495,7 @@ class AlbumsModel(GObject.Object):
         self._tree_store.set(tree_iter, self.columns['tooltip'], tooltip,
             self.columns['markup'], markup, self.columns['show'], show)
 
-        self.emit('album-updated', self._tree_store.get_path(tree_iter),
-            tree_iter)
+        self._album_updated(tree_iter)
 
     def _cover_updated(self, album):
         tree_iter = self._iters[album.name][1]
@@ -497,6 +503,9 @@ class AlbumsModel(GObject.Object):
 
         self._tree_store.set_value(tree_iter, self.columns['pixbuf'], pixbuf)
 
+        self._album_updated(tree_iter)
+
+    def _album_updated(self, tree_iter):
         self.emit('album-updated', self._tree_store.get_path(tree_iter),
             tree_iter)
 
@@ -848,10 +857,12 @@ class CoverManager(GObject.Object):
         '''
         # update the album's covers
         albums = list(self._album_manager.model.get_all())
-        albums.reverse()
 
-        Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
-            self._idle_resize_callback, (albums, float(len(albums))))
+        if albums:
+            albums.reverse()
+
+            Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
+                self._idle_resize_callback, (albums, float(len(albums))))
 
     def _idle_resize_callback(self, args):
         albums, total = args
@@ -860,7 +871,7 @@ class CoverManager(GObject.Object):
             try:
                 album = albums.pop()
 
-                album.cover = album.cover.resize(self.cover_size)
+                album.cover.resize(self.cover_size)
 
             except:
                 # we finished loading
@@ -884,8 +895,8 @@ class CoverManager(GObject.Object):
         album_name = key.get_field('album')
 
         # use the name to get the album and update the cover
-        if self.album_manager.has(album_name):
-            album = self._album_manager.get(album_name)
+        if pixbuf and self._album_manager.model.contains(album_name):
+            album = self._album_manager.model.get(album_name)
 
             album.cover = Cover(self.cover_size, pixbuf=pixbuf)
 
@@ -967,22 +978,23 @@ class CoverManager(GObject.Object):
                 while True:
                     album = iterator.next()
 
-                    if not album.has_cover():
+                    if album.cover is self.unknown_cover:
                         break
-            except:
+
+                # inform we are starting a new search
+                callback(album)
+
+                # request the cover for the next album
+                self.search_cover_for_album(album, search_next_cover,
+                    (iterator, callback))
+            except StopIteration:
                 # inform we finished
                 callback(None)
-                return
-
-            # inform we are starting a new search
-            callback(album)
-
-            # request the cover for the next album
-            self.search_cover_for_album(album, search_next_cover,
-                (iterator, callback))
+            except Exception as e:
+                print "Error while searching covers: " + str(e)
 
         self._cancel_cover_request = False
-        search_next_cover((albums.__iter__(), callback))
+        search_next_cover((iter(albums), callback))
 
     def cancel_cover_request(self):
         '''
@@ -1015,11 +1027,11 @@ class CoverManager(GObject.Object):
         '''
         if pixbuf:
             # if it's a pixbuf, asign it to all the artist for the album
-            for artist in album._artist:
+            for artist in album.artists.split(', '):
                 key = RB.ExtDBKey.create_storage('album', album.name)
                 key.add_field('artist', artist)
 
-                self.cover_db.store(key, RB.ExtDBSourceType.USER_EXPLICIT,
+                self._cover_db.store(key, RB.ExtDBSourceType.USER_EXPLICIT,
                     pixbuf)
 
         elif uri:
@@ -1227,6 +1239,7 @@ class AlbumShowingPolicy(GObject.Object):
         super(AlbumShowingPolicy, self).__init__()
 
         self._cover_view = cover_view
+        self._album_manager = album_manager
         self._model = album_manager.model
         self._visible_paths = None
 
@@ -1238,7 +1251,6 @@ class AlbumShowingPolicy(GObject.Object):
         self._model.connect('album-updated', self._album_updated)
 
     def _viewport_changed(self, *args):
-        print "CoverArtBrowser DEBUG - viewport_changed"
         visible_range = self._cover_view.get_visible_range()
 
         if visible_range:
@@ -1271,7 +1283,6 @@ class AlbumShowingPolicy(GObject.Object):
             album_iter = model.store.get_iter(album_path)
             self._model.store.row_changed(album_path, album_iter)
 
-
 class AlbumManager(GObject.Object):
 
     # singleton instance
@@ -1293,16 +1304,12 @@ class AlbumManager(GObject.Object):
 
         self.model = AlbumsModel()
 
-        # initialize showing policy
-        policy = AlbumShowingPolicy(cover_view, self)
-
-        self._show_policy = policy
-
         # initialize managers
         self.loader = AlbumLoader(self)
         self.cover_man = CoverManager(plugin, self)
         self.text_man = TextManager(self)
         self.genre_man = GenresManager(self)
+        self._show_policy = AlbumShowingPolicy(cover_view, self)
 
         # list of important props which changes should listen to
         self._important_props = [RB.RhythmDBPropType.TITLE,
@@ -1358,7 +1365,7 @@ class AlbumManager(GObject.Object):
         self.cover_man.load_covers()
 
     @classmethod
-    def get_instance(cls, plugin, cover_view):
+    def get_instance(cls, plugin=None, cover_view=None):
         if not cls.instance:
             cls.instance = AlbumManager(plugin, cover_view)
 

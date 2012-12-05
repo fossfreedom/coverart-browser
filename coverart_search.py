@@ -19,14 +19,12 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
 import rb
-import gettext
 
 from gi.repository import Gtk
-from gi.repository import RB
 from gi.repository import WebKit
 from mako.template import Template
 
-from coverart_album import AlbumLoader
+from coverart_album import AlbumManager
 
 
 class CoverSearchPane(Gtk.VBox):
@@ -145,6 +143,6 @@ class CoverSearchPane(Gtk.VBox):
         care of asking the AlbumLoader to update the album's cover.
         '''
         # get the loader
-        loader = AlbumLoader.get_instance()
+        manager = AlbumManager.get_instance()
 
-        loader.update_cover(self.current_album, uri=title)
+        manager.cover_man.update_cover(self.current_album, uri=title)
