@@ -546,6 +546,9 @@ class AlbumsModel(GObject.Object):
     def get_all(self):
         return self._albums
 
+    def get_from_path(self, path):
+        return self._filtered_store[path][2]
+
     def show(self, album, show):
         self._tree_store.set_value(self._iters[album.name][1],
                 self.columns['show'], show)

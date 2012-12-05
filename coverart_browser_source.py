@@ -376,8 +376,8 @@ class CoverArtBrowserSource(RB.Source):
         # prompt the loader to load the albums
         self.album_manager.loader.load_albums(self.props.query_model)
 
-        self.covers_model = self.album_manager.model.store
-        self.covers_view.set_model(self.covers_model)
+        # set the model to the view
+        self.covers_view.set_model(self.album_manager.model.store)
 
         print "CoverArtBrowser DEBUG - end _setup_source"
 
@@ -599,11 +599,12 @@ class CoverArtBrowserSource(RB.Source):
         '''
         signal called when genre value changed
         '''
-        print "CoverArtBrowser DEBUG - genre changed"
         genre = widget.get_active_text()
 
         if self.genre_changed_ignore:
             return
+
+        print "CoverArtBrowser DEBUG - genre changed"
 
         if genre == 'All':
             self.album_manager.model.remove_filter('genre')
@@ -813,11 +814,9 @@ class CoverArtBrowserSource(RB.Source):
 
         selected_albums = []
 
-        if hasattr(self, 'covers_model'):
-            model = self.covers_model
-
-            for selected in self.covers_view.get_selected_items():
-                selected_albums.append(model[selected][2])
+        for selected in self.covers_view.get_selected_items():
+            selected_albums.append(self.album_manager.model.get_from_path(
+                selected))
 
         print "CoverArtBrowser DEBUG - end get_selected_albums"
         return selected_albums
@@ -1383,7 +1382,6 @@ class CoverArtBrowserSource(RB.Source):
         del self.shell
         del self.plugin
         del self.album_manager
-        del self.covers_model
         del self.covers_view
         del self.cover_search_pane
         del self.filter_menu
