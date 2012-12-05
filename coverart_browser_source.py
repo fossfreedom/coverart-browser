@@ -831,10 +831,9 @@ class CoverArtBrowserSource(RB.Source):
 
         # clear the queue
         play_queue = self.shell.props.queue_source
-        for row in play_queue.props.query_model:
-            play_queue.remove_entry(row[0])
+        play_queue.clear()
 
-        self.queue_selected_album(self.shell.props.queue_source, favourites)
+        self.queue_selected_album(play_queue, favourites)
 
         # Start the music
         player = self.shell.props.shell_player
@@ -851,20 +850,17 @@ class CoverArtBrowserSource(RB.Source):
         print "CoverArtBrowser DEBUG - queue_selected_album"
 
         selected_albums = self.get_selected_albums()
+        threshold = self.rating_threshold if favourites else 0
 
         for album in selected_albums:
             # Retrieve and sort the entries of the album
-            if favourites:
-                songs = album.favourite_entries(self.rating_threshold)
-            else:
-                songs = album.entries
+            tracks = album.get_tracks(threshold)
 
-            songs = sorted(songs, key=lambda song:
-                song.get_ulong(RB.RhythmDBPropType.TRACK_NUMBER))
+            tracks.sort(key=lambda track: track.track_number)
 
             # Add the songs to the play queue
-            for song in songs:
-                source.add_entry(song, -1)
+            for track in tracks:
+                source.add_entry(track.entry, -1)
 
         print "CoverArtBrowser DEBUG - end queue_select_album"
 

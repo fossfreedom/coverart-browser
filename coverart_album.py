@@ -138,6 +138,10 @@ class Track(GObject.Object):
     def location(self):
         return self.entry.get_string(RB.RhythmDBPropType.LOCATION)
 
+    @property
+    def track_number(self):
+        return self.entry.get_ulong(RB.RhythmDBPropType.TRACK_NUMBER)
+
     def create_ext_db_key(self):
         return self.entry.create_ext_db_key(RB.RhythmDBPropType.ALBUM)
 
@@ -283,25 +287,24 @@ class Album(GObject.Object):
 
         self.emit('cover-updated')
 
-    def get_entries(self, rating_threshold=0):
+    def get_tracks(self, rating_threshold=0):
         '''
-        Returns the RBRhythmDBEntry's for the album
-        the meet the rating threshold
-        i.e. all the tracks >= Rating
+        Returns the tracks on this album. If rating_threshold is provided,
+        only those tracks over the threshold will be returned.
         '''
         if not rating_threshold or not self.rating:
             # if no song has rating, or no threshold is set, return all
-            entries = [track.entry for track in self._tracks]
+            tracks = self._tracks
 
         else:
             # otherwise, only return the entries over the threshold
-            entries = []
+            tracks = []
 
             for track in self._tracks:
                 if track.rating > rating_threshold:
-                    entries.append(track.entry)
+                    tracks.append(track)
 
-        return entries
+        return tracks
 
     def add_track(self, track):
         ''' Appends an track to the album's tracks list. '''
