@@ -664,7 +664,7 @@ class AlbumLoader(GObject.Object):
                 if change.prop is RB.RhythmDBPropType.ALBUM:
                     # called when the album of a entry is modified
                     track.emit('deleted')
-                    self._allocate_entry(track, change.new)
+                    self._allocate_track(track)
 
                 elif change.prop is RB.RhythmDBPropType.HIDDEN:
                     # called when an entry gets hidden (e.g.:the sound file is
@@ -715,12 +715,13 @@ class AlbumLoader(GObject.Object):
 
         if self._album_manager.model.contains(album_name):
             album = self._album_manager.model.get(album_name)
+            album.add_track(track)
         else:
             album = Album(album_name,
                 self._album_manager.cover_man.unknown_cover)
+            album.add_track(track)
+            self._album_manager.cover_man.load_cover(album)
             self._album_manager.model.add(album)
-
-        album.add_track(track)
 
     def load_albums(self, query_model):
         '''
@@ -1312,12 +1313,6 @@ class AlbumManager(GObject.Object):
         self.genre_man = GenresManager(self)
         self._show_policy = AlbumShowingPolicy(cover_view, self)
 
-        # list of important props which changes should listen to
-        self._important_props = [RB.RhythmDBPropType.TITLE,
-            RB.RhythmDBPropType.ARTIST, RB.RhythmDBPropType.ALBUM_ARTIST,
-            RB.RhythmDBPropType.RATING, RB.RhythmDBPropType.DATE,
-            RB.RhythmDBPropType.DURATION, RB.RhythmDBPropType.GENRE]
-
         # connect signals
         self._connect_signals()
 
@@ -1343,22 +1338,8 @@ class AlbumManager(GObject.Object):
         '''
         print "CoverArtBrowser DEBUG - entry_changed_callback"
 
-        # look at all the changes and update the albums acordingly
-        try:
-            while True:
-                change = changes.values
-
-                if change.prop in self._important_props:
-                    track = self.loader._tracks[Track(entry).location]
-                    track.emit('modified')
-
-                    break
-
-                # removes the last change from the GValueArray
-                changes.remove(0)
-        except:
-            # we finished reading the GValueArray
-            pass
+        track = self.loader._tracks[Track(entry).location]
+        track.emit('modified')
 
         print "CoverArtBrowser DEBUG - end entry_changed_callback"
 
