@@ -26,6 +26,7 @@ import rb
 from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import CoverLocale
 
+
 class CoverArtEntryView(RB.EntryView):
 
     def __init__(self, shell, source):
@@ -114,7 +115,10 @@ class CoverArtEntryView(RB.EntryView):
 
     def add_album(self, album):
         print "CoverArtBrowser DEBUG - add_album()"
-        album.get_entries(self.qm)
+        tracks = album.get_tracks()
+
+        for track in tracks:
+            self.qm.add_entry(track.entry, -1)
 
         (_, playing) = self.shell.props.shell_player.get_playing()
         self.playing_changed(self.shell.props.shell_player, playing)
