@@ -310,6 +310,14 @@ class CoverArtBrowserSource(RB.Source):
 
         # genre
         self.genre_combobox = ui.get_object('genre_combobox')
+
+        self.genres_model = self.shell.props.library_source.\
+            get_property_views()[0].get_model()
+        self.genre_deleted_id = self.genres_model.connect('row-deleted',
+            self.on_genre_deleted)
+
+        self.genre_combobox.set_model(self.genres_model)
+        self.genre_combobox.set_active(0)
         self.on_notify_genre_filter_visible(_)
         print "CoverArtBrowser DEBUG - end _toolbar"
 
@@ -410,8 +418,6 @@ class CoverArtBrowserSource(RB.Source):
             'notify::progress', lambda *args: self.notify_status_changed())
         self.toolbar_pos = self.connect('notify::toolbar-pos',
             self.on_notify_toolbar_pos)
-        self.genre_changed_id = self.album_manager.genre_man.connect(
-            'genres-changed', self.genre_fill_combo)
 
         # apply/connect some settings
         source_settings = self.gs.get_setting(self.gs.Path.PLUGIN)
@@ -563,49 +569,33 @@ class CoverArtBrowserSource(RB.Source):
 
         self.last_toolbar_pos = toolbar_pos
 
-        self.genre_fill_combo()
-
         print "CoverArtBrowser DEBUG - end on_notify_toolbar_pos"
 
-    def genre_fill_combo(self, *args):
+    def on_genre_deleted(self, *args):
         '''
         fills the genre combobox with all current genres found
         in the library source
         '''
-        print "CoverArtBrowser DEBUG - genre_fill_combo"
-        # we dont want the combobox signal to fire
-        self.genre_changed_ignore = True
+        print "CoverArtBrowser DEBUG - on_genre_deleted"
+        # if the current genre filter doesn't show anything, set the default
+        # filter back
+        if self.current_genre not in self.genres_model:
+            self.genre_combobox.set_active(0)
 
-        views = self.shell.props.library_source.get_property_views()
-        view = views[0]  # seems like view 0 is the genre property view
-        model = view.get_model()
-
-        self.genre_combobox.remove_all()
-
-        for entry in model:
-            self.genre_combobox.append_text(entry[0])
-
-        self.genre_combobox.set_active(0)
-
-        self.genre_changed_ignore = False
-
-        print "CoverArtBrowser DEBUG - end genre_fill_combo"
+        print "CoverArtBrowser DEBUG - end on_genre_deleted"
 
     def genre_changed(self, widget):
         '''
         signal called when genre value changed
         '''
-        genre = widget.get_active_text()
-
-        if self.genre_changed_ignore:
-            return
-
         print "CoverArtBrowser DEBUG - genre changed"
+        self.current_genre = widget.get_active_text()
 
-        if genre == 'All':
+        if self.current_genre == 'All':
             self.album_manager.model.remove_filter('genre')
         else:
-            self.album_manager.model.replace_filter('genre', genre)
+            self.album_manager.model.replace_filter('genre',
+                self.current_genre)
         print "CoverArtBrowser DEBUG - end genre changed"
 
     def on_notify_display_bottom_enabled(self, *args):
@@ -804,15 +794,12 @@ class CoverArtBrowserSource(RB.Source):
         '''
         Retrieves the currently selected albums on the cover_view.
         '''
-        print "CoverArtBrowser DEBUG - get_selected_albums"
-
         selected_albums = []
 
         for selected in self.covers_view.get_selected_items():
             selected_albums.append(self.album_manager.model.get_from_path(
                 selected))
 
-        print "CoverArtBrowser DEBUG - end get_selected_albums"
         return selected_albums
 
     def play_selected_album(self, favourites=False):
@@ -1334,8 +1321,10 @@ class CoverArtBrowserSource(RB.Source):
 
         # disconnect signals
         self.album_manager.loader.disconnect(self.load_fin_id)
-        self.album_manager.disconnect(self.album_mod_id)
+        self.album_manager.model.disconnect(self.album_mod_id)
         self.album_manager.disconnect(self.notify_prog_id)
+
+        self.genres_model.disconnect(self.genre_deleted_id)
 
         # delete references
         del self.shell
@@ -1350,6 +1339,8 @@ class CoverArtBrowserSource(RB.Source):
         del self.filter_menu_artist_item
         del self.filter_menu_track_title_item
         del self.filter_type
+        del self.genres_model
+        del self.genre_deleted_id
         del self.notebook
         del self.page
         del self.paned
