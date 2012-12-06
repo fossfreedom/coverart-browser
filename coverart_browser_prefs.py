@@ -280,14 +280,6 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         self.settings.bind(gs.PluginKey.GENRE_FILTER_VISIBLE,
             genre_filter_visible, 'active', Gio.SettingsBindFlags.DEFAULT)
             
-        embedded_search = builder.get_object('embedded_checkbox')
-        self.settings.bind(gs.PluginKey.EMBEDDED_SEARCH,
-            embedded_search, 'active', Gio.SettingsBindFlags.DEFAULT)
-        
-        discogs_search = builder.get_object('discogs_checkbox')
-        self.settings.bind(gs.PluginKey.DISCOGS_SEARCH,
-            discogs_search, 'active', Gio.SettingsBindFlags.DEFAULT)
-            
         self.toolbar_left_radio=builder.get_object('toolbar_left_radio')
         self.toolbar_right_radio=builder.get_object('toolbar_right_radio')
         self.toolbar_main_radio=builder.get_object('toolbar_main_radio')

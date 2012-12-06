@@ -33,9 +33,6 @@ from coverart_browser_prefs import Preferences
 from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import CoverLocale
 from coverart_browser_source import CoverArtBrowserSource
-from coverart_album_search import CoverAlbumSearch
-from coverart_album_search import DiscogsSearch
-from coverart_album_search import CoverSearch
 
 class CoverArtBrowserEntryType(RB.RhythmDBEntryType):
     '''
@@ -123,9 +120,6 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         uim.insert_action_group(self.action_group, 0)
         uim.ensure_update()
         
-        self.art_store = RB.ExtDB(name="album-art")
-		self.req_id = self.art_store.connect("request", self.album_art_requested)
-
         print "CoverArtBrowser DEBUG - end do_activate"
 
     def display_covers_for_source(self, action):
@@ -182,18 +176,3 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         if setting[gs.PluginKey.AUTOSTART]:
             self.shell.props.display_page_tree.select(self.source)
             
-    def album_art_requested(self, store, key, last_time):
-		searches = []
-        
-        gs = GSetting()
-        setting = gs.get_setting(gs.Path.PLUGIN)
-        
-        if setting[gs.PluginKey.EMBEDDED_SEARCH]:
-            searches.append(CoverAlbumSearch())
-        if setting[gs.PluginKey.DISCOGS_SEARCH]:
-            searches.append(DiscogsSearch())
-
-        print "about to search"
-		s = CoverSearch(store, key, last_time, searches)
-        print "finished about to return"
-		return s.next_search()
