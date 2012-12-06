@@ -771,86 +771,90 @@ class AlbumLoader(GObject.Object):
         Specifically, it throws the query against the RhythmDB.
         '''
         print "CoverArtBrowser DEBUG - load_albums"
+
+        # function to proccess entries
+        def idle_process_entry(args):
+            albums, model, total, count, tree_iter = args
+
+            for i in range(DEFAULT_LOAD_CHUNK):
+                if tree_iter is None:
+                    self._album_manager.progress = 1
+                    self.emit('albums-load-finished', albums)
+                    return False
+
+                (entry,) = model.get(tree_iter, 0)
+
+                # allocate the track
+                track = Track(entry, self._album_manager.db)
+
+                self._tracks[track.location] = track
+
+                album_name = track.album
+
+                if album_name in albums:
+                    album = albums[album_name]
+                else:
+                    album = Album(album_name,
+                        self._album_manager.cover_man.unknown_cover)
+                    albums[album_name] = album
+
+                album.add_track(track)
+
+                tree_iter = model.iter_next(tree_iter)
+
+            # update the iter
+            args[4] = tree_iter
+
+            # update the progress
+            count += DEFAULT_LOAD_CHUNK
+            args[3] = count
+
+            self._album_manager.progress = count / total
+
+            return True
+
         # load the albums from the query_model
-        Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
-            self._idle_process_entry, [{}, query_model, len(query_model), 0.,
+        Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE, idle_process_entry,
+            [{}, query_model, len(query_model), 0.,
                 query_model.get_iter_first()])
 
         print "CoverArtBrowser DEBUG - load_albums finished"
 
-    def _idle_process_entry(self, args):
-        '''
-        Process a single entry, allocating it to it's correspondent album or
-        creating a new one if necesary.
-        '''
-        albums, model, total, count, tree_iter = args
-
-        for i in range(DEFAULT_LOAD_CHUNK):
-            if tree_iter is None:
-                self._album_manager.progress = 1
-                self.emit('albums-load-finished', albums)
-                return False
-
-            (entry,) = model.get(tree_iter, 0)
-
-            # allocate the track
-            track = Track(entry, self._album_manager.db)
-
-            self._tracks[track.location] = track
-
-            album_name = track.album
-
-            if album_name in albums:
-                album = albums[album_name]
-            else:
-                album = Album(album_name,
-                    self._album_manager.cover_man.unknown_cover)
-                albums[album_name] = album
-
-            album.add_track(track)
-
-            tree_iter = model.iter_next(tree_iter)
-
-        # update the iter
-        args[4] = tree_iter
-
-        # update the progress
-        count += DEFAULT_LOAD_CHUNK
-        args[3] = count
-
-        self._album_manager.progress = count / total
-
-        return True
-
-    def _idle_add_albums(self, args):
-        albums, total = args
-
-        for i in range(DEFAULT_LOAD_CHUNK):
-            try:
-                album = albums.pop()
-
-                self._album_manager.model.add(album)
-
-            except IndexError:
-                # we finished loading
-                self._album_manager.progress = 1
-                self.emit('model-load-finished')
-                return False
-
-            except Exception as e:
-                print 'Error while adding albums to the model: ' + str(e)
-
-        # update the progress
-        self._album_manager.progress = len(albums) / float(total)
-
-        # the list still got albums, keep going
-        return True
-
     def do_albums_load_finished(self, albums):
+        # function to add the albums to the model
+        def idle_add_albums(args):
+            albums_iter, loaded, total = args
+
+            for i in range(DEFAULT_LOAD_CHUNK):
+                try:
+                    album = albums_iter.next()
+
+                    self._album_manager.model.add(album)
+
+                    loaded += 1
+
+                except StopIteration:
+                    # we finished loading
+                    self._album_manager.progress = 1
+                    self.emit('model-load-finished')
+                    return False
+
+                except Exception as e:
+                    print 'Error while adding albums to the model: ' + str(e)
+
+            # update loaded
+            args[1] = loaded
+
+            # update the progress
+            self._album_manager.progress = 1 - loaded / total
+
+            # the list still got albums, keep going
+            return True
+
         # load the albums to the model
         self._album_manager.model.replace_filter('nay')
-        Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
-            self._idle_add_albums, (albums.values(), len(albums)))
+        Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE, idle_add_albums,
+            [iter(albums.values()), 0, float(len(albums))])
 
     def do_model_load_finished(self):
         self._album_manager.model.remove_filter('nay')
@@ -898,34 +902,40 @@ class CoverManager(GObject.Object):
         Updates the showing albums cover size.
         '''
         # update the album's covers
-        albums = list(self._album_manager.model.get_all())
+        albums = self._album_manager.model.get_all()
 
         if albums:
-            albums.reverse()
+            # function to resize the covers
+            def idle_resize_callback(args):
+                albums_iter, loaded, total = args
+
+                for i in range(DEFAULT_LOAD_CHUNK):
+                    try:
+                        album = albums_iter.next()
+
+                        album.cover.resize(self.cover_size)
+
+                        loaded += 1
+
+                    except StopIteration:
+                        # we finished loading
+                        self._album_manager.progress = 1
+                        self.emit('load-finished')
+                        return False
+                    except Exception as e:
+                        print "Error while resizing covers: " + str(e)
+
+                # update loaded
+                args[1] = loaded
+
+                # update the progress
+                self._album_manager.progress = loaded / total
+
+                # the list still got albums, keep going
+                return True
 
             Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
-                self._idle_resize_callback, (albums, float(len(albums))))
-
-    def _idle_resize_callback(self, args):
-        albums, total = args
-
-        for i in range(DEFAULT_LOAD_CHUNK):
-            try:
-                album = albums.pop()
-
-                album.cover.resize(self.cover_size)
-
-            except:
-                # we finished loading
-                self._album_manager.progress = 1
-                self.emit('load-finished')
-                return False
-
-        # update the progress
-        self._album_manager.progress = 1 - len(albums) / total
-
-        # the list still got albums, keep going
-        return True
+                idle_resize_callback, [iter(albums), 0, float(len(albums))])
 
     def _albumart_added_callback(self, ext_db, key, path, pixbuf):
         '''
@@ -959,40 +969,41 @@ class CoverManager(GObject.Object):
                 pass  # ignore
 
     def load_covers(self):
-        albums = list(self._album_manager.model.get_all())
-        albums.reverse()
+        albums = self._album_manager.model.get_all()
 
-        Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
-            self._idle_load_callback, (albums, float(len(albums))))
+        # function to load the covers
+        def idle_load_callback(args):
+            albums_iter, loaded, total = args
 
-    def _idle_load_callback(self, args):
-        '''
-        Idle callback that loads the albums by chunks, to avoid blocking the
-        ui while doing it.
-        '''
-        albums, total = args
+            for i in range(DEFAULT_LOAD_CHUNK):
+                try:
+                    album = albums_iter.next()
 
-        for i in range(DEFAULT_LOAD_CHUNK):
-            try:
-                album = albums.pop()
+                    if album.cover == self.unknown_cover:
+                        self.load_cover(album)
 
-                if album.cover == self.unknown_cover:
-                    self.load_cover(album)
+                    loaded += 1
 
-            except IndexError:
-                # we finished loading
-                self._album_manager.progress = 1
-                self.emit('load-finished')
-                return False
+                except StopIteration:
+                    # we finished loading
+                    self._album_manager.progress = 1
+                    self.emit('load-finished')
+                    return False
 
-            except Exception as e:
-                print 'Error while loading covers: ' + str(e)
+                except Exception as e:
+                    print 'Error while loading covers: ' + str(e)
 
-        # update the progress
-        self._album_manager.progress = 1 - len(albums) / total
+            # update loaded
+            args[1] = loaded
 
-        # the list still got albums, keep going
-        return True
+            # update the progress
+            self._album_manager.progress = loaded / total
+
+            # the list still got albums, keep going
+            return True
+
+        Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE, idle_load_callback,
+            [iter(albums), 0, float(len(albums))])
 
     def search_covers(self, albums=None, callback=lambda *_: None):
         '''
