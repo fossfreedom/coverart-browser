@@ -178,7 +178,8 @@ class Album(GObject.Object):
         self._titles = None
         self._genres = None
         self._tracks = []
-        self._cover = cover
+        self._cover = None
+        self.cover = cover
         self._year = None
         self._rating = None
         self._duration = None
@@ -289,8 +290,12 @@ class Album(GObject.Object):
 
     @cover.setter
     def cover(self, new_cover):
+        if self._cover:
+            self._cover.disconnect(self._cover_resized_id)
+
         self._cover = new_cover
-        self._cover.connect('resized', lambda: self.emit('cover-updated'))
+        self._cover_resized_id = self._cover.connect('resized',
+            lambda *args: self.emit('cover-updated'))
 
         self.emit('cover-updated')
 
