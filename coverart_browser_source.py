@@ -423,8 +423,7 @@ class CoverArtBrowserSource(RB.Source):
             self.sort_by_rating_radio, 'active', Gio.SettingsBindFlags.DEFAULT)
         source_settings.bind(self.gs.PluginKey.SORT_BY_YEAR,
             self.sort_by_year_radio, 'active', Gio.SettingsBindFlags.DEFAULT)
-        source_settings.bind(self.gs.PluginKey.SORT_ORDER,
-            self, 'sort_order',
+        source_settings.bind(self.gs.PluginKey.SORT_ORDER, self, 'sort_order',
             Gio.SettingsBindFlags.DEFAULT)
 
         # enable some ui if necesary
@@ -1222,6 +1221,8 @@ class CoverArtBrowserSource(RB.Source):
 
         if not first_activate:
             self.sort_order = not self.sort_order
+            self.gs.set_value(self.gs.Path.PLUGIN,
+                self.gs.PluginKey.SORT_ORDER, self.sort_order)
 
         if not self.sort_order:
             self.sort_order_button.set_image(self.arrow_down)
