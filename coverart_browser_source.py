@@ -26,7 +26,6 @@ from gi.repository import Gtk
 from gi.repository import RB
 
 from coverart_album import AlbumManager
-from coverart_album import Album
 from coverart_entryview import CoverArtEntryView
 from coverart_search import CoverSearchPane
 from coverart_browser_prefs import GSetting
@@ -46,7 +45,7 @@ class CoverArtBrowserSource(RB.Source):
     genre_filter_visible = GObject.property(type=bool, default=True)
     rating_sort_visible = GObject.property(type=bool, default=False)
     year_sort_visible = GObject.property(type=bool, default=False)
-    store_sort_order = GObject.property(type=bool, default=False)
+    sort_order = GObject.property(type=bool, default=False)
 
     def __init__(self, **kargs):
         '''
@@ -292,7 +291,7 @@ class CoverArtBrowserSource(RB.Source):
         self.sort_by_rating_radio = ui.get_object('rating_sort_radio')
         self.on_notify_rating_sort_visible(_)
         self.on_notify_year_sort_visible(_)
-        self.sort_order = ui.get_object('sort_order')
+        self.sort_order_button = ui.get_object('sort_order')
         self.arrow_down = ui.get_object('arrow_down')
         self.arrow_up = ui.get_object('arrow_up')
 
@@ -425,7 +424,7 @@ class CoverArtBrowserSource(RB.Source):
         source_settings.bind(self.gs.PluginKey.SORT_BY_YEAR,
             self.sort_by_year_radio, 'active', Gio.SettingsBindFlags.DEFAULT)
         source_settings.bind(self.gs.PluginKey.SORT_ORDER,
-            self, 'store_sort_order',
+            self, 'sort_order',
             Gio.SettingsBindFlags.DEFAULT)
 
         # enable some ui if necesary
@@ -1202,13 +1201,15 @@ class CoverArtBrowserSource(RB.Source):
             return
 
         if radio is self.sort_by_album_radio:
-            self.compare_albums = Album.compare_albums_by_name
+            self.sort_prop = 'name'
         if radio is self.sort_by_artist_radio:
-            self.compare_albums = Album.compare_albums_by_album_artist
+            self.sort_prop = 'album_artist'
         if radio is self.sort_by_year_radio:
-            self.compare_albums = Album.compare_albums_by_year
+            self.sort_prop = 'year'
         if radio is self.sort_by_rating_radio:
-            self.compare_albums = Album.compare_albums_by_rating
+            self.sort_prop = 'rating'
+
+        self.album_manager.model.sort(self.sort_prop)
 
         print "CoverArtBrowser DEBUG - end sorting_criteria_changed"
 
@@ -1220,31 +1221,22 @@ class CoverArtBrowserSource(RB.Source):
         print "CoverArtBrowser DEBUG - sorting_direction_changed"
 
         if not first_activate:
-            self.store_sort_order = not self.store_sort_order
+            self.sort_order = not self.sort_order
 
-        if not self.store_sort_order:
-            sort_direction = Gtk.SortType.ASCENDING
-            self.sort_order.set_image(self.arrow_down)
+        if not self.sort_order:
+            self.sort_order_button.set_image(self.arrow_down)
             #self.sort_order.set_tooltip_text(_('Sort in descending order'))
         else:
-            sort_direction = Gtk.SortType.DESCENDING
-            self.sort_order.set_image(self.arrow_up)
+            self.sort_order_button.set_image(self.arrow_up)
             #self.sort_order.set_tooltip_text(_('Sort in ascending order'))
 
             # for some reason trying to set the tooltip throws an error -
             # need to look at this later
 
-        self.covers_model_store.set_sort_column_id(2, sort_direction)
+        self.album_manager.model.sort(getattr(self, 'sort_prop', 'name'),
+            self.sort_order)
 
         print "CoverArtBrowser DEBUG - end sorting_direction_changed"
-
-    def sort_albums(self, model, iter1, iter2, _):
-        '''
-        Utility function used as the sorting function for our model.
-        It actually just retrieves the albums and delegates the comparison
-        to the current comparation function.
-        '''
-        return self.compare_albums(model[iter1][2], model[iter2][2])
 
     def on_drag_drop(self, widget, context, x, y, time):
         '''
@@ -1380,7 +1372,7 @@ class CoverArtBrowserSource(RB.Source):
         del self.sort_by_artist_radio
         del self.sort_by_year_radio
         del self.sort_by_rating_radio
-        del self.sort_order
+        del self.sort_order_button
         del self.status
         del self.status_label
         del self.load_fin_id

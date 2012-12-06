@@ -472,11 +472,16 @@ class AlbumsModel(GObject.Object):
         self._iters = {}
         self._albums = SortedCollection(
             key=lambda album: getattr(album, 'name'))
+
         self._tree_store = Gtk.ListStore(str, GdkPixbuf.Pixbuf, object, str,
             bool)
+        self._tree_store
 
         # filters
         self._filters = {}
+
+        # sorting direction
+        self._asc = False
 
         # create the filtered store that's used with the view
         self._filtered_store = self._tree_store.filter_new()
@@ -488,22 +493,29 @@ class AlbumsModel(GObject.Object):
 
     def _album_modified(self, album):
         tree_iter = self._iters[album.name][1]
-        tooltip = self.emit('generate-tooltip', album)
-        markup = self.emit('generate-markup', album)
-        show = self._album_filter(album)
 
-        self._tree_store.set(tree_iter, self.columns['tooltip'], tooltip,
-            self.columns['markup'], markup, self.columns['show'], show)
+        if self._tree_store.iter_is_valid(tree_iter):
+            # only update if the iter is valid
+            tooltip = self.emit('generate-tooltip', album)
+            markup = self.emit('generate-markup', album)
+            show = self._album_filter(album)
 
-        self._album_updated(tree_iter)
+            self._tree_store.set(tree_iter, self.columns['tooltip'], tooltip,
+                self.columns['markup'], markup, self.columns['show'], show)
+
+            self._album_updated(tree_iter)
 
     def _cover_updated(self, album):
         tree_iter = self._iters[album.name][1]
-        pixbuf = album.cover.pixbuf
 
-        self._tree_store.set_value(tree_iter, self.columns['pixbuf'], pixbuf)
+        if self._tree_store.iter_is_valid(tree_iter):
+            # only update if the iter is valid
+            pixbuf = album.cover.pixbuf
 
-        self._album_updated(tree_iter)
+            self._tree_store.set_value(tree_iter, self.columns['pixbuf'],
+                pixbuf)
+
+            self._album_updated(tree_iter)
 
     def _album_updated(self, tree_iter):
         self.emit('album-updated', self._tree_store.get_path(tree_iter),
@@ -520,23 +532,27 @@ class AlbumsModel(GObject.Object):
             column 4 -> boolean that indicates if the row should be shown
         '''
         # generate necesary values
-        tooltip = self.emit('generate-tooltip', album)
-        markup = self.emit('generate-markup', album)
-        pixbuf = album.cover.pixbuf
-        hidden = self._album_filter(album)
+        values = self._generate_values(album)
 
         # insert the values
-        tree_iter = self._tree_store.insert(self._albums.insert(album),
-            (tooltip, pixbuf, album, markup, hidden))
+        tree_iter = self._tree_store.insert(self._albums.insert(album), values)
 
         # connect signals
         ids = (album.connect('modified', self._album_modified),
             album.connect('cover-updated', self._cover_updated),
             album.connect('emptied', self.remove))
 
-        self._iters[album.name] = (album, tree_iter, ids)
+        self._iters[album.name] = [album, tree_iter, ids]
 
         return tree_iter
+
+    def _generate_values(self, album):
+        tooltip = self.emit('generate-tooltip', album)
+        markup = self.emit('generate-markup', album)
+        pixbuf = album.cover.pixbuf
+        hidden = self._album_filter(album)
+
+        return tooltip, pixbuf, album, markup, hidden
 
     def remove(self, album):
         ''' Removes this album from it's model. '''
@@ -565,24 +581,49 @@ class AlbumsModel(GObject.Object):
         self._tree_store.set_value(self._iters[album.name][1],
                 self.columns['show'], show)
 
-    def sort(self, key):
-        old_positions = self._albums.copy()
+    def sort(self, key, asc=False):
+        self._albums.key = lambda album: getattr(album, key)
 
-        self._albums.key = key
-        positions = []
+        if asc != self._asc:
+            self._albums = reversed(self._albums)
 
-        for new_pos in range(0, len(self._albums)):
-            album = self._albums(new_pos)
-            old_pos = old_positions.index(album)
+        self._asc = asc
 
-            positions.append(old_pos)
+        self._tree_store.clear()
 
-        self._tree_store.reorder(positions)
+        def idle_add_albums(albums_iter):
+            for i in range(DEFAULT_LOAD_CHUNK):
+                try:
+                    album = albums_iter.next()
+                    values = self._generate_values(album)
 
-    def replace_filter(self, filter_key, filter_text=''):
+                    tree_iter = self._tree_store.append(values)
+                    self._iters[album.name][1] = tree_iter
+
+                except StopIteration:
+                    # remove the nay filter
+                    self.remove_filter('nay')
+
+                    return False
+
+                except Exception as e:
+                    print 'Error while adding albums to the model: ' + str(e)
+
+            # the list still got albums, keep going
+            return True
+
+        # add the nay filter
+        self.replace_filter('nay', refilter=False)
+
+        # load the albums back to the model
+        Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE, idle_add_albums,
+            iter(self._albums))
+
+    def replace_filter(self, filter_key, filter_text='', refilter=True):
         self._filters[filter_key] = AlbumFilters.keys[filter_key](filter_text)
 
-        self.emit('filter-changed')
+        if refilter:
+            self.emit('filter-changed')
 
     def remove_filter(self, filter_key, refilter=True):
         if filter_key in self._filters:

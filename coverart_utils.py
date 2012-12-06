@@ -106,7 +106,7 @@ class SortedCollection(object):
         return iter(self._items)
 
     def __reversed__(self):
-        return reversed(self._items)
+        return ReversedSortedCollection(self)
 
     def __repr__(self):
         return '%s(%r, key=%s)' % (
@@ -156,3 +156,50 @@ class SortedCollection(object):
         i = self.index(item)
         del self._keys[i]
         del self._items[i]
+
+
+class ReversedSortedCollection(object):
+
+    def __init__(self, sorted_collection):
+        self._sorted_collection = sorted_collection
+
+    def __getattr__(self, name):
+        return getattr(self._sorted_collection, name)
+
+    def copy(self):
+        return self.__class__(self._sorted_collection)
+
+    def __len__(self):
+        return len(self._sorted_collection)
+
+    def __getitem__(self, i):
+        return self._items[len(self) - i - 1]
+
+    def __iter__(self):
+        return iter(reversed(self._sorted_collection._items))
+
+    def __reversed__(self):
+        return self._sorted_collection
+
+    def __repr__(self):
+        return '%s(%r, key=%s)' % (
+            self.__class__.__name__,
+            reversed(self._items),
+            getattr(self._given_key, '__name__', repr(self._given_key))
+        )
+
+    def __reduce__(self):
+        return self.__class__, (reversed(self._items), self._given_key)
+
+    def insert(self, item):
+        'Insert a new item.  If equal keys are found, add to the left'
+        i = self._sorted_collection.insert(item)
+
+        return len(self) - i - 1
+
+    def index(self, item):
+        'Find the position of an item.  Raise ValueError if not found.'
+        k = self._key(item)
+        i = bisect_left(self._keys, k)
+        j = bisect_right(self._keys, k)
+        return len(self) - self._items[i:j].index(item) + i - 1
