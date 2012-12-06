@@ -523,8 +523,13 @@ class AlbumsModel(GObject.Object):
             self._album_updated(tree_iter)
 
     def _album_updated(self, tree_iter):
-        self.emit('album-updated', self._tree_store.get_path(tree_iter),
-            tree_iter)
+        # we get the filtered path and iter since that's what the outside world
+        # interacts with
+        tree_path = self._filtered_store.convert_child_path_to_path(
+            self._tree_store.get_path(tree_iter))
+        tree_iter = self._filtered_store.get_iter(tree_path)
+
+        self.emit('album-updated', tree_path, tree_iter)
 
     def add(self, album):
         '''
@@ -1333,12 +1338,8 @@ class AlbumShowingPolicy(GObject.Object):
         if not self._visible_paths:
             self._viewport_changed()
 
-        # we gotta use the filter path insteand of the model one
-        album_path = model.store.convert_child_path_to_path(album_path)
-
         if album_path and album_path in self._visible_paths:
             # if our path is on the viewport, emit the signal to update it
-            album_iter = model.store.get_iter(album_path)
             self._model.store.row_changed(album_path, album_iter)
 
 
@@ -1346,11 +1347,6 @@ class AlbumManager(GObject.Object):
 
     # singleton instance
     instance = None
-
-    # signals
-    __gsignals__ = {
-        'album-modified': (GObject.SIGNAL_RUN_LAST, object, (object,))
-        }
 
     # properties
     progress = GObject.property(type=float, default=0)

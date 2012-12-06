@@ -404,8 +404,8 @@ class CoverArtBrowserSource(RB.Source):
         # connect some signals to the loader to keep the source informed
         self.si.connect_signals(self)
         self.ui.connect_signals(self)
-        self.album_mod_id = self.album_manager.connect('album-modified',
-            self.album_modified_callback)
+        self.album_mod_id = self.album_manager.model.connect('album-updated',
+            self.on_album_updated)
         self.notify_prog_id = self.album_manager.connect(
             'notify::progress', lambda *args: self.notify_status_changed())
         self.toolbar_pos = self.connect('notify::toolbar-pos',
@@ -650,26 +650,24 @@ class CoverArtBrowserSource(RB.Source):
 
         print "CoverArtBrowser DEBUG - end on_paned_button_release_event"
 
-    def album_modified_callback(self, _, modified_album):
+    def on_album_updated(self, model, path, tree_iter):
         '''
         Callback called by the album loader when one of the albums managed
         by him gets modified in some way.
         '''
-        print "CoverArtBrowser DEBUG - album_modified_callback"
+        album = model.get_from_path(path)
         selected = self.get_selected_albums()
 
-        if modified_album in selected:
+        if album in selected:
             # update the selection since it may have changed
             self.selectionchanged_callback(self.covers_view)
 
-            if modified_album is selected[0] and \
+            if album is selected[0] and \
                 self.notebook.get_current_page() == \
                 self.notebook.page_num(self.cover_search_pane):
                 # also, if it's the first, update the cover search pane
                 self.cover_search_pane.clear()
-                self.cover_search_pane.do_search(modified_album)
-
-        print "CoverArtBrowser DEBUG - end album_modified_callback"
+                self.cover_search_pane.do_search(album)
 
     def show_properties_menu_item_callback(self, menu_item):
         '''
