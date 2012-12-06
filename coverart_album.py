@@ -243,8 +243,7 @@ class Album(GObject.Object):
     @property
     def genres(self):
         if not self._genres:
-            self._genres = ' '.join(
-                set([track.genre for track in self._tracks]))
+            self._genres = set([track.genre for track in self._tracks])
 
         return self._genres
 
@@ -527,9 +526,13 @@ class AlbumsModel(GObject.Object):
         # interacts with
         tree_path = self._filtered_store.convert_child_path_to_path(
             self._tree_store.get_path(tree_iter))
-        tree_iter = self._filtered_store.get_iter(tree_path)
 
-        self.emit('album-updated', tree_path, tree_iter)
+        if tree_path:
+            # if there's no path, the album doesn't show on the filtered model
+            # so no one needs to know
+            tree_iter = self._filtered_store.get_iter(tree_path)
+
+            self.emit('album-updated', tree_path, tree_iter)
 
     def add(self, album):
         '''
@@ -1127,53 +1130,6 @@ class CoverManager(GObject.Object):
                 async = rb.Loader()
                 async.get_url(uri, cover_update, album)
 
-
-class GenresManager(GObject.Object):
-
-    # signals
-    __gsignals__ = {
-        'genres-changed': (GObject.SIGNAL_RUN_LAST, None, ())
-        }
-
-    def __init__(self, album_manager):
-        super(GenresManager, self).__init__()
-
-        self._album_manager = album_manager
-
-        self._connect_signals()
-
-    def _connect_signals(self):
-        self.entry_changed_id = self._album_manager.db.connect('entry-changed',
-            self._entry_changed_callback)
-
-    def _entry_changed_callback(self, db, entry, changes):
-        '''
-        Callback called when a RhythDB entry is modified. Updates the genres
-        list if necesary
-
-        :param changes: GValueArray with the RhythmDBEntryChange made on the
-            entry.
-        '''
-        print "CoverArtBrowser DEBUG - entry_changed_callback"
-
-        # look at all the changes and update the albums acordingly
-        try:
-            while True:
-                change = changes.values
-
-                if change.prop is RB.RhythmDBPropType.GENRE:
-                    # called when the genre of an entry gets modified
-                    self.emit('genres-changed')
-
-                # removes the last change from the GValueArray
-                changes.remove(0)
-        except:
-            # we finished reading the GValueArray
-            pass
-
-        print "CoverArtBrowser DEBUG - end entry_changed_callback"
-
-
 class TextManager(GObject.Object):
 
     # properties
@@ -1363,7 +1319,6 @@ class AlbumManager(GObject.Object):
         self.loader = AlbumLoader(self)
         self.cover_man = CoverManager(plugin, self)
         self.text_man = TextManager(self)
-        self.genre_man = GenresManager(self)
         self._show_policy = AlbumShowingPolicy(cover_view, self)
 
         # connect signals
