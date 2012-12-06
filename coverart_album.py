@@ -201,7 +201,15 @@ class Album(GObject.Object):
                     multiple_artist = True
                     break
 
-            if not self._album_artist or multiple_artist:
+            if not self._album_artist and not multiple_artist:
+                for track in self._tracks:
+                    if not self._album_artist:
+                        self._album_artist = track.artist
+                    elif track.artist != self._album_artist:
+                        multiple_artist = True
+                        break
+
+            if multiple_artist:
                 self._album_artist = _('Various Artist')
 
         return self._album_artist
