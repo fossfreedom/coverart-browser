@@ -1313,13 +1313,8 @@ class CoverArtBrowserSource(RB.Source):
 
         rating = widget.get_rating()
 
-        if len(self.entry_view.get_selected_entries()) > 0:
-            self.entry_view.love_track(rating)
-            return
-
-        if len(self.get_selected_albums()) > 0:
-            for album in self.get_selected_albums():
-                album.set_rating(rating)
+        for album in self.get_selected_albums():
+            album.rating = rating
 
         print "CoverArtBrowser DEBUG - end rating_changed_callback"
 
