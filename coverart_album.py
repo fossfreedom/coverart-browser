@@ -159,6 +159,7 @@ class Album(GObject.Object):
     '''
     # signals
     __gsignals__ = {
+        'pre-modified': (GObject.SIGNAL_RUN_LAST, None, ()),
         'modified': (GObject.SIGNAL_RUN_FIRST, None, ()),
         'emptied': (GObject.SIGNAL_RUN_LAST, None, ()),
         'cover-updated': (GObject.SIGNAL_RUN_LAST, None, ())
@@ -334,13 +335,13 @@ class Album(GObject.Object):
 
         self._signals_id[track] = ids
 
-        self.emit('modified')
+        self.emit('pre-modified')
 
     def _track_modified(self, track):
         if track.album != self.name:
             self._track_deleted(track)
 
-        self.emit('modified')
+        self.emit('pre-modified')
 
     def _track_deleted(self, track):
         self._tracks.remove(track)
@@ -354,10 +355,13 @@ class Album(GObject.Object):
         if len(self._tracks) == 0:
             self.emit('emptied')
         else:
-            self.emit('modified')
+            self.emit('pre-modified')
 
     def create_ext_db_key(self):
         return self._tracks[0].create_ext_db_key()
+
+    def do_pre_modified(self):
+        self.emit('modified')
 
     def do_modified(self):
         self._album_artist = None
@@ -503,18 +507,29 @@ class AlbumsModel(GObject.Object):
     def store(self):
         return self._filtered_store
 
+    def _album_pre_modified(self, album):
+        # remove the album before it get's changed and we loose it on the limbo
+        self._albums.remove(album)
+
     def _album_modified(self, album):
         tree_iter = self._iters[album.name][1]
 
         if self._tree_store.iter_is_valid(tree_iter):
             # only update if the iter is valid
-            tooltip = self.emit('generate-tooltip', album)
-            markup = self.emit('generate-markup', album)
-            show = self._album_filter(album)
+            # generate and update values
+            tooltip, pixbuf, album, markup, hidden =\
+                self._generate_values(album)
 
             self._tree_store.set(tree_iter, self.columns['tooltip'], tooltip,
-                self.columns['markup'], markup, self.columns['show'], show)
+                self.columns['markup'], markup, self.columns['show'], hidden)
 
+            # reorder the album
+            new_pos = self._albums.insert(album)
+            old_iter = self._iters[self._albums[new_pos + 1].name][1]
+
+            self._tree_store.move_before(tree_iter, old_iter)
+
+            # inform that the album is updated
             self._album_updated(tree_iter)
 
     def _cover_updated(self, album):
@@ -559,7 +574,8 @@ class AlbumsModel(GObject.Object):
         tree_iter = self._tree_store.insert(self._albums.insert(album), values)
 
         # connect signals
-        ids = (album.connect('modified', self._album_modified),
+        ids = (album.connect('pre-modified', self._album_pre_modified),
+            album.connect('modified', self._album_modified),
             album.connect('cover-updated', self._cover_updated),
             album.connect('emptied', self.remove))
 
