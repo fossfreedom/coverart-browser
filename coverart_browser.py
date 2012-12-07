@@ -159,10 +159,7 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         del self.db
         del self.source
         del self.action_group
-        self.art_store.disconnect(self.req_id)
-		self.req_id = 0
-		self.art_store = None
-        
+
         print "CoverArtBrowser DEBUG - end do_deactivate"
 
     def load_complete(self, *args, **kwargs):
