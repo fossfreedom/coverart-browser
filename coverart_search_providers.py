@@ -29,7 +29,6 @@ from gi.repository import RB
 from gi.repository import GdkPixbuf
 from gi.repository import Peas
 
-from coverart_album_search_prefs import SearchPreferences
 from coverart_browser_prefs import GSetting
 from coverart_album_search import CoverAlbumSearch
 from coverart_album_search import DiscogsSearch
