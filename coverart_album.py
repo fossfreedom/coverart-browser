@@ -446,7 +446,7 @@ class AlbumFilters(object):
             if searchtext == "":
                 return True
 
-            return searchtext.lower() in album.track_titles
+            return searchtext.lower() in album.track_titles.lower()
 
         return filt
 
