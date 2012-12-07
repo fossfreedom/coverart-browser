@@ -812,7 +812,8 @@ class CoverArtBrowserSource(RB.Source):
 
         # clear the queue
         play_queue = self.shell.props.queue_source
-        play_queue.clear()
+        for row in play_queue.props.query_model:
+            play_queue.remove_entry(row[0])
 
         self.queue_selected_album(play_queue, favourites)
 
