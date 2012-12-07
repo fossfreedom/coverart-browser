@@ -801,6 +801,23 @@ class AlbumLoader(GObject.Object):
             self._album_manager.cover_man.load_cover(album)
             self._album_manager.model.add(album)
 
+    def reload_albums(self, query_model):
+        '''
+        This clears old albums before loading new albums from query_model
+        '''
+        print "CoverArtBrowser DEBUG - reload_albums"
+
+        albums = self._album_manager.model.get_all()
+        arraylen = len(albums) - 1
+        
+        while arraylen >=0 :
+            self._album_manager.model.remove(albums[arraylen])
+            arraylen = arraylen - 1
+
+        self.load_albums(query_model)
+        print "CoverArtBrowser DEBUG - reload_albums"
+
+
     def load_albums(self, query_model):
         '''
         Initiates the process of recover, create and load all the albums from
