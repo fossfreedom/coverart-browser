@@ -62,7 +62,7 @@ class CoverArtBrowserSource(RB.Source):
         self.filter_type = 'all'
         self.search_text = ''
         self.hasActivated = False
-        self.last_toolbar_pos = 0
+        self.last_toolbar_pos = None
         self.genre_changed_ignore = False
 
     def _connect_properties(self):
@@ -254,8 +254,6 @@ class CoverArtBrowserSource(RB.Source):
 
         self.ui = ui
         self.si = si
-
-        self.on_notify_toolbar_pos()
 
         print "CoverArtBrowser DEBUG - end _create_ui"
 
@@ -544,13 +542,11 @@ class CoverArtBrowserSource(RB.Source):
 
         if toolbar_pos == 1:
             self.toolbar_box.set_visible(False)
-            print "hi"
             self._toolbar(self.si)
             self.shell.add_widget(self.sidebar,
                         RB.ShellUILocation.SIDEBAR,
                         expand=False,
                         fill=False)
-            print "bye"
 
         if toolbar_pos == 2:
             self.toolbar_box.set_visible(False)
