@@ -321,7 +321,7 @@ class Album(GObject.Object):
             tracks = []
 
             for track in self._tracks:
-                if track.rating > rating_threshold:
+                if track.rating >= rating_threshold:
                     tracks.append(track)
 
         return sorted(tracks, key=lambda track: track.track_number)
