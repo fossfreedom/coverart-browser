@@ -7,7 +7,9 @@ Name=CoverArt Search Providers
 Description=Additional cover-art search providers
 Authors=fossfreedom <foss.freedom@gmail.com>, Agustín Carrasco <asermax@gmail.com>
 Copyright=© 2012 fossfreedom, Agustín Carrasco
-Website=http://github.com/fossfreedom
+Website=http://github.com/fossfreedom/coverart-browser
+Help=http://github.com/fossfreedom/coverart-browser/issues
+Version=0.7
 
 [RB]
 InitiallyEnabled=true
