@@ -169,6 +169,18 @@ class ReversedSortedCollection(object):
     def copy(self):
         return self.__class__(self._sorted_collection)
 
+    def _getkey(self):
+        return self._key
+
+    def _setkey(self, key):
+        if key is not self._key:
+            self.__init__(SortedCollection(self._items, key=key))
+
+    def _delkey(self):
+        self._setkey(None)
+
+    key = property(_getkey, _setkey, _delkey, 'key function')
+
     def __len__(self):
         return len(self._sorted_collection)
 
@@ -176,7 +188,7 @@ class ReversedSortedCollection(object):
         return self._items[len(self) - i - 1]
 
     def __iter__(self):
-        return iter(reversed(self._sorted_collection._items))
+        return iter(reversed(self._items))
 
     def __reversed__(self):
         return self._sorted_collection

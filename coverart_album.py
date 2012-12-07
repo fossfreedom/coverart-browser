@@ -262,7 +262,7 @@ class Album(GObject.Object):
         '''
         if not self._rating:
             ratings = [track.rating for track in self._tracks
-                if track.rating != 0]
+                if track.rating and track.rating != 0]
 
             if len(ratings) > 0:
                 self._rating = float(sum(ratings)) / len(ratings)
@@ -493,7 +493,7 @@ class AlbumsModel(GObject.Object):
         self._filters = {}
 
         # sorting direction
-        self._asc = False
+        self._asc = True
 
         # create the filtered store that's used with the view
         self._filtered_store = self._tree_store.filter_new()
@@ -602,7 +602,7 @@ class AlbumsModel(GObject.Object):
         self._tree_store.set_value(self._iters[album.name][1],
                 self.columns['show'], show)
 
-    def sort(self, key, asc=False):
+    def sort(self, key, asc):
         self._albums.key = lambda album: getattr(album, key)
 
         if asc != self._asc:

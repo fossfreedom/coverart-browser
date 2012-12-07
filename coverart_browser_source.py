@@ -1193,7 +1193,7 @@ class CoverArtBrowserSource(RB.Source):
         if radio is self.sort_by_rating_radio:
             self.sort_prop = 'rating'
 
-        self.album_manager.model.sort(self.sort_prop)
+        self.album_manager.model.sort(self.sort_prop, self.sort_order)
 
         print "CoverArtBrowser DEBUG - end sorting_criteria_changed"
 
