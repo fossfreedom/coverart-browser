@@ -380,12 +380,12 @@ class AlbumFilters(object):
         return filt
 
     @classmethod
-    def global_filter(cls, searchtext=''):
+    def global_filter(cls, searchtext=None):
         def filt(album):
             # this filter is more complicated: for each word in the search
             # text, it tries to find at least one match on the params of
             # the album. If no match is given, then the album doesn't match
-            if searchtext == "":
+            if not searchtext:
                 return True
 
             words = searchtext.lower().split()
@@ -408,9 +408,9 @@ class AlbumFilters(object):
         return filt
 
     @classmethod
-    def album_artist_filter(cls, searchtext=''):
+    def album_artist_filter(cls, searchtext=None):
         def filt(album):
-            if searchtext == "":
+            if not searchtext:
                 return True
 
             return searchtext.lower() in album.album_artist.lower()
@@ -418,9 +418,9 @@ class AlbumFilters(object):
         return filt
 
     @classmethod
-    def artist_filter(cls, searchtext=''):
+    def artist_filter(cls, searchtext=None):
         def filt(album):
-            if searchtext == "":
+            if not searchtext:
                 return True
 
             return searchtext.lower() in album.artists.lower()
@@ -428,9 +428,9 @@ class AlbumFilters(object):
         return filt
 
     @classmethod
-    def album_name_filter(cls, searchtext=''):
+    def album_name_filter(cls, searchtext=None):
         def filt(album):
-            if searchtext == "":
+            if not searchtext:
                 return True
 
             return searchtext.lower() in album.name.lower()
@@ -438,9 +438,9 @@ class AlbumFilters(object):
         return filt
 
     @classmethod
-    def track_title_filter(cls, searchtext=''):
+    def track_title_filter(cls, searchtext=None):
         def filt(album):
-            if searchtext == "":
+            if not searchtext:
                 return True
 
             return searchtext.lower() in album.track_titles.lower()
@@ -448,9 +448,9 @@ class AlbumFilters(object):
         return filt
 
     @classmethod
-    def genre_filter(cls, searchtext=''):
+    def genre_filter(cls, searchtext=None):
         def filt(album):
-            if searchtext == "":
+            if not searchtext:
                 return True
 
             return searchtext in album.genres
@@ -672,8 +672,8 @@ class AlbumsModel(GObject.Object):
         Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE, idle_add_albums,
             iter(self._albums))
 
-    def replace_filter(self, filter_key, filter_text='', refilter=True):
-        self._filters[filter_key] = AlbumFilters.keys[filter_key](filter_text)
+    def replace_filter(self, filter_key, filter_arg=None, refilter=True):
+        self._filters[filter_key] = AlbumFilters.keys[filter_key](filter_arg)
 
         if refilter:
             self.emit('filter-changed')
