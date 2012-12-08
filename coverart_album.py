@@ -491,7 +491,7 @@ class AlbumsModel(GObject.Object):
         'generate-tooltip': (GObject.SIGNAL_RUN_LAST, str, (object,)),
         'generate-markup': (GObject.SIGNAL_RUN_LAST, str, (object,)),
         'album-updated': ((GObject.SIGNAL_RUN_LAST, None, (object, object))),
-        'cover-updated': ((GObject.SIGNAL_RUN_LAST, None, (object, object))),
+        'visual-updated': ((GObject.SIGNAL_RUN_LAST, None, (object, object))),
         'filter-changed': ((GObject.SIGNAL_RUN_FIRST, None, ()))
         }
 
@@ -557,7 +557,7 @@ class AlbumsModel(GObject.Object):
             self._tree_store.set_value(tree_iter, self.columns['pixbuf'],
                 pixbuf)
 
-            self._emit_signal(tree_iter, 'cover_updated')
+            self._emit_signal(tree_iter, 'visual-updated')
 
     def _emit_signal(self, tree_iter, signal):
         # we get the filtered path and iter since that's what the outside world
@@ -700,6 +700,31 @@ class AlbumsModel(GObject.Object):
                     return False
 
             return True
+
+    def recreate_text(self):
+        def idle_add_albums(albums_iter):
+            for i in range(DEFAULT_LOAD_CHUNK):
+                try:
+                    album = albums_iter.next()
+                    tree_iter = self._iters[album.name]['iter']
+                    markup = self.emit('generate-markup', album)
+
+                    self._tree_store.set(tree_iter, self.columns['markup'],
+                        markup)
+                    self._emit_signal(tree_iter, 'visual-updated')
+
+                except StopIteration:
+                    return False
+
+                except Exception as e:
+                    print 'Error while recreating text: ' + str(e)
+
+            # the list still got albums, keep going
+            return True
+
+        # load the albums back to the model
+        Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE, idle_add_albums,
+            iter(self._albums))
 
 
 class AlbumLoader(GObject.Object):
@@ -1230,8 +1255,7 @@ class TextManager(GObject.Object):
         Callback called when one of the properties related with the ellipsize
         option is changed.
         '''
-        for album in self._album_manager.model.get_all():
-            album.recreate_text(self)
+        self._album_manager.model.recreate_text()
 
     def _activate_markup(self, *args):
         '''
@@ -1307,7 +1331,7 @@ class AlbumShowingPolicy(GObject.Object):
         self._cover_view.props.vadjustment.connect('value-changed',
             self._viewport_changed)
         self._model.connect('album-updated', self._album_updated)
-        self._model.connect('cover-updated', self._album_updated)
+        self._model.connect('visual-updated', self._album_updated)
 
     def _viewport_changed(self, *args):
         visible_range = self._cover_view.get_visible_range()
