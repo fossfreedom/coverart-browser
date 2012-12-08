@@ -26,6 +26,7 @@ import rb
 import locale
 import gettext
 from stars import ReactiveStar
+from stars import StarSize
 
 
 class CoverLocale:
@@ -252,11 +253,13 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
             Gio.SettingsBindFlags.DEFAULT)
 
         rated_box = builder.get_object('rated_box')
-        self.stars = ReactiveStar()
+        self.stars = ReactiveStar(size=StarSize.BIG)
 
         self.stars.connect('changed', self.rating_changed_callback)
 
-        rated_box.pack_start(self.stars, False, False, 1)
+        align = Gtk.Alignment.new(0.5, 0, 0, 0.1)
+        align.add(self.stars)
+        rated_box.add(align)
 
         self.stars.set_rating(self.settings[gs.PluginKey.RATING])
 
@@ -297,7 +300,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
             self.toolbar_right_radio.set_active(True)
 
         # return the dialog
-        return builder.get_object('maingrid')
+        return builder.get_object('main_notebook')
 
     def toolbar_callback(self, radio):
         gs = GSetting()
