@@ -542,7 +542,7 @@ class AlbumsModel(GObject.Object):
 
             # reorder the album
             new_pos = self._albums.insert(album)
-            old_iter = self._iters[self._albums[new_pos + 1].name][1]
+            old_iter = self._iters[self._albums[new_pos + 1].name]['iter']
 
             self._tree_store.move_before(tree_iter, old_iter)
 
@@ -550,7 +550,7 @@ class AlbumsModel(GObject.Object):
             self._album_updated(tree_iter)
 
     def _cover_updated(self, album):
-        tree_iter = self._iters[album.name][1]
+        tree_iter = self._iters[album.name]['iter']
 
         if self._tree_store.iter_is_valid(tree_iter):
             # only update if the iter is valid
@@ -596,7 +596,8 @@ class AlbumsModel(GObject.Object):
             album.connect('cover-updated', self._cover_updated),
             album.connect('emptied', self.remove))
 
-        self._iters[album.name] = [album, tree_iter, ids]
+        self._iters[album.name] = {'album': album, 'iter': tree_iter,
+            'ids': ids}
 
         return tree_iter
 
@@ -611,10 +612,10 @@ class AlbumsModel(GObject.Object):
     def remove(self, album):
         ''' Removes this album from it's model. '''
         self._albums.remove(album)
-        self._tree_store.remove(self._iters[album.name][1])
+        self._tree_store.remove(self._iters[album.name]['iter'])
 
         # disconnect signals
-        for sig_id in self._iters[album.name][2]:
+        for sig_id in self._iters[album.name]['ids']:
             album.disconnect(sig_id)
 
         del self._iters[album.name]
@@ -623,16 +624,16 @@ class AlbumsModel(GObject.Object):
         return album_name in self._iters
 
     def get(self, album_name):
-        return self._iters[album_name][0]
+        return self._iters[album_name]['album']
 
     def get_all(self):
         return self._albums
 
     def get_from_path(self, path):
-        return self._filtered_store[path][2]
+        return self._filtered_store[path][self.columns['album']]
 
     def show(self, album, show):
-        self._tree_store.set_value(self._iters[album.name][1],
+        self._tree_store.set_value(self._iters[album.name]['iter'],
                 self.columns['show'], show)
 
     def sort(self, key, asc):
@@ -652,7 +653,7 @@ class AlbumsModel(GObject.Object):
                     values = self._generate_values(album)
 
                     tree_iter = self._tree_store.append(values)
-                    self._iters[album.name][1] = tree_iter
+                    self._iters[album.name]['iter'] = tree_iter
 
                 except StopIteration:
                     # remove the nay filter
