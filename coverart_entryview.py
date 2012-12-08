@@ -26,6 +26,7 @@ import rb
 from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import CoverLocale
 
+
 class CoverArtEntryView(RB.EntryView):
 
     def __init__(self, shell, source):
@@ -42,7 +43,7 @@ class CoverArtEntryView(RB.EntryView):
 
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.RB)
-        
+
         self.append_column(RB.EntryViewColumn.TRACK_NUMBER, False) #'track-number'
         self.append_column(RB.EntryViewColumn.TITLE, True) #'title' - n.b. default and never manually defined
         self.append_column(RB.EntryViewColumn.GENRE, False) #'genre'
@@ -60,7 +61,7 @@ class CoverArtEntryView(RB.EntryView):
         self.append_column(RB.EntryViewColumn.BPM, False) #'beats-per-minute'
 
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
-        
+
         self.set_columns_clickable(False)
 
         # UI elements need to be imported.
@@ -71,7 +72,7 @@ class CoverArtEntryView(RB.EntryView):
         ui.connect_signals(self)
 
         self.popup_menu = ui.get_object('entryview_popup_menu')
-        
+
         # connect signals to the shell to know when the playing state changes
         self.shell.props.shell_player.connect('playing-song-changed',
             self.playing_song_changed)
@@ -114,7 +115,10 @@ class CoverArtEntryView(RB.EntryView):
 
     def add_album(self, album):
         print "CoverArtBrowser DEBUG - add_album()"
-        album.get_entries(self.qm, sort_by=True)
+        tracks = album.get_tracks()
+
+        for track in tracks:
+            self.qm.add_entry(track.entry, -1)
 
         (_, playing) = self.shell.props.shell_player.get_playing()
         self.playing_changed(self.shell.props.shell_player, playing)

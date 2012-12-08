@@ -37,6 +37,7 @@ from coverart_album_search import CoverAlbumSearch
 from coverart_album_search import DiscogsSearch
 from coverart_album_search import CoverSearch
 
+
 class CoverArtBrowserEntryType(RB.RhythmDBEntryType):
     '''
     Entry type for our source.
@@ -55,7 +56,7 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
     '''
     __gtype_name = 'CoverArtBrowserPlugin'
     object = GObject.property(type=GObject.Object)
-    
+
     def __init__(self):
         '''
         Initialises the plugin object.
@@ -113,7 +114,7 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         uim = self.shell.props.ui_manager
         self.cover_ui = uim.add_ui_from_file(rb.find_plugin_file(self,
             'ui/coverart_plugin.ui'))
-        
+
         action = Gtk.Action(name="PlaylistCover", label=_("CoverArt"),
                             tooltip=_("Display Covers for Playlist"),
                             stock_id='gnome-mime-text-x-python')
@@ -122,9 +123,10 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         self.action_group.add_action(action)
         uim.insert_action_group(self.action_group, 0)
         uim.ensure_update()
-        
+
         self.art_store = RB.ExtDB(name="album-art")
-		self.req_id = self.art_store.connect("request", self.album_art_requested)
+        self.req_id = self.art_store.connect("request",
+            self.album_art_requested)
 
         print "CoverArtBrowser DEBUG - end do_activate"
 
@@ -137,14 +139,12 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         '''
         print "CoverArtBrowser DEBUG - display_covers_for_source"
         page = self.shell.props.selected_page
+        self.shell.props.display_page_tree.select(self.source)
 
         try:
-            model = page.get_query_model()
+            self.source.filter_by_model(page.get_query_model())
         except:
-            model = self.shell.props.library_source.props.base_query_model
-            
-        self.source.reset_coverview(model)
-        self.shell.props.display_page_tree.select(self.source)
+            self.source.filter_by_model()
 
         print "CoverArtBrowser DEBUG - display_covers_for_source"
 
@@ -154,7 +154,7 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         free all the resources used by the plugin.
         '''
         print "CoverArtBrowser DEBUG - do_deactivate"
-        
+
         self.shell.props.ui_manager.remove_ui(self.cover_ui)
         self.shell.props.ui_manager.remove_action_group(self.action_group)
         self.shell.props.ui_manager.ensure_update()
@@ -166,9 +166,9 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         del self.source
         del self.action_group
         self.art_store.disconnect(self.req_id)
-		self.req_id = 0
-		self.art_store = None
-        
+        self.req_id = 0
+        self.art_store = None
+
         print "CoverArtBrowser DEBUG - end do_deactivate"
 
     def load_complete(self, *args, **kwargs):
@@ -181,19 +181,19 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         setting = gs.get_setting(gs.Path.PLUGIN)
         if setting[gs.PluginKey.AUTOSTART]:
             self.shell.props.display_page_tree.select(self.source)
-            
+
     def album_art_requested(self, store, key, last_time):
-		searches = []
-        
+        searches = []
+
         gs = GSetting()
         setting = gs.get_setting(gs.Path.PLUGIN)
-        
+
         if setting[gs.PluginKey.EMBEDDED_SEARCH]:
             searches.append(CoverAlbumSearch())
         if setting[gs.PluginKey.DISCOGS_SEARCH]:
             searches.append(DiscogsSearch())
 
         print "about to search"
-		s = CoverSearch(store, key, last_time, searches)
+        s = CoverSearch(store, key, last_time, searches)
         print "finished about to return"
-		return s.next_search()
+        return s.next_search()
