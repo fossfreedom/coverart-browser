@@ -37,6 +37,7 @@ from coverart_album_search import CoverAlbumSearch
 from coverart_album_search import DiscogsSearch
 from coverart_album_search import CoverSearch
 
+
 class CoverArtBrowserEntryType(RB.RhythmDBEntryType):
     '''
     Entry type for our source.
@@ -124,7 +125,8 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         uim.ensure_update()
 
         self.art_store = RB.ExtDB(name="album-art")
-		self.req_id = self.art_store.connect("request", self.album_art_requested)
+        self.req_id = self.art_store.connect("request",
+            self.album_art_requested)
 
         print "CoverArtBrowser DEBUG - end do_activate"
 
@@ -137,13 +139,12 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         '''
         print "CoverArtBrowser DEBUG - display_covers_for_source"
         page = self.shell.props.selected_page
+        self.shell.props.display_page_tree.select(self.source)
 
         try:
             self.source.filter_by_model(page.get_query_model())
         except:
             self.source.filter_by_model()
-
-        self.shell.props.display_page_tree.select(self.source)
 
         print "CoverArtBrowser DEBUG - display_covers_for_source"
 
@@ -165,8 +166,8 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         del self.source
         del self.action_group
         self.art_store.disconnect(self.req_id)
-		self.req_id = 0
-		self.art_store = None
+        self.req_id = 0
+        self.art_store = None
 
         print "CoverArtBrowser DEBUG - end do_deactivate"
 
@@ -182,7 +183,7 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
             self.shell.props.display_page_tree.select(self.source)
 
     def album_art_requested(self, store, key, last_time):
-		searches = []
+        searches = []
 
         gs = GSetting()
         setting = gs.get_setting(gs.Path.PLUGIN)
@@ -193,6 +194,6 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
             searches.append(DiscogsSearch())
 
         print "about to search"
-		s = CoverSearch(store, key, last_time, searches)
+        s = CoverSearch(store, key, last_time, searches)
         print "finished about to return"
-		return s.next_search()
+        return s.next_search()
