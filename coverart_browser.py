@@ -139,11 +139,10 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         page = self.shell.props.selected_page
 
         try:
-            model = page.get_query_model()
+            self.source.filter_by_model(page.get_query_model())
         except:
-            model = self.shell.props.library_source.props.base_query_model
+            self.source.filter_by_model()
 
-        self.source.filter_by_model(model)
         self.shell.props.display_page_tree.select(self.source)
 
         print "CoverArtBrowser DEBUG - display_covers_for_source"
