@@ -693,8 +693,7 @@ class AlbumsModel(GObject.Object):
             self.emit('filter-changed')
 
     def do_filter_changed(self):
-        for album in self._albums:
-            self.show(album, self._album_filter(album))
+        map(self.show, self._albums, map(self._album_filter, self._albums))
 
     def _album_filter(self, album):
             for f in self._filters.values():
