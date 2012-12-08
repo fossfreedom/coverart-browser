@@ -494,6 +494,7 @@ class AlbumsModel(GObject.Object):
         'generate-tooltip': (GObject.SIGNAL_RUN_LAST, str, (object,)),
         'generate-markup': (GObject.SIGNAL_RUN_LAST, str, (object,)),
         'album-updated': ((GObject.SIGNAL_RUN_LAST, None, (object, object))),
+        'cover-updated': ((GObject.SIGNAL_RUN_LAST, None, (object, object))),
         'filter-changed': ((GObject.SIGNAL_RUN_FIRST, None, ()))
         }
 
@@ -547,7 +548,7 @@ class AlbumsModel(GObject.Object):
             self._tree_store.move_before(tree_iter, old_iter)
 
             # inform that the album is updated
-            self._album_updated(tree_iter)
+            self._emit_signal(tree_iter, 'album_updated')
 
     def _cover_updated(self, album):
         tree_iter = self._iters[album.name]['iter']
@@ -559,9 +560,9 @@ class AlbumsModel(GObject.Object):
             self._tree_store.set_value(tree_iter, self.columns['pixbuf'],
                 pixbuf)
 
-            self._album_updated(tree_iter)
+            self._emit_signal(tree_iter, 'cover_updated')
 
-    def _album_updated(self, tree_iter):
+    def _emit_signal(self, tree_iter, signal):
         # we get the filtered path and iter since that's what the outside world
         # interacts with
         tree_path = self._filtered_store.convert_child_path_to_path(
@@ -572,7 +573,7 @@ class AlbumsModel(GObject.Object):
             # so no one needs to know
             tree_iter = self._filtered_store.get_iter(tree_path)
 
-            self.emit('album-updated', tree_path, tree_iter)
+            self.emit(signal, tree_path, tree_iter)
 
     def add(self, album):
         '''
@@ -1309,6 +1310,7 @@ class AlbumShowingPolicy(GObject.Object):
         self._cover_view.props.vadjustment.connect('value-changed',
             self._viewport_changed)
         self._model.connect('album-updated', self._album_updated)
+        self._model.connect('cover-updated', self._album_updated)
 
     def _viewport_changed(self, *args):
         visible_range = self._cover_view.get_visible_range()
