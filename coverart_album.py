@@ -388,7 +388,7 @@ class AlbumFilters(object):
             if searchtext == "":
                 return True
 
-            words = searchtext.split()
+            words = searchtext.lower().split()
             params = [album.name.lower(), album.album_artist.lower(),
                 album.artists.lower(), album.track_titles.lower()]
             matches = []
