@@ -828,36 +828,36 @@ class AlbumLoader(GObject.Object):
 
         # function to proccess entries
         def idle_process_entry(args):
-            albums, model, total, count, tree_iter = args
+            albums, model, total, count, row_iter = args
 
             for i in range(DEFAULT_LOAD_CHUNK):
-                if tree_iter is None:
+                try:
+                    row = row_iter.next()
+
+                    entry = model[row.path][0]
+
+                    # allocate the track
+                    track = Track(entry, self._album_manager.db)
+
+                    self._tracks[track.location] = track
+
+                    album_name = track.album
+
+                    if album_name in albums:
+                        album = albums[album_name]
+                    else:
+                        album = Album(album_name,
+                            self._album_manager.cover_man.unknown_cover)
+                        albums[album_name] = album
+
+                    album.add_track(track)
+
+                except StopIteration:
                     self._album_manager.progress = 1
                     self.emit('albums-load-finished', albums)
                     return False
-
-                (entry,) = model.get(tree_iter, 0)
-
-                # allocate the track
-                track = Track(entry, self._album_manager.db)
-
-                self._tracks[track.location] = track
-
-                album_name = track.album
-
-                if album_name in albums:
-                    album = albums[album_name]
-                else:
-                    album = Album(album_name,
-                        self._album_manager.cover_man.unknown_cover)
-                    albums[album_name] = album
-
-                album.add_track(track)
-
-                tree_iter = model.iter_next(tree_iter)
-
-            # update the iter
-            args[4] = tree_iter
+                except Exception as e:
+                    print 'Error processing entries: ' + str(e)
 
             # update the progress
             count += DEFAULT_LOAD_CHUNK
@@ -869,8 +869,7 @@ class AlbumLoader(GObject.Object):
 
         # load the albums from the query_model
         Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE, idle_process_entry,
-            [{}, query_model, len(query_model), 0.,
-                query_model.get_iter_first()])
+            [{}, query_model, len(query_model), 0., iter(query_model)])
 
         print "CoverArtBrowser DEBUG - load_albums finished"
 
@@ -1170,6 +1169,7 @@ class CoverManager(GObject.Object):
 
                 async = rb.Loader()
                 async.get_url(uri, cover_update, album)
+
 
 class TextManager(GObject.Object):
 
