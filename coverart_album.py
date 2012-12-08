@@ -530,7 +530,7 @@ class AlbumsModel(GObject.Object):
         self._albums.remove(album)
 
     def _album_modified(self, album):
-        tree_iter = self._iters[album.name][1]
+        tree_iter = self._iters[album.name]['iter']
 
         if self._tree_store.iter_is_valid(tree_iter):
             # only update if the iter is valid
