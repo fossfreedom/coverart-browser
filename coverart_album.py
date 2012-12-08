@@ -340,8 +340,8 @@ class Album(GObject.Object):
     def _track_modified(self, track):
         if track.album != self.name:
             self._track_deleted(track)
-
-        self.emit('pre-modified')
+        else:
+            self.emit('pre-modified')
 
     def _track_deleted(self, track):
         self._tracks.remove(track)
