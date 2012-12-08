@@ -266,7 +266,7 @@ class Album(GObject.Object):
                 if track.rating and track.rating != 0]
 
             if len(ratings) > 0:
-                self._rating = float(sum(ratings)) / len(ratings)
+                self._rating = sum(ratings) / len(self._tracks)
             else:
                 self._rating = 0
 
