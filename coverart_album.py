@@ -346,11 +346,8 @@ class Album(GObject.Object):
     def _track_deleted(self, track):
         self._tracks.remove(track)
 
-        mod_id, del_id = self._signals_id[track]
+        map(track.disconnect, self._signals_id[track])
         del self._signals_id[track]
-
-        track.disconnect(mod_id)
-        track.disconnect(del_id)
 
         if len(self._tracks) == 0:
             self.emit('emptied')
