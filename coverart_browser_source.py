@@ -384,18 +384,15 @@ class CoverArtBrowserSource(RB.Source):
 
         print "CoverArtBrowser DEBUG - end _setup_source"
 
-    def reset_coverview(self, query_model):
+    def filter_by_model(self, query_model):
         '''
         resets what is displayed in the coverview with contents from the
         new query_model
         '''
         print "CoverArtBrowser DEBUG - reset_coverview"
 
-        try:
-            self.album_manager.loader.reload_albums(query_model)
-            self.props.query_model = query_model
-        except:
-            pass
+        self.album_manager.model.replace_filter('model', query_model)
+        self.props.query_model = query_model
 
         print "CoverArtBrowser DEBUG - end reset_coverview"
 

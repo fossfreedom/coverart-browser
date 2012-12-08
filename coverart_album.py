@@ -460,13 +460,30 @@ class AlbumFilters(object):
 
         return filt
 
+    @classmethod
+    def model_filter(cls, model=None):
+        if not model or not len(model):
+            return lambda x: True
+
+        albums = set()
+
+        for row in model:
+            entry = model[row.path][0]
+            albums.add(Track(entry).album)
+
+        def filt(album):
+            return album.name in albums
+
+        return filt
+
 AlbumFilters.keys = {'nay': AlbumFilters.nay_filter,
         'all': AlbumFilters.global_filter,
         'album_artist': AlbumFilters.album_artist_filter,
         'artist': AlbumFilters.artist_filter,
         'album_name': AlbumFilters.album_name_filter,
         'track': AlbumFilters.track_title_filter,
-        'genre': AlbumFilters.genre_filter
+        'genre': AlbumFilters.genre_filter,
+        'model': AlbumFilters.model_filter
         }
 
 
@@ -800,23 +817,6 @@ class AlbumLoader(GObject.Object):
             album.add_track(track)
             self._album_manager.cover_man.load_cover(album)
             self._album_manager.model.add(album)
-
-    def reload_albums(self, query_model):
-        '''
-        This clears old albums before loading new albums from query_model
-        '''
-        print "CoverArtBrowser DEBUG - reload_albums"
-
-        albums = self._album_manager.model.get_all()
-        arraylen = len(albums) - 1
-        
-        while arraylen >=0 :
-            self._album_manager.model.remove(albums[arraylen])
-            arraylen = arraylen - 1
-
-        self.load_albums(query_model)
-        print "CoverArtBrowser DEBUG - reload_albums"
-
 
     def load_albums(self, query_model):
         '''
