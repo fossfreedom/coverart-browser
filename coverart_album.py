@@ -805,8 +805,6 @@ class AlbumLoader(GObject.Object):
         Callback called when a new entry is added to the Rhythmbox's db.
         '''
         print "CoverArtBrowser DEBUG - entry_added_callback"
-        # before trying to allocate the entry, found out if this entry is
-        # really a song, querying it's duration
         self._allocate_track(Track(entry, db))
 
         print "CoverArtBrowser DEBUG - end entry_added_callback"
@@ -817,6 +815,7 @@ class AlbumLoader(GObject.Object):
         '''
         print "CoverArtBrowser DEBUG - entry_deleted_callback"
         track = self._tracks[Track(entry).location]
+        del self._tracks[track.location]
 
         track.emit('deleted')
 
@@ -827,19 +826,21 @@ class AlbumLoader(GObject.Object):
         Allocates a given entry in to an album. If not album name is given,
         it's inferred from the entry metadata.
         '''
-        self._tracks[track.location] = track
+        if track.duration > 0:
+            # only allocate the track if it's a valid track
+            self._tracks[track.location] = track
 
-        album_name = track.album
+            album_name = track.album
 
-        if self._album_manager.model.contains(album_name):
-            album = self._album_manager.model.get(album_name)
-            album.add_track(track)
-        else:
-            album = Album(album_name,
-                self._album_manager.cover_man.unknown_cover)
-            album.add_track(track)
-            self._album_manager.cover_man.load_cover(album)
-            self._album_manager.model.add(album)
+            if self._album_manager.model.contains(album_name):
+                album = self._album_manager.model.get(album_name)
+                album.add_track(track)
+            else:
+                album = Album(album_name,
+                    self._album_manager.cover_man.unknown_cover)
+                album.add_track(track)
+                self._album_manager.cover_man.load_cover(album)
+                self._album_manager.model.add(album)
 
     def load_albums(self, query_model):
         '''
