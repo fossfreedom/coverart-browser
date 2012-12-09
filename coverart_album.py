@@ -17,6 +17,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
+'''
+Structures and managers to work with albums on Rhythmbox. This module provides
+the base model for the plugin to work on top of.
+'''
+
 from gi.repository import RB
 from gi.repository import GObject
 from gi.repository import Gio
@@ -41,18 +46,22 @@ DEFAULT_LOAD_CHUNK = 15
 
 
 class Cover(GObject.Object):
-    ''' Cover of an Album. '''
+    '''
+    Cover of an Album. It may be initialized either by a file path to the image
+    to use or by a previously allocated pixbuf.
 
+    :param size: `int` size in pixels of the side of the cover (asuming a
+        square-shapped cover).
+    :param file_path: `str` containing a path of an image from where to create
+        the cover.
+    :param pixbuf: `GdkPixbuf.Pixbuf` containing the cover.
+    '''
+    # signals
     __gsignals__ = {
         'resized': (GObject.SIGNAL_RUN_LAST, None, ())
         }
 
     def __init__(self, size, file_path=None, pixbuf=None):
-        '''
-        Initialises a cover, creating it's pixbuf or adapting a given one.
-        Either a file path or a pixbuf should be given to it's correct
-        initialization.
-        '''
         super(Cover, self).__init__()
 
         if pixbuf:
@@ -88,7 +97,14 @@ class Cover(GObject.Object):
 
 
 class Track(GObject.Object):
+    '''
+    A music track. Provides methods to access to most of the tracks data from
+    Rhythmbox's database.
 
+    :param entry: `RB.RhythmbDBEntry` rhythmbox's database entry for the track.
+    :param db: `RB.RhythmbDB` instance. It's needed to update the track's
+        values.
+    '''
     # signals
     __gsignals__ = {
         'modified': (GObject.SIGNAL_RUN_LAST, None, ()),
@@ -149,13 +165,20 @@ class Track(GObject.Object):
         return self.entry.get_ulong(RB.RhythmDBPropType.TRACK_NUMBER)
 
     def create_ext_db_key(self):
+        '''
+        Returns an `RB.ExtDBKey` that can be used to acces/write some other
+        track specific data on an `RB.ExtDB`.
+        '''
         return self.entry.create_ext_db_key(RB.RhythmDBPropType.ALBUM)
 
 
 class Album(GObject.Object):
     '''
-    An specific album defined by it's name and with the ability to obtain it's
-    cover and set itself in a treemodel.
+    An album. It's conformed from one or more tracks, and many of it's
+    information is deduced from them.
+
+    :param name: `str` name of the album.
+    :param cover: `Cover` cover for this album.
     '''
     # signals
     __gsignals__ = {
@@ -166,11 +189,6 @@ class Album(GObject.Object):
         }
 
     def __init__(self, name, cover):
-        '''
-        Initialises the album with it's name and artist.
-        Initially, the album haves no cover, so the default Unknown cover is
-        asigned.
-        '''
         super(Album, self).__init__()
 
         self.name = name
@@ -189,9 +207,6 @@ class Album(GObject.Object):
 
     @property
     def album_artist(self):
-        '''
-        Returns this album's artist.
-        '''
         if not self._album_artist:
             multiple_artist = False
 
@@ -217,10 +232,6 @@ class Album(GObject.Object):
 
     @property
     def artists(self):
-        '''
-        Returns a string representation of the conjuction of all the artist
-        that have entries on this album.
-        '''
         if not self._artists:
             self._artists = ', '.join(
                 set([track.artist for track in self._tracks]))
@@ -229,10 +240,6 @@ class Album(GObject.Object):
 
     @property
     def track_titles(self):
-        '''
-        Returns a string representation of the conjunction of all the track
-        titles that have entries on this album.
-        '''
         if not self._titles:
             self._titles = ' '.join(
                 set([track.title for track in self._tracks]))
@@ -241,9 +248,6 @@ class Album(GObject.Object):
 
     @property
     def year(self):
-        '''
-        Returns this album's year.
-        '''
         if not self._year:
             self._year = min([track.year for track in self._tracks])
 
@@ -258,9 +262,6 @@ class Album(GObject.Object):
 
     @property
     def rating(self):
-        '''
-        Returns this album's rating.
-        '''
         if not self._rating:
             ratings = [track.rating for track in self._tracks
                 if track.rating and track.rating != 0]
@@ -274,10 +275,6 @@ class Album(GObject.Object):
 
     @rating.setter
     def rating(self, new_rating):
-        '''
-        sets all the RBRhythmDBEntry's for the album
-        to have the given rating
-        '''
         for track in self._tracks:
             track.rating = new_rating
 
@@ -310,7 +307,11 @@ class Album(GObject.Object):
     def get_tracks(self, rating_threshold=0):
         '''
         Returns the tracks on this album. If rating_threshold is provided,
-        only those tracks over the threshold will be returned.
+        only those tracks over the threshold will be returned. The track list
+        returned is ordered by track number.
+
+        :param rating_threshold: `float` threshold over which the rating of the
+            track should be to be returned.
         '''
         if not rating_threshold or not self.rating:
             # if no song has rating, or no threshold is set, return all
@@ -318,16 +319,17 @@ class Album(GObject.Object):
 
         else:
             # otherwise, only return the entries over the threshold
-            tracks = []
-
-            for track in self._tracks:
-                if track.rating >= rating_threshold:
-                    tracks.append(track)
+            tracks = [track for track in self._tracks
+                if track.rating >= rating_threshold]
 
         return sorted(tracks, key=lambda track: track.track_number)
 
     def add_track(self, track):
-        ''' Appends an track to the album's tracks list. '''
+        '''
+        Adds a track to the album.
+
+        :param track: `Track` track to be added.
+        '''
         self._tracks.append(track)
 
         ids = (track.connect('modified', self._track_modified),
@@ -355,6 +357,9 @@ class Album(GObject.Object):
             self.emit('pre-modified')
 
     def create_ext_db_key(self):
+        '''
+        Creates a `RB.ExtDBKey` from this album's tracks.
+        '''
         return self._tracks[0].create_ext_db_key()
 
     def do_pre_modified(self):
@@ -485,7 +490,17 @@ AlbumFilters.keys = {'nay': AlbumFilters.nay_filter,
 
 
 class AlbumsModel(GObject.Object):
+    '''
+    Model that contains albums, keeps them sorted, filtered and provides an
+    external `Gtk.TreeModel` interface to use as part of a Gtk interface.
 
+    The `Gtk.TreeModel` haves the following structure:
+    column 0 -> string containing the album name and artist
+    column 1 -> pixbuf of the album's cover.
+    column 2 -> instance of the album itself.
+    column 3 -> markup text showed under the cover.
+    column 4 -> boolean that indicates if the row should be shown
+    '''
     # signals
     __gsignals__ = {
         'generate-tooltip': (GObject.SIGNAL_RUN_LAST, str, (object,)),
@@ -495,6 +510,7 @@ class AlbumsModel(GObject.Object):
         'filter-changed': ((GObject.SIGNAL_RUN_FIRST, None, ()))
         }
 
+    # list of columns names and positions on the TreeModel
     columns = {'tooltip': 0, 'pixbuf': 1, 'album': 2, 'markup': 3, 'show': 4}
 
     def __init__(self):
@@ -574,13 +590,9 @@ class AlbumsModel(GObject.Object):
 
     def add(self, album):
         '''
-        Add album to the tree model. For default, the info is assigned
-        in the next order:
-            column 0 -> string containing the album name and artist
-            column 1 -> pixbuf of the album's cover.
-            column 2 -> instance of the album itself.
-            column 3 -> markup text showed under the cover.
-            column 4 -> boolean that indicates if the row should be shown
+        Add an album to the model.
+
+        :param album: `Album` to be added to the model.
         '''
         # generate necesary values
         values = self._generate_values(album)
@@ -608,7 +620,11 @@ class AlbumsModel(GObject.Object):
         return tooltip, pixbuf, album, markup, hidden
 
     def remove(self, album):
-        ''' Removes this album from it's model. '''
+        '''
+        Removes this album from the model.
+
+        :param album: `Album` to be removed from the model.
+        '''
         self._albums.remove(album)
         self._tree_store.remove(self._iters[album.name]['iter'])
 
@@ -619,22 +635,56 @@ class AlbumsModel(GObject.Object):
         del self._iters[album.name]
 
     def contains(self, album_name):
+        '''
+        Indicates if the model contains an especific album.
+
+        :param album_name: `str` name of the album.
+        '''
         return album_name in self._iters
 
     def get(self, album_name):
+        '''
+        Returns the requested album.
+
+        :param album_name: `str` name of the album.
+        '''
         return self._iters[album_name]['album']
 
     def get_all(self):
+        '''
+        Returns a collection of all the albums in this model.
+        '''
         return self._albums
 
     def get_from_path(self, path):
+        '''
+        Returns an album referenced by a `Gtk.TreeModel` path.
+
+        :param path: `Gtk.TreePath` referencing the album.
+        '''
         return self._filtered_store[path][self.columns['album']]
 
     def show(self, album, show):
+        '''
+        Unfilters an album, making it visible to the publicly available model's
+        `Gtk.TreeModel`
+
+        :param album: `Album` to show or hide.
+        :param show: `bool` indcating whether to show(True) or hide(False) the
+            album.
+        '''
         self._tree_store.set_value(self._iters[album.name]['iter'],
                 self.columns['show'], show)
 
     def sort(self, key, asc):
+        '''
+        Changes the sorting strategy for the model.
+
+        :param key: `str`attribute of the `Album` class by witch the sort
+            should be performed.
+        :param asc: `bool` indicating whether it should be sortered in
+            ascendent(True) or descendent(False) direction.
+        '''
         self._albums.key = lambda album: getattr(album, key)
 
         if asc != self._asc:
@@ -673,12 +723,30 @@ class AlbumsModel(GObject.Object):
             iter(self._albums))
 
     def replace_filter(self, filter_key, filter_arg=None, refilter=True):
+        '''
+        Adds or replaces a filter by it's filter_key.
+
+        :param filter_key: `str` key of the filter method to use. This should
+            be one of the available keys on the `AlbumFilters` class.
+        :param filter_arg: `object` any object that the correspondant filter
+            method may need to perform the filtering process.
+        :param refilter: `bool` indicating whether to force a refilter and
+        emit the 'filter-changed' signal(True) or not(False).
+        '''
         self._filters[filter_key] = AlbumFilters.keys[filter_key](filter_arg)
 
         if refilter:
             self.emit('filter-changed')
 
     def remove_filter(self, filter_key, refilter=True):
+        '''
+        Removes a filter by it's filter_key
+
+        :param filter_key: `str` key of the filter method to use. This should
+            be one of the available keys on the `AlbumFilters` class.
+        :param refilter: `bool` indicating whether to force a refilter and
+        emit the 'filter-changed' signal(True) or not(False).
+        '''
         if filter_key in self._filters:
             del self._filters[filter_key]
 
@@ -686,6 +754,9 @@ class AlbumsModel(GObject.Object):
                 self.emit('filter-changed')
 
     def clear_filters(self):
+        '''
+        Clears all filters on the model.
+        '''
         if self._filters:
             self._filters.clear()
 
@@ -702,6 +773,9 @@ class AlbumsModel(GObject.Object):
             return True
 
     def recreate_text(self):
+        '''
+        Forces the recreation and update of the markup text for each album.
+        '''
         def idle_add_albums(albums_iter):
             for i in range(DEFAULT_LOAD_CHUNK):
                 try:
@@ -729,8 +803,10 @@ class AlbumsModel(GObject.Object):
 
 class AlbumLoader(GObject.Object):
     '''
-    Utility class that manages the albums created for the coverart browser's
-    source.
+    Loads and updates Rhythmbox's tracks and albums, updating the model
+    accordingly.
+
+    :param album_manager: `AlbumManager` responsible for this loader.
     '''
     # signals
     __gsignals__ = {
@@ -739,10 +815,6 @@ class AlbumLoader(GObject.Object):
         }
 
     def __init__(self, album_manager):
-        '''
-        Initialises the loader, getting the needed objects from the plugin and
-        saving the model that will be used to assign the loaded albums.
-        '''
         super(AlbumLoader, self).__init__()
 
         self._album_manager = album_manager
@@ -751,9 +823,6 @@ class AlbumLoader(GObject.Object):
         self._connect_signals()
 
     def _connect_signals(self):
-        '''
-        Connects the loader to all the needed signals for it to work.
-        '''
         # connect signals for updating the albums
         self.entry_changed_id = self._album_manager.db.connect('entry-changed',
             self._entry_changed_callback)
@@ -763,14 +832,8 @@ class AlbumLoader(GObject.Object):
             self._entry_deleted_callback)
 
     def _entry_changed_callback(self, db, entry, changes):
-        '''
-        Callback called when a RhythDB entry is modified. Loads/Unloads albums
-        if necesary
-
-        :param changes: GValueArray with the RhythmDBEntryChange made on the
-        entry.
-        '''
         print "CoverArtBrowser DEBUG - entry_changed_callback"
+        # NOTE: changes are packed on a GValueArray
 
         # look at all the changes and update the albums acordingly
         try:
@@ -801,18 +864,12 @@ class AlbumLoader(GObject.Object):
         print "CoverArtBrowser DEBUG - end entry_changed_callback"
 
     def _entry_added_callback(self, db, entry):
-        '''
-        Callback called when a new entry is added to the Rhythmbox's db.
-        '''
         print "CoverArtBrowser DEBUG - entry_added_callback"
         self._allocate_track(Track(entry, db))
 
         print "CoverArtBrowser DEBUG - end entry_added_callback"
 
     def _entry_deleted_callback(self, db, entry):
-        '''
-        Callback called when a entry is deleted from the Rhythmbox's db.
-        '''
         print "CoverArtBrowser DEBUG - entry_deleted_callback"
         track = self._tracks[Track(entry).location]
         del self._tracks[track.location]
@@ -822,10 +879,6 @@ class AlbumLoader(GObject.Object):
         print "CoverArtBrowser DEBUG - end entry_deleted_callback"
 
     def _allocate_track(self, track):
-        '''
-        Allocates a given entry in to an album. If not album name is given,
-        it's inferred from the entry metadata.
-        '''
         if track.duration > 0:
             # only allocate the track if it's a valid track
             self._tracks[track.location] = track
@@ -844,18 +897,19 @@ class AlbumLoader(GObject.Object):
 
     def load_albums(self, query_model):
         '''
-        Initiates the process of recover, create and load all the albums from
-        the Rhythmbox's db and their covers provided by artsearch plugin.
-        Specifically, it throws the query against the RhythmDB.
+        Loads and creates `Track` instances for all entries on query_model,
+        asigning them into their correspondant `Album`.
         '''
         print "CoverArtBrowser DEBUG - load_albums"
 
         # function to proccess entries
         def idle_process_entry(args):
+            # unpack args
             albums, model, total, count, row_iter = args
 
             for i in range(DEFAULT_LOAD_CHUNK):
                 try:
+                    # get next entry
                     row = row_iter.next()
 
                     entry = model[row.path][0]
@@ -900,10 +954,12 @@ class AlbumLoader(GObject.Object):
     def do_albums_load_finished(self, albums):
         # function to add the albums to the model
         def idle_add_albums(args):
+            # unpack args
             albums_iter, loaded, total = args
 
             for i in range(DEFAULT_LOAD_CHUNK):
                 try:
+                    # get next album and add it to the model
                     album = albums_iter.next()
 
                     self._album_manager.model.add(album)
@@ -938,6 +994,13 @@ class AlbumLoader(GObject.Object):
 
 
 class CoverManager(GObject.Object):
+    '''
+    Manager that takes care of cover loading and updating.
+
+    :param plugin: `Peas.PluginInfo` instance used to have access to the
+        predefined unknown cover.
+    :param album_manager: `AlbumManager` responsible for this manager.
+    '''
 
     # signals
     __gsignals__ = {
@@ -984,10 +1047,12 @@ class CoverManager(GObject.Object):
         if albums:
             # function to resize the covers
             def idle_resize_callback(args):
+                # unpack the args
                 albums_iter, loaded, total = args
 
                 for i in range(DEFAULT_LOAD_CHUNK):
                     try:
+                        # get the next album and resize it's cover
                         album = albums_iter.next()
 
                         album.cover.resize(self.cover_size)
@@ -1015,15 +1080,11 @@ class CoverManager(GObject.Object):
                 idle_resize_callback, [iter(albums), 0, float(len(albums))])
 
     def _albumart_added_callback(self, ext_db, key, path, pixbuf):
-        '''
-        Callback called when new album art added. It updates the pixbuf to the
-        album defined by key.
-        '''
         print "CoverArtBrowser DEBUG - albumart_added_callback"
-
+        # get the album name
         album_name = key.get_field('album')
 
-        # use the name to get the album and update the cover
+        # use the name to get the album and update it's cover
         if pixbuf and self._album_manager.model.contains(album_name):
             album = self._album_manager.model.get(album_name)
 
@@ -1033,12 +1094,18 @@ class CoverManager(GObject.Object):
 
     def load_cover(self, album):
         '''
-        Tries to load an Album's cover . If no cover is found upon lookup,
-        the Unknown cover is used.
+        Tries to load an Album's cover. If no cover is found upon lookup,
+        the unknown cover is used.
+        This method doesn't actively tries to find a cover, for that you should
+        use the search_cover method.
+
+        :param album: `Album` for which load the cover.
         '''
+        # create a key and look for the art location
         key = album.create_ext_db_key()
         art_location = self._cover_db.lookup(key)
 
+        # try to create a cover
         if art_location and os.path.exists(art_location):
             try:
                 album.cover = Cover(self.cover_size, art_location)
@@ -1046,14 +1113,20 @@ class CoverManager(GObject.Object):
                 pass  # ignore
 
     def load_covers(self):
+        '''
+        Loads all the covers for the model's albums.
+        '''
+        # get all the albums
         albums = self._album_manager.model.get_all()
 
         # function to load the covers
         def idle_load_callback(args):
+            # unpack the args
             albums_iter, loaded, total = args
 
             for i in range(DEFAULT_LOAD_CHUNK):
                 try:
+                    # get the next album and try to load it's cover
                     album = albums_iter.next()
 
                     if album.cover == self.unknown_cover:
@@ -1089,6 +1162,10 @@ class CoverManager(GObject.Object):
         The callback should accept one argument: the album which cover is
         being requested. When the argument passed is None, it means the
         process has finished.
+
+        :param albums: `list` of `Album` for which look for covers.
+        :param callback: `callable` to periodically inform when an album's
+            cover is being searched.
         '''
         if albums is None:
             albums = self._album_manager.model.get_all()
@@ -1141,7 +1218,14 @@ class CoverManager(GObject.Object):
         Activelly requests an Album's cover to the cover_db, calling
         the callback given once the process finishes (since it generally is
         asyncrhonous).
+        For more information on the callback arguments, check
+        `RB.ExtDB.request` documentation.
+
+        :param album: `Album` for which search the cover.
+        :param callback: `callable` to call when the process finishes.
+        :param data: `object` to call the callable with.
         '''
+        # create a key and request the cover
         key = album.create_ext_db_key()
 
         provides = self._cover_db.request(key, callback, data)
@@ -1154,6 +1238,13 @@ class CoverManager(GObject.Object):
         '''
         Updates the cover database, inserting the pixbuf as the cover art for
         all the entries on the album.
+        In the case a uri is given instead of the pixbuf, it will first try to
+        retrieve an image from the uri, then recall this method with the
+        obtained pixbuf.
+
+        :param album: `Album` for which the cover is.
+        :param pixbuf: `GkdPixbuf.Pixbuf` to use as a cover.
+        :param uri: `str` from where we should try to retrieve an image.
         '''
         if pixbuf:
             # if it's a pixbuf, asign it to all the artist for the album
@@ -1189,14 +1280,20 @@ class CoverManager(GObject.Object):
                             # set the new cover
                             self.update_cover(album, cover)
                         except:
-                            print "The URI doesn't point to an image."
+                            print "The URI doesn't point to an image or " +\
+                                "the image couldn't be opened."
 
                 async = rb.Loader()
                 async.get_url(uri, cover_update, album)
 
 
 class TextManager(GObject.Object):
+    '''
+    Manager that keeps control of the text options for the model's markup text.
+    It takes care of creating the text for the model when requested to do it.
 
+    :param album_manager: `AlbumManager` responsible for this manager.
+    '''
     # properties
     display_text_ellipsize_enabled = GObject.property(type=bool, default=False)
     display_text_ellipsize_length = GObject.property(type=int, default=0)
@@ -1317,6 +1414,10 @@ class TextManager(GObject.Object):
 
 
 class AlbumShowingPolicy(GObject.Object):
+    '''
+    Policy that mostly takes care of how and when things should be showed on
+    the view that makes use of the `AlbumsModel`.
+    '''
 
     def __init__(self, cover_view, album_manager):
         super(AlbumShowingPolicy, self).__init__()
@@ -1365,7 +1466,13 @@ class AlbumShowingPolicy(GObject.Object):
 
 
 class AlbumManager(GObject.Object):
+    '''
+    Main construction that glues together the different managers, the loader
+    and the model. It takes care of initializing all the system.
 
+    :param plugin: `Peas.PluginInfo` instance.
+    :param cover_view: `Gtk.IconView` where the album's cover are shown.
+    '''
     # singleton instance
     instance = None
 
@@ -1421,6 +1528,13 @@ class AlbumManager(GObject.Object):
 
     @classmethod
     def get_instance(cls, plugin=None, cover_view=None):
+        '''
+        Returns the unique instance of the manager. The parameters are only
+        needed for the initial creation.
+
+        :param plugin: `Peas.PluginInfo` instance.
+        :param cover_view: `Gtk.IconView` where the album's cover are shown.
+        '''
         if not cls.instance:
             cls.instance = AlbumManager(plugin, cover_view)
 
