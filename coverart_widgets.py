@@ -31,6 +31,7 @@ ui_string = \
   </object>
 </interface>"""
 
+
 # generic class from which implementation inherit from
 class PopupButton(Gtk.Button):
     # the following vars are to be defined in the inherited classes
@@ -45,9 +46,9 @@ class PopupButton(Gtk.Button):
 
         self._builder = Gtk.Builder()
         self._builder.add_from_string(ui_string)
-            
+
         self._popup_menu = self._builder.get_object('popupbutton_menu')
-        self._actiongroup = Gtk.ActionGroup((self.__gtype_name__+"menu"))
+        self._actiongroup = Gtk.ActionGroup((self.__gtype_name__ + "menu"))
 
     def initialise(self, shell, callback):
         '''
@@ -68,7 +69,7 @@ class PopupButton(Gtk.Button):
 
             self._popup_menu.show_all()
             self.shell.props.ui_manager.ensure_update()
-            
+
         for action in self._actiongroup.list_actions():
             self._actiongroup.remove_action(action)
 
@@ -90,7 +91,7 @@ class PopupButton(Gtk.Button):
         '''
         self._popup_menu.show_all()
         self.shell.props.ui_manager.ensure_update()
-            
+
         self._popup_menu.popup(None, None, None, None, 0,
             Gtk.get_current_event_time())
 
@@ -98,7 +99,7 @@ class PopupButton(Gtk.Button):
         '''
         set the tooltip according to the popup menu chosen
         '''
-        if val == None:
+        if not val:
             self.set_tooltip_text(self.get_initial_label())
         else:
             self.set_tooltip_text(val)
@@ -124,12 +125,11 @@ class PopupButton(Gtk.Button):
 
         what, width, height = Gtk.icon_size_lookup(Gtk.IconSize.BUTTON)
         image = self.get_image()
-        
+
         pixbuf = image.get_pixbuf().scale_simple(width, height,
                  GdkPixbuf.InterpType.BILINEAR)
 
         image.set_from_pixbuf(pixbuf)
-
 
     def do_delete_thyself(self):
         self.clear_popupmenu()
@@ -137,8 +137,10 @@ class PopupButton(Gtk.Button):
         del self._actiongroup
         del self._builder
 
+
 class PlaylistPopupButton(PopupButton):
     __gtype_name__ = 'PlaylistPopupButton'
+
     def __init__(self, **kargs):
         '''
         Initializes the button.
@@ -147,7 +149,7 @@ class PlaylistPopupButton(PopupButton):
             **kargs)
 
         self.set_initial_label(_("Music"))
-        
+
     def do_clicked(self):
         '''
         when button is clicked, update the popup with current playlists
@@ -157,32 +159,35 @@ class PlaylistPopupButton(PopupButton):
         playlists_entries = playlist_manager.get_playlists()
 
         self.clear_popupmenu()
-        self.add_menuitem( self.get_initial_label(), self._change_playlist_source, None)
-            
+        self.add_menuitem(self.get_initial_label(),
+            self._change_playlist_source, None)
+
         if playlists_entries:
             for playlist in playlists_entries:
                 if playlist.props.is_local:
-                    self.add_menuitem( playlist.props.name, self._change_playlist_source, playlist)
+                    self.add_menuitem(playlist.props.name,
+                        self._change_playlist_source, playlist)
 
         self.show_popup()
 
-    def _change_playlist_source(self, menu, playlist ):
+    def _change_playlist_source(self, menu, playlist):
         '''
         when a popup menu item is chosen change the button tooltip
         before invoking the source callback function
         '''
         try:
             model = playlist.get_query_model()
-            self.set_popup_value(playlist.props.name)           
+            self.set_popup_value(playlist.props.name)
         except:
             model = None
             self.set_popup_value(self.get_initial_label())
-            
+
         self.callback(model)
+
 
 class GenrePopupButton(PopupButton):
     __gtype_name__ = 'GenrePopupButton'
-    
+
     def __init__(self, **kargs):
         '''
         Initializes the button.
@@ -198,14 +203,16 @@ class GenrePopupButton(PopupButton):
         '''
         self.shell = shell
 
-        model = self.shell.props.library_source.get_property_views()[0].get_model()
-        # seems like view [0] is the genre property view        
+        # seems like view [0] is the genre property view
+        model = self.shell.props.library_source.get_property_views()[0].\
+            get_model()
+
         self._genres = []
-        
+
         for genre in model:
             self._genres.append(genre[0])
 
-        self.set_initial_label( self._genres[0])
+        self.set_initial_label(self._genres[0])
 
         super(GenrePopupButton, self).initialise(shell, callback)
 
@@ -217,10 +224,10 @@ class GenrePopupButton(PopupButton):
         before displaying the popup
         '''
         self.clear_popupmenu()
-        
-        for entry in self._genres:            
-            self.add_menuitem( entry, self._genre_changed, entry)
-        
+
+        for entry in self._genres:
+            self.add_menuitem(entry, self._genre_changed, entry)
+
         self.show_popup()
 
     def _genre_changed(self, menu, genre):
@@ -234,16 +241,17 @@ class GenrePopupButton(PopupButton):
             self.callback(None)
         else:
             self.callback(genre)
-        
+
+
 class SortPopupButton(PopupButton):
     __gtype_name__ = 'SortPopupButton'
 
-    _sorts = {  'name':_('Sort by album name'),
-                'album_artist':_('Sort by album artist'),
-                'year':_('Sort by year'),
-                'rating':_('Sort by rating')}
+    sorts = {'name': _('Sort by album name'),
+        'album_artist': _('Sort by album artist'),
+        'year': _('Sort by year'),
+        'rating': _('Sort by rating')}
 
-    sort_by = GObject.property(type=str)#, default='name')
+    sort_by = GObject.property(type=str)
 
     def __init__(self, **kargs):
         '''
@@ -252,8 +260,8 @@ class SortPopupButton(PopupButton):
         super(SortPopupButton, self).__init__(
             **kargs)
 
-        self.set_initial_label(self._sorts['name'])
-        
+        self.set_initial_label(self.sorts['name'])
+
     def initialise(self, shell, callback):
         '''
         extend the default initialise function
@@ -264,31 +272,28 @@ class SortPopupButton(PopupButton):
         super(SortPopupButton, self).initialise(shell, callback)
         self.resize_button_image()
 
+        # create the pop up menu
+        for key, text in sorted(self.sorts.iteritems()):
+            self.add_menuitem(text, self._sort_changed, key)
+
         gs = GSetting()
         source_settings = gs.get_setting(gs.Path.PLUGIN)
         source_settings.bind(gs.PluginKey.SORT_BY,
-            self.sort_by, 'active', Gio.SettingsBindFlags.DEFAULT)
+            self, 'sort_by', Gio.SettingsBindFlags.DEFAULT)
         #self.sort_by = 'album_artist'
-        self._sort_changed(_, self.sort_by)
-        
+        self._sort_changed(None, self.sort_by)
+
     def do_clicked(self):
         '''
         when button is clicked, update the popup with the sorting options
         before displaying the popup
         '''
-        self.clear_popupmenu()
-        
-        for entry in sorted(self._sorts.iteritems()):
-            key,text = entry
-            self.add_menuitem( text, self._sort_changed, key)
-        
         self.show_popup()
 
     def _sort_changed(self, menu, sort):
         '''
         called when sort popup menu item chosen
         '''
-        self.set_popup_value(self._sorts[sort])
+        self.set_popup_value(self.sorts[sort])
         self.sort_by = sort
         self.callback(sort)
-        
