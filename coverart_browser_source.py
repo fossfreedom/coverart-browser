@@ -32,7 +32,8 @@ from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import CoverLocale
 from stars import ReactiveStar
 from coverart_timer import ttimer
-
+from coverart_widgets import PlaylistPopupButton
+from coverart_widgets import GenrePopupButton
 
 class CoverArtBrowserSource(RB.Source):
     '''
@@ -66,7 +67,6 @@ class CoverArtBrowserSource(RB.Source):
         self.search_text = ''
         self.hasActivated = False
         self.last_toolbar_pos = None
-        self.genre_changed_ignore = False
 
     def _connect_properties(self):
         '''
@@ -310,16 +310,23 @@ class CoverArtBrowserSource(RB.Source):
             'filter_all_menu_item').get_label())
 
         # genre
-        self.genre_combobox = ui.get_object('genre_combobox')
+        #self.genre_combobox = ui.get_object('genre_combobox')
 
-        self.genres_model = self.shell.props.library_source.\
-            get_property_views()[0].get_model()
-        self.genre_deleted_id = self.genres_model.connect('row-deleted',
-            self.on_genre_deleted)
+        #self.genres_model = self.shell.props.library_source.\
+        #    get_property_views()[0].get_model()
+        #self.genre_deleted_id = self.genres_model.connect('row-deleted',
+        #    self.on_genre_deleted)
 
-        self.genre_combobox.set_model(self.genres_model)
-        self.genre_combobox.set_active(0)
+        #self.genre_combobox.set_model(self.genres_model)
+        #self.genre_combobox.set_active(0)
+        self.genre_button = ui.get_object('genre_button')
+        self.genre_button.initialise(self.shell, self.genre_filter_callback)
         self.on_notify_genre_filter_visible(_)
+
+        # get playlist popup
+        self.playlist_button = ui.get_object('playlist_button')
+        self.playlist_button.initialise(self.shell, self.filter_by_model)
+        
         print "CoverArtBrowser DEBUG - end _toolbar"
 
     def _setup_source(self):
@@ -503,7 +510,8 @@ class CoverArtBrowserSource(RB.Source):
         '''
         print "CoverArtBrowser DEBUG - on_notify_genre_filter_visible"
 
-        self.genre_combobox.set_visible(self.genre_filter_visible)
+        #self.genre_combobox.set_visible(self.genre_filter_visible)
+        self.genre_button.set_visible(self.genre_filter_visible)
 
         print "CoverArtBrowser DEBUG - end on_notify_genre_filter_visible"
 
@@ -549,32 +557,32 @@ class CoverArtBrowserSource(RB.Source):
 
         print "CoverArtBrowser DEBUG - end on_notify_toolbar_pos"
 
-    def on_genre_deleted(self, *args):
-        '''
-        fills the genre combobox with all current genres found
-        in the library source
-        '''
-        print "CoverArtBrowser DEBUG - on_genre_deleted"
-        # if the current genre filter doesn't show anything, set the default
-        # filter back
-        if self.current_genre not in self.genres_model:
-            self.genre_combobox.set_active(0)
+    #def on_genre_deleted(self, *args):
+    #    '''
+    #    fills the genre combobox with all current genres found
+    #    in the library source
+    #    '''
+    #    print "CoverArtBrowser DEBUG - on_genre_deleted"
+    #    # if the current genre filter doesn't show anything, set the default
+    #    # filter back
+    #    if self.current_genre not in self.genres_model:
+    #        self.genre_combobox.set_active(0)
 
-        print "CoverArtBrowser DEBUG - end on_genre_deleted"
+    #    print "CoverArtBrowser DEBUG - end on_genre_deleted"
 
-    def genre_changed(self, widget):
-        '''
-        signal called when genre value changed
-        '''
-        print "CoverArtBrowser DEBUG - genre changed"
-        self.current_genre = widget.get_active_text()
+    #def genre_changed(self, widget):
+    #    '''
+    #    signal called when genre value changed
+    #    '''
+    #    print "CoverArtBrowser DEBUG - genre changed"
+    #    self.current_genre = widget.get_active_text()
 
-        if self.current_genre == 'All':
-            self.album_manager.model.remove_filter('genre')
-        else:
-            self.album_manager.model.replace_filter('genre',
-                self.current_genre)
-        print "CoverArtBrowser DEBUG - end genre changed"
+    #    if self.current_genre == 'All':
+    #        self.album_manager.model.remove_filter('genre')
+    #    else:
+    #        self.album_manager.model.replace_filter('genre',
+    #            self.current_genre)
+    #    print "CoverArtBrowser DEBUG - end genre changed"
 
     def on_notify_display_bottom_enabled(self, *args):
         '''
@@ -1295,6 +1303,12 @@ class CoverArtBrowserSource(RB.Source):
 
         print "CoverArtBrowser DEBUG - end rating_changed_callback"
 
+    def genre_filter_callback(self, genre):
+        if genre == None:
+            self.album_manager.model.remove_filter('genre')
+        else:
+            self.album_manager.model.replace_filter('genre', genre)
+            
     @classmethod
     def get_instance(cls, **kwargs):
         '''

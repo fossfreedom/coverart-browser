@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
+  <!-- interface-requires coverart_widgets 1.0 -->
   <object class="GtkImage" id="arrow_down">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -25,6 +26,16 @@
         <property name="label" translatable="yes">Search all fields</property>
       </object>
     </child>
+  </object>
+  <object class="GtkImage" id="genre_icon">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="pixbuf">genre.png</property>
+  </object>
+  <object class="GtkImage" id="playlist_connect">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-connect</property>
   </object>
   <object class="GtkBox" id="main_box">
     <property name="visible">True</property>
@@ -55,35 +66,14 @@
         <property name="xalign">0</property>
         <child>
           <object class="RBSearchEntry" id="search_entry">
-		  </object>
-        </child>
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-        <property name="position">20</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkComboBoxText" id="genre_combobox">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="tooltip_text" translatable="yes">Filter by genre</property>
-        <property name="halign">end</property>
-        <property name="has_entry">True</property>
-        <signal name="changed" handler="genre_changed" swapped="no"/>
-        <child internal-child="entry">
-          <object class="GtkEntry" id="combobox-entry">
             <property name="can_focus">False</property>
-            <property name="shadow_type">none</property>
-            <property name="progress_fraction">0.0099999997764825821</property>
           </object>
         </child>
       </object>
       <packing>
         <property name="expand">False</property>
         <property name="fill">True</property>
-        <property name="position">30</property>
+        <property name="position">20</property>
       </packing>
     </child>
     <child>
@@ -186,24 +176,77 @@
       </packing>
     </child>
     <child>
-      <object class="GtkButton" id="sort_order">
-        <property name="use_action_appearance">False</property>
+      <object class="GtkBox" id="box1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="receives_default">False</property>
-        <property name="has_tooltip">True</property>
-        <property name="halign">center</property>
-        <property name="valign">center</property>
-        <property name="margin_right">1</property>
-        <property name="use_action_appearance">False</property>
-        <property name="image">arrow_up</property>
-        <property name="relief">half</property>
-        <signal name="clicked" handler="sorting_direction_changed" swapped="no"/>
+        <child>
+          <object class="GtkButton" id="sort_order">
+            <property name="use_action_appearance">False</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="has_tooltip">True</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+            <property name="margin_right">1</property>
+            <property name="use_action_appearance">False</property>
+            <property name="image">arrow_up</property>
+            <property name="relief">half</property>
+            <signal name="clicked" handler="sorting_direction_changed" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="PlaylistPopupButton" id="playlist_button">
+            <property name="use_action_appearance">False</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="has_tooltip">True</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+            <property name="margin_right">1</property>
+            <property name="use_action_appearance">False</property>
+            <property name="image">playlist_connect</property>
+            <property name="relief">half</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GenrePopupButton" id="genre_button">
+            <property name="use_action_appearance">False</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="has_tooltip">True</property>
+            <property name="tooltip_markup" translatable="yes">All Genres</property>
+            <property name="tooltip_text" translatable="yes">All Genres</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+            <property name="margin_right">1</property>
+            <property name="use_action_appearance">False</property>
+            <property name="image">genre_icon</property>
+            <property name="relief">half</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
       </object>
       <packing>
         <property name="expand">False</property>
-        <property name="fill">False</property>
-        <property name="position">50</property>
+        <property name="fill">True</property>
+        <property name="position">60</property>
       </packing>
     </child>
   </object>
