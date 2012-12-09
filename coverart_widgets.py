@@ -19,6 +19,9 @@
 
 from gi.repository import Gtk
 from gi.repository import GdkPixbuf
+from gi.repository import GObject
+from gi.repository import Gio
+from coverart_browser_prefs import GSetting
 
 ui_string = \
 """<interface>
@@ -112,6 +115,22 @@ class PopupButton(Gtk.Button):
         '''
         return self._initial_label
 
+    def resize_button_image(self):
+        '''
+        if the button contains an image rather than stock icon
+        this function will ensure the image is resized correctly to
+        fit the button style
+        '''
+
+        what, width, height = Gtk.icon_size_lookup(Gtk.IconSize.BUTTON)
+        image = self.get_image()
+        
+        pixbuf = image.get_pixbuf().scale_simple(width, height,
+                 GdkPixbuf.InterpType.BILINEAR)
+
+        image.set_from_pixbuf(pixbuf)
+
+
     def do_delete_thyself(self):
         self.clear_popupmenu()
         del self._popupmenu
@@ -171,21 +190,6 @@ class GenrePopupButton(PopupButton):
         super(GenrePopupButton, self).__init__(
             **kargs)
 
-    def get_genres(self):
-        '''
-        get all the current genres which happens to be stored in
-        the main library source
-        '''
-        model = self.shell.props.library_source.get_property_views()[0].get_model()
-        # seems like view [0] is the genre property view
-        
-        genres = []
-        
-        for genre in model:
-            genres.append(genre[0])
-
-        return genres #self.set_initial_label( model[0][0])
-
     def initialise(self, shell, callback):
         '''
         extend the default initialise function
@@ -193,18 +197,19 @@ class GenrePopupButton(PopupButton):
         associated with the genre button
         '''
         self.shell = shell
-           
-        self.set_initial_label( self.get_genres()[0])
+
+        model = self.shell.props.library_source.get_property_views()[0].get_model()
+        # seems like view [0] is the genre property view        
+        self._genres = []
+        
+        for genre in model:
+            self._genres.append(genre[0])
+
+        self.set_initial_label( self._genres[0])
 
         super(GenrePopupButton, self).initialise(shell, callback)
 
-        what, width, height = Gtk.icon_size_lookup(Gtk.IconSize.BUTTON)
-        image = self.get_image()
-        
-        pixbuf = image.get_pixbuf().scale_simple(width, height,
-                 GdkPixbuf.InterpType.BILINEAR)
-
-        image.set_from_pixbuf(pixbuf)
+        self.resize_button_image()
 
     def do_clicked(self):
         '''
@@ -212,9 +217,8 @@ class GenrePopupButton(PopupButton):
         before displaying the popup
         '''
         self.clear_popupmenu()
-        genres = self.get_genres()
-    
-        for entry in genres:            
+        
+        for entry in self._genres:            
             self.add_menuitem( entry, self._genre_changed, entry)
         
         self.show_popup()
@@ -230,4 +234,61 @@ class GenrePopupButton(PopupButton):
             self.callback(None)
         else:
             self.callback(genre)
+        
+class SortPopupButton(PopupButton):
+    __gtype_name__ = 'SortPopupButton'
+
+    _sorts = {  'name':_('Sort by album name'),
+                'album_artist':_('Sort by album artist'),
+                'year':_('Sort by year'),
+                'rating':_('Sort by rating')}
+
+    sort_by = GObject.property(type=str)#, default='name')
+
+    def __init__(self, **kargs):
+        '''
+        Initializes the button.
+        '''
+        super(SortPopupButton, self).__init__(
+            **kargs)
+
+        self.set_initial_label(self._sorts['name'])
+        
+    def initialise(self, shell, callback):
+        '''
+        extend the default initialise function
+        because we need to also resize the picture
+        associated with the sort button as well as find the
+        saved sort order
+        '''
+        super(SortPopupButton, self).initialise(shell, callback)
+        self.resize_button_image()
+
+        gs = GSetting()
+        source_settings = gs.get_setting(gs.Path.PLUGIN)
+        source_settings.bind(gs.PluginKey.SORT_BY,
+            self.sort_by, 'active', Gio.SettingsBindFlags.DEFAULT)
+        #self.sort_by = 'album_artist'
+        self._sort_changed(_, self.sort_by)
+        
+    def do_clicked(self):
+        '''
+        when button is clicked, update the popup with the sorting options
+        before displaying the popup
+        '''
+        self.clear_popupmenu()
+        
+        for entry in sorted(self._sorts.iteritems()):
+            key,text = entry
+            self.add_menuitem( text, self._sort_changed, key)
+        
+        self.show_popup()
+
+    def _sort_changed(self, menu, sort):
+        '''
+        called when sort popup menu item chosen
+        '''
+        self.set_popup_value(self._sorts[sort])
+        self.sort_by = sort
+        self.callback(sort)
         

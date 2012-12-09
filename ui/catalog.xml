@@ -8,6 +8,9 @@
     <glade-widget-class title="GenrePopupButton" name="GenrePopupButton" 
                         generic-name="GenrePopupButton" parent="GtkButton"
                         icon-name="widget-gtk-button"/>
+    <glade-widget-class title="SortPopupButton" name="SortPopupButton" 
+                        generic-name="SortPopupButton" parent="GtkButton"
+                        icon-name="widget-gtk-button"/>
     <glade-widget-class title="RBSearchEntry" name="RBSearchEntry" 
                         generic-name="RBSearchEntry" parent="GtkHBox"
                         icon-name="widget-gtk-box"/>

@@ -87,6 +87,11 @@
     <property name="can_focus">False</property>
     <property name="pixbuf">genre.png</property>
   </object>
+  <object class="GtkImage" id="sort_by_icon">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="pixbuf">sort.png</property>
+  </object>
   <object class="GtkImage" id="playlist_connect">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -104,96 +109,18 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <child>
-          <object class="GtkButtonBox" id="sorting_criteria_button_box">
+          <object class="SortPopupButton" id="sort_by">
+            <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="margin_left">5</property>
-            <property name="margin_right">5</property>
-            <property name="spacing">1</property>
-            <property name="layout_style">start</property>
-            <child>
-              <object class="GtkRadioButton" id="album_name_sort_radio">
-                <property name="label" translatable="yes">Album</property>
-                <property name="use_action_appearance">False</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="receives_default">False</property>
-                <property name="tooltip_text" translatable="yes">Sort by album name</property>
-                <property name="use_action_appearance">False</property>
-                <property name="relief">none</property>
-                <property name="xalign">0.5</property>
-                <property name="draw_indicator">False</property>
-                <signal name="toggled" handler="sorting_criteria_changed" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkRadioButton" id="artist_name_sort_radio">
-                <property name="label" translatable="yes">Artist</property>
-                <property name="use_action_appearance">False</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="receives_default">False</property>
-                <property name="tooltip_text" translatable="yes">Sort by album artist</property>
-                <property name="use_action_appearance">False</property>
-                <property name="relief">none</property>
-                <property name="xalign">0.5</property>
-                <property name="draw_indicator">False</property>
-                <property name="group">album_name_sort_radio</property>
-                <signal name="toggled" handler="sorting_criteria_changed" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkRadioButton" id="year_sort_radio">
-                <property name="label" translatable="yes">Year</property>
-                <property name="use_action_appearance">False</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="receives_default">False</property>
-                <property name="tooltip_text" translatable="yes">Sort by year</property>
-                <property name="use_action_appearance">False</property>
-                <property name="relief">none</property>
-                <property name="xalign">0.5</property>
-                <property name="draw_indicator">False</property>
-                <property name="group">album_name_sort_radio</property>
-                <signal name="toggled" handler="sorting_criteria_changed" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkRadioButton" id="rating_sort_radio">
-                <property name="label" translatable="yes">Rating</property>
-                <property name="use_action_appearance">False</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="receives_default">False</property>
-                <property name="tooltip_text" translatable="yes">Sort by rating</property>
-                <property name="use_action_appearance">False</property>
-                <property name="relief">none</property>
-                <property name="xalign">0.5</property>
-                <property name="draw_indicator">False</property>
-                <property name="group">album_name_sort_radio</property>
-                <signal name="toggled" handler="sorting_criteria_changed" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">3</property>
-              </packing>
-            </child>
+            <property name="receives_default">False</property>
+            <property name="has_tooltip">True</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+            <property name="margin_right">1</property>
+            <property name="use_action_appearance">False</property>
+            <property name="image">sort_by_icon</property>
+            <property name="relief">half</property>
           </object>
           <packing>
             <property name="expand">False</property>
