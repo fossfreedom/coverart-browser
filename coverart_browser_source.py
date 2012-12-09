@@ -47,6 +47,9 @@ class CoverArtBrowserSource(RB.Source):
     year_sort_visible = GObject.property(type=bool, default=False)
     sort_order = GObject.property(type=bool, default=False)
 
+    # unique instance of the source
+    instance = None
+
     def __init__(self, **kargs):
         '''
         Initializes the source.
@@ -369,8 +372,7 @@ class CoverArtBrowserSource(RB.Source):
             _("Covers")))
 
         # setup the album loader and the cover view to use it's model + filter
-        self.album_manager = AlbumManager.get_instance(self.plugin,
-            self.covers_view)
+        self.album_manager = AlbumManager(self.plugin, self.covers_view)
 
         # connect a signal to when the info of albums is ready
         self.load_fin_id = self.album_manager.loader.connect(
@@ -383,19 +385,6 @@ class CoverArtBrowserSource(RB.Source):
         self.covers_view.set_model(self.album_manager.model.store)
 
         print "CoverArtBrowser DEBUG - end _setup_source"
-
-    def filter_by_model(self, model=None):
-        '''
-        resets what is displayed in the coverview with contents from the
-        new query_model
-        '''
-        print "CoverArtBrowser DEBUG - reset_coverview"
-        if not model:
-            self.album_manager.model.remove_filter('model')
-        else:
-            self.album_manager.model.replace_filter('model', model)
-
-        print "CoverArtBrowser DEBUG - end reset_coverview"
 
     def _apply_settings(self):
         '''
@@ -432,11 +421,6 @@ class CoverArtBrowserSource(RB.Source):
         self.on_notify_rating_threshold(_)
         self.on_notify_display_bottom_enabled(_)
         self.sorting_direction_changed(_, True)
-        #self.on_notify_toolbar_pos(_)
-
-        if self.album_manager.progress == 1:
-            # if the source is fully loaded, enable the full cover search item
-            self.load_finished_callback()
 
         print "CoverArtBrowser DEBUG - end _apply_settings"
 
@@ -724,6 +708,19 @@ class CoverArtBrowserSource(RB.Source):
         self.searchchanged_callback(_, self.search_text)
 
         print "CoverArtBrowser DEBUG - end filter_menu_callback"
+
+    def filter_by_model(self, model=None):
+        '''
+        resets what is displayed in the coverview with contents from the
+        new query_model
+        '''
+        print "CoverArtBrowser DEBUG - reset_coverview"
+        if not model:
+            self.album_manager.model.remove_filter('model')
+        else:
+            self.album_manager.model.replace_filter('model', model)
+
+        print "CoverArtBrowser DEBUG - end reset_coverview"
 
     def update_iconview_callback(self, *args):
         '''
@@ -1298,71 +1295,15 @@ class CoverArtBrowserSource(RB.Source):
 
         print "CoverArtBrowser DEBUG - end rating_changed_callback"
 
-    def do_delete_thyself(self):
+    @classmethod
+    def get_instance(cls, **kwargs):
         '''
-        Method called by Rhythmbox's when the source is deleted. It makes sure
-        to free all the source's related resources to avoid memory leaking and
-        loose signals.
+        Returns the unique instance of the manager.
         '''
-        print "CoverArtBrowser DEBUG - do_delete_thyself"
+        if not cls.instance:
+            cls.instance = CoverArtBrowserSource(**kwargs)
 
-        if not self.hasActivated:
-            del self.hasActivated
-
-            return
-
-        # destroy the ui
-        self.page.destroy()
-
-        # disconnect signals
-        self.album_manager.loader.disconnect(self.load_fin_id)
-        self.album_manager.model.disconnect(self.album_mod_id)
-        self.album_manager.disconnect(self.notify_prog_id)
-
-        self.genres_model.disconnect(self.genre_deleted_id)
-
-        # delete references
-        del self.shell
-        del self.plugin
-        del self.album_manager
-        del self.covers_view
-        del self.cover_search_pane
-        del self.filter_menu
-        del self.filter_menu_album_artist_item
-        del self.filter_menu_album_item
-        del self.filter_menu_all_item
-        del self.filter_menu_artist_item
-        del self.filter_menu_track_title_item
-        del self.filter_type
-        del self.genres_model
-        del self.genre_deleted_id
-        del self.notebook
-        del self.page
-        del self.paned
-        del self.popup_menu
-        del self.request_cancel_button
-        del self.request_spinner
-        del self.request_status_box
-        del self.request_statusbar
-        del self.search_entry
-        del self.search_text
-        del self.source_menu
-        del self.source_menu_search_all_item
-        del self.sort_by_album_radio
-        del self.sort_by_artist_radio
-        del self.sort_by_year_radio
-        del self.sort_by_rating_radio
-        del self.sort_order_button
-        del self.status
-        del self.status_label
-        del self.load_fin_id
-        del self.album_mod_id
-        del self.notify_prog_id
-        del self.hasActivated
-        del self.gs
-        del self.coversearchtimer
-
-        print "CoverArtBrowser DEBUG - end do_delete_thyself"
+        return cls.instance
 
 
 GObject.type_register(CoverArtBrowserSource)

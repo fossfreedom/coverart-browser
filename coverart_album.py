@@ -1525,17 +1525,3 @@ class AlbumManager(GObject.Object):
 
     def _load_finished_callback(self, *args):
         self.cover_man.load_covers()
-
-    @classmethod
-    def get_instance(cls, plugin=None, cover_view=None):
-        '''
-        Returns the unique instance of the manager. The parameters are only
-        needed for the initial creation.
-
-        :param plugin: `Peas.PluginInfo` instance.
-        :param cover_view: `Gtk.IconView` where the album's cover are shown.
-        '''
-        if not cls.instance:
-            cls.instance = AlbumManager(plugin, cover_view)
-
-        return cls.instance
