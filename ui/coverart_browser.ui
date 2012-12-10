@@ -87,16 +87,6 @@
     <property name="can_focus">False</property>
     <property name="pixbuf">genre.png</property>
   </object>
-  <object class="GtkImage" id="sort_by_icon">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixbuf">sort.png</property>
-  </object>
-  <object class="GtkImage" id="playlist_connect">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-connect</property>
-  </object>
   <object class="GtkBox" id="main_box">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -150,6 +140,19 @@
           </packing>
         </child>
         <child>
+          <object class="GtkSeparator" id="separator1">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="orientation">vertical</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="padding">4</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
           <object class="PlaylistPopupButton" id="playlist_button">
             <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
@@ -166,7 +169,7 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">2</property>
+            <property name="position">3</property>
           </packing>
         </child>
         <child>
@@ -187,7 +190,7 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">3</property>
+            <property name="position">4</property>
           </packing>
         </child>
         <child>
@@ -205,7 +208,7 @@
           <packing>
             <property name="expand">True</property>
             <property name="fill">True</property>
-            <property name="position">4</property>
+            <property name="position">5</property>
           </packing>
         </child>
       </object>
@@ -362,6 +365,11 @@
         <property name="position">50</property>
       </packing>
     </child>
+  </object>
+  <object class="GtkImage" id="playlist_connect">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-connect</property>
   </object>
   <object class="GtkMenu" id="popup_menu">
     <property name="visible">True</property>
@@ -523,6 +531,11 @@
         <signal name="activate" handler="show_properties_menu_item_callback" swapped="no"/>
       </object>
     </child>
+  </object>
+  <object class="GtkImage" id="sort_by_icon">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="pixbuf">sort.png</property>
   </object>
   <object class="GtkMenu" id="source_menu">
     <property name="visible">True</property>

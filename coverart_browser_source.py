@@ -1087,6 +1087,7 @@ class CoverArtBrowserSource(RB.Source):
         #if not radio.get_active():
         #    return
 
+        print "sorting by %s" % sort_by
         self.sort_prop = sort_by
         self.album_manager.model.sort(self.sort_prop, self.sort_order)
 
