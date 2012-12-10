@@ -37,6 +37,8 @@ class PopupButton(Gtk.Button):
     # the following vars are to be defined in the inherited classes
     #__gtype_name__ = gobject typename
 
+    _first_menu_item = None
+
     def __init__(self, **kargs):
         '''
         Initializes the button.
@@ -72,12 +74,21 @@ class PopupButton(Gtk.Button):
 
         for action in self._actiongroup.list_actions():
             self._actiongroup.remove_action(action)
+            
+        self._first_menu_item = None
 
     def add_menuitem(self, label, func, val):
         '''
         add a new menu item to the popup
         '''
-        new_menu_item = Gtk.MenuItem(label=label)
+        if not self._first_menu_item:
+            new_menu_item = Gtk.RadioMenuItem(label=label)            
+            self._first_menu_item = new_menu_item
+        else:
+            new_menu_item=Gtk.RadioMenuItem.new_with_label_from_widget(
+                group=self._first_menu_item, label=label)
+
+
         action = Gtk.Action(label=label, name=label,
                        tooltip='', stock_id=Gtk.STOCK_CLEAR)
         action.connect('activate', func, val)
@@ -100,9 +111,17 @@ class PopupButton(Gtk.Button):
         set the tooltip according to the popup menu chosen
         '''
         if not val:
-            self.set_tooltip_text(self.get_initial_label())
-        else:
-            self.set_tooltip_text(val)
+            val = self.get_initial_label()
+        
+        self.set_tooltip_text(val)
+
+        print "val %s" % val
+        for item in self._popup_menu.get_children():
+            print item.get_label()
+            if item.get_label() == val:
+                print "found"
+                item.set_active(True)
+                break 
 
     def set_initial_label(self, val):
         '''
