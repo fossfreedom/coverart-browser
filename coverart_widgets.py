@@ -38,6 +38,7 @@ class PopupButton(Gtk.Button):
     #__gtype_name__ = gobject typename
 
     _first_menu_item = None
+    _current_val = None
 
     def __init__(self, **kargs):
         '''
@@ -81,16 +82,19 @@ class PopupButton(Gtk.Button):
         '''
         add a new menu item to the popup
         '''
-        if not self._first_menu_item:
-            new_menu_item = Gtk.RadioMenuItem(label=label)            
-            self._first_menu_item = new_menu_item
-        else:
-            new_menu_item=Gtk.RadioMenuItem.new_with_label_from_widget(
-                group=self._first_menu_item, label=label)
+        #if not self._first_menu_item:
+        #    new_menu_item = Gtk.RadioMenuItem(label=label)            
+        #    self._first_menu_item = new_menu_item
+        #else:
+        #    new_menu_item=Gtk.RadioMenuItem.new_with_label_from_widget(
+        #        group=self._first_menu_item, label=label)
+        new_menu_item = Gtk.MenuItem(label=label)
 
+        #if label== self._current_val:
+        #    new_menu_item.set_active(True)
 
         action = Gtk.Action(label=label, name=label,
-                       tooltip='', stock_id=Gtk.STOCK_CLEAR)
+                       tooltip='', stock_id=Gtk.STOCK_APPLY)
         action.connect('activate', func, val)
         new_menu_item.set_related_action(action)
         self._popup_menu.append(new_menu_item)
@@ -102,7 +106,7 @@ class PopupButton(Gtk.Button):
         '''
         self._popup_menu.show_all()
         self.shell.props.ui_manager.ensure_update()
-
+    
         self._popup_menu.popup(None, None, None, None, 0,
             Gtk.get_current_event_time())
 
@@ -114,14 +118,7 @@ class PopupButton(Gtk.Button):
             val = self.get_initial_label()
         
         self.set_tooltip_text(val)
-
-        print "val %s" % val
-        for item in self._popup_menu.get_children():
-            print item.get_label()
-            if item.get_label() == val:
-                print "found"
-                item.set_active(True)
-                break 
+        self._current_val = val
 
     def set_initial_label(self, val):
         '''
@@ -194,12 +191,15 @@ class PlaylistPopupButton(PopupButton):
         when a popup menu item is chosen change the button tooltip
         before invoking the source callback function
         '''
+            
         try:
             model = playlist.get_query_model()
             self.set_popup_value(playlist.props.name)
+            print "here %s" % playlist.props.name
         except:
             model = None
             self.set_popup_value(self.get_initial_label())
+            print "no here"
 
         self.callback(model)
 

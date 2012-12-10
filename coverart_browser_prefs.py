@@ -261,18 +261,6 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         self.settings.bind(gs.PluginKey.AUTOSTART,
             autostart, 'active', Gio.SettingsBindFlags.DEFAULT)
 
-        year_sort_visible = builder.get_object('year_sort_checkbox')
-        self.settings.bind(gs.PluginKey.YEAR_SORT_VISIBLE,
-            year_sort_visible, 'active', Gio.SettingsBindFlags.DEFAULT)
-
-        rating_sort_visible = builder.get_object('rating_sort_checkbox')
-        self.settings.bind(gs.PluginKey.RATING_SORT_VISIBLE,
-            rating_sort_visible, 'active', Gio.SettingsBindFlags.DEFAULT)
-
-        genre_filter_visible = builder.get_object('genre_filter_checkbox')
-        self.settings.bind(gs.PluginKey.GENRE_FILTER_VISIBLE,
-            genre_filter_visible, 'active', Gio.SettingsBindFlags.DEFAULT)
-
         embedded_search = builder.get_object('embedded_checkbox')
         self.settings.bind(gs.PluginKey.EMBEDDED_SEARCH,
             embedded_search, 'active', Gio.SettingsBindFlags.DEFAULT)
