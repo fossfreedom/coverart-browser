@@ -53,6 +53,8 @@ class PopupButton(Gtk.Button):
         self._popup_menu = self._builder.get_object('popupbutton_menu')
         self._actiongroup = Gtk.ActionGroup((self.__gtype_name__ + "menu"))
 
+        self._initial_label = None
+
     def initialise(self, shell, callback):
         '''
         initialise - derived objects call this first
@@ -75,7 +77,7 @@ class PopupButton(Gtk.Button):
 
         for action in self._actiongroup.list_actions():
             self._actiongroup.remove_action(action)
-            
+
         self._first_menu_item = None
 
     def add_menuitem(self, label, func, val):
@@ -83,7 +85,7 @@ class PopupButton(Gtk.Button):
         add a new menu item to the popup
         '''
         #if not self._first_menu_item:
-        #    new_menu_item = Gtk.RadioMenuItem(label=label)            
+        #    new_menu_item = Gtk.RadioMenuItem(label=label)
         #    self._first_menu_item = new_menu_item
         #else:
         #    new_menu_item=Gtk.RadioMenuItem.new_with_label_from_widget(
@@ -106,7 +108,7 @@ class PopupButton(Gtk.Button):
         '''
         self._popup_menu.show_all()
         self.shell.props.ui_manager.ensure_update()
-    
+
         self._popup_menu.popup(None, None, None, None, 0,
             Gtk.get_current_event_time())
 
@@ -116,7 +118,7 @@ class PopupButton(Gtk.Button):
         '''
         if not val:
             val = self.get_initial_label()
-        
+
         self.set_tooltip_text(val)
         self._current_val = val
 
@@ -191,7 +193,7 @@ class PlaylistPopupButton(PopupButton):
         when a popup menu item is chosen change the button tooltip
         before invoking the source callback function
         '''
-            
+
         try:
             model = playlist.get_query_model()
             self.set_popup_value(playlist.props.name)
@@ -220,33 +222,44 @@ class GenrePopupButton(PopupButton):
         because we need to also resize the picture
         associated with the genre button
         '''
-        self.shell = shell
+        self.set_initial_label('All')
+        super(GenrePopupButton, self).initialise(shell, callback)
 
         # seems like view [0] is the genre property view
         model = self.shell.props.library_source.get_property_views()[0].\
             get_model()
 
-        self._genres = []
+        # connect signals to update genres
+        model.connect('row-inserted', self._update_popup)
+        model.connect('row-deleted', self._update_popup)
+        model.connect('row-changed', self._update_popup)
 
-        for genre in model:
-            self._genres.append(genre[0])
-
-        self.set_initial_label(self._genres[0])
-
-        super(GenrePopupButton, self).initialise(shell, callback)
+        # generate initial popup
+        self._update_popup(model)
 
         self.resize_button_image()
+
+    def _update_popup(self, model, *args):
+        still_exists = False
+        current = self._current_val
+
+        # clear and recreate popup
+        self.clear_popupmenu()
+
+        for row in model:
+            genre = row[0]
+            self.add_menuitem(genre, self._genre_changed, genre)
+
+            still_exists = still_exists or genre == current
+
+        if not still_exists:
+            self._genre_changed(None, 'All')
 
     def do_clicked(self):
         '''
         when button is clicked, update the popup with current genres
         before displaying the popup
         '''
-        self.clear_popupmenu()
-
-        for entry in self._genres:
-            self.add_menuitem(entry, self._genre_changed, entry)
-
         self.show_popup()
 
     def _genre_changed(self, menu, genre):

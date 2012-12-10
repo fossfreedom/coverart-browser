@@ -35,6 +35,7 @@ from coverart_timer import ttimer
 from coverart_widgets import PlaylistPopupButton
 from coverart_widgets import GenrePopupButton
 
+
 class CoverArtBrowserSource(RB.Source):
     '''
     Source utilized by the plugin to show all it's ui.
@@ -297,7 +298,7 @@ class CoverArtBrowserSource(RB.Source):
         # get playlist popup
         self.playlist_button = ui.get_object('playlist_button')
         self.playlist_button.initialise(self.shell, self.filter_by_model)
-        
+
         print "CoverArtBrowser DEBUG - end _toolbar"
 
     def _setup_source(self):
@@ -1198,11 +1199,11 @@ class CoverArtBrowserSource(RB.Source):
         print "CoverArtBrowser DEBUG - end rating_changed_callback"
 
     def genre_filter_callback(self, genre):
-        if genre == None:
+        if not genre:
             self.album_manager.model.remove_filter('genre')
         else:
             self.album_manager.model.replace_filter('genre', genre)
-            
+
     @classmethod
     def get_instance(cls, **kwargs):
         '''
