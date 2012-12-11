@@ -39,6 +39,8 @@ class PopupButton(Gtk.Button):
 
     _first_menu_item = None
     _current_val = None
+    
+    is_initialised = False
 
     def __init__(self, **kargs):
         '''
@@ -60,6 +62,11 @@ class PopupButton(Gtk.Button):
         shell = rhythmbox shell
         callback = function to call when a menuitem is selected
         '''
+        if self.is_initialised:
+            return
+
+        self.is_initialised = True
+        
         self.shell = shell
         self.callback = callback
         self.set_popup_value(self.get_initial_label())
@@ -230,6 +237,9 @@ class GenrePopupButton(PopupButton):
         because we need to also resize the picture
         associated with the genre button
         '''
+        if self.is_initialised:
+            return
+
         self.set_initial_label('All')
         super(GenrePopupButton, self).initialise(shell, callback)
 
@@ -301,6 +311,9 @@ class SortPopupButton(PopupButton):
         associated with the sort button as well as find the
         saved sort order
         '''
+        if self.is_initialised:
+            return
+
         super(SortPopupButton, self).initialise(shell, callback)
 
         # create the pop up menu
