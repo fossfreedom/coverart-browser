@@ -97,7 +97,6 @@ class PopupButton(Gtk.Button):
         else:
             new_menu_item = Gtk.RadioMenuItem.new_with_label_from_widget(
                 group=self._first_menu_item, label=label)
-        #new_menu_item = Gtk.MenuItem(label=label)
 
         if label == self._current_val:
             new_menu_item.set_active(True)
@@ -170,6 +169,8 @@ class PopupButton(Gtk.Button):
 
 class PlaylistPopupButton(PopupButton):
     __gtype_name__ = 'PlaylistPopupButton'
+    _library_name = _("Music Library")
+    _queue_name = _("Play Queue")
 
     def __init__(self, **kargs):
         '''
@@ -178,7 +179,7 @@ class PlaylistPopupButton(PopupButton):
         super(PlaylistPopupButton, self).__init__(
             **kargs)
 
-        self.set_initial_label(_("Music"))
+        self.set_initial_label(self._library_name)
 
         #weird introspection - do_clicked is overridden but
         #PopupButton version is called not the Playlist version
@@ -196,6 +197,8 @@ class PlaylistPopupButton(PopupButton):
         self.clear_popupmenu()
         self.add_menuitem(self.get_initial_label(),
             self._change_playlist_source, None)
+        self.add_menuitem(self._queue_name,
+            self._change_playlist_source, self.shell.props.queue_source)
 
         if playlists_entries:
             for playlist in playlists_entries:
@@ -211,13 +214,16 @@ class PlaylistPopupButton(PopupButton):
         before invoking the source callback function
         '''
         if menu.get_active():
-            try:
-                model = playlist.get_query_model()
-                self.set_popup_value(playlist.props.name)
-            except:
+            if not playlist:
                 model = None
                 self.set_popup_value(self.get_initial_label())
-
+            elif self._queue_name in playlist.props.name:
+                model = playlist.get_query_model()
+                self.set_popup_value(self._queue_name)
+            else:
+                model = playlist.get_query_model()
+                self.set_popup_value(playlist.props.name)
+                   
             self.callback(model)
 
 
