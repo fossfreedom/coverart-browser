@@ -260,8 +260,10 @@
             <property name="orientation">vertical</property>
             <child>
               <object class="GtkExpander" id="bottom_expander">
+                <property name="label" translatable="yes">Tracks &amp; Covers</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <signal name="notify::expanded" handler="bottom_expander_expanded_callback" swapped="no"/>  
                 <child>
                   <object class="GtkNotebook" id="bottom_notebook">
                     <property name="visible">True</property>
@@ -284,6 +286,8 @@
             <property name="shrink">False</property>
           </packing>
         </child>
+        <signal name="button-press-event" handler="paned_button_press_callback" swapped="no"/>
+        <signal name="button-release-event" handler="on_paned_button_release_event" swapped="no"/>
       </object>
       <packing>
         <property name="expand">True</property>
