@@ -64,7 +64,7 @@ class PopupButton(Gtk.Button):
         self.shell = shell
         self.callback = callback
         self.set_popup_value(self.get_initial_label())
-        
+
         widget = self.get_image()
         if widget:
             self.resize_button_image()
@@ -92,11 +92,11 @@ class PopupButton(Gtk.Button):
             new_menu_item = Gtk.RadioMenuItem(label=label)
             self._first_menu_item = new_menu_item
         else:
-            new_menu_item=Gtk.RadioMenuItem.new_with_label_from_widget(
+            new_menu_item = Gtk.RadioMenuItem.new_with_label_from_widget(
                 group=self._first_menu_item, label=label)
         #new_menu_item = Gtk.MenuItem(label=label)
 
-        if label== self._current_val:
+        if label == self._current_val:
             new_menu_item.set_active(True)
 
         action = Gtk.RadioAction(label=label, name=label,
@@ -186,7 +186,7 @@ class PlaylistPopupButton(PopupButton):
         #PopupButton version is called not the Playlist version
         #connect the clicked event to this version
         self.connect('clicked', self.do_clicked)
-        
+
     def do_clicked(self, button):
         '''
         we need to create the playlist first before showing
@@ -204,9 +204,9 @@ class PlaylistPopupButton(PopupButton):
                 if playlist.props.is_local:
                     self.add_menuitem(playlist.props.name,
                         self._change_playlist_source, playlist)
-        
+
         self.show_popup()
-        
+
     def _change_playlist_source(self, current, menu, playlist):
         '''
         when a popup menu item is chosen change the button tooltip
@@ -218,8 +218,9 @@ class PlaylistPopupButton(PopupButton):
         except:
             model = None
             self.set_popup_value(self.get_initial_label())
- 
+
         self.callback(model)
+
 
 class GenrePopupButton(PopupButton):
     __gtype_name__ = 'GenrePopupButton'
@@ -266,7 +267,7 @@ class GenrePopupButton(PopupButton):
             still_exists = still_exists or genre == current
 
         if not still_exists:
-            self._genre_changed(None, 'All')
+            self._genre_changed(None, None, 'All')
 
     def _genre_changed(self, current, menu, genre):
         '''
@@ -308,7 +309,7 @@ class SortPopupButton(PopupButton):
         saved sort order
         '''
         super(SortPopupButton, self).initialise(shell, callback)
- 
+
         # create the pop up menu
         for key, text in sorted(self.sorts.iteritems()):
             self.add_menuitem(text, self._sort_changed, key)
