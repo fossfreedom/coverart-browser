@@ -51,7 +51,6 @@ class PopupButton(Gtk.Button):
         self._builder.add_from_string(ui_string)
 
         self._popup_menu = self._builder.get_object('popupbutton_menu')
-        self._actiongroup = Gtk.ActionGroup((self.__gtype_name__ + "menu"))
 
         self._initial_label = None
 
@@ -79,9 +78,6 @@ class PopupButton(Gtk.Button):
             self._popup_menu.show_all()
             self.shell.props.ui_manager.ensure_update()
 
-        for action in self._actiongroup.list_actions():
-            self._actiongroup.remove_action(action)
-
         self._first_menu_item = None
 
     def add_menuitem(self, label, func, val):
@@ -99,20 +95,15 @@ class PopupButton(Gtk.Button):
         if label == self._current_val:
             new_menu_item.set_active(True)
 
-        action = Gtk.RadioAction(label=label, name=label,
-                       tooltip='', stock_id=Gtk.STOCK_CLEAR, value=0)
-        action.connect('changed', func, val)
-        new_menu_item.set_related_action(action)
+        new_menu_item.connect('toggled', func, val)
+        new_menu_item.show()
+
         self._popup_menu.append(new_menu_item)
-        self._actiongroup.add_action(action)
 
     def show_popup(self):
         '''
         show the current popup menu
         '''
-        self._popup_menu.show_all()
-        self.shell.props.ui_manager.ensure_update()
-
         self._popup_menu.popup(None, None, None, None, 0,
             Gtk.get_current_event_time())
 
@@ -207,19 +198,20 @@ class PlaylistPopupButton(PopupButton):
 
         self.show_popup()
 
-    def _change_playlist_source(self, current, menu, playlist):
+    def _change_playlist_source(self, menu, playlist):
         '''
         when a popup menu item is chosen change the button tooltip
         before invoking the source callback function
         '''
-        try:
-            model = playlist.get_query_model()
-            self.set_popup_value(playlist.props.name)
-        except:
-            model = None
-            self.set_popup_value(self.get_initial_label())
+        if menu.get_active():
+            try:
+                model = playlist.get_query_model()
+                self.set_popup_value(playlist.props.name)
+            except:
+                model = None
+                self.set_popup_value(self.get_initial_label())
 
-        self.callback(model)
+            self.callback(model)
 
 
 class GenrePopupButton(PopupButton):
@@ -267,28 +259,29 @@ class GenrePopupButton(PopupButton):
             still_exists = still_exists or genre == current
 
         if not still_exists:
-            self._genre_changed(None, None, 'All')
+            self._genre_changed(None, 'All')
 
-    def _genre_changed(self, current, menu, genre):
+    def _genre_changed(self, menu, genre):
         '''
         called when genre popup menu item chosen
         return None if the first entry in popup returned
         '''
-        self.set_popup_value(genre)
+        if not menu or menu.get_active():
+            self.set_popup_value(genre)
 
-        if genre == self.get_initial_label():
-            self.callback(None)
-        else:
-            self.callback(genre)
+            if genre == self.get_initial_label():
+                self.callback(None)
+            else:
+                self.callback(genre)
 
 
 class SortPopupButton(PopupButton):
     __gtype_name__ = 'SortPopupButton'
 
-    sorts = {   'name': _('Sort by album name'),
-                'album_artist': _('Sort by album artist'),
-                'year': _('Sort by year'),
-                'rating': _('Sort by rating')}
+    sorts = {'name': _('Sort by album name'),
+        'album_artist': _('Sort by album artist'),
+        'year': _('Sort by year'),
+        'rating': _('Sort by rating')}
 
     sort_by = GObject.property(type=str)
 
@@ -319,12 +312,13 @@ class SortPopupButton(PopupButton):
         source_settings.bind(gs.PluginKey.SORT_BY,
             self, 'sort_by', Gio.SettingsBindFlags.DEFAULT)
 
-        self._sort_changed(None, None, self.sort_by)
+        self._sort_changed(None, self.sort_by)
 
-    def _sort_changed(self, current, menu, sort):
+    def _sort_changed(self, menu, sort):
         '''
         called when sort popup menu item chosen
         '''
-        self.set_popup_value(self.sorts[sort])
-        self.sort_by = sort
-        self.callback(sort)
+        if not menu or menu.get_active():
+            self.set_popup_value(self.sorts[sort])
+            self.sort_by = sort
+            self.callback(sort)
