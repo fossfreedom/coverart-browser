@@ -1,0 +1,11 @@
+
+Developer note:
+
+since we have some custom glade widgets as described in catalog.xml,
+to ensure no glade errors when launched use the syntax:
+
+GLADE_CATALOG_SEARCH_PATH=. glade [gladefile].ui
+
+for example
+
+GLADE_CATALOG_SEARCH_PATH=. glade coverart_browser.ui

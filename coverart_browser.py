@@ -111,42 +111,11 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
 
         self.shell.props.db.connect('load-complete', self.load_complete)
 
-        uim = self.shell.props.ui_manager
-        self.cover_ui = uim.add_ui_from_file(rb.find_plugin_file(self,
-            'ui/coverart_plugin.ui'))
-
-        action = Gtk.Action(name="PlaylistCover", label=_("CoverArt"),
-                            tooltip=_("Display Covers for Playlist"),
-                            stock_id='gnome-mime-text-x-python')
-        action.connect('activate', self.display_covers_for_source)
-        self.action_group = Gtk.ActionGroup(name="PlayListCoverActions")
-        self.action_group.add_action(action)
-        uim.insert_action_group(self.action_group, 0)
-        uim.ensure_update()
-
         self.art_store = RB.ExtDB(name="album-art")
         self.req_id = self.art_store.connect("request",
             self.album_art_requested)
 
         print "CoverArtBrowser DEBUG - end do_activate"
-
-    def display_covers_for_source(self, action):
-        '''
-        Called by Rhythmbox when the user select coverart from popup
-        menu from a playlist, music or queue source.
-        This resets the coverart query model to what was chosen before
-        switching to the coverart browser
-        '''
-        print "CoverArtBrowser DEBUG - display_covers_for_source"
-        page = self.shell.props.selected_page
-        self.shell.props.display_page_tree.select(self.source)
-
-        try:
-            self.source.filter_by_model(page.get_query_model())
-        except:
-            self.source.filter_by_model()
-
-        print "CoverArtBrowser DEBUG - display_covers_for_source"
 
     def do_deactivate(self):
         '''
@@ -154,17 +123,10 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         free all the resources used by the plugin.
         '''
         print "CoverArtBrowser DEBUG - do_deactivate"
-
-        self.shell.props.ui_manager.remove_ui(self.cover_ui)
-        self.shell.props.ui_manager.remove_action_group(self.action_group)
-        self.shell.props.ui_manager.ensure_update()
-
         self.source.delete_thyself()
-        del self.cover_ui
         del self.shell
         del self.db
         del self.source
-        del self.action_group
         self.art_store.disconnect(self.req_id)
         self.req_id = 0
         self.art_store = None

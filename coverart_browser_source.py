@@ -32,6 +32,8 @@ from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import CoverLocale
 from stars import ReactiveStar
 from coverart_timer import ttimer
+from coverart_widgets import PlaylistPopupButton
+from coverart_widgets import GenrePopupButton
 
 
 class CoverArtBrowserSource(RB.Source):
@@ -42,9 +44,6 @@ class CoverArtBrowserSource(RB.Source):
     display_bottom_enabled = GObject.property(type=bool, default=False)
     rating_threshold = GObject.property(type=float, default=0)
     toolbar_pos = GObject.property(type=int, default=0)
-    genre_filter_visible = GObject.property(type=bool, default=True)
-    rating_sort_visible = GObject.property(type=bool, default=False)
-    year_sort_visible = GObject.property(type=bool, default=False)
     sort_order = GObject.property(type=bool, default=False)
 
     # unique instance of the source
@@ -66,7 +65,6 @@ class CoverArtBrowserSource(RB.Source):
         self.search_text = ''
         self.hasActivated = False
         self.last_toolbar_pos = None
-        self.genre_changed_ignore = False
 
     def _connect_properties(self):
         '''
@@ -83,12 +81,6 @@ class CoverArtBrowserSource(RB.Source):
             'rating_threshold', Gio.SettingsBindFlags.GET)
         setting.bind(self.gs.PluginKey.TOOLBAR_POS, self,
             'toolbar_pos', Gio.SettingsBindFlags.GET)
-        setting.bind(self.gs.PluginKey.YEAR_SORT_VISIBLE, self,
-            'year_sort_visible', Gio.SettingsBindFlags.GET)
-        setting.bind(self.gs.PluginKey.RATING_SORT_VISIBLE, self,
-            'rating_sort_visible', Gio.SettingsBindFlags.GET)
-        setting.bind(self.gs.PluginKey.GENRE_FILTER_VISIBLE, self,
-            'genre_filter_visible', Gio.SettingsBindFlags.GET)
 
         print "CoverArtBrowser DEBUG - end _connect_properties"
 
@@ -169,15 +161,6 @@ class CoverArtBrowserSource(RB.Source):
 
         self.connect('notify::rating-threshold',
             self.on_notify_rating_threshold)
-
-        self.connect('notify::rating-sort-visible',
-            self.on_notify_rating_sort_visible)
-
-        self.connect('notify::year-sort-visible',
-            self.on_notify_year_sort_visible)
-
-        self.connect('notify::genre-filter-visible',
-            self.on_notify_genre_filter_visible)
 
         #indicate that the source was activated before
         self.hasActivated = True
@@ -286,21 +269,11 @@ class CoverArtBrowserSource(RB.Source):
         self.search_entry.connect('show-popup',
             self.search_show_popup_callback)
 
-        self.sort_by_album_radio = ui.get_object('album_name_sort_radio')
-        self.sort_by_artist_radio = ui.get_object('artist_name_sort_radio')
-        self.sort_by_year_radio = ui.get_object('year_sort_radio')
-        self.sort_by_rating_radio = ui.get_object('rating_sort_radio')
-        self.on_notify_rating_sort_visible(_)
-        self.on_notify_year_sort_visible(_)
+        self.sort_by = ui.get_object('sort_by')
+        self.sort_by.initialise(self.shell, self.sorting_criteria_changed)
         self.sort_order_button = ui.get_object('sort_order')
         self.arrow_down = ui.get_object('arrow_down')
         self.arrow_up = ui.get_object('arrow_up')
-
-        # setup the sorting
-        self.sort_by_album_radio.set_mode(False)
-        self.sort_by_artist_radio.set_mode(False)
-        self.sort_by_year_radio.set_mode(False)
-        self.sort_by_rating_radio.set_mode(False)
 
         # get widget for search and apply some workarounds
         search_entry = ui.get_object('search_entry')
@@ -310,16 +283,13 @@ class CoverArtBrowserSource(RB.Source):
             'filter_all_menu_item').get_label())
 
         # genre
-        self.genre_combobox = ui.get_object('genre_combobox')
+        self.genre_button = ui.get_object('genre_button')
+        self.genre_button.initialise(self.shell, self.genre_filter_callback)
 
-        self.genres_model = self.shell.props.library_source.\
-            get_property_views()[0].get_model()
-        self.genre_deleted_id = self.genres_model.connect('row-deleted',
-            self.on_genre_deleted)
+        # get playlist popup
+        self.playlist_button = ui.get_object('playlist_button')
+        self.playlist_button.initialise(self.shell, self.filter_by_model)
 
-        self.genre_combobox.set_model(self.genres_model)
-        self.genre_combobox.set_active(0)
-        self.on_notify_genre_filter_visible(_)
         print "CoverArtBrowser DEBUG - end _toolbar"
 
     def _setup_source(self):
@@ -406,14 +376,6 @@ class CoverArtBrowserSource(RB.Source):
 
         # apply/connect some settings
         source_settings = self.gs.get_setting(self.gs.Path.PLUGIN)
-        source_settings.bind(self.gs.PluginKey.SORT_BY_ALBUM,
-            self.sort_by_album_radio, 'active', Gio.SettingsBindFlags.DEFAULT)
-        source_settings.bind(self.gs.PluginKey.SORT_BY_ARTIST,
-            self.sort_by_artist_radio, 'active', Gio.SettingsBindFlags.DEFAULT)
-        source_settings.bind(self.gs.PluginKey.SORT_BY_RATING,
-            self.sort_by_rating_radio, 'active', Gio.SettingsBindFlags.DEFAULT)
-        source_settings.bind(self.gs.PluginKey.SORT_BY_YEAR,
-            self.sort_by_year_radio, 'active', Gio.SettingsBindFlags.DEFAULT)
         source_settings.bind(self.gs.PluginKey.SORT_ORDER, self, 'sort_order',
             Gio.SettingsBindFlags.DEFAULT)
 
@@ -474,39 +436,6 @@ class CoverArtBrowserSource(RB.Source):
 
         print "CoverArtBrowser DEBUG - end on_notify_rating_threshold"
 
-    def on_notify_rating_sort_visible(self, *args):
-        '''
-        Callback called when the option rating sort visibility is changed
-        on the plugin's preferences dialog
-        '''
-        print "CoverArtBrowser DEBUG - on_notify_rating_sort_visible"
-
-        self.sort_by_rating_radio.set_visible(self.rating_sort_visible)
-
-        print "CoverArtBrowser DEBUG - end on_notify_rating_sort_visible"
-
-    def on_notify_year_sort_visible(self, *args):
-        '''
-        Callback called when the option year sort visibility is changed
-        on the plugin's preferences dialog
-        '''
-        print "CoverArtBrowser DEBUG - on_notify_year_sort_visible"
-
-        self.sort_by_year_radio.set_visible(self.year_sort_visible)
-
-        print "CoverArtBrowser DEBUG - end on_notify_year_sort_visible"
-
-    def on_notify_genre_filter_visible(self, *args):
-        '''
-        Callback called when the option genre filter visibility is changed
-        on the plugin's preferences dialog
-        '''
-        print "CoverArtBrowser DEBUG - on_notify_genre_filter_visible"
-
-        self.genre_combobox.set_visible(self.genre_filter_visible)
-
-        print "CoverArtBrowser DEBUG - end on_notify_genre_filter_visible"
-
     def on_notify_toolbar_pos(self, *args):
         '''
         Callback called when the toolbar position is changed in
@@ -548,33 +477,6 @@ class CoverArtBrowserSource(RB.Source):
         self.last_toolbar_pos = toolbar_pos
 
         print "CoverArtBrowser DEBUG - end on_notify_toolbar_pos"
-
-    def on_genre_deleted(self, *args):
-        '''
-        fills the genre combobox with all current genres found
-        in the library source
-        '''
-        print "CoverArtBrowser DEBUG - on_genre_deleted"
-        # if the current genre filter doesn't show anything, set the default
-        # filter back
-        if self.current_genre not in self.genres_model:
-            self.genre_combobox.set_active(0)
-
-        print "CoverArtBrowser DEBUG - end on_genre_deleted"
-
-    def genre_changed(self, widget):
-        '''
-        signal called when genre value changed
-        '''
-        print "CoverArtBrowser DEBUG - genre changed"
-        self.current_genre = widget.get_active_text()
-
-        if self.current_genre == 'All':
-            self.album_manager.model.remove_filter('genre')
-        else:
-            self.album_manager.model.replace_filter('genre',
-                self.current_genre)
-        print "CoverArtBrowser DEBUG - end genre changed"
 
     def on_notify_display_bottom_enabled(self, *args):
         '''
@@ -1166,25 +1068,18 @@ class CoverArtBrowserSource(RB.Source):
 
         return not self.bottom_expander.get_expanded()
 
-    def sorting_criteria_changed(self, radio):
+    def sorting_criteria_changed(self, sort_by):
         '''
         Callback called when a radio corresponding to a sorting order is
         toggled. It changes the sorting function and reorders the cover model.
         '''
         print "CoverArtBrowser DEBUG - sorting_criteria_changed"
 
-        if not radio.get_active():
-            return
+        #if not radio.get_active():
+        #    return
 
-        if radio is self.sort_by_album_radio:
-            self.sort_prop = 'name'
-        if radio is self.sort_by_artist_radio:
-            self.sort_prop = 'album_artist'
-        if radio is self.sort_by_year_radio:
-            self.sort_prop = 'year'
-        if radio is self.sort_by_rating_radio:
-            self.sort_prop = 'rating'
-
+        print "sorting by %s" % sort_by
+        self.sort_prop = sort_by
         self.album_manager.model.sort(self.sort_prop, self.sort_order)
 
         print "CoverArtBrowser DEBUG - end sorting_criteria_changed"
@@ -1294,6 +1189,12 @@ class CoverArtBrowserSource(RB.Source):
             album.rating = rating
 
         print "CoverArtBrowser DEBUG - end rating_changed_callback"
+
+    def genre_filter_callback(self, genre):
+        if not genre:
+            self.album_manager.model.remove_filter('genre')
+        else:
+            self.album_manager.model.replace_filter('genre', genre)
 
     @classmethod
     def get_instance(cls, **kwargs):

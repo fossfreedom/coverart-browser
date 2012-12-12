@@ -1,0 +1,25 @@
+<glade-catalog name="coverart_widgets" library="gladepython" domain="glade-3" 
+               depends="gtk+" version="1.0">
+  <init-function>glade_python_init</init-function>
+  <glade-widget-classes>
+    <glade-widget-class title="PlaylistPopupButton" name="PlaylistPopupButton" 
+                        generic-name="PlaylistPopupButton" parent="GtkButton"
+                        icon-name="widget-gtk-button"/>
+    <glade-widget-class title="GenrePopupButton" name="GenrePopupButton" 
+                        generic-name="GenrePopupButton" parent="GtkButton"
+                        icon-name="widget-gtk-button"/>
+    <glade-widget-class title="SortPopupButton" name="SortPopupButton" 
+                        generic-name="SortPopupButton" parent="GtkButton"
+                        icon-name="widget-gtk-button"/>
+    <glade-widget-class title="RBSearchEntry" name="RBSearchEntry" 
+                        generic-name="RBSearchEntry" parent="GtkHBox"
+                        icon-name="widget-gtk-box"/>
+  </glade-widget-classes>
+
+   <glade-widget-group name="python" title="Python">
+     <glade-widget-class-ref name="PlaylistPopupButton"/>
+     <glade-widget-class-ref name="GenrePopupButton"/>
+     <glade-widget-class-ref name="RBSearchEntry"/>
+   </glade-widget-group>
+
+</glade-catalog>
