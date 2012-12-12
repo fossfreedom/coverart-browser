@@ -81,6 +81,9 @@ class CoverArtBrowserSource(RB.Source):
             'rating_threshold', Gio.SettingsBindFlags.GET)
         setting.bind(self.gs.PluginKey.TOOLBAR_POS, self,
             'toolbar_pos', Gio.SettingsBindFlags.GET)
+        setting.bind(self.gs.PluginKey.SORT_ORDER, self, 'sort_order',
+            Gio.SettingsBindFlags.DEFAULT)
+
 
         print "CoverArtBrowser DEBUG - end _connect_properties"
 
@@ -272,8 +275,10 @@ class CoverArtBrowserSource(RB.Source):
         self.sort_by = ui.get_object('sort_by')
         self.sort_by.initialise(self.shell, self.sorting_criteria_changed)
         self.sort_order_button = ui.get_object('sort_order')
-        self.arrow_down = ui.get_object('arrow_down')
-        self.arrow_up = ui.get_object('arrow_up')
+        #self.arrow_down = ui.get_object('arrow_down')
+        #self.arrow_up = ui.get_object('arrow_up')
+        self.sort_order_button.initialise(self.plugin,
+            self.sorting_direction_changed, self.sort_order)
 
         # get widget for search and apply some workarounds
         search_entry = ui.get_object('search_entry')
@@ -374,15 +379,10 @@ class CoverArtBrowserSource(RB.Source):
         self.toolbar_pos = self.connect('notify::toolbar-pos',
             self.on_notify_toolbar_pos)
 
-        # apply/connect some settings
-        source_settings = self.gs.get_setting(self.gs.Path.PLUGIN)
-        source_settings.bind(self.gs.PluginKey.SORT_ORDER, self, 'sort_order',
-            Gio.SettingsBindFlags.DEFAULT)
-
         # enable some ui if necesary
         self.on_notify_rating_threshold(_)
         self.on_notify_display_bottom_enabled(_)
-        self.sorting_direction_changed(_, True)
+        #self.sorting_direction_changed(_, True)
 
         print "CoverArtBrowser DEBUG - end _apply_settings"
 
@@ -1084,30 +1084,15 @@ class CoverArtBrowserSource(RB.Source):
 
         print "CoverArtBrowser DEBUG - end sorting_criteria_changed"
 
-    def sorting_direction_changed(self, _, first_activate=False):
+    def sorting_direction_changed(self, sort_by):
         '''
         Callback called when the sort toggle button is
         toggled. It changes the sorting direction and reorders the cover model
         '''
         print "CoverArtBrowser DEBUG - sorting_direction_changed"
 
-        if not first_activate:
-            self.sort_order = not self.sort_order
-            self.gs.set_value(self.gs.Path.PLUGIN,
-                self.gs.PluginKey.SORT_ORDER, self.sort_order)
-
-        if not self.sort_order:
-            self.sort_order_button.set_image(self.arrow_down)
-            #self.sort_order.set_tooltip_text(_('Sort in descending order'))
-        else:
-            self.sort_order_button.set_image(self.arrow_up)
-            #self.sort_order.set_tooltip_text(_('Sort in ascending order'))
-
-            # for some reason trying to set the tooltip throws an error -
-            # need to look at this later
-
         self.album_manager.model.sort(getattr(self, 'sort_prop', 'name'),
-            self.sort_order)
+            sort_by)
 
         print "CoverArtBrowser DEBUG - end sorting_direction_changed"
 

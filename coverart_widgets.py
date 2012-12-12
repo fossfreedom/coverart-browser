@@ -21,7 +21,9 @@ from gi.repository import Gtk
 from gi.repository import GdkPixbuf
 from gi.repository import GObject
 from gi.repository import Gio
+
 from coverart_browser_prefs import GSetting
+import rb
 
 ui_string = \
 """<interface>
@@ -340,3 +342,116 @@ class SortPopupButton(PopupButton):
             self.set_popup_value(self.sorts[sort])
             self.sort_by = sort
             self.callback(sort)
+
+# generic class from which implementation inherit from
+class ImageToggleButton(Gtk.Button):
+    # the following vars are to be defined in the inherited classes
+    #__gtype_name__ = gobject typename
+
+    def __init__(self, **kargs):
+        '''
+        Initializes the button.
+        '''
+        super(ImageToggleButton, self).__init__(
+            **kargs)
+
+        # initialise some variables
+        self.image_display = False
+        self.is_initialised = False
+
+    def initialise(self, callback, image1, image2):
+        '''
+        initialise - derived objects call this first
+        callback = function to call when button is clicked
+        image1 = by default (image_display is True), first image displayed
+        image2 = (image display is False), second image displayed
+        '''
+        if self.is_initialised:
+            return
+
+        self.is_initialised = True
+
+        self.callback = callback
+        self._image1 = image1
+        self._image2 = image2
+        self._image1_pixbuf = self._resize_button_image(self._image1)
+        self._image2_pixbuf = self._resize_button_image(self._image2)
+
+        widget = self.get_image()
+        self._update_button_image()
+
+    def on_clicked(self):
+        self.image_display = not self.image_display
+        self._update_button_image()
+        self.callback(self.image_display)
+
+    def _update_button_image(self):
+        image  = self.get_image()
+
+        if image:
+            if self.image_display:
+                image.set_from_pixbuf(self._image1_pixbuf)
+            else:
+                image.set_from_pixbuf(self._image2_pixbuf)
+            
+    def _resize_button_image(self, image):
+        '''
+        this function will ensure the image is resized correctly to
+        fit the button style
+        '''
+
+        what, width, height = Gtk.icon_size_lookup(Gtk.IconSize.BUTTON)
+
+        pixbuf = None
+        try:
+            pixbuf = image.get_pixbuf().scale_simple(width, height,
+                    GdkPixbuf.InterpType.BILINEAR)
+        except:
+            pass
+
+        return pixbuf
+
+    def do_delete_thyself(self):
+        del self._image1_pixbuf
+        del self._image2_pixbuf
+
+class SortOrderButton(ImageToggleButton):
+    __gtype_name__ = 'SortOrderButton'
+
+    def __init__(self, **kargs):
+        '''
+        Initializes the button.
+        '''
+        super(SortOrderButton, self).__init__(
+            **kargs)
+
+        self.gs = GSetting()
+
+    def initialise(self, plugin, callback, sort_order):
+        '''
+        set up the images we will use for this widget
+        '''
+
+        self.image_display=sort_order
+        self.set_tooltip(self.image_display)
+
+        if not self.is_initialised:
+            image1 = Gtk.Image.new_from_file(rb.find_plugin_file(plugin, 'ui/arrow_up.png'))
+            image2 = Gtk.Image.new_from_file(rb.find_plugin_file(plugin, 'ui/arrow_down.png'))
+        
+            super(SortOrderButton, self).initialise(callback,
+               image1, image2)
+        
+    def do_clicked(self):
+
+        val = not self.image_display
+        self.gs.set_value(self.gs.Path.PLUGIN,
+                    self.gs.PluginKey.SORT_ORDER, val)
+        self.set_tooltip(val)
+        self.on_clicked()
+
+    def set_tooltip(self, val):
+        if not val:
+            self.set_tooltip_text(_('Sort in descending order'))
+        else:
+            self.set_tooltip_text(_('Sort in ascending order'))
