@@ -37,11 +37,6 @@ class PopupButton(Gtk.Button):
     # the following vars are to be defined in the inherited classes
     #__gtype_name__ = gobject typename
 
-    _first_menu_item = None
-    _current_val = None
-    
-    is_initialised = False
-
     def __init__(self, **kargs):
         '''
         Initializes the button.
@@ -54,6 +49,10 @@ class PopupButton(Gtk.Button):
 
         self._popup_menu = self._builder.get_object('popupbutton_menu')
 
+        # initialise some variables
+        self._first_menu_item = None
+        self._current_val = None
+        self.is_initialised = False
         self._initial_label = None
 
     def initialise(self, shell, callback):
@@ -66,7 +65,7 @@ class PopupButton(Gtk.Button):
             return
 
         self.is_initialised = True
-        
+
         self.shell = shell
         self.callback = callback
         self.set_popup_value(self.get_initial_label())
@@ -223,7 +222,7 @@ class PlaylistPopupButton(PopupButton):
             else:
                 model = playlist.get_query_model()
                 self.set_popup_value(playlist.props.name)
-                   
+
             self.callback(model)
 
 
