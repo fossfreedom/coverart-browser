@@ -2,20 +2,15 @@
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
   <!-- interface-requires coverart_widgets 1.0 -->
-  <object class="GtkImage" id="arrow_down">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-go-down</property>
-  </object>
-  <object class="GtkImage" id="arrow_up">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-go-up</property>
-  </object>
   <object class="GtkImage" id="cancel-icon">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="stock">gtk-cancel</property>
+  </object>
+  <object class="GtkImage" id="arrow_up">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="pixbuf">arrow_up.png</property>
   </object>
   <object class="GtkMenu" id="filter_menu">
     <property name="visible">True</property>
@@ -119,7 +114,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="sort_order">
+          <object class="SortOrderButton" id="sort_order">
             <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
@@ -131,7 +126,6 @@
             <property name="use_action_appearance">False</property>
             <property name="image">arrow_up</property>
             <property name="relief">half</property>
-            <signal name="clicked" handler="sorting_direction_changed" swapped="no"/>
           </object>
           <packing>
             <property name="expand">False</property>
