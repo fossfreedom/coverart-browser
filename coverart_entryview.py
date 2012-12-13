@@ -79,8 +79,6 @@ class CoverArtEntryView(RB.EntryView):
         self.shell.props.shell_player.connect('playing-changed',
             self.playing_changed)
 
-        self.connect('selection-changed', self.selection_changed_callback)
-
         self.playlist_sub_menu_item = ui.get_object('playlist_sub_menu_item')
         self.actiongroup = Gtk.ActionGroup('coverentryplaylist_submenu')
         uim = self.shell.props.ui_manager
@@ -95,6 +93,9 @@ class CoverArtEntryView(RB.EntryView):
 
         self.qm = RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
         self.set_model(self.qm)
+
+        # connect to the sort-order property
+        self.connect('notify::sort-order', self._notify_sort_order)
 
     def __del__(self):
         uim = self.shell.props.ui_manager
@@ -245,14 +246,7 @@ class CoverArtEntryView(RB.EntryView):
             "add_to_static_playlist_menu_item_callback"
         self.add_tracks_to_source(playlist)
 
-    def selection_changed_callback(self, entry_view):
-        print "CoverArtBrowser DEBUG - selection_changed_callback"
-
-        if len(entry_view.get_selected_entries()) == 1:
-            entry = entry_view.get_selected_entries()[0]
-            self.source.stars.set_rating(entry.get_double(
-                RB.RhythmDBPropType.RATING))
-        else:
-            self.source.stars.set_rating(0)
+    def _notify_sort_order(self, *args):
+        self.resort_model()
 
 GObject.type_register(CoverArtEntryView)
