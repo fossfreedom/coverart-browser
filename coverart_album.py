@@ -1066,14 +1066,13 @@ class CoverManager(GObject.Object):
         self._album_manager = album_manager
 
         self._connect_properties()
+        self._connect_signals()
 
         # create the unknown cover
         self._shadow = Shadow(self.cover_size,
             rb.find_plugin_file(plugin, 'img/album-shadow.png'))
         self.unknown_cover = ShadowedCover(self._shadow,
             rb.find_plugin_file(plugin, 'img/rhythmbox-missing-artwork.svg'))
-
-        self._connect_signals()
 
     def _connect_signals(self):
         self.connect('notify::cover-size', self._on_notify_cover_size)
