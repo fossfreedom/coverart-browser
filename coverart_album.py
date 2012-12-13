@@ -1065,7 +1065,6 @@ class CoverManager(GObject.Object):
         self._cover_db = RB.ExtDB(name='album-art')
         self._album_manager = album_manager
 
-        self._connect_signals()
         self._connect_properties()
 
         # create the unknown cover
@@ -1073,6 +1072,8 @@ class CoverManager(GObject.Object):
             rb.find_plugin_file(plugin, 'img/album-shadow.png'))
         self.unknown_cover = ShadowedCover(self._shadow,
             rb.find_plugin_file(plugin, 'img/rhythmbox-missing-artwork.svg'))
+
+        self._connect_signals()
 
     def _connect_signals(self):
         self.connect('notify::cover-size', self._on_notify_cover_size)
