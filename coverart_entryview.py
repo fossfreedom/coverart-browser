@@ -62,7 +62,7 @@ class CoverArtEntryView(RB.EntryView):
 
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
 
-        self.set_columns_clickable(False)
+        self.set_columns_clickable(True)
 
         # UI elements need to be imported.
         ui = Gtk.Builder()
@@ -226,30 +226,32 @@ class CoverArtEntryView(RB.EntryView):
 
         print "CoverArtBrowser DEBUG - playing_changed()"
 
-    def add_playlist_menu_item_callback( self, menu_item ):
+    def add_playlist_menu_item_callback(self, menu_item):
         print "CoverArtBrowser DEBUG - add_playlist_menu_item_callback"
         playlist_manager = self.shell.props.playlist_manager
         playlist = playlist_manager.new_playlist( '', False )
 
         self.add_tracks_to_source(playlist)
 
-    def playlist_menu_item_callback( self, menu_item ):
+    def playlist_menu_item_callback(self, menu_item):
         print "CoverArtBrowser DEBUG - playlist_menu_item_callback"
 
-        self.source.playlist_fillmenu(  self.playlist_sub_menu_item,
-                                        self.actiongroup,
-                                        self.add_to_static_playlist_menu_item_callback)
+        self.source.playlist_fillmenu(self.playlist_sub_menu_item,
+            self.actiongroup, self.add_to_static_playlist_menu_item_callback)
 
-    def add_to_static_playlist_menu_item_callback(self, action, playlist, favourite):
-        print "CoverArtBrowser DEBUG - add_to_static_playlist_menu_item_callback"
+    def add_to_static_playlist_menu_item_callback(self, action, playlist,
+        favourite):
+        print "CoverArtBrowser DEBUG - " + \
+            "add_to_static_playlist_menu_item_callback"
         self.add_tracks_to_source(playlist)
 
-    def selection_changed_callback(self,entry_view):
+    def selection_changed_callback(self, entry_view):
         print "CoverArtBrowser DEBUG - selection_changed_callback"
 
         if len(entry_view.get_selected_entries()) == 1:
             entry = entry_view.get_selected_entries()[0]
-            self.source.stars.set_rating(entry.get_double(RB.RhythmDBPropType.RATING))
+            self.source.stars.set_rating(entry.get_double(
+                RB.RhythmDBPropType.RATING))
         else:
             self.source.stars.set_rating(0)
 
