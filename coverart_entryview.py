@@ -44,21 +44,21 @@ class CoverArtEntryView(RB.EntryView):
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.RB)
 
-        self.append_column(RB.EntryViewColumn.TRACK_NUMBER, False) #'track-number'
-        self.append_column(RB.EntryViewColumn.TITLE, True) #'title' - n.b. default and never manually defined
-        self.append_column(RB.EntryViewColumn.GENRE, False) #'genre'
-        self.append_column(RB.EntryViewColumn.ARTIST, False) #'artist'
-        self.append_column(RB.EntryViewColumn.ALBUM, False) #'album'
-        self.append_column(RB.EntryViewColumn.DURATION, False) #'duration'
-        self.append_column(RB.EntryViewColumn.COMMENT, False) #'comment'
-        self.append_column(RB.EntryViewColumn.RATING, False) #'rating'
-        self.append_column(RB.EntryViewColumn.QUALITY, False) #'bitrate'
-        self.append_column(RB.EntryViewColumn.PLAY_COUNT, False) #'play-count'
-        self.append_column(RB.EntryViewColumn.LAST_PLAYED, False) #'last-played'
-        self.append_column(RB.EntryViewColumn.YEAR, False) #'date'
-        self.append_column(RB.EntryViewColumn.FIRST_SEEN, False) #'first-seen':
-        self.append_column(RB.EntryViewColumn.LOCATION, False) #'location'
-        self.append_column(RB.EntryViewColumn.BPM, False) #'beats-per-minute'
+        self.append_column(RB.EntryViewColumn.TRACK_NUMBER, False)
+        self.append_column(RB.EntryViewColumn.TITLE, True)  # always shown
+        self.append_column(RB.EntryViewColumn.GENRE, False)
+        self.append_column(RB.EntryViewColumn.ARTIST, False)
+        self.append_column(RB.EntryViewColumn.ALBUM, False)
+        self.append_column(RB.EntryViewColumn.DURATION, False)
+        self.append_column(RB.EntryViewColumn.COMMENT, False)
+        self.append_column(RB.EntryViewColumn.RATING, False)
+        self.append_column(RB.EntryViewColumn.QUALITY, False)
+        self.append_column(RB.EntryViewColumn.PLAY_COUNT, False)
+        self.append_column(RB.EntryViewColumn.LAST_PLAYED, False)
+        self.append_column(RB.EntryViewColumn.YEAR, False)
+        self.append_column(RB.EntryViewColumn.FIRST_SEEN, False)
+        self.append_column(RB.EntryViewColumn.LOCATION, False)
+        self.append_column(RB.EntryViewColumn.BPM, False)
 
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
 

@@ -84,7 +84,6 @@ class CoverArtBrowserSource(RB.Source):
         setting.bind(self.gs.PluginKey.SORT_ORDER, self, 'sort_order',
             Gio.SettingsBindFlags.DEFAULT)
 
-
         print "CoverArtBrowser DEBUG - end _connect_properties"
 
     def do_get_status(self, *args):

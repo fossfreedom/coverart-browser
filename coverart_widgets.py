@@ -343,8 +343,11 @@ class SortPopupButton(PopupButton):
             self.sort_by = sort
             self.callback(sort)
 
-# generic class from which implementation inherit from
+
 class ImageToggleButton(Gtk.Button):
+    '''
+    generic class from which implementation inherit from
+    '''
     # the following vars are to be defined in the inherited classes
     #__gtype_name__ = gobject typename
 
@@ -377,7 +380,6 @@ class ImageToggleButton(Gtk.Button):
         self._image1_pixbuf = self._resize_button_image(self._image1)
         self._image2_pixbuf = self._resize_button_image(self._image2)
 
-        widget = self.get_image()
         self._update_button_image()
 
     def on_clicked(self):
@@ -386,14 +388,14 @@ class ImageToggleButton(Gtk.Button):
         self.callback(self.image_display)
 
     def _update_button_image(self):
-        image  = self.get_image()
+        image = self.get_image()
 
         if image:
             if self.image_display:
                 image.set_from_pixbuf(self._image1_pixbuf)
             else:
                 image.set_from_pixbuf(self._image2_pixbuf)
-            
+
     def _resize_button_image(self, image):
         '''
         this function will ensure the image is resized correctly to
@@ -415,6 +417,7 @@ class ImageToggleButton(Gtk.Button):
         del self._image1_pixbuf
         del self._image2_pixbuf
 
+
 class SortOrderButton(ImageToggleButton):
     __gtype_name__ = 'SortOrderButton'
 
@@ -432,16 +435,18 @@ class SortOrderButton(ImageToggleButton):
         set up the images we will use for this widget
         '''
 
-        self.image_display=sort_order
+        self.image_display = sort_order
         self.set_tooltip(self.image_display)
 
         if not self.is_initialised:
-            image1 = Gtk.Image.new_from_file(rb.find_plugin_file(plugin, 'ui/arrow_up.png'))
-            image2 = Gtk.Image.new_from_file(rb.find_plugin_file(plugin, 'ui/arrow_down.png'))
-        
+            image1 = Gtk.Image.new_from_file(rb.find_plugin_file(plugin,
+            'ui/arrow_up.png'))
+            image2 = Gtk.Image.new_from_file(rb.find_plugin_file(plugin,
+            'ui/arrow_down.png'))
+
             super(SortOrderButton, self).initialise(callback,
                image1, image2)
-        
+
     def do_clicked(self):
 
         val = not self.image_display
