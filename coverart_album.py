@@ -40,6 +40,7 @@ import os
 import cgi
 import tempfile
 import rb
+import gc
 
 
 # default chunk of entries to procces when loading albums
@@ -92,11 +93,19 @@ class Cover(GObject.Object):
 
 class Shadow(Cover):
     SIZE = 120.
-    WIDTH = 12
+    WIDTH = 11
 
     def __init__(self, size, image):
         super(Shadow, self).__init__(size, image)
 
+        self._calculate_sizes(size)
+
+    def resize(self, size):
+        super(Shadow, self).resize(size)
+
+        self._calculate_sizes(size)
+
+    def _calculate_sizes(self, size):
         self.width = int(size / self.SIZE * self.WIDTH)
         self.cover_size = self.size - self.width * 2
 
@@ -113,8 +122,9 @@ class ShadowedCover(Cover):
     def resize(self, size):
         if self.size != self._shadow.cover_size:
             self._create_pixbuf(self._shadow.cover_size)
-
             self._add_shadow()
+
+            self.emit('resized')
 
     def _add_shadow(self):
         pix = self._shadow.pixbuf
@@ -1178,6 +1188,7 @@ class CoverManager(GObject.Object):
                 except StopIteration:
                     # we finished loading
                     self._album_manager.progress = 1
+                    gc.collect()
                     self.emit('load-finished')
                     return False
 
@@ -1406,11 +1417,8 @@ class TextManager(GObject.Object):
 
         activate = self.display_text_enabled
 
-        if activate:
-            column = 3
-            item_width = self._album_manager.cover_man.cover_size + 20
-        else:
-            column = item_width = -1
+        column = 3 if activate else -1
+        item_width = self._album_manager.cover_man.cover_size
 
         self._album_manager.cover_view.set_markup_column(column)
         self._album_manager.cover_view.set_item_width(item_width)
