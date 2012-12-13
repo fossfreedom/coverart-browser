@@ -147,12 +147,13 @@ class CoverArtEntryView(RB.EntryView):
         return True
 
     def do_show_popup(self, over_entry):
-        print "CoverArtBrowser DEBUG - do_show_popup()"
-        self.popup_menu.popup(None, None, None, None, 0,
-            Gtk.get_current_event_time())
+        if over_entry:
+            print "CoverArtBrowser DEBUG - do_show_popup()"
 
-        print "CoverArtBrowser DEBUG - do_show_popup()"
-        return True
+            self.popup_menu.popup(None, None, None, None, 0,
+                Gtk.get_current_event_time())
+
+        return over_entry
 
     def play_track_menu_item_callback(self, entry):
         print "CoverArtBrowser DEBUG - play_track_menu_item_callback()"
