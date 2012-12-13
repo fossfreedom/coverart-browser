@@ -65,6 +65,7 @@ class CoverArtBrowserSource(RB.Source):
         self.search_text = ''
         self.hasActivated = False
         self.last_toolbar_pos = None
+        self.moving_handle = False
 
     def _connect_properties(self):
         '''
@@ -515,6 +516,17 @@ class CoverArtBrowserSource(RB.Source):
 
         print "CoverArtBrowser DEBUG - end on_notify_display_bottom_enabled"
 
+    def paned_button_press_callback(self, *args):
+        '''
+        This callback allows or denies the paned handle to move depending on
+        the expanded state of the entry_view
+        '''
+        print "CoverArtBrowser DEBUG - paned_button_press_callback"
+        # indicate if we are moving the handle
+        self.moving_handle = self.bottom_expander.get_expanded()
+
+        return not self.moving_handle
+
     def on_paned_button_release_event(self, *args):
         '''
         Callback when the paned handle is released from its mouse click.
@@ -523,6 +535,10 @@ class CoverArtBrowserSource(RB.Source):
         print "CoverArtBrowser DEBUG - on_paned_button_release_event"
 
         if self.bottom_expander.get_expanded():
+            # the handle was released
+            self.moving_handle = False
+
+            # save the new position
             new_y = self.paned.get_position()
             self.gs.set_value(self.gs.Path.PLUGIN,
                 self.gs.PluginKey.PANED_POSITION, new_y)
@@ -639,12 +655,11 @@ class CoverArtBrowserSource(RB.Source):
         It forces the cover_view to redraw it's contents to fill the available
         space.
         '''
-        print "CoverArtBrowser DEBUG - update_iconview_callback"
-
-        self.covers_view.set_columns(0)
-        self.covers_view.set_columns(-1)
-
-        print "CoverArtBrowser DEBUG - end update_iconview_callback"
+        if not self.moving_handle:
+            # don't need to reacommodate if the bottom pane is being resized
+            print "CoverArtBrowser DEBUG - update_iconview_callback"
+            self.covers_view.set_columns(0)
+            self.covers_view.set_columns(-1)
 
     def mouseclick_callback(self, iconview, event):
         '''
@@ -1067,15 +1082,6 @@ class CoverArtBrowserSource(RB.Source):
             self.paned.set_position(new_y)
 
         print "CoverArtBrowser DEBUG - end bottom_expander_expanded_callback"
-
-    def paned_button_press_callback(self, *args):
-        '''
-        This callback allows or denies the paned handle to move depending on
-        the expanded state of the entry_view
-        '''
-        print "CoverArtBrowser DEBUG - paned_button_press_callback"
-
-        return not self.bottom_expander.get_expanded()
 
     def sorting_criteria_changed(self, sort_by):
         '''
