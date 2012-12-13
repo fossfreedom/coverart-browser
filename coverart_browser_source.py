@@ -317,7 +317,12 @@ class CoverArtBrowserSource(RB.Source):
             self.gs.PluginKey.PANED_POSITION)
         self.paned.set_position(y)
 
+        # create entry view. Don't allow to reorder until the load is finished
         self.entry_view = CoverArtEntryView(self.shell, self)
+        self.entry_view.set_columns_clickable(False)
+        self.shell.props.library_source.get_entry_view().set_columns_clickable(
+            False)
+
         self.stars = ReactiveStar()
         self.stars.set_rating(0)
         a = Gtk.Alignment.new(0.5, 0.5, 0, 0)
@@ -396,6 +401,11 @@ class CoverArtBrowserSource(RB.Source):
         if not self.request_status_box.get_visible():
             # it should only be enabled if no cover request is going on
             self.source_menu_search_all_item.set_sensitive(True)
+
+        # enable sorting on the entryview
+        self.entry_view.set_columns_clickable(True)
+        self.shell.props.library_source.get_entry_view().set_columns_clickable(
+            True)
 
         print "CoverArtBrowser DEBUG - end load_finished_callback"
 

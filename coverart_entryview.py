@@ -62,8 +62,6 @@ class CoverArtEntryView(RB.EntryView):
 
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
 
-        self.set_columns_clickable(True)
-
         # UI elements need to be imported.
         ui = Gtk.Builder()
         ui.set_translation_domain(cl.Locale.LOCALE_DOMAIN)
@@ -94,8 +92,16 @@ class CoverArtEntryView(RB.EntryView):
         self.qm = RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
         self.set_model(self.qm)
 
-        # connect to the sort-order property
-        self.connect('notify::sort-order', self._notify_sort_order)
+        # connect the sort-order to the library source sort
+        library_view = self.shell.props.library_source.get_entry_view()
+        library_view.connect('notify::sort-order',
+            self._on_library_sorting_changed)
+        self._on_library_sorting_changed(library_view,
+            library_view.props.sort_order)
+
+         # connect to the sort-order property
+        self.connect('notify::sort-order', self._notify_sort_order,
+            library_view)
 
     def __del__(self):
         uim = self.shell.props.ui_manager
@@ -230,7 +236,7 @@ class CoverArtEntryView(RB.EntryView):
     def add_playlist_menu_item_callback(self, menu_item):
         print "CoverArtBrowser DEBUG - add_playlist_menu_item_callback"
         playlist_manager = self.shell.props.playlist_manager
-        playlist = playlist_manager.new_playlist( '', False )
+        playlist = playlist_manager.new_playlist('', False)
 
         self.add_tracks_to_source(playlist)
 
@@ -246,7 +252,16 @@ class CoverArtEntryView(RB.EntryView):
             "add_to_static_playlist_menu_item_callback"
         self.add_tracks_to_source(playlist)
 
-    def _notify_sort_order(self, *args):
-        self.resort_model()
+    def _on_library_sorting_changed(self, view, _):
+        self._old_sort_order = self.props.sort_order
+
+        self.set_sorting_type(view.props.sort_order)
+
+    def _notify_sort_order(self, view, _, library_view):
+        if self.props.sort_order != self._old_sort_order:
+            self.resort_model()
+
+            # update library source's view direction
+            library_view.set_sorting_type(self.props.sort_order)
 
 GObject.type_register(CoverArtEntryView)
