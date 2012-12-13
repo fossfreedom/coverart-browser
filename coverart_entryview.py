@@ -26,6 +26,7 @@ import rb
 from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import CoverLocale
 
+
 class CoverArtEntryView(RB.EntryView):
 
     def __init__(self, shell, source):
@@ -42,26 +43,24 @@ class CoverArtEntryView(RB.EntryView):
 
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.RB)
-        
-        self.append_column(RB.EntryViewColumn.TRACK_NUMBER, False) #'track-number'
-        self.append_column(RB.EntryViewColumn.TITLE, True) #'title' - n.b. default and never manually defined
-        self.append_column(RB.EntryViewColumn.GENRE, False) #'genre'
-        self.append_column(RB.EntryViewColumn.ARTIST, False) #'artist'
-        self.append_column(RB.EntryViewColumn.ALBUM, False) #'album'
-        self.append_column(RB.EntryViewColumn.DURATION, False) #'duration'
-        self.append_column(RB.EntryViewColumn.COMMENT, False) #'comment'
-        self.append_column(RB.EntryViewColumn.RATING, False) #'rating'
-        self.append_column(RB.EntryViewColumn.QUALITY, False) #'bitrate'
-        self.append_column(RB.EntryViewColumn.PLAY_COUNT, False) #'play-count'
-        self.append_column(RB.EntryViewColumn.LAST_PLAYED, False) #'last-played'
-        self.append_column(RB.EntryViewColumn.YEAR, False) #'date'
-        self.append_column(RB.EntryViewColumn.FIRST_SEEN, False) #'first-seen':
-        self.append_column(RB.EntryViewColumn.LOCATION, False) #'location'
-        self.append_column(RB.EntryViewColumn.BPM, False) #'beats-per-minute'
+
+        self.append_column(RB.EntryViewColumn.TRACK_NUMBER, False)
+        self.append_column(RB.EntryViewColumn.TITLE, True)  # always shown
+        self.append_column(RB.EntryViewColumn.GENRE, False)
+        self.append_column(RB.EntryViewColumn.ARTIST, False)
+        self.append_column(RB.EntryViewColumn.ALBUM, False)
+        self.append_column(RB.EntryViewColumn.DURATION, False)
+        self.append_column(RB.EntryViewColumn.COMMENT, False)
+        self.append_column(RB.EntryViewColumn.RATING, False)
+        self.append_column(RB.EntryViewColumn.QUALITY, False)
+        self.append_column(RB.EntryViewColumn.PLAY_COUNT, False)
+        self.append_column(RB.EntryViewColumn.LAST_PLAYED, False)
+        self.append_column(RB.EntryViewColumn.YEAR, False)
+        self.append_column(RB.EntryViewColumn.FIRST_SEEN, False)
+        self.append_column(RB.EntryViewColumn.LOCATION, False)
+        self.append_column(RB.EntryViewColumn.BPM, False)
 
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
-        
-        self.set_columns_clickable(False)
 
         # UI elements need to be imported.
         ui = Gtk.Builder()
@@ -71,14 +70,12 @@ class CoverArtEntryView(RB.EntryView):
         ui.connect_signals(self)
 
         self.popup_menu = ui.get_object('entryview_popup_menu')
-        
+
         # connect signals to the shell to know when the playing state changes
         self.shell.props.shell_player.connect('playing-song-changed',
             self.playing_song_changed)
         self.shell.props.shell_player.connect('playing-changed',
             self.playing_changed)
-
-        self.connect('selection-changed', self.selection_changed_callback)
 
         self.playlist_sub_menu_item = ui.get_object('playlist_sub_menu_item')
         self.actiongroup = Gtk.ActionGroup('coverentryplaylist_submenu')
@@ -94,6 +91,17 @@ class CoverArtEntryView(RB.EntryView):
 
         self.qm = RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
         self.set_model(self.qm)
+
+        # connect the sort-order to the library source sort
+        library_view = self.shell.props.library_source.get_entry_view()
+        library_view.connect('notify::sort-order',
+            self._on_library_sorting_changed)
+        self._on_library_sorting_changed(library_view,
+            library_view.props.sort_order)
+
+         # connect to the sort-order property
+        self.connect('notify::sort-order', self._notify_sort_order,
+            library_view)
 
     def __del__(self):
         uim = self.shell.props.ui_manager
@@ -114,7 +122,10 @@ class CoverArtEntryView(RB.EntryView):
 
     def add_album(self, album):
         print "CoverArtBrowser DEBUG - add_album()"
-        album.get_entries(self.qm, sort_by=True)
+        tracks = album.get_tracks()
+
+        for track in tracks:
+            self.qm.add_entry(track.entry, -1)
 
         (_, playing) = self.shell.props.shell_player.get_playing()
         self.playing_changed(self.shell.props.shell_player, playing)
@@ -136,12 +147,13 @@ class CoverArtEntryView(RB.EntryView):
         return True
 
     def do_show_popup(self, over_entry):
-        print "CoverArtBrowser DEBUG - do_show_popup()"
-        self.popup_menu.popup(None, None, None, None, 0,
-            Gtk.get_current_event_time())
+        if over_entry:
+            print "CoverArtBrowser DEBUG - do_show_popup()"
 
-        print "CoverArtBrowser DEBUG - do_show_popup()"
-        return True
+            self.popup_menu.popup(None, None, None, None, 0,
+                Gtk.get_current_event_time())
+
+        return over_entry
 
     def play_track_menu_item_callback(self, entry):
         print "CoverArtBrowser DEBUG - play_track_menu_item_callback()"
@@ -222,31 +234,35 @@ class CoverArtEntryView(RB.EntryView):
 
         print "CoverArtBrowser DEBUG - playing_changed()"
 
-    def add_playlist_menu_item_callback( self, menu_item ):
+    def add_playlist_menu_item_callback(self, menu_item):
         print "CoverArtBrowser DEBUG - add_playlist_menu_item_callback"
         playlist_manager = self.shell.props.playlist_manager
-        playlist = playlist_manager.new_playlist( '', False )
+        playlist = playlist_manager.new_playlist('', False)
 
         self.add_tracks_to_source(playlist)
 
-    def playlist_menu_item_callback( self, menu_item ):
+    def playlist_menu_item_callback(self, menu_item):
         print "CoverArtBrowser DEBUG - playlist_menu_item_callback"
 
-        self.source.playlist_fillmenu(  self.playlist_sub_menu_item,
-                                        self.actiongroup,
-                                        self.add_to_static_playlist_menu_item_callback)
+        self.source.playlist_fillmenu(self.playlist_sub_menu_item,
+            self.actiongroup, self.add_to_static_playlist_menu_item_callback)
 
-    def add_to_static_playlist_menu_item_callback(self, action, playlist, favourite):
-        print "CoverArtBrowser DEBUG - add_to_static_playlist_menu_item_callback"
+    def add_to_static_playlist_menu_item_callback(self, action, playlist,
+        favourite):
+        print "CoverArtBrowser DEBUG - " + \
+            "add_to_static_playlist_menu_item_callback"
         self.add_tracks_to_source(playlist)
 
-    def selection_changed_callback(self,entry_view):
-        print "CoverArtBrowser DEBUG - selection_changed_callback"
+    def _on_library_sorting_changed(self, view, _):
+        self._old_sort_order = self.props.sort_order
 
-        if len(entry_view.get_selected_entries()) == 1:
-            entry = entry_view.get_selected_entries()[0]
-            self.source.stars.set_rating(entry.get_double(RB.RhythmDBPropType.RATING))
-        else:
-            self.source.stars.set_rating(0)
+        self.set_sorting_type(view.props.sort_order)
+
+    def _notify_sort_order(self, view, _, library_view):
+        if self.props.sort_order != self._old_sort_order:
+            self.resort_model()
+
+            # update library source's view direction
+            library_view.set_sorting_type(self.props.sort_order)
 
 GObject.type_register(CoverArtEntryView)

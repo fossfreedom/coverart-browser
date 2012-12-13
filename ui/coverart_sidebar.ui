@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
-  <object class="GtkImage" id="arrow_down">
+  <!-- interface-requires coverart_widgets 1.0 -->
+<object class="GtkImage" id="cancel-icon">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="stock">gtk-go-down</property>
+    <property name="stock">gtk-cancel</property>
+  </object>
+  <object class="GtkImage" id="sort_by_icon">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="pixbuf">../img/sort.png</property>
   </object>
   <object class="GtkImage" id="arrow_up">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="stock">gtk-go-up</property>
-  </object>
-  <object class="GtkImage" id="cancel-icon">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-cancel</property>
+    <property name="pixbuf">../img/arrow_up.png</property>
   </object>
   <object class="GtkMenu" id="filter_menu">
     <property name="can_focus">False</property>
@@ -25,6 +26,16 @@
         <property name="label" translatable="yes">Search all fields</property>
       </object>
     </child>
+  </object>
+  <object class="GtkImage" id="genre_icon">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="pixbuf">../img/genre.png</property>
+  </object>
+  <object class="GtkImage" id="playlist_connect">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="pixbuf">../img/icon_playlist.png</property>
   </object>
   <object class="GtkBox" id="main_box">
     <property name="visible">True</property>
@@ -55,7 +66,8 @@
         <property name="xalign">0</property>
         <child>
           <object class="RBSearchEntry" id="search_entry">
-		  </object>
+            <property name="can_focus">False</property>
+          </object>
         </child>
       </object>
       <packing>
@@ -65,50 +77,22 @@
       </packing>
     </child>
     <child>
-      <object class="GtkComboBoxText" id="genre_combobox">
+      <object class="GtkBox" id="box1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="tooltip_text" translatable="yes">Filter by genre</property>
-        <property name="halign">end</property>
-        <property name="has_entry">True</property>
-        <signal name="changed" handler="genre_changed" swapped="no"/>
-        <signal name="set-focus-child" handler="genre_fill_combo" swapped="no"/>
-        <child internal-child="entry">
-          <object class="GtkEntry" id="combobox-entry">
-            <property name="can_focus">False</property>
-            <property name="shadow_type">none</property>
-            <property name="progress_fraction">0.0099999997764825821</property>
-          </object>
-        </child>
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-        <property name="position">30</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkButtonBox" id="sorting_criteria_button_box">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="margin_left">5</property>
-        <property name="margin_right">5</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">1</property>
-        <property name="layout_style">start</property>
         <child>
-          <object class="GtkRadioButton" id="album_name_sort_radio">
-            <property name="label" translatable="yes">Album</property>
+          <object class="SortPopupButton" id="sort_by">
             <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="receives_default">False</property>
-            <property name="tooltip_text" translatable="yes">Sort by album name</property>
+            <property name="has_tooltip">True</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+            <property name="margin_right">1</property>
             <property name="use_action_appearance">False</property>
-            <property name="relief">none</property>
-            <property name="xalign">0.5</property>
-            <property name="draw_indicator">False</property>
-            <signal name="toggled" handler="sorting_criteria_changed" swapped="no"/>
+            <property name="image">sort_by_icon</property>
+            <property name="relief">half</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -117,19 +101,18 @@
           </packing>
         </child>
         <child>
-          <object class="GtkRadioButton" id="artist_name_sort_radio">
-            <property name="label" translatable="yes">Artist</property>
+          <object class="SortOrderButton" id="sort_order">
             <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="receives_default">False</property>
-            <property name="tooltip_text" translatable="yes">Sort by album artist</property>
+            <property name="has_tooltip">True</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+            <property name="margin_right">1</property>
             <property name="use_action_appearance">False</property>
-            <property name="relief">none</property>
-            <property name="xalign">0.5</property>
-            <property name="draw_indicator">False</property>
-            <property name="group">album_name_sort_radio</property>
-            <signal name="toggled" handler="sorting_criteria_changed" swapped="no"/>
+            <property name="image">arrow_up</property>
+            <property name="relief">half</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -138,40 +121,31 @@
           </packing>
         </child>
         <child>
-          <object class="GtkRadioButton" id="year_sort_radio">
-            <property name="label" translatable="yes">Year</property>
-            <property name="use_action_appearance">False</property>
+          <object class="GtkSeparator" id="separator1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="receives_default">False</property>
-            <property name="tooltip_text" translatable="yes">Sort by year</property>
-            <property name="use_action_appearance">False</property>
-            <property name="relief">none</property>
-            <property name="xalign">0.5</property>
-            <property name="draw_indicator">False</property>
-            <property name="group">album_name_sort_radio</property>
-            <signal name="toggled" handler="sorting_criteria_changed" swapped="no"/>
+            <property name="orientation">vertical</property>
           </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
+            <property name="padding">4</property>
             <property name="position">2</property>
           </packing>
         </child>
         <child>
-          <object class="GtkRadioButton" id="rating_sort_radio">
-            <property name="label" translatable="yes">Rating</property>
+          <object class="PlaylistPopupButton" id="playlist_button">
             <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="receives_default">False</property>
-            <property name="tooltip_text" translatable="yes">Sort by rating</property>
+            <property name="has_tooltip">True</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+            <property name="margin_right">1</property>
             <property name="use_action_appearance">False</property>
-            <property name="relief">none</property>
-            <property name="xalign">0.5</property>
-            <property name="draw_indicator">False</property>
-            <property name="group">album_name_sort_radio</property>
-            <signal name="toggled" handler="sorting_criteria_changed" swapped="no"/>
+            <property name="image">playlist_connect</property>
+            <property name="relief">half</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -179,32 +153,32 @@
             <property name="position">3</property>
           </packing>
         </child>
+        <child>
+          <object class="GenrePopupButton" id="genre_button">
+            <property name="use_action_appearance">False</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="receives_default">False</property>
+            <property name="has_tooltip">True</property>
+            <property name="tooltip_text" translatable="yes">All Genres</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+            <property name="margin_right">1</property>
+            <property name="use_action_appearance">False</property>
+            <property name="image">genre_icon</property>
+            <property name="relief">half</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">4</property>
+          </packing>
+        </child>
       </object>
       <packing>
         <property name="expand">False</property>
         <property name="fill">True</property>
-        <property name="position">40</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkButton" id="sort_order">
-        <property name="use_action_appearance">False</property>
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="receives_default">False</property>
-        <property name="has_tooltip">True</property>
-        <property name="halign">center</property>
-        <property name="valign">center</property>
-        <property name="margin_right">1</property>
-        <property name="use_action_appearance">False</property>
-        <property name="image">arrow_up</property>
-        <property name="relief">half</property>
-        <signal name="clicked" handler="sorting_direction_changed" swapped="no"/>
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">False</property>
-        <property name="position">50</property>
+        <property name="position">60</property>
       </packing>
     </child>
   </object>

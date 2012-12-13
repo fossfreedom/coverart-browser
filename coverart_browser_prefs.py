@@ -26,6 +26,7 @@ import rb
 import locale
 import gettext
 from stars import ReactiveStar
+from stars import StarSize
 
 
 class CoverLocale:
@@ -45,7 +46,7 @@ class CoverLocale:
             '''
             self.Locale = self._enum(
                 RB='rhythmbox',
-                LOCALE_DOMAIN = 'coverart_browser')
+                LOCALE_DOMAIN='coverart_browser')
 
         def switch_locale(self, locale_type):
             '''
@@ -82,6 +83,7 @@ class CoverLocale:
         """ Delegate access to implementation """
         return setattr(self.__instance, attr, value)
 
+
 class GSetting:
     '''
     This class manages the differentes settings that the plugins haves to
@@ -114,14 +116,8 @@ class GSetting:
                 DISPLAY_FONT_SIZE='display-font-size',
                 COVER_SIZE='cover-size',
                 PANED_POSITION='paned-position',
-                SORT_BY_ALBUM='sort-by-album',
-                SORT_BY_ARTIST='sort-by-artist',
-                SORT_BY_RATING='sort-by-rating',
-                SORT_BY_YEAR='sort-by-year',
+                SORT_BY='sort-by',
                 SORT_ORDER='sort-order',
-                YEAR_SORT_VISIBLE='year-sort-visible',
-                RATING_SORT_VISIBLE='rating-sort-visible',
-                GENRE_FILTER_VISIBLE='genre-filter-visible',
                 RATING='rating-threshold',
                 AUTOSTART='autostart',
                 TOOLBAR_POS='toolbar-pos',
@@ -224,11 +220,6 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         self.settings.bind(gs.PluginKey.DISPLAY_TEXT, box_text, 'sensitive',
             Gio.SettingsBindFlags.GET)
 
-        toggle_text_loading = builder.get_object(
-            'display_text_loading_checkbox')
-        self.settings.bind(gs.PluginKey.DISPLAY_TEXT_LOADING,
-        toggle_text_loading, 'active', Gio.SettingsBindFlags.DEFAULT)
-
         toggle_text_ellipsize = builder.get_object(
             'display_text_ellipsize_checkbox')
         self.settings.bind(gs.PluginKey.DISPLAY_TEXT_ELLIPSIZE,
@@ -256,41 +247,31 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
             Gio.SettingsBindFlags.DEFAULT)
 
         rated_box = builder.get_object('rated_box')
-        self.stars = ReactiveStar()
-        
+        self.stars = ReactiveStar(size=StarSize.BIG)
+
         self.stars.connect('changed', self.rating_changed_callback)
 
-        rated_box.pack_start(self.stars, False, False, 1)
+        align = Gtk.Alignment.new(0.5, 0, 0, 0.1)
+        align.add(self.stars)
+        rated_box.add(align)
 
         self.stars.set_rating(self.settings[gs.PluginKey.RATING])
-        
+
         autostart = builder.get_object('autostart_checkbox')
         self.settings.bind(gs.PluginKey.AUTOSTART,
             autostart, 'active', Gio.SettingsBindFlags.DEFAULT)
 
-        year_sort_visible = builder.get_object('year_sort_checkbox')
-        self.settings.bind(gs.PluginKey.YEAR_SORT_VISIBLE,
-            year_sort_visible, 'active', Gio.SettingsBindFlags.DEFAULT)
-
-        rating_sort_visible = builder.get_object('rating_sort_checkbox')
-        self.settings.bind(gs.PluginKey.RATING_SORT_VISIBLE,
-            rating_sort_visible, 'active', Gio.SettingsBindFlags.DEFAULT)
-
-        genre_filter_visible = builder.get_object('genre_filter_checkbox')
-        self.settings.bind(gs.PluginKey.GENRE_FILTER_VISIBLE,
-            genre_filter_visible, 'active', Gio.SettingsBindFlags.DEFAULT)
-            
         embedded_search = builder.get_object('embedded_checkbox')
         self.settings.bind(gs.PluginKey.EMBEDDED_SEARCH,
             embedded_search, 'active', Gio.SettingsBindFlags.DEFAULT)
-        
+
         discogs_search = builder.get_object('discogs_checkbox')
         self.settings.bind(gs.PluginKey.DISCOGS_SEARCH,
             discogs_search, 'active', Gio.SettingsBindFlags.DEFAULT)
-            
-        self.toolbar_left_radio=builder.get_object('toolbar_left_radio')
-        self.toolbar_right_radio=builder.get_object('toolbar_right_radio')
-        self.toolbar_main_radio=builder.get_object('toolbar_main_radio')
+
+        self.toolbar_left_radio = builder.get_object('toolbar_left_radio')
+        self.toolbar_right_radio = builder.get_object('toolbar_right_radio')
+        self.toolbar_main_radio = builder.get_object('toolbar_main_radio')
 
         toolbar_pos = self.settings[gs.PluginKey.TOOLBAR_POS]
         if toolbar_pos == 0:
@@ -301,9 +282,9 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
             self.toolbar_right_radio.set_active(True)
 
         # return the dialog
-        return builder.get_object('maingrid')
+        return builder.get_object('main_notebook')
 
-    def toolbar_callback( self, radio ):
+    def toolbar_callback(self, radio):
         gs = GSetting()
         if radio == self.toolbar_main_radio:
             self.settings[gs.PluginKey.TOOLBAR_POS] = 0

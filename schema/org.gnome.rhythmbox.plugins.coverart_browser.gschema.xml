@@ -21,11 +21,6 @@
             <summary>Display album's info under cover</summary>
             <description>Show the album's basic information under the cover image.</description>
         </key>
-        <key type="b" name="display-text-loading">
-            <default>true</default>
-            <summary>Show text while loading</summary>
-            <description>Show's the text for each album during the source load. Deactivating this option may help with the loading performance.</description>
-        </key>
         <key type="b" name="display-text-ellipsize">
             <default>false</default>
             <summary>Ellipsize albums names</summary>
@@ -46,15 +41,16 @@
             <summary>Position of paned handle</summary>
             <description>Position of the horizontal paned-handle divider.</description>
         </key>
-        <key type="b" name="sort-by-album">
-            <default>true</default>
-            <summary>Sort by album.</summary>
-            <description>Determines if the coverview should be sorted by album-name.</description>
-        </key>
-        <key type="b" name="sort-by-artist">
-            <default>false</default>
-            <summary>Sort by artist.</summary>
-            <description>Determines if the coverview should be sorted by album-artist name.</description>
+        <key type="s" name="sort-by">
+          <choices>
+            <choice value='name'/>
+            <choice value='album_artist'/>
+            <choice value='year'/>
+            <choice value='rating'/>
+          </choices>
+          <default>'name'</default>
+            <summary>sort by</summary>
+            <description>Sort by criteria.</description>
         </key>
         <key type="b" name="sort-order">
             <default>true</default>

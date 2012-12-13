@@ -34,6 +34,7 @@ from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import CoverLocale
 from coverart_browser_source import CoverArtBrowserSource
 
+
 class CoverArtBrowserEntryType(RB.RhythmDBEntryType):
     '''
     Entry type for our source.
@@ -52,7 +53,7 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
     '''
     __gtype_name = 'CoverArtBrowserPlugin'
     object = GObject.property(type=GObject.Object)
-    
+
     def __init__(self):
         '''
         Initialises the plugin object.
@@ -107,6 +108,26 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
 
         self.shell.props.db.connect('load-complete', self.load_complete)
 
+<<<<<<< HEAD
+        uim = self.shell.props.ui_manager
+        self.cover_ui = uim.add_ui_from_file(rb.find_plugin_file(self,
+            'ui/coverart_plugin.ui'))
+        
+        action = Gtk.Action(name="PlaylistCover", label=_("CoverArt"),
+                            tooltip=_("Display Covers for Playlist"),
+                            stock_id='gnome-mime-text-x-python')
+        action.connect('activate', self.display_covers_for_source)
+        self.action_group = Gtk.ActionGroup(name="PlayListCoverActions")
+        self.action_group.add_action(action)
+        uim.insert_action_group(self.action_group, 0)
+        uim.ensure_update()
+        
+=======
+        self.art_store = RB.ExtDB(name="album-art")
+        self.req_id = self.art_store.connect("request",
+            self.album_art_requested)
+
+>>>>>>> master
         print "CoverArtBrowser DEBUG - end do_activate"
 
     def do_deactivate(self):
@@ -119,6 +140,13 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         del self.shell
         del self.db
         del self.source
+<<<<<<< HEAD
+        del self.action_group
+=======
+        self.art_store.disconnect(self.req_id)
+        self.req_id = 0
+        self.art_store = None
+>>>>>>> master
 
         print "CoverArtBrowser DEBUG - end do_deactivate"
 
@@ -132,4 +160,23 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         setting = gs.get_setting(gs.Path.PLUGIN)
         if setting[gs.PluginKey.AUTOSTART]:
             self.shell.props.display_page_tree.select(self.source)
+<<<<<<< HEAD
+            
+=======
 
+    def album_art_requested(self, store, key, last_time):
+        searches = []
+
+        gs = GSetting()
+        setting = gs.get_setting(gs.Path.PLUGIN)
+
+        if setting[gs.PluginKey.EMBEDDED_SEARCH]:
+            searches.append(CoverAlbumSearch())
+        if setting[gs.PluginKey.DISCOGS_SEARCH]:
+            searches.append(DiscogsSearch())
+
+        print "about to search"
+        s = CoverSearch(store, key, last_time, searches)
+        print "finished about to return"
+        return s.next_search()
+>>>>>>> master

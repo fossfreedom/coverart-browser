@@ -25,14 +25,16 @@ from gi.repository import Gdk
 from gi.repository import Gtk
 from gi.repository import RB
 
-from coverart_album import AlbumLoader
-from coverart_album import Album
+from coverart_album import AlbumManager
 from coverart_entryview import CoverArtEntryView
 from coverart_search import CoverSearchPane
 from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import CoverLocale
 from stars import ReactiveStar
 from coverart_timer import ttimer
+from coverart_widgets import PlaylistPopupButton
+from coverart_widgets import GenrePopupButton
+
 
 class CoverArtBrowserSource(RB.Source):
     '''
@@ -40,14 +42,12 @@ class CoverArtBrowserSource(RB.Source):
     '''
     custom_statusbar_enabled = GObject.property(type=bool, default=False)
     display_bottom_enabled = GObject.property(type=bool, default=False)
-    display_text_enabled = GObject.property(type=bool, default=False)
-    display_text_loading_enabled = GObject.property(type=bool, default=True)
     rating_threshold = GObject.property(type=float, default=0)
     toolbar_pos = GObject.property(type=int, default=0)
-    genre_filter_visible = GObject.property(type=bool, default=True)
-    rating_sort_visible = GObject.property(type=bool, default=False)
-    year_sort_visible = GObject.property(type=bool, default=False)
-    store_sort_order = GObject.property(type=bool, default=False)
+    sort_order = GObject.property(type=bool, default=False)
+
+    # unique instance of the source
+    instance = None
 
     def __init__(self, **kargs):
         '''
@@ -61,11 +61,11 @@ class CoverArtBrowserSource(RB.Source):
 
         self._connect_properties()
 
-        self.filter_type = Album.FILTER_ALL
+        self.filter_type = 'all'
         self.search_text = ''
         self.hasActivated = False
-        self.last_toolbar_pos = 0
-        self.genre_changed_ignore = False
+        self.last_toolbar_pos = None
+        self.moving_handle = False
 
     def _connect_properties(self):
         '''
@@ -78,23 +78,14 @@ class CoverArtBrowserSource(RB.Source):
             'custom_statusbar_enabled', Gio.SettingsBindFlags.GET)
         setting.bind(self.gs.PluginKey.DISPLAY_BOTTOM, self,
             'display_bottom_enabled', Gio.SettingsBindFlags.GET)
-        setting.bind(self.gs.PluginKey.DISPLAY_TEXT, self,
-            'display_text_enabled', Gio.SettingsBindFlags.GET)
-        setting.bind(self.gs.PluginKey.DISPLAY_TEXT_LOADING, self,
-            'display_text_loading_enabled', Gio.SettingsBindFlags.GET)
         setting.bind(self.gs.PluginKey.RATING, self,
             'rating_threshold', Gio.SettingsBindFlags.GET)
         setting.bind(self.gs.PluginKey.TOOLBAR_POS, self,
             'toolbar_pos', Gio.SettingsBindFlags.GET)
-        setting.bind(self.gs.PluginKey.YEAR_SORT_VISIBLE, self,
-            'year_sort_visible', Gio.SettingsBindFlags.GET)
-        setting.bind(self.gs.PluginKey.RATING_SORT_VISIBLE, self,
-            'rating_sort_visible', Gio.SettingsBindFlags.GET)
-        setting.bind(self.gs.PluginKey.GENRE_FILTER_VISIBLE, self,
-            'genre_filter_visible', Gio.SettingsBindFlags.GET)
-        
+        setting.bind(self.gs.PluginKey.SORT_ORDER, self, 'sort_order',
+            Gio.SettingsBindFlags.DEFAULT)
+
         print "CoverArtBrowser DEBUG - end _connect_properties"
-        
 
     def do_get_status(self, *args):
         '''
@@ -104,17 +95,15 @@ class CoverArtBrowserSource(RB.Source):
         show the selected album info.
         Also, it makes sure to show the progress on the album loading.s
         '''
-        print "CoverArtBrowser DEBUG - do_get_status"
         try:
-            progress = self.loader.progress
+            progress = self.album_manager.progress
             progress_text = _('Loading...') if progress < 1 else ''
         except:
             progress = 1
             progress_text = ''
 
-		print "CoverArtBrowser DEBUG - end do_get_status"
         return (self.status, progress_text, progress)
-        
+
     def do_show_popup(self):
         '''
         Method called by Rhythmbox when an action on our source prompts it
@@ -124,7 +113,7 @@ class CoverArtBrowserSource(RB.Source):
         self.source_menu.popup(None, None, None, None, 0,
             Gtk.get_current_event_time())
 
-		print "CoverArtBrowser DEBUG - end do_show_popup"
+        print "CoverArtBrowser DEBUG - end do_show_popup"
         return True
 
     def do_selected(self):
@@ -140,9 +129,8 @@ class CoverArtBrowserSource(RB.Source):
 
             #indicate that the source was activated before
             self.hasActivated = True
-            
-        print "CoverArtBrowser DEBUG - end do_selected"
 
+        print "CoverArtBrowser DEBUG - end do_selected"
 
     def do_impl_activate(self):
         '''
@@ -157,15 +145,16 @@ class CoverArtBrowserSource(RB.Source):
         self.shell = self.props.shell
         self.status = ''
         self.search_text = ''
-        self.compare_albums = Album.compare_albums_by_name
         self.actiongroup = Gtk.ActionGroup('coverplaylist_submenu')
-        self.favourite_actiongroup = Gtk.ActionGroup('favourite_coverplaylist_submenu')
+        self.favourite_actiongroup = Gtk.ActionGroup(
+            'favourite_coverplaylist_submenu')
         uim = self.shell.props.ui_manager
         uim.insert_action_group(self.actiongroup)
         uim.insert_action_group(self.favourite_actiongroup)
 
-        self.coversearchtimer=ttimer (30, -1, self.update_request_status_bar, None)
-        
+        self.coversearchtimer = ttimer(30, -1, self.update_request_status_bar,
+            None)
+
         # connect properties signals
         self.connect('notify::custom-statusbar-enabled',
             self.on_notify_custom_statusbar_enabled)
@@ -173,23 +162,8 @@ class CoverArtBrowserSource(RB.Source):
         self.connect('notify::display-bottom-enabled',
             self.on_notify_display_bottom_enabled)
 
-        self.connect('notify::display-text-enabled',
-            self.activate_markup)
-
-        self.connect('notify::display-text-loading-enabled',
-            self.activate_markup)
-
         self.connect('notify::rating-threshold',
             self.on_notify_rating_threshold)
-
-        self.connect('notify::rating-sort-visible',
-            self.on_notify_rating_sort_visible)
-
-        self.connect('notify::year-sort-visible',
-            self.on_notify_year_sort_visible)
-            
-        self.connect('notify::genre-filter-visible',
-            self.on_notify_genre_filter_visible)
 
         #indicate that the source was activated before
         self.hasActivated = True
@@ -197,9 +171,8 @@ class CoverArtBrowserSource(RB.Source):
         self._create_ui()
         self._setup_source()
         self._apply_settings()
-        
-        print "CoverArtBrowser DEBUG - end do_impl_activate"
 
+        print "CoverArtBrowser DEBUG - end do_impl_activate"
 
     def _create_ui(self):
         '''
@@ -214,23 +187,20 @@ class CoverArtBrowserSource(RB.Source):
         ui.set_translation_domain(cl.Locale.LOCALE_DOMAIN)
         ui.add_from_file(rb.find_plugin_file(self.plugin,
             'ui/coverart_browser.ui'))
-        
+
         self.toolbar_box = ui.get_object('toolbar_box')
-        
+
         si = Gtk.Builder()
         si.set_translation_domain(cl.Locale.LOCALE_DOMAIN)
         si.add_from_file(rb.find_plugin_file(self.plugin,
             'ui/coverart_sidebar.ui'))
-        
+
         # load the page and put it in the source
         self.sidebar = si.get_object('main_box')
-        
+
         # load the page and put it in the source
         self.page = ui.get_object('main_box')
         self.pack_start(self.page, True, True, 0)
-        
-        # covers model
-        self.covers_model_store = ui.get_object('covers_model')
 
         # get widgets for main icon-view
         self.status_label = ui.get_object('status_label')
@@ -258,7 +228,8 @@ class CoverArtBrowserSource(RB.Source):
         self.favourite_playlist_menu_item = ui.get_object(
             'favourite_playlist_menu_item')
         self.playlist_sub_menu_item = ui.get_object('playlist_sub_menu_item')
-        self.favourite_playlist_sub_menu_item = ui.get_object('favourite_playlist_sub_menu_item')
+        self.favourite_playlist_sub_menu_item = ui.get_object(
+            'favourite_playlist_sub_menu_item')
 
         # get widgets for filter popup
         self.filter_menu = ui.get_object('filter_menu')
@@ -270,21 +241,20 @@ class CoverArtBrowserSource(RB.Source):
         self.filter_menu_track_title_item = ui.get_object(
             'filter_track_title_menu_item')
 
-		self.ui = ui
-		self.si = si
-		
-		print "CoverArtBrowser DEBUG - end _create_ui"
+        self.ui = ui
+        self.si = si
 
-		
-	def _toolbar( self, ui ):
-		'''
+        print "CoverArtBrowser DEBUG - end _create_ui"
+
+    def _toolbar(self, ui):
+        '''
         setup toolbar ui - called for sidebar and main-view
         '''
         print "CoverArtBrowser DEBUG - _toolbar"
 
-		# dialog has not been created so lets do so.
+        # dialog has not been created so lets do so.
         cl = CoverLocale()
-        
+
         # get widgets for main icon-view
         # the first part is to first remove the current search-entry
         # before recreating it again - we have to do this to ensure
@@ -302,94 +272,36 @@ class CoverArtBrowserSource(RB.Source):
         self.search_entry.connect('show-popup',
             self.search_show_popup_callback)
 
-        self.sort_by_album_radio = ui.get_object('album_name_sort_radio')
-        self.sort_by_artist_radio = ui.get_object('artist_name_sort_radio')
-        self.sort_by_year_radio = ui.get_object('year_sort_radio')
-        self.sort_by_rating_radio = ui.get_object('rating_sort_radio')
-        self.on_notify_rating_sort_visible(_)
-        self.on_notify_year_sort_visible(_)
-        self.sort_order = ui.get_object('sort_order')
-        self.arrow_down = ui.get_object('arrow_down')
-        self.arrow_up = ui.get_object('arrow_up')
-
-        # setup the sorting
-        self.sort_by_album_radio.set_mode(False)
-        self.sort_by_artist_radio.set_mode(False)
-        self.sort_by_year_radio.set_mode(False)
-        self.sort_by_rating_radio.set_mode(False)
+        self.sort_by = ui.get_object('sort_by')
+        self.sort_by.initialise(self.shell, self.sorting_criteria_changed)
+        self.sort_order_button = ui.get_object('sort_order')
+        #self.arrow_down = ui.get_object('arrow_down')
+        #self.arrow_up = ui.get_object('arrow_up')
+        self.sort_order_button.initialise(self.plugin,
+            self.sorting_direction_changed, self.sort_order)
 
         # get widget for search and apply some workarounds
         search_entry = ui.get_object('search_entry')
         search_entry.set_placeholder(_('Search album'))
         search_entry.show_all()
-        self.search_entry.set_placeholder(ui.get_object('filter_all_menu_item').get_label())
+        self.search_entry.set_placeholder(ui.get_object(
+            'filter_all_menu_item').get_label())
 
         # genre
-        self.genre_combobox = ui.get_object('genre_combobox')
-        self.on_notify_genre_filter_visible(_)
-        self.genre_fill_combo(_)
+        self.genre_button = ui.get_object('genre_button')
+        self.genre_button.initialise(self.shell, self.genre_filter_callback)
+
+        # get playlist popup
+        self.playlist_button = ui.get_object('playlist_button')
+        self.playlist_button.initialise(self.shell, self.filter_by_model)
+
         print "CoverArtBrowser DEBUG - end _toolbar"
 
-        
-    def genre_fill_combo(self, *args):
-        '''
-        fills the genre combobox with all current genres found
-        in the library source
-        '''
-        print "CoverArtBrowser DEBUG - genre_fill_combo"
-		
-		genres = self.loader.get_genres()
-		if len(genres) == (len(self.genre_combobox.get_model())-1):
-			return # nothing to do
-			
-		self.genre_changed_ignore = True ## we dont want the combobox signal to fire
-        views = self.shell.props.library_source.get_property_views()
-        view = views[0] # seems like view 0 is the genre property view
-        model = view.get_model()   
-        
-        self.genre_combobox.remove_all()
-        
-        entry = model[0][0]
-        self.genre_combobox.append_text(entry)
-
-        for entry in genres:
-            self.genre_combobox.append_text(entry)
-
-        self.genre_combobox.set_active(0)
-        
-        self.genre_changed_ignore = False
-        
-        print "CoverArtBrowser DEBUG - end genre_fill_combo"
-
-
-    def genre_changed(self, widget):
-        '''
-        signal called when genre value changed
-        '''
-        if self.genre_changed_ignore:
-            return
-
-        print "CoverArtBrowser DEBUG - genre changed"
-
-        if widget.get_active() == 0:
-            self.filter_type = Album.FILTER_ALL
-            self.filter_menu_all_item.set_active(True)
-        else:
-            self.filter_type = Album.FILTER_GENRE
-
-        try:
-            self.covers_model.refilter()
-        except:
-            pass
-            
-        print "CoverArtBrowser DEBUG - end genre changed"
-
-            
     def _setup_source(self):
         '''
         Setups the differents parts of the source so they are ready to be used
         by the user. It also creates and configure some custom widgets.
-        '''        
+        '''
         print "CoverArtBrowser DEBUG - _setup_source"
 
         # setup iconview drag&drop support
@@ -399,15 +311,18 @@ class CoverArtBrowserSource(RB.Source):
         self.covers_view.connect('drag-drop', self.on_drag_drop)
         self.covers_view.connect('drag-data-received',
             self.on_drag_data_received)
-        self.covers_view.connect('selection-changed',
-            self.on_selection_changed)
 
         # setup entry-view objects and widgets
         y = self.gs.get_value(self.gs.Path.PLUGIN,
             self.gs.PluginKey.PANED_POSITION)
         self.paned.set_position(y)
 
+        # create entry view. Don't allow to reorder until the load is finished
         self.entry_view = CoverArtEntryView(self.shell, self)
+        self.entry_view.set_columns_clickable(False)
+        self.shell.props.library_source.get_entry_view().set_columns_clickable(
+            False)
+
         self.stars = ReactiveStar()
         self.stars.set_rating(0)
         a = Gtk.Alignment.new(0.5, 0.5, 0, 0)
@@ -423,44 +338,33 @@ class CoverArtBrowserSource(RB.Source):
 
         # setup cover search pane
         try:
-			color = self.covers_view.get_style_context().get_background_color(Gtk.StateFlags.SELECTED)
-			color = '#%s%s%s' % (str(hex(int(color.red*255))).replace('0x', ''),
-				str(hex(int(color.green*255))).replace('0x', ''),
-				str(hex(int(color.blue*255))).replace('0x', ''))
+            color = self.covers_view.get_style_context().get_background_color(
+                Gtk.StateFlags.SELECTED)
+            color = '#%s%s%s' % (
+                str(hex(int(color.red * 255))).replace('0x', ''),
+                str(hex(int(color.green * 255))).replace('0x', ''),
+                str(hex(int(color.blue * 255))).replace('0x', ''))
         except:
             color = '#0000FF'
-			
+
         self.cover_search_pane = CoverSearchPane(self.plugin, color)
         self.notebook.append_page(self.cover_search_pane, Gtk.Label(
             _("Covers")))
 
         # setup the album loader and the cover view to use it's model + filter
-        self.loader = AlbumLoader.get_instance(self.plugin,
-            self.covers_model_store, self.props.query_model)
+        self.album_manager = AlbumManager(self.plugin, self.covers_view)
 
-        self.covers_model_store = self.loader.cover_model
-        self.covers_model_store.set_sort_func(2, self.sort_albums)
-        self.covers_model = self.covers_model_store.filter_new()
-        self.covers_model.set_visible_func(self.visible_covers_callback)
-        self.covers_view.set_model(self.covers_model)
-        
+        # connect a signal to when the info of albums is ready
+        self.load_fin_id = self.album_manager.loader.connect(
+            'model-load-finished', self.load_finished_callback)
+
+        # prompt the loader to load the albums
+        self.album_manager.loader.load_albums(self.props.query_model)
+
+        # set the model to the view
+        self.covers_view.set_model(self.album_manager.model.store)
+
         print "CoverArtBrowser DEBUG - end _setup_source"
-
-    def reset_coverview(self,query_model):
-        '''
-        resets what is displayed in the coverview with contents from the
-        new query_model
-        '''
-        print "CoverArtBrowser DEBUG - reset_coverview"
-
-        self.props.query_model = query_model
-        try:
-            self.loader.reload_albums(query_model)
-        except:
-            pass
-            
-        print "CoverArtBrowser DEBUG - end reset_coverview"
-
 
     def _apply_settings(self):
         '''
@@ -473,51 +377,17 @@ class CoverArtBrowserSource(RB.Source):
         # connect some signals to the loader to keep the source informed
         self.si.connect_signals(self)
         self.ui.connect_signals(self)
-        self.album_mod_id = self.loader.connect('album-modified',
-            self.album_modified_callback)
-        self.album_post_view_mod_id = self.loader.connect('album-post-view-modified',
-            self.album_post_view_callback)
-        self.load_fin_id = self.loader.connect('load-finished',
-            self.load_finished_callback)
-        self.reload_fin_id = self.loader.connect('reload-finished',
-            self.reload_finished_callback)
-        self.notify_prog_id = self.loader.connect('notify::progress',
-            lambda *args: self.notify_status_changed())
-        self.notify_ellipsize = self.loader.connect(
-            'notify::display-text-ellipsize-enabled',
-            self.on_notify_display_text_ellipsize)
-        self.notify_ellipsize_length = self.loader.connect(
-            'notify::display-text-ellipsize-length',
-            self.on_notify_display_text_ellipsize)
-        self.notify_cover_size = self.loader.connect('notify::cover-size',
-            self.on_notify_cover_size)
+        self.album_mod_id = self.album_manager.model.connect('album-updated',
+            self.on_album_updated)
+        self.notify_prog_id = self.album_manager.connect(
+            'notify::progress', lambda *args: self.notify_status_changed())
         self.toolbar_pos = self.connect('notify::toolbar-pos',
             self.on_notify_toolbar_pos)
-
-        # apply/connect some settings
-        source_settings = self.gs.get_setting(self.gs.Path.PLUGIN)
-        source_settings.bind(self.gs.PluginKey.SORT_BY_ALBUM,
-            self.sort_by_album_radio, 'active', Gio.SettingsBindFlags.DEFAULT)
-        source_settings.bind(self.gs.PluginKey.SORT_BY_ARTIST,
-            self.sort_by_artist_radio, 'active', Gio.SettingsBindFlags.DEFAULT)
-        source_settings.bind(self.gs.PluginKey.SORT_BY_RATING,
-            self.sort_by_rating_radio, 'active', Gio.SettingsBindFlags.DEFAULT)
-        source_settings.bind(self.gs.PluginKey.SORT_BY_YEAR,
-            self.sort_by_year_radio, 'active', Gio.SettingsBindFlags.DEFAULT)
-        source_settings.bind(self.gs.PluginKey.SORT_ORDER,
-            self, 'store_sort_order',
-            Gio.SettingsBindFlags.DEFAULT)
 
         # enable some ui if necesary
         self.on_notify_rating_threshold(_)
         self.on_notify_display_bottom_enabled(_)
-        self.activate_markup()
-        self.sorting_direction_changed(_, True)
-        #self.on_notify_toolbar_pos(_)
-
-        if self.loader.progress == 1:
-            # if the source is fully loaded, enable the full cover search item
-            self.load_finished_callback()
+        #self.sorting_direction_changed(_, True)
 
         print "CoverArtBrowser DEBUG - end _apply_settings"
 
@@ -532,26 +402,12 @@ class CoverArtBrowserSource(RB.Source):
             # it should only be enabled if no cover request is going on
             self.source_menu_search_all_item.set_sensitive(True)
 
-        # enable markup if necesary
-        self.activate_markup()
-        
+        # enable sorting on the entryview
+        self.entry_view.set_columns_clickable(True)
+        self.shell.props.library_source.get_entry_view().set_columns_clickable(
+            True)
+
         print "CoverArtBrowser DEBUG - end load_finished_callback"
-
-
-    def reload_finished_callback(self, _):
-        '''
-        Callback called when the loader finishes reloading albums into the
-        covers view model.
-        '''
-        print "CoverArtBrowser DEBUG - reload_finished_callback"
-
-        if self.display_text_enabled and \
-            not self.display_text_loading_enabled \
-            and self.loader.progress == 1:
-            self.activate_markup()
-            
-        print "CoverArtBrowser DEBUG - end reload_finished_callback"
-
 
     def on_notify_custom_statusbar_enabled(self, *args):
         '''
@@ -567,9 +423,8 @@ class CoverArtBrowserSource(RB.Source):
             self.status_label.hide()
 
         self.selectionchanged_callback(self.covers_view)
-        
-        print "CoverArtBrowser DEBUG - end on_notify_custom_statusbar_enabled"
 
+        print "CoverArtBrowser DEBUG - end on_notify_custom_statusbar_enabled"
 
     def on_notify_rating_threshold(self, *args):
         '''
@@ -578,7 +433,7 @@ class CoverArtBrowserSource(RB.Source):
         If the threshold is zero then the rating menu options in the
         coverview should not be enabled
         '''
-		print "CoverArtBrowser DEBUG - on_notify_rating_threshold"
+        print "CoverArtBrowser DEBUG - on_notify_rating_threshold"
 
         if self.rating_threshold > 0:
             enable_menus = True
@@ -588,49 +443,15 @@ class CoverArtBrowserSource(RB.Source):
         self.play_favourites_album_menu_item.set_sensitive(enable_menus)
         self.queue_favourites_album_menu_item.set_sensitive(enable_menus)
         self.favourite_playlist_menu_item.set_sensitive(enable_menus)
-        
+
         print "CoverArtBrowser DEBUG - end on_notify_rating_threshold"
-
-    def on_notify_rating_sort_visible(self, *args):
-        '''
-        Callback called when the option rating sort visibility is changed
-        on the plugin's preferences dialog
-        '''
-		print "CoverArtBrowser DEBUG - on_notify_rating_sort_visible"
-
-        self.sort_by_rating_radio.set_visible(self.rating_sort_visible)
-        
-        print "CoverArtBrowser DEBUG - end on_notify_rating_sort_visible"
-
-    def on_notify_year_sort_visible(self, *args):
-        '''
-        Callback called when the option year sort visibility is changed
-        on the plugin's preferences dialog
-        '''
-		print "CoverArtBrowser DEBUG - on_notify_year_sort_visible"
-
-        self.sort_by_year_radio.set_visible(self.year_sort_visible)
-        
-        print "CoverArtBrowser DEBUG - end on_notify_year_sort_visible"
-
-    def on_notify_genre_filter_visible(self, *args):
-        '''
-        Callback called when the option genre filter visibility is changed
-        on the plugin's preferences dialog
-        '''
-		print "CoverArtBrowser DEBUG - on_notify_genre_filter_visible"
-
-        self.genre_combobox.set_visible(self.genre_filter_visible)
-        
-        print "CoverArtBrowser DEBUG - end on_notify_genre_filter_visible"
-
 
     def on_notify_toolbar_pos(self, *args):
         '''
         Callback called when the toolbar position is changed in
         preferences
         '''
-		print "CoverArtBrowser DEBUG - on_notify_toolbar_pos"
+        print "CoverArtBrowser DEBUG - on_notify_toolbar_pos"
 
         setting = self.gs.get_setting(self.gs.Path.PLUGIN)
 
@@ -639,36 +460,33 @@ class CoverArtBrowserSource(RB.Source):
         if toolbar_pos == 0:
             self._toolbar(self.ui)
             self.toolbar_box.set_visible(True)
-			
+
         if toolbar_pos == 1:
             self.toolbar_box.set_visible(False)
-            print "hi"
             self._toolbar(self.si)
-            self.shell.add_widget( 	self.sidebar,
+            self.shell.add_widget(self.sidebar,
                         RB.ShellUILocation.SIDEBAR,
                         expand=False,
                         fill=False)
-            print "bye"
 
         if toolbar_pos == 2:
             self.toolbar_box.set_visible(False)
-			self._toolbar(self.si)
-            self.shell.add_widget( 	self.sidebar,
+            self._toolbar(self.si)
+            self.shell.add_widget(self.sidebar,
                         RB.ShellUILocation.RIGHT_SIDEBAR,
                         expand=False,
-                        fill=False) 
+                        fill=False)
 
         if self.last_toolbar_pos == 1:
-            self.shell.remove_widget(   self.sidebar,
-                                        RB.ShellUILocation.SIDEBAR )
+            self.shell.remove_widget(self.sidebar, RB.ShellUILocation.SIDEBAR)
+
         if self.last_toolbar_pos == 2:
-            self.shell.remove_widget(   self.sidebar,
-                                        RB.ShellUILocation.RIGHT_SIDEBAR )
+            self.shell.remove_widget(self.sidebar,
+                RB.ShellUILocation.RIGHT_SIDEBAR)
 
         self.last_toolbar_pos = toolbar_pos
-        
-        print "CoverArtBrowser DEBUG - end on_notify_toolbar_pos"
 
+        print "CoverArtBrowser DEBUG - end on_notify_toolbar_pos"
 
     def on_notify_display_bottom_enabled(self, *args):
         '''
@@ -695,140 +513,72 @@ class CoverArtBrowserSource(RB.Source):
                                   y)
 
             self.bottom_box.set_visible(False)
-            
+
         print "CoverArtBrowser DEBUG - end on_notify_display_bottom_enabled"
 
-
-    def activate_markup(self, *args):
+    def paned_button_press_callback(self, *args):
         '''
-        Utility method to activate/deactivate the markup text on the
-        cover view.
+        This callback allows or denies the paned handle to move depending on
+        the expanded state of the entry_view
         '''
-        print "CoverArtBrowser DEBUG - activate_markup"
+        print "CoverArtBrowser DEBUG - paned_button_press_callback"
+        # indicate if we are moving the handle
+        self.moving_handle = self.bottom_expander.get_expanded()
 
-        activate = self.display_text_enabled and \
-            (self.display_text_loading_enabled or (self.loader.progress == 1
-            and not self.loader.reloading))
-
-        if activate:
-            column = 3
-            item_width = self.loader.cover_size + 20
-        else:
-            column = item_width = -1
-
-        self.covers_view.set_markup_column(column)
-        self.covers_view.set_item_width(item_width)
-        
-        print "CoverArtBrowser DEBUG - end activate_markup"
-
-
-    def on_notify_display_text_ellipsize(self, *args):
-        '''
-        Callback called when one of the properties related with the ellipsize
-        option is changed.
-        '''
-        print "CoverArtBrowser DEBUG - on_notify_display_text_ellipsize"
-
-        if not self.display_text_loading_enabled:
-            self.activate_markup(False)
-            
-        print "CoverArtBrowser DEBUG - end on_notify_display_text_ellipsize"
-
-
-    def on_notify_cover_size(self, *args):
-        '''
-        Callback callend when the coverart size property is changed.
-        '''
-        print "CoverArtBrowser DEBUG - on_notify_cover_size"
-
-        self.activate_markup(self.display_text_enabled and
-            self.display_text_loading_enabled)
-
-        # update the iconview since the new size would change the free space
-        self.update_iconview_callback()
-        
-        print "CoverArtBrowser DEBUG - end on_notify_cover_size"
-
+        return not self.moving_handle
 
     def on_paned_button_release_event(self, *args):
         '''
         Callback when the paned handle is released from its mouse click.
         '''
-        
+
         print "CoverArtBrowser DEBUG - on_paned_button_release_event"
 
         if self.bottom_expander.get_expanded():
+            # the handle was released
+            self.moving_handle = False
+
+            # save the new position
             new_y = self.paned.get_position()
             self.gs.set_value(self.gs.Path.PLUGIN,
                 self.gs.PluginKey.PANED_POSITION, new_y)
-                
+
         print "CoverArtBrowser DEBUG - end on_paned_button_release_event"
 
-
-    def album_modified_callback(self, _, modified_album):
+    def on_album_updated(self, model, path, tree_iter):
         '''
         Callback called by the album loader when one of the albums managed
         by him gets modified in some way.
         '''
-        print "CoverArtBrowser DEBUG - album_modified_callback"
+        album = model.get_from_path(path)
         selected = self.get_selected_albums()
 
-        if modified_album in selected:
+        if album in selected:
             # update the selection since it may have changed
             self.selectionchanged_callback(self.covers_view)
 
-            if modified_album is selected[0] and \
+            if album is selected[0] and \
                 self.notebook.get_current_page() == \
                 self.notebook.page_num(self.cover_search_pane):
                 # also, if it's the first, update the cover search pane
                 self.cover_search_pane.clear()
-                self.cover_search_pane.do_search(modified_album)
+                self.cover_search_pane.do_search(album)
 
-        print "CoverArtBrowser DEBUG - end album_modified_callback"
-
-    def album_post_view_callback(self, _, path):
+    def show_properties_menu_item_callback(self, menu_item):
         '''
-        Callback called by the album loader when one of the albums managed
-        by him gets modified in some way - this reselects what was
-        selected in the view before modification.
+        Callback called when the show album properties option is selected from
+        the cover view popup. It shows a SongInfo dialog showing the selected
+        albums' entries info, which can be modified.
         '''
-        print "CoverArtBrowser DEBUG - album_post_view_callback"
-        
-        #if self.selected_albums is None:
-        #    return
-            
-        #tm = self.covers_view.get_model()
-        #print tree_iter
-        #path = tm.get_path(tree_iter)
-        #print path
-        self.covers_view.select_path(path)
-        #for album in self.selected_albums:
-        #    for item in qm:
-        #        if item[2].album_name == album.album_name and \
-        #           item[2].album_artist == album.album_artist:
-        #            print "found"
-                    #
-                    # now what? how do we go from the tree-model to selecting the
-                    # equivalent in the cover-view
-                    #self.covers_view.select_path(i)
+        print "CoverArtBrowser DEBUG - show_properties_menu_item_callback"
 
-        print "CoverArtBrowser DEBUG - end album_post_view_callback"
+        self.entry_view.select_all()
 
-    def visible_covers_callback(self, model, iter, data):
-        '''
-        Callback called by the model filter to decide wheter to filter or not
-        an album.
-        '''
-		try:
-			if self.genre_combobox.get_active() != 0:
-				return model[iter][2].contains(self.genre_combobox.get_active_text(), self.filter_type)
-		except:
-			return False
-			
-        if self.search_text == "":
-            return True
+        info_dialog = RB.SongInfo(source=self, entry_view=self.entry_view)
 
-        return model[iter][2].contains(self.search_text, self.filter_type)
+        info_dialog.show_all()
+
+        print "CoverArtBrowser DEBUG - end show_properties_menu_item_callback"
 
     def search_show_popup_callback(self, entry):
         '''
@@ -839,9 +589,8 @@ class CoverArtBrowserSource(RB.Source):
 
         self.filter_menu.popup(None, None, None, None, 0,
             Gtk.get_current_event_time())
-            
-        print "CoverArtBrowser DEBUG - end search_show_popup_callback"
 
+        print "CoverArtBrowser DEBUG - end search_show_popup_callback"
 
     def searchchanged_callback(self, entry, text):
         '''
@@ -849,12 +598,56 @@ class CoverArtBrowserSource(RB.Source):
         be performed.
         '''
         print "CoverArtBrowser DEBUG - searchchanged_callback"
-
         self.search_text = text
-        self.genre_combobox.set_active(0)
-        self.covers_model.refilter()
+        self.album_manager.model.replace_filter(self.filter_type, text)
 
         print "CoverArtBrowser DEBUG - end searchchanged_callback"
+
+    def filter_menu_callback(self, radiomenu):
+        '''
+        Callback called when an item from the filters popup menu is clicked.
+        It changes the current filter type for the search to the one selected
+        on the popup.
+        '''
+        print "CoverArtBrowser DEBUG - filter_menu_callback"
+
+        # remove old filter
+        self.album_manager.model.remove_filter(self.filter_type, False)
+
+        # radiomenu is of type GtkRadioMenuItem
+
+        if radiomenu == self.filter_menu_all_item:
+            self.filter_type = 'all'
+        elif radiomenu == self.filter_menu_album_item:
+            self.filter_type = 'album_name'
+        elif radiomenu == self.filter_menu_artist_item:
+            self.filter_type = 'artist'
+        elif radiomenu == self.filter_menu_album_artist_item:
+            self.filter_type = 'album_artist'
+        elif radiomenu == self.filter_menu_track_title_item:
+            self.filter_type = 'track'
+        else:
+            assert "unknown radiomenu"
+
+        if self.search_text == '':
+            self.search_entry.set_placeholder(radiomenu.get_label())
+
+        self.searchchanged_callback(_, self.search_text)
+
+        print "CoverArtBrowser DEBUG - end filter_menu_callback"
+
+    def filter_by_model(self, model=None):
+        '''
+        resets what is displayed in the coverview with contents from the
+        new query_model
+        '''
+        print "CoverArtBrowser DEBUG - reset_coverview"
+        if not model:
+            self.album_manager.model.remove_filter('model')
+        else:
+            self.album_manager.model.replace_filter('model', model)
+
+        print "CoverArtBrowser DEBUG - end reset_coverview"
 
     def update_iconview_callback(self, *args):
         '''
@@ -862,13 +655,11 @@ class CoverArtBrowserSource(RB.Source):
         It forces the cover_view to redraw it's contents to fill the available
         space.
         '''
-        print "CoverArtBrowser DEBUG - update_iconview_callback"
-
-        self.covers_view.set_columns(0)
-        self.covers_view.set_columns(-1)
-        
-        print "CoverArtBrowser DEBUG - end update_iconview_callback"
-
+        if not self.moving_handle:
+            # don't need to reacommodate if the bottom pane is being resized
+            print "CoverArtBrowser DEBUG - update_iconview_callback"
+            self.covers_view.set_columns(0)
+            self.covers_view.set_columns(-1)
 
     def mouseclick_callback(self, iconview, event):
         '''
@@ -910,8 +701,8 @@ class CoverArtBrowserSource(RB.Source):
         iconview.grab_focus()
         iconview.select_path(path)
 
-        self.play_album_menu_item_callback(_)
-        
+        self.play_selected_album()
+
         print "CoverArtBrowser DEBUG - end item_activated_callback"
 
         return True
@@ -920,29 +711,13 @@ class CoverArtBrowserSource(RB.Source):
         '''
         Retrieves the currently selected albums on the cover_view.
         '''
-        print "CoverArtBrowser DEBUG - get_selected_albums"
-
         selected_albums = []
 
-        if hasattr(self, 'covers_model'):
-            model = self.covers_model
+        for selected in self.covers_view.get_selected_items():
+            selected_albums.append(self.album_manager.model.get_from_path(
+                selected))
 
-            for selected in self.covers_view.get_selected_items():
-                selected_albums.append(model[selected][2])
-
-		print "CoverArtBrowser DEBUG - end get_selected_albums"
         return selected_albums
-
-    def play_album_menu_item_callback(self, _):
-        '''
-        Callback called when the play album item from the cover view popup is
-        selected. It cleans the play queue and queues the selected album.
-        '''
-        print "CoverArtBrowser DEBUG - play_album_menu_item_callback"
-
-        self.play_selected_album()
-
-        print "CoverArtBrowser DEBUG - end play_album_menu_item_callback"
 
     def play_selected_album(self, favourites=False):
         '''
@@ -957,7 +732,7 @@ class CoverArtBrowserSource(RB.Source):
         for row in play_queue.props.query_model:
             play_queue.remove_entry(row[0])
 
-        self.queue_selected_album(self.shell.props.queue_source, favourites)
+        self.queue_selected_album(play_queue, favourites)
 
         # Start the music
         player = self.shell.props.shell_player
@@ -966,30 +741,36 @@ class CoverArtBrowserSource(RB.Source):
         player.playpause(True)
         print "CoverArtBrowser DEBUG - end play_selected_album"
 
-
-    def queue_favourites_album_menu_item_callback(self, _):
+    def queue_selected_album(self, source, favourites=False):
         '''
-        Callback called when the queue-favourites album item from the cover
-        view popup is selected. It queues the selected album at the end of the
-        play queue.
-        '''
-        print "CoverArtBrowser DEBUG - queue_favourites_album_menu_item_callback()"
-
-        self.queue_selected_album(self.shell.props.queue_source, True)
-
-        print "CoverArtBrowser DEBUG - end queue_favourites_album_menu_item_callback()"
-
-    def play_favourites_album_menu_item_callback(self, _):
-        '''
-        Callback called when the play favourites album item from the cover view
-        popup is selected. It queues the selected album at the end of the play
+        Utilitary method that queues all entries from an album into the play
         queue.
         '''
-        print "CoverArtBrowser DEBUG - play_favourites_album_menu_item_callback()"
+        print "CoverArtBrowser DEBUG - queue_selected_album"
 
-        self.play_selected_album(True)
+        selected_albums = self.get_selected_albums()
+        threshold = self.rating_threshold if favourites else 0
 
-        print "CoverArtBrowser DEBUG - end play_favourites_album_menu_item_callback()"
+        for album in selected_albums:
+            # Retrieve and sort the entries of the album
+            tracks = album.get_tracks(threshold)
+
+            # Add the songs to the play queue
+            for track in tracks:
+                source.add_entry(track.entry, -1)
+
+        print "CoverArtBrowser DEBUG - end queue_select_album"
+
+    def play_album_menu_item_callback(self, _):
+        '''
+        Callback called when the play album item from the cover view popup is
+        selected. It cleans the play queue and queues the selected album.
+        '''
+        print "CoverArtBrowser DEBUG - play_album_menu_item_callback"
+
+        self.play_selected_album()
+
+        print "CoverArtBrowser DEBUG - end play_album_menu_item_callback"
 
     def queue_album_menu_item_callback(self, _):
         '''
@@ -1002,51 +783,54 @@ class CoverArtBrowserSource(RB.Source):
 
         print "CoverArtBrowser DEBUG - end queue_album_menu_item_callback()"
 
-    def queue_selected_album(self, source, favourites=False):
+    def queue_favourites_album_menu_item_callback(self, _):
         '''
-        Utilitary method that queues all entries from an album into the play
+        Callback called when the queue-favourites album item from the cover
+        view popup is selected. It queues the selected album at the end of the
+        play queue.
+        '''
+        print '''CoverArtBrowser DEBUG -
+            queue_favourites_album_menu_item_callback()'''
+
+        self.queue_selected_album(self.shell.props.queue_source, True)
+
+        print '''CoverArtBrowser DEBUG -
+            end queue_favourites_album_menu_item_callback()'''
+
+    def play_favourites_album_menu_item_callback(self, _):
+        '''
+        Callback called when the play favourites album item from the cover view
+        popup is selected. It queues the selected album at the end of the play
         queue.
         '''
-        print "CoverArtBrowser DEBUG - queue_selected_album"
+        print '''CoverArtBrowser DEBUG -
+            play_favourites_album_menu_item_callback()'''
 
-        selected_albums = self.get_selected_albums()
+        self.play_selected_album(True)
 
-        for album in selected_albums:
-            # Retrieve and sort the entries of the album
-            if favourites:
-                songs = album.favourite_entries(self.rating_threshold)
-            else:
-                songs = album.entries
+        print '''CoverArtBrowser DEBUG -
+            end play_favourites_album_menu_item_callback()'''
 
-            songs = sorted(songs, key=lambda song:
-                song.get_ulong(RB.RhythmDBPropType.TRACK_NUMBER))
-
-            # Add the songs to the play queue
-            for song in songs:
-                source.add_entry(song, -1)
-                
-        print "CoverArtBrowser DEBUG - end queue_select_album"
-
-    def playlist_menu_item_callback( self, menu_item ):
+    def playlist_menu_item_callback(self, menu_item):
         print "CoverArtBrowser DEBUG - playlist_menu_item_callback"
 
-        self.playlist_fillmenu( self.playlist_sub_menu_item,
-                                self.actiongroup,
-                                self.add_to_static_playlist_menu_item_callback)
+        self.playlist_fillmenu(self.playlist_sub_menu_item,
+                               self.actiongroup,
+                               self.add_to_static_playlist_menu_item_callback)
 
-    def favourite_playlist_menu_item_callback( self, menu_item ):
+    def favourite_playlist_menu_item_callback(self, menu_item):
         print "CoverArtBrowser DEBUG - favourite_playlist_menu_item_callback"
 
-        self.playlist_fillmenu( self.favourite_playlist_sub_menu_item,
-                                self.favourite_actiongroup,
-                                self.add_to_static_playlist_menu_item_callback,
-                                True)
-                                
-    def playlist_fillmenu( self, menubar, actiongroup, func, favourite=False ):
+        self.playlist_fillmenu(self.favourite_playlist_sub_menu_item,
+                               self.favourite_actiongroup,
+                               self.add_to_static_playlist_menu_item_callback,
+                               True)
+
+    def playlist_fillmenu(self, menubar, actiongroup, func, favourite=False):
         print "CoverArtBrowser DEBUG - playlist_fillmenu"
 
         uim = self.shell.props.ui_manager
-        
+
         playlist_manager = self.shell.props.playlist_manager
         playlists_entries = playlist_manager.get_playlists()
 
@@ -1055,46 +839,51 @@ class CoverArtBrowserSource(RB.Source):
             actiongroup.remove_action(action)
 
         count = 0
+
         for menu_item in menubar:
-            if count > 1: # ignore the first two menu items
+            if count > 1:  # ignore the first two menu items
                 menubar.remove(menu_item)
             count += 1
 
             menubar.show_all()
             uim.ensure_update()
-            
+
         if playlists_entries:
             for playlist in playlists_entries:
                 if playlist.props.is_local and \
                     isinstance(playlist, RB.StaticPlaylistSource):
 
                     new_menu_item = Gtk.MenuItem(label=playlist.props.name)
-                    
-                    action = Gtk.Action(label=playlist.props.name, name=playlist.props.name,
+
+                    action = Gtk.Action(label=playlist.props.name,
+                        name=playlist.props.name,
                        tooltip='', stock_id=Gtk.STOCK_CLEAR)
                     action.connect('activate', func, playlist, favourite)
                     new_menu_item.set_related_action(action)
                     menubar.append(new_menu_item)
                     actiongroup.add_action(action)
-                    
+
             menubar.show_all()
             uim.ensure_update()
-        
-    def add_to_static_playlist_menu_item_callback(self, action, playlist, favourite):
-        print "CoverArtBrowser DEBUG - add_to_static_playlist_menu_item_callback"
+
+    def add_to_static_playlist_menu_item_callback(self, action, playlist,
+        favourite):
+        print '''CoverArtBrowser DEBUG -
+            add_to_static_playlist_menu_item_callback'''
         self.queue_selected_album(playlist, favourite)
-        
-    def add_playlist_menu_item_callback( self, menu_item ):
-        print "CoverArtBrowser DEBUG - add_playlist_menu_item_callback"
+
+    def add_playlist_menu_item_callback(self, menu_item):
+        print '''CoverArtBrowser DEBUG - add_playlist_menu_item_callback'''
         playlist_manager = self.shell.props.playlist_manager
-        playlist = playlist_manager.new_playlist( '', False )
+        playlist = playlist_manager.new_playlist('', False)
 
         self.queue_selected_album(playlist, False)
 
-    def favourite_add_playlist_menu_item_callback( self, menu_item ):
-        print "CoverArtBrowser DEBUG - favourite_add_playlist_menu_item_callback"
+    def favourite_add_playlist_menu_item_callback(self, menu_item):
+        print '''CoverArtBrowser DEBUG -
+         favourite_add_playlist_menu_item_callback'''
         playlist_manager = self.shell.props.playlist_manager
-        playlist = playlist_manager.new_playlist( '', False )
+        playlist = playlist_manager.new_playlist('', False)
 
         self.queue_selected_album(playlist, True)
 
@@ -1112,28 +901,11 @@ class CoverArtBrowserSource(RB.Source):
         self.cover_search_menu_item.set_sensitive(False)
 
         self.coversearchtimer.Start()
-        
-        self.loader.search_covers(selected_albums,
+
+        self.album_manager.cover_man.search_covers(selected_albums,
             self.update_request_status_bar)
 
         print "CoverArtBrowser DEBUG - end cover_search_menu_item_callback()"
-
-    def show_properties_menu_item_callback(self, menu_item):
-        '''
-        Callback called when the show album properties option is selected from
-        the cover view popup. It shows a SongInfo dialog showing the selected
-        albums' entries info, which can be modified.
-        '''
-        print "CoverArtBrowser DEBUG - show_properties_menu_item_callback"
-
-        self.entry_view.select_all()
-
-        info_dialog = RB.SongInfo(source=self, entry_view=self.entry_view)
-
-        info_dialog.show_all()
-        
-        print "CoverArtBrowser DEBUG - end show_properties_menu_item_callback"
-
 
     def search_all_covers_callback(self, _):
         '''
@@ -1146,10 +918,10 @@ class CoverArtBrowserSource(RB.Source):
         self.source_menu_search_all_item.set_sensitive(False)
         self.cover_search_menu_item.set_sensitive(False)
 
-        #self.coversearchtimer=ttimer (30, -1, self.update_request_status_bar, None)
         self.coversearchtimer.Start()
-        
-        self.loader.search_covers(callback=self.update_request_status_bar)
+
+        self.album_manager.cover_man.search_covers(
+            callback=self.update_request_status_bar)
 
         print "CoverArtBrowser DEBUG - end search_all_covers_callback()"
 
@@ -1180,7 +952,6 @@ class CoverArtBrowserSource(RB.Source):
             Gdk.threads_leave()
         print "CoverArtBrowser DEBUG - end update_request_status_bar"
 
-
     def cancel_request_callback(self, _):
         '''
         Callback connected to the cancel button on the request statusbar.
@@ -1190,10 +961,9 @@ class CoverArtBrowserSource(RB.Source):
         print "CoverArtBrowser DEBUG - cancel_request_callback"
 
         self.request_cancel_button.set_sensitive(False)
-        self.loader.cancel_cover_request()
-        
-        print "CoverArtBrowser DEBUG - end cancel_request_callback"
+        self.album_manager.cover_man.cancel_cover_request()
 
+        print "CoverArtBrowser DEBUG - end cancel_request_callback"
 
     def selectionchanged_callback(self, widget):
         '''
@@ -1221,14 +991,18 @@ class CoverArtBrowserSource(RB.Source):
                 self.cover_search_pane.clear()
 
             return
+        elif len(selected) == 1:
+            self.stars.set_rating(selected[0].rating)
+        else:
+            self.stars.set_rating(0)
 
         track_count = 0
         duration = 0
 
         for album in selected:
             # Calculate duration and number of tracks from that album
-            track_count += album.get_track_count()
-            duration += album.calculate_duration_in_mins()
+            track_count += album.track_count
+            duration += album.duration / 60
 
             # add the album to the entry_view
             self.entry_view.add_album(album)
@@ -1258,9 +1032,8 @@ class CoverArtBrowserSource(RB.Source):
         # update the cover search pane with the first selected album
         if cover_search_pane_visible:
             self.cover_search_pane.do_search(selected[0])
-            
-        print "CoverArtBrowser DEBUG - end selection_changed_callback"
 
+        print "CoverArtBrowser DEBUG - end selection_changed_callback"
 
     def update_statusbar(self, status=''):
         '''
@@ -1276,47 +1049,14 @@ class CoverArtBrowserSource(RB.Source):
             # use the global statusbar from Rhythmbox
             self.status = status
             self.notify_status_changed()
-            
+
         print "CoverArtBrowser DEBUG - end update_statusbar"
-
-
-    def filter_menu_callback(self, radiomenu):
-        '''
-        Callback called when an item from the filters popup menu is clicked.
-        It changes the current filter type for the search to the one selected
-        on the popup.
-        '''
-        print "CoverArtBrowser DEBUG - filter_menu_callback"
-
-        # radiomenu is of type GtkRadioMenuItem
-
-        if radiomenu == self.filter_menu_all_item:
-            self.filter_type = Album.FILTER_ALL
-        elif radiomenu == self.filter_menu_album_item:
-            self.filter_type = Album.FILTER_ALBUM
-        elif radiomenu == self.filter_menu_artist_item:
-            self.filter_type = Album.FILTER_ARTIST
-        elif radiomenu == self.filter_menu_album_artist_item:
-            self.filter_type = Album.FILTER_ALBUM_ARTIST
-        elif radiomenu == self.filter_menu_track_title_item:
-            self.filter_type = Album.FILTER_TRACK_TITLE
-        else:
-            assert "unknown radiomenu"
-
-        if self.search_text == '':
-            self.search_entry.set_placeholder(radiomenu.get_label())
-
-
-        self.searchchanged_callback(_, self.search_text)
-        
-        print "CoverArtBrowser DEBUG - end filter_menu_callback"
-
 
     def bottom_expander_expanded_callback(self, action, param):
         '''
         Callback connected to expanded signal of the paned GtkExpander
         '''
-		print "CoverArtBrowser DEBUG - bottom_expander_expanded_callback"
+        print "CoverArtBrowser DEBUG - bottom_expander_expanded_callback"
 
         expand = action.get_expanded()
 
@@ -1340,83 +1080,36 @@ class CoverArtBrowserSource(RB.Source):
                     self.gs.PluginKey.PANED_POSITION, new_y)
 
             self.paned.set_position(new_y)
-            
+
         print "CoverArtBrowser DEBUG - end bottom_expander_expanded_callback"
 
-
-    def paned_button_press_callback(self, *args):
-        '''
-        This callback allows or denies the paned handle to move depending on
-        the expanded state of the entry_view
-        '''
-        print "CoverArtBrowser DEBUG - paned_button_press_callback"
-
-        return not self.bottom_expander.get_expanded()
-
-    def sorting_criteria_changed(self, radio):
+    def sorting_criteria_changed(self, sort_by):
         '''
         Callback called when a radio corresponding to a sorting order is
         toggled. It changes the sorting function and reorders the cover model.
         '''
         print "CoverArtBrowser DEBUG - sorting_criteria_changed"
 
-        if not radio.get_active():
-            return
+        #if not radio.get_active():
+        #    return
 
-        if radio is self.sort_by_album_radio:
-            self.compare_albums = Album.compare_albums_by_name
-        if radio is self.sort_by_artist_radio:
-            self.compare_albums = Album.compare_albums_by_album_artist
-        if radio is self.sort_by_year_radio:
-            self.compare_albums = Album.compare_albums_by_year
-        if radio is self.sort_by_rating_radio:
-            self.compare_albums = Album.compare_albums_by_rating
+        print "sorting by %s" % sort_by
+        self.sort_prop = sort_by
+        self.album_manager.model.sort(self.sort_prop, self.sort_order)
 
-        if self.display_text_enabled and not self.display_text_loading_enabled:
-            self.activate_markup(False)
-
-        self.loader.reload_model()
-        
         print "CoverArtBrowser DEBUG - end sorting_criteria_changed"
 
-
-    def sorting_direction_changed(self, _, first_activate=False):
+    def sorting_direction_changed(self, sort_by):
         '''
         Callback called when the sort toggle button is
         toggled. It changes the sorting direction and reorders the cover model
         '''
         print "CoverArtBrowser DEBUG - sorting_direction_changed"
 
-        if not first_activate:
-            self.store_sort_order = not self.store_sort_order
-            
-        if not self.store_sort_order:
-            sort_direction = Gtk.SortType.ASCENDING
-            self.sort_order.set_image(self.arrow_down)
-            #self.sort_order.set_tooltip_text(_('Sort in descending order'))
-        else:
-            sort_direction = Gtk.SortType.DESCENDING
-            self.sort_order.set_image(self.arrow_up)
-            #self.sort_order.set_tooltip_text(_('Sort in ascending order'))
+        self.album_manager.model.sort(getattr(self, 'sort_prop', 'name'),
+            sort_by)
 
-            #for some reason trying to set the tooltip throws an error - need to look at this later
-                        
-        if self.display_text_enabled and not self.display_text_loading_enabled:
-            self.activate_markup(False)
-
-        self.loader.reload_model()
-        self.covers_model_store.set_sort_column_id(2, sort_direction)
-        
         print "CoverArtBrowser DEBUG - end sorting_direction_changed"
-
-
-    def sort_albums(self, model, iter1, iter2, _):
-        '''
-        Utility function used as the sorting function for our model.
-        It actually just retrieves the albums and delegates the comparison
-        to the current comparation function.
-        '''
-        return self.compare_albums(model[iter1][2], model[iter2][2])
 
     def on_drag_drop(self, widget, context, x, y, time):
         '''
@@ -1437,22 +1130,9 @@ class CoverArtBrowserSource(RB.Source):
             target = self.covers_view.drag_dest_find_target(context, None)
             widget.drag_get_data(context, target, time)
 
-		print "CoverArtBrowser DEBUG - end on_drag_drop"
+        print "CoverArtBrowser DEBUG - end on_drag_drop"
 
         return result
-
-    def on_selection_changed(self, widget):
-        '''
-        Callback called when the iconview selection changes
-        '''
-        print "CoverArtBrowser DEBUG - on_selection_changed"
-
-        if len(self.get_selected_albums()) == 1:
-            self.stars.set_rating(self.get_selected_albums()[0].rating)
-        else:
-            self.stars.set_rating(0)
-        
-        print "CoverArtBrowser DEBUG - end on_selection_changed"
 
     def on_drag_data_received(self, widget, drag_context, x, y, data, info,
         time):
@@ -1472,16 +1152,15 @@ class CoverArtBrowserSource(RB.Source):
         pixbuf = data.get_pixbuf()
 
         if pixbuf:
-            self.loader.update_cover(album, pixbuf)
+            self.album_manager.cover_man.update_cover(album, pixbuf)
         else:
             uri = data.get_text()
-            self.loader.update_cover(album, uri=uri)
+            self.album_manager.cover_man.update_cover(album, uri=uri)
 
         # call the context drag_finished to inform the source about it
         drag_context.finish(True, False, time)
-        
-        print "CoverArtBrowser DEBUG - end on_drag_data_received"
 
+        print "CoverArtBrowser DEBUG - end on_drag_data_received"
 
     def notebook_switch_page_callback(self, notebook, page, page_num):
         '''
@@ -1495,7 +1174,7 @@ class CoverArtBrowserSource(RB.Source):
 
             if selected_albums:
                 self.cover_search_pane.do_search(selected_albums[0])
-                
+
         print "CoverArtBrowser DEBUG - end notebook_switch_page_callback"
 
     def rating_changed_callback(self, widget):
@@ -1506,86 +1185,26 @@ class CoverArtBrowserSource(RB.Source):
 
         rating = widget.get_rating()
 
-        if len(self.entry_view.get_selected_entries()) > 0:
-            self.entry_view.love_track(rating)
-            return
+        for album in self.get_selected_albums():
+            album.rating = rating
 
-        if len(self.get_selected_albums()) > 0:
-            for album in self.get_selected_albums():
-                album.set_rating(rating)
-        
         print "CoverArtBrowser DEBUG - end rating_changed_callback"
 
+    def genre_filter_callback(self, genre):
+        if not genre:
+            self.album_manager.model.remove_filter('genre')
+        else:
+            self.album_manager.model.replace_filter('genre', genre)
 
-    def do_delete_thyself(self):
+    @classmethod
+    def get_instance(cls, **kwargs):
         '''
-        Method called by Rhythmbox's when the source is deleted. It makes sure
-        to free all the source's related resources to avoid memory leaking and
-        loose signals.
+        Returns the unique instance of the manager.
         '''
-        print "CoverArtBrowser DEBUG - do_delete_thyself"
-        
-        if not self.hasActivated:
-            del self.hasActivated
+        if not cls.instance:
+            cls.instance = CoverArtBrowserSource(**kwargs)
 
-            return
-
-        # destroy the ui
-        self.page.destroy()
-
-        # disconnect signals
-        self.loader.disconnect(self.load_fin_id)
-        self.loader.disconnect(self.reload_fin_id)
-        self.loader.disconnect(self.album_mod_id)
-        self.loader.disconnect(self.album_post_view_mod_id)
-        self.loader.disconnect(self.notify_prog_id)
-        self.loader.disconnect(self.notify_ellipsize)
-        self.loader.disconnect(self.notify_ellipsize_length)
-        self.loader.disconnect(self.notify_cover_size)
-        # delete references
-        del self.shell
-        del self.plugin
-        del self.loader
-        del self.covers_model_store
-        del self.covers_model
-        del self.covers_view
-        del self.cover_search_pane
-        del self.filter_menu
-        del self.filter_menu_album_artist_item
-        del self.filter_menu_album_item
-        del self.filter_menu_all_item
-        del self.filter_menu_artist_item
-        del self.filter_menu_track_title_item
-        del self.filter_type
-        del self.notebook
-        del self.page
-        del self.paned
-        del self.popup_menu
-        del self.request_cancel_button
-        del self.request_spinner
-        del self.request_status_box
-        del self.request_statusbar
-        del self.search_entry
-        del self.search_text
-        del self.source_menu
-        del self.source_menu_search_all_item
-        del self.sort_by_album_radio
-        del self.sort_by_artist_radio
-        del self.sort_by_year_radio
-        del self.sort_by_rating_radio
-        del self.sort_order
-        del self.status
-        del self.status_label
-        del self.reload_fin_id
-        del self.load_fin_id
-        del self.album_mod_id
-        del self.album_post_view_mod_id
-        del self.notify_prog_id
-        del self.hasActivated
-        del self.gs
-        del self.coversearchtimer
-        
-        print "CoverArtBrowser DEBUG - end do_delete_thyself"
+        return cls.instance
 
 
 GObject.type_register(CoverArtBrowserSource)
