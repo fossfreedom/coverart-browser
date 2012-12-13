@@ -1095,6 +1095,9 @@ class CoverManager(GObject.Object):
         # update the shadow
         self._shadow.resize(self.cover_size)
 
+        # update coverview item width
+        self._album_manager.cover_view.set_item_width(self.cover_size)
+
         # update the album's covers
         albums = self._album_manager.model.get_all()
 
