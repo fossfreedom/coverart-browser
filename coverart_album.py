@@ -29,6 +29,7 @@ from gi.repository import GLib
 from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
+import cairo
 
 from coverart_browser_prefs import GSetting
 from coverart_utils import SortedCollection
@@ -55,38 +56,30 @@ class Cover(GObject.Object):
 
     :param size: `int` size in pixels of the side of the cover (asuming a
         square-shapped cover).
-    :param file_path: `str` containing a path of an image from where to create
-        the cover.
-    :param pixbuf: `GdkPixbuf.Pixbuf` containing the cover.
+    :param image: `str` containing a path of an image from where to create
+        the cover or `GdkPixbuf.Pixbuf` containing the cover.
     '''
     # signals
     __gsignals__ = {
         'resized': (GObject.SIGNAL_RUN_LAST, None, ())
         }
 
-    def __init__(self, size, file_path=None, pixbuf=None):
+    def __init__(self, size, image=None):
         super(Cover, self).__init__()
 
-        if pixbuf:
-            self.original = pixbuf
-            self.pixbuf = pixbuf.scale_simple(size, size,
-                 GdkPixbuf.InterpType.BILINEAR)
-        else:
-            self.original = file_path
-            self.pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(file_path,
-                size, size)
+        self.original = image
 
-        self.size = size
+        self._create_pixbuf(size)
 
     def resize(self, size):
         '''
         Resizes the cover's pixbuf.
         '''
-        if self.size == size:
-            return
+        if self.size != size:
+            self._create_pixbuf(size)
+            self.emit('resized')
 
-        del self.pixbuf
-
+    def _create_pixbuf(self, size):
         try:
             self.pixbuf = self.original.scale_simple(size, size,
                  GdkPixbuf.InterpType.BILINEAR)
@@ -96,7 +89,51 @@ class Cover(GObject.Object):
 
         self.size = size
 
-        self.emit('resized')
+
+class Shadow(Cover):
+    SIZE = 120.
+    WIDTH = 12
+
+    def __init__(self, size, image):
+        super(Shadow, self).__init__(size, image)
+
+        self.width = int(size / self.SIZE * self.WIDTH)
+        self.cover_size = self.size - self.width * 2
+
+
+class ShadowedCover(Cover):
+
+    def __init__(self, shadow, image):
+        super(ShadowedCover, self).__init__(shadow.cover_size, image)
+
+        self._shadow = shadow
+
+        self._add_shadow()
+
+    def resize(self, size):
+        if self.size != self._shadow.cover_size:
+            self._create_pixbuf(self._shadow.cover_size)
+
+            self._add_shadow()
+
+    def _add_shadow(self):
+        pix = self._shadow.pixbuf
+
+        surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, pix.get_width(),
+            pix.get_height())
+        context = cairo.Context(surface)
+
+        # draw shadow
+        Gdk.cairo_set_source_pixbuf(context, pix, 0, 0)
+        context.paint()
+
+        # draw cover
+        Gdk.cairo_set_source_pixbuf(context, self.pixbuf, self._shadow.width,
+            self._shadow.width)
+        context.paint()
+
+        self.pixbuf = Gdk.pixbuf_get_from_surface(surface, 0, 0,
+            self._shadow.size, self._shadow.size)
 
 
 class Track(GObject.Object):
@@ -1022,7 +1059,9 @@ class CoverManager(GObject.Object):
         self._connect_properties()
 
         # create the unknown cover
-        self.unknown_cover = Cover(self.cover_size,
+        self._shadow = Shadow(self.cover_size,
+            rb.find_plugin_file(plugin, 'img/album-shadow.png'))
+        self.unknown_cover = ShadowedCover(self._shadow,
             rb.find_plugin_file(plugin, 'img/rhythmbox-missing-artwork.svg'))
 
     def _connect_signals(self):
@@ -1043,6 +1082,9 @@ class CoverManager(GObject.Object):
         '''
         Updates the showing albums cover size.
         '''
+        # update the shadow
+        self._shadow.resize(self.cover_size)
+
         # update the album's covers
         albums = self._album_manager.model.get_all()
 
@@ -1089,7 +1131,7 @@ class CoverManager(GObject.Object):
         if pixbuf and self._album_manager.model.contains(album_name):
             album = self._album_manager.model.get(album_name)
 
-            album.cover = Cover(self.cover_size, pixbuf=pixbuf)
+            album.cover = ShadowedCover(self._shadow, pixbuf)
 
         print "CoverArtBrowser DEBUG - end albumart_added_callback"
 
@@ -1109,7 +1151,7 @@ class CoverManager(GObject.Object):
         # try to create a cover
         if art_location and os.path.exists(art_location):
             try:
-                album.cover = Cover(self.cover_size, art_location)
+                album.cover = ShadowedCover(self._shadow, art_location)
             except:
                 pass  # ignore
 
