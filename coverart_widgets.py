@@ -440,9 +440,9 @@ class SortOrderButton(ImageToggleButton):
 
         if not self.is_initialised:
             image1 = Gtk.Image.new_from_file(rb.find_plugin_file(plugin,
-            'ui/arrow_up.png'))
+            'img/arrow_up.png'))
             image2 = Gtk.Image.new_from_file(rb.find_plugin_file(plugin,
-            'ui/arrow_down.png'))
+            'img/arrow_down.png'))
 
             super(SortOrderButton, self).initialise(callback,
                image1, image2)
