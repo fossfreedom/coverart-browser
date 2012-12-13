@@ -41,8 +41,11 @@ import tempfile
 import rb
 
 
-# default chunk of albums to process
-DEFAULT_LOAD_CHUNK = 15
+# default chunk of entries to procces when loading albums
+ALBUM_LOAD_CHUNK = 50
+
+# default chunk of albums to procces when loading covers
+COVER_LOAD_CHUNK = 5
 
 
 class Cover(GObject.Object):
@@ -695,7 +698,7 @@ class AlbumsModel(GObject.Object):
         self._tree_store.clear()
 
         def idle_add_albums(albums_iter):
-            for i in range(DEFAULT_LOAD_CHUNK):
+            for i in range(ALBUM_LOAD_CHUNK):
                 try:
                     album = albums_iter.next()
                     values = self._generate_values(album)
@@ -777,7 +780,7 @@ class AlbumsModel(GObject.Object):
         Forces the recreation and update of the markup text for each album.
         '''
         def idle_add_albums(albums_iter):
-            for i in range(DEFAULT_LOAD_CHUNK):
+            for i in range(ALBUM_LOAD_CHUNK):
                 try:
                     album = albums_iter.next()
                     tree_iter = self._iters[album.name]['iter']
@@ -907,7 +910,7 @@ class AlbumLoader(GObject.Object):
             # unpack args
             albums, model, total, count, row_iter = args
 
-            for i in range(DEFAULT_LOAD_CHUNK):
+            for i in range(ALBUM_LOAD_CHUNK):
                 try:
                     # get next entry
                     row = row_iter.next()
@@ -938,7 +941,7 @@ class AlbumLoader(GObject.Object):
                     print 'Error processing entries: ' + str(e)
 
             # update the progress
-            count += DEFAULT_LOAD_CHUNK
+            count += ALBUM_LOAD_CHUNK
             args[3] = count
 
             self._album_manager.progress = count / total
@@ -957,14 +960,12 @@ class AlbumLoader(GObject.Object):
             # unpack args
             albums_iter, loaded, total = args
 
-            for i in range(DEFAULT_LOAD_CHUNK):
+            for i in range(ALBUM_LOAD_CHUNK):
                 try:
                     # get next album and add it to the model
                     album = albums_iter.next()
 
                     self._album_manager.model.add(album)
-
-                    loaded += 1
 
                 except StopIteration:
                     # we finished loading
@@ -976,6 +977,7 @@ class AlbumLoader(GObject.Object):
                     print 'Error while adding albums to the model: ' + str(e)
 
             # update loaded
+            loaded += ALBUM_LOAD_CHUNK
             args[1] = loaded
 
             # update the progress
@@ -1050,14 +1052,12 @@ class CoverManager(GObject.Object):
                 # unpack the args
                 albums_iter, loaded, total = args
 
-                for i in range(DEFAULT_LOAD_CHUNK):
+                for i in range(COVER_LOAD_CHUNK):
                     try:
                         # get the next album and resize it's cover
                         album = albums_iter.next()
 
                         album.cover.resize(self.cover_size)
-
-                        loaded += 1
 
                     except StopIteration:
                         # we finished loading
@@ -1068,6 +1068,7 @@ class CoverManager(GObject.Object):
                         print "Error while resizing covers: " + str(e)
 
                 # update loaded
+                loaded += COVER_LOAD_CHUNK
                 args[1] = loaded
 
                 # update the progress
@@ -1124,15 +1125,13 @@ class CoverManager(GObject.Object):
             # unpack the args
             albums_iter, loaded, total = args
 
-            for i in range(DEFAULT_LOAD_CHUNK):
+            for i in range(COVER_LOAD_CHUNK):
                 try:
                     # get the next album and try to load it's cover
                     album = albums_iter.next()
 
                     if album.cover == self.unknown_cover:
                         self.load_cover(album)
-
-                    loaded += 1
 
                 except StopIteration:
                     # we finished loading
@@ -1144,6 +1143,7 @@ class CoverManager(GObject.Object):
                     print 'Error while loading covers: ' + str(e)
 
             # update loaded
+            loaded += COVER_LOAD_CHUNK
             args[1] = loaded
 
             # update the progress
