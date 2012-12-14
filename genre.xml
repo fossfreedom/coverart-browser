@@ -1,0 +1,5 @@
+<root>
+    <genre name="jazz" file="x.png" partial="jazz"/>
+    <genre name="pop-music" file="y.png" partial="pop"/>
+    <genre name="rock" file="x.png" partial="rock"/>
+</root>

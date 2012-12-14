@@ -247,23 +247,19 @@ class DiscogsSearch (object):
 		print "discogs url = %s" % url
 		return url
 
-	def get_release_cb (self, data):
-        (key, store, url, cbargs, callback) = data
-		print "geet"
-		#try:
-        #    s = discogs.Search(url)
-        #    #url = s.results()[0].data['images'][0]['uri150']
-        #    self.store.store_uri(self.current_key, RB.ExtDBSourceType.SEARCH, url)
-        #except:
-        #    print "not found"
-		#	pass
+    def get_release_cb(self, key, store, url, cbargs, callback):
+		try:
+            s = discogs.Search(url)
+            url = s.results()[0].data['images'][0]['uri150']
+            self.store.store_uri(self.current_key, RB.ExtDBSourceType.SEARCH, url)
+        except:
+			pass
 
         self.callback(cbargs)
         return False
 	
 	def search(self, key, last_time, store, callback, args):
 		if last_time > (time.time() - REPEAT_SEARCH_PERIOD):
-			print "we already tried this one"
 			callback (args)
 			return
 
@@ -275,7 +271,6 @@ class DiscogsSearch (object):
 			album = None
 
 		if album == None or len(artists) == 0:
-			print "can't search: no useful details"
 			callback (args)
 			return
 
@@ -291,39 +286,6 @@ class DiscogsSearch (object):
 		self.callback = callback
 		self.callback_args = args
 
-        print artists
         url = self.search_url(album, artists[0])
+        threading.Thread( target=self.get_release_cb, args=(key, store, url, args, callback)).start()
         
-        #self.get_release_cb( (key, store, url, args, callback) )
-        self.asynchronous_call(self.get_release_cb, None, (key, store, url, args, callback), None)
-
-    #from LastfmExtensionUtils
-    def asynchronous_call( self, fun, callback=None, *cargs, **ckwargs ):
-        #wrapper function
-        print "h"
-        def worker( *args, **kwargs ):         
-            print "c"
-            try:      
-                #result = fun( *args, **kwargs )   
-                print "about to call"   
-                print fun
-                print args      
-                result = fun( args)
-                print "finish call"
-            except Exception as e:
-                result = e
-            
-            print "x"
-            if callback:    
-                callback( result, *cargs, **ckwargs )
-                
-            print "y"
-        
-        #async execution in a separate thread
-        def fun2( *args, **kwargs ):
-            print "b"
-            threading.Thread( target=worker, args=args, kwargs=kwargs ).start()
-        print "i"
-        return fun2(cargs, ckwargs)
-
-		
