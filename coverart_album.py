@@ -65,7 +65,7 @@ class Cover(GObject.Object):
         'resized': (GObject.SIGNAL_RUN_LAST, None, ())
         }
 
-    def __init__(self, size, image=None):
+    def __init__(self, size, image):
         super(Cover, self).__init__()
 
         self.original = image
@@ -1058,6 +1058,7 @@ class CoverManager(GObject.Object):
 
     # properties
     cover_size = GObject.property(type=int, default=0)
+    add_shadow = GObject.property(type=bool, default=False)
 
     def __init__(self, plugin, album_manager):
         super(CoverManager, self).__init__()
@@ -1071,11 +1072,12 @@ class CoverManager(GObject.Object):
         # create the unknown cover
         self._shadow = Shadow(self.cover_size,
             rb.find_plugin_file(plugin, 'img/album-shadow.png'))
-        self.unknown_cover = ShadowedCover(self._shadow,
+        self.unknown_cover = self._create_cover(
             rb.find_plugin_file(plugin, 'img/rhythmbox-missing-artwork.svg'))
 
     def _connect_signals(self):
-        self.connect('notify::cover-size', self._on_notify_cover_size)
+        self.connect('notify::cover-size', self._on_cover_size_changed)
+        self.connect('notify::add-shadow', self._on_add_shadow_changed)
 
         # connect the signal to update cover arts when added
         self.req_id = self._cover_db.connect('added',
@@ -1087,8 +1089,25 @@ class CoverManager(GObject.Object):
 
         setting.bind(gs.PluginKey.COVER_SIZE, self, 'cover_size',
             Gio.SettingsBindFlags.GET)
+        setting.bind(gs.PluginKey.ADD_SHADOW, self, 'add_shadow',
+            Gio.SettingsBindFlags.GET)
 
-    def _on_notify_cover_size(self, *args):
+    def _create_cover(self, image):
+        if self.add_shadow:
+            cover = ShadowedCover(self._shadow, image)
+        else:
+            cover = Cover(self.cover_size, image)
+
+        return cover
+
+    def _on_add_shadow_changed(self, *args):
+        # update the unknown_cover
+        self.unknown_cover = self._create_cover(self.unknown_cover.original)
+
+        # recreate all the covers
+        self.load_covers()
+
+    def _on_cover_size_changed(self, *args):
         '''
         Updates the showing albums cover size.
         '''
@@ -1096,44 +1115,43 @@ class CoverManager(GObject.Object):
         self._shadow.resize(self.cover_size)
 
         # update coverview item width
-        self._album_manager.cover_view.set_item_width(self.cover_size)
+        self.update_item_width()
 
         # update the album's covers
         albums = self._album_manager.model.get_all()
 
-        if albums:
-            # function to resize the covers
-            def idle_resize_callback(args):
-                # unpack the args
-                albums_iter, loaded, total = args
+        # function to resize the covers
+        def idle_resize_callback(args):
+            # unpack the args
+            albums_iter, loaded, total = args
 
-                for i in range(COVER_LOAD_CHUNK):
-                    try:
-                        # get the next album and resize it's cover
-                        album = albums_iter.next()
+            for i in range(COVER_LOAD_CHUNK):
+                try:
+                    # get the next album and resize it's cover
+                    album = albums_iter.next()
 
-                        album.cover.resize(self.cover_size)
+                    album.cover.resize(self.cover_size)
 
-                    except StopIteration:
-                        # we finished loading
-                        self._album_manager.progress = 1
-                        self.emit('load-finished')
-                        return False
-                    except Exception as e:
-                        print "Error while resizing covers: " + str(e)
+                except StopIteration:
+                    # we finished loading
+                    self._album_manager.progress = 1
+                    self.emit('load-finished')
+                    return False
+                except Exception as e:
+                    print "Error while resizing covers: " + str(e)
 
-                # update loaded
-                loaded += COVER_LOAD_CHUNK
-                args[1] = loaded
+            # update loaded
+            loaded += COVER_LOAD_CHUNK
+            args[1] = loaded
 
-                # update the progress
-                self._album_manager.progress = loaded / total
+            # update the progress
+            self._album_manager.progress = loaded / total
 
-                # the list still got albums, keep going
-                return True
+            # the list still got albums, keep going
+            return True
 
-            Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
-                idle_resize_callback, [iter(albums), 0, float(len(albums))])
+        Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
+            idle_resize_callback, [iter(albums), 0, float(len(albums))])
 
     def _albumart_added_callback(self, ext_db, key, path, pixbuf):
         print "CoverArtBrowser DEBUG - albumart_added_callback"
@@ -1144,9 +1162,12 @@ class CoverManager(GObject.Object):
         if pixbuf and self._album_manager.model.contains(album_name):
             album = self._album_manager.model.get(album_name)
 
-            album.cover = ShadowedCover(self._shadow, pixbuf)
+            album.cover = self._create_cover(pixbuf)
 
         print "CoverArtBrowser DEBUG - end albumart_added_callback"
+
+    def update_item_width(self):
+        self._album_manager.cover_view.set_item_width(self.cover_size)
 
     def load_cover(self, album):
         '''
@@ -1164,9 +1185,9 @@ class CoverManager(GObject.Object):
         # try to create a cover
         if art_location and os.path.exists(art_location):
             try:
-                album.cover = ShadowedCover(self._shadow, art_location)
+                album.cover = self._create_cover(art_location)
             except:
-                pass  # ignore
+                album.cover = self.unknown_cover
 
     def load_covers(self):
         '''
@@ -1185,8 +1206,7 @@ class CoverManager(GObject.Object):
                     # get the next album and try to load it's cover
                     album = albums_iter.next()
 
-                    if album.cover == self.unknown_cover:
-                        self.load_cover(album)
+                    self.load_cover(album)
 
                 except StopIteration:
                     # we finished loading
@@ -1421,10 +1441,9 @@ class TextManager(GObject.Object):
         activate = self.display_text_enabled
 
         column = 3 if activate else -1
-        item_width = self._album_manager.cover_man.cover_size
 
+        self._album_manager.cover_man.update_item_width()
         self._album_manager.cover_view.set_markup_column(column)
-        self._album_manager.cover_view.set_item_width(item_width)
 
         print "CoverArtBrowser DEBUG - end activate_markup"
 
