@@ -1183,11 +1183,10 @@ class CoverManager(GObject.Object):
         art_location = self._cover_db.lookup(key)
 
         # try to create a cover
-        if art_location and os.path.exists(art_location):
-            try:
-                album.cover = self._create_cover(art_location)
-            except:
-                album.cover = self.unknown_cover
+        try:
+            album.cover = self._create_cover(art_location)
+        except:
+            album.cover = self.unknown_cover
 
     def load_covers(self):
         '''
