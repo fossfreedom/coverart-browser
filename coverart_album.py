@@ -29,6 +29,7 @@ from gi.repository import GLib
 from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
+import cairo
 
 from coverart_browser_prefs import GSetting
 from coverart_utils import SortedCollection
@@ -39,6 +40,7 @@ import os
 import cgi
 import tempfile
 import rb
+import gc
 
 
 # default chunk of entries to procces when loading albums
@@ -55,38 +57,30 @@ class Cover(GObject.Object):
 
     :param size: `int` size in pixels of the side of the cover (asuming a
         square-shapped cover).
-    :param file_path: `str` containing a path of an image from where to create
-        the cover.
-    :param pixbuf: `GdkPixbuf.Pixbuf` containing the cover.
+    :param image: `str` containing a path of an image from where to create
+        the cover or `GdkPixbuf.Pixbuf` containing the cover.
     '''
     # signals
     __gsignals__ = {
         'resized': (GObject.SIGNAL_RUN_LAST, None, ())
         }
 
-    def __init__(self, size, file_path=None, pixbuf=None):
+    def __init__(self, size, image):
         super(Cover, self).__init__()
 
-        if pixbuf:
-            self.original = pixbuf
-            self.pixbuf = pixbuf.scale_simple(size, size,
-                 GdkPixbuf.InterpType.BILINEAR)
-        else:
-            self.original = file_path
-            self.pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(file_path,
-                size, size)
+        self.original = image
 
-        self.size = size
+        self._create_pixbuf(size)
 
     def resize(self, size):
         '''
         Resizes the cover's pixbuf.
         '''
-        if self.size == size:
-            return
+        if self.size != size:
+            self._create_pixbuf(size)
+            self.emit('resized')
 
-        del self.pixbuf
-
+    def _create_pixbuf(self, size):
         try:
             self.pixbuf = self.original.scale_simple(size, size,
                  GdkPixbuf.InterpType.BILINEAR)
@@ -96,7 +90,60 @@ class Cover(GObject.Object):
 
         self.size = size
 
-        self.emit('resized')
+
+class Shadow(Cover):
+    SIZE = 120.
+    WIDTH = 11
+
+    def __init__(self, size, image):
+        super(Shadow, self).__init__(size, image)
+
+        self._calculate_sizes(size)
+
+    def resize(self, size):
+        super(Shadow, self).resize(size)
+
+        self._calculate_sizes(size)
+
+    def _calculate_sizes(self, size):
+        self.width = int(size / self.SIZE * self.WIDTH)
+        self.cover_size = self.size - self.width * 2
+
+
+class ShadowedCover(Cover):
+
+    def __init__(self, shadow, image):
+        super(ShadowedCover, self).__init__(shadow.cover_size, image)
+
+        self._shadow = shadow
+
+        self._add_shadow()
+
+    def resize(self, size):
+        if self.size != self._shadow.cover_size:
+            self._create_pixbuf(self._shadow.cover_size)
+            self._add_shadow()
+
+            self.emit('resized')
+
+    def _add_shadow(self):
+        pix = self._shadow.pixbuf
+
+        surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, pix.get_width(),
+            pix.get_height())
+        context = cairo.Context(surface)
+
+        # draw shadow
+        Gdk.cairo_set_source_pixbuf(context, pix, 0, 0)
+        context.paint()
+
+        # draw cover
+        Gdk.cairo_set_source_pixbuf(context, self.pixbuf, self._shadow.width,
+            self._shadow.width)
+        context.paint()
+
+        self.pixbuf = Gdk.pixbuf_get_from_surface(surface, 0, 0,
+            self._shadow.size, self._shadow.size)
 
 
 class Track(GObject.Object):
@@ -1011,6 +1058,7 @@ class CoverManager(GObject.Object):
 
     # properties
     cover_size = GObject.property(type=int, default=0)
+    add_shadow = GObject.property(type=bool, default=False)
 
     def __init__(self, plugin, album_manager):
         super(CoverManager, self).__init__()
@@ -1018,15 +1066,18 @@ class CoverManager(GObject.Object):
         self._cover_db = RB.ExtDB(name='album-art')
         self._album_manager = album_manager
 
-        self._connect_signals()
         self._connect_properties()
+        self._connect_signals()
 
         # create the unknown cover
-        self.unknown_cover = Cover(self.cover_size,
+        self._shadow = Shadow(self.cover_size,
+            rb.find_plugin_file(plugin, 'img/album-shadow.png'))
+        self.unknown_cover = self._create_cover(
             rb.find_plugin_file(plugin, 'img/rhythmbox-missing-artwork.svg'))
 
     def _connect_signals(self):
-        self.connect('notify::cover-size', self._on_notify_cover_size)
+        self.connect('notify::cover-size', self._on_cover_size_changed)
+        self.connect('notify::add-shadow', self._on_add_shadow_changed)
 
         # connect the signal to update cover arts when added
         self.req_id = self._cover_db.connect('added',
@@ -1038,47 +1089,69 @@ class CoverManager(GObject.Object):
 
         setting.bind(gs.PluginKey.COVER_SIZE, self, 'cover_size',
             Gio.SettingsBindFlags.GET)
+        setting.bind(gs.PluginKey.ADD_SHADOW, self, 'add_shadow',
+            Gio.SettingsBindFlags.GET)
 
-    def _on_notify_cover_size(self, *args):
+    def _create_cover(self, image):
+        if self.add_shadow:
+            cover = ShadowedCover(self._shadow, image)
+        else:
+            cover = Cover(self.cover_size, image)
+
+        return cover
+
+    def _on_add_shadow_changed(self, *args):
+        # update the unknown_cover
+        self.unknown_cover = self._create_cover(self.unknown_cover.original)
+
+        # recreate all the covers
+        self.load_covers()
+
+    def _on_cover_size_changed(self, *args):
         '''
         Updates the showing albums cover size.
         '''
+        # update the shadow
+        self._shadow.resize(self.cover_size)
+
+        # update coverview item width
+        self.update_item_width()
+
         # update the album's covers
         albums = self._album_manager.model.get_all()
 
-        if albums:
-            # function to resize the covers
-            def idle_resize_callback(args):
-                # unpack the args
-                albums_iter, loaded, total = args
+        # function to resize the covers
+        def idle_resize_callback(args):
+            # unpack the args
+            albums_iter, loaded, total = args
 
-                for i in range(COVER_LOAD_CHUNK):
-                    try:
-                        # get the next album and resize it's cover
-                        album = albums_iter.next()
+            for i in range(COVER_LOAD_CHUNK):
+                try:
+                    # get the next album and resize it's cover
+                    album = albums_iter.next()
 
-                        album.cover.resize(self.cover_size)
+                    album.cover.resize(self.cover_size)
 
-                    except StopIteration:
-                        # we finished loading
-                        self._album_manager.progress = 1
-                        self.emit('load-finished')
-                        return False
-                    except Exception as e:
-                        print "Error while resizing covers: " + str(e)
+                except StopIteration:
+                    # we finished loading
+                    self._album_manager.progress = 1
+                    self.emit('load-finished')
+                    return False
+                except Exception as e:
+                    print "Error while resizing covers: " + str(e)
 
-                # update loaded
-                loaded += COVER_LOAD_CHUNK
-                args[1] = loaded
+            # update loaded
+            loaded += COVER_LOAD_CHUNK
+            args[1] = loaded
 
-                # update the progress
-                self._album_manager.progress = loaded / total
+            # update the progress
+            self._album_manager.progress = loaded / total
 
-                # the list still got albums, keep going
-                return True
+            # the list still got albums, keep going
+            return True
 
-            Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
-                idle_resize_callback, [iter(albums), 0, float(len(albums))])
+        Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
+            idle_resize_callback, [iter(albums), 0, float(len(albums))])
 
     def _albumart_added_callback(self, ext_db, key, path, pixbuf):
         print "CoverArtBrowser DEBUG - albumart_added_callback"
@@ -1089,9 +1162,12 @@ class CoverManager(GObject.Object):
         if pixbuf and self._album_manager.model.contains(album_name):
             album = self._album_manager.model.get(album_name)
 
-            album.cover = Cover(self.cover_size, pixbuf=pixbuf)
+            album.cover = self._create_cover(pixbuf)
 
         print "CoverArtBrowser DEBUG - end albumart_added_callback"
+
+    def update_item_width(self):
+        self._album_manager.cover_view.set_item_width(self.cover_size)
 
     def load_cover(self, album):
         '''
@@ -1109,9 +1185,9 @@ class CoverManager(GObject.Object):
         # try to create a cover
         if art_location and os.path.exists(art_location):
             try:
-                album.cover = Cover(self.cover_size, art_location)
+                album.cover = self._create_cover(art_location)
             except:
-                pass  # ignore
+                album.cover = self.unknown_cover
 
     def load_covers(self):
         '''
@@ -1130,12 +1206,12 @@ class CoverManager(GObject.Object):
                     # get the next album and try to load it's cover
                     album = albums_iter.next()
 
-                    if album.cover == self.unknown_cover:
-                        self.load_cover(album)
+                    self.load_cover(album)
 
                 except StopIteration:
                     # we finished loading
                     self._album_manager.progress = 1
+                    gc.collect()
                     self.emit('load-finished')
                     return False
 
@@ -1364,14 +1440,10 @@ class TextManager(GObject.Object):
 
         activate = self.display_text_enabled
 
-        if activate:
-            column = 3
-            item_width = self._album_manager.cover_man.cover_size + 20
-        else:
-            column = item_width = -1
+        column = 3 if activate else -1
 
+        self._album_manager.cover_man.update_item_width()
         self._album_manager.cover_view.set_markup_column(column)
-        self._album_manager.cover_view.set_item_width(item_width)
 
         print "CoverArtBrowser DEBUG - end activate_markup"
 

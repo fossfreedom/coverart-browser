@@ -336,6 +336,9 @@ class CoverArtBrowserSource(RB.Source):
         vbox.show_all()
         self.notebook.append_page(vbox, Gtk.Label(_("Tracks")))
 
+        # create an album manager
+        self.album_manager = AlbumManager(self.plugin, self.covers_view)
+
         # setup cover search pane
         try:
             color = self.covers_view.get_style_context().get_background_color(
@@ -347,12 +350,10 @@ class CoverArtBrowserSource(RB.Source):
         except:
             color = '#0000FF'
 
-        self.cover_search_pane = CoverSearchPane(self.plugin, color)
+        self.cover_search_pane = CoverSearchPane(self.plugin,
+            self.album_manager, color)
         self.notebook.append_page(self.cover_search_pane, Gtk.Label(
             _("Covers")))
-
-        # setup the album loader and the cover view to use it's model + filter
-        self.album_manager = AlbumManager(self.plugin, self.covers_view)
 
         # connect a signal to when the info of albums is ready
         self.load_fin_id = self.album_manager.loader.connect(
