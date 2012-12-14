@@ -109,7 +109,7 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         self.shell.register_entry_type_for_source(self.source, entry_type)
         self.shell.append_display_page(self.source, group)
 
-        self.shell.props.db.connect('load-complete', self.load_complete)
+        self.source.props.query_model.connect('complete', self.load_complete)
 
         self.art_store = RB.ExtDB(name="album-art")
         self.req_id = self.art_store.connect("request",
@@ -141,8 +141,10 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         '''
         gs = GSetting()
         setting = gs.get_setting(gs.Path.PLUGIN)
+
         if setting[gs.PluginKey.AUTOSTART]:
-            self.shell.props.display_page_tree.select(self.source)
+            GObject.idle_add(self.shell.props.display_page_tree.select,
+                self.source)
 
     def album_art_requested(self, store, key, last_time):
         searches = []
