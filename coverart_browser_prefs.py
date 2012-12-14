@@ -115,6 +115,7 @@ class GSetting:
                 DISPLAY_TEXT_ELLIPSIZE_LENGTH='display-text-ellipsize-length',
                 DISPLAY_FONT_SIZE='display-font-size',
                 COVER_SIZE='cover-size',
+                ADD_SHADOW='add-shadow',
                 PANED_POSITION='paned-position',
                 SORT_BY='sort-by',
                 SORT_ORDER='sort-order',
@@ -244,6 +245,10 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
 
         cover_size_scale = builder.get_object('cover_size_adjustment')
         self.settings.bind(gs.PluginKey.COVER_SIZE, cover_size_scale, 'value',
+            Gio.SettingsBindFlags.DEFAULT)
+
+        add_shadow = builder.get_object('add_shadow_checkbox')
+        self.settings.bind(gs.PluginKey.ADD_SHADOW, add_shadow, 'active',
             Gio.SettingsBindFlags.DEFAULT)
 
         rated_box = builder.get_object('rated_box')

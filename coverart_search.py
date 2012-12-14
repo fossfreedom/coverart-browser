@@ -34,12 +34,13 @@ class CoverSearchPane(Gtk.VBox):
     customize the default search and select covers from the pane and use them
     as the album covers (either with a double click or draging them).
     '''
-    def __init__(self, plugin, selection_color):
+    def __init__(self, plugin, album_manager, selection_color):
         '''
         Initializes the pane, loading it's html templates and it's ui.
         '''
         super(CoverSearchPane, self).__init__()
 
+        self.album_manager = album_manager
         self.selection_color = selection_color
 
         self.file = ""
@@ -142,7 +143,6 @@ class CoverSearchPane(Gtk.VBox):
         Callback called when a image in the pane is double-clicked. It takes
         care of asking the AlbumLoader to update the album's cover.
         '''
-        # get the loader
-        manager = AlbumManager.get_instance()
-
-        manager.cover_man.update_cover(self.current_album, uri=title)
+        # update the cover
+        self.album_manager.cover_man.update_cover(self.current_album,
+            uri=title)

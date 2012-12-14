@@ -6,16 +6,16 @@
     <property name="upper">200</property>
     <property name="value">92</property>
     <property name="step_increment">1</property>
-    <property name="page_increment">10</property>
+    <property name="page_increment">5</property>
+  </object>
+  <object class="GtkEntryBuffer" id="display_text_ellipsize_length_buffer">
+    <property name="text">0</property>
+    <property name="max_length">3</property>
   </object>
   <object class="GtkAdjustment" id="display_text_ellipsize_length_adjustment">
     <property name="upper">999</property>
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
-  </object>
-  <object class="GtkEntryBuffer" id="display_text_ellipsize_length_buffer">
-    <property name="text">0</property>
-    <property name="max_length">3</property>
   </object>
   <object class="GtkAdjustment" id="font_adjustment">
     <property name="lower">4</property>
@@ -107,6 +107,7 @@
           <object class="GtkBox" id="rated_box">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="tooltip_text" translatable="yes">Level above which is regarded as being a favourite track or album</property>
             <property name="margin_left">5</property>
             <property name="margin_top">5</property>
             <property name="margin_bottom">5</property>
@@ -117,8 +118,6 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="has_tooltip">True</property>
-                <property name="tooltip_markup" translatable="yes">Level above which is regarded as being a favourite track or album</property>
-                <property name="tooltip_text" translatable="yes">Level above which is regarded as being a favourite track or album</property>
                 <property name="xalign">0</property>
                 <property name="label" translatable="yes">Favourite Threshold</property>
                 <attributes>
@@ -208,6 +207,7 @@
               <object class="GtkBox" id="display_font_box">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="tooltip_text" translatable="yes">Font size for the text below the cover-art.</property>
                 <child>
                   <object class="GtkLabel" id="label_font_size">
                     <property name="visible">True</property>
@@ -275,14 +275,13 @@
               <object class="GtkBox" id="display_text_ellipsize_length_box">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="tooltip_text" translatable="yes">Maximum allowed length for an album's name before being ellipsized.</property>
                 <property name="margin_left">50</property>
                 <child>
                   <object class="GtkLabel" id="display_text_ellipsize_length_label">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="has_tooltip">True</property>
-                    <property name="tooltip_markup" translatable="yes">This is the maximum allowed size for an album&amp;apos;s name before being ellipsized.</property>
-                    <property name="tooltip_text" translatable="yes">This is the maximum allowed size for an album's name before being ellipsized.</property>
                     <property name="label" translatable="yes">Maximum length:</property>
                   </object>
                   <packing>
@@ -327,9 +326,50 @@
           </packing>
         </child>
         <child>
+          <object class="GtkLabel" id="cover_appearence_label">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="halign">start</property>
+            <property name="margin_left">5</property>
+            <property name="margin_top">5</property>
+            <property name="label" translatable="yes">Cover Appearence</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="add_shadow_checkbox">
+            <property name="label" translatable="yes">Drop shadow</property>
+            <property name="use_action_appearance">False</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip_text" translatable="yes">Indicates if the albums should drop a shadow on the cover view</property>
+            <property name="margin_left">5</property>
+            <property name="margin_right">5</property>
+            <property name="margin_top">5</property>
+            <property name="margin_bottom">5</property>
+            <property name="use_action_appearance">False</property>
+            <property name="xalign">0</property>
+            <property name="draw_indicator">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">4</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkBox" id="cover_size_box">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="tooltip_text" translatable="yes">Defines the size for the covers showed on the source.</property>
             <property name="margin_left">5</property>
             <property name="margin_top">5</property>
             <property name="orientation">vertical</property>
@@ -338,15 +378,9 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="has_tooltip">True</property>
-                <property name="tooltip_markup" translatable="yes">Defines the size for the covers showed on the source.</property>
-                <property name="tooltip_text" translatable="yes">Defines the size for the covers showed on the source.</property>
                 <property name="halign">start</property>
                 <property name="margin_top">5</property>
-                <property name="yalign">0.44999998807907104</property>
-                <property name="label" translatable="yes">Cover size (in pixels)</property>
-                <attributes>
-                  <attribute name="weight" value="bold"/>
-                </attributes>
+                <property name="label" translatable="yes">Size (in pixels):</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -375,7 +409,7 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">3</property>
+            <property name="position">5</property>
           </packing>
         </child>
       </object>
@@ -401,30 +435,31 @@
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkLabel" id="position_label">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="margin_left">5</property>
-            <property name="margin_top">5</property>
-            <property name="xalign">0</property>
-            <property name="label" translatable="yes">Position</property>
-            <attributes>
-              <attribute name="weight" value="bold"/>
-            </attributes>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">4</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkBox" id="tollbar_position_box">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="tooltip_text" translatable="yes">Where the toolbar should be positioned</property>
             <property name="margin_left">5</property>
             <property name="margin_bottom">5</property>
             <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkLabel" id="position_label">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="margin_left">5</property>
+                <property name="margin_top">5</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">Position</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
             <child>
               <object class="GtkRadioButton" id="toolbar_main_radio">
                 <property name="label" translatable="yes">Show toolbar in main cover-view</property>

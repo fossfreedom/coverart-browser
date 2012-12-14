@@ -6,6 +6,11 @@
             <summary>Covers size in pixels.</summary>
             <description>Defines the size for the covers showed on the source.</description>
         </key>
+        <key type="b" name="add-shadow">
+            <default>false</default>
+            <summary>Add shadow to album's covers</summary>
+            <description>Indicates if the albums should drop a shadow on the cover view</description>
+        </key>
         <key type="b" name="custom-statusbar">
             <default>false</default>
             <summary>If the plugin source's custom status bar should be used.</summary>
