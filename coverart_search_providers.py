@@ -90,8 +90,8 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
         gs = GSetting()
         setting = gs.get_setting(gs.Path.PLUGIN)
         
-        if setting[gs.PluginKey.EMBEDDED_SEARCH]:
-            searches.append(CoverAlbumSearch())
+        #if setting[gs.PluginKey.EMBEDDED_SEARCH]:
+        #    searches.append(CoverAlbumSearch())
         if setting[gs.PluginKey.DISCOGS_SEARCH]:
             searches.append(DiscogsSearch())
 

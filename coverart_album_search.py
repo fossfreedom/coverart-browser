@@ -31,6 +31,7 @@ from gi.repository import Gdk
 from gi.repository import Gio
 
 import os, time,re, urllib
+import threading
 import discogs_client as discogs
 
 ITEMS_PER_NOTIFICATION = 10
@@ -248,14 +249,14 @@ class DiscogsSearch (object):
 
 	def get_release_cb (self, data):
         (key, store, url, cbargs, callback) = data
-		
-		try:
-            s = discogs.Search(url)
-            url = s.results()[0].data['images'][0]['uri150']
-            self.store.store_uri(self.current_key, RB.ExtDBSourceType.SEARCH, url)
-        except:
-            print "not found"
-			pass
+		print "geet"
+		#try:
+        #    s = discogs.Search(url)
+        #    #url = s.results()[0].data['images'][0]['uri150']
+        #    self.store.store_uri(self.current_key, RB.ExtDBSourceType.SEARCH, url)
+        #except:
+        #    print "not found"
+		#	pass
 
         self.callback(cbargs)
         return False
@@ -293,12 +294,36 @@ class DiscogsSearch (object):
         print artists
         url = self.search_url(album, artists[0])
         
-        #pool = mp.Pool()
-        #pool.apply_async(self.get_release_cb, args = (key, store, url, args), callback = callback)
+        #self.get_release_cb( (key, store, url, args, callback) )
+        self.asynchronous_call(self.get_release_cb, None, (key, store, url, args, callback), None)
 
-        #Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE,
-        #    self.get_release_cb, (key, store, url, args, callback))
-        self.get_release_cb( (key, store, url, args, callback) )
+    #from LastfmExtensionUtils
+    def asynchronous_call( self, fun, callback=None, *cargs, **ckwargs ):
+        #wrapper function
+        print "h"
+        def worker( *args, **kwargs ):         
+            print "c"
+            try:      
+                #result = fun( *args, **kwargs )   
+                print "about to call"   
+                print fun
+                print args      
+                result = fun( args)
+                print "finish call"
+            except Exception as e:
+                result = e
+            
+            print "x"
+            if callback:    
+                callback( result, *cargs, **ckwargs )
+                
+            print "y"
         
-        
+        #async execution in a separate thread
+        def fun2( *args, **kwargs ):
+            print "b"
+            threading.Thread( target=worker, args=args, kwargs=kwargs ).start()
+        print "i"
+        return fun2(cargs, ckwargs)
+
 		

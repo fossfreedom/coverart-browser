@@ -134,4 +134,3 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         if setting[gs.PluginKey.AUTOSTART]:
             GObject.idle_add(self.shell.props.display_page_tree.select,
                 self.source)
-
