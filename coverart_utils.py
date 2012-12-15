@@ -272,7 +272,7 @@ class ConfiguredSpriteSheet(object):
         else:
             alpha_color = None
 
-        self._names = config.get(self.SECTION, 'names').split(', ')
+        self.names = config.get(self.SECTION, 'names').split(', ')
 
         self._sheet = SpriteSheet(image, icon_width, icon_height, x_spacing,
             y_spacing, alpha_color)
@@ -281,4 +281,7 @@ class ConfiguredSpriteSheet(object):
         return len(self._sheet)
 
     def __getitem__(self, name):
-        return self._sheet[self._names.index(name)]
+        return self._sheet[self.names.index(name)]
+
+    def __contains__(self, name):
+        return name in self.names
