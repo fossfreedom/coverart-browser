@@ -1,5 +1,23 @@
-# -*- coding: utf-8 *-*
+# -*- Mode: python; coding: utf-8; tab-width: 4; indent-tabs-mode: nil; -*-
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
+
 from bisect import bisect_left, bisect_right
+from gi.repository import Gdk
+from gi.repository import GLib
+
 
 class SortedCollection(object):
     '''Sequence sorted by a key function.
@@ -215,3 +233,36 @@ class ReversedSortedCollection(object):
         i = bisect_left(self._keys, k)
         j = bisect_right(self._keys, k)
         return len(self) - self._items[i:j].index(item) + i - 1
+
+
+class IdleCallIterator(object):
+
+    def __init__(self, chunk, process, after=None, error=None, finish=None):
+        default = lambda *_: None
+
+        self._chunk = chunk
+        self._process = process
+        self._after = after if after else default
+        self._error = error if error else default
+        self._finish = finish if finish else default
+
+    def __call__(self, iterator, **data):
+        self._iter = iterator
+
+        Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE, self._idle_call, data)
+
+    def _idle_call(self, data):
+        for i in range(self._chunk):
+            try:
+                next_elem = self._iter.next()
+
+                self._process(next_elem, data)
+            except StopIteration:
+                self._finish(data)
+                return False
+            except Exception as e:
+                self._error(e)
+
+        self._after(data)
+
+        return True
