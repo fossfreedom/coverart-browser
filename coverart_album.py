@@ -33,6 +33,7 @@ import cairo
 
 from coverart_browser_prefs import GSetting
 from coverart_utils import SortedCollection
+from coverart_utils import IdleCallIterator
 from urlparse import urlparse
 
 import urllib
@@ -584,9 +585,44 @@ class AlbumsModel(GObject.Object):
         self._filtered_store = self._tree_store.filter_new()
         self._filtered_store.set_visible_column(4)
 
+        # create idle iterators
+        self._create_idle_sort_iterator()
+        self._create_idle_recreate_text_iterator()
+
     @property
     def store(self):
         return self._filtered_store
+
+    def _create_idle_sort_iterator(self):
+        def process(album, data):
+            values = self._generate_values(album)
+
+            tree_iter = self._tree_store.append(values)
+            self._iters[album.name]['iter'] = tree_iter
+
+        def error(exception):
+            print 'Error while adding albums to the model: ' + str(exception)
+
+        def finish(data):
+            self.remove_filter('nay')
+
+        self._sort = IdleCallIterator(ALBUM_LOAD_CHUNK, process, error=error,
+            finish=finish)
+
+    def _create_idle_recreate_text_iterator(self):
+        def process(album, data):
+            tree_iter = self._iters[album.name]['iter']
+            markup = self.emit('generate-markup', album)
+
+            self._tree_store.set(tree_iter, self.columns['markup'],
+                markup)
+            self._emit_signal(tree_iter, 'visual-updated')
+
+        def error(exception):
+            print 'Error while recreating text: ' + str(exception)
+
+        self._recreate_text = IdleCallIterator(ALBUM_LOAD_CHUNK, process,
+            error=error)
 
     def _album_pre_modified(self, album):
         # remove the album before it get's changed and we loose it on the limbo
@@ -744,33 +780,11 @@ class AlbumsModel(GObject.Object):
 
         self._tree_store.clear()
 
-        def idle_add_albums(albums_iter):
-            for i in range(ALBUM_LOAD_CHUNK):
-                try:
-                    album = albums_iter.next()
-                    values = self._generate_values(album)
-
-                    tree_iter = self._tree_store.append(values)
-                    self._iters[album.name]['iter'] = tree_iter
-
-                except StopIteration:
-                    # remove the nay filter
-                    self.remove_filter('nay')
-
-                    return False
-
-                except Exception as e:
-                    print 'Error while adding albums to the model: ' + str(e)
-
-            # the list still got albums, keep going
-            return True
-
         # add the nay filter
         self.replace_filter('nay', refilter=False)
 
         # load the albums back to the model
-        Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE, idle_add_albums,
-            iter(self._albums))
+        self._sort(iter(self._albums))
 
     def replace_filter(self, filter_key, filter_arg=None, refilter=True):
         '''
@@ -826,29 +840,7 @@ class AlbumsModel(GObject.Object):
         '''
         Forces the recreation and update of the markup text for each album.
         '''
-        def idle_add_albums(albums_iter):
-            for i in range(ALBUM_LOAD_CHUNK):
-                try:
-                    album = albums_iter.next()
-                    tree_iter = self._iters[album.name]['iter']
-                    markup = self.emit('generate-markup', album)
-
-                    self._tree_store.set(tree_iter, self.columns['markup'],
-                        markup)
-                    self._emit_signal(tree_iter, 'visual-updated')
-
-                except StopIteration:
-                    return False
-
-                except Exception as e:
-                    print 'Error while recreating text: ' + str(e)
-
-            # the list still got albums, keep going
-            return True
-
-        # load the albums back to the model
-        Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE, idle_add_albums,
-            iter(self._albums))
+        self._recreate_text(iter(self._albums))
 
 
 class AlbumLoader(GObject.Object):
