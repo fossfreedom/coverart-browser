@@ -1,5 +1,9 @@
 # -*- coding: utf-8 *-*
 from bisect import bisect_left, bisect_right
+from ConfigParser import ConfigParser
+from gi.repository import GdkPixbuf
+
+
 
 class SortedCollection(object):
     '''Sequence sorted by a key function.
@@ -215,3 +219,69 @@ class ReversedSortedCollection(object):
         i = bisect_left(self._keys, k)
         j = bisect_right(self._keys, k)
         return len(self) - self._items[i:j].index(item) + i - 1
+
+
+class SpriteSheet(object):
+
+    def __init__(self, image, icon_width, icon_height, x_spacing, y_spacing,
+        alpha_color=None):
+        # load the image
+        base_image = GdkPixbuf.Pixbuf.new_from_file(image)
+
+        if alpha_color:
+            base_image.add_alpha(True, *alpha_color)
+
+        delta_y = icon_height + y_spacing
+        delta_x = icon_width + x_spacing
+
+        self._sprites = []
+
+        for y in range(0, base_image.get_height() / delta_y + 1):
+            for x in range(0, base_image.get_width() / delta_x + 1):
+                sprite = GdkPixbuf.Pixbuf.new(GdkPixbuf.Colorspace.RGB, True,
+                    8, icon_width, icon_height)
+
+                base_image.copy_area(x * delta_x, y * delta_y, icon_width,
+                    icon_height, sprite, 0, 0)
+
+                self._sprites.append(sprite)
+
+    def __len__(self):
+        return len(self._sprites)
+
+    def __getitem__(self, index):
+        return self._sprites[index]
+
+
+class ConfiguredSpriteSheet(object):
+    SECTION = 'SpriteSheet'
+
+    def __init__(self, conf_file):
+        config = ConfigParser()
+        config.read(conf_file)
+
+        image = config.get(self.SECTION, 'image')
+        icon_width = config.getint(self.SECTION, 'icon_width')
+        icon_height = config.getint(self.SECTION, 'icon_height')
+        x_spacing = config.getint(self.SECTION, 'x_spacing')
+        y_spacing = config.getint(self.SECTION, 'y_spacing')
+
+        if config.has_option(self.SECTION, 'alpha_color'):
+            alpha_color = map(int,
+                config.get(self.SECTION, 'alpha_color').split(' '))
+        else:
+            alpha_color = None
+
+        self.names = config.get(self.SECTION, 'names').split(', ')
+
+        self._sheet = SpriteSheet(image, icon_width, icon_height, x_spacing,
+            y_spacing, alpha_color)
+
+    def __len__(self):
+        return len(self._sheet)
+
+    def __getitem__(self, name):
+        return self._sheet[self.names.index(name)]
+
+    def __contains__(self, name):
+        return name in self.names
