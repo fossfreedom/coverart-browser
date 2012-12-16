@@ -224,7 +224,7 @@ class ReversedSortedCollection(object):
 class SpriteSheet(object):
 
     def __init__(self, image, icon_width, icon_height, x_spacing, y_spacing,
-        alpha_color=None):
+        alpha_color=None, size=None):
         # load the image
         base_image = GdkPixbuf.Pixbuf.new_from_file(image)
 
@@ -244,6 +244,10 @@ class SpriteSheet(object):
                 base_image.copy_area(x * delta_x, y * delta_y, icon_width,
                     icon_height, sprite, 0, 0)
 
+                if size:
+                    sprite = sprite.scale_simple(size, size,
+                        GdkPixbuf.InterpType.BILINEAR)
+
                 self._sprites.append(sprite)
 
     def __len__(self):
@@ -256,7 +260,7 @@ class SpriteSheet(object):
 class ConfiguredSpriteSheet(object):
     SECTION = 'SpriteSheet'
 
-    def __init__(self, conf_file):
+    def __init__(self, conf_file, size=None):
         config = ConfigParser()
         config.read(conf_file)
 
@@ -275,7 +279,7 @@ class ConfiguredSpriteSheet(object):
         self.names = config.get(self.SECTION, 'names').split(', ')
 
         self._sheet = SpriteSheet(image, icon_width, icon_height, x_spacing,
-            y_spacing, alpha_color)
+            y_spacing, alpha_color, size)
 
     def __len__(self):
         return len(self._sheet)
