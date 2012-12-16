@@ -33,7 +33,7 @@ import cairo
 
 from coverart_browser_prefs import GSetting
 from coverart_utils import SortedCollection
-from coverart_utils import IdleCallIterator
+from coverart_utils import idle_iterator
 from urlparse import urlparse
 
 import urllib
@@ -585,15 +585,12 @@ class AlbumsModel(GObject.Object):
         self._filtered_store = self._tree_store.filter_new()
         self._filtered_store.set_visible_column(4)
 
-        # create idle iterators
-        self._create_idle_sort_iterator()
-        self._create_idle_recreate_text_iterator()
-
     @property
     def store(self):
         return self._filtered_store
 
-    def _create_idle_sort_iterator(self):
+    @idle_iterator
+    def _sort(self):
         def process(album, data):
             values = self._generate_values(album)
 
@@ -606,10 +603,10 @@ class AlbumsModel(GObject.Object):
         def finish(data):
             self.remove_filter('nay')
 
-        self._sort = IdleCallIterator(ALBUM_LOAD_CHUNK, process, error=error,
-            finish=finish)
+        return ALBUM_LOAD_CHUNK, process, None, error, finish
 
-    def _create_idle_recreate_text_iterator(self):
+    @idle_iterator
+    def _recreate_text(self):
         def process(album, data):
             tree_iter = self._iters[album.name]['iter']
             markup = self.emit('generate-markup', album)
@@ -621,8 +618,7 @@ class AlbumsModel(GObject.Object):
         def error(exception):
             print 'Error while recreating text: ' + str(exception)
 
-        self._recreate_text = IdleCallIterator(ALBUM_LOAD_CHUNK, process,
-            error=error)
+        return ALBUM_LOAD_CHUNK, process, None, error, None
 
     def _album_pre_modified(self, album):
         # remove the album before it get's changed and we loose it on the limbo
@@ -864,9 +860,6 @@ class AlbumLoader(GObject.Object):
 
         self._connect_signals()
 
-        self._create_idle_album_loader()
-        self._create_idle_model_loader()
-
     def _connect_signals(self):
         # connect signals for updating the albums
         self.entry_changed_id = self._album_manager.db.connect('entry-changed',
@@ -876,7 +869,8 @@ class AlbumLoader(GObject.Object):
         self.entry_deleted_id = self._album_manager.db.connect('entry-deleted',
             self._entry_deleted_callback)
 
-    def _create_idle_album_loader(self):
+    @idle_iterator
+    def _load_albums(self):
         def process(row, data):
             entry = data['model'][row.path][0]
 
@@ -909,10 +903,10 @@ class AlbumLoader(GObject.Object):
             self._album_manager.progress = 1
             self.emit('albums-load-finished', data['albums'])
 
-        self._load_albums = IdleCallIterator(ALBUM_LOAD_CHUNK, process, after,
-            error, finish)
+        return ALBUM_LOAD_CHUNK, process, after, error, finish
 
-    def _create_idle_model_loader(self):
+    @idle_iterator
+    def _load_model(self):
         def process(album, data):
             # add  the album to the model
             self._album_manager.model.add(album)
@@ -931,8 +925,7 @@ class AlbumLoader(GObject.Object):
             self.emit('model-load-finished')
             return False
 
-        self._load_model = IdleCallIterator(ALBUM_LOAD_CHUNK, process, after,
-            error, finish)
+        return ALBUM_LOAD_CHUNK, process, after, error, finish
 
     def _entry_changed_callback(self, db, entry, changes):
         print "CoverArtBrowser DEBUG - entry_changed_callback"
@@ -1052,9 +1045,6 @@ class CoverManager(GObject.Object):
         self.unknown_cover = self._create_cover(
             rb.find_plugin_file(plugin, 'img/rhythmbox-missing-artwork.svg'))
 
-        self._create_idle_cover_loader()
-        self._create_idle_cover_resizer()
-
     def _connect_signals(self):
         self.connect('notify::cover-size', self._on_cover_size_changed)
         self.connect('notify::add-shadow', self._on_add_shadow_changed)
@@ -1072,7 +1062,8 @@ class CoverManager(GObject.Object):
         setting.bind(gs.PluginKey.ADD_SHADOW, self, 'add_shadow',
             Gio.SettingsBindFlags.GET)
 
-    def _create_idle_cover_loader(self):
+    @idle_iterator
+    def _load_covers(self):
         def process(album, data):
             self.load_cover(album)
 
@@ -1090,10 +1081,10 @@ class CoverManager(GObject.Object):
             # update the progress
             self._album_manager.progress = data['progress'] / data['total']
 
-        self._load_covers = IdleCallIterator(COVER_LOAD_CHUNK, process, after,
-            error, finish)
+        return COVER_LOAD_CHUNK, process, after, error, finish
 
-    def _create_idle_cover_resizer(self):
+    @idle_iterator
+    def _resize_covers(self):
         def process(album, data):
             album.cover.resize(self.cover_size)
 
@@ -1110,8 +1101,7 @@ class CoverManager(GObject.Object):
             # update the progress
             self._album_manager.progress = data['progress'] / data['total']
 
-        self._resize_covers = IdleCallIterator(COVER_LOAD_CHUNK, process,
-            after, error, finish)
+        return COVER_LOAD_CHUNK, process, after, error, finish
 
     def _create_cover(self, image):
         if self.add_shadow:

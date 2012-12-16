@@ -266,3 +266,12 @@ class IdleCallIterator(object):
         self._after(data)
 
         return True
+
+
+def idle_iterator(func):
+    def iter_function(obj, iterator, **data):
+        idle_call = IdleCallIterator(*func(obj))
+
+        idle_call(iterator, **data)
+
+    return iter_function
