@@ -239,11 +239,11 @@ class Album(GObject.Object):
         'cover-updated': (GObject.SIGNAL_RUN_LAST, None, ())
         }
 
-    def __init__(self, name, cover):
+    def __init__(self, name, artist, cover):
         super(Album, self).__init__()
 
         self.name = name
-        self._album_artist = None
+        self.artist = artist
         self._artists = None
         self._titles = None
         self._genres = None
@@ -255,31 +255,6 @@ class Album(GObject.Object):
         self._duration = None
 
         self._signals_id = {}
-
-    @property
-    def album_artist(self):
-        if not self._album_artist:
-            multiple_artist = False
-
-            for track in self._tracks:
-                if not self._album_artist:
-                    self._album_artist = track.album_artist
-                elif track.album_artist != self._album_artist:
-                    multiple_artist = True
-                    break
-
-            if not self._album_artist and not multiple_artist:
-                for track in self._tracks:
-                    if not self._album_artist:
-                        self._album_artist = track.artist
-                    elif track.artist != self._album_artist:
-                        multiple_artist = True
-                        break
-
-            if multiple_artist:
-                self._album_artist = _('Various Artist')
-
-        return self._album_artist
 
     @property
     def artists(self):
@@ -445,7 +420,7 @@ class AlbumFilters(object):
                 return True
 
             words = searchtext.lower().split()
-            params = [album.name.lower(), album.album_artist.lower(),
+            params = [album.name.lower(), album.artist.lower(),
                 album.artists.lower(), album.track_titles.lower()]
             matches = []
 
@@ -469,7 +444,7 @@ class AlbumFilters(object):
             if not searchtext:
                 return True
 
-            return searchtext.lower() in album.album_artist.lower()
+            return searchtext.lower() in album.artist.lower()
 
         return filt
 
@@ -595,7 +570,7 @@ class AlbumsModel(GObject.Object):
             values = self._generate_values(album)
 
             tree_iter = self._tree_store.append(values)
-            self._iters[album.name]['iter'] = tree_iter
+            self._iters[album.name][album.artist]['iter'] = tree_iter
 
         def error(exception):
             print 'Error while adding albums to the model: ' + str(exception)
@@ -608,7 +583,7 @@ class AlbumsModel(GObject.Object):
     @idle_iterator
     def _recreate_text(self):
         def process(album, data):
-            tree_iter = self._iters[album.name]['iter']
+            tree_iter = self._iters[album.name][album.artist]['iter']
             markup = self.emit('generate-markup', album)
 
             self._tree_store.set(tree_iter, self.columns['markup'],
@@ -625,7 +600,7 @@ class AlbumsModel(GObject.Object):
         self._albums.remove(album)
 
     def _album_modified(self, album):
-        tree_iter = self._iters[album.name]['iter']
+        tree_iter = self._iters[album.name][album.artist]['iter']
 
         if self._tree_store.iter_is_valid(tree_iter):
             # only update if the iter is valid
@@ -638,7 +613,8 @@ class AlbumsModel(GObject.Object):
 
             # reorder the album
             new_pos = self._albums.insert(album)
-            old_iter = self._iters[self._albums[new_pos + 1].name]['iter']
+            old_album = self._albums[new_pos + 1]
+            old_iter = self._iters[old_album.name][old_album.artist]['iter']
 
             self._tree_store.move_before(tree_iter, old_iter)
 
@@ -646,7 +622,7 @@ class AlbumsModel(GObject.Object):
             self._emit_signal(tree_iter, 'album_updated')
 
     def _cover_updated(self, album):
-        tree_iter = self._iters[album.name]['iter']
+        tree_iter = self._iters[album.name][album.artist]['iter']
 
         if self._tree_store.iter_is_valid(tree_iter):
             # only update if the iter is valid
@@ -688,8 +664,11 @@ class AlbumsModel(GObject.Object):
             album.connect('cover-updated', self._cover_updated),
             album.connect('emptied', self.remove))
 
-        self._iters[album.name] = {'album': album, 'iter': tree_iter,
-            'ids': ids}
+        if not album.name in self._iters:
+            self._iters[album.name] = {}
+
+        self._iters[album.name][album.artist] = {'album': album,
+            'iter': tree_iter, 'ids': ids}
 
         return tree_iter
 
@@ -708,29 +687,30 @@ class AlbumsModel(GObject.Object):
         :param album: `Album` to be removed from the model.
         '''
         self._albums.remove(album)
-        self._tree_store.remove(self._iters[album.name]['iter'])
+        self._tree_store.remove(self._iters[album.name][album.artist]['iter'])
 
         # disconnect signals
-        for sig_id in self._iters[album.name]['ids']:
+        for sig_id in self._iters[album.name][album.artist]['ids']:
             album.disconnect(sig_id)
 
-        del self._iters[album.name]
+        del self._iters[album.name][album.artist]
 
-    def contains(self, album_name):
+    def contains(self, album_name, album_artist):
         '''
         Indicates if the model contains an especific album.
 
         :param album_name: `str` name of the album.
         '''
-        return album_name in self._iters
+        return album_name in self._iters \
+            and album_artist in self._iters[album_name]
 
-    def get(self, album_name):
+    def get(self, album_name, album_artist):
         '''
         Returns the requested album.
 
         :param album_name: `str` name of the album.
         '''
-        return self._iters[album_name]['album']
+        return self._iters[album_name][album_artist]['album']
 
     def get_all(self):
         '''
@@ -755,8 +735,9 @@ class AlbumsModel(GObject.Object):
         :param show: `bool` indcating whether to show(True) or hide(False) the
             album.
         '''
-        self._tree_store.set_value(self._iters[album.name]['iter'],
-                self.columns['show'], show)
+        self._tree_store.set_value(
+            self._iters[album.name][album.artist]['iter'],
+            self.columns['show'], show)
 
     def sort(self, key, asc):
         '''
@@ -880,13 +861,18 @@ class AlbumLoader(GObject.Object):
             self._tracks[track.location] = track
 
             album_name = track.album
+            album_artist = track.album_artist
+            album_artist = album_artist if album_artist else track.artist
 
-            if album_name in data['albums']:
-                album = data['albums'][album_name]
+            if album_name not in data['albums']:
+                data['albums'][album_name] = {}
+
+            if album_artist in data['albums'][album_name]:
+                album = data['albums'][album_name][album_artist]
             else:
-                album = Album(album_name,
+                album = Album(album_name, album_artist,
                     self._album_manager.cover_man.unknown_cover)
-                data['albums'][album_name] = album
+                data['albums'][album_name][album_artist] = album
 
             album.add_track(track)
 
@@ -907,9 +893,10 @@ class AlbumLoader(GObject.Object):
 
     @idle_iterator
     def _load_model(self):
-        def process(album, data):
+        def process(albums, data):
             # add  the album to the model
-            self._album_manager.model.add(album)
+            for album in albums.values():
+                self._album_manager.model.add(album)
 
         def after(data):
             data['progress'] += ALBUM_LOAD_CHUNK
@@ -921,7 +908,7 @@ class AlbumLoader(GObject.Object):
             print 'Error while adding albums to the model: ' + str(exception)
 
         def finish(data):
-            self._album_manager.progress = 1
+            self._album_manager.progress = 0
             self.emit('model-load-finished')
             return False
 
@@ -938,7 +925,9 @@ class AlbumLoader(GObject.Object):
             while True:
                 change = changes.values
 
-                if change.prop is RB.RhythmDBPropType.ALBUM:
+                if change.prop is RB.RhythmDBPropType.ALBUM \
+                    or change.prop is RB.RhythmDBPropType.ALBUM_ARTIST \
+                    or change.prop is RB.RhythmDBPropType.ARTIST:
                     # called when the album of a entry is modified
                     track.emit('deleted')
                     self._allocate_track(track)
@@ -980,12 +969,14 @@ class AlbumLoader(GObject.Object):
             self._tracks[track.location] = track
 
             album_name = track.album
+            album_artist = track.album_artist
+            album_artist = album_artist if album_artist else track.artist
 
-            if self._album_manager.model.contains(album_name):
-                album = self._album_manager.model.get(album_name)
+            if self._album_manager.model.contains(album_name, album_artist):
+                album = self._album_manager.model.get(album_name, album_artist)
                 album.add_track(track)
             else:
-                album = Album(album_name,
+                album = Album(album_name, album_artist,
                     self._album_manager.cover_man.unknown_cover)
                 album.add_track(track)
                 self._album_manager.cover_man.load_cover(album)
@@ -1137,10 +1128,15 @@ class CoverManager(GObject.Object):
         print "CoverArtBrowser DEBUG - albumart_added_callback"
         # get the album name
         album_name = key.get_field('album')
+        album_artist = key.get_field('album_artist')
+
+        print album_name
+        print album_artist
 
         # use the name to get the album and update it's cover
-        if pixbuf and self._album_manager.model.contains(album_name):
-            album = self._album_manager.model.get(album_name)
+        if pixbuf and self._album_manager.model.contains(album_name,
+            album_artist):
+            album = self._album_manager.model.get(album_name, album_artist)
 
             album.cover = self._create_cover(pixbuf)
 
@@ -1270,12 +1266,11 @@ class CoverManager(GObject.Object):
         '''
         if pixbuf:
             # if it's a pixbuf, asign it to all the artist for the album
-            for artist in album.artists.split(', '):
-                key = RB.ExtDBKey.create_storage('album', album.name)
-                key.add_field('artist', artist)
+            key = RB.ExtDBKey.create_storage('album', album.name)
+            key.add_field('album_artist', album.artist)
 
-                self._cover_db.store(key, RB.ExtDBSourceType.USER_EXPLICIT,
-                    pixbuf)
+            self._cover_db.store(key, RB.ExtDBSourceType.USER_EXPLICIT,
+                pixbuf)
 
         elif uri:
             parsed = urlparse(uri)
@@ -1408,7 +1403,7 @@ class TextManager(GObject.Object):
         '''
         # we use unicode to avoid problems with non ascii albums
         name = unicode(album.name, 'utf-8')
-        artist = unicode(album.album_artist, 'utf-8')
+        artist = unicode(album.artist, 'utf-8')
 
         if self.display_text_ellipsize_enabled:
             ellipsize = self.display_text_ellipsize_length

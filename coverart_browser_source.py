@@ -938,7 +938,7 @@ class CoverArtBrowserSource(RB.Source):
             Gdk.threads_enter()
             self.request_statusbar.set_text(
                 (_('Requesting cover for %s - %s...') % (album.name,
-                album.album_artist)).decode('UTF-8'))
+                album.artist)).decode('UTF-8'))
             Gdk.threads_leave()
             if self.coversearchtimer:
                 self.coversearchtimer.Stop()
@@ -1011,7 +1011,7 @@ class CoverArtBrowserSource(RB.Source):
         # now lets build up a status label containing some 'interesting stuff'
         # about the album
         if len(selected) == 1:
-            status = (_('%s by %s') % (album.name, album.album_artist)).decode(
+            status = (_('%s by %s') % (album.name, album.artist)).decode(
                 'UTF-8')
         else:
             status = (_('%d selected albums ') % (len(selected))).decode(
