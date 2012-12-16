@@ -250,6 +250,9 @@ class SpriteSheet(object):
 
                 self._sprites.append(sprite)
 
+    def append(self, filename):
+        self._sprites.append(GdkPixbuf.Pixbuf.new_from_file(filename))
+
     def __len__(self):
         return len(self._sprites)
 
@@ -258,6 +261,7 @@ class SpriteSheet(object):
 
 
 class ConfiguredSpriteSheet(object):
+<<<<<<< HEAD
     popups = 'img/popups.xml'
     def __init__(self, plugin, sprite_name):
         self.plugin = plugin
@@ -282,8 +286,36 @@ class ConfiguredSpriteSheet(object):
                 self.names.append(elem.attrib['name'])
 
         
+=======
+    SECTION = 'SpriteSheet'
+
+    def __init__(self, conf_file, size=None):
+        config = ConfigParser()
+        config.read(conf_file)
+
+        image = config.get(self.SECTION, 'image')
+        icon_width = config.getint(self.SECTION, 'icon_width')
+        icon_height = config.getint(self.SECTION, 'icon_height')
+        x_spacing = config.getint(self.SECTION, 'x_spacing')
+        y_spacing = config.getint(self.SECTION, 'y_spacing')
+
+        if config.has_option(self.SECTION, 'alpha_color'):
+            alpha_color = map(int,
+                config.get(self.SECTION, 'alpha_color').split(' '))
+        else:
+            alpha_color = None
+
+        self.names = config.get(self.SECTION, 'names').split(', ')
+
+>>>>>>> e7c14a93d7c887fc067b2ffa06860fd0b6359b62
         self._sheet = SpriteSheet(image, icon_width, icon_height, x_spacing,
             y_spacing, alpha_color, size)
+
+        default_icon = root.findall(sprite_name + '/' + sprite_name +
+            '[@name="default"]')[0].attrib['image']
+        self._sheet.append(rb.find_plugin_file(plugin, 'img/'+
+            default_icon))
+        self.names.append('default')
 
     def __len__(self):
         return len(self._sheet)
