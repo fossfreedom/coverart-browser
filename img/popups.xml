@@ -39,10 +39,32 @@
         <genre name="children" spritesheet="genre"/>
         <genre name="default" image="genre.png"/>
     </genre>
+    <sort>
+        <sort name="name" spritesheet="sort"/>
+        <sort name="album_artist" spritesheet="sort"/>
+        <sort name="year" spritesheet="sort"/>
+        <sort name="rating" spritesheet="sort"/>
+    </sort>
+    <playlist>
+        <playlist name="music" spritesheet="playlist"/>
+        <playlist name="playlist" spritesheet="playlist"/>
+        <playlist name="queue" spritesheet="playlist"/>
+        <playlist name="smart" spritesheet="playlist"/>
+    </playlist>
     <spritesheet name="genre">
-        <image>genres.jpg</image>
+        <image>genre_sprites.png</image>
         <icon width="95" height="85"></icon>
         <spacing x="45" y="40"></spacing>
         <alpha>255 255 255</alpha>
+    </spritesheet>
+    <spritesheet name="sort">
+        <image>sort_sprites.png</image>
+        <icon width="142" height="138"></icon>
+        <spacing x="30" y="100"></spacing>
+    </spritesheet>
+    <spritesheet name="playlist">
+        <image>playlist_sprites.png</image>
+        <icon width="100" height="100"></icon>
+        <spacing x="72" y="100"></spacing>
     </spritesheet>
 </root>

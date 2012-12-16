@@ -273,10 +273,8 @@ class CoverArtBrowserSource(RB.Source):
             self.search_show_popup_callback)
 
         self.sort_by = ui.get_object('sort_by')
-        self.sort_by.initialise(self.shell, self.sorting_criteria_changed)
+        self.sort_by.initialise(self.plugin, self.shell, self.sorting_criteria_changed)
         self.sort_order_button = ui.get_object('sort_order')
-        #self.arrow_down = ui.get_object('arrow_down')
-        #self.arrow_up = ui.get_object('arrow_up')
         self.sort_order_button.initialise(self.plugin,
             self.sorting_direction_changed, self.sort_order)
 
@@ -293,7 +291,7 @@ class CoverArtBrowserSource(RB.Source):
 
         # get playlist popup
         self.playlist_button = ui.get_object('playlist_button')
-        self.playlist_button.initialise(self.shell, self.filter_by_model)
+        self.playlist_button.initialise(self.plugin, self.shell, self.filter_by_model)
 
         print "CoverArtBrowser DEBUG - end _toolbar"
 

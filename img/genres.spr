@@ -1,8 +1,0 @@
-[SpriteSheet]
-image = img/genres.jpg
-icon_width = 95
-icon_height = 85
-x_spacing = 45
-y_spacing = 40
-alpha_color = 255 255 255
-names = rock, country, pop, classical, world, bluegrass, oldies, holiday, comedy, spoken, jazz, blues, metal, karoke, rap, regtime, musical, dance, reggae, electronic, soundtrack, latin, alternative, disco, folk, gospel, experimental, new age, opera, anime, soul, workout, easy listening, hip-hop, children

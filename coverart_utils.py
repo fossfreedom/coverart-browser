@@ -15,8 +15,9 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
 from bisect import bisect_left, bisect_right
-from ConfigParser import ConfigParser
 from gi.repository import GdkPixbuf
+from gi.repository import Gdk
+from gi.repository import GLib
 import xml.etree.cElementTree as ET
 import rb
 
@@ -276,3 +277,84 @@ def idle_iterator(func):
         idle_call(iterator, **data)
 
     return iter_function
+
+class SpriteSheet(object):
+
+    def __init__(self, image, icon_width, icon_height, x_spacing, y_spacing,
+        alpha_color=None, size=None):
+        # load the image
+        base_image = GdkPixbuf.Pixbuf.new_from_file(image)
+        #print "#####"
+        #print image
+        if alpha_color:
+            base_image=base_image.add_alpha(True, *alpha_color)
+
+        delta_y = icon_height + y_spacing
+        delta_x = icon_width + x_spacing
+
+        self._sprites = []
+
+        #print "y %d " % (base_image.get_height() / delta_y + 1)
+        #print "x %d " % (base_image.get_width() / delta_x + 1)
+        for y in range(0, base_image.get_height() / delta_y + 1):
+            for x in range(0, base_image.get_width() / delta_x + 1):
+                sprite = GdkPixbuf.Pixbuf.new(GdkPixbuf.Colorspace.RGB, True,
+                    8, icon_width, icon_height)
+
+                base_image.copy_area(x * delta_x, y * delta_y, icon_width,
+                    icon_height, sprite, 0, 0)
+
+                if size:
+                    sprite = sprite.scale_simple(size, size,
+                        GdkPixbuf.InterpType.BILINEAR)
+
+                self._sprites.append(sprite)
+
+    def __len__(self):
+        return len(self._sprites)
+
+    def __getitem__(self, index):
+        return self._sprites[index]
+
+
+class ConfiguredSpriteSheet(object):
+    popups = 'img/popups.xml'
+    def __init__(self, plugin, sprite_name, size=None):
+        self.plugin = plugin
+        self.popups = rb.find_plugin_file(plugin, self.popups)
+        tree = ET.ElementTree(file=self.popups)
+        root = tree.getroot()
+        base='spritesheet[@name="'+sprite_name+'"]/'
+        image = rb.find_plugin_file(plugin, 'img/' +
+            root.findall(base+'image')[0].text)
+        icon_width = int(root.findall(base+'icon')[0].attrib['width'])
+        icon_height = int(root.findall(base+'icon')[0].attrib['height'])
+        x_spacing = int(root.findall(base+'spacing')[0].attrib['x'])
+        y_spacing = int(root.findall(base+'spacing')[0].attrib['y'])
+
+        try:
+            alpha_color = map(int,
+                    root.findall(base+'alpha')[0].text.split(' '))
+        except:
+            alpha_color = None
+            
+        self.names = []
+
+        for elem in root.findall(sprite_name + '/' + sprite_name +
+            '[@spritesheet="' + sprite_name + '"]'):
+                self.names.append(elem.attrib['name'])
+
+        self._sheet = SpriteSheet(image, icon_width, icon_height, x_spacing,
+            y_spacing, alpha_color, size)
+
+    def __len__(self):
+        return len(self._sheet)
+
+    def __getitem__(self, name):
+        try:
+            return self._sheet[self.names.index(name)]
+        except:
+            return None
+
+    def __contains__(self, name):
+        return name in self.names
