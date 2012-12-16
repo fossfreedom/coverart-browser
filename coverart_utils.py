@@ -1,4 +1,19 @@
-# -*- coding: utf-8 *-*
+# -*- Mode: python; coding: utf-8; tab-width: 4; indent-tabs-mode: nil; -*-
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
+
 from bisect import bisect_left, bisect_right
 from ConfigParser import ConfigParser
 from gi.repository import GdkPixbuf
@@ -221,78 +236,43 @@ class ReversedSortedCollection(object):
         return len(self) - self._items[i:j].index(item) + i - 1
 
 
-class SpriteSheet(object):
+class IdleCallIterator(object):
 
-    def __init__(self, image, icon_width, icon_height, x_spacing, y_spacing,
-        alpha_color=None, size=None):
-        # load the image
-        base_image = GdkPixbuf.Pixbuf.new_from_file(image)
+    def __init__(self, chunk, process, after=None, error=None, finish=None):
+        default = lambda *_: None
 
-        if alpha_color:
-            base_image.add_alpha(True, *alpha_color)
+        self._chunk = chunk
+        self._process = process
+        self._after = after if after else default
+        self._error = error if error else default
+        self._finish = finish if finish else default
 
-        delta_y = icon_height + y_spacing
-        delta_x = icon_width + x_spacing
+    def __call__(self, iterator, **data):
+        self._iter = iterator
 
-        self._sprites = []
+        Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE, self._idle_call, data)
 
-        for y in range(0, base_image.get_height() / delta_y + 1):
-            for x in range(0, base_image.get_width() / delta_x + 1):
-                sprite = GdkPixbuf.Pixbuf.new(GdkPixbuf.Colorspace.RGB, True,
-                    8, icon_width, icon_height)
+    def _idle_call(self, data):
+        for i in range(self._chunk):
+            try:
+                next_elem = self._iter.next()
 
-                base_image.copy_area(x * delta_x, y * delta_y, icon_width,
-                    icon_height, sprite, 0, 0)
+                self._process(next_elem, data)
+            except StopIteration:
+                self._finish(data)
+                return False
+            except Exception as e:
+                self._error(e)
 
-                if size:
-                    sprite = sprite.scale_simple(size, size,
-                        GdkPixbuf.InterpType.BILINEAR)
+        self._after(data)
 
-                self._sprites.append(sprite)
-
-    def __len__(self):
-        return len(self._sprites)
-
-    def __getitem__(self, index):
-        return self._sprites[index]
+        return True
 
 
-class ConfiguredSpriteSheet(object):
-    popups = 'img/popups.xml'
-    def __init__(self, plugin, sprite_name):
-        self.plugin = plugin
-        self.popups = rb.find_plugin_file(plugin, self.popups)
-        tree = ET.ElementTree(file=self.popups)
-        root = tree.getroot()
-        base='spritesheet[@name="'+sprite_name+'"]/'
-        image = rb.find_plugin_file(plugin, 'img/' +
-            root.findall(base+'image')[0].text)
-        icon_width = int(root.findall(base+'icon')[0].attrib['width'])
-        icon_height = int(root.findall(base+'icon')[0].attrib['height'])
-        x_spacing = int(root.findall(base+'spacing')[0].attrib['x'])
-        y_spacing = int(root.findall(base+'spacing')[0].attrib['y'])
-        
-        alpha_color = map(int,
-                root.findall(base+'alpha')[0].text.split(' '))
-        
-        self.names = []
+def idle_iterator(func):
+    def iter_function(obj, iterator, **data):
+        idle_call = IdleCallIterator(*func(obj))
 
-        for elem in root.findall(sprite_name + '/' + sprite_name +
-            '[@spritesheet="' + sprite_name + '"]'):
-                self.names.append(elem.attrib['name'])
+        idle_call(iterator, **data)
 
-        
-        self._sheet = SpriteSheet(image, icon_width, icon_height, x_spacing,
-            y_spacing, alpha_color, size)
-
-    def __len__(self):
-        return len(self._sheet)
-
-    def __getitem__(self, name):
-        try:
-            return self._sheet[self.names.index(name)]
-        except:
-            return self._sheet[self.names.index('default')]
-
-    def __contains__(self, name):
-        return name in self.names
+    return iter_function
