@@ -1127,16 +1127,13 @@ class CoverManager(GObject.Object):
     def _albumart_added_callback(self, ext_db, key, path, pixbuf):
         print "CoverArtBrowser DEBUG - albumart_added_callback"
         # get the album name
-        album_name = key.get_field('album')
-        album_artist = key.get_field('album_artist')
-
-        print album_name
-        print album_artist
+        album = key.get_field('album')
+        artist = key.get_field('artist')
 
         # use the name to get the album and update it's cover
-        if pixbuf and self._album_manager.model.contains(album_name,
-            album_artist):
-            album = self._album_manager.model.get(album_name, album_artist)
+        if pixbuf and self._album_manager.model.contains(album,
+            artist):
+            album = self._album_manager.model.get(album, artist)
 
             album.cover = self._create_cover(pixbuf)
 
@@ -1267,9 +1264,16 @@ class CoverManager(GObject.Object):
         if pixbuf:
             # if it's a pixbuf, asign it to all the artist for the album
             key = RB.ExtDBKey.create_storage('album', album.name)
-            key.add_field('album_artist', album.artist)
+            key.add_field('artist', album.artist)
 
             self._cover_db.store(key, RB.ExtDBSourceType.USER_EXPLICIT,
+                pixbuf)
+
+            for artist in album.artists.split(', '):
+                key = RB.ExtDBKey.create_storage('album', album.name)
+                key.add_field('artist', artist)
+
+                self._cover_db.store(key, RB.ExtDBSourceType.USER_EXPLICIT,
                 pixbuf)
 
         elif uri:
