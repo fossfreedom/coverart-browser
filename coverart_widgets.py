@@ -23,6 +23,7 @@ from gi.repository import GObject
 from gi.repository import Gio
 
 from coverart_browser_prefs import GSetting
+from coverart_utils import ConfiguredSpriteSheet
 import rb
 
 ui_string = \
@@ -143,7 +144,7 @@ class PopupButton(Gtk.Button):
         '''
         return self._initial_label
 
-    def resize_button_image(self):
+    def resize_button_image(self, pixbuf=None):
         '''
         if the button contains an image rather than stock icon
         this function will ensure the image is resized correctly to
@@ -154,8 +155,12 @@ class PopupButton(Gtk.Button):
         image = self.get_image()
 
         try:
-            pixbuf = image.get_pixbuf().scale_simple(width, height,
+            if pixbuf:
+                pixbuf = pixbuf.scale_simple(width, height,
                     GdkPixbuf.InterpType.BILINEAR)
+            else:
+                pixbuf = image.get_pixbuf().scale_simple(width, height,
+                        GdkPixbuf.InterpType.BILINEAR)
 
             image.set_from_pixbuf(pixbuf)
         except:
@@ -238,7 +243,7 @@ class GenrePopupButton(PopupButton):
         super(GenrePopupButton, self).__init__(
             **kargs)
 
-    def initialise(self, shell, callback):
+    def initialise(self, plugin, shell, callback):
         '''
         extend the default initialise function
         because we need to also resize the picture
@@ -246,6 +251,8 @@ class GenrePopupButton(PopupButton):
         '''
         if self.is_initialised:
             return
+
+        self._spritesheet = ConfiguredSpriteSheet(plugin, 'genre')
 
         self.set_initial_label('All')
         super(GenrePopupButton, self).initialise(shell, callback)
@@ -285,6 +292,9 @@ class GenrePopupButton(PopupButton):
         '''
         if not menu or menu.get_active():
             self.set_popup_value(genre)
+
+            test_genre = genre.lower()
+            self.resize_button_image(self._spritesheet[test_genre])
 
             if genre == self.get_initial_label():
                 self.callback(None)

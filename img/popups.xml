@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+
+<root>
+    <genre>
+        <genre name="rock" spritesheet="genre"/>
+        <genre name="country" spritesheet="genre"/>
+        <genre name="pop" spritesheet="genre"/>
+        <genre name="classical" spritesheet="genre"/>
+        <genre name="world" spritesheet="genre"/>
+        <genre name="bluegrass" spritesheet="genre"/>
+        <genre name="oldies" spritesheet="genre"/>
+        <genre name="holiday" spritesheet="genre"/>
+        <genre name="comedy" spritesheet="genre"/>
+        <genre name="spoken" spritesheet="genre"/>
+        <genre name="jazz" spritesheet="genre"/>
+        <genre name="blues" spritesheet="genre"/>
+        <genre name="metal" spritesheet="genre"/>
+        <genre name="karoke" spritesheet="genre"/>
+        <genre name="rap" spritesheet="genre"/>
+        <genre name="regtime" spritesheet="genre"/>
+        <genre name="musical" spritesheet="genre"/>
+        <genre name="dance" spritesheet="genre"/>
+        <genre name="reggae" spritesheet="genre"/>
+        <genre name="electronic" spritesheet="genre"/>
+        <genre name="soundtrack" spritesheet="genre"/>
+        <genre name="latin" spritesheet="genre"/>
+        <genre name="alternative" spritesheet="genre"/>
+        <genre name="disco" spritesheet="genre"/>
+        <genre name="folk" spritesheet="genre"/>
+        <genre name="gospel" spritesheet="genre"/>
+        <genre name="experimental" spritesheet="genre"/>
+        <genre name="new age" spritesheet="genre"/>
+        <genre name="opera" spritesheet="genre"/>
+        <genre name="anime" spritesheet="genre"/>
+        <genre name="soul" spritesheet="genre"/>
+        <genre name="workout" spritesheet="genre"/>
+        <genre name="easy listening" spritesheet="genre"/>
+        <genre name="hip-hop" spritesheet="genre"/>
+        <genre name="children" spritesheet="genre"/>
+        <genre name="default" image="genre.png"/>
+    </genre>
+    <spritesheet name="genre">
+        <image>genres.jpg</image>
+        <icon width="95" height="85"></icon>
+        <spacing x="45" y="40"></spacing>
+        <alpha>255 255 255</alpha>
+    </spritesheet>
+</root>

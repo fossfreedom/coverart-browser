@@ -4,7 +4,7 @@
 # Copyright (C) 2012 - Agustin Carrasco
 #
 # This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of thie GNU General Public License as published by
 # the Free Software Foundation; either version 2, or (at your option)
 # any later version.
 #
@@ -289,7 +289,7 @@ class CoverArtBrowserSource(RB.Source):
 
         # genre
         self.genre_button = ui.get_object('genre_button')
-        self.genre_button.initialise(self.shell, self.genre_filter_callback)
+        self.genre_button.initialise(self.plugin, self.shell, self.genre_filter_callback)
 
         # get playlist popup
         self.playlist_button = ui.get_object('playlist_button')

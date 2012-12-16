@@ -2,8 +2,8 @@
 from bisect import bisect_left, bisect_right
 from ConfigParser import ConfigParser
 from gi.repository import GdkPixbuf
-
-
+import xml.etree.cElementTree as ET
+import rb
 
 class SortedCollection(object):
     '''Sequence sorted by a key function.
@@ -246,6 +246,9 @@ class SpriteSheet(object):
 
                 self._sprites.append(sprite)
 
+    def append(self, filename):
+        self._sprites.append(GdkPixbuf.Pixbuf.new_from_file(filename))
+
     def __len__(self):
         return len(self._sprites)
 
@@ -254,34 +257,47 @@ class SpriteSheet(object):
 
 
 class ConfiguredSpriteSheet(object):
-    SECTION = 'SpriteSheet'
+    popups = 'img/popups.xml'
+    def __init__(self, plugin, sprite_name):
+        self.plugin = plugin
+        self.popups = rb.find_plugin_file(plugin, self.popups)
+        tree = ET.ElementTree(file=self.popups)
+        root = tree.getroot()
+        base='spritesheet[@name="'+sprite_name+'"]/'
+        image = rb.find_plugin_file(plugin, 'img/' +
+            root.findall(base+'image')[0].text)
+        icon_width = int(root.findall(base+'icon')[0].attrib['width'])
+        icon_height = int(root.findall(base+'icon')[0].attrib['height'])
+        x_spacing = int(root.findall(base+'spacing')[0].attrib['x'])
+        y_spacing = int(root.findall(base+'spacing')[0].attrib['y'])
+        
+        alpha_color = map(int,
+                root.findall(base+'alpha')[0].text.split(' '))
+        
+        self.names = []
 
-    def __init__(self, conf_file):
-        config = ConfigParser()
-        config.read(conf_file)
+        for elem in root.findall(sprite_name + '/' + sprite_name +
+            '[@spritesheet="' + sprite_name + '"]'):
+                self.names.append(elem.attrib['name'])
 
-        image = config.get(self.SECTION, 'image')
-        icon_width = config.getint(self.SECTION, 'icon_width')
-        icon_height = config.getint(self.SECTION, 'icon_height')
-        x_spacing = config.getint(self.SECTION, 'x_spacing')
-        y_spacing = config.getint(self.SECTION, 'y_spacing')
-
-        if config.has_option(self.SECTION, 'alpha_color'):
-            alpha_color = map(int,
-                config.get(self.SECTION, 'alpha_color').split(' '))
-        else:
-            alpha_color = None
-
-        self.names = config.get(self.SECTION, 'names').split(', ')
-
+        
         self._sheet = SpriteSheet(image, icon_width, icon_height, x_spacing,
             y_spacing, alpha_color)
+
+        default_icon = root.findall(sprite_name + '/' + sprite_name +
+            '[@name="default"]')[0].attrib['image']
+        self._sheet.append(rb.find_plugin_file(plugin, 'img/'+
+            default_icon))
+        self.names.append('default')
 
     def __len__(self):
         return len(self._sheet)
 
     def __getitem__(self, name):
-        return self._sheet[self.names.index(name)]
+        try:
+            return self._sheet[self.names.index(name)]
+        except:
+            return self._sheet[self.names.index('default')]
 
     def __contains__(self, name):
         return name in self.names
