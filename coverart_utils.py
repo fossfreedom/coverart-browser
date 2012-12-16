@@ -284,8 +284,8 @@ class SpriteSheet(object):
         alpha_color=None, size=None):
         # load the image
         base_image = GdkPixbuf.Pixbuf.new_from_file(image)
-        #print "#####"
-        #print image
+        print "#####"
+        print image
         if alpha_color:
             base_image=base_image.add_alpha(True, *alpha_color)
 
@@ -294,8 +294,8 @@ class SpriteSheet(object):
 
         self._sprites = []
 
-        #print "y %d " % (base_image.get_height() / delta_y + 1)
-        #print "x %d " % (base_image.get_width() / delta_x + 1)
+        print "y %d " % (base_image.get_height() / delta_y + 1)
+        print "x %d " % (base_image.get_width() / delta_x + 1)
         for y in range(0, base_image.get_height() / delta_y + 1):
             for x in range(0, base_image.get_width() / delta_x + 1):
                 sprite = GdkPixbuf.Pixbuf.new(GdkPixbuf.Colorspace.RGB, True,
