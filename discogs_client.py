@@ -37,19 +37,19 @@ class APIBase(object):
             if not self._check_user_agent():
                 raise DiscogsAPIError, 'Invalid or no User-Agent set'
             try:
-                gs = GSetting()
-                setting = gs.get_setting(gs.Path.PLUGIN)
-                type_val = setting[gs.PluginKey.PROXY_TYPE]
-                if type_val == 0:
-                    type_name = 'http'
-                elif type_val == 1:
-                    type_name = 'https'
-                elif type_val == 2:
-                    type_name = 'ftp'
+                #gs = GSetting()
+                #setting = gs.get_setting(gs.Path.PLUGIN)
+                #type_val = setting[gs.PluginKey.PROXY_TYPE]
+                #if type_val == 0:
+                #    type_name = 'http'
+                #elif type_val == 1:
+                #    type_name = 'https'
+                #elif type_val == 2:
+                #    type_name = 'ftp'
                     
-                proxy_name = setting[gs.PluginKey.PROXY_VALUE]
-                proxydict = {}
-                proxydict[type_name] = proxy_name
+                #proxy_name = setting[gs.PluginKey.PROXY_VALUE]
+                proxydict = {'http':''}
+                #proxydict[type_name] = proxy_name
                 self._cached_response = requests.get(self._uri, params=self._params, headers=self._headers, proxies=proxydict)
             except:
                 raise DiscogsAPIError, 'bad response'
