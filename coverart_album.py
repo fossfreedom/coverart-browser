@@ -83,11 +83,15 @@ class Cover(GObject.Object):
 
     def _create_pixbuf(self, size):
         try:
-            self.pixbuf = self.original.scale_simple(size, size,
-                 GdkPixbuf.InterpType.BILINEAR)
-        except:
             self.pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(self.original,
                 size, size)
+
+            if self.pixbuf.get_width() != self.pixbuf.get_height():
+                self.pixbuf = self.pixbuf.scale_simple(size, size,
+                 GdkPixbuf.InterpType.BILINEAR)
+        except:
+            self.pixbuf = self.original.scale_simple(size, size,
+                 GdkPixbuf.InterpType.BILINEAR)
 
         self.size = size
 
