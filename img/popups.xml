@@ -58,12 +58,12 @@
         <alpha>255 255 255</alpha>
     </spritesheet>
     <spritesheet name="sort">
-        <image>sort_sprites2.png</image>
+        <image>sort_sprites.png</image>
         <icon width="140" height="134"></icon>
         <spacing x="34" y="100"></spacing>
     </spritesheet>
     <spritesheet name="playlist">
-        <image>playlist_sprites2.png</image>
+        <image>playlist_sprites.png</image>
         <icon width="140" height="134"></icon>
         <spacing x="28" y="100"></spacing>
     </spritesheet>
