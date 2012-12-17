@@ -123,7 +123,9 @@ class GSetting:
                 AUTOSTART='autostart',
                 TOOLBAR_POS='toolbar-pos',
                 EMBEDDED_SEARCH='embedded-search',
-                DISCOGS_SEARCH='discogs-search')
+                DISCOGS_SEARCH='discogs-search',
+                PROXY_TYPE='proxy-type',
+                PROXY_VALUE='proxy-value')
 
             self.setting = {}
 
@@ -285,6 +287,14 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
             self.toolbar_left_radio.set_active(True)
         if toolbar_pos == 2:
             self.toolbar_right_radio.set_active(True)
+            
+        discogs_proxy_type = builder.get_object('proxy_type')
+        self.settings.bind(gs.PluginKey.PROXY_TYPE,
+            discogs_proxy_type, 'active', Gio.SettingsBindFlags.DEFAULT)
+            
+        discogs_proxy_value = builder.get_object('proxy_value')
+        self.settings.bind(gs.PluginKey.PROXY_VALUE,
+            discogs_proxy_value, 'text', Gio.SettingsBindFlags.DEFAULT)
 
         # return the dialog
         return builder.get_object('main_notebook')

@@ -112,5 +112,15 @@
             <summary>Search for coverart on DISCOGS</summary>
             <description>Search coverart on the internet service DISCOGS.</description>
         </key>
+        <key type="i" name="proxy-type">
+          <default>0</default>
+            <summary>proxy type</summary>
+            <description>Type of proxy for DISCOGS - 0 http 1 https 2 ftp</description>
+        </key>
+        <key type="s" name="proxy-value">
+          <default>''</default>
+            <summary>proxy value</summary>
+            <description>Proxy value (if any) for DISCOGS</description>
+        </key>
     </schema>
 </schemalist>
