@@ -103,7 +103,7 @@ class CoverSearchPane(Gtk.VBox):
 
         self.current_album = album
 
-        artist = album.album_artist
+        artist = album.artist
         album_name = album.name
 
         if album_name.upper() == "UNKNOWN":
