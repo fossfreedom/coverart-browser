@@ -274,7 +274,8 @@ class GenrePopupButton(PopupButton):
             return
 
         self._spritesheet = ConfiguredSpriteSheet(plugin, 'genre')
-        self.default_image = Gtk.Image.new_from_file(rb.find_plugin_file(plugin,'img/genre.png'))
+        self.default_image = Gtk.Image.new_from_file(rb.find_plugin_file(plugin,'img/default_genre.png'))
+        self.unrecognised_image = Gtk.Image.new_from_file(rb.find_plugin_file(plugin,'img/unrecognised_genre.png'))
         
         self.set_initial_label('All')
         super(GenrePopupButton, self).initialise(shell, callback)
@@ -316,8 +317,12 @@ class GenrePopupButton(PopupButton):
             self.set_popup_value(genre)
 
             test_genre = genre.lower()
-            
-            self.resize_button_image(self._spritesheet[test_genre])
+            if test_genre == "all":
+                self.resize_button_image(self.default_image.get_pixbuf())
+            elif not test_genre in self._spritesheet:
+                self.resize_button_image(self.unrecognised_image.get_pixbuf())
+            else:
+                self.resize_button_image(self._spritesheet[test_genre])
                 
             if genre == self.get_initial_label():
                 self.callback(None)
