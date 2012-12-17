@@ -2,12 +2,12 @@
 <schemalist>
     <schema path="/org/gnome/rhythmbox/plugins/coverart_browser/" id="org.gnome.rhythmbox.plugins.coverart_browser">
         <key type="i" name="cover-size">
-            <default>92</default>
+            <default>120</default>
             <summary>Covers size in pixels.</summary>
             <description>Defines the size for the covers showed on the source.</description>
         </key>
         <key type="b" name="add-shadow">
-            <default>false</default>
+            <default>true</default>
             <summary>Add shadow to album's covers</summary>
             <description>Indicates if the albums should drop a shadow on the cover view</description>
         </key>
@@ -108,7 +108,7 @@
             <description>Search coverart embedded in files.</description>
         </key>
         <key type="b" name="discogs-search">
-            <default>true</default>
+            <default>false</default>
             <summary>Search for coverart on DISCOGS</summary>
             <description>Search coverart on the internet service DISCOGS.</description>
         </key>
