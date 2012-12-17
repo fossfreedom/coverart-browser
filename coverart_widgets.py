@@ -329,7 +329,7 @@ class SortPopupButton(PopupButton):
     __gtype_name__ = 'SortPopupButton'
 
     sorts = {'name': _('Sort by album name'),
-        'album_artist': _('Sort by album artist'),
+        'artist': _('Sort by album artist'),
         'year': _('Sort by year'),
         'rating': _('Sort by rating')}
 

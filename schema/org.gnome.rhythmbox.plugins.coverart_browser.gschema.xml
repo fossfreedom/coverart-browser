@@ -49,7 +49,7 @@
         <key type="s" name="sort-by">
           <choices>
             <choice value='name'/>
-            <choice value='album_artist'/>
+            <choice value='artist'/>
             <choice value='year'/>
             <choice value='rating'/>
           </choices>
