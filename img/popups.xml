@@ -41,7 +41,7 @@
     </genre>
     <sort>
         <sort name="name" spritesheet="sort"/>
-        <sort name="album_artist" spritesheet="sort"/>
+        <sort name="artist" spritesheet="sort"/>
         <sort name="year" spritesheet="sort"/>
         <sort name="rating" spritesheet="sort"/>
     </sort>
