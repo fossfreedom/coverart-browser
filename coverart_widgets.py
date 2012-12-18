@@ -253,6 +253,27 @@ class PlaylistPopupButton(PopupButton):
                 
             self.callback(model)
 
+    def show_popup(self):
+        '''
+        show the current popup menu
+        This is a workaround for issue #111
+        Basically - move the position of the popup to prevent the popup
+        opening in scroll-mode - seems to only affect the playlist popup
+        '''
+        def pos(menu, icon):
+            (a, x, y)=self.get_window().get_origin()
+            x += self.get_allocation().x
+            y += self.get_allocation().y + (self.get_allocation().height)
+            
+            from gi.repository import Gdk
+            s = Gdk.Screen.get_default()
+            
+            if y > (s.get_height() - 180):
+                y = s.get_height() - 180
+            return (x,y,False)
+        self._popup_menu.popup(None, None, pos, None, 0,
+            Gtk.get_current_event_time())
+
 
 class GenrePopupButton(PopupButton):
     __gtype_name__ = 'GenrePopupButton'
