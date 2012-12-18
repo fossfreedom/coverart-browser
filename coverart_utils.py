@@ -366,5 +366,5 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
         root = self.tree.getroot()
         self.alternate = {}
         for elem in root.findall(sprite_name + '/alt'):
-                self.alternate[elem.attrib['name']]=elem.attrib['genre']
+                self.alternate[elem.text]=elem.attrib['genre']
         
