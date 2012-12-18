@@ -62,8 +62,8 @@
     </playlist>
     <spritesheet name="genre">
         <image>genre_sprites.png</image>
-        <icon width="95" height="85"></icon>
-        <spacing x="45" y="40"></spacing>
+        <icon width="75" height="75"></icon>
+        <spacing x="70" y="48"></spacing>
         <alpha>255 255 255</alpha>
     </spritesheet>
     <spritesheet name="sort">
