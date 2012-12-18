@@ -338,8 +338,9 @@ class GenrePopupButton(PopupButton):
     def _find_alternates(self, test_genre):
 
         # first check if any of the default genres are a substring
-        # of test_genre
-        for genre in self._spritesheet.names:
+        # of test_genre - check in reverse order so that we
+        # test largest strings first (prevents spurious matches with short strings)
+        for genre in sorted( self._spritesheet.names, key=lambda b: (-len(b), b)):
             if genre in test_genre:
                 self.resize_button_image(self._spritesheet[genre])
                 return
