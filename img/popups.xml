@@ -38,6 +38,15 @@
         <genre name="hip-hop" spritesheet="genre"/>
         <genre name="children" spritesheet="genre"/>
         <genre name="default" image="genre.png"/>
+        
+        <alt name="world beat" genre="rock"/>
+        <alt name="lounge" genre="easy listening"/>
+        <alt name="ska" genre="alternative"/>
+        <alt name="trip hop" genre="dance"/>
+        <alt name="christmas" genre="holiday"/>
+        <alt name="swing" genre="oldies"/>
+        <alt name="kids" genre="children"/>
+        
     </genre>
     <sort>
         <sort name="name" spritesheet="sort"/>

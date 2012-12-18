@@ -322,8 +322,8 @@ class ConfiguredSpriteSheet(object):
     def __init__(self, plugin, sprite_name, size=None):
         self.plugin = plugin
         self.popups = rb.find_plugin_file(plugin, self.popups)
-        tree = ET.ElementTree(file=self.popups)
-        root = tree.getroot()
+        self.tree = ET.ElementTree(file=self.popups)
+        root = self.tree.getroot()
         base='spritesheet[@name="'+sprite_name+'"]/'
         image = rb.find_plugin_file(plugin, 'img/' +
             root.findall(base+'image')[0].text)
@@ -358,3 +358,13 @@ class ConfiguredSpriteSheet(object):
 
     def __contains__(self, name):
         return name in self.names
+
+class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
+    def __init__(self, plugin, sprite_name, size=None):
+        super(GenreConfiguredSpriteSheet, self).__init__(
+            plugin, sprite_name, size)
+        root = self.tree.getroot()
+        self.alternate = {}
+        for elem in root.findall(sprite_name + '/alt'):
+                self.alternate[elem.attrib['name']]=elem.attrib['genre']
+        

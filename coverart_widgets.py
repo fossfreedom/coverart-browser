@@ -25,6 +25,7 @@ from gi.repository import RB
 
 from coverart_browser_prefs import GSetting
 from coverart_utils import ConfiguredSpriteSheet
+from coverart_utils import GenreConfiguredSpriteSheet
 import rb
 
 ui_string = \
@@ -273,9 +274,13 @@ class GenrePopupButton(PopupButton):
         if self.is_initialised:
             return
 
-        self._spritesheet = ConfiguredSpriteSheet(plugin, 'genre')
-        self.default_image = Gtk.Image.new_from_file(rb.find_plugin_file(plugin,'img/default_genre.png'))
-        self.unrecognised_image = Gtk.Image.new_from_file(rb.find_plugin_file(plugin,'img/unrecognised_genre.png'))
+        self._spritesheet = GenreConfiguredSpriteSheet(plugin, 'genre')
+        self.default_image = \
+            Gtk.Image.new_from_file(rb.find_plugin_file(plugin,
+                'img/default_genre.png'))
+        self.unrecognised_image = \
+            Gtk.Image.new_from_file(rb.find_plugin_file(plugin,
+                'img/unrecognised_genre.png'))
         
         self.set_initial_label('All')
         super(GenrePopupButton, self).initialise(shell, callback)
@@ -320,7 +325,8 @@ class GenrePopupButton(PopupButton):
             if test_genre == "all":
                 self.resize_button_image(self.default_image.get_pixbuf())
             elif not test_genre in self._spritesheet:
-                self.resize_button_image(self.unrecognised_image.get_pixbuf())
+                self._find_alternates(test_genre)  #to be debugged later
+                #self.resize_button_image(self.unrecognised_image.get_pixbuf())
             else:
                 self.resize_button_image(self._spritesheet[test_genre])
                 
@@ -328,6 +334,24 @@ class GenrePopupButton(PopupButton):
                 self.callback(None)
             else:
                 self.callback(genre)
+
+    def _find_alternates(self, test_genre):
+
+        # first check if any of the default genres are a substring
+        # of test_genre
+        for genre in self._spritesheet.names:
+            if genre in test_genre:
+                self.resize_button_image(self._spritesheet[genre])
+                return
+
+        # next check alternates
+
+        if test_genre in self._spritesheet.alternate:
+            self.resize_button_image(self._spritesheet[self._spritesheet.alternate[test_genre]])
+            return
+
+        # if no matches then default to unrecognised image
+        self.resize_button_image(self.unrecognised_image.get_pixbuf())
 
 
 class SortPopupButton(PopupButton):
