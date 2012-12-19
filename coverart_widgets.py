@@ -58,7 +58,7 @@ class PopupButton(Gtk.Button):
         self._first_menu_item = None
         self._current_val = None
         self.is_initialised = False
-        self._initial_label = None
+        self._initial_label = ''
 
     def initialise(self, shell, callback):
         '''
@@ -204,7 +204,7 @@ class PlaylistPopupButton(PopupButton):
 
         self._spritesheet = ConfiguredSpriteSheet(plugin, 'playlist')
         self.default_image = Gtk.Image.new_from_pixbuf(self._spritesheet['music'])
-        
+
         super(PlaylistPopupButton, self).initialise(shell, callback)
 
     def do_clicked(self, button):
@@ -250,7 +250,7 @@ class PlaylistPopupButton(PopupButton):
                     self.resize_button_image(self._spritesheet['playlist'])
                 else:
                     self.resize_button_image(self._spritesheet['smart'])
-                
+
             self.callback(model)
 
     def show_popup(self):
@@ -296,13 +296,14 @@ class GenrePopupButton(PopupButton):
 
         self._spritesheet = ConfiguredSpriteSheet(plugin, 'genre')
         self.default_image = Gtk.Image.new_from_file(rb.find_plugin_file(plugin,'img/genre.png'))
-        
-        self.set_initial_label('All')
+
         super(GenrePopupButton, self).initialise(shell, callback)
 
         # seems like view [0] is the genre property view
         model = self.shell.props.library_source.get_property_views()[0].\
             get_model()
+
+        self.set_initial_label(model[0][0])
 
         # connect signals to update genres
         model.connect('row-inserted', self._update_popup)
@@ -326,7 +327,7 @@ class GenrePopupButton(PopupButton):
             still_exists = still_exists or genre == current
 
         if not still_exists:
-            self._genre_changed(None, 'All')
+            self._genre_changed(None, self.get_initial_label())
 
     def _genre_changed(self, menu, genre):
         '''
@@ -337,9 +338,9 @@ class GenrePopupButton(PopupButton):
             self.set_popup_value(genre)
 
             test_genre = genre.lower()
-            
+
             self.resize_button_image(self._spritesheet[test_genre])
-                
+
             if genre == self.get_initial_label():
                 self.callback(None)
             else:
@@ -401,7 +402,7 @@ class SortPopupButton(PopupButton):
             self.sort_by = sort
 
             self.resize_button_image(self._spritesheet[sort])
-            
+
             self.callback(sort)
 
 
