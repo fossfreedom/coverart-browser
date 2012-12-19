@@ -304,10 +304,13 @@ class GenrePopupButton(PopupButton):
         self.model = RB.RhythmDBPropertyModel.new(self.shell.props.db,
             RB.RhythmDBPropType.GENRE)
 
+        query = self.shell.props.library_source.props.base_query_model
+        self.model.props.query_model = query
+
         self.set_initial_label(self.model[0][0])
 
         # connect signals to update genres
-        query = self.shell.props.library_source.props.base_query_model
+
         query.connect('row-inserted', self._update_popup)
         query.connect('row-deleted', self._update_popup)
         query.connect('row-changed', self._update_popup)
@@ -315,9 +318,7 @@ class GenrePopupButton(PopupButton):
         # generate initial popup
         self._update_popup(query)
 
-    def _update_popup(self, query, *args):
-        self.model.props.query_model = query
-
+    def _update_popup(self, *args):
         still_exists = False
         current = self._current_val
 
