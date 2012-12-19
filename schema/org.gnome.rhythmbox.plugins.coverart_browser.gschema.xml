@@ -47,12 +47,6 @@
             <description>Position of the horizontal paned-handle divider.</description>
         </key>
         <key type="s" name="sort-by">
-          <choices>
-            <choice value='name'/>
-            <choice value='artist'/>
-            <choice value='year'/>
-            <choice value='rating'/>
-          </choices>
           <default>'name'</default>
             <summary>sort by</summary>
             <description>Sort by criteria.</description>

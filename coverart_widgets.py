@@ -434,7 +434,11 @@ class SortPopupButton(PopupButton):
         '''
         if not menu or menu.get_active():
             self.set_popup_value(self.sorts[sort])
-            self.sort_by = sort
+            #self.sort_by = sort
+            print sort
+            gs = GSetting()
+            settings = gs.get_setting(gs.Path.PLUGIN)
+            settings[gs.PluginKey.SORT_BY]=sort
 
             self.resize_button_image(self._spritesheet[sort])
 
