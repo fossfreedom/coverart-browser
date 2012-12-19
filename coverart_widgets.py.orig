@@ -295,6 +295,7 @@ class GenrePopupButton(PopupButton):
         if self.is_initialised:
             return
 
+<<<<<<< HEAD
         self._spritesheet = GenreConfiguredSpriteSheet(plugin, 'genre')
         self.default_image = \
             Gtk.Image.new_from_file(rb.find_plugin_file(plugin,
@@ -303,7 +304,13 @@ class GenrePopupButton(PopupButton):
             Gtk.Image.new_from_file(rb.find_plugin_file(plugin,
                 'img/unrecognised_genre.png'))
         
+        self.set_initial_label('All')
+=======
+        self._spritesheet = ConfiguredSpriteSheet(plugin, 'genre')
+        self.default_image = Gtk.Image.new_from_file(
+            rb.find_plugin_file(plugin, 'img/genre.png'))
 
+>>>>>>> master
         super(GenrePopupButton, self).initialise(shell, callback)
 
         # create a new model
@@ -349,7 +356,8 @@ class GenrePopupButton(PopupButton):
             self.set_popup_value(genre)
 
             test_genre = genre.lower()
-            if test_genre == self.get_initial_label().lower():
+<<<<<<< HEAD
+            if test_genre == "all":
                 self.resize_button_image(self.default_image.get_pixbuf())
             elif not test_genre in self._spritesheet:
                 self._find_alternates(test_genre)  #to be debugged later
@@ -357,6 +365,11 @@ class GenrePopupButton(PopupButton):
             else:
                 self.resize_button_image(self._spritesheet[test_genre])
                 
+=======
+
+            self.resize_button_image(self._spritesheet[test_genre])
+
+>>>>>>> master
             if genre == self.get_initial_label():
                 self.callback(None)
             else:
