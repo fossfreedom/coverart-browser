@@ -264,10 +264,10 @@ class PlaylistPopupButton(PopupButton):
             (a, x, y)=self.get_window().get_origin()
             x += self.get_allocation().x
             y += self.get_allocation().y + (self.get_allocation().height)
-            
+
             from gi.repository import Gdk
             s = Gdk.Screen.get_default()
-            
+
             if y > (s.get_height() - 180):
                 y = s.get_height() - 180
             return (x,y,False)
@@ -295,32 +295,36 @@ class GenrePopupButton(PopupButton):
             return
 
         self._spritesheet = ConfiguredSpriteSheet(plugin, 'genre')
-        self.default_image = Gtk.Image.new_from_file(rb.find_plugin_file(plugin,'img/genre.png'))
+        self.default_image = Gtk.Image.new_from_file(
+            rb.find_plugin_file(plugin, 'img/genre.png'))
 
         super(GenrePopupButton, self).initialise(shell, callback)
 
-        # seems like view [0] is the genre property view
-        model = self.shell.props.library_source.get_property_views()[0].\
-            get_model()
+        # create a new model
+        self.model = RB.RhythmDBPropertyModel.new(self.shell.props.db,
+            RB.RhythmDBPropType.GENRE)
 
-        self.set_initial_label(model[0][0])
+        self.set_initial_label(self.model[0][0])
 
         # connect signals to update genres
-        model.connect('row-inserted', self._update_popup)
-        model.connect('row-deleted', self._update_popup)
-        model.connect('row-changed', self._update_popup)
+        query = self.shell.props.library_source.props.base_query_model
+        query.connect('row-inserted', self._update_popup)
+        query.connect('row-deleted', self._update_popup)
+        query.connect('row-changed', self._update_popup)
 
         # generate initial popup
-        self._update_popup(model)
+        self._update_popup(query)
 
-    def _update_popup(self, model, *args):
+    def _update_popup(self, query, *args):
+        self.model.props.query_model = query
+
         still_exists = False
         current = self._current_val
 
         # clear and recreate popup
         self.clear_popupmenu()
 
-        for row in model:
+        for row in self.model:
             genre = row[0]
             self.add_menuitem(genre, self._genre_changed, genre)
 
