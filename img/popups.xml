@@ -65,7 +65,7 @@
     <spritesheet name="genre">
         <image>genre_sprites.png</image>
         <icon width="75" height="75"></icon>
-        <spacing x="70" y="48"></spacing>
+        <spacing x="73" y="50"></spacing>
         <start-position x="8" y="5"></start-position>
         <alpha>255 255 255</alpha>
     </spritesheet>
