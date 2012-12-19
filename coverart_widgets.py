@@ -25,6 +25,7 @@ from gi.repository import RB
 
 from coverart_browser_prefs import GSetting
 from coverart_utils import ConfiguredSpriteSheet
+from coverart_utils import GenreConfiguredSpriteSheet
 import rb
 
 ui_string = \
@@ -58,7 +59,7 @@ class PopupButton(Gtk.Button):
         self._first_menu_item = None
         self._current_val = None
         self.is_initialised = False
-        self._initial_label = None
+        self._initial_label = ''
 
     def initialise(self, shell, callback):
         '''
@@ -204,7 +205,7 @@ class PlaylistPopupButton(PopupButton):
 
         self._spritesheet = ConfiguredSpriteSheet(plugin, 'playlist')
         self.default_image = Gtk.Image.new_from_pixbuf(self._spritesheet['music'])
-        
+
         super(PlaylistPopupButton, self).initialise(shell, callback)
 
     def do_clicked(self, button):
@@ -250,8 +251,29 @@ class PlaylistPopupButton(PopupButton):
                     self.resize_button_image(self._spritesheet['playlist'])
                 else:
                     self.resize_button_image(self._spritesheet['smart'])
-                
+
             self.callback(model)
+
+    def show_popup(self):
+        '''
+        show the current popup menu
+        This is a workaround for issue #111
+        Basically - move the position of the popup to prevent the popup
+        opening in scroll-mode - seems to only affect the playlist popup
+        '''
+        def pos(menu, icon):
+            (a, x, y)=self.get_window().get_origin()
+            x += self.get_allocation().x
+            y += self.get_allocation().y + (self.get_allocation().height)
+
+            from gi.repository import Gdk
+            s = Gdk.Screen.get_default()
+
+            if y > (s.get_height() - 180):
+                y = s.get_height() - 180
+            return (x,y,False)
+        self._popup_menu.popup(None, None, pos, None, 0,
+            Gtk.get_current_event_time())
 
 
 class GenrePopupButton(PopupButton):
@@ -273,39 +295,50 @@ class GenrePopupButton(PopupButton):
         if self.is_initialised:
             return
 
-        self._spritesheet = ConfiguredSpriteSheet(plugin, 'genre')
-        self.default_image = Gtk.Image.new_from_file(rb.find_plugin_file(plugin,'img/genre.png'))
+        self._spritesheet = GenreConfiguredSpriteSheet(plugin, 'genre')
+        self.default_image = \
+            Gtk.Image.new_from_file(rb.find_plugin_file(plugin,
+                'img/default_genre.png'))
+        self.unrecognised_image = \
+            Gtk.Image.new_from_file(rb.find_plugin_file(plugin,
+                'img/unrecognised_genre.png'))
         
-        self.set_initial_label('All')
+
         super(GenrePopupButton, self).initialise(shell, callback)
 
-        # seems like view [0] is the genre property view
-        model = self.shell.props.library_source.get_property_views()[0].\
-            get_model()
+        # create a new model
+        self.model = RB.RhythmDBPropertyModel.new(self.shell.props.db,
+            RB.RhythmDBPropType.GENRE)
+
+        query = self.shell.props.library_source.props.base_query_model
+        self.model.props.query_model = query
+
+        self.set_initial_label(self.model[0][0])
 
         # connect signals to update genres
-        model.connect('row-inserted', self._update_popup)
-        model.connect('row-deleted', self._update_popup)
-        model.connect('row-changed', self._update_popup)
+
+        query.connect('row-inserted', self._update_popup)
+        query.connect('row-deleted', self._update_popup)
+        query.connect('row-changed', self._update_popup)
 
         # generate initial popup
-        self._update_popup(model)
+        self._update_popup(query)
 
-    def _update_popup(self, model, *args):
+    def _update_popup(self, *args):
         still_exists = False
         current = self._current_val
 
         # clear and recreate popup
         self.clear_popupmenu()
 
-        for row in model:
+        for row in self.model:
             genre = row[0]
             self.add_menuitem(genre, self._genre_changed, genre)
 
             still_exists = still_exists or genre == current
 
         if not still_exists:
-            self._genre_changed(None, 'All')
+            self._genre_changed(None, self.get_initial_label())
 
     def _genre_changed(self, menu, genre):
         '''
@@ -316,13 +349,37 @@ class GenrePopupButton(PopupButton):
             self.set_popup_value(genre)
 
             test_genre = genre.lower()
-            
-            self.resize_button_image(self._spritesheet[test_genre])
+            if test_genre == self.get_initial_label().lower():
+                self.resize_button_image(self.default_image.get_pixbuf())
+            elif not test_genre in self._spritesheet:
+                self._find_alternates(test_genre)  #to be debugged later
+                #self.resize_button_image(self.unrecognised_image.get_pixbuf())
+            else:
+                self.resize_button_image(self._spritesheet[test_genre])
                 
             if genre == self.get_initial_label():
                 self.callback(None)
             else:
                 self.callback(genre)
+
+    def _find_alternates(self, test_genre):
+
+        # first check if any of the default genres are a substring
+        # of test_genre - check in reverse order so that we
+        # test largest strings first (prevents spurious matches with short strings)
+        for genre in sorted( self._spritesheet.names, key=lambda b: (-len(b), b)):
+            if genre in test_genre:
+                self.resize_button_image(self._spritesheet[genre])
+                return
+
+        # next check alternates
+
+        if test_genre in self._spritesheet.alternate:
+            self.resize_button_image(self._spritesheet[self._spritesheet.alternate[test_genre]])
+            return
+
+        # if no matches then default to unrecognised image
+        self.resize_button_image(self.unrecognised_image.get_pixbuf())
 
 
 class SortPopupButton(PopupButton):
@@ -377,10 +434,14 @@ class SortPopupButton(PopupButton):
         '''
         if not menu or menu.get_active():
             self.set_popup_value(self.sorts[sort])
-            self.sort_by = sort
+            #self.sort_by = sort
+            print sort
+            gs = GSetting()
+            settings = gs.get_setting(gs.Path.PLUGIN)
+            settings[gs.PluginKey.SORT_BY]=sort
 
             self.resize_button_image(self._spritesheet[sort])
-            
+
             self.callback(sort)
 
 

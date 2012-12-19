@@ -38,6 +38,17 @@
         <genre name="hip-hop" spritesheet="genre"/>
         <genre name="children" spritesheet="genre"/>
         <genre name="default" image="genre.png"/>
+        
+        <alt genre="rock">world beat</alt>
+        <alt genre="easy listening">lounge</alt>
+        <alt genre="alternative">ska</alt>
+        <alt genre="dance">trip hop</alt>
+        <alt genre="holiday">christmas</alt>
+        <alt genre="oldies">swing</alt>
+        <alt genre="children">kids</alt>
+        <alt genre="blues">r&amp;b</alt>
+        
+        
     </genre>
     <sort>
         <sort name="name" spritesheet="sort"/>
@@ -53,18 +64,21 @@
     </playlist>
     <spritesheet name="genre">
         <image>genre_sprites.png</image>
-        <icon width="95" height="85"></icon>
-        <spacing x="45" y="40"></spacing>
+        <icon width="75" height="75"></icon>
+        <spacing x="73" y="50"></spacing>
+        <start-position x="8" y="5"></start-position>
         <alpha>255 255 255</alpha>
     </spritesheet>
     <spritesheet name="sort">
         <image>sort_sprites.png</image>
         <icon width="140" height="134"></icon>
         <spacing x="34" y="100"></spacing>
+        <start-position x="0" y="0"></start-position>
     </spritesheet>
     <spritesheet name="playlist">
         <image>playlist_sprites.png</image>
         <icon width="140" height="134"></icon>
         <spacing x="28" y="100"></spacing>
+        <start-position x="0" y="0"></start-position>
     </spritesheet>
 </root>
