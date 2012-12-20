@@ -176,9 +176,7 @@ class PopupButton(Gtk.Button):
 
 class PlaylistPopupButton(PopupButton):
     __gtype_name__ = 'PlaylistPopupButton'
-    _library_name = _("Music Library")
-    _queue_name = _("Play Queue")
-
+    
     def __init__(self, **kargs):
         '''
         Initializes the button.
@@ -186,8 +184,7 @@ class PlaylistPopupButton(PopupButton):
         super(PlaylistPopupButton, self).__init__(
             **kargs)
 
-        #self.default_image = Gtk.Image.new_from_file('img/icon_playlist.png')
-        self.set_initial_label(self._library_name)
+        #self.set_initial_label(self._library_name)
 
         #weird introspection - do_clicked is overridden but
         #PopupButton version is called not the Playlist version
@@ -202,6 +199,13 @@ class PlaylistPopupButton(PopupButton):
         '''
         if self.is_initialised:
             return
+
+        self._library_name = shell.props.library_source.props.name
+        self._queue_name = shell.props.queue_source.props.name#_("Play Queue")
+        if " (" in self._queue_name:
+            self._queue_name = self._queue_name[0:self._queue_name.find(" (")]
+            
+        self.set_initial_label(self._library_name)
 
         self._spritesheet = ConfiguredSpriteSheet(plugin, 'playlist')
         self.default_image = Gtk.Image.new_from_pixbuf(self._spritesheet['music'])
