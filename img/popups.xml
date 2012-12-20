@@ -15,7 +15,7 @@
         <genre name="jazz" spritesheet="genre"/>
         <genre name="blues" spritesheet="genre"/>
         <genre name="metal" spritesheet="genre"/>
-        <genre name="karoke" spritesheet="genre"/>
+        <genre name="karaoke" spritesheet="genre"/>
         <genre name="rap" spritesheet="genre"/>
         <genre name="regtime" spritesheet="genre"/>
         <genre name="musical" spritesheet="genre"/>
