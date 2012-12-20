@@ -17,7 +17,7 @@
         <genre name="metal" spritesheet="genre"/>
         <genre name="karaoke" spritesheet="genre"/>
         <genre name="rap" spritesheet="genre"/>
-        <genre name="regtime" spritesheet="genre"/>
+        <genre name="ragtime" spritesheet="genre"/>
         <genre name="musical" spritesheet="genre"/>
         <genre name="dance" spritesheet="genre"/>
         <genre name="reggae" spritesheet="genre"/>
