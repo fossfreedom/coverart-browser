@@ -39,15 +39,14 @@
         <genre name="children" spritesheet="genre"/>
         <genre name="default" image="genre.png"/>
         
-        <alt genre="rock">world beat</alt>
         <alt genre="easy listening">lounge</alt>
         <alt genre="alternative">ska</alt>
+        <alt genre="alternative">gothic</alt>
         <alt genre="dance">trip hop</alt>
         <alt genre="holiday">christmas</alt>
         <alt genre="oldies">swing</alt>
         <alt genre="children">kids</alt>
         <alt genre="blues">r&amp;b</alt>
-        
         
     </genre>
     <sort>
