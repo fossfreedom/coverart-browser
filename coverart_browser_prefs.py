@@ -116,6 +116,7 @@ class GSetting:
                 DISPLAY_FONT_SIZE='display-font-size',
                 COVER_SIZE='cover-size',
                 ADD_SHADOW='add-shadow',
+                SHADOW_IMAGE='shadow-image',
                 PANED_POSITION='paned-position',
                 SORT_BY='sort-by',
                 SORT_ORDER='sort-order',
@@ -286,11 +287,21 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         if toolbar_pos == 2:
             self.toolbar_right_radio.set_active(True)
 
+        light_source_combo = builder.get_object('light_source_combobox')
+        renderer = Gtk.CellRendererText()
+        light_source_combo.pack_start(renderer, True)
+        light_source_combo.add_attribute(renderer, 'text', 1)
+        self.settings.bind(gs.PluginKey.SHADOW_IMAGE, light_source_combo,
+            'active-id', Gio.SettingsBindFlags.DEFAULT)
+
         # return the dialog
         return builder.get_object('main_notebook')
 
     def toolbar_callback(self, radio):
+        if not radio.get_active():
+            return
         gs = GSetting()
+
         if radio == self.toolbar_main_radio:
             self.settings[gs.PluginKey.TOOLBAR_POS] = 0
         if radio == self.toolbar_left_radio:

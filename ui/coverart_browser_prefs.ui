@@ -23,6 +23,32 @@
     <property name="step_increment">1</property>
     <property name="page_increment">1</property>
   </object>
+  <object class="GtkListStore" id="lightsource_model">
+    <columns>
+      <!-- column-name id -->
+      <column type="gchararray"/>
+      <!-- column-name text -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">above</col>
+        <col id="1" translatable="yes">Above</col>
+      </row>
+      <row>
+        <col id="0">top-left</col>
+        <col id="1" translatable="yes">Top Left</col>
+      </row>
+      <row>
+        <col id="0">top-center</col>
+        <col id="1" translatable="yes">Top Center</col>
+      </row>
+      <row>
+        <col id="0">top-right</col>
+        <col id="1" translatable="yes">Top Right</col>
+      </row>
+    </data>
+  </object>
   <object class="GtkNotebook" id="main_notebook">
     <property name="visible">True</property>
     <property name="can_focus">True</property>
@@ -326,13 +352,13 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="cover_appearence_label">
+          <object class="GtkLabel" id="cover_appearance_label">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="halign">start</property>
             <property name="margin_left">5</property>
             <property name="margin_top">5</property>
-            <property name="label" translatable="yes">Cover Appearence</property>
+            <property name="label" translatable="yes">Cover Appearance</property>
             <attributes>
               <attribute name="weight" value="bold"/>
             </attributes>
@@ -363,6 +389,47 @@
             <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="position">4</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="light_source_box">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_left">25</property>
+            <property name="margin_right">5</property>
+            <property name="margin_top">5</property>
+            <property name="margin_bottom">5</property>
+            <child>
+              <object class="GtkLabel" id="light_source_label">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Light Source: </property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBox" id="light_source_combobox">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="model">lightsource_model</property>
+                <property name="active">0</property>
+                <property name="id_column">0</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">5</property>
           </packing>
         </child>
         <child>
@@ -409,7 +476,7 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">5</property>
+            <property name="position">6</property>
           </packing>
         </child>
       </object>
