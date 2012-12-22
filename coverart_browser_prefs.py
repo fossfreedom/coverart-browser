@@ -287,21 +287,13 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         if toolbar_pos == 2:
             self.toolbar_right_radio.set_active(True)
 
-        self.shadow_all_radio = builder.get_object('shadow_all_radio')
-        self.shadow_topcenter_radio = builder.get_object('shadow_center_radio')
-        self.shadow_topleft_radio = builder.get_object('shadow_left_radio')
-        self.shadow_topright_radio = builder.get_object('shadow_right_radio')
+        light_source_combo = builder.get_object('light_source_combobox')
+        renderer = Gtk.CellRendererText()
+        light_source_combo.pack_start(renderer, True)
+        light_source_combo.add_attribute(renderer, 'text', 1)
+        self.settings.bind(gs.PluginKey.SHADOW_IMAGE, light_source_combo,
+            'active-id', Gio.SettingsBindFlags.DEFAULT)
 
-        shadow_image = self.settings[gs.PluginKey.SHADOW_IMAGE]
-        if shadow_image == "album-shadow-all.png":
-            self.shadow_all_radio.set_active(True)
-        if shadow_image == "album-shadow-topcenter.png":
-            self.shadow_topcenter_radio.set_active(True)
-        if shadow_image == "album-shadow-topleft.png":
-            self.shadow_topleft_radio.set_active(True)
-        if shadow_image == "album-shadow-topright.png":
-            self.shadow_topright_radio.set_active(True)
-        
         # return the dialog
         return builder.get_object('main_notebook')
 
@@ -309,27 +301,13 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         if not radio.get_active():
             return
         gs = GSetting()
-            
+
         if radio == self.toolbar_main_radio:
             self.settings[gs.PluginKey.TOOLBAR_POS] = 0
         if radio == self.toolbar_left_radio:
             self.settings[gs.PluginKey.TOOLBAR_POS] = 1
         if radio == self.toolbar_right_radio:
             self.settings[gs.PluginKey.TOOLBAR_POS] = 2
-
-    def shadow_callback(self, radio):
-        if not radio.get_active():
-            return
-        
-        gs = GSetting()
-        if radio == self.shadow_all_radio:
-            self.settings[gs.PluginKey.SHADOW_IMAGE] = "album-shadow-all.png"
-        if radio == self.shadow_topcenter_radio:
-            self.settings[gs.PluginKey.SHADOW_IMAGE] = "album-shadow-topcenter.png"
-        if radio == self.shadow_topleft_radio:
-            self.settings[gs.PluginKey.SHADOW_IMAGE] = "album-shadow-topleft.png"
-        if radio == self.shadow_topright_radio:
-            self.settings[gs.PluginKey.SHADOW_IMAGE] = "album-shadow-topright.png"
 
     def rating_changed_callback(self, stars):
         print "rating_changed_callback"

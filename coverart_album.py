@@ -1103,7 +1103,8 @@ class CoverManager(GObject.Object):
     def _create_unknown_and_shadow(self, plugin):
         # create the unknown cover
         self._shadow = Shadow(self.cover_size,
-            rb.find_plugin_file(plugin, 'img/' + self.shadow_image))
+            rb.find_plugin_file(plugin, 'img/album-shadow-%s.png' %
+                self.shadow_image))
         self.unknown_cover = self._create_cover(
             rb.find_plugin_file(plugin, 'img/rhythmbox-missing-artwork.svg'))
 
