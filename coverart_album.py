@@ -1024,10 +1024,12 @@ class CoverManager(GObject.Object):
     # properties
     cover_size = GObject.property(type=int, default=0)
     add_shadow = GObject.property(type=bool, default=False)
+    shadow_image = GObject.property(type=str, default="album-shadow-all.png")
 
     def __init__(self, plugin, album_manager):
         super(CoverManager, self).__init__()
 
+        self.plugin = plugin
         self._cover_db = RB.ExtDB(name='album-art')
         self._album_manager = album_manager
 
@@ -1035,14 +1037,13 @@ class CoverManager(GObject.Object):
         self._connect_signals()
 
         # create the unknown cover
-        self._shadow = Shadow(self.cover_size,
-            rb.find_plugin_file(plugin, 'img/album-shadow.png'))
         self.unknown_cover = self._create_cover(
             rb.find_plugin_file(plugin, 'img/rhythmbox-missing-artwork.svg'))
 
     def _connect_signals(self):
         self.connect('notify::cover-size', self._on_cover_size_changed)
         self.connect('notify::add-shadow', self._on_add_shadow_changed)
+        self.connect('notify::shadow-image', self._on_add_shadow_changed)
 
         # connect the signal to update cover arts when added
         self.req_id = self._cover_db.connect('added',
@@ -1056,6 +1057,9 @@ class CoverManager(GObject.Object):
             Gio.SettingsBindFlags.GET)
         setting.bind(gs.PluginKey.ADD_SHADOW, self, 'add_shadow',
             Gio.SettingsBindFlags.GET)
+        setting.bind(gs.PluginKey.SHADOW_IMAGE, self, 'shadow_image',
+            Gio.SettingsBindFlags.GET)
+        
 
     @idle_iterator
     def _load_covers(self):
@@ -1100,6 +1104,8 @@ class CoverManager(GObject.Object):
 
     def _create_cover(self, image):
         if self.add_shadow:
+            self._shadow = Shadow(self.cover_size,
+                rb.find_plugin_file(self.plugin, 'img/' + self.shadow_image))
             cover = ShadowedCover(self._shadow, image)
         else:
             cover = Cover(self.cover_size, image)

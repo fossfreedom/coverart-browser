@@ -8,14 +8,14 @@
     <property name="step_increment">1</property>
     <property name="page_increment">5</property>
   </object>
-  <object class="GtkEntryBuffer" id="display_text_ellipsize_length_buffer">
-    <property name="text">0</property>
-    <property name="max_length">3</property>
-  </object>
   <object class="GtkAdjustment" id="display_text_ellipsize_length_adjustment">
     <property name="upper">999</property>
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
+  </object>
+  <object class="GtkEntryBuffer" id="display_text_ellipsize_length_buffer">
+    <property name="text">0</property>
+    <property name="max_length">3</property>
   </object>
   <object class="GtkAdjustment" id="font_adjustment">
     <property name="lower">4</property>
@@ -193,7 +193,7 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">1</property>
+            <property name="position">0</property>
           </packing>
         </child>
         <child>
@@ -322,17 +322,17 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">2</property>
+            <property name="position">4</property>
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="cover_appearence_label">
+          <object class="GtkLabel" id="cover_appearance_label">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="halign">start</property>
             <property name="margin_left">5</property>
             <property name="margin_top">5</property>
-            <property name="label" translatable="yes">Cover Appearence</property>
+            <property name="label" translatable="yes">Cover Appearance</property>
             <attributes>
               <attribute name="weight" value="bold"/>
             </attributes>
@@ -340,7 +340,7 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">3</property>
+            <property name="position">5</property>
           </packing>
         </child>
         <child>
@@ -362,7 +362,99 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">4</property>
+            <property name="position">20</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="add_shadow_box">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_left">25</property>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkRadioButton" id="shadow_all_radio">
+                <property name="label" translatable="yes">All</property>
+                <property name="use_action_appearance">False</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="use_action_appearance">False</property>
+                <property name="xalign">0</property>
+                <property name="active">True</property>
+                <property name="draw_indicator">True</property>
+                <signal name="toggled" handler="shadow_callback" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkRadioButton" id="shadow_center_radio">
+                <property name="label" translatable="yes">Top Center</property>
+                <property name="use_action_appearance">False</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="use_action_appearance">False</property>
+                <property name="xalign">0</property>
+                <property name="active">True</property>
+                <property name="draw_indicator">True</property>
+                <property name="group">shadow_all_radio</property>
+                <signal name="toggled" handler="shadow_callback" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkRadioButton" id="shadow_left_radio">
+                <property name="label" translatable="yes">Top Left</property>
+                <property name="use_action_appearance">False</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="use_action_appearance">False</property>
+                <property name="xalign">0</property>
+                <property name="active">True</property>
+                <property name="draw_indicator">True</property>
+                <property name="group">shadow_all_radio</property>
+                <signal name="toggled" handler="shadow_callback" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkRadioButton" id="shadow_right_radio">
+                <property name="label" translatable="yes">Top Right</property>
+                <property name="use_action_appearance">False</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="use_action_appearance">False</property>
+                <property name="xalign">0</property>
+                <property name="active">True</property>
+                <property name="draw_indicator">True</property>
+                <property name="group">shadow_all_radio</property>
+                <signal name="toggled" handler="shadow_callback" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">3</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">30</property>
           </packing>
         </child>
         <child>
@@ -409,7 +501,7 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">5</property>
+            <property name="position">50</property>
           </packing>
         </child>
       </object>

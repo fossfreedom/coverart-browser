@@ -11,6 +11,11 @@
             <summary>Add shadow to album's covers</summary>
             <description>Indicates if the albums should drop a shadow on the cover view</description>
         </key>
+        <key type="s" name="shadow-image">
+            <default>"album-shadow-all.png"</default>
+            <summary>shadow image to be used behind album's covers</summary>
+            <description>drop shadow image on the cover view</description>
+        </key>
         <key type="b" name="custom-statusbar">
             <default>false</default>
             <summary>If the plugin source's custom status bar should be used.</summary>
