@@ -66,6 +66,7 @@ class CoverArtBrowserSource(RB.Source):
         self.hasActivated = False
         self.last_toolbar_pos = None
         self.moving_handle = False
+        self.manual_expanded = False
 
     def _connect_properties(self):
         '''
@@ -989,11 +990,18 @@ class CoverArtBrowserSource(RB.Source):
             if cover_search_pane_visible:
                 self.cover_search_pane.clear()
 
+            if not self.manual_expanded:
+                self.bottom_expander.set_expanded(False)
+
             return
         elif len(selected) == 1:
             self.stars.set_rating(selected[0].rating)
+            if not self.manual_expanded:
+                self.bottom_expander.set_expanded(True)
         else:
             self.stars.set_rating(0)
+            if not self.manual_expanded:
+                self.bottom_expander.set_expanded(True)
 
         track_count = 0
         duration = 0
@@ -1051,6 +1059,9 @@ class CoverArtBrowserSource(RB.Source):
 
         print "CoverArtBrowser DEBUG - end update_statusbar"
 
+    def on_bottom_expander_button_press_callback(self, widget, event):
+        self.manual_expanded = not self.manual_expanded
+        
     def bottom_expander_expanded_callback(self, action, param):
         '''
         Callback connected to expanded signal of the paned GtkExpander
