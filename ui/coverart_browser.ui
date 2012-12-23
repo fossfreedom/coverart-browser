@@ -222,6 +222,7 @@
         <child>
           <object class="GtkOverlay" id="iconview_overlay">
             <property name="visible">True</property>
+            <signal name="key-press-event" handler="on_overlay_key_press" swapped="no"/>
             <child>
               <object class="GtkScrolledWindow" id="scrolled_window">
                 <property name="visible">True</property>
@@ -241,7 +242,7 @@
                     <signal name="button-press-event" handler="mouseclick_callback" swapped="no"/>
                     <signal name="selection-changed" handler="selectionchanged_callback" swapped="no"/>
                     <signal name="item-activated" handler="item_activated_callback" swapped="no"/>
-                  </object>                  
+                  </object>
                 </child>
               </object>
             </child>
@@ -252,6 +253,7 @@
                 <property name="margin_bottom">5</property>
                 <property name="halign">end</property>
                 <property name="valign">end</property>
+                <signal name="changed" handler="on_quick_search" swapped="no"/>
               </object>
             </child>
           </object>

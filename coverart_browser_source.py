@@ -241,6 +241,9 @@ class CoverArtBrowserSource(RB.Source):
         self.filter_menu_track_title_item = ui.get_object(
             'filter_track_title_menu_item')
 
+        # quick search entry
+        self.quick_search = ui.get_object('quick_search_entry')
+
         self.ui = ui
         self.si = si
 
@@ -273,7 +276,8 @@ class CoverArtBrowserSource(RB.Source):
             self.search_show_popup_callback)
 
         self.sort_by = ui.get_object('sort_by')
-        self.sort_by.initialise(self.plugin, self.shell, self.sorting_criteria_changed)
+        self.sort_by.initialise(self.plugin, self.shell,
+            self.sorting_criteria_changed)
         self.sort_order_button = ui.get_object('sort_order')
         self.sort_order_button.initialise(self.plugin,
             self.sorting_direction_changed, self.sort_order)
@@ -287,11 +291,13 @@ class CoverArtBrowserSource(RB.Source):
 
         # genre
         self.genre_button = ui.get_object('genre_button')
-        self.genre_button.initialise(self.plugin, self.shell, self.genre_filter_callback)
+        self.genre_button.initialise(self.plugin, self.shell,
+            self.genre_filter_callback)
 
         # get playlist popup
         self.playlist_button = ui.get_object('playlist_button')
-        self.playlist_button.initialise(self.plugin, self.shell, self.filter_by_model)
+        self.playlist_button.initialise(self.plugin, self.shell,
+            self.filter_by_model)
 
         print "CoverArtBrowser DEBUG - end _toolbar"
 
@@ -562,6 +568,21 @@ class CoverArtBrowserSource(RB.Source):
                 # also, if it's the first, update the cover search pane
                 self.cover_search_pane.clear()
                 self.cover_search_pane.do_search(album)
+
+    def on_overlay_key_press(self, overlay, event, *args):
+        if event.keyval != Gdk.KEY_Escape:
+            self.quick_search.grab_focus()
+            self.quick_search.im_context_filter_keypress(event)
+
+            if not self.quick_search.get_visible():
+                self.quick_search.set_visible(True)
+
+        elif self.quick_search.get_visible():
+            self.quick_search.set_visible(False)
+            self.covers_view.grab_focus()
+            self.quick_search.props.text = ''
+
+        return False
 
     def show_properties_menu_item_callback(self, menu_item):
         '''
@@ -1194,6 +1215,19 @@ class CoverArtBrowserSource(RB.Source):
             self.album_manager.model.remove_filter('genre')
         else:
             self.album_manager.model.replace_filter('genre', genre)
+
+    def on_quick_search(self, quick_search, *args):
+        if quick_search.get_visible():
+            search_text = quick_search.props.text
+            album = self.album_manager.model.find_first_visible('album_name',
+                search_text)
+
+            if album:
+                path = self.album_manager.model.get_path(album)
+
+                self.covers_view.unselect_all()
+                self.covers_view.select_path(path)
+                self.covers_view.scroll_to_path(path, True, 0.5, 0.5)
 
     @classmethod
     def get_instance(cls, **kwargs):
