@@ -570,14 +570,14 @@ class CoverArtBrowserSource(RB.Source):
                 self.cover_search_pane.do_search(album)
 
     def on_overlay_key_press(self, overlay, event, *args):
-        if event.keyval != Gdk.KEY_Escape:
+        if not self.quick_search.get_visible() and \
+            event.keyval not in [Gdk.KEY_Shift_L, Gdk.KEY_Shift_R,
+            Gdk.KEY_Control_L, Gdk.KEY_Control_R, Gdk.KEY_Escape]:
             self.quick_search.grab_focus()
             self.quick_search.im_context_filter_keypress(event)
+            self.quick_search.set_visible(True)
 
-            if not self.quick_search.get_visible():
-                self.quick_search.set_visible(True)
-
-        elif self.quick_search.get_visible():
+        elif event.keyval == Gdk.KEY_Escape:
             self.quick_search.set_visible(False)
             self.covers_view.grab_focus()
             self.quick_search.props.text = ''
@@ -1227,6 +1227,7 @@ class CoverArtBrowserSource(RB.Source):
 
                 self.covers_view.unselect_all()
                 self.covers_view.select_path(path)
+                self.covers_view.set_cursor(path, None, False)
                 self.covers_view.scroll_to_path(path, True, 0.5, 0.5)
 
     @classmethod
