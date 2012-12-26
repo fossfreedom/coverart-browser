@@ -965,6 +965,34 @@ class CoverArtBrowserSource(RB.Source):
 
         print "CoverArtBrowser DEBUG - end cancel_request_callback"
 
+    def _expand_and_scroll(self, selected):
+        '''
+        helper function - if the entry is manually expanded
+        then if necessary scroll the view to the last selected album
+        '''
+        print "CoverArtBrowser DEBUG - _expand_and_scroll"
+
+        if not self.manual_expanded:
+            self.bottom_expander.set_expanded(True)
+
+            last_album_pos = len(selected) - 1
+
+            if last_album_pos >=0 :
+                album = selected[last_album_pos]
+                path = self.album_manager.model.get_path(album)
+
+                cover_size = self.album_manager.cover_man.cover_size
+
+                (x,y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
+
+                paned_y = self.gs.get_value(self.gs.Path.PLUGIN,
+                    self.gs.PluginKey.PANED_POSITION)
+
+                scrollpos = float((paned_y - cover_size)) / (y * 2)
+
+                if scrollpos > 0:
+                    self.covers_view.scroll_to_path(path, True, scrollpos, 0.5)
+
     def selectionchanged_callback(self, widget):
         '''
         Callback called when an item from the cover view gets selected.
@@ -996,13 +1024,12 @@ class CoverArtBrowserSource(RB.Source):
             return
         elif len(selected) == 1:
             self.stars.set_rating(selected[0].rating)
-            if not self.manual_expanded:
-                self.bottom_expander.set_expanded(True)
+
+            self._expand_and_scroll(selected)
         else:
             self.stars.set_rating(0)
-            if not self.manual_expanded:
-                self.bottom_expander.set_expanded(True)
-
+            self._expand_and_scroll(selected)
+            
         track_count = 0
         duration = 0
 

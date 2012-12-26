@@ -730,6 +730,11 @@ class AlbumsModel(GObject.Object):
         '''
         return self._filtered_store[path][self.columns['album']]
 
+    def get_path(self, album):
+        return self._filtered_store.convert_child_path_to_path(
+            self._tree_store.get_path(
+                self._iters[album.name][album.artist]['iter']))
+
     def show(self, album, show):
         '''
         Unfilters an album, making it visible to the publicly available model's
