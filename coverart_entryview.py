@@ -26,9 +26,13 @@ import rb
 from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import CoverLocale
 
+def enum(*sequential, **named):
+        enums = dict(zip(sequential, range(len(sequential))), **named)
+        return type('Enum', (), enums)
 
 class CoverArtEntryView(RB.EntryView):
-
+    ExpandedType = enum('NO', 'MANUAL', 'KEY_MODIFIER')
+        
     def __init__(self, shell, source):
         '''
         Initializes the entryview.
@@ -36,6 +40,8 @@ class CoverArtEntryView(RB.EntryView):
         self.shell = shell
         self.source = source
         self.plugin = self.source.props.plugin
+
+        self.manual_expanded = self.ExpandedType.NO
 
         super(RB.EntryView, self).__init__(db=shell.props.db,
             shell_player=shell.props.shell_player, is_drag_source=True,
@@ -113,7 +119,7 @@ class CoverArtEntryView(RB.EntryView):
         del self.action_group
         del self.play_action
         del self.queue_action
-
+    
     def on_visible_columns_changed(self, settings, key):
         print "CoverArtBrowser DEBUG - on_visible_columns_changed()"
         #reset current columns

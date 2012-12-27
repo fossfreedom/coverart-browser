@@ -26,7 +26,7 @@ from gi.repository import Gtk
 from gi.repository import RB
 
 from coverart_album import AlbumManager
-from coverart_entryview import CoverArtEntryView
+from coverart_entryview import CoverArtEntryView as EV
 from coverart_search import CoverSearchPane
 from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import CoverLocale
@@ -66,7 +66,6 @@ class CoverArtBrowserSource(RB.Source):
         self.hasActivated = False
         self.last_toolbar_pos = None
         self.moving_handle = False
-        self.manual_expanded = False
 
     def _connect_properties(self):
         '''
@@ -317,7 +316,7 @@ class CoverArtBrowserSource(RB.Source):
         self.paned.set_position(y)
 
         # create entry view. Don't allow to reorder until the load is finished
-        self.entry_view = CoverArtEntryView(self.shell, self)
+        self.entry_view = EV(self.shell, self)
         self.entry_view.set_columns_clickable(False)
         self.shell.props.library_source.get_entry_view().set_columns_clickable(
             False)
@@ -688,6 +687,18 @@ class CoverArtBrowserSource(RB.Source):
 
             self.popup_menu.popup(None, None, None, None, event.button,
                 event.time)
+            return
+
+        ctrl = event.state & Gdk.ModifierType.CONTROL_MASK
+        shift = event.state & Gdk.ModifierType.SHIFT_MASK
+
+        if (ctrl or shift) \
+            and self.entry_view.manual_expanded==EV.ExpandedType.NO:
+            self.entry_view.manual_expanded=EV.ExpandedType.KEY_MODIFIER
+
+        if (not ctrl) and (not shift) \
+            and self.entry_view.manual_expanded==EV.ExpandedType.KEY_MODIFIER:
+            self.entry_view.manual_expanded=EV.ExpandedType.NO
 
         print "CoverArtBrowser DEBUG - end mouseclick_callback()"
 
@@ -972,9 +983,9 @@ class CoverArtBrowserSource(RB.Source):
         '''
         print "CoverArtBrowser DEBUG - _expand_and_scroll"
 
-        if not self.manual_expanded:
+        if self.entry_view.manual_expanded==EV.ExpandedType.NO:
             self.bottom_expander.set_expanded(True)
-
+            
             last_album_pos = len(selected) - 1
 
             if last_album_pos >=0 :
@@ -1018,7 +1029,7 @@ class CoverArtBrowserSource(RB.Source):
             if cover_search_pane_visible:
                 self.cover_search_pane.clear()
 
-            if not self.manual_expanded:
+            if self.entry_view.manual_expanded==EV.ExpandedType.NO:
                 self.bottom_expander.set_expanded(False)
 
             return
@@ -1087,7 +1098,10 @@ class CoverArtBrowserSource(RB.Source):
         print "CoverArtBrowser DEBUG - end update_statusbar"
 
     def on_bottom_expander_button_press_callback(self, widget, event):
-        self.manual_expanded = not self.manual_expanded
+        if self.entry_view.manual_expanded == EV.ExpandedType.MANUAL:
+            self.entry_view.manual_expanded = EV.ExpandedType.NO
+        elif self.entry_view.manual_expanded == EV.ExpandedType.NO:
+            self.entry_view.manual_expanded = EV.ExpandedType.MANUAL
         
     def bottom_expander_expanded_callback(self, action, param):
         '''
