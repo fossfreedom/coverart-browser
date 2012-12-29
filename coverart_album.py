@@ -404,6 +404,21 @@ class Album(GObject.Object):
         self._rating = None
         self._duration = None
 
+    def __str__(self):
+        return self.artist + self.name
+        
+    def __eq__(self, other):
+        if other == None:
+            return False
+
+        return self.name == other.name and \
+            self.artist == other.artist
+        
+    def __ne__(self, other):
+        if other == None:
+            return True
+
+        return (self.name+self.artist) != (other.name+other.artist)
 
 class AlbumFilters(object):
 

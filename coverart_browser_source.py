@@ -9,6 +9,7 @@
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
+# This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
@@ -34,6 +35,26 @@ from stars import ReactiveStar
 from coverart_timer import ttimer
 from coverart_widgets import PlaylistPopupButton
 from coverart_widgets import GenrePopupButton
+from time import sleep
+import threading
+
+# calls f on another thread
+def async_call(f, f_arg, on_done):
+    if not on_done:
+        on_done = lambda r, e: None
+
+    def do_call():
+        result = None
+        error = None
+
+        try:
+            f(f_arg)
+        except Exception, err:
+            error = err
+
+        GObject.idle_add(lambda: on_done())
+    thread = threading.Thread(target = do_call)
+    thread.start()
 
 
 class CoverArtBrowserSource(RB.Source):
@@ -693,26 +714,54 @@ class CoverArtBrowserSource(RB.Source):
         shift = event.state & Gdk.ModifierType.SHIFT_MASK
 
         if (ctrl or shift) \
-            and self.entry_view.manual_expanded==EV.ExpandedType.NO:
-            self.entry_view.manual_expanded=EV.ExpandedType.KEY_MODIFIER
+            and self.entry_view.expansion.value==EV.ExpandedType.NO:
+            self.entry_view.expansion.value=EV.ExpandedType.KEY_MODIFIER
 
         if (not ctrl) and (not shift) \
-            and self.entry_view.manual_expanded==EV.ExpandedType.KEY_MODIFIER:
-            self.entry_view.manual_expanded=EV.ExpandedType.NO
+            and self.entry_view.expansion.value==EV.ExpandedType.KEY_MODIFIER:
+            self.entry_view.expansion.value=EV.ExpandedType.NO
+
+        if self.entry_view.expansion.value!=EV.ExpandedType.DOUBLE_CLICK:
+            async_call(self.introduce_click_delay, 0.5, self._expand_and_scroll)
 
         print "CoverArtBrowser DEBUG - end mouseclick_callback()"
 
+    def introduce_click_delay(self, delay):
+        '''
+        delay introduced when doing a single click
+        N.B. cannot use the same threaded function because will be called
+        serially whereas separate threaded function will be called in parallel.
+        '''
+        sleep(delay)
+
+        return 'End'
+
+    def introduce_doubleclick_delay(self, delay):
+        '''
+        delay introduced when doing a double click
+        N.B. cannot use the same threaded function because will be called
+        serially whereas separate threaded function will be called in parallel.
+        '''  
+        sleep(delay)
+
+        return 'End'
+
+    def reset_expandtype(self):
+        self.entry_view.expansion.reset()
+            
     def item_activated_callback(self, iconview, path):
         '''
         Callback called when the cover view is double clicked or space-bar
         is pressed. It plays the selected album
         '''
-        print "CoverArtBrowser DEBUG - item_activated_callback"
+        print "##############CoverArtBrowser DEBUG - item_activated_callback"
 
         iconview.grab_focus()
         iconview.select_path(path)
 
+        self.entry_view.expansion.value=EV.ExpandedType.DOUBLE_CLICK
         self.play_selected_album()
+        async_call(self.introduce_doubleclick_delay, 1, self.reset_expandtype)
 
         print "CoverArtBrowser DEBUG - end item_activated_callback"
 
@@ -976,33 +1025,41 @@ class CoverArtBrowserSource(RB.Source):
 
         print "CoverArtBrowser DEBUG - end cancel_request_callback"
 
-    def _expand_and_scroll(self, selected):
+    def _expand_and_scroll(self):
         '''
         helper function - if the entry is manually expanded
         then if necessary scroll the view to the last selected album
         '''
         print "CoverArtBrowser DEBUG - _expand_and_scroll"
-
-        if self.entry_view.manual_expanded==EV.ExpandedType.NO:
-            self.bottom_expander.set_expanded(True)
             
+        if self.entry_view.expansion.value==EV.ExpandedType.DOUBLE_CLICK:
+            return
+
+        if self.entry_view.expansion.value==EV.ExpandedType.NO:
+            selected = self.get_selected_albums()
             last_album_pos = len(selected) - 1
 
             if last_album_pos >=0 :
                 album = selected[last_album_pos]
-                path = self.album_manager.model.get_path(album)
 
-                cover_size = self.album_manager.cover_man.cover_size
+                if self.entry_view.expansion.album != album:
+                    self.entry_view.expansion.album=album
+                else:
+                    if self.bottom_expander.get_expanded():
+                        self.bottom_expander.set_expanded(False)
+                    else:
+                        self.bottom_expander.set_expanded(True)
+                        path = self.album_manager.model.get_path(album)
 
-                (x,y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
+                        cover_size = self.album_manager.cover_man.cover_size
+                        (x,y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
 
-                paned_y = self.gs.get_value(self.gs.Path.PLUGIN,
-                    self.gs.PluginKey.PANED_POSITION)
+                        paned_y = self.gs.get_value(self.gs.Path.PLUGIN,
+                            self.gs.PluginKey.PANED_POSITION)
 
-                scrollpos = float((paned_y - cover_size)) / (y * 2)
-
-                if scrollpos > 0:
-                    self.covers_view.scroll_to_path(path, True, scrollpos, 0.5)
+                        scrollpos = float((paned_y - cover_size)) / (y * 2)
+                        if scrollpos > 0:
+                            self.covers_view.scroll_to_path(path, True, scrollpos, 0.5)
 
     def selectionchanged_callback(self, widget):
         '''
@@ -1029,17 +1086,15 @@ class CoverArtBrowserSource(RB.Source):
             if cover_search_pane_visible:
                 self.cover_search_pane.clear()
 
-            if self.entry_view.manual_expanded==EV.ExpandedType.NO:
+            if self.entry_view.expansion.value==EV.ExpandedType.NO:
+                print "at this point?"
                 self.bottom_expander.set_expanded(False)
 
             return
         elif len(selected) == 1:
             self.stars.set_rating(selected[0].rating)
-
-            self._expand_and_scroll(selected)
         else:
             self.stars.set_rating(0)
-            self._expand_and_scroll(selected)
             
         track_count = 0
         duration = 0
@@ -1078,7 +1133,7 @@ class CoverArtBrowserSource(RB.Source):
         if cover_search_pane_visible:
             self.cover_search_pane.do_search(selected[0])
 
-        print "CoverArtBrowser DEBUG - end selection_changed_callback"
+        print "CoverArtBrowser DEBUG - end selectionchanged_callback"
 
     def update_statusbar(self, status=''):
         '''
@@ -1098,10 +1153,15 @@ class CoverArtBrowserSource(RB.Source):
         print "CoverArtBrowser DEBUG - end update_statusbar"
 
     def on_bottom_expander_button_press_callback(self, widget, event):
-        if self.entry_view.manual_expanded == EV.ExpandedType.MANUAL:
-            self.entry_view.manual_expanded = EV.ExpandedType.NO
-        elif self.entry_view.manual_expanded == EV.ExpandedType.NO:
-            self.entry_view.manual_expanded = EV.ExpandedType.MANUAL
+        if widget.get_expanded():
+            #about to close up manually, therefore remember this fact
+            if self.entry_view.expansion.value==EV.ExpandedType.NO:
+                self.entry_view.expansion.value=EV.ExpandedType.MANUAL
+        else:
+            # about to open manually, therefore no need to have to 
+            # remember the manual closure 
+            if self.entry_view.expansion.value==EV.ExpandedType.MANUAL:
+                self.entry_view.expansion.value=EV.ExpandedType.NO
         
     def bottom_expander_expanded_callback(self, action, param):
         '''

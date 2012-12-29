@@ -30,8 +30,38 @@ def enum(*sequential, **named):
         enums = dict(zip(sequential, range(len(sequential))), **named)
         return type('Enum', (), enums)
 
+class Expansion(GObject.Object):
+    def __init__(self):
+        super(Expansion, self).__init__()
+        self._manual_expanded = CoverArtEntryView.ExpandedType.NO
+        self._old_manual_expanded = CoverArtEntryView.ExpandedType.NO
+        self._last_album = None
+
+    @property
+    def value(self):
+        return self._manual_expanded
+
+    @value.setter
+    def value(self, expandedtype):
+        if expandedtype == CoverArtEntryView.ExpandedType.DOUBLE_CLICK:
+            self._old_manual_expanded = self._manual_expanded
+
+        self._manual_expanded=expandedtype
+
+    @property
+    def album(self):
+        return self._last_album
+
+    @album.setter
+    def album(self, newalbum):
+        self._last_album=newalbum
+    
+    def reset(self):
+        self._manual_expanded=self._old_manual_expanded
+        
+
 class CoverArtEntryView(RB.EntryView):
-    ExpandedType = enum('NO', 'MANUAL', 'KEY_MODIFIER')
+    ExpandedType = enum('NO', 'MANUAL', 'KEY_MODIFIER', 'DOUBLE_CLICK', 'SECOND_CLICK')
         
     def __init__(self, shell, source):
         '''
@@ -41,7 +71,7 @@ class CoverArtEntryView(RB.EntryView):
         self.source = source
         self.plugin = self.source.props.plugin
 
-        self.manual_expanded = self.ExpandedType.NO
+        self.expansion = Expansion()
 
         super(RB.EntryView, self).__init__(db=shell.props.db,
             shell_player=shell.props.shell_player, is_drag_source=True,
