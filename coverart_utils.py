@@ -167,6 +167,20 @@ class SortedCollection(object):
 
         return i
 
+    def reorder(self, item):
+        '''Reorder an item. If its key changed, then the item is
+        repositioned, otherwise the item stays untouched'''
+        index = self._items.index(item)
+        new_index = -1
+
+        if self._keys[index] != self._key(item):
+            del self._keys[index]
+            del self._items[index]
+
+            new_index = self.insert(item)
+
+        return new_index
+
     def insert_all(self, items):
         for item in items:
             self.insert(item)
@@ -280,7 +294,7 @@ def idle_iterator(func):
 
 class SpriteSheet(object):
 
-    def __init__(self, image, icon_width, icon_height, x_spacing, y_spacing, 
+    def __init__(self, image, icon_width, icon_height, x_spacing, y_spacing,
         x_start, y_start, alpha_color=None, size=None):
         # load the image
         base_image = GdkPixbuf.Pixbuf.new_from_file(image)
@@ -339,7 +353,7 @@ class ConfiguredSpriteSheet(object):
                     root.findall(base+'alpha')[0].text.split(' '))
         except:
             alpha_color = None
-            
+
         self.names = []
 
         for elem in root.findall(sprite_name + '/' + sprite_name +
@@ -369,4 +383,4 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
         self.alternate = {}
         for elem in root.findall(sprite_name + '/alt'):
                 self.alternate[elem.text]=elem.attrib['genre']
-        
+
