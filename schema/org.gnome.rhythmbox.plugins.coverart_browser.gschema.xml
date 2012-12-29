@@ -71,10 +71,10 @@
             <summary>Automatically Start</summary>
             <description>When rhythmbox starts, switch automatically to the coverart browser.</description>
         </key>
-        <key type="i" name="toolbar-pos">
-            <default>0</default>
+        <key type="s" name="toolbar-pos">
+            <default>'main'</default>
             <summary>Toolbar position.</summary>
-            <description>0 = Main, 1 = left, 2 = right</description>
+            <description>Indicates where the toolbar should be shown. "main" is for the cover view, "left" for the left sidebar and "right" for the right sidebar.</description>
         </key>
         <key type="b" name="sort-by-rating">
             <default>false</default>

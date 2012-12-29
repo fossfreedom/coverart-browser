@@ -275,17 +275,12 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         self.settings.bind(gs.PluginKey.DISCOGS_SEARCH,
             discogs_search, 'active', Gio.SettingsBindFlags.DEFAULT)
 
-        self.toolbar_left_radio = builder.get_object('toolbar_left_radio')
-        self.toolbar_right_radio = builder.get_object('toolbar_right_radio')
-        self.toolbar_main_radio = builder.get_object('toolbar_main_radio')
-
-        toolbar_pos = self.settings[gs.PluginKey.TOOLBAR_POS]
-        if toolbar_pos == 0:
-            self.toolbar_main_radio.set_active(True)
-        if toolbar_pos == 1:
-            self.toolbar_left_radio.set_active(True)
-        if toolbar_pos == 2:
-            self.toolbar_right_radio.set_active(True)
+        toolbar_pos_combo = builder.get_object('show_in_combobox')
+        renderer = Gtk.CellRendererText()
+        toolbar_pos_combo.pack_start(renderer, True)
+        toolbar_pos_combo.add_attribute(renderer, 'text', 1)
+        self.settings.bind(gs.PluginKey.TOOLBAR_POS, toolbar_pos_combo,
+            'active-id', Gio.SettingsBindFlags.DEFAULT)
 
         light_source_combo = builder.get_object('light_source_combobox')
         renderer = Gtk.CellRendererText()
@@ -296,18 +291,6 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
 
         # return the dialog
         return builder.get_object('main_notebook')
-
-    def toolbar_callback(self, radio):
-        if not radio.get_active():
-            return
-        gs = GSetting()
-
-        if radio == self.toolbar_main_radio:
-            self.settings[gs.PluginKey.TOOLBAR_POS] = 0
-        if radio == self.toolbar_left_radio:
-            self.settings[gs.PluginKey.TOOLBAR_POS] = 1
-        if radio == self.toolbar_right_radio:
-            self.settings[gs.PluginKey.TOOLBAR_POS] = 2
 
     def rating_changed_callback(self, stars):
         print "rating_changed_callback"
