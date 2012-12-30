@@ -59,9 +59,8 @@ class PopupButton(Gtk.Button):
         self._first_menu_item = None
         self._current_val = None
         self.is_initialised = False
-        self._initial_label = ''
 
-    def initialise(self, shell, callback):
+    def initialise(self, shell, callback, initial_label):
         '''
         initialise - derived objects call this first
         shell = rhythmbox shell
@@ -74,7 +73,7 @@ class PopupButton(Gtk.Button):
 
         self.shell = shell
         self.callback = callback
-        self.set_popup_value(self.get_initial_label())
+        self.set_popup_value(initial_label)
 
         self.resize_button_image()
 
@@ -120,9 +119,6 @@ class PopupButton(Gtk.Button):
         '''
         set the tooltip according to the popup menu chosen
         '''
-        if not val:
-            val = self.get_initial_label()
-
         self.set_tooltip_text(val)
         self._current_val = val
 
@@ -132,18 +128,6 @@ class PopupButton(Gtk.Button):
         before displaying the popup
         '''
         self.show_popup()
-
-    def set_initial_label(self, val):
-        '''
-        all popup's should have a default initial value
-        '''
-        self._initial_label = val
-
-    def get_initial_label(self):
-        '''
-        get the first initial value stored in a popup
-        '''
-        return self._initial_label
 
     def resize_button_image(self, pixbuf=None):
         '''
@@ -160,8 +144,8 @@ class PopupButton(Gtk.Button):
                 pixbuf = pixbuf.scale_simple(width, height,
                     GdkPixbuf.InterpType.BILINEAR)
             else:
-                pixbuf = self.default_image.get_pixbuf().scale_simple(width, height,
-                        GdkPixbuf.InterpType.BILINEAR)
+                pixbuf = self.default_image.get_pixbuf().scale_simple(width,
+                    height, GdkPixbuf.InterpType.BILINEAR)
 
             image.set_from_pixbuf(pixbuf)
         except:
@@ -176,7 +160,7 @@ class PopupButton(Gtk.Button):
 
 class PlaylistPopupButton(PopupButton):
     __gtype_name__ = 'PlaylistPopupButton'
-    
+
     def __init__(self, **kargs):
         '''
         Initializes the button.
@@ -201,16 +185,17 @@ class PlaylistPopupButton(PopupButton):
             return
 
         self._library_name = shell.props.library_source.props.name
-        self._queue_name = shell.props.queue_source.props.name#_("Play Queue")
+        self._queue_name = shell.props.queue_source.props.name
+
         if " (" in self._queue_name:
             self._queue_name = self._queue_name[0:self._queue_name.find(" (")]
-            
-        self.set_initial_label(self._library_name)
 
         self._spritesheet = ConfiguredSpriteSheet(plugin, 'playlist')
-        self.default_image = Gtk.Image.new_from_pixbuf(self._spritesheet['music'])
+        self.default_image = Gtk.Image.new_from_pixbuf(
+            self._spritesheet['music'])
 
-        super(PlaylistPopupButton, self).initialise(shell, callback)
+        super(PlaylistPopupButton, self).initialise(shell, callback,
+            self._library_name)
 
     def do_clicked(self, button):
         '''
@@ -221,7 +206,7 @@ class PlaylistPopupButton(PopupButton):
         playlist_manager = self.shell.props.playlist_manager
         playlists_entries = playlist_manager.get_playlists()
         self.clear_popupmenu()
-        self.add_menuitem(self.get_initial_label(),
+        self.add_menuitem(self._library_name,
             self._change_playlist_source, None)
         self.add_menuitem(self._queue_name,
             self._change_playlist_source, self.shell.props.queue_source)
@@ -242,7 +227,7 @@ class PlaylistPopupButton(PopupButton):
         if menu.get_active():
             if not playlist:
                 model = None
-                self.set_popup_value(self.get_initial_label())
+                self.set_popup_value(self._library_name)
                 self.resize_button_image(self._spritesheet['music'])
             elif self._queue_name in playlist.props.name:
                 model = playlist.get_query_model()
@@ -266,16 +251,18 @@ class PlaylistPopupButton(PopupButton):
         opening in scroll-mode - seems to only affect the playlist popup
         '''
         def pos(menu, icon):
-            (a, x, y)=self.get_window().get_origin()
+            a, x, y = self.get_window().get_origin()
             x += self.get_allocation().x
-            y += self.get_allocation().y + (self.get_allocation().height)
+            y += self.get_allocation().y + self.get_allocation().height
 
             from gi.repository import Gdk
             s = Gdk.Screen.get_default()
 
             if y > (s.get_height() - 180):
                 y = s.get_height() - 180
-            return (x,y,False)
+
+            return x, y, False
+
         self._popup_menu.popup(None, None, pos, None, 0,
             Gtk.get_current_event_time())
 
@@ -306,18 +293,16 @@ class GenrePopupButton(PopupButton):
         self.unrecognised_image = \
             Gtk.Image.new_from_file(rb.find_plugin_file(plugin,
                 'img/unrecognised_genre.png'))
-        
-
-        super(GenrePopupButton, self).initialise(shell, callback)
 
         # create a new model
-        self.model = RB.RhythmDBPropertyModel.new(self.shell.props.db,
+        self.model = RB.RhythmDBPropertyModel.new(shell.props.db,
             RB.RhythmDBPropType.GENRE)
 
-        query = self.shell.props.library_source.props.base_query_model
+        query = shell.props.library_source.props.base_query_model
         self.model.props.query_model = query
 
-        self.set_initial_label(self.model[0][0])
+        super(GenrePopupButton, self).initialise(shell, callback,
+            self.model[0][0])
 
         # connect signals to update genres
 
@@ -342,7 +327,7 @@ class GenrePopupButton(PopupButton):
             still_exists = still_exists or genre == current
 
         if not still_exists:
-            self._genre_changed(None, self.get_initial_label())
+            self._genre_changed(None, self.model[0][0])
 
     def _genre_changed(self, menu, genre):
         '''
@@ -353,15 +338,15 @@ class GenrePopupButton(PopupButton):
             self.set_popup_value(genre)
 
             test_genre = genre.lower()
-            if test_genre == self.get_initial_label().lower():
+            if test_genre == self.model[0][0].lower():
                 self.resize_button_image(self.default_image.get_pixbuf())
             elif not test_genre in self._spritesheet:
-                self._find_alternates(test_genre)  #to be debugged later
+                self._find_alternates(test_genre)  # to be debugged later
                 #self.resize_button_image(self.unrecognised_image.get_pixbuf())
             else:
                 self.resize_button_image(self._spritesheet[test_genre])
-                
-            if genre == self.get_initial_label():
+
+            if genre == self.model[0][0]:
                 self.callback(None)
             else:
                 self.callback(genre)
@@ -370,16 +355,18 @@ class GenrePopupButton(PopupButton):
 
         # first check if any of the default genres are a substring
         # of test_genre - check in reverse order so that we
-        # test largest strings first (prevents spurious matches with short strings)
-        for genre in sorted( self._spritesheet.names, key=lambda b: (-len(b), b)):
+        # test largest strings first (prevents spurious matches with
+        # short strings)
+        for genre in sorted(self._spritesheet.names,
+            key=lambda b: (-len(b), b)):
             if genre in test_genre:
                 self.resize_button_image(self._spritesheet[genre])
                 return
 
         # next check alternates
-
         if test_genre in self._spritesheet.alternate:
-            self.resize_button_image(self._spritesheet[self._spritesheet.alternate[test_genre]])
+            self.resize_button_image(
+                self._spritesheet[self._spritesheet.alternate[test_genre]])
             return
 
         # if no matches then default to unrecognised image
@@ -403,9 +390,6 @@ class SortPopupButton(PopupButton):
         super(SortPopupButton, self).__init__(
             **kargs)
 
-        #self.default_image = Gtk.Image.new_from_file('img/sort.png')
-        self.set_initial_label(self.sorts['name'])
-
     def initialise(self, plugin, shell, callback):
         '''
         extend the default initialise function
@@ -417,18 +401,18 @@ class SortPopupButton(PopupButton):
             return
 
         self._spritesheet = ConfiguredSpriteSheet(plugin, 'sort')
-        #self.default_image = Gtk.Image.new_from_pixbuf(self._spritesheet['name'])
-
-        super(SortPopupButton, self).initialise(shell, callback)
-
-        # create the pop up menu
-        for key, text in sorted(self.sorts.iteritems()):
-            self.add_menuitem(text, self._sort_changed, key)
 
         gs = GSetting()
         source_settings = gs.get_setting(gs.Path.PLUGIN)
         source_settings.bind(gs.PluginKey.SORT_BY,
             self, 'sort_by', Gio.SettingsBindFlags.DEFAULT)
+
+        super(SortPopupButton, self).initialise(shell, callback,
+            self.sorts[self.sort_by])
+
+        # create the pop up menu
+        for key, text in sorted(self.sorts.iteritems()):
+            self.add_menuitem(text, self._sort_changed, key)
 
         self._sort_changed(None, self.sort_by)
 
@@ -442,7 +426,7 @@ class SortPopupButton(PopupButton):
             print sort
             gs = GSetting()
             settings = gs.get_setting(gs.Path.PLUGIN)
-            settings[gs.PluginKey.SORT_BY]=sort
+            settings[gs.PluginKey.SORT_BY] = sort
 
             self.resize_button_image(self._spritesheet[sort])
 
@@ -539,7 +523,6 @@ class SortOrderButton(ImageToggleButton):
         '''
         set up the images we will use for this widget
         '''
-
         self.image_display = sort_order
         self.set_tooltip(self.image_display)
 

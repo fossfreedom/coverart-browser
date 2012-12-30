@@ -64,7 +64,7 @@ class CoverArtBrowserSource(RB.Source):
     custom_statusbar_enabled = GObject.property(type=bool, default=False)
     display_bottom_enabled = GObject.property(type=bool, default=False)
     rating_threshold = GObject.property(type=float, default=0)
-    toolbar_pos = GObject.property(type=int, default=0)
+    toolbar_pos = GObject.property(type=str, default='main')
     sort_order = GObject.property(type=bool, default=False)
 
     # unique instance of the source
@@ -294,7 +294,8 @@ class CoverArtBrowserSource(RB.Source):
             self.search_show_popup_callback)
 
         self.sort_by = ui.get_object('sort_by')
-        self.sort_by.initialise(self.plugin, self.shell, self.sorting_criteria_changed)
+        self.sort_by.initialise(self.plugin, self.shell,
+            self.sorting_criteria_changed)
         self.sort_order_button = ui.get_object('sort_order')
         self.sort_order_button.initialise(self.plugin,
             self.sorting_direction_changed, self.sort_order)
@@ -307,12 +308,14 @@ class CoverArtBrowserSource(RB.Source):
             'filter_all_menu_item').get_label())
 
         # genre
-        self.genre_button = ui.get_object('genre_button')
-        self.genre_button.initialise(self.plugin, self.shell, self.genre_filter_callback)
+        genre_button = ui.get_object('genre_button')
+        genre_button.initialise(self.plugin, self.shell,
+            self.genre_filter_callback)
 
         # get playlist popup
-        self.playlist_button = ui.get_object('playlist_button')
-        self.playlist_button.initialise(self.plugin, self.shell, self.filter_by_model)
+        playlist_button = ui.get_object('playlist_button')
+        playlist_button.initialise(self.plugin, self.shell,
+            self.filter_by_model)
 
         print "CoverArtBrowser DEBUG - end _toolbar"
 
@@ -401,12 +404,13 @@ class CoverArtBrowserSource(RB.Source):
             self.on_album_updated)
         self.notify_prog_id = self.album_manager.connect(
             'notify::progress', lambda *args: self.notify_status_changed())
-        self.toolbar_pos = self.connect('notify::toolbar-pos',
+        self.toolbar_pos_id = self.connect('notify::toolbar-pos',
             self.on_notify_toolbar_pos)
 
         # enable some ui if necesary
         self.on_notify_rating_threshold(_)
         self.on_notify_display_bottom_enabled(_)
+        self.on_notify_toolbar_pos()
         #self.sorting_direction_changed(_, True)
 
         print "CoverArtBrowser DEBUG - end _apply_settings"
@@ -473,15 +477,18 @@ class CoverArtBrowserSource(RB.Source):
         '''
         print "CoverArtBrowser DEBUG - on_notify_toolbar_pos"
 
-        setting = self.gs.get_setting(self.gs.Path.PLUGIN)
+        if self.last_toolbar_pos == 'left':
+            self.shell.remove_widget(self.sidebar, RB.ShellUILocation.SIDEBAR)
 
-        toolbar_pos = setting[self.gs.PluginKey.TOOLBAR_POS]
+        if self.last_toolbar_pos == 'right':
+            self.shell.remove_widget(self.sidebar,
+                RB.ShellUILocation.RIGHT_SIDEBAR)
 
-        if toolbar_pos == 0:
+        if self.toolbar_pos == 'main':
             self._toolbar(self.ui)
             self.toolbar_box.set_visible(True)
 
-        if toolbar_pos == 1:
+        if self.toolbar_pos == 'left':
             self.toolbar_box.set_visible(False)
             self._toolbar(self.si)
             self.shell.add_widget(self.sidebar,
@@ -489,7 +496,7 @@ class CoverArtBrowserSource(RB.Source):
                         expand=False,
                         fill=False)
 
-        if toolbar_pos == 2:
+        if self.toolbar_pos == 'right':
             self.toolbar_box.set_visible(False)
             self._toolbar(self.si)
             self.shell.add_widget(self.sidebar,
@@ -497,14 +504,7 @@ class CoverArtBrowserSource(RB.Source):
                         expand=False,
                         fill=False)
 
-        if self.last_toolbar_pos == 1:
-            self.shell.remove_widget(self.sidebar, RB.ShellUILocation.SIDEBAR)
-
-        if self.last_toolbar_pos == 2:
-            self.shell.remove_widget(self.sidebar,
-                RB.ShellUILocation.RIGHT_SIDEBAR)
-
-        self.last_toolbar_pos = toolbar_pos
+        self.last_toolbar_pos = self.toolbar_pos
 
         print "CoverArtBrowser DEBUG - end on_notify_toolbar_pos"
 
