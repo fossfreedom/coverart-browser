@@ -331,7 +331,8 @@ class CoverArtBrowserSource(RB.Source):
 
         self.stars.connect('changed', self.rating_changed_callback)
 
-        vbox = Gtk.VBox()
+        vbox = Gtk.Box()
+        vbox.set_orientation(Gtk.Orientation.VERTICAL)
         vbox.pack_start(self.entry_view, True, True, 0)
         vbox.pack_start(a, False, False, 1)
         vbox.show_all()
