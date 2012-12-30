@@ -735,10 +735,16 @@ class AlbumsModel(GObject.Object):
             self._tree_store.get_path(
                 self._iters[album.name][album.artist]['iter']))
 
-    def find_first_visible(self, filter_key, filter_arg):
+    def find_first_visible(self, filter_key, filter_arg, start=None,
+            backwards=False):
         album_filter = AlbumFilters.keys[filter_key](filter_arg)
 
-        for album in self._albums:
+        albums = reversed(self._albums) if backwards else self._albums
+        ini = albums.index(start) + 1 if start else 0
+
+        for i in range(ini, len(albums)):
+            album = albums[i]
+
             if album_filter(album) and self._album_filter(album):
                 return album
 

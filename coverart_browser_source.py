@@ -1224,6 +1224,32 @@ class CoverArtBrowserSource(RB.Source):
         else:
             self.album_manager.model.replace_filter('genre', genre)
 
+    def select_album(self, album):
+        path = self.album_manager.model.get_path(album)
+
+        self.covers_view.select_path(path)
+        self.covers_view.set_cursor(path, None, False)
+        self.covers_view.scroll_to_path(path, True, 0.5, 0.5)
+
+    def hide_quick_search(self):
+        self.quick_search_box.hide()
+        self.covers_view.grab_focus()
+        self.quick_search.props.text = ''
+
+    def add_hide_on_timeout(self):
+        self.quick_search_idle += 1
+
+        def hide_on_timeout(*args):
+            self.quick_search_idle -= 1
+
+            if not self.quick_search_idle:
+                self.hide_quick_search()
+
+            return False
+
+        Gdk.threads_add_timeout_seconds(GLib.PRIORITY_DEFAULT_IDLE, 3,
+            hide_on_timeout, None)
+
     def on_quick_search(self, quick_search, *args):
         if self.quick_search_box.get_visible():
             # quick search on album names
@@ -1231,32 +1257,44 @@ class CoverArtBrowserSource(RB.Source):
             album = self.album_manager.model.find_first_visible('album_name',
                 search_text)
 
-            if album:
-                path = self.album_manager.model.get_path(album)
+            # unselect all albums
+            self.covers_view.unselect_all()
 
-                self.covers_view.unselect_all()
-                self.covers_view.select_path(path)
-                self.covers_view.set_cursor(path, None, False)
-                self.covers_view.scroll_to_path(path, True, 0.5, 0.5)
+            if album:
+                self.select_album(album)
 
             # add a timeout to hide the search entry
-            self.quick_search_idle += 1
+            self.add_hide_on_timeout()
 
-            def hide_on_timeout(*args):
-                self.quick_search_idle -= 1
+    def on_quick_search_up_down(self, quick_search, event, *args):
+        arrow = False
 
-                if not self.quick_search_idle:
-                    self.hide_quick_search()
+        # unselect all albums
+        self.covers_view.unselect_all()
 
-                return False
+        try:
+            current = self.get_selected_albums()[0]
+            search_text = quick_search.props.text
+            album = None
 
-            Gdk.threads_add_timeout_seconds(GLib.PRIORITY_DEFAULT_IDLE, 3,
-                hide_on_timeout, None)
+            if event.keyval == Gdk.KEY_Up:
+                arrow = True
+                album = self.album_manager.model.find_first_visible(
+                    'album_name', search_text, current, True)
+            elif event.keyval == Gdk.KEY_Down:
+                arrow = True
+                album = self.album_manager.model.find_first_visible(
+                    'album_name', search_text, current)
 
-    def hide_quick_search(self):
-        self.quick_search_box.hide()
-        self.covers_view.grab_focus()
-        self.quick_search.props.text = ''
+            if album:
+                self.select_album(album)
+        except:
+            pass
+
+        if arrow:
+            self.add_hide_on_timeout()
+
+        return arrow
 
     @classmethod
     def get_instance(cls, **kwargs):
