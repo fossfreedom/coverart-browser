@@ -243,6 +243,7 @@ class CoverArtBrowserSource(RB.Source):
 
         # quick search entry
         self.quick_search = ui.get_object('quick_search_entry')
+        self.quick_search_box = ui.get_object('quick_search_box')
 
         self.ui = ui
         self.si = si
@@ -570,15 +571,15 @@ class CoverArtBrowserSource(RB.Source):
                 self.cover_search_pane.do_search(album)
 
     def on_overlay_key_press(self, overlay, event, *args):
-        if not self.quick_search.get_visible() and \
+        if not self.quick_search_box.get_visible() and \
             event.keyval not in [Gdk.KEY_Shift_L, Gdk.KEY_Shift_R,
             Gdk.KEY_Control_L, Gdk.KEY_Control_R, Gdk.KEY_Escape]:
             self.quick_search.grab_focus()
             self.quick_search.im_context_filter_keypress(event)
-            self.quick_search.set_visible(True)
+            self.quick_search_box.show_all()
 
         elif event.keyval == Gdk.KEY_Escape:
-            self.quick_search.set_visible(False)
+            self.quick_search_box.hide()
             self.covers_view.grab_focus()
             self.quick_search.props.text = ''
 
@@ -1217,7 +1218,7 @@ class CoverArtBrowserSource(RB.Source):
             self.album_manager.model.replace_filter('genre', genre)
 
     def on_quick_search(self, quick_search, *args):
-        if quick_search.get_visible():
+        if self.quick_search_box.get_visible():
             search_text = quick_search.props.text
             album = self.album_manager.model.find_first_visible('album_name',
                 search_text)
