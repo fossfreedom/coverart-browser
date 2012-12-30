@@ -724,6 +724,26 @@ class AlbumsModel(GObject.Object):
         '''
         return self._filtered_store[path][self.columns['album']]
 
+    def get_path(self, album):
+        return self._filtered_store.convert_child_path_to_path(
+            self._tree_store.get_path(
+                self._iters[album.name][album.artist]['iter']))
+
+    def find_first_visible(self, filter_key, filter_arg, start=None,
+            backwards=False):
+        album_filter = AlbumFilters.keys[filter_key](filter_arg)
+
+        albums = reversed(self._albums) if backwards else self._albums
+        ini = albums.index(start) + 1 if start else 0
+
+        for i in range(ini, len(albums)):
+            album = albums[i]
+
+            if album_filter(album) and self._album_filter(album):
+                return album
+
+        return None
+
     def show(self, album, show):
         '''
         Unfilters an album, making it visible to the publicly available model's

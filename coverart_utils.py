@@ -245,10 +245,7 @@ class ReversedSortedCollection(object):
 
     def index(self, item):
         'Find the position of an item.  Raise ValueError if not found.'
-        k = self._key(item)
-        i = bisect_left(self._keys, k)
-        j = bisect_right(self._keys, k)
-        return len(self) - self._items[i:j].index(item) + i - 1
+        return len(self) - self._sorted_collection.index(item) - 1
 
 
 class IdleCallIterator(object):
