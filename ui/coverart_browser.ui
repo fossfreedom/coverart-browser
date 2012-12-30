@@ -261,6 +261,7 @@
                     <property name="margin_top">5</property>
                     <property name="margin_bottom">5</property>
                     <signal name="changed" handler="on_quick_search" swapped="no"/>
+                    <signal name="focus-out-event" handler="on_quick_search_focus_lost" swapped="no"/>
                   </object>
                 </child>
               </object>

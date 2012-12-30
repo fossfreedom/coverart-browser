@@ -587,6 +587,11 @@ class CoverArtBrowserSource(RB.Source):
 
         return False
 
+    def on_quick_search_focus_lost(self, quick_search, event, *args):
+        self.hide_quick_search()
+
+        return False
+
     def show_properties_menu_item_callback(self, menu_item):
         '''
         Callback called when the show album properties option is selected from
@@ -1234,10 +1239,9 @@ class CoverArtBrowserSource(RB.Source):
                 self.covers_view.set_cursor(path, None, False)
                 self.covers_view.scroll_to_path(path, True, 0.5, 0.5)
 
-            # indicate that the quick_search isn't idle
+            # add a timeout to hide the search entry
             self.quick_search_idle += 1
 
-            # add a timeout to hide the search entry
             def hide_on_timeout(*args):
                 self.quick_search_idle -= 1
 
