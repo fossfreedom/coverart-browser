@@ -231,10 +231,7 @@ class ReversedSortedCollection(object):
 
     def index(self, item):
         'Find the position of an item.  Raise ValueError if not found.'
-        k = self._key(item)
-        i = bisect_left(self._keys, k)
-        j = bisect_right(self._keys, k)
-        return len(self) - self._items[i:j].index(item) + i - 1
+        return len(self) - self._sorted_collection.index(item) - 1
 
 
 class IdleCallIterator(object):
@@ -280,7 +277,7 @@ def idle_iterator(func):
 
 class SpriteSheet(object):
 
-    def __init__(self, image, icon_width, icon_height, x_spacing, y_spacing, 
+    def __init__(self, image, icon_width, icon_height, x_spacing, y_spacing,
         x_start, y_start, alpha_color=None, size=None):
         # load the image
         base_image = GdkPixbuf.Pixbuf.new_from_file(image)
@@ -339,7 +336,7 @@ class ConfiguredSpriteSheet(object):
                     root.findall(base+'alpha')[0].text.split(' '))
         except:
             alpha_color = None
-            
+
         self.names = []
 
         for elem in root.findall(sprite_name + '/' + sprite_name +
@@ -369,4 +366,4 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
         self.alternate = {}
         for elem in root.findall(sprite_name + '/alt'):
                 self.alternate[elem.text]=elem.attrib['genre']
-        
+
