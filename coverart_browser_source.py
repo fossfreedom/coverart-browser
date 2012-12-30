@@ -20,6 +20,7 @@
 import rb
 
 from gi.repository import GObject
+from gi.repository import GLib
 from gi.repository import Gio
 from gi.repository import Gdk
 from gi.repository import Gtk
@@ -66,6 +67,7 @@ class CoverArtBrowserSource(RB.Source):
         self.hasActivated = False
         self.last_toolbar_pos = None
         self.moving_handle = False
+        self.quick_search_idle = 0
 
     def _connect_properties(self):
         '''
@@ -574,14 +576,14 @@ class CoverArtBrowserSource(RB.Source):
         if not self.quick_search_box.get_visible() and \
             event.keyval not in [Gdk.KEY_Shift_L, Gdk.KEY_Shift_R,
             Gdk.KEY_Control_L, Gdk.KEY_Control_R, Gdk.KEY_Escape]:
+            # grab focus, redirect the pressed key and make the quick search
+            # entry visible
             self.quick_search.grab_focus()
             self.quick_search.im_context_filter_keypress(event)
             self.quick_search_box.show_all()
 
         elif event.keyval == Gdk.KEY_Escape:
-            self.quick_search_box.hide()
-            self.covers_view.grab_focus()
-            self.quick_search.props.text = ''
+            self.hide_quick_search()
 
         return False
 
@@ -1219,6 +1221,7 @@ class CoverArtBrowserSource(RB.Source):
 
     def on_quick_search(self, quick_search, *args):
         if self.quick_search_box.get_visible():
+            # quick search on album names
             search_text = quick_search.props.text
             album = self.album_manager.model.find_first_visible('album_name',
                 search_text)
@@ -1230,6 +1233,26 @@ class CoverArtBrowserSource(RB.Source):
                 self.covers_view.select_path(path)
                 self.covers_view.set_cursor(path, None, False)
                 self.covers_view.scroll_to_path(path, True, 0.5, 0.5)
+
+            # indicate that the quick_search isn't idle
+            self.quick_search_idle += 1
+
+            # add a timeout to hide the search entry
+            def hide_on_timeout(*args):
+                self.quick_search_idle -= 1
+
+                if not self.quick_search_idle:
+                    self.hide_quick_search()
+
+                return False
+
+            Gdk.threads_add_timeout_seconds(GLib.PRIORITY_DEFAULT_IDLE, 3,
+                hide_on_timeout, None)
+
+    def hide_quick_search(self):
+        self.quick_search_box.hide()
+        self.covers_view.grab_focus()
+        self.quick_search.props.text = ''
 
     @classmethod
     def get_instance(cls, **kwargs):
