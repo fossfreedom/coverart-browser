@@ -1227,6 +1227,7 @@ class CoverArtBrowserSource(RB.Source):
     def select_album(self, album):
         path = self.album_manager.model.get_path(album)
 
+        self.covers_view.unselect_all()
         self.covers_view.select_path(path)
         self.covers_view.set_cursor(path, None, False)
         self.covers_view.scroll_to_path(path, True, 0.5, 0.5)
@@ -1247,7 +1248,7 @@ class CoverArtBrowserSource(RB.Source):
 
             return False
 
-        Gdk.threads_add_timeout_seconds(GLib.PRIORITY_DEFAULT_IDLE, 3,
+        Gdk.threads_add_timeout_seconds(GLib.PRIORITY_DEFAULT_IDLE, 4,
             hide_on_timeout, None)
 
     def on_quick_search(self, quick_search, *args):
@@ -1257,9 +1258,6 @@ class CoverArtBrowserSource(RB.Source):
             album = self.album_manager.model.find_first_visible('album_name',
                 search_text)
 
-            # unselect all albums
-            self.covers_view.unselect_all()
-
             if album:
                 self.select_album(album)
 
@@ -1268,9 +1266,6 @@ class CoverArtBrowserSource(RB.Source):
 
     def on_quick_search_up_down(self, quick_search, event, *args):
         arrow = False
-
-        # unselect all albums
-        self.covers_view.unselect_all()
 
         try:
             current = self.get_selected_albums()[0]
