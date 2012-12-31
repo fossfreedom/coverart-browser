@@ -35,6 +35,7 @@ from coverart_browser_prefs import GSetting
 from coverart_utils import SortedCollection
 from coverart_utils import idle_iterator
 from urlparse import urlparse
+from datetime import datetime, date
 
 import urllib
 import os
@@ -504,6 +505,34 @@ class AlbumFilters(object):
 
         return filt
 
+    '''
+      the year is in RATA DIE format so need to extract the year
+
+      the searchdecade param can be None meaning all results
+      or -1 for all albums older than our standard range which is 1930
+      or an actual decade for 1930 to 2020
+    '''
+    @classmethod
+    def decade_filter(cls, searchdecade=None):
+        def filt(album):
+            if not searchdecade:
+                return True
+
+            if album.year == 0:
+                year = date.today().year
+            else:
+                year = datetime.fromordinal(album.year).year
+
+            year=int(round(year-5, -1))
+            
+            if searchdecade > 0:
+                return searchdecade == year
+            else:
+                return year < 1930
+            
+        return filt
+
+
 AlbumFilters.keys = {'nay': AlbumFilters.nay_filter,
         'all': AlbumFilters.global_filter,
         'album_artist': AlbumFilters.album_artist_filter,
@@ -511,7 +540,8 @@ AlbumFilters.keys = {'nay': AlbumFilters.nay_filter,
         'album_name': AlbumFilters.album_name_filter,
         'track': AlbumFilters.track_title_filter,
         'genre': AlbumFilters.genre_filter,
-        'model': AlbumFilters.model_filter
+        'model': AlbumFilters.model_filter,
+        'decade': AlbumFilters.decade_filter
         }
 
 

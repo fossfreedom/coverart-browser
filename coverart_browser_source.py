@@ -34,6 +34,7 @@ from stars import ReactiveStar
 from coverart_timer import ttimer
 from coverart_widgets import PlaylistPopupButton
 from coverart_widgets import GenrePopupButton
+from coverart_widgets import DecadePopupButton
 
 
 class CoverArtBrowserSource(RB.Source):
@@ -295,6 +296,12 @@ class CoverArtBrowserSource(RB.Source):
         playlist_button = ui.get_object('playlist_button')
         playlist_button.initialise(self.plugin, self.shell,
             self.filter_by_model)
+
+        # decade
+        decade_button = ui.get_object('decade_button')
+        decade_button.initialise(self.plugin, self.shell,
+            self.decade_filter_callback)
+
 
         print "CoverArtBrowser DEBUG - end _toolbar"
 
@@ -1194,6 +1201,13 @@ class CoverArtBrowserSource(RB.Source):
             self.album_manager.model.remove_filter('genre')
         else:
             self.album_manager.model.replace_filter('genre', genre)
+
+    def decade_filter_callback(self, decade):
+        if not decade:
+            self.album_manager.model.remove_filter('decade')
+        else:
+            self.album_manager.model.replace_filter('decade', decade)
+
 
     @classmethod
     def get_instance(cls, **kwargs):

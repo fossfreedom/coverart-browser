@@ -82,6 +82,11 @@
     <property name="can_focus">False</property>
     <property name="pixbuf">../img/genre.png</property>
   </object>
+  <object class="GtkImage" id="decade_icon">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="pixbuf">../img/genre.png</property>
+  </object>
   <object class="GtkBox" id="main_box">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -188,6 +193,27 @@
           </packing>
         </child>
         <child>
+          <object class="DecadePopupButton" id="decade_button">
+            <property name="use_action_appearance">False</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="receives_default">False</property>
+            <property name="has_tooltip">True</property>
+            <property name="tooltip_text" translatable="yes">All Decades</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+            <property name="margin_right">1</property>
+            <property name="use_action_appearance">False</property>
+            <property name="image">decade_icon</property>
+            <property name="relief">half</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">5</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkAlignment" id="entry_search_alignment">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
@@ -202,7 +228,7 @@
           <packing>
             <property name="expand">True</property>
             <property name="fill">True</property>
-            <property name="position">5</property>
+            <property name="position">6</property>
           </packing>
         </child>
       </object>
