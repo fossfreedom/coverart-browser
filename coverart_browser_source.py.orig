@@ -1229,11 +1229,14 @@ class CoverArtBrowserSource(RB.Source):
         else:
             self.album_manager.model.replace_filter('genre', genre)
 
+<<<<<<< HEAD
     def decade_filter_callback(self, decade):
         if not decade:
             self.album_manager.model.remove_filter('decade')
         else:
             self.album_manager.model.replace_filter('decade', decade)
+
+=======
     def select_album(self, album):
         path = self.album_manager.model.get_path(album)
 
@@ -1300,6 +1303,7 @@ class CoverArtBrowserSource(RB.Source):
             self.add_hide_on_timeout()
 
         return arrow
+>>>>>>> master
 
     @classmethod
     def get_instance(cls, **kwargs):

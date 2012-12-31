@@ -459,10 +459,10 @@ class DecadePopupButton(PopupButton):
 
         self.default_image = \
             Gtk.Image.new_from_file(rb.find_plugin_file(plugin,
-                'img/genre.png'))
-        self.unrecognised_image = \
-            Gtk.Image.new_from_file(rb.find_plugin_file(plugin,
-                'img/unrecognised_genre.png'))
+                'img/calendar.png'))
+        #self.unrecognised_image = \
+        #    Gtk.Image.new_from_file(rb.find_plugin_file(plugin,
+        #        'img/calendar.png'))
 
         super(DecadePopupButton, self).initialise(shell, callback,
             self._initial)
