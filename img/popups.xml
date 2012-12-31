@@ -61,6 +61,20 @@
         <playlist name="queue" spritesheet="playlist"/>
         <playlist name="smart" spritesheet="playlist"/>
     </playlist>
+    <decade>
+        <decade name="Old" spritesheet="decade"/>
+        <decade name="All" spritesheet="decade"/>
+        <decade name="00s" spritesheet="decade"/>
+        <decade name="10s" spritesheet="decade"/>
+        <decade name="20s" spritesheet="decade"/>
+        <decade name="30s" spritesheet="decade"/>
+        <decade name="40s" spritesheet="decade"/>
+        <decade name="50s" spritesheet="decade"/>
+        <decade name="60s" spritesheet="decade"/>
+        <decade name="70s" spritesheet="decade"/>
+        <decade name="80s" spritesheet="decade"/>
+        <decade name="90s" spritesheet="decade"/>
+    </decade>
     <spritesheet name="genre">
         <image>genre_sprites.png</image>
         <icon width="75" height="75"></icon>
@@ -79,5 +93,11 @@
         <icon width="140" height="134"></icon>
         <spacing x="28" y="100"></spacing>
         <start-position x="0" y="0"></start-position>
+    </spritesheet>
+    <spritesheet name="decade">
+        <image>decade_sprites.png</image>
+        <icon width="133" height="134"></icon>
+        <spacing x="28" y="54"></spacing>
+        <start-position x="40" y="33"></start-position>
     </spritesheet>
 </root>

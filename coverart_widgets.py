@@ -313,6 +313,7 @@ class GenrePopupButton(PopupButton):
 
         # generate initial popup
         self._update_popup(query)
+        self.set_popup_value(_('All Genres'))
 
     def _update_popup(self, *args):
         still_exists = False
@@ -336,20 +337,19 @@ class GenrePopupButton(PopupButton):
         return None if the first entry in popup returned
         '''
         if not menu or menu.get_active():
-            self.set_popup_value(genre)
-
             test_genre = genre.lower()
             if test_genre == self.model[0][0].lower():
                 self.resize_button_image(self.default_image.get_pixbuf())
             elif not test_genre in self._spritesheet:
-                self._find_alternates(test_genre)  # to be debugged later
-                #self.resize_button_image(self.unrecognised_image.get_pixbuf())
+                self._find_alternates(test_genre)  
             else:
                 self.resize_button_image(self._spritesheet[test_genre])
 
             if genre == self.model[0][0]:
+                self.set_popup_value(_('All Genres'))
                 self.callback(None)
             else:
+                self.set_popup_value(genre)
                 self.callback(genre)
 
     def _find_alternates(self, test_genre):
@@ -457,16 +457,13 @@ class DecadePopupButton(PopupButton):
         if self.is_initialised:
             return
 
-        self.default_image = \
-            Gtk.Image.new_from_file(rb.find_plugin_file(plugin,
-                'img/calendar.png'))
-        #self.unrecognised_image = \
-        #    Gtk.Image.new_from_file(rb.find_plugin_file(plugin,
-        #        'img/calendar.png'))
+        self._spritesheet = ConfiguredSpriteSheet(plugin, 'decade')
+        self.default_image = Gtk.Image.new_from_pixbuf(
+            self._spritesheet[self._initial])
 
         super(DecadePopupButton, self).initialise(shell, callback,
             self._initial)
-
+        
         # generate initial popup
         self._update_popup()
 
@@ -500,12 +497,13 @@ class DecadePopupButton(PopupButton):
         return None if the first entry in popup returned
         '''
         if not menu or menu.get_active():
-            self.set_popup_value(decade)
+            self.resize_button_image(self._spritesheet[decade])
 
             if decade == self._initial:
+                self.set_popup_value(_('All Decades'))
                 self.callback(None)
             else:
-                print self._decade[decade]
+                self.set_popup_value(decade)
                 self.callback(self._decade[decade])
 
 class ImageToggleButton(Gtk.Button):
