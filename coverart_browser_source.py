@@ -39,25 +39,6 @@ from coverart_widgets import DecadePopupButton
 from time import sleep
 import threading
 
-# calls f on another thread
-def async_call(f, f_arg, on_done):
-    if not on_done:
-        on_done = lambda r, e: None
-
-    def do_call():
-        result = None
-        error = None
-
-        try:
-            f(f_arg)
-        except Exception, err:
-            error = err
-
-        GObject.idle_add(lambda: on_done())
-    thread = threading.Thread(target = do_call)
-    thread.start()
-
-
 class CoverArtBrowserSource(RB.Source):
     '''
     Source utilized by the plugin to show all it's ui.
@@ -756,11 +737,12 @@ class CoverArtBrowserSource(RB.Source):
 
         if event.type is Gdk.EventType.BUTTON_PRESS and \
             self.entry_view.expansion.value==EV.ExpandedType.NO:
-            async_call(self.introduce_click_delay, 0.3, self._expand_and_scroll)
+            Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 300,
+                self._expand_and_scroll, None)
         
         print "CoverArtBrowser DEBUG - end mouseclick_callback()"
 
-    def _expand_and_scroll(self):
+    def _expand_and_scroll(self, data):
         '''
         helper function - if the entry is manually expanded
         then if necessary scroll the view to the last selected album
@@ -768,7 +750,7 @@ class CoverArtBrowserSource(RB.Source):
         print "CoverArtBrowser DEBUG - _expand_and_scroll"
             
         if self.entry_view.expansion.value==EV.ExpandedType.DOUBLE_CLICK:
-            return
+            return False
 
         if self.entry_view.expansion.value==EV.ExpandedType.NO:
             selected = self.get_selected_albums()
@@ -795,31 +777,7 @@ class CoverArtBrowserSource(RB.Source):
                         scrollpos = float((paned_y - cover_size)) / (y * 2)
                         if scrollpos > 0:
                             self.covers_view.scroll_to_path(path, True, scrollpos, 0.5)
-
-
-    def introduce_click_delay(self, delay):
-        '''
-        delay introduced when doing a single click
-        N.B. cannot use the same threaded function because will be called
-        serially whereas separate threaded function will be called in parallel.
-        '''
-        sleep(delay)
-
-        return 'End'
-
-    def introduce_doubleclick_delay(self, delay):
-        '''
-        delay introduced when doing a doubleclick
-        N.B. cannot use the same threaded function because will be called
-        serially whereas separate threaded function will be called in parallel.
-        '''
-        sleep(delay)
-
-        return 'End'
-
-    def reset_expandtype(self):
-        if self.entry_view.expansion.value==EV.ExpandedType.DOUBLE_CLICK:
-            self.entry_view.expansion.reset()
+        return False
             
     def item_activated_callback(self, iconview, path):
         '''
@@ -827,17 +785,24 @@ class CoverArtBrowserSource(RB.Source):
         is pressed. It plays the selected album
         '''
         print "CoverArtBrowser DEBUG - item_activated_callback"
-
         iconview.grab_focus()
         iconview.select_path(path)
 
         self.entry_view.expansion.value=EV.ExpandedType.DOUBLE_CLICK
-        async_call(self.introduce_doubleclick_delay, 0.6, self.reset_expandtype)
+
+        Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 600,
+                self.reset_expandtype, None)
         self.play_selected_album()
         
         print "CoverArtBrowser DEBUG - end item_activated_callback"
 
         return True
+
+    def reset_expandtype(self, data):
+        if self.entry_view.expansion.value==EV.ExpandedType.DOUBLE_CLICK:
+            self.entry_view.expansion.reset()
+
+        return False
 
     def get_selected_albums(self):
         '''
