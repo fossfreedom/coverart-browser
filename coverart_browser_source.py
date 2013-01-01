@@ -753,18 +753,6 @@ class CoverArtBrowserSource(RB.Source):
                 else:
                     self.bottom_expander.set_expanded(True)
 
-                    cover_size = self.album_manager.cover_man.cover_size
-                    x, y = self.status_label.get_toplevel().get_size()
-
-                    paned_y = self.gs.get_value(self.gs.Path.PLUGIN,
-                        self.gs.PluginKey.PANED_POSITION)
-
-                    scrollpos = float((paned_y - cover_size)) / (y * 2)
-
-                    if scrollpos > 0:
-                        self.covers_view.scroll_to_path(path, True,
-                            scrollpos, 0.5)
-
             self.last_clicked_album = album
         else:
             self.last_clicked_album = None
@@ -1159,6 +1147,19 @@ class CoverArtBrowserSource(RB.Source):
                     self.gs.PluginKey.PANED_POSITION, new_y)
 
             self.paned.set_position(new_y)
+
+            # acomodate the viewport if there's an album selected
+            if self.last_clicked_album:
+                path = self.album_manager.model.get_path(
+                    self.last_clicked_album)
+
+                cover_size = self.album_manager.cover_man.cover_size
+                x, y = self.status_label.get_toplevel().get_size()
+
+                scrollpos = float((new_y - cover_size)) / (y * 2)
+
+                if scrollpos > 0:
+                    self.covers_view.scroll_to_path(path, True, scrollpos, 0.5)
 
         print "CoverArtBrowser DEBUG - end bottom_expander_expanded_callback"
 
