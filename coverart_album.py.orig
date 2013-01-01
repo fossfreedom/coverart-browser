@@ -774,6 +774,8 @@ class AlbumsModel(GObject.Object):
             self._tree_store.get_path(
                 self._iters[album.name][album.artist]['iter']))
 
+<<<<<<< HEAD
+=======
     def find_first_visible(self, filter_key, filter_arg, start=None,
             backwards=False):
         album_filter = AlbumFilters.keys[filter_key](filter_arg)
@@ -789,6 +791,7 @@ class AlbumsModel(GObject.Object):
 
         return None
 
+>>>>>>> master
     def show(self, album, show):
         '''
         Unfilters an album, making it visible to the publicly available model's

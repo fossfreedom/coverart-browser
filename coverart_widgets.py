@@ -27,6 +27,9 @@ from coverart_browser_prefs import GSetting
 from coverart_utils import ConfiguredSpriteSheet
 from coverart_utils import GenreConfiguredSpriteSheet
 import rb
+from datetime import date
+from collections import OrderedDict
+            
 
 ui_string = \
 """<interface>
@@ -167,8 +170,6 @@ class PlaylistPopupButton(PopupButton):
         '''
         super(PlaylistPopupButton, self).__init__(
             **kargs)
-
-        #self.set_initial_label(self._library_name)
 
         #weird introspection - do_clicked is overridden but
         #PopupButton version is called not the Playlist version
@@ -312,6 +313,7 @@ class GenrePopupButton(PopupButton):
 
         # generate initial popup
         self._update_popup(query)
+        self.set_popup_value(_('All Genres'))
 
     def _update_popup(self, *args):
         still_exists = False
@@ -335,20 +337,19 @@ class GenrePopupButton(PopupButton):
         return None if the first entry in popup returned
         '''
         if not menu or menu.get_active():
-            self.set_popup_value(genre)
-
             test_genre = genre.lower()
             if test_genre == self.model[0][0].lower():
                 self.resize_button_image(self.default_image.get_pixbuf())
             elif not test_genre in self._spritesheet:
-                self._find_alternates(test_genre)  # to be debugged later
-                #self.resize_button_image(self.unrecognised_image.get_pixbuf())
+                self._find_alternates(test_genre)  
             else:
                 self.resize_button_image(self._spritesheet[test_genre])
 
             if genre == self.model[0][0]:
+                self.set_popup_value(_('All Genres'))
                 self.callback(None)
             else:
+                self.set_popup_value(genre)
                 self.callback(genre)
 
     def _find_alternates(self, test_genre):
@@ -432,6 +433,78 @@ class SortPopupButton(PopupButton):
 
             self.callback(sort)
 
+class DecadePopupButton(PopupButton):
+    __gtype_name__ = 'DecadePopupButton'
+
+    def __init__(self, **kargs):
+        '''
+        Initializes the button.
+        '''
+        super(DecadePopupButton, self).__init__(**kargs)
+
+        self._decade=OrderedDict([('All',-1), ('20s',2020), \
+            ('10s',2010), ('00s',2000), ('90s',1990), ('80s',1980), \
+            ('70s',1970), ('60s',1960), ('50s',1950), ('40s',1940), \
+            ('30s',1930), ('Old',-1)])
+        self._initial='All'
+
+    def initialise(self, plugin, shell, callback):
+        '''
+        extend the default initialise function
+        because we need to also resize the picture
+        associated with the decade button
+        '''
+        if self.is_initialised:
+            return
+
+        self._spritesheet = ConfiguredSpriteSheet(plugin, 'decade')
+        self.default_image = Gtk.Image.new_from_pixbuf(
+            self._spritesheet[self._initial])
+
+        super(DecadePopupButton, self).initialise(shell, callback,
+            self._initial)
+        
+        # generate initial popup
+        self._update_popup()
+
+    def _update_popup(self, *args):
+        
+        # clear and recreate popup
+        self.clear_popupmenu()
+
+        '''
+        we need only add 2020s to the popup if the current year
+        warrants it...
+
+        and yes this means that the plugin decade functionality
+        will not work in 2030 and onwards ... but I'll worry about that
+        then :)
+        '''
+        firstval='20s'
+        current_year = date.today().year
+            
+        for decade in self._decade:
+            if  (current_year >= 2020 and decade==firstval) or \
+                (current_year < 2020 and decade!=firstval):
+                self.add_menuitem(decade, self._decade_changed, \
+                    decade)
+
+        self._decade_changed(None, self._initial)
+
+    def _decade_changed(self, menu, decade):
+        '''
+        called when genre popup menu item chosen
+        return None if the first entry in popup returned
+        '''
+        if not menu or menu.get_active():
+            self.resize_button_image(self._spritesheet[decade])
+
+            if decade == self._initial:
+                self.set_popup_value(_('All Decades'))
+                self.callback(None)
+            else:
+                self.set_popup_value(decade)
+                self.callback(self._decade[decade])
 
 class ImageToggleButton(Gtk.Button):
     '''

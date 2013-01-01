@@ -9,6 +9,7 @@
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
+# This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
@@ -35,7 +36,7 @@ from stars import ReactiveStar
 from coverart_timer import ttimer
 from coverart_widgets import PlaylistPopupButton
 from coverart_widgets import GenrePopupButton
-from coverart_widgets import DecadePopupButton
+<<<<<<< HEAD
 from time import sleep
 import threading
 
@@ -56,6 +57,9 @@ def async_call(f, f_arg, on_done):
         GObject.idle_add(lambda: on_done())
     thread = threading.Thread(target = do_call)
     thread.start()
+=======
+from coverart_widgets import DecadePopupButton
+>>>>>>> master
 
 
 class CoverArtBrowserSource(RB.Source):
@@ -787,7 +791,7 @@ class CoverArtBrowserSource(RB.Source):
         Callback called when the cover view is double clicked or space-bar
         is pressed. It plays the selected album
         '''
-        print "CoverArtBrowser DEBUG - item_activated_callback"
+        print "##############CoverArtBrowser DEBUG - item_activated_callback"
 
         iconview.grab_focus()
         iconview.select_path(path)
@@ -1128,7 +1132,7 @@ class CoverArtBrowserSource(RB.Source):
             self.stars.set_rating(selected[0].rating)
         else:
             self.stars.set_rating(0)
-
+            
         track_count = 0
         duration = 0
 
