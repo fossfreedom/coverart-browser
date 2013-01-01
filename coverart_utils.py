@@ -307,7 +307,7 @@ class SpriteSheet(object):
 
         print "y %d " % (base_image.get_height() / delta_y + 1)
         print "x %d " % (base_image.get_width() / delta_x + 1)
-        for y in range(0, base_image.get_height() / delta_y + 1):
+        for y in range(0, ((base_image.get_height()-y_start) / delta_y)+1):
             for x in range(0, ((base_image.get_width()-x_start) / delta_x)+1):
                 sprite = GdkPixbuf.Pixbuf.new(GdkPixbuf.Colorspace.RGB, True,
                     8, icon_width, icon_height)
