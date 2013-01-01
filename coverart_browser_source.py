@@ -754,10 +754,48 @@ class CoverArtBrowserSource(RB.Source):
             and self.entry_view.expansion.value==EV.ExpandedType.KEY_MODIFIER:
             self.entry_view.expansion.value=EV.ExpandedType.NO
 
-        if self.entry_view.expansion.value!=EV.ExpandedType.DOUBLE_CLICK:
-            async_call(self.introduce_click_delay, 0.5, self._expand_and_scroll)
-
+        if event.type is Gdk.EventType.BUTTON_PRESS and \
+            self.entry_view.expansion.value==EV.ExpandedType.NO:
+            async_call(self.introduce_click_delay, 0.3, self._expand_and_scroll)
+        
         print "CoverArtBrowser DEBUG - end mouseclick_callback()"
+
+    def _expand_and_scroll(self):
+        '''
+        helper function - if the entry is manually expanded
+        then if necessary scroll the view to the last selected album
+        '''
+        print "CoverArtBrowser DEBUG - _expand_and_scroll"
+            
+        if self.entry_view.expansion.value==EV.ExpandedType.DOUBLE_CLICK:
+            return
+
+        if self.entry_view.expansion.value==EV.ExpandedType.NO:
+            selected = self.get_selected_albums()
+            last_album_pos = len(selected) - 1
+
+            if last_album_pos >=0 :
+                album = selected[last_album_pos]
+
+                if self.entry_view.expansion.album != album:
+                    self.entry_view.expansion.album=album
+                else:
+                    if self.bottom_expander.get_expanded():
+                        self.bottom_expander.set_expanded(False)
+                    else:
+                        self.bottom_expander.set_expanded(True)
+                        path = self.album_manager.model.get_path(album)
+
+                        cover_size = self.album_manager.cover_man.cover_size
+                        (x,y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
+
+                        paned_y = self.gs.get_value(self.gs.Path.PLUGIN,
+                            self.gs.PluginKey.PANED_POSITION)
+
+                        scrollpos = float((paned_y - cover_size)) / (y * 2)
+                        if scrollpos > 0:
+                            self.covers_view.scroll_to_path(path, True, scrollpos, 0.5)
+
 
     def introduce_click_delay(self, delay):
         '''
@@ -771,16 +809,17 @@ class CoverArtBrowserSource(RB.Source):
 
     def introduce_doubleclick_delay(self, delay):
         '''
-        delay introduced when doing a double click
+        delay introduced when doing a doubleclick
         N.B. cannot use the same threaded function because will be called
         serially whereas separate threaded function will be called in parallel.
-        '''  
+        '''
         sleep(delay)
 
         return 'End'
 
     def reset_expandtype(self):
-        self.entry_view.expansion.reset()
+        if self.entry_view.expansion.value==EV.ExpandedType.DOUBLE_CLICK:
+            self.entry_view.expansion.reset()
             
     def item_activated_callback(self, iconview, path):
         '''
@@ -793,9 +832,9 @@ class CoverArtBrowserSource(RB.Source):
         iconview.select_path(path)
 
         self.entry_view.expansion.value=EV.ExpandedType.DOUBLE_CLICK
+        async_call(self.introduce_doubleclick_delay, 0.6, self.reset_expandtype)
         self.play_selected_album()
-        async_call(self.introduce_doubleclick_delay, 1, self.reset_expandtype)
-
+        
         print "CoverArtBrowser DEBUG - end item_activated_callback"
 
         return True
@@ -1057,42 +1096,6 @@ class CoverArtBrowserSource(RB.Source):
         self.album_manager.cover_man.cancel_cover_request()
 
         print "CoverArtBrowser DEBUG - end cancel_request_callback"
-
-    def _expand_and_scroll(self):
-        '''
-        helper function - if the entry is manually expanded
-        then if necessary scroll the view to the last selected album
-        '''
-        print "CoverArtBrowser DEBUG - _expand_and_scroll"
-            
-        if self.entry_view.expansion.value==EV.ExpandedType.DOUBLE_CLICK:
-            return
-
-        if self.entry_view.expansion.value==EV.ExpandedType.NO:
-            selected = self.get_selected_albums()
-            last_album_pos = len(selected) - 1
-
-            if last_album_pos >=0 :
-                album = selected[last_album_pos]
-
-                if self.entry_view.expansion.album != album:
-                    self.entry_view.expansion.album=album
-                else:
-                    if self.bottom_expander.get_expanded():
-                        self.bottom_expander.set_expanded(False)
-                    else:
-                        self.bottom_expander.set_expanded(True)
-                        path = self.album_manager.model.get_path(album)
-
-                        cover_size = self.album_manager.cover_man.cover_size
-                        (x,y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
-
-                        paned_y = self.gs.get_value(self.gs.Path.PLUGIN,
-                            self.gs.PluginKey.PANED_POSITION)
-
-                        scrollpos = float((paned_y - cover_size)) / (y * 2)
-                        if scrollpos > 0:
-                            self.covers_view.scroll_to_path(path, True, scrollpos, 0.5)
 
     def selectionchanged_callback(self, widget):
         '''
