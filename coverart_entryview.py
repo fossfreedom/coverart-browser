@@ -26,9 +26,11 @@ import rb
 from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import CoverLocale
 
+
 def enum(*sequential, **named):
         enums = dict(zip(sequential, range(len(sequential))), **named)
         return type('Enum', (), enums)
+
 
 class Expansion(GObject.Object):
     def __init__(self):
@@ -46,7 +48,7 @@ class Expansion(GObject.Object):
         if expandedtype == CoverArtEntryView.ExpandedType.DOUBLE_CLICK:
             self._old_manual_expanded = self._manual_expanded
 
-        self._manual_expanded=expandedtype
+        self._manual_expanded = expandedtype
 
     @property
     def album(self):
@@ -54,15 +56,16 @@ class Expansion(GObject.Object):
 
     @album.setter
     def album(self, newalbum):
-        self._last_album=newalbum
-    
+        self._last_album = newalbum
+
     def reset(self):
-        self._manual_expanded=self._old_manual_expanded
-        
+        self._manual_expanded = self._old_manual_expanded
+
 
 class CoverArtEntryView(RB.EntryView):
-    ExpandedType = enum('NO', 'MANUAL', 'KEY_MODIFIER', 'DOUBLE_CLICK', 'SECOND_CLICK')
-        
+    ExpandedType = enum('NO', 'MANUAL', 'KEY_MODIFIER', 'DOUBLE_CLICK',
+        'SECOND_CLICK')
+
     def __init__(self, shell, source):
         '''
         Initializes the entryview.
@@ -149,7 +152,7 @@ class CoverArtEntryView(RB.EntryView):
         del self.action_group
         del self.play_action
         del self.queue_action
-    
+
     def on_visible_columns_changed(self, settings, key):
         print "CoverArtBrowser DEBUG - on_visible_columns_changed()"
         #reset current columns

@@ -36,8 +36,7 @@ from coverart_timer import ttimer
 from coverart_widgets import PlaylistPopupButton
 from coverart_widgets import GenrePopupButton
 from coverart_widgets import DecadePopupButton
-from time import sleep
-import threading
+
 
 class CoverArtBrowserSource(RB.Source):
     '''
@@ -308,7 +307,6 @@ class CoverArtBrowserSource(RB.Source):
         decade_button = ui.get_object('decade_button')
         decade_button.initialise(self.plugin, self.shell,
             self.decade_filter_callback)
-
 
         print "CoverArtBrowser DEBUG - end _toolbar"
 
@@ -728,18 +726,18 @@ class CoverArtBrowserSource(RB.Source):
         shift = event.state & Gdk.ModifierType.SHIFT_MASK
 
         if (ctrl or shift) \
-            and self.entry_view.expansion.value==EV.ExpandedType.NO:
-            self.entry_view.expansion.value=EV.ExpandedType.KEY_MODIFIER
+            and self.entry_view.expansion.value == EV.ExpandedType.NO:
+            self.entry_view.expansion.value = EV.ExpandedType.KEY_MODIFIER
 
         if (not ctrl) and (not shift) \
-            and self.entry_view.expansion.value==EV.ExpandedType.KEY_MODIFIER:
-            self.entry_view.expansion.value=EV.ExpandedType.NO
+            and self.entry_view.expansion.value == EV.ExpandedType.KEY_MODIFIER:
+            self.entry_view.expansion.value = EV.ExpandedType.NO
 
         if event.type is Gdk.EventType.BUTTON_PRESS and \
-            self.entry_view.expansion.value==EV.ExpandedType.NO:
+            self.entry_view.expansion.value == EV.ExpandedType.NO:
             Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 300,
                 self._expand_and_scroll, None)
-        
+
         print "CoverArtBrowser DEBUG - end mouseclick_callback()"
 
     def _expand_and_scroll(self, data):
@@ -748,19 +746,19 @@ class CoverArtBrowserSource(RB.Source):
         then if necessary scroll the view to the last selected album
         '''
         print "CoverArtBrowser DEBUG - _expand_and_scroll"
-            
-        if self.entry_view.expansion.value==EV.ExpandedType.DOUBLE_CLICK:
+
+        if self.entry_view.expansion.value == EV.ExpandedType.DOUBLE_CLICK:
             return False
 
-        if self.entry_view.expansion.value==EV.ExpandedType.NO:
+        if self.entry_view.expansion.value == EV.ExpandedType.NO:
             selected = self.get_selected_albums()
             last_album_pos = len(selected) - 1
 
-            if last_album_pos >=0 :
+            if last_album_pos >= 0:
                 album = selected[last_album_pos]
 
                 if self.entry_view.expansion.album != album:
-                    self.entry_view.expansion.album=album
+                    self.entry_view.expansion.album = album
                 else:
                     if self.bottom_expander.get_expanded():
                         self.bottom_expander.set_expanded(False)
@@ -769,16 +767,18 @@ class CoverArtBrowserSource(RB.Source):
                         path = self.album_manager.model.get_path(album)
 
                         cover_size = self.album_manager.cover_man.cover_size
-                        (x,y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
+                        x, y = Gtk.Widget.get_toplevel(
+                            self.status_label).get_size()
 
                         paned_y = self.gs.get_value(self.gs.Path.PLUGIN,
                             self.gs.PluginKey.PANED_POSITION)
 
                         scrollpos = float((paned_y - cover_size)) / (y * 2)
                         if scrollpos > 0:
-                            self.covers_view.scroll_to_path(path, True, scrollpos, 0.5)
+                            self.covers_view.scroll_to_path(path, True,
+                                scrollpos, 0.5)
         return False
-            
+
     def item_activated_callback(self, iconview, path):
         '''
         Callback called when the cover view is double clicked or space-bar
@@ -788,18 +788,18 @@ class CoverArtBrowserSource(RB.Source):
         iconview.grab_focus()
         iconview.select_path(path)
 
-        self.entry_view.expansion.value=EV.ExpandedType.DOUBLE_CLICK
+        self.entry_view.expansion.value = EV.ExpandedType.DOUBLE_CLICK
 
         Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 600,
                 self.reset_expandtype, None)
         self.play_selected_album()
-        
+
         print "CoverArtBrowser DEBUG - end item_activated_callback"
 
         return True
 
     def reset_expandtype(self, data):
-        if self.entry_view.expansion.value==EV.ExpandedType.DOUBLE_CLICK:
+        if self.entry_view.expansion.value == EV.ExpandedType.DOUBLE_CLICK:
             self.entry_view.expansion.reset()
 
         return False
@@ -1087,7 +1087,7 @@ class CoverArtBrowserSource(RB.Source):
             if cover_search_pane_visible:
                 self.cover_search_pane.clear()
 
-            if self.entry_view.expansion.value==EV.ExpandedType.NO:
+            if self.entry_view.expansion.value == EV.ExpandedType.NO:
                 print "at this point?"
                 self.bottom_expander.set_expanded(False)
 
@@ -1156,14 +1156,14 @@ class CoverArtBrowserSource(RB.Source):
     def on_bottom_expander_button_press_callback(self, widget, event):
         if widget.get_expanded():
             #about to close up manually, therefore remember this fact
-            if self.entry_view.expansion.value==EV.ExpandedType.NO:
-                self.entry_view.expansion.value=EV.ExpandedType.MANUAL
+            if self.entry_view.expansion.value == EV.ExpandedType.NO:
+                self.entry_view.expansion.value = EV.ExpandedType.MANUAL
         else:
-            # about to open manually, therefore no need to have to 
-            # remember the manual closure 
-            if self.entry_view.expansion.value==EV.ExpandedType.MANUAL:
-                self.entry_view.expansion.value=EV.ExpandedType.NO
-        
+            # about to open manually, therefore no need to have to
+            # remember the manual closure
+            if self.entry_view.expansion.value == EV.ExpandedType.MANUAL:
+                self.entry_view.expansion.value = EV.ExpandedType.NO
+
     def bottom_expander_expanded_callback(self, action, param):
         '''
         Callback connected to expanded signal of the paned GtkExpander
@@ -1313,6 +1313,7 @@ class CoverArtBrowserSource(RB.Source):
             self.album_manager.model.remove_filter('decade')
         else:
             self.album_manager.model.replace_filter('decade', decade)
+
     def select_album(self, album):
         path = self.album_manager.model.get_path(album)
 
