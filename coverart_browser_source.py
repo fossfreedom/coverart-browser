@@ -69,7 +69,7 @@ class CoverArtBrowserSource(RB.Source):
         self.last_toolbar_pos = None
         self.moving_handle = False
         self.quick_search_idle = 0
-        self.last_clicked_album = None
+        self.last_selected_album = None
         self.click_count = 0
 
     def _connect_properties(self):
@@ -732,31 +732,32 @@ class CoverArtBrowserSource(RB.Source):
             self.click_count += 1
 
             if not ctrl and not shift and self.click_count == 1:
+                album = self.album_manager.model.get_from_path(pthinfo)\
+                    if pthinfo else None
                 Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
-                    self._expand_and_scroll, pthinfo)
+                    self._timeout_expand, album)
 
         print "CoverArtBrowser DEBUG - end mouseclick_callback()"
 
-    def _expand_and_scroll(self, path):
+    def _timeout_expand(self, album):
         '''
         helper function - if the entry is manually expanded
         then if necessary scroll the view to the last selected album
         '''
-        print "CoverArtBrowser DEBUG - _expand_and_scroll"
+        print "CoverArtBrowser DEBUG - _timeout_expand"
 
-        if path:
-            album = self.album_manager.model.get_from_path(path)
+        if album and self.click_count == 1 \
+            and self.last_selected_album is album:
+            # check if it's a second or third click on the album and expand
+            # or collapse the entry view accordingly
+            self.bottom_expander.set_expanded(
+                not self.bottom_expander.get_expanded())
 
-            if self.click_count == 1 and self.last_clicked_album is album:
-                if self.bottom_expander.get_expanded():
-                    self.bottom_expander.set_expanded(False)
-                else:
-                    self.bottom_expander.set_expanded(True)
+        # update the selected album
+        selected = self.get_selected_albums()
+        self.last_selected_album = selected[0] if len(selected) == 1 else None
 
-            self.last_clicked_album = album
-        else:
-            self.last_clicked_album = None
-
+        # clear the click count
         self.click_count = 0
 
     def item_activated_callback(self, iconview, path):
@@ -1060,6 +1061,18 @@ class CoverArtBrowserSource(RB.Source):
             return
         elif len(selected) == 1:
             self.stars.set_rating(selected[0].rating)
+
+            if selected[0] is not self.last_selected_album:
+                # when the selection changes we've to take into account two
+                # things
+                if not self.click_count:
+                    # we may be using the arrows, so if there is no mouse
+                    # involved, we should change the last selected
+                    self.last_selected_album = selected[0]
+                else:
+                    # we may've doing a fast change after a valid second click,
+                    # so it shouldn't be considered a double click
+                    self.click_count -= 1
         else:
             self.stars.set_rating(0)
 
@@ -1149,9 +1162,9 @@ class CoverArtBrowserSource(RB.Source):
             self.paned.set_position(new_y)
 
             # acomodate the viewport if there's an album selected
-            if self.last_clicked_album:
+            if self.last_selected_album:
                 path = self.album_manager.model.get_path(
-                    self.last_clicked_album)
+                    self.last_selected_album)
 
                 cover_size = self.album_manager.cover_man.cover_size
                 x, y = self.status_label.get_toplevel().get_size()
