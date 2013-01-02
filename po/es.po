@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-01-02 11:30+GMT\n"
+"POT-Creation-Date: 2013-01-02 20:11+GMT\n"
 "PO-Revision-Date: 2012-09-18 20:57+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: coverart_album.py:1473 coverart_browser_source.py:1093
+#: coverart_album.py:1473 coverart_browser_source.py:1092
 msgid "%s by %s"
 msgstr "%s por %s"
 
@@ -53,27 +53,27 @@ msgstr "Canciones"
 msgid "Covers"
 msgstr "Portadas"
 
-#: coverart_browser_source.py:1007
+#: coverart_browser_source.py:1006
 msgid "Requesting cover for %s - %s..."
 msgstr "Buscando portada para %s - %s..."
 
-#: coverart_browser_source.py:1096
+#: coverart_browser_source.py:1095
 msgid "%d selected albums "
 msgstr "%d álbums seleccionados"
 
-#: coverart_browser_source.py:1100
+#: coverart_browser_source.py:1099
 msgid " with 1 track"
 msgstr " tiene una canción"
 
-#: coverart_browser_source.py:1102
+#: coverart_browser_source.py:1101
 msgid " with %d tracks"
 msgstr " tiene %d canciones"
 
-#: coverart_browser_source.py:1105
+#: coverart_browser_source.py:1104
 msgid " and a duration of 1 minute"
 msgstr " y una duración de 1 minuto"
 
-#: coverart_browser_source.py:1107
+#: coverart_browser_source.py:1106
 msgid " and a duration of %d minutes"
 msgstr " y una duración de %d minutos"
 
@@ -253,42 +253,31 @@ msgid "Top Right"
 msgstr "Arriba-Derecha"
 
 #: ui/coverart_browser_prefs.ui.h:5
-msgid "main"
-msgstr ""
-
-#: ui/coverart_browser_prefs.ui.h:6
 msgid "Cover View"
 msgstr "Vista principal"
 
-#: ui/coverart_browser_prefs.ui.h:7
-msgid "left"
-msgstr ""
-
-#: ui/coverart_browser_prefs.ui.h:8
+#: ui/coverart_browser_prefs.ui.h:6
 msgid "Left Sidebar"
 msgstr "Barra lateral izquierda"
 
-#: ui/coverart_browser_prefs.ui.h:9
-msgid "right"
-msgstr ""
-
-#: ui/coverart_browser_prefs.ui.h:10
+#: ui/coverart_browser_prefs.ui.h:7
 msgid "Right Sidebar"
 msgstr "Barra lateral derecha"
 
-#: ui/coverart_browser_prefs.ui.h:11
+#: ui/coverart_browser_prefs.ui.h:8
 msgid "Automatically Start"
 msgstr "Iniciar automáticamente"
 
-#: ui/coverart_browser_prefs.ui.h:12
+#: ui/coverart_browser_prefs.ui.h:9
 msgid "When rhythmbox starts, switch automatically to the coverart browser."
-msgstr "Abrir el navegador de portadas automáticamente cuando inicia Rhythmbox."
+msgstr ""
+"Abrir el navegador de portadas automáticamente cuando inicia Rhythmbox."
 
-#: ui/coverart_browser_prefs.ui.h:13
+#: ui/coverart_browser_prefs.ui.h:10
 msgid "Use source's custom statusbar."
 msgstr "Utilizar la barra de estado personalizada del plugin"
 
-#: ui/coverart_browser_prefs.ui.h:14
+#: ui/coverart_browser_prefs.ui.h:11
 msgid ""
 "Use the source&apos;s custom statusbar to show the current selected "
 "album&apos;s related information instead of the global Rhythmbox&apos;s "
@@ -298,7 +287,7 @@ msgstr ""
 "informaci&oacute;n relacionada con el &aacute;lbum, en lugar de utilizar la "
 "barra de estado global de Rhythmbox"
 
-#: ui/coverart_browser_prefs.ui.h:15
+#: ui/coverart_browser_prefs.ui.h:12
 msgid ""
 "Use the source's custom statusbar to show the current selected album's "
 "related information instead of the global Rhythmbox's statusbar."
@@ -307,11 +296,11 @@ msgstr ""
 "relacionada con el álbum, en lugar de utilizar la barra de estado global de "
 "Rhythmbox"
 
-#: ui/coverart_browser_prefs.ui.h:16
+#: ui/coverart_browser_prefs.ui.h:13
 msgid "Display tracks and covers pane"
 msgstr "Mostrar panel de canciones y portadas"
 
-#: ui/coverart_browser_prefs.ui.h:17
+#: ui/coverart_browser_prefs.ui.h:14
 msgid ""
 "Add a toggle-option to the coverart view to display the tracks and covers "
 "for the chosen album"
@@ -319,48 +308,49 @@ msgstr ""
 "Agrega una ventana desplegable a la vista de portadas para mostrar las "
 "canciones y portadas del álbum seleccionado"
 
-#: ui/coverart_browser_prefs.ui.h:18
+#: ui/coverart_browser_prefs.ui.h:15
 msgid "Level above which is regarded as being a favourite track or album"
 msgstr "Nivel a partir del cual se considera a un track o álbum como favorito."
 
-#: ui/coverart_browser_prefs.ui.h:19
+#: ui/coverart_browser_prefs.ui.h:16
 msgid "Favourite Threshold"
 msgstr "Umbral de puntuación"
 
-#: ui/coverart_browser_prefs.ui.h:20
+#: ui/coverart_browser_prefs.ui.h:17
 msgid "General"
 msgstr "General"
 
-#: ui/coverart_browser_prefs.ui.h:21
+#: ui/coverart_browser_prefs.ui.h:18
 msgid "Album Information"
 msgstr "Información del álbum"
 
-#: ui/coverart_browser_prefs.ui.h:22
+#: ui/coverart_browser_prefs.ui.h:19
 msgid "Display album's info under cover"
 msgstr "Mostrar información del albúm debajo de su portada"
 
-#: ui/coverart_browser_prefs.ui.h:23
+#: ui/coverart_browser_prefs.ui.h:20
 msgid "Show the album&apos;s basic information under the cover image."
-msgstr "Muestra informaci&oacute;n b&aacute;sica del album debajo de su imagen "
-"de portada."
+msgstr ""
+"Muestra informaci&oacute;n b&aacute;sica del album debajo de su imagen de "
+"portada."
 
-#: ui/coverart_browser_prefs.ui.h:24
+#: ui/coverart_browser_prefs.ui.h:21
 msgid "Show the album's basic information under the cover image."
 msgstr "Muestra información básica del album debajo de su imagen de portada."
 
-#: ui/coverart_browser_prefs.ui.h:25
+#: ui/coverart_browser_prefs.ui.h:22
 msgid "Font size for the text below the cover-art."
 msgstr "Tamaño de fuente para el texto debajo de la portada"
 
-#: ui/coverart_browser_prefs.ui.h:26
+#: ui/coverart_browser_prefs.ui.h:23
 msgid "Font Size:"
 msgstr "Tamaño de fuente"
 
-#: ui/coverart_browser_prefs.ui.h:27
+#: ui/coverart_browser_prefs.ui.h:24
 msgid "Ellipsize albums names"
 msgstr "Acortar el nombre de los álbums"
 
-#: ui/coverart_browser_prefs.ui.h:28
+#: ui/coverart_browser_prefs.ui.h:25
 msgid ""
 "Ellipsizes the albums names to a fixed length when the display text option "
 "is enabled."
@@ -368,75 +358,75 @@ msgstr ""
 "Acorta los nombres de los álbums a un tamaño fijo, mostrando puntos "
 "suspensivos cuando la opción para mostrar texto esta activada."
 
-#: ui/coverart_browser_prefs.ui.h:29
+#: ui/coverart_browser_prefs.ui.h:26
 msgid "Maximum allowed length for an album's name before being ellipsized."
 msgstr "Lago máximo permitido para el nombre del álbum antes de ser acortado."
 
-#: ui/coverart_browser_prefs.ui.h:30
+#: ui/coverart_browser_prefs.ui.h:27
 msgid "Maximum length:"
 msgstr "Largo máximo:"
 
-#: ui/coverart_browser_prefs.ui.h:31
+#: ui/coverart_browser_prefs.ui.h:28
 msgid "Cover Appearance"
 msgstr "Apariencia"
 
-#: ui/coverart_browser_prefs.ui.h:32
+#: ui/coverart_browser_prefs.ui.h:29
 msgid "Drop shadow"
 msgstr "Sombra"
 
-#: ui/coverart_browser_prefs.ui.h:33
+#: ui/coverart_browser_prefs.ui.h:30
 msgid "Indicates if the albums should drop a shadow on the cover view"
 msgstr "Indica si el album deberia tener sombra"
 
-#: ui/coverart_browser_prefs.ui.h:34
+#: ui/coverart_browser_prefs.ui.h:31
 msgid "Light Source: "
 msgstr "Fuente de luz: "
 
-#: ui/coverart_browser_prefs.ui.h:35
+#: ui/coverart_browser_prefs.ui.h:32
 msgid "Defines the size for the covers showed on the source."
 msgstr "Define el tamaño para las portadas mostradas en el plugin."
 
-#: ui/coverart_browser_prefs.ui.h:36
+#: ui/coverart_browser_prefs.ui.h:33
 msgid "Size (in pixels):"
 msgstr "Tamaño de portada(en pixels):"
 
-#: ui/coverart_browser_prefs.ui.h:37
+#: ui/coverart_browser_prefs.ui.h:34
 msgid "Cover"
 msgstr "Portada"
 
-#: ui/coverart_browser_prefs.ui.h:38
+#: ui/coverart_browser_prefs.ui.h:35
 msgid "Where the toolbar should be positioned"
 msgstr "Donde debería posicionarse la barra de herramientas"
 
-#: ui/coverart_browser_prefs.ui.h:39
+#: ui/coverart_browser_prefs.ui.h:36
 msgid "Position"
 msgstr "Posición"
 
-#: ui/coverart_browser_prefs.ui.h:40
+#: ui/coverart_browser_prefs.ui.h:37
 msgid "Show toolbar in: "
 msgstr "Mostar barra en: "
 
-#: ui/coverart_browser_prefs.ui.h:41
+#: ui/coverart_browser_prefs.ui.h:38
 msgid "Toolbar"
 msgstr "Barra de herramientas"
 
-#: ui/coverart_browser_prefs.ui.h:42
+#: ui/coverart_browser_prefs.ui.h:39
 msgid "Search for coverart on DISCOGS"
 msgstr "Buscar portadas en DISCOGS"
 
-#: ui/coverart_browser_prefs.ui.h:43
+#: ui/coverart_browser_prefs.ui.h:40
 msgid "Search for coverart on the internet provider DISCOGS"
 msgstr "Busca portadas en la base de datos de DISCOGS "
 
-#: ui/coverart_browser_prefs.ui.h:44
+#: ui/coverart_browser_prefs.ui.h:41
 msgid "Search for embedded coverart"
 msgstr "Buscar portadas embebidas"
 
-#: ui/coverart_browser_prefs.ui.h:45
+#: ui/coverart_browser_prefs.ui.h:42
 msgid "Search for coverart embedded within tracks for an album"
 msgstr "Busca portadas embebidas dentro de las canciones del álbum"
 
-#: ui/coverart_browser_prefs.ui.h:46
+#: ui/coverart_browser_prefs.ui.h:43
 msgid "Providers"
 msgstr "Proveedores"
 

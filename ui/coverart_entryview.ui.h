@@ -1,0 +1,9 @@
+char *s = N_("Play this track");
+char *s = N_("Play Track");
+char *s = N_("Add this track to your playing queue");
+char *s = N_("Queue Track");
+char *s = N_("Add this album to a playlist");
+char *s = N_("Add to Playlist");
+char *s = N_("Add this album to a new playlist");
+char *s = N_("New Playlist");
+char *s = N_("Show track properties");
