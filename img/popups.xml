@@ -96,8 +96,8 @@
     </spritesheet>
     <spritesheet name="decade">
         <image>decade_sprites.png</image>
-        <icon width="133" height="134"></icon>
-        <spacing x="28" y="54"></spacing>
-        <start-position x="40" y="33"></start-position>
+        <icon width="133" height="122"></icon>
+        <spacing x="28" y="66"></spacing>
+        <start-position x="40" y="38"></start-position>
     </spritesheet>
 </root>
