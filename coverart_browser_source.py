@@ -67,7 +67,7 @@ class CoverArtBrowserSource(RB.Source):
         self.search_text = ''
         self.hasActivated = False
         self.last_toolbar_pos = None
-        self.moving_handle = False
+        self.last_width = 0
         self.quick_search_idle = 0
         self.last_selected_album = None
         self.click_count = 0
@@ -536,10 +536,7 @@ class CoverArtBrowserSource(RB.Source):
         the expanded state of the entry_view
         '''
         print "CoverArtBrowser DEBUG - paned_button_press_callback"
-        # indicate if we are moving the handle
-        self.moving_handle = self.bottom_expander.get_expanded()
-
-        return not self.moving_handle
+        return not self.bottom_expander.get_expanded()
 
     def on_paned_button_release_event(self, *args):
         '''
@@ -549,9 +546,6 @@ class CoverArtBrowserSource(RB.Source):
         print "CoverArtBrowser DEBUG - on_paned_button_release_event"
 
         if self.bottom_expander.get_expanded():
-            # the handle was released
-            self.moving_handle = False
-
             # save the new position
             new_y = self.paned.get_position()
             self.gs.set_value(self.gs.Path.PLUGIN,
@@ -683,17 +677,22 @@ class CoverArtBrowserSource(RB.Source):
 
         print "CoverArtBrowser DEBUG - end reset_coverview"
 
-    def update_iconview_callback(self, *args):
+    def update_iconview_callback(self, scrolled, *args):
         '''
         Callback called by the cover view when its view port gets resized.
         It forces the cover_view to redraw it's contents to fill the available
         space.
         '''
-        if not self.moving_handle:
+        width = scrolled.get_allocated_width()
+
+        if width != self.last_width:
             # don't need to reacommodate if the bottom pane is being resized
             print "CoverArtBrowser DEBUG - update_iconview_callback"
             self.covers_view.set_columns(0)
             self.covers_view.set_columns(-1)
+
+            # update width
+            self.last_width = width
 
     def mouseclick_callback(self, iconview, event):
         '''
