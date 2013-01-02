@@ -718,24 +718,24 @@ class CoverArtBrowserSource(RB.Source):
                     not iconview.path_is_selected(pthinfo):
                     iconview.unselect_all()
 
-                iconview.grab_focus()
                 iconview.select_path(pthinfo)
+                iconview.set_cursor(pthinfo, None, False)
 
                 self.popup_menu.popup(None, None, None, None, event.button,
                     event.time)
-                return
 
-            # to expand the entry view
-            ctrl = event.state & Gdk.ModifierType.CONTROL_MASK
-            shift = event.state & Gdk.ModifierType.SHIFT_MASK
+            else:
+                # to expand the entry view
+                ctrl = event.state & Gdk.ModifierType.CONTROL_MASK
+                shift = event.state & Gdk.ModifierType.SHIFT_MASK
 
-            self.click_count += 1
+                self.click_count += 1
 
-            if not ctrl and not shift and self.click_count == 1:
-                album = self.album_manager.model.get_from_path(pthinfo)\
-                    if pthinfo else None
-                Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
-                    self._timeout_expand, album)
+                if not ctrl and not shift and self.click_count == 1:
+                    album = self.album_manager.model.get_from_path(pthinfo)\
+                        if pthinfo else None
+                    Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
+                        self._timeout_expand, album)
 
         print "CoverArtBrowser DEBUG - end mouseclick_callback()"
 
