@@ -37,11 +37,11 @@ msgstr ""
 
 #: coverart_browser.py:71
 msgid "CoverArt Browser"
-msgstr "Navigateur de Jaquettes"
+msgstr "Navigateur de jaquettes"
 
 #: coverart_browser.py:72
 msgid "Browse and play your albums through their covers"
-msgstr "Parcourer les jaquettes de vos albums et jouer les"
+msgstr "Parcourir les jaquettes de vos albums et les jouer."
 
 #: coverart_browser.py:101 ui/coverart_sidebar.ui.h:2
 msgid "CoverArt"
