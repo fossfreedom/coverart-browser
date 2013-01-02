@@ -1154,16 +1154,17 @@ class CoverArtBrowserSource(RB.Source):
 
             # acomodate the viewport if there's an album selected
             if self.last_selected_album:
-                path = self.album_manager.model.get_path(
-                    self.last_selected_album)
+                def scroll_to_album(*args):
+                    # acomodate the viewport if there's an album selected
+                    path = self.album_manager.model.get_path(
+                        self.last_selected_album)
 
-                cover_size = self.album_manager.cover_man.cover_size
-                x, y = self.status_label.get_toplevel().get_size()
+                    self.covers_view.scroll_to_path(path, False, 0, 0)
 
-                scrollpos = float((new_y - cover_size)) / (y * 2)
+                    return False
 
-                if scrollpos > 0:
-                    self.covers_view.scroll_to_path(path, True, scrollpos, 0.5)
+                Gdk.threads_add_idle(GObject.PRIORITY_DEFAULT_IDLE,
+                    scroll_to_album, None)
 
         print "CoverArtBrowser DEBUG - end bottom_expander_expanded_callback"
 
