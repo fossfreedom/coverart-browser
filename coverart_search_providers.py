@@ -65,7 +65,7 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
         self.db = self.shell.props.db
 
         self.art_store = RB.ExtDB(name="album-art")
-		self.req_id = self.art_store.connect("request", self.album_art_requested)
+        self.req_id = self.art_store.connect("request", self.album_art_requested)
 
         print "CoverArtBrowser DEBUG - end do_activate"
 
@@ -79,13 +79,13 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
         del self.shell
         del self.db
         self.art_store.disconnect(self.req_id)
-		self.req_id = 0
-		self.art_store = None
+        self.req_id = 0
+        self.art_store = None
         
         print "CoverArtBrowser DEBUG - end do_deactivate"
 
     def album_art_requested(self, store, key, last_time):
-		searches = []
+        searches = []
         
         gs = GSetting()
         setting = gs.get_setting(gs.Path.PLUGIN)
@@ -96,6 +96,6 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
             searches.append(DiscogsSearch())
 
         print "about to search"
-		s = CoverSearch(store, key, last_time, searches)
+        s = CoverSearch(store, key, last_time, searches)
         print "finished about to return"
-		return s.next_search()
+        return s.next_search()
