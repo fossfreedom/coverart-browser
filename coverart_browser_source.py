@@ -765,12 +765,7 @@ class CoverArtBrowserSource(RB.Source):
         is pressed. It plays the selected album
         '''
         print "CoverArtBrowser DEBUG - item_activated_callback"
-        iconview.grab_focus()
-        iconview.select_path(path)
-
         self.play_selected_album()
-
-        print "CoverArtBrowser DEBUG - end item_activated_callback"
 
         return True
 
