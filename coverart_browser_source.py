@@ -705,14 +705,11 @@ class CoverArtBrowserSource(RB.Source):
         y = int(event.y)
         pthinfo = iconview.get_path_at_pos(x, y)
 
-        if event.type is Gdk.EventType.BUTTON_PRESS:
+        if event.type is Gdk.EventType.BUTTON_PRESS and pthinfo:
             if event.triggers_context_menu():
-
-                if pthinfo is None:
-                    return
-
-                # if the current item isn't selected, then we should clear the
-                # current selection
+                # to show the context menu
+                # if the item being clicked isn't selected, we should clear
+                # the current selection
                 if len(iconview.get_selected_items()) > 0 and \
                     not iconview.path_is_selected(pthinfo):
                     iconview.unselect_all()
