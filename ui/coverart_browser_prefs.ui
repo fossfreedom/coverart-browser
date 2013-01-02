@@ -59,7 +59,7 @@
     <data>
       <row>
         <col id="0">main</col>
-        <col id="1" translatable="yes">Cover View</col>
+        <col id="1" translatable="yes">Above Cover View</col>
       </row>
       <row>
         <col id="0">left</col>

@@ -26,6 +26,7 @@ from gi.repository import RB
 from coverart_browser_prefs import GSetting
 from coverart_utils import ConfiguredSpriteSheet
 from coverart_utils import GenreConfiguredSpriteSheet
+from coverart_browser_prefs import CoverLocale
 import rb
 from datetime import date
 from collections import OrderedDict
@@ -377,17 +378,20 @@ class GenrePopupButton(PopupButton):
 class SortPopupButton(PopupButton):
     __gtype_name__ = 'SortPopupButton'
 
-    sorts = {'name': _('Sort by album name'),
-        'artist': _('Sort by album artist'),
-        'year': _('Sort by year'),
-        'rating': _('Sort by rating')}
-
     sort_by = GObject.property(type=str)
 
     def __init__(self, **kargs):
         '''
         Initializes the button.
         '''
+        cl = CoverLocale()
+        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+        
+        self.sorts = {'name': _('Sort by album name'),
+        'artist': _('Sort by album artist'),
+        'year': _('Sort by year'),
+        'rating': _('Sort by rating')}
+
         super(SortPopupButton, self).__init__(
             **kargs)
 
@@ -446,6 +450,11 @@ class DecadePopupButton(PopupButton):
             ('10s',2010), ('00s',2000), ('90s',1990), ('80s',1980), \
             ('70s',1970), ('60s',1960), ('50s',1950), ('40s',1940), \
             ('30s',1930), ('Old',-1)])
+
+        cl = CoverLocale()
+        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+        self._translation={'All':_('All'), 'Old':_('Old')}
+        
         self._initial='All'
 
     def initialise(self, plugin, shell, callback):
@@ -486,7 +495,11 @@ class DecadePopupButton(PopupButton):
         for decade in self._decade:
             if  (current_year >= 2020 and decade==firstval) or \
                 (current_year < 2020 and decade!=firstval):
-                self.add_menuitem(decade, self._decade_changed, \
+                if decade in self._translation:
+                    menutext=self._translation[decade]
+                else:
+                    menutext=decade
+                self.add_menuitem(menutext, self._decade_changed, \
                     decade)
 
         self._decade_changed(None, self._initial)
@@ -617,6 +630,8 @@ class SortOrderButton(ImageToggleButton):
         self.on_clicked()
 
     def set_tooltip(self, val):
+        cl = CoverLocale()
+        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
         if not val:
             self.set_tooltip_text(_('Sort in descending order'))
         else:

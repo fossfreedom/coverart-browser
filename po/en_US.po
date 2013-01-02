@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-01-02 20:11+GMT\n"
+"POT-Creation-Date: 2013-01-02 23:35+GMT\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -87,37 +87,45 @@ msgstr " and a duration of 1 minute"
 msgid " and a duration of %d minutes"
 msgstr " and a duration of %d minutes"
 
-#: coverart_widgets.py:316 coverart_widgets.py:349 ui/coverart_browser.ui.h:11
+#: coverart_widgets.py:317 coverart_widgets.py:350 ui/coverart_browser.ui.h:11
 #: ui/coverart_sidebar.ui.h:3
 msgid "All Genres"
 msgstr ""
 
-#: coverart_widgets.py:380
+#: coverart_widgets.py:390
 msgid "Sort by album name"
 msgstr "Sort by album name"
 
-#: coverart_widgets.py:381
+#: coverart_widgets.py:391
 msgid "Sort by album artist"
 msgstr "Sort by album artist"
 
-#: coverart_widgets.py:382
+#: coverart_widgets.py:392
 msgid "Sort by year"
 msgstr "Sort by year"
 
-#: coverart_widgets.py:383
+#: coverart_widgets.py:393
 msgid "Sort by rating"
 msgstr "Sort by rating"
 
-#: coverart_widgets.py:503 ui/coverart_browser.ui.h:12
+#: coverart_widgets.py:456
+msgid "All"
+msgstr ""
+
+#: coverart_widgets.py:456
+msgid "Old"
+msgstr ""
+
+#: coverart_widgets.py:516 ui/coverart_browser.ui.h:12
 #: ui/coverart_sidebar.ui.h:4
 msgid "All Decades"
 msgstr ""
 
-#: coverart_widgets.py:621
+#: coverart_widgets.py:636
 msgid "Sort in descending order"
 msgstr "Sort in descending order"
 
-#: coverart_widgets.py:623
+#: coverart_widgets.py:638
 msgid "Sort in ascending order"
 msgstr "Sort in ascending order"
 
@@ -219,7 +227,7 @@ msgstr "Queue Favorites"
 
 #: ui/coverart_browser.ui.h:27
 msgid "Add favourite tracks from this album to a playlist"
-msgstr "Add favourite tracks from this album to a playlist"
+msgstr "Add favorite tracks from this album to a playlist"
 
 #: ui/coverart_browser.ui.h:28
 msgid "Add favourites to Playlist"
@@ -262,8 +270,8 @@ msgid "Top Right"
 msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:5
-msgid "Cover View"
-msgstr "Cover View"
+msgid "Above Cover View"
+msgstr "Above Cover View"
 
 #: ui/coverart_browser_prefs.ui.h:6
 msgid "Left Sidebar"
@@ -365,8 +373,7 @@ msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:26
 msgid "Maximum allowed length for an album's name before being ellipsized."
-msgstr ""
-"Maximum allowed length for an album's name before being ellipsized."
+msgstr "Maximum allowed length for an album's name before being ellipsized."
 
 #: ui/coverart_browser_prefs.ui.h:27
 msgid "Maximum length:"

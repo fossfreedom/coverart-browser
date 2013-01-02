@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-01-02 20:11+GMT\n"
+"POT-Creation-Date: 2013-01-02 23:35+GMT\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -87,37 +87,45 @@ msgstr " et une durée de 1 minute"
 msgid " and a duration of %d minutes"
 msgstr " et une durée de %d minutes"
 
-#: coverart_widgets.py:316 coverart_widgets.py:349 ui/coverart_browser.ui.h:11
+#: coverart_widgets.py:317 coverart_widgets.py:350 ui/coverart_browser.ui.h:11
 #: ui/coverart_sidebar.ui.h:3
 msgid "All Genres"
 msgstr ""
 
-#: coverart_widgets.py:380
+#: coverart_widgets.py:390
 msgid "Sort by album name"
 msgstr "Trier par le nom de l'album"
 
-#: coverart_widgets.py:381
+#: coverart_widgets.py:391
 msgid "Sort by album artist"
 msgstr "Trier par le nom de l'artiste"
 
-#: coverart_widgets.py:382
+#: coverart_widgets.py:392
 msgid "Sort by year"
 msgstr "Trier par le nom de l'artiste"
 
-#: coverart_widgets.py:383
+#: coverart_widgets.py:393
 msgid "Sort by rating"
 msgstr "Trier par note"
 
-#: coverart_widgets.py:503 ui/coverart_browser.ui.h:12
+#: coverart_widgets.py:456
+msgid "All"
+msgstr ""
+
+#: coverart_widgets.py:456
+msgid "Old"
+msgstr ""
+
+#: coverart_widgets.py:516 ui/coverart_browser.ui.h:12
 #: ui/coverart_sidebar.ui.h:4
 msgid "All Decades"
 msgstr ""
 
-#: coverart_widgets.py:621
+#: coverart_widgets.py:636
 msgid "Sort in descending order"
 msgstr "Trier en ordre décroissant"
 
-#: coverart_widgets.py:623
+#: coverart_widgets.py:638
 msgid "Sort in ascending order"
 msgstr "Trier en ordre croissant"
 
@@ -263,7 +271,7 @@ msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:5
 #, fuzzy
-msgid "Cover View"
+msgid "Above Cover View"
 msgstr "Jaquettes"
 
 #: ui/coverart_browser_prefs.ui.h:6
