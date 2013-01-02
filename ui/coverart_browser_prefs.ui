@@ -58,15 +58,15 @@
     </columns>
     <data>
       <row>
-        <col id="0" translatable="yes">main</col>
+        <col id="0">main</col>
         <col id="1" translatable="yes">Cover View</col>
       </row>
       <row>
-        <col id="0" translatable="yes">left</col>
+        <col id="0">left</col>
         <col id="1" translatable="yes">Left Sidebar</col>
       </row>
       <row>
-        <col id="0" translatable="yes">right</col>
+        <col id="0">right</col>
         <col id="1" translatable="yes">Right Sidebar</col>
       </row>
     </data>
