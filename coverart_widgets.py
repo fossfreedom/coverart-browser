@@ -186,11 +186,6 @@ class PlaylistPopupButton(PopupButton):
         '''
         super(PlaylistPopupButton, self).__init__(*args, **kwargs)
 
-        #weird introspection - do_clicked is overridden but
-        #PopupButton version is called not the Playlist version
-        #connect the clicked event to this version
-        self.connect('clicked', self.do_clicked)
-
     def initialise(self, plugin, shell, album_model):
         '''
         extend the default initialise function
@@ -216,30 +211,46 @@ class PlaylistPopupButton(PopupButton):
         # configure the sprite sheet
         self._spritesheet = ConfiguredSpriteSheet(plugin, 'playlist')
 
+        # get the playlist manager and it's model
+        playlist_manager = shell.props.playlist_manager
+        playlist_model = playlist_manager.props.display_page_model
+
+        # connect signals to update playlists
+        playlist_model.connect('row-inserted', self._update_popup,
+            playlist_manager)
+        playlist_model.connect('row-deleted', self._update_popup,
+            playlist_manager)
+        playlist_model.connect('row-changed', self._update_popup,
+            playlist_manager)
+
+        # generate initial popup
+        self._update_popup(None, playlist_manager)
+
         # update the button
         self.do_item_clicked(None)
 
-    def do_clicked(self, button):
-        '''
-        we need to create the playlist first before showing
-        the popup
-        N.B. see comment above
-        '''
+    def _update_popup(self, *args):
+        playlist_manager = args[-1]
+        still_exists = False
+
+        # clear and recreate popup
         self.clear_popupmenu()
 
         # library and play queue sources
         self.add_menuitem(self._library_name, None)
         self.add_menuitem(self._queue_name, self.shell.props.queue_source)
 
-        # playlists
-        playlist_manager = self.shell.props.playlist_manager
         playlists_entries = playlist_manager.get_playlists()
 
         for playlist in playlists_entries:
             if playlist.props.is_local:
-                self.add_menuitem(playlist.props.name, playlist)
+                name = playlist.props.name
+                self.add_menuitem(name, playlist)
 
-        self.show_popup()
+                still_exists = still_exists or name == self.current_value
+
+        if not still_exists:
+            self.do_item_clicked(None)
 
     def do_item_clicked(self, playlist):
         '''
@@ -266,29 +277,6 @@ class PlaylistPopupButton(PopupButton):
             self._album_model.remove_filter('model')
         else:
             self._album_model.replace_filter('model', model)
-
-    def show_popup(self):
-        '''
-        show the current popup menu
-        This is a workaround for issue #111
-        Basically - move the position of the popup to prevent the popup
-        opening in scroll-mode - seems to only affect the playlist popup
-        '''
-        def pos(menu, icon):
-            a, x, y = self.get_window().get_origin()
-            x += self.get_allocation().x
-            y += self.get_allocation().y + self.get_allocation().height
-
-            from gi.repository import Gdk
-            s = Gdk.Screen.get_default()
-
-            if y > (s.get_height() - 180):
-                y = s.get_height() - 180
-
-            return x, y, False
-
-        self._popup_menu.popup(None, None, pos, None, 0,
-            Gtk.get_current_event_time())
 
 
 class GenrePopupButton(PopupButton):
