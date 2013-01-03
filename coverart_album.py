@@ -1553,8 +1553,7 @@ class AlbumShowingPolicy(GObject.Object):
 
         if album_path and album_path in self._visible_paths:
             # if our path is on the viewport, emit the signal to update it
-            self._cover_view.set_columns(0)
-            self._cover_view.set_columns(-1)
+            self._cover_view.queue_draw()
 
 
 class AlbumManager(GObject.Object):
