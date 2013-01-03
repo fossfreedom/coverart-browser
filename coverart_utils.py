@@ -258,6 +258,7 @@ class IdleCallIterator(object):
         self._after = after if after else default
         self._error = error if error else default
         self._finish = finish if finish else default
+        self._stop = False
 
     def __call__(self, iterator, **data):
         self._iter = iterator
@@ -265,6 +266,9 @@ class IdleCallIterator(object):
         Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE, self._idle_call, data)
 
     def _idle_call(self, data):
+        if self._stop:
+            return False
+
         for i in range(self._chunk):
             try:
                 next_elem = self._iter.next()
@@ -280,6 +284,9 @@ class IdleCallIterator(object):
 
         return True
 
+    def stop(self):
+        self._stop = True
+
 
 def idle_iterator(func):
     def iter_function(obj, iterator, **data):
@@ -287,7 +294,10 @@ def idle_iterator(func):
 
         idle_call(iterator, **data)
 
+        return idle_call
+
     return iter_function
+
 
 class SpriteSheet(object):
 
@@ -295,25 +305,24 @@ class SpriteSheet(object):
         x_start, y_start, alpha_color=None, size=None):
         # load the image
         base_image = GdkPixbuf.Pixbuf.new_from_file(image)
-        print "#####"
-        print image
+
         if alpha_color:
-            base_image=base_image.add_alpha(True, *alpha_color)
+            base_image = base_image.add_alpha(True, *alpha_color)
 
         delta_y = icon_height + y_spacing
         delta_x = icon_width + x_spacing
 
         self._sprites = []
 
-        print "y %d " % (base_image.get_height() / delta_y + 1)
-        print "x %d " % (base_image.get_width() / delta_x + 1)
-        for y in range(0, ((base_image.get_height()-y_start) / delta_y)+1):
-            for x in range(0, ((base_image.get_width()-x_start) / delta_x)+1):
+        for y in range(0, ((base_image.get_height() - y_start) / delta_y) + 1):
+            for x in range(0, ((base_image.get_width() - x_start) / delta_x)
+                + 1):
                 sprite = GdkPixbuf.Pixbuf.new(GdkPixbuf.Colorspace.RGB, True,
                     8, icon_width, icon_height)
 
-                base_image.copy_area(x_start+(x * delta_x), y_start+(y * delta_y), icon_width,
-                    icon_height, sprite, 0, 0)
+                base_image.copy_area(x_start + (x * delta_x),
+                    y_start + (y * delta_y), icon_width, icon_height,
+                    sprite, 0, 0)
 
                 if size:
                     sprite = sprite.scale_simple(size, size,
@@ -330,24 +339,25 @@ class SpriteSheet(object):
 
 class ConfiguredSpriteSheet(object):
     popups = 'img/popups.xml'
+
     def __init__(self, plugin, sprite_name, size=None):
         self.plugin = plugin
         self.popups = rb.find_plugin_file(plugin, self.popups)
         self.tree = ET.ElementTree(file=self.popups)
         root = self.tree.getroot()
-        base='spritesheet[@name="'+sprite_name+'"]/'
+        base = 'spritesheet[@name="' + sprite_name + '"]/'
         image = rb.find_plugin_file(plugin, 'img/' +
-            root.findall(base+'image')[0].text)
-        icon_width = int(root.findall(base+'icon')[0].attrib['width'])
-        icon_height = int(root.findall(base+'icon')[0].attrib['height'])
-        x_spacing = int(root.findall(base+'spacing')[0].attrib['x'])
-        y_spacing = int(root.findall(base+'spacing')[0].attrib['y'])
-        x_start = int(root.findall(base+'start-position')[0].attrib['x'])
-        y_start = int(root.findall(base+'start-position')[0].attrib['y'])
+            root.findall(base + 'image')[0].text)
+        icon_width = int(root.findall(base + 'icon')[0].attrib['width'])
+        icon_height = int(root.findall(base + 'icon')[0].attrib['height'])
+        x_spacing = int(root.findall(base + 'spacing')[0].attrib['x'])
+        y_spacing = int(root.findall(base + 'spacing')[0].attrib['y'])
+        x_start = int(root.findall(base + 'start-position')[0].attrib['x'])
+        y_start = int(root.findall(base + 'start-position')[0].attrib['y'])
 
         try:
             alpha_color = map(int,
-                    root.findall(base+'alpha')[0].text.split(' '))
+                    root.findall(base + 'alpha')[0].text.split(' '))
         except:
             alpha_color = None
 
@@ -372,6 +382,7 @@ class ConfiguredSpriteSheet(object):
     def __contains__(self, name):
         return name in self.names
 
+
 class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
     def __init__(self, plugin, sprite_name, size=None):
         super(GenreConfiguredSpriteSheet, self).__init__(
@@ -379,5 +390,5 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
         root = self.tree.getroot()
         self.alternate = {}
         for elem in root.findall(sprite_name + '/alt'):
-                self.alternate[elem.text]=elem.attrib['genre']
+                self.alternate[elem.text] = elem.attrib['genre']
 

@@ -403,14 +403,14 @@ class Album(GObject.Object):
 
     def __str__(self):
         return self.artist + self.name
-        
+
     def __eq__(self, other):
         if other == None:
             return False
 
         return self.name == other.name and \
             self.artist == other.artist
-        
+
     def __ne__(self, other):
         if other == None:
             return True
@@ -539,12 +539,12 @@ class AlbumFilters(object):
                 year = datetime.fromordinal(album.year).year
 
             year=int(round(year-5, -1))
-            
+
             if searchdecade > 0:
                 return searchdecade == year
             else:
                 return year < 1930
-            
+
         return filt
 
 
@@ -601,6 +601,9 @@ class AlbumsModel(GObject.Object):
         # sorting direction
         self._asc = True
 
+        # sorting idle call
+        self._sort_process = None
+
         # create the filtered store that's used with the view
         self._filtered_store = self._tree_store.filter_new()
         self._filtered_store.set_visible_column(4)
@@ -621,6 +624,7 @@ class AlbumsModel(GObject.Object):
             print 'Error while adding albums to the model: ' + str(exception)
 
         def finish(data):
+            self._sort_process = None
             self.remove_filter('nay')
 
         return ALBUM_LOAD_CHUNK, process, None, error, finish
@@ -798,9 +802,10 @@ class AlbumsModel(GObject.Object):
         :param show: `bool` indcating whether to show(True) or hide(False) the
             album.
         '''
-        self._tree_store.set_value(
-            self._iters[album.name][album.artist]['iter'],
-            self.columns['show'], show)
+        album_iter = self._iters[album.name][album.artist]['iter']
+
+        if self._tree_store.iter_is_valid(album_iter):
+            self._tree_store.set_value(album_iter, self.columns['show'], show)
 
     def sort(self, key, asc):
         '''
@@ -823,8 +828,12 @@ class AlbumsModel(GObject.Object):
         # add the nay filter
         self.replace_filter('nay', refilter=False)
 
+        if self._sort_process:
+            # stop the previous sort process if there's one
+            self._sort_process.stop()
+
         # load the albums back to the model
-        self._sort(iter(self._albums))
+        self._sort_process = self._sort(iter(self._albums))
 
     def replace_filter(self, filter_key, filter_arg=None, refilter=True):
         '''
