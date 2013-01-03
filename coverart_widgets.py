@@ -135,6 +135,9 @@ class PopupButton(PixbufButton):
 
         self._popup_menu.append(new_menu_item)
 
+    def get_menuitems(self):
+        return self._popup_menu.get_children()
+
     def clear_popupmenu(self):
         '''
         reinitialises/clears the current popup menu and associated actions
@@ -250,7 +253,7 @@ class PlaylistPopupButton(PopupButton):
                 still_exists = still_exists or name == self.current_value
 
         if not still_exists:
-            self.do_item_clicked(None)
+            self.get_menuitems()[0].set_active(True)
 
     def do_item_clicked(self, playlist):
         '''
@@ -342,7 +345,7 @@ class GenrePopupButton(PopupButton):
             still_exists = still_exists or genre == self.current_value
 
         if not still_exists:
-            self.do_item_clicked(self._genres_model[0][0])
+            self.get_menuitems()[0].set_active(True)
 
     def do_item_clicked(self, genre):
         '''
