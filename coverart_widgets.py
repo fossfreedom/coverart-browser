@@ -30,7 +30,7 @@ from coverart_browser_prefs import CoverLocale
 import rb
 from datetime import date
 from collections import OrderedDict
-            
+
 
 ui_string = \
 """<interface>
@@ -342,7 +342,7 @@ class GenrePopupButton(PopupButton):
             if test_genre == self.model[0][0].lower():
                 self.resize_button_image(self.default_image.get_pixbuf())
             elif not test_genre in self._spritesheet:
-                self._find_alternates(test_genre)  
+                self._find_alternates(test_genre)
             else:
                 self.resize_button_image(self._spritesheet[test_genre])
 
@@ -386,7 +386,7 @@ class SortPopupButton(PopupButton):
         '''
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
-        
+
         self.sorts = {'name': _('Sort by album name'),
         'artist': _('Sort by album artist'),
         'year': _('Sort by year'),
@@ -437,6 +437,7 @@ class SortPopupButton(PopupButton):
 
             self.callback(sort)
 
+
 class DecadePopupButton(PopupButton):
     __gtype_name__ = 'DecadePopupButton'
 
@@ -446,16 +447,16 @@ class DecadePopupButton(PopupButton):
         '''
         super(DecadePopupButton, self).__init__(**kargs)
 
-        self._decade=OrderedDict([('All',-1), ('20s',2020), \
-            ('10s',2010), ('00s',2000), ('90s',1990), ('80s',1980), \
-            ('70s',1970), ('60s',1960), ('50s',1950), ('40s',1940), \
-            ('30s',1930), ('Old',-1)])
+        self._decade = OrderedDict([('All', -1), ('20s', 2020),
+            ('10s', 2010), ('00s', 2000), ('90s', 1990), ('80s', 1980),
+            ('70s', 1970), ('60s', 1960), ('50s', 1950), ('40s', 1940),
+            ('30s', 1930), ('Old', -1)])
 
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
-        self._translation={'All':_('All'), 'Old':_('Old')}
-        
-        self._initial='All'
+        self._translation = {'All': _('All'), 'Old': _('Old')}
+
+        self._initial = 'All'
 
     def initialise(self, plugin, shell, callback):
         '''
@@ -472,12 +473,12 @@ class DecadePopupButton(PopupButton):
 
         super(DecadePopupButton, self).initialise(shell, callback,
             self._initial)
-        
+
         # generate initial popup
         self._update_popup()
 
     def _update_popup(self, *args):
-        
+
         # clear and recreate popup
         self.clear_popupmenu()
 
@@ -489,18 +490,17 @@ class DecadePopupButton(PopupButton):
         will not work in 2030 and onwards ... but I'll worry about that
         then :)
         '''
-        firstval='20s'
+        firstval = '20s'
         current_year = date.today().year
-            
+
         for decade in self._decade:
-            if  (current_year >= 2020 and decade==firstval) or \
-                (current_year < 2020 and decade!=firstval):
+            if  (current_year >= 2020 and decade == firstval) or \
+                (current_year < 2020 and decade != firstval):
                 if decade in self._translation:
-                    menutext=self._translation[decade]
+                    menutext = self._translation[decade]
                 else:
-                    menutext=decade
-                self.add_menuitem(menutext, self._decade_changed, \
-                    decade)
+                    menutext = decade
+                self.add_menuitem(menutext, decade)
 
         self._decade_changed(None, self._initial)
 
@@ -518,6 +518,7 @@ class DecadePopupButton(PopupButton):
             else:
                 self.set_popup_value(decade)
                 self.callback(self._decade[decade])
+
 
 class ImageToggleButton(Gtk.Button):
     '''
