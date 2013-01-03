@@ -46,7 +46,6 @@ class CoverArtBrowserSource(RB.Source):
     display_bottom_enabled = GObject.property(type=bool, default=False)
     rating_threshold = GObject.property(type=float, default=0)
     toolbar_pos = GObject.property(type=str, default='main')
-    sort_order = GObject.property(type=bool, default=False)
 
     # unique instance of the source
     instance = None
@@ -87,8 +86,6 @@ class CoverArtBrowserSource(RB.Source):
             'rating_threshold', Gio.SettingsBindFlags.GET)
         setting.bind(self.gs.PluginKey.TOOLBAR_POS, self,
             'toolbar_pos', Gio.SettingsBindFlags.GET)
-        setting.bind(self.gs.PluginKey.SORT_ORDER, self, 'sort_order',
-            Gio.SettingsBindFlags.DEFAULT)
 
         print "CoverArtBrowser DEBUG - end _connect_properties"
 
@@ -283,10 +280,10 @@ class CoverArtBrowserSource(RB.Source):
 
         self.sort_by = ui.get_object('sort_by')
         self.sort_by.initialise(self.plugin, self.shell,
-            self.sorting_criteria_changed)
+            self.album_manager.model)
         self.sort_order_button = ui.get_object('sort_order')
         self.sort_order_button.initialise(self.plugin,
-            self.sorting_direction_changed, self.sort_order)
+            self.album_manager.model)
 
         # get widget for search and apply some workarounds
         search_entry = ui.get_object('search_entry')
@@ -298,17 +295,17 @@ class CoverArtBrowserSource(RB.Source):
         # genre
         genre_button = ui.get_object('genre_button')
         genre_button.initialise(self.plugin, self.shell,
-            self.genre_filter_callback)
+            self.album_manager.model)
 
         # get playlist popup
         playlist_button = ui.get_object('playlist_button')
         playlist_button.initialise(self.plugin, self.shell,
-            self.filter_by_model)
+            self.album_manager.model)
 
         # decade
         decade_button = ui.get_object('decade_button')
         decade_button.initialise(self.plugin, self.shell,
-            self.decade_filter_callback)
+            self.album_manager.model)
 
         print "CoverArtBrowser DEBUG - end _toolbar"
 
@@ -405,7 +402,6 @@ class CoverArtBrowserSource(RB.Source):
         self.on_notify_rating_threshold(_)
         self.on_notify_display_bottom_enabled(_)
         self.on_notify_toolbar_pos()
-        #self.sorting_direction_changed(_, True)
 
         print "CoverArtBrowser DEBUG - end _apply_settings"
 
@@ -663,19 +659,6 @@ class CoverArtBrowserSource(RB.Source):
         self.searchchanged_callback(_, self.search_text)
 
         print "CoverArtBrowser DEBUG - end filter_menu_callback"
-
-    def filter_by_model(self, model=None):
-        '''
-        resets what is displayed in the coverview with contents from the
-        new query_model
-        '''
-        print "CoverArtBrowser DEBUG - reset_coverview"
-        if not model:
-            self.album_manager.model.remove_filter('model')
-        else:
-            self.album_manager.model.replace_filter('model', model)
-
-        print "CoverArtBrowser DEBUG - end reset_coverview"
 
     def update_iconview_callback(self, scrolled, *args):
         '''
@@ -1168,34 +1151,6 @@ class CoverArtBrowserSource(RB.Source):
 
         print "CoverArtBrowser DEBUG - end bottom_expander_expanded_callback"
 
-    def sorting_criteria_changed(self, sort_by):
-        '''
-        Callback called when a radio corresponding to a sorting order is
-        toggled. It changes the sorting function and reorders the cover model.
-        '''
-        print "CoverArtBrowser DEBUG - sorting_criteria_changed"
-
-        #if not radio.get_active():
-        #    return
-
-        print "sorting by %s" % sort_by
-        self.sort_prop = sort_by
-        self.album_manager.model.sort(self.sort_prop, self.sort_order)
-
-        print "CoverArtBrowser DEBUG - end sorting_criteria_changed"
-
-    def sorting_direction_changed(self, sort_by):
-        '''
-        Callback called when the sort toggle button is
-        toggled. It changes the sorting direction and reorders the cover model
-        '''
-        print "CoverArtBrowser DEBUG - sorting_direction_changed"
-
-        self.album_manager.model.sort(getattr(self, 'sort_prop', 'name'),
-            sort_by)
-
-        print "CoverArtBrowser DEBUG - end sorting_direction_changed"
-
     def on_drag_drop(self, widget, context, x, y, time):
         '''
         Callback called when a drag operation finishes over the cover view
@@ -1274,18 +1229,6 @@ class CoverArtBrowserSource(RB.Source):
             album.rating = rating
 
         print "CoverArtBrowser DEBUG - end rating_changed_callback"
-
-    def genre_filter_callback(self, genre):
-        if not genre:
-            self.album_manager.model.remove_filter('genre')
-        else:
-            self.album_manager.model.replace_filter('genre', genre)
-
-    def decade_filter_callback(self, decade):
-        if not decade:
-            self.album_manager.model.remove_filter('decade')
-        else:
-            self.album_manager.model.replace_filter('decade', decade)
 
     def select_album(self, album):
         path = self.album_manager.model.get_path(album)

@@ -405,17 +405,13 @@ class Album(GObject.Object):
         return self.artist + self.name
 
     def __eq__(self, other):
-        if other == None:
-            return False
-
-        return self.name == other.name and \
+        return other and self.name == other.name and \
             self.artist == other.artist
 
     def __ne__(self, other):
-        if other == None:
-            return True
+        return not other or\
+            self.name + self.artist != other.name + other.artist
 
-        return (self.name+self.artist) != (other.name+other.artist)
 
 class AlbumFilters(object):
 
@@ -507,7 +503,7 @@ class AlbumFilters(object):
     @classmethod
     def model_filter(cls, model=None):
         if not model or not len(model):
-            return lambda x: True
+            return lambda x: False
 
         albums = set()
 
@@ -520,15 +516,15 @@ class AlbumFilters(object):
 
         return filt
 
-    '''
-      the year is in RATA DIE format so need to extract the year
-
-      the searchdecade param can be None meaning all results
-      or -1 for all albums older than our standard range which is 1930
-      or an actual decade for 1930 to 2020
-    '''
     @classmethod
     def decade_filter(cls, searchdecade=None):
+        '''
+        The year is in RATA DIE format so need to extract the year
+
+        The searchdecade param can be None meaning all results
+        or -1 for all albums older than our standard range which is 1930
+        or an actual decade for 1930 to 2020
+        '''
         def filt(album):
             if not searchdecade:
                 return True
@@ -538,7 +534,7 @@ class AlbumFilters(object):
             else:
                 year = datetime.fromordinal(album.year).year
 
-            year=int(round(year-5, -1))
+            year = int(round(year - 5, -1))
 
             if searchdecade > 0:
                 return searchdecade == year
@@ -597,9 +593,6 @@ class AlbumsModel(GObject.Object):
 
         # filters
         self._filters = {}
-
-        # sorting direction
-        self._asc = True
 
         # sorting idle call
         self._sort_process = None
@@ -807,21 +800,20 @@ class AlbumsModel(GObject.Object):
         if self._tree_store.iter_is_valid(album_iter):
             self._tree_store.set_value(album_iter, self.columns['show'], show)
 
-    def sort(self, key, asc):
+    def sort(self, key=None, reverse=False):
         '''
         Changes the sorting strategy for the model.
 
         :param key: `str`attribute of the `Album` class by witch the sort
             should be performed.
-        :param asc: `bool` indicating whether it should be sortered in
-            ascendent(True) or descendent(False) direction.
+        :param reverse: `bool` indicating whether the sort order should be
+            reversed from the current one.
         '''
-        self._albums.key = lambda album: getattr(album, key)
+        if key:
+            self._albums.key = lambda album: getattr(album, key)
 
-        if asc != self._asc:
+        if reverse:
             self._albums = reversed(self._albums)
-
-        self._asc = asc
 
         self._tree_store.clear()
 
