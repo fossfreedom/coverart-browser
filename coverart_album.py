@@ -29,6 +29,7 @@ from gi.repository import GLib
 from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
+from gi.repository import Pango
 import cairo
 
 from coverart_browser_prefs import GSetting
@@ -416,6 +417,7 @@ class Album(GObject.Object):
             return True
 
         return (self.name+self.artist) != (other.name+other.artist)
+
 
 class AlbumFilters(object):
 
@@ -1407,13 +1409,14 @@ class TextManager(GObject.Object):
         super(TextManager, self).__init__()
 
         self._album_manager = album_manager
+        self._cover_view = self._album_manager.cover_view
+
+        # custom text renderer
+        self._text_renderer = None
 
         # connect properties and signals
         self._connect_signals()
         self._connect_properties()
-
-        # activate markup if necesary
-        self._activate_markup()
 
     def _connect_signals(self):
         '''
@@ -1464,13 +1467,28 @@ class TextManager(GObject.Object):
         cover view.
         '''
         print "CoverArtBrowser DEBUG - activate_markup"
+        if self.display_text_enabled:
+            # create and configure the custom cell renderer
+            self._text_renderer = Gtk.CellRendererText()
 
-        activate = self.display_text_enabled
+            # configure the cell renderer
+            self._text_renderer.props.alignment = Pango.Alignment.CENTER
+            self._text_renderer.props.wrap_mode = Pango.WrapMode.WORD
+            self._text_renderer.props.xalign = 0.5
+            self._text_renderer.props.yalign = 0
+            self._text_renderer.props.width =\
+                self._album_manager.cover_man.cover_size
+            self._text_renderer.props.wrap_width =\
+                self._album_manager.cover_man.cover_size
 
-        column = 3 if activate else -1
+            # set the renderer
+            self._cover_view.pack_end(self._text_renderer, False)
+            self._cover_view.add_attribute(self._text_renderer,
+                'markup', AlbumsModel.columns['markup'])
 
-        self._album_manager.cover_man.update_item_width()
-        self._album_manager.cover_view.set_markup_column(column)
+        elif self._text_renderer:
+            # remove the cell renderer
+            self._cover_view.props.cell_area.remove(self._text_renderer)
 
         print "CoverArtBrowser DEBUG - end activate_markup"
 
