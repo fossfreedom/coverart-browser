@@ -23,7 +23,7 @@ msgstr "%s par %s"
 
 #: coverart_album_search.py:269 coverart_album_search.py:270
 msgid "Unknown"
-msgstr ""
+msgstr "Inconnu"
 
 #: coverart_browser.py:71
 msgid "CoverArt Browser"
@@ -80,7 +80,7 @@ msgstr " et une durée de %d minutes"
 #: coverart_widgets.py:317 coverart_widgets.py:350 ui/coverart_browser.ui.h:11
 #: ui/coverart_sidebar.ui.h:3
 msgid "All Genres"
-msgstr ""
+msgstr "Tous les genres"
 
 #: coverart_widgets.py:390
 msgid "Sort by album name"
@@ -100,16 +100,16 @@ msgstr "Trier par notation"
 
 #: coverart_widgets.py:456
 msgid "All"
-msgstr ""
+msgstr "Tous"
 
 #: coverart_widgets.py:456
 msgid "Old"
-msgstr ""
+msgstr "Vieux"
 
 #: coverart_widgets.py:516 ui/coverart_browser.ui.h:12
 #: ui/coverart_sidebar.ui.h:4
 msgid "All Decades"
-msgstr ""
+msgstr "Toutes les décennies"
 
 #: coverart_widgets.py:636
 msgid "Sort in descending order"
