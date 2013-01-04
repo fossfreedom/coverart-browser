@@ -1461,6 +1461,18 @@ class TextManager(GObject.Object):
         '''
         self._album_manager.model.recreate_text()
 
+    def _create_and_configure_renderer(self):
+        self._text_renderer = Gtk.CellRendererText()
+
+        self._text_renderer.props.alignment = Pango.Alignment.CENTER
+        self._text_renderer.props.wrap_mode = Pango.WrapMode.WORD
+        self._text_renderer.props.xalign = 0.5
+        self._text_renderer.props.yalign = 0
+        self._text_renderer.props.width =\
+            self._album_manager.cover_man.cover_size
+        self._text_renderer.props.wrap_width =\
+            self._album_manager.cover_man.cover_size
+
     def _activate_markup(self, *args):
         '''
         Utility method to activate/deactivate the markup text on the
@@ -1468,18 +1480,9 @@ class TextManager(GObject.Object):
         '''
         print "CoverArtBrowser DEBUG - activate_markup"
         if self.display_text_enabled:
-            # create and configure the custom cell renderer
-            self._text_renderer = Gtk.CellRendererText()
-
-            # configure the cell renderer
-            self._text_renderer.props.alignment = Pango.Alignment.CENTER
-            self._text_renderer.props.wrap_mode = Pango.WrapMode.WORD
-            self._text_renderer.props.xalign = 0.5
-            self._text_renderer.props.yalign = 0
-            self._text_renderer.props.width =\
-                self._album_manager.cover_man.cover_size
-            self._text_renderer.props.wrap_width =\
-                self._album_manager.cover_man.cover_size
+            if not self._text_renderer:
+                # create and configure the custom cell renderer
+                self._create_and_configure_renderer()
 
             # set the renderer
             self._cover_view.pack_end(self._text_renderer, False)
