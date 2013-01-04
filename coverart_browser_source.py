@@ -35,6 +35,7 @@ from stars import ReactiveStar
 from coverart_timer import ttimer
 from coverart_widgets import PopupButton
 from coverart_controllers import PlaylistPopupController
+from coverart_controllers import GenrePopupController
 
 
 class CoverArtBrowserSource(RB.Source):
@@ -291,10 +292,11 @@ class CoverArtBrowserSource(RB.Source):
         #self.search_entry.set_placeholder(ui.get_object(
             #'filter_all_menu_item').get_label())
 
-        ## genre
-        #genre_button = ui.get_object('genre_button')
-        #genre_button.initialise(self.plugin, self.shell,
-            #self.album_manager.model)
+        # genre
+        self.genre_controller = GenrePopupController(self.plugin,
+            self.album_manager.model)
+        genre_button = ui.get_object('genre_button')
+        genre_button.controller = self.genre_controller
 
         # get playlist popup
         self.playlist_controller = PlaylistPopupController(self.plugin,

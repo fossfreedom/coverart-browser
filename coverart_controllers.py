@@ -16,8 +16,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
+from gi.repository import GdkPixbuf
 from gi.repository import GObject
 from gi.repository import RB
+
+import rb
 
 from coverart_utils import ConfiguredSpriteSheet
 from coverart_utils import GenreConfiguredSpriteSheet
@@ -67,11 +70,13 @@ class PlaylistPopupController(PopupController):
 
         self._album_model = album_model
 
+        shell = plugin.shell
+
         # get the library name and initialize the superclass with it
-        self._library_name = plugin.shell.props.library_source.props.name
+        self._library_name = shell.props.library_source.props.name
 
         # get the queue name
-        self._queue_name = plugin.shell.props.queue_source.props.name
+        self._queue_name = shell.props.queue_source.props.name
 
         if " (" in self._queue_name:
             self._queue_name = self._queue_name[0:self._queue_name.find(" (")]
@@ -81,19 +86,16 @@ class PlaylistPopupController(PopupController):
             get_stock_size())
 
         # get the playlist manager and it's model
-        playlist_manager = plugin.shell.props.playlist_manager
+        playlist_manager = shell.props.playlist_manager
         playlist_model = playlist_manager.props.display_page_model
 
         # connect signals to update playlists
-        playlist_model.connect('row-inserted', self._update_options,
-            plugin.shell)
-        playlist_model.connect('row-deleted', self._update_options,
-            plugin.shell)
-        playlist_model.connect('row-changed', self._update_options,
-            plugin.shell)
+        playlist_model.connect('row-inserted', self._update_options, shell)
+        playlist_model.connect('row-deleted', self._update_options, shell)
+        playlist_model.connect('row-changed', self._update_options, shell)
 
         # generate initial options
-        self._update_options(plugin.shell)
+        self._update_options(shell)
 
     def _update_options(self, *args):
         shell = args[-1]
@@ -146,3 +148,104 @@ class PlaylistPopupController(PopupController):
             image = self._spritesheet['smart']
 
         return image
+
+
+class GenrePopupController(PopupController):
+
+    def __init__(self, plugin, album_model):
+        super(GenrePopupController, self).__init__()
+
+        self._album_model = album_model
+
+        shell = plugin.shell
+
+        # create a new property model for the genres
+        genres_model = RB.RhythmDBPropertyModel.new(shell.props.db,
+            RB.RhythmDBPropType.GENRE)
+
+        query = shell.props.library_source.props.base_query_model
+        genres_model.props.query_model = query
+
+        # initial genre
+        self._initial_genre = genres_model[0][0]
+
+        # initialise the button spritesheet and other images
+        self._spritesheet = GenreConfiguredSpriteSheet(plugin, 'genre',
+            get_stock_size())
+        self._default_image = resize_to_stock(
+            GdkPixbuf.Pixbuf.new_from_file(rb.find_plugin_file(plugin,
+                'img/default_genre.png')))
+        self._unrecognised_image = resize_to_stock(
+            GdkPixbuf.Pixbuf.new_from_file(rb.find_plugin_file(plugin,
+                'img/unrecognised_genre.png')))
+
+        # connect signals to update genres
+        query.connect('row-inserted', self._update_options, genres_model)
+        query.connect('row-deleted', self._update_options, genres_model)
+        query.connect('row-changed', self._update_options, genres_model)
+
+        # generate initial popup
+        self._update_options(genres_model)
+
+    def _update_options(self, *args):
+        genres_model = args[-1]
+        still_exists = False
+
+        # retrieve the options
+        options = []
+
+        for row in genres_model:
+            genre = row[0]
+            options.append(genre)
+
+            still_exists = still_exists or genre == self.current_key
+
+        self.options = options
+
+        self.current_key = self.current_key if still_exists else\
+            self._initial_genre
+
+    def do_action(self):
+        '''
+        called when genre popup menu item chosen
+        return None if the first entry in popup returned
+        '''
+        if self.current_key == self._initial_genre:
+            self._album_model.remove_filter('genre')
+        else:
+            self._album_model.replace_filter('genre', self.current_key)
+
+    def get_current_image(self):
+        test_genre = self.current_key.lower()
+
+        if test_genre == self._initial_genre.lower():
+            image = self._default_image
+        elif test_genre in self._spritesheet:
+            image = self._spritesheet[test_genre]
+        else:
+            image = self._find_alternates(test_genre)
+
+        return image
+
+    def _find_alternates(self, test_genre):
+        # first check if any of the default genres are a substring
+        # of test_genre - check in reverse order so that we
+        # test largest strings first (prevents spurious matches with
+        # short strings)
+        for genre in sorted(self._spritesheet.names,
+            key=lambda b: (-len(b), b)):
+            if genre in test_genre:
+                return self._spritesheet[genre]
+
+        # next check alternates
+        if test_genre in self._spritesheet.alternate:
+            return self._spritesheet[self._spritesheet.alternate[test_genre]]
+
+        # if no matches then default to unrecognised image
+        return self._unrecognised_image
+
+    def get_current_tooltip(self):
+        if self.current_key == self._initial_genre:
+            return _('All Genres')
+        else:
+            return self.current_key

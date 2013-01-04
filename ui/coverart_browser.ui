@@ -172,7 +172,7 @@
           </packing>
         </child>
         <child>
-          <object class="GenrePopupButton" id="genre_button">
+          <object class="PopupButton" id="genre_button">
             <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
