@@ -45,7 +45,7 @@ class PopupButton(PixbufButton):
 
     # signals
     __gsignals__ = {
-        'item-clicked': (GObject.SIGNAL_RUN_LAST, None, (str, object))
+        'item-clicked': (GObject.SIGNAL_RUN_LAST, None, (str,))
         }
 
     def __init__(self, *args, **kwargs):
@@ -58,7 +58,6 @@ class PopupButton(PixbufButton):
 
         # initialise some variables
         self._first_menu_item = None
-        self._current_key = None
         self._controller = None
 
     @property
@@ -78,7 +77,7 @@ class PopupButton(PixbufButton):
         self._options_changed_id = self._controller.connect('notify::options',
             self._update_menu)
         self._current_key_changed_id = self._controller.connect(
-            'notify::current_key', self._update_current_key)
+            'notify::current-key', self._update_current_key)
 
         # update the menu and current key
         self._update_menu()
@@ -87,17 +86,14 @@ class PopupButton(PixbufButton):
     def _update_menu(self, *args):
         self.clear_popupmenu()
 
-        for key, value in self._controller.options.iteritems():
-            self.add_menuitem(key, value)
+        for key in self._controller.options:
+            self.add_menuitem(key)
 
     def _update_current_key(self, *args):
-        if self._current_key != self._controller.current_key:
-            item = self.get_menuitems()[
-                self._controller.get_current_key_index()]
+        item = self.get_menuitems()[self._controller.get_current_key_index()]
+        item.set_active(True)
 
-            item.set_active(True)
-
-    def add_menuitem(self, label, val):
+    def add_menuitem(self, label):
         '''
         add a new menu item to the popup
         '''
@@ -108,10 +104,7 @@ class PopupButton(PixbufButton):
             new_menu_item = Gtk.RadioMenuItem.new_with_label_from_widget(
                 group=self._first_menu_item, label=label)
 
-        if label == self._current_key:
-            new_menu_item.set_active(True)
-
-        new_menu_item.connect('toggled', self._fire_item_clicked, val)
+        new_menu_item.connect('toggled', self._fire_item_clicked)
         new_menu_item.show()
 
         self._popup_menu.append(new_menu_item)
@@ -128,26 +121,25 @@ class PopupButton(PixbufButton):
 
         self._first_menu_item = None
 
-    def _fire_item_clicked(self, menu_item, value):
+    def _fire_item_clicked(self, menu_item):
         '''
         Fires the item-clicked signal if the item is selected, passing the
         given value as a parameter. Also updates the current value with the
         value of the selected item.
         '''
         if menu_item.get_active():
-            # update the current key
-            self._current_key = menu_item.get_label()
+            self.emit('item-clicked', menu_item.get_label())
 
-            # update the current image
-            if self._controller:
-                self.set_image(self._controller.get_image(self._current_key,
-                    self._controller.options[self._current_key]))
-
-            self.emit('item-clicked', self._current_key, value)
-
-    def do_item_clicked(self, key, value):
+    def do_item_clicked(self, key):
         if self._controller:
-            self._controller.item_selected(key, value)
+            # inform the controller
+            self._controller.handler_block(self._current_key_changed_id)
+            self._controller.item_selected(key)
+            self._controller.handler_unblock(self._current_key_changed_id)
+
+            # update the current image and tooltip
+            self.set_image(self._controller.get_current_image())
+            self.set_tooltip_text(self._controller.get_current_tooltip())
 
     def do_clicked(self):
         '''

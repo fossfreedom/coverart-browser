@@ -31,24 +31,33 @@ class PopupController(GObject.Object):
 
     # properties
     options = GObject.property(type=object, default=None)
-    current_key = GObject.property(type=object, default=None)
+    current_key = GObject.property(type=str, default=None)
+
+    def __init__(self):
+        super(PopupController, self).__init__()
+
+        # connect the variations on the current key to the controllers action
+        self.connect('notify::current-key', self._do_action)
 
     def get_current_key_index(self):
-        return self.options.keys().index(self.current_key)
+        return self.options.index(self.current_key)
 
-    def item_selected(self, key, value):
+    def item_selected(self, key):
         if key != self.current_key:
             # update the current value
             self.current_key = key
 
-            # call the specific action of the controller
-            self.do_action(key, value)
+    def _do_action(self, *args):
+        self.do_action()
 
-    def do_action(self, key, value):
+    def do_action(self):
         pass
 
-    def get_image(self, key, value):
-        pass
+    def get_current_image(self):
+        return None
+
+    def get_current_tooltip(self):
+        return self.current_key
 
 
 class PlaylistPopupController(PopupController):
@@ -89,14 +98,15 @@ class PlaylistPopupController(PopupController):
     def _update_options(self, *args):
         shell = args[-1]
         playlist_manager = shell.props.playlist_manager
-        still_exists = False
+        still_exists = self.current_key == self._library_name or\
+            self.current_key == self._queue_name
 
         # retrieve the options
-        options = OrderedDict()
+        values = OrderedDict()
 
         # library and play queue sources
-        options[self._library_name] = None
-        options[self._queue_name] = shell.props.queue_source
+        values[self._library_name] = None
+        values[self._queue_name] = shell.props.queue_source
 
         # playlists
         playlists_entries = playlist_manager.get_playlists()
@@ -104,30 +114,31 @@ class PlaylistPopupController(PopupController):
         for playlist in playlists_entries:
             if playlist.props.is_local:
                 name = playlist.props.name
-                options[name] = playlist
+                values[name] = playlist
 
                 still_exists = still_exists or name == self.current_key
 
-        self.options = options
+        self.values = values
+        self.options = values.keys()
 
-        if not still_exists:
-            self.current_key = self._library_name
+        self.current_key = self.current_key if still_exists else\
+            self._library_name
 
-    def do_action(self, key, playlist):
+    def do_action(self):
+        playlist = self.values[self.current_key]
+
         if not playlist:
-            model = None
-        else:
-            model = playlist.get_query_model()
-
-        if not model:
             self._album_model.remove_filter('model')
         else:
-            self._album_model.replace_filter('model', model)
+            self._album_model.replace_filter('model',
+                playlist.get_query_model())
 
-    def get_image(self, key, playlist):
-        if key == self._library_name:
+    def get_current_image(self):
+        playlist = self.values[self.current_key]
+
+        if self.current_key == self._library_name:
             image = self._spritesheet['music']
-        elif self._queue_name in key:
+        elif self._queue_name in self.current_key:
             image = self._spritesheet['queue']
         elif isinstance(playlist, RB.StaticPlaylistSource):
             image = self._spritesheet['playlist']
