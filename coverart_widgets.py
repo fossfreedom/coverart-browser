@@ -32,43 +32,20 @@ from datetime import date
 from collections import OrderedDict
 
 
-def resize_to_stock(pixbuf):
-    what, width, height = Gtk.icon_size_lookup(Gtk.IconSize.BUTTON)
-
-    if pixbuf.get_width() != width and pixbuf.get_height() != height:
-        pixbuf = pixbuf.scale_simple(width, height,
-            GdkPixbuf.InterpType.BILINEAR)
-
-    return pixbuf
-
-
 class PixbufButton(Gtk.Button):
-    '''
-    A base button that allows setting pixbufs directly and resizes them
-    according to the default iconsize.
-    '''
-    def __init__(self, *args, **kwargs):
-        super(PixbufButton, self).__init__(*args, **kwargs)
 
     def set_image(self, pixbuf):
-        '''
-        Customized set_image method that resizes the setted pixbu
-        '''
-        pixbuf = resize_to_stock(pixbuf)
-
-        image_widget = self.get_image()
-        image_widget.set_from_pixbuf(pixbuf)
+        self.get_image().set_from_pixbuf(pixbuf)
 
 
 # generic class from which implementation inherit from
 class PopupButton(PixbufButton):
     # the following vars are to be defined in the inherited classes
-    #__gtype_name__ = gobject typename
-    #default_image = default image to be displayed
+    __gtype_name__ = "PopupButton"
 
     # signals
     __gsignals__ = {
-        'item-clicked': (GObject.SIGNAL_RUN_LAST, None, (object,))
+        'item-clicked': (GObject.SIGNAL_RUN_LAST, None, (str, object))
         }
 
     def __init__(self, *args, **kwargs):
@@ -80,29 +57,45 @@ class PopupButton(PixbufButton):
         self._popup_menu = Gtk.Menu()
 
         # initialise some variables
-        self._current_value = None
-        self.initialised = False
         self._first_menu_item = None
+        self._current_key = None
+        self._controller = None
 
     @property
-    def current_value(self):
-        return self._current_value
+    def controller(self):
+        return self._controller
 
-    @current_value.setter
-    def current_value(self, value):
-        self._current_value = value
-        self.set_tooltip_text(value)
+    @controller.setter
+    def controller(self, controller):
+        if self._controller:
+            # disconnect signals
+            self._controller.disconnect(self._options_changed_id)
+            self._controller.disconnect(self._current_key_changed_id)
 
-    def initialise(self, initial_value, shell):
-        '''
-        initialise - derived objects call this first
-        shell = rhythmbox shell
-        callback = function to call when a menuitem is selected
-        '''
-        if not self.initialised:
-            self.initialised = True
-            self.current_value = initial_value
-            self.shell = shell
+        self._controller = controller
+
+        # connect signals
+        self._options_changed_id = self._controller.connect('notify::options',
+            self._update_menu)
+        self._current_key_changed_id = self._controller.connect(
+            'notify::current_key', self._update_current_key)
+
+        # update the menu and current key
+        self._update_menu()
+        self._update_current_key()
+
+    def _update_menu(self, *args):
+        self.clear_popupmenu()
+
+        for key, value in self._controller.options.iteritems():
+            self.add_menuitem(key, value)
+
+    def _update_current_key(self, *args):
+        if self._current_key != self._controller.current_key:
+            item = self.get_menuitems()[
+                self._controller.get_current_key_index()]
+
+            item.set_active(True)
 
     def add_menuitem(self, label, val):
         '''
@@ -115,7 +108,7 @@ class PopupButton(PixbufButton):
             new_menu_item = Gtk.RadioMenuItem.new_with_label_from_widget(
                 group=self._first_menu_item, label=label)
 
-        if label == self.current_value:
+        if label == self._current_key:
             new_menu_item.set_active(True)
 
         new_menu_item.connect('toggled', self._fire_item_clicked, val)
@@ -133,9 +126,6 @@ class PopupButton(PixbufButton):
         for menu_item in self._popup_menu:
             self._popup_menu.remove(menu_item)
 
-            self._popup_menu.show_all()
-            self.shell.props.ui_manager.ensure_update()
-
         self._first_menu_item = None
 
     def _fire_item_clicked(self, menu_item, value):
@@ -145,8 +135,19 @@ class PopupButton(PixbufButton):
         value of the selected item.
         '''
         if menu_item.get_active():
-            self.current_value = menu_item.get_label()
-            self.emit('item-clicked', value)
+            # update the current key
+            self._current_key = menu_item.get_label()
+
+            # update the current image
+            if self._controller:
+                self.set_image(self._controller.get_image(self._current_key,
+                    self._controller.options[self._current_key]))
+
+            self.emit('item-clicked', self._current_key, value)
+
+    def do_item_clicked(self, key, value):
+        if self._controller:
+            self._controller.item_selected(key, value)
 
     def do_clicked(self):
         '''
@@ -515,7 +516,7 @@ class DecadePopupButton(PopupButton):
             self._album_model.replace_filter('decade', self._decade[decade])
 
 
-class ImageToggleButton(PixbufButton):
+class ImageToggleButton(Gtk.Button):
     '''
     generic class from which implementation inherit from
     '''

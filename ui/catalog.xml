@@ -2,6 +2,8 @@
                depends="gtk+" version="1.0">
   <init-function>glade_python_init</init-function>
   <glade-widget-classes>
+    <glade-widget-class title="PopupButton" name="PopupButton" 
+                        generic-name="PopupButton" parent="GtkButton">
     <glade-widget-class title="PlaylistPopupButton" name="PlaylistPopupButton" 
                         generic-name="PlaylistPopupButton" parent="GtkButton"
                         icon-name="widget-gtk-button"/>
@@ -23,6 +25,7 @@
   </glade-widget-classes>
 
    <glade-widget-group name="python" title="Python">
+     <glade-widget-class-ref name="PopupButton"/>    
      <glade-widget-class-ref name="PlaylistPopupButton"/>
      <glade-widget-class-ref name="GenrePopupButton"/>
      <glade-widget-class-ref name="DecadePopupButton"/>

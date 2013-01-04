@@ -33,9 +33,8 @@ from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import CoverLocale
 from stars import ReactiveStar
 from coverart_timer import ttimer
-from coverart_widgets import PlaylistPopupButton
-from coverart_widgets import GenrePopupButton
-from coverart_widgets import DecadePopupButton
+from coverart_widgets import PopupButton
+from coverart_controllers import PlaylistPopupController
 
 
 class CoverArtBrowserSource(RB.Source):
@@ -278,34 +277,35 @@ class CoverArtBrowserSource(RB.Source):
         self.search_entry.connect('show-popup',
             self.search_show_popup_callback)
 
-        self.sort_by = ui.get_object('sort_by')
-        self.sort_by.initialise(self.plugin, self.shell,
-            self.album_manager.model)
-        self.sort_order_button = ui.get_object('sort_order')
-        self.sort_order_button.initialise(self.plugin,
-            self.album_manager.model)
+        #self.sort_by = ui.get_object('sort_by')
+        #self.sort_by.initialise(self.plugin, self.shell,
+            #self.album_manager.model)
+        #self.sort_order_button = ui.get_object('sort_order')
+        #self.sort_order_button.initialise(self.plugin,
+            #self.album_manager.model)
 
-        # get widget for search and apply some workarounds
-        search_entry = ui.get_object('search_entry')
-        search_entry.set_placeholder(_('Search album'))
-        search_entry.show_all()
-        self.search_entry.set_placeholder(ui.get_object(
-            'filter_all_menu_item').get_label())
+        ## get widget for search and apply some workarounds
+        #search_entry = ui.get_object('search_entry')
+        #search_entry.set_placeholder(_('Search album'))
+        #search_entry.show_all()
+        #self.search_entry.set_placeholder(ui.get_object(
+            #'filter_all_menu_item').get_label())
 
-        # genre
-        genre_button = ui.get_object('genre_button')
-        genre_button.initialise(self.plugin, self.shell,
-            self.album_manager.model)
+        ## genre
+        #genre_button = ui.get_object('genre_button')
+        #genre_button.initialise(self.plugin, self.shell,
+            #self.album_manager.model)
 
         # get playlist popup
+        self.playlist_controller = PlaylistPopupController(self.plugin,
+            self.album_manager.model)
         playlist_button = ui.get_object('playlist_button')
-        playlist_button.initialise(self.plugin, self.shell,
-            self.album_manager.model)
+        playlist_button.controller = self.playlist_controller
 
-        # decade
-        decade_button = ui.get_object('decade_button')
-        decade_button.initialise(self.plugin, self.shell,
-            self.album_manager.model)
+        ## decade
+        #decade_button = ui.get_object('decade_button')
+        #decade_button.initialise(self.plugin, self.shell,
+            #self.album_manager.model)
 
         print "CoverArtBrowser DEBUG - end _toolbar"
 

@@ -17,9 +17,11 @@
 from bisect import bisect_left, bisect_right
 from gi.repository import GdkPixbuf
 from gi.repository import Gdk
+from gi.repository import Gtk
 from gi.repository import GLib
 import xml.etree.cElementTree as ET
 import rb
+
 
 class SortedCollection(object):
     '''Sequence sorted by a key function.
@@ -325,7 +327,7 @@ class SpriteSheet(object):
                     sprite, 0, 0)
 
                 if size:
-                    sprite = sprite.scale_simple(size, size,
+                    sprite = sprite.scale_simple(size[0], size[1],
                         GdkPixbuf.InterpType.BILINEAR)
 
                 self._sprites.append(sprite)
@@ -385,10 +387,25 @@ class ConfiguredSpriteSheet(object):
 
 class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
     def __init__(self, plugin, sprite_name, size=None):
-        super(GenreConfiguredSpriteSheet, self).__init__(
-            plugin, sprite_name, size)
+        super(GenreConfiguredSpriteSheet, self).__init__(plugin, sprite_name,
+            size)
         root = self.tree.getroot()
         self.alternate = {}
         for elem in root.findall(sprite_name + '/alt'):
                 self.alternate[elem.text] = elem.attrib['genre']
 
+
+def get_stock_size():
+    what, width, height = Gtk.icon_size_lookup(Gtk.IconSize.BUTTON)
+
+    return width, height
+
+
+def resize_to_stock(pixbuf):
+    width, height = get_stock_size()
+
+    if pixbuf.get_width() != width and pixbuf.get_height() != height:
+        pixbuf = pixbuf.scale_simple(width, height,
+            GdkPixbuf.InterpType.BILINEAR)
+
+    return pixbuf

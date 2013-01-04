@@ -152,7 +152,7 @@
           </packing>
         </child>
         <child>
-          <object class="PlaylistPopupButton" id="playlist_button">
+          <object class="PopupButton" id="playlist_button">
             <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
