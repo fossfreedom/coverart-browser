@@ -32,15 +32,6 @@ from datetime import date
 from collections import OrderedDict
 
 
-ui_string = \
-"""<interface>
-<object class="GtkMenu" id="popupbutton_menu">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-  </object>
-</interface>"""
-
-
 def resize_to_stock(pixbuf):
     what, width, height = Gtk.icon_size_lookup(Gtk.IconSize.BUTTON)
 
@@ -86,10 +77,7 @@ class PopupButton(PixbufButton):
         '''
         super(PopupButton, self).__init__(*args, **kwargs)
 
-        builder = Gtk.Builder()
-        builder.add_from_string(ui_string)
-
-        self._popup_menu = builder.get_object('popupbutton_menu')
+        self._popup_menu = Gtk.Menu()
 
         # initialise some variables
         self._current_value = None
