@@ -21,11 +21,9 @@ from gi.repository import Gtk
 from gi.repository import GdkPixbuf
 from gi.repository import GObject
 from gi.repository import Gio
-from gi.repository import RB
 
 from coverart_browser_prefs import GSetting
 from coverart_utils import ConfiguredSpriteSheet
-from coverart_utils import GenreConfiguredSpriteSheet
 from coverart_browser_prefs import CoverLocale
 import rb
 from datetime import date
@@ -165,71 +163,6 @@ class PopupButton(PixbufButton):
         self.clear_popupmenu()
         del self._popupmenu
         del self._actiongroup
-
-
-class SortPopupButton(PopupButton):
-    __gtype_name__ = 'SortPopupButton'
-
-    sort_by = GObject.property(type=str)
-
-    def __init__(self, *args, **kwargs):
-        '''
-        Initializes the button.
-        '''
-        cl = CoverLocale()
-        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
-
-        self.sorts = {'name': _('Sort by album name'),
-        'artist': _('Sort by album artist'),
-        'year': _('Sort by year'),
-        'rating': _('Sort by rating')}
-
-        super(SortPopupButton, self).__init__(*args, **kwargs)
-
-    def initialise(self, plugin, shell, album_model):
-        '''
-        extend the default initialise function
-        because we need to also resize the picture
-        associated with the sort button as well as find the
-        saved sort order
-        '''
-        if self.initialised:
-            return
-
-        self._album_model = album_model
-
-        # get the current sort key and initialise the superclass
-        gs = GSetting()
-        source_settings = gs.get_setting(gs.Path.PLUGIN)
-        source_settings.bind(gs.PluginKey.SORT_BY,
-            self, 'sort_by', Gio.SettingsBindFlags.DEFAULT)
-
-        super(SortPopupButton, self).initialise(self.sorts[self.sort_by],
-            shell)
-
-        # initialise spritesheet
-        self._spritesheet = ConfiguredSpriteSheet(plugin, 'sort')
-
-        # create the pop up menu
-        for key, text in sorted(self.sorts.iteritems()):
-            self.add_menuitem(text, key)
-
-        self.do_item_clicked(self.sort_by)
-
-    def do_item_clicked(self, sort):
-        '''
-        called when sort popup menu item chosen
-        '''
-        self.set_tooltip_text(self.sorts[sort])
-
-        gs = GSetting()
-        settings = gs.get_setting(gs.Path.PLUGIN)
-        settings[gs.PluginKey.SORT_BY] = sort
-
-        self.set_image(self._spritesheet[sort])
-
-        self._album_model.sort(sort)
-
 
 class DecadePopupButton(PopupButton):
     __gtype_name__ = 'DecadePopupButton'

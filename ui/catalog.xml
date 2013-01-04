@@ -4,11 +4,8 @@
   <glade-widget-classes>
     <glade-widget-class title="PopupButton" name="PopupButton" 
                         generic-name="PopupButton" parent="GtkButton">    
-    <glade-widget-class title="SortPopupButton" name="SortPopupButton" 
-                        generic-name="SortPopupButton" parent="GtkButton"
-                        icon-name="widget-gtk-button"/>
-    <glade-widget-class title="SortPopupButton" name="SortOrderButton" 
-                        generic-name="SortPopupButton" parent="GtkButton"
+    <glade-widget-class title="SortOrderButton" name="SortOrderButton" 
+                        generic-name="SortOrderButton" parent="GtkButton"
                         icon-name="widget-gtk-button"/>
     <glade-widget-class title="DecadePopupButton" name="DecadePopupButton" 
                         generic-name="DecadePopupButton" parent="GtkButton"

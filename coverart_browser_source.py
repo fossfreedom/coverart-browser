@@ -36,6 +36,7 @@ from coverart_timer import ttimer
 from coverart_widgets import PopupButton
 from coverart_controllers import PlaylistPopupController
 from coverart_controllers import GenrePopupController
+from coverart_controllers import SortPopupController
 
 
 class CoverArtBrowserSource(RB.Source):
@@ -278,9 +279,11 @@ class CoverArtBrowserSource(RB.Source):
         self.search_entry.connect('show-popup',
             self.search_show_popup_callback)
 
-        #self.sort_by = ui.get_object('sort_by')
-        #self.sort_by.initialise(self.plugin, self.shell,
-            #self.album_manager.model)
+        self.sort_controller = SortPopupController(self.plugin,
+            self.album_manager.model)
+        sort_by = ui.get_object('sort_by')
+        sort_by.controller = self.sort_controller
+
         #self.sort_order_button = ui.get_object('sort_order')
         #self.sort_order_button.initialise(self.plugin,
             #self.album_manager.model)

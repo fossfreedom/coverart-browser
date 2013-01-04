@@ -22,6 +22,8 @@ from gi.repository import RB
 
 import rb
 
+from coverart_browser_prefs import CoverLocale
+from coverart_browser_prefs import GSetting
 from coverart_utils import ConfiguredSpriteSheet
 from coverart_utils import GenreConfiguredSpriteSheet
 from coverart_utils import get_stock_size
@@ -249,3 +251,48 @@ class GenrePopupController(PopupController):
             return _('All Genres')
         else:
             return self.current_key
+
+
+class SortPopupController(PopupController):
+
+    def __init__(self, plugin, album_model):
+        super(SortPopupController, self).__init__()
+
+        self._album_model = album_model
+
+        # initialise spritesheet
+        self._spritesheet = ConfiguredSpriteSheet(plugin, 'sort',
+            get_stock_size())
+
+        # sorts dictionary
+        cl = CoverLocale()
+        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+
+        self.values = OrderedDict([(_('Sort by album name'), 'name'),
+            (_('Sort by album artist'), 'artist'),
+            (_('Sort by year'), 'year'),
+            (_('Sort by rating'), 'rating')])
+
+        self.options = self.values.keys()
+
+        # get the current sort key and initialise the superclass
+        gs = GSetting()
+        source_settings = gs.get_setting(gs.Path.PLUGIN)
+        value = source_settings[gs.PluginKey.SORT_BY]
+
+        self.current_key = self.values.keys()[
+            self.values.values().index(value)]
+
+    def do_action(self):
+        sort = self.values[self.current_key]
+
+        gs = GSetting()
+        settings = gs.get_setting(gs.Path.PLUGIN)
+        settings[gs.PluginKey.SORT_BY] = sort
+
+        self._album_model.sort(sort)
+
+    def get_current_image(self):
+        sort = self.values[self.current_key]
+
+        return self._spritesheet[sort]
