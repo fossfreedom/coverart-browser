@@ -35,6 +35,12 @@ from collections import OrderedDict
 class PixbufButton(Gtk.Button):
 
     def set_image(self, pixbuf):
+        image = self.get_image()
+
+        if not image:
+            image = Gtk.Image()
+            super(PixbufButton, self).set_image(image)
+
         self.get_image().set_from_pixbuf(pixbuf)
 
 

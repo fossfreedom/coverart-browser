@@ -7,11 +7,6 @@
     <property name="can_focus">False</property>
     <property name="stock">gtk-cancel</property>
   </object>
-  <object class="GtkImage" id="arrow_up">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixbuf">../img/arrow_up.png</property>
-  </object>
   <object class="GtkMenu" id="filter_menu">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -77,16 +72,6 @@
       </object>
     </child>
   </object>
-  <object class="GtkImage" id="genre_icon">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixbuf">../img/genre.png</property>
-  </object>
-  <object class="GtkImage" id="decade_icon">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixbuf">../img/calendar.png</property>
-  </object>
   <object class="GtkBox" id="main_box">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -109,7 +94,6 @@
             <property name="valign">center</property>
             <property name="margin_right">1</property>
             <property name="use_action_appearance">False</property>
-            <property name="image">sort_by_icon</property>
             <property name="relief">half</property>
           </object>
           <packing>
@@ -129,7 +113,6 @@
             <property name="valign">center</property>
             <property name="margin_right">1</property>
             <property name="use_action_appearance">False</property>
-            <property name="image">arrow_up</property>
             <property name="relief">half</property>
           </object>
           <packing>
@@ -162,7 +145,6 @@
             <property name="valign">center</property>
             <property name="margin_right">1</property>
             <property name="use_action_appearance">False</property>
-            <property name="image">playlist_connect</property>
             <property name="relief">half</property>
           </object>
           <packing>
@@ -183,7 +165,6 @@
             <property name="valign">center</property>
             <property name="margin_right">1</property>
             <property name="use_action_appearance">False</property>
-            <property name="image">genre_icon</property>
             <property name="relief">half</property>
           </object>
           <packing>
@@ -204,7 +185,6 @@
             <property name="valign">center</property>
             <property name="margin_right">1</property>
             <property name="use_action_appearance">False</property>
-            <property name="image">decade_icon</property>
             <property name="relief">half</property>
           </object>
           <packing>
@@ -418,11 +398,6 @@
       </packing>
     </child>
   </object>
-  <object class="GtkImage" id="playlist_connect">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixbuf">../img/icon_playlist.png</property>
-  </object>
   <object class="GtkMenu" id="popup_menu">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -583,11 +558,6 @@
         <signal name="activate" handler="show_properties_menu_item_callback" swapped="no"/>
       </object>
     </child>
-  </object>
-  <object class="GtkImage" id="sort_by_icon">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixbuf">../img/sort.png</property>
   </object>
   <object class="GtkMenu" id="source_menu">
     <property name="visible">True</property>
