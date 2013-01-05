@@ -286,7 +286,7 @@ msgid "Use source's custom statusbar."
 msgstr "Utiliser la barre d'état personnalisée de ce greffon"
 
 #: ui/coverart_browser_prefs.ui.h:11
-"Use the source&apos;s custom statusbar to show the current selected "
+msgid "Use the source&apos;s custom statusbar to show the current selected "
 "album&apos;s related information instead of the global Rhythmbox&apos;s "
 "statusbar."
 msgstr ""
