@@ -258,9 +258,33 @@ class Album(GObject.Object):
         self._year = None
         self._rating = None
         self._duration = None
+        self._calc_name = None
+        self._calc_artist = None
 
         self._signals_id = {}
 
+    '''
+    we use a calculated album name for filters
+    this is lower case with unicode chars stripped out
+    '''
+    @property
+    def calc_name(self):
+        if not self._calc_name and self.name:
+            self._calc_name = RB.search_fold(self.name)
+
+        return self._calc_name
+
+    '''
+    we use a calculated album artist for filters
+    this is lower case with unicode chars stripped out
+    '''
+    @property
+    def calc_artist(self):
+        if not self._calc_artist and self.artist:
+            self._calc_artist = RB.search_fold(self.artist)
+            
+        return self._calc_artist
+        
     @property
     def artists(self):
         if not self._artists:
@@ -394,14 +418,15 @@ class Album(GObject.Object):
         return self._tracks[0].create_ext_db_key()
 
     def do_modified(self):
-        self._album_artist = None
         self._artists = None
         self._titles = None
         self._genres = None
         self._year = None
         self._rating = None
         self._duration = None
-
+        self._calc_name = None
+        self._calc_artist = None
+ 
     def __str__(self):
         return self.artist + self.name
 
@@ -437,8 +462,8 @@ class AlbumFilters(object):
             if not searchtext:
                 return True
 
-            words = searchtext.lower().split()
-            params = [album.name.lower(), album.artist.lower(),
+            words = RB.search_fold(searchtext).split()
+            params = [album.calc_name, album.calc_artist,
                 album.artists.lower(), album.track_titles.lower()]
             matches = []
 
@@ -462,7 +487,7 @@ class AlbumFilters(object):
             if not searchtext:
                 return True
 
-            return searchtext.lower() in album.artist.lower()
+            return RB.search_fold(searchtext) in album.calc_artist
 
         return filt
 
@@ -482,7 +507,7 @@ class AlbumFilters(object):
             if not searchtext:
                 return True
 
-            return searchtext.lower() in album.name.lower()
+            return RB.search_fold(searchtext) in album.calc_name
 
         return filt
 
@@ -813,11 +838,16 @@ class AlbumsModel(GObject.Object):
         '''
         Changes the sorting strategy for the model.
 
-        :param key: `str`attribute of the `Album` class by witch the sort
+        :param key: `str`attribute of the `Album` class by which the sort
             should be performed.
-        :param asc: `bool` indicating whether it should be sortered in
-            ascendent(True) or descendent(False) direction.
+        :param asc: `bool` indicating whether it should be sorted in
+            ascending(True) or descending(False) direction.
         '''
+        if key == 'name':
+            key = 'calc_name'
+        elif key == 'artist':
+            key = 'calc_artist'
+            
         self._albums.key = lambda album: getattr(album, key)
 
         if asc != self._asc:
