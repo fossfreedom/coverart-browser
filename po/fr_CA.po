@@ -1,6 +1,6 @@
 # French Canadian translations for coverart-browser package.
-# Copyright (C) 2012 ORGANIZATION
-# Automatically generated, 2012.
+# Copyright (C) 2013 ORGANIZATION
+# Automatically generated, 2013.
 #
 msgid ""
 msgstr ""
@@ -23,7 +23,7 @@ msgstr "%s par %s"
 
 #: coverart_album_search.py:269 coverart_album_search.py:270
 msgid "Unknown"
-msgstr ""
+msgstr "Inconnu"
 
 #: coverart_browser.py:71
 msgid "CoverArt Browser"
@@ -80,7 +80,7 @@ msgstr " et une durée de %d minutes"
 #: coverart_widgets.py:317 coverart_widgets.py:350 ui/coverart_browser.ui.h:11
 #: ui/coverart_sidebar.ui.h:3
 msgid "All Genres"
-msgstr ""
+msgstr "Tous les genres"
 
 #: coverart_widgets.py:390
 msgid "Sort by album name"
@@ -100,16 +100,16 @@ msgstr "Trier par notation"
 
 #: coverart_widgets.py:456
 msgid "All"
-msgstr ""
+msgstr "Tous"
 
 #: coverart_widgets.py:456
 msgid "Old"
-msgstr ""
+msgstr "Plus vieux"
 
 #: coverart_widgets.py:516 ui/coverart_browser.ui.h:12
 #: ui/coverart_sidebar.ui.h:4
 msgid "All Decades"
-msgstr ""
+msgstr "Toutes les décennies"
 
 #: coverart_widgets.py:636
 msgid "Sort in descending order"
@@ -245,32 +245,31 @@ msgstr "Télécharger toutes les pochettes"
 
 #: ui/coverart_browser_prefs.ui.h:1
 msgid "Above"
-msgstr ""
+msgstr "Au-dessus"
 
 #: ui/coverart_browser_prefs.ui.h:2
 msgid "Top Left"
-msgstr ""
+msgstr "Supérieur gauche"
 
 #: ui/coverart_browser_prefs.ui.h:3
 msgid "Top Center"
-msgstr ""
+msgstr "Supérieur centre"
 
 #: ui/coverart_browser_prefs.ui.h:4
 msgid "Top Right"
-msgstr ""
+msgstr "Supérieur droit"
 
 #: ui/coverart_browser_prefs.ui.h:5
-#, fuzzy
 msgid "Above Cover View"
-msgstr "Pochettes"
+msgstr "Au-dessus du volet Pochettes"
 
 #: ui/coverart_browser_prefs.ui.h:6
 msgid "Left Sidebar"
-msgstr ""
+msgstr "Barre latérale gauche"
 
 #: ui/coverart_browser_prefs.ui.h:7
 msgid "Right Sidebar"
-msgstr ""
+msgstr "Barre latérale droite"
 
 #: ui/coverart_browser_prefs.ui.h:8
 msgid "Automatically Start"
@@ -287,9 +286,7 @@ msgid "Use source's custom statusbar."
 msgstr "Utiliser la barre d'état personnalisée de ce greffon"
 
 #: ui/coverart_browser_prefs.ui.h:11
-#, fuzzy
-msgid ""
-"Use the source&apos;s custom statusbar to show the current selected "
+msgid "Use the source&apos;s custom statusbar to show the current selected "
 "album&apos;s related information instead of the global Rhythmbox&apos;s "
 "statusbar."
 msgstr ""
@@ -321,25 +318,22 @@ msgid "Level above which is regarded as being a favourite track or album"
 msgstr "Note à laquelle une piste est considérée comme étant favorite"
 
 #: ui/coverart_browser_prefs.ui.h:16
-#, fuzzy
 msgid "Favourite Threshold"
-msgstr "Seuil de notation des favorites: "
+msgstr "Seuil des favorites"
 
 #: ui/coverart_browser_prefs.ui.h:17
 msgid "General"
-msgstr ""
+msgstr "Général"
 
 #: ui/coverart_browser_prefs.ui.h:18
-#, fuzzy
 msgid "Album Information"
-msgstr "Montrer l'information sur l'album:"
+msgstr "Informatin de l'album"
 
 #: ui/coverart_browser_prefs.ui.h:19
 msgid "Display album's info under cover"
 msgstr "Afficher les infos de l'album sous la pochette"
 
 #: ui/coverart_browser_prefs.ui.h:20
-#, fuzzy
 msgid "Show the album&apos;s basic information under the cover image."
 msgstr "Montrer les informations de base sous l'image de la pochette"
 
@@ -349,7 +343,7 @@ msgstr "Montrer les informations de base sous l'image de la pochette"
 
 #: ui/coverart_browser_prefs.ui.h:22
 msgid "Font size for the text below the cover-art."
-msgstr ""
+msgstr "Taille de la police du texte sous la pochette"
 
 #: ui/coverart_browser_prefs.ui.h:23
 msgid "Font Size:"
@@ -368,10 +362,9 @@ msgstr ""
 "est activé."
 
 #: ui/coverart_browser_prefs.ui.h:26
-#, fuzzy
 msgid "Maximum allowed length for an album's name before being ellipsized."
 msgstr ""
-"C'est la taille maximum permise pour un nom d'album avant d'être réduite."
+"Taille maximum permise pour un nom d'album avant d'être réduite."
 
 #: ui/coverart_browser_prefs.ui.h:27
 msgid "Maximum length:"
@@ -379,72 +372,67 @@ msgstr "Longueur maximale"
 
 #: ui/coverart_browser_prefs.ui.h:28
 msgid "Cover Appearance"
-msgstr ""
+msgstr "Apparence de la pochette"
 
 #: ui/coverart_browser_prefs.ui.h:29
 msgid "Drop shadow"
-msgstr ""
+msgstr "Ombre portée"
 
 #: ui/coverart_browser_prefs.ui.h:30
 msgid "Indicates if the albums should drop a shadow on the cover view"
-msgstr ""
+msgstr "Indique si une ombre doit être portée aux albums du volet Pochettes"
 
 #: ui/coverart_browser_prefs.ui.h:31
 msgid "Light Source: "
-msgstr ""
+msgstr "Éclairage: "
 
 #: ui/coverart_browser_prefs.ui.h:32
 msgid "Defines the size for the covers showed on the source."
 msgstr "Défini la taille des pochettes montrées dans le volet"
 
 #: ui/coverart_browser_prefs.ui.h:33
-#, fuzzy
 msgid "Size (in pixels):"
-msgstr "Taille de pochette en pixels:"
+msgstr "Taille (en pixels):"
 
 #: ui/coverart_browser_prefs.ui.h:34
-#, fuzzy
 msgid "Cover"
-msgstr "Pochettes"
+msgstr "Pochette"
 
 #: ui/coverart_browser_prefs.ui.h:35
 msgid "Where the toolbar should be positioned"
-msgstr ""
+msgstr "Où la barre d'outils doit être placée"
 
 #: ui/coverart_browser_prefs.ui.h:36
 msgid "Position"
-msgstr ""
+msgstr "Position"
 
 #: ui/coverart_browser_prefs.ui.h:37
-#, fuzzy
 msgid "Show toolbar in: "
-msgstr "Montrer la barre d'outils dans vue-pochette principale"
+msgstr "Montrer la barre d'outils dans: "
 
 #: ui/coverart_browser_prefs.ui.h:38
 msgid "Toolbar"
-msgstr ""
+msgstr "Barre d'outils"
 
 #: ui/coverart_browser_prefs.ui.h:39
-#, fuzzy
 msgid "Search for coverart on DISCOGS"
-msgstr "Rechercher les pochettes"
+msgstr "Rechercher les pochettes sur DISCOGS"
 
 #: ui/coverart_browser_prefs.ui.h:40
 msgid "Search for coverart on the internet provider DISCOGS"
-msgstr ""
+msgstr "Rechercher les pochettes sur le fournisseur internet DISCOGS"
 
 #: ui/coverart_browser_prefs.ui.h:41
-#, fuzzy
 msgid "Search for embedded coverart"
-msgstr "Rechercher les pochettes"
+msgstr "Rechercher les pochettes imbriquées"
 
 #: ui/coverart_browser_prefs.ui.h:42
 msgid "Search for coverart embedded within tracks for an album"
-msgstr ""
+msgstr "Rechercher la pochette imbriquée dans les pistes d'un album"
 
 #: ui/coverart_browser_prefs.ui.h:43
 msgid "Providers"
-msgstr ""
+msgstr "Fournisseurs"
 
 #: ui/coverart_entryview.ui.h:1
 msgid "Play this track"
@@ -592,7 +580,6 @@ msgstr "Afficher plus de résultats"
 #~ msgid "Display the year sorting option in the toolbar"
 #~ msgstr "Afficher une option pour trier par année dans la barre d'outils"
 
-#, fuzzy
 #~ msgid "Ratings:"
 #~ msgstr "Seuil de notation"
 
