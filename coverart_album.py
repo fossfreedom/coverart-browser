@@ -424,9 +424,7 @@ class Album(GObject.Object):
         self._year = None
         self._rating = None
         self._duration = None
-        self._calc_name = None
-        self._calc_artist = None
- 
+        
     def __str__(self):
         return self.artist + self.name
 
