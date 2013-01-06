@@ -21,26 +21,26 @@ from gi.repository import GObject
 from gi.repository import RB
 
 import rb
-from datetime import date
 
 from coverart_browser_prefs import CoverLocale
 from coverart_browser_prefs import GSetting
-from coverart_utils import ConfiguredSpriteSheet
+from coverart_utils import create_pixbuf_from_file_at_size
 from coverart_utils import GenreConfiguredSpriteSheet
+from coverart_utils import ConfiguredSpriteSheet
 from coverart_utils import get_stock_size
-from coverart_utils import resize_to_stock
 
+from datetime import date
 from collections import OrderedDict
 
 
-class PopupController(GObject.Object):
+class OptionsController(GObject.Object):
 
     # properties
     options = GObject.property(type=object, default=None)
     current_key = GObject.property(type=str, default=None)
 
     def __init__(self):
-        super(PopupController, self).__init__()
+        super(OptionsController, self).__init__()
 
         # connect the variations on the current key to the controllers action
         self.connect('notify::current-key', self._do_action)
@@ -66,7 +66,7 @@ class PopupController(GObject.Object):
         return self.current_key
 
 
-class PlaylistPopupController(PopupController):
+class PlaylistPopupController(OptionsController):
 
     def __init__(self, plugin, album_model):
         super(PlaylistPopupController, self).__init__()
@@ -153,7 +153,7 @@ class PlaylistPopupController(PopupController):
         return image
 
 
-class GenrePopupController(PopupController):
+class GenrePopupController(OptionsController):
 
     def __init__(self, plugin, album_model):
         super(GenrePopupController, self).__init__()
@@ -175,12 +175,12 @@ class GenrePopupController(PopupController):
         # initialise the button spritesheet and other images
         self._spritesheet = GenreConfiguredSpriteSheet(plugin, 'genre',
             get_stock_size())
-        self._default_image = resize_to_stock(
-            GdkPixbuf.Pixbuf.new_from_file(rb.find_plugin_file(plugin,
-                'img/default_genre.png')))
-        self._unrecognised_image = resize_to_stock(
-            GdkPixbuf.Pixbuf.new_from_file(rb.find_plugin_file(plugin,
-                'img/unrecognised_genre.png')))
+        self._default_image = create_pixbuf_from_file_at_size(
+            rb.find_plugin_file(plugin, 'img/default_genre.png'),
+            *get_stock_size())
+        self._unrecognised_image = create_pixbuf_from_file_at_size(
+            rb.find_plugin_file(plugin, 'img/unrecognised_genre.png'),
+            *get_stock_size())
 
         # connect signals to update genres
         query.connect('row-inserted', self._update_options, genres_model)
@@ -254,7 +254,7 @@ class GenrePopupController(PopupController):
             return self.current_key
 
 
-class SortPopupController(PopupController):
+class SortPopupController(OptionsController):
 
     def __init__(self, plugin, album_model):
         super(SortPopupController, self).__init__()
@@ -299,7 +299,7 @@ class SortPopupController(PopupController):
         return self._spritesheet[sort]
 
 
-class DecadePopupController(PopupController):
+class DecadePopupController(OptionsController):
 
     def __init__(self, plugin, album_model):
         super(DecadePopupController, self).__init__()
@@ -344,3 +344,45 @@ class DecadePopupController(PopupController):
             return _('All Decades')
         else:
             return self.current_key
+
+
+class SortOrderToggleController(OptionsController):
+
+    def __init__(self, plugin, album_model):
+        super(SortOrderToggleController, self).__init__()
+
+        self._album_model = album_model
+
+        # options
+        self.values = OrderedDict([(_('Sort in descending order'), False),
+            (_('Sort in ascending order'), True)])
+        self.options = self.values.keys()
+
+        # initialize images
+        self._images = []
+        self._images.append(GdkPixbuf.Pixbuf.new_from_file_at_size(
+            rb.find_plugin_file(plugin, 'img/arrow_down.png'),
+            *get_stock_size()))
+        self._images.append(GdkPixbuf.Pixbuf.new_from_file_at_size(
+            rb.find_plugin_file(plugin, 'img/arrow_up.png'),
+            *get_stock_size()))
+
+        # set the current key
+        self.gs = GSetting()
+        self.settings = self.gs.get_setting(self.gs.Path.PLUGIN)
+        sort_order = self.settings[self.gs.PluginKey.SORT_ORDER]
+
+        self.current_key = self.values.keys()[
+            self.values.values().index(sort_order)]
+
+    def do_action(self):
+        sort_order = self.values[self.current_key]
+
+        if not sort_order or\
+            sort_order != self.settings[self.gs.PluginKey.SORT_ORDER]:
+            self._album_model.sort(reverse=True)
+
+        self.settings[self.gs.PluginKey.SORT_ORDER] = sort_order
+
+    def get_current_image(self):
+        return self._images[self.get_current_key_index()]

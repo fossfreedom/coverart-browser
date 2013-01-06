@@ -34,10 +34,12 @@ from coverart_browser_prefs import CoverLocale
 from stars import ReactiveStar
 from coverart_timer import ttimer
 from coverart_widgets import PopupButton
+from coverart_widgets import ImageToggleButton
 from coverart_controllers import PlaylistPopupController
 from coverart_controllers import GenrePopupController
 from coverart_controllers import SortPopupController
 from coverart_controllers import DecadePopupController
+from coverart_controllers import SortOrderToggleController
 
 
 class CoverArtBrowserSource(RB.Source):
@@ -285,16 +287,17 @@ class CoverArtBrowserSource(RB.Source):
         sort_by = ui.get_object('sort_by')
         sort_by.controller = self.sort_controller
 
-        #self.sort_order_button = ui.get_object('sort_order')
-        #self.sort_order_button.initialise(self.plugin,
-            #self.album_manager.model)
+        self.sort_order_controller = SortOrderToggleController(self.plugin,
+            self.album_manager.model)
+        sort_order_button = ui.get_object('sort_order')
+        sort_order_button.controller = self.sort_order_controller
 
-        ## get widget for search and apply some workarounds
-        #search_entry = ui.get_object('search_entry')
-        #search_entry.set_placeholder(_('Search album'))
-        #search_entry.show_all()
-        #self.search_entry.set_placeholder(ui.get_object(
-            #'filter_all_menu_item').get_label())
+        # get widget for search and apply some workarounds
+        search_entry = ui.get_object('search_entry')
+        search_entry.set_placeholder(_('Search album'))
+        search_entry.show_all()
+        self.search_entry.set_placeholder(ui.get_object(
+            'filter_all_menu_item').get_label())
 
         # genre
         self.genre_controller = GenrePopupController(self.plugin,

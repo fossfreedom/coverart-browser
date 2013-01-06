@@ -4,8 +4,8 @@
   <glade-widget-classes>
     <glade-widget-class title="PopupButton" name="PopupButton" 
                         generic-name="PopupButton" parent="GtkButton">    
-    <glade-widget-class title="SortOrderButton" name="SortOrderButton" 
-                        generic-name="SortOrderButton" parent="GtkButton"
+    <glade-widget-class title="ImageToggleButton" name="ImageToggleButton" 
+                        generic-name="ImageToggleButton" parent="GtkButton"
                         icon-name="widget-gtk-button"/>
     <glade-widget-class title="RBSearchEntry" name="RBSearchEntry" 
                         generic-name="RBSearchEntry" parent="GtkHBox"
@@ -14,6 +14,7 @@
 
    <glade-widget-group name="python" title="Python">
      <glade-widget-class-ref name="PopupButton"/>    
+     <glade-widget-class-ref name="ImageToggleButton"/>
      <glade-widget-class-ref name="RBSearchEntry"/>
    </glade-widget-group>
 

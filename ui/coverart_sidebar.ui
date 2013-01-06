@@ -75,7 +75,7 @@
           </packing>
         </child>
         <child>
-          <object class="SortOrderButton" id="sort_order">
+          <object class="ImageToggleButton" id="sort_order">
             <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>

@@ -401,10 +401,10 @@ def get_stock_size():
     return width, height
 
 
-def resize_to_stock(pixbuf):
-    width, height = get_stock_size()
+def create_pixbuf_from_file_at_size(filename, width, height):
+    pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(filename, width, height)
 
-    if pixbuf.get_width() != width and pixbuf.get_height() != height:
+    if pixbuf.get_width() != width or pixbuf.get_height() != height:
         pixbuf = pixbuf.scale_simple(width, height,
             GdkPixbuf.InterpType.BILINEAR)
 

@@ -32,6 +32,7 @@ from gi.repository import GdkPixbuf
 import cairo
 
 from coverart_browser_prefs import GSetting
+from coverart_utils import create_pixbuf_from_file_at_size
 from coverart_utils import SortedCollection
 from coverart_utils import idle_iterator
 from urlparse import urlparse
@@ -84,12 +85,8 @@ class Cover(GObject.Object):
 
     def _create_pixbuf(self, size):
         try:
-            self.pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(self.original,
+            self.pixbuf = create_pixbuf_from_file_at_size(self.original,
                 size, size)
-
-            if self.pixbuf.get_width() != self.pixbuf.get_height():
-                self.pixbuf = self.pixbuf.scale_simple(size, size,
-                 GdkPixbuf.InterpType.BILINEAR)
         except:
             self.pixbuf = self.original.scale_simple(size, size,
                  GdkPixbuf.InterpType.BILINEAR)
