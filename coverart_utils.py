@@ -22,7 +22,7 @@ import xml.etree.cElementTree as ET
 import rb
 import re
 
-class NaturalString(object):
+class NaturalString(str):
     '''
     this class implements an object that can naturally compare
     strings
@@ -30,6 +30,8 @@ class NaturalString(object):
     '''
 
     def __init__(self, string):
+        super(NaturalString, self).__init__(
+            string)
         convert = lambda text: int(text) if text.isdigit() else text.lower() 
         alphanum_key = lambda key: [ convert(c) for c in re.split('([0-9]+)', key) ]
 
@@ -39,18 +41,26 @@ class NaturalString(object):
     def __str__(self):
         return self._string
     def __lt__(self, other):
-          return self._string_elements < other._string_elements
+        if type(other) is str:
+            return super(NaturalString, self).__lt__(other)
+        else:
+            return self._string_elements < other._string_elements
     def __le__(self, other):
-         return self._string_elements <= other._string_elements
-    def __eq__(self, other):
-          return self._string_elements == other._string_elements
-    def __ne__(self, other):
-          return self._string_elements != other._string_elements
+        if type(other) is str:
+            return super(NaturalString, self).__le__(other)
+        else:
+            return self._string_elements <= other._string_elements
     def __gt__(self, other):
-          return self._string_elements > other._string_elements
+        if type(other) is str:
+            return super(NaturalString, self).__gt__(other)
+        else:
+            return self._string_elements > other._string_elements
     def __ge__(self, other):
-          return self._string_elements >= other._string_elements
-
+        if type(other) is str:
+            return super(NaturalString, self).__ge__(other)
+        else:
+            return self._string_elements >= other._string_elements
+          
 class SortedCollection(object):
     '''Sequence sorted by a key function.
 
