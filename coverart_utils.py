@@ -20,6 +20,36 @@ from gi.repository import Gdk
 from gi.repository import GLib
 import xml.etree.cElementTree as ET
 import rb
+import re
+
+class NaturalString(object):
+    '''
+    this class implements an object that can naturally compare
+    strings
+    i.e. "15 album" < "100 album"
+    '''
+
+    def __init__(self, string):
+        convert = lambda text: int(text) if text.isdigit() else text.lower() 
+        alphanum_key = lambda key: [ convert(c) for c in re.split('([0-9]+)', key) ]
+
+        self._string_elements = alphanum_key(string)
+        self._string = string
+
+    def __str__(self):
+        return self._string
+    def __lt__(self, other):
+          return self._string_elements < other._string_elements
+    def __le__(self, other):
+         return self._string_elements <= other._string_elements
+    def __eq__(self, other):
+          return self._string_elements == other._string_elements
+    def __ne__(self, other):
+          return self._string_elements != other._string_elements
+    def __gt__(self, other):
+          return self._string_elements > other._string_elements
+    def __ge__(self, other):
+          return self._string_elements >= other._string_elements
 
 class SortedCollection(object):
     '''Sequence sorted by a key function.

@@ -35,6 +35,7 @@ import cairo
 from coverart_browser_prefs import GSetting
 from coverart_utils import SortedCollection
 from coverart_utils import idle_iterator
+from coverart_utils import NaturalString
 from urlparse import urlparse
 from datetime import datetime, date
 
@@ -270,7 +271,8 @@ class Album(GObject.Object):
     @property
     def calc_name(self):
         if not self._calc_name and self.name:
-            self._calc_name = RB.search_fold(self.name)
+            self._calc_name = NaturalString(RB.search_fold(self.name))
+            print self._calc_name
 
         return self._calc_name
 
