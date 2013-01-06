@@ -272,7 +272,6 @@ class Album(GObject.Object):
     def calc_name(self):
         if not self._calc_name and self.name:
             self._calc_name = NaturalString(RB.search_fold(self.name))
-            print self._calc_name
 
         return self._calc_name
 
