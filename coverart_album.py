@@ -286,6 +286,19 @@ class Album(GObject.Object):
             
         return self._calc_artist
         
+    '''
+    we use a calculated set of track artists for search filters
+    this is lower case with unicode chars stripped out
+    '''
+    @property
+    def calc_artists(self):
+        if not self._calc_artists:
+            self._calc_artists = ', '.join(
+                set([RB.search_fold(track.artist) for track in self._tracks]))
+
+        return self._calc_artists
+    
+        
     @property
     def artists(self):
         if not self._artists:
@@ -425,6 +438,7 @@ class Album(GObject.Object):
         self._year = None
         self._rating = None
         self._duration = None
+        self._calc_artists = None
         
     def __str__(self):
         return self.artist + self.name
@@ -463,7 +477,7 @@ class AlbumFilters(object):
 
             words = RB.search_fold(searchtext).split()
             params = [album.calc_name, album.calc_artist,
-                album.artists.lower(), album.track_titles.lower()]
+                album.calc_artists, album.track_titles.lower()]
             matches = []
 
             for word in words:
@@ -496,7 +510,7 @@ class AlbumFilters(object):
             if not searchtext:
                 return True
 
-            return searchtext.lower() in album.artists.lower()
+            return RB.search_fold(searchtext) in album.calc_artists
 
         return filt
 
