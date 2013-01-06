@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "#-#-#-#-#  ui.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-01-02 23:35+GMT\n"
+"POT-Creation-Date: 2013-01-06 11:08+GMT\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,7 @@ msgstr ""
 "#-#-#-#-#  tmpl.pot (PROJECT VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-01-02 23:35+0000\n"
+"POT-Creation-Date: 2013-01-06 11:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,7 +34,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: coverart_album.py:1473 coverart_browser_source.py:1092
+#: coverart_album.py:1531 coverart_browser_source.py:1084
 msgid "%s by %s"
 msgstr ""
 
@@ -70,27 +70,27 @@ msgstr ""
 msgid "Covers"
 msgstr ""
 
-#: coverart_browser_source.py:1006
+#: coverart_browser_source.py:998
 msgid "Requesting cover for %s - %s..."
 msgstr ""
 
-#: coverart_browser_source.py:1095
+#: coverart_browser_source.py:1087
 msgid "%d selected albums "
 msgstr ""
 
-#: coverart_browser_source.py:1099
+#: coverart_browser_source.py:1091
 msgid " with 1 track"
 msgstr ""
 
-#: coverart_browser_source.py:1101
+#: coverart_browser_source.py:1093
 msgid " with %d tracks"
 msgstr ""
 
-#: coverart_browser_source.py:1104
+#: coverart_browser_source.py:1096
 msgid " and a duration of 1 minute"
 msgstr ""
 
-#: coverart_browser_source.py:1106
+#: coverart_browser_source.py:1098
 msgid " and a duration of %d minutes"
 msgstr ""
 
@@ -414,7 +414,7 @@ msgid "Position"
 msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:37
-msgid "Show toolbar in: "
+msgid "Show toolbar: "
 msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:38
