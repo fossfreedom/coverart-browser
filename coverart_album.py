@@ -293,8 +293,7 @@ class Album(GObject.Object):
     @property
     def calc_artists(self):
         if not self._calc_artists:
-            self._calc_artists = ', '.join(
-                set([RB.search_fold(track.artist) for track in self._tracks]))
+            self._calc_artists = RB.search_fold(self.artists)
 
         return self._calc_artists
     
