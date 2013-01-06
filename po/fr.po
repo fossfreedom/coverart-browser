@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-01-02 23:35+GMT\n"
+"POT-Creation-Date: 2013-01-06 11:08+GMT\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Generated-By: Babel 0.9.6\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: coverart_album.py:1473 coverart_browser_source.py:1092
+#: coverart_album.py:1531 coverart_browser_source.py:1084
 msgid "%s by %s"
 msgstr "%s par %s"
 
@@ -63,27 +63,27 @@ msgstr "Pistes"
 msgid "Covers"
 msgstr "Jaquettes"
 
-#: coverart_browser_source.py:1006
+#: coverart_browser_source.py:998
 msgid "Requesting cover for %s - %s..."
 msgstr "Demande de la jaquette pour %s - %s..."
 
-#: coverart_browser_source.py:1095
+#: coverart_browser_source.py:1087
 msgid "%d selected albums "
 msgstr "%d albums sélectionnés"
 
-#: coverart_browser_source.py:1099
+#: coverart_browser_source.py:1091
 msgid " with 1 track"
 msgstr " avec 1 piste"
 
-#: coverart_browser_source.py:1101
+#: coverart_browser_source.py:1093
 msgid " with %d tracks"
 msgstr " avec %d pistes"
 
-#: coverart_browser_source.py:1104
+#: coverart_browser_source.py:1096
 msgid " and a duration of 1 minute"
 msgstr " et une durée de 1 minute"
 
-#: coverart_browser_source.py:1106
+#: coverart_browser_source.py:1098
 msgid " and a duration of %d minutes"
 msgstr " et une durée de %d minutes"
 
@@ -429,7 +429,7 @@ msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:37
 #, fuzzy
-msgid "Show toolbar in: "
+msgid "Show toolbar: "
 msgstr "Montrer la barre d'outils dans la vue principale"
 
 #: ui/coverart_browser_prefs.ui.h:38
