@@ -151,7 +151,7 @@ class PopupButton(OptionsButton):
     def do_item_clicked(self, key):
         if self._controller:
             # inform the controller
-            self._controller.item_selected(key)
+            self._controller.option_selected(key)
 
     def do_clicked(self):
         '''
@@ -196,5 +196,5 @@ class ImageToggleButton(OptionsButton):
             index = (index + 1) % len(self._controller.options)
 
             # inform the controller
-            self._controller.item_selected(
+            self._controller.option_selected(
                 self._controller.options[index])

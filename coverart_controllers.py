@@ -48,7 +48,7 @@ class OptionsController(GObject.Object):
     def get_current_key_index(self):
         return self.options.index(self.current_key)
 
-    def item_selected(self, key):
+    def option_selected(self, key):
         if key != self.current_key:
             # update the current value
             self.current_key = key
