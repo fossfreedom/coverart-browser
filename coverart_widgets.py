@@ -20,14 +20,10 @@
 from gi.repository import Gtk
 from gi.repository import GdkPixbuf
 from gi.repository import GObject
-from gi.repository import Gio
 
 from coverart_browser_prefs import GSetting
-from coverart_utils import ConfiguredSpriteSheet
 from coverart_browser_prefs import CoverLocale
 import rb
-from datetime import date
-from collections import OrderedDict
 
 
 class PixbufButton(Gtk.Button):
@@ -163,82 +159,6 @@ class PopupButton(PixbufButton):
         self.clear_popupmenu()
         del self._popupmenu
         del self._actiongroup
-
-class DecadePopupButton(PopupButton):
-    __gtype_name__ = 'DecadePopupButton'
-
-    def __init__(self, *args, **kwargs):
-        '''
-        Initializes the button.
-        '''
-        super(DecadePopupButton, self).__init__(*args, **kwargs)
-
-        self._decade = OrderedDict([('All', -1), ('20s', 2020),
-            ('10s', 2010), ('00s', 2000), ('90s', 1990), ('80s', 1980),
-            ('70s', 1970), ('60s', 1960), ('50s', 1950), ('40s', 1940),
-            ('30s', 1930), ('Old', -1)])
-
-        cl = CoverLocale()
-        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
-        self._translation = {'All': _('All'), 'Old': _('Old')}
-
-        self._initial = 'All'
-
-    def initialise(self, plugin, shell, album_model):
-        '''
-        extend the default initialise function
-        because we need to also resize the picture
-        associated with the decade button
-        '''
-        if self.initialised:
-            return
-
-        self._album_model = album_model
-
-        super(DecadePopupButton, self).initialise(self._initial, shell)
-
-        self._spritesheet = ConfiguredSpriteSheet(plugin, 'decade')
-        self._default_image = self._spritesheet[self._initial]
-
-        # generate initial popup
-        '''
-        we need only add 2020s to the popup if the current year
-        warrants it...
-
-        and yes this means that the plugin decade functionality
-        will not work in 2030 and onwards ... but I'll worry about that
-        then :)
-        '''
-        firstval = '20s'
-        current_year = date.today().year
-
-        for decade in self._decade:
-            if  (current_year >= 2020 and decade == firstval) or \
-                (current_year < 2020 and decade != firstval):
-                if decade in self._translation:
-                    menutext = self._translation[decade]
-                else:
-                    menutext = decade
-
-                self.add_menuitem(menutext, decade)
-
-        self.do_item_clicked(self._initial)
-
-    def do_item_clicked(self, decade):
-        '''
-        called when genre popup menu item chosen
-        return None if the first entry in popup returned
-        '''
-        self.set_image(self._spritesheet[decade])
-
-        print decade
-
-        if decade == self._initial:
-            self.set_tooltip_text(_('All Decades'))
-            self._album_model.remove_filter('decade')
-        else:
-            self.set_tooltip_text(decade)
-            self._album_model.replace_filter('decade', self._decade[decade])
 
 
 class ImageToggleButton(Gtk.Button):

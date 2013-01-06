@@ -21,6 +21,7 @@ from gi.repository import GObject
 from gi.repository import RB
 
 import rb
+from datetime import date
 
 from coverart_browser_prefs import CoverLocale
 from coverart_browser_prefs import GSetting
@@ -296,3 +297,50 @@ class SortPopupController(PopupController):
         sort = self.values[self.current_key]
 
         return self._spritesheet[sort]
+
+
+class DecadePopupController(PopupController):
+
+    def __init__(self, plugin, album_model):
+        super(DecadePopupController, self).__init__()
+
+        self._album_model = album_model
+
+        # initialize spritesheet
+        self._spritesheet = ConfiguredSpriteSheet(plugin, 'decade',
+            get_stock_size())
+
+        # decade options
+        cl = CoverLocale()
+        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+
+        self.values = OrderedDict([(_('All'), -1), ('20s', 2020),
+            ('10s', 2010), ('00s', 2000), ('90s', 1990), ('80s', 1980),
+            ('70s', 1970), ('60s', 1960), ('50s', 1950), ('40s', 1940),
+            ('30s', 1930), (_('Old'), -1)])
+
+        self.options = self.values.keys()
+
+        # if we aren't on the 20s yet, remove it
+        if date.today().year < 2020:
+            self.options.remove('20s')
+
+        # define a initial decade an set the initial key
+        self._initial_decade = self.options[0]
+        self.current_key = self._initial_decade
+
+    def do_action(self):
+        if self.current_key == self._initial_decade:
+            self._album_model.remove_filter('decade')
+        else:
+            self._album_model.replace_filter('decade',
+                self.values[self.current_key])
+
+    def get_current_image(self):
+        return self._spritesheet[self.current_key]
+
+    def get_current_tooltip(self):
+        if self.current_key == self._initial_decade:
+            return _('All Decades')
+        else:
+            return self.current_key

@@ -7,9 +7,6 @@
     <glade-widget-class title="SortOrderButton" name="SortOrderButton" 
                         generic-name="SortOrderButton" parent="GtkButton"
                         icon-name="widget-gtk-button"/>
-    <glade-widget-class title="DecadePopupButton" name="DecadePopupButton" 
-                        generic-name="DecadePopupButton" parent="GtkButton"
-                        icon-name="widget-gtk-button"/>
     <glade-widget-class title="RBSearchEntry" name="RBSearchEntry" 
                         generic-name="RBSearchEntry" parent="GtkHBox"
                         icon-name="widget-gtk-box"/>
@@ -17,7 +14,6 @@
 
    <glade-widget-group name="python" title="Python">
      <glade-widget-class-ref name="PopupButton"/>    
-     <glade-widget-class-ref name="DecadePopupButton"/>
      <glade-widget-class-ref name="RBSearchEntry"/>
    </glade-widget-group>
 

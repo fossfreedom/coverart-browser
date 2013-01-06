@@ -37,6 +37,7 @@ from coverart_widgets import PopupButton
 from coverart_controllers import PlaylistPopupController
 from coverart_controllers import GenrePopupController
 from coverart_controllers import SortPopupController
+from coverart_controllers import DecadePopupController
 
 
 class CoverArtBrowserSource(RB.Source):
@@ -307,10 +308,11 @@ class CoverArtBrowserSource(RB.Source):
         playlist_button = ui.get_object('playlist_button')
         playlist_button.controller = self.playlist_controller
 
-        ## decade
-        #decade_button = ui.get_object('decade_button')
-        #decade_button.initialise(self.plugin, self.shell,
-            #self.album_manager.model)
+        # decade
+        self.decade_controller = DecadePopupController(self.plugin,
+            self.album_manager.model)
+        decade_button = ui.get_object('decade_button')
+        decade_button.controller = self.decade_controller
 
         print "CoverArtBrowser DEBUG - end _toolbar"
 
