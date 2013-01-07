@@ -48,6 +48,9 @@
         <alt genre="children">kids</alt>
         <alt genre="blues">r&amp;b</alt>
         
+        <!--French translation-->
+        
+        
     </genre>
     <sort>
         <sort name="name" spritesheet="sort"/>
