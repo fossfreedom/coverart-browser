@@ -76,6 +76,8 @@
         <alt genre="gospel">chrétien</alt>
         <alt genre="classical">classique</alt>
         <alt genre="musical">comdédie musicale</alt>
+        <alt genre="holiday">noël</alt>
+        <alt genre="alternative">alternatif</alt>
         
     </genre>
     <sort>
