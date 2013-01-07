@@ -7,71 +7,6 @@
     <property name="can_focus">False</property>
     <property name="stock">gtk-cancel</property>
   </object>
-  <object class="GtkMenu" id="filter_menu">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <child>
-      <object class="GtkRadioMenuItem" id="filter_all_menu_item">
-        <property name="use_action_appearance">False</property>
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="receives_default">True</property>
-        <property name="tooltip_text" translatable="yes">Search using all fields</property>
-        <property name="label" translatable="yes">Search all fields</property>
-        <property name="use_underline">True</property>
-        <property name="active">True</property>
-        <signal name="toggled" handler="filter_menu_callback" swapped="no"/>
-      </object>
-    </child>
-    <child>
-      <object class="GtkRadioMenuItem" id="filter_album_artist_menu_item">
-        <property name="use_action_appearance">False</property>
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="tooltip_text" translatable="yes">Search using album artist names</property>
-        <property name="label" translatable="yes">Search album artists</property>
-        <property name="use_underline">True</property>
-        <property name="group">filter_all_menu_item</property>
-        <signal name="toggled" handler="filter_menu_callback" swapped="no"/>
-      </object>
-    </child>
-    <child>
-      <object class="GtkRadioMenuItem" id="filter_artist_menu_item">
-        <property name="use_action_appearance">False</property>
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="tooltip_text" translatable="yes">Search using track artist names</property>
-        <property name="label" translatable="yes">Search track artists</property>
-        <property name="use_underline">True</property>
-        <property name="group">filter_all_menu_item</property>
-        <signal name="toggled" handler="filter_menu_callback" swapped="no"/>
-      </object>
-    </child>
-    <child>
-      <object class="GtkRadioMenuItem" id="filter_album_menu_item">
-        <property name="use_action_appearance">False</property>
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="tooltip_text" translatable="yes">Search using album titles</property>
-        <property name="label" translatable="yes">Search albums</property>
-        <property name="use_underline">True</property>
-        <property name="group">filter_all_menu_item</property>
-        <signal name="toggled" handler="filter_menu_callback" swapped="no"/>
-      </object>
-    </child>
-    <child>
-      <object class="GtkRadioMenuItem" id="filter_track_title_menu_item">
-        <property name="use_action_appearance">False</property>
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="tooltip_text" translatable="yes">Search using track titles</property>
-        <property name="label" translatable="yes">Search tracks</property>
-        <property name="use_underline">True</property>
-        <property name="group">filter_all_menu_item</property>
-        <signal name="toggled" handler="filter_menu_callback" swapped="no"/>
-      </object>
-    </child>
-  </object>
   <object class="GtkBox" id="main_box">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -79,145 +14,6 @@
     <property name="hexpand">True</property>
     <property name="vexpand">True</property>
     <property name="orientation">vertical</property>
-    <child>
-      <object class="GtkBox" id="toolbar_box">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <child>
-          <object class="PopupButton" id="sort_by">
-            <property name="use_action_appearance">False</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="receives_default">False</property>
-            <property name="has_tooltip">True</property>
-            <property name="halign">center</property>
-            <property name="valign">center</property>
-            <property name="margin_right">1</property>
-            <property name="use_action_appearance">False</property>
-            <property name="relief">half</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="ImageToggleButton" id="sort_order">
-            <property name="use_action_appearance">False</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="receives_default">False</property>
-            <property name="has_tooltip">True</property>
-            <property name="halign">center</property>
-            <property name="valign">center</property>
-            <property name="margin_right">1</property>
-            <property name="use_action_appearance">False</property>
-            <property name="relief">half</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkSeparator" id="separator1">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="orientation">vertical</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="padding">4</property>
-            <property name="position">2</property>
-          </packing>
-        </child>
-        <child>
-          <object class="PopupButton" id="playlist_button">
-            <property name="use_action_appearance">False</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="receives_default">False</property>
-            <property name="has_tooltip">True</property>
-            <property name="halign">center</property>
-            <property name="valign">center</property>
-            <property name="margin_right">1</property>
-            <property name="use_action_appearance">False</property>
-            <property name="relief">half</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">3</property>
-          </packing>
-        </child>
-        <child>
-          <object class="PopupButton" id="genre_button">
-            <property name="use_action_appearance">False</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="receives_default">False</property>
-            <property name="has_tooltip">True</property>
-            <property name="tooltip_text" translatable="yes">All Genres</property>
-            <property name="halign">center</property>
-            <property name="valign">center</property>
-            <property name="margin_right">1</property>
-            <property name="use_action_appearance">False</property>
-            <property name="relief">half</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">4</property>
-          </packing>
-        </child>
-        <child>
-          <object class="PopupButton" id="decade_button">
-            <property name="use_action_appearance">False</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="receives_default">False</property>
-            <property name="has_tooltip">True</property>
-            <property name="tooltip_text" translatable="yes">All Decades</property>
-            <property name="halign">center</property>
-            <property name="valign">center</property>
-            <property name="margin_right">1</property>
-            <property name="use_action_appearance">False</property>
-            <property name="relief">half</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">5</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkAlignment" id="entry_search_alignment">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="xalign">1</property>
-            <property name="xscale">0.25</property>
-            <child>
-              <object class="RBSearchEntry" id="search_entry">
-                <property name="can_focus">False</property>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">6</property>
-          </packing>
-        </child>
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-        <property name="position">2</property>
-      </packing>
-    </child>
     <child>
       <object class="GtkPaned" id="paned">
         <property name="visible">True</property>
@@ -320,7 +116,7 @@
       <packing>
         <property name="expand">True</property>
         <property name="fill">True</property>
-        <property name="position">20</property>
+        <property name="position">1</property>
       </packing>
     </child>
     <child>
@@ -336,7 +132,7 @@
       <packing>
         <property name="expand">False</property>
         <property name="fill">False</property>
-        <property name="position">30</property>
+        <property name="position">2</property>
       </packing>
     </child>
     <child>
@@ -394,7 +190,7 @@
       <packing>
         <property name="expand">False</property>
         <property name="fill">True</property>
-        <property name="position">50</property>
+        <property name="position">3</property>
       </packing>
     </child>
   </object>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- interface-requires gtk+ 3.0 -->
+  <!-- interface-requires coverart_widgets 1.0 --> 
+  <object class="GtkMenu" id="filter_popup">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkRadioMenuItem" id="filter_all_menu_item">
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="receives_default">True</property>
+        <property name="tooltip_text" translatable="yes">Search using all fields</property>
+        <property name="label" translatable="yes">Search all fields</property>
+        <property name="use_underline">True</property>
+        <property name="active">True</property>
+        <signal name="toggled" handler="_on_filter_option_clicked" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkRadioMenuItem" id="filter_album_artist_menu_item">
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text" translatable="yes">Search using album artist names</property>
+        <property name="label" translatable="yes">Search album artists</property>
+        <property name="use_underline">True</property>
+        <property name="group">filter_all_menu_item</property>
+        <signal name="toggled" handler="_on_filter_option_clicked" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkRadioMenuItem" id="filter_artist_menu_item">
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text" translatable="yes">Search using track artist names</property>
+        <property name="label" translatable="yes">Search track artists</property>
+        <property name="use_underline">True</property>
+        <property name="group">filter_all_menu_item</property>
+        <signal name="toggled" handler="_on_filter_option_clicked" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkRadioMenuItem" id="filter_album_menu_item">
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text" translatable="yes">Search using album titles</property>
+        <property name="label" translatable="yes">Search albums</property>
+        <property name="use_underline">True</property>
+        <property name="group">filter_all_menu_item</property>
+        <signal name="toggled" handler="_on_filter_option_clicked" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkRadioMenuItem" id="filter_track_title_menu_item">
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text" translatable="yes">Search using track titles</property>
+        <property name="label" translatable="yes">Search tracks</property>
+        <property name="use_underline">True</property>
+        <property name="group">filter_all_menu_item</property>
+        <signal name="toggled" handler="_on_filter_option_clicked" swapped="no"/>
+      </object>
+    </child>
+  </object>
+</interface>
