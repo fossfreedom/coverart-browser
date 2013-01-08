@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-08 21:11+0000\n"
+"POT-Creation-Date: 2013-01-08 21:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -221,96 +221,63 @@ msgstr ""
 msgid "default"
 msgstr ""
 
-#: img/popups.xml.in.h:37
-msgid "lounge"
-msgstr ""
-
-#: img/popups.xml.in.h:38
-msgid "ska"
-msgstr ""
-
-#: img/popups.xml.in.h:39
-msgid "gothic"
-msgstr ""
-
-#: img/popups.xml.in.h:40
-msgid "trip hop"
-msgstr ""
-
-#: img/popups.xml.in.h:41
-msgid "christmas"
-msgstr ""
-
-#: img/popups.xml.in.h:42
-msgid "swing"
-msgstr ""
-
-#: img/popups.xml.in.h:43
-msgid "kids"
-msgstr ""
-
-#. This is the music genre r&b i.e. rhythm and blues
-#: img/popups.xml.in.h:45
-msgid "r&amp;b"
-msgstr ""
-
 #. 'Older' as in 'older than the year 1930'
-#: img/popups.xml.in.h:47
+#: img/popups.xml.in.h:38
 msgid "Older"
 msgstr ""
 
-#: img/popups.xml.in.h:48 ui/coverart_browser.ui.h:12
+#: img/popups.xml.in.h:39 ui/coverart_browser.ui.h:12
 #: ui/coverart_sidebar.ui.h:4 coverart_widgets.py:516
 msgid "All Decades"
 msgstr ""
 
 #. '00s' as in the decade 2000
-#: img/popups.xml.in.h:50
+#: img/popups.xml.in.h:41
 msgid "00s"
 msgstr ""
 
 #. '00s' as in the decade 2010
-#: img/popups.xml.in.h:52
+#: img/popups.xml.in.h:43
 msgid "10s"
 msgstr ""
 
 #. '20s' as in the decade 2020
-#: img/popups.xml.in.h:54
+#: img/popups.xml.in.h:45
 msgid "20s"
 msgstr ""
 
 #. '30s' as in the decade 1930
-#: img/popups.xml.in.h:56
+#: img/popups.xml.in.h:47
 msgid "30s"
 msgstr ""
 
 #. '40s' as in the decade 1940
-#: img/popups.xml.in.h:58
+#: img/popups.xml.in.h:49
 msgid "40s"
 msgstr ""
 
 #. '50s' as in the decade 1950
-#: img/popups.xml.in.h:60
+#: img/popups.xml.in.h:51
 msgid "50s"
 msgstr ""
 
 #. '60s' as in the decade 1960
-#: img/popups.xml.in.h:62
+#: img/popups.xml.in.h:53
 msgid "60s"
 msgstr ""
 
 #. '70s' as in the decade 1970
-#: img/popups.xml.in.h:64
+#: img/popups.xml.in.h:55
 msgid "70s"
 msgstr ""
 
 #. '80s' as in the decade 1980
-#: img/popups.xml.in.h:66
+#: img/popups.xml.in.h:57
 msgid "80s"
 msgstr ""
 
 #. '90s' as in the decade 1990
-#: img/popups.xml.in.h:68
+#: img/popups.xml.in.h:59
 msgid "90s"
 msgstr ""
 
