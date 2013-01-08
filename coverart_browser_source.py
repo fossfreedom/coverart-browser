@@ -1224,26 +1224,6 @@ class ToolbarManager(GObject.Object):
         setting.bind(gs.PluginKey.TOOLBAR_POS, self, 'toolbar_pos',
             Gio.SettingsBindFlags.GET)
 
-    def _create_popup(self, plugin, cl):
-        builder = Gtk.Builder()
-        builder.set_translation_domain(cl.Locale.LOCALE_DOMAIN)
-        builder.add_from_file(rb.find_plugin_file(plugin,
-            self.FLTER_POPUP))
-        builder.connect_signals(self)
-
-        self._filter_popup = builder.get_object('filter_popup')
-
-        # create a dictionary to know which filter correspond to each radio
-        self._filters = {}
-        self._filters[builder.get_object('filter_all_menu_item')] = 'all'
-        self._filters[builder.get_object('filter_album_artist_menu_item')] =\
-            'album_artist'
-        self._filters[builder.get_object('filter_artist_menu_item')] = 'artist'
-        self._filters[builder.get_object('filter_album_menu_item')] =\
-            'album_name'
-        self._filters[builder.get_object('filter_track_title_menu_item')] =\
-            'track'
-
     def _create_controllers(self, plugin, album_model):
         controllers = {}
         controllers['sort_by'] = SortPopupController(plugin, album_model)
