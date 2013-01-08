@@ -42,11 +42,42 @@
         <alt genre="easy listening">lounge</alt>
         <alt genre="alternative">ska</alt>
         <alt genre="alternative">gothic</alt>
+        <alt genre="alternative">alt. rock</alt>
         <alt genre="dance">trip hop</alt>
+        <alt genre="dance">house</alt>
         <alt genre="holiday">christmas</alt>
         <alt genre="oldies">swing</alt>
         <alt genre="children">kids</alt>
         <alt genre="blues">r&amp;b</alt>
+        <alt genre="electronic">industrial</alt>
+        <alt genre="folk">acoustic</alt>
+        <alt genre="electronic">ambient</alt>
+        <alt genre="gospel">christian</alt>
+        
+        <!--French translation-->
+        <alt genre="gospel">catholique</alt>
+        <alt genre="gospel">catho</alt>
+        <alt genre="gospel">musique religieuse</alt>
+        <alt genre="electronic">électronique</alt>
+        <alt genre="pop">french pop</alt>
+        <alt genre="pop">pop française</alt>
+        <alt genre="classical">classique</alt>
+        <alt genre="world">musique du monde</alt>
+        <alt genre="electronic">industriel</alt>
+        <alt genre="spoken">livres et histoires</alt>
+        <alt genre="children">enfants</alt>
+        <alt genre="opera">opéra</alt>
+        <alt genre="soundtrack">bande originale</alt>
+        <alt genre="electronic">techno</alt>
+        <alt genre="spoken">acapella</alt>
+        <alt genre="folk">acoustique</alt>
+        <alt genre="electronic">ambiance</alt>
+        <alt genre="oldies">cabaret</alt>
+        <alt genre="gospel">chrétien</alt>
+        <alt genre="classical">classique</alt>
+        <alt genre="musical">comdédie musicale</alt>
+        <alt genre="holiday">noël</alt>
+        <alt genre="alternative">alternatif</alt>
         
     </genre>
     <sort>
