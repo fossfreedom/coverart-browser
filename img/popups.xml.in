@@ -38,17 +38,32 @@
         <_genre name="hip-hop" spritesheet="genre">hip-hop</_genre>
         <_genre name="children" spritesheet="genre">children</_genre>
         <_genre name="default" image="genre.png">default</_genre>
-        
-        <_alt genre="easy listening">lounge</_alt>
-        <_alt genre="alternative">ska</_alt>
-        <_alt genre="alternative">gothic</_alt>
-        <_alt genre="dance">trip hop</_alt>
-        <_alt genre="holiday">christmas</_alt>
-        <_alt genre="oldies">swing</_alt>
-        <_alt genre="children">kids</_alt>
-        <!-- This is the music genre r&b i.e. rhythm and blues --> 
-        <_alt genre="blues">r&amp;b</_alt>
-        
+
+        <alt xml:lang="en">
+            <!-- english -- no need to translate -->
+            <alt genre="easy listening">lounge</alt>
+            <alt genre="alternative">ska</alt>
+            <alt genre="alternative">gothic</alt>
+            <alt genre="dance">trip hop</alt>
+            <alt genre="holiday">christmas</alt>
+            <alt genre="oldies">swing</alt>
+            <alt genre="children">kids</alt>
+            <alt genre="blues">r&amp;b</alt>
+            <alt genre="electronic">industrial</alt>
+            <alt genre="folk">acoustic</alt>
+            <alt genre="electronic">ambient</alt>
+            <alt genre="gospel">christian</alt>
+            <alt genre="electronic">techno</alt>
+            <alt genre="spoken">acapella</alt>
+            <alt genre="electronic">ambiance</alt>
+        </alt>
+        <alt xml:lang="fr">
+            <!-- french -- no need to translate -->
+            <alt genre="gospel">catholique</alt>
+            <alt genre="gospel">catho</alt>
+            <alt genre="gospel">chrétien</alt>
+            <alt genre="pop">french pop</alt>
+        </alt>
     </genre>
     <sort>
         <sort name="name" spritesheet="sort"/>
