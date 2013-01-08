@@ -9,3 +9,4 @@ done
 echo "update plugin file"
 
 intltool-merge -d . ../coverart_browser.plugin.in ../coverart_browser.plugin
+intltool-merge -x -d . ../img/popups.xml.in ../img/popups.xml

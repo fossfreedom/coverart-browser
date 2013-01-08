@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-07 23:59+0000\n"
+"POT-Creation-Date: 2013-01-08 20:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -264,48 +264,53 @@ msgstr ""
 msgid "All Decades"
 msgstr ""
 
-#. '00s' as in the decade 2010
+#. '00s' as in the decade 2000
 #: img/popups.xml.in.h:50
+msgid "00s"
+msgstr ""
+
+#. '00s' as in the decade 2010
+#: img/popups.xml.in.h:52
 msgid "10s"
 msgstr ""
 
 #. '20s' as in the decade 2020
-#: img/popups.xml.in.h:52
+#: img/popups.xml.in.h:54
 msgid "20s"
 msgstr ""
 
 #. '30s' as in the decade 1930
-#: img/popups.xml.in.h:54
+#: img/popups.xml.in.h:56
 msgid "30s"
 msgstr ""
 
 #. '40s' as in the decade 1940
-#: img/popups.xml.in.h:56
+#: img/popups.xml.in.h:58
 msgid "40s"
 msgstr ""
 
 #. '50s' as in the decade 1950
-#: img/popups.xml.in.h:58
+#: img/popups.xml.in.h:60
 msgid "50s"
 msgstr ""
 
 #. '60s' as in the decade 1960
-#: img/popups.xml.in.h:60
+#: img/popups.xml.in.h:62
 msgid "60s"
 msgstr ""
 
 #. '70s' as in the decade 1970
-#: img/popups.xml.in.h:62
+#: img/popups.xml.in.h:64
 msgid "70s"
 msgstr ""
 
 #. '80s' as in the decade 1980
-#: img/popups.xml.in.h:64
+#: img/popups.xml.in.h:66
 msgid "80s"
 msgstr ""
 
 #. '90s' as in the decade 1990
-#: img/popups.xml.in.h:66
+#: img/popups.xml.in.h:68
 msgid "90s"
 msgstr ""
 
