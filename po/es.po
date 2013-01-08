@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
-"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-01-06 11:08+GMT\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-01-07 23:59+0000\n"
 "PO-Revision-Date: 2012-09-18 20:57+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,232 +17,300 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: coverart_album.py:1531 coverart_browser_source.py:1084
-msgid "%s by %s"
-msgstr "%s por %s"
+#: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:185
+msgid "Search Options"
+msgstr "Opciones de búsqueda"
 
-#: coverart_album_search.py:269 coverart_album_search.py:270
-msgid "Unknown"
-msgstr "Desconocido"
+#: tmpl/albumartsearch-tmpl.html:185
+msgid "Tip: doubleclick or drag a cover to use it as the album cover"
+msgstr ""
+"Consejo: puedes hacer doble-click o arrastrar una portada para usarla como "
+"portada para el álbum"
 
-#: coverart_browser.py:71
-msgid "CoverArt Browser"
-msgstr "Navegador de Portadas"
+#: tmpl/albumartsearch-tmpl.html:187
+msgid "Search Mode"
+msgstr "Modo de búsqueda"
 
-#: coverart_browser.py:72
-msgid "Browse and play your albums through their covers"
-msgstr "Navega y reproduce tu librería de álbums a través de sus portadas"
+#: tmpl/albumartsearch-tmpl.html:189
+msgid "Artist"
+msgstr "Artista"
 
-#: coverart_browser.py:101 ui/coverart_sidebar.ui.h:2
-msgid "CoverArt"
-msgstr "CoverArt"
+#: tmpl/albumartsearch-tmpl.html:190
+msgid "Album"
+msgstr "Álbum"
 
-#: coverart_browser_source.py:105 tmpl/albumartsearch-tmpl.html:209
+#: tmpl/albumartsearch-tmpl.html:191
+msgid "Artist and album"
+msgstr "Artista y álbum"
+
+#: tmpl/albumartsearch-tmpl.html:194
+msgid "Search text"
+msgstr "Buscar texto"
+
+#: tmpl/albumartsearch-tmpl.html:197
+msgid "Search"
+msgstr "Buscar"
+
+#: tmpl/albumartsearch-tmpl.html:199
+msgid "Image Size"
+msgstr "Tamaño de imagen"
+
+#: tmpl/albumartsearch-tmpl.html:201
+msgid "Small"
+msgstr "Pequeña"
+
+#: tmpl/albumartsearch-tmpl.html:202
+msgid "Medium"
+msgstr "Mediana"
+
+#: tmpl/albumartsearch-tmpl.html:203
+msgid "Large"
+msgstr "Grande"
+
+#: tmpl/albumartsearch-tmpl.html:204
+msgid "Extra Large"
+msgstr "Muy Grande"
+
+#: tmpl/albumartsearch-tmpl.html:209 coverart_browser_source.py:105
 msgid "Loading..."
 msgstr "Cargando..."
 
-#: coverart_browser_source.py:293
-msgid "Search album"
-msgstr "Buscar álbum"
+#: tmpl/albumartsearch-tmpl.html:211
+msgid "Show more results"
+msgstr "Mostrar mas resultados"
 
-#: coverart_browser_source.py:353
-msgid "Tracks"
-msgstr "Canciones"
-
-#: coverart_browser_source.py:372
-msgid "Covers"
-msgstr "Portadas"
-
-#: coverart_browser_source.py:998
-msgid "Requesting cover for %s - %s..."
-msgstr "Buscando portada para %s - %s..."
-
-#: coverart_browser_source.py:1087
-msgid "%d selected albums "
-msgstr "%d álbums seleccionados"
-
-#: coverart_browser_source.py:1091
-msgid " with 1 track"
-msgstr " tiene una canción"
-
-#: coverart_browser_source.py:1093
-msgid " with %d tracks"
-msgstr " tiene %d canciones"
-
-#: coverart_browser_source.py:1096
-msgid " and a duration of 1 minute"
-msgstr " y una duración de 1 minuto"
-
-#: coverart_browser_source.py:1098
-msgid " and a duration of %d minutes"
-msgstr " y una duración de %d minutos"
-
-#: coverart_widgets.py:317 coverart_widgets.py:350 ui/coverart_browser.ui.h:11
-#: ui/coverart_sidebar.ui.h:3
-msgid "All Genres"
-msgstr "Todos los géneros"
-
-#: coverart_widgets.py:390
-msgid "Sort by album name"
-msgstr "Ordenar por nombre del álbum"
-
-#: coverart_widgets.py:391
-msgid "Sort by album artist"
-msgstr "Buscar por artista del álbum"
-
-#: coverart_widgets.py:392
-msgid "Sort by year"
-msgstr "Ordenar por año"
-
-#: coverart_widgets.py:393
-msgid "Sort by rating"
-msgstr "Buscar por puntuación"
-
-#: coverart_widgets.py:456
-msgid "All"
+#: img/popups.xml.in.h:1
+msgid "rock"
 msgstr ""
 
-#: coverart_widgets.py:456
-msgid "Old"
+#: img/popups.xml.in.h:2
+msgid "country"
 msgstr ""
 
-#: coverart_widgets.py:516 ui/coverart_browser.ui.h:12
-#: ui/coverart_sidebar.ui.h:4
+#: img/popups.xml.in.h:3
+msgid "pop"
+msgstr ""
+
+#: img/popups.xml.in.h:4
+msgid "classical"
+msgstr ""
+
+#: img/popups.xml.in.h:5
+msgid "world"
+msgstr ""
+
+#: img/popups.xml.in.h:6
+msgid "bluegrass"
+msgstr ""
+
+#: img/popups.xml.in.h:7
+msgid "oldies"
+msgstr ""
+
+#: img/popups.xml.in.h:8
+msgid "holiday"
+msgstr ""
+
+#: img/popups.xml.in.h:9
+msgid "comedy"
+msgstr ""
+
+#: img/popups.xml.in.h:10
+msgid "spoken"
+msgstr ""
+
+#: img/popups.xml.in.h:11
+msgid "jazz"
+msgstr ""
+
+#: img/popups.xml.in.h:12
+msgid "blues"
+msgstr ""
+
+#: img/popups.xml.in.h:13
+msgid "metal"
+msgstr ""
+
+#: img/popups.xml.in.h:14
+msgid "karaoke"
+msgstr ""
+
+#: img/popups.xml.in.h:15
+msgid "rap"
+msgstr ""
+
+#: img/popups.xml.in.h:16
+msgid "ragtime"
+msgstr ""
+
+#: img/popups.xml.in.h:17
+msgid "musical"
+msgstr ""
+
+#: img/popups.xml.in.h:18
+msgid "dance"
+msgstr ""
+
+#: img/popups.xml.in.h:19
+msgid "reggae"
+msgstr ""
+
+#: img/popups.xml.in.h:20
+msgid "electronic"
+msgstr ""
+
+#: img/popups.xml.in.h:21
+msgid "soundtrack"
+msgstr ""
+
+#: img/popups.xml.in.h:22
+#, fuzzy
+msgid "latin"
+msgstr "Puntuación"
+
+#: img/popups.xml.in.h:23
+msgid "alternative"
+msgstr ""
+
+#: img/popups.xml.in.h:24
+msgid "disco"
+msgstr ""
+
+#: img/popups.xml.in.h:25
+msgid "folk"
+msgstr ""
+
+#: img/popups.xml.in.h:26
+msgid "gospel"
+msgstr ""
+
+#: img/popups.xml.in.h:27
+msgid "experimental"
+msgstr ""
+
+#: img/popups.xml.in.h:28
+msgid "new age"
+msgstr ""
+
+#: img/popups.xml.in.h:29
+msgid "opera"
+msgstr ""
+
+#: img/popups.xml.in.h:30
+msgid "anime"
+msgstr ""
+
+#: img/popups.xml.in.h:31
+msgid "soul"
+msgstr ""
+
+#: img/popups.xml.in.h:32
+msgid "workout"
+msgstr ""
+
+#: img/popups.xml.in.h:33
+msgid "easy listening"
+msgstr ""
+
+#: img/popups.xml.in.h:34
+msgid "hip-hop"
+msgstr ""
+
+#: img/popups.xml.in.h:35
+msgid "children"
+msgstr ""
+
+#: img/popups.xml.in.h:36
+msgid "default"
+msgstr ""
+
+#: img/popups.xml.in.h:37
+msgid "lounge"
+msgstr ""
+
+#: img/popups.xml.in.h:38
+msgid "ska"
+msgstr ""
+
+#: img/popups.xml.in.h:39
+msgid "gothic"
+msgstr ""
+
+#: img/popups.xml.in.h:40
+msgid "trip hop"
+msgstr ""
+
+#: img/popups.xml.in.h:41
+msgid "christmas"
+msgstr ""
+
+#: img/popups.xml.in.h:42
+msgid "swing"
+msgstr ""
+
+#: img/popups.xml.in.h:43
+msgid "kids"
+msgstr ""
+
+#. This is the music genre r&b i.e. rhythm and blues
+#: img/popups.xml.in.h:45
+msgid "r&amp;b"
+msgstr ""
+
+#. 'Older' as in 'older than the year 1930'
+#: img/popups.xml.in.h:47
+msgid "Older"
+msgstr ""
+
+#: img/popups.xml.in.h:48 ui/coverart_browser.ui.h:12
+#: ui/coverart_sidebar.ui.h:4 coverart_widgets.py:516
 msgid "All Decades"
 msgstr "Todas las décadas"
 
-#: coverart_widgets.py:636
-msgid "Sort in descending order"
-msgstr "Ordenar en orden descendente"
-
-#: coverart_widgets.py:638
-msgid "Sort in ascending order"
-msgstr "Ordenar en orden ascendente"
-
-#: ui/coverart_browser.ui.h:1
-msgid "Search using all fields"
-msgstr "Busca utilizando todos los campos"
-
-#: ui/coverart_browser.ui.h:2 ui/coverart_sidebar.ui.h:1
-msgid "Search all fields"
-msgstr "Buscar por todos los campos"
-
-#: ui/coverart_browser.ui.h:3
-msgid "Search using album artist names"
-msgstr "Busca por el nombre de artista del álbum"
-
-#: ui/coverart_browser.ui.h:4
-msgid "Search album artists"
-msgstr "Buscar por artista del álbum"
-
-#: ui/coverart_browser.ui.h:5
-msgid "Search using track artist names"
-msgstr "Buscar por el nombre de artista de cada canción"
-
-#: ui/coverart_browser.ui.h:6
-msgid "Search track artists"
-msgstr "Buscar por artista de canción"
-
-#: ui/coverart_browser.ui.h:7
-msgid "Search using album titles"
-msgstr "Busca utilizando el título de los álbums"
-
-#: ui/coverart_browser.ui.h:8
-msgid "Search albums"
-msgstr "Buscar álbums"
-
-#: ui/coverart_browser.ui.h:9
-msgid "Search using track titles"
-msgstr "Busca por los nombres de cada canción en el álbum"
-
-#: ui/coverart_browser.ui.h:10
-msgid "Search tracks"
-msgstr "Buscar por canción"
-
-#: ui/coverart_browser.ui.h:13
-msgid "Tracks & Covers"
-msgstr "Canciones & Portadas"
-
-#: ui/coverart_browser.ui.h:14
-msgid "Stop coverart fetch."
-msgstr "Detener la búsqueda de portadas."
-
-#: ui/coverart_browser.ui.h:15
-msgid "Play this album"
-msgstr "Reproduce este álbum"
-
-#: ui/coverart_browser.ui.h:16
-msgid "Play Album"
-msgstr "Reproducir Álbum"
-
-#: ui/coverart_browser.ui.h:17
-msgid "Add this album to your playing queue"
-msgstr "Agrega este álbum a tu cola de reproducción"
-
-#: ui/coverart_browser.ui.h:18
-msgid "Queue Album"
-msgstr "Encolar Álbum"
-
-#: ui/coverart_browser.ui.h:19 ui/coverart_entryview.ui.h:5
-msgid "Add this album to a playlist"
-msgstr "Agrega este álbum a una lista de reproducción"
-
-#: ui/coverart_browser.ui.h:20 ui/coverart_entryview.ui.h:6
-msgid "Add to Playlist"
-msgstr "Agregar a lista de reproducción"
-
-#: ui/coverart_browser.ui.h:21 ui/coverart_entryview.ui.h:7
-msgid "Add this album to a new playlist"
-msgstr "Agrega este álbum a una nueva lista de reproducción"
-
-#: ui/coverart_browser.ui.h:22 ui/coverart_entryview.ui.h:8
-msgid "New Playlist"
-msgstr "Nueva lista de reproducción"
-
-#: ui/coverart_browser.ui.h:23
-msgid "Play favourites tracks from this album"
-msgstr "Reproduce las canciones favoritas de este álbum"
-
-#: ui/coverart_browser.ui.h:24
-msgid "Play Favourites"
-msgstr "Reproducir favoritos"
-
-#: ui/coverart_browser.ui.h:25
-msgid "Add favourite tracks from this album to your playing queue"
-msgstr "Agrega las canciones favoritas de este álbum a tu cola de reproducción"
-
-#: ui/coverart_browser.ui.h:26
-msgid "Queue Favourites"
-msgstr "Encolar favoritos"
-
-#: ui/coverart_browser.ui.h:27
-msgid "Add favourite tracks from this album to a playlist"
+#. '00s' as in the decade 2010
+#: img/popups.xml.in.h:50
+msgid "10s"
 msgstr ""
-"Agrega las canciones favoritas de este álbum a una lista de reproducción"
 
-#: ui/coverart_browser.ui.h:28
-msgid "Add favourites to Playlist"
-msgstr "Agregar favoritos a una lista de reproducción"
+#. '20s' as in the decade 2020
+#: img/popups.xml.in.h:52
+msgid "20s"
+msgstr ""
 
-#: ui/coverart_browser.ui.h:29
-msgid "Search for this album cover"
-msgstr "Busca portada para este álbum"
+#. '30s' as in the decade 1930
+#: img/popups.xml.in.h:54
+msgid "30s"
+msgstr ""
 
-#: ui/coverart_browser.ui.h:30
-msgid "Search for covers"
-msgstr "Buscar portadas"
+#. '40s' as in the decade 1940
+#: img/popups.xml.in.h:56
+msgid "40s"
+msgstr ""
 
-#: ui/coverart_browser.ui.h:31
-msgid "Show album properties"
-msgstr "Mostrar propiedades del álbum"
+#. '50s' as in the decade 1950
+#: img/popups.xml.in.h:58
+msgid "50s"
+msgstr ""
 
-#: ui/coverart_browser.ui.h:32
-msgid "Search for covers where an album does not currently have one"
-msgstr "Busca portadas para aquellos álbums que no tienen una"
+#. '60s' as in the decade 1960
+#: img/popups.xml.in.h:60
+msgid "60s"
+msgstr ""
 
-#: ui/coverart_browser.ui.h:33
-msgid "Download all the covers"
-msgstr "Descarga todas las portadas"
+#. '70s' as in the decade 1970
+#: img/popups.xml.in.h:62
+msgid "70s"
+msgstr ""
+
+#. '80s' as in the decade 1980
+#: img/popups.xml.in.h:64
+msgid "80s"
+msgstr ""
+
+#. '90s' as in the decade 1990
+#: img/popups.xml.in.h:66
+msgid "90s"
+msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:1
 msgid "Above"
@@ -440,6 +508,136 @@ msgstr "Busca portadas embebidas dentro de las canciones del álbum"
 msgid "Providers"
 msgstr "Proveedores"
 
+#: ui/coverart_browser.ui.h:1
+msgid "Search using all fields"
+msgstr "Busca utilizando todos los campos"
+
+#: ui/coverart_browser.ui.h:2 ui/coverart_sidebar.ui.h:1
+msgid "Search all fields"
+msgstr "Buscar por todos los campos"
+
+#: ui/coverart_browser.ui.h:3
+msgid "Search using album artist names"
+msgstr "Busca por el nombre de artista del álbum"
+
+#: ui/coverart_browser.ui.h:4
+msgid "Search album artists"
+msgstr "Buscar por artista del álbum"
+
+#: ui/coverart_browser.ui.h:5
+msgid "Search using track artist names"
+msgstr "Buscar por el nombre de artista de cada canción"
+
+#: ui/coverart_browser.ui.h:6
+msgid "Search track artists"
+msgstr "Buscar por artista de canción"
+
+#: ui/coverart_browser.ui.h:7
+msgid "Search using album titles"
+msgstr "Busca utilizando el título de los álbums"
+
+#: ui/coverart_browser.ui.h:8
+msgid "Search albums"
+msgstr "Buscar álbums"
+
+#: ui/coverart_browser.ui.h:9
+msgid "Search using track titles"
+msgstr "Busca por los nombres de cada canción en el álbum"
+
+#: ui/coverart_browser.ui.h:10
+msgid "Search tracks"
+msgstr "Buscar por canción"
+
+#: ui/coverart_browser.ui.h:11 ui/coverart_sidebar.ui.h:3
+#: coverart_widgets.py:317 coverart_widgets.py:350
+msgid "All Genres"
+msgstr "Todos los géneros"
+
+#: ui/coverart_browser.ui.h:13
+msgid "Tracks & Covers"
+msgstr "Canciones & Portadas"
+
+#: ui/coverart_browser.ui.h:14
+msgid "Stop coverart fetch."
+msgstr "Detener la búsqueda de portadas."
+
+#: ui/coverart_browser.ui.h:15
+msgid "Play this album"
+msgstr "Reproduce este álbum"
+
+#: ui/coverart_browser.ui.h:16
+msgid "Play Album"
+msgstr "Reproducir Álbum"
+
+#: ui/coverart_browser.ui.h:17
+msgid "Add this album to your playing queue"
+msgstr "Agrega este álbum a tu cola de reproducción"
+
+#: ui/coverart_browser.ui.h:18
+msgid "Queue Album"
+msgstr "Encolar Álbum"
+
+#: ui/coverart_browser.ui.h:19 ui/coverart_entryview.ui.h:5
+msgid "Add this album to a playlist"
+msgstr "Agrega este álbum a una lista de reproducción"
+
+#: ui/coverart_browser.ui.h:20 ui/coverart_entryview.ui.h:6
+msgid "Add to Playlist"
+msgstr "Agregar a lista de reproducción"
+
+#: ui/coverart_browser.ui.h:21 ui/coverart_entryview.ui.h:7
+msgid "Add this album to a new playlist"
+msgstr "Agrega este álbum a una nueva lista de reproducción"
+
+#: ui/coverart_browser.ui.h:22 ui/coverart_entryview.ui.h:8
+msgid "New Playlist"
+msgstr "Nueva lista de reproducción"
+
+#: ui/coverart_browser.ui.h:23
+msgid "Play favourites tracks from this album"
+msgstr "Reproduce las canciones favoritas de este álbum"
+
+#: ui/coverart_browser.ui.h:24
+msgid "Play Favourites"
+msgstr "Reproducir favoritos"
+
+#: ui/coverart_browser.ui.h:25
+msgid "Add favourite tracks from this album to your playing queue"
+msgstr "Agrega las canciones favoritas de este álbum a tu cola de reproducción"
+
+#: ui/coverart_browser.ui.h:26
+msgid "Queue Favourites"
+msgstr "Encolar favoritos"
+
+#: ui/coverart_browser.ui.h:27
+msgid "Add favourite tracks from this album to a playlist"
+msgstr ""
+"Agrega las canciones favoritas de este álbum a una lista de reproducción"
+
+#: ui/coverart_browser.ui.h:28
+msgid "Add favourites to Playlist"
+msgstr "Agregar favoritos a una lista de reproducción"
+
+#: ui/coverart_browser.ui.h:29
+msgid "Search for this album cover"
+msgstr "Busca portada para este álbum"
+
+#: ui/coverart_browser.ui.h:30
+msgid "Search for covers"
+msgstr "Buscar portadas"
+
+#: ui/coverart_browser.ui.h:31
+msgid "Show album properties"
+msgstr "Mostrar propiedades del álbum"
+
+#: ui/coverart_browser.ui.h:32
+msgid "Search for covers where an album does not currently have one"
+msgstr "Busca portadas para aquellos álbums que no tienen una"
+
+#: ui/coverart_browser.ui.h:33
+msgid "Download all the covers"
+msgstr "Descarga todas las portadas"
+
 #: ui/coverart_entryview.ui.h:1
 msgid "Play this track"
 msgstr "Reproduce esta canción"
@@ -460,63 +658,99 @@ msgstr "Encolar canción"
 msgid "Show track properties"
 msgstr "Mostrar propiedades de la canción"
 
-#: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:185
-msgid "Search Options"
-msgstr "Opciones de búsqueda"
+#: ui/coverart_sidebar.ui.h:2 coverart_browser.py:101
+msgid "CoverArt"
+msgstr "CoverArt"
 
-#: tmpl/albumartsearch-tmpl.html:185
-msgid "Tip: doubleclick or drag a cover to use it as the album cover"
+#: coverart_album.py:1545 coverart_browser_source.py:1084
+#, python-format
+msgid "%s by %s"
+msgstr "%s por %s"
+
+#: coverart_album_search.py:269 coverart_album_search.py:270
+msgid "Unknown"
+msgstr "Desconocido"
+
+#. define .plugin text strings used for translation
+#: coverart_browser.py:71
+msgid "CoverArt Browser"
+msgstr "Navegador de Portadas"
+
+#: coverart_browser.py:72
+msgid "Browse and play your albums through their covers"
+msgstr "Navega y reproduce tu librería de álbums a través de sus portadas"
+
+#: coverart_browser_source.py:293
+msgid "Search album"
+msgstr "Buscar álbum"
+
+#: coverart_browser_source.py:353
+msgid "Tracks"
+msgstr "Canciones"
+
+#: coverart_browser_source.py:372
+msgid "Covers"
+msgstr "Portadas"
+
+#: coverart_browser_source.py:998
+#, python-format
+msgid "Requesting cover for %s - %s..."
+msgstr "Buscando portada para %s - %s..."
+
+#: coverart_browser_source.py:1087
+#, python-format
+msgid "%d selected albums "
+msgstr "%d álbums seleccionados"
+
+#: coverart_browser_source.py:1091
+msgid " with 1 track"
+msgstr " tiene una canción"
+
+#: coverart_browser_source.py:1093
+#, python-format
+msgid " with %d tracks"
+msgstr " tiene %d canciones"
+
+#: coverart_browser_source.py:1096
+msgid " and a duration of 1 minute"
+msgstr " y una duración de 1 minuto"
+
+#: coverart_browser_source.py:1098
+#, python-format
+msgid " and a duration of %d minutes"
+msgstr " y una duración de %d minutos"
+
+#: coverart_widgets.py:390
+msgid "Sort by album name"
+msgstr "Ordenar por nombre del álbum"
+
+#: coverart_widgets.py:391
+msgid "Sort by album artist"
+msgstr "Buscar por artista del álbum"
+
+#: coverart_widgets.py:392
+msgid "Sort by year"
+msgstr "Ordenar por año"
+
+#: coverart_widgets.py:393
+msgid "Sort by rating"
+msgstr "Buscar por puntuación"
+
+#: coverart_widgets.py:456
+msgid "All"
 msgstr ""
-"Consejo: puedes hacer doble-click o arrastrar una portada para usarla como "
-"portada para el álbum"
 
-#: tmpl/albumartsearch-tmpl.html:187
-msgid "Search Mode"
-msgstr "Modo de búsqueda"
+#: coverart_widgets.py:456
+msgid "Old"
+msgstr ""
 
-#: tmpl/albumartsearch-tmpl.html:189
-msgid "Artist"
-msgstr "Artista"
+#: coverart_widgets.py:636
+msgid "Sort in descending order"
+msgstr "Ordenar en orden descendente"
 
-#: tmpl/albumartsearch-tmpl.html:190
-msgid "Album"
-msgstr "Álbum"
-
-#: tmpl/albumartsearch-tmpl.html:191
-msgid "Artist and album"
-msgstr "Artista y álbum"
-
-#: tmpl/albumartsearch-tmpl.html:194
-msgid "Search text"
-msgstr "Buscar texto"
-
-#: tmpl/albumartsearch-tmpl.html:197
-msgid "Search"
-msgstr "Buscar"
-
-#: tmpl/albumartsearch-tmpl.html:199
-msgid "Image Size"
-msgstr "Tamaño de imagen"
-
-#: tmpl/albumartsearch-tmpl.html:201
-msgid "Small"
-msgstr "Pequeña"
-
-#: tmpl/albumartsearch-tmpl.html:202
-msgid "Medium"
-msgstr "Mediana"
-
-#: tmpl/albumartsearch-tmpl.html:203
-msgid "Large"
-msgstr "Grande"
-
-#: tmpl/albumartsearch-tmpl.html:204
-msgid "Extra Large"
-msgstr "Muy Grande"
-
-#: tmpl/albumartsearch-tmpl.html:211
-msgid "Show more results"
-msgstr "Mostrar mas resultados"
+#: coverart_widgets.py:638
+msgid "Sort in ascending order"
+msgstr "Ordenar en orden ascendente"
 
 #~ msgid "Various Artists"
 #~ msgstr "Varios Artistas"
@@ -529,9 +763,6 @@ msgstr "Mostrar mas resultados"
 
 #~ msgid "Year"
 #~ msgstr "Año"
-
-#~ msgid "Rating"
-#~ msgstr "Puntuación"
 
 #~ msgid "Action on Rhythmbox start:"
 #~ msgstr "Acción al iniciar Rhythmbox"

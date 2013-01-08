@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+
+<root>
+    <genre>
+        <genre _name="rock" spritesheet="genre"/>
+        <genre _name="country" spritesheet="genre"/>
+        <genre _name="pop" spritesheet="genre"/>
+        <genre _name="classical" spritesheet="genre"/>
+        <genre _name="world" spritesheet="genre"/>
+        <genre _name="bluegrass" spritesheet="genre"/>
+        <genre _name="oldies" spritesheet="genre"/>
+        <genre _name="holiday" spritesheet="genre"/>
+        <genre _name="comedy" spritesheet="genre"/>
+        <genre _name="spoken" spritesheet="genre"/>
+        <genre _name="jazz" spritesheet="genre"/>
+        <genre _name="blues" spritesheet="genre"/>
+        <genre _name="metal" spritesheet="genre"/>
+        <genre _name="karaoke" spritesheet="genre"/>
+        <genre _name="rap" spritesheet="genre"/>
+        <genre _name="ragtime" spritesheet="genre"/>
+        <genre _name="musical" spritesheet="genre"/>
+        <genre _name="dance" spritesheet="genre"/>
+        <genre _name="reggae" spritesheet="genre"/>
+        <genre _name="electronic" spritesheet="genre"/>
+        <genre _name="soundtrack" spritesheet="genre"/>
+        <genre _name="latin" spritesheet="genre"/>
+        <genre _name="alternative" spritesheet="genre"/>
+        <genre _name="disco" spritesheet="genre"/>
+        <genre _name="folk" spritesheet="genre"/>
+        <genre _name="gospel" spritesheet="genre"/>
+        <genre _name="experimental" spritesheet="genre"/>
+        <genre _name="new age" spritesheet="genre"/>
+        <genre _name="opera" spritesheet="genre"/>
+        <genre _name="anime" spritesheet="genre"/>
+        <genre _name="soul" spritesheet="genre"/>
+        <genre _name="workout" spritesheet="genre"/>
+        <genre _name="easy listening" spritesheet="genre"/>
+        <genre _name="hip-hop" spritesheet="genre"/>
+        <genre _name="children" spritesheet="genre"/>
+        <genre _name="default" image="genre.png"/>
+        
+        <_alt genre="easy listening">lounge</_alt>
+        <_alt genre="alternative">ska</_alt>
+        <_alt genre="alternative">gothic</_alt>
+        <_alt genre="dance">trip hop</_alt>
+        <_alt genre="holiday">christmas</_alt>
+        <_alt genre="oldies">swing</_alt>
+        <_alt genre="children">kids</_alt>
+        <!-- This is the music genre r&b i.e. rhythm and blues --> 
+        <_alt genre="blues">r&amp;b</_alt>
+        
+    </genre>
+    <sort>
+        <sort name="name" spritesheet="sort"/>
+        <sort name="artist" spritesheet="sort"/>
+        <sort name="year" spritesheet="sort"/>
+        <sort name="rating" spritesheet="sort"/>
+    </sort>
+    <playlist>
+        <playlist name="music" spritesheet="playlist"/>
+        <playlist name="playlist" spritesheet="playlist"/>
+        <playlist name="queue" spritesheet="playlist"/>
+        <playlist name="smart" spritesheet="playlist"/>
+    </playlist>
+    <decade>
+        <!-- 'Older' as in 'older than the year 1930' --> 
+        <_decade name="Old" spritesheet="decade">Older</_decade>
+        <_decade name="All" spritesheet="decade">All Decades</_decade>
+        <!-- '00s' as in the decade 2000 -->
+        <decade _name="10s" spritesheet="decade"/>
+        <!-- '00s' as in the decade 2010 -->
+        <decade _name="10s" spritesheet="decade"/>
+        <!-- '20s' as in the decade 2020 -->
+        <decade _name="20s" spritesheet="decade"/>
+        <!-- '30s' as in the decade 1930 -->
+        <decade _name="30s" spritesheet="decade"/>
+        <!-- '40s' as in the decade 1940 -->
+        <decade _name="40s" spritesheet="decade"/>
+        <!-- '50s' as in the decade 1950 -->
+        <decade _name="50s" spritesheet="decade"/>
+        <!-- '60s' as in the decade 1960 -->
+        <decade _name="60s" spritesheet="decade"/>
+        <!-- '70s' as in the decade 1970 -->
+        <decade _name="70s" spritesheet="decade"/>
+        <!-- '80s' as in the decade 1980 -->
+        <decade _name="80s" spritesheet="decade"/>
+        <!-- '90s' as in the decade 1990 -->
+        <decade _name="90s" spritesheet="decade"/>
+    </decade>
+    <spritesheet name="genre">
+        <image>genre_sprites.png</image>
+        <icon width="75" height="75"></icon>
+        <spacing x="73" y="50"></spacing>
+        <start-position x="0" y="0"></start-position>
+        <alpha>255 255 255</alpha>
+    </spritesheet>
+    <spritesheet name="sort">
+        <image>sort_sprites.png</image>
+        <icon width="140" height="134"></icon>
+        <spacing x="34" y="100"></spacing>
+        <start-position x="0" y="0"></start-position>
+    </spritesheet>
+    <spritesheet name="playlist">
+        <image>playlist_sprites.png</image>
+        <icon width="140" height="134"></icon>
+        <spacing x="28" y="100"></spacing>
+        <start-position x="0" y="0"></start-position>
+    </spritesheet>
+    <spritesheet name="decade">
+        <image>decade_sprites.png</image>
+        <icon width="133" height="122"></icon>
+        <spacing x="28" y="66"></spacing>
+        <start-position x="40" y="38"></start-position>
+    </spritesheet>
+</root>
