@@ -33,11 +33,13 @@ from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import CoverLocale
 from coverart_widgets import PopupButton
 from coverart_widgets import ImageToggleButton
+from coverart_widgets import SearchEntry
 from coverart_controllers import PlaylistPopupController
 from coverart_controllers import GenrePopupController
 from coverart_controllers import SortPopupController
 from coverart_controllers import DecadePopupController
 from coverart_controllers import SortOrderToggleController
+from coverart_controllers import AlbumSearchEntryController
 from stars import ReactiveStar
 from coverart_timer import ttimer
 
@@ -1177,26 +1179,19 @@ GObject.type_register(CoverArtBrowserSource)
 
 class ToolbarManager(GObject.Object):
     # ui files to create the different toolbars
-    TOPBAR_UI = 'ui/coverart_topbar.ui'
     SIDEBAR_UI = 'ui/coverart_sidebar.ui'
-    FLTER_POPUP = 'ui/toolbar_popup.ui'
+    TOPBAR_UI = 'ui/coverart_topbar.ui'
 
     # properties
     toolbar_pos = GObject.property(type=str, default='main')
 
     def __init__(self, plugin, main_box, album_model):
         super(ToolbarManager, self).__init__()
-        self._search_text = ''
-        self._filter_type = 'all'
-        self._album_model = album_model
-        self._search_entries = []
         cl = CoverLocale()
-
-        # create the search popup
-        self._create_popup(plugin, cl)
 
         # create the buttons controllers
         controllers = self._create_controllers(plugin, album_model)
+        self._search_controller = AlbumSearchEntryController(album_model)
 
         # initialize toolbars
         self._bars = {}
@@ -1273,64 +1268,20 @@ class ToolbarManager(GObject.Object):
         for button, controller in controllers.iteritems():
             builder.get_object(button).controller = controller
 
-        # configure the search entry
         # workaround to translate the search entry tooltips
         cl.switch_locale(cl.Locale.RB)
-        search_entry = RB.SearchEntry(has_popup=True)
+        search_entry = SearchEntry(has_popup=True)
         search_entry.show_all()
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
-
-        # set placeholder
-        search_entry.set_placeholder(
-            self._filter_popup.get_children()[0].get_label())
-
-        # connect signals
-        search_entry.connect('show-popup', self._on_show_popup)
-        search_entry.connect('search', self._on_search, album_model)
 
         # add it to the ui
         align = builder.get_object('entry_search_alignment')
         align.add(search_entry)
 
-        self._search_entries.append(search_entry)
+        # asign the controller
+        search_entry.controller = self._search_controller
 
         return builder.get_object('main_box')
-
-    def _on_show_popup(self, entry):
-        '''
-        Callback called by the search entry when the magnifier is clicked.
-        It prompts the user through a popup to select a filter type.
-        '''
-        self._filter_popup.popup(None, None, None, None, 0,
-            Gtk.get_current_event_time())
-
-    def _on_search(self, entry, text, album_model):
-        '''
-        Callback called by the search entry when a new search must
-        be performed.
-        '''
-        self._search_text = text
-        album_model.replace_filter(self._filter_type, text)
-
-    def _on_filter_option_clicked(self, radiomenu):
-        '''
-        Callback called when an item from the filters popup menu is clicked.
-        It changes the current filter type for the search to the one selected
-        on the popup.
-        '''
-        if radiomenu.get_active():
-            # only go ahead if the radiomenu is selected
-            # remove old filter
-            self._album_model.remove_filter(self._filter_type, False)
-
-            # asign the new filter
-            self._filter_type = self._filters[radiomenu]
-
-            if self._search_text == '':
-                for entry in self._search_entries:
-                    entry.set_placeholder(radiomenu.get_label())
-
-            self._on_search(_, self._search_text, self._album_model)
 
     def _on_notify_toolbar_pos(self, *args):
         for toolbar in self._bars.values():

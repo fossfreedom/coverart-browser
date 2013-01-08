@@ -17,15 +17,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
+from gi.repository import RB
 from gi.repository import Gtk
 from gi.repository import GObject
 
 
-class OptionsButton(Gtk.Button):
+class OptionsWidget(Gtk.Widget):
 
     def __init__(self, *args, **kwargs):
-        super(OptionsButton, self).__init__(*args, **kwargs)
-
+        super(OptionsWidget, self).__init__(*args, **kwargs)
         self._controller = None
 
     @property
@@ -63,20 +63,8 @@ class OptionsButton(Gtk.Button):
     def update_current_key():
         pass
 
-    def set_image(self, pixbuf):
-        image = self.get_image()
 
-        if not image:
-            image = Gtk.Image()
-            super(OptionsButton, self).set_image(image)
-
-        self.get_image().set_from_pixbuf(pixbuf)
-
-
-# generic class from which implementation inherit from
-class PopupButton(OptionsButton):
-    # the following vars are to be defined in the inherited classes
-    __gtype_name__ = "PopupButton"
+class OptionsPopupWidget(OptionsWidget):
 
     # signals
     __gsignals__ = {
@@ -84,15 +72,9 @@ class PopupButton(OptionsButton):
         }
 
     def __init__(self, *args, **kwargs):
-        '''
-        Initializes the button.
-        '''
-        super(PopupButton, self).__init__(*args, **kwargs)
+        OptionsWidget.__init__(self, *args, **kwargs)
 
         self._popup_menu = Gtk.Menu()
-
-        # initialise some variables
-        self._first_menu_item = None
 
     def update_options(self):
         self.clear_popupmenu()
@@ -101,10 +83,6 @@ class PopupButton(OptionsButton):
             self.add_menuitem(key)
 
     def update_current_key(self):
-        # update the current image and tooltip
-        self.set_image(self._controller.get_current_image())
-        self.set_tooltip_text(self._controller.get_current_tooltip())
-
         # select the item if it isn't already
         item = self.get_menuitems()[self._controller.get_current_key_index()]
 
@@ -153,13 +131,6 @@ class PopupButton(OptionsButton):
             # inform the controller
             self._controller.option_selected(key)
 
-    def do_clicked(self):
-        '''
-        when button is clicked, update the popup with the sorting options
-        before displaying the popup
-        '''
-        self.show_popup()
-
     def show_popup(self):
         '''
         show the current popup menu
@@ -172,14 +143,65 @@ class PopupButton(OptionsButton):
         del self._popupmenu
 
 
-class ImageToggleButton(OptionsButton):
+class PixbufButton(Gtk.Button):
+
+    def __init__(self, *args, **kwargs):
+        super(PixbufButton, self).__init__(*args, **kwargs)
+
+    def set_image(self, pixbuf):
+        image = self.get_image()
+
+        if not image:
+            image = Gtk.Image()
+            super(PixbufButton, self).set_image(image)
+
+        self.get_image().set_from_pixbuf(pixbuf)
+
+
+class PopupButton(PixbufButton, OptionsPopupWidget):
+    __gtype_name__ = "PopupButton"
+
+    # signals
+    __gsignals__ = {
+        'item-clicked': (GObject.SIGNAL_RUN_LAST, None, (str,))
+        }
+
+    def __init__(self, *args, **kwargs):
+        '''
+        Initializes the button.
+        '''
+        PixbufButton.__init__(self, *args, **kwargs)
+        OptionsPopupWidget.__init__(self, *args, **kwargs)
+
+        self._popup_menu = Gtk.Menu()
+
+        # initialise some variables
+        self._first_menu_item = None
+
+    def update_current_key(self):
+        super(PopupButton, self).update_current_key()
+
+        # update the current image and tooltip
+        self.set_image(self._controller.get_current_image())
+        self.set_tooltip_text(self._controller.get_current_description())
+
+    def do_clicked(self):
+        '''
+        when button is clicked, update the popup with the sorting options
+        before displaying the popup
+        '''
+        self.show_popup()
+
+
+class ImageToggleButton(PixbufButton, OptionsWidget):
     __gtype_name__ = "ImageToggleButton"
 
     def __init__(self, *args, **kwargs):
         '''
         Initializes the button.
         '''
-        super(ImageToggleButton, self).__init__(*args, **kwargs)
+        PixbufButton.__init__(self, *args, **kwargs)
+        OptionsWidget.__init__(self, *args, **kwargs)
 
         # initialise some variables
         self.image_display = False
@@ -188,7 +210,7 @@ class ImageToggleButton(OptionsButton):
     def update_current_key(self):
         # update the current image and tooltip
         self.set_image(self._controller.get_current_image())
-        self.set_tooltip_text(self._controller.get_current_tooltip())
+        self.set_tooltip_text(self._controller.get_current_description())
 
     def do_clicked(self):
         if self._controller:
@@ -198,3 +220,54 @@ class ImageToggleButton(OptionsButton):
             # inform the controller
             self._controller.option_selected(
                 self._controller.options[index])
+
+
+class SearchEntry(RB.SearchEntry, OptionsPopupWidget):
+    __gtype_name__ = "AlbumSearchEntry"
+
+    # signals
+    __gsignals__ = {
+        'item-clicked': (GObject.SIGNAL_RUN_LAST, None, (str,))
+        }
+
+    def __init__(self, *args, **kwargs):
+        RB.SearchEntry.__init__(self, *args, **kwargs)
+        OptionsPopupWidget.__init__(self, *args, **kwargs)
+
+    @OptionsPopupWidget.controller.setter
+    def controller(self, controller):
+        if self._controller:
+            # disconnect signals
+            self._controller.disconnect(self._search_text_changed_id)
+
+        OptionsPopupWidget.controller.fset(self, controller)
+
+        # connect signals
+        self._search_text_changed_id = self._controller.connect(
+            'notify::search-text', self._update_search_text)
+
+        # update the current text
+        self._update_search_text()
+
+    def _update_search_text(self, *args):
+        self.set_text(self._controller.search_text)
+
+    def update_current_key(self):
+        super(SearchEntry, self).update_current_key()
+
+        self.set_placeholder(self._controller.get_current_description())
+
+    def do_show_popup(self):
+        '''
+        Callback called by the search entry when the magnifier is clicked.
+        It prompts the user through a popup to select a filter type.
+        '''
+        self.show_popup()
+
+    def do_search(self, text):
+        '''
+        Callback called by the search entry when a new search must
+        be performed.
+        '''
+        if self._controller:
+            self._controller.do_search(text)

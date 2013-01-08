@@ -62,7 +62,7 @@ class OptionsController(GObject.Object):
     def get_current_image(self):
         return None
 
-    def get_current_tooltip(self):
+    def get_current_description(self):
         return self.current_key
 
 
@@ -247,7 +247,7 @@ class GenrePopupController(OptionsController):
         # if no matches then default to unrecognised image
         return self._unrecognised_image
 
-    def get_current_tooltip(self):
+    def get_current_description(self):
         if self.current_key == self._initial_genre:
             return _('All Genres')
         else:
@@ -339,7 +339,7 @@ class DecadePopupController(OptionsController):
     def get_current_image(self):
         return self._spritesheet[self.current_key]
 
-    def get_current_tooltip(self):
+    def get_current_description(self):
         if self.current_key == self._initial_decade:
             return _('All Decades')
         else:
@@ -386,3 +386,45 @@ class SortOrderToggleController(OptionsController):
 
     def get_current_image(self):
         return self._images[self.get_current_key_index()]
+
+
+class AlbumSearchEntryController(OptionsController):
+
+    # properties
+    search_text = GObject.property(type=str, default='')
+
+    def __init__(self, album_model):
+        super(AlbumSearchEntryController, self).__init__()
+
+        self._album_model = album_model
+        self._filter_type = 'all'
+
+        # options
+        self.values = OrderedDict()
+        self.values[_('Search all fields')] = 'all'
+        self.values[_('Search album artists')] = 'album_artist'
+        self.values[_('Search track artists')] = 'artist'
+        self.values[_('Search albums')] = 'album_name'
+        self.values[_('Search tracks')] = 'track'
+
+        self.options = self.values.keys()
+        self.current_key = self.values.keys()[0]
+
+    def do_action(self):
+        # remove old filter
+        self._album_model.remove_filter(self._filter_type, False)
+
+        # asign the new filter
+        self._filter_type = self.values[self.current_key]
+
+        self.do_search(self.search_text, True)
+
+    def do_search(self, search_text, force=False):
+        if self.search_text != search_text or force:
+            self.search_text = search_text
+
+            if search_text:
+                self._album_model.replace_filter(self._filter_type,
+                    search_text)
+            elif not force:
+                self._album_model.remove_filter(self._filter_type)
