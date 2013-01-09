@@ -37,7 +37,7 @@
         <_genre name="easy listening" spritesheet="genre">easy listening</_genre>
         <_genre name="hip-hop" spritesheet="genre">hip-hop</_genre>
         <_genre name="children" spritesheet="genre">children</_genre>
-        <_genre name="default" image="genre.png">default</_genre>
+        <genre name="default" image="genre.png">default</genre>
 
         <!--common to all - no need to translate-->
         <alt>
