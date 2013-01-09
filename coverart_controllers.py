@@ -231,10 +231,32 @@ class GenrePopupController(OptionsController):
         return image
 
     def _find_alternates(self, test_genre):
-        # first check if any of the default genres are a substring
+        # the following genre checks are required
+        # 1. if we have locale specific genres check first
+        # 2. then check locale specific alternates
+        # 3. then check if we have default genres
+        # 4. then check if we have default alternates
+
+        
+        # first check if any of the locale genres are a substring
         # of test_genre - check in reverse order so that we
         # test largest strings first (prevents spurious matches with
         # short strings)
+
+        for genre in sorted(self._spritesheet.locale_names,
+            key=lambda b: (-len(b), b)):
+            if genre in test_genre:
+                return self._spritesheet[genre]
+
+        # next check locale alternates
+        if test_genre in self._spritesheet.locale_alternate:
+            return self._spritesheet[self._spritesheet.locale_alternate[test_genre]]
+
+        # check if any of the default genres are a substring
+        # of test_genre - check in reverse order so that we
+        # test largest strings first (prevents spurious matches with
+        # short strings)
+
         for genre in sorted(self._spritesheet.names,
             key=lambda b: (-len(b), b)):
             if genre in test_genre:
@@ -314,10 +336,18 @@ class DecadePopupController(OptionsController):
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
 
-        self.values = OrderedDict([(_('All'), -1), ('20s', 2020),
-            ('10s', 2010), ('00s', 2000), ('90s', 1990), ('80s', 1980),
-            ('70s', 1970), ('60s', 1960), ('50s', 1950), ('40s', 1940),
-            ('30s', 1930), (_('Old'), -1)])
+        self.values = OrderedDict([ ('All', (_('All Decades'), -1)),
+                                    ('20s', (_('20s'), 2020)),
+                                    ('10s', (_('10s'), 2010)),
+                                    ('00s', (_('00s'), 2000)),
+                                    ('90s', (_('90s'), 1990)),
+                                    ('80s', (_('80s'), 1980)),
+                                    ('70s', (_('70s'), 1970)),
+                                    ('60s', (_('60s'), 1960)),
+                                    ('50s', (_('50s'), 1950)),
+                                    ('40s', (_('40s'), 1940)),
+                                    ('30s', (_('30s'), 1930)),
+                                    ('Old', (_('Older'), -1))])
 
         self.options = self.values.keys()
 
@@ -334,16 +364,13 @@ class DecadePopupController(OptionsController):
             self._album_model.remove_filter('decade')
         else:
             self._album_model.replace_filter('decade',
-                self.values[self.current_key])
+                self.values[self.current_key][1])
 
     def get_current_image(self):
         return self._spritesheet[self.current_key]
 
     def get_current_description(self):
-        if self.current_key == self._initial_decade:
-            return _('All Decades')
-        else:
-            return self.current_key
+        return self.values[self.current_key][0]
 
 
 class SortOrderToggleController(OptionsController):

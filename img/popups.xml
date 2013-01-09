@@ -1,103 +1,353 @@
-<?xml version="1.0"?>
-
+<?xml version="1.0" encoding="UTF-8"?>
 <root>
     <genre>
-        <genre name="rock" spritesheet="genre"/>
-        <genre name="country" spritesheet="genre"/>
-        <genre name="pop" spritesheet="genre"/>
-        <genre name="classical" spritesheet="genre"/>
-        <genre name="world" spritesheet="genre"/>
-        <genre name="bluegrass" spritesheet="genre"/>
-        <genre name="oldies" spritesheet="genre"/>
-        <genre name="holiday" spritesheet="genre"/>
-        <genre name="comedy" spritesheet="genre"/>
-        <genre name="spoken" spritesheet="genre"/>
-        <genre name="jazz" spritesheet="genre"/>
-        <genre name="blues" spritesheet="genre"/>
-        <genre name="metal" spritesheet="genre"/>
-        <genre name="karaoke" spritesheet="genre"/>
-        <genre name="rap" spritesheet="genre"/>
-        <genre name="ragtime" spritesheet="genre"/>
-        <genre name="musical" spritesheet="genre"/>
-        <genre name="dance" spritesheet="genre"/>
-        <genre name="reggae" spritesheet="genre"/>
-        <genre name="electronic" spritesheet="genre"/>
-        <genre name="soundtrack" spritesheet="genre"/>
-        <genre name="latin" spritesheet="genre"/>
-        <genre name="alternative" spritesheet="genre"/>
-        <genre name="disco" spritesheet="genre"/>
-        <genre name="folk" spritesheet="genre"/>
-        <genre name="gospel" spritesheet="genre"/>
-        <genre name="experimental" spritesheet="genre"/>
-        <genre name="new age" spritesheet="genre"/>
-        <genre name="opera" spritesheet="genre"/>
-        <genre name="anime" spritesheet="genre"/>
-        <genre name="soul" spritesheet="genre"/>
-        <genre name="workout" spritesheet="genre"/>
-        <genre name="easy listening" spritesheet="genre"/>
-        <genre name="hip-hop" spritesheet="genre"/>
-        <genre name="children" spritesheet="genre"/>
-        <genre name="default" image="genre.png"/>
+        <genre spritesheet="genre" name="rock">rock</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="rock">rock</genre>
+        <genre xml:lang="es" spritesheet="genre" name="rock">rock</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="rock">rock</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="rock">rock</genre>
+        <genre xml:lang="pt_BR" spritesheet="genre" name="rock">rock</genre>
+        <genre spritesheet="genre" name="country">country</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="country">country</genre>
+        <genre xml:lang="es" spritesheet="genre" name="country">country</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="country">country</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="country">country</genre>
+        <genre xml:lang="pt_BR" spritesheet="genre" name="country">country</genre>
+        <genre spritesheet="genre" name="pop">pop</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="pop">pop</genre>
+        <genre xml:lang="es" spritesheet="genre" name="pop">pop</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="pop">pop française</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="pop">pop française</genre>
+        <genre xml:lang="pt_BR" spritesheet="genre" name="pop">pop</genre>
+        <genre spritesheet="genre" name="classical">classical</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="classical">classical</genre>
+        <genre xml:lang="es" spritesheet="genre" name="classical">Clásica</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="classical">classique</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="classical">classique</genre>
+        <genre xml:lang="pt_BR" spritesheet="genre" name="classical">clássico</genre>
+        <genre spritesheet="genre" name="world">world</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="world">world</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="world">musique du monde</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="world">musique du monde</genre>
+        <genre spritesheet="genre" name="bluegrass">bluegrass</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="bluegrass">bluegrass</genre>
+        <genre xml:lang="es" spritesheet="genre" name="bluegrass">bluegrass</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="bluegrass">bluegrass</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="bluegrass">bluegrass</genre>
+        <genre spritesheet="genre" name="oldies">oldies</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="oldies">oldies</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="oldies">cabaret</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="oldies">cabaret</genre>
+        <genre spritesheet="genre" name="holiday">holiday</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="holiday">holiday</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="holiday">noël</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="holiday">noël</genre>
+        <genre spritesheet="genre" name="comedy">comedy</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="comedy">comedy</genre>
+        <genre xml:lang="es" spritesheet="genre" name="comedy">comedia</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="comedy">comédie</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="comedy">comédie</genre>
+        <genre spritesheet="genre" name="spoken">spoken</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="spoken">spoken</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="spoken">livres et histoires</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="spoken">livres et histoires</genre>
+        <genre spritesheet="genre" name="jazz">jazz</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="jazz">jazz</genre>
+        <genre xml:lang="es" spritesheet="genre" name="jazz">jazz</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="jazz">jazz</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="jazz">jazz</genre>
+        <genre xml:lang="pt_BR" spritesheet="genre" name="jazz">jazz</genre>
+        <genre spritesheet="genre" name="blues">blues</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="blues">blues</genre>
+        <genre xml:lang="es" spritesheet="genre" name="blues">blues</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="blues">blues</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="blues">blues</genre>
+        <genre xml:lang="pt_BR" spritesheet="genre" name="blues">blues</genre>
+        <genre spritesheet="genre" name="metal">metal</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="metal">metal</genre>
+        <genre xml:lang="es" spritesheet="genre" name="metal">metal</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="metal">métal</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="metal">métal</genre>
+        <genre xml:lang="pt_BR" spritesheet="genre" name="metal">metal</genre>
+        <genre spritesheet="genre" name="karaoke">karaoke</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="karaoke">karaoke</genre>
+        <genre xml:lang="es" spritesheet="genre" name="karaoke">karaoke</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="karaoke">karaoké</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="karaoke">karaoké</genre>
+        <genre xml:lang="pt_BR" spritesheet="genre" name="karaoke">karaokê</genre>
+        <genre spritesheet="genre" name="rap">rap</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="rap">rap</genre>
+        <genre xml:lang="es" spritesheet="genre" name="rap">rap</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="rap">rap</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="rap">rap</genre>
+        <genre xml:lang="pt_BR" spritesheet="genre" name="rap">rap</genre>
+        <genre spritesheet="genre" name="ragtime">ragtime</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="ragtime">ragtime</genre>
+        <genre xml:lang="es" spritesheet="genre" name="ragtime">ragtime</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="ragtime">ragtime</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="ragtime">ragtime</genre>
+        <genre spritesheet="genre" name="musical">musical</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="musical">musical</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="musical">comédie musicale</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="musical">comédie musicale</genre>
+        <genre spritesheet="genre" name="dance">dance</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="dance">dance</genre>
+        <genre xml:lang="es" spritesheet="genre" name="dance">baile</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="dance">dance</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="dance">danse</genre>
+        <genre xml:lang="pt_BR" spritesheet="genre" name="dance">dance</genre>
+        <genre spritesheet="genre" name="reggae">reggae</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="reggae">reggae</genre>
+        <genre xml:lang="es" spritesheet="genre" name="reggae">reggae</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="reggae">reggae</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="reggae">reggae</genre>
+        <genre xml:lang="pt_BR" spritesheet="genre" name="reggae">reggae</genre>
+        <genre spritesheet="genre" name="electronic">electronic</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="electronic">electronic</genre>
+        <genre xml:lang="es" spritesheet="genre" name="electronic">electrónica</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="electronic">électronique</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="electronic">électronique</genre>
+        <genre xml:lang="pt_BR" spritesheet="genre" name="electronic">eletrônico</genre>
+        <genre spritesheet="genre" name="soundtrack">soundtrack</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="soundtrack">soundtrack</genre>
+        <genre xml:lang="es" spritesheet="genre" name="soundtrack">banda sonora</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="soundtrack">bande originale</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="soundtrack">bande originale</genre>
+        <genre spritesheet="genre" name="latin">latin</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="latin">latin</genre>
+        <genre xml:lang="es" spritesheet="genre" name="latin">latino</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="latin">latine</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="latin">latin</genre>
+        <genre xml:lang="pt_BR" spritesheet="genre" name="latin">latina</genre>
+        <genre spritesheet="genre" name="alternative">alternative</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="alternative">alternative</genre>
+        <genre xml:lang="es" spritesheet="genre" name="alternative">alternativa</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="alternative">alternatif</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="alternative">alternatif</genre>
+        <genre xml:lang="pt_BR" spritesheet="genre" name="alternative">alternativa</genre>
+        <genre spritesheet="genre" name="disco">disco</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="disco">disco</genre>
+        <genre xml:lang="es" spritesheet="genre" name="disco">disco</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="disco">disco</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="disco">disco</genre>
+        <genre spritesheet="genre" name="folk">folk</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="folk">folk</genre>
+        <genre xml:lang="es" spritesheet="genre" name="folk">folclore</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="folk">acoustique</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="folk">acoustique</genre>
+        <genre spritesheet="genre" name="gospel">gospel</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="gospel">gospel</genre>
+        <genre xml:lang="es" spritesheet="genre" name="gospel">gospel</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="gospel">gospel</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="gospel">musique religieuse</genre>
+        <genre xml:lang="pt_BR" spritesheet="genre" name="gospel">gospel</genre>
+        <genre spritesheet="genre" name="experimental">experimental</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="experimental">experimental</genre>
+        <genre xml:lang="es" spritesheet="genre" name="experimental">experimental</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="experimental">expérimental</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="experimental">expérimental</genre>
+        <genre xml:lang="pt_BR" spritesheet="genre" name="experimental">experimental</genre>
+        <genre spritesheet="genre" name="new age">new age</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="new age">new age</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="new age">new age</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="new age">new age</genre>
+        <genre xml:lang="pt_BR" spritesheet="genre" name="new age">nova era</genre>
+        <genre spritesheet="genre" name="opera">opera</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="opera">opera</genre>
+        <genre xml:lang="es" spritesheet="genre" name="opera">ópera</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="opera">opéra</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="opera">opéra</genre>
+        <genre xml:lang="pt_BR" spritesheet="genre" name="opera">ópera</genre>
+        <genre spritesheet="genre" name="anime">anime</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="anime">anime</genre>
+        <genre xml:lang="es" spritesheet="genre" name="anime">anime</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="anime">anime</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="anime">j-pop</genre>
+        <genre xml:lang="pt_BR" spritesheet="genre" name="anime">animé</genre>
+        <genre spritesheet="genre" name="soul">soul</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="soul">soul</genre>
+        <genre xml:lang="es" spritesheet="genre" name="soul">soul</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="soul">soul</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="soul">soul</genre>
+        <genre xml:lang="pt_BR" spritesheet="genre" name="soul">soul</genre>
+        <genre spritesheet="genre" name="workout">workout</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="workout">workout</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="workout">entraînement</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="workout">entraînement</genre>
+        <genre spritesheet="genre" name="easy listening">easy listening</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="easy listening">easy listening</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="easy listening">easy listening</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="easy listening">écoute facile</genre>
+        <genre spritesheet="genre" name="hip-hop">hip-hop</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="hip-hop">hip-hop</genre>
+        <genre xml:lang="es" spritesheet="genre" name="hip-hop">hip-hop</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="hip-hop">hip-hop</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="hip-hop">hip-hop</genre>
+        <genre xml:lang="pt_BR" spritesheet="genre" name="hip-hop">hip-hop</genre>
+        <genre spritesheet="genre" name="children">children</genre>
+        <genre xml:lang="en_GB" spritesheet="genre" name="children">children</genre>
+        <genre xml:lang="es" spritesheet="genre" name="children">niños</genre>
+        <genre xml:lang="fr" spritesheet="genre" name="children">enfants</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="children">enfants</genre>
+        <genre xml:lang="pt_BR" spritesheet="genre" name="children">infantil</genre>
+        <genre name="default" image="genre.png">default</genre>
+
         
-        <alt genre="easy listening">lounge</alt>
-        <alt genre="alternative">ska</alt>
-        <alt genre="alternative">gothic</alt>
-        <alt genre="dance">trip hop</alt>
-        <alt genre="holiday">christmas</alt>
-        <alt genre="oldies">swing</alt>
-        <alt genre="children">kids</alt>
-        <alt genre="blues">r&amp;b</alt>
+        <alt>
+            <alt genre="easy listening">lounge</alt>
+            <alt genre="alternative">ska</alt>
+            <alt genre="alternative">gothic</alt>
+            <alt genre="dance">trip hop</alt>
+            <alt genre="holiday">christmas</alt>
+            <alt genre="oldies">swing</alt>
+            <alt genre="children">kids</alt>
+            <alt genre="blues">r&amp;b</alt>
+            <alt genre="electronic">industrial</alt>
+            <alt genre="folk">acoustic</alt>
+            <alt genre="electronic">ambient</alt>
+            <alt genre="gospel">christian</alt>
+            <alt genre="electronic">techno</alt>
+            <alt genre="spoken">acapella</alt>
+            <alt genre="electronic">ambiance</alt>
+        </alt>
         
+        <alt xml:lang="fr">
+            <alt genre="gospel">catholique</alt>
+            <alt genre="gospel">catho</alt>
+            <alt genre="gospel">chrétien</alt>
+            <alt genre="pop">french pop</alt>
+        </alt>
     </genre>
     <sort>
-        <sort name="name" spritesheet="sort"/>
-        <sort name="artist" spritesheet="sort"/>
-        <sort name="year" spritesheet="sort"/>
-        <sort name="rating" spritesheet="sort"/>
+        <sort spritesheet="sort" name="name"/>
+        <sort spritesheet="sort" name="artist"/>
+        <sort spritesheet="sort" name="year"/>
+        <sort spritesheet="sort" name="rating"/>
     </sort>
     <playlist>
-        <playlist name="music" spritesheet="playlist"/>
-        <playlist name="playlist" spritesheet="playlist"/>
-        <playlist name="queue" spritesheet="playlist"/>
-        <playlist name="smart" spritesheet="playlist"/>
+        <playlist spritesheet="playlist" name="music"/>
+        <playlist spritesheet="playlist" name="playlist"/>
+        <playlist spritesheet="playlist" name="queue"/>
+        <playlist spritesheet="playlist" name="smart"/>
     </playlist>
     <decade>
-        <decade name="Old" spritesheet="decade"/>
-        <decade name="All" spritesheet="decade"/>
-        <decade name="00s" spritesheet="decade"/>
-        <decade name="10s" spritesheet="decade"/>
-        <decade name="20s" spritesheet="decade"/>
-        <decade name="30s" spritesheet="decade"/>
-        <decade name="40s" spritesheet="decade"/>
-        <decade name="50s" spritesheet="decade"/>
-        <decade name="60s" spritesheet="decade"/>
-        <decade name="70s" spritesheet="decade"/>
-        <decade name="80s" spritesheet="decade"/>
-        <decade name="90s" spritesheet="decade"/>
+         
+        <decade spritesheet="decade" name="Old">Older</decade>
+        <decade xml:lang="en_GB" spritesheet="decade" name="Old">Older</decade>
+        <decade xml:lang="es" spritesheet="decade" name="Old">antigua</decade>
+        <decade xml:lang="fi" spritesheet="decade" name="Old">Vanhempi</decade>
+        <decade xml:lang="fr" spritesheet="decade" name="Old">Plus vieux</decade>
+        <decade xml:lang="fr_CA" spritesheet="decade" name="Old">Plus vieux</decade>
+        <decade xml:lang="pt_BR" spritesheet="decade" name="Old">Antiga</decade>
+        <decade spritesheet="decade" name="All">All Decades</decade>
+        <decade xml:lang="en_GB" spritesheet="decade" name="All">All Decades</decade>
+        <decade xml:lang="es" spritesheet="decade" name="All">Todas las décadas</decade>
+        <decade xml:lang="fi" spritesheet="decade" name="All">Kaikki vuosikymmenet</decade>
+        <decade xml:lang="fr" spritesheet="decade" name="All">Toutes les décennies</decade>
+        <decade xml:lang="fr_CA" spritesheet="decade" name="All">Toutes les décennies</decade>
+        <decade xml:lang="pt_BR" spritesheet="decade" name="All">Todas as décadas</decade>
+        
+        <decade spritesheet="decade" name="00s">00s</decade>
+        <decade xml:lang="de" spritesheet="decade" name="00s">00er</decade>
+        <decade xml:lang="en_GB" spritesheet="decade" name="00s">00s</decade>
+        <decade xml:lang="es" spritesheet="decade" name="00s">00s</decade>
+        <decade xml:lang="fr" spritesheet="decade" name="00s">Années 2000</decade>
+        <decade xml:lang="fr_CA" spritesheet="decade" name="00s">Années 2000</decade>
+        
+        <decade spritesheet="decade" name="10s">10s</decade>
+        <decade xml:lang="de" spritesheet="decade" name="10s">10er</decade>
+        <decade xml:lang="en_GB" spritesheet="decade" name="10s">10s</decade>
+        <decade xml:lang="es" spritesheet="decade" name="10s">10s</decade>
+        <decade xml:lang="fr" spritesheet="decade" name="10s">Années 2010</decade>
+        <decade xml:lang="fr_CA" spritesheet="decade" name="10s">Années 2010</decade>
+        
+        <decade spritesheet="decade" name="20s">20s</decade>
+        <decade xml:lang="de" spritesheet="decade" name="20s">20er</decade>
+        <decade xml:lang="en_GB" spritesheet="decade" name="20s">20s</decade>
+        <decade xml:lang="es" spritesheet="decade" name="20s">20s</decade>
+        <decade xml:lang="fr" spritesheet="decade" name="20s">Années 2020</decade>
+        <decade xml:lang="fr_CA" spritesheet="decade" name="20s">Années 2020</decade>
+        <decade xml:lang="pt_BR" spritesheet="decade" name="20s">década de 2020</decade>
+        
+        <decade spritesheet="decade" name="30s">30s</decade>
+        <decade xml:lang="de" spritesheet="decade" name="30s">30er</decade>
+        <decade xml:lang="en_GB" spritesheet="decade" name="30s">30s</decade>
+        <decade xml:lang="es" spritesheet="decade" name="30s">30s</decade>
+        <decade xml:lang="fr" spritesheet="decade" name="30s">Années 30</decade>
+        <decade xml:lang="fr_CA" spritesheet="decade" name="30s">Années 30</decade>
+        <decade xml:lang="pt_BR" spritesheet="decade" name="30s">Anos 30</decade>
+        
+        <decade spritesheet="decade" name="40s">40s</decade>
+        <decade xml:lang="de" spritesheet="decade" name="40s">40er</decade>
+        <decade xml:lang="en_GB" spritesheet="decade" name="40s">40s</decade>
+        <decade xml:lang="es" spritesheet="decade" name="40s">40s</decade>
+        <decade xml:lang="fr" spritesheet="decade" name="40s">Années 40</decade>
+        <decade xml:lang="fr_CA" spritesheet="decade" name="40s">Années 40</decade>
+        <decade xml:lang="pt_BR" spritesheet="decade" name="40s">Anos 40</decade>
+        
+        <decade spritesheet="decade" name="50s">50s</decade>
+        <decade xml:lang="de" spritesheet="decade" name="50s">50er</decade>
+        <decade xml:lang="en_GB" spritesheet="decade" name="50s">50s</decade>
+        <decade xml:lang="es" spritesheet="decade" name="50s">50s</decade>
+        <decade xml:lang="fr" spritesheet="decade" name="50s">Années 50</decade>
+        <decade xml:lang="fr_CA" spritesheet="decade" name="50s">Années 50</decade>
+        <decade xml:lang="pt_BR" spritesheet="decade" name="50s">Anos 50</decade>
+        
+        <decade spritesheet="decade" name="60s">60s</decade>
+        <decade xml:lang="de" spritesheet="decade" name="60s">60er</decade>
+        <decade xml:lang="en_GB" spritesheet="decade" name="60s">60s</decade>
+        <decade xml:lang="es" spritesheet="decade" name="60s">60s</decade>
+        <decade xml:lang="fr" spritesheet="decade" name="60s">Années 60</decade>
+        <decade xml:lang="fr_CA" spritesheet="decade" name="60s">Années 60</decade>
+        <decade xml:lang="pt_BR" spritesheet="decade" name="60s">Anos 60</decade>
+        
+        <decade spritesheet="decade" name="70s">70s</decade>
+        <decade xml:lang="de" spritesheet="decade" name="70s">70er</decade>
+        <decade xml:lang="en_GB" spritesheet="decade" name="70s">70s</decade>
+        <decade xml:lang="es" spritesheet="decade" name="70s">70s</decade>
+        <decade xml:lang="fr" spritesheet="decade" name="70s">Années 70</decade>
+        <decade xml:lang="fr_CA" spritesheet="decade" name="70s">Années 70</decade>
+        <decade xml:lang="pt_BR" spritesheet="decade" name="70s">Anos 70</decade>
+        
+        <decade spritesheet="decade" name="80s">80s</decade>
+        <decade xml:lang="de" spritesheet="decade" name="80s">80er</decade>
+        <decade xml:lang="en_GB" spritesheet="decade" name="80s">80s</decade>
+        <decade xml:lang="es" spritesheet="decade" name="80s">80s</decade>
+        <decade xml:lang="fr" spritesheet="decade" name="80s">Années 80</decade>
+        <decade xml:lang="fr_CA" spritesheet="decade" name="80s">Années 80</decade>
+        <decade xml:lang="pt_BR" spritesheet="decade" name="80s">Anos 80</decade>
+        
+        <decade spritesheet="decade" name="90s">90s</decade>
+        <decade xml:lang="de" spritesheet="decade" name="90s">90er</decade>
+        <decade xml:lang="en_GB" spritesheet="decade" name="90s">90s</decade>
+        <decade xml:lang="es" spritesheet="decade" name="90s">90s</decade>
+        <decade xml:lang="fr" spritesheet="decade" name="90s">Années 90</decade>
+        <decade xml:lang="fr_CA" spritesheet="decade" name="90s">Années 90</decade>
+        <decade xml:lang="pt_BR" spritesheet="decade" name="90s">Anos 90</decade>
     </decade>
     <spritesheet name="genre">
         <image>genre_sprites.png</image>
-        <icon width="75" height="75"></icon>
-        <spacing x="73" y="50"></spacing>
-        <start-position x="0" y="0"></start-position>
+        <icon width="75" height="75"/>
+        <spacing y="50" x="73"/>
+        <start-position y="0" x="0"/>
         <alpha>255 255 255</alpha>
     </spritesheet>
     <spritesheet name="sort">
         <image>sort_sprites.png</image>
-        <icon width="140" height="134"></icon>
-        <spacing x="34" y="100"></spacing>
-        <start-position x="0" y="0"></start-position>
+        <icon width="140" height="134"/>
+        <spacing y="100" x="34"/>
+        <start-position y="0" x="0"/>
     </spritesheet>
     <spritesheet name="playlist">
         <image>playlist_sprites.png</image>
-        <icon width="140" height="134"></icon>
-        <spacing x="28" y="100"></spacing>
-        <start-position x="0" y="0"></start-position>
+        <icon width="140" height="134"/>
+        <spacing y="100" x="28"/>
+        <start-position y="0" x="0"/>
     </spritesheet>
     <spritesheet name="decade">
         <image>decade_sprites.png</image>
-        <icon width="133" height="122"></icon>
-        <spacing x="28" y="66"></spacing>
-        <start-position x="40" y="38"></start-position>
+        <icon width="133" height="122"/>
+        <spacing y="66" x="28"/>
+        <start-position y="38" x="40"/>
     </spritesheet>
 </root>

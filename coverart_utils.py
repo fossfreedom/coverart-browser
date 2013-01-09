@@ -21,6 +21,7 @@ from gi.repository import Gtk
 from gi.repository import GLib
 import xml.etree.cElementTree as ET
 import rb
+from coverart_browser_prefs import CoverLocale
 
 
 class SortedCollection(object):
@@ -341,7 +342,12 @@ class SpriteSheet(object):
 
 class ConfiguredSpriteSheet(object):
     popups = 'img/popups.xml'
+    _xmlcoding = '{http://www.w3.org/XML/1998/namespace}lang'
 
+    #ok this is naff - will need to change from celementtree to lxml
+    #as per my Q&A here http://stackoverflow.com/questions/14246042/how-do-i-find-an-xml-node-that-does-not-have-an-attribute
+    #this will simplify all the nasty loop stuff in the implementation
+    
     def __init__(self, plugin, sprite_name, size=None):
         self.plugin = plugin
         self.popups = rb.find_plugin_file(plugin, self.popups)
@@ -364,10 +370,19 @@ class ConfiguredSpriteSheet(object):
             alpha_color = None
 
         self.names = []
+        self.locale_names = []
 
+        cl = CoverLocale()
+        lang=cl.get_locale()
+        
         for elem in root.findall(sprite_name + '/' + sprite_name +
             '[@spritesheet="' + sprite_name + '"]'):
-                self.names.append(elem.attrib['name'])
+                val = elem.attrib.get(self._xmlcoding, '#notknown')
+
+                if val=="#notknown":
+                    self.names.append(elem.text.lower()) #attrib['name'])
+                elif val==lang:
+                    self.locale_names.append(elem.text.lower())
 
         self._sheet = SpriteSheet(image, icon_width, icon_height, x_spacing,
             y_spacing, x_start, y_start, alpha_color, size)
@@ -391,8 +406,25 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
             size)
         root = self.tree.getroot()
         self.alternate = {}
+        self.locale_alternate = {}
+        
+        cl = CoverLocale()
+        lang=cl.get_locale()
+        
         for elem in root.findall(sprite_name + '/alt'):
-                self.alternate[elem.text] = elem.attrib['genre']
+            val = elem.attrib.get(self._xmlcoding, '#notknown')
+
+            '''
+            todo
+            this dict needs to have a value array because we can have
+            lots of values for each key
+            '''
+            if val=="#notknown":
+                for alt in elem.findall('./alt'):
+                    self.alternate[alt.text.lower()] = alt.attrib['genre']
+            elif val==lang:
+                for alt in elem.findall('./alt'):
+                    self.locale_alternate[alt.text.lower()] = alt.attrib['genre']
 
 
 def get_stock_size():
