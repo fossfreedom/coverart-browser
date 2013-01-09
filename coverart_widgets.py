@@ -223,7 +223,7 @@ class ImageToggleButton(PixbufButton, OptionsWidget):
 
 
 class SearchEntry(RB.SearchEntry, OptionsPopupWidget):
-    __gtype_name__ = "AlbumSearchEntry"
+    __gtype_name__ = "SearchEntry"
 
     # signals
     __gsignals__ = {
@@ -232,7 +232,7 @@ class SearchEntry(RB.SearchEntry, OptionsPopupWidget):
 
     def __init__(self, *args, **kwargs):
         RB.SearchEntry.__init__(self, *args, **kwargs)
-        OptionsPopupWidget.__init__(self, *args, **kwargs)
+        OptionsPopupWidget.__init__(self)
 
     @OptionsPopupWidget.controller.setter
     def controller(self, controller):

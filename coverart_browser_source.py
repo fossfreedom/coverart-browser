@@ -1250,7 +1250,7 @@ class ToolbarManager(GObject.Object):
 
         # workaround to translate the search entry tooltips
         cl.switch_locale(cl.Locale.RB)
-        search_entry = SearchEntry(has_popup=True)
+        search_entry = SearchEntry()
         search_entry.show_all()
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
 
