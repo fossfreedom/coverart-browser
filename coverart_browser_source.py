@@ -34,6 +34,7 @@ from coverart_browser_prefs import CoverLocale
 from coverart_widgets import PopupButton
 from coverart_widgets import ImageToggleButton
 from coverart_widgets import SearchEntry
+from coverart_widgets import QuickSearchEntry
 from coverart_controllers import PlaylistPopupController
 from coverart_controllers import GenrePopupController
 from coverart_controllers import SortPopupController
@@ -69,7 +70,6 @@ class CoverArtBrowserSource(RB.Source):
 
         self.hasActivated = False
         self.last_width = 0
-        self.quick_search_idle = 0
         self.last_selected_album = None
         self.click_count = 0
 
@@ -224,9 +224,8 @@ class CoverArtBrowserSource(RB.Source):
         self.favourite_playlist_sub_menu_item = ui.get_object(
             'favourite_playlist_sub_menu_item')
 
-        # quick search entry
+        # quick search
         self.quick_search = ui.get_object('quick_search_entry')
-        self.quick_search_box = ui.get_object('quick_search_box')
 
         print "CoverArtBrowser DEBUG - end _create_ui"
 
@@ -302,6 +301,10 @@ class CoverArtBrowserSource(RB.Source):
         # initialise the toolbar manager
         self._toolbar_manager = ToolbarManager(self.plugin, self.page,
             self.album_manager.model)
+
+        # initialise the variables of the quick search
+        self.quick_search.source = self
+        self.quick_search.album_manager = self.album_manager
 
         print "CoverArtBrowser DEBUG - end _setup_source"
 
@@ -387,7 +390,6 @@ class CoverArtBrowserSource(RB.Source):
         '''
         print "CoverArtBrowser DEBUG - on_notify_toolbar_pos"
         return
-
 
         if self.last_toolbar_pos == 'left':
             self.shell.remove_widget(self.sidebar, RB.ShellUILocation.SIDEBAR)
@@ -489,26 +491,6 @@ class CoverArtBrowserSource(RB.Source):
                 # also, if it's the first, update the cover search pane
                 self.cover_search_pane.clear()
                 self.cover_search_pane.do_search(album)
-
-    def on_overlay_key_press(self, overlay, event, *args):
-        if not self.quick_search_box.get_visible() and \
-            event.keyval not in [Gdk.KEY_Shift_L, Gdk.KEY_Shift_R,
-            Gdk.KEY_Control_L, Gdk.KEY_Control_R, Gdk.KEY_Escape]:
-            # grab focus, redirect the pressed key and make the quick search
-            # entry visible
-            self.quick_search.grab_focus()
-            self.quick_search.im_context_filter_keypress(event)
-            self.quick_search_box.show_all()
-
-        elif event.keyval == Gdk.KEY_Escape:
-            self.hide_quick_search()
-
-        return False
-
-    def on_quick_search_focus_lost(self, quick_search, event, *args):
-        self.hide_quick_search()
-
-        return False
 
     def show_properties_menu_item_callback(self, menu_item):
         '''
@@ -1103,65 +1085,6 @@ class CoverArtBrowserSource(RB.Source):
         self.covers_view.select_path(path)
         self.covers_view.set_cursor(path, None, False)
         self.covers_view.scroll_to_path(path, True, 0.5, 0.5)
-
-    def hide_quick_search(self):
-        self.quick_search_box.hide()
-        self.covers_view.grab_focus()
-        self.quick_search.props.text = ''
-
-    def add_hide_on_timeout(self):
-        self.quick_search_idle += 1
-
-        def hide_on_timeout(*args):
-            self.quick_search_idle -= 1
-
-            if not self.quick_search_idle:
-                self.hide_quick_search()
-
-            return False
-
-        Gdk.threads_add_timeout_seconds(GLib.PRIORITY_DEFAULT_IDLE, 4,
-            hide_on_timeout, None)
-
-    def on_quick_search(self, quick_search, *args):
-        if self.quick_search_box.get_visible():
-            # quick search on album names
-            search_text = quick_search.props.text
-            album = self.album_manager.model.find_first_visible('album_name',
-                search_text)
-
-            if album:
-                self.select_album(album)
-
-            # add a timeout to hide the search entry
-            self.add_hide_on_timeout()
-
-    def on_quick_search_up_down(self, quick_search, event, *args):
-        arrow = False
-
-        try:
-            current = self.get_selected_albums()[0]
-            search_text = quick_search.props.text
-            album = None
-
-            if event.keyval == Gdk.KEY_Up:
-                arrow = True
-                album = self.album_manager.model.find_first_visible(
-                    'album_name', search_text, current, True)
-            elif event.keyval == Gdk.KEY_Down:
-                arrow = True
-                album = self.album_manager.model.find_first_visible(
-                    'album_name', search_text, current)
-
-            if album:
-                self.select_album(album)
-        except:
-            pass
-
-        if arrow:
-            self.add_hide_on_timeout()
-
-        return arrow
 
     @classmethod
     def get_instance(cls, **kwargs):

@@ -19,6 +19,8 @@
 
 from gi.repository import RB
 from gi.repository import Gtk
+from gi.repository import Gdk
+from gi.repository import GLib
 from gi.repository import GObject
 
 
@@ -271,3 +273,135 @@ class SearchEntry(RB.SearchEntry, OptionsPopupWidget):
         '''
         if self._controller:
             self._controller.do_search(text)
+
+
+class QuickSearchEntry(Gtk.HBox):
+    __gtype_name__ = "QuickSearchEntry"
+
+    def __init__(self, *args, **kwargs):
+        super(QuickSearchEntry, self).__init__(*args, **kwargs)
+        self._album_manager = None
+        self._idle = 0
+
+        # text entry for the quick search input
+        text_entry = Gtk.Entry(halign='center', valign='center',
+            margin=5)
+
+        self.add(text_entry)
+
+        self.connect_signals(text_entry)
+
+    @property
+    def album_manager(self):
+        return self._album_manager
+
+    @album_manager.setter
+    def album_manager(self, album_manager):
+        self._album_manager = album_manager
+
+    ### PROVISORY CODE
+    @property
+    def source(self):
+        return self._source
+
+    @source.setter
+    def source(self, source):
+        self._source = source
+
+    ### END PROVISORY CODE
+
+    def connect_signals(self, text_entry):
+        text_entry.connect('changed', self._on_quick_search)
+        text_entry.connect('focus-out-event', self._on_focus_lost)
+        text_entry.connect('key-press-event', self._on_key_pressed)
+
+    def _hide_quick_search(self):
+        self.hide()
+        self.source.covers_view.grab_focus()
+        #self.album_manager.cover_view.grab_focus()
+
+    def _add_hide_on_timeout(self):
+        self._idle += 1
+
+        def hide_on_timeout(*args):
+            self._idle -= 1
+
+            if not self._idle:
+                self._hide_quick_search()
+
+            return False
+
+        Gdk.threads_add_timeout_seconds(GLib.PRIORITY_DEFAULT_IDLE, 4,
+            hide_on_timeout, None)
+
+    def do_parent_set(self, old_parent, *args):
+        if old_parent:
+            old_parent.disconnect(self._on_parent_key_press_id)
+
+        parent = self.get_parent()
+        self._on_parent_key_press_id = parent.connect('key-press-event',
+            self._on_parent_key_press, self.get_children()[0])
+
+    def _on_parent_key_press(self, parent, event, entry):
+        if not self.get_visible() and \
+            event.keyval not in [Gdk.KEY_Shift_L, Gdk.KEY_Shift_R,
+            Gdk.KEY_Control_L, Gdk.KEY_Control_R, Gdk.KEY_Escape]:
+            # grab focus, redirect the pressed key and make the quick search
+            # entry visible
+            entry.set_text('')
+            entry.grab_focus()
+            entry.im_context_filter_keypress(event)
+            self.show_all()
+
+        elif self.get_visible() and event.keyval == Gdk.KEY_Escape:
+            self._hide_quick_search()
+
+        return False
+
+    def _on_quick_search(self, entry, *args):
+        if entry.get_visible():
+            # quick search on album names
+            search_text = entry.get_text()
+            album = self.album_manager.model.find_first_visible('album_name',
+                search_text)
+
+            if album:
+                self.source.select_album(album)
+                #self.album_manager.cover_view.select_album(album)
+
+            # add a timeout to hide the search entry
+            self._add_hide_on_timeout()
+
+    def _on_focus_lost(self, entry, *args):
+        self._hide_quick_search()
+
+        return False
+
+    def _on_key_pressed(self, entry, event, *args):
+        arrow = False
+
+        try:
+            current = self.source.get_selected_albums()[0]
+            #current = self.album_manager.cover_view.get_selected_albums()[0]
+            search_text = entry.get_text()
+            album = None
+
+            if event.keyval == Gdk.KEY_Up:
+                arrow = True
+                album = self.album_manager.model.find_first_visible(
+                    'album_name', search_text, current, True)
+            elif event.keyval == Gdk.KEY_Down:
+                arrow = True
+                album = self.album_manager.model.find_first_visible(
+                    'album_name', search_text, current)
+
+            if album:
+                self.source.select_album(album)
+                #self.album_manager.cover_view.select_album(album)
+        except:
+            pass
+
+        if arrow:
+            self._add_hide_on_timeout()
+
+        return arrow

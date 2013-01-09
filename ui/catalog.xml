@@ -13,6 +13,9 @@
     <glade-widget-class title="SearchEntry" name="SearchEntry" 
                         generic-name="SearchEntry" parent="RBSearchEntry"
                         icon-name="widget-gtk-box"/>
+    <glade-widget-class title="QuickSearchEntry" name="QuickSearchEntry" 
+                        generic-name="QuickSearchEntry" parent="GtkBin"
+                        icon-name="widget-gtk-box"/>
   </glade-widget-classes>
 
    <glade-widget-group name="python" title="Python">
@@ -20,6 +23,7 @@
      <glade-widget-class-ref name="ImageToggleButton"/>
      <glade-widget-class-ref name="RBSearchEntry"/>
      <glade-widget-class-ref name="SearchEntry"/>
+     <glade-widget-class-ref name="QuickSearchEntry"/>
    </glade-widget-group>
 
 </glade-catalog>

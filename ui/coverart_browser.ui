@@ -24,7 +24,6 @@
         <child>
           <object class="GtkOverlay" id="iconview_overlay">
             <property name="visible">True</property>
-            <signal name="key-press-event" handler="on_overlay_key_press" swapped="no"/>
             <child>
               <object class="GtkScrolledWindow" id="scrolled_window">
                 <property name="visible">True</property>
@@ -49,24 +48,9 @@
               </object>
             </child>
             <child type="overlay">
-              <object class="GtkBox" id="quick_search_box">
-                <property name="orientation">horizontal</property>
+              <object class="QuickSearchEntry" id="quick_search_entry">
                 <property name="halign">end</property>
-                <property name="valign">end</property>
-                <child>
-                  <object class="GtkEntry" id="quick_search_entry">
-                    <property name="can_focus">True</property>
-                    <property name="halign">center</property>
-                    <property name="valign">center</property>
-                    <property name="margin_left">5</property>
-                    <property name="margin_right">5</property>
-                    <property name="margin_top">5</property>
-                    <property name="margin_bottom">5</property>
-                    <signal name="changed" handler="on_quick_search" swapped="no"/>
-                    <signal name="focus-out-event" handler="on_quick_search_focus_lost" swapped="no"/>
-                    <signal name="key-press-event" handler="on_quick_search_up_down" swapped="no"/>
-                  </object>
-                </child>
+                <property name="valign">end</property>                
               </object>
             </child>
           </object>
