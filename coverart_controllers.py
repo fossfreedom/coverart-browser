@@ -377,7 +377,7 @@ class DecadePopupController(OptionsController):
         # define a initial decade an set the initial key
         self._initial_decade = self.options[0]
         self.current_key = self._initial_decade
-
+        
     def do_action(self):
         if self.current_key == self._initial_decade:
             self._album_model.remove_filter('decade')

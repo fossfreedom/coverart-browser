@@ -435,6 +435,6 @@ class CaseInsensitiveDict(collections.Mapping):
     def __iter__(self):
         return iter(self._s)
     def __getitem__(self, k):
-        return self._d[self_s[k.lower()]]
+        return self._d[self._s[k.lower()]]
     def actual_key_case(self, k):
         return self._s.get(k.lower())
