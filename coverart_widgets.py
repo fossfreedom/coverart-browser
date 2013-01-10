@@ -278,9 +278,14 @@ class SearchEntry(RB.SearchEntry, OptionsPopupWidget):
 class QuickSearchEntry(Gtk.HBox):
     __gtype_name__ = "QuickSearchEntry"
 
+    # signals
+    __gsignals__ = {
+        'quick-search': (GObject.SIGNAL_RUN_LAST, None, (str,)),
+        'arrow-pressed': (GObject.SIGNAL_RUN_LAST, None, (object,))
+        }
+
     def __init__(self, *args, **kwargs):
         super(QuickSearchEntry, self).__init__(*args, **kwargs)
-        self._album_manager = None
         self._idle = 0
 
         # text entry for the quick search input
@@ -291,24 +296,11 @@ class QuickSearchEntry(Gtk.HBox):
 
         self.connect_signals(text_entry)
 
-    @property
-    def album_manager(self):
-        return self._album_manager
+    def get_text(self):
+        return self.get_children()[0].get_text()
 
-    @album_manager.setter
-    def album_manager(self, album_manager):
-        self._album_manager = album_manager
-
-    ### PROVISORY CODE
-    @property
-    def source(self):
-        return self._source
-
-    @source.setter
-    def source(self, source):
-        self._source = source
-
-    ### END PROVISORY CODE
+    def set_text(self, text):
+        self.get_children()[0].set_text(text)
 
     def connect_signals(self, text_entry):
         text_entry.connect('changed', self._on_quick_search)
@@ -317,8 +309,6 @@ class QuickSearchEntry(Gtk.HBox):
 
     def _hide_quick_search(self):
         self.hide()
-        self.source.covers_view.grab_focus()
-        #self.album_manager.cover_view.grab_focus()
 
     def _add_hide_on_timeout(self):
         self._idle += 1
@@ -360,14 +350,9 @@ class QuickSearchEntry(Gtk.HBox):
 
     def _on_quick_search(self, entry, *args):
         if entry.get_visible():
-            # quick search on album names
+            # emit the quick-search signal
             search_text = entry.get_text()
-            album = self.album_manager.model.find_first_visible('album_name',
-                search_text)
-
-            if album:
-                self.source.select_album(album)
-                #self.album_manager.cover_view.select_album(album)
+            self.emit('quick-search', search_text)
 
             # add a timeout to hide the search entry
             self._add_hide_on_timeout()
@@ -378,30 +363,10 @@ class QuickSearchEntry(Gtk.HBox):
         return False
 
     def _on_key_pressed(self, entry, event, *args):
-        arrow = False
-
-        try:
-            current = self.source.get_selected_albums()[0]
-            #current = self.album_manager.cover_view.get_selected_albums()[0]
-            search_text = entry.get_text()
-            album = None
-
-            if event.keyval == Gdk.KEY_Up:
-                arrow = True
-                album = self.album_manager.model.find_first_visible(
-                    'album_name', search_text, current, True)
-            elif event.keyval == Gdk.KEY_Down:
-                arrow = True
-                album = self.album_manager.model.find_first_visible(
-                    'album_name', search_text, current)
-
-            if album:
-                self.source.select_album(album)
-                #self.album_manager.cover_view.select_album(album)
-        except:
-            pass
+        arrow = event.keyval in [Gdk.KEY_Up, Gdk.KEY_Down]
 
         if arrow:
+            self.emit('arrow-pressed', event.keyval)
             self._add_hide_on_timeout()
 
         return arrow
