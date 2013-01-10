@@ -13,14 +13,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-01-08 21:31+0000\n"
+"POT-Creation-Date: 2013-01-09 15:15+0000\n"
 "PO-Revision-Date: 2013-01-09 14:09+0000\n"
 "Last-Translator: fossfreedom <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-01-09 14:28+0000\n"
+"X-Launchpad-Export-Date: 2013-01-10 23:12+0000\n"
 "X-Generator: Launchpad (build 16412)\n"
 "Language: en_US\n"
 "Generated-By: Babel 0.9.6\n"
@@ -225,67 +225,63 @@ msgstr ""
 msgid "children"
 msgstr ""
 
-#: img/popups.xml.in.h:36
-msgid "default"
-msgstr ""
-
 #. 'Older' as in 'older than the year 1930'
-#: img/popups.xml.in.h:38
+#: img/popups.xml.in.h:37
 msgid "Older"
 msgstr ""
 
-#: img/popups.xml.in.h:39 ui/coverart_browser.ui.h:12
+#: img/popups.xml.in.h:38 ui/coverart_browser.ui.h:12
 #: ui/coverart_sidebar.ui.h:4 coverart_widgets.py:516
 msgid "All Decades"
 msgstr ""
 
 #. '00s' as in the decade 2000
-#: img/popups.xml.in.h:41
+#: img/popups.xml.in.h:40
 msgid "00s"
 msgstr ""
 
 #. '00s' as in the decade 2010
-#: img/popups.xml.in.h:43
+#: img/popups.xml.in.h:42
 msgid "10s"
 msgstr ""
 
 #. '20s' as in the decade 2020
-#: img/popups.xml.in.h:45
+#: img/popups.xml.in.h:44
 msgid "20s"
 msgstr ""
 
 #. '30s' as in the decade 1930
-#: img/popups.xml.in.h:47
+#: img/popups.xml.in.h:46
 msgid "30s"
 msgstr ""
 
 #. '40s' as in the decade 1940
-#: img/popups.xml.in.h:49
+#: img/popups.xml.in.h:48
 msgid "40s"
 msgstr ""
 
 #. '50s' as in the decade 1950
-#: img/popups.xml.in.h:51
+#: img/popups.xml.in.h:50
 msgid "50s"
 msgstr ""
 
 #. '60s' as in the decade 1960
-#: img/popups.xml.in.h:53
+#: img/popups.xml.in.h:52
 msgid "60s"
 msgstr ""
 
 #. '70s' as in the decade 1970
-#: img/popups.xml.in.h:55
+#: img/popups.xml.in.h:54
 msgid "70s"
 msgstr ""
 
 #. '80s' as in the decade 1980
-#: img/popups.xml.in.h:57
+#: img/popups.xml.in.h:56
 msgid "80s"
 msgstr ""
 
 #. '90s' as in the decade 1990
-#: img/popups.xml.in.h:59
+#: img/popups.xml.in.h:58
 msgid "90s"
 msgstr ""
 
@@ -721,64 +717,3 @@ msgstr "Sort in descending order"
 #: coverart_widgets.py:638
 msgid "Sort in ascending order"
 msgstr "Sort in ascending order"
-
-#~ msgid "Various Artists"
-#~ msgstr "Various Artists"
-
-#~ msgid "Show text while loading"
-#~ msgstr "Show text while loading"
-
-#~ msgid ""
-#~ "Show's the text for each album during the source load. Deactivating this "
-#~ "option may help with the loading performance."
-#~ msgstr ""
-#~ "Show's the text for each album during the source load. Deactivating this "
-#~ "option may help with the loading performance."
-
-#~ msgid "Give the track a favourite rating"
-#~ msgstr "Give the track a favourite rating"
-
-#~ msgid "Rate Track"
-#~ msgstr "Rate Track"
-
-#~ msgid "Give the track a 5 star rating"
-#~ msgstr "Give the track a 5 star rating"
-
-#~ msgid "5 Stars"
-#~ msgstr "5 Stars"
-
-#~ msgid "Give the track a 4 star rating"
-#~ msgstr "Give the track a 4 star rating"
-
-#~ msgid "4 Stars"
-#~ msgstr "4 Stars"
-
-#~ msgid "Give the track a 3 star rating"
-#~ msgstr "Give the track a 3 star rating"
-
-#~ msgid "3 Stars"
-#~ msgstr "3 Stars"
-
-#~ msgid "Give the track a 2 star rating"
-#~ msgstr "Give the track a 2 star rating"
-
-#~ msgid "2 Stars"
-#~ msgstr "2 Stars"
-
-#~ msgid "Give the track a 1 star rating"
-#~ msgstr "Give the track a 1 star rating"
-
-#~ msgid "1 Star"
-#~ msgstr "1 Star"
-
-#~ msgid "Give the track a 0 star rating"
-#~ msgstr "Give the track a 0 star rating"
-
-#~ msgid "0 Stars"
-#~ msgstr "0 Stars"
-
-#~ msgid "Album art search"
-#~ msgstr "Album art search"
-
-#~ msgid " Album art search - Select an album"
-#~ msgstr " Album art search - Select an album"
