@@ -41,6 +41,7 @@ from coverart_controllers import SortPopupController
 from coverart_controllers import DecadePopupController
 from coverart_controllers import SortOrderToggleController
 from coverart_controllers import AlbumSearchEntryController
+from coverart_controllers import AlbumQuickSearchController
 from stars import ReactiveStar
 from coverart_timer import ttimer
 
@@ -303,8 +304,9 @@ class CoverArtBrowserSource(RB.Source):
             self.album_manager.model)
 
         # initialise the variables of the quick search
-        self.quick_search.source = self
-        self.quick_search.album_manager = self.album_manager
+        self.quick_search_controller = AlbumQuickSearchController(self,
+            self.album_manager)
+        self.quick_search_controller.connect_quick_search(self.quick_search)
 
         print "CoverArtBrowser DEBUG - end _setup_source"
 

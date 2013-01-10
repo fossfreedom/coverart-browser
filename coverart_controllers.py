@@ -18,6 +18,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 from gi.repository import GdkPixbuf
 from gi.repository import GObject
+from gi.repository import Gdk
 from gi.repository import RB
 
 import rb
@@ -428,3 +429,43 @@ class AlbumSearchEntryController(OptionsController):
                     search_text)
             elif not force:
                 self._album_model.remove_filter(self._filter_type)
+
+
+class AlbumQuickSearchController(object):
+
+    def __init__(self, source, album_manager):
+        self._source = source
+        self._album_manager = album_manager
+
+    def connect_quick_search(self, quick_search):
+        quick_search.connect('quick-search', self._on_quick_search)
+        quick_search.connect('arrow-pressed', self._on_arrow_pressed)
+        quick_search.connect('hide', self._on_hide)
+
+    def _on_quick_search(self, quick_search, search_text, *args):
+        album = self._album_manager.model.find_first_visible('album_name',
+            search_text)
+
+        if album:
+            self._source.select_album(album)
+            #self._album_manager.cover_view.select_album(album)
+
+    def _on_arrow_pressed(self, quick_search, key, *args):
+        current = self._source.get_selected_albums()[0]
+        #current = self.album_manager.cover_view.get_selected_albums()[0]
+        search_text = quick_search.get_text()
+        album = None
+
+        if key == Gdk.KEY_Up:
+            album = self._album_manager.model.find_first_visible(
+                'album_name', search_text, current, True)
+        elif key == Gdk.KEY_Down:
+            album = self._album_manager.model.find_first_visible(
+                'album_name', search_text, current)
+
+        if album:
+            self._source.select_album(album)
+            #self._album_manager.cover_view.select_album(album)
+
+    def _on_hide(self, quick_search, *args):
+        self._album_manager.cover_view.grab_focus()
