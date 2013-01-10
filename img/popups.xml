@@ -192,7 +192,6 @@
         <genre xml:lang="pt_BR" spritesheet="genre" name="children">infantil</genre>
         <genre name="default" image="genre.png">default</genre>
 
-        
         <alt>
             <alt genre="easy listening">lounge</alt>
             <alt genre="alternative">ska</alt>
@@ -219,111 +218,30 @@
         </alt>
     </genre>
     <sort>
-        <sort spritesheet="sort" name="name"/>
-        <sort spritesheet="sort" name="artist"/>
-        <sort spritesheet="sort" name="year"/>
-        <sort spritesheet="sort" name="rating"/>
+        <sort spritesheet="sort" name="name">name</sort>
+        <sort spritesheet="sort" name="artist">artist</sort>
+        <sort spritesheet="sort" name="year">year</sort>
+        <sort spritesheet="sort" name="rating">rating</sort>
     </sort>
     <playlist>
-        <playlist spritesheet="playlist" name="music"/>
-        <playlist spritesheet="playlist" name="playlist"/>
-        <playlist spritesheet="playlist" name="queue"/>
-        <playlist spritesheet="playlist" name="smart"/>
+        <playlist spritesheet="playlist" name="music">music</playlist>
+        <playlist spritesheet="playlist" name="playlist">playlist</playlist>
+        <playlist spritesheet="playlist" name="queue">queue</playlist>
+        <playlist spritesheet="playlist" name="smart">smart</playlist>
     </playlist>
     <decade>
-         
         <decade spritesheet="decade" name="Old">Older</decade>
-        <decade xml:lang="en_GB" spritesheet="decade" name="Old">Older</decade>
-        <decade xml:lang="es" spritesheet="decade" name="Old">antigua</decade>
-        <decade xml:lang="fi" spritesheet="decade" name="Old">Vanhempi</decade>
-        <decade xml:lang="fr" spritesheet="decade" name="Old">Plus vieux</decade>
-        <decade xml:lang="fr_CA" spritesheet="decade" name="Old">Plus vieux</decade>
-        <decade xml:lang="pt_BR" spritesheet="decade" name="Old">Antiga</decade>
         <decade spritesheet="decade" name="All">All Decades</decade>
-        <decade xml:lang="en_GB" spritesheet="decade" name="All">All Decades</decade>
-        <decade xml:lang="es" spritesheet="decade" name="All">Todas las décadas</decade>
-        <decade xml:lang="fi" spritesheet="decade" name="All">Kaikki vuosikymmenet</decade>
-        <decade xml:lang="fr" spritesheet="decade" name="All">Toutes les décennies</decade>
-        <decade xml:lang="fr_CA" spritesheet="decade" name="All">Toutes les décennies</decade>
-        <decade xml:lang="pt_BR" spritesheet="decade" name="All">Todas as décadas</decade>
-        
         <decade spritesheet="decade" name="00s">00s</decade>
-        <decade xml:lang="de" spritesheet="decade" name="00s">00er</decade>
-        <decade xml:lang="en_GB" spritesheet="decade" name="00s">00s</decade>
-        <decade xml:lang="es" spritesheet="decade" name="00s">00s</decade>
-        <decade xml:lang="fr" spritesheet="decade" name="00s">Années 2000</decade>
-        <decade xml:lang="fr_CA" spritesheet="decade" name="00s">Années 2000</decade>
-        
         <decade spritesheet="decade" name="10s">10s</decade>
-        <decade xml:lang="de" spritesheet="decade" name="10s">10er</decade>
-        <decade xml:lang="en_GB" spritesheet="decade" name="10s">10s</decade>
-        <decade xml:lang="es" spritesheet="decade" name="10s">10s</decade>
-        <decade xml:lang="fr" spritesheet="decade" name="10s">Années 2010</decade>
-        <decade xml:lang="fr_CA" spritesheet="decade" name="10s">Années 2010</decade>
-        
         <decade spritesheet="decade" name="20s">20s</decade>
-        <decade xml:lang="de" spritesheet="decade" name="20s">20er</decade>
-        <decade xml:lang="en_GB" spritesheet="decade" name="20s">20s</decade>
-        <decade xml:lang="es" spritesheet="decade" name="20s">20s</decade>
-        <decade xml:lang="fr" spritesheet="decade" name="20s">Années 2020</decade>
-        <decade xml:lang="fr_CA" spritesheet="decade" name="20s">Années 2020</decade>
-        <decade xml:lang="pt_BR" spritesheet="decade" name="20s">década de 2020</decade>
-        
         <decade spritesheet="decade" name="30s">30s</decade>
-        <decade xml:lang="de" spritesheet="decade" name="30s">30er</decade>
-        <decade xml:lang="en_GB" spritesheet="decade" name="30s">30s</decade>
-        <decade xml:lang="es" spritesheet="decade" name="30s">30s</decade>
-        <decade xml:lang="fr" spritesheet="decade" name="30s">Années 30</decade>
-        <decade xml:lang="fr_CA" spritesheet="decade" name="30s">Années 30</decade>
-        <decade xml:lang="pt_BR" spritesheet="decade" name="30s">Anos 30</decade>
-        
         <decade spritesheet="decade" name="40s">40s</decade>
-        <decade xml:lang="de" spritesheet="decade" name="40s">40er</decade>
-        <decade xml:lang="en_GB" spritesheet="decade" name="40s">40s</decade>
-        <decade xml:lang="es" spritesheet="decade" name="40s">40s</decade>
-        <decade xml:lang="fr" spritesheet="decade" name="40s">Années 40</decade>
-        <decade xml:lang="fr_CA" spritesheet="decade" name="40s">Années 40</decade>
-        <decade xml:lang="pt_BR" spritesheet="decade" name="40s">Anos 40</decade>
-        
         <decade spritesheet="decade" name="50s">50s</decade>
-        <decade xml:lang="de" spritesheet="decade" name="50s">50er</decade>
-        <decade xml:lang="en_GB" spritesheet="decade" name="50s">50s</decade>
-        <decade xml:lang="es" spritesheet="decade" name="50s">50s</decade>
-        <decade xml:lang="fr" spritesheet="decade" name="50s">Années 50</decade>
-        <decade xml:lang="fr_CA" spritesheet="decade" name="50s">Années 50</decade>
-        <decade xml:lang="pt_BR" spritesheet="decade" name="50s">Anos 50</decade>
-        
         <decade spritesheet="decade" name="60s">60s</decade>
-        <decade xml:lang="de" spritesheet="decade" name="60s">60er</decade>
-        <decade xml:lang="en_GB" spritesheet="decade" name="60s">60s</decade>
-        <decade xml:lang="es" spritesheet="decade" name="60s">60s</decade>
-        <decade xml:lang="fr" spritesheet="decade" name="60s">Années 60</decade>
-        <decade xml:lang="fr_CA" spritesheet="decade" name="60s">Années 60</decade>
-        <decade xml:lang="pt_BR" spritesheet="decade" name="60s">Anos 60</decade>
-        
         <decade spritesheet="decade" name="70s">70s</decade>
-        <decade xml:lang="de" spritesheet="decade" name="70s">70er</decade>
-        <decade xml:lang="en_GB" spritesheet="decade" name="70s">70s</decade>
-        <decade xml:lang="es" spritesheet="decade" name="70s">70s</decade>
-        <decade xml:lang="fr" spritesheet="decade" name="70s">Années 70</decade>
-        <decade xml:lang="fr_CA" spritesheet="decade" name="70s">Années 70</decade>
-        <decade xml:lang="pt_BR" spritesheet="decade" name="70s">Anos 70</decade>
-        
         <decade spritesheet="decade" name="80s">80s</decade>
-        <decade xml:lang="de" spritesheet="decade" name="80s">80er</decade>
-        <decade xml:lang="en_GB" spritesheet="decade" name="80s">80s</decade>
-        <decade xml:lang="es" spritesheet="decade" name="80s">80s</decade>
-        <decade xml:lang="fr" spritesheet="decade" name="80s">Années 80</decade>
-        <decade xml:lang="fr_CA" spritesheet="decade" name="80s">Années 80</decade>
-        <decade xml:lang="pt_BR" spritesheet="decade" name="80s">Anos 80</decade>
-        
         <decade spritesheet="decade" name="90s">90s</decade>
-        <decade xml:lang="de" spritesheet="decade" name="90s">90er</decade>
-        <decade xml:lang="en_GB" spritesheet="decade" name="90s">90s</decade>
-        <decade xml:lang="es" spritesheet="decade" name="90s">90s</decade>
-        <decade xml:lang="fr" spritesheet="decade" name="90s">Années 90</decade>
-        <decade xml:lang="fr_CA" spritesheet="decade" name="90s">Années 90</decade>
-        <decade xml:lang="pt_BR" spritesheet="decade" name="90s">Anos 90</decade>
     </decade>
     <spritesheet name="genre">
         <image>genre_sprites.png</image>
