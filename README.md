@@ -131,6 +131,8 @@ N.B. for debian based distros - `sudo apt-get install python-mako`
 N.B. for debian based distros - `sudo apt-get install python-mutagen`
 5. install the package *python-requests*
 N.B. for debian based distros - `sudo apt-get install python-requests`
+6. install the package *python-lxml*
+N.B. for debian based distros - `sudo apt-get install python-lxml`
 
 
 <pre>
