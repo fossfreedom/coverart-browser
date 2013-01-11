@@ -243,31 +243,34 @@ class GenrePopupController(OptionsController):
         # of test_genre - check in reverse order so that we
         # test largest strings first (prevents spurious matches with
         # short strings)
-
+        # N.B. we use RB.search_fold since the strings can be
+        # in a mixture of cases, both unicode (normalized or not) and str
+        # and as usual python cannot mix and match these types.
+        
         for genre in sorted(self._spritesheet.locale_names,
             key=lambda b: (-len(b), b)):
-            if genre.lower() in test_genre.lower():
-                return self._spritesheet[genre]
+            if RB.search_fold(genre) in RB.search_fold(test_genre):
+                return self._spritesheet[self._spritesheet.locale_names[genre]]
 
         # next check locale alternates
         case_search = CaseInsensitiveDict(self._spritesheet.locale_alternate)
-        if test_genre.lower() in case_search:
-            return self._spritesheet[case_search[test_genre.lower()]]
+        
+        if RB.search_fold(test_genre) in case_search:
+            return self._spritesheet[case_search[RB.search_fold(test_genre)]]
 
         # check if any of the default genres are a substring
         # of test_genre - check in reverse order so that we
         # test largest strings first (prevents spurious matches with
         # short strings)
-
         for genre in sorted(self._spritesheet.names,
             key=lambda b: (-len(b), b)):
-            if genre.lower() in test_genre.lower():
+            if RB.search_fold(genre) in RB.search_fold(test_genre):
                 return self._spritesheet[genre]
 
         # next check alternates
         case_search = CaseInsensitiveDict(self._spritesheet.alternate)
-        if test_genre.lower() in case_search:
-            return self._spritesheet[case_search[test_genre.lower()]]
+        if RB.search_fold(test_genre) in case_search:
+            return self._spritesheet[case_search[RB.search_fold(test_genre)]]
 
         # if no matches then default to unrecognised image
         return self._unrecognised_image
@@ -319,10 +322,7 @@ class SortPopupController(OptionsController):
         self._album_model.sort(sort)
 
     def get_current_image(self):
-        sort = self.values[self.current_key]
-        
-        print sort
-
+        sort = self.values[self.current_key]        
         return self._spritesheet[sort]
 
 

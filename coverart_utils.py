@@ -19,6 +19,7 @@ from gi.repository import GdkPixbuf
 from gi.repository import Gdk
 from gi.repository import Gtk
 from gi.repository import GLib
+from gi.repository import RB
 import lxml.etree as ET
 import rb
 from coverart_browser_prefs import CoverLocale
@@ -362,7 +363,7 @@ class ConfiguredSpriteSheet(object):
             alpha_color = None
 
         self.names = []
-        self.locale_names = []
+        self.locale_names = {}
 
         cl = CoverLocale()
         lang=cl.get_locale()
@@ -376,6 +377,11 @@ class ConfiguredSpriteSheet(object):
         for elem in self.root.xpath(base + '[@xml:lang="' + lang + '"]'):
             self.locale_names.append(elem.text)
 
+        if (not self.locale_names) and len(lang) > 2:
+            for elem in self.root.xpath(base + '[@xml:lang="' +\
+                lang[0:2] + '"]'):
+                self.locale_names[elem.text]=elem.attrib['name']
+        
         self._sheet = SpriteSheet(image, icon_width, icon_height, x_spacing,
             y_spacing, x_start, y_start, alpha_color, size)
 
@@ -405,9 +411,15 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
         base = sprite_name + '/alt'
         for elem in self.root.xpath(base + '[not(@xml:lang)]/alt'):
             self.alternate[elem.text] = elem.attrib['genre']
-
+            
         for elem in self.root.xpath(base + '[@xml:lang="' + lang + '"]/alt'):
             self.locale_alternate[elem.text] = elem.attrib['genre']
+
+        if (not self.locale_alternate) and len(lang) > 2:
+            for elem in self.root.xpath(base + '[@xml:lang="' +\
+                lang[0:2] + '"]/alt'):
+                self.locale_alternate[elem.text] = elem.attrib['genre']
+
 
 def get_stock_size():
     what, width, height = Gtk.icon_size_lookup(Gtk.IconSize.BUTTON)
@@ -427,14 +439,14 @@ def create_pixbuf_from_file_at_size(filename, width, height):
 class CaseInsensitiveDict(collections.Mapping):
     def __init__(self, d):
         self._d = d
-        self._s = dict((k.lower(), k) for k in d)
+        self._s = dict((RB.search_fold(k), k) for k in d)
     def __contains__(self, k):
-        return k.lower() in self._s
+        return RB.search_fold(k) in self._s
     def __len__(self):
         return len(self._s)
     def __iter__(self):
         return iter(self._s)
     def __getitem__(self, k):
-        return self._d[self._s[k.lower()]]
+        return self._d[self._s[RB.search_fold(k)]]
     def actual_key_case(self, k):
-        return self._s.get(k.lower())
+        return self._s.get(RB.search_fold(k))

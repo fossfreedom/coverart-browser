@@ -160,7 +160,7 @@
         <genre xml:lang="en_GB" spritesheet="genre" name="musical">musical</genre>
         <genre xml:lang="es" spritesheet="genre" name="musical">musical</genre>
         <genre xml:lang="fr" spritesheet="genre" name="musical">comédie musicale</genre>
-        <genre xml:lang="fr_CA" spritesheet="genre" name="musical">comédie musicale</genre>
+        <genre xml:lang="fr_CA" spritesheet="genre" name="musical">comédie musicale2</genre>
         <genre xml:lang="pl" spritesheet="genre" name="musical">musical</genre>
         <genre spritesheet="genre" name="dance">dance</genre>
         <genre xml:lang="az" spritesheet="genre" name="dance">oynaq</genre>
