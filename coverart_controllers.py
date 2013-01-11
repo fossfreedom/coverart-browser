@@ -130,9 +130,6 @@ class PlaylistPopupController(OptionsController):
         self.current_key = self.current_key if still_exists else\
             self._library_name
 
-        print self.values
-        print self.current_key
-
     def do_action(self):
         playlist = self.values[self.current_key]
 
@@ -311,7 +308,7 @@ class SortPopupController(OptionsController):
 
         self.current_key = self.values.keys()[
             self.values.values().index(value)]
-
+            
     def do_action(self):
         sort = self.values[self.current_key]
 
@@ -323,6 +320,8 @@ class SortPopupController(OptionsController):
 
     def get_current_image(self):
         sort = self.values[self.current_key]
+        
+        print sort
 
         return self._spritesheet[sort]
 
@@ -344,29 +343,29 @@ class DecadePopupController(OptionsController):
 
         self.values = OrderedDict()
         
-        self.values[ _('All Decades') ] = -1
+        self.values[ _('All Decades') ] = [-1, 'All Decades']
         #'20s' as in the decade 2010
-        self.values[ _('20s') ] = 2020
+        self.values[ _('20s') ] = [2020, '20s']
         #'10s' as in the decade 2010
-        self.values[ _('10s') ] = 2010
+        self.values[ _('10s') ] = [2010, '10s']
         #'00s' as in the decade 2000
-        self.values[ _('00s') ] = 2000
+        self.values[ _('00s') ] = [2000, '00s']
         #'90s' as in the decade 1990
-        self.values[ _('90s') ] = 1990
+        self.values[ _('90s') ] = [1990, '90s']
         #'80s' as in the decade 1980
-        self.values[ _('80s') ] = 1980
+        self.values[ _('80s') ] = [1980, '80s']
         #'70s' as in the decade 1970
-        self.values[ _('70s') ] = 1970 
+        self.values[ _('70s') ] = [1970, '70s']
         #'60s' as in the decade 1960
-        self.values[ _('60s') ] = 1960 
+        self.values[ _('60s') ] = [1960, '60s']
         #'50s' as in the decade 1950
-        self.values[ _('50s') ] = 1950 
+        self.values[ _('50s') ] = [1950, '50s']
         #'40s' as in the decade 1940
-        self.values[ _('40s') ] = 1940 
+        self.values[ _('40s') ] = [1940, '40s']
         #'30s' as in the decade 1930
-        self.values[ _('30s') ] = 1930
+        self.values[ _('30s') ] = [1930, '30s']
         #'Older' as in 'older than the year 1930'
-        self.values[ _('Older') ] = -1
+        self.values[ _('Older') ] = [-1, 'Older']
 
         self.options = self.values.keys()
 
@@ -383,10 +382,11 @@ class DecadePopupController(OptionsController):
             self._album_model.remove_filter('decade')
         else:
             self._album_model.replace_filter('decade',
-                self.values[self.current_key])
+                self.values[self.current_key][0])
 
     def get_current_image(self):
-        return self._spritesheet[self.current_key]
+        decade = self.values[self.current_key][1]
+        return self._spritesheet[decade]
 
     def get_current_description(self):
         return self.current_key
