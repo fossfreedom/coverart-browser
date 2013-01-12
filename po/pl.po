@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-12 18:35+0000\n"
+"POT-Creation-Date: 2013-01-12 18:45+0000\n"
 "PO-Revision-Date: 2013-01-11 21:54+0000\n"
 "Last-Translator: Isamu715 <isamu715@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -266,7 +266,7 @@ msgstr "Położenie"
 
 #: ui/coverart_browser_prefs.ui.h:37
 #, fuzzy
-msgid "Show toolbar in: "
+msgid "Show toolbar: "
 msgstr "Pokaż pasek narzędzi: "
 
 #: ui/coverart_browser_prefs.ui.h:38

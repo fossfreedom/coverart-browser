@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-12 18:35+0000\n"
+"POT-Creation-Date: 2013-01-12 18:45+0000\n"
 "PO-Revision-Date: 2013-01-09 21:15+0000\n"
 "Last-Translator: hhlp <os390l@gmail.com>\n"
 "Language-Team: none\n"
@@ -269,7 +269,7 @@ msgstr "Posición"
 
 #: ui/coverart_browser_prefs.ui.h:37
 #, fuzzy
-msgid "Show toolbar in: "
+msgid "Show toolbar: "
 msgstr "Mostrar barra de herramientas: "
 
 #: ui/coverart_browser_prefs.ui.h:38

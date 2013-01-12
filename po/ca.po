@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-12 18:35+0000\n"
+"POT-Creation-Date: 2013-01-12 18:45+0000\n"
 "PO-Revision-Date: 2013-01-10 15:25+0000\n"
 "Last-Translator: VPablo <villumar@gmail.com>\n"
 "Language-Team: Catalan <ca@li.org>\n"
@@ -254,7 +254,7 @@ msgid "Position"
 msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:37
-msgid "Show toolbar in: "
+msgid "Show toolbar: "
 msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:38

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-12 18:35+0000\n"
+"POT-Creation-Date: 2013-01-12 18:45+0000\n"
 "PO-Revision-Date: 2013-01-11 15:03+0000\n"
 "Last-Translator: Wang Dianjin <Unknown>\n"
 "Language-Team: Chinese (Simplified) <zh_CN@li.org>\n"
@@ -254,7 +254,7 @@ msgstr "位置"
 
 #: ui/coverart_browser_prefs.ui.h:37
 #, fuzzy
-msgid "Show toolbar in: "
+msgid "Show toolbar: "
 msgstr "显示工具栏： "
 
 #: ui/coverart_browser_prefs.ui.h:38
