@@ -6,16 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2013-01-09 15:15+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-01-12 17:59+0000\n"
 "PO-Revision-Date: 2013-01-10 00:43+0000\n"
 "Last-Translator: Po-Chun Huang <Unknown>\n"
 "Language-Team: Chinese (Traditional) <zh_TW@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-01-10 23:12+0000\n"
-"X-Generator: Launchpad (build 16412)\n"
+"X-Launchpad-Export-Date: 2013-01-12 17:56+0000\n"
+"X-Generator: Launchpad (build 16420)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:185
 msgid "Search Options"
@@ -69,7 +70,7 @@ msgstr "大"
 msgid "Extra Large"
 msgstr "特大"
 
-#: tmpl/albumartsearch-tmpl.html:209 coverart_browser_source.py:105
+#: tmpl/albumartsearch-tmpl.html:209 coverart_browser_source.py:103
 msgid "Loading..."
 msgstr "載入中…"
 
@@ -77,205 +78,25 @@ msgstr "載入中…"
 msgid "Show more results"
 msgstr "顯示更多結果..."
 
-#: img/popups.xml.in.h:1
-msgid "rock"
-msgstr "搖滾"
-
-#: img/popups.xml.in.h:2
-msgid "country"
-msgstr "鄉村"
-
-#: img/popups.xml.in.h:3
-msgid "pop"
-msgstr "流行"
-
-#: img/popups.xml.in.h:4
-msgid "classical"
-msgstr "古典"
-
-#: img/popups.xml.in.h:5
-msgid "world"
-msgstr "世界"
-
-#: img/popups.xml.in.h:6
-msgid "bluegrass"
-msgstr "藍草"
-
-#: img/popups.xml.in.h:7
-msgid "oldies"
-msgstr "懷舊"
-
-#: img/popups.xml.in.h:8
-msgid "holiday"
+#: ui/coverart_album_search_prefs.ui.h:1
+msgid "Find CoverArt:"
 msgstr ""
 
-#: img/popups.xml.in.h:9
-msgid "comedy"
-msgstr "喜劇"
-
-#: img/popups.xml.in.h:10
-msgid "spoken"
+#: ui/coverart_album_search_prefs.ui.h:2 ui/coverart_browser_prefs.ui.h:41
+msgid "Search for embedded coverart"
 msgstr ""
 
-#: img/popups.xml.in.h:11
-msgid "jazz"
-msgstr "爵士"
-
-#: img/popups.xml.in.h:12
-msgid "blues"
-msgstr "藍調"
-
-#: img/popups.xml.in.h:13
-msgid "metal"
-msgstr "金屬"
-
-#: img/popups.xml.in.h:14
-msgid "karaoke"
+#: ui/coverart_album_search_prefs.ui.h:3 ui/coverart_browser_prefs.ui.h:42
+msgid "Search for coverart embedded within tracks for an album"
 msgstr ""
 
-#: img/popups.xml.in.h:15
-msgid "rap"
-msgstr "饒舌"
-
-#: img/popups.xml.in.h:16
-msgid "ragtime"
+#: ui/coverart_album_search_prefs.ui.h:4 ui/coverart_browser_prefs.ui.h:39
+msgid "Search for coverart on DISCOGS"
 msgstr ""
 
-#: img/popups.xml.in.h:17
-msgid "musical"
+#: ui/coverart_album_search_prefs.ui.h:5 ui/coverart_browser_prefs.ui.h:40
+msgid "Search for coverart on the internet provider DISCOGS"
 msgstr ""
-
-#: img/popups.xml.in.h:18
-msgid "dance"
-msgstr "舞曲"
-
-#: img/popups.xml.in.h:19
-msgid "reggae"
-msgstr ""
-
-#: img/popups.xml.in.h:20
-msgid "electronic"
-msgstr "電音"
-
-#: img/popups.xml.in.h:21
-msgid "soundtrack"
-msgstr "電影原聲"
-
-#: img/popups.xml.in.h:22
-msgid "latin"
-msgstr "拉丁"
-
-#: img/popups.xml.in.h:23
-msgid "alternative"
-msgstr ""
-
-#: img/popups.xml.in.h:24
-msgid "disco"
-msgstr "迪斯可"
-
-#: img/popups.xml.in.h:25
-msgid "folk"
-msgstr "民俗"
-
-#: img/popups.xml.in.h:26
-msgid "gospel"
-msgstr "福音"
-
-#: img/popups.xml.in.h:27
-msgid "experimental"
-msgstr ""
-
-#: img/popups.xml.in.h:28
-msgid "new age"
-msgstr ""
-
-#: img/popups.xml.in.h:29
-msgid "opera"
-msgstr "歌劇"
-
-#: img/popups.xml.in.h:30
-msgid "anime"
-msgstr "動漫"
-
-#: img/popups.xml.in.h:31
-msgid "soul"
-msgstr "靈魂樂"
-
-#: img/popups.xml.in.h:32
-msgid "workout"
-msgstr ""
-
-#: img/popups.xml.in.h:33
-msgid "easy listening"
-msgstr ""
-
-#: img/popups.xml.in.h:34
-msgid "hip-hop"
-msgstr "嘻哈"
-
-#: img/popups.xml.in.h:35
-msgid "children"
-msgstr ""
-
-#. 'Older' as in 'older than the year 1930'
-#: img/popups.xml.in.h:37
-msgid "Older"
-msgstr "較舊"
-
-#: img/popups.xml.in.h:38 ui/coverart_browser.ui.h:12
-#: ui/coverart_sidebar.ui.h:4 coverart_widgets.py:516
-msgid "All Decades"
-msgstr "所有年代"
-
-#. '00s' as in the decade 2000
-#: img/popups.xml.in.h:40
-msgid "00s"
-msgstr "00年代"
-
-#. '00s' as in the decade 2010
-#: img/popups.xml.in.h:42
-msgid "10s"
-msgstr "10年代"
-
-#. '20s' as in the decade 2020
-#: img/popups.xml.in.h:44
-msgid "20s"
-msgstr "20年代"
-
-#. '30s' as in the decade 1930
-#: img/popups.xml.in.h:46
-msgid "30s"
-msgstr "30年代"
-
-#. '40s' as in the decade 1940
-#: img/popups.xml.in.h:48
-msgid "40s"
-msgstr "40年代"
-
-#. '50s' as in the decade 1950
-#: img/popups.xml.in.h:50
-msgid "50s"
-msgstr "50年代"
-
-#. '60s' as in the decade 1960
-#: img/popups.xml.in.h:52
-msgid "60s"
-msgstr "60年代"
-
-#. '70s' as in the decade 1970
-#: img/popups.xml.in.h:54
-msgid "70s"
-msgstr "70年代"
-
-#. '80s' as in the decade 1980
-#: img/popups.xml.in.h:56
-msgid "80s"
-msgstr "80年代"
-
-#. '90s' as in the decade 1990
-#: img/popups.xml.in.h:58
-msgid "90s"
-msgstr "90年代"
 
 #: ui/coverart_browser_prefs.ui.h:1
 msgid "Above"
@@ -431,27 +252,11 @@ msgid "Position"
 msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:37
-msgid "Show toolbar: "
+msgid "Show toolbar in: "
 msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:38
 msgid "Toolbar"
-msgstr ""
-
-#: ui/coverart_browser_prefs.ui.h:39
-msgid "Search for coverart on DISCOGS"
-msgstr ""
-
-#: ui/coverart_browser_prefs.ui.h:40
-msgid "Search for coverart on the internet provider DISCOGS"
-msgstr ""
-
-#: ui/coverart_browser_prefs.ui.h:41
-msgid "Search for embedded coverart"
-msgstr ""
-
-#: ui/coverart_browser_prefs.ui.h:42
-msgid "Search for coverart embedded within tracks for an album"
 msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:43
@@ -459,131 +264,89 @@ msgid "Providers"
 msgstr ""
 
 #: ui/coverart_browser.ui.h:1
-msgid "Search using all fields"
-msgstr ""
-
-#: ui/coverart_browser.ui.h:2 ui/coverart_sidebar.ui.h:1
-msgid "Search all fields"
-msgstr ""
-
-#: ui/coverart_browser.ui.h:3
-msgid "Search using album artist names"
-msgstr ""
-
-#: ui/coverart_browser.ui.h:4
-msgid "Search album artists"
-msgstr ""
-
-#: ui/coverart_browser.ui.h:5
-msgid "Search using track artist names"
-msgstr ""
-
-#: ui/coverart_browser.ui.h:6
-msgid "Search track artists"
-msgstr ""
-
-#: ui/coverart_browser.ui.h:7
-msgid "Search using album titles"
-msgstr ""
-
-#: ui/coverart_browser.ui.h:8
-msgid "Search albums"
-msgstr ""
-
-#: ui/coverart_browser.ui.h:9
-msgid "Search using track titles"
-msgstr ""
-
-#: ui/coverart_browser.ui.h:10
-msgid "Search tracks"
-msgstr ""
-
-#: ui/coverart_browser.ui.h:11 ui/coverart_sidebar.ui.h:3
-#: coverart_widgets.py:317 coverart_widgets.py:350
-msgid "All Genres"
-msgstr ""
-
-#: ui/coverart_browser.ui.h:13
 msgid "Tracks & Covers"
 msgstr ""
 
-#: ui/coverart_browser.ui.h:14
+#: ui/coverart_browser.ui.h:2
 msgid "Stop coverart fetch."
 msgstr ""
 
-#: ui/coverart_browser.ui.h:15
+#: ui/coverart_browser.ui.h:3
 msgid "Play this album"
 msgstr ""
 
-#: ui/coverart_browser.ui.h:16
+#: ui/coverart_browser.ui.h:4
+#, fuzzy
 msgid "Play Album"
-msgstr ""
+msgstr "專輯"
 
-#: ui/coverart_browser.ui.h:17
+#: ui/coverart_browser.ui.h:5
 msgid "Add this album to your playing queue"
 msgstr ""
 
-#: ui/coverart_browser.ui.h:18
+#: ui/coverart_browser.ui.h:6
+#, fuzzy
 msgid "Queue Album"
-msgstr ""
+msgstr "專輯"
 
-#: ui/coverart_browser.ui.h:19 ui/coverart_entryview.ui.h:5
+#: ui/coverart_browser.ui.h:7 ui/coverart_entryview.ui.h:5
 msgid "Add this album to a playlist"
 msgstr ""
 
-#: ui/coverart_browser.ui.h:20 ui/coverart_entryview.ui.h:6
+#: ui/coverart_browser.ui.h:8 ui/coverart_entryview.ui.h:6
 msgid "Add to Playlist"
 msgstr ""
 
-#: ui/coverart_browser.ui.h:21 ui/coverart_entryview.ui.h:7
+#: ui/coverart_browser.ui.h:9 ui/coverart_entryview.ui.h:7
 msgid "Add this album to a new playlist"
 msgstr ""
 
-#: ui/coverart_browser.ui.h:22 ui/coverart_entryview.ui.h:8
+#: ui/coverart_browser.ui.h:10 ui/coverart_entryview.ui.h:8
 msgid "New Playlist"
 msgstr ""
 
-#: ui/coverart_browser.ui.h:23
+#: ui/coverart_browser.ui.h:11
 msgid "Play favourites tracks from this album"
 msgstr ""
 
-#: ui/coverart_browser.ui.h:24
+#: ui/coverart_browser.ui.h:12
 msgid "Play Favourites"
 msgstr ""
 
-#: ui/coverart_browser.ui.h:25
+#: ui/coverart_browser.ui.h:13
 msgid "Add favourite tracks from this album to your playing queue"
 msgstr ""
 
-#: ui/coverart_browser.ui.h:26
+#: ui/coverart_browser.ui.h:14
 msgid "Queue Favourites"
 msgstr ""
 
-#: ui/coverart_browser.ui.h:27
+#: ui/coverart_browser.ui.h:15
 msgid "Add favourite tracks from this album to a playlist"
 msgstr ""
 
-#: ui/coverart_browser.ui.h:28
+#: ui/coverart_browser.ui.h:16
 msgid "Add favourites to Playlist"
 msgstr ""
 
-#: ui/coverart_browser.ui.h:29
+#: ui/coverart_browser.ui.h:17
 msgid "Search for this album cover"
 msgstr ""
 
-#: ui/coverart_browser.ui.h:30
+#: ui/coverart_browser.ui.h:18
+#, fuzzy
 msgid "Search for covers"
-msgstr ""
+msgstr "搜尋模式"
 
-#: ui/coverart_browser.ui.h:31
+#: ui/coverart_browser.ui.h:19
 msgid "Show album properties"
 msgstr ""
 
-#: ui/coverart_browser.ui.h:32
+#: ui/coverart_browser.ui.h:20
 msgid "Search for covers where an album does not currently have one"
 msgstr ""
 
-#: ui/coverart_browser.ui.h:33
+#: ui/coverart_browser.ui.h:21
 msgid "Download all the covers"
 msgstr ""
 
@@ -607,11 +370,162 @@ msgstr ""
 msgid "Show track properties"
 msgstr ""
 
-#: ui/coverart_sidebar.ui.h:2 coverart_browser.py:101
+#: ui/coverart_sidebar.ui.h:1 coverart_browser.py:101
 msgid "CoverArt"
 msgstr ""
 
-#: coverart_album.py:1545 coverart_browser_source.py:1084
+#: ui/coverart_sidebar.ui.h:2 ui/coverart_topbar.ui.h:1
+#: coverart_controllers.py:280
+msgid "All Genres"
+msgstr ""
+
+#: ui/coverart_sidebar.ui.h:3 ui/coverart_topbar.ui.h:2
+#: coverart_controllers.py:346
+msgid "All Decades"
+msgstr "所有年代"
+
+#: img/popups.xml.in.h:1
+msgid "rock"
+msgstr "搖滾"
+
+#: img/popups.xml.in.h:2
+msgid "country"
+msgstr "鄉村"
+
+#: img/popups.xml.in.h:3
+msgid "pop"
+msgstr "流行"
+
+#: img/popups.xml.in.h:4
+msgid "classical"
+msgstr "古典"
+
+#: img/popups.xml.in.h:5
+msgid "world"
+msgstr "世界"
+
+#: img/popups.xml.in.h:6
+msgid "bluegrass"
+msgstr "藍草"
+
+#: img/popups.xml.in.h:7
+msgid "oldies"
+msgstr "懷舊"
+
+#: img/popups.xml.in.h:8
+msgid "holiday"
+msgstr ""
+
+#: img/popups.xml.in.h:9
+msgid "comedy"
+msgstr "喜劇"
+
+#: img/popups.xml.in.h:10
+msgid "spoken"
+msgstr ""
+
+#: img/popups.xml.in.h:11
+msgid "jazz"
+msgstr "爵士"
+
+#: img/popups.xml.in.h:12
+msgid "blues"
+msgstr "藍調"
+
+#: img/popups.xml.in.h:13
+msgid "metal"
+msgstr "金屬"
+
+#: img/popups.xml.in.h:14
+msgid "karaoke"
+msgstr ""
+
+#: img/popups.xml.in.h:15
+msgid "rap"
+msgstr "饒舌"
+
+#: img/popups.xml.in.h:16
+msgid "ragtime"
+msgstr ""
+
+#: img/popups.xml.in.h:17
+#, fuzzy
+msgid "musical"
+msgstr "古典"
+
+#: img/popups.xml.in.h:18
+msgid "dance"
+msgstr "舞曲"
+
+#: img/popups.xml.in.h:19
+msgid "reggae"
+msgstr ""
+
+#: img/popups.xml.in.h:20
+msgid "electronic"
+msgstr "電音"
+
+#: img/popups.xml.in.h:21
+msgid "soundtrack"
+msgstr "電影原聲"
+
+#: img/popups.xml.in.h:22
+msgid "latin"
+msgstr "拉丁"
+
+#: img/popups.xml.in.h:23
+msgid "alternative"
+msgstr ""
+
+#: img/popups.xml.in.h:24
+msgid "disco"
+msgstr "迪斯可"
+
+#: img/popups.xml.in.h:25
+msgid "folk"
+msgstr "民俗"
+
+#: img/popups.xml.in.h:26
+msgid "gospel"
+msgstr "福音"
+
+#: img/popups.xml.in.h:27
+msgid "experimental"
+msgstr ""
+
+#: img/popups.xml.in.h:28
+msgid "new age"
+msgstr ""
+
+#: img/popups.xml.in.h:29
+msgid "opera"
+msgstr "歌劇"
+
+#: img/popups.xml.in.h:30
+msgid "anime"
+msgstr "動漫"
+
+#: img/popups.xml.in.h:31
+msgid "soul"
+msgstr "靈魂樂"
+
+#: img/popups.xml.in.h:32
+msgid "workout"
+msgstr ""
+
+#: img/popups.xml.in.h:33
+msgid "easy listening"
+msgstr ""
+
+#: img/popups.xml.in.h:34
+msgid "hip-hop"
+msgstr "嘻哈"
+
+#: img/popups.xml.in.h:35
+msgid "children"
+msgstr ""
+
+#: coverart_album.py:1471 coverart_browser_source.py:917
 #, python-format
 msgid "%s by %s"
 msgstr ""
@@ -629,74 +543,138 @@ msgstr ""
 msgid "Browse and play your albums through their covers"
 msgstr ""
 
-#: coverart_browser_source.py:293
-msgid "Search album"
-msgstr ""
-
-#: coverart_browser_source.py:353
+#: coverart_browser_source.py:271
 msgid "Tracks"
 msgstr ""
 
-#: coverart_browser_source.py:372
+#: coverart_browser_source.py:290
 msgid "Covers"
 msgstr ""
 
-#: coverart_browser_source.py:998
+#: coverart_browser_source.py:831
 #, python-format
 msgid "Requesting cover for %s - %s..."
 msgstr ""
 
-#: coverart_browser_source.py:1087
+#: coverart_browser_source.py:920
 #, python-format
 msgid "%d selected albums "
 msgstr ""
 
-#: coverart_browser_source.py:1091
+#: coverart_browser_source.py:924
 msgid " with 1 track"
 msgstr ""
 
-#: coverart_browser_source.py:1093
+#: coverart_browser_source.py:926
 #, python-format
 msgid " with %d tracks"
 msgstr ""
 
-#: coverart_browser_source.py:1096
+#: coverart_browser_source.py:929
 msgid " and a duration of 1 minute"
 msgstr ""
 
-#: coverart_browser_source.py:1098
+#: coverart_browser_source.py:931
 #, python-format
 msgid " and a duration of %d minutes"
 msgstr ""
 
-#: coverart_widgets.py:390
+#: coverart_controllers.py:300
 msgid "Sort by album name"
 msgstr ""
 
-#: coverart_widgets.py:391
+#: coverart_controllers.py:301
 msgid "Sort by album artist"
 msgstr ""
 
-#: coverart_widgets.py:392
+#: coverart_controllers.py:302
 msgid "Sort by year"
 msgstr ""
 
-#: coverart_widgets.py:393
+#: coverart_controllers.py:303
 msgid "Sort by rating"
 msgstr ""
 
-#: coverart_widgets.py:456
-msgid "All"
-msgstr ""
+#. '20s' as in the decade 2010
+#: coverart_controllers.py:348 coverart_controllers.py:374
+msgid "20s"
+msgstr "20年代"
 
-#: coverart_widgets.py:456
-msgid "Old"
-msgstr ""
+#. '10s' as in the decade 2010
+#: coverart_controllers.py:350
+msgid "10s"
+msgstr "10年代"
 
-#: coverart_widgets.py:636
+#. '00s' as in the decade 2000
+#: coverart_controllers.py:352
+msgid "00s"
+msgstr "00年代"
+
+#. '90s' as in the decade 1990
+#: coverart_controllers.py:354
+msgid "90s"
+msgstr "90年代"
+
+#. '80s' as in the decade 1980
+#: coverart_controllers.py:356
+msgid "80s"
+msgstr "80年代"
+
+#. '70s' as in the decade 1970
+#: coverart_controllers.py:358
+msgid "70s"
+msgstr "70年代"
+
+#. '60s' as in the decade 1960
+#: coverart_controllers.py:360
+msgid "60s"
+msgstr "60年代"
+
+#. '50s' as in the decade 1950
+#: coverart_controllers.py:362
+msgid "50s"
+msgstr "50年代"
+
+#. '40s' as in the decade 1940
+#: coverart_controllers.py:364
+msgid "40s"
+msgstr "40年代"
+
+#. '30s' as in the decade 1930
+#: coverart_controllers.py:366
+msgid "30s"
+msgstr "30年代"
+
+#. 'Older' as in 'older than the year 1930'
+#: coverart_controllers.py:368
+msgid "Older"
+msgstr "較舊"
+
+#. options
+#: coverart_controllers.py:403
 msgid "Sort in descending order"
 msgstr ""
 
-#: coverart_widgets.py:638
+#: coverart_controllers.py:404
 msgid "Sort in ascending order"
+msgstr ""
+
+#: coverart_controllers.py:450
+msgid "Search all fields"
+msgstr ""
+
+#: coverart_controllers.py:451
+msgid "Search album artists"
+msgstr ""
+
+#: coverart_controllers.py:452
+msgid "Search track artists"
+msgstr ""
+
+#: coverart_controllers.py:453
+msgid "Search albums"
+msgstr ""
+
+#: coverart_controllers.py:454
+msgid "Search tracks"
 msgstr ""

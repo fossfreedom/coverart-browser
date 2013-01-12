@@ -1,4 +1,4 @@
-# Finnish translation for coverartbrowser
+# Chinese (Simplified) translation for coverartbrowser
 # Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
 # This file is distributed under the same license as the coverartbrowser package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-01-12 17:59+0000\n"
-"PO-Revision-Date: 2013-01-09 12:12+0000\n"
-"Last-Translator: Jiri Grönroos <Unknown>\n"
-"Language-Team: Finnish <fi@li.org>\n"
-"Language: fi\n"
+"PO-Revision-Date: 2013-01-11 15:03+0000\n"
+"Last-Translator: Wang Dianjin <Unknown>\n"
+"Language-Team: Chinese (Simplified) <zh_CN@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,123 +20,124 @@ msgstr ""
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:185
 msgid "Search Options"
-msgstr ""
+msgstr "搜索选项"
 
 #: tmpl/albumartsearch-tmpl.html:185
 msgid "Tip: doubleclick or drag a cover to use it as the album cover"
-msgstr ""
+msgstr "提示：双击或拖动封面可将其用作专辑封面"
 
 #: tmpl/albumartsearch-tmpl.html:187
 msgid "Search Mode"
-msgstr "Hakutapa"
+msgstr "搜索模式"
 
 #: tmpl/albumartsearch-tmpl.html:189
 msgid "Artist"
-msgstr "Esittäjä"
+msgstr "艺术家"
 
 #: tmpl/albumartsearch-tmpl.html:190
 msgid "Album"
-msgstr "Levy"
+msgstr "专辑"
 
 #: tmpl/albumartsearch-tmpl.html:191
 msgid "Artist and album"
-msgstr ""
+msgstr "艺术家与专辑"
 
 #: tmpl/albumartsearch-tmpl.html:194
 msgid "Search text"
-msgstr "Etsi tekstiä"
+msgstr "搜索文本"
 
 #: tmpl/albumartsearch-tmpl.html:197
 msgid "Search"
-msgstr ""
+msgstr "搜索"
 
 #: tmpl/albumartsearch-tmpl.html:199
 msgid "Image Size"
-msgstr "Kuvan koko"
+msgstr "图像大小"
 
 #: tmpl/albumartsearch-tmpl.html:201
 msgid "Small"
-msgstr "Pieni"
+msgstr "小"
 
 #: tmpl/albumartsearch-tmpl.html:202
 msgid "Medium"
-msgstr "Keskikokoinen"
+msgstr "中"
 
 #: tmpl/albumartsearch-tmpl.html:203
 msgid "Large"
-msgstr "Suuri"
+msgstr "大"
 
 #: tmpl/albumartsearch-tmpl.html:204
 msgid "Extra Large"
-msgstr "Erittäin suuri"
+msgstr "超大"
 
 #: tmpl/albumartsearch-tmpl.html:209 coverart_browser_source.py:103
 msgid "Loading..."
-msgstr "Ladataan…"
+msgstr "正在加载..."
 
 #: tmpl/albumartsearch-tmpl.html:211
 msgid "Show more results"
-msgstr "Näytä lisää tuloksia"
+msgstr "显示更多结果"
 
 #: ui/coverart_album_search_prefs.ui.h:1
+#, fuzzy
 msgid "Find CoverArt:"
-msgstr ""
+msgstr "封面"
 
 #: ui/coverart_album_search_prefs.ui.h:2 ui/coverart_browser_prefs.ui.h:41
 msgid "Search for embedded coverart"
-msgstr ""
+msgstr "搜索内置封面"
 
 #: ui/coverart_album_search_prefs.ui.h:3 ui/coverart_browser_prefs.ui.h:42
 msgid "Search for coverart embedded within tracks for an album"
-msgstr ""
+msgstr "搜索专辑中歌曲内置的封面"
 
 #: ui/coverart_album_search_prefs.ui.h:4 ui/coverart_browser_prefs.ui.h:39
 msgid "Search for coverart on DISCOGS"
-msgstr ""
+msgstr "搜索 DISCOGS 上面的封面"
 
 #: ui/coverart_album_search_prefs.ui.h:5 ui/coverart_browser_prefs.ui.h:40
 msgid "Search for coverart on the internet provider DISCOGS"
-msgstr ""
+msgstr "搜索网络提供商 DISCOGS 提供的封面"
 
 #: ui/coverart_browser_prefs.ui.h:1
 msgid "Above"
-msgstr ""
+msgstr "上方"
 
 #: ui/coverart_browser_prefs.ui.h:2
 msgid "Top Left"
-msgstr ""
+msgstr "顶端左侧"
 
 #: ui/coverart_browser_prefs.ui.h:3
 msgid "Top Center"
-msgstr ""
+msgstr "顶端居中"
 
 #: ui/coverart_browser_prefs.ui.h:4
 msgid "Top Right"
-msgstr ""
+msgstr "顶端右侧"
 
 #: ui/coverart_browser_prefs.ui.h:5
 msgid "Above Cover View"
-msgstr ""
+msgstr "封面视图上方"
 
 #: ui/coverart_browser_prefs.ui.h:6
 msgid "Left Sidebar"
-msgstr "Vasen sivupalkki"
+msgstr "左侧边栏"
 
 #: ui/coverart_browser_prefs.ui.h:7
 msgid "Right Sidebar"
-msgstr "Oikea sivupalkki"
+msgstr "右侧边栏"
 
 #: ui/coverart_browser_prefs.ui.h:8
 msgid "Automatically Start"
-msgstr "Käynnistä automaattisesti"
+msgstr "自动启动"
 
 #: ui/coverart_browser_prefs.ui.h:9
 msgid "When rhythmbox starts, switch automatically to the coverart browser."
-msgstr ""
+msgstr "rhythmbox 启动时，自动切换到封面浏览器。"
 
 #: ui/coverart_browser_prefs.ui.h:10
 msgid "Use source's custom statusbar."
-msgstr ""
+msgstr "使用来源的自定义状态栏。"
 
 #: ui/coverart_browser_prefs.ui.h:11
 msgid ""
@@ -152,9 +153,8 @@ msgid ""
 msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:13
-#, fuzzy
 msgid "Display tracks and covers pane"
-msgstr "Näytä levyn tiedot kansikuvan alla"
+msgstr "显示音轨和封面面板"
 
 #: ui/coverart_browser_prefs.ui.h:14
 msgid ""
@@ -172,31 +172,31 @@ msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:17
 msgid "General"
-msgstr "Yleiset"
+msgstr "常规"
 
 #: ui/coverart_browser_prefs.ui.h:18
 msgid "Album Information"
-msgstr "Levyn tiedot"
+msgstr "专辑信息"
 
 #: ui/coverart_browser_prefs.ui.h:19
 msgid "Display album's info under cover"
-msgstr "Näytä levyn tiedot kansikuvan alla"
+msgstr "封面下方显示专辑信息"
 
 #: ui/coverart_browser_prefs.ui.h:20
 msgid "Show the album&apos;s basic information under the cover image."
-msgstr ""
+msgstr "在封面图片下方显示专辑基本信息。"
 
 #: ui/coverart_browser_prefs.ui.h:21
 msgid "Show the album's basic information under the cover image."
-msgstr ""
+msgstr "在封面图片下方显示专辑基本信息。"
 
 #: ui/coverart_browser_prefs.ui.h:22
 msgid "Font size for the text below the cover-art."
-msgstr ""
+msgstr "封面下方的文本字体大小。"
 
 #: ui/coverart_browser_prefs.ui.h:23
 msgid "Font Size:"
-msgstr "Kirjasimen koko:"
+msgstr "字体大小："
 
 #: ui/coverart_browser_prefs.ui.h:24
 msgid "Ellipsize albums names"
@@ -214,205 +214,199 @@ msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:27
 msgid "Maximum length:"
-msgstr "Enimmäisleveys:"
+msgstr "最大长度："
 
 #: ui/coverart_browser_prefs.ui.h:28
 msgid "Cover Appearance"
-msgstr "Kansikuvan ulkoasu"
+msgstr "封面外观"
 
 #: ui/coverart_browser_prefs.ui.h:29
 msgid "Drop shadow"
-msgstr "Varjo"
+msgstr "阴影"
 
 #: ui/coverart_browser_prefs.ui.h:30
 msgid "Indicates if the albums should drop a shadow on the cover view"
-msgstr ""
+msgstr "标明封面视图中专辑是否应该显示阴影"
 
 #: ui/coverart_browser_prefs.ui.h:31
 msgid "Light Source: "
-msgstr "Valon lähde: "
+msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:32
 msgid "Defines the size for the covers showed on the source."
-msgstr ""
+msgstr "定义来源处显示的封面大小。"
 
 #: ui/coverart_browser_prefs.ui.h:33
 msgid "Size (in pixels):"
-msgstr "Koko (pikseleissä):"
+msgstr "大小(像素)："
 
 #: ui/coverart_browser_prefs.ui.h:34
 msgid "Cover"
-msgstr "Kansikuva"
+msgstr "封面"
 
 #: ui/coverart_browser_prefs.ui.h:35
 msgid "Where the toolbar should be positioned"
-msgstr ""
+msgstr "工具栏的摆放位置"
 
 #: ui/coverart_browser_prefs.ui.h:36
 msgid "Position"
-msgstr "Sijainti"
+msgstr "位置"
 
 #: ui/coverart_browser_prefs.ui.h:37
 #, fuzzy
 msgid "Show toolbar in: "
-msgstr "Näytä työkalupalkki: "
+msgstr "显示工具栏： "
 
 #: ui/coverart_browser_prefs.ui.h:38
 msgid "Toolbar"
-msgstr "Työkalupalkki"
+msgstr "工具栏"
 
 #: ui/coverart_browser_prefs.ui.h:43
 msgid "Providers"
-msgstr ""
+msgstr "提供方"
 
 #: ui/coverart_browser.ui.h:1
 msgid "Tracks & Covers"
-msgstr "Kappaleet ja kansikuvat"
+msgstr "歌曲 & 封面"
 
 #: ui/coverart_browser.ui.h:2
 msgid "Stop coverart fetch."
-msgstr ""
+msgstr "停止封面抓取。"
 
 #: ui/coverart_browser.ui.h:3
 msgid "Play this album"
-msgstr "Toista tämä levy"
+msgstr "播放该专辑"
 
 #: ui/coverart_browser.ui.h:4
 msgid "Play Album"
-msgstr "Toista levy"
+msgstr "播放专辑"
 
 #: ui/coverart_browser.ui.h:5
-#, fuzzy
 msgid "Add this album to your playing queue"
-msgstr "Lisää levy soittolistaan"
+msgstr "将该专辑添加到当前播放队列"
 
 #: ui/coverart_browser.ui.h:6
-#, fuzzy
 msgid "Queue Album"
-msgstr "Levy"
+msgstr "队列专辑"
 
 #: ui/coverart_browser.ui.h:7 ui/coverart_entryview.ui.h:5
 msgid "Add this album to a playlist"
-msgstr "Lisää levy soittolistaan"
+msgstr "将该专辑添加到播放列表"
 
 #: ui/coverart_browser.ui.h:8 ui/coverart_entryview.ui.h:6
 msgid "Add to Playlist"
-msgstr "Lisää soittolistaan"
+msgstr "添加到播放列表"
 
 #: ui/coverart_browser.ui.h:9 ui/coverart_entryview.ui.h:7
 msgid "Add this album to a new playlist"
-msgstr "Lisää levy uuteen soittolistaan"
+msgstr "将该专辑添加到一个新的播放列表"
 
 #: ui/coverart_browser.ui.h:10 ui/coverart_entryview.ui.h:8
 msgid "New Playlist"
-msgstr "Uusi soittolista"
+msgstr "新建播放列表"
 
 #: ui/coverart_browser.ui.h:11
 msgid "Play favourites tracks from this album"
-msgstr ""
+msgstr "播放该专辑中的收藏歌曲"
 
 #: ui/coverart_browser.ui.h:12
 msgid "Play Favourites"
-msgstr ""
+msgstr "播放收藏歌曲"
 
 #: ui/coverart_browser.ui.h:13
 msgid "Add favourite tracks from this album to your playing queue"
-msgstr ""
+msgstr "将该专辑中收藏的歌曲添加到播放队列"
 
 #: ui/coverart_browser.ui.h:14
 msgid "Queue Favourites"
-msgstr ""
+msgstr "队列收藏歌曲"
 
 #: ui/coverart_browser.ui.h:15
-#, fuzzy
 msgid "Add favourite tracks from this album to a playlist"
-msgstr "Lisää levy soittolistaan"
+msgstr "将该专辑中的收藏歌曲添加到播放列表"
 
 #: ui/coverart_browser.ui.h:16
-#, fuzzy
 msgid "Add favourites to Playlist"
-msgstr "Lisää soittolistaan"
+msgstr "将收藏歌曲添加到播放列表"
 
 #: ui/coverart_browser.ui.h:17
 msgid "Search for this album cover"
-msgstr ""
+msgstr "搜索该专辑封面"
 
 #: ui/coverart_browser.ui.h:18
-#, fuzzy
 msgid "Search for covers"
-msgstr "Hakutapa"
+msgstr "搜索封面"
 
 #: ui/coverart_browser.ui.h:19
 msgid "Show album properties"
-msgstr "Näytä levyn ominaisuudet"
+msgstr "显示专辑属性"
 
 #: ui/coverart_browser.ui.h:20
 msgid "Search for covers where an album does not currently have one"
-msgstr ""
+msgstr "搜索无封面专辑的封面"
 
 #: ui/coverart_browser.ui.h:21
 msgid "Download all the covers"
-msgstr "Lataa kaikki kansikuvat"
+msgstr "下载全部封面"
 
 #: ui/coverart_entryview.ui.h:1
-#, fuzzy
 msgid "Play this track"
-msgstr "Toista tämä levy"
+msgstr "播放该歌曲"
 
 #: ui/coverart_entryview.ui.h:2
 msgid "Play Track"
-msgstr ""
+msgstr "播放歌曲"
 
 #: ui/coverart_entryview.ui.h:3
-#, fuzzy
 msgid "Add this track to your playing queue"
-msgstr "Lisää levy soittolistaan"
+msgstr "将该歌曲添加到播放队列"
 
 #: ui/coverart_entryview.ui.h:4
 msgid "Queue Track"
-msgstr ""
+msgstr "队列歌曲"
 
 #: ui/coverart_entryview.ui.h:9
 msgid "Show track properties"
-msgstr "Näytä kappaleen ominaisuudet"
+msgstr "显示歌曲属性"
 
 #: ui/coverart_sidebar.ui.h:1 coverart_browser.py:101
 msgid "CoverArt"
-msgstr ""
+msgstr "封面"
 
 #: ui/coverart_sidebar.ui.h:2 ui/coverart_topbar.ui.h:1
 #: coverart_controllers.py:280
 msgid "All Genres"
-msgstr "Kaikki tyylilajit"
+msgstr "所有流派"
 
 #: ui/coverart_sidebar.ui.h:3 ui/coverart_topbar.ui.h:2
 #: coverart_controllers.py:346
 msgid "All Decades"
-msgstr "Kaikki vuosikymmenet"
+msgstr "全部年代"
 
 #: img/popups.xml.in.h:1
 msgid "rock"
-msgstr ""
+msgstr "摇滚"
 
 #: img/popups.xml.in.h:2
 msgid "country"
-msgstr ""
+msgstr "乡村"
 
 #: img/popups.xml.in.h:3
 msgid "pop"
-msgstr ""
+msgstr "流行"
 
 #: img/popups.xml.in.h:4
 msgid "classical"
-msgstr ""
+msgstr "古典"
 
 #: img/popups.xml.in.h:5
 msgid "world"
 msgstr ""
 
 #: img/popups.xml.in.h:6
+#, fuzzy
 msgid "bluegrass"
-msgstr ""
+msgstr "蓝调"
 
 #: img/popups.xml.in.h:7
 msgid "oldies"
@@ -432,51 +426,52 @@ msgstr ""
 
 #: img/popups.xml.in.h:11
 msgid "jazz"
-msgstr ""
+msgstr "爵士"
 
 #: img/popups.xml.in.h:12
 msgid "blues"
-msgstr ""
+msgstr "蓝调"
 
 #: img/popups.xml.in.h:13
 msgid "metal"
-msgstr ""
+msgstr "金属乐"
 
 #: img/popups.xml.in.h:14
 msgid "karaoke"
-msgstr ""
+msgstr "卡拉 OK"
 
 #: img/popups.xml.in.h:15
 msgid "rap"
-msgstr ""
+msgstr "说唱"
 
 #: img/popups.xml.in.h:16
 msgid "ragtime"
 msgstr ""
 
 #: img/popups.xml.in.h:17
+#, fuzzy
 msgid "musical"
-msgstr ""
+msgstr "古典"
 
 #: img/popups.xml.in.h:18
 msgid "dance"
-msgstr ""
+msgstr "舞蹈"
 
 #: img/popups.xml.in.h:19
 msgid "reggae"
-msgstr ""
+msgstr "雷鬼"
 
 #: img/popups.xml.in.h:20
 msgid "electronic"
-msgstr ""
+msgstr "电子"
 
 #: img/popups.xml.in.h:21
 msgid "soundtrack"
-msgstr ""
+msgstr "音轨"
 
 #: img/popups.xml.in.h:22
 msgid "latin"
-msgstr ""
+msgstr "拉丁"
 
 #: img/popups.xml.in.h:23
 msgid "alternative"
@@ -484,15 +479,15 @@ msgstr ""
 
 #: img/popups.xml.in.h:24
 msgid "disco"
-msgstr ""
+msgstr "迪斯科"
 
 #: img/popups.xml.in.h:25
 msgid "folk"
-msgstr ""
+msgstr "民俗"
 
 #: img/popups.xml.in.h:26
 msgid "gospel"
-msgstr ""
+msgstr "黑人福音"
 
 #: img/popups.xml.in.h:27
 msgid "experimental"
@@ -500,19 +495,19 @@ msgstr ""
 
 #: img/popups.xml.in.h:28
 msgid "new age"
-msgstr ""
+msgstr "新世纪"
 
 #: img/popups.xml.in.h:29
 msgid "opera"
-msgstr ""
+msgstr "歌剧"
 
 #: img/popups.xml.in.h:30
 msgid "anime"
-msgstr ""
+msgstr "动漫"
 
 #: img/popups.xml.in.h:31
 msgid "soul"
-msgstr ""
+msgstr "灵歌"
 
 #: img/popups.xml.in.h:32
 msgid "workout"
@@ -520,11 +515,11 @@ msgstr ""
 
 #: img/popups.xml.in.h:33
 msgid "easy listening"
-msgstr ""
+msgstr "轻音乐"
 
 #: img/popups.xml.in.h:34
 msgid "hip-hop"
-msgstr ""
+msgstr "嘻哈"
 
 #: img/popups.xml.in.h:35
 msgid "children"
@@ -533,156 +528,174 @@ msgstr ""
 #: coverart_album.py:1471 coverart_browser_source.py:917
 #, python-format
 msgid "%s by %s"
-msgstr "%s, esittäjä %s -"
+msgstr "%s 作者 %s"
 
 #: coverart_album_search.py:269 coverart_album_search.py:270
 msgid "Unknown"
-msgstr "Tuntematon"
+msgstr "未知"
 
 #. define .plugin text strings used for translation
 #: coverart_browser.py:71
 msgid "CoverArt Browser"
-msgstr ""
+msgstr "封面浏览器"
 
 #: coverart_browser.py:72
 msgid "Browse and play your albums through their covers"
-msgstr ""
+msgstr "浏览封面并播放专辑"
 
 #: coverart_browser_source.py:271
 msgid "Tracks"
-msgstr ""
+msgstr "歌曲"
 
 #: coverart_browser_source.py:290
 msgid "Covers"
-msgstr "Kansikuvat"
+msgstr "封面"
 
 #: coverart_browser_source.py:831
 #, python-format
 msgid "Requesting cover for %s - %s..."
-msgstr ""
+msgstr "正在请求  %s - %s 封面..."
 
 #: coverart_browser_source.py:920
 #, python-format
 msgid "%d selected albums "
-msgstr "%d valittua levyä "
+msgstr "已选中 %d 个专辑 "
 
 #: coverart_browser_source.py:924
 msgid " with 1 track"
-msgstr " yhdellä kappaleella"
+msgstr " 共有 1 首歌曲"
 
 #: coverart_browser_source.py:926
 #, python-format
 msgid " with %d tracks"
-msgstr " %d kappaleella"
+msgstr " 共有 %d 首歌曲"
 
 #: coverart_browser_source.py:929
 msgid " and a duration of 1 minute"
-msgstr " ja kestolta minuutti"
+msgstr " 且计 1 分钟时长"
 
 #: coverart_browser_source.py:931
 #, python-format
 msgid " and a duration of %d minutes"
-msgstr " ja kestolta %d minuuttia"
+msgstr " 且计 %d 分钟时长"
 
 #: coverart_controllers.py:300
 msgid "Sort by album name"
-msgstr "Järjestä levyn nimen mukaan"
+msgstr "按专辑名称排序"
 
 #: coverart_controllers.py:301
 msgid "Sort by album artist"
-msgstr ""
+msgstr "按专辑艺术家排名"
 
 #: coverart_controllers.py:302
 msgid "Sort by year"
-msgstr "Järjestä vuoden mukaan"
+msgstr "按年份排名"
 
 #: coverart_controllers.py:303
 msgid "Sort by rating"
-msgstr ""
+msgstr "按评分排序"
 
 #. '20s' as in the decade 2010
 #: coverart_controllers.py:348 coverart_controllers.py:374
 msgid "20s"
-msgstr ""
+msgstr "20年代"
 
 #. '10s' as in the decade 2010
 #: coverart_controllers.py:350
 msgid "10s"
-msgstr ""
+msgstr "新10年代"
 
 #. '00s' as in the decade 2000
 #: coverart_controllers.py:352
 msgid "00s"
-msgstr ""
+msgstr "新千年"
 
 #. '90s' as in the decade 1990
 #: coverart_controllers.py:354
 msgid "90s"
-msgstr ""
+msgstr "90年代"
 
 #. '80s' as in the decade 1980
 #: coverart_controllers.py:356
 msgid "80s"
-msgstr ""
+msgstr "80年代"
 
 #. '70s' as in the decade 1970
 #: coverart_controllers.py:358
 msgid "70s"
-msgstr ""
+msgstr "70年代"
 
 #. '60s' as in the decade 1960
 #: coverart_controllers.py:360
 msgid "60s"
-msgstr ""
+msgstr "60年代"
 
 #. '50s' as in the decade 1950
 #: coverart_controllers.py:362
 msgid "50s"
-msgstr ""
+msgstr "50年代"
 
 #. '40s' as in the decade 1940
 #: coverart_controllers.py:364
 msgid "40s"
-msgstr ""
+msgstr "40年代"
 
 #. '30s' as in the decade 1930
 #: coverart_controllers.py:366
 msgid "30s"
-msgstr ""
+msgstr "30年代"
 
 #. 'Older' as in 'older than the year 1930'
 #: coverart_controllers.py:368
 msgid "Older"
-msgstr "Vanhempi"
+msgstr "旧音乐"
 
 #. options
 #: coverart_controllers.py:403
 msgid "Sort in descending order"
-msgstr "Järjestä laskevassa järjestyksessä"
+msgstr "降序排序"
 
 #: coverart_controllers.py:404
 msgid "Sort in ascending order"
-msgstr "Järjestä nousevassa järjestyksessä"
+msgstr "升序排序"
 
 #: coverart_controllers.py:450
 msgid "Search all fields"
-msgstr "Etsi kaikista kentistä"
+msgstr "搜索全部字段"
 
 #: coverart_controllers.py:451
 msgid "Search album artists"
-msgstr ""
+msgstr "搜索专辑艺术家"
 
 #: coverart_controllers.py:452
 msgid "Search track artists"
-msgstr ""
+msgstr "搜过歌曲艺术家"
 
 #: coverart_controllers.py:453
 msgid "Search albums"
-msgstr ""
+msgstr "搜索专辑"
 
 #: coverart_controllers.py:454
 msgid "Search tracks"
-msgstr ""
+msgstr "搜索音轨"
+
+#~ msgid "Search using all fields"
+#~ msgstr "使用全部字段搜索"
+
+#~ msgid "Search using album artist names"
+#~ msgstr "使用专辑艺术家名称搜索"
+
+#~ msgid "Search using track artist names"
+#~ msgstr "使用歌曲艺术家名称搜索"
+
+#~ msgid "Search using album titles"
+#~ msgstr "使用专辑标题搜索"
+
+#~ msgid "Search using track titles"
+#~ msgstr "使用歌曲标题搜索"
+
+#~ msgid "Search album"
+#~ msgstr "搜索专辑"
 
 #~ msgid "All"
-#~ msgstr "Kaikki"
+#~ msgstr "全选"

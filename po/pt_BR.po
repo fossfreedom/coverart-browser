@@ -5,17 +5,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
-"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-01-09 15:15+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-01-12 17:59+0000\n"
 "PO-Revision-Date: 2013-01-09 13:27+0000\n"
 "Last-Translator: Rafael Neri <Unknown>\n"
 "Language-Team: none\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-01-10 23:12+0000\n"
-"X-Generator: Launchpad (build 16412)\n"
-"Language: pt_BR\n"
+"X-Launchpad-Export-Date: 2013-01-12 17:56+0000\n"
+"X-Generator: Launchpad (build 16420)\n"
 "Generated-By: pygettext.py 1.5\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:185
@@ -70,13 +70,333 @@ msgstr "Grande"
 msgid "Extra Large"
 msgstr "Extra Grande"
 
-#: tmpl/albumartsearch-tmpl.html:209 coverart_browser_source.py:105
+#: tmpl/albumartsearch-tmpl.html:209 coverart_browser_source.py:103
 msgid "Loading..."
 msgstr "Carregando..."
 
 #: tmpl/albumartsearch-tmpl.html:211
 msgid "Show more results"
 msgstr "Exibir mais resultados"
+
+#: ui/coverart_album_search_prefs.ui.h:1
+#, fuzzy
+msgid "Find CoverArt:"
+msgstr "Arte das Capas"
+
+#: ui/coverart_album_search_prefs.ui.h:2 ui/coverart_browser_prefs.ui.h:41
+#, fuzzy
+msgid "Search for embedded coverart"
+msgstr "Procurar por capas"
+
+#: ui/coverart_album_search_prefs.ui.h:3 ui/coverart_browser_prefs.ui.h:42
+msgid "Search for coverart embedded within tracks for an album"
+msgstr ""
+
+#: ui/coverart_album_search_prefs.ui.h:4 ui/coverart_browser_prefs.ui.h:39
+#, fuzzy
+msgid "Search for coverart on DISCOGS"
+msgstr "Procurar por capas"
+
+#: ui/coverart_album_search_prefs.ui.h:5 ui/coverart_browser_prefs.ui.h:40
+msgid "Search for coverart on the internet provider DISCOGS"
+msgstr ""
+
+#: ui/coverart_browser_prefs.ui.h:1
+msgid "Above"
+msgstr "Acima"
+
+#: ui/coverart_browser_prefs.ui.h:2
+msgid "Top Left"
+msgstr "Superior esquerdo"
+
+#: ui/coverart_browser_prefs.ui.h:3
+msgid "Top Center"
+msgstr "Acima centralizado"
+
+#: ui/coverart_browser_prefs.ui.h:4
+msgid "Top Right"
+msgstr "Superior direito"
+
+#: ui/coverart_browser_prefs.ui.h:5
+msgid "Above Cover View"
+msgstr ""
+
+#: ui/coverart_browser_prefs.ui.h:6
+msgid "Left Sidebar"
+msgstr "Barra lateral esquerda"
+
+#: ui/coverart_browser_prefs.ui.h:7
+msgid "Right Sidebar"
+msgstr "Barra lateral direita"
+
+#: ui/coverart_browser_prefs.ui.h:8
+msgid "Automatically Start"
+msgstr "Iniciar automaticamente"
+
+#: ui/coverart_browser_prefs.ui.h:9
+msgid "When rhythmbox starts, switch automatically to the coverart browser."
+msgstr ""
+"Quando o rhythmbox inicia, muda automaticamente para o navegador de capas."
+
+#: ui/coverart_browser_prefs.ui.h:10
+msgid "Use source's custom statusbar."
+msgstr "Utilizar barra de status customizada da fonte"
+
+#: ui/coverart_browser_prefs.ui.h:11
+#, fuzzy
+msgid ""
+"Use the source&apos;s custom statusbar to show the current selected "
+"album&apos;s related information instead of the global Rhythmbox&apos;s "
+"statusbar."
+msgstr ""
+"Utilizar a barra de status customizada da fonte para mostrar a informação "
+"relacionada ao álbum selecionado ao invés da barra de status global do "
+"Rhythmbox"
+
+#: ui/coverart_browser_prefs.ui.h:12
+msgid ""
+"Use the source's custom statusbar to show the current selected album's "
+"related information instead of the global Rhythmbox's statusbar."
+msgstr ""
+"Utilizar a barra de status customizada da fonte para mostrar a informação "
+"relacionada ao álbum selecionado ao invés da barra de status global do "
+"Rhythmbox"
+
+#: ui/coverart_browser_prefs.ui.h:13
+msgid "Display tracks and covers pane"
+msgstr "Exibe o painel de faixas e capas"
+
+#: ui/coverart_browser_prefs.ui.h:14
+msgid ""
+"Add a toggle-option to the coverart view to display the tracks and covers "
+"for the chosen album"
+msgstr ""
+"Adiciona uma opção de troca entre a visualização de capas e exibir as faixas "
+"e capas para o álbum escolhido"
+
+#: ui/coverart_browser_prefs.ui.h:15
+msgid "Level above which is regarded as being a favourite track or album"
+msgstr "Nível acima do qual é considerada como sendo uma faixa pontuada."
+
+#: ui/coverart_browser_prefs.ui.h:16
+msgid "Favourite Threshold"
+msgstr ""
+
+#: ui/coverart_browser_prefs.ui.h:17
+msgid "General"
+msgstr "Geral"
+
+#: ui/coverart_browser_prefs.ui.h:18
+msgid "Album Information"
+msgstr "Informações do álbum"
+
+#: ui/coverart_browser_prefs.ui.h:19
+msgid "Display album's info under cover"
+msgstr "Exibir informações do álbum abaixo da capa"
+
+#: ui/coverart_browser_prefs.ui.h:20
+#, fuzzy
+msgid "Show the album&apos;s basic information under the cover image."
+msgstr "Mostra informações básicas do álbum abaixo da imagem da capa."
+
+#: ui/coverart_browser_prefs.ui.h:21
+msgid "Show the album's basic information under the cover image."
+msgstr "Mostra informações básicas do álbum abaixo da imagem da capa."
+
+#: ui/coverart_browser_prefs.ui.h:22
+msgid "Font size for the text below the cover-art."
+msgstr ""
+
+#: ui/coverart_browser_prefs.ui.h:23
+msgid "Font Size:"
+msgstr "Tamanho da Fonte"
+
+#: ui/coverart_browser_prefs.ui.h:24
+msgid "Ellipsize albums names"
+msgstr "Adicionar reticências aos nomes dos álbuns"
+
+#: ui/coverart_browser_prefs.ui.h:25
+msgid ""
+"Ellipsizes the albums names to a fixed length when the display text option "
+"is enabled."
+msgstr ""
+"Adicona reticências aos nomes dos álbuns para um tamanho fixo quando a "
+"opçãoexibir texto está ativada."
+
+#: ui/coverart_browser_prefs.ui.h:26
+msgid "Maximum allowed length for an album's name before being ellipsized."
+msgstr ""
+
+#: ui/coverart_browser_prefs.ui.h:27
+msgid "Maximum length:"
+msgstr "Comprimento máximo"
+
+#: ui/coverart_browser_prefs.ui.h:28
+msgid "Cover Appearance"
+msgstr ""
+
+#: ui/coverart_browser_prefs.ui.h:29
+msgid "Drop shadow"
+msgstr "Sombra projetada"
+
+#: ui/coverart_browser_prefs.ui.h:30
+msgid "Indicates if the albums should drop a shadow on the cover view"
+msgstr ""
+
+#: ui/coverart_browser_prefs.ui.h:31
+msgid "Light Source: "
+msgstr ""
+
+#: ui/coverart_browser_prefs.ui.h:32
+msgid "Defines the size for the covers showed on the source."
+msgstr "Define o tamanho das capas exibidas."
+
+#: ui/coverart_browser_prefs.ui.h:33
+msgid "Size (in pixels):"
+msgstr "Tamanho (em pixels):"
+
+#: ui/coverart_browser_prefs.ui.h:34
+msgid "Cover"
+msgstr "Capa"
+
+#: ui/coverart_browser_prefs.ui.h:35
+msgid "Where the toolbar should be positioned"
+msgstr "Onde a barra de ferramentas deve ser posicionada"
+
+#: ui/coverart_browser_prefs.ui.h:36
+msgid "Position"
+msgstr "Posição"
+
+#: ui/coverart_browser_prefs.ui.h:37
+#, fuzzy
+msgid "Show toolbar in: "
+msgstr "Mostrar a barra de ferramentas: "
+
+#: ui/coverart_browser_prefs.ui.h:38
+msgid "Toolbar"
+msgstr "Barra de ferramentas"
+
+#: ui/coverart_browser_prefs.ui.h:43
+msgid "Providers"
+msgstr ""
+
+#: ui/coverart_browser.ui.h:1
+msgid "Tracks & Covers"
+msgstr "Faixas & Capas"
+
+#: ui/coverart_browser.ui.h:2
+msgid "Stop coverart fetch."
+msgstr "Parar a busca por capas"
+
+#: ui/coverart_browser.ui.h:3
+msgid "Play this album"
+msgstr "Reproduzir este Álbum"
+
+#: ui/coverart_browser.ui.h:4
+msgid "Play Album"
+msgstr "Reproduzir Álbum"
+
+#: ui/coverart_browser.ui.h:5
+msgid "Add this album to your playing queue"
+msgstr "Adicionar este álbum à sua fila de reprodução"
+
+#: ui/coverart_browser.ui.h:6
+msgid "Queue Album"
+msgstr "Enfileirar Álbum"
+
+#: ui/coverart_browser.ui.h:7 ui/coverart_entryview.ui.h:5
+msgid "Add this album to a playlist"
+msgstr "Adicionar este álbum à sua fila de reprodução"
+
+#: ui/coverart_browser.ui.h:8 ui/coverart_entryview.ui.h:6
+msgid "Add to Playlist"
+msgstr "Adicionar à fila de reprodução"
+
+#: ui/coverart_browser.ui.h:9 ui/coverart_entryview.ui.h:7
+msgid "Add this album to a new playlist"
+msgstr "Adicionar este álbum à uma nova fila de reprodução"
+
+#: ui/coverart_browser.ui.h:10 ui/coverart_entryview.ui.h:8
+msgid "New Playlist"
+msgstr "Nova Fila de Reprodução"
+
+#: ui/coverart_browser.ui.h:11
+msgid "Play favourites tracks from this album"
+msgstr "Tocar faixas favoritas deste álbum"
+
+#: ui/coverart_browser.ui.h:12
+msgid "Play Favourites"
+msgstr "Tocar Favoritas"
+
+#: ui/coverart_browser.ui.h:13
+msgid "Add favourite tracks from this album to your playing queue"
+msgstr "Adicionar faixas favoritas deste álbum à sua fila de reprodução"
+
+#: ui/coverart_browser.ui.h:14
+msgid "Queue Favourites"
+msgstr "Enfileirar Favoritas"
+
+#: ui/coverart_browser.ui.h:15
+msgid "Add favourite tracks from this album to a playlist"
+msgstr "Adicionar faixas favoritas deste álbum à sua fila de reprodução"
+
+#: ui/coverart_browser.ui.h:16
+msgid "Add favourites to Playlist"
+msgstr "Adicionar favoritas à fila de reprodução"
+
+#: ui/coverart_browser.ui.h:17
+msgid "Search for this album cover"
+msgstr "Procurar por capas para este álbum"
+
+#: ui/coverart_browser.ui.h:18
+msgid "Search for covers"
+msgstr "Procurar por capas"
+
+#: ui/coverart_browser.ui.h:19
+msgid "Show album properties"
+msgstr "Mostrar propriedades do álbum"
+
+#: ui/coverart_browser.ui.h:20
+msgid "Search for covers where an album does not currently have one"
+msgstr "Procurar por capas dos álbuns que ainda não possuem"
+
+#: ui/coverart_browser.ui.h:21
+msgid "Download all the covers"
+msgstr "Baixar todas as capas"
+
+#: ui/coverart_entryview.ui.h:1
+msgid "Play this track"
+msgstr "Reproduzir esta faixa"
+
+#: ui/coverart_entryview.ui.h:2
+msgid "Play Track"
+msgstr "Reproduzir Faixa"
+
+#: ui/coverart_entryview.ui.h:3
+msgid "Add this track to your playing queue"
+msgstr "Adicionar esta faixa à sua fila de reprodução"
+
+#: ui/coverart_entryview.ui.h:4
+msgid "Queue Track"
+msgstr "Enfileirar Faixa"
+
+#: ui/coverart_entryview.ui.h:9
+msgid "Show track properties"
+msgstr "Exibir propriedades da faixa"
+
+#: ui/coverart_sidebar.ui.h:1 coverart_browser.py:101
+msgid "CoverArt"
+msgstr "Arte das Capas"
+
+#: ui/coverart_sidebar.ui.h:2 ui/coverart_topbar.ui.h:1
+#: coverart_controllers.py:280
+msgid "All Genres"
+msgstr "Todos os gêneros"
+
+#: ui/coverart_sidebar.ui.h:3 ui/coverart_topbar.ui.h:2
+#: coverart_controllers.py:346
+msgid "All Decades"
+msgstr "Todas as décadas"
 
 #: img/popups.xml.in.h:1
 msgid "rock"
@@ -99,8 +419,9 @@ msgid "world"
 msgstr ""
 
 #: img/popups.xml.in.h:6
+#, fuzzy
 msgid "bluegrass"
-msgstr ""
+msgstr "blues"
 
 #: img/popups.xml.in.h:7
 msgid "oldies"
@@ -143,8 +464,9 @@ msgid "ragtime"
 msgstr ""
 
 #: img/popups.xml.in.h:17
+#, fuzzy
 msgid "musical"
-msgstr ""
+msgstr "clássico"
 
 #: img/popups.xml.in.h:18
 msgid "dance"
@@ -218,409 +540,7 @@ msgstr "hip-hop"
 msgid "children"
 msgstr "infantil"
 
-#. 'Older' as in 'older than the year 1930'
-#: img/popups.xml.in.h:37
-msgid "Older"
-msgstr "Antiga"
-
-#: img/popups.xml.in.h:38 ui/coverart_browser.ui.h:12
-#: ui/coverart_sidebar.ui.h:4 coverart_widgets.py:516
-msgid "All Decades"
-msgstr "Todas as décadas"
-
-#. '00s' as in the decade 2000
-#: img/popups.xml.in.h:40
-msgid "00s"
-msgstr ""
-
-#. '00s' as in the decade 2010
-#: img/popups.xml.in.h:42
-msgid "10s"
-msgstr ""
-
-#. '20s' as in the decade 2020
-#: img/popups.xml.in.h:44
-msgid "20s"
-msgstr "década de 2020"
-
-#. '30s' as in the decade 1930
-#: img/popups.xml.in.h:46
-msgid "30s"
-msgstr "Anos 30"
-
-#. '40s' as in the decade 1940
-#: img/popups.xml.in.h:48
-msgid "40s"
-msgstr "Anos 40"
-
-#. '50s' as in the decade 1950
-#: img/popups.xml.in.h:50
-msgid "50s"
-msgstr "Anos 50"
-
-#. '60s' as in the decade 1960
-#: img/popups.xml.in.h:52
-msgid "60s"
-msgstr "Anos 60"
-
-#. '70s' as in the decade 1970
-#: img/popups.xml.in.h:54
-msgid "70s"
-msgstr "Anos 70"
-
-#. '80s' as in the decade 1980
-#: img/popups.xml.in.h:56
-msgid "80s"
-msgstr "Anos 80"
-
-#. '90s' as in the decade 1990
-#: img/popups.xml.in.h:58
-msgid "90s"
-msgstr "Anos 90"
-
-#: ui/coverart_browser_prefs.ui.h:1
-msgid "Above"
-msgstr "Acima"
-
-#: ui/coverart_browser_prefs.ui.h:2
-msgid "Top Left"
-msgstr "Superior esquerdo"
-
-#: ui/coverart_browser_prefs.ui.h:3
-msgid "Top Center"
-msgstr "Acima centralizado"
-
-#: ui/coverart_browser_prefs.ui.h:4
-msgid "Top Right"
-msgstr "Superior direito"
-
-#: ui/coverart_browser_prefs.ui.h:5
-msgid "Above Cover View"
-msgstr ""
-
-#: ui/coverart_browser_prefs.ui.h:6
-msgid "Left Sidebar"
-msgstr "Barra lateral esquerda"
-
-#: ui/coverart_browser_prefs.ui.h:7
-msgid "Right Sidebar"
-msgstr "Barra lateral direita"
-
-#: ui/coverart_browser_prefs.ui.h:8
-msgid "Automatically Start"
-msgstr "Iniciar automaticamente"
-
-#: ui/coverart_browser_prefs.ui.h:9
-msgid "When rhythmbox starts, switch automatically to the coverart browser."
-msgstr ""
-"Quando o rhythmbox inicia, muda automaticamente para o navegador de capas."
-
-#: ui/coverart_browser_prefs.ui.h:10
-msgid "Use source's custom statusbar."
-msgstr "Utilizar barra de status customizada da fonte"
-
-#: ui/coverart_browser_prefs.ui.h:11
-msgid ""
-"Use the source&apos;s custom statusbar to show the current selected "
-"album&apos;s related information instead of the global Rhythmbox&apos;s "
-"statusbar."
-msgstr ""
-
-#: ui/coverart_browser_prefs.ui.h:12
-msgid ""
-"Use the source's custom statusbar to show the current selected album's "
-"related information instead of the global Rhythmbox's statusbar."
-msgstr ""
-"Utilizar a barra de status customizada da fonte para mostrar a informação "
-"relacionada ao álbum selecionado ao invés da barra de status global do "
-"Rhythmbox"
-
-#: ui/coverart_browser_prefs.ui.h:13
-msgid "Display tracks and covers pane"
-msgstr "Exibe o painel de faixas e capas"
-
-#: ui/coverart_browser_prefs.ui.h:14
-msgid ""
-"Add a toggle-option to the coverart view to display the tracks and covers "
-"for the chosen album"
-msgstr ""
-"Adiciona uma opção de troca entre a visualização de capas e exibir as faixas "
-"e capas para o álbum escolhido"
-
-#: ui/coverart_browser_prefs.ui.h:15
-msgid "Level above which is regarded as being a favourite track or album"
-msgstr "Nível acima do qual é considerada como sendo uma faixa pontuada."
-
-#: ui/coverart_browser_prefs.ui.h:16
-msgid "Favourite Threshold"
-msgstr ""
-
-#: ui/coverart_browser_prefs.ui.h:17
-msgid "General"
-msgstr "Geral"
-
-#: ui/coverart_browser_prefs.ui.h:18
-msgid "Album Information"
-msgstr "Informações do álbum"
-
-#: ui/coverart_browser_prefs.ui.h:19
-msgid "Display album's info under cover"
-msgstr "Exibir informações do álbum abaixo da capa"
-
-#: ui/coverart_browser_prefs.ui.h:20
-msgid "Show the album&apos;s basic information under the cover image."
-msgstr ""
-
-#: ui/coverart_browser_prefs.ui.h:21
-msgid "Show the album's basic information under the cover image."
-msgstr "Mostra informações básicas do álbum abaixo da imagem da capa."
-
-#: ui/coverart_browser_prefs.ui.h:22
-msgid "Font size for the text below the cover-art."
-msgstr ""
-
-#: ui/coverart_browser_prefs.ui.h:23
-msgid "Font Size:"
-msgstr "Tamanho da Fonte"
-
-#: ui/coverart_browser_prefs.ui.h:24
-msgid "Ellipsize albums names"
-msgstr "Adicionar reticências aos nomes dos álbuns"
-
-#: ui/coverart_browser_prefs.ui.h:25
-msgid ""
-"Ellipsizes the albums names to a fixed length when the display text option "
-"is enabled."
-msgstr ""
-"Adicona reticências aos nomes dos álbuns para um tamanho fixo quando a "
-"opçãoexibir texto está ativada."
-
-#: ui/coverart_browser_prefs.ui.h:26
-msgid "Maximum allowed length for an album's name before being ellipsized."
-msgstr ""
-
-#: ui/coverart_browser_prefs.ui.h:27
-msgid "Maximum length:"
-msgstr "Comprimento máximo"
-
-#: ui/coverart_browser_prefs.ui.h:28
-msgid "Cover Appearance"
-msgstr ""
-
-#: ui/coverart_browser_prefs.ui.h:29
-msgid "Drop shadow"
-msgstr "Sombra projetada"
-
-#: ui/coverart_browser_prefs.ui.h:30
-msgid "Indicates if the albums should drop a shadow on the cover view"
-msgstr ""
-
-#: ui/coverart_browser_prefs.ui.h:31
-msgid "Light Source: "
-msgstr ""
-
-#: ui/coverart_browser_prefs.ui.h:32
-msgid "Defines the size for the covers showed on the source."
-msgstr "Define o tamanho das capas exibidas."
-
-#: ui/coverart_browser_prefs.ui.h:33
-msgid "Size (in pixels):"
-msgstr "Tamanho (em pixels):"
-
-#: ui/coverart_browser_prefs.ui.h:34
-msgid "Cover"
-msgstr "Capa"
-
-#: ui/coverart_browser_prefs.ui.h:35
-msgid "Where the toolbar should be positioned"
-msgstr "Onde a barra de ferramentas deve ser posicionada"
-
-#: ui/coverart_browser_prefs.ui.h:36
-msgid "Position"
-msgstr "Posição"
-
-#: ui/coverart_browser_prefs.ui.h:37
-msgid "Show toolbar: "
-msgstr "Mostrar a barra de ferramentas: "
-
-#: ui/coverart_browser_prefs.ui.h:38
-msgid "Toolbar"
-msgstr "Barra de ferramentas"
-
-#: ui/coverart_browser_prefs.ui.h:39
-msgid "Search for coverart on DISCOGS"
-msgstr ""
-
-#: ui/coverart_browser_prefs.ui.h:40
-msgid "Search for coverart on the internet provider DISCOGS"
-msgstr ""
-
-#: ui/coverart_browser_prefs.ui.h:41
-msgid "Search for embedded coverart"
-msgstr ""
-
-#: ui/coverart_browser_prefs.ui.h:42
-msgid "Search for coverart embedded within tracks for an album"
-msgstr ""
-
-#: ui/coverart_browser_prefs.ui.h:43
-msgid "Providers"
-msgstr ""
-
-#: ui/coverart_browser.ui.h:1
-msgid "Search using all fields"
-msgstr "Procurar utilizando todos os campos"
-
-#: ui/coverart_browser.ui.h:2 ui/coverart_sidebar.ui.h:1
-msgid "Search all fields"
-msgstr "Procurar todos os campos"
-
-#: ui/coverart_browser.ui.h:3
-msgid "Search using album artist names"
-msgstr "Procurar utilizando o nome do artista do álbum"
-
-#: ui/coverart_browser.ui.h:4
-msgid "Search album artists"
-msgstr "Procurar artistas do álbum"
-
-#: ui/coverart_browser.ui.h:5
-msgid "Search using track artist names"
-msgstr "Procurar utilizando o nome do artista da faixa"
-
-#: ui/coverart_browser.ui.h:6
-msgid "Search track artists"
-msgstr "Procurar artistas das faixas"
-
-#: ui/coverart_browser.ui.h:7
-msgid "Search using album titles"
-msgstr "Procurar utilizando o nome de álbuns"
-
-#: ui/coverart_browser.ui.h:8
-msgid "Search albums"
-msgstr "Procurar álbum"
-
-#: ui/coverart_browser.ui.h:9
-msgid "Search using track titles"
-msgstr "Procurar utilizando nome de faixas"
-
-#: ui/coverart_browser.ui.h:10
-msgid "Search tracks"
-msgstr "Procurar por faixas"
-
-#: ui/coverart_browser.ui.h:11 ui/coverart_sidebar.ui.h:3
-#: coverart_widgets.py:317 coverart_widgets.py:350
-msgid "All Genres"
-msgstr "Todos os gêneros"
-
-#: ui/coverart_browser.ui.h:13
-msgid "Tracks & Covers"
-msgstr "Faixas & Capas"
-
-#: ui/coverart_browser.ui.h:14
-msgid "Stop coverart fetch."
-msgstr "Parar a busca por capas"
-
-#: ui/coverart_browser.ui.h:15
-msgid "Play this album"
-msgstr "Reproduzir este Álbum"
-
-#: ui/coverart_browser.ui.h:16
-msgid "Play Album"
-msgstr "Reproduzir Álbum"
-
-#: ui/coverart_browser.ui.h:17
-msgid "Add this album to your playing queue"
-msgstr "Adicionar este álbum à sua fila de reprodução"
-
-#: ui/coverart_browser.ui.h:18
-msgid "Queue Album"
-msgstr "Enfileirar Álbum"
-
-#: ui/coverart_browser.ui.h:19 ui/coverart_entryview.ui.h:5
-msgid "Add this album to a playlist"
-msgstr "Adicionar este álbum à sua fila de reprodução"
-
-#: ui/coverart_browser.ui.h:20 ui/coverart_entryview.ui.h:6
-msgid "Add to Playlist"
-msgstr "Adicionar à fila de reprodução"
-
-#: ui/coverart_browser.ui.h:21 ui/coverart_entryview.ui.h:7
-msgid "Add this album to a new playlist"
-msgstr "Adicionar este álbum à uma nova fila de reprodução"
-
-#: ui/coverart_browser.ui.h:22 ui/coverart_entryview.ui.h:8
-msgid "New Playlist"
-msgstr "Nova Fila de Reprodução"
-
-#: ui/coverart_browser.ui.h:23
-msgid "Play favourites tracks from this album"
-msgstr "Tocar faixas favoritas deste álbum"
-
-#: ui/coverart_browser.ui.h:24
-msgid "Play Favourites"
-msgstr "Tocar Favoritas"
-
-#: ui/coverart_browser.ui.h:25
-msgid "Add favourite tracks from this album to your playing queue"
-msgstr "Adicionar faixas favoritas deste álbum à sua fila de reprodução"
-
-#: ui/coverart_browser.ui.h:26
-msgid "Queue Favourites"
-msgstr "Enfileirar Favoritas"
-
-#: ui/coverart_browser.ui.h:27
-msgid "Add favourite tracks from this album to a playlist"
-msgstr "Adicionar faixas favoritas deste álbum à sua fila de reprodução"
-
-#: ui/coverart_browser.ui.h:28
-msgid "Add favourites to Playlist"
-msgstr "Adicionar favoritas à fila de reprodução"
-
-#: ui/coverart_browser.ui.h:29
-msgid "Search for this album cover"
-msgstr "Procurar por capas para este álbum"
-
-#: ui/coverart_browser.ui.h:30
-msgid "Search for covers"
-msgstr "Procurar por capas"
-
-#: ui/coverart_browser.ui.h:31
-msgid "Show album properties"
-msgstr "Mostrar propriedades do álbum"
-
-#: ui/coverart_browser.ui.h:32
-msgid "Search for covers where an album does not currently have one"
-msgstr "Procurar por capas dos álbuns que ainda não possuem"
-
-#: ui/coverart_browser.ui.h:33
-msgid "Download all the covers"
-msgstr "Baixar todas as capas"
-
-#: ui/coverart_entryview.ui.h:1
-msgid "Play this track"
-msgstr "Reproduzir esta faixa"
-
-#: ui/coverart_entryview.ui.h:2
-msgid "Play Track"
-msgstr "Reproduzir Faixa"
-
-#: ui/coverart_entryview.ui.h:3
-msgid "Add this track to your playing queue"
-msgstr "Adicionar esta faixa à sua fila de reprodução"
-
-#: ui/coverart_entryview.ui.h:4
-msgid "Queue Track"
-msgstr "Enfileirar Faixa"
-
-#: ui/coverart_entryview.ui.h:9
-msgid "Show track properties"
-msgstr "Exibir propriedades da faixa"
-
-#: ui/coverart_sidebar.ui.h:2 coverart_browser.py:101
-msgid "CoverArt"
-msgstr "Arte das Capas"
-
-#: coverart_album.py:1545 coverart_browser_source.py:1084
+#: coverart_album.py:1471 coverart_browser_source.py:917
 #, python-format
 msgid "%s by %s"
 msgstr "%s por %s"
@@ -638,74 +558,159 @@ msgstr "Arte das Capas"
 msgid "Browse and play your albums through their covers"
 msgstr "Navegue e toque seus álbums através de suas capas"
 
-#: coverart_browser_source.py:293
-msgid "Search album"
-msgstr "Procurar álbum"
-
-#: coverart_browser_source.py:353
+#: coverart_browser_source.py:271
 msgid "Tracks"
 msgstr "Faixas"
 
-#: coverart_browser_source.py:372
+#: coverart_browser_source.py:290
 msgid "Covers"
 msgstr "Capas"
 
-#: coverart_browser_source.py:998
+#: coverart_browser_source.py:831
 #, python-format
 msgid "Requesting cover for %s - %s..."
 msgstr "Requisitando capa para %s - %s..."
 
-#: coverart_browser_source.py:1087
+#: coverart_browser_source.py:920
 #, python-format
 msgid "%d selected albums "
 msgstr "%d álbuns selecionados "
 
-#: coverart_browser_source.py:1091
+#: coverart_browser_source.py:924
 msgid " with 1 track"
 msgstr " possui 1 música"
 
-#: coverart_browser_source.py:1093
+#: coverart_browser_source.py:926
 #, python-format
 msgid " with %d tracks"
 msgstr " possui %d músicas"
 
-#: coverart_browser_source.py:1096
+#: coverart_browser_source.py:929
 msgid " and a duration of 1 minute"
 msgstr " e dura 1 minuto"
 
-#: coverart_browser_source.py:1098
+#: coverart_browser_source.py:931
 #, python-format
 msgid " and a duration of %d minutes"
 msgstr " e dura %d minutos"
 
-#: coverart_widgets.py:390
+#: coverart_controllers.py:300
 msgid "Sort by album name"
 msgstr "Ordenar por nome do álbum"
 
-#: coverart_widgets.py:391
+#: coverart_controllers.py:301
 msgid "Sort by album artist"
 msgstr "Ordenar por artistas do álbum"
 
-#: coverart_widgets.py:392
+#: coverart_controllers.py:302
 msgid "Sort by year"
 msgstr "Ordenar por ano"
 
-#: coverart_widgets.py:393
+#: coverart_controllers.py:303
 msgid "Sort by rating"
 msgstr "Ordenar por pontuação"
 
-#: coverart_widgets.py:456
-msgid "All"
-msgstr "Tudo"
+#. '20s' as in the decade 2010
+#: coverart_controllers.py:348 coverart_controllers.py:374
+msgid "20s"
+msgstr "década de 2020"
 
-#: coverart_widgets.py:456
-msgid "Old"
+#. '10s' as in the decade 2010
+#: coverart_controllers.py:350
+msgid "10s"
 msgstr ""
 
-#: coverart_widgets.py:636
+#. '00s' as in the decade 2000
+#: coverart_controllers.py:352
+msgid "00s"
+msgstr ""
+
+#. '90s' as in the decade 1990
+#: coverart_controllers.py:354
+msgid "90s"
+msgstr "Anos 90"
+
+#. '80s' as in the decade 1980
+#: coverart_controllers.py:356
+msgid "80s"
+msgstr "Anos 80"
+
+#. '70s' as in the decade 1970
+#: coverart_controllers.py:358
+msgid "70s"
+msgstr "Anos 70"
+
+#. '60s' as in the decade 1960
+#: coverart_controllers.py:360
+msgid "60s"
+msgstr "Anos 60"
+
+#. '50s' as in the decade 1950
+#: coverart_controllers.py:362
+msgid "50s"
+msgstr "Anos 50"
+
+#. '40s' as in the decade 1940
+#: coverart_controllers.py:364
+msgid "40s"
+msgstr "Anos 40"
+
+#. '30s' as in the decade 1930
+#: coverart_controllers.py:366
+msgid "30s"
+msgstr "Anos 30"
+
+#. 'Older' as in 'older than the year 1930'
+#: coverart_controllers.py:368
+msgid "Older"
+msgstr "Antiga"
+
+#. options
+#: coverart_controllers.py:403
 msgid "Sort in descending order"
 msgstr "Ordenar em ordem decrescente"
 
-#: coverart_widgets.py:638
+#: coverart_controllers.py:404
 msgid "Sort in ascending order"
 msgstr "Ordenar em ordem crescente"
+
+#: coverart_controllers.py:450
+msgid "Search all fields"
+msgstr "Procurar todos os campos"
+
+#: coverart_controllers.py:451
+msgid "Search album artists"
+msgstr "Procurar artistas do álbum"
+
+#: coverart_controllers.py:452
+msgid "Search track artists"
+msgstr "Procurar artistas das faixas"
+
+#: coverart_controllers.py:453
+msgid "Search albums"
+msgstr "Procurar álbum"
+
+#: coverart_controllers.py:454
+msgid "Search tracks"
+msgstr "Procurar por faixas"
+
+#~ msgid "Search using all fields"
+#~ msgstr "Procurar utilizando todos os campos"
+
+#~ msgid "Search using album artist names"
+#~ msgstr "Procurar utilizando o nome do artista do álbum"
+
+#~ msgid "Search using track artist names"
+#~ msgstr "Procurar utilizando o nome do artista da faixa"
+
+#~ msgid "Search using album titles"
+#~ msgstr "Procurar utilizando o nome de álbuns"
+
+#~ msgid "Search using track titles"
+#~ msgstr "Procurar utilizando nome de faixas"
+
+#~ msgid "Search album"
+#~ msgstr "Procurar álbum"
+
+#~ msgid "All"
+#~ msgstr "Tudo"

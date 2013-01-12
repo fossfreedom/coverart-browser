@@ -1,4 +1,4 @@
-# Finnish translation for coverartbrowser
+# Italian translation for coverartbrowser
 # Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
 # This file is distributed under the same license as the coverartbrowser package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-01-12 17:59+0000\n"
-"PO-Revision-Date: 2013-01-09 12:12+0000\n"
-"Last-Translator: Jiri Grönroos <Unknown>\n"
-"Language-Team: Finnish <fi@li.org>\n"
-"Language: fi\n"
+"PO-Revision-Date: 2013-01-12 10:39+0000\n"
+"Last-Translator: Gianfranco Frisani <gfrisani@libero.it>\n"
+"Language-Team: Italian <it@li.org>\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,63 +20,65 @@ msgstr ""
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:185
 msgid "Search Options"
-msgstr ""
+msgstr "Opzioni di ricerca"
 
 #: tmpl/albumartsearch-tmpl.html:185
 msgid "Tip: doubleclick or drag a cover to use it as the album cover"
 msgstr ""
+"Suggerimento: fare doppio-clic o trascinare un'immagine da usare come "
+"copertina dell'album"
 
 #: tmpl/albumartsearch-tmpl.html:187
 msgid "Search Mode"
-msgstr "Hakutapa"
+msgstr "Modalità di ricerca"
 
 #: tmpl/albumartsearch-tmpl.html:189
 msgid "Artist"
-msgstr "Esittäjä"
+msgstr "Artista"
 
 #: tmpl/albumartsearch-tmpl.html:190
 msgid "Album"
-msgstr "Levy"
+msgstr "Album"
 
 #: tmpl/albumartsearch-tmpl.html:191
 msgid "Artist and album"
-msgstr ""
+msgstr "Artista e album"
 
 #: tmpl/albumartsearch-tmpl.html:194
 msgid "Search text"
-msgstr "Etsi tekstiä"
+msgstr "Cerca testo"
 
 #: tmpl/albumartsearch-tmpl.html:197
 msgid "Search"
-msgstr ""
+msgstr "Ricerca"
 
 #: tmpl/albumartsearch-tmpl.html:199
 msgid "Image Size"
-msgstr "Kuvan koko"
+msgstr "Dimensioni immagine"
 
 #: tmpl/albumartsearch-tmpl.html:201
 msgid "Small"
-msgstr "Pieni"
+msgstr "Piccola"
 
 #: tmpl/albumartsearch-tmpl.html:202
 msgid "Medium"
-msgstr "Keskikokoinen"
+msgstr "Media"
 
 #: tmpl/albumartsearch-tmpl.html:203
 msgid "Large"
-msgstr "Suuri"
+msgstr "Grande"
 
 #: tmpl/albumartsearch-tmpl.html:204
 msgid "Extra Large"
-msgstr "Erittäin suuri"
+msgstr "Molto grande"
 
 #: tmpl/albumartsearch-tmpl.html:209 coverart_browser_source.py:103
 msgid "Loading..."
-msgstr "Ladataan…"
+msgstr "Caricamento in corso..."
 
 #: tmpl/albumartsearch-tmpl.html:211
 msgid "Show more results"
-msgstr "Näytä lisää tuloksia"
+msgstr "Mostra altri risultati"
 
 #: ui/coverart_album_search_prefs.ui.h:1
 msgid "Find CoverArt:"
@@ -100,35 +102,35 @@ msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:1
 msgid "Above"
-msgstr ""
+msgstr "Sopra"
 
 #: ui/coverart_browser_prefs.ui.h:2
 msgid "Top Left"
-msgstr ""
+msgstr "In alto a sinistra"
 
 #: ui/coverart_browser_prefs.ui.h:3
 msgid "Top Center"
-msgstr ""
+msgstr "In alto al centro"
 
 #: ui/coverart_browser_prefs.ui.h:4
 msgid "Top Right"
-msgstr ""
+msgstr "In alto a destra"
 
 #: ui/coverart_browser_prefs.ui.h:5
 msgid "Above Cover View"
-msgstr ""
+msgstr "Sulla visualizzazione della copertina"
 
 #: ui/coverart_browser_prefs.ui.h:6
 msgid "Left Sidebar"
-msgstr "Vasen sivupalkki"
+msgstr "Barra laterale sinistra"
 
 #: ui/coverart_browser_prefs.ui.h:7
 msgid "Right Sidebar"
-msgstr "Oikea sivupalkki"
+msgstr "Barra laterale destra"
 
 #: ui/coverart_browser_prefs.ui.h:8
 msgid "Automatically Start"
-msgstr "Käynnistä automaattisesti"
+msgstr "Avvio automatico"
 
 #: ui/coverart_browser_prefs.ui.h:9
 msgid "When rhythmbox starts, switch automatically to the coverart browser."
@@ -152,9 +154,8 @@ msgid ""
 msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:13
-#, fuzzy
 msgid "Display tracks and covers pane"
-msgstr "Näytä levyn tiedot kansikuvan alla"
+msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:14
 msgid ""
@@ -172,15 +173,15 @@ msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:17
 msgid "General"
-msgstr "Yleiset"
+msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:18
 msgid "Album Information"
-msgstr "Levyn tiedot"
+msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:19
 msgid "Display album's info under cover"
-msgstr "Näytä levyn tiedot kansikuvan alla"
+msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:20
 msgid "Show the album&apos;s basic information under the cover image."
@@ -196,7 +197,7 @@ msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:23
 msgid "Font Size:"
-msgstr "Kirjasimen koko:"
+msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:24
 msgid "Ellipsize albums names"
@@ -214,15 +215,15 @@ msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:27
 msgid "Maximum length:"
-msgstr "Enimmäisleveys:"
+msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:28
 msgid "Cover Appearance"
-msgstr "Kansikuvan ulkoasu"
+msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:29
 msgid "Drop shadow"
-msgstr "Varjo"
+msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:30
 msgid "Indicates if the albums should drop a shadow on the cover view"
@@ -230,7 +231,7 @@ msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:31
 msgid "Light Source: "
-msgstr "Valon lähde: "
+msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:32
 msgid "Defines the size for the covers showed on the source."
@@ -238,11 +239,11 @@ msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:33
 msgid "Size (in pixels):"
-msgstr "Koko (pikseleissä):"
+msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:34
 msgid "Cover"
-msgstr "Kansikuva"
+msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:35
 msgid "Where the toolbar should be positioned"
@@ -250,24 +251,24 @@ msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:36
 msgid "Position"
-msgstr "Sijainti"
+msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:37
 #, fuzzy
 msgid "Show toolbar in: "
-msgstr "Näytä työkalupalkki: "
+msgstr "Mostra la barra degli strumenti: "
 
 #: ui/coverart_browser_prefs.ui.h:38
 msgid "Toolbar"
-msgstr "Työkalupalkki"
+msgstr "Barra degli strumenti"
 
 #: ui/coverart_browser_prefs.ui.h:43
 msgid "Providers"
-msgstr ""
+msgstr "Fornitori"
 
 #: ui/coverart_browser.ui.h:1
 msgid "Tracks & Covers"
-msgstr "Kappaleet ja kansikuvat"
+msgstr "Tracce e copertine"
 
 #: ui/coverart_browser.ui.h:2
 msgid "Stop coverart fetch."
@@ -275,37 +276,37 @@ msgstr ""
 
 #: ui/coverart_browser.ui.h:3
 msgid "Play this album"
-msgstr "Toista tämä levy"
+msgstr "Riproduci questo album"
 
 #: ui/coverart_browser.ui.h:4
 msgid "Play Album"
-msgstr "Toista levy"
+msgstr "Riproduci album"
 
 #: ui/coverart_browser.ui.h:5
 #, fuzzy
 msgid "Add this album to your playing queue"
-msgstr "Lisää levy soittolistaan"
+msgstr "Aggiungi questo album alla playlist"
 
 #: ui/coverart_browser.ui.h:6
 #, fuzzy
 msgid "Queue Album"
-msgstr "Levy"
+msgstr "Album"
 
 #: ui/coverart_browser.ui.h:7 ui/coverart_entryview.ui.h:5
 msgid "Add this album to a playlist"
-msgstr "Lisää levy soittolistaan"
+msgstr "Aggiungi questo album alla playlist"
 
 #: ui/coverart_browser.ui.h:8 ui/coverart_entryview.ui.h:6
 msgid "Add to Playlist"
-msgstr "Lisää soittolistaan"
+msgstr "Aggiungi alla Playlist"
 
 #: ui/coverart_browser.ui.h:9 ui/coverart_entryview.ui.h:7
 msgid "Add this album to a new playlist"
-msgstr "Lisää levy uuteen soittolistaan"
+msgstr "Aggiungi questo album a una nuova playlist"
 
 #: ui/coverart_browser.ui.h:10 ui/coverart_entryview.ui.h:8
 msgid "New Playlist"
-msgstr "Uusi soittolista"
+msgstr "Nuova Playlist"
 
 #: ui/coverart_browser.ui.h:11
 msgid "Play favourites tracks from this album"
@@ -326,25 +327,27 @@ msgstr ""
 #: ui/coverart_browser.ui.h:15
 #, fuzzy
 msgid "Add favourite tracks from this album to a playlist"
-msgstr "Lisää levy soittolistaan"
+msgstr "Aggiungi questo album alla playlist"
 
 #: ui/coverart_browser.ui.h:16
 #, fuzzy
 msgid "Add favourites to Playlist"
-msgstr "Lisää soittolistaan"
+msgstr "Aggiungi alla Playlist"
 
 #: ui/coverart_browser.ui.h:17
+#, fuzzy
 msgid "Search for this album cover"
-msgstr ""
+msgstr "Cerca usando i titoli degli album"
 
 #: ui/coverart_browser.ui.h:18
 #, fuzzy
 msgid "Search for covers"
-msgstr "Hakutapa"
+msgstr "Cerca tracce"
 
 #: ui/coverart_browser.ui.h:19
+#, fuzzy
 msgid "Show album properties"
-msgstr "Näytä levyn ominaisuudet"
+msgstr "Cerca artisti degli album"
 
 #: ui/coverart_browser.ui.h:20
 msgid "Search for covers where an album does not currently have one"
@@ -352,12 +355,12 @@ msgstr ""
 
 #: ui/coverart_browser.ui.h:21
 msgid "Download all the covers"
-msgstr "Lataa kaikki kansikuvat"
+msgstr ""
 
 #: ui/coverart_entryview.ui.h:1
 #, fuzzy
 msgid "Play this track"
-msgstr "Toista tämä levy"
+msgstr "Riproduci questo album"
 
 #: ui/coverart_entryview.ui.h:2
 msgid "Play Track"
@@ -366,15 +369,16 @@ msgstr ""
 #: ui/coverart_entryview.ui.h:3
 #, fuzzy
 msgid "Add this track to your playing queue"
-msgstr "Lisää levy soittolistaan"
+msgstr "Aggiungi questo album alla playlist"
 
 #: ui/coverart_entryview.ui.h:4
 msgid "Queue Track"
 msgstr ""
 
 #: ui/coverart_entryview.ui.h:9
+#, fuzzy
 msgid "Show track properties"
-msgstr "Näytä kappaleen ominaisuudet"
+msgstr "Cerca compositori delle tracce"
 
 #: ui/coverart_sidebar.ui.h:1 coverart_browser.py:101
 msgid "CoverArt"
@@ -383,161 +387,161 @@ msgstr ""
 #: ui/coverart_sidebar.ui.h:2 ui/coverart_topbar.ui.h:1
 #: coverart_controllers.py:280
 msgid "All Genres"
-msgstr "Kaikki tyylilajit"
+msgstr "Tutti i generi"
 
 #: ui/coverart_sidebar.ui.h:3 ui/coverart_topbar.ui.h:2
 #: coverart_controllers.py:346
 msgid "All Decades"
-msgstr "Kaikki vuosikymmenet"
+msgstr "Tutte le decadi"
 
 #: img/popups.xml.in.h:1
 msgid "rock"
-msgstr ""
+msgstr "rock"
 
 #: img/popups.xml.in.h:2
 msgid "country"
-msgstr ""
+msgstr "country"
 
 #: img/popups.xml.in.h:3
 msgid "pop"
-msgstr ""
+msgstr "pop"
 
 #: img/popups.xml.in.h:4
 msgid "classical"
-msgstr ""
+msgstr "classica"
 
 #: img/popups.xml.in.h:5
 msgid "world"
-msgstr ""
+msgstr "world"
 
 #: img/popups.xml.in.h:6
 msgid "bluegrass"
-msgstr ""
+msgstr "bluegrass"
 
 #: img/popups.xml.in.h:7
 msgid "oldies"
-msgstr ""
+msgstr "revival"
 
 #: img/popups.xml.in.h:8
 msgid "holiday"
-msgstr ""
+msgstr "musica per le feste"
 
 #: img/popups.xml.in.h:9
 msgid "comedy"
-msgstr ""
+msgstr "commedia"
 
 #: img/popups.xml.in.h:10
 msgid "spoken"
-msgstr ""
+msgstr "parlato"
 
 #: img/popups.xml.in.h:11
 msgid "jazz"
-msgstr ""
+msgstr "jazz"
 
 #: img/popups.xml.in.h:12
 msgid "blues"
-msgstr ""
+msgstr "blues"
 
 #: img/popups.xml.in.h:13
 msgid "metal"
-msgstr ""
+msgstr "metal"
 
 #: img/popups.xml.in.h:14
 msgid "karaoke"
-msgstr ""
+msgstr "karaoke"
 
 #: img/popups.xml.in.h:15
 msgid "rap"
-msgstr ""
+msgstr "rap"
 
 #: img/popups.xml.in.h:16
 msgid "ragtime"
-msgstr ""
+msgstr "ragtime"
 
 #: img/popups.xml.in.h:17
 msgid "musical"
-msgstr ""
+msgstr "musical"
 
 #: img/popups.xml.in.h:18
 msgid "dance"
-msgstr ""
+msgstr "dance"
 
 #: img/popups.xml.in.h:19
 msgid "reggae"
-msgstr ""
+msgstr "reggae"
 
 #: img/popups.xml.in.h:20
 msgid "electronic"
-msgstr ""
+msgstr "elettronica"
 
 #: img/popups.xml.in.h:21
 msgid "soundtrack"
-msgstr ""
+msgstr "colonna sonora"
 
 #: img/popups.xml.in.h:22
 msgid "latin"
-msgstr ""
+msgstr "latina"
 
 #: img/popups.xml.in.h:23
 msgid "alternative"
-msgstr ""
+msgstr "alternativa"
 
 #: img/popups.xml.in.h:24
 msgid "disco"
-msgstr ""
+msgstr "disco"
 
 #: img/popups.xml.in.h:25
 msgid "folk"
-msgstr ""
+msgstr "folk"
 
 #: img/popups.xml.in.h:26
 msgid "gospel"
-msgstr ""
+msgstr "gospel"
 
 #: img/popups.xml.in.h:27
 msgid "experimental"
-msgstr ""
+msgstr "sperimentale"
 
 #: img/popups.xml.in.h:28
 msgid "new age"
-msgstr ""
+msgstr "new age"
 
 #: img/popups.xml.in.h:29
 msgid "opera"
-msgstr ""
+msgstr "opera"
 
 #: img/popups.xml.in.h:30
 msgid "anime"
-msgstr ""
+msgstr "anime"
 
 #: img/popups.xml.in.h:31
 msgid "soul"
-msgstr ""
+msgstr "soul"
 
 #: img/popups.xml.in.h:32
 msgid "workout"
-msgstr ""
+msgstr "fitness e allenamenti"
 
 #: img/popups.xml.in.h:33
 msgid "easy listening"
-msgstr ""
+msgstr "easy listening"
 
 #: img/popups.xml.in.h:34
 msgid "hip-hop"
-msgstr ""
+msgstr "hip-hop"
 
 #: img/popups.xml.in.h:35
 msgid "children"
-msgstr ""
+msgstr "per bambini"
 
 #: coverart_album.py:1471 coverart_browser_source.py:917
 #, python-format
 msgid "%s by %s"
-msgstr "%s, esittäjä %s -"
+msgstr ""
 
 #: coverart_album_search.py:269 coverart_album_search.py:270
 msgid "Unknown"
-msgstr "Tuntematon"
+msgstr ""
 
 #. define .plugin text strings used for translation
 #: coverart_browser.py:71
@@ -554,7 +558,7 @@ msgstr ""
 
 #: coverart_browser_source.py:290
 msgid "Covers"
-msgstr "Kansikuvat"
+msgstr ""
 
 #: coverart_browser_source.py:831
 #, python-format
@@ -564,29 +568,29 @@ msgstr ""
 #: coverart_browser_source.py:920
 #, python-format
 msgid "%d selected albums "
-msgstr "%d valittua levyä "
+msgstr ""
 
 #: coverart_browser_source.py:924
 msgid " with 1 track"
-msgstr " yhdellä kappaleella"
+msgstr ""
 
 #: coverart_browser_source.py:926
 #, python-format
 msgid " with %d tracks"
-msgstr " %d kappaleella"
+msgstr ""
 
 #: coverart_browser_source.py:929
 msgid " and a duration of 1 minute"
-msgstr " ja kestolta minuutti"
+msgstr ""
 
 #: coverart_browser_source.py:931
 #, python-format
 msgid " and a duration of %d minutes"
-msgstr " ja kestolta %d minuuttia"
+msgstr ""
 
 #: coverart_controllers.py:300
 msgid "Sort by album name"
-msgstr "Järjestä levyn nimen mukaan"
+msgstr ""
 
 #: coverart_controllers.py:301
 msgid "Sort by album artist"
@@ -594,7 +598,7 @@ msgstr ""
 
 #: coverart_controllers.py:302
 msgid "Sort by year"
-msgstr "Järjestä vuoden mukaan"
+msgstr ""
 
 #: coverart_controllers.py:303
 msgid "Sort by rating"
@@ -603,86 +607,95 @@ msgstr ""
 #. '20s' as in the decade 2010
 #: coverart_controllers.py:348 coverart_controllers.py:374
 msgid "20s"
-msgstr ""
+msgstr "Anni 2020"
 
 #. '10s' as in the decade 2010
 #: coverart_controllers.py:350
 msgid "10s"
-msgstr ""
+msgstr "Anni 2010"
 
 #. '00s' as in the decade 2000
 #: coverart_controllers.py:352
 msgid "00s"
-msgstr ""
+msgstr "Anni 2000"
 
 #. '90s' as in the decade 1990
 #: coverart_controllers.py:354
 msgid "90s"
-msgstr ""
+msgstr "Anni '90"
 
 #. '80s' as in the decade 1980
 #: coverart_controllers.py:356
 msgid "80s"
-msgstr ""
+msgstr "Anni '80"
 
 #. '70s' as in the decade 1970
 #: coverart_controllers.py:358
 msgid "70s"
-msgstr ""
+msgstr "Anni '70"
 
 #. '60s' as in the decade 1960
 #: coverart_controllers.py:360
 msgid "60s"
-msgstr ""
+msgstr "Anni '60"
 
 #. '50s' as in the decade 1950
 #: coverart_controllers.py:362
 msgid "50s"
-msgstr ""
+msgstr "Anni '50"
 
 #. '40s' as in the decade 1940
 #: coverart_controllers.py:364
 msgid "40s"
-msgstr ""
+msgstr "Anni '40"
 
 #. '30s' as in the decade 1930
 #: coverart_controllers.py:366
 msgid "30s"
-msgstr ""
+msgstr "Anni '30"
 
 #. 'Older' as in 'older than the year 1930'
 #: coverart_controllers.py:368
 msgid "Older"
-msgstr "Vanhempi"
+msgstr "Più antica"
 
 #. options
 #: coverart_controllers.py:403
 msgid "Sort in descending order"
-msgstr "Järjestä laskevassa järjestyksessä"
+msgstr ""
 
 #: coverart_controllers.py:404
 msgid "Sort in ascending order"
-msgstr "Järjestä nousevassa järjestyksessä"
+msgstr ""
 
 #: coverart_controllers.py:450
 msgid "Search all fields"
-msgstr "Etsi kaikista kentistä"
+msgstr "Cerca in tutti i campi"
 
 #: coverart_controllers.py:451
 msgid "Search album artists"
-msgstr ""
+msgstr "Cerca artisti degli album"
 
 #: coverart_controllers.py:452
 msgid "Search track artists"
-msgstr ""
+msgstr "Cerca compositori delle tracce"
 
 #: coverart_controllers.py:453
 msgid "Search albums"
-msgstr ""
+msgstr "Cerca album"
 
 #: coverart_controllers.py:454
 msgid "Search tracks"
-msgstr ""
+msgstr "Cerca tracce"
 
-#~ msgid "All"
-#~ msgstr "Kaikki"
+#~ msgid "Search using all fields"
+#~ msgstr "Cerca usando tutti i campi"
+
+#~ msgid "Search using album artist names"
+#~ msgstr "Cerca usando i nomi degli artisti degli album"
+
+#~ msgid "Search using track artist names"
+#~ msgstr "Cerca usando i nomi dei compositori delle tracce"
+
+#~ msgid "Search using track titles"
+#~ msgstr "Cerca usando i titoli delle tracce"
