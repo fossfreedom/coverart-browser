@@ -1127,15 +1127,10 @@ class ToolbarManager(GObject.Object):
         self._bars['right'] = self._create_toolbar(rb.find_plugin_file(plugin,
                 self.SIDEBAR_UI), controllers, album_model, cl)
 
-        # asig the toolbars to their positions
-        main_box.pack_start(self._bars['main'], False, True, 0)
-        main_box.reorder_child(self._bars['main'], 0)
-
-        plugin.shell.add_widget(self._bars['left'], RB.ShellUILocation.SIDEBAR,
-            expand=False, fill=False)
-        plugin.shell.add_widget(self._bars['right'],
-            RB.ShellUILocation.RIGHT_SIDEBAR, expand=False, fill=False)
-
+        self.plugin = plugin
+        self.main_box = main_box
+        self._last_toolbar_pos = ''
+        
         # connect signal and properties
         self._connect_signals()
         self._connect_properties()
@@ -1192,5 +1187,27 @@ class ToolbarManager(GObject.Object):
         for toolbar in self._bars.values():
             if toolbar.get_visible():
                 toolbar.hide()
+
+        if self._last_toolbar_pos == 'left':
+            self.plugin.shell.remove_widget(self._bars['left'],
+                RB.ShellUILocation.SIDEBAR)
+        elif self._last_toolbar_pos == 'right':
+            self.plugin.shell.remove_widget(self._bars['right'],
+                    RB.ShellUILocation.RIGHT_SIDEBAR)
+
+        self._last_toolbar_pos = self.toolbar_pos
+
+        # assign the toolbars to their positions
+        if self.toolbar_pos == 'main':
+            self.main_box.pack_start(self._bars['main'], False, True, 0)
+            self.main_box.reorder_child(self._bars['main'], 0)
+        elif self.toolbar_pos == 'left':
+            self.plugin.shell.add_widget(self._bars['left'], RB.ShellUILocation.SIDEBAR,
+                expand=False, fill=False)
+        elif self.toolbar_pos =='right':
+            self.plugin.shell.add_widget(self._bars['right'],
+                RB.ShellUILocation.RIGHT_SIDEBAR, expand=False, fill=False)
+        else:
+            raise Exception, 'unknown toolbar_pos value %s' % self.toolbar_pos
 
         self._bars[self.toolbar_pos].show()
