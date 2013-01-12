@@ -436,6 +436,11 @@ def create_pixbuf_from_file_at_size(filename, width, height):
 
     return pixbuf
 
+'''
+class to search through a dict without case-sensitivity nor
+unicode vs string issues
+'''
+
 class CaseInsensitiveDict(collections.Mapping):
     def __init__(self, d):
         self._d = d
