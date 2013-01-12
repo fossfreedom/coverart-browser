@@ -375,7 +375,7 @@ class ConfiguredSpriteSheet(object):
             self.names.append(elem.text)
 
         for elem in self.root.xpath(base + '[@xml:lang="' + lang + '"]'):
-            self.locale_names.append(elem.text)
+            self.locale_names[elem.text]=elem.attrib['name']
 
         if (not self.locale_names) and len(lang) > 2:
             for elem in self.root.xpath(base + '[@xml:lang="' +\
