@@ -135,16 +135,16 @@ N.B. for debian based distros - `sudo apt-get install python-requests`
 
 <pre>
 rm -rf ~/.local/share/rhythmbox/plugins/coverart_browser
-git clone https://github.com/fossfreedom/coverart-browser.git
+git clone https://github.com/fossfreedom/coverart-browser.git -b master
 cd coverart-browser
 sh ./install.sh
 </pre>
 
 *For Ubuntu 12.04 & 12.10:*
 
-This is now available in my rhythmbox PPA - installation instructions in this AskUbuntu Q&A:
+<del>This is now available in my rhythmbox PPA - installation instructions in this AskUbuntu Q&A:
 
-http://askubuntu.com/questions/147942/how-do-i-install-third-party-rhythmbox-plugins
+http://askubuntu.com/questions/147942/how-do-i-install-third-party-rhythmbox-plugins</del>
 
 **IMPORTANT NOTE**
 
