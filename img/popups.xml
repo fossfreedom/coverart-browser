@@ -338,13 +338,22 @@
             <alt genre="electronic">techno</alt>
             <alt genre="spoken">acapella</alt>
             <alt genre="electronic">ambiance</alt>
-        </alt>
+         </alt>
         
         <alt xml:lang="fr">
             <alt genre="gospel">catholique</alt>
             <alt genre="gospel">catho</alt>
             <alt genre="gospel">chrétien</alt>
             <alt genre="pop">french pop</alt>
+	    <alt genre="pop">pop française</alt>
+	    <alt genre="holiday">musique de noël</alt>
+	    <alt genre="spoken">livres et histoires</alt>
+	    <alt genre="folk">folklore</alt>
+	    <alt genre="anime">dessins animés</alt>
+	    <alt genre="anime">j-pop</alt>
+	    <alt genre="ragtime">cabaret</alt>	
+            <alt genre="latin">latino</alt>
+            <alt genre="latin">espagnol</alt>
         </alt>
     </genre>
     <sort>
