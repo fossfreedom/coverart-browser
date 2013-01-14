@@ -17,9 +17,13 @@
 from bisect import bisect_left, bisect_right
 from gi.repository import GdkPixbuf
 from gi.repository import Gdk
+from gi.repository import Gtk
 from gi.repository import GLib
-import xml.etree.cElementTree as ET
+from gi.repository import RB
+import lxml.etree as ET
 import rb
+from coverart_browser_prefs import CoverLocale
+import collections
 import re
 
 
@@ -368,7 +372,7 @@ class SpriteSheet(object):
                     sprite, 0, 0)
 
                 if size:
-                    sprite = sprite.scale_simple(size, size,
+                    sprite = sprite.scale_simple(size[0], size[1],
                         GdkPixbuf.InterpType.BILINEAR)
 
                 self._sprites.append(sprite)
@@ -381,35 +385,46 @@ class SpriteSheet(object):
 
 
 class ConfiguredSpriteSheet(object):
-    popups = 'img/popups.xml'
-
     def __init__(self, plugin, sprite_name, size=None):
         self.plugin = plugin
-        self.popups = rb.find_plugin_file(plugin, self.popups)
-        self.tree = ET.ElementTree(file=self.popups)
-        root = self.tree.getroot()
+        popups = rb.find_plugin_file(plugin, 'img/popups.xml')
+        self.root = ET.parse(open(popups)).getroot()
         base = 'spritesheet[@name="' + sprite_name + '"]/'
         image = rb.find_plugin_file(plugin, 'img/' +
-            root.findall(base + 'image')[0].text)
-        icon_width = int(root.findall(base + 'icon')[0].attrib['width'])
-        icon_height = int(root.findall(base + 'icon')[0].attrib['height'])
-        x_spacing = int(root.findall(base + 'spacing')[0].attrib['x'])
-        y_spacing = int(root.findall(base + 'spacing')[0].attrib['y'])
-        x_start = int(root.findall(base + 'start-position')[0].attrib['x'])
-        y_start = int(root.findall(base + 'start-position')[0].attrib['y'])
+            self.root.xpath(base + 'image')[0].text)
+        icon_width = int(self.root.xpath(base + 'icon')[0].attrib['width'])
+        icon_height = int(self.root.xpath(base + 'icon')[0].attrib['height'])
+        x_spacing = int(self.root.xpath(base + 'spacing')[0].attrib['x'])
+        y_spacing = int(self.root.xpath(base + 'spacing')[0].attrib['y'])
+        x_start = int(self.root.xpath(base + 'start-position')[0].attrib['x'])
+        y_start = int(self.root.xpath(base + 'start-position')[0].attrib['y'])
 
         try:
             alpha_color = map(int,
-                    root.findall(base + 'alpha')[0].text.split(' '))
+                    self.root.xpath(base + 'alpha')[0].text.split(' '))
         except:
             alpha_color = None
 
         self.names = []
+        self.locale_names = {}
 
-        for elem in root.findall(sprite_name + '/' + sprite_name +
-            '[@spritesheet="' + sprite_name + '"]'):
-                self.names.append(elem.attrib['name'])
+        cl = CoverLocale()
+        lang=cl.get_locale()
 
+        base = sprite_name + '/' + sprite_name +\
+            '[@spritesheet="' + sprite_name + '"]'
+            
+        for elem in self.root.xpath(base + '[not(@xml:lang)]'):
+            self.names.append(elem.text)
+
+        for elem in self.root.xpath(base + '[@xml:lang="' + lang + '"]'):
+            self.locale_names[elem.text]=elem.attrib['name']
+
+        if (not self.locale_names) and len(lang) > 2:
+            for elem in self.root.xpath(base + '[@xml:lang="' +\
+                lang[0:2] + '"]'):
+                self.locale_names[elem.text]=elem.attrib['name']
+        
         self._sheet = SpriteSheet(image, icon_width, icon_height, x_spacing,
             y_spacing, x_start, y_start, alpha_color, size)
 
@@ -428,10 +443,58 @@ class ConfiguredSpriteSheet(object):
 
 class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
     def __init__(self, plugin, sprite_name, size=None):
-        super(GenreConfiguredSpriteSheet, self).__init__(
-            plugin, sprite_name, size)
-        root = self.tree.getroot()
+        super(GenreConfiguredSpriteSheet, self).__init__(plugin, sprite_name,
+            size)
         self.alternate = {}
-        for elem in root.findall(sprite_name + '/alt'):
-                self.alternate[elem.text] = elem.attrib['genre']
+        self.locale_alternate = {}
+        
+        cl = CoverLocale()
+        lang=cl.get_locale()
 
+        base = sprite_name + '/alt'
+        for elem in self.root.xpath(base + '[not(@xml:lang)]/alt'):
+            self.alternate[elem.text] = elem.attrib['genre']
+            
+        for elem in self.root.xpath(base + '[@xml:lang="' + lang + '"]/alt'):
+            self.locale_alternate[elem.text] = elem.attrib['genre']
+
+        if (not self.locale_alternate) and len(lang) > 2:
+            for elem in self.root.xpath(base + '[@xml:lang="' +\
+                lang[0:2] + '"]/alt'):
+                self.locale_alternate[elem.text] = elem.attrib['genre']
+
+
+def get_stock_size():
+    what, width, height = Gtk.icon_size_lookup(Gtk.IconSize.BUTTON)
+
+    return width, height
+
+
+def create_pixbuf_from_file_at_size(filename, width, height):
+    pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(filename, width, height)
+
+    if pixbuf.get_width() != width or pixbuf.get_height() != height:
+        pixbuf = pixbuf.scale_simple(width, height,
+            GdkPixbuf.InterpType.BILINEAR)
+
+    return pixbuf
+
+'''
+class to search through a dict without case-sensitivity nor
+unicode vs string issues
+'''
+
+class CaseInsensitiveDict(collections.Mapping):
+    def __init__(self, d):
+        self._d = d
+        self._s = dict((RB.search_fold(k), k) for k in d)
+    def __contains__(self, k):
+        return RB.search_fold(k) in self._s
+    def __len__(self):
+        return len(self._s)
+    def __iter__(self):
+        return iter(self._s)
+    def __getitem__(self, k):
+        return self._d[self._s[RB.search_fold(k)]]
+    def actual_key_case(self, k):
+        return self._s.get(RB.search_fold(k))

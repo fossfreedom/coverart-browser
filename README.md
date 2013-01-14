@@ -7,6 +7,8 @@ Browse your coverart albums in Rhythmbox v2.96 and later
 
 -----------
 
+**Please help out with translating - skip to the end for details**
+
 Summary: whats new in this release
 
  - find embedded covers in MP3, MP4, FLAC & OGG files
@@ -110,6 +112,25 @@ You can fine-tune this with individual tracks - lets say you have 10 tracks in a
 
 ![Imgur](http://i.imgur.com/3xDfI.png)
 
+ - Define your own Genre lookups
+
+By default the plugin will try to match genres in your collection and display the correct genre-icon.  
+If you have custom genre names, then you can add them to the file `po/popups.xml`.
+
+You'll see in that file a section
+
+     <alt>
+     ...
+     </alt>
+     
+You can define a language specific alternative genre section like this:
+
+     <alt xml:lang='fr'>
+     ....
+     </alt>
+     
+Remember to raise an issue on GitHub if you want your custom genres wrapped up in the next release of this plugin
+
  - Find embedded covers
 
  New plugin (Edit - Plugins - CoverArt Embedded Cover Search).  When enabled, searches for cover images embedded in tracks within an album.
@@ -121,17 +142,15 @@ You can fine-tune this with individual tracks - lets say you have 10 tracks in a
 
 *How to install:*
 
-1. install *git*
-N.B. for debian based distros - `sudo apt-get install git`
-2. install the package *gettext*
-N.B. for debian based distros - `sudo apt-get install gettext`
-3. install the package *python-mako*
-N.B. for debian based distros - `sudo apt-get install python-mako`
-4. install the package *python-mutagen*
-N.B. for debian based distros - `sudo apt-get install python-mutagen`
-5. install the package *python-requests*
-N.B. for debian based distros - `sudo apt-get install python-requests`
+for debian & debian-based distros such as Ubuntu & Mint
 
+    sudo apt-get install git gettext python-mako python-mutagen python-requests python-lxml
+
+for fedora and similar:
+
+    yum install git gettext python-mako python-mutagen python-requests python-lxml
+
+Then install the plugin:
 
 <pre>
 rm -rf ~/.local/share/rhythmbox/plugins/coverart_browser
@@ -155,24 +174,17 @@ It is strongly recommended that you either upgrade to 12.10 where v2.98 works gr
 downgrade to v2.96 or v2.97 as per:
  - http://askubuntu.com/questions/201093/how-do-i-downgrade-rhythmbox-v2-98
 
-You can use this plugin with v2.98 but you'll need to change the file *coverart_album.py* and
-comment out the following lines (i.e. add a # as shown)
-
-<pre>
-#self.entry_changed_id = self.db.connect('entry-changed',
-#            self._entry_changed_callback)
-</pre>
-
-If you do this, rhythmbox does not crash - however, if you change and album or track details
-via the properties option in the music pane, these changes are not updated in the plugin until
-you restart rhythmbox.
-
-
 **Please help out with translating**
 
 We need you to help us translate the english text to your native language.
 
 Don't worry - it is easier that you think.
+
+Just visit:
+
+ - https://translations.launchpad.net/coverartbrowser
+
+Remember to set your preferred language and then just submit your translation.
 
 Instructions are in the file TRANSLATE_README. Post a link to the file as a new issue, or
 if you are feeling generous - fork and push a pull-request. Thanks!
@@ -198,11 +210,21 @@ Credits:
 
  - thanks to Luqman Aden <laden@uwaterloo.ca> for the coverart-search plugin which our cover-search pane is based upon
  - thanks to Canonical for the Star widget which the ratings capabilities use
- - our Translators: jrbastien (fr_CA), asermax (es), mateuswetah (pt_BR), jrbastien & lannic (fr.po)
+ - our Translators: Launchpad Translation team, jrbastien (fr_CA), asermax (es), mateuswetah (pt_BR), jrbastien & lannic (fr.po)
  - Button Icons - jrbastien for the new iconset
+
+ Licenses:
+
+ This plugin code is released under the GPL3+ license.
+
+ All translations are released under the BSD license
+
+ Genre icon-set:
  
  <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-nd/3.0/80x15.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/StillImage" property="dct:title" rel="dct:type">Music Genre Icons</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://meghnlofing.com" property="cc:attributionName" rel="cc:attributionURL">Meghn Lofing</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.en_US">Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License</a>
 
 Contrast of the iconset has been altered as agreed by the author.  Thanks Meghn!
+
+------
 
 GTK3 port of code.google.com/p/rhythmbox-cover-art-browser

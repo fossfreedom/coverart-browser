@@ -1,0 +1,13 @@
+coverart_album.py
+coverart_album_search.py
+coverart_browser_prefs.py
+coverart_browser.py
+coverart_browser_source.py
+coverart_controllers.py
+coverart_entryview.py
+coverart_search_providers.py
+coverart_search.py
+coverart_timer.py
+coverart_utils.py
+coverart_widgets.py
+ 

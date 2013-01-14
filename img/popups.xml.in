@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+
+<root>
+    <genre>
+        <_genre name="rock" spritesheet="genre">rock</_genre>
+        <_genre name="country" spritesheet="genre">country</_genre>
+        <_genre name="pop" spritesheet="genre">pop</_genre>
+        <_genre name="classical" spritesheet="genre">classical</_genre>
+        <_genre name="world" spritesheet="genre">world</_genre>
+        <_genre name="bluegrass" spritesheet="genre">bluegrass</_genre>
+        <_genre name="oldies" spritesheet="genre">oldies</_genre>
+        <_genre name="holiday" spritesheet="genre">holiday</_genre>
+        <_genre name="comedy" spritesheet="genre">comedy</_genre>
+        <_genre name="spoken" spritesheet="genre">spoken</_genre>
+        <_genre name="jazz" spritesheet="genre">jazz</_genre>
+        <_genre name="blues" spritesheet="genre">blues</_genre>
+        <_genre name="metal" spritesheet="genre">metal</_genre>
+        <_genre name="karaoke" spritesheet="genre">karaoke</_genre>
+        <_genre name="rap" spritesheet="genre">rap</_genre>
+        <_genre name="ragtime" spritesheet="genre">ragtime</_genre>
+        <_genre name="musical" spritesheet="genre">musical</_genre>
+        <_genre name="dance" spritesheet="genre">dance</_genre>
+        <_genre name="reggae" spritesheet="genre">reggae</_genre>
+        <_genre name="electronic" spritesheet="genre">electronic</_genre>
+        <_genre name="soundtrack" spritesheet="genre">soundtrack</_genre>
+        <_genre name="latin" spritesheet="genre">latin</_genre>
+        <_genre name="alternative" spritesheet="genre">alternative</_genre>
+        <_genre name="disco" spritesheet="genre">disco</_genre>
+        <_genre name="folk" spritesheet="genre">folk</_genre>
+        <_genre name="gospel" spritesheet="genre">gospel</_genre>
+        <_genre name="experimental" spritesheet="genre">experimental</_genre>
+        <_genre name="new age" spritesheet="genre">new age</_genre>
+        <_genre name="opera" spritesheet="genre">opera</_genre>
+        <_genre name="anime" spritesheet="genre">anime</_genre>
+        <_genre name="soul" spritesheet="genre">soul</_genre>
+        <_genre name="workout" spritesheet="genre">workout</_genre>
+        <_genre name="easy listening" spritesheet="genre">easy listening</_genre>
+        <_genre name="hip-hop" spritesheet="genre">hip-hop</_genre>
+        <_genre name="children" spritesheet="genre">children</_genre>
+        <genre name="default" image="genre.png">default</genre>
+
+        <!--common to all - no need to translate-->
+        <alt>
+            <alt genre="easy listening">lounge</alt>
+            <alt genre="alternative">ska</alt>
+            <alt genre="alternative">gothic</alt>
+            <alt genre="dance">trip hop</alt>
+            <alt genre="holiday">christmas</alt>
+            <alt genre="oldies">swing</alt>
+            <alt genre="children">kids</alt>
+            <alt genre="blues">r&amp;b</alt>
+            <alt genre="electronic">industrial</alt>
+            <alt genre="folk">acoustic</alt>
+            <alt genre="electronic">ambient</alt>
+            <alt genre="gospel">christian</alt>
+            <alt genre="electronic">techno</alt>
+            <alt genre="spoken">acapella</alt>
+            <alt genre="electronic">ambiance</alt>
+        </alt>
+        <!--french - no need to translate-->
+        <alt xml:lang="fr">
+            <alt genre="gospel">catholique</alt>
+            <alt genre="gospel">catho</alt>
+            <alt genre="gospel">chrétien</alt>
+            <alt genre="pop">french pop</alt>
+            <alt genre="pop">pop française</alt>
+            <alt genre="holiday">musique de noël</alt>
+            <alt genre="spoken">livres et histoires</alt>
+            <alt genre="folk">folklore</alt>
+            <alt genre="anime">dessins animés</alt>
+            <alt genre="anime">j-pop</alt>
+            <alt genre="ragtime">cabaret</alt>    
+            <alt genre="latin">latino</alt>
+            <alt genre="latin">espagnol</alt>
+        </alt>
+    </genre>
+    <sort>
+        <sort name="name" spritesheet="sort">name</sort>
+        <sort name="artist" spritesheet="sort">artist</sort>
+        <sort name="year" spritesheet="sort">year</sort>
+        <sort name="rating" spritesheet="sort">rating</sort>
+    </sort>
+    <playlist>
+        <playlist name="music" spritesheet="playlist">music</playlist>
+        <playlist name="playlist" spritesheet="playlist">playlist</playlist>
+        <playlist name="queue" spritesheet="playlist">queue</playlist>
+        <playlist name="smart" spritesheet="playlist">smart</playlist>
+    </playlist>
+    <decade>
+        <decade name="Old" spritesheet="decade">Older</decade>
+        <decade name="All" spritesheet="decade">All Decades</decade>
+        <decade name="00s" spritesheet="decade">00s</decade>
+        <decade name="10s" spritesheet="decade">10s</decade>
+        <decade name="20s" spritesheet="decade">20s</decade>
+        <decade name="30s" spritesheet="decade">30s</decade>
+        <decade name="40s" spritesheet="decade">40s</decade>
+        <decade name="50s" spritesheet="decade">50s</decade>
+        <decade name="60s" spritesheet="decade">60s</decade>
+        <decade name="70s" spritesheet="decade">70s</decade>
+        <decade name="80s" spritesheet="decade">80s</decade>
+        <decade name="90s" spritesheet="decade">90s</decade>
+    </decade>
+    <spritesheet name="genre">
+        <image>genre_sprites.png</image>
+        <icon width="75" height="75"></icon>
+        <spacing x="73" y="50"></spacing>
+        <start-position x="0" y="0"></start-position>
+        <alpha>255 255 255</alpha>
+    </spritesheet>
+    <spritesheet name="sort">
+        <image>sort_sprites.png</image>
+        <icon width="140" height="134"></icon>
+        <spacing x="34" y="100"></spacing>
+        <start-position x="0" y="0"></start-position>
+    </spritesheet>
+    <spritesheet name="playlist">
+        <image>playlist_sprites.png</image>
+        <icon width="140" height="134"></icon>
+        <spacing x="28" y="100"></spacing>
+        <start-position x="0" y="0"></start-position>
+    </spritesheet>
+    <spritesheet name="decade">
+        <image>decade_sprites.png</image>
+        <icon width="133" height="122"></icon>
+        <spacing x="28" y="66"></spacing>
+        <start-position x="40" y="38"></start-position>
+    </spritesheet>
+</root>
+

@@ -17,83 +17,81 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
-from gi.repository import Gtk
-from gi.repository import GdkPixbuf
-from gi.repository import GObject
-from gi.repository import Gio
 from gi.repository import RB
-
-from coverart_browser_prefs import GSetting
-from coverart_utils import ConfiguredSpriteSheet
-from coverart_utils import GenreConfiguredSpriteSheet
-from coverart_browser_prefs import CoverLocale
-import rb
-from datetime import date
-from collections import OrderedDict
-            
-
-ui_string = \
-"""<interface>
-<object class="GtkMenu" id="popupbutton_menu">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-  </object>
-</interface>"""
+from gi.repository import Gtk
+from gi.repository import Gdk
+from gi.repository import GLib
+from gi.repository import GObject
 
 
-# generic class from which implementation inherit from
-class PopupButton(Gtk.Button):
-    # the following vars are to be defined in the inherited classes
-    #__gtype_name__ = gobject typename
-    #default_image = default image to be displayed
+class OptionsWidget(Gtk.Widget):
 
-    def __init__(self, **kargs):
-        '''
-        Initializes the button.
-        '''
-        super(PopupButton, self).__init__(
-            **kargs)
+    def __init__(self, *args, **kwargs):
+        super(OptionsWidget, self).__init__(*args, **kwargs)
+        self._controller = None
 
-        self._builder = Gtk.Builder()
-        self._builder.add_from_string(ui_string)
+    @property
+    def controller(self):
+        return self._controller
 
-        self._popup_menu = self._builder.get_object('popupbutton_menu')
+    @controller.setter
+    def controller(self, controller):
+        if self._controller:
+            # disconnect signals
+            self._controller.disconnect(self._options_changed_id)
+            self._controller.disconnect(self._current_key_changed_id)
 
-        # initialise some variables
-        self._first_menu_item = None
-        self._current_val = None
-        self.is_initialised = False
+        self._controller = controller
 
-    def initialise(self, shell, callback, initial_label):
-        '''
-        initialise - derived objects call this first
-        shell = rhythmbox shell
-        callback = function to call when a menuitem is selected
-        '''
-        if self.is_initialised:
-            return
+        # connect signals
+        self._options_changed_id = self._controller.connect('notify::options',
+            self._update_options)
+        self._current_key_changed_id = self._controller.connect(
+            'notify::current-key', self._update_current_key)
 
-        self.is_initialised = True
+        # update the menu and current key
+        self.update_options()
+        self.update_current_key()
 
-        self.shell = shell
-        self.callback = callback
-        self.set_popup_value(initial_label)
+    def _update_options(self, *args):
+        self.update_options()
 
-        self.resize_button_image()
+    def update_options(self):
+        pass
 
-    def clear_popupmenu(self):
-        '''
-        reinitialises/clears the current popup menu and associated actions
-        '''
-        for menu_item in self._popup_menu:
-            self._popup_menu.remove(menu_item)
+    def _update_current_key(self, *args):
+        self.update_current_key()
 
-            self._popup_menu.show_all()
-            self.shell.props.ui_manager.ensure_update()
+    def update_current_key():
+        pass
 
-        self._first_menu_item = None
 
-    def add_menuitem(self, label, func, val):
+class OptionsPopupWidget(OptionsWidget):
+
+    # signals
+    __gsignals__ = {
+        'item-clicked': (GObject.SIGNAL_RUN_LAST, None, (str,))
+        }
+
+    def __init__(self, *args, **kwargs):
+        OptionsWidget.__init__(self, *args, **kwargs)
+
+        self._popup_menu = Gtk.Menu()
+
+    def update_options(self):
+        self.clear_popupmenu()
+
+        for key in self._controller.options:
+            self.add_menuitem(key)
+
+    def update_current_key(self):
+        # select the item if it isn't already
+        item = self.get_menuitems()[self._controller.get_current_key_index()]
+
+        if not item.get_active():
+            item.set_active(True)
+
+    def add_menuitem(self, label):
         '''
         add a new menu item to the popup
         '''
@@ -104,13 +102,36 @@ class PopupButton(Gtk.Button):
             new_menu_item = Gtk.RadioMenuItem.new_with_label_from_widget(
                 group=self._first_menu_item, label=label)
 
-        if label == self._current_val:
-            new_menu_item.set_active(True)
-
-        new_menu_item.connect('toggled', func, val)
+        new_menu_item.connect('toggled', self._fire_item_clicked)
         new_menu_item.show()
 
         self._popup_menu.append(new_menu_item)
+
+    def get_menuitems(self):
+        return self._popup_menu.get_children()
+
+    def clear_popupmenu(self):
+        '''
+        reinitialises/clears the current popup menu and associated actions
+        '''
+        for menu_item in self._popup_menu:
+            self._popup_menu.remove(menu_item)
+
+        self._first_menu_item = None
+
+    def _fire_item_clicked(self, menu_item):
+        '''
+        Fires the item-clicked signal if the item is selected, passing the
+        given value as a parameter. Also updates the current value with the
+        value of the selected item.
+        '''
+        if menu_item.get_active():
+            self.emit('item-clicked', menu_item.get_label())
+
+    def do_item_clicked(self, key):
+        if self._controller:
+            # inform the controller
+            self._controller.option_selected(key)
 
     def show_popup(self):
         '''
@@ -119,12 +140,52 @@ class PopupButton(Gtk.Button):
         self._popup_menu.popup(None, None, None, None, 0,
             Gtk.get_current_event_time())
 
-    def set_popup_value(self, val):
+    def do_delete_thyself(self):
+        self.clear_popupmenu()
+        del self._popupmenu
+
+
+class PixbufButton(Gtk.Button):
+
+    def __init__(self, *args, **kwargs):
+        super(PixbufButton, self).__init__(*args, **kwargs)
+
+    def set_image(self, pixbuf):
+        image = self.get_image()
+
+        if not image:
+            image = Gtk.Image()
+            super(PixbufButton, self).set_image(image)
+
+        self.get_image().set_from_pixbuf(pixbuf)
+
+
+class PopupButton(PixbufButton, OptionsPopupWidget):
+    __gtype_name__ = "PopupButton"
+
+    # signals
+    __gsignals__ = {
+        'item-clicked': (GObject.SIGNAL_RUN_LAST, None, (str,))
+        }
+
+    def __init__(self, *args, **kwargs):
         '''
-        set the tooltip according to the popup menu chosen
+        Initializes the button.
         '''
-        self.set_tooltip_text(val)
-        self._current_val = val
+        PixbufButton.__init__(self, *args, **kwargs)
+        OptionsPopupWidget.__init__(self, *args, **kwargs)
+
+        self._popup_menu = Gtk.Menu()
+
+        # initialise some variables
+        self._first_menu_item = None
+
+    def update_current_key(self):
+        super(PopupButton, self).update_current_key()
+
+        # update the current image and tooltip
+        self.set_image(self._controller.get_current_image())
+        self.set_tooltip_text(self._controller.get_current_description())
 
     def do_clicked(self):
         '''
@@ -133,506 +194,179 @@ class PopupButton(Gtk.Button):
         '''
         self.show_popup()
 
-    def resize_button_image(self, pixbuf=None):
-        '''
-        if the button contains an image rather than stock icon
-        this function will ensure the image is resized correctly to
-        fit the button style
-        '''
 
-        what, width, height = Gtk.icon_size_lookup(Gtk.IconSize.BUTTON)
-        image = self.get_image()
+class ImageToggleButton(PixbufButton, OptionsWidget):
+    __gtype_name__ = "ImageToggleButton"
 
-        try:
-            if pixbuf:
-                pixbuf = pixbuf.scale_simple(width, height,
-                    GdkPixbuf.InterpType.BILINEAR)
-            else:
-                pixbuf = self.default_image.get_pixbuf().scale_simple(width,
-                    height, GdkPixbuf.InterpType.BILINEAR)
-
-            image.set_from_pixbuf(pixbuf)
-        except:
-            pass
-
-    def do_delete_thyself(self):
-        self.clear_popupmenu()
-        del self._popupmenu
-        del self._actiongroup
-        del self._builder
-
-
-class PlaylistPopupButton(PopupButton):
-    __gtype_name__ = 'PlaylistPopupButton'
-
-    def __init__(self, **kargs):
+    def __init__(self, *args, **kwargs):
         '''
         Initializes the button.
         '''
-        super(PlaylistPopupButton, self).__init__(
-            **kargs)
-
-        #weird introspection - do_clicked is overridden but
-        #PopupButton version is called not the Playlist version
-        #connect the clicked event to this version
-        self.connect('clicked', self.do_clicked)
-
-    def initialise(self, plugin, shell, callback):
-        '''
-        extend the default initialise function
-        because we need to also resize the picture
-        associated with the playlist button
-        '''
-        if self.is_initialised:
-            return
-
-        self._library_name = shell.props.library_source.props.name
-        self._queue_name = shell.props.queue_source.props.name
-
-        if " (" in self._queue_name:
-            self._queue_name = self._queue_name[0:self._queue_name.find(" (")]
-
-        self._spritesheet = ConfiguredSpriteSheet(plugin, 'playlist')
-        self.default_image = Gtk.Image.new_from_pixbuf(
-            self._spritesheet['music'])
-
-        super(PlaylistPopupButton, self).initialise(shell, callback,
-            self._library_name)
-
-    def do_clicked(self, button):
-        '''
-        we need to create the playlist first before showing
-        the popup
-        N.B. see comment above
-        '''
-        playlist_manager = self.shell.props.playlist_manager
-        playlists_entries = playlist_manager.get_playlists()
-        self.clear_popupmenu()
-        self.add_menuitem(self._library_name,
-            self._change_playlist_source, None)
-        self.add_menuitem(self._queue_name,
-            self._change_playlist_source, self.shell.props.queue_source)
-
-        if playlists_entries:
-            for playlist in playlists_entries:
-                if playlist.props.is_local:
-                    self.add_menuitem(playlist.props.name,
-                        self._change_playlist_source, playlist)
-
-        self.show_popup()
-
-    def _change_playlist_source(self, menu, playlist):
-        '''
-        when a popup menu item is chosen change the button tooltip
-        before invoking the source callback function
-        '''
-        if menu.get_active():
-            if not playlist:
-                model = None
-                self.set_popup_value(self._library_name)
-                self.resize_button_image(self._spritesheet['music'])
-            elif self._queue_name in playlist.props.name:
-                model = playlist.get_query_model()
-                self.set_popup_value(self._queue_name)
-                self.resize_button_image(self._spritesheet['queue'])
-            else:
-                model = playlist.get_query_model()
-                self.set_popup_value(playlist.props.name)
-                if isinstance(playlist, RB.StaticPlaylistSource):
-                    self.resize_button_image(self._spritesheet['playlist'])
-                else:
-                    self.resize_button_image(self._spritesheet['smart'])
-
-            self.callback(model)
-
-    def show_popup(self):
-        '''
-        show the current popup menu
-        This is a workaround for issue #111
-        Basically - move the position of the popup to prevent the popup
-        opening in scroll-mode - seems to only affect the playlist popup
-        '''
-        def pos(menu, icon):
-            a, x, y = self.get_window().get_origin()
-            x += self.get_allocation().x
-            y += self.get_allocation().y + self.get_allocation().height
-
-            from gi.repository import Gdk
-            s = Gdk.Screen.get_default()
-
-            if y > (s.get_height() - 180):
-                y = s.get_height() - 180
-
-            return x, y, False
-
-        self._popup_menu.popup(None, None, pos, None, 0,
-            Gtk.get_current_event_time())
-
-
-class GenrePopupButton(PopupButton):
-    __gtype_name__ = 'GenrePopupButton'
-
-    def __init__(self, **kargs):
-        '''
-        Initializes the button.
-        '''
-        super(GenrePopupButton, self).__init__(
-            **kargs)
-
-    def initialise(self, plugin, shell, callback):
-        '''
-        extend the default initialise function
-        because we need to also resize the picture
-        associated with the genre button
-        '''
-        if self.is_initialised:
-            return
-
-        self._spritesheet = GenreConfiguredSpriteSheet(plugin, 'genre')
-        self.default_image = \
-            Gtk.Image.new_from_file(rb.find_plugin_file(plugin,
-                'img/default_genre.png'))
-        self.unrecognised_image = \
-            Gtk.Image.new_from_file(rb.find_plugin_file(plugin,
-                'img/unrecognised_genre.png'))
-
-        # create a new model
-        self.model = RB.RhythmDBPropertyModel.new(shell.props.db,
-            RB.RhythmDBPropType.GENRE)
-
-        query = shell.props.library_source.props.base_query_model
-        self.model.props.query_model = query
-
-        super(GenrePopupButton, self).initialise(shell, callback,
-            self.model[0][0])
-
-        # connect signals to update genres
-
-        query.connect('row-inserted', self._update_popup)
-        query.connect('row-deleted', self._update_popup)
-        query.connect('row-changed', self._update_popup)
-
-        # generate initial popup
-        self._update_popup(query)
-        self.set_popup_value(_('All Genres'))
-
-    def _update_popup(self, *args):
-        still_exists = False
-        current = self._current_val
-
-        # clear and recreate popup
-        self.clear_popupmenu()
-
-        for row in self.model:
-            genre = row[0]
-            self.add_menuitem(genre, self._genre_changed, genre)
-
-            still_exists = still_exists or genre == current
-
-        if not still_exists:
-            self._genre_changed(None, self.model[0][0])
-
-    def _genre_changed(self, menu, genre):
-        '''
-        called when genre popup menu item chosen
-        return None if the first entry in popup returned
-        '''
-        if not menu or menu.get_active():
-            test_genre = genre.lower()
-            if test_genre == self.model[0][0].lower():
-                self.resize_button_image(self.default_image.get_pixbuf())
-            elif not test_genre in self._spritesheet:
-                self._find_alternates(test_genre)  
-            else:
-                self.resize_button_image(self._spritesheet[test_genre])
-
-            if genre == self.model[0][0]:
-                self.set_popup_value(_('All Genres'))
-                self.callback(None)
-            else:
-                self.set_popup_value(genre)
-                self.callback(genre)
-
-    def _find_alternates(self, test_genre):
-
-        # first check if any of the default genres are a substring
-        # of test_genre - check in reverse order so that we
-        # test largest strings first (prevents spurious matches with
-        # short strings)
-        for genre in sorted(self._spritesheet.names,
-            key=lambda b: (-len(b), b)):
-            if genre in test_genre:
-                self.resize_button_image(self._spritesheet[genre])
-                return
-
-        # next check alternates
-        if test_genre in self._spritesheet.alternate:
-            self.resize_button_image(
-                self._spritesheet[self._spritesheet.alternate[test_genre]])
-            return
-
-        # if no matches then default to unrecognised image
-        self.resize_button_image(self.unrecognised_image.get_pixbuf())
-
-
-class SortPopupButton(PopupButton):
-    __gtype_name__ = 'SortPopupButton'
-
-    sort_by = GObject.property(type=str)
-
-    def __init__(self, **kargs):
-        '''
-        Initializes the button.
-        '''
-        cl = CoverLocale()
-        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
-        
-        self.sorts = {'name': _('Sort by album name'),
-        'artist': _('Sort by album artist'),
-        'year': _('Sort by year'),
-        'rating': _('Sort by rating')}
-
-        super(SortPopupButton, self).__init__(
-            **kargs)
-
-    def initialise(self, plugin, shell, callback):
-        '''
-        extend the default initialise function
-        because we need to also resize the picture
-        associated with the sort button as well as find the
-        saved sort order
-        '''
-        if self.is_initialised:
-            return
-
-        self._spritesheet = ConfiguredSpriteSheet(plugin, 'sort')
-
-        gs = GSetting()
-        source_settings = gs.get_setting(gs.Path.PLUGIN)
-        source_settings.bind(gs.PluginKey.SORT_BY,
-            self, 'sort_by', Gio.SettingsBindFlags.DEFAULT)
-
-        super(SortPopupButton, self).initialise(shell, callback,
-            self.sorts[self.sort_by])
-
-        # create the pop up menu
-        for key, text in sorted(self.sorts.iteritems()):
-            self.add_menuitem(text, self._sort_changed, key)
-
-        self._sort_changed(None, self.sort_by)
-
-    def _sort_changed(self, menu, sort):
-        '''
-        called when sort popup menu item chosen
-        '''
-        if not menu or menu.get_active():
-            self.set_popup_value(self.sorts[sort])
-            #self.sort_by = sort
-            print sort
-            gs = GSetting()
-            settings = gs.get_setting(gs.Path.PLUGIN)
-            settings[gs.PluginKey.SORT_BY] = sort
-
-            self.resize_button_image(self._spritesheet[sort])
-
-            self.callback(sort)
-
-class DecadePopupButton(PopupButton):
-    __gtype_name__ = 'DecadePopupButton'
-
-    def __init__(self, **kargs):
-        '''
-        Initializes the button.
-        '''
-        super(DecadePopupButton, self).__init__(**kargs)
-
-        self._decade=OrderedDict([('All',-1), ('20s',2020), \
-            ('10s',2010), ('00s',2000), ('90s',1990), ('80s',1980), \
-            ('70s',1970), ('60s',1960), ('50s',1950), ('40s',1940), \
-            ('30s',1930), ('Old',-1)])
-
-        cl = CoverLocale()
-        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
-        self._translation={'All':_('All'), 'Old':_('Old')}
-        
-        self._initial='All'
-
-    def initialise(self, plugin, shell, callback):
-        '''
-        extend the default initialise function
-        because we need to also resize the picture
-        associated with the decade button
-        '''
-        if self.is_initialised:
-            return
-
-        self._spritesheet = ConfiguredSpriteSheet(plugin, 'decade')
-        self.default_image = Gtk.Image.new_from_pixbuf(
-            self._spritesheet[self._initial])
-
-        super(DecadePopupButton, self).initialise(shell, callback,
-            self._initial)
-        
-        # generate initial popup
-        self._update_popup()
-
-    def _update_popup(self, *args):
-        
-        # clear and recreate popup
-        self.clear_popupmenu()
-
-        '''
-        we need only add 2020s to the popup if the current year
-        warrants it...
-
-        and yes this means that the plugin decade functionality
-        will not work in 2030 and onwards ... but I'll worry about that
-        then :)
-        '''
-        firstval='20s'
-        current_year = date.today().year
-            
-        for decade in self._decade:
-            if  (current_year >= 2020 and decade==firstval) or \
-                (current_year < 2020 and decade!=firstval):
-                if decade in self._translation:
-                    menutext=self._translation[decade]
-                else:
-                    menutext=decade
-                self.add_menuitem(menutext, self._decade_changed, \
-                    decade)
-
-        self._decade_changed(None, self._initial)
-
-    def _decade_changed(self, menu, decade):
-        '''
-        called when genre popup menu item chosen
-        return None if the first entry in popup returned
-        '''
-        if not menu or menu.get_active():
-            self.resize_button_image(self._spritesheet[decade])
-
-            if decade == self._initial:
-                self.set_popup_value(_('All Decades'))
-                self.callback(None)
-            else:
-                self.set_popup_value(decade)
-                self.callback(self._decade[decade])
-
-class ImageToggleButton(Gtk.Button):
-    '''
-    generic class from which implementation inherit from
-    '''
-    # the following vars are to be defined in the inherited classes
-    #__gtype_name__ = gobject typename
-
-    def __init__(self, **kargs):
-        '''
-        Initializes the button.
-        '''
-        super(ImageToggleButton, self).__init__(
-            **kargs)
+        PixbufButton.__init__(self, *args, **kwargs)
+        OptionsWidget.__init__(self, *args, **kwargs)
 
         # initialise some variables
         self.image_display = False
-        self.is_initialised = False
+        self.initialised = False
 
-    def initialise(self, callback, image1, image2):
-        '''
-        initialise - derived objects call this first
-        callback = function to call when button is clicked
-        image1 = by default (image_display is True), first image displayed
-        image2 = (image display is False), second image displayed
-        '''
-        if self.is_initialised:
-            return
-
-        self.is_initialised = True
-
-        self.callback = callback
-        self._image1 = image1
-        self._image2 = image2
-        self._image1_pixbuf = self._resize_button_image(self._image1)
-        self._image2_pixbuf = self._resize_button_image(self._image2)
-
-        self._update_button_image()
-
-    def on_clicked(self):
-        self.image_display = not self.image_display
-        self._update_button_image()
-        self.callback(self.image_display)
-
-    def _update_button_image(self):
-        image = self.get_image()
-
-        if image:
-            if self.image_display:
-                image.set_from_pixbuf(self._image1_pixbuf)
-            else:
-                image.set_from_pixbuf(self._image2_pixbuf)
-
-    def _resize_button_image(self, image):
-        '''
-        this function will ensure the image is resized correctly to
-        fit the button style
-        '''
-
-        what, width, height = Gtk.icon_size_lookup(Gtk.IconSize.BUTTON)
-
-        pixbuf = None
-        try:
-            pixbuf = image.get_pixbuf().scale_simple(width, height,
-                    GdkPixbuf.InterpType.BILINEAR)
-        except:
-            pass
-
-        return pixbuf
-
-    def do_delete_thyself(self):
-        del self._image1_pixbuf
-        del self._image2_pixbuf
-
-
-class SortOrderButton(ImageToggleButton):
-    __gtype_name__ = 'SortOrderButton'
-
-    def __init__(self, **kargs):
-        '''
-        Initializes the button.
-        '''
-        super(SortOrderButton, self).__init__(
-            **kargs)
-
-        self.gs = GSetting()
-
-    def initialise(self, plugin, callback, sort_order):
-        '''
-        set up the images we will use for this widget
-        '''
-        self.image_display = sort_order
-        self.set_tooltip(self.image_display)
-
-        if not self.is_initialised:
-            image1 = Gtk.Image.new_from_file(rb.find_plugin_file(plugin,
-            'img/arrow_up.png'))
-            image2 = Gtk.Image.new_from_file(rb.find_plugin_file(plugin,
-            'img/arrow_down.png'))
-
-            super(SortOrderButton, self).initialise(callback,
-               image1, image2)
+    def update_current_key(self):
+        # update the current image and tooltip
+        self.set_image(self._controller.get_current_image())
+        self.set_tooltip_text(self._controller.get_current_description())
 
     def do_clicked(self):
+        if self._controller:
+            index = self._controller.get_current_key_index()
+            index = (index + 1) % len(self._controller.options)
 
-        val = not self.image_display
-        self.gs.set_value(self.gs.Path.PLUGIN,
-                    self.gs.PluginKey.SORT_ORDER, val)
-        self.set_tooltip(val)
-        self.on_clicked()
+            # inform the controller
+            self._controller.option_selected(
+                self._controller.options[index])
 
-    def set_tooltip(self, val):
-        cl = CoverLocale()
-        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
-        if not val:
-            self.set_tooltip_text(_('Sort in descending order'))
-        else:
-            self.set_tooltip_text(_('Sort in ascending order'))
+
+class SearchEntry(RB.SearchEntry, OptionsPopupWidget):
+    __gtype_name__ = "SearchEntry"
+
+    # signals
+    __gsignals__ = {
+        'item-clicked': (GObject.SIGNAL_RUN_LAST, None, (str,))
+        }
+
+    def __init__(self, *args, **kwargs):
+        RB.SearchEntry.__init__(self, *args, **kwargs)
+        OptionsPopupWidget.__init__(self)
+
+    @OptionsPopupWidget.controller.setter
+    def controller(self, controller):
+        if self._controller:
+            # disconnect signals
+            self._controller.disconnect(self._search_text_changed_id)
+
+        OptionsPopupWidget.controller.fset(self, controller)
+
+        # connect signals
+        self._search_text_changed_id = self._controller.connect(
+            'notify::search-text', self._update_search_text)
+
+        # update the current text
+        self._update_search_text()
+
+    def _update_search_text(self, *args):
+        self.set_text(self._controller.search_text)
+
+    def update_current_key(self):
+        super(SearchEntry, self).update_current_key()
+
+        self.set_placeholder(self._controller.get_current_description())
+
+    def do_show_popup(self):
+        '''
+        Callback called by the search entry when the magnifier is clicked.
+        It prompts the user through a popup to select a filter type.
+        '''
+        self.show_popup()
+
+    def do_search(self, text):
+        '''
+        Callback called by the search entry when a new search must
+        be performed.
+        '''
+        if self._controller:
+            self._controller.do_search(text)
+
+
+class QuickSearchEntry(Gtk.Frame):
+    __gtype_name__ = "QuickSearchEntry"
+
+    # signals
+    __gsignals__ = {
+        'quick-search': (GObject.SIGNAL_RUN_LAST, None, (str,)),
+        'arrow-pressed': (GObject.SIGNAL_RUN_LAST, None, (object,))
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(QuickSearchEntry, self).__init__(*args, **kwargs)
+        self._idle = 0
+
+        # text entry for the quick search input
+        text_entry = Gtk.Entry(halign='center', valign='center',
+            margin=5)
+
+        self.add(text_entry)
+
+        self.connect_signals(text_entry)
+
+    def get_text(self):
+        return self.get_child().get_text()
+
+    def set_text(self, text):
+        self.get_child().set_text(text)
+
+    def connect_signals(self, text_entry):
+        text_entry.connect('changed', self._on_quick_search)
+        text_entry.connect('focus-out-event', self._on_focus_lost)
+        text_entry.connect('key-press-event', self._on_key_pressed)
+
+    def _hide_quick_search(self):
+        self.hide()
+
+    def _add_hide_on_timeout(self):
+        self._idle += 1
+
+        def hide_on_timeout(*args):
+            self._idle -= 1
+
+            if not self._idle:
+                self._hide_quick_search()
+
+            return False
+
+        Gdk.threads_add_timeout_seconds(GLib.PRIORITY_DEFAULT_IDLE, 4,
+            hide_on_timeout, None)
+
+    def do_parent_set(self, old_parent, *args):
+        if old_parent:
+            old_parent.disconnect(self._on_parent_key_press_id)
+
+        parent = self.get_parent()
+        self._on_parent_key_press_id = parent.connect('key-press-event',
+            self._on_parent_key_press, self.get_child())
+
+    def _on_parent_key_press(self, parent, event, entry):
+        if not self.get_visible() and \
+            event.keyval not in [Gdk.KEY_Shift_L, Gdk.KEY_Shift_R,
+            Gdk.KEY_Control_L, Gdk.KEY_Control_R, Gdk.KEY_Escape]:
+            # grab focus, redirect the pressed key and make the quick search
+            # entry visible
+            entry.set_text('')
+            entry.grab_focus()
+            entry.im_context_filter_keypress(event)
+            self.show_all()
+
+        elif self.get_visible() and event.keyval == Gdk.KEY_Escape:
+            self._hide_quick_search()
+
+        return False
+
+    def _on_quick_search(self, entry, *args):
+        if entry.get_visible():
+            # emit the quick-search signal
+            search_text = entry.get_text()
+            self.emit('quick-search', search_text)
+
+            # add a timeout to hide the search entry
+            self._add_hide_on_timeout()
+
+    def _on_focus_lost(self, entry, *args):
+        self._hide_quick_search()
+
+        return False
+
+    def _on_key_pressed(self, entry, event, *args):
+        arrow = event.keyval in [Gdk.KEY_Up, Gdk.KEY_Down]
+
+        if arrow:
+            self.emit('arrow-pressed', event.keyval)
+            self._add_hide_on_timeout()
+
+        return arrow

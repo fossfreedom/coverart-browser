@@ -31,12 +31,19 @@ from coverart_entryview import CoverArtEntryView as EV
 from coverart_search import CoverSearchPane
 from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import CoverLocale
+from coverart_widgets import PopupButton
+from coverart_widgets import ImageToggleButton
+from coverart_widgets import SearchEntry
+from coverart_widgets import QuickSearchEntry
+from coverart_controllers import PlaylistPopupController
+from coverart_controllers import GenrePopupController
+from coverart_controllers import SortPopupController
+from coverart_controllers import DecadePopupController
+from coverart_controllers import SortOrderToggleController
+from coverart_controllers import AlbumSearchEntryController
+from coverart_controllers import AlbumQuickSearchController
 from stars import ReactiveStar
 from coverart_timer import ttimer
-from coverart_widgets import PlaylistPopupButton
-from coverart_widgets import GenrePopupButton
-from coverart_widgets import DecadePopupButton
-
 
 class CoverArtBrowserSource(RB.Source):
     '''
@@ -45,8 +52,6 @@ class CoverArtBrowserSource(RB.Source):
     custom_statusbar_enabled = GObject.property(type=bool, default=False)
     display_bottom_enabled = GObject.property(type=bool, default=False)
     rating_threshold = GObject.property(type=float, default=0)
-    toolbar_pos = GObject.property(type=str, default='main')
-    sort_order = GObject.property(type=bool, default=False)
 
     # unique instance of the source
     instance = None
@@ -63,12 +68,8 @@ class CoverArtBrowserSource(RB.Source):
 
         self._connect_properties()
 
-        self.filter_type = 'all'
-        self.search_text = ''
         self.hasActivated = False
-        self.last_toolbar_pos = None
         self.last_width = 0
-        self.quick_search_idle = 0
         self.last_selected_album = None
         self.click_count = 0
 
@@ -85,10 +86,6 @@ class CoverArtBrowserSource(RB.Source):
             'display_bottom_enabled', Gio.SettingsBindFlags.GET)
         setting.bind(self.gs.PluginKey.RATING, self,
             'rating_threshold', Gio.SettingsBindFlags.GET)
-        setting.bind(self.gs.PluginKey.TOOLBAR_POS, self,
-            'toolbar_pos', Gio.SettingsBindFlags.GET)
-        setting.bind(self.gs.PluginKey.SORT_ORDER, self, 'sort_order',
-            Gio.SettingsBindFlags.DEFAULT)
 
         print "CoverArtBrowser DEBUG - end _connect_properties"
 
@@ -192,16 +189,7 @@ class CoverArtBrowserSource(RB.Source):
         ui.set_translation_domain(cl.Locale.LOCALE_DOMAIN)
         ui.add_from_file(rb.find_plugin_file(self.plugin,
             'ui/coverart_browser.ui'))
-
-        self.toolbar_box = ui.get_object('toolbar_box')
-
-        si = Gtk.Builder()
-        si.set_translation_domain(cl.Locale.LOCALE_DOMAIN)
-        si.add_from_file(rb.find_plugin_file(self.plugin,
-            'ui/coverart_sidebar.ui'))
-
-        # load the page and put it in the source
-        self.sidebar = si.get_object('main_box')
+        ui.connect_signals(self)
 
         # load the page and put it in the source
         self.page = ui.get_object('main_box')
@@ -236,81 +224,10 @@ class CoverArtBrowserSource(RB.Source):
         self.favourite_playlist_sub_menu_item = ui.get_object(
             'favourite_playlist_sub_menu_item')
 
-        # get widgets for filter popup
-        self.filter_menu = ui.get_object('filter_menu')
-        self.filter_menu_all_item = ui.get_object('filter_all_menu_item')
-        self.filter_menu_artist_item = ui.get_object('filter_artist_menu_item')
-        self.filter_menu_album_artist_item = ui.get_object(
-            'filter_album_artist_menu_item')
-        self.filter_menu_album_item = ui.get_object('filter_album_menu_item')
-        self.filter_menu_track_title_item = ui.get_object(
-            'filter_track_title_menu_item')
-
-        # quick search entry
+        # quick search
         self.quick_search = ui.get_object('quick_search_entry')
-        self.quick_search_box = ui.get_object('quick_search_box')
-
-        self.ui = ui
-        self.si = si
 
         print "CoverArtBrowser DEBUG - end _create_ui"
-
-    def _toolbar(self, ui):
-        '''
-        setup toolbar ui - called for sidebar and main-view
-        '''
-        print "CoverArtBrowser DEBUG - _toolbar"
-
-        # dialog has not been created so lets do so.
-        cl = CoverLocale()
-
-        # get widgets for main icon-view
-        # the first part is to first remove the current search-entry
-        # before recreating it again - we have to do this to ensure
-        # the locale is set correctly i.e. the overall ui is coverart
-        # locale but the search-entry uses rhythmbox translation
-        align = ui.get_object('entry_search_alignment')
-        align.remove(align.get_child())
-        cl.switch_locale(cl.Locale.RB)
-        self.search_entry = RB.SearchEntry(has_popup=True)
-        align.add(self.search_entry)
-        align.show_all()
-        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
-
-        self.search_entry.connect('search', self.searchchanged_callback)
-        self.search_entry.connect('show-popup',
-            self.search_show_popup_callback)
-
-        self.sort_by = ui.get_object('sort_by')
-        self.sort_by.initialise(self.plugin, self.shell,
-            self.sorting_criteria_changed)
-        self.sort_order_button = ui.get_object('sort_order')
-        self.sort_order_button.initialise(self.plugin,
-            self.sorting_direction_changed, self.sort_order)
-
-        # get widget for search and apply some workarounds
-        search_entry = ui.get_object('search_entry')
-        search_entry.set_placeholder(_('Search album'))
-        search_entry.show_all()
-        self.search_entry.set_placeholder(ui.get_object(
-            'filter_all_menu_item').get_label())
-
-        # genre
-        genre_button = ui.get_object('genre_button')
-        genre_button.initialise(self.plugin, self.shell,
-            self.genre_filter_callback)
-
-        # get playlist popup
-        playlist_button = ui.get_object('playlist_button')
-        playlist_button.initialise(self.plugin, self.shell,
-            self.filter_by_model)
-
-        # decade
-        decade_button = ui.get_object('decade_button')
-        decade_button.initialise(self.plugin, self.shell,
-            self.decade_filter_callback)
-
-        print "CoverArtBrowser DEBUG - end _toolbar"
 
     def _setup_source(self):
         '''
@@ -381,6 +298,15 @@ class CoverArtBrowserSource(RB.Source):
         # set the model to the view
         self.covers_view.set_model(self.album_manager.model.store)
 
+        # initialise the toolbar manager
+        self._toolbar_manager = ToolbarManager(self.plugin, self.page,
+            self.album_manager.model)
+
+        # initialise the variables of the quick search
+        self.quick_search_controller = AlbumQuickSearchController(self,
+            self.album_manager)
+        self.quick_search_controller.connect_quick_search(self.quick_search)
+
         print "CoverArtBrowser DEBUG - end _setup_source"
 
     def _apply_settings(self):
@@ -392,20 +318,14 @@ class CoverArtBrowserSource(RB.Source):
         print "CoverArtBrowser DEBUG - _apply_settings"
 
         # connect some signals to the loader to keep the source informed
-        self.si.connect_signals(self)
-        self.ui.connect_signals(self)
         self.album_mod_id = self.album_manager.model.connect('album-updated',
             self.on_album_updated)
         self.notify_prog_id = self.album_manager.connect(
             'notify::progress', lambda *args: self.notify_status_changed())
-        self.toolbar_pos_id = self.connect('notify::toolbar-pos',
-            self.on_notify_toolbar_pos)
 
         # enable some ui if necesary
         self.on_notify_rating_threshold(_)
         self.on_notify_display_bottom_enabled(_)
-        self.on_notify_toolbar_pos()
-        #self.sorting_direction_changed(_, True)
 
         print "CoverArtBrowser DEBUG - end _apply_settings"
 
@@ -470,6 +390,7 @@ class CoverArtBrowserSource(RB.Source):
         preferences
         '''
         print "CoverArtBrowser DEBUG - on_notify_toolbar_pos"
+        return
 
         if self.last_toolbar_pos == 'left':
             self.shell.remove_widget(self.sidebar, RB.ShellUILocation.SIDEBAR)
@@ -572,26 +493,6 @@ class CoverArtBrowserSource(RB.Source):
                 self.cover_search_pane.clear()
                 self.cover_search_pane.do_search(album)
 
-    def on_overlay_key_press(self, overlay, event, *args):
-        if not self.quick_search_box.get_visible() and \
-            event.keyval not in [Gdk.KEY_Shift_L, Gdk.KEY_Shift_R,
-            Gdk.KEY_Control_L, Gdk.KEY_Control_R, Gdk.KEY_Escape]:
-            # grab focus, redirect the pressed key and make the quick search
-            # entry visible
-            self.quick_search.grab_focus()
-            self.quick_search.im_context_filter_keypress(event)
-            self.quick_search_box.show_all()
-
-        elif event.keyval == Gdk.KEY_Escape:
-            self.hide_quick_search()
-
-        return False
-
-    def on_quick_search_focus_lost(self, quick_search, event, *args):
-        self.hide_quick_search()
-
-        return False
-
     def show_properties_menu_item_callback(self, menu_item):
         '''
         Callback called when the show album properties option is selected from
@@ -607,75 +508,6 @@ class CoverArtBrowserSource(RB.Source):
         info_dialog.show_all()
 
         print "CoverArtBrowser DEBUG - end show_properties_menu_item_callback"
-
-    def search_show_popup_callback(self, entry):
-        '''
-        Callback called by the search entry when the magnifier is clicked.
-        It prompts the user through a popup to select a filter type.
-        '''
-        print "CoverArtBrowser DEBUG - search_show_popup_callback"
-
-        self.filter_menu.popup(None, None, None, None, 0,
-            Gtk.get_current_event_time())
-
-        print "CoverArtBrowser DEBUG - end search_show_popup_callback"
-
-    def searchchanged_callback(self, entry, text):
-        '''
-        Callback called by the search entry when a new search must
-        be performed.
-        '''
-        print "CoverArtBrowser DEBUG - searchchanged_callback"
-        self.search_text = text
-        self.album_manager.model.replace_filter(self.filter_type, text)
-
-        print "CoverArtBrowser DEBUG - end searchchanged_callback"
-
-    def filter_menu_callback(self, radiomenu):
-        '''
-        Callback called when an item from the filters popup menu is clicked.
-        It changes the current filter type for the search to the one selected
-        on the popup.
-        '''
-        print "CoverArtBrowser DEBUG - filter_menu_callback"
-
-        # remove old filter
-        self.album_manager.model.remove_filter(self.filter_type, False)
-
-        # radiomenu is of type GtkRadioMenuItem
-
-        if radiomenu == self.filter_menu_all_item:
-            self.filter_type = 'all'
-        elif radiomenu == self.filter_menu_album_item:
-            self.filter_type = 'album_name'
-        elif radiomenu == self.filter_menu_artist_item:
-            self.filter_type = 'artist'
-        elif radiomenu == self.filter_menu_album_artist_item:
-            self.filter_type = 'album_artist'
-        elif radiomenu == self.filter_menu_track_title_item:
-            self.filter_type = 'track'
-        else:
-            assert "unknown radiomenu"
-
-        if self.search_text == '':
-            self.search_entry.set_placeholder(radiomenu.get_label())
-
-        self.searchchanged_callback(_, self.search_text)
-
-        print "CoverArtBrowser DEBUG - end filter_menu_callback"
-
-    def filter_by_model(self, model=None):
-        '''
-        resets what is displayed in the coverview with contents from the
-        new query_model
-        '''
-        print "CoverArtBrowser DEBUG - reset_coverview"
-        if not model:
-            self.album_manager.model.remove_filter('model')
-        else:
-            self.album_manager.model.replace_filter('model', model)
-
-        print "CoverArtBrowser DEBUG - end reset_coverview"
 
     def update_iconview_callback(self, scrolled, *args):
         '''
@@ -1168,34 +1000,6 @@ class CoverArtBrowserSource(RB.Source):
 
         print "CoverArtBrowser DEBUG - end bottom_expander_expanded_callback"
 
-    def sorting_criteria_changed(self, sort_by):
-        '''
-        Callback called when a radio corresponding to a sorting order is
-        toggled. It changes the sorting function and reorders the cover model.
-        '''
-        print "CoverArtBrowser DEBUG - sorting_criteria_changed"
-
-        #if not radio.get_active():
-        #    return
-
-        print "sorting by %s" % sort_by
-        self.sort_prop = sort_by
-        self.album_manager.model.sort(self.sort_prop, self.sort_order)
-
-        print "CoverArtBrowser DEBUG - end sorting_criteria_changed"
-
-    def sorting_direction_changed(self, sort_by):
-        '''
-        Callback called when the sort toggle button is
-        toggled. It changes the sorting direction and reorders the cover model
-        '''
-        print "CoverArtBrowser DEBUG - sorting_direction_changed"
-
-        self.album_manager.model.sort(getattr(self, 'sort_prop', 'name'),
-            sort_by)
-
-        print "CoverArtBrowser DEBUG - end sorting_direction_changed"
-
     def on_drag_drop(self, widget, context, x, y, time):
         '''
         Callback called when a drag operation finishes over the cover view
@@ -1275,18 +1079,6 @@ class CoverArtBrowserSource(RB.Source):
 
         print "CoverArtBrowser DEBUG - end rating_changed_callback"
 
-    def genre_filter_callback(self, genre):
-        if not genre:
-            self.album_manager.model.remove_filter('genre')
-        else:
-            self.album_manager.model.replace_filter('genre', genre)
-
-    def decade_filter_callback(self, decade):
-        if not decade:
-            self.album_manager.model.remove_filter('decade')
-        else:
-            self.album_manager.model.replace_filter('decade', decade)
-
     def select_album(self, album):
         path = self.album_manager.model.get_path(album)
 
@@ -1294,65 +1086,6 @@ class CoverArtBrowserSource(RB.Source):
         self.covers_view.select_path(path)
         self.covers_view.set_cursor(path, None, False)
         self.covers_view.scroll_to_path(path, True, 0.5, 0.5)
-
-    def hide_quick_search(self):
-        self.quick_search_box.hide()
-        self.covers_view.grab_focus()
-        self.quick_search.props.text = ''
-
-    def add_hide_on_timeout(self):
-        self.quick_search_idle += 1
-
-        def hide_on_timeout(*args):
-            self.quick_search_idle -= 1
-
-            if not self.quick_search_idle:
-                self.hide_quick_search()
-
-            return False
-
-        Gdk.threads_add_timeout_seconds(GLib.PRIORITY_DEFAULT_IDLE, 4,
-            hide_on_timeout, None)
-
-    def on_quick_search(self, quick_search, *args):
-        if self.quick_search_box.get_visible():
-            # quick search on album names
-            search_text = quick_search.props.text
-            album = self.album_manager.model.find_first_visible('album_name',
-                search_text)
-
-            if album:
-                self.select_album(album)
-
-            # add a timeout to hide the search entry
-            self.add_hide_on_timeout()
-
-    def on_quick_search_up_down(self, quick_search, event, *args):
-        arrow = False
-
-        try:
-            current = self.get_selected_albums()[0]
-            search_text = quick_search.props.text
-            album = None
-
-            if event.keyval == Gdk.KEY_Up:
-                arrow = True
-                album = self.album_manager.model.find_first_visible(
-                    'album_name', search_text, current, True)
-            elif event.keyval == Gdk.KEY_Down:
-                arrow = True
-                album = self.album_manager.model.find_first_visible(
-                    'album_name', search_text, current)
-
-            if album:
-                self.select_album(album)
-        except:
-            pass
-
-        if arrow:
-            self.add_hide_on_timeout()
-
-        return arrow
 
     @classmethod
     def get_instance(cls, **kwargs):
@@ -1364,5 +1097,135 @@ class CoverArtBrowserSource(RB.Source):
 
         return cls.instance
 
+class Toolbar(GObject.Object):
+    def __init__(self, plugin, mainbox, controllers):
+        super(Toolbar, self).__init__()
+                
+        self.plugin = plugin
+        self.mainbox = mainbox
+        cl = CoverLocale()
+
+        ui_file = rb.find_plugin_file(plugin, self.ui)
+
+        # create the toolbar
+        builder = Gtk.Builder()
+        builder.set_translation_domain(cl.Locale.LOCALE_DOMAIN)
+
+        builder.add_from_file(ui_file)
+
+        # assign the controllers to the buttons
+        for button, controller in controllers.iteritems():
+            if button != 'search':
+                builder.get_object(button).controller = controller
+
+        # workaround to translate the search entry tooltips
+        cl.switch_locale(cl.Locale.RB)
+        search_entry = SearchEntry(has_popup=True)
+        search_entry.show_all()
+        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+
+        # add it to the ui
+        align = builder.get_object('entry_search_alignment')
+        align.add(search_entry)
+
+        # assign the controller
+        search_entry.controller = controllers['search']
+
+        self.builder = builder.get_object('main_box')
+
+class TopToolbar(Toolbar):
+    ui = 'ui/coverart_topbar.ui'
+    name = 'main'
+        
+    def hide(self):
+        if self.builder.get_visible():
+            self.builder.hide()
+            
+    def show(self):
+        self.mainbox.pack_start(self.builder, False, True, 0)
+        self.mainbox.reorder_child(self.builder, 0)
+        self.builder.show()
+
+class LeftToolbar(Toolbar):
+    ui = 'ui/coverart_sidebar.ui'
+    name = 'left'
+    
+    def hide(self):
+        if self.builder.get_visible():
+            self.builder.hide()
+            self.plugin.shell.remove_widget(self.builder,
+                RB.ShellUILocation.SIDEBAR)
+            
+    def show(self):
+        self.plugin.shell.add_widget(self.builder,
+            RB.ShellUILocation.SIDEBAR, expand=False, fill=False)
+        self.builder.show()
+
+class RightToolbar(Toolbar):
+    ui = 'ui/coverart_sidebar.ui'
+    name = 'right'
+        
+    def hide(self):
+        if self.builder.get_visible():
+            self.builder.hide()
+            self.plugin.shell.remove_widget(self.builder,
+                RB.ShellUILocation.RIGHT_SIDEBAR)
+            
+    def show(self):
+        self.plugin.shell.add_widget(self.builder,
+            RB.ShellUILocation.RIGHT_SIDEBAR, expand=False, fill=False)
+        self.builder.show()
+ 
+class ToolbarManager(GObject.Object):
+    # properties
+    toolbar_pos = GObject.property(type=str, default=TopToolbar.name)
+
+    def __init__(self, plugin, main_box, album_model):
+        super(ToolbarManager, self).__init__()
+        
+        # create the buttons controllers
+        controllers = self._create_controllers(plugin, album_model)
+
+        # initialize toolbars
+        self._bars = {}
+        self._bars[TopToolbar.name] = TopToolbar(plugin, main_box, controllers)
+        self._bars[LeftToolbar.name] = LeftToolbar(plugin, main_box, controllers)
+        self._bars[RightToolbar.name] = RightToolbar(plugin, main_box, controllers)
+
+        self.last_toolbar_pos = None
+        # connect signal and properties
+        self._connect_signals()
+        self._connect_properties()
+
+    def _connect_signals(self):
+        self.connect('notify::toolbar-pos', self._on_notify_toolbar_pos)
+
+    def _connect_properties(self):
+        gs = GSetting()
+        setting = gs.get_setting(gs.Path.PLUGIN)
+        setting.bind(gs.PluginKey.TOOLBAR_POS, self, 'toolbar_pos',
+            Gio.SettingsBindFlags.GET)
+
+    def _create_controllers(self, plugin, album_model):
+        controllers = {}
+        controllers['sort_by'] = SortPopupController(plugin, album_model)
+        controllers['sort_order'] = SortOrderToggleController(plugin,
+            album_model)
+        controllers['genre_button'] = GenrePopupController(plugin, album_model)
+        controllers['playlist_button'] = PlaylistPopupController(plugin,
+            album_model)
+        controllers['decade_button'] = DecadePopupController(plugin,
+            album_model)
+        controllers['search'] = AlbumSearchEntryController(album_model)
+
+        return controllers
+
+    def _on_notify_toolbar_pos(self, *args):
+        if self.last_toolbar_pos:
+            self._bars[self.last_toolbar_pos].hide()
+        
+        self._bars[self.toolbar_pos].show()
+        
+        self.last_toolbar_pos = self.toolbar_pos
 
 GObject.type_register(CoverArtBrowserSource)

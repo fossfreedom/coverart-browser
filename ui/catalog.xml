@@ -2,31 +2,28 @@
                depends="gtk+" version="1.0">
   <init-function>glade_python_init</init-function>
   <glade-widget-classes>
-    <glade-widget-class title="PlaylistPopupButton" name="PlaylistPopupButton" 
-                        generic-name="PlaylistPopupButton" parent="GtkButton"
-                        icon-name="widget-gtk-button"/>
-    <glade-widget-class title="GenrePopupButton" name="GenrePopupButton" 
-                        generic-name="GenrePopupButton" parent="GtkButton"
-                        icon-name="widget-gtk-button"/>
-    <glade-widget-class title="SortPopupButton" name="SortPopupButton" 
-                        generic-name="SortPopupButton" parent="GtkButton"
-                        icon-name="widget-gtk-button"/>
-    <glade-widget-class title="SortPopupButton" name="SortOrderButton" 
-                        generic-name="SortPopupButton" parent="GtkButton"
-                        icon-name="widget-gtk-button"/>
-    <glade-widget-class title="DecadePopupButton" name="DecadePopupButton" 
-                        generic-name="DecadePopupButton" parent="GtkButton"
+    <glade-widget-class title="PopupButton" name="PopupButton" 
+                        generic-name="PopupButton" parent="GtkButton">    
+    <glade-widget-class title="ImageToggleButton" name="ImageToggleButton" 
+                        generic-name="ImageToggleButton" parent="GtkButton"
                         icon-name="widget-gtk-button"/>
     <glade-widget-class title="RBSearchEntry" name="RBSearchEntry" 
                         generic-name="RBSearchEntry" parent="GtkHBox"
                         icon-name="widget-gtk-box"/>
+    <glade-widget-class title="SearchEntry" name="SearchEntry" 
+                        generic-name="SearchEntry" parent="RBSearchEntry"
+                        icon-name="widget-gtk-box"/>
+    <glade-widget-class title="QuickSearchEntry" name="QuickSearchEntry" 
+                        generic-name="QuickSearchEntry" parent="GtkBin"
+                        icon-name="widget-gtk-box"/>
   </glade-widget-classes>
 
    <glade-widget-group name="python" title="Python">
-     <glade-widget-class-ref name="PlaylistPopupButton"/>
-     <glade-widget-class-ref name="GenrePopupButton"/>
-     <glade-widget-class-ref name="DecadePopupButton"/>
+     <glade-widget-class-ref name="PopupButton"/>    
+     <glade-widget-class-ref name="ImageToggleButton"/>
      <glade-widget-class-ref name="RBSearchEntry"/>
+     <glade-widget-class-ref name="SearchEntry"/>
+     <glade-widget-class-ref name="QuickSearchEntry"/>
    </glade-widget-group>
 
 </glade-catalog>

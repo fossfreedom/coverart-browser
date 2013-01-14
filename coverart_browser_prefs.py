@@ -59,6 +59,14 @@ class CoverLocale:
             gettext.textdomain(locale_type)
             gettext.install(locale_type)
 
+        def get_locale(self):
+            '''
+            return the string representation of the users locale
+            for example
+            en_US
+            '''
+            return locale.getdefaultlocale()[0]
+
         def _enum(self, **enums):
             '''
             Create an enumn.
