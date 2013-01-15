@@ -1408,9 +1408,6 @@ class CoverManager(GObject.Object):
                 def cover_update(data, album):
                     # save the cover on a temp file and open it as a pixbuf
                     with tempfile.NamedTemporaryFile(mode='w') as tmp:
-                        print tmp
-                        print data
-
                         try:
                             tmp.write(data)
                             cover = GdkPixbuf.Pixbuf.new_from_file(tmp.name)

@@ -91,7 +91,8 @@ class CoverSearchPane(Gtk.Box):
         self.show_all()
 
         # connect the title changed signal
-        self.webview.connect('title-changed', self.set_cover)
+        #self.webview.connect('title-changed', self.set_cover)
+        self.webview.connect('notify::title', self.set_cover)
 
     def do_search(self, album):
         '''
@@ -138,11 +139,17 @@ class CoverSearchPane(Gtk.Box):
         self.webview.load_string(temp_file, 'text/html', 'utf-8',
             self.basepath)
 
-    def set_cover(self, webview, frame, title):
+    def set_cover(self, webview, arg):
         '''
         Callback called when a image in the pane is double-clicked. It takes
         care of asking the AlbumLoader to update the album's cover.
+        Some titles have spurious characters beginning with % - remove these
         '''
         # update the cover
-        self.album_manager.cover_man.update_cover(self.current_album,
-            uri=title)
+        title = webview.get_title()
+
+        if title:
+            title = title.rsplit("%")[0]
+
+            self.album_manager.cover_man.update_cover(self.current_album,
+                uri=title)
