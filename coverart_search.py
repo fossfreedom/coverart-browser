@@ -27,7 +27,7 @@ from mako.template import Template
 from coverart_album import AlbumManager
 
 
-class CoverSearchPane(Gtk.VBox):
+class CoverSearchPane(Gtk.Box):
     '''
     This UI represents a pane where different album's covers can be presented
     given an album to look for. It also allows to make custom image searchs,
@@ -39,7 +39,7 @@ class CoverSearchPane(Gtk.VBox):
         Initializes the pane, loading it's html templates and it's ui.
         '''
         super(CoverSearchPane, self).__init__()
-
+        self.set_orientation(Gtk.Orientation.VERTICAL)
         self.album_manager = album_manager
         self.selection_color = selection_color
 

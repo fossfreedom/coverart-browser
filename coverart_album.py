@@ -335,7 +335,6 @@ class Album(GObject.Object):
                 self._rating = sum(ratings) / len(self._tracks)
             else:
                 self._rating = 0
-
         return self._rating
 
     @rating.setter
@@ -377,11 +376,10 @@ class Album(GObject.Object):
 
         :param rating_threshold: `float` threshold over which the rating of the
             track should be to be returned.
-        '''
+        '''     
         if not rating_threshold or not self.rating:
             # if no song has rating, or no threshold is set, return all
             tracks = self._tracks
-
         else:
             # otherwise, only return the entries over the threshold
             tracks = [track for track in self._tracks
@@ -1410,9 +1408,11 @@ class CoverManager(GObject.Object):
                 def cover_update(data, album):
                     # save the cover on a temp file and open it as a pixbuf
                     with tempfile.NamedTemporaryFile(mode='w') as tmp:
-                        tmp.write(data)
+                        print tmp
+                        print data
 
                         try:
+                            tmp.write(data)
                             cover = GdkPixbuf.Pixbuf.new_from_file(tmp.name)
 
                             # set the new cover
