@@ -111,5 +111,10 @@
             <summary>Search for coverart on DISCOGS</summary>
             <description>Search coverart on the internet service DISCOGS.</description>
         </key>
+        <key type="b" name="coverartarchive-search">
+            <default>false</default>
+            <summary>Search for coverart on CoverartArchive.org</summary>
+            <description>Search coverart on the internet service CoverartArchive.</description>
+        </key>
     </schema>
 </schemalist>

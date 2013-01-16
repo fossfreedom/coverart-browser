@@ -22,7 +22,6 @@ import rb
 import locale
 import gettext
 
-
 from gi.repository import GObject
 from gi.repository import Gtk
 from gi.repository import RB
@@ -33,6 +32,7 @@ from coverart_browser_prefs import GSetting
 from coverart_album_search import CoverAlbumSearch
 from coverart_album_search import DiscogsSearch
 from coverart_album_search import CoverSearch
+from coverart_album_search import CoverartArchiveSearch
 
 class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
     '''
@@ -94,6 +94,8 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
             searches.append(CoverAlbumSearch())
         if setting[gs.PluginKey.DISCOGS_SEARCH]:
             searches.append(DiscogsSearch())
+        if setting[gs.PluginKey.COVERARTARCHIVE_SEARCH]:
+            searches.append(CoverartArchiveSearch())
 
         print "about to search"
         s = CoverSearch(store, key, last_time, searches)

@@ -34,6 +34,15 @@ import os, time,re, urllib
 import threading
 import discogs_client as discogs
 
+import xml.dom.minidom as dom
+import json
+
+import rb
+from gi.repository import RB
+
+# coverartarchive URL
+COVERARTARCHIVE_RELEASE_URL = "http://coverartarchive.org/release/%s/"
+
 ITEMS_PER_NOTIFICATION = 10
 IGNORED_SCHEMES = ('http', 'cdda', 'daap', 'mms')
 REPEAT_SEARCH_PERIOD = 86400 * 7
@@ -289,3 +298,37 @@ class DiscogsSearch (object):
         url = self.search_url(album, artists[0])
         threading.Thread( target=self.get_release_cb, args=(key, store, url, args, callback)).start()
         
+class CoverartArchiveSearch(object):
+
+	def get_release_cb (self, data, args):
+		(key, store, callback, cbargs) = args
+		if data is None:
+			print "coverartarchive release request returned nothing"
+			callback(*cbargs)
+			return
+		try:
+            resp = json.loads(data)
+            image_url = resp['images'][0]['image']
+            print image_url
+            
+			storekey = RB.ExtDBKey.create_storage('album', key.get_field('album'))
+            storekey.add_field("artist", key.get_field("artist"))
+            store.store_uri(storekey, RB.ExtDBSourceType.SEARCH, image_url)
+            
+			callback(*cbargs)
+		except Exception, e:
+			print "exception parsing musicbrainz response: %s" % e
+			callback(*cbargs)
+
+	def search(self, key, last_time, store, callback, *args):
+		key = key.copy()	# ugh
+		album_id = key.get_info("musicbrainz-albumid")
+		if album_id is None:
+			print "no musicbrainz release ID for this track"
+			callback(*args)
+			return
+
+		url = COVERARTARCHIVE_RELEASE_URL % (album_id)
+        print url
+		loader = rb.Loader()
+		loader.get_url(url, self.get_release_cb, (key, store, callback, args))

@@ -132,7 +132,8 @@ class GSetting:
                 AUTOSTART='autostart',
                 TOOLBAR_POS='toolbar-pos',
                 EMBEDDED_SEARCH='embedded-search',
-                DISCOGS_SEARCH='discogs-search')
+                DISCOGS_SEARCH='discogs-search',
+                COVERARTARCHIVE_SEARCH='coverartarchive-search')
 
             self.setting = {}
 
