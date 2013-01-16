@@ -15,7 +15,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-01-12 17:56+0000\n"
+"X-Launchpad-Export-Date: 2013-01-16 14:40+0000\n"
 "X-Generator: Launchpad (build 16420)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:185
@@ -276,18 +276,16 @@ msgid "Play this album"
 msgstr ""
 
 #: ui/coverart_browser.ui.h:4
-#, fuzzy
 msgid "Play Album"
-msgstr "Albom"
+msgstr ""
 
 #: ui/coverart_browser.ui.h:5
 msgid "Add this album to your playing queue"
 msgstr ""
 
 #: ui/coverart_browser.ui.h:6
-#, fuzzy
 msgid "Queue Album"
-msgstr "Albom"
+msgstr ""
 
 #: ui/coverart_browser.ui.h:7 ui/coverart_entryview.ui.h:5
 msgid "Add this album to a playlist"
@@ -334,9 +332,8 @@ msgid "Search for this album cover"
 msgstr ""
 
 #: ui/coverart_browser.ui.h:18
-#, fuzzy
 msgid "Search for covers"
-msgstr "Axtarış Rejimi"
+msgstr ""
 
 #: ui/coverart_browser.ui.h:19
 msgid "Show album properties"
@@ -449,9 +446,8 @@ msgid "ragtime"
 msgstr ""
 
 #: img/popups.xml.in.h:17
-#, fuzzy
 msgid "musical"
-msgstr "klassik"
+msgstr ""
 
 #: img/popups.xml.in.h:18
 msgid "dance"

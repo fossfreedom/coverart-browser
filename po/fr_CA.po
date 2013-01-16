@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-01-12 18:45+0000\n"
-"PO-Revision-Date: 2013-01-09 12:49+0000\n"
-"Last-Translator: du Mas des Bourboux <helion331990@gmail.com>\n"
+"PO-Revision-Date: 2013-01-13 00:45+0000\n"
+"Last-Translator: Jean-Rene Bastien <Unknown>\n"
 "Language-Team: none\n"
 "Language: fr_CA\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-01-12 17:56+0000\n"
+"X-Launchpad-Export-Date: 2013-01-16 14:40+0000\n"
 "X-Generator: Launchpad (build 16420)\n"
 "Generated-By: pygettext.py 1.5\n"
 
@@ -81,9 +81,8 @@ msgid "Show more results"
 msgstr "Afficher plus de résultats"
 
 #: ui/coverart_album_search_prefs.ui.h:1
-#, fuzzy
 msgid "Find CoverArt:"
-msgstr "Pochettes"
+msgstr ""
 
 #: ui/coverart_album_search_prefs.ui.h:2 ui/coverart_browser_prefs.ui.h:41
 msgid "Search for embedded coverart"
@@ -266,7 +265,6 @@ msgid "Position"
 msgstr "Position"
 
 #: ui/coverart_browser_prefs.ui.h:37
-#, fuzzy
 msgid "Show toolbar: "
 msgstr "Montrer la barre d'outils : "
 
@@ -422,7 +420,7 @@ msgstr "bluegrass"
 
 #: img/popups.xml.in.h:7
 msgid "oldies"
-msgstr "cabaret"
+msgstr "oldies"
 
 #: img/popups.xml.in.h:8
 msgid "holiday"
@@ -434,7 +432,7 @@ msgstr "comédie"
 
 #: img/popups.xml.in.h:10
 msgid "spoken"
-msgstr "livres et histoires"
+msgstr "parlé"
 
 #: img/popups.xml.in.h:11
 msgid "jazz"
@@ -514,7 +512,7 @@ msgstr "opéra"
 
 #: img/popups.xml.in.h:30
 msgid "anime"
-msgstr "j-pop"
+msgstr "anime"
 
 #: img/popups.xml.in.h:31
 msgid "soul"
@@ -689,27 +687,3 @@ msgstr "Rechercher les albums"
 #: coverart_controllers.py:454
 msgid "Search tracks"
 msgstr "Rechercher les pistes"
-
-#~ msgid "Search using all fields"
-#~ msgstr "Rechercher en utilisant tous les champs"
-
-#~ msgid "Search using album artist names"
-#~ msgstr "Rechercher en utilisant les noms d'artiste de l'album"
-
-#~ msgid "Search using track artist names"
-#~ msgstr "Rechercher en utilisant les noms d'artiste de la piste"
-
-#~ msgid "Search using album titles"
-#~ msgstr "Rechercher en utilisant les titres d'album"
-
-#~ msgid "Search using track titles"
-#~ msgstr "Rechercher en utilisant les titres de pistes"
-
-#~ msgid "Search album"
-#~ msgstr "Rechercher des albums"
-
-#~ msgid "All"
-#~ msgstr "Tous"
-
-#~ msgid "Old"
-#~ msgstr "Ancien"

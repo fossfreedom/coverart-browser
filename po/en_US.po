@@ -14,14 +14,14 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-01-12 18:45+0000\n"
-"PO-Revision-Date: 2013-01-09 14:09+0000\n"
+"PO-Revision-Date: 2013-01-13 00:52+0000\n"
 "Last-Translator: fossfreedom <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-01-12 17:56+0000\n"
+"X-Launchpad-Export-Date: 2013-01-16 14:40+0000\n"
 "X-Generator: Launchpad (build 16420)\n"
 "Generated-By: Babel 0.9.6\n"
 
@@ -31,7 +31,7 @@ msgstr "Search Options"
 
 #: tmpl/albumartsearch-tmpl.html:185
 msgid "Tip: doubleclick or drag a cover to use it as the album cover"
-msgstr ""
+msgstr "Tip: doubleclick or drag a cover to use it as the album cover"
 
 #: tmpl/albumartsearch-tmpl.html:187
 msgid "Search Mode"
@@ -86,9 +86,8 @@ msgid "Show more results"
 msgstr "Show more results"
 
 #: ui/coverart_album_search_prefs.ui.h:1
-#, fuzzy
 msgid "Find CoverArt:"
-msgstr "CoverArt"
+msgstr ""
 
 #: ui/coverart_album_search_prefs.ui.h:2 ui/coverart_browser_prefs.ui.h:41
 msgid "Search for embedded coverart"
@@ -103,9 +102,8 @@ msgid "Search for coverart on DISCOGS"
 msgstr "Search for coverart on DISCOGS"
 
 #: ui/coverart_album_search_prefs.ui.h:5 ui/coverart_browser_prefs.ui.h:40
-#, fuzzy
 msgid "Search for coverart on the internet provider DISCOGS"
-msgstr "Search for coverart on DISCOGS"
+msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:1
 msgid "Above"
@@ -310,9 +308,8 @@ msgid "Add this album to a playlist"
 msgstr "Add this album to a playlist"
 
 #: ui/coverart_browser.ui.h:8 ui/coverart_entryview.ui.h:6
-#, fuzzy
 msgid "Add to Playlist"
-msgstr "Add favorites to Playlist"
+msgstr ""
 
 #: ui/coverart_browser.ui.h:9 ui/coverart_entryview.ui.h:7
 msgid "Add this album to a new playlist"
@@ -693,21 +690,3 @@ msgstr "Search albums"
 #: coverart_controllers.py:454
 msgid "Search tracks"
 msgstr "Search tracks"
-
-#~ msgid "Search using all fields"
-#~ msgstr "Search using all fields"
-
-#~ msgid "Search using album artist names"
-#~ msgstr "Search using album artist names"
-
-#~ msgid "Search using track artist names"
-#~ msgstr "Search using track artist names"
-
-#~ msgid "Search using album titles"
-#~ msgstr "Search using album titles"
-
-#~ msgid "Search using track titles"
-#~ msgstr "Search using track titles"
-
-#~ msgid "Search album"
-#~ msgstr "Search album"

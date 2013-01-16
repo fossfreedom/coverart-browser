@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-01-12 18:45+0000\n"
-"PO-Revision-Date: 2013-01-10 15:25+0000\n"
+"PO-Revision-Date: 2013-01-16 13:33+0000\n"
 "Last-Translator: VPablo <villumar@gmail.com>\n"
 "Language-Team: Catalan <ca@li.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-01-12 17:56+0000\n"
+"X-Launchpad-Export-Date: 2013-01-16 14:40+0000\n"
 "X-Generator: Launchpad (build 16420)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:185
@@ -82,63 +82,64 @@ msgstr "Mostra més resultats"
 
 #: ui/coverart_album_search_prefs.ui.h:1
 msgid "Find CoverArt:"
-msgstr ""
+msgstr "Troba CoverArt:"
 
 #: ui/coverart_album_search_prefs.ui.h:2 ui/coverart_browser_prefs.ui.h:41
 msgid "Search for embedded coverart"
-msgstr ""
+msgstr "Busca portades incrustades"
 
 #: ui/coverart_album_search_prefs.ui.h:3 ui/coverart_browser_prefs.ui.h:42
 msgid "Search for coverart embedded within tracks for an album"
-msgstr ""
+msgstr "Busca portades incrustades dins les cançons d'un àlbum"
 
 #: ui/coverart_album_search_prefs.ui.h:4 ui/coverart_browser_prefs.ui.h:39
 msgid "Search for coverart on DISCOGS"
-msgstr ""
+msgstr "Busca portades a DISCOGS"
 
 #: ui/coverart_album_search_prefs.ui.h:5 ui/coverart_browser_prefs.ui.h:40
 msgid "Search for coverart on the internet provider DISCOGS"
-msgstr ""
+msgstr "Busca portades al proveïdor d'Internet DISCOGS"
 
 #: ui/coverart_browser_prefs.ui.h:1
 msgid "Above"
-msgstr ""
+msgstr "Per damunt"
 
 #: ui/coverart_browser_prefs.ui.h:2
 msgid "Top Left"
-msgstr ""
+msgstr "Superior esquerre"
 
 #: ui/coverart_browser_prefs.ui.h:3
 msgid "Top Center"
-msgstr ""
+msgstr "Superior centrat"
 
 #: ui/coverart_browser_prefs.ui.h:4
 msgid "Top Right"
-msgstr ""
+msgstr "Superior dret"
 
 #: ui/coverart_browser_prefs.ui.h:5
 msgid "Above Cover View"
-msgstr ""
+msgstr "Per damunt la visualització"
 
 #: ui/coverart_browser_prefs.ui.h:6
 msgid "Left Sidebar"
-msgstr ""
+msgstr "Barra esquerra"
 
 #: ui/coverart_browser_prefs.ui.h:7
 msgid "Right Sidebar"
-msgstr ""
+msgstr "Barra dreta"
 
 #: ui/coverart_browser_prefs.ui.h:8
 msgid "Automatically Start"
-msgstr ""
+msgstr "Inicia Automàticament"
 
 #: ui/coverart_browser_prefs.ui.h:9
 msgid "When rhythmbox starts, switch automatically to the coverart browser."
 msgstr ""
+"Quant comence rhythmbox, canvia automàticament al navegador de portades."
 
 #: ui/coverart_browser_prefs.ui.h:10
 msgid "Use source's custom statusbar."
-msgstr ""
+msgstr "Usa la barra d'estat personalitzada."
 
 #: ui/coverart_browser_prefs.ui.h:11
 msgid ""
@@ -146,68 +147,78 @@ msgid ""
 "album&apos;s related information instead of the global Rhythmbox&apos;s "
 "statusbar."
 msgstr ""
+"Usa la barra d&apos;estat personalitzada per mostrar informaci&oacute; "
+"relacionada amb l&apos;àlbum en compte d&apos;usar la barra d&apos;estat "
+"global de Rhythmbox."
 
 #: ui/coverart_browser_prefs.ui.h:12
 msgid ""
 "Use the source's custom statusbar to show the current selected album's "
 "related information instead of the global Rhythmbox's statusbar."
 msgstr ""
+"Usa la barra d'estat personalitzada per mostrar informació relacionada amb "
+"l'àlbum en compte d'usar la barra d'estat global de Rhythmbox."
 
 #: ui/coverart_browser_prefs.ui.h:13
 msgid "Display tracks and covers pane"
-msgstr ""
+msgstr "Mostra el panel de cançons i portades"
 
 #: ui/coverart_browser_prefs.ui.h:14
 msgid ""
 "Add a toggle-option to the coverart view to display the tracks and covers "
 "for the chosen album"
 msgstr ""
+"Afegís una finestra desplegable a la vista de portades per mostrar les "
+"cançons i portades de l'àlbum seleccionat"
 
 #: ui/coverart_browser_prefs.ui.h:15
 msgid "Level above which is regarded as being a favourite track or album"
-msgstr ""
+msgstr "nivell a partir del qual es considera una pista o àlbum com a favorit."
 
 #: ui/coverart_browser_prefs.ui.h:16
 msgid "Favourite Threshold"
-msgstr ""
+msgstr "Llindar de Puntuació"
 
 #: ui/coverart_browser_prefs.ui.h:17
 msgid "General"
-msgstr ""
+msgstr "General"
 
 #: ui/coverart_browser_prefs.ui.h:18
 msgid "Album Information"
-msgstr ""
+msgstr "Informació de l'àlbum"
 
 #: ui/coverart_browser_prefs.ui.h:19
 msgid "Display album's info under cover"
-msgstr ""
+msgstr "Mostra informació de l'àlbum baix la seua portada"
 
 #: ui/coverart_browser_prefs.ui.h:20
 msgid "Show the album&apos;s basic information under the cover image."
 msgstr ""
+"Mostra informaci&oacute; bàsica de l'àlbum baix la seua imatge de portada."
 
 #: ui/coverart_browser_prefs.ui.h:21
 msgid "Show the album's basic information under the cover image."
-msgstr ""
+msgstr "Mostra informació bàsica de l'àlbum baix la seua imatge de portada."
 
 #: ui/coverart_browser_prefs.ui.h:22
 msgid "Font size for the text below the cover-art."
-msgstr ""
+msgstr "Mida de la font pel text baix la portada"
 
 #: ui/coverart_browser_prefs.ui.h:23
 msgid "Font Size:"
-msgstr ""
+msgstr "Mida de la font:"
 
 #: ui/coverart_browser_prefs.ui.h:24
 msgid "Ellipsize albums names"
-msgstr ""
+msgstr "Retalla el nom dels àlbums"
 
 #: ui/coverart_browser_prefs.ui.h:25
 msgid ""
 "Ellipsizes the albums names to a fixed length when the display text option "
 "is enabled."
 msgstr ""
+"Retalla els noms dels àlbums a una mida fixa, mostrant punts suspensius quan "
+"la opció per mostrar text estiga activada."
 
 #: ui/coverart_browser_prefs.ui.h:26
 msgid "Maximum allowed length for an album's name before being ellipsized."
@@ -278,18 +289,16 @@ msgid "Play this album"
 msgstr ""
 
 #: ui/coverart_browser.ui.h:4
-#, fuzzy
 msgid "Play Album"
-msgstr "Àlbum"
+msgstr ""
 
 #: ui/coverart_browser.ui.h:5
 msgid "Add this album to your playing queue"
 msgstr ""
 
 #: ui/coverart_browser.ui.h:6
-#, fuzzy
 msgid "Queue Album"
-msgstr "Àlbum"
+msgstr ""
 
 #: ui/coverart_browser.ui.h:7 ui/coverart_entryview.ui.h:5
 msgid "Add this album to a playlist"
@@ -336,9 +345,8 @@ msgid "Search for this album cover"
 msgstr ""
 
 #: ui/coverart_browser.ui.h:18
-#, fuzzy
 msgid "Search for covers"
-msgstr "Mode de recerca"
+msgstr ""
 
 #: ui/coverart_browser.ui.h:19
 msgid "Show album properties"
@@ -451,9 +459,8 @@ msgid "ragtime"
 msgstr ""
 
 #: img/popups.xml.in.h:17
-#, fuzzy
 msgid "musical"
-msgstr "Clàssica"
+msgstr ""
 
 #: img/popups.xml.in.h:18
 msgid "dance"

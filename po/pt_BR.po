@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-01-12 17:56+0000\n"
+"X-Launchpad-Export-Date: 2013-01-16 14:40+0000\n"
 "X-Generator: Launchpad (build 16420)\n"
 "Generated-By: pygettext.py 1.5\n"
 
@@ -79,23 +79,20 @@ msgid "Show more results"
 msgstr "Exibir mais resultados"
 
 #: ui/coverart_album_search_prefs.ui.h:1
-#, fuzzy
 msgid "Find CoverArt:"
-msgstr "Arte das Capas"
+msgstr ""
 
 #: ui/coverart_album_search_prefs.ui.h:2 ui/coverart_browser_prefs.ui.h:41
-#, fuzzy
 msgid "Search for embedded coverart"
-msgstr "Procurar por capas"
+msgstr ""
 
 #: ui/coverart_album_search_prefs.ui.h:3 ui/coverart_browser_prefs.ui.h:42
 msgid "Search for coverart embedded within tracks for an album"
 msgstr ""
 
 #: ui/coverart_album_search_prefs.ui.h:4 ui/coverart_browser_prefs.ui.h:39
-#, fuzzy
 msgid "Search for coverart on DISCOGS"
-msgstr "Procurar por capas"
+msgstr ""
 
 #: ui/coverart_album_search_prefs.ui.h:5 ui/coverart_browser_prefs.ui.h:40
 msgid "Search for coverart on the internet provider DISCOGS"
@@ -143,15 +140,11 @@ msgid "Use source's custom statusbar."
 msgstr "Utilizar barra de status customizada da fonte"
 
 #: ui/coverart_browser_prefs.ui.h:11
-#, fuzzy
 msgid ""
 "Use the source&apos;s custom statusbar to show the current selected "
 "album&apos;s related information instead of the global Rhythmbox&apos;s "
 "statusbar."
 msgstr ""
-"Utilizar a barra de status customizada da fonte para mostrar a informação "
-"relacionada ao álbum selecionado ao invés da barra de status global do "
-"Rhythmbox"
 
 #: ui/coverart_browser_prefs.ui.h:12
 msgid ""
@@ -195,9 +188,8 @@ msgid "Display album's info under cover"
 msgstr "Exibir informações do álbum abaixo da capa"
 
 #: ui/coverart_browser_prefs.ui.h:20
-#, fuzzy
 msgid "Show the album&apos;s basic information under the cover image."
-msgstr "Mostra informações básicas do álbum abaixo da imagem da capa."
+msgstr ""
 
 #: ui/coverart_browser_prefs.ui.h:21
 msgid "Show the album's basic information under the cover image."
@@ -268,7 +260,6 @@ msgid "Position"
 msgstr "Posição"
 
 #: ui/coverart_browser_prefs.ui.h:37
-#, fuzzy
 msgid "Show toolbar: "
 msgstr "Mostrar a barra de ferramentas: "
 
@@ -419,9 +410,8 @@ msgid "world"
 msgstr ""
 
 #: img/popups.xml.in.h:6
-#, fuzzy
 msgid "bluegrass"
-msgstr "blues"
+msgstr ""
 
 #: img/popups.xml.in.h:7
 msgid "oldies"
@@ -464,9 +454,8 @@ msgid "ragtime"
 msgstr ""
 
 #: img/popups.xml.in.h:17
-#, fuzzy
 msgid "musical"
-msgstr "clássico"
+msgstr ""
 
 #: img/popups.xml.in.h:18
 msgid "dance"
@@ -693,24 +682,3 @@ msgstr "Procurar álbum"
 #: coverart_controllers.py:454
 msgid "Search tracks"
 msgstr "Procurar por faixas"
-
-#~ msgid "Search using all fields"
-#~ msgstr "Procurar utilizando todos os campos"
-
-#~ msgid "Search using album artist names"
-#~ msgstr "Procurar utilizando o nome do artista do álbum"
-
-#~ msgid "Search using track artist names"
-#~ msgstr "Procurar utilizando o nome do artista da faixa"
-
-#~ msgid "Search using album titles"
-#~ msgstr "Procurar utilizando o nome de álbuns"
-
-#~ msgid "Search using track titles"
-#~ msgstr "Procurar utilizando nome de faixas"
-
-#~ msgid "Search album"
-#~ msgstr "Procurar álbum"
-
-#~ msgid "All"
-#~ msgstr "Tudo"
