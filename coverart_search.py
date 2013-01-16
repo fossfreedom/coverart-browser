@@ -148,8 +148,7 @@ class CoverSearchPane(Gtk.Box):
         # update the cover
         title = webview.get_title()
 
+        print title
         if title:
-            title = title.rsplit("%")[0]
-
             self.album_manager.cover_man.update_cover(self.current_album,
                 uri=title)

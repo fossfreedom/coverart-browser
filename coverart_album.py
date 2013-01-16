@@ -1410,6 +1410,7 @@ class CoverManager(GObject.Object):
                     with tempfile.NamedTemporaryFile(mode='w') as tmp:
                         try:
                             tmp.write(data)
+                            tmp.flush()
                             cover = GdkPixbuf.Pixbuf.new_from_file(tmp.name)
 
                             # set the new cover

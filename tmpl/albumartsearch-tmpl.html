@@ -54,7 +54,7 @@
                         newImg.ondblclick = setCover;
                         newImg.onclick = highlight;
                         newImg.src = result.tbUrl;
-                        newImg.id = result.url;
+                        newImg.id = result.unescapedUrl;
                         newImg.setAttribute("class", "srchresult");
                         imgContainer.appendChild(newImg);
                     }
