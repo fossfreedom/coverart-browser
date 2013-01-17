@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-12 18:45+0000\n"
+"POT-Creation-Date: 2013-01-17 20:57+0000\n"
 "PO-Revision-Date: 2013-01-13 21:09+0000\n"
 "Last-Translator: Daniel Winzen <d@winzen4.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -15,66 +15,66 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-01-16 14:40+0000\n"
-"X-Generator: Launchpad (build 16420)\n"
+"X-Launchpad-Export-Date: 2013-01-17 21:48+0000\n"
+"X-Generator: Launchpad (build 16430)\n"
 
-#: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:185
+#: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
 msgstr "Suchoptionen"
 
-#: tmpl/albumartsearch-tmpl.html:185
+#: tmpl/albumartsearch-tmpl.html:187
 msgid "Tip: doubleclick or drag a cover to use it as the album cover"
 msgstr ""
 
-#: tmpl/albumartsearch-tmpl.html:187
+#: tmpl/albumartsearch-tmpl.html:189
 msgid "Search Mode"
 msgstr "Suchmodus"
 
-#: tmpl/albumartsearch-tmpl.html:189
+#: tmpl/albumartsearch-tmpl.html:191
 msgid "Artist"
 msgstr "Künstler"
 
-#: tmpl/albumartsearch-tmpl.html:190
+#: tmpl/albumartsearch-tmpl.html:192
 msgid "Album"
 msgstr "Album"
 
-#: tmpl/albumartsearch-tmpl.html:191
+#: tmpl/albumartsearch-tmpl.html:193
 msgid "Artist and album"
 msgstr "Künstler und Album"
 
-#: tmpl/albumartsearch-tmpl.html:194
+#: tmpl/albumartsearch-tmpl.html:196
 msgid "Search text"
 msgstr "Nach Text suchen"
 
-#: tmpl/albumartsearch-tmpl.html:197
+#: tmpl/albumartsearch-tmpl.html:199
 msgid "Search"
 msgstr "Suchen"
 
-#: tmpl/albumartsearch-tmpl.html:199
+#: tmpl/albumartsearch-tmpl.html:201
 msgid "Image Size"
 msgstr "Bildgröße"
 
-#: tmpl/albumartsearch-tmpl.html:201
+#: tmpl/albumartsearch-tmpl.html:203
 msgid "Small"
 msgstr "Klein"
 
-#: tmpl/albumartsearch-tmpl.html:202
+#: tmpl/albumartsearch-tmpl.html:204
 msgid "Medium"
 msgstr "Mittel"
 
-#: tmpl/albumartsearch-tmpl.html:203
+#: tmpl/albumartsearch-tmpl.html:205
 msgid "Large"
 msgstr "Groß"
 
-#: tmpl/albumartsearch-tmpl.html:204
+#: tmpl/albumartsearch-tmpl.html:206
 msgid "Extra Large"
 msgstr "Sehr groß"
 
-#: tmpl/albumartsearch-tmpl.html:209 coverart_browser_source.py:103
+#: tmpl/albumartsearch-tmpl.html:211 coverart_browser_source.py:102
 msgid "Loading..."
 msgstr "Wird geladen ..."
 
-#: tmpl/albumartsearch-tmpl.html:211
+#: tmpl/albumartsearch-tmpl.html:214
 msgid "Show more results"
 msgstr "Weitere Treffer anzeigen"
 
@@ -521,12 +521,12 @@ msgstr "Hip-Hop"
 msgid "children"
 msgstr "Kinder"
 
-#: coverart_album.py:1471 coverart_browser_source.py:917
+#: coverart_album.py:1535 coverart_browser_source.py:916
 #, python-format
 msgid "%s by %s"
 msgstr "%s von %s"
 
-#: coverart_album_search.py:269 coverart_album_search.py:270
+#: coverart_album_search.py:278 coverart_album_search.py:279
 msgid "Unknown"
 msgstr "Unbekannt"
 
@@ -539,38 +539,38 @@ msgstr ""
 msgid "Browse and play your albums through their covers"
 msgstr ""
 
-#: coverart_browser_source.py:271
+#: coverart_browser_source.py:270
 msgid "Tracks"
 msgstr ""
 
-#: coverart_browser_source.py:290
+#: coverart_browser_source.py:289
 msgid "Covers"
 msgstr ""
 
-#: coverart_browser_source.py:831
+#: coverart_browser_source.py:830
 #, python-format
 msgid "Requesting cover for %s - %s..."
 msgstr ""
 
-#: coverart_browser_source.py:920
+#: coverart_browser_source.py:919
 #, python-format
 msgid "%d selected albums "
 msgstr ""
 
-#: coverart_browser_source.py:924
+#: coverart_browser_source.py:923
 msgid " with 1 track"
 msgstr ""
 
-#: coverart_browser_source.py:926
+#: coverart_browser_source.py:925
 #, python-format
 msgid " with %d tracks"
 msgstr ""
 
-#: coverart_browser_source.py:929
+#: coverart_browser_source.py:928
 msgid " and a duration of 1 minute"
 msgstr ""
 
-#: coverart_browser_source.py:931
+#: coverart_browser_source.py:930
 #, python-format
 msgid " and a duration of %d minutes"
 msgstr ""
