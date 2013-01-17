@@ -841,17 +841,18 @@ class AlbumsModel(GObject.Object):
         '''
         Changes the sorting strategy for the model.
 
-        :param key: `str`attribute of the `Album` class by witch the sort
+        :param key: `str`attribute of the `Album` class by which the sort
             should be performed.
         :param reverse: `bool` indicating whether the sort order should be
             reversed from the current one.
         '''
-        if key == 'name':
-            key = 'calc_name'
-        elif key == 'artist':
-            key = 'calc_artist'
-            
-        self._albums.key = lambda album: getattr(album, key)
+        if key:
+            if key == 'name':
+                key = 'calc_name'
+            elif key == 'artist':
+                key = 'calc_artist'
+                
+            self._albums.key = lambda album: getattr(album, key)
 
         if reverse:
             self._albums = reversed(self._albums)
