@@ -159,6 +159,9 @@ class GenrePopupController(OptionsController):
     def __init__(self, plugin, album_model):
         super(GenrePopupController, self).__init__()
 
+        cl = CoverLocale()
+        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+        
         self._album_model = album_model
 
         shell = plugin.shell
@@ -171,7 +174,7 @@ class GenrePopupController(OptionsController):
         genres_model.props.query_model = query
 
         # initial genre
-        self._initial_genre = genres_model[0][0]
+        self._initial_genre = _('All Genres')#genres_model[0][0]
 
         # initialise the button spritesheet and other images
         self._spritesheet = GenreConfiguredSpriteSheet(plugin, 'genre',
@@ -197,9 +200,14 @@ class GenrePopupController(OptionsController):
 
         # retrieve the options
         options = []
-
+        row_num = 0
         for row in genres_model:
-            genre = row[0]
+            if row_num == 0:
+                genre = _('All Genres')
+                row_num = row_num + 1
+            else:
+                genre = row[0]
+                
             options.append(genre)
 
             still_exists = still_exists or genre == self.current_key
