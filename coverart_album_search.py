@@ -34,7 +34,6 @@ import os, time,re, urllib
 import threading
 import discogs_client as discogs
 
-import xml.dom.minidom as dom
 import json
 
 import rb
@@ -256,13 +255,27 @@ class DiscogsSearch (object):
         print "discogs url = %s" % url
         return url
 
-    def get_release_cb(self, key, store, url, cbargs, callback):
-        try:
-            s = discogs.Search(url)
-            url = s.results()[0].data['images'][0]['uri150']
-            self.store.store_uri(self.current_key, RB.ExtDBSourceType.SEARCH, url)
-        except:
-            pass
+    def get_release_cb(self, store, searches, cbargs, callback):
+        last_url = ""
+        for search in searches:
+            album = search[1]
+            artist = search[0]
+            url = self.search_url(album, artist)
+            print "album %s artist %s url %s" % (album, artist, url)
+
+            if url == last_url:
+                continue
+            last_url = url
+            try:    
+                s = discogs.Search(url)
+                url = s.results()[0].data['images'][0]['uri150']
+                current_key = RB.ExtDBKey.create_storage("album", album)
+                current_key.add_field("artist", artist)
+                store.store_uri(current_key, RB.ExtDBSourceType.SEARCH, url)
+                print "got something"
+                break
+            except:
+                pass
 
         self.callback(cbargs)
         return False
@@ -274,7 +287,6 @@ class DiscogsSearch (object):
 
         album = key.get_field("album")
         artists = key.get_field_values("artist")
-
         artists = filter(lambda x: x not in (None, "", _("Unknown")), artists)
         if album in ("", _("Unknown")):
             album = None
@@ -286,17 +298,13 @@ class DiscogsSearch (object):
         self.searches = []
         for a in artists:
             self.searches.append([a, album])
+
         self.searches.append(["Various Artists", album])
 
-        self.current_key = RB.ExtDBKey.create_storage("album", album)
-        self.current_key.add_field("artist", artists[0])
-
-        self.store = store
         self.callback = callback
         self.callback_args = args
 
-        url = self.search_url(album, artists[0])
-        threading.Thread( target=self.get_release_cb, args=(key, store, url, args, callback)).start()
+        threading.Thread( target=self.get_release_cb, args=(store, self.searches, args, callback)).start()
         
 class CoverartArchiveSearch(object):
 
@@ -317,7 +325,7 @@ class CoverartArchiveSearch(object):
             
 			callback(*cbargs)
 		except Exception, e:
-			print "exception parsing musicbrainz response: %s" % e
+			print "exception parsing coverartarchive response: %s" % e
 			callback(*cbargs)
 
 	def search(self, key, last_time, store, callback, *args):
