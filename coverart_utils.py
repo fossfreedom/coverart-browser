@@ -36,7 +36,7 @@ class NaturalString(str):
 
     def __init__(self, string):
         super(NaturalString, self).__init__(
-            string)
+            RB.search_fold(string))
         convert = lambda text: int(text) if text.isdigit() else text.lower()
         alphanum_key = lambda key: [convert(c) for c in re.split('([0-9]+)',
             key)]
@@ -413,7 +413,7 @@ class ConfiguredSpriteSheet(object):
 
         base = sprite_name + '/' + sprite_name +\
             '[@spritesheet="' + sprite_name + '"]'
-            
+
         for elem in self.root.xpath(base + '[not(@xml:lang)]'):
             self.names.append(elem.text)
 
@@ -424,7 +424,7 @@ class ConfiguredSpriteSheet(object):
             for elem in self.root.xpath(base + '[@xml:lang="' +\
                 lang[0:2] + '"]'):
                 self.locale_names[elem.text]=elem.attrib['name']
-        
+
         self._sheet = SpriteSheet(image, icon_width, icon_height, x_spacing,
             y_spacing, x_start, y_start, alpha_color, size)
 
@@ -447,14 +447,14 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
             size)
         self.alternate = {}
         self.locale_alternate = {}
-        
+
         cl = CoverLocale()
         lang=cl.get_locale()
 
         base = sprite_name + '/alt'
         for elem in self.root.xpath(base + '[not(@xml:lang)]/alt'):
             self.alternate[elem.text] = elem.attrib['genre']
-            
+
         for elem in self.root.xpath(base + '[@xml:lang="' + lang + '"]/alt'):
             self.locale_alternate[elem.text] = elem.attrib['genre']
 
