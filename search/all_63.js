@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['cancel_5fcover_5frequest',['cancel_cover_request',['../classcoverart__album_1_1_cover_manager.html#a552bbf04218ad0da645adbbb0c0e77ba',1,'coverart_album::CoverManager']]],
+  ['cancel_5frequest_5fcallback',['cancel_request_callback',['../classcoverart__browser__source_1_1_cover_art_browser_source.html#aff533f73226f699a7ada6cf243618961',1,'coverart_browser_source::CoverArtBrowserSource']]],
+  ['caseinsensitivedict',['CaseInsensitiveDict',['../classcoverart__utils_1_1_case_insensitive_dict.html',1,'coverart_utils']]],
+  ['clear',['clear',['../classcoverart__search_1_1_cover_search_pane.html#a0a57f51993e59b4f7455e74944bfeef6',1,'coverart_search::CoverSearchPane']]],
+  ['clear_5ffilters',['clear_filters',['../classcoverart__album_1_1_albums_model.html#ab2c99bf99820dd0cc823d349237e3ddc',1,'coverart_album::AlbumsModel']]],
+  ['clear_5fpopupmenu',['clear_popupmenu',['../classcoverart__widgets_1_1_options_popup_widget.html#aa2f25b77c36889cce14567f409933890',1,'coverart_widgets::OptionsPopupWidget']]],
+  ['configuredspritesheet',['ConfiguredSpriteSheet',['../classcoverart__utils_1_1_configured_sprite_sheet.html',1,'coverart_utils']]],
+  ['contains',['contains',['../classcoverart__album_1_1_albums_model.html#a07d599fd2b94a01c1a4f21fea8e5e333',1,'coverart_album::AlbumsModel']]],
+  ['cover',['Cover',['../classcoverart__album_1_1_cover.html',1,'coverart_album']]],
+  ['cover_5fsearch_5fmenu_5fitem_5fcallback',['cover_search_menu_item_callback',['../classcoverart__browser__source_1_1_cover_art_browser_source.html#a8ee80b82d74da803104539a57d579e6e',1,'coverart_browser_source::CoverArtBrowserSource']]],
+  ['coveralbumsearch',['CoverAlbumSearch',['../classcoverart__album__search_1_1_cover_album_search.html',1,'coverart_album_search']]],
+  ['coverartalbumsearchplugin',['CoverArtAlbumSearchPlugin',['../classcoverart__search__providers_1_1_cover_art_album_search_plugin.html',1,'coverart_search_providers']]],
+  ['coverartarchivesearch',['CoverartArchiveSearch',['../classcoverart__album__search_1_1_coverart_archive_search.html',1,'coverart_album_search']]],
+  ['coverartbrowserentrytype',['CoverArtBrowserEntryType',['../classcoverart__browser_1_1_cover_art_browser_entry_type.html',1,'coverart_browser']]],
+  ['coverartbrowserplugin',['CoverArtBrowserPlugin',['../classcoverart__browser_1_1_cover_art_browser_plugin.html',1,'coverart_browser']]],
+  ['coverartbrowsersource',['CoverArtBrowserSource',['../classcoverart__browser__source_1_1_cover_art_browser_source.html',1,'coverart_browser_source']]],
+  ['coverartentryview',['CoverArtEntryView',['../classcoverart__entryview_1_1_cover_art_entry_view.html',1,'coverart_entryview']]],
+  ['coverlocale',['CoverLocale',['../classcoverart__browser__prefs_1_1_cover_locale.html',1,'coverart_browser_prefs']]],
+  ['covermanager',['CoverManager',['../classcoverart__album_1_1_cover_manager.html',1,'coverart_album']]],
+  ['coversearch',['CoverSearch',['../classcoverart__album__search_1_1_cover_search.html',1,'coverart_album_search']]],
+  ['coversearchpane',['CoverSearchPane',['../classcoverart__search_1_1_cover_search_pane.html',1,'coverart_search']]],
+  ['create_5fext_5fdb_5fkey',['create_ext_db_key',['../classcoverart__album_1_1_track.html#a38d449643e9566c4a1262ed4105089eb',1,'coverart_album::Track.create_ext_db_key()'],['../classcoverart__album_1_1_album.html#a3a4145694b0f64f4d8b213da489007ce',1,'coverart_album::Album.create_ext_db_key()']]]
+];
