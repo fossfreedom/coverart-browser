@@ -268,6 +268,7 @@ class Album(GObject.Object):
 
         return self._calc_name
 
+    @property
     def calc_artist(self):
         if not self._calc_artist and self.artist:
             self._calc_artist = NaturalString(self.artist)
