@@ -31,7 +31,6 @@
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
                 <property name="shadow_type">in</property>
-                <signal name="size-allocate" handler="update_iconview_callback" swapped="no"/>
                 <child>
                   <object class="GtkIconView" id="covers_view">
                     <property name="visible">True</property>
@@ -43,6 +42,7 @@
                     <signal name="button-press-event" handler="mouseclick_callback" swapped="no"/>
                     <signal name="selection-changed" handler="selectionchanged_callback" swapped="no"/>
                     <signal name="item-activated" handler="item_activated_callback" swapped="no"/>
+                    <signal name="size-allocate" handler="update_iconview_callback" swapped="no"/>
                   </object>
                 </child>
               </object>
