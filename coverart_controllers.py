@@ -66,10 +66,6 @@ class OptionsController(GObject.Object):
     def get_current_description(self):
         return self.current_key
 
-    def get_plugin(self):
-        return self.plugin
-
-
 class PlaylistPopupController(OptionsController):
 
     def __init__(self, plugin, album_model):

@@ -195,7 +195,7 @@ class OptionsPopupWidget(OptionsWidget):
         '''
         if len(self.get_menuitems()) > 25:
             self._listwindow.activate(self._popup_menu,
-                self._controller.get_plugin())
+                self._controller.plugin)
         else:
             self._popup_menu.popup(None, None, None, None, 0,
                 Gtk.get_current_event_time())
