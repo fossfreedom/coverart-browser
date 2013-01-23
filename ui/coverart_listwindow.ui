@@ -13,24 +13,23 @@
       <column type="gchar"/>
     </columns>
   </object>
-  <object class="GtkWindow" id="listwindow">
+  <object class="GtkDialog" id="listwindow">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="modal">True</property>
-    <property name="window_position">center</property>
+    <property name="border_width">5</property>
+    <property name="resizable">False</property>
+    <property name="window_position">mouse</property>
     <property name="type_hint">dialog</property>
-    <property name="skip_taskbar_hint">True</property>
-    <property name="skip_pager_hint">True</property>
     <property name="decorated">False</property>
-    <property name="has_resize_grip">False</property>
-    <child>
-      <object class="GtkBox" id="box1">
-        <property name="visible">True</property>
+    <property name="deletable">False</property>
+    <signal name="close" handler="on_cancel" swapped="no"/>
+    <signal name="destroy" handler="on_destroy" swapped="no"/>
+    <signal name="response" handler="on_cancel" swapped="no"/>
+    <child internal-child="vbox">
+      <object class="GtkBox" id="dialog-vbox1">
         <property name="can_focus">False</property>
-        <property name="margin_left">10</property>
-        <property name="margin_right">10</property>
-        <property name="margin_top">10</property>
         <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
         <child>
           <object class="GtkScrolledWindow" id="scrolledwindow1">
             <property name="visible">True</property>
@@ -83,15 +82,15 @@
             <property name="position">0</property>
           </packing>
         </child>
-        <child>
-          <object class="GtkBox" id="box2">
-            <property name="visible">True</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox" id="dialog-action_area1">
             <property name="can_focus">False</property>
+            <property name="layout_style">end</property>
             <child>
               <placeholder/>
             </child>
             <child>
-              <object class="GtkButton" id="button1">
+              <object class="GtkButton" id="button2">
                 <property name="label">gtk-cancel</property>
                 <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
@@ -104,7 +103,6 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="pack_type">end</property>
                 <property name="position">1</property>
               </packing>
             </child>
@@ -112,10 +110,14 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">1</property>
+            <property name="pack_type">end</property>
+            <property name="position">0</property>
           </packing>
         </child>
       </object>
     </child>
+    <action-widgets>
+      <action-widget response="0">button2</action-widget>
+    </action-widgets>
   </object>
 </interface>

@@ -60,22 +60,30 @@ class ListWindow(Gtk.Widget):
 
         self.handler_id = self.listview.connect('cursor-changed',
             self.view_changed)
-            
+        
         self.listwindow.show_all()
 
     def view_changed(self, view):
-        selection = view.get_selection()
-        liststore, viewiter = selection.get_selected()
+        try:
+            selection = view.get_selection()            
+            liststore, viewiter = selection.get_selected()
 
-        if viewiter:
             radio = liststore.get_value(viewiter, 1)
             radio.set_active(True)
             radio.emit('toggled')
+        except:
+            pass
+            
         self.listwindow.hide()
 
-    def on_cancel(self, _):
-        self.listwindow.hide()
-
+    def on_cancel(self, *args):
+        if self.listwindow:
+            self.listwindow.hide()
+            #self.listwindow = None
+            
+    def on_destroy(self, *args):
+        self.listwindow = None
+        self.handler_id = None
 
 class OptionsWidget(Gtk.Widget):
 
@@ -190,7 +198,7 @@ class OptionsPopupWidget(OptionsWidget):
     def show_popup(self):
         '''
         show the current popup menu
-        except where the popup menu contains more than 20 items
+        except where the popup menu contains more than 25 items
         then we display an equivalent list window to choose from
         '''
         if len(self.get_menuitems()) > 25:
