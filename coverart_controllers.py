@@ -66,7 +66,6 @@ class OptionsController(GObject.Object):
     def get_current_description(self):
         return self.current_key
 
-
 class PlaylistPopupController(OptionsController):
 
     def __init__(self, plugin, album_model):
@@ -75,6 +74,7 @@ class PlaylistPopupController(OptionsController):
         self._album_model = album_model
 
         shell = plugin.shell
+        self.plugin = plugin
 
         # get the library name and initialize the superclass with it
         self._library_name = shell.props.library_source.props.name
@@ -165,6 +165,7 @@ class GenrePopupController(OptionsController):
         self._album_model = album_model
 
         shell = plugin.shell
+        self.plugin = plugin
 
         # create a new property model for the genres
         genres_model = RB.RhythmDBPropertyModel.new(shell.props.db,

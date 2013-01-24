@@ -264,13 +264,14 @@ class Album(GObject.Object):
     @property
     def calc_name(self):
         if not self._calc_name and self.name:
-            self._calc_name = NaturalString(self.name)
+            self._calc_name = NaturalString(RB.search_fold(self.name))
 
         return self._calc_name
 
+    @property
     def calc_artist(self):
         if not self._calc_artist and self.artist:
-            self._calc_artist = NaturalString(self.artist)
+            self._calc_artist = NaturalString(RB.search_fold(self.artist))
 
         return self._calc_artist
 
@@ -498,7 +499,7 @@ class AlbumFilters(object):
             if not searchtext:
                 return True
 
-            return  RB.search_fold(searchtext.lower) in RB.search_fold(
+            return  RB.search_fold(searchtext) in RB.search_fold(
                 album.track_titles)
 
         return filt
@@ -509,7 +510,8 @@ class AlbumFilters(object):
             if not searchtext:
                 return True
 
-            return  RB.search_fold(searchtext) in RB.search_fold(album.genres)
+            genres = RB.search_fold(' '.join(album.genres))
+            return  RB.search_fold(searchtext) in genres
 
         return filt
 
