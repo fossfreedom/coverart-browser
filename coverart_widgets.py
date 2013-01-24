@@ -23,6 +23,67 @@ from gi.repository import Gdk
 from gi.repository import GLib
 from gi.repository import GObject
 
+import rb
+
+class ListWindow(Gtk.Widget):
+    def __init__(self, *args, **kwargs):
+        super(ListWindow, self).__init__(*args, **kwargs)
+
+        self.listwindow = None
+        self.liststore = None
+        self.listview = None
+        self.handler_id = None
+        
+    def activate(self, popupmenu, plugin):
+        if not self.listwindow:
+            ui = Gtk.Builder()
+            ui.add_from_file(rb.find_plugin_file(plugin,
+                'ui/coverart_listwindow.ui'))
+            ui.connect_signals(self)
+            self.listwindow = ui.get_object('listwindow')
+            self.liststore = ui.get_object('liststore')
+            self.listwindow.set_size_request(200,200)
+            self.listview = ui.get_object('listview')
+
+        # we need to carefully control the row changed signal
+        # otherwise on a reactivation, the each menuitem will be
+        # activated causing multiple throws of toggle event
+        
+        if self.handler_id:
+            self.listview.disconnect(self.handler_id)
+            
+        self.liststore.clear()
+        
+        for menuitem in popupmenu.get_children():
+            self.liststore.append([ menuitem.get_label(),
+                menuitem, menuitem.get_active(), '>' ])
+
+        self.handler_id = self.listview.connect('cursor-changed',
+            self.view_changed)
+        
+        self.listwindow.show_all()
+
+    def view_changed(self, view):
+        try:
+            selection = view.get_selection()            
+            liststore, viewiter = selection.get_selected()
+
+            radio = liststore.get_value(viewiter, 1)
+            radio.set_active(True)
+            radio.emit('toggled')
+        except:
+            pass
+            
+        self.listwindow.hide()
+
+    def on_cancel(self, *args):
+        if self.listwindow:
+            self.listwindow.hide()
+            #self.listwindow = None
+            
+    def on_destroy(self, *args):
+        self.listwindow = None
+        self.handler_id = None
 
 class OptionsWidget(Gtk.Widget):
 
@@ -77,6 +138,7 @@ class OptionsPopupWidget(OptionsWidget):
         OptionsWidget.__init__(self, *args, **kwargs)
 
         self._popup_menu = Gtk.Menu()
+        self._listwindow = ListWindow()
 
     def update_options(self):
         self.clear_popupmenu()
@@ -136,13 +198,20 @@ class OptionsPopupWidget(OptionsWidget):
     def show_popup(self):
         '''
         show the current popup menu
+        except where the popup menu contains more than 25 items
+        then we display an equivalent list window to choose from
         '''
-        self._popup_menu.popup(None, None, None, None, 0,
-            Gtk.get_current_event_time())
+        if len(self.get_menuitems()) > 25:
+            self._listwindow.activate(self._popup_menu,
+                self._controller.plugin)
+        else:
+            self._popup_menu.popup(None, None, None, None, 0,
+                Gtk.get_current_event_time())
 
     def do_delete_thyself(self):
         self.clear_popupmenu()
         del self._popupmenu
+        del self._listwindow
 
 
 class PixbufButton(Gtk.Button):
