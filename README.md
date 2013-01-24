@@ -11,7 +11,7 @@ Browse your coverart albums in Rhythmbox v2.96 and later
 
 Summary: whats new in this release
 
- - find & display embedded covers in MP3, M4a, FLAC & OGG files
+ - find & display embedded covers in MP3, M4A, FLAC & Ogg files
  - Optional coverart search from Discogs internet service
  - new filter by decade
  - configurable shadow effect behind cover display
