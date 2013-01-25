@@ -78,9 +78,17 @@ Since then, lots of bug fixes have been resolved.  If you know that there is cov
 in our plugin, then you should install the very latest package:
 
 <pre>
-sudo apt-get install python-pip
-sudo pip install mutagen
+hg clone https://code.google.com/p/mutagen/
 </pre>
+
+Then following the instructions in the README (slightly modified)
+
+<pre>
+./setup.py build
+sudo su
+./setup.py install 
+</pre>
+
 
 **Please help out with translating**
 
