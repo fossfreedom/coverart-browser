@@ -284,6 +284,10 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         self.settings.bind(gs.PluginKey.DISCOGS_SEARCH,
             discogs_search, 'active', Gio.SettingsBindFlags.DEFAULT)
 
+        archive_search = builder.get_object('archive_checkbox')
+        self.settings.bind(gs.PluginKey.COVERARTARCHIVE_SEARCH,
+            archive_search, 'active', Gio.SettingsBindFlags.DEFAULT)
+
         toolbar_pos_combo = builder.get_object('show_in_combobox')
         renderer = Gtk.CellRendererText()
         toolbar_pos_combo.pack_start(renderer, True)
