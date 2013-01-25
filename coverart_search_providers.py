@@ -57,8 +57,8 @@ class CoverArtAlbumSearchPlugin(GObject.Object, Peas.Activatable):
         '''
 
         #define .plugin text strings used for translation
-        #plugin = _('CoverArt Browser')
-        #desc = _('Browse and play your albums through their covers')
+        plugin = _('CoverArt Browser Search Providers')
+        desc = _('Additional coverart search providers for Rhythmbox')
 
         print "CoverArtBrowser DEBUG - do_activate"
         self.shell = self.object
