@@ -70,6 +70,18 @@ It is strongly recommended that you either upgrade to 12.10 where v2.98 works gr
 downgrade to v2.96 or v2.97 as per:
  - http://askubuntu.com/questions/201093/how-do-i-downgrade-rhythmbox-v2-98
 
+*installation for embedded coverart*
+
+The plugin makes use of the package `python-mutagen`.  For most distros, the default package is v1.20 which was released in 2010.
+
+Since then, lots of bug fixes have been resolved.  If you know that there is coverart embedded, but is not displayed
+in our plugin, then you should install the very latest package:
+
+<pre>
+sudo apt-get install python-pip
+sudo pip install mutagen
+</pre>
+
 **Please help out with translating**
 
 We need you to help us translate the english text to your native language.
