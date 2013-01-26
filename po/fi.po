@@ -8,19 +8,19 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-01-12 18:45+0000\n"
-"PO-Revision-Date: 2013-01-18 07:10+0000\n"
+"PO-Revision-Date: 2013-01-25 17:40+0000\n"
 "Last-Translator: Jiri Grönroos <Unknown>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-01-24 23:24+0000\n"
-"X-Generator: Launchpad (build 16445)\n"
+"X-Launchpad-Export-Date: 2013-01-26 16:44+0000\n"
+"X-Generator: Launchpad (build 16451)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:185
 msgid "Search Options"
-msgstr ""
+msgstr "Hakuasetukset"
 
 #: tmpl/albumartsearch-tmpl.html:185
 msgid "Tip: doubleclick or drag a cover to use it as the album cover"
@@ -41,7 +41,7 @@ msgstr "Levy"
 
 #: tmpl/albumartsearch-tmpl.html:191
 msgid "Artist and album"
-msgstr ""
+msgstr "Esittäjä ja levy"
 
 #: tmpl/albumartsearch-tmpl.html:194
 msgid "Search text"
@@ -81,7 +81,7 @@ msgstr "Näytä lisää tuloksia"
 
 #: ui/coverart_album_search_prefs.ui.h:1
 msgid "Find CoverArt:"
-msgstr ""
+msgstr "Etsi kansikuvitus:"
 
 #: ui/coverart_album_search_prefs.ui.h:2 ui/coverart_browser_prefs.ui.h:41
 msgid "Search for embedded coverart"
@@ -133,7 +133,7 @@ msgstr "Käynnistä automaattisesti"
 
 #: ui/coverart_browser_prefs.ui.h:9
 msgid "When rhythmbox starts, switch automatically to the coverart browser."
-msgstr ""
+msgstr "Kun Rytmilaatikko käynnistyy, näytä kansikuvaselain oletuksena."
 
 #: ui/coverart_browser_prefs.ui.h:10
 msgid "Use source's custom statusbar."
@@ -370,7 +370,7 @@ msgstr "Näytä kappaleen ominaisuudet"
 
 #: ui/coverart_sidebar.ui.h:1 coverart_browser.py:101
 msgid "CoverArt"
-msgstr ""
+msgstr "Kansikuvitus"
 
 #: ui/coverart_sidebar.ui.h:2 ui/coverart_topbar.ui.h:1
 #: coverart_controllers.py:280
@@ -534,11 +534,11 @@ msgstr "Tuntematon"
 #. define .plugin text strings used for translation
 #: coverart_browser.py:71
 msgid "CoverArt Browser"
-msgstr ""
+msgstr "Kansikuvaselain"
 
 #: coverart_browser.py:72
 msgid "Browse and play your albums through their covers"
-msgstr ""
+msgstr "Selaa ja toista levyjäsi kansikuvien kautta"
 
 #: coverart_browser_source.py:271
 msgid "Tracks"
@@ -551,7 +551,7 @@ msgstr "Kansikuvat"
 #: coverart_browser_source.py:831
 #, python-format
 msgid "Requesting cover for %s - %s..."
-msgstr ""
+msgstr "Etsitään kansikuvaa - %s - %s..."
 
 #: coverart_browser_source.py:920
 #, python-format
