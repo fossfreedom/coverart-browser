@@ -16,9 +16,12 @@ install:
 	install -d $(DESTDIR)$(DATADIR)img
 	install -m 644 img/*.png $(DESTDIR)$(DATADIR)img/
 	install -m 644 img/*.svg $(DESTDIR)$(DATADIR)img/
+	install -m 644 img/*.xml $(DESTDIR)$(DATADIR)img/
 	install -d $(DESTDIR)$(DATADIR)ui
 	install -m 644 ui/*.ui $(DESTDIR)$(DATADIR)ui/
+	install -m 644 ui/*.xml $(DESTDIR)$(DATADIR)ui/
 	install -m 644 coverart_browser.plugin $(DESTDIR)$(SUBDIR)
+	install -m 644 coverart_search_providers.plugin $(DESTDIR)$(SUBDIR)
 	install -d $(DESTDIR)$(DATADIR)tmpl
 	install -m 644 tmpl/* $(DESTDIR)$(DATADIR)tmpl/
 	install -d $(DESTDIR)$(GLIB_DIR)
