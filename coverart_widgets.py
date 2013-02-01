@@ -452,7 +452,7 @@ class ProxyPopupButton(Gtk.Frame):
         if self._delegate:
             self.remove(self._delegate)
         
-        if len(controller.options) < 25:
+        if len(controller.options) < 12:
             self._delegate = PopupButton()
         else:
             self._delegate = ListViewButton()
@@ -471,10 +471,11 @@ class ListWindow(Gtk.Widget):
         self._listwindow = None
         self._liststore = None
         self._listview = None
-        self._handler_id = None
         self._callback = None
+        self.activated = False
         
     def activate(self, orderedlist, plugin, callback):
+        self.activated = False
         if not self._listwindow:
             ui = Gtk.Builder()
             ui.add_from_file(rb.find_plugin_file(plugin,
@@ -486,30 +487,26 @@ class ListWindow(Gtk.Widget):
             self._listview = ui.get_object('listview')
 
         self._callback = callback
-        # we need to carefully control the row changed signal
-        # otherwise on a reactivation, the each menuitem will be
-        # activated causing multiple throws of toggle event
+        # we need to carefully control the changed signal
+        # otherwise on a reactivation, this will be
+        # activated causing multiple throws of changed function
         
-        if self._handler_id:
-            self._listview.disconnect(self._handler_id)
-
         self._liststore.clear()
         for label in orderedlist:
             self._liststore.append([label])
-        self._handler_id = self._listview.connect('cursor-changed',
-            self.view_changed)
+        self.activated = True
         self._listwindow.show_all()
         
     def view_changed(self, view):
-        try:
-            selection = view.get_selection()            
-            liststore, viewiter = selection.get_selected()
-            label = liststore.get_value(viewiter, 0)
-            self._callback(label)
-        except:
-            pass
-            
-        self._listwindow.hide()
+        if self.activated:
+            try:
+                liststore, viewiter = view.get_selected()
+                label = liststore.get_value(viewiter, 0)
+                self._callback(label)
+            except:
+                pass
+                
+            self._listwindow.hide()
 
     def on_cancel(self, *args):
         if self._listwindow:
@@ -517,8 +514,7 @@ class ListWindow(Gtk.Widget):
             
     def on_destroy(self, *args):
         self._listwindow = None
-        self._handler_id = None
-
+        
 class OptionsListViewWidget(OptionsWidget):
 
     # signals
