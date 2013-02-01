@@ -452,7 +452,7 @@ class ProxyPopupButton(Gtk.Frame):
         if self._delegate:
             self.remove(self._delegate)
         
-        if len(controller.options) < 12:
+        if len(controller.options) < 25:
             self._delegate = PopupButton()
         else:
             self._delegate = ListViewButton()
