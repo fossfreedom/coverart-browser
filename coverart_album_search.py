@@ -173,7 +173,8 @@ class CoverAlbumSearch:
         key = RB.ExtDBKey.create_storage("album", self.album)
         key.add_field("artist", self.artists[0])
         parent = self.file.get_parent()
-
+        print parent
+        print "possible mp4"
         try:
             from mutagen.mp4 import MP4
             mp = MP4(search)
@@ -186,7 +187,8 @@ class CoverAlbumSearch:
                 return True 
         except:
             pass
-            
+
+        print "possible flac"
         try:
             #flac 
             from mutagen import File
@@ -199,7 +201,8 @@ class CoverAlbumSearch:
             return True 
         except:
             pass
-                
+
+        print "possible ogg"
         try:
             from mutagen.oggvorbis import OggVorbis
 
@@ -218,10 +221,10 @@ class CoverAlbumSearch:
             return True 
         except:
             pass
-            
-        try:
-            from mutagen.mp3 import MP3, ID3
 
+        print "possible mp3"
+        try:
+            from mutagen.id3 import ID3
             i = ID3(search)
 
             apic = i.getall('APIC')[0]
@@ -232,7 +235,8 @@ class CoverAlbumSearch:
             return True 
         except:
             pass
-            
+
+        print "dont know"
         imagefilename.delete=True
         imagefilename.close()
         

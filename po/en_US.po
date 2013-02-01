@@ -13,81 +13,81 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-17 20:57+0000\n"
-"PO-Revision-Date: 2013-01-13 00:52+0000\n"
+"POT-Creation-Date: 2013-01-12 18:45+0000\n"
+"PO-Revision-Date: 2013-01-19 22:44+0000\n"
 "Last-Translator: fossfreedom <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-01-17 21:48+0000\n"
-"X-Generator: Launchpad (build 16430)\n"
+"X-Launchpad-Export-Date: 2013-01-24 23:24+0000\n"
+"X-Generator: Launchpad (build 16445)\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
+#: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:185
 msgid "Search Options"
 msgstr "Search Options"
 
-#: tmpl/albumartsearch-tmpl.html:187
+#: tmpl/albumartsearch-tmpl.html:185
 msgid "Tip: doubleclick or drag a cover to use it as the album cover"
 msgstr "Tip: doubleclick or drag a cover to use it as the album cover"
 
-#: tmpl/albumartsearch-tmpl.html:189
+#: tmpl/albumartsearch-tmpl.html:187
 msgid "Search Mode"
 msgstr "Search Mode"
 
-#: tmpl/albumartsearch-tmpl.html:191
+#: tmpl/albumartsearch-tmpl.html:189
 msgid "Artist"
 msgstr "Artist"
 
-#: tmpl/albumartsearch-tmpl.html:192
+#: tmpl/albumartsearch-tmpl.html:190
 msgid "Album"
 msgstr "Album"
 
-#: tmpl/albumartsearch-tmpl.html:193
+#: tmpl/albumartsearch-tmpl.html:191
 msgid "Artist and album"
 msgstr "Artist and album"
 
-#: tmpl/albumartsearch-tmpl.html:196
+#: tmpl/albumartsearch-tmpl.html:194
 msgid "Search text"
 msgstr "Search text"
 
-#: tmpl/albumartsearch-tmpl.html:199
+#: tmpl/albumartsearch-tmpl.html:197
 msgid "Search"
 msgstr "Search"
 
-#: tmpl/albumartsearch-tmpl.html:201
+#: tmpl/albumartsearch-tmpl.html:199
 msgid "Image Size"
 msgstr "Image Size"
 
-#: tmpl/albumartsearch-tmpl.html:203
+#: tmpl/albumartsearch-tmpl.html:201
 msgid "Small"
 msgstr "Small"
 
-#: tmpl/albumartsearch-tmpl.html:204
+#: tmpl/albumartsearch-tmpl.html:202
 msgid "Medium"
 msgstr "Medium"
 
-#: tmpl/albumartsearch-tmpl.html:205
+#: tmpl/albumartsearch-tmpl.html:203
 msgid "Large"
 msgstr "Large"
 
-#: tmpl/albumartsearch-tmpl.html:206
+#: tmpl/albumartsearch-tmpl.html:204
 msgid "Extra Large"
 msgstr "Extra Large"
 
-#: tmpl/albumartsearch-tmpl.html:211 coverart_browser_source.py:102
+#: tmpl/albumartsearch-tmpl.html:209 coverart_browser_source.py:103
 msgid "Loading..."
 msgstr "Loading..."
 
-#: tmpl/albumartsearch-tmpl.html:214
+#: tmpl/albumartsearch-tmpl.html:211
 msgid "Show more results"
 msgstr "Show more results"
 
 #: ui/coverart_album_search_prefs.ui.h:1
 msgid "Find CoverArt:"
-msgstr ""
+msgstr "Find CoverArt:"
 
 #: ui/coverart_album_search_prefs.ui.h:2 ui/coverart_browser_prefs.ui.h:41
 msgid "Search for embedded coverart"
@@ -95,7 +95,7 @@ msgstr "Search for embedded coverart"
 
 #: ui/coverart_album_search_prefs.ui.h:3 ui/coverart_browser_prefs.ui.h:42
 msgid "Search for coverart embedded within tracks for an album"
-msgstr ""
+msgstr "Search for coverart embedded within tracks for an album"
 
 #: ui/coverart_album_search_prefs.ui.h:4 ui/coverart_browser_prefs.ui.h:39
 msgid "Search for coverart on DISCOGS"
@@ -103,23 +103,23 @@ msgstr "Search for coverart on DISCOGS"
 
 #: ui/coverart_album_search_prefs.ui.h:5 ui/coverart_browser_prefs.ui.h:40
 msgid "Search for coverart on the internet provider DISCOGS"
-msgstr ""
+msgstr "Search for coverart on the internet provider DISCOGS"
 
 #: ui/coverart_browser_prefs.ui.h:1
 msgid "Above"
-msgstr ""
+msgstr "Above"
 
 #: ui/coverart_browser_prefs.ui.h:2
 msgid "Top Left"
-msgstr ""
+msgstr "Top Left"
 
 #: ui/coverart_browser_prefs.ui.h:3
 msgid "Top Center"
-msgstr ""
+msgstr "Top Center"
 
 #: ui/coverart_browser_prefs.ui.h:4
 msgid "Top Right"
-msgstr ""
+msgstr "Top Right"
 
 #: ui/coverart_browser_prefs.ui.h:5
 msgid "Above Cover View"
@@ -127,15 +127,15 @@ msgstr "Above Cover View"
 
 #: ui/coverart_browser_prefs.ui.h:6
 msgid "Left Sidebar"
-msgstr ""
+msgstr "Left Sidebar"
 
 #: ui/coverart_browser_prefs.ui.h:7
 msgid "Right Sidebar"
-msgstr ""
+msgstr "Right Sidebar"
 
 #: ui/coverart_browser_prefs.ui.h:8
 msgid "Automatically Start"
-msgstr ""
+msgstr "Automatically Start"
 
 #: ui/coverart_browser_prefs.ui.h:9
 msgid "When rhythmbox starts, switch automatically to the coverart browser."
@@ -321,7 +321,7 @@ msgstr ""
 
 #: ui/coverart_browser.ui.h:11
 msgid "Play favourites tracks from this album"
-msgstr "Play favorites tracks from this album"
+msgstr "Play favorite tracks from this album"
 
 #: ui/coverart_browser.ui.h:12
 msgid "Play Favourites"
@@ -537,12 +537,12 @@ msgstr ""
 msgid "children"
 msgstr ""
 
-#: coverart_album.py:1535 coverart_browser_source.py:916
+#: coverart_album.py:1471 coverart_browser_source.py:917
 #, python-format
 msgid "%s by %s"
 msgstr "%s by %s"
 
-#: coverart_album_search.py:278 coverart_album_search.py:279
+#: coverart_album_search.py:269 coverart_album_search.py:270
 msgid "Unknown"
 msgstr ""
 
@@ -555,38 +555,38 @@ msgstr "CoverArt Browser"
 msgid "Browse and play your albums through their covers"
 msgstr ""
 
-#: coverart_browser_source.py:270
+#: coverart_browser_source.py:271
 msgid "Tracks"
 msgstr "Tracks"
 
-#: coverart_browser_source.py:289
+#: coverart_browser_source.py:290
 msgid "Covers"
 msgstr "Covers"
 
-#: coverart_browser_source.py:830
+#: coverart_browser_source.py:831
 #, python-format
 msgid "Requesting cover for %s - %s..."
 msgstr "Requesting cover for %s - %s..."
 
-#: coverart_browser_source.py:919
+#: coverart_browser_source.py:920
 #, python-format
 msgid "%d selected albums "
 msgstr "%d selected albums "
 
-#: coverart_browser_source.py:923
+#: coverart_browser_source.py:924
 msgid " with 1 track"
 msgstr " with 1 track"
 
-#: coverart_browser_source.py:925
+#: coverart_browser_source.py:926
 #, python-format
 msgid " with %d tracks"
 msgstr " with %d tracks"
 
-#: coverart_browser_source.py:928
+#: coverart_browser_source.py:929
 msgid " and a duration of 1 minute"
 msgstr " and a duration of 1 minute"
 
-#: coverart_browser_source.py:930
+#: coverart_browser_source.py:931
 #, python-format
 msgid " and a duration of %d minutes"
 msgstr " and a duration of %d minutes"

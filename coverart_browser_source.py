@@ -31,10 +31,11 @@ from coverart_entryview import CoverArtEntryView as EV
 from coverart_search import CoverSearchPane
 from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import CoverLocale
-from coverart_widgets import PopupButton
-from coverart_widgets import ImageToggleButton
 from coverart_widgets import SearchEntry
 from coverart_widgets import QuickSearchEntry
+from coverart_widgets import ProxyPopupButton
+from coverart_widgets import PopupButton
+from coverart_widgets import ListViewButton
 from coverart_controllers import PlaylistPopupController
 from coverart_controllers import GenrePopupController
 from coverart_controllers import SortPopupController
