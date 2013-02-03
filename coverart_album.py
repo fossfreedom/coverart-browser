@@ -762,27 +762,6 @@ class AlbumsModel(GObject.Object):
         return album_name in self._iters \
             and album_artist in self._iters[album_name]
 
-    def get_from_ext_db_key(self, key):
-        '''
-        Returns the requested album.
-
-        :param key: ext_db_key
-        '''
-        # get the album name and artist
-        name = key.get_field('album')
-        artist = key.get_field('artist')
-
-        # first check if there's a direct match
-        album = self.get(name, artist) if self.contains(name, artist) else None
-
-        if not album:
-            for curr_album in self._albums:
-                if key.matches(curr_album.create_ext_db_key()):
-                    album = curr_album
-                    break
-
-        return album
-
     def get(self, album_name, album_artist):
         '''
         Returns the requested album.
@@ -804,6 +783,30 @@ class AlbumsModel(GObject.Object):
         :param path: `Gtk.TreePath` referencing the album.
         '''
         return self._filtered_store[path][self.columns['album']]
+
+    def get_from_ext_db_key(self, key):
+        '''
+        Returns the requested album.
+
+        :param key: ext_db_key
+        '''
+        # get the album name and artist
+        name = key.get_field('album')
+        artist = key.get_field('artist')
+
+        # first check if there's a direct match
+        album = self.get(name, artist) if self.contains(name, artist) else None
+
+        if not album:
+            # get all the albums with the given name and look for a match
+            albums = [artist['album'] for artist in self._iters[name].values()]
+
+            for curr_album in albums:
+                if key.matches(curr_album.create_ext_db_key()):
+                    album = curr_album
+                    break
+
+        return album
 
     def get_path(self, album):
         return self._filtered_store.convert_child_path_to_path(
@@ -1244,7 +1247,7 @@ class CoverManager(GObject.Object):
 
     def _albumart_added_callback(self, ext_db, key, path, pixbuf):
         print "CoverArtBrowser DEBUG - albumart_added_callback"
-        
+
         # use the name to get the album and update it's cover
         if pixbuf:
             album = self._album_manager.model.get_from_ext_db_key(key)
