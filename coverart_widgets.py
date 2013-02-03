@@ -145,6 +145,7 @@ class OptionsPopupWidget(OptionsWidget):
         self.clear_popupmenu()
         del self._popupmenu
 
+
 class PixbufButton(Gtk.Button):
 
     def __init__(self, *args, **kwargs):
@@ -467,49 +468,47 @@ class ProxyPopupButton(Gtk.Frame):
         self.add(self._delegate)
 
 
-class ListWindow(Gtk.Widget):
-    def __init__(self, *args, **kwargs):
-        super(ListWindow, self).__init__(*args, **kwargs)
+class ListWindow(GObject.Object):
+    # signals
+    __gsignals__ = {
+        'item-selected': (GObject.SIGNAL_RUN_LAST, None, (str,))
+        }
 
-        self._listwindow = None
-        self._liststore = None
-        self._listview = None
-        self._callback = None
-        self.activated = False
+    def __init__(self, plugin):
+        super(ListWindow, self).__init__()
 
-    def activate(self, orderedlist, plugin, callback):
-        self.activated = False
-        if not self._listwindow:
-            ui = Gtk.Builder()
-            ui.add_from_file(rb.find_plugin_file(plugin,
-                'ui/coverart_listwindow.ui'))
-            ui.connect_signals(self)
-            self._listwindow = ui.get_object('listwindow')
-            self._liststore = ui.get_object('liststore')
-            self._listwindow.set_size_request(200, 200)
-            self._listview = ui.get_object('listview')
+        ui = Gtk.Builder()
+        ui.add_from_file(rb.find_plugin_file(plugin,
+            'ui/coverart_listwindow.ui'))
+        ui.connect_signals(self)
+        self._listwindow = ui.get_object('listwindow')
+        self._liststore = ui.get_object('liststore')
+        self._listwindow.set_size_request(200, 200)
+        self._treeview = ui.get_object('treeview')
 
-        self._callback = callback
-        # we need to carefully control the changed signal
-        # otherwise on a reactivation, this will be
-        # activated causing multiple throws of changed function
-
+    def clear_options(self):
         self._liststore.clear()
-        for label in orderedlist:
-            self._liststore.append([label])
-        self.activated = True
+
+    def add_options(self, iterable):
+        for label in iterable:
+            self._liststore.append((label,))
+
+    def show(self):
         self._listwindow.show_all()
 
-    def view_changed(self, view):
-        if self.activated:
-            try:
-                liststore, viewiter = view.get_selected()
-                label = liststore.get_value(viewiter, 0)
-                self._callback(label)
-            except:
-                pass
+    def select(self, index):
+        self._treeview.get_selection().select_iter(self._liststore[index].iter)
+        self._treeview.scroll_to_cell(self._liststore[index].path)
 
-            self._listwindow.hide()
+    def view_changed(self, view):
+        try:
+            liststore, viewiter = view.get_selected()
+            label = liststore.get_value(viewiter, 0)
+            self.emit('item-selected', label)
+        except:
+            pass
+
+        self._listwindow.hide()
 
     def on_cancel(self, *args):
         if self._listwindow:
@@ -529,25 +528,27 @@ class OptionsListViewWidget(OptionsWidget):
     def __init__(self, *args, **kwargs):
         OptionsWidget.__init__(self, *args, **kwargs)
 
-        self._listwindow = ListWindow()
-        self._orderedlist = []
+        self._listwindow = None
+
+    @OptionsWidget.controller.setter
+    def controller(self, controller):
+        if self._listwindow:
+            self._listwindow.disconnect(self._on_item_selected_id)
+
+        self._listwindow = ListWindow(controller.plugin)
+        self._on_item_selected_id = self._listwindow.connect('item-selected',
+            self._fire_item_clicked)
+
+        OptionsWidget.controller.fset(self, controller)
 
     def update_options(self):
-        self.clear_list()
-
-        for key in self._controller.options:
-            self._orderedlist.append(key)
+        self._listwindow.clear_options()
+        self._listwindow.add_options(self._controller.options)
 
     def update_current_key(self):
-        pass
+        self._listwindow.select(self.controller.get_current_key_index())
 
-    def clear_list(self):
-        '''
-        reinitialises/clears the current orderedlist
-        '''
-        self._orderedlist[:] = []
-
-    def _fire_item_clicked(self, list_item):
+    def _fire_item_clicked(self, listview, list_item):
         '''
         Fires the item-clicked signal if the item is selected, passing the
         given value as a parameter. Also updates the current value with the
@@ -564,8 +565,7 @@ class OptionsListViewWidget(OptionsWidget):
         '''
         show the listview window
         '''
-        self._listwindow.activate(self._orderedlist,
-            self._controller.plugin, self._fire_item_clicked)
+        self._listwindow.show()
 
     def do_delete_thyself(self):
         self.clear_list()
