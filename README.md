@@ -1,4 +1,4 @@
-coverart-browser v0.7
+coverart-browser v0.8 (in development)
 ================
 
 Browse your coverart albums in Rhythmbox v2.96 and later
@@ -11,22 +11,9 @@ Browse your coverart albums in Rhythmbox v2.96 and later
 
 Summary: whats new in this release
 
- - find & display embedded covers in MP3, M4A, FLAC & Ogg files
- - Optional coverart search from Discogs internet service
- - new filter by decade
- - configurable shadow effect behind cover display
- - Iconised filter & sort buttons that change icon depending upon option chosen
- - popup menu selection for filters
- - brand new icons designed explicitly to the coverart browser plugin
- - one click open and close track view for a cover
- - plugin translated into many more languages
- - plugin code refactored - much faster to start and display without any flashing effects
- - code has been completely documented using doxygen: http://fossfreedom.github.com/coverart-browser/classes.html
- - covers displayed using rhythmbox natural sort i.e. ascending numbers
- - search filter matches upper & lower-case as well as ignoring characters such as accents
- - display covers for play-queue/music library & playlists from within the coverart-view
- - column header sort in track view
- - revamped plugin preferences
+ - separated coverart search into separate plugin - https://github.com/fossfreedom/coverart-search-providers
+ - 
+
 
 *How it works:*
 
@@ -40,17 +27,17 @@ Summary: whats new in this release
 
 for debian & debian-based distros such as Ubuntu & Mint
 
-    sudo apt-get install git gettext python-mako python-mutagen python-requests python-lxml
+    sudo apt-get install git gettext python-mako python-lxml
 
 for fedora and similar:
 
-    yum install git gettext python-mako python-mutagen python-requests python-lxml
+    yum install git gettext python-mako python-lxml
 
 Then install the plugin:
 
 <pre>
 rm -rf ~/.local/share/rhythmbox/plugins/coverart_browser
-git clone https://github.com/fossfreedom/coverart-browser.git
+git clone https://github.com/fossfreedom/coverart-browser.git -b master
 cd coverart-browser
 sh ./install.sh
 </pre>
@@ -60,35 +47,6 @@ sh ./install.sh
 This is now available in my rhythmbox PPA - installation instructions in this AskUbuntu Q&A:
 
 http://askubuntu.com/questions/147942/how-do-i-install-third-party-rhythmbox-plugins
-
-**IMPORTANT NOTE**
-
-For Ubuntu 12.04 users that have upgraded to Rhythmbox v2.98 using the webupd8 PPA, this version 
-of rhythmbox crashes when used with python plugins such as coverart-browser and replaygain.
-
-It is strongly recommended that you either upgrade to 12.10 where v2.98 works great, or 
-downgrade to v2.96 or v2.97 as per:
- - http://askubuntu.com/questions/201093/how-do-i-downgrade-rhythmbox-v2-98
-
-*installation for embedded coverart*
-
-The plugin makes use of the package `python-mutagen`.  For most distros, the default package is v1.20 which was released in 2010.
-
-Since then, lots of bug fixes have been resolved.  If you know that there is coverart embedded, but is not displayed
-in our plugin, then you should install the very latest package:
-
-<pre>
-hg clone https://code.google.com/p/mutagen/
-</pre>
-
-Then following the instructions in the README (slightly modified)
-
-<pre>
-./setup.py build
-sudo su
-./setup.py install 
-</pre>
-
 
 **Please help out with translating**
 
