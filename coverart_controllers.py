@@ -34,6 +34,7 @@ from coverart_utils import CaseInsensitiveDict
 from datetime import date
 from collections import OrderedDict
 
+
 class OptionsController(GObject.Object):
 
     # properties
@@ -65,6 +66,7 @@ class OptionsController(GObject.Object):
 
     def get_current_description(self):
         return self.current_key
+
 
 class PlaylistPopupController(OptionsController):
 
@@ -123,7 +125,7 @@ class PlaylistPopupController(OptionsController):
                 values[name] = playlist
 
                 still_exists = still_exists or name == self.current_key
-        
+
         self.values = values
         self.options = values.keys()
 
@@ -161,7 +163,7 @@ class GenrePopupController(OptionsController):
 
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
-        
+
         self._album_model = album_model
 
         shell = plugin.shell
@@ -175,7 +177,7 @@ class GenrePopupController(OptionsController):
         genres_model.props.query_model = query
 
         # initial genre
-        self._initial_genre = _('All Genres')#genres_model[0][0]
+        self._initial_genre = _('All Genres')  # genres_model[0][0]
 
         # initialise the button spritesheet and other images
         self._spritesheet = GenreConfiguredSpriteSheet(plugin, 'genre',
@@ -208,7 +210,7 @@ class GenrePopupController(OptionsController):
                 row_num = row_num + 1
             else:
                 genre = row[0]
-                
+
             options.append(genre)
 
             still_exists = still_exists or genre == self.current_key
@@ -247,7 +249,6 @@ class GenrePopupController(OptionsController):
         # 3. then check if we have default genres
         # 4. then check if we have default alternates
 
-        
         # first check if any of the locale genres are a substring
         # of test_genre - check in reverse order so that we
         # test largest strings first (prevents spurious matches with
@@ -255,7 +256,7 @@ class GenrePopupController(OptionsController):
         # N.B. we use RB.search_fold since the strings can be
         # in a mixture of cases, both unicode (normalized or not) and str
         # and as usual python cannot mix and match these types.
-        
+
         for genre in sorted(self._spritesheet.locale_names,
             key=lambda b: (-len(b), b)):
             if RB.search_fold(genre) in RB.search_fold(test_genre):
@@ -263,7 +264,7 @@ class GenrePopupController(OptionsController):
 
         # next check locale alternates
         case_search = CaseInsensitiveDict(self._spritesheet.locale_alternate)
-        
+
         if RB.search_fold(test_genre) in case_search:
             return self._spritesheet[case_search[RB.search_fold(test_genre)]]
 
@@ -320,7 +321,7 @@ class SortPopupController(OptionsController):
 
         self.current_key = self.values.keys()[
             self.values.values().index(value)]
-            
+
     def do_action(self):
         sort = self.values[self.current_key]
 
@@ -331,7 +332,7 @@ class SortPopupController(OptionsController):
         self._album_model.sort(sort)
 
     def get_current_image(self):
-        sort = self.values[self.current_key]        
+        sort = self.values[self.current_key]
         return self._spritesheet[sort]
 
 
@@ -351,30 +352,30 @@ class DecadePopupController(OptionsController):
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
 
         self.values = OrderedDict()
-        
-        self.values[ _('All Decades') ] = [-1, 'All Decades']
+
+        self.values[_('All Decades')] = [-1, 'All Decades']
         #'20s' as in the decade 2010
-        self.values[ _('20s') ] = [2020, '20s']
+        self.values[_('20s')] = [2020, '20s']
         #'10s' as in the decade 2010
-        self.values[ _('10s') ] = [2010, '10s']
+        self.values[_('10s')] = [2010, '10s']
         #'00s' as in the decade 2000
-        self.values[ _('00s') ] = [2000, '00s']
+        self.values[_('00s')] = [2000, '00s']
         #'90s' as in the decade 1990
-        self.values[ _('90s') ] = [1990, '90s']
+        self.values[_('90s')] = [1990, '90s']
         #'80s' as in the decade 1980
-        self.values[ _('80s') ] = [1980, '80s']
+        self.values[_('80s')] = [1980, '80s']
         #'70s' as in the decade 1970
-        self.values[ _('70s') ] = [1970, '70s']
+        self.values[_('70s')] = [1970, '70s']
         #'60s' as in the decade 1960
-        self.values[ _('60s') ] = [1960, '60s']
+        self.values[_('60s')] = [1960, '60s']
         #'50s' as in the decade 1950
-        self.values[ _('50s') ] = [1950, '50s']
+        self.values[_('50s')] = [1950, '50s']
         #'40s' as in the decade 1940
-        self.values[ _('40s') ] = [1940, '40s']
+        self.values[_('40s')] = [1940, '40s']
         #'30s' as in the decade 1930
-        self.values[ _('30s') ] = [1930, '30s']
+        self.values[_('30s')] = [1930, '30s']
         #'Older' as in 'older than the year 1930'
-        self.values[ _('Older') ] = [-1, 'Older']
+        self.values[_('Older')] = [-1, 'Older']
 
         self.options = self.values.keys()
 
@@ -385,7 +386,7 @@ class DecadePopupController(OptionsController):
         # define a initial decade an set the initial key
         self._initial_decade = self.options[0]
         self.current_key = self._initial_decade
-        
+
     def do_action(self):
         if self.current_key == self._initial_decade:
             self._album_model.remove_filter('decade')

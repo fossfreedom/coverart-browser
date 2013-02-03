@@ -25,6 +25,7 @@ from gi.repository import GObject
 
 import rb
 
+
 class OptionsWidget(Gtk.Widget):
     def __init__(self, *args, **kwargs):
         super(OptionsWidget, self).__init__(*args, **kwargs)
@@ -77,7 +78,7 @@ class OptionsPopupWidget(OptionsWidget):
         OptionsWidget.__init__(self, *args, **kwargs)
 
         self._popup_menu = Gtk.Menu()
-        
+
     def update_options(self):
         self.clear_popupmenu()
 
@@ -435,6 +436,7 @@ class EnhancedIconView(Gtk.IconView):
 
         return selected_objects
 
+
 class ProxyPopupButton(Gtk.Frame):
     __gtype_name__ = "ProxyPopupButton"
 
@@ -451,7 +453,7 @@ class ProxyPopupButton(Gtk.Frame):
     def controller(self, controller):
         if self._delegate:
             self.remove(self._delegate)
-        
+
         if len(controller.options) < 12:
             self._delegate = PopupButton()
         else:
@@ -464,6 +466,7 @@ class ProxyPopupButton(Gtk.Frame):
         self._delegate.controller = controller
         self.add(self._delegate)
 
+
 class ListWindow(Gtk.Widget):
     def __init__(self, *args, **kwargs):
         super(ListWindow, self).__init__(*args, **kwargs)
@@ -473,7 +476,7 @@ class ListWindow(Gtk.Widget):
         self._listview = None
         self._callback = None
         self.activated = False
-        
+
     def activate(self, orderedlist, plugin, callback):
         self.activated = False
         if not self._listwindow:
@@ -483,20 +486,20 @@ class ListWindow(Gtk.Widget):
             ui.connect_signals(self)
             self._listwindow = ui.get_object('listwindow')
             self._liststore = ui.get_object('liststore')
-            self._listwindow.set_size_request(200,200)
+            self._listwindow.set_size_request(200, 200)
             self._listview = ui.get_object('listview')
 
         self._callback = callback
         # we need to carefully control the changed signal
         # otherwise on a reactivation, this will be
         # activated causing multiple throws of changed function
-        
+
         self._liststore.clear()
         for label in orderedlist:
             self._liststore.append([label])
         self.activated = True
         self._listwindow.show_all()
-        
+
     def view_changed(self, view):
         if self.activated:
             try:
@@ -505,16 +508,17 @@ class ListWindow(Gtk.Widget):
                 self._callback(label)
             except:
                 pass
-                
+
             self._listwindow.hide()
 
     def on_cancel(self, *args):
         if self._listwindow:
             self._listwindow.hide()
-            
+
     def on_destroy(self, *args):
         self._listwindow = None
-        
+
+
 class OptionsListViewWidget(OptionsWidget):
 
     # signals
@@ -541,16 +545,16 @@ class OptionsListViewWidget(OptionsWidget):
         '''
         reinitialises/clears the current orderedlist
         '''
-        self._orderedlist[:]=[]
-        
+        self._orderedlist[:] = []
+
     def _fire_item_clicked(self, list_item):
         '''
         Fires the item-clicked signal if the item is selected, passing the
         given value as a parameter. Also updates the current value with the
         value of the selected item.
-        '''        
+        '''
         self.emit('item-clicked', list_item)
-        
+
     def do_item_clicked(self, key):
         if self._controller:
             # inform the controller
@@ -562,10 +566,11 @@ class OptionsListViewWidget(OptionsWidget):
         '''
         self._listwindow.activate(self._orderedlist,
             self._controller.plugin, self._fire_item_clicked)
-        
+
     def do_delete_thyself(self):
         self.clear_list()
         del self._listwindow
+
 
 class ListViewButton(PixbufButton, OptionsListViewWidget):
     __gtype_name__ = "ListViewButton"
@@ -595,4 +600,3 @@ class ListViewButton(PixbufButton, OptionsListViewWidget):
         before displaying the popup
         '''
         self.show_popup()
-        
