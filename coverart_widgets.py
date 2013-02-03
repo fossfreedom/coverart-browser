@@ -486,6 +486,9 @@ class ListWindow(GObject.Object):
         self._listwindow.set_size_request(200, 200)
         self._treeview = ui.get_object('treeview')
 
+        # hide the listwindow instead of destroying it
+        self._listwindow.hide_on_delete()
+
     def clear_options(self):
         self._liststore.clear()
 
@@ -511,11 +514,9 @@ class ListWindow(GObject.Object):
         self._listwindow.hide()
 
     def on_cancel(self, *args):
-        if self._listwindow:
-            self._listwindow.hide()
+        self._listwindow.hide()
 
-    def on_destroy(self, *args):
-        self._listwindow = None
+        return True
 
 
 class OptionsListViewWidget(OptionsWidget):

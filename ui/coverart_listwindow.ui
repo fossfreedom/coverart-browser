@@ -8,15 +8,16 @@
     </columns>
   </object>
   <object class="GtkDialog" id="listwindow">
-    <property name="visible">False</property>
     <property name="can_focus">False</property>
     <property name="resizable">False</property>
     <property name="window_position">mouse</property>
     <property name="type_hint">dialog</property>
+    <property name="skip_taskbar_hint">True</property>
+    <property name="skip_pager_hint">True</property>
     <property name="decorated">False</property>
     <property name="deletable">False</property>
     <signal name="close" handler="on_cancel" swapped="no"/>
-    <signal name="destroy" handler="on_destroy" swapped="no"/>
+    <signal name="delete-event" handler="on_cancel" swapped="no"/>
     <signal name="focus-out-event" handler="on_cancel" swapped="no"/>
     <signal name="response" handler="on_cancel" swapped="no"/>
     <child internal-child="vbox">
