@@ -156,7 +156,7 @@ class CoverArtBrowserSource(RB.Source):
         uim.insert_action_group(self.actiongroup)
         uim.insert_action_group(self.favourite_actiongroup)
 
-        self.coversearchtimer = ttimer(30, -1, self.update_request_status_bar,
+        self.coversearchtimer = ttimer(40, -1, self.update_request_status_bar,
             None)
 
         # connect properties signals
@@ -825,7 +825,8 @@ class CoverArtBrowserSource(RB.Source):
         statusbar.
         '''
         print "CoverArtBrowser DEBUG - update_request_status_bar"
-
+        print album
+        
         if album:
             Gdk.threads_enter()
             self.request_statusbar.set_text(
