@@ -61,7 +61,7 @@
 
                 }
 
-                if (searcher.results.length < 8) {
+                if (!searcher.results || searcher.results.length < 8) {
                     // no more results, hide the link
                     moreLink.style.display="none";
                 }
@@ -126,9 +126,9 @@
                             google.search.ImageSearch.IMAGESIZE_EXTRA_LARGE;
                     }
 			
-		imageSearch.setRestriction(
-		    google.search.ImageSearch.RESTRICT_IMAGESIZE,
-		    image_size);				
+		            imageSearch.setRestriction(
+		                google.search.ImageSearch.RESTRICT_IMAGESIZE,
+		                image_size);
                 }
 
                 clear = true;
@@ -209,8 +209,8 @@
         </div>
         <hr/>
         <div id="content">${_("Loading...")}</div>
-        <div id="branding"  style="float: left;"></div><br />
-        <a id="more" href="#" onclick="moreResults(); return false;">
-            ${_("Show more results")}</a>
+        <a id="more" href="#"  style="float: left;"
+            onclick="moreResults(); return false;">${_("Show more results")}</a>
+        <div id="branding" style="float: right;"></div>
     </body>
 </html>

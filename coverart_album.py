@@ -755,7 +755,7 @@ class AlbumsModel(GObject.Object):
 
     def contains(self, album_name, album_artist):
         '''
-        Indicates if the model contains an especific album.
+        Indicates if the model contains a specific album.
 
         :param album_name: `str` name of the album.
         '''
@@ -783,6 +783,30 @@ class AlbumsModel(GObject.Object):
         :param path: `Gtk.TreePath` referencing the album.
         '''
         return self._filtered_store[path][self.columns['album']]
+
+    def get_from_ext_db_key(self, key):
+        '''
+        Returns the requested album.
+
+        :param key: ext_db_key
+        '''
+        # get the album name and artist
+        name = key.get_field('album')
+        artist = key.get_field('artist')
+
+        # first check if there's a direct match
+        album = self.get(name, artist) if self.contains(name, artist) else None
+
+        if not album:
+            # get all the albums with the given name and look for a match
+            albums = [artist['album'] for artist in self._iters[name].values()]
+
+            for curr_album in albums:
+                if key.matches(curr_album.create_ext_db_key()):
+                    album = curr_album
+                    break
+
+        return album
 
     def get_path(self, album):
         return self._filtered_store.convert_child_path_to_path(
@@ -1223,16 +1247,13 @@ class CoverManager(GObject.Object):
 
     def _albumart_added_callback(self, ext_db, key, path, pixbuf):
         print "CoverArtBrowser DEBUG - albumart_added_callback"
-        # get the album name
-        album = key.get_field('album')
-        artist = key.get_field('artist')
 
         # use the name to get the album and update it's cover
-        if pixbuf and self._album_manager.model.contains(album,
-            artist):
-            album = self._album_manager.model.get(album, artist)
+        if pixbuf:
+            album = self._album_manager.model.get_from_ext_db_key(key)
 
-            album.cover = self._create_cover(pixbuf)
+            if album:
+                album.cover = self._create_cover(pixbuf)
 
         print "CoverArtBrowser DEBUG - end albumart_added_callback"
 
@@ -1339,11 +1360,11 @@ class CoverManager(GObject.Object):
         '''
         # create a key and request the cover
         key = album.create_ext_db_key()
-
+        print "about to request"
         provides = self._cover_db.request(key, callback, data)
-
+        print "return from request"
         if not provides:
-            # in case there is no provider, call the callback inmediatly
+            # in case there is no provider, call the callback immediately
             callback(data)
 
     def update_cover(self, album, pixbuf=None, uri=None):

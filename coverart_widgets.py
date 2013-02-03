@@ -25,68 +25,8 @@ from gi.repository import GObject
 
 import rb
 
-class ListWindow(Gtk.Widget):
-    def __init__(self, *args, **kwargs):
-        super(ListWindow, self).__init__(*args, **kwargs)
-
-        self.listwindow = None
-        self.liststore = None
-        self.listview = None
-        self.handler_id = None
-        
-    def activate(self, popupmenu, plugin):
-        if not self.listwindow:
-            ui = Gtk.Builder()
-            ui.add_from_file(rb.find_plugin_file(plugin,
-                'ui/coverart_listwindow.ui'))
-            ui.connect_signals(self)
-            self.listwindow = ui.get_object('listwindow')
-            self.liststore = ui.get_object('liststore')
-            self.listwindow.set_size_request(200,200)
-            self.listview = ui.get_object('listview')
-
-        # we need to carefully control the row changed signal
-        # otherwise on a reactivation, the each menuitem will be
-        # activated causing multiple throws of toggle event
-        
-        if self.handler_id:
-            self.listview.disconnect(self.handler_id)
-            
-        self.liststore.clear()
-        
-        for menuitem in popupmenu.get_children():
-            self.liststore.append([ menuitem.get_label(),
-                menuitem, menuitem.get_active(), '>' ])
-
-        self.handler_id = self.listview.connect('cursor-changed',
-            self.view_changed)
-        
-        self.listwindow.show_all()
-
-    def view_changed(self, view):
-        try:
-            selection = view.get_selection()            
-            liststore, viewiter = selection.get_selected()
-
-            radio = liststore.get_value(viewiter, 1)
-            radio.set_active(True)
-            radio.emit('toggled')
-        except:
-            pass
-            
-        self.listwindow.hide()
-
-    def on_cancel(self, *args):
-        if self.listwindow:
-            self.listwindow.hide()
-            #self.listwindow = None
-            
-    def on_destroy(self, *args):
-        self.listwindow = None
-        self.handler_id = None
 
 class OptionsWidget(Gtk.Widget):
-
     def __init__(self, *args, **kwargs):
         super(OptionsWidget, self).__init__(*args, **kwargs)
         self._controller = None
@@ -138,7 +78,6 @@ class OptionsPopupWidget(OptionsWidget):
         OptionsWidget.__init__(self, *args, **kwargs)
 
         self._popup_menu = Gtk.Menu()
-        self._listwindow = ListWindow()
 
     def update_options(self):
         self.clear_popupmenu()
@@ -198,20 +137,13 @@ class OptionsPopupWidget(OptionsWidget):
     def show_popup(self):
         '''
         show the current popup menu
-        except where the popup menu contains more than 25 items
-        then we display an equivalent list window to choose from
         '''
-        if len(self.get_menuitems()) > 25:
-            self._listwindow.activate(self._popup_menu,
-                self._controller.plugin)
-        else:
-            self._popup_menu.popup(None, None, None, None, 0,
+        self._popup_menu.popup(None, None, None, None, 0,
                 Gtk.get_current_event_time())
 
     def do_delete_thyself(self):
         self.clear_popupmenu()
         del self._popupmenu
-        del self._listwindow
 
 
 class PixbufButton(Gtk.Button):
@@ -439,3 +371,233 @@ class QuickSearchEntry(Gtk.Frame):
             self._add_hide_on_timeout()
 
         return arrow
+
+
+class EnhancedIconView(Gtk.IconView):
+    __gtype_name__ = "EnhancedIconView"
+
+    object_column = GObject.property(type=int, default=-1)
+
+    def __init__(self, *args, **kwargs):
+        super(EnhancedIconView, self).__init__(*args, **kwargs)
+
+        self._last_width = 0
+        self._popup = None
+
+    @property
+    def popup(self):
+        return self._popup
+
+    @popup.setter
+    def popup(self, popup):
+        self._popup = popup
+
+    def do_size_allocate(self, *args):
+        width = self.get_allocated_width()
+
+        if width != self.last_width:
+            # don't need to reacommodate if the bottom pane is being resized
+            self.covers_view.set_columns(0)
+            self.covers_view.set_columns(-1)
+
+            # update width
+            self.last_width = width
+
+    def do_button_press_event(self, event):
+        x = int(event.x)
+        y = int(event.y)
+        current_path = self.get_path_at_pos(x, y)
+
+        if event.type is Gdk.EventType.BUTTON_PRESS and current_path and \
+            event.triggers_context_menu():
+            # if the item being clicked isn't selected, we should clear
+            # the current selection
+            if len(self.get_selected_objects()) > 0 and \
+                not self.path_is_selected(current_path):
+                self.unselect_all()
+
+            self.select_path(current_path)
+            self.set_cursor(current_path, None, False)
+
+            if self.popup:
+                self.popup_menu.popup(None, None, None, None, event.button,
+                    event.time)
+
+    def get_selected_objects(self):
+        selected_items = self.get_selected_items()
+
+        if not self.object_column:
+            # if no object_column is setted, return the selected rows
+            return selected_items
+
+        selected_objects = []
+
+        for selected in selected_items:
+            selected_objects.append(self.model[selected][self.object_column])
+
+        return selected_objects
+
+
+class ProxyPopupButton(Gtk.Frame):
+    __gtype_name__ = "ProxyPopupButton"
+
+    def __init__(self, *args, **kwargs):
+        super(ProxyPopupButton, self).__init__(*args, **kwargs)
+        self._delegate = None
+
+    @property
+    def controller(self):
+        if self._delegate:
+            return self._delegate.controller
+
+    @controller.setter
+    def controller(self, controller):
+        if self._delegate:
+            self.remove(self._delegate)
+
+        if len(controller.options) < 12:
+            self._delegate = PopupButton()
+        else:
+            self._delegate = ListViewButton()
+
+        self._delegate.set_visible(True)
+        self._delegate.set_relief(Gtk.ReliefStyle.HALF)
+        self._delegate.set_has_tooltip(True)
+
+        self._delegate.controller = controller
+        self.add(self._delegate)
+
+
+class ListWindow(GObject.Object):
+    # signals
+    __gsignals__ = {
+        'item-selected': (GObject.SIGNAL_RUN_LAST, None, (str,))
+        }
+
+    def __init__(self, plugin):
+        super(ListWindow, self).__init__()
+
+        ui = Gtk.Builder()
+        ui.add_from_file(rb.find_plugin_file(plugin,
+            'ui/coverart_listwindow.ui'))
+        ui.connect_signals(self)
+        self._listwindow = ui.get_object('listwindow')
+        self._liststore = ui.get_object('liststore')
+        self._listwindow.set_size_request(200, 200)
+        self._treeview = ui.get_object('treeview')
+
+        # hide the listwindow instead of destroying it
+        self._listwindow.hide_on_delete()
+
+    def clear_options(self):
+        self._liststore.clear()
+
+    def add_options(self, iterable):
+        for label in iterable:
+            self._liststore.append((label,))
+
+    def show(self):
+        self._listwindow.show_all()
+
+    def select(self, index):
+        self._treeview.get_selection().select_iter(self._liststore[index].iter)
+        self._treeview.scroll_to_cell(self._liststore[index].path)
+
+    def view_changed(self, view):
+        try:
+            liststore, viewiter = view.get_selected()
+            label = liststore.get_value(viewiter, 0)
+            self.emit('item-selected', label)
+        except:
+            pass
+
+        self._listwindow.hide()
+
+    def on_cancel(self, *args):
+        self._listwindow.hide()
+
+        return True
+
+
+class OptionsListViewWidget(OptionsWidget):
+
+    # signals
+    __gsignals__ = {
+        'item-clicked': (GObject.SIGNAL_RUN_LAST, None, (str,))
+        }
+
+    def __init__(self, *args, **kwargs):
+        OptionsWidget.__init__(self, *args, **kwargs)
+
+        self._listwindow = None
+
+    @OptionsWidget.controller.setter
+    def controller(self, controller):
+        if self._listwindow:
+            self._listwindow.disconnect(self._on_item_selected_id)
+
+        self._listwindow = ListWindow(controller.plugin)
+        self._on_item_selected_id = self._listwindow.connect('item-selected',
+            self._fire_item_clicked)
+
+        OptionsWidget.controller.fset(self, controller)
+
+    def update_options(self):
+        self._listwindow.clear_options()
+        self._listwindow.add_options(self._controller.options)
+
+    def update_current_key(self):
+        self._listwindow.select(self.controller.get_current_key_index())
+
+    def _fire_item_clicked(self, listview, list_item):
+        '''
+        Fires the item-clicked signal if the item is selected, passing the
+        given value as a parameter. Also updates the current value with the
+        value of the selected item.
+        '''
+        self.emit('item-clicked', list_item)
+
+    def do_item_clicked(self, key):
+        if self._controller:
+            # inform the controller
+            self._controller.option_selected(key)
+
+    def show_popup(self):
+        '''
+        show the listview window
+        '''
+        self._listwindow.show()
+
+    def do_delete_thyself(self):
+        self.clear_list()
+        del self._listwindow
+
+
+class ListViewButton(PixbufButton, OptionsListViewWidget):
+    __gtype_name__ = "ListViewButton"
+
+    # signals
+    __gsignals__ = {
+        'item-clicked': (GObject.SIGNAL_RUN_LAST, None, (str,))
+        }
+
+    def __init__(self, *args, **kwargs):
+        '''
+        Initializes the button.
+        '''
+        PixbufButton.__init__(self, *args, **kwargs)
+        OptionsListViewWidget.__init__(self, *args, **kwargs)
+
+    def update_current_key(self):
+        super(ListViewButton, self).update_current_key()
+
+        # update the current image and tooltip
+        self.set_image(self._controller.get_current_image())
+        self.set_tooltip_text(self._controller.get_current_description())
+
+    def do_clicked(self):
+        '''
+        when button is clicked, update the popup with the sorting options
+        before displaying the popup
+        '''
+        self.show_popup()

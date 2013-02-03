@@ -101,20 +101,5 @@
             <summary>Genre filter visibility</summary>
             <description>Determines if the genre filter should be visible.</description>
         </key>
-        <key type="b" name="embedded-search">
-            <default>true</default>
-            <summary>Search coverart embedded in files</summary>
-            <description>Search coverart embedded in files.</description>
-        </key>
-        <key type="b" name="discogs-search">
-            <default>false</default>
-            <summary>Search for coverart on DISCOGS</summary>
-            <description>Search coverart on the internet service DISCOGS.</description>
-        </key>
-        <key type="b" name="coverartarchive-search">
-            <default>false</default>
-            <summary>Search for coverart on CoverartArchive.org</summary>
-            <description>Search coverart on the internet service CoverartArchive.</description>
-        </key>
     </schema>
 </schemalist>

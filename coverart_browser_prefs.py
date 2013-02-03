@@ -130,10 +130,7 @@ class GSetting:
                 SORT_ORDER='sort-order',
                 RATING='rating-threshold',
                 AUTOSTART='autostart',
-                TOOLBAR_POS='toolbar-pos',
-                EMBEDDED_SEARCH='embedded-search',
-                DISCOGS_SEARCH='discogs-search',
-                COVERARTARCHIVE_SEARCH='coverartarchive-search')
+                TOOLBAR_POS='toolbar-pos')
 
             self.setting = {}
 
@@ -275,14 +272,6 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         autostart = builder.get_object('autostart_checkbox')
         self.settings.bind(gs.PluginKey.AUTOSTART,
             autostart, 'active', Gio.SettingsBindFlags.DEFAULT)
-
-        embedded_search = builder.get_object('embedded_checkbox')
-        self.settings.bind(gs.PluginKey.EMBEDDED_SEARCH,
-            embedded_search, 'active', Gio.SettingsBindFlags.DEFAULT)
-
-        discogs_search = builder.get_object('discogs_checkbox')
-        self.settings.bind(gs.PluginKey.DISCOGS_SEARCH,
-            discogs_search, 'active', Gio.SettingsBindFlags.DEFAULT)
 
         toolbar_pos_combo = builder.get_object('show_in_combobox')
         renderer = Gtk.CellRendererText()

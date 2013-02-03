@@ -31,10 +31,11 @@ from coverart_entryview import CoverArtEntryView as EV
 from coverart_search import CoverSearchPane
 from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import CoverLocale
-from coverart_widgets import PopupButton
-from coverart_widgets import ImageToggleButton
 from coverart_widgets import SearchEntry
 from coverart_widgets import QuickSearchEntry
+from coverart_widgets import ProxyPopupButton
+from coverart_widgets import PopupButton
+from coverart_widgets import ListViewButton
 from coverart_controllers import PlaylistPopupController
 from coverart_controllers import GenrePopupController
 from coverart_controllers import SortPopupController
@@ -44,6 +45,7 @@ from coverart_controllers import AlbumSearchEntryController
 from coverart_controllers import AlbumQuickSearchController
 from stars import ReactiveStar
 from coverart_timer import ttimer
+
 
 class CoverArtBrowserSource(RB.Source):
     '''
@@ -154,7 +156,7 @@ class CoverArtBrowserSource(RB.Source):
         uim.insert_action_group(self.actiongroup)
         uim.insert_action_group(self.favourite_actiongroup)
 
-        self.coversearchtimer = ttimer(30, -1, self.update_request_status_bar,
+        self.coversearchtimer = ttimer(40, -1, self.update_request_status_bar,
             None)
 
         # connect properties signals
@@ -823,7 +825,8 @@ class CoverArtBrowserSource(RB.Source):
         statusbar.
         '''
         print "CoverArtBrowser DEBUG - update_request_status_bar"
-
+        print album
+        
         if album:
             Gdk.threads_enter()
             self.request_statusbar.set_text(
@@ -1097,10 +1100,11 @@ class CoverArtBrowserSource(RB.Source):
 
         return cls.instance
 
+
 class Toolbar(GObject.Object):
     def __init__(self, plugin, mainbox, controllers):
         super(Toolbar, self).__init__()
-                
+
         self.plugin = plugin
         self.mainbox = mainbox
         cl = CoverLocale()
@@ -1133,64 +1137,70 @@ class Toolbar(GObject.Object):
 
         self.builder = builder.get_object('main_box')
 
+
 class TopToolbar(Toolbar):
     ui = 'ui/coverart_topbar.ui'
     name = 'main'
-        
+
     def hide(self):
         if self.builder.get_visible():
             self.builder.hide()
-            
+
     def show(self):
         self.mainbox.pack_start(self.builder, False, True, 0)
         self.mainbox.reorder_child(self.builder, 0)
         self.builder.show()
 
+
 class LeftToolbar(Toolbar):
     ui = 'ui/coverart_sidebar.ui'
     name = 'left'
-    
+
     def hide(self):
         if self.builder.get_visible():
             self.builder.hide()
             self.plugin.shell.remove_widget(self.builder,
                 RB.ShellUILocation.SIDEBAR)
-            
+
     def show(self):
         self.plugin.shell.add_widget(self.builder,
             RB.ShellUILocation.SIDEBAR, expand=False, fill=False)
         self.builder.show()
 
+
 class RightToolbar(Toolbar):
     ui = 'ui/coverart_sidebar.ui'
     name = 'right'
-        
+
     def hide(self):
         if self.builder.get_visible():
             self.builder.hide()
             self.plugin.shell.remove_widget(self.builder,
                 RB.ShellUILocation.RIGHT_SIDEBAR)
-            
+
     def show(self):
         self.plugin.shell.add_widget(self.builder,
             RB.ShellUILocation.RIGHT_SIDEBAR, expand=False, fill=False)
         self.builder.show()
- 
+
+
 class ToolbarManager(GObject.Object):
     # properties
     toolbar_pos = GObject.property(type=str, default=TopToolbar.name)
 
     def __init__(self, plugin, main_box, album_model):
         super(ToolbarManager, self).__init__()
-        
+
         # create the buttons controllers
         controllers = self._create_controllers(plugin, album_model)
 
         # initialize toolbars
         self._bars = {}
         self._bars[TopToolbar.name] = TopToolbar(plugin, main_box, controllers)
-        self._bars[LeftToolbar.name] = LeftToolbar(plugin, main_box, controllers)
-        self._bars[RightToolbar.name] = RightToolbar(plugin, main_box, controllers)
+        self._bars[LeftToolbar.name] = LeftToolbar(plugin, main_box,
+            controllers)
+        self._bars[RightToolbar.name] = RightToolbar(plugin, main_box,
+            controllers)
 
         self.last_toolbar_pos = None
         # connect signal and properties
@@ -1223,9 +1233,9 @@ class ToolbarManager(GObject.Object):
     def _on_notify_toolbar_pos(self, *args):
         if self.last_toolbar_pos:
             self._bars[self.last_toolbar_pos].hide()
-        
+
         self._bars[self.toolbar_pos].show()
-        
+
         self.last_toolbar_pos = self.toolbar_pos
 
 GObject.type_register(CoverArtBrowserSource)
