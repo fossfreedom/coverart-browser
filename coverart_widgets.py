@@ -467,18 +467,25 @@ class ProxyPopupButton(Gtk.Frame):
         self._delegate.controller = controller
         self.add(self._delegate)
 
+class OptionsListViewWidget(OptionsWidget):
 
-class ListWindow(GObject.Object):
     # signals
     __gsignals__ = {
-        'item-selected': (GObject.SIGNAL_RUN_LAST, None, (str,))
+        'item-clicked': (GObject.SIGNAL_RUN_LAST, None, (str,))
         }
 
-    def __init__(self, plugin):
-        super(ListWindow, self).__init__()
+    def __init__(self, *args, **kwargs):
+        OptionsWidget.__init__(self, *args, **kwargs)
+
+        self._listwindow = None
+        
+    @OptionsWidget.controller.setter
+    def controller(self, controller):
+        if self._listwindow:
+            self._listwindow.disconnect(self._on_item_selected_id)
 
         ui = Gtk.Builder()
-        ui.add_from_file(rb.find_plugin_file(plugin,
+        ui.add_from_file(rb.find_plugin_file(controller.plugin,
             'ui/coverart_listwindow.ui'))
         ui.connect_signals(self)
         self._listwindow = ui.get_object('listwindow')
@@ -488,6 +495,26 @@ class ListWindow(GObject.Object):
 
         # hide the listwindow instead of destroying it
         self._listwindow.hide_on_delete()
+
+        OptionsWidget.controller.fset(self, controller)
+
+    def update_options(self):
+        self.clear_options()
+        self.add_options(self._controller.options)
+
+    def update_current_key(self):
+        self.select(self.controller.get_current_key_index())
+
+    def do_item_clicked(self, key):
+        if self._controller:
+            # inform the controller
+            self._controller.option_selected(key)
+
+    def show_popup(self):
+        '''
+        show the listview window
+        '''
+        self.show()
 
     def clear_options(self):
         self._liststore.clear()
@@ -507,7 +534,7 @@ class ListWindow(GObject.Object):
         try:
             liststore, viewiter = view.get_selected()
             label = liststore.get_value(viewiter, 0)
-            self.emit('item-selected', label)
+            self.emit('item-clicked', label)
         except:
             pass
 
@@ -515,63 +542,11 @@ class ListWindow(GObject.Object):
 
     def on_cancel(self, *args):
         self._listwindow.hide()
-
         return True
-
-
-class OptionsListViewWidget(OptionsWidget):
-
-    # signals
-    __gsignals__ = {
-        'item-clicked': (GObject.SIGNAL_RUN_LAST, None, (str,))
-        }
-
-    def __init__(self, *args, **kwargs):
-        OptionsWidget.__init__(self, *args, **kwargs)
-
-        self._listwindow = None
-
-    @OptionsWidget.controller.setter
-    def controller(self, controller):
-        if self._listwindow:
-            self._listwindow.disconnect(self._on_item_selected_id)
-
-        self._listwindow = ListWindow(controller.plugin)
-        self._on_item_selected_id = self._listwindow.connect('item-selected',
-            self._fire_item_clicked)
-
-        OptionsWidget.controller.fset(self, controller)
-
-    def update_options(self):
-        self._listwindow.clear_options()
-        self._listwindow.add_options(self._controller.options)
-
-    def update_current_key(self):
-        self._listwindow.select(self.controller.get_current_key_index())
-
-    def _fire_item_clicked(self, listview, list_item):
-        '''
-        Fires the item-clicked signal if the item is selected, passing the
-        given value as a parameter. Also updates the current value with the
-        value of the selected item.
-        '''
-        self.emit('item-clicked', list_item)
-
-    def do_item_clicked(self, key):
-        if self._controller:
-            # inform the controller
-            self._controller.option_selected(key)
-
-    def show_popup(self):
-        '''
-        show the listview window
-        '''
-        self._listwindow.show()
 
     def do_delete_thyself(self):
         self.clear_list()
         del self._listwindow
-
 
 class ListViewButton(PixbufButton, OptionsListViewWidget):
     __gtype_name__ = "ListViewButton"
