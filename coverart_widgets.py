@@ -467,6 +467,7 @@ class ProxyPopupButton(Gtk.Frame):
         self._delegate.controller = controller
         self.add(self._delegate)
 
+
 class OptionsListViewWidget(OptionsWidget):
 
     # signals
@@ -487,9 +488,6 @@ class OptionsListViewWidget(OptionsWidget):
         self._liststore = ui.get_object('liststore')
         self._listwindow.set_size_request(200, 200)
         self._treeview = ui.get_object('treeview')
-
-        # hide the listwindow instead of destroying it
-        self._listwindow.hide_on_delete()
 
         OptionsWidget.controller.fset(self, controller)
 
@@ -539,6 +537,7 @@ class OptionsListViewWidget(OptionsWidget):
     def do_delete_thyself(self):
         self.clear_list()
         del self._listwindow
+
 
 class ListViewButton(PixbufButton, OptionsListViewWidget):
     __gtype_name__ = "ListViewButton"
