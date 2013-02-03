@@ -477,13 +477,8 @@ class OptionsListViewWidget(OptionsWidget):
     def __init__(self, *args, **kwargs):
         OptionsWidget.__init__(self, *args, **kwargs)
 
-        self._listwindow = None
-        
     @OptionsWidget.controller.setter
     def controller(self, controller):
-        if self._listwindow:
-            self._listwindow.disconnect(self._on_item_selected_id)
-
         ui = Gtk.Builder()
         ui.add_from_file(rb.find_plugin_file(controller.plugin,
             'ui/coverart_listwindow.ui'))
@@ -514,7 +509,7 @@ class OptionsListViewWidget(OptionsWidget):
         '''
         show the listview window
         '''
-        self.show()
+        self._listwindow.show_all()
 
     def clear_options(self):
         self._liststore.clear()
@@ -522,9 +517,6 @@ class OptionsListViewWidget(OptionsWidget):
     def add_options(self, iterable):
         for label in iterable:
             self._liststore.append((label,))
-
-    def show(self):
-        self._listwindow.show_all()
 
     def select(self, index):
         self._treeview.get_selection().select_iter(self._liststore[index].iter)
