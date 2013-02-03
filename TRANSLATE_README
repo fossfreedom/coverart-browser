@@ -5,14 +5,14 @@
 # Section 1: Developers Only
 #+++++++++++++++++++++++++++
 #for each ui file run the following to create translation .h files
-intltool-extract --type=gettext/glade ui/coverart_album_search_prefs.ui
-intltool-extract --type=gettext/glade ui/coverart_browser_prefs.ui
-intltool-extract --type=gettext/glade ui/coverart_browser.ui
-intltool-extract --type=gettext/glade ui/coverart_entryview.ui
-intltool-extract --type=gettext/glade ui/coverart_sidebar.ui
-intltool-extract --type=gettext/glade ui/coverart_topbar.ui
-intltool-extract --type=gettext/glade ui/toolbar_popup.ui
-intltool-extract --type=gettext/xml img/popups.xml.in
+intltool-extract --local --type=gettext/glade ui/coverart_album_search_prefs.ui
+intltool-extract --local --type=gettext/glade ui/coverart_browser_prefs.ui
+intltool-extract --local --type=gettext/glade ui/coverart_browser.ui
+intltool-extract --local --type=gettext/glade ui/coverart_entryview.ui
+intltool-extract --local --type=gettext/glade ui/coverart_sidebar.ui
+intltool-extract --local --type=gettext/glade ui/coverart_topbar.ui
+intltool-extract --local --type=gettext/xml img/popups.xml.in
+intltool-extract --local --type=gettext/glade ../coverart_search_providers/ui/coverart_search_providers_prefs.ui
 
 #create a new template file called po/package.pot by running below
 
@@ -24,17 +24,16 @@ xgettext -c -a -j -f po/files_to_be_translated -o po/coverartbrowser.pot
 
 # po/py_files_to_be_translated are all the python files to be translated
 xgettext -c -j -f po/py_files_to_be_translated -o po/coverartbrowser.pot
-
-#now combine the pot files
-cd po
+xgettext -D ../coverart_search_providers -c -j -f ./po/provider_py_files_to_be_translated -p ./po -o coverartbrowser.pot
 
 #now update existing po's with changes in the template file package.pot 
+cd po
 ./update_all_po.sh
 
 #cleanup
 cd ..
+rm -rf tmp
 rm img/*.h
-rm ui/*.h
 
 # Section 2: Translators
 #+++++++++++++++++++++++

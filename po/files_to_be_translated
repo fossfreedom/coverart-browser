@@ -1,7 +1,7 @@
-ui/coverart_album_search_prefs.ui.h
-ui/coverart_browser_prefs.ui.h
-ui/coverart_browser.ui.h
-ui/coverart_entryview.ui.h
-ui/coverart_sidebar.ui.h
-ui/coverart_topbar.ui.h
-img/popups.xml.in.h
+tmp/coverart_browser_prefs.ui.h
+tmp/coverart_browser.ui.h
+tmp/coverart_entryview.ui.h
+tmp/coverart_sidebar.ui.h
+tmp/coverart_topbar.ui.h
+tmp/popups.xml.in.h
+tmp/coverart_search_providers_prefs.ui.h
