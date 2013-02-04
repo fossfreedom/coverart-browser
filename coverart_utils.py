@@ -348,7 +348,8 @@ def idle_iterator(func):
 class SpriteSheet(object):
 
     def __init__(self, image, icon_width, icon_height, x_spacing, y_spacing,
-        x_start, y_start, alpha_color=None, size=None):
+        x_start, y_start, across_dimension, down_dimension, 
+        alpha_color=None, size=None):
         # load the image
         base_image = GdkPixbuf.Pixbuf.new_from_file(image)
 
@@ -360,9 +361,8 @@ class SpriteSheet(object):
 
         self._sprites = []
 
-        for y in range(0, ((base_image.get_height() - y_start) / delta_y) + 1):
-            for x in range(0, ((base_image.get_width() - x_start) / delta_x)
-                + 1):
+        for y in range(0, down_dimension):
+            for x in range(0, across_dimension):
                 sprite = GdkPixbuf.Pixbuf.new(GdkPixbuf.Colorspace.RGB, True,
                     8, icon_width, icon_height)
 
@@ -397,6 +397,8 @@ class ConfiguredSpriteSheet(object):
         y_spacing = int(self.root.xpath(base + 'spacing')[0].attrib['y'])
         x_start = int(self.root.xpath(base + 'start-position')[0].attrib['x'])
         y_start = int(self.root.xpath(base + 'start-position')[0].attrib['y'])
+        across_dimension = int(self.root.xpath(base + 'dimension')[0].attrib['across'])
+        down_dimension = int(self.root.xpath(base + 'dimension')[0].attrib['down'])
 
         try:
             alpha_color = map(int,
@@ -425,7 +427,8 @@ class ConfiguredSpriteSheet(object):
                 self.locale_names[elem.text]=elem.attrib['name']
 
         self._sheet = SpriteSheet(image, icon_width, icon_height, x_spacing,
-            y_spacing, x_start, y_start, alpha_color, size)
+            y_spacing, x_start, y_start, across_dimension, down_dimension, 
+            alpha_color, size)
 
     def __len__(self):
         return len(self._sheet)

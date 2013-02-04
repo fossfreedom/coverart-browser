@@ -531,6 +531,7 @@
     <spritesheet name="genre">
         <image>genre_sprites.png</image>
         <icon width="75" height="75"/>
+        <dimension down="7" across="5"/>
         <spacing y="50" x="73"/>
         <start-position y="0" x="0"/>
         <alpha>255 255 255</alpha>
@@ -538,18 +539,21 @@
     <spritesheet name="sort">
         <image>sort_sprites.png</image>
         <icon width="140" height="134"/>
+        <dimension down="1" across="4"/>
         <spacing y="100" x="34"/>
         <start-position y="0" x="0"/>
     </spritesheet>
     <spritesheet name="playlist">
         <image>playlist_sprites.png</image>
         <icon width="140" height="134"/>
+        <dimension down="1" across="4"/>
         <spacing y="100" x="28"/>
         <start-position y="0" x="0"/>
     </spritesheet>
     <spritesheet name="decade">
         <image>decade_sprites.png</image>
         <icon width="133" height="122"/>
+        <dimension down="3" across="4"/>
         <spacing y="66" x="28"/>
         <start-position y="38" x="40"/>
     </spritesheet>
