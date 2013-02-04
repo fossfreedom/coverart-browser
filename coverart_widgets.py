@@ -468,57 +468,6 @@ class ProxyPopupButton(Gtk.Frame):
         self.add(self._delegate)
 
 
-class ListWindow(GObject.Object):
-    # signals
-    __gsignals__ = {
-        'item-selected': (GObject.SIGNAL_RUN_LAST, None, (str,))
-        }
-
-    def __init__(self, plugin):
-        super(ListWindow, self).__init__()
-
-        ui = Gtk.Builder()
-        ui.add_from_file(rb.find_plugin_file(plugin,
-            'ui/coverart_listwindow.ui'))
-        ui.connect_signals(self)
-        self._listwindow = ui.get_object('listwindow')
-        self._liststore = ui.get_object('liststore')
-        self._listwindow.set_size_request(200, 200)
-        self._treeview = ui.get_object('treeview')
-
-        # hide the listwindow instead of destroying it
-        self._listwindow.hide_on_delete()
-
-    def clear_options(self):
-        self._liststore.clear()
-
-    def add_options(self, iterable):
-        for label in iterable:
-            self._liststore.append((label,))
-
-    def show(self):
-        self._listwindow.show_all()
-
-    def select(self, index):
-        self._treeview.get_selection().select_iter(self._liststore[index].iter)
-        self._treeview.scroll_to_cell(self._liststore[index].path)
-
-    def view_changed(self, view):
-        try:
-            liststore, viewiter = view.get_selected()
-            label = liststore.get_value(viewiter, 0)
-            self.emit('item-selected', label)
-        except:
-            pass
-
-        self._listwindow.hide()
-
-    def on_cancel(self, *args):
-        self._listwindow.hide()
-
-        return True
-
-
 class OptionsListViewWidget(OptionsWidget):
 
     # signals
@@ -529,33 +478,25 @@ class OptionsListViewWidget(OptionsWidget):
     def __init__(self, *args, **kwargs):
         OptionsWidget.__init__(self, *args, **kwargs)
 
-        self._listwindow = None
-
     @OptionsWidget.controller.setter
     def controller(self, controller):
-        if self._listwindow:
-            self._listwindow.disconnect(self._on_item_selected_id)
-
-        self._listwindow = ListWindow(controller.plugin)
-        self._on_item_selected_id = self._listwindow.connect('item-selected',
-            self._fire_item_clicked)
+        ui = Gtk.Builder()
+        ui.add_from_file(rb.find_plugin_file(controller.plugin,
+            'ui/coverart_listwindow.ui'))
+        ui.connect_signals(self)
+        self._listwindow = ui.get_object('listwindow')
+        self._liststore = ui.get_object('liststore')
+        self._listwindow.set_size_request(200, 200)
+        self._treeview = ui.get_object('treeview')
 
         OptionsWidget.controller.fset(self, controller)
 
     def update_options(self):
-        self._listwindow.clear_options()
-        self._listwindow.add_options(self._controller.options)
+        self.clear_options()
+        self.add_options(self._controller.options)
 
     def update_current_key(self):
-        self._listwindow.select(self.controller.get_current_key_index())
-
-    def _fire_item_clicked(self, listview, list_item):
-        '''
-        Fires the item-clicked signal if the item is selected, passing the
-        given value as a parameter. Also updates the current value with the
-        value of the selected item.
-        '''
-        self.emit('item-clicked', list_item)
+        self.select(self.controller.get_current_key_index())
 
     def do_item_clicked(self, key):
         if self._controller:
@@ -566,7 +507,32 @@ class OptionsListViewWidget(OptionsWidget):
         '''
         show the listview window
         '''
-        self._listwindow.show()
+        self._listwindow.show_all()
+
+    def clear_options(self):
+        self._liststore.clear()
+
+    def add_options(self, iterable):
+        for label in iterable:
+            self._liststore.append((label,))
+
+    def select(self, index):
+        self._treeview.get_selection().select_iter(self._liststore[index].iter)
+        self._treeview.scroll_to_cell(self._liststore[index].path)
+
+    def view_changed(self, view):
+        try:
+            liststore, viewiter = view.get_selected()
+            label = liststore.get_value(viewiter, 0)
+            self.emit('item-clicked', label)
+        except:
+            pass
+
+        self._listwindow.hide()
+
+    def on_cancel(self, *args):
+        self._listwindow.hide()
+        return True
 
     def do_delete_thyself(self):
         self.clear_list()
