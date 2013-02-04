@@ -46,7 +46,7 @@ Note - to fully use the CoverArt Browser plugin we strongly recommend also insta
 
  - https://github.com/fossfreedom/coverart-search-providers
 
-*For Ubuntu 12.04 & 12.10:*
+*For Ubuntu 12.04 & 12.10:* --- NOT YET - INSTRUCTIONS BELOW ONLY VALID ON RELEASE OF v0.8
 
 This is now available in my rhythmbox PPA - installation instructions in this AskUbuntu Q&A:
 
