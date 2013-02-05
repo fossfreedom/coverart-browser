@@ -22,8 +22,11 @@ from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GLib
 from gi.repository import GObject
+from gi.repository import Gio
 
 import rb
+
+from coverart_browser_prefs import GSetting
 
 
 class OptionsWidget(Gtk.Widget):
@@ -148,8 +151,18 @@ class OptionsPopupWidget(OptionsWidget):
 
 class PixbufButton(Gtk.Button):
 
+    button_relief = GObject.property(type=bool, default=False)
+
     def __init__(self, *args, **kwargs):
         super(PixbufButton, self).__init__(*args, **kwargs)
+
+        gs = GSetting()
+        setting = gs.get_setting(gs.Path.PLUGIN)
+        setting.bind(gs.PluginKey.BUTTON_RELIEF, self,
+            'button_relief', Gio.SettingsBindFlags.GET)
+
+        self.connect('notify::button-relief',
+            self.on_notify_button_relief)
 
     def set_image(self, pixbuf):
         image = self.get_image()
@@ -160,6 +173,13 @@ class PixbufButton(Gtk.Button):
 
         self.get_image().set_from_pixbuf(pixbuf)
 
+        self.on_notify_button_relief()
+
+    def on_notify_button_relief(self, *arg):
+        if self.button_relief:
+            self.set_relief(Gtk.ReliefStyle.NONE)
+        else:
+            self.set_relief(Gtk.ReliefStyle.HALF)
 
 class PopupButton(PixbufButton, OptionsPopupWidget):
     __gtype_name__ = "PopupButton"

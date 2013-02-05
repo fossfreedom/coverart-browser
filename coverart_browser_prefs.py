@@ -130,7 +130,8 @@ class GSetting:
                 SORT_ORDER='sort-order',
                 RATING='rating-threshold',
                 AUTOSTART='autostart',
-                TOOLBAR_POS='toolbar-pos')
+                TOOLBAR_POS='toolbar-pos',
+                BUTTON_RELIEF='button-relief')
 
             self.setting = {}
 
@@ -286,6 +287,10 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         light_source_combo.add_attribute(renderer, 'text', 1)
         self.settings.bind(gs.PluginKey.SHADOW_IMAGE, light_source_combo,
             'active-id', Gio.SettingsBindFlags.DEFAULT)
+
+        button_relief = builder.get_object('button_relief_checkbox')
+        self.settings.bind(gs.PluginKey.BUTTON_RELIEF, button_relief, 'active',
+            Gio.SettingsBindFlags.DEFAULT)
 
         # return the dialog
         return builder.get_object('main_notebook')

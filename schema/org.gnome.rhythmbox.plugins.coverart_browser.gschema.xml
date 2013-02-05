@@ -101,5 +101,10 @@
             <summary>Genre filter visibility</summary>
             <description>Determines if the genre filter should be visible.</description>
         </key>
+        <key type="b" name="button-relief">
+            <default>false</default>
+            <summary>Button Style</summary>
+            <description>True for a flat button style.</description>
+        </key>
     </schema>
 </schemalist>

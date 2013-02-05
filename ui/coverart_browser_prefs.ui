@@ -49,28 +49,6 @@
       </row>
     </data>
   </object>
-  <object class="GtkListStore" id="show_in_model">
-    <columns>
-      <!-- column-name id -->
-      <column type="gchararray"/>
-      <!-- column-name text -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0">main</col>
-        <col id="1" translatable="yes">Above Cover View</col>
-      </row>
-      <row>
-        <col id="0">left</col>
-        <col id="1" translatable="yes">Left Sidebar</col>
-      </row>
-      <row>
-        <col id="0">right</col>
-        <col id="1" translatable="yes">Right Sidebar</col>
-      </row>
-    </data>
-  </object>
   <object class="GtkNotebook" id="main_notebook">
     <property name="visible">True</property>
     <property name="can_focus">True</property>
@@ -524,7 +502,7 @@
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkBox" id="tollbar_position_box">
+          <object class="GtkBox" id="toolbar_position_box">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="tooltip_text" translatable="yes">Where the toolbar should be positioned</property>
@@ -594,7 +572,24 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">5</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="button_relief_checkbox">
+            <property name="label" translatable="yes">Flat-button style</property>
+            <property name="use_action_appearance">False</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="use_action_appearance">False</property>
+            <property name="xalign">0</property>
+            <property name="draw_indicator">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">10</property>
           </packing>
         </child>
       </object>
@@ -613,5 +608,27 @@
         <property name="tab_fill">False</property>
       </packing>
     </child>
+  </object>
+  <object class="GtkListStore" id="show_in_model">
+    <columns>
+      <!-- column-name id -->
+      <column type="gchararray"/>
+      <!-- column-name text -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">main</col>
+        <col id="1" translatable="yes">Above Cover View</col>
+      </row>
+      <row>
+        <col id="0">left</col>
+        <col id="1" translatable="yes">Left Sidebar</col>
+      </row>
+      <row>
+        <col id="0">right</col>
+        <col id="1" translatable="yes">Right Sidebar</col>
+      </row>
+    </data>
   </object>
 </interface>
