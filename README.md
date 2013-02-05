@@ -42,11 +42,17 @@ cd coverart-browser
 sh ./install.sh
 </pre>
 
-*For Ubuntu 12.04 & 12.10:*
+Note - to fully use the CoverArt Browser plugin we strongly recommend also installing the following and disabling the default *artsearch* plugin (CoverArt Search)
+
+ - https://github.com/fossfreedom/coverart-search-providers
+
+*For Ubuntu 12.04 & 12.10:* --- NOT YET - INSTRUCTIONS BELOW ONLY VALID ON RELEASE OF v0.8
 
 This is now available in my rhythmbox PPA - installation instructions in this AskUbuntu Q&A:
 
 http://askubuntu.com/questions/147942/how-do-i-install-third-party-rhythmbox-plugins
+
+Note - installing the package `coverart-browser` will also install `coverart-search-providers`
 
 **Please help out with translating**
 
