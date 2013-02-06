@@ -538,21 +538,15 @@ class EnhancedIconView(Gtk.IconView):
     def __init__(self, *args, **kwargs):
         super(EnhancedIconView, self).__init__(*args, **kwargs)
 
-        self._last_width = 0
         self.popup = None
 
     def do_size_allocate(self, allocation):
-        Gtk.IconView.do_size_allocate(self, allocation)
-
-        width = self.get_allocated_width()
-
-        if width != self._last_width:
-            # don't need to reacommodate if the bottom pane is being resized
+        if self.get_allocated_width() != allocation.width:
+            # don't need to reacomodate if it's a vertical change
             self.set_columns(0)
             self.set_columns(-1)
 
-            # update width
-            self._last_width = width
+        Gtk.IconView.do_size_allocate(self, allocation)
 
     def do_button_press_event(self, event):
         Gtk.IconView.do_button_press_event(self, event)
