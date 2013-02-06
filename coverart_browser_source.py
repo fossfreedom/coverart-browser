@@ -510,23 +510,6 @@ class CoverArtBrowserSource(RB.Source):
 
         print "CoverArtBrowser DEBUG - end show_properties_menu_item_callback"
 
-    def update_iconview_callback(self, scrolled, *args):
-        '''
-        Callback called by the cover view when its view port gets resized.
-        It forces the cover_view to redraw it's contents to fill the available
-        space.
-        '''
-        width = scrolled.get_allocated_width()
-
-        if width != self.last_width:
-            # don't need to reacommodate if the bottom pane is being resized
-            print "CoverArtBrowser DEBUG - update_iconview_callback"
-            self.covers_view.set_columns(0)
-            self.covers_view.set_columns(-1)
-
-            # update width
-            self.last_width = width
-
     def mouseclick_callback(self, iconview, event):
         '''
         Callback called when the user clicks somewhere on the cover_view.
