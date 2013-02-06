@@ -555,6 +555,8 @@ class EnhancedIconView(Gtk.IconView):
             self._last_width = width
 
     def do_button_press_event(self, event):
+        Gtk.IconView.do_button_press_event(self, event)
+
         x = int(event.x)
         y = int(event.y)
         current_path = self.get_path_at_pos(x, y)
