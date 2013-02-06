@@ -539,14 +539,23 @@ class EnhancedIconView(Gtk.IconView):
         super(EnhancedIconView, self).__init__(*args, **kwargs)
 
         self.popup = None
+        self._reallocate_count = 0
 
     def do_size_allocate(self, allocation):
         if self.get_allocated_width() != allocation.width:
             # don't need to reacomodate if it's a vertical change
-            self.set_columns(0)
-            self.set_columns(-1)
+            self._reallocate_count += 1
+            Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 500,
+                        self._reallocate_columns, None)
 
         Gtk.IconView.do_size_allocate(self, allocation)
+
+    def _reallocate_columns(self, *args):
+        self._reallocate_count -= 1
+
+        if not self._reallocate_count:
+            self.set_columns(0)
+            self.set_columns(-1)
 
     def do_button_press_event(self, event):
         Gtk.IconView.do_button_press_event(self, event)
