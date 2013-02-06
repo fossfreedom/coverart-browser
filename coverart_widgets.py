@@ -528,52 +528,53 @@ class ListViewButton(PixbufButton, OptionsListViewWidget):
 class EnhancedIconView(Gtk.IconView):
     __gtype_name__ = "EnhancedIconView"
 
+    # signals
+    __gsignals__ = {
+        'item-clicked': (GObject.SIGNAL_RUN_LAST, None, (object,))
+        }
+
     object_column = GObject.property(type=int, default=-1)
 
     def __init__(self, *args, **kwargs):
         super(EnhancedIconView, self).__init__(*args, **kwargs)
 
         self._last_width = 0
-        self._popup = None
+        self.popup = None
 
-    @property
-    def popup(self):
-        return self._popup
+    def do_size_allocate(self, allocation):
+        Gtk.IconView.do_size_allocate(self, allocation)
 
-    @popup.setter
-    def popup(self, popup):
-        self._popup = popup
-
-    def do_size_allocate(self, *args):
         width = self.get_allocated_width()
 
-        if width != self.last_width:
+        if width != self._last_width:
             # don't need to reacommodate if the bottom pane is being resized
-            self.covers_view.set_columns(0)
-            self.covers_view.set_columns(-1)
+            self.set_columns(0)
+            self.set_columns(-1)
 
             # update width
-            self.last_width = width
+            self._last_width = width
 
     def do_button_press_event(self, event):
         x = int(event.x)
         y = int(event.y)
         current_path = self.get_path_at_pos(x, y)
 
-        if event.type is Gdk.EventType.BUTTON_PRESS and current_path and \
-            event.triggers_context_menu():
-            # if the item being clicked isn't selected, we should clear
-            # the current selection
-            if len(self.get_selected_objects()) > 0 and \
-                not self.path_is_selected(current_path):
-                self.unselect_all()
+        if event.type is Gdk.EventType.BUTTON_PRESS and current_path:
+            if event.triggers_context_menu():
+                # if the item being clicked isn't selected, we should clear
+                # the current selection
+                if len(self.get_selected_objects()) > 0 and \
+                    not self.path_is_selected(current_path):
+                    self.unselect_all()
 
-            self.select_path(current_path)
-            self.set_cursor(current_path, None, False)
+                self.select_path(current_path)
+                self.set_cursor(current_path, None, False)
 
-            if self.popup:
-                self.popup_menu.popup(None, None, None, None, event.button,
-                    event.time)
+                if self.popup:
+                    self.popup_menu.popup(None, None, None, None, event.button,
+                        event.time)
+            else:
+                self.emit('item-clicked', current_path)
 
     def get_selected_objects(self):
         selected_items = self.get_selected_items()
