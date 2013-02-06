@@ -481,8 +481,8 @@ class ProxyPopupButton(Gtk.Frame):
             self._delegate = ListViewButton()
 
         self._delegate.set_visible(True)
-        self._delegate.set_relief(Gtk.ReliefStyle.HALF)
         self._delegate.set_has_tooltip(True)
+        self._delegate.set_can_focus(False)
 
         self._delegate.controller = controller
         self.add(self._delegate)
@@ -523,10 +523,30 @@ class OptionsListViewWidget(OptionsWidget):
             # inform the controller
             self._controller.option_selected(key)
 
-    def show_popup(self):
+    def show_popup(self, x, y):
         '''
-        show the listview window
+        show the listview window either above or below the controlling
+        widget depending upon where the cursor position is relative to the
+        screen
+        params - x & y is the cursor position
         '''
+        screen = self.get_window().get_screen()
+        scr_height = screen.get_height()
+        scr_width = screen.get_width()
+        
+        list_width, list_height = self._listwindow.get_size()
+
+        if x + list_width > scr_width:
+            pos_x = x - list_width
+        else:
+            pos_x = x
+            
+        if y + list_height > scr_height:
+            pos_y = y - list_height
+        else:
+            pos_y = y 
+        
+        self._listwindow.move(pos_x, pos_y)
         self._listwindow.show_all()
 
     def clear_options(self):
@@ -574,16 +594,19 @@ class ListViewButton(PixbufButton, OptionsListViewWidget):
         PixbufButton.__init__(self, *args, **kwargs)
         OptionsListViewWidget.__init__(self, *args, **kwargs)
 
+        #self.connect('button-press-event', self._clicked)
+
     def update_current_key(self):
         super(ListViewButton, self).update_current_key()
 
         # update the current image and tooltip
         self.set_image(self._controller.get_current_image())
         self.set_tooltip_text(self._controller.get_current_description())
-
-    def do_clicked(self):
+        
+    def do_button_press_event(self, event):
         '''
         when button is clicked, update the popup with the sorting options
         before displaying the popup
         '''
-        self.show_popup()
+        self.show_popup(int(event.x_root), int(event.y_root))
+        
