@@ -237,6 +237,9 @@ class CoverArtBrowserSource(RB.Source):
         '''
         print "CoverArtBrowser DEBUG - _setup_source"
 
+        # setup iconview popup
+        self.covers_view.popup = self.popup_menu
+
         # setup iconview drag&drop support
         self.covers_view.enable_model_drag_dest([], Gdk.DragAction.COPY)
         self.covers_view.drag_dest_add_image_targets()
@@ -510,53 +513,31 @@ class CoverArtBrowserSource(RB.Source):
 
         print "CoverArtBrowser DEBUG - end show_properties_menu_item_callback"
 
-    def mouseclick_callback(self, iconview, event):
+    def item_clicked_callback(self, iconview, event, path):
         '''
         Callback called when the user clicks somewhere on the cover_view.
-        If it's a right click, it shows a popup showing different actions to
-        perform with the selected album.
+        Along with _timeout_expand, takes care of showing/hiding the bottom
+        pane after a second click on a selected album.
         '''
-        print "CoverArtBrowser DEBUG - mouseclick_callback()"
-        x = int(event.x)
-        y = int(event.y)
-        pthinfo = iconview.get_path_at_pos(x, y)
+        # to expand the entry view
+        ctrl = event.state & Gdk.ModifierType.CONTROL_MASK
+        shift = event.state & Gdk.ModifierType.SHIFT_MASK
 
-        if event.type is Gdk.EventType.BUTTON_PRESS and pthinfo:
-            if event.triggers_context_menu():
-                # to show the context menu
-                # if the item being clicked isn't selected, we should clear
-                # the current selection
-                if len(iconview.get_selected_items()) > 0 and \
-                    not iconview.path_is_selected(pthinfo):
-                    iconview.unselect_all()
+        self.click_count += 1
 
-                iconview.select_path(pthinfo)
-                iconview.set_cursor(pthinfo, None, False)
-
-                self.popup_menu.popup(None, None, None, None, event.button,
-                    event.time)
-
-            else:
-                # to expand the entry view
-                ctrl = event.state & Gdk.ModifierType.CONTROL_MASK
-                shift = event.state & Gdk.ModifierType.SHIFT_MASK
-
-                self.click_count += 1
-
-                if not ctrl and not shift and self.click_count == 1:
-                    album = self.album_manager.model.get_from_path(pthinfo)\
-                        if pthinfo else None
-                    Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
-                        self._timeout_expand, album)
-
-        print "CoverArtBrowser DEBUG - end mouseclick_callback()"
+        if not ctrl and not shift and self.click_count == 1:
+            album = self.album_manager.model.get_from_path(path)\
+                if path else None
+            Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
+                self._timeout_expand, album)
 
     def _timeout_expand(self, album):
         '''
         helper function - if the entry is manually expanded
         then if necessary scroll the view to the last selected album
         '''
-        print "CoverArtBrowser DEBUG - _timeout_expand"
+        print album
+        print self.last_selected_album
 
         if album and self.click_count == 1 \
             and self.last_selected_album is album:
