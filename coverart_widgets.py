@@ -591,6 +591,7 @@ class EnhancedIconView(Gtk.IconView):
         selected_objects = []
 
         for selected in selected_items:
-            selected_objects.append(self.model[selected][self.object_column])
+            selected_objects.append(
+                self.get_model()[selected][self.object_column])
 
         return selected_objects
