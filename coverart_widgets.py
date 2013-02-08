@@ -530,7 +530,7 @@ class EnhancedIconView(Gtk.IconView):
 
     # signals
     __gsignals__ = {
-        'item-clicked': (GObject.SIGNAL_RUN_LAST, None, (object,))
+        'item-clicked': (GObject.SIGNAL_RUN_LAST, None, (object, object))
         }
 
     object_column = GObject.property(type=int, default=-1)
@@ -558,8 +558,6 @@ class EnhancedIconView(Gtk.IconView):
             self.set_columns(-1)
 
     def do_button_press_event(self, event):
-        Gtk.IconView.do_button_press_event(self, event)
-
         x = int(event.x)
         y = int(event.y)
         current_path = self.get_path_at_pos(x, y)
@@ -576,10 +574,12 @@ class EnhancedIconView(Gtk.IconView):
                 self.set_cursor(current_path, None, False)
 
                 if self.popup:
-                    self.popup_menu.popup(None, None, None, None, event.button,
+                    self.popup.popup(None, None, None, None, event.button,
                         event.time)
             else:
-                self.emit('item-clicked', current_path)
+                self.emit('item-clicked', event, current_path)
+
+        Gtk.IconView.do_button_press_event(self, event)
 
     def get_selected_objects(self):
         selected_items = self.get_selected_items()
