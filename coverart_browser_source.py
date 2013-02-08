@@ -374,9 +374,6 @@ class CoverArtBrowserSource(RB.Source):
         helper function - if the entry is manually expanded
         then if necessary scroll the view to the last selected album
         '''
-        print album
-        print self.last_selected_album
-
         if album and self.click_count == 1 \
             and self.last_selected_album is album:
             # check if it's a second or third click on the album and expand
@@ -385,7 +382,7 @@ class CoverArtBrowserSource(RB.Source):
                 not self.bottom_expander.get_expanded())
 
         # update the selected album
-        selected = self.get_selected_albums()
+        selected = self.covers_view.get_selected_objects()
         self.last_selected_album = selected[0] if len(selected) == 1 else None
 
         # clear the click count
@@ -524,7 +521,7 @@ class CoverArtBrowserSource(RB.Source):
         by him gets modified in some way.
         '''
         album = model.get_from_path(path)
-        selected = self.get_selected_albums()
+        selected = self.covers_view.get_selected_objects()
 
         if album in selected:
             # update the selection since it may have changed
@@ -562,18 +559,6 @@ class CoverArtBrowserSource(RB.Source):
 
         return True
 
-    def get_selected_albums(self):
-        '''
-        Retrieves the currently selected albums on the cover_view.
-        '''
-        selected_albums = []
-
-        for selected in self.covers_view.get_selected_items():
-            selected_albums.append(self.album_manager.model.get_from_path(
-                selected))
-
-        return selected_albums
-
     def play_selected_album(self, favourites=False):
         '''
         Utilitary method that plays all entries from an album into the play
@@ -603,7 +588,7 @@ class CoverArtBrowserSource(RB.Source):
         '''
         print "CoverArtBrowser DEBUG - queue_selected_album"
 
-        selected_albums = self.get_selected_albums()
+        selected_albums = self.covers_view.get_selected_objects()
         threshold = self.rating_threshold if favourites else 0
 
         for album in selected_albums:
@@ -749,7 +734,7 @@ class CoverArtBrowserSource(RB.Source):
         album cover
         '''
         print "CoverArtBrowser DEBUG - cover_search_menu_item_callback()"
-        selected_albums = self.get_selected_albums()
+        selected_albums = self.covers_view.get_selected_objects()
 
         self.request_status_box.show_all()
         self.source_menu_search_all_item.set_sensitive(False)
@@ -833,7 +818,7 @@ class CoverArtBrowserSource(RB.Source):
         # clear the entry view
         self.entry_view.clear()
 
-        selected = self.get_selected_albums()
+        selected = self.covers_view.get_selected_objects()
 
         cover_search_pane_visible = self.notebook.get_current_page() == \
             self.notebook.page_num(self.cover_search_pane)
@@ -1024,7 +1009,7 @@ class CoverArtBrowserSource(RB.Source):
         print "CoverArtBrowser DEBUG - notebook_switch_page_callback"
 
         if page_num == 1:
-            selected_albums = self.get_selected_albums()
+            selected_albums = self.covers_view.get_selected_objects()
 
             if selected_albums:
                 self.cover_search_pane.do_search(selected_albums[0])
@@ -1039,7 +1024,7 @@ class CoverArtBrowserSource(RB.Source):
 
         rating = widget.get_rating()
 
-        for album in self.get_selected_albums():
+        for album in self.covers_view.get_selected_objects():
             album.rating = rating
 
         print "CoverArtBrowser DEBUG - end rating_changed_callback"
