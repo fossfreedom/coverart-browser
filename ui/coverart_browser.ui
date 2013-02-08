@@ -43,7 +43,6 @@
                     <signal name="item-clicked" handler="item_clicked_callback" swapped="no"/>
                     <signal name="selection-changed" handler="selectionchanged_callback" swapped="no"/>
                     <signal name="item-activated" handler="item_activated_callback" swapped="no"/>
-                    <signal name="size-allocate" handler="update_iconview_callback" swapped="no"/>
                   </object>
                 </child>
               </object>
