@@ -386,45 +386,6 @@ class CoverArtBrowserSource(RB.Source):
 
         print "CoverArtBrowser DEBUG - end on_notify_rating_threshold"
 
-    def on_notify_toolbar_pos(self, *args):
-        '''
-        Callback called when the toolbar position is changed in
-        preferences
-        '''
-        print "CoverArtBrowser DEBUG - on_notify_toolbar_pos"
-        return
-
-        if self.last_toolbar_pos == 'left':
-            self.shell.remove_widget(self.sidebar, RB.ShellUILocation.SIDEBAR)
-
-        if self.last_toolbar_pos == 'right':
-            self.shell.remove_widget(self.sidebar,
-                RB.ShellUILocation.RIGHT_SIDEBAR)
-
-        if self.toolbar_pos == 'main':
-            self._toolbar(self.ui)
-            self.toolbar_box.set_visible(True)
-
-        if self.toolbar_pos == 'left':
-            self.toolbar_box.set_visible(False)
-            self._toolbar(self.si)
-            self.shell.add_widget(self.sidebar,
-                        RB.ShellUILocation.SIDEBAR,
-                        expand=False,
-                        fill=False)
-
-        if self.toolbar_pos == 'right':
-            self.toolbar_box.set_visible(False)
-            self._toolbar(self.si)
-            self.shell.add_widget(self.sidebar,
-                        RB.ShellUILocation.RIGHT_SIDEBAR,
-                        expand=False,
-                        fill=False)
-
-        self.last_toolbar_pos = self.toolbar_pos
-
-        print "CoverArtBrowser DEBUG - end on_notify_toolbar_pos"
-
     def on_notify_display_bottom_enabled(self, *args):
         '''
         Callback called when the option 'display tracks' is enabled or disabled
@@ -826,7 +787,7 @@ class CoverArtBrowserSource(RB.Source):
         '''
         print "CoverArtBrowser DEBUG - update_request_status_bar"
         print album
-        
+
         if album:
             Gdk.threads_enter()
             self.request_statusbar.set_text(
