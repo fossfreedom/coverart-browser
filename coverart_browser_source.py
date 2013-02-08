@@ -361,9 +361,9 @@ class CoverArtBrowserSource(RB.Source):
         ctrl = event.state & Gdk.ModifierType.CONTROL_MASK
         shift = event.state & Gdk.ModifierType.SHIFT_MASK
 
-        self.click_count += 1
+        self.click_count += 1 if not ctrl and not shift else 0
 
-        if not ctrl and not shift and self.click_count == 1:
+        if self.click_count == 1:
             album = self.album_manager.model.get_from_path(path)\
                 if path else None
             Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
