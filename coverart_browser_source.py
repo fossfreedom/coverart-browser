@@ -43,7 +43,6 @@ from coverart_controllers import SortOrderToggleController
 from coverart_controllers import AlbumSearchEntryController
 from coverart_controllers import AlbumQuickSearchController
 from stars import ReactiveStar
-from coverart_timer import ttimer
 
 
 class CoverArtBrowserSource(RB.Source):
@@ -154,9 +153,6 @@ class CoverArtBrowserSource(RB.Source):
         uim = self.shell.props.ui_manager
         uim.insert_action_group(self.actiongroup)
         uim.insert_action_group(self.favourite_actiongroup)
-
-        self.coversearchtimer = ttimer(40, -1, self.update_request_status_bar,
-            None)
 
         # connect properties signals
         self.connect('notify::custom-statusbar-enabled',
@@ -701,8 +697,6 @@ class CoverArtBrowserSource(RB.Source):
         self.source_menu_search_all_item.set_sensitive(False)
         self.cover_search_menu_item.set_sensitive(False)
 
-        self.coversearchtimer.Start()
-
         self.album_manager.cover_man.search_covers(selected_albums,
             self.update_request_status_bar)
 
@@ -719,8 +713,6 @@ class CoverArtBrowserSource(RB.Source):
         self.source_menu_search_all_item.set_sensitive(False)
         self.cover_search_menu_item.set_sensitive(False)
 
-        self.coversearchtimer.Start()
-
         self.album_manager.cover_man.search_covers(
             callback=self.update_request_status_bar)
 
@@ -733,25 +725,16 @@ class CoverArtBrowserSource(RB.Source):
         statusbar.
         '''
         print "CoverArtBrowser DEBUG - update_request_status_bar"
-        print album
 
         if album:
-            Gdk.threads_enter()
             self.request_statusbar.set_text(
                 (_('Requesting cover for %s - %s...') % (album.name,
                 album.artist)).decode('UTF-8'))
-            Gdk.threads_leave()
-            if self.coversearchtimer:
-                self.coversearchtimer.Stop()
-                self.coversearchtimer.Start()
         else:
-            Gdk.threads_enter()
             self.request_status_box.hide()
             self.source_menu_search_all_item.set_sensitive(True)
             self.cover_search_menu_item.set_sensitive(True)
             self.request_cancel_button.set_sensitive(True)
-            self.coversearchtimer.Stop()
-            Gdk.threads_leave()
         print "CoverArtBrowser DEBUG - end update_request_status_bar"
 
     def cancel_request_callback(self, _):

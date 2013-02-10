@@ -1303,13 +1303,21 @@ class CoverManager(GObject.Object):
         if albums is None:
             albums = self._album_manager.model.get_all()
 
+        def search_timed_out(*args):
+            if not self._cover_request_timed_out:
+                search_next_cover(args[-1])
+
+            self._cover_request_timed_out -= 1
+
         def search_next_cover(*args):
             # unpack the data
             iterator, callback = args[-1]
 
             # if the operation was canceled, break the recursion
             if self._cancel_cover_request:
-                del self._cancel_cover_request
+                # this is to deceive the timeout routine
+                args[-1][0] = iter([])
+
                 callback(None)
                 return
 
@@ -1325,25 +1333,29 @@ class CoverManager(GObject.Object):
                 callback(album)
 
                 # request the cover for the next album
-                self.search_cover_for_album(album, search_next_cover,
-                    (iterator, callback))
+                self.search_cover_for_album(album, search_next_cover, args[-1])
+
+                # check to avoid timeout
+                # start the timeout
+                self._cover_request_timed_out += 1
+                Gdk.threads_add_timeout_seconds(GLib.PRIORITY_DEFAULT_IDLE, 40,
+                    search_timed_out, args[-1])
             except StopIteration:
                 # inform we finished
                 callback(None)
             except Exception as e:
                 print "Error while searching covers: " + str(e)
 
+        # start the cover search
+        self._cover_request_timed_out = -1
         self._cancel_cover_request = False
-        search_next_cover((iter(albums), callback))
+        search_next_cover([iter(albums), callback])
 
     def cancel_cover_request(self):
         '''
         Cancel the current cover request, if there is one running.
         '''
-        try:
-            self._cancel_cover_request = True
-        except:
-            pass
+        self._cancel_cover_request = True
 
     def search_cover_for_album(self, album, callback=lambda *_: None,
         data=None):
@@ -1360,9 +1372,8 @@ class CoverManager(GObject.Object):
         '''
         # create a key and request the cover
         key = album.create_ext_db_key()
-        print "about to request"
         provides = self._cover_db.request(key, callback, data)
-        print "return from request"
+
         if not provides:
             # in case there is no provider, call the callback immediately
             callback(data)
