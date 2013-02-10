@@ -1138,6 +1138,7 @@ class CoverManager(GObject.Object):
 
         self._cover_db = RB.ExtDB(name='album-art')
         self._album_manager = album_manager
+        self._cover_request_timed_out = -1
 
         self._connect_properties()
         self._connect_signals(plugin)
@@ -1347,7 +1348,6 @@ class CoverManager(GObject.Object):
                 print "Error while searching covers: " + str(e)
 
         # start the cover search
-        self._cover_request_timed_out = -1
         self._cancel_cover_request = False
         search_next_cover([iter(albums), callback])
 
