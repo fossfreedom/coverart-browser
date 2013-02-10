@@ -595,3 +595,9 @@ class EnhancedIconView(Gtk.IconView):
                 self.get_model()[selected][self.object_column])
 
         return selected_objects
+
+    def select_and_scroll_to_path(self, path):
+        self.unselect_all()
+        self.select_path(path)
+        self.set_cursor(path, None, False)
+        self.scroll_to_path(path, True, 0.5, 0.5)

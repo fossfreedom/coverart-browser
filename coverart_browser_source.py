@@ -307,7 +307,7 @@ class CoverArtBrowserSource(RB.Source):
             self.album_manager.model)
 
         # initialise the variables of the quick search
-        self.quick_search_controller = AlbumQuickSearchController(self,
+        self.quick_search_controller = AlbumQuickSearchController(
             self.album_manager)
         self.quick_search_controller.connect_quick_search(self.quick_search)
 
@@ -1028,14 +1028,6 @@ class CoverArtBrowserSource(RB.Source):
             album.rating = rating
 
         print "CoverArtBrowser DEBUG - end rating_changed_callback"
-
-    def select_album(self, album):
-        path = self.album_manager.model.get_path(album)
-
-        self.covers_view.unselect_all()
-        self.covers_view.select_path(path)
-        self.covers_view.set_cursor(path, None, False)
-        self.covers_view.scroll_to_path(path, True, 0.5, 0.5)
 
     @classmethod
     def get_instance(cls, **kwargs):

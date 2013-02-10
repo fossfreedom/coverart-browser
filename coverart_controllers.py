@@ -488,8 +488,7 @@ class AlbumSearchEntryController(OptionsController):
 
 class AlbumQuickSearchController(object):
 
-    def __init__(self, source, album_manager):
-        self._source = source
+    def __init__(self, album_manager):
         self._album_manager = album_manager
 
     def connect_quick_search(self, quick_search):
@@ -502,12 +501,11 @@ class AlbumQuickSearchController(object):
             search_text)
 
         if album:
-            self._source.select_album(album)
-            #self._album_manager.cover_view.select_album(album)
+            path = self._album_manager.model.get_path(album)
+            self._album_manager.cover_view.select_and_scroll_to_path(path)
 
     def _on_arrow_pressed(self, quick_search, key, *args):
-        current = self._source.get_selected_albums()[0]
-        #current = self.album_manager.cover_view.get_selected_albums()[0]
+        current = self._album_manager.cover_view.get_selected_objects()[0]
         search_text = quick_search.get_text()
         album = None
 
@@ -519,8 +517,8 @@ class AlbumQuickSearchController(object):
                 'album_name', search_text, current)
 
         if album:
-            self._source.select_album(album)
-            #self._album_manager.cover_view.select_album(album)
+            path = self._album_manager.model.get_path(album)
+            self._album_manager.cover_view.select_and_scroll_to_path(path)
 
     def _on_hide(self, quick_search, *args):
         self._album_manager.cover_view.grab_focus()
