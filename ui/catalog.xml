@@ -19,6 +19,9 @@
     <glade-widget-class title="ProxyPopupButton" name="ProxyPopupButton" 
                         generic-name="ProxyPopupButton" parent="GtkFrame"
                         icon-name="widget-gtk-frame"/>
+    <glade-widget-class title="EnhancedIconView" name="EnhancedIconView" 
+                        generic-name="EnhancedIconView" parent="GtkIconView"
+                        icon-name="widget-gtk-iconview"/>
   </glade-widget-classes>
 
    <glade-widget-group name="python" title="Python">
@@ -28,6 +31,7 @@
      <glade-widget-class-ref name="SearchEntry"/>
      <glade-widget-class-ref name="QuickSearchEntry"/>
      <glade-widget-class-ref name="ProxyPopupButton"/>
+     <glade-widget-class-ref name="EnhancedIconView"/>
    </glade-widget-group>
 
 </glade-catalog>

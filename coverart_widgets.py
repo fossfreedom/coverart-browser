@@ -548,52 +548,58 @@ class ListViewButton(PixbufButton, OptionsListViewWidget):
 class EnhancedIconView(Gtk.IconView):
     __gtype_name__ = "EnhancedIconView"
 
+    # signals
+    __gsignals__ = {
+        'item-clicked': (GObject.SIGNAL_RUN_LAST, None, (object, object))
+        }
+
     object_column = GObject.property(type=int, default=-1)
 
     def __init__(self, *args, **kwargs):
         super(EnhancedIconView, self).__init__(*args, **kwargs)
 
-        self._last_width = 0
-        self._popup = None
+        self.popup = None
+        self._reallocate_count = 0
 
-    @property
-    def popup(self):
-        return self._popup
+    def do_size_allocate(self, allocation):
+        if self.get_allocated_width() != allocation.width:
+            # don't need to reacomodate if it's a vertical change
+            self._reallocate_count += 1
+            Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 500,
+                        self._reallocate_columns, None)
 
-    @popup.setter
-    def popup(self, popup):
-        self._popup = popup
+        Gtk.IconView.do_size_allocate(self, allocation)
 
-    def do_size_allocate(self, *args):
-        width = self.get_allocated_width()
+    def _reallocate_columns(self, *args):
+        self._reallocate_count -= 1
 
-        if width != self.last_width:
-            # don't need to reacommodate if the bottom pane is being resized
-            self.covers_view.set_columns(0)
-            self.covers_view.set_columns(-1)
-
-            # update width
-            self.last_width = width
+        if not self._reallocate_count:
+            self.set_columns(0)
+            self.set_columns(-1)
 
     def do_button_press_event(self, event):
         x = int(event.x)
         y = int(event.y)
         current_path = self.get_path_at_pos(x, y)
 
-        if event.type is Gdk.EventType.BUTTON_PRESS and current_path and \
-            event.triggers_context_menu():
-            # if the item being clicked isn't selected, we should clear
-            # the current selection
-            if len(self.get_selected_objects()) > 0 and \
-                not self.path_is_selected(current_path):
-                self.unselect_all()
+        if event.type is Gdk.EventType.BUTTON_PRESS and current_path:
+            if event.triggers_context_menu():
+                # if the item being clicked isn't selected, we should clear
+                # the current selection
+                if len(self.get_selected_objects()) > 0 and \
+                    not self.path_is_selected(current_path):
+                    self.unselect_all()
 
-            self.select_path(current_path)
-            self.set_cursor(current_path, None, False)
+                self.select_path(current_path)
+                self.set_cursor(current_path, None, False)
 
-            if self.popup:
-                self.popup_menu.popup(None, None, None, None, event.button,
-                    event.time)
+                if self.popup:
+                    self.popup.popup(None, None, None, None, event.button,
+                        event.time)
+            else:
+                self.emit('item-clicked', event, current_path)
+
+        Gtk.IconView.do_button_press_event(self, event)
 
     def get_selected_objects(self):
         selected_items = self.get_selected_items()
@@ -605,6 +611,13 @@ class EnhancedIconView(Gtk.IconView):
         selected_objects = []
 
         for selected in selected_items:
-            selected_objects.append(self.model[selected][self.object_column])
+            selected_objects.append(
+                self.get_model()[selected][self.object_column])
 
         return selected_objects
+
+    def select_and_scroll_to_path(self, path):
+        self.unselect_all()
+        self.select_path(path)
+        self.set_cursor(path, None, False)
+        self.scroll_to_path(path, True, 0.5, 0.5)

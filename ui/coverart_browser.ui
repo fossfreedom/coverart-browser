@@ -32,17 +32,17 @@
                 <property name="vexpand">True</property>
                 <property name="shadow_type">in</property>
                 <child>
-                  <object class="GtkIconView" id="covers_view">
+                  <object class="EnhancedIconView" id="covers_view">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="hexpand">True</property>
                     <property name="selection_mode">multiple</property>
                     <property name="tooltip_column">0</property>
                     <property name="pixbuf_column">1</property>
-                    <signal name="button-press-event" handler="mouseclick_callback" swapped="no"/>
+                    <property name="object_column">2</property>
+                    <signal name="item-clicked" handler="item_clicked_callback" swapped="no"/>
                     <signal name="selection-changed" handler="selectionchanged_callback" swapped="no"/>
                     <signal name="item-activated" handler="item_activated_callback" swapped="no"/>
-                    <signal name="size-allocate" handler="update_iconview_callback" swapped="no"/>
                   </object>
                 </child>
               </object>

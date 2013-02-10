@@ -34,8 +34,7 @@ from coverart_browser_prefs import CoverLocale
 from coverart_widgets import SearchEntry
 from coverart_widgets import QuickSearchEntry
 from coverart_widgets import ProxyPopupButton
-from coverart_widgets import PopupButton
-from coverart_widgets import ListViewButton
+from coverart_widgets import EnhancedIconView
 from coverart_controllers import PlaylistPopupController
 from coverart_controllers import GenrePopupController
 from coverart_controllers import SortPopupController
@@ -238,6 +237,9 @@ class CoverArtBrowserSource(RB.Source):
         '''
         print "CoverArtBrowser DEBUG - _setup_source"
 
+        # setup iconview popup
+        self.covers_view.popup = self.popup_menu
+
         # setup iconview drag&drop support
         self.covers_view.enable_model_drag_dest([], Gdk.DragAction.COPY)
         self.covers_view.drag_dest_add_image_targets()
@@ -305,7 +307,7 @@ class CoverArtBrowserSource(RB.Source):
             self.album_manager.model)
 
         # initialise the variables of the quick search
-        self.quick_search_controller = AlbumQuickSearchController(self,
+        self.quick_search_controller = AlbumQuickSearchController(
             self.album_manager)
         self.quick_search_controller.connect_quick_search(self.quick_search)
 
@@ -348,6 +350,43 @@ class CoverArtBrowserSource(RB.Source):
             True)
 
         print "CoverArtBrowser DEBUG - end load_finished_callback"
+
+    def item_clicked_callback(self, iconview, event, path):
+        '''
+        Callback called when the user clicks somewhere on the cover_view.
+        Along with _timeout_expand, takes care of showing/hiding the bottom
+        pane after a second click on a selected album.
+        '''
+        # to expand the entry view
+        ctrl = event.state & Gdk.ModifierType.CONTROL_MASK
+        shift = event.state & Gdk.ModifierType.SHIFT_MASK
+
+        self.click_count += 1 if not ctrl and not shift else 0
+
+        if self.click_count == 1:
+            album = self.album_manager.model.get_from_path(path)\
+                if path else None
+            Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
+                self._timeout_expand, album)
+
+    def _timeout_expand(self, album):
+        '''
+        helper function - if the entry is manually expanded
+        then if necessary scroll the view to the last selected album
+        '''
+        if album and self.click_count == 1 \
+            and self.last_selected_album is album:
+            # check if it's a second or third click on the album and expand
+            # or collapse the entry view accordingly
+            self.bottom_expander.set_expanded(
+                not self.bottom_expander.get_expanded())
+
+        # update the selected album
+        selected = self.covers_view.get_selected_objects()
+        self.last_selected_album = selected[0] if len(selected) == 1 else None
+
+        # clear the click count
+        self.click_count = 0
 
     def on_notify_custom_statusbar_enabled(self, *args):
         '''
@@ -443,7 +482,7 @@ class CoverArtBrowserSource(RB.Source):
         by him gets modified in some way.
         '''
         album = model.get_from_path(path)
-        selected = self.get_selected_albums()
+        selected = self.covers_view.get_selected_objects()
 
         if album in selected:
             # update the selection since it may have changed
@@ -472,106 +511,14 @@ class CoverArtBrowserSource(RB.Source):
 
         print "CoverArtBrowser DEBUG - end show_properties_menu_item_callback"
 
-    def update_iconview_callback(self, scrolled, *args):
-        '''
-        Callback called by the cover view when its view port gets resized.
-        It forces the cover_view to redraw it's contents to fill the available
-        space.
-        '''
-        width = scrolled.get_allocated_width()
-
-        if width != self.last_width:
-            # don't need to reacommodate if the bottom pane is being resized
-            print "CoverArtBrowser DEBUG - update_iconview_callback"
-            self.covers_view.set_columns(0)
-            self.covers_view.set_columns(-1)
-
-            # update width
-            self.last_width = width
-
-    def mouseclick_callback(self, iconview, event):
-        '''
-        Callback called when the user clicks somewhere on the cover_view.
-        If it's a right click, it shows a popup showing different actions to
-        perform with the selected album.
-        '''
-        print "CoverArtBrowser DEBUG - mouseclick_callback()"
-        x = int(event.x)
-        y = int(event.y)
-        pthinfo = iconview.get_path_at_pos(x, y)
-
-        if event.type is Gdk.EventType.BUTTON_PRESS and pthinfo:
-            if event.triggers_context_menu():
-                # to show the context menu
-                # if the item being clicked isn't selected, we should clear
-                # the current selection
-                if len(iconview.get_selected_items()) > 0 and \
-                    not iconview.path_is_selected(pthinfo):
-                    iconview.unselect_all()
-
-                iconview.select_path(pthinfo)
-                iconview.set_cursor(pthinfo, None, False)
-
-                self.popup_menu.popup(None, None, None, None, event.button,
-                    event.time)
-
-            else:
-                # to expand the entry view
-                ctrl = event.state & Gdk.ModifierType.CONTROL_MASK
-                shift = event.state & Gdk.ModifierType.SHIFT_MASK
-
-                self.click_count += 1
-
-                if not ctrl and not shift and self.click_count == 1:
-                    album = self.album_manager.model.get_from_path(pthinfo)\
-                        if pthinfo else None
-                    Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
-                        self._timeout_expand, album)
-
-        print "CoverArtBrowser DEBUG - end mouseclick_callback()"
-
-    def _timeout_expand(self, album):
-        '''
-        helper function - if the entry is manually expanded
-        then if necessary scroll the view to the last selected album
-        '''
-        print "CoverArtBrowser DEBUG - _timeout_expand"
-
-        if album and self.click_count == 1 \
-            and self.last_selected_album is album:
-            # check if it's a second or third click on the album and expand
-            # or collapse the entry view accordingly
-            self.bottom_expander.set_expanded(
-                not self.bottom_expander.get_expanded())
-
-        # update the selected album
-        selected = self.get_selected_albums()
-        self.last_selected_album = selected[0] if len(selected) == 1 else None
-
-        # clear the click count
-        self.click_count = 0
-
     def item_activated_callback(self, iconview, path):
         '''
         Callback called when the cover view is double clicked or space-bar
         is pressed. It plays the selected album
         '''
-        print "CoverArtBrowser DEBUG - item_activated_callback"
         self.play_selected_album()
 
         return True
-
-    def get_selected_albums(self):
-        '''
-        Retrieves the currently selected albums on the cover_view.
-        '''
-        selected_albums = []
-
-        for selected in self.covers_view.get_selected_items():
-            selected_albums.append(self.album_manager.model.get_from_path(
-                selected))
-
-        return selected_albums
 
     def play_selected_album(self, favourites=False):
         '''
@@ -602,7 +549,7 @@ class CoverArtBrowserSource(RB.Source):
         '''
         print "CoverArtBrowser DEBUG - queue_selected_album"
 
-        selected_albums = self.get_selected_albums()
+        selected_albums = self.covers_view.get_selected_objects()
         threshold = self.rating_threshold if favourites else 0
 
         for album in selected_albums:
@@ -748,7 +695,7 @@ class CoverArtBrowserSource(RB.Source):
         album cover
         '''
         print "CoverArtBrowser DEBUG - cover_search_menu_item_callback()"
-        selected_albums = self.get_selected_albums()
+        selected_albums = self.covers_view.get_selected_objects()
 
         self.request_status_box.show_all()
         self.source_menu_search_all_item.set_sensitive(False)
@@ -832,7 +779,7 @@ class CoverArtBrowserSource(RB.Source):
         # clear the entry view
         self.entry_view.clear()
 
-        selected = self.get_selected_albums()
+        selected = self.covers_view.get_selected_objects()
 
         cover_search_pane_visible = self.notebook.get_current_page() == \
             self.notebook.page_num(self.cover_search_pane)
@@ -1023,7 +970,7 @@ class CoverArtBrowserSource(RB.Source):
         print "CoverArtBrowser DEBUG - notebook_switch_page_callback"
 
         if page_num == 1:
-            selected_albums = self.get_selected_albums()
+            selected_albums = self.covers_view.get_selected_objects()
 
             if selected_albums:
                 self.cover_search_pane.do_search(selected_albums[0])
@@ -1038,18 +985,10 @@ class CoverArtBrowserSource(RB.Source):
 
         rating = widget.get_rating()
 
-        for album in self.get_selected_albums():
+        for album in self.covers_view.get_selected_objects():
             album.rating = rating
 
         print "CoverArtBrowser DEBUG - end rating_changed_callback"
-
-    def select_album(self, album):
-        path = self.album_manager.model.get_path(album)
-
-        self.covers_view.unselect_all()
-        self.covers_view.select_path(path)
-        self.covers_view.set_cursor(path, None, False)
-        self.covers_view.scroll_to_path(path, True, 0.5, 0.5)
 
     @classmethod
     def get_instance(cls, **kwargs):
