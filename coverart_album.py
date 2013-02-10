@@ -1304,7 +1304,7 @@ class CoverManager(GObject.Object):
             albums = self._album_manager.model.get_all()
 
         def search_timed_out(*args):
-            if not self._cover_request_timed_out:
+            if args[-1] and not self._cover_request_timed_out:
                 search_next_cover(args[-1])
 
             self._cover_request_timed_out -= 1
@@ -1315,8 +1315,8 @@ class CoverManager(GObject.Object):
 
             # if the operation was canceled, break the recursion
             if self._cancel_cover_request:
-                # this is to deceive the timeout routine
-                args[-1][0] = iter([])
+                # this is to stop the timeout routine
+                del args[-1][:]
 
                 callback(None)
                 return
