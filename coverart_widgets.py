@@ -544,7 +544,6 @@ class ListViewButton(PixbufButton, OptionsListViewWidget):
         self.show_popup(int(event.x_root), int(event.y_root))
 
 
-
 class EnhancedIconView(Gtk.IconView):
     __gtype_name__ = "EnhancedIconView"
 
@@ -621,3 +620,93 @@ class EnhancedIconView(Gtk.IconView):
         self.select_path(path)
         self.set_cursor(path, None, False)
         self.scroll_to_path(path, True, 0.5, 0.5)
+
+
+class PanedCollapsible(Gtk.Paned):
+    __gtype_name__ = "PanedCollapsible"
+
+    collapsible1 = GObject.property(type=bool, default=False)
+    collapsible2 = GObject.property(type=bool, default=False)
+
+    def __init__(self, *args, **kwargs):
+        super(PanedCollapsible, self).__init__(*args, **kwargs)
+
+        self._expander_options = {}
+
+        self._connect_properties()
+
+    def _connect_properties(self):
+        self.connect('notify::collapsible1', self._on_collapsible1_changed)
+        self.connect('notify::collapsible2', self._on_collapsible2_changed)
+
+    def _on_collapsible1_changed(self, *args):
+        if self.collapsible1 and self.collapsible2:
+            self.collapsible2 = False
+
+        child = self.get_child1()
+
+        if child:
+            if self.collapsible1:
+                self.remove(child)
+            else:
+                inner_child = child.get_child()
+                child.remove(inner_child)
+                child = inner_child
+
+            self.add1(child)
+
+    def _on_collapsible2_changed(self, *args):
+        if self.collapsible1 and self.collapsible2:
+            self.collapsible1 = False
+
+        child = self.get_child2()
+
+        if child:
+            if self.collapsible2:
+                self.remove(child)
+            else:
+                inner_child = child.get_child()
+                child.remove(inner_child)
+                child = inner_child
+
+            self.add2(child)
+
+    def remove(self, widget):
+        if self.collapsible1 and self.get_child1().get_child() is widget:
+            expander = self.get_child1()
+            expander.remove(widget)
+            widget = expander
+        elif self.collapsible2 and self.get_child2().get_child() is widget:
+            expander = self.get_child2()
+            expander.remove(widget)
+            widget = expander
+
+        Gtk.Paned.remove(self, widget)
+
+    @property
+    def expander_options(self):
+        return self._expander_options
+
+    @expander_options.setter
+    def expander_options(self, options):
+        self._expander_options = options
+
+        # TODO: update the current expander
+
+    def pack1(self, widget):
+        if self.collapsible1:
+            widget = self._create_expander(widget)
+
+        Gtk.Paned.pack1(self, widget)
+
+    def pack2(self, widget):
+        if self.collapsible2:
+            widget = self._create_expander(widget)
+
+        Gtk.Paned.pack1(self, widget)
+
+    def _create_expander(self, widget):
+        expander = Gtk.Expander(**self._expander_options)
+        expander.add(widget)
+
+        return expander
