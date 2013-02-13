@@ -37,8 +37,7 @@
         <_genre name="easy listening" spritesheet="genre">easy listening</_genre>
         <_genre name="hip-hop" spritesheet="genre">hip-hop</_genre>
         <_genre name="children" spritesheet="genre">children</_genre>
-        <genre name="default" image="genre.png">default</genre>
-
+        
         <!--common to all - no need to translate-->
         <alt>
             <alt genre="easy listening">lounge</alt>
@@ -100,34 +99,69 @@
         <decade name="80s" spritesheet="decade">80s</decade>
         <decade name="90s" spritesheet="decade">90s</decade>
     </decade>
-    <spritesheet name="genre">
-        <image>genre_sprites.png</image>
-        <icon width="75" height="75"></icon>
-        <dimension across="5" down="7"></dimension>
-        <spacing x="73" y="50"></spacing>
-        <start-position x="0" y="0"></start-position>
-        <alpha>255 255 255</alpha>
-    </spritesheet>
-    <spritesheet name="sort">
-        <image>sort_sprites.png</image>
-        <icon width="140" height="134"></icon>
-        <dimension across="4" down="1"></dimension>
-        <spacing x="34" y="100"></spacing>
-        <start-position x="0" y="0"></start-position>
-    </spritesheet>
-    <spritesheet name="playlist">
-        <image>playlist_sprites.png</image>
-        <icon width="140" height="134"></icon>
-        <dimension across="4" down="1"></dimension>
-        <spacing x="28" y="100"></spacing>
-        <start-position x="0" y="0"></start-position>
-    </spritesheet>
-    <spritesheet name="decade">
-        <image>decade_sprites.png</image>
-        <icon width="133" height="122"></icon>
-        <dimension across="4" down="3"></dimension>
-        <spacing x="28" y="66"></spacing>
-        <start-position x="40" y="38"></start-position>
-    </spritesheet>
+    <theme>
+        <theme folder_name="standard">
+            <spritesheet name="genre">
+                <image>genre_sprites.png</image>
+                <icon width="75" height="75"></icon>
+                <dimension across="5" down="7"></dimension>
+                <spacing x="73" y="50"></spacing>
+                <start-position x="0" y="0"></start-position>
+                <alpha>255 255 255</alpha>
+            </spritesheet>
+            <spritesheet name="sort">
+                <image>sort_sprites.png</image>
+                <icon width="140" height="134"></icon>
+                <dimension across="4" down="1"></dimension>
+                <spacing x="34" y="100"></spacing>
+                <start-position x="0" y="0"></start-position>
+            </spritesheet>
+            <spritesheet name="playlist">
+                <image>playlist_sprites.png</image>
+                <icon width="140" height="134"></icon>
+                <dimension across="4" down="1"></dimension>
+                <spacing x="28" y="100"></spacing>
+                <start-position x="0" y="0"></start-position>
+            </spritesheet>
+            <spritesheet name="decade">
+                <image>decade_sprites.png</image>
+                <icon width="133" height="122"></icon>
+                <dimension across="4" down="3"></dimension>
+                <spacing x="28" y="66"></spacing>
+                <start-position x="40" y="38"></start-position>
+            </spritesheet>
+        </theme>
+        <theme folder_name="dark">
+            <spritesheet name="genre">
+                <image>genre_sprites.png</image>
+                <icon width="75" height="75"></icon>
+                <dimension across="5" down="7"></dimension>
+                <spacing x="73" y="50"></spacing>
+                <start-position x="0" y="0"></start-position>
+                <alpha>255 255 255</alpha>
+            </spritesheet>
+            <spritesheet name="sort">
+                <image>sort_sprites.png</image>
+                <icon width="140" height="134"></icon>
+                <dimension across="4" down="1"></dimension>
+                <spacing x="34" y="100"></spacing>
+                <start-position x="0" y="0"></start-position>
+            </spritesheet>
+            <spritesheet name="playlist">
+                <image>playlist_sprites.png</image>
+                <icon width="140" height="134"></icon>
+                <dimension across="4" down="1"></dimension>
+                <spacing x="28" y="100"></spacing>
+                <start-position x="0" y="0"></start-position>
+            </spritesheet>
+            <spritesheet name="decade">
+                <image>decade_sprites.png</image>
+                <icon width="133" height="122"></icon>
+                <dimension across="4" down="3"></dimension>
+                <spacing x="28" y="66"></spacing>
+                <start-position x="40" y="38"></start-position>
+            </spritesheet>
+        </theme>
+    </theme>
 </root>
 

@@ -28,7 +28,6 @@ import gettext
 from stars import ReactiveStar
 from stars import StarSize
 
-
 class CoverLocale:
     '''
     This class manages the locale
@@ -41,7 +40,7 @@ class CoverLocale:
         # below public variables and methods that can be called for CoverLocale
         def __init__(self):
             '''
-            Initializes the singleton interface, asigning all the constants
+            Initializes the singleton interface, assigning all the constants
             used to access the plugin's settings.
             '''
             self.Locale = self._enum(
@@ -94,7 +93,7 @@ class CoverLocale:
 
 class GSetting:
     '''
-    This class manages the differentes settings that the plugins haves to
+    This class manages the different settings that the plugin has to
     access to read or write.
     '''
     # storage for the instance reference
@@ -105,7 +104,7 @@ class GSetting:
         # below public variables and methods that can be called for GSetting
         def __init__(self):
             '''
-            Initializes the singleton interface, asigning all the constants
+            Initializes the singleton interface, assigning all the constants
             used to access the plugin's settings.
             '''
             self.Path = self._enum(
@@ -131,7 +130,8 @@ class GSetting:
                 RATING='rating-threshold',
                 AUTOSTART='autostart',
                 TOOLBAR_POS='toolbar-pos',
-                BUTTON_RELIEF='button-relief')
+                BUTTON_RELIEF='button-relief',
+                THEME='theme')
 
             self.setting = {}
 
@@ -286,6 +286,21 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         light_source_combo.pack_start(renderer, True)
         light_source_combo.add_attribute(renderer, 'text', 1)
         self.settings.bind(gs.PluginKey.SHADOW_IMAGE, light_source_combo,
+            'active-id', Gio.SettingsBindFlags.DEFAULT)
+
+        combo_liststore = builder.get_object('combo_liststore')
+
+        from coverart_utils import Theme
+        
+        for theme in Theme(self).themes:
+            combo_liststore.append([theme, theme])
+            # fix theme name translation later
+            
+        theme_combo = builder.get_object('theme_combobox')
+        renderer = Gtk.CellRendererText()
+        theme_combo.pack_start(renderer, True)
+        theme_combo.add_attribute(renderer, 'text', 1)
+        self.settings.bind(gs.PluginKey.THEME, theme_combo,
             'active-id', Gio.SettingsBindFlags.DEFAULT)
 
         button_relief = builder.get_object('button_relief_checkbox')

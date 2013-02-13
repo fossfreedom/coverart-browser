@@ -22,7 +22,6 @@ import rb
 import locale
 import gettext
 
-
 from gi.repository import GObject
 from gi.repository import Gtk
 from gi.repository import RB
@@ -33,6 +32,7 @@ from coverart_browser_prefs import Preferences
 from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import CoverLocale
 from coverart_browser_source import CoverArtBrowserSource
+from coverart_utils import Theme
 
 class CoverArtBrowserEntryType(RB.RhythmDBEntryType):
     '''
@@ -93,7 +93,8 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
 
         what, width, height = Gtk.icon_size_lookup(Gtk.IconSize.LARGE_TOOLBAR)
         pxbf = GdkPixbuf.Pixbuf.new_from_file_at_size(
-            rb.find_plugin_file(self, 'img/covermgr.png'), width, height)
+            rb.find_plugin_file(self, 'img/' + Theme(self).current\
+            + '/covermgr.png'), width, height)
 
         group = RB.DisplayPageGroup.get_by_id('library')
 

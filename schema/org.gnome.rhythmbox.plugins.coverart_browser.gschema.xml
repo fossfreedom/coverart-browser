@@ -106,5 +106,10 @@
             <summary>Button Style</summary>
             <description>True for a flat button style.</description>
         </key>
+        <key type="s" name="theme">
+            <default>'standard'</default>
+            <summary>Icon Theme</summary>
+            <description>Name of the chosen theme.</description>
+        </key>
     </schema>
 </schemalist>

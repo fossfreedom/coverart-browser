@@ -23,6 +23,7 @@ from gi.repository import RB
 import lxml.etree as ET
 import rb
 from coverart_browser_prefs import CoverLocale
+from coverart_browser_prefs import GSetting
 import collections
 import re
 
@@ -382,15 +383,66 @@ class SpriteSheet(object):
     def __getitem__(self, index):
         return self._sprites[index]
 
+class Theme:
+    '''
+    This class manages the theme details
+    '''
+    # storage for the instance reference
+    __instance = None
+
+    class __impl:
+        """ Implementation of the singleton interface """
+        # below public variables and methods that can be called for Theme
+        def __init__(self, plugin):
+            '''
+            Initializes the singleton interface, assigning all the constants
+            used to access the plugin's settings.
+            '''
+            self.plugin = plugin
+            popups = rb.find_plugin_file(plugin, 'img/popups.xml')
+            root = ET.parse(open(popups)).getroot()
+
+            base = 'theme/theme'
+            self.themes = []
+            
+            for elem in root.xpath(base):
+                self.themes.append(elem.attrib['folder_name'])
+
+            self.gs=GSetting()
+            self.setting=self.gs.get_setting(self.gs.Path.PLUGIN)
+
+        @property
+        def current(self):
+            return self.setting[self.gs.PluginKey.THEME]
+
+    def __init__(self, plugin):
+        """ Create singleton instance """
+        # Check whether we already have an instance
+        if Theme.__instance is None:
+            # Create and remember instance
+            Theme.__instance = Theme.__impl(plugin)
+
+        # Store instance reference as the only member in the handle
+        self.__dict__['_Theme__instance'] = Theme.__instance
+
+    def __getattr__(self, attr):
+        """ Delegate access to implementation """
+        return getattr(self.__instance, attr)
+
+    def __setattr__(self, attr, value):
+        """ Delegate access to implementation """
+        return setattr(self.__instance, attr, value)
+        
 
 class ConfiguredSpriteSheet(object):
     def __init__(self, plugin, sprite_name, size=None):
         self.plugin = plugin
         popups = rb.find_plugin_file(plugin, 'img/popups.xml')
         self.root = ET.parse(open(popups)).getroot()
-        base = 'spritesheet[@name="' + sprite_name + '"]/'
-        image = rb.find_plugin_file(plugin, 'img/' +
-            self.root.xpath(base + 'image')[0].text)
+        base = 'theme/theme[@folder_name="' + Theme(plugin).current\
+            + '"]/spritesheet[@name="' + sprite_name + '"]/'
+        image = rb.find_plugin_file(plugin, 'img/' + Theme(plugin).current\
+            +'/' + self.root.xpath(base + 'image')[0].text)
         icon_width = int(self.root.xpath(base + 'icon')[0].attrib['width'])
         icon_height = int(self.root.xpath(base + 'icon')[0].attrib['height'])
         x_spacing = int(self.root.xpath(base + 'spacing')[0].attrib['x'])

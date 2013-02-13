@@ -30,6 +30,7 @@ from coverart_utils import GenreConfiguredSpriteSheet
 from coverart_utils import ConfiguredSpriteSheet
 from coverart_utils import get_stock_size
 from coverart_utils import CaseInsensitiveDict
+from coverart_utils import Theme
 
 from datetime import date
 from collections import OrderedDict
@@ -182,11 +183,12 @@ class GenrePopupController(OptionsController):
         # initialise the button spritesheet and other images
         self._spritesheet = GenreConfiguredSpriteSheet(plugin, 'genre',
             get_stock_size())
+        path = 'img/' + Theme(plugin).current + '/'
         self._default_image = create_pixbuf_from_file_at_size(
-            rb.find_plugin_file(plugin, 'img/default_genre.png'),
+            rb.find_plugin_file(plugin, path + 'default_genre.png'),
             *get_stock_size())
         self._unrecognised_image = create_pixbuf_from_file_at_size(
-            rb.find_plugin_file(plugin, 'img/unrecognised_genre.png'),
+            rb.find_plugin_file(plugin, path + 'unrecognised_genre.png'),
             *get_stock_size())
 
         # connect signals to update genres
@@ -417,10 +419,11 @@ class SortOrderToggleController(OptionsController):
         # initialize images
         self._images = []
         self._images.append(GdkPixbuf.Pixbuf.new_from_file_at_size(
-            rb.find_plugin_file(plugin, 'img/arrow_down.png'),
-            *get_stock_size()))
+            rb.find_plugin_file(plugin, 'img/' + Theme(plugin).current\
+            + '/arrow_down.png'), *get_stock_size()))
         self._images.append(GdkPixbuf.Pixbuf.new_from_file_at_size(
-            rb.find_plugin_file(plugin, 'img/arrow_up.png'),
+            rb.find_plugin_file(plugin, 'img/' + Theme(plugin).current\
+            + '/arrow_up.png'),
             *get_stock_size()))
 
         # set the current key
