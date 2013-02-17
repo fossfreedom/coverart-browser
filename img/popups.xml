@@ -553,10 +553,10 @@
             </spritesheet>
             <spritesheet name="decade">
                 <image>decade_sprites.png</image>
-                <icon width="133" height="122"/>
+                <icon width="128" height="128"/>
                 <dimension down="3" across="4"/>
-                <spacing y="66" x="28"/>
-                <start-position y="38" x="40"/>
+                <spacing y="32" x="32"/>
+                <start-position y="32" x="32"/>
             </spritesheet>
         </theme>
         <theme folder_name="dark">
