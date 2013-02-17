@@ -443,6 +443,8 @@ class OptionsListViewWidget(OptionsWidget):
         self._liststore = ui.get_object('liststore')
         self._listwindow.set_size_request(200, 200)
         self._treeview = ui.get_object('treeview')
+        self._scrollwindow = ui.get_object('scrolledwindow')
+        self._increment = False
 
         OptionsWidget.controller.fset(self, controller)
 
@@ -504,6 +506,35 @@ class OptionsListViewWidget(OptionsWidget):
             pass
 
         self._listwindow.hide()
+
+    def on_scrollup_button_enter(self, button):
+        def scrollup(*args):
+            adjustment = self._scrollwindow.get_vadjustment()
+            step = adjustment.get_step_increment()
+            adjustment.set_value(adjustment.get_value() - step)
+            return self._increment
+            
+        self._increment = True
+        Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 50,
+                        scrollup, None)
+
+    def on_scrolldown_button_enter(self, button):
+
+        def scrolldown(*args):
+            adjustment = self._scrollwindow.get_vadjustment()
+            step = adjustment.get_step_increment()
+            adjustment.set_value(adjustment.get_value() + step)
+            return self._increment
+            
+        self._increment = True
+        Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 50,
+                        scrolldown, None)
+
+    def on_scrolldown_button_leave(self, *args):
+        self._increment = False
+
+    def on_scrollup_button_leave(self, *args):
+        self._increment = False
 
     def on_cancel(self, *args):
         self._listwindow.hide()
