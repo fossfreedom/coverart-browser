@@ -495,9 +495,9 @@ class OptionsListViewWidget(OptionsWidget):
         self._treeview.get_selection().select_iter(self._liststore[index].iter)
         self._treeview.scroll_to_cell(self._liststore[index].path)
 
-    def view_changed(self, view):
+    def on_button_click(self, view, arg):
         try:
-            liststore, viewiter = view.get_selected()
+            liststore, viewiter = view.get_selection().get_selected()
             label = liststore.get_value(viewiter, 0)
             self.emit('item-clicked', label)
         except:
