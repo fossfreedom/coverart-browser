@@ -507,6 +507,7 @@ class OptionsListViewWidget(OptionsWidget):
         except:
             pass
 
+        self._treeview.set_hover_selection(False)
         self._listwindow.hide()
 
     def on_scroll_button_enter(self, button):
@@ -540,6 +541,9 @@ class OptionsListViewWidget(OptionsWidget):
     def on_scroll_button_released(self, *args):
         adjustment = self._scrollwindow.get_vadjustment()
         self._step = adjustment.get_step_increment()
+
+    def on_treeview_enter_notify_event(self, *args):
+        self._treeview.set_hover_selection(True)
 
     def on_cancel(self, *args):
         self._listwindow.hide()
