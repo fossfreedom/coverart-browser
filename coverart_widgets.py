@@ -441,9 +441,10 @@ class OptionsListViewWidget(OptionsWidget):
         ui.connect_signals(self)
         self._listwindow = ui.get_object('listwindow')
         self._liststore = ui.get_object('liststore')
-        self._listwindow.set_size_request(200, 200)
+        self._listwindow.set_size_request(200, 300)
         self._treeview = ui.get_object('treeview')
         self._scrollwindow = ui.get_object('scrolledwindow')
+        self._scrolldown_button = ui.get_object('scrolldown_button')
         self._increment = False
 
         OptionsWidget.controller.fset(self, controller)
@@ -507,34 +508,37 @@ class OptionsListViewWidget(OptionsWidget):
 
         self._listwindow.hide()
 
-    def on_scrollup_button_enter(self, button):
-        def scrollup(*args):
-            adjustment = self._scrollwindow.get_vadjustment()
-            step = adjustment.get_step_increment()
-            adjustment.set_value(adjustment.get_value() - step)
+    def on_scroll_button_enter(self, button):
+
+        def scroll(*args):
+            if self._increment == True:
+                if button is self._scrolldown_button:
+                    adjustment.set_value(adjustment.get_value()\
+                        + self._step)
+                else:
+                    adjustment.set_value(adjustment.get_value()\
+                        - self._step)
+
             return self._increment
             
         self._increment = True
+        
+        adjustment = self._scrollwindow.get_vadjustment()
+        self.on_scroll_button_released(_)
+
         Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 50,
-                        scrollup, None)
-
-    def on_scrolldown_button_enter(self, button):
-
-        def scrolldown(*args):
-            adjustment = self._scrollwindow.get_vadjustment()
-            step = adjustment.get_step_increment()
-            adjustment.set_value(adjustment.get_value() + step)
-            return self._increment
-            
-        self._increment = True
-        Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 50,
-                        scrolldown, None)
-
-    def on_scrolldown_button_leave(self, *args):
+                            scroll, None)
+                            
+    def on_scroll_button_leave(self, *args):
         self._increment = False
-
-    def on_scrollup_button_leave(self, *args):
-        self._increment = False
+        
+    def on_scroll_button_pressed(self, *args):
+        adjustment = self._scrollwindow.get_vadjustment()
+        self._step = adjustment.get_page_increment()
+        
+    def on_scroll_button_released(self, *args):
+        adjustment = self._scrollwindow.get_vadjustment()
+        self._step = adjustment.get_step_increment()
 
     def on_cancel(self, *args):
         self._listwindow.hide()

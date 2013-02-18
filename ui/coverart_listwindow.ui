@@ -44,17 +44,19 @@
         </child>
         <child>
           <object class="GtkButton" id="scrollup_button">
-            <property name="label" translatable="yes">^</property>
+            <property name="label" translatable="yes">△</property>
             <property name="use_action_appearance">False</property>
             <property name="height_request">8</property>
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
+            <property name="can_focus">False</property>
+            <property name="receives_default">False</property>
             <property name="use_action_appearance">False</property>
             <property name="relief">none</property>
             <property name="focus_on_click">False</property>
-            <signal name="enter" handler="on_scrollup_button_enter" swapped="no"/>
-            <signal name="leave" handler="on_scrollup_button_leave" swapped="no"/>
+            <signal name="enter" handler="on_scroll_button_enter" swapped="no"/>
+            <signal name="pressed" handler="on_scroll_button_pressed" swapped="no"/>
+            <signal name="released" handler="on_scroll_button_released" swapped="no"/>
+            <signal name="leave" handler="on_scroll_button_leave" swapped="no"/>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -65,12 +67,12 @@
         <child>
           <object class="GtkScrolledWindow" id="scrolledwindow">
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
+            <property name="can_focus">False</property>
             <property name="shadow_type">in</property>
             <child>
               <object class="GtkTreeView" id="treeview">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
+                <property name="can_focus">False</property>
                 <property name="hexpand">True</property>
                 <property name="border_width">4</property>
                 <property name="model">liststore</property>
@@ -106,17 +108,18 @@
         </child>
         <child>
           <object class="GtkButton" id="scrolldown_button">
-            <property name="label" translatable="yes">v</property>
+            <property name="label" translatable="yes">▽</property>
             <property name="use_action_appearance">False</property>
-            <property name="height_request">8</property>
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
+            <property name="can_focus">False</property>
+            <property name="receives_default">False</property>
             <property name="use_action_appearance">False</property>
             <property name="relief">none</property>
             <property name="focus_on_click">False</property>
-            <signal name="enter" handler="on_scrolldown_button_enter" swapped="no"/>
-            <signal name="leave" handler="on_scrolldown_button_leave" swapped="no"/>
+            <signal name="enter" handler="on_scroll_button_enter" swapped="no"/>
+            <signal name="pressed" handler="on_scroll_button_pressed" swapped="no"/>
+            <signal name="released" handler="on_scroll_button_released" swapped="no"/>
+            <signal name="leave" handler="on_scroll_button_leave" swapped="no"/>
           </object>
           <packing>
             <property name="expand">False</property>
