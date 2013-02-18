@@ -1163,7 +1163,7 @@ class CoverRequester(GObject.Object):
 
         # process the next element in the queue
         while self._queue:
-            album = self._queue.pop()
+            album = self._queue.pop(0)
 
             if album.cover is self.unknown_cover:
                 break
