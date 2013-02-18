@@ -627,6 +627,7 @@ class PanedCollapsible(Gtk.Paned):
 
     collapsible1 = GObject.property(type=bool, default=False)
     collapsible2 = GObject.property(type=bool, default=False)
+    collapsible_y = GObject.property(type=int, default=0)
 
     def __init__(self, *args, **kwargs):
         super(PanedCollapsible, self).__init__(*args, **kwargs)
@@ -703,10 +704,10 @@ class PanedCollapsible(Gtk.Paned):
         if self.collapsible2:
             widget = self._create_expander(widget)
 
-        Gtk.Paned.pack1(self, widget)
+        Gtk.Paned.pack2(self, widget)
 
     def _create_expander(self, widget):
-        expander = Gtk.Expander(**self._expander_options)
-        expander.add(widget)
+        self._expander = Gtk.Expander(**self._expander_options)
+        self._expander.add(widget)
 
-        return expander
+        return self._expander
