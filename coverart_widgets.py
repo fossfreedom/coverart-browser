@@ -692,7 +692,7 @@ class PanedCollapsible(Gtk.Paned):
     def expander_options(self, options):
         self._expander_options = options
 
-        # TODO: update the current expander
+        self._expander.set_properties(**options)
 
     def pack1(self, widget):
         if self.collapsible1:
