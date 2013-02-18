@@ -181,6 +181,7 @@ class PixbufButton(Gtk.Button):
         else:
             self.set_relief(Gtk.ReliefStyle.HALF)
 
+
 class PopupButton(PixbufButton, OptionsPopupWidget):
     __gtype_name__ = "PopupButton"
 
@@ -511,31 +512,31 @@ class OptionsListViewWidget(OptionsWidget):
     def on_scroll_button_enter(self, button):
 
         def scroll(*args):
-            if self._increment == True:
+            if self._increment:
                 if button is self._scrolldown_button:
-                    adjustment.set_value(adjustment.get_value()\
+                    adjustment.set_value(adjustment.get_value()
                         + self._step)
                 else:
-                    adjustment.set_value(adjustment.get_value()\
+                    adjustment.set_value(adjustment.get_value()
                         - self._step)
 
             return self._increment
-            
+
         self._increment = True
-        
+
         adjustment = self._scrollwindow.get_vadjustment()
-        self.on_scroll_button_released(_)
+        self.on_scroll_button_released()
 
         Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 50,
                             scroll, None)
-                            
+
     def on_scroll_button_leave(self, *args):
         self._increment = False
-        
+
     def on_scroll_button_pressed(self, *args):
         adjustment = self._scrollwindow.get_vadjustment()
         self._step = adjustment.get_page_increment()
-        
+
     def on_scroll_button_released(self, *args):
         adjustment = self._scrollwindow.get_vadjustment()
         self._step = adjustment.get_step_increment()
@@ -577,7 +578,6 @@ class ListViewButton(PixbufButton, OptionsListViewWidget):
         before displaying the popup
         '''
         self.show_popup(int(event.x_root), int(event.y_root))
-
 
 
 class EnhancedIconView(Gtk.IconView):
