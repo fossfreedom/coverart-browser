@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-01-12 18:45+0000\n"
-"PO-Revision-Date: 2013-01-18 13:38+0000\n"
+"PO-Revision-Date: 2013-01-28 11:06+0000\n"
 "Last-Translator: Phillip Sz <Unknown>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-01-24 23:24+0000\n"
-"X-Generator: Launchpad (build 16445)\n"
+"X-Launchpad-Export-Date: 2013-02-19 03:58+0000\n"
+"X-Generator: Launchpad (build 16491)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:185
 msgid "Search Options"
@@ -371,7 +371,7 @@ msgstr ""
 
 #: ui/coverart_sidebar.ui.h:1 coverart_browser.py:101
 msgid "CoverArt"
-msgstr ""
+msgstr "CoverArt"
 
 #: ui/coverart_sidebar.ui.h:2 ui/coverart_topbar.ui.h:1
 #: coverart_controllers.py:280
@@ -547,7 +547,7 @@ msgstr ""
 
 #: coverart_browser_source.py:290
 msgid "Covers"
-msgstr ""
+msgstr "Cover"
 
 #: coverart_browser_source.py:831
 #, python-format

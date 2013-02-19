@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-01-12 18:45+0000\n"
-"PO-Revision-Date: 2013-01-11 15:03+0000\n"
+"PO-Revision-Date: 2013-02-18 12:17+0000\n"
 "Last-Translator: Wang Dianjin <Unknown>\n"
 "Language-Team: Chinese (Simplified) <zh_CN@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-01-24 23:24+0000\n"
-"X-Generator: Launchpad (build 16445)\n"
+"X-Launchpad-Export-Date: 2013-02-19 03:58+0000\n"
+"X-Generator: Launchpad (build 16491)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:185
 msgid "Search Options"
@@ -80,7 +80,7 @@ msgstr "显示更多结果"
 
 #: ui/coverart_album_search_prefs.ui.h:1
 msgid "Find CoverArt:"
-msgstr ""
+msgstr "查找封面："
 
 #: ui/coverart_album_search_prefs.ui.h:2 ui/coverart_browser_prefs.ui.h:41
 msgid "Search for embedded coverart"
@@ -229,7 +229,7 @@ msgstr "标明封面视图中专辑是否应该显示阴影"
 
 #: ui/coverart_browser_prefs.ui.h:31
 msgid "Light Source: "
-msgstr ""
+msgstr "光线来源： "
 
 #: ui/coverart_browser_prefs.ui.h:32
 msgid "Defines the size for the covers showed on the source."
