@@ -694,6 +694,8 @@ class CoverArtBrowserSource(RB.Source):
         selected_albums = self.covers_view.get_selected_objects()
 
         self.request_status_box.show_all()
+        self.source_menu_search_all_item.set_sensitive(False)
+        self.cover_search_menu_item.set_sensitive(False)
 
         self.album_manager.cover_man.search_covers(selected_albums,
             self.update_request_status_bar)
@@ -708,6 +710,8 @@ class CoverArtBrowserSource(RB.Source):
         '''
         print "CoverArtBrowser DEBUG - search_all_covers_callback()"
         self.request_status_box.show_all()
+        self.source_menu_search_all_item.set_sensitive(False)
+        self.cover_search_menu_item.set_sensitive(False)
 
         self.album_manager.cover_man.search_covers(
             callback=self.update_request_status_bar)
