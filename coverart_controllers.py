@@ -38,6 +38,7 @@ class OptionsController(GObject.Object):
     # properties
     options = GObject.property(type=object, default=None)
     current_key = GObject.property(type=str, default=None)
+    update_image = GObject.property(type=bool, default=False)
 
     def __init__(self):
         super(OptionsController, self).__init__()
@@ -108,7 +109,7 @@ class PlaylistPopupController(OptionsController):
             get_stock_size())
 
         if args[-1]:
-            self.current_key = self.current_key
+            self.update_image = True
 
     def _update_options(self, *args):
         shell = args[-1]
@@ -216,7 +217,7 @@ class GenrePopupController(OptionsController):
             *get_stock_size())
 
         if args[-1]:
-            self.current_key = self.current_key
+            self.update_image = True
 
     def _update_options(self, *args):
         genres_model = args[-1]
@@ -354,8 +355,8 @@ class SortPopupController(OptionsController):
                 get_stock_size())
 
         if args[-1]:
-            self.current_key = self.current_key
-
+            self.update_image = True
+            
     def do_action(self):
         sort = self.values[self.current_key]
 
@@ -432,7 +433,7 @@ class DecadePopupController(OptionsController):
             get_stock_size())
 
         if args[-1]:
-            self.current_key = self.current_key
+            self.update_image = True
 
     def do_action(self):
         if self.current_key == self._initial_decade:
@@ -488,10 +489,7 @@ class SortOrderToggleController(OptionsController):
             *get_stock_size()))
 
         if args[-1]:
-            sort_order = self.settings[self.gs.PluginKey.SORT_ORDER]
-            sort_order = not sort_order
-            self.current_key = self.values.keys()[
-            self.values.values().index(sort_order)]
+            self.update_image = True
             
     def do_action(self):
         sort_order = self.values[self.current_key]

@@ -41,6 +41,7 @@ class OptionsWidget(Gtk.Widget):
             # disconnect signals
             self._controller.disconnect(self._options_changed_id)
             self._controller.disconnect(self._current_key_changed_id)
+            self._controller.disconnect(self._update_image_changed_id)
 
         self._controller = controller
 
@@ -49,6 +50,8 @@ class OptionsWidget(Gtk.Widget):
             self._update_options)
         self._current_key_changed_id = self._controller.connect(
             'notify::current-key', self._update_current_key)
+        self._update_image_changed_id = self._controller.connect(
+            'notify::update-image', self._update_image)
 
         # update the menu and current key
         self.update_options()
@@ -64,6 +67,12 @@ class OptionsWidget(Gtk.Widget):
         self.update_current_key()
 
     def update_current_key():
+        pass
+
+    def _update_image(self, *args):
+        self.update_image()
+
+    def update_image(self):
         pass
 
 
@@ -198,6 +207,10 @@ class PopupButton(PixbufButton, OptionsPopupWidget):
         # initialise some variables
         self._first_menu_item = None
 
+    def update_image(self):
+        super(PopupButton, self).update_image()
+        self.set_image(self._controller.get_current_image())
+
     def update_current_key(self):
         super(PopupButton, self).update_current_key()
 
@@ -226,6 +239,11 @@ class ImageToggleButton(PixbufButton, OptionsWidget):
         # initialise some variables
         self.image_display = False
         self.initialised = False
+
+    def update_image(self):
+        super(ImageToggleButton, self).update_image()
+        self.set_image(self._controller.get_current_image())
+
 
     def update_current_key(self):
         # update the current image and tooltip
@@ -525,6 +543,10 @@ class ListViewButton(PixbufButton, OptionsListViewWidget):
         '''
         PixbufButton.__init__(self, *args, **kwargs)
         OptionsListViewWidget.__init__(self, *args, **kwargs)
+
+    def update_image(self):
+        super(ListViewButton, self).update_image()
+        self.set_image(self._controller.get_current_image())
 
     def update_current_key(self):
         super(ListViewButton, self).update_current_key()
