@@ -1018,8 +1018,14 @@ class Toolbar(GObject.Object):
         # assign the controller
         search_entry.controller = controllers['search']
 
+        Theme(self.plugin).connect('theme_changed', self._theme_changed,
+            controllers)
+
         self.builder = builder.get_object('main_box')
 
+    def _theme_changed(self, toolbar, controllers):
+        for controller in controllers.values():
+            controller.update_images(True)
 
 class TopToolbar(Toolbar):
     ui = 'ui/coverart_topbar.ui'
@@ -1075,16 +1081,16 @@ class ToolbarManager(GObject.Object):
         super(ToolbarManager, self).__init__()
         self.plugin = plugin
         # create the buttons controllers
-        self.controllers = self._create_controllers(plugin, album_model)
+        controllers = self._create_controllers(plugin, album_model)
 
         # initialize toolbars
         self._bars = {}
         self._bars[TopToolbar.name] = TopToolbar(plugin, main_box,
-            self.controllers)
+            controllers)
         self._bars[LeftToolbar.name] = LeftToolbar(plugin, main_box,
-            self.controllers)
+            controllers)
         self._bars[RightToolbar.name] = RightToolbar(plugin, main_box,
-            self.controllers)
+            controllers)
 
         self.last_toolbar_pos = None
         # connect signal and properties
@@ -1093,7 +1099,6 @@ class ToolbarManager(GObject.Object):
 
     def _connect_signals(self):
         self.connect('notify::toolbar-pos', self._on_notify_toolbar_pos)
-        Theme(self.plugin).connect('theme_changed', self._theme_changed)
 
     def _connect_properties(self):
         gs = GSetting()
@@ -1122,9 +1127,5 @@ class ToolbarManager(GObject.Object):
         self._bars[self.toolbar_pos].show()
 
         self.last_toolbar_pos = self.toolbar_pos
-
-    def _theme_changed(self, *args):
-        for controller in self.controllers.values():
-            controller.update_images(True)
             
 GObject.type_register(CoverArtBrowserSource)
