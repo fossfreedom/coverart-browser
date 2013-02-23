@@ -42,6 +42,7 @@ from coverart_controllers import DecadePopupController
 from coverart_controllers import SortOrderToggleController
 from coverart_controllers import AlbumSearchEntryController
 from coverart_controllers import AlbumQuickSearchController
+from coverart_utils import Theme
 from stars import ReactiveStar
 
 class CoverArtBrowserSource(RB.Source):
@@ -1072,17 +1073,18 @@ class ToolbarManager(GObject.Object):
 
     def __init__(self, plugin, main_box, album_model):
         super(ToolbarManager, self).__init__()
-
+        self.plugin = plugin
         # create the buttons controllers
-        controllers = self._create_controllers(plugin, album_model)
+        self.controllers = self._create_controllers(plugin, album_model)
 
         # initialize toolbars
         self._bars = {}
-        self._bars[TopToolbar.name] = TopToolbar(plugin, main_box, controllers)
+        self._bars[TopToolbar.name] = TopToolbar(plugin, main_box,
+            self.controllers)
         self._bars[LeftToolbar.name] = LeftToolbar(plugin, main_box,
-            controllers)
+            self.controllers)
         self._bars[RightToolbar.name] = RightToolbar(plugin, main_box,
-            controllers)
+            self.controllers)
 
         self.last_toolbar_pos = None
         # connect signal and properties
@@ -1091,7 +1093,8 @@ class ToolbarManager(GObject.Object):
 
     def _connect_signals(self):
         self.connect('notify::toolbar-pos', self._on_notify_toolbar_pos)
-        
+        Theme(self.plugin).connect('theme_changed', self._theme_changed)
+
     def _connect_properties(self):
         gs = GSetting()
         setting = gs.get_setting(gs.Path.PLUGIN)
@@ -1120,4 +1123,8 @@ class ToolbarManager(GObject.Object):
 
         self.last_toolbar_pos = self.toolbar_pos
 
+    def _theme_changed(self, *args):
+        for controller in self.controllers.values():
+            controller.update_images(True)
+            
 GObject.type_register(CoverArtBrowserSource)

@@ -65,6 +65,9 @@ class OptionsController(GObject.Object):
     def get_current_description(self):
         return self.current_key
 
+    def update_images(self, *args):
+        pass
+
 
 class PlaylistPopupController(OptionsController):
 
@@ -87,8 +90,7 @@ class PlaylistPopupController(OptionsController):
 
         self._spritesheet = None
         self._update_options(shell)
-        Theme(plugin).connect('theme_changed', self._update_images, True)
-
+        
         # get the playlist manager and it's model
         playlist_manager = shell.props.playlist_manager
         playlist_model = playlist_manager.props.display_page_model
@@ -98,7 +100,7 @@ class PlaylistPopupController(OptionsController):
         playlist_model.connect('row-deleted', self._update_options, shell)
         playlist_model.connect('row-changed', self._update_options, shell)
 
-    def _update_images(self, *args):
+    def update_images(self, *args):
         # configure the sprite sheet
         if self._spritesheet:
             del self._spritesheet
@@ -110,7 +112,7 @@ class PlaylistPopupController(OptionsController):
 
     def _update_options(self, *args):
         shell = args[-1]
-        self._update_images(False)
+        self.update_images(False)
             
         playlist_manager = shell.props.playlist_manager
         still_exists = self.current_key == self._library_name or\
@@ -194,10 +196,9 @@ class GenrePopupController(OptionsController):
         query.connect('row-changed', self._update_options, genres_model)
 
         # generate initial popup
-        Theme(plugin).connect('theme_changed', self._update_images, True)
         self._update_options(genres_model)
 
-    def _update_images(self, *args):
+    def update_images(self, *args):
         if self._spritesheet:
             del self._spritesheet
             del self._default_image
@@ -220,7 +221,7 @@ class GenrePopupController(OptionsController):
     def _update_options(self, *args):
         genres_model = args[-1]
 
-        self._update_images(False)
+        self.update_images(False)
         
         still_exists = False
 
@@ -339,13 +340,12 @@ class SortPopupController(OptionsController):
         value = source_settings[gs.PluginKey.SORT_BY]
 
         self._spritesheet = None
-        Theme(plugin).connect('theme_changed', self._update_options, True)
-        self._update_options(False)
+        self.update_images(False)
         
         self.current_key = self.values.keys()[
             self.values.values().index(value)]
 
-    def _update_options(self, *args):
+    def update_images(self, *args):
         # initialise spritesheet
         if self._spritesheet:
             del self._spritesheet
@@ -418,12 +418,11 @@ class DecadePopupController(OptionsController):
 
         # define a initial decade an set the initial key
         self._initial_decade = self.options[0]
-        Theme(plugin).connect('theme_changed', self._update_options, True)
-        self._update_options(False)
+        self.update_images(False)
         
         self.current_key = self._initial_decade
 
-    def _update_options(self, *args):
+    def update_images(self, *args):
         
         if self._spritesheet:
             del self._spritesheet
@@ -463,7 +462,6 @@ class SortOrderToggleController(OptionsController):
             (_('Sort in ascending order'), True)])
         self.options = self.values.keys()
 
-        Theme(plugin).connect('theme_changed', self._update_options, True)
         self._images = []
         
         # set the current key
@@ -472,9 +470,9 @@ class SortOrderToggleController(OptionsController):
         sort_order = self.settings[self.gs.PluginKey.SORT_ORDER]
         self.current_key = self.values.keys()[
             self.values.values().index(sort_order)]
-        self._update_options(False)
+        self.update_images(False)
         
-    def _update_options(self, *args):
+    def update_images(self, *args):
 
         # initialize images
         if len(self._images) > 0:
