@@ -20,6 +20,8 @@ from gi.repository import Gdk
 from gi.repository import Gtk
 from gi.repository import GLib
 from gi.repository import RB
+from gi.repository import GObject
+from gi.repository import Gio
 import lxml.etree as ET
 import rb
 from coverart_browser_prefs import CoverLocale
@@ -389,15 +391,27 @@ class Theme:
     '''
     # storage for the instance reference
     __instance = None
-
-    class __impl:
+        
+    class _impl(GObject.Object):
         """ Implementation of the singleton interface """
+        #properties
+        theme = GObject.property(type=str, default="standard")
+    
+        # signals
+        '''
+        changed = signal emitted when a theme has changed
+        '''
+        __gsignals__ = {
+            'theme_changed': (GObject.SIGNAL_RUN_LAST, None, ())
+            }
         # below public variables and methods that can be called for Theme
         def __init__(self, plugin):
             '''
             Initializes the singleton interface, assigning all the constants
             used to access the plugin's settings.
             '''
+            super(Theme._impl, self).__init__()
+            
             self.plugin = plugin
             popups = rb.find_plugin_file(plugin, 'img/popups.xml')
             root = ET.parse(open(popups)).getroot()
@@ -411,16 +425,31 @@ class Theme:
             self.gs=GSetting()
             self.setting=self.gs.get_setting(self.gs.Path.PLUGIN)
 
+            # connect properties and signals
+            self._connect_properties()
+            self._connect_signals()
+            
         @property
         def current(self):
             return self.setting[self.gs.PluginKey.THEME]
+
+        def _connect_properties(self):
+            self.setting.bind(self.gs.PluginKey.THEME, self,
+                'theme',  Gio.SettingsBindFlags.GET)
+
+        def _connect_signals(self):
+            self.connect('notify::theme', self._on_theme_changed,
+                None)
+
+        def _on_theme_changed(self, *args):
+            self.emit('theme_changed')
 
     def __init__(self, plugin):
         """ Create singleton instance """
         # Check whether we already have an instance
         if Theme.__instance is None:
             # Create and remember instance
-            Theme.__instance = Theme.__impl(plugin)
+            Theme.__instance = Theme._impl(plugin)
 
         # Store instance reference as the only member in the handle
         self.__dict__['_Theme__instance'] = Theme.__instance

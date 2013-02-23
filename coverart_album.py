@@ -604,13 +604,9 @@ class AlbumsModel(GObject.Object):
 
         self._tree_store = Gtk.ListStore(str, GdkPixbuf.Pixbuf, object, str,
             bool)
-        self._tree_store
 
         # filters
         self._filters = {}
-
-        # sorting direction
-        self._asc = True
 
         # sorting idle call
         self._sort_process = None

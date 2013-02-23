@@ -44,7 +44,6 @@ from coverart_controllers import AlbumSearchEntryController
 from coverart_controllers import AlbumQuickSearchController
 from stars import ReactiveStar
 
-
 class CoverArtBrowserSource(RB.Source):
     '''
     Source utilized by the plugin to show all it's ui.
@@ -1092,7 +1091,7 @@ class ToolbarManager(GObject.Object):
 
     def _connect_signals(self):
         self.connect('notify::toolbar-pos', self._on_notify_toolbar_pos)
-
+        
     def _connect_properties(self):
         gs = GSetting()
         setting = gs.get_setting(gs.Path.PLUGIN)

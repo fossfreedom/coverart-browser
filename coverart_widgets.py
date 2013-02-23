@@ -23,11 +23,8 @@ from gi.repository import Gdk
 from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import Gio
-
-import rb
-
 from coverart_browser_prefs import GSetting
-
+import rb
 
 class OptionsWidget(Gtk.Widget):
     def __init__(self, *args, **kwargs):

@@ -20,9 +20,6 @@ from gi.repository import GdkPixbuf
 from gi.repository import GObject
 from gi.repository import Gdk
 from gi.repository import RB
-
-import rb
-
 from coverart_browser_prefs import CoverLocale
 from coverart_browser_prefs import GSetting
 from coverart_utils import create_pixbuf_from_file_at_size
@@ -31,9 +28,9 @@ from coverart_utils import ConfiguredSpriteSheet
 from coverart_utils import get_stock_size
 from coverart_utils import CaseInsensitiveDict
 from coverart_utils import Theme
-
 from datetime import date
 from collections import OrderedDict
+import rb
 
 
 class OptionsController(GObject.Object):
@@ -88,9 +85,9 @@ class PlaylistPopupController(OptionsController):
         if " (" in self._queue_name:
             self._queue_name = self._queue_name[0:self._queue_name.find(" (")]
 
-        # configure the sprite sheet
-        self._spritesheet = ConfiguredSpriteSheet(plugin, 'playlist',
-            get_stock_size())
+        self._spritesheet = None
+        self._update_options(shell)
+        Theme(plugin).connect('theme_changed', self._update_images, True)
 
         # get the playlist manager and it's model
         playlist_manager = shell.props.playlist_manager
@@ -101,11 +98,20 @@ class PlaylistPopupController(OptionsController):
         playlist_model.connect('row-deleted', self._update_options, shell)
         playlist_model.connect('row-changed', self._update_options, shell)
 
-        # generate initial options
-        self._update_options(shell)
+    def _update_images(self, *args):
+        # configure the sprite sheet
+        if self._spritesheet:
+            del self._spritesheet
+        self._spritesheet = ConfiguredSpriteSheet(self.plugin, 'playlist',
+            get_stock_size())
+
+        if args[-1]:
+            self.current_key = self.current_key
 
     def _update_options(self, *args):
         shell = args[-1]
+        self._update_images(False)
+            
         playlist_manager = shell.props.playlist_manager
         still_exists = self.current_key == self._library_name or\
             self.current_key == self._queue_name
@@ -178,29 +184,44 @@ class GenrePopupController(OptionsController):
         genres_model.props.query_model = query
 
         # initial genre
-        self._initial_genre = _('All Genres')  # genres_model[0][0]
+        self._initial_genre = _('All Genres')
 
-        # initialise the button spritesheet and other images
-        self._spritesheet = GenreConfiguredSpriteSheet(plugin, 'genre',
-            get_stock_size())
-        path = 'img/' + Theme(plugin).current + '/'
-        self._default_image = create_pixbuf_from_file_at_size(
-            rb.find_plugin_file(plugin, path + 'default_genre.png'),
-            *get_stock_size())
-        self._unrecognised_image = create_pixbuf_from_file_at_size(
-            rb.find_plugin_file(plugin, path + 'unrecognised_genre.png'),
-            *get_stock_size())
-
+        self._spritesheet = None
+        
         # connect signals to update genres
         query.connect('row-inserted', self._update_options, genres_model)
         query.connect('row-deleted', self._update_options, genres_model)
         query.connect('row-changed', self._update_options, genres_model)
 
         # generate initial popup
+        Theme(plugin).connect('theme_changed', self._update_images, True)
         self._update_options(genres_model)
+
+    def _update_images(self, *args):
+        if self._spritesheet:
+            del self._spritesheet
+            del self._default_image
+            del self._unrecognised_image
+            
+        # initialise the button spritesheet and other images
+        self._spritesheet = GenreConfiguredSpriteSheet(self.plugin, 'genre',
+            get_stock_size())
+        path = 'img/' + Theme(self.plugin).current + '/'
+        self._default_image = create_pixbuf_from_file_at_size(
+            rb.find_plugin_file(self.plugin, path + 'default_genre.png'),
+            *get_stock_size())
+        self._unrecognised_image = create_pixbuf_from_file_at_size(
+            rb.find_plugin_file(self.plugin, path + 'unrecognised_genre.png'),
+            *get_stock_size())
+
+        if args[-1]:
+            self.current_key = self.current_key
 
     def _update_options(self, *args):
         genres_model = args[-1]
+
+        self._update_images(False)
+        
         still_exists = False
 
         # retrieve the options
@@ -300,11 +321,7 @@ class SortPopupController(OptionsController):
         super(SortPopupController, self).__init__()
 
         self._album_model = album_model
-
-        # initialise spritesheet
-        self._spritesheet = ConfiguredSpriteSheet(plugin, 'sort',
-            get_stock_size())
-
+        self.plugin = plugin
         # sorts dictionary
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
@@ -315,14 +332,29 @@ class SortPopupController(OptionsController):
             (_('Sort by rating'), 'rating')])
 
         self.options = self.values.keys()
-
+        
         # get the current sort key and initialise the superclass
         gs = GSetting()
         source_settings = gs.get_setting(gs.Path.PLUGIN)
         value = source_settings[gs.PluginKey.SORT_BY]
 
+        self._spritesheet = None
+        Theme(plugin).connect('theme_changed', self._update_options, True)
+        self._update_options(False)
+        
         self.current_key = self.values.keys()[
             self.values.values().index(value)]
+
+    def _update_options(self, *args):
+        # initialise spritesheet
+        if self._spritesheet:
+            del self._spritesheet
+
+        self._spritesheet = ConfiguredSpriteSheet(self.plugin, 'sort',
+                get_stock_size())
+
+        if args[-1]:
+            self.current_key = self.current_key
 
     def do_action(self):
         sort = self.values[self.current_key]
@@ -344,11 +376,10 @@ class DecadePopupController(OptionsController):
         super(DecadePopupController, self).__init__()
 
         self._album_model = album_model
+        self.plugin = plugin
 
-        # initialize spritesheet
-        self._spritesheet = ConfiguredSpriteSheet(plugin, 'decade',
-            get_stock_size())
-
+        self._spritesheet = None
+            
         # decade options
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
@@ -387,7 +418,22 @@ class DecadePopupController(OptionsController):
 
         # define a initial decade an set the initial key
         self._initial_decade = self.options[0]
+        Theme(plugin).connect('theme_changed', self._update_options, True)
+        self._update_options(False)
+        
         self.current_key = self._initial_decade
+
+    def _update_options(self, *args):
+        
+        if self._spritesheet:
+            del self._spritesheet
+            
+        # initialize spritesheet
+        self._spritesheet = ConfiguredSpriteSheet(self.plugin, 'decade',
+            get_stock_size())
+
+        if args[-1]:
+            self.current_key = self.current_key
 
     def do_action(self):
         if self.current_key == self._initial_decade:
@@ -410,30 +456,45 @@ class SortOrderToggleController(OptionsController):
         super(SortOrderToggleController, self).__init__()
 
         self._album_model = album_model
+        self.plugin = plugin
 
         # options
         self.values = OrderedDict([(_('Sort in descending order'), False),
             (_('Sort in ascending order'), True)])
         self.options = self.values.keys()
 
-        # initialize images
+        Theme(plugin).connect('theme_changed', self._update_options, True)
         self._images = []
-        self._images.append(GdkPixbuf.Pixbuf.new_from_file_at_size(
-            rb.find_plugin_file(plugin, 'img/' + Theme(plugin).current\
-            + '/arrow_down.png'), *get_stock_size()))
-        self._images.append(GdkPixbuf.Pixbuf.new_from_file_at_size(
-            rb.find_plugin_file(plugin, 'img/' + Theme(plugin).current\
-            + '/arrow_up.png'),
-            *get_stock_size()))
-
+        
         # set the current key
         self.gs = GSetting()
         self.settings = self.gs.get_setting(self.gs.Path.PLUGIN)
         sort_order = self.settings[self.gs.PluginKey.SORT_ORDER]
-
         self.current_key = self.values.keys()[
             self.values.values().index(sort_order)]
+        self._update_options(False)
+        
+    def _update_options(self, *args):
 
+        # initialize images
+        if len(self._images) > 0:
+            del self._images[:]
+            
+        self._images.append(GdkPixbuf.Pixbuf.new_from_file_at_size(
+            rb.find_plugin_file(self.plugin, 'img/' +
+            Theme(self.plugin).current + '/arrow_down.png'),
+            *get_stock_size()))
+        self._images.append(GdkPixbuf.Pixbuf.new_from_file_at_size(
+            rb.find_plugin_file(self.plugin, 'img/' +
+            Theme(self.plugin).current + '/arrow_up.png'),
+            *get_stock_size()))
+
+        if args[-1]:
+            sort_order = self.settings[self.gs.PluginKey.SORT_ORDER]
+            sort_order = not sort_order
+            self.current_key = self.values.keys()[
+            self.values.values().index(sort_order)]
+            
     def do_action(self):
         sort_order = self.values[self.current_key]
 
