@@ -69,6 +69,25 @@ class OptionsController(GObject.Object):
     def update_images(self, *args):
         pass
 
+    def create_spritesheet(self, plugin, sheet, typestr):
+        '''
+        helper function to create a specific spritesheet
+        '''
+        if sheet:
+            del sheet
+        return ConfiguredSpriteSheet(plugin, typestr, get_stock_size())
+
+    def create_button_image( self, plugin, image, icon_name):
+        '''
+        helper function to create a button image
+        '''
+        if image:
+            del image
+
+        path = 'img/' + Theme(self.plugin).current + '/'
+        return create_pixbuf_from_file_at_size(
+            rb.find_plugin_file(self.plugin, path + icon_name),
+            *get_stock_size())
 
 class PlaylistPopupController(OptionsController):
 
@@ -102,11 +121,8 @@ class PlaylistPopupController(OptionsController):
         playlist_model.connect('row-changed', self._update_options, shell)
 
     def update_images(self, *args):
-        # configure the sprite sheet
-        if self._spritesheet:
-            del self._spritesheet
-        self._spritesheet = ConfiguredSpriteSheet(self.plugin, 'playlist',
-            get_stock_size())
+        self._spritesheet = self.create_spritesheet( self.plugin,
+            self._spritesheet, 'playlist')
 
         if args[-1]:
             self.update_image = True
@@ -190,6 +206,8 @@ class GenrePopupController(OptionsController):
         self._initial_genre = _('All Genres')
 
         self._spritesheet = None
+        self._default_image = None
+        self._unrecognised_image = None
         
         # connect signals to update genres
         query.connect('row-inserted', self._update_options, genres_model)
@@ -202,20 +220,13 @@ class GenrePopupController(OptionsController):
     def update_images(self, *args):
         if self._spritesheet:
             del self._spritesheet
-            del self._default_image
-            del self._unrecognised_image
-            
-        # initialise the button spritesheet and other images
-        self._spritesheet = GenreConfiguredSpriteSheet(self.plugin, 'genre',
-            get_stock_size())
-        path = 'img/' + Theme(self.plugin).current + '/'
-        self._default_image = create_pixbuf_from_file_at_size(
-            rb.find_plugin_file(self.plugin, path + 'default_genre.png'),
-            *get_stock_size())
-        self._unrecognised_image = create_pixbuf_from_file_at_size(
-            rb.find_plugin_file(self.plugin, path + 'unrecognised_genre.png'),
-            *get_stock_size())
-
+        self._spritesheet = GenreConfiguredSpriteSheet(self.plugin,
+            'genre', get_stock_size())
+        self._default_image = self.create_button_image( self.plugin,
+            self._default_image, 'default_genre.png')
+        self._unrecognised_image = self.create_button_image( self.plugin,
+            self._unrecognised_image, 'unrecognised_genre.png')
+        
         if args[-1]:
             self.update_image = True
 
@@ -347,13 +358,9 @@ class SortPopupController(OptionsController):
             self.values.values().index(value)]
 
     def update_images(self, *args):
-        # initialise spritesheet
-        if self._spritesheet:
-            del self._spritesheet
-
-        self._spritesheet = ConfiguredSpriteSheet(self.plugin, 'sort',
-                get_stock_size())
-
+        self._spritesheet = self.create_spritesheet( self.plugin,
+            self._spritesheet, 'sort')
+        
         if args[-1]:
             self.update_image = True
             
@@ -424,14 +431,9 @@ class DecadePopupController(OptionsController):
         self.current_key = self._initial_decade
 
     def update_images(self, *args):
+        self._spritesheet = self.create_spritesheet( self.plugin,
+            self._spritesheet, 'decade')
         
-        if self._spritesheet:
-            del self._spritesheet
-            
-        # initialize spritesheet
-        self._spritesheet = ConfiguredSpriteSheet(self.plugin, 'decade',
-            get_stock_size())
-
         if args[-1]:
             self.update_image = True
 
@@ -474,19 +476,14 @@ class SortOrderToggleController(OptionsController):
         self.update_images(False)
         
     def update_images(self, *args):
-
         # initialize images
         if len(self._images) > 0:
             del self._images[:]
-            
-        self._images.append(GdkPixbuf.Pixbuf.new_from_file_at_size(
-            rb.find_plugin_file(self.plugin, 'img/' +
-            Theme(self.plugin).current + '/arrow_down.png'),
-            *get_stock_size()))
-        self._images.append(GdkPixbuf.Pixbuf.new_from_file_at_size(
-            rb.find_plugin_file(self.plugin, 'img/' +
-            Theme(self.plugin).current + '/arrow_up.png'),
-            *get_stock_size()))
+                        
+        self._images.append(self.create_button_image( self.plugin,
+            None, 'arrow_down.png'))
+        self._images.append(self.create_button_image( self.plugin,
+            None, 'arrow_up.png'))
 
         if args[-1]:
             self.update_image = True
@@ -544,7 +541,6 @@ class AlbumSearchEntryController(OptionsController):
                     search_text)
             elif not force:
                 self._album_model.remove_filter(self._filter_type)
-
 
 class AlbumQuickSearchController(object):
 
