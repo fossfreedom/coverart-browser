@@ -2,7 +2,7 @@
 Loader=python
 Module=coverart_browser
 IAge=2
-Depends=rb
+Depends=rb;coverart_search_providers
 Name=CoverArt Browser
 Name[ca]=Navegador de Portades
 Name[en_GB]=CoverArt Browser
