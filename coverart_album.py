@@ -218,6 +218,10 @@ class Track(GObject.Object):
     @property
     def track_number(self):
         return self.entry.get_ulong(RB.RhythmDBPropType.TRACK_NUMBER)
+        
+    @property
+    def disc_number(self):
+        return self.entry.get_ulong(RB.RhythmDBPropType.DISC_NUMBER)
 
     def create_ext_db_key(self):
         '''
@@ -365,7 +369,7 @@ class Album(GObject.Object):
             tracks = [track for track in self._tracks
                 if track.rating >= rating_threshold]
 
-        return sorted(tracks, key=lambda track: track.track_number)
+        return sorted(tracks, key=lambda track: (track.disc_number,track.track_number))
 
     def add_track(self, track):
         '''
