@@ -12,7 +12,9 @@ Browse your coverart albums in Rhythmbox v2.96 and later
 Summary: whats new in this release
 
  - separated coverart search into separate plugin - https://github.com/fossfreedom/coverart-search-providers
- - 
+ - New light & dark theme buttons to complement light & dark desktop themes
+ - optional flat-button toolbar style
+ - revised popup menu style genre & playlist windows when number of entries would exceed the desktop height
 
 
 *How it works:*
@@ -42,7 +44,7 @@ cd coverart-browser
 sh ./install.sh
 </pre>
 
-Note - to fully use the CoverArt Browser plugin we strongly recommend also installing the following and disabling the default *artsearch* plugin (CoverArt Search)
+Note - the CoverArt Browser plugin also requires installing the following plugin:
 
  - https://github.com/fossfreedom/coverart-search-providers
 
@@ -91,7 +93,7 @@ Credits:
  - thanks to Luqman Aden <laden@uwaterloo.ca> for the coverart-search plugin which our cover-search pane is based upon
  - thanks to Canonical for the Star widget which the ratings capabilities use
  - our Translators: Launchpad Translation team, jrbastien (fr_CA), asermax (es), mateuswetah (pt_BR), jrbastien & lannic (fr.po)
- - Button Icons - jrbastien for the new iconset
+ - Button Icons - jrbastien for the three toolbar icon-sets (standard, light & dark)
 
  Licenses:
 
