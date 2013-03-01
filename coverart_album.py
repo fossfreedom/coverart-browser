@@ -1203,9 +1203,6 @@ class CoverRequester(GObject.Object):
         # get the id of the search
         search_id = args[-1]
 
-        print 'search id: %d' % search_id
-        print 'queue id: %d' % self._queue_id
-
         if search_id == self._queue_id:
             # only process the next element if the search_id is the same as
             # the current id. Otherwise, this is a invalid call
