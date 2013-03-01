@@ -39,7 +39,6 @@ from coverart_utils import idle_iterator
 from coverart_utils import NaturalString
 from urlparse import urlparse
 from datetime import datetime, date
-from threading import Lock
 
 import urllib
 import os
@@ -1124,7 +1123,7 @@ class CoverRequester(GObject.Object):
         self.unknown_cover = None
         self._callback = None
         self._queue = []
-        self._queue_lock = Lock()
+        self._queue_id = 0
         self._running = False
         self._stop = False
 
@@ -1156,11 +1155,6 @@ class CoverRequester(GObject.Object):
         The lock makes sure that only one request is done at a time, and
         successfully ignores false timeouts or strand callbacks.
         '''
-        if not self._queue_lock.acquire(False):
-            # this is either a timeout out of time or a timed-out request
-            # coming back
-            return
-
         # process the next element in the queue
         while self._queue:
             album = self._queue.pop(0)
@@ -1171,24 +1165,22 @@ class CoverRequester(GObject.Object):
             album = None
 
         if album:
-            print album.name
-
             # inform the current album being searched
             self._callback(album)
 
             # start the request
-            self._search_cover_for_album(album)
+            self._queue_id += 1
+            self._search_cover_for_album(album, self._queue_id)
 
             # add a timeout to the request
             Gdk.threads_add_timeout_seconds(GLib.PRIORITY_DEFAULT_IDLE, 40,
-                    self._next, None)
+                    self._next, self._queue_id)
         else:
             # if there're no more elements, clean the state of the requester
-            self._queue_lock.release()
             self._running = False
             self._callback(None)
 
-    def _search_cover_for_album(self, album):
+    def _search_cover_for_album(self, album, search_id):
         '''
         Activelly requests an Album's cover to the cover_db, calling
         the callback given once the process finishes (since it generally is
@@ -1200,20 +1192,24 @@ class CoverRequester(GObject.Object):
         '''
         # create a key and request the cover
         key = album.create_ext_db_key()
-        provides = self._cover_db.request(key, self._next, None)
-
-        print provides
+        provides = self._cover_db.request(key, self._next, search_id)
 
         if not provides:
             # in case there is no provider, call the callback immediately
-            self._next()
+            self._next(search_id)
 
     def _next(self, *args):
         ''' Advances to the next album to process. '''
-        if self._queue_lock.locked():
-            self._queue_lock.release()
+        # get the id of the search
+        search_id = args[-1]
 
-        self._process_queue()
+        print 'search id: %d' % search_id
+        print 'queue id: %d' % self._queue_id
+
+        if search_id == self._queue_id:
+            # only process the next element if the search_id is the same as
+            # the current id. Otherwise, this is a invalid call
+            self._process_queue()
 
     def stop(self):
         ''' Clears the queue, forcing the requester to stop. '''
