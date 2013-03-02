@@ -223,6 +223,23 @@ class Track(GObject.Object):
     def disc_number(self):
         return self.entry.get_ulong(RB.RhythmDBPropType.DISC_NUMBER)
 
+    @property
+    def album_artist_sort(self):
+        sort = self.entry.get_string(RB.RhythmDBPropType.ALBUM_ARTIST_SORTNAME_FOLDED)
+        if sort == "":
+            sort = self.entry.get_string(RB.RhythmDBPropType.ALBUM_ARTIST_FOLDED)
+        if sort == "":
+            sort = self.entry.get_string(RB.RhythmDBPropType.ARTIST_FOLDED)
+        return NaturalString(sort)
+
+    @property
+    def album_sort(self):
+        sort = self.entry.get_string(RB.RhythmDBPropType.ALBUM_SORTNAME_FOLDED)
+        if sort == "":
+            sort = self.entry.get_string(RB.RhythmDBPropType.ALBUM_FOLDED)
+
+        return NaturalString(sort)
+    
     def create_ext_db_key(self):
         '''
         Returns an `RB.ExtDBKey` that can be used to acces/write some other
@@ -260,24 +277,29 @@ class Album(GObject.Object):
         self._year = None
         self._rating = None
         self._duration = None
-        self._calc_name = None
-        self._calc_artist = None
-
+        
         self._signals_id = {}
 
+    #@property
+    #def calc_name(self):
+    #    if not self._calc_name and self.name:
+    #        self._calc_name = NaturalString(RB.search_fold(self.name))#
+
+    #    return self._calc_name
+
+    #@property
+    #def calc_artist(self):
+    #    if not self._calc_artist and self.artist:
+    #        self._calc_artist = NaturalString(RB.search_fold(self.artist))
+
+    #    return self._calc_artist
     @property
-    def calc_name(self):
-        if not self._calc_name and self.name:
-            self._calc_name = NaturalString(RB.search_fold(self.name))
-
-        return self._calc_name
+    def album_artist_sort(self):
+        return self._tracks[0].album_artist_sort
 
     @property
-    def calc_artist(self):
-        if not self._calc_artist and self.artist:
-            self._calc_artist = NaturalString(RB.search_fold(self.artist))
-
-        return self._calc_artist
+    def album_sort(self):
+        return self._tracks[0].album_sort
 
     @property
     def artists(self):
@@ -493,7 +515,7 @@ class AlbumFilters(object):
             if not searchtext:
                 return True
 
-            return RB.search_fold(searchtext) in album.calc_name
+            return RB.search_fold(searchtext) in RB.search_fold(album.name)
 
         return filt
 
@@ -853,9 +875,9 @@ class AlbumsModel(GObject.Object):
         '''
         if key:
             if key == 'name':
-                key = 'calc_name'
+                key = 'album_sort'
             elif key == 'artist':
-                key = 'calc_artist'
+                key = 'album_artist_sort'
 
             self._albums.key = lambda album: getattr(album, key)
 
