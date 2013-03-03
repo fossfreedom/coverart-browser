@@ -39,6 +39,7 @@ from coverart_utils import idle_iterator
 from coverart_utils import NaturalString
 from urlparse import urlparse
 from datetime import datetime, date
+from threading import Lock
 
 import urllib
 import os
@@ -1114,6 +1115,111 @@ class AlbumLoader(GObject.Object):
         self._album_manager.model.remove_filter('nay')
 
 
+class CoverRequester(GObject.Object):
+
+    def __init__(self, cover_db):
+        super(CoverRequester, self).__init__()
+
+        self._cover_db = cover_db
+        self.unknown_cover = None
+        self._callback = None
+        self._queue = []
+        self._queue_lock = Lock()
+        self._running = False
+        self._stop = False
+
+    def add_to_queue(self, albums, callback):
+        ''' Adds albums to the queue if they're not already there. '''
+        self._queue.extend(
+            [album for album in albums if album not in self._queue])
+
+        self._start_process(callback)
+
+    def replace_queue(self, albums, callback):
+        ''' Completely replace the current queue. '''
+        self._queue = albums
+
+        self._start_process(callback)
+
+    def _start_process(self, callback):
+        ''' Starts the queue processing if it isn't running already '''
+        if not self._running:
+            self._callback = callback
+            self._running = True
+            self._process_queue()
+
+    def _process_queue(self):
+        '''
+        Main method that process the albums queue.
+        First, it tries to adquire a lock on the queue, and if it can, pops
+        the next element of the queue and process it.
+        The lock makes sure that only one request is done at a time, and
+        successfully ignores false timeouts or strand callbacks.
+        '''
+        if not self._queue_lock.acquire(False):
+            # this is either a timeout out of time or a timed-out request
+            # coming back
+            return
+
+        # process the next element in the queue
+        while self._queue:
+            album = self._queue.pop(0)
+
+            if album.cover is self.unknown_cover:
+                break
+        else:
+            album = None
+
+        if album:
+            print album.name
+
+            # inform the current album being searched
+            self._callback(album)
+
+            # start the request
+            self._search_cover_for_album(album)
+
+            # add a timeout to the request
+            Gdk.threads_add_timeout_seconds(GLib.PRIORITY_DEFAULT_IDLE, 40,
+                    self._next, None)
+        else:
+            # if there're no more elements, clean the state of the requester
+            self._queue_lock.release()
+            self._running = False
+            self._callback(None)
+
+    def _search_cover_for_album(self, album):
+        '''
+        Activelly requests an Album's cover to the cover_db, calling
+        the callback given once the process finishes (since it generally is
+        asyncrhonous).
+        For more information on the callback arguments, check
+        `RB.ExtDB.request` documentation.
+
+        :param album: `Album` for which search the cover.
+        '''
+        # create a key and request the cover
+        key = album.create_ext_db_key()
+        provides = self._cover_db.request(key, self._next, None)
+
+        print provides
+
+        if not provides:
+            # in case there is no provider, call the callback immediately
+            self._next()
+
+    def _next(self, *args):
+        ''' Advances to the next album to process. '''
+        if self._queue_lock.locked():
+            self._queue_lock.release()
+
+        self._process_queue()
+
+    def stop(self):
+        ''' Clears the queue, forcing the requester to stop. '''
+        del self._queue[:]
+
+
 class CoverManager(GObject.Object):
     '''
     Manager that takes care of cover loading and updating.
@@ -1138,7 +1244,7 @@ class CoverManager(GObject.Object):
 
         self._cover_db = RB.ExtDB(name='album-art')
         self._album_manager = album_manager
-        self._cover_request_timed_out = -1
+        self._requester = CoverRequester(self._cover_db)
 
         self._connect_properties()
         self._connect_signals(plugin)
@@ -1215,6 +1321,9 @@ class CoverManager(GObject.Object):
                 self.shadow_image))
         self.unknown_cover = self._create_cover(
             rb.find_plugin_file(plugin, 'img/rhythmbox-missing-artwork.svg'))
+
+        # set the unknown cover to the requester to make comparisons
+        self._requester.unknown_cover = self.unknown_cover
 
     def _create_cover(self, image):
         if self.add_shadow:
@@ -1302,81 +1411,16 @@ class CoverManager(GObject.Object):
             cover is being searched.
         '''
         if albums is None:
-            albums = self._album_manager.model.get_all()
-
-        def search_timed_out(*args):
-            if args[-1] and not self._cover_request_timed_out:
-                search_next_cover(args[-1])
-
-            self._cover_request_timed_out -= 1
-
-        def search_next_cover(*args):
-            # unpack the data
-            iterator, callback = args[-1]
-
-            # if the operation was canceled, break the recursion
-            if self._cancel_cover_request:
-                # this is to stop the timeout routine
-                del args[-1][:]
-
-                callback(None)
-                return
-
-            #try to obtain the next album
-            try:
-                while True:
-                    album = iterator.next()
-
-                    if album.cover is self.unknown_cover:
-                        break
-
-                # inform we are starting a new search
-                callback(album)
-
-                # request the cover for the next album
-                self.search_cover_for_album(album, search_next_cover, args[-1])
-
-                # check to avoid timeout
-                # start the timeout
-                self._cover_request_timed_out += 1
-                Gdk.threads_add_timeout_seconds(GLib.PRIORITY_DEFAULT_IDLE, 40,
-                    search_timed_out, args[-1])
-            except StopIteration:
-                # inform we finished
-                callback(None)
-            except Exception as e:
-                print "Error while searching covers: " + str(e)
-
-        # start the cover search
-        self._cancel_cover_request = False
-        search_next_cover([iter(albums), callback])
+            self._requester.replace_queue(
+                list(self._album_manager.model.get_all()), callback)
+        else:
+            self._requester.add_to_queue(albums, callback)
 
     def cancel_cover_request(self):
         '''
         Cancel the current cover request, if there is one running.
         '''
-        self._cancel_cover_request = True
-
-    def search_cover_for_album(self, album, callback=lambda *_: None,
-        data=None):
-        '''
-        Activelly requests an Album's cover to the cover_db, calling
-        the callback given once the process finishes (since it generally is
-        asyncrhonous).
-        For more information on the callback arguments, check
-        `RB.ExtDB.request` documentation.
-
-        :param album: `Album` for which search the cover.
-        :param callback: `callable` to call when the process finishes.
-        :param data: `object` to call the callable with.
-        '''
-        # create a key and request the cover
-        key = album.create_ext_db_key()
-        provides = self._cover_db.request(key, callback, data)
-
-        if not provides:
-            # in case there is no provider, call the callback immediately
-            callback(data)
+        self._requester.stop()
 
     def update_cover(self, album, pixbuf=None, uri=None):
         '''
