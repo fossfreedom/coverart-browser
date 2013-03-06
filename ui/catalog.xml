@@ -22,6 +22,9 @@
     <glade-widget-class title="EnhancedIconView" name="EnhancedIconView" 
                         generic-name="EnhancedIconView" parent="GtkIconView"
                         icon-name="widget-gtk-iconview"/>
+    <glade-widget-class title="CollapsiblePaned" name="CollapsiblePaned"
+                        generic-name="CollapsiblePaned" parent="GtkPaned"
+                        icon-name="widget-gtk-paned"/>
   </glade-widget-classes>
 
    <glade-widget-group name="python" title="Python">
@@ -32,6 +35,7 @@
      <glade-widget-class-ref name="QuickSearchEntry"/>
      <glade-widget-class-ref name="ProxyPopupButton"/>
      <glade-widget-class-ref name="EnhancedIconView"/>
+     <glade-widget-class-ref name="CollapsiblePaned"/>
    </glade-widget-group>
 
 </glade-catalog>

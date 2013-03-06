@@ -628,17 +628,23 @@ class PanedCollapsible(Gtk.Paned):
     collapsible1 = GObject.property(type=bool, default=False)
     collapsible2 = GObject.property(type=bool, default=False)
     collapsible_y = GObject.property(type=int, default=0)
+    collapsible_label = GObject.property(type=str, default='')
+
+    # signals
+    __gsignals__ = {
+        'expanded': (GObject.SIGNAL_RUN_LAST, None, ())
+        }
 
     def __init__(self, *args, **kwargs):
         super(PanedCollapsible, self).__init__(*args, **kwargs)
-
-        self._expander_options = {}
 
         self._connect_properties()
 
     def _connect_properties(self):
         self.connect('notify::collapsible1', self._on_collapsible1_changed)
         self.connect('notify::collapsible2', self._on_collapsible2_changed)
+        self.connect('notify::collapsible_label',
+            self._on_collapsible_label_changed)
 
     def _on_collapsible1_changed(self, *args):
         if self.collapsible1 and self.collapsible2:
@@ -653,6 +659,8 @@ class PanedCollapsible(Gtk.Paned):
                 inner_child = child.get_child()
                 child.remove(inner_child)
                 child = inner_child
+
+                self._expander = None
 
             self.add1(child)
 
@@ -670,9 +678,53 @@ class PanedCollapsible(Gtk.Paned):
                 child.remove(inner_child)
                 child = inner_child
 
+                self._expander = None
+
             self.add2(child)
 
-    def remove(self, widget):
+    def _on_collapsible_label_changed(self, *args):
+        if self._expander:
+            self._expander.set_label(self.collapsible_label)
+
+    def _on_collapsible_expanded(self, *args):
+        expand = self._expander.get_expanded()
+
+        if not expand:
+            self.collapsible_y = self.get_position()
+
+            # move the lower pane to the bottom since it's collapsed
+            new_y = self.get_allocated_height() - \
+                self.get_handle_window().get_height() - \
+                self._expander.get_label_widget().get_allocated_height()
+
+            self.set_position(new_y)
+        else:
+            # restitute the lower pane to it's expanded size
+            if not self.collapsible_y:
+                # if there isn't a saved size, use half of the space
+                new_y = self.get_allocated_height() / 2
+                self.collapsible_y = new_y
+
+            self.set_position(self.collapsible_y)
+
+        self.emit('expanded')
+
+    def do_button_press_event(self, *args):
+        '''
+        This callback allows or denies the paned handle to move depending on
+        the expanded state of the entry_view
+        '''
+        if not self._expander or self._expander.get_expanded():
+            Gtk.Paned.do_button_press_event(self, *args)
+
+    def do_button_release_event(self, *args):
+        '''
+        Callback when the paned handle is released from its mouse click.
+        '''
+        Gtk.Paned.do_button_release_event(self, *args)
+        self.collapsible_y = self.get_position()
+
+    def do_remove(self, widget):
         if self.collapsible1 and self.get_child1().get_child() is widget:
             expander = self.get_child1()
             expander.remove(widget)
@@ -682,32 +734,52 @@ class PanedCollapsible(Gtk.Paned):
             expander.remove(widget)
             widget = expander
 
+        self._expander = None
+
         Gtk.Paned.remove(self, widget)
 
-    @property
-    def expander_options(self):
-        return self._expander_options
+    def do_add(self, widget):
+        if not self.get_child1():
+            self.do_add1(widget)
+        elif not self.get_child2():
+            self.do_add2(widget)
+        else:
+            print("GtkPaned cannot have more than 2 children")
 
-    @expander_options.setter
-    def expander_options(self, options):
-        self._expander_options = options
+    def do_add1(self, widget):
+        self.do_pack1(widget, True, True)
 
-        self._expander.set_properties(**options)
-
-    def pack1(self, widget):
+    def do_pack1(self, widget, *args, **kwargs):
         if self.collapsible1:
             widget = self._create_expander(widget)
 
-        Gtk.Paned.pack1(self, widget)
+        Gtk.Paned.pack1(self, widget, *args, **kwargs)
 
-    def pack2(self, widget):
+    def do_add2(self, widget):
+        self.do_pack2(widget, True, True)
+
+    def do_pack2(self, widget, *args, **kwargs):
         if self.collapsible2:
             widget = self._create_expander(widget)
 
-        Gtk.Paned.pack2(self, widget)
+        Gtk.Paned.pack2(self, widget, *args, **kwargs)
 
     def _create_expander(self, widget):
-        self._expander = Gtk.Expander(**self._expander_options)
+        self._expander = Gtk.Expander(label=self.collapsible_label,
+            visible=True)
         self._expander.add(widget)
 
+        # connect the expanded signal
+        self._expander.connect('notify::expanded',
+            self._on_collapsible_expanded)
+
+        # connect the initial collapse
+        self._allocate_id = self._expander.connect('size-allocate',
+            self._initial_collapse)
+
         return self._expander
+
+    def _initial_collapse(self, *args):
+        self._on_collapsible_expanded()
+        self._expander.disconnect(self._allocate_id)
+        del self._allocate_id

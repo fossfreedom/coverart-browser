@@ -35,6 +35,7 @@ from coverart_widgets import SearchEntry
 from coverart_widgets import QuickSearchEntry
 from coverart_widgets import ProxyPopupButton
 from coverart_widgets import EnhancedIconView
+from coverart_widgets import PanedCollapsible
 from coverart_controllers import PlaylistPopupController
 from coverart_controllers import GenrePopupController
 from coverart_controllers import SortPopupController
@@ -325,7 +326,6 @@ class CoverArtBrowserSource(RB.Source):
 
         # enable some ui if necesary
         self.on_notify_rating_threshold(_)
-        self.on_notify_display_bottom_enabled(_)
 
         print "CoverArtBrowser DEBUG - end _apply_settings"
 

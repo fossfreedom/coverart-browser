@@ -15,12 +15,12 @@
     <property name="vexpand">True</property>
     <property name="orientation">vertical</property>
     <child>
-      <object class="GtkPaned" id="paned">
+      <object class="PanedCollapsible" id="paned">
+        <property name="collapsible2">True</property>
+        <property name="collapsible_label">Tracks &amp; Covers</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="orientation">vertical</property>
-        <signal name="button-press-event" handler="paned_button_press_callback" swapped="no"/>
-        <signal name="button-release-event" handler="on_paned_button_release_event" swapped="no"/>
         <child>
           <object class="GtkOverlay" id="iconview_overlay">
             <property name="visible">True</property>
@@ -61,48 +61,15 @@
           </packing>
         </child>
         <child>
-          <object class="GtkBox" id="bottom_box">
+          <object class="GtkNotebook" id="bottom_notebook">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="hexpand">True</property>
+            <property name="can_focus">True</property>
             <property name="vexpand">True</property>
-            <property name="orientation">vertical</property>
-            <child>
-              <object class="GtkExpander" id="bottom_expander">
-                <property name="label" translatable="yes">Tracks &amp; Covers</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <signal name="notify::expanded" handler="bottom_expander_expanded_callback" swapped="no"/>
-                <child>
-                  <object class="GtkNotebook" id="bottom_notebook">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="vexpand">True</property>
-                    <property name="tab_pos">bottom</property>
-                    <signal name="switch-page" handler="notebook_switch_page_callback" swapped="no"/>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
+            <property name="tab_pos">bottom</property>
+            <signal name="switch-page" handler="notebook_switch_page_callback" swapped="no"/>
           </object>
-          <packing>
-            <property name="resize">True</property>
-            <property name="shrink">False</property>
-          </packing>
         </child>
-        <signal name="button-press-event" handler="paned_button_press_callback" swapped="no"/>
-        <signal name="button-release-event" handler="on_paned_button_release_event" swapped="no"/>
-      </object>
-      <packing>
-        <property name="expand">True</property>
-        <property name="fill">True</property>
-        <property name="position">1</property>
-      </packing>
+        </object>
     </child>
     <child>
       <object class="GtkLabel" id="status_label">
