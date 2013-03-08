@@ -21,6 +21,7 @@
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="orientation">vertical</property>
+        <signal name="expanded" handler="bottom_expander_expanded_callback" swapped="no"/>
         <child>
           <object class="GtkOverlay" id="iconview_overlay">
             <property name="visible">True</property>

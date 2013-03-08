@@ -632,7 +632,7 @@ class PanedCollapsible(Gtk.Paned):
 
     # signals
     __gsignals__ = {
-        'expanded': (GObject.SIGNAL_RUN_LAST, None, ())
+        'expanded': (GObject.SIGNAL_RUN_LAST, None, (bool,))
         }
 
     def __init__(self, *args, **kwargs):
@@ -693,11 +693,7 @@ class PanedCollapsible(Gtk.Paned):
             self.collapsible_y = self.get_position()
 
             # move the lower pane to the bottom since it's collapsed
-            new_y = self.get_allocated_height() - \
-                self.get_handle_window().get_height() - \
-                self._expander.get_label_widget().get_allocated_height()
-
-            self.set_position(new_y)
+            self._collapse()
         else:
             # restitute the lower pane to it's expanded size
             if not self.collapsible_y:
@@ -707,12 +703,12 @@ class PanedCollapsible(Gtk.Paned):
 
             self.set_position(self.collapsible_y)
 
-        self.emit('expanded')
+        self.emit('expanded', expand)
 
     def do_button_press_event(self, *args):
         '''
         This callback allows or denies the paned handle to move depending on
-        the expanded state of the entry_view
+        the expanded expander
         '''
         if not self._expander or self._expander.get_expanded():
             Gtk.Paned.do_button_press_event(self, *args)
@@ -780,6 +776,17 @@ class PanedCollapsible(Gtk.Paned):
         return self._expander
 
     def _initial_collapse(self, *args):
-        self._on_collapsible_expanded()
+        self._collapse()
         self._expander.disconnect(self._allocate_id)
         del self._allocate_id
+
+    def _collapse(self):
+        new_y = self.get_allocated_height() - \
+            self.get_handle_window().get_height() - \
+            self._expander.get_label_widget().get_allocated_height()
+
+        self.set_position(new_y)
+
+    def expand(self):
+        if self._expander:
+            self._expander.set_expanded(not self._expander.get_expanded())
