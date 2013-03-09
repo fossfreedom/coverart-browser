@@ -72,6 +72,10 @@
             <alt genre="latin">latino</alt>
             <alt genre="latin">espagnol</alt>
         </alt>
+        <!--icons - each alternate can have an optional "icon" parameter e.g. icon="example"-->
+        <icon>
+            <icon name="example">example.png</icon>
+        </icon>
     </genre>
     <sort>
         <sort name="name" spritesheet="sort">name</sort>

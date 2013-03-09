@@ -25,6 +25,8 @@ from gi.repository import RB
 import rb
 import locale
 import gettext
+import os
+import shutil
 from stars import ReactiveStar
 from stars import StarSize
 
@@ -294,8 +296,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         
         for theme in Theme(self).themes:
             combo_liststore.append([theme, theme])
-            # fix theme name translation later
-            
+             
         theme_combo = builder.get_object('theme_combobox')
         renderer = Gtk.CellRendererText()
         theme_combo.pack_start(renderer, True)
@@ -306,6 +307,16 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         button_relief = builder.get_object('button_relief_checkbox')
         self.settings.bind(gs.PluginKey.BUTTON_RELIEF, button_relief, 'active',
             Gio.SettingsBindFlags.DEFAULT)
+
+        # create user data files
+        popup = RB.find_user_data_file('plugins/coverart_browser/img/usericons/popups.xml')
+        
+        if not os.path.isfile(popup):
+            template = rb.find_plugin_file(self, 'template/popups.xml')
+            folder = os.path.split(popup)[0]
+            if not os.path.exists(folder):
+                os.makedirs(folder)
+            shutil.copyfile(template, popup)
 
         # return the dialog
         return builder.get_object('main_notebook')

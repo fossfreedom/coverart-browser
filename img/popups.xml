@@ -468,7 +468,7 @@
         
         
         <alt>
-            <alt genre="easy listening">lounge</alt>
+            <alt icon="example" genre="easy listening">lounge</alt>
             <alt genre="alternative">ska</alt>
             <alt genre="alternative">gothic</alt>
             <alt genre="dance">trip hop</alt>
@@ -500,6 +500,10 @@
             <alt genre="latin">latino</alt>
             <alt genre="latin">espagnol</alt>
         </alt>
+        
+        <icon>
+            <icon name="example">example.png</icon>
+        </icon>
     </genre>
     <sort>
         <sort spritesheet="sort" name="name">name</sort>
@@ -558,7 +562,7 @@
                 <spacing y="32" x="32"/>
                 <start-position y="32" x="32"/>
             </spritesheet>
-    </theme>
+        </theme>
         <theme folder_name="dark">
             <spritesheet name="genre">
                 <image>genre_sprites.png</image>
@@ -589,8 +593,8 @@
                 <spacing y="32" x="32"/>
                 <start-position y="32" x="32"/>
             </spritesheet>
-   	</theme>
-	<theme folder_name="light">
+        </theme>
+        <theme folder_name="light">
             <spritesheet name="genre">
                 <image>genre_sprites.png</image>
                 <icon width="75" height="75"/>
@@ -620,6 +624,6 @@
                 <spacing y="32" x="32"/>
                 <start-position y="32" x="32"/>
             </spritesheet>        
-	</theme>
+        </theme>
     </theme>
 </root>

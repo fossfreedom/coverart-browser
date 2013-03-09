@@ -293,16 +293,22 @@ class GenrePopupController(OptionsController):
         # in a mixture of cases, both unicode (normalized or not) and str
         # and as usual python cannot mix and match these types.
 
+        test_genre = RB.search_fold(test_genre)
+        
         for genre in sorted(self._spritesheet.locale_names,
             key=lambda b: (-len(b), b)):
-            if RB.search_fold(genre) in RB.search_fold(test_genre):
+            if RB.search_fold(genre) in test_genre:
                 return self._spritesheet[self._spritesheet.locale_names[genre]]
 
         # next check locale alternates
         case_search = CaseInsensitiveDict(self._spritesheet.locale_alternate)
+        alt_icon_search = CaseInsensitiveDict(self._spritesheet.alt_icons)
 
-        if RB.search_fold(test_genre) in case_search:
-            return self._spritesheet[case_search[RB.search_fold(test_genre)]]
+        if test_genre in case_search:
+            if test_genre in alt_icon_search:
+                return alt_icon_search[test_genre]
+            else:
+                return self._spritesheet[case_search[test_genre]]
 
         # check if any of the default genres are a substring
         # of test_genre - check in reverse order so that we
@@ -310,13 +316,16 @@ class GenrePopupController(OptionsController):
         # short strings)
         for genre in sorted(self._spritesheet.names,
             key=lambda b: (-len(b), b)):
-            if RB.search_fold(genre) in RB.search_fold(test_genre):
+            if RB.search_fold(genre) in test_genre:
                 return self._spritesheet[genre]
 
         # next check alternates
         case_search = CaseInsensitiveDict(self._spritesheet.alternate)
-        if RB.search_fold(test_genre) in case_search:
-            return self._spritesheet[case_search[RB.search_fold(test_genre)]]
+        if test_genre in case_search:
+            if test_genre in alt_icon_search:
+                return alt_icon_search[test_genre]
+            else:
+                return self._spritesheet[case_search[test_genre]]
 
         # if no matches then default to unrecognised image
         return self._unrecognised_image

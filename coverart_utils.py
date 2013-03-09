@@ -347,44 +347,6 @@ def idle_iterator(func):
 
     return iter_function
 
-
-class SpriteSheet(object):
-
-    def __init__(self, image, icon_width, icon_height, x_spacing, y_spacing,
-        x_start, y_start, across_dimension, down_dimension, 
-        alpha_color=None, size=None):
-        # load the image
-        base_image = GdkPixbuf.Pixbuf.new_from_file(image)
-
-        if alpha_color:
-            base_image = base_image.add_alpha(True, *alpha_color)
-
-        delta_y = icon_height + y_spacing
-        delta_x = icon_width + x_spacing
-
-        self._sprites = []
-
-        for y in range(0, down_dimension):
-            for x in range(0, across_dimension):
-                sprite = GdkPixbuf.Pixbuf.new(GdkPixbuf.Colorspace.RGB, True,
-                    8, icon_width, icon_height)
-
-                base_image.copy_area(x_start + (x * delta_x),
-                    y_start + (y * delta_y), icon_width, icon_height,
-                    sprite, 0, 0)
-
-                if size:
-                    sprite = sprite.scale_simple(size[0], size[1],
-                        GdkPixbuf.InterpType.BILINEAR)
-
-                self._sprites.append(sprite)
-
-    def __len__(self):
-        return len(self._sprites)
-
-    def __getitem__(self, index):
-        return self._sprites[index]
-
 class Theme:
     '''
     This class manages the theme details
@@ -462,48 +424,83 @@ class Theme:
         """ Delegate access to implementation """
         return setattr(self.__instance, attr, value)
         
+class SpriteSheet(object):
+
+    def __init__(self, image, icon_width, icon_height, x_spacing, y_spacing,
+        x_start, y_start, across_dimension, down_dimension, 
+        alpha_color=None, size=None):
+        # load the image
+        base_image = GdkPixbuf.Pixbuf.new_from_file(image)
+
+        if alpha_color:
+            base_image = base_image.add_alpha(True, *alpha_color)
+
+        delta_y = icon_height + y_spacing
+        delta_x = icon_width + x_spacing
+
+        self._sprites = []
+
+        for y in range(0, down_dimension):
+            for x in range(0, across_dimension):
+                sprite = GdkPixbuf.Pixbuf.new(GdkPixbuf.Colorspace.RGB, True,
+                    8, icon_width, icon_height)
+
+                base_image.copy_area(x_start + (x * delta_x),
+                    y_start + (y * delta_y), icon_width, icon_height,
+                    sprite, 0, 0)
+
+                if size:
+                    sprite = sprite.scale_simple(size[0], size[1],
+                        GdkPixbuf.InterpType.BILINEAR)
+
+                self._sprites.append(sprite)
+
+    def __len__(self):
+        return len(self._sprites)
+
+    def __getitem__(self, index):
+        return self._sprites[index]
 
 class ConfiguredSpriteSheet(object):
     def __init__(self, plugin, sprite_name, size=None):
-        self.plugin = plugin
         popups = rb.find_plugin_file(plugin, 'img/popups.xml')
-        self.root = ET.parse(open(popups)).getroot()
+        root = ET.parse(open(popups)).getroot()
         base = 'theme/theme[@folder_name="' + Theme(plugin).current\
             + '"]/spritesheet[@name="' + sprite_name + '"]/'
         image = rb.find_plugin_file(plugin, 'img/' + Theme(plugin).current\
-            +'/' + self.root.xpath(base + 'image')[0].text)
-        icon_width = int(self.root.xpath(base + 'icon')[0].attrib['width'])
-        icon_height = int(self.root.xpath(base + 'icon')[0].attrib['height'])
-        x_spacing = int(self.root.xpath(base + 'spacing')[0].attrib['x'])
-        y_spacing = int(self.root.xpath(base + 'spacing')[0].attrib['y'])
-        x_start = int(self.root.xpath(base + 'start-position')[0].attrib['x'])
-        y_start = int(self.root.xpath(base + 'start-position')[0].attrib['y'])
-        across_dimension = int(self.root.xpath(base + 'dimension')[0].attrib['across'])
-        down_dimension = int(self.root.xpath(base + 'dimension')[0].attrib['down'])
+            +'/' + root.xpath(base + 'image')[0].text)
+        icon_width = int(root.xpath(base + 'icon')[0].attrib['width'])
+        icon_height = int(root.xpath(base + 'icon')[0].attrib['height'])
+        x_spacing = int(root.xpath(base + 'spacing')[0].attrib['x'])
+        y_spacing = int(root.xpath(base + 'spacing')[0].attrib['y'])
+        x_start = int(root.xpath(base + 'start-position')[0].attrib['x'])
+        y_start = int(root.xpath(base + 'start-position')[0].attrib['y'])
+        across_dimension = int(root.xpath(base + 'dimension')[0].attrib['across'])
+        down_dimension = int(root.xpath(base + 'dimension')[0].attrib['down'])
 
         try:
             alpha_color = map(int,
-                    self.root.xpath(base + 'alpha')[0].text.split(' '))
+                    root.xpath(base + 'alpha')[0].text.split(' '))
         except:
             alpha_color = None
 
         self.names = []
         self.locale_names = {}
-
+        
         cl = CoverLocale()
         lang=cl.get_locale()
 
         base = sprite_name + '/' + sprite_name +\
             '[@spritesheet="' + sprite_name + '"]'
 
-        for elem in self.root.xpath(base + '[not(@xml:lang)]'):
+        for elem in root.xpath(base + '[not(@xml:lang)]'):
             self.names.append(elem.text)
-
-        for elem in self.root.xpath(base + '[@xml:lang="' + lang + '"]'):
+            
+        for elem in root.xpath(base + '[@xml:lang="' + lang + '"]'):
             self.locale_names[elem.text]=elem.attrib['name']
 
         if (not self.locale_names) and len(lang) > 2:
-            for elem in self.root.xpath(base + '[@xml:lang="' +\
+            for elem in root.xpath(base + '[@xml:lang="' +\
                 lang[0:2] + '"]'):
                 self.locale_names[elem.text]=elem.attrib['name']
 
@@ -530,21 +527,60 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
             size)
         self.alternate = {}
         self.locale_alternate = {}
+        self.alt_icons = {}
+
+        popups = rb.find_plugin_file(plugin, 'img/popups.xml')
+        root = ET.parse(open(popups)).getroot()
+        self._parse_popups(plugin, root, sprite_name)
+
+        try:
+            popups = rb.find_plugin_file(plugin, 'img/usericons/popups.xml')
+            root = ET.parse(open(popups)).getroot()
+            self._parse_popups(plugin, root, sprite_name)
+        except:
+            pass
+            
+    def _parse_popups(self, plugin, root, sprite_name):
+        icon_names = {}
+
+        def _extract_icon_name(elem):
+            try:
+                icon_names[elem.text] = elem.attrib['icon']
+            except:
+                pass
 
         cl = CoverLocale()
         lang=cl.get_locale()
 
         base = sprite_name + '/alt'
-        for elem in self.root.xpath(base + '[not(@xml:lang)]/alt'):
+        for elem in root.xpath(base + '[not(@xml:lang)]/alt'):
             self.alternate[elem.text] = elem.attrib['genre']
-
-        for elem in self.root.xpath(base + '[@xml:lang="' + lang + '"]/alt'):
+            _extract_icon_name(elem)
+            
+        for elem in root.xpath(base + '[@xml:lang="' + lang + '"]/alt'):
             self.locale_alternate[elem.text] = elem.attrib['genre']
-
+            _extract_icon_name(elem)
+            
         if (not self.locale_alternate) and len(lang) > 2:
-            for elem in self.root.xpath(base + '[@xml:lang="' +\
+            for elem in root.xpath(base + '[@xml:lang="' +\
                 lang[0:2] + '"]/alt'):
                 self.locale_alternate[elem.text] = elem.attrib['genre']
+                _extract_icon_name(elem)
+
+        for key,name in icon_names.iteritems():
+            elem = root.xpath(sprite_name + '/icon/icon[@name="'+name+'"]')
+
+            try:
+                icon_name = rb.find_plugin_file(plugin, 'img/usericons/' +
+                    elem[0].text)
+
+                sprite = GdkPixbuf.Pixbuf.new_from_file(icon_name)
+                if size:
+                    sprite = sprite.scale_simple(size[0], size[1],
+                        GdkPixbuf.InterpType.BILINEAR)
+                self.alt_icons[key] = sprite
+            except:
+                pass
 
 
 def get_stock_size():
