@@ -625,9 +625,18 @@ class EnhancedIconView(Gtk.IconView):
 class PanedCollapsible(Gtk.Paned):
     __gtype_name__ = "PanedCollapsible"
 
+    # properties
+    # this two properties indicate which one of the Paned childs is collapsible
+    # only one can be True at a time, the widget takes care of keeping this
+    # restriction consitent.
     collapsible1 = GObject.property(type=bool, default=False)
     collapsible2 = GObject.property(type=bool, default=False)
+
+    # this indicates the latest position for the handle before a child was
+    # collapsed
     collapsible_y = GObject.property(type=int, default=0)
+
+    # label for the Expander used on the collapsible child
     collapsible_label = GObject.property(type=str, default='')
 
     # signals
@@ -648,39 +657,32 @@ class PanedCollapsible(Gtk.Paned):
 
     def _on_collapsible1_changed(self, *args):
         if self.collapsible1 and self.collapsible2:
+            # check consistency, only one collapsible at a time
             self.collapsible2 = False
 
         child = self.get_child1()
 
-        if child:
-            if self.collapsible1:
-                self.remove(child)
-            else:
-                inner_child = child.get_child()
-                child.remove(inner_child)
-                child = inner_child
-
-                self._expander = None
-
-            self.add1(child)
+        self._wrap_unwrap_child(child, self.collapsible1, self.add1)
 
     def _on_collapsible2_changed(self, *args):
         if self.collapsible1 and self.collapsible2:
+             # check consistency, only one collapsible at a time
             self.collapsible1 = False
 
         child = self.get_child2()
 
+        self._wrap_unwrap_child(child, self.collapsible2, self.add2)
+
+    def _wrap_unwrap_child(self, child, wrap, add):
         if child:
-            if self.collapsible2:
-                self.remove(child)
-            else:
+            self.remove(child)
+
+            if not wrap:
                 inner_child = child.get_child()
                 child.remove(inner_child)
                 child = inner_child
 
-                self._expander = None
-
-            self.add2(child)
+            add(child)
 
     def _on_collapsible_label_changed(self, *args):
         if self._expander:
@@ -721,6 +723,10 @@ class PanedCollapsible(Gtk.Paned):
         self.collapsible_y = self.get_position()
 
     def do_remove(self, widget):
+        '''
+        Overwrites the super class remove method, taking care of removing the
+        child even if it's wrapped inside an Expander.
+        '''
         if self.collapsible1 and self.get_child1().get_child() is widget:
             expander = self.get_child1()
             expander.remove(widget)
@@ -735,6 +741,10 @@ class PanedCollapsible(Gtk.Paned):
         Gtk.Paned.remove(self, widget)
 
     def do_add(self, widget):
+        '''
+        This method had to be overwrited to allow the add and packs method to
+        work with Glade.
+        '''
         if not self.get_child1():
             self.do_add1(widget)
         elif not self.get_child2():
