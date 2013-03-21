@@ -133,7 +133,8 @@ class GSetting:
                 AUTOSTART='autostart',
                 TOOLBAR_POS='toolbar-pos',
                 BUTTON_RELIEF='button-relief',
-                THEME='theme')
+                THEME='theme',
+                NEW_GENRE_ICON='new-genre-icon')
 
             self.setting = {}
 
@@ -193,6 +194,8 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
     '''
     __gtype_name__ = 'CoverArtBrowserPreferences'
     object = GObject.property(type=GObject.Object)
+    GENRE_POPUP = 1
+    GENRE_LIST = 2
 
     def __init__(self):
         '''
@@ -318,6 +321,34 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
                 os.makedirs(folder)
             shutil.copyfile(template, popup)
 
+        # now prepare the genre tab
+        from coverart_utils import GenreConfiguredSpriteSheet
+        from coverart_utils import get_stock_size
+        from coverart_utils import GenreType
+
+        self._sheet = GenreConfiguredSpriteSheet(self, "genre", get_stock_size())
+
+        self.alt_liststore = builder.get_object('alt_liststore')
+        self.alt_user_liststore = builder.get_object('alt_user_liststore')
+        self._iters = {}
+        for key in self._sheet.keys():
+            store_iter = self.alt_liststore.append([key, self._sheet[key]])
+            self._iters[(key,self.GENRE_POPUP)] = store_iter
+
+        for key, value in self._sheet.genre_alternate.iteritems():
+            if key.genre_type == GenreConfiguredSpriteSheet.GENRE_USER:
+                store_iter = self.alt_user_liststore.append([key.name,
+                    self._sheet[self._sheet.genre_alternate[key]],
+                    self._sheet.genre_alternate[key]])
+                self._iters[(key.name, self.GENRE_LIST)] = store_iter
+
+        self.amend_mode = False
+        self.genre_combobox = builder.get_object('genre_combobox')
+        self.genre_entry = builder.get_object('genre_entry')
+        self.genre_view = builder.get_object('genre_view')
+        self.save_button = builder.get_object('save_button')
+        self.filechooserdialog = builder.get_object('filechooserdialog')
+        
         # return the dialog
         return builder.get_object('main_notebook')
 
@@ -325,3 +356,107 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         print "rating_changed_callback"
         gs = GSetting()
         self.settings[gs.PluginKey.RATING] = self.stars.get_rating()
+
+    def on_save_button_clicked(self, button):
+        entry_value = self.genre_entry.get_text()        
+        treeiter = self.genre_combobox.get_active_iter()
+        icon_value = self.alt_liststore[treeiter][0]
+        # model 0 is the icon name, model 1 is the pixbuf
+        
+        if self.amend_mode:
+            key = self._sheet.amend_genre_info(self.current_genre,
+            entry_value, icon_value)
+
+            self.alt_user_liststore[self._iters[(self.current_genre,
+                self.GENRE_LIST)]][1]=self._sheet[self._sheet.genre_alternate[key]]
+            self.alt_user_liststore[self._iters[(self.current_genre,
+                self.GENRE_LIST)]][0]=key.name
+            store_iter = self._iters[(self.current_genre, self.GENRE_LIST)]
+            del self._iters[(self.current_genre, self.GENRE_LIST)]
+            self._iters[(key.name, self.GENRE_LIST)] = store_iter
+            
+        else:
+            self.amend_mode = True
+            key = self._sheet.amend_genre_info('',
+            entry_value, icon_value)
+            self.current_genre = key.name
+
+            store_iter = self.alt_user_liststore.append([key.name,
+                            self._sheet[self._sheet.genre_alternate[key]],
+                            self._sheet.genre_alternate[key]])
+            self._iters[(key.name, self.GENRE_LIST)] = store_iter
+            selection = self.genre_view.get_selection()
+            selection.select_iter(store_iter)
+
+        self.save_button.set_sensitive(False)
+        self._toggle_new_genre_state()
+
+        
+    def on_genre_filechooserbutton_file_set(self, filechooser):
+        key = self._sheet.add_genre_icon( self.filechooserdialog.get_filename() )
+        store_iter = self.alt_liststore.append([key.name, self._sheet[key.name]])
+        self._iters[(key.name,self.GENRE_POPUP)] = store_iter
+        
+    def on_genre_view_selection_changed(self, view):
+        model, genre_iter = view.get_selected()
+        if genre_iter:
+            self.genre_entry.set_text(model[genre_iter][0])
+            index = model[genre_iter][2]
+            self.genre_combobox.set_active_iter(self._iters[(index, self.GENRE_POPUP)])
+            self.amend_mode = True
+            self.current_genre=model[genre_iter][0]
+        else:
+            self.genre_entry.set_text('')
+            self.genre_combobox.set_active_iter(None)
+            self.amend_mode = False
+            
+    def on_add_button_clicked(self, button):
+        self.genre_entry.set_text('')
+        self.genre_combobox.set_active(-1)
+        self.amend_mode = False
+        
+    def on_delete_button_clicked(self, button):
+        selection = self.genre_view.get_selection()
+
+        model, genre_iter = selection.get_selected()
+        if genre_iter:
+            index = model[genre_iter][0]
+            model.remove(genre_iter)
+            del self._iters[(index, self.GENRE_LIST)]
+            self._sheet.delete_genre(index)
+
+            self._toggle_new_genre_state()
+            
+    def set_save_sensitivity(self, _):
+        entry_value = self.genre_entry.get_text()
+        treeiter = self.genre_combobox.get_active_iter()
+
+        enable = False
+        try:
+            test = self._iters[(entry_value, self.GENRE_LIST)]
+            if self.current_genre == entry_value:
+                #if the current entry is the same then could save
+                enable = True
+        except:
+            # reach here if this is a brand new entry
+            enable = True
+
+        if treeiter == None or entry_value == None or entry_value == "":
+            # no icon chosen, or no entry value then nothing to save
+            enable = False
+
+        self.save_button.set_sensitive(enable)
+
+    def _toggle_new_genre_state(self):
+        gs = GSetting()
+        test = self.settings[gs.PluginKey.NEW_GENRE_ICON]
+
+        if test:
+            test = False
+        else:
+            test = True
+
+        self.settings[gs.PluginKey.NEW_GENRE_ICON]=test
+            
+
+    

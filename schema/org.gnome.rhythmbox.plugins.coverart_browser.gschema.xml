@@ -111,5 +111,10 @@
             <summary>Icon Theme</summary>
             <description>Name of the chosen theme.</description>
         </key>
+        <key type="b" name="new-genre-icon">
+            <default>false</default>
+            <summary>System Toggle</summary>
+            <description>Plugin toggles this to indicate a new genre - it has no real meaning other than to fire a signal when the state is changed.</description>
+        </key>
     </schema>
 </schemalist>

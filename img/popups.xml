@@ -466,9 +466,8 @@
         <genre xml:lang="pl" spritesheet="genre" name="children">dzieci</genre>
         <genre xml:lang="pt_BR" spritesheet="genre" name="children">infantil</genre>
         
-        
         <alt>
-            <alt icon="example" genre="easy listening">lounge</alt>
+            <alt genre="easy listening">lounge</alt>
             <alt genre="alternative">ska</alt>
             <alt genre="alternative">gothic</alt>
             <alt genre="dance">trip hop</alt>
@@ -500,10 +499,6 @@
             <alt genre="latin">latino</alt>
             <alt genre="latin">espagnol</alt>
         </alt>
-        
-        <icon>
-            <icon name="example">example.png</icon>
-        </icon>
     </genre>
     <sort>
         <sort spritesheet="sort" name="name">name</sort>

@@ -20,6 +20,7 @@ from gi.repository import GdkPixbuf
 from gi.repository import GObject
 from gi.repository import Gdk
 from gi.repository import RB
+from gi.repository import Gio
 from coverart_browser_prefs import CoverLocale
 from coverart_browser_prefs import GSetting
 from coverart_utils import create_pixbuf_from_file_at_size
@@ -75,6 +76,7 @@ class OptionsController(GObject.Object):
         '''
         if sheet:
             del sheet
+            
         return ConfiguredSpriteSheet(plugin, typestr, get_stock_size())
 
     def create_button_image( self, plugin, image, icon_name):
@@ -85,6 +87,7 @@ class OptionsController(GObject.Object):
             del image
 
         path = 'img/' + Theme(self.plugin).current + '/'
+        
         return create_pixbuf_from_file_at_size(
             rb.find_plugin_file(self.plugin, path + icon_name),
             *get_stock_size())
@@ -183,6 +186,8 @@ class PlaylistPopupController(OptionsController):
 
 
 class GenrePopupController(OptionsController):
+    # properties
+    new_genre_icon = GObject.property(type=bool, default=False)
 
     def __init__(self, plugin, album_model):
         super(GenrePopupController, self).__init__()
@@ -208,18 +213,17 @@ class GenrePopupController(OptionsController):
         self._spritesheet = None
         self._default_image = None
         self._unrecognised_image = None
-        
-        # connect signals to update genres
-        query.connect('row-inserted', self._update_options, genres_model)
-        query.connect('row-deleted', self._update_options, genres_model)
-        query.connect('row-changed', self._update_options, genres_model)
 
+        self._connect_properties()
+        self._connect_signals(query, genres_model)
+        
         # generate initial popup
         self._update_options(genres_model)
 
     def update_images(self, *args):
         if self._spritesheet:
             del self._spritesheet
+            
         self._spritesheet = GenreConfiguredSpriteSheet(self.plugin,
             'genre', get_stock_size())
         self._default_image = self.create_button_image( self.plugin,
@@ -229,6 +233,20 @@ class GenrePopupController(OptionsController):
         
         if args[-1]:
             self.update_image = True
+
+    def _connect_signals(self, query, genres_model):
+        # connect signals to update genres
+        self.connect('notify::new-genre-icon', self._update_options, genres_model)
+        query.connect('row-inserted', self._update_options, genres_model)
+        query.connect('row-deleted', self._update_options, genres_model)
+        query.connect('row-changed', self._update_options, genres_model)
+
+    def _connect_properties(self):
+        gs = GSetting()
+        setting = gs.get_setting(gs.Path.PLUGIN)
+
+        setting.bind(gs.PluginKey.NEW_GENRE_ICON, self, 'new_genre_icon',
+            Gio.SettingsBindFlags.GET)
 
     def _update_options(self, *args):
         genres_model = args[-1]
@@ -271,10 +289,12 @@ class GenrePopupController(OptionsController):
 
         if test_genre == self._initial_genre.lower():
             image = self._default_image
-        elif test_genre in self._spritesheet:
-            image = self._spritesheet[test_genre]
         else:
             image = self._find_alternates(test_genre)
+
+            if image == self._unrecognised_image and \
+                test_genre in self._spritesheet:
+                image = self._spritesheet[test_genre]
 
         return image
 
@@ -293,6 +313,15 @@ class GenrePopupController(OptionsController):
         # in a mixture of cases, both unicode (normalized or not) and str
         # and as usual python cannot mix and match these types.
 
+        # next check alternates
+        
+        case_search = CaseInsensitiveDict(
+            dict((k.name, v) for k, v in self._spritesheet.genre_alternate.iteritems()
+                if k.genre_type==self._spritesheet.GENRE_USER))
+                
+        if test_genre in case_search:
+            return self._spritesheet[case_search[test_genre]]
+
         test_genre = RB.search_fold(test_genre)
         
         for genre in sorted(self._spritesheet.locale_names,
@@ -301,14 +330,12 @@ class GenrePopupController(OptionsController):
                 return self._spritesheet[self._spritesheet.locale_names[genre]]
 
         # next check locale alternates
-        case_search = CaseInsensitiveDict(self._spritesheet.locale_alternate)
-        alt_icon_search = CaseInsensitiveDict(self._spritesheet.alt_icons)
+        case_search = CaseInsensitiveDict(
+            dict((k.name, v) for k, v in self._spritesheet.genre_alternate.iteritems()
+                if k.genre_type==self._spritesheet.GENRE_LOCALE))
 
         if test_genre in case_search:
-            if test_genre in alt_icon_search:
-                return alt_icon_search[test_genre]
-            else:
-                return self._spritesheet[case_search[test_genre]]
+            return self._spritesheet[case_search[test_genre]]
 
         # check if any of the default genres are a substring
         # of test_genre - check in reverse order so that we
@@ -318,15 +345,7 @@ class GenrePopupController(OptionsController):
             key=lambda b: (-len(b), b)):
             if RB.search_fold(genre) in test_genre:
                 return self._spritesheet[genre]
-
-        # next check alternates
-        case_search = CaseInsensitiveDict(self._spritesheet.alternate)
-        if test_genre in case_search:
-            if test_genre in alt_icon_search:
-                return alt_icon_search[test_genre]
-            else:
-                return self._spritesheet[case_search[test_genre]]
-
+                
         # if no matches then default to unrecognised image
         return self._unrecognised_image
 

@@ -52,7 +52,7 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
     '''
     __gtype_name = 'CoverArtBrowserPlugin'
     object = GObject.property(type=GObject.Object)
-    
+
     def __init__(self):
         '''
         Initialises the plugin object.

@@ -28,7 +28,11 @@ from coverart_browser_prefs import CoverLocale
 from coverart_browser_prefs import GSetting
 import collections
 import re
+import urllib
 
+from collections import namedtuple
+
+GenreType = namedtuple("GenreType", ["name", "genre_type"])
 
 class NaturalString(str):
     '''
@@ -508,6 +512,8 @@ class ConfiguredSpriteSheet(object):
             y_spacing, x_start, y_start, across_dimension, down_dimension, 
             alpha_color, size)
 
+        self._genre_db = RB.ExtDB(name='cb_genre')
+
     def __len__(self):
         return len(self._sheet)
 
@@ -520,69 +526,154 @@ class ConfiguredSpriteSheet(object):
     def __contains__(self, name):
         return name in self.names
 
-
+    def keys(self):
+        return self.names
+        
 class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
+    # types of genre
+    GENRE_USER = 1
+    GENRE_SYSTEM = 2
+    GENRE_LOCALE = 3
+    
     def __init__(self, plugin, sprite_name, size=None):
         super(GenreConfiguredSpriteSheet, self).__init__(plugin, sprite_name,
             size)
-        self.alternate = {}
-        self.locale_alternate = {}
-        self.alt_icons = {}
+        self.genre_alternate = {} # contains GenreType tuples
+        self._alt_icons = {}
+        self._sprite_name = sprite_name
+        self._size = size
 
         popups = rb.find_plugin_file(plugin, 'img/popups.xml')
         root = ET.parse(open(popups)).getroot()
-        self._parse_popups(plugin, root, sprite_name)
+        self._parse_popups(plugin, root, self.GENRE_SYSTEM)
 
         try:
-            popups = rb.find_plugin_file(plugin, 'img/usericons/popups.xml')
-            root = ET.parse(open(popups)).getroot()
-            self._parse_popups(plugin, root, sprite_name)
+            self._user_popups = rb.find_plugin_file(plugin, 'img/usericons/popups.xml')
+            root = ET.parse(open(self._user_popups)).getroot()
+            self._parse_popups(plugin, root, self.GENRE_USER)
+            #root = ET.parse(open(self._user_popups)).getroot()
+            elem = root.xpath(self._sprite_name + '/index')
+            curr_index = long(elem[0].text)
+            
+            for index in range(0,curr_index+1):
+                sprite = self.convert_to_pixbuf(index)
+                if sprite:
+                    self._alt_icons[str(index)] = sprite
+                    self.names.append(str(index))
+        except:
+            pass
+
+    def __getitem__(self, name):
+        try:
+            return self._alt_icons[name]
+        except:
+            return self._sheet[self.names.index(name)]
+            
+    def convert_to_pixbuf(self, index):
+        sprite = None
+        try:
+            key = RB.ExtDBKey.create_lookup('icon', str(index))
+            icon_location = self._genre_db.lookup(key)
+            
+            sprite = GdkPixbuf.Pixbuf.new_from_file(icon_location)
+            if self._size:
+                sprite = sprite.scale_simple(self._size[0], self._size[1],
+                    GdkPixbuf.InterpType.BILINEAR)
         except:
             pass
             
-    def _parse_popups(self, plugin, root, sprite_name):
+        return sprite
+
+    def _parse_popups(self, plugin, root, genre_type):
         icon_names = {}
-
-        def _extract_icon_name(elem):
-            try:
-                icon_names[elem.text] = elem.attrib['icon']
-            except:
-                pass
-
         cl = CoverLocale()
         lang=cl.get_locale()
 
-        base = sprite_name + '/alt'
+        base = self._sprite_name + '/alt'
         for elem in root.xpath(base + '[not(@xml:lang)]/alt'):
-            self.alternate[elem.text] = elem.attrib['genre']
-            _extract_icon_name(elem)
-            
+            self.genre_alternate[GenreType(name=elem.text, genre_type=genre_type)] = elem.attrib['genre']
+
         for elem in root.xpath(base + '[@xml:lang="' + lang + '"]/alt'):
-            self.locale_alternate[elem.text] = elem.attrib['genre']
-            _extract_icon_name(elem)
+            self.genre_alternate[GenreType(name=elem.text, genre_type=self.GENRE_LOCALE)] = elem.attrib['genre']
             
-        if (not self.locale_alternate) and len(lang) > 2:
+        #if (not self.locale_alternate) and len(lang) > 2:
+        if len(lang) > 2:
             for elem in root.xpath(base + '[@xml:lang="' +\
                 lang[0:2] + '"]/alt'):
-                self.locale_alternate[elem.text] = elem.attrib['genre']
-                _extract_icon_name(elem)
+                self.genre_alternate[GenreType(name=elem.text, genre_type=self.GENRE_LOCALE)] = elem.attrib['genre']
 
-        for key,name in icon_names.iteritems():
-            elem = root.xpath(sprite_name + '/icon/icon[@name="'+name+'"]')
+    def add_genre_icon( self, filename ):
+        root = ET.parse(open(self._user_popups)).getroot()
+        elem = root.xpath(self._sprite_name + '/index')
+        next_index = long(elem[0].text) + 1
+        elem[0].text = str(next_index)
+        tree = ET.ElementTree(root)
+        tree.write(self._user_popups, pretty_print=True, xml_declaration=True)
+        
+        key = RB.ExtDBKey.create_storage('icon', str(next_index))
+        uri = "file://" + urllib.pathname2url(filename)
+        self._genre_db.store_uri(key, RB.ExtDBSourceType.USER_EXPLICIT,
+                uri)
 
-            try:
-                icon_name = rb.find_plugin_file(plugin, 'img/usericons/' +
-                    elem[0].text)
+        new_genre = GenreType(name=str(next_index), genre_type=self.GENRE_USER)
+        sprite = self.convert_to_pixbuf(next_index)
+        print new_genre
+        print sprite
+        if sprite:
+            self._alt_icons[new_genre.name] = sprite
+            self.names.append(new_genre.name)
 
-                sprite = GdkPixbuf.Pixbuf.new_from_file(icon_name)
-                if size:
-                    sprite = sprite.scale_simple(size[0], size[1],
-                        GdkPixbuf.InterpType.BILINEAR)
-                self.alt_icons[key] = sprite
-            except:
-                pass
+        return new_genre
 
+    def delete_genre(self, current_genre):
+        root = ET.parse(open(self._user_popups)).getroot()
+        base = self._sprite_name + '/alt/alt'
 
+        found = False
+        
+        for elem in root.xpath(base):
+            if elem.text == current_genre:
+                found = True
+                break
+
+        if found:
+            elem.getparent().remove(elem)
+            tree = ET.ElementTree(root)
+            tree.write(self._user_popups, pretty_print=True, xml_declaration=True)
+        else:
+            print "not found to delete"
+        
+
+    def amend_genre_info( self, current_genre, new_genre, icon_name):
+        root = ET.parse(open(self._user_popups)).getroot()
+        base = self._sprite_name + '/alt/alt'
+
+        found = False
+        
+        if current_genre != "":
+            for elem in root.xpath(base):
+                if elem.text == current_genre:
+                    found = True
+                    del self.genre_alternate[GenreType(name=elem.text, genre_type=self.GENRE_USER)]
+                    break
+
+        else:
+            elem = ET.SubElement(root.xpath(self._sprite_name + '/alt')[0], "alt")
+            if elem != None:
+                found = True
+
+        if found:
+            elem.text = new_genre
+            elem.attrib['genre'] = icon_name
+
+            tree = ET.ElementTree(root)
+            tree.write(self._user_popups, pretty_print=True, xml_declaration=True)
+            self.genre_alternate[GenreType(name=elem.text, genre_type=self.GENRE_USER)] = icon_name
+            return GenreType(name=elem.text, genre_type=self.GENRE_USER)
+        else:
+            print "nothing found to amend"
+            return None
+            
 def get_stock_size():
     what, width, height = Gtk.icon_size_lookup(Gtk.IconSize.BUTTON)
 
