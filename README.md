@@ -15,6 +15,7 @@ Summary: whats new in this release
  - New light & dark theme buttons to complement light & dark desktop themes
  - optional flat-button toolbar style
  - revised popup menu style genre & playlist windows when number of entries would exceed the desktop height
+ - Use album and album-artist sort order tags for sorting if these values are utilised
 
 
 *How it works:*
