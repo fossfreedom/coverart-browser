@@ -343,6 +343,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
                 self._iters[(key.name, self.GENRE_LIST)] = store_iter
 
         self.amend_mode = False
+        self.blank_iter = None
         self.genre_combobox = builder.get_object('genre_combobox')
         self.genre_entry = builder.get_object('genre_entry')
         self.genre_view = builder.get_object('genre_view')
@@ -393,6 +394,8 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
 
         
     def on_genre_filechooserbutton_file_set(self, filechooser):
+        print self.filechooserdialog.get_filename()
+        
         key = self._sheet.add_genre_icon( self.filechooserdialog.get_filename() )
         store_iter = self.alt_liststore.append([key.name, self._sheet[key.name]])
         self._iters[(key.name,self.GENRE_POPUP)] = store_iter
@@ -402,39 +405,56 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         if genre_iter:
             self.genre_entry.set_text(model[genre_iter][0])
             index = model[genre_iter][2]
-            self.genre_combobox.set_active_iter(self._iters[(index, self.GENRE_POPUP)])
-            self.amend_mode = True
-            self.current_genre=model[genre_iter][0]
+            if index != '':
+                self.genre_combobox.set_active_iter(self._iters[(index, self.GENRE_POPUP)])
+                self.amend_mode = True
+                self.current_genre=unicode(model[genre_iter][0], 'utf-8')
         else:
             self.genre_entry.set_text('')
             self.genre_combobox.set_active_iter(None)
             self.amend_mode = False
+
+        if self.blank_iter and self.amend_mode:
+            try:
+                index = model[self.blank_iter][0]
+                if index == '':
+                    model.remove(self.blank_iter)
+                    self.blank_iter = None
+            except:
+                self.blank_iter = None
             
     def on_add_button_clicked(self, button):
         self.genre_entry.set_text('')
         self.genre_combobox.set_active(-1)
         self.amend_mode = False
+        self.blank_iter = self.alt_user_liststore.append(['', None, ''])
+        selection = self.genre_view.get_selection()
+        selection.select_iter(self.blank_iter)
+        
         
     def on_delete_button_clicked(self, button):
         selection = self.genre_view.get_selection()
 
         model, genre_iter = selection.get_selected()
         if genre_iter:
-            index = model[genre_iter][0]
+            index = unicode(model[genre_iter][0],'utf-8')
             model.remove(genre_iter)
-            del self._iters[(index, self.GENRE_LIST)]
-            self._sheet.delete_genre(index)
 
-            self._toggle_new_genre_state()
+            if index:
+                del self._iters[(index, self.GENRE_LIST)]
+                self._sheet.delete_genre(index)
+
+                self._toggle_new_genre_state()
             
     def set_save_sensitivity(self, _):
         entry_value = self.genre_entry.get_text()
         treeiter = self.genre_combobox.get_active_iter()
 
+        entry_value = unicode(entry_value, 'utf-8')
         enable = False
         try:
             test = self._iters[(entry_value, self.GENRE_LIST)]
-            if self.current_genre == entry_value:
+            if RB.search_fold(self.current_genre) == RB.search_fold(entry_value):
                 #if the current entry is the same then could save
                 enable = True
         except:

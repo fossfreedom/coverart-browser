@@ -571,16 +571,18 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
             
     def convert_to_pixbuf(self, index):
         sprite = None
-        try:
-            key = RB.ExtDBKey.create_lookup('icon', str(index))
-            icon_location = self._genre_db.lookup(key)
-            
-            sprite = GdkPixbuf.Pixbuf.new_from_file(icon_location)
-            if self._size:
-                sprite = sprite.scale_simple(self._size[0], self._size[1],
-                    GdkPixbuf.InterpType.BILINEAR)
-        except:
-            pass
+        #try:
+        print index
+        key = RB.ExtDBKey.create_lookup('icon', str(index))
+        icon_location = self._genre_db.lookup(key)
+        print icon_location
+        print key
+        sprite = GdkPixbuf.Pixbuf.new_from_file(icon_location)
+        if self._size:
+            sprite = sprite.scale_simple(self._size[0], self._size[1],
+                GdkPixbuf.InterpType.BILINEAR)
+        #except:
+        #    pass
             
         return sprite
 
@@ -605,23 +607,24 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
     def add_genre_icon( self, filename ):
         root = ET.parse(open(self._user_popups)).getroot()
         elem = root.xpath(self._sprite_name + '/index')
-        next_index = long(elem[0].text) + 1
-        elem[0].text = str(next_index)
+        next_index = long(elem[0].text)
+        elem[0].text = str(next_index+1)
         tree = ET.ElementTree(root)
         tree.write(self._user_popups, pretty_print=True, xml_declaration=True)
-        
+        print next_index
         key = RB.ExtDBKey.create_storage('icon', str(next_index))
         uri = "file://" + urllib.pathname2url(filename)
-        self._genre_db.store_uri(key, RB.ExtDBSourceType.USER_EXPLICIT,
-                uri)
-
+        pixbuf = GdkPixbuf.Pixbuf.new_from_file(filename)
+        print pixbuf
+        self._genre_db.store_uri(key, RB.ExtDBSourceType.USER_EXPLICIT, uri)
         new_genre = GenreType(name=str(next_index), genre_type=self.GENRE_USER)
-        sprite = self.convert_to_pixbuf(next_index)
-        print new_genre
-        print sprite
-        if sprite:
-            self._alt_icons[new_genre.name] = sprite
-            self.names.append(new_genre.name)
+        #sprite = self.convert_to_pixbuf(next_index)
+        if self._size:
+            pixbuf = pixbuf.scale_simple(self._size[0], self._size[1],
+                GdkPixbuf.InterpType.BILINEAR)
+        
+        self._alt_icons[new_genre.name] = pixbuf
+        self.names.append(new_genre.name)
 
         return new_genre
 
@@ -632,7 +635,7 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
         found = False
         
         for elem in root.xpath(base):
-            if elem.text == current_genre:
+            if RB.search_fold(elem.text) == RB.search_fold(current_genre):
                 found = True
                 break
 
@@ -652,7 +655,7 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
         
         if current_genre != "":
             for elem in root.xpath(base):
-                if elem.text == current_genre:
+                if RB.search_fold(elem.text) == RB.search_fold(current_genre):
                     found = True
                     del self.genre_alternate[GenreType(name=elem.text, genre_type=self.GENRE_USER)]
                     break
@@ -663,7 +666,7 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
                 found = True
 
         if found:
-            elem.text = new_genre
+            elem.text = unicode(new_genre, 'utf-8')
             elem.attrib['genre'] = icon_name
 
             tree = ET.ElementTree(root)

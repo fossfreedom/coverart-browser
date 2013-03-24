@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
+  <object class="GtkAction" id="ok_action">
+    <property name="tooltip" translatable="yes">Select picture to add to Edit Genre icon drop-down list</property>
+    <property name="stock_id">gtk-ok</property>
+  </object>
+  <object class="GtkImage" id="add_image">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-add</property>
+  </object>
   <object class="GtkListStore" id="alt_liststore">
     <columns>
       <!-- column-name genre_name -->
@@ -53,17 +62,60 @@
   <object class="GtkFileChooserDialog" id="filechooserdialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
-    <property name="title" translatable="yes">Pick a file</property>
+    <property name="title" translatable="yes">Select a picture</property>
     <property name="role">GtkFileChooserDialog</property>
     <property name="type_hint">dialog</property>
     <property name="create_folders">False</property>
     <property name="filter">filefilter1</property>
     <child internal-child="vbox">
-      <object class="GtkBox" id="filechooserdialog-vbox1">
+      <object class="GtkBox" id="genre_filechooserdialog">
         <property name="can_focus">False</property>
         <child internal-child="action_area">
           <object class="GtkButtonBox" id="filechooserdialog-action_area1">
             <property name="can_focus">False</property>
+            <child>
+              <object class="GtkButton" id="fc_cancel_button">
+                <property name="label">gtk-cancel</property>
+                <property name="use_action_appearance">False</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="use_action_appearance">False</property>
+                <property name="use_stock">True</property>
+                <property name="xalign">0</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="fc_ok_button">
+                <property name="related_action">ok_action</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="can_default">True</property>
+                <property name="receives_default">False</property>
+                <property name="related_action">ok_action</property>
+                <property name="use_stock">True</property>
+                <property name="xalign">0</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -74,27 +126,16 @@
         </child>
       </object>
     </child>
+    <action-widgets>
+      <action-widget response="0">fc_cancel_button</action-widget>
+      <action-widget response="-3">fc_ok_button</action-widget>
+    </action-widgets>
   </object>
   <object class="GtkAdjustment" id="font_adjustment">
     <property name="lower">4</property>
     <property name="upper">72</property>
     <property name="step_increment">1</property>
     <property name="page_increment">1</property>
-  </object>
-  <object class="GtkImage" id="image1">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-add</property>
-  </object>
-  <object class="GtkImage" id="image2">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-remove</property>
-  </object>
-  <object class="GtkImage" id="image3">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-save</property>
   </object>
   <object class="GtkListStore" id="lightsource_model">
     <columns>
@@ -119,28 +160,6 @@
       <row>
         <col id="0">top-right</col>
         <col id="1" translatable="yes">Top Right</col>
-      </row>
-    </data>
-  </object>
-  <object class="GtkListStore" id="show_in_model">
-    <columns>
-      <!-- column-name id -->
-      <column type="gchararray"/>
-      <!-- column-name text -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0">main</col>
-        <col id="1" translatable="yes">Above Cover View</col>
-      </row>
-      <row>
-        <col id="0">left</col>
-        <col id="1" translatable="yes">Left Sidebar</col>
-      </row>
-      <row>
-        <col id="0">right</col>
-        <col id="1" translatable="yes">Right Sidebar</col>
       </row>
     </data>
   </object>
@@ -671,55 +690,25 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="look_and_feel_label">
+          <object class="GtkBox" id="box2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="margin_left">5</property>
-            <property name="margin_top">5</property>
-            <property name="xalign">0</property>
-            <property name="label" translatable="yes">Look &amp; Feel</property>
-            <attributes>
-              <attribute name="weight" value="bold"/>
-            </attributes>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkCheckButton" id="button_relief_checkbox">
-            <property name="label" translatable="yes">Flat-button style</property>
-            <property name="use_action_appearance">False</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">False</property>
-            <property name="margin_left">10</property>
             <property name="margin_right">5</property>
             <property name="margin_top">5</property>
             <property name="margin_bottom">5</property>
-            <property name="use_action_appearance">False</property>
-            <property name="xalign">0</property>
-            <property name="draw_indicator">True</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">2</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkBox" id="box1">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="margin_left">10</property>
-            <property name="margin_right">10</property>
+            <property name="orientation">vertical</property>
             <child>
-              <object class="GtkLabel" id="label1">
+              <object class="GtkLabel" id="look_and_feel_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Icon Theme: </property>
+                <property name="margin_left">5</property>
+                <property name="margin_top">5</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">Look &amp; Feel</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -728,17 +717,412 @@
               </packing>
             </child>
             <child>
-              <object class="GtkComboBox" id="theme_combobox">
+              <object class="GtkBox" id="box5">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="model">combo_liststore</property>
-                <property name="active">0</property>
-                <property name="id_column">0</property>
+                <child>
+                  <object class="GtkCheckButton" id="button_relief_checkbox">
+                    <property name="label" translatable="yes">Flat-button style</property>
+                    <property name="use_action_appearance">False</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="margin_left">10</property>
+                    <property name="margin_right">5</property>
+                    <property name="margin_top">5</property>
+                    <property name="margin_bottom">5</property>
+                    <property name="use_action_appearance">False</property>
+                    <property name="xalign">0</property>
+                    <property name="draw_indicator">True</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="label1">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Icon Theme: </property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkBox" id="box1">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_left">10</property>
+                    <property name="margin_right">10</property>
+                    <child>
+                      <object class="GtkComboBox" id="theme_combobox">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="model">combo_liststore</property>
+                        <property name="active">0</property>
+                        <property name="id_column">0</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="genre_box">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_left">5</property>
+            <property name="margin_right">5</property>
+            <property name="margin_top">5</property>
+            <property name="margin_bottom">5</property>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkLabel" id="label2">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0.05000000074505806</property>
+                <property name="label" translatable="yes">Alternative Genres:</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkTreeView" id="alt_treeview">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="model">alt_liststore</property>
+                <child internal-child="selection">
+                  <object class="GtkTreeSelection" id="treeview-selection1"/>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox" id="box3">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="margin_left">5</property>
+                <property name="border_width">3</property>
+                <property name="orientation">vertical</property>
+                <child>
+                  <object class="GtkLabel" id="label6">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_top">3</property>
+                    <property name="margin_bottom">3</property>
+                    <property name="xalign">0</property>
+                    <property name="label" translatable="yes">Edit Genre Details:</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkBox" id="genre_edit_box">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkButton" id="save_button">
+                        <property name="use_action_appearance">False</property>
+                        <property name="visible">True</property>
+                        <property name="sensitive">False</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="tooltip_text" translatable="yes">Save changes</property>
+                        <property name="use_action_appearance">False</property>
+                        <property name="image">save_image</property>
+                        <signal name="clicked" handler="on_save_button_clicked" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="pack_type">end</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label3">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Name:</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkEntry" id="genre_entry">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="invisible_char">•</property>
+                        <signal name="changed" handler="set_save_sensitivity" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">2</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label4">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Icon:</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">3</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkComboBox" id="genre_combobox">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="model">alt_liststore</property>
+                        <property name="wrap_width">5</property>
+                        <signal name="changed" handler="set_save_sensitivity" swapped="no"/>
+                        <child>
+                          <object class="GtkCellRendererPixbuf" id="cellrenderertext2"/>
+                          <attributes>
+                            <attribute name="pixbuf">1</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">4</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkBox" id="box4">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkLabel" id="label5">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Load New Icon: </property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkFileChooserButton" id="genre_filechooserbutton">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">Select a new genre icon</property>
+                        <property name="orientation">vertical</property>
+                        <property name="create_folders">False</property>
+                        <property name="filter">filefilter1</property>
+                        <property name="dialog">filechooserdialog</property>
+                        <signal name="file-set" handler="on_genre_filechooserbutton_file_set" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox" id="genre_list_box">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="margin_left">5</property>
+                <property name="orientation">vertical</property>
+                <child>
+                  <object class="GtkSeparator" id="separator1">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="padding">5</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="label7">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_bottom">3</property>
+                    <property name="xalign">0</property>
+                    <property name="label" translatable="yes">Current user-defined Genres:</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkScrolledWindow" id="scrolledwindow1">
+                    <property name="width_request">280</property>
+                    <property name="height_request">94</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="shadow_type">in</property>
+                    <child>
+                      <object class="GtkTreeView" id="genre_view">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="border_width">3</property>
+                        <property name="model">alt_user_liststore</property>
+                        <child internal-child="selection">
+                          <object class="GtkTreeSelection" id="treeview-selection2">
+                            <signal name="changed" handler="on_genre_view_selection_changed" swapped="no"/>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="genre_user_column">
+                            <property name="title" translatable="yes">Alternate Name</property>
+                            <child>
+                              <object class="GtkCellRendererText" id="cellrenderertext3"/>
+                              <attributes>
+                                <attribute name="text">0</attribute>
+                              </attributes>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="genre_icon_column">
+                            <property name="title" translatable="yes">Icon</property>
+                            <child>
+                              <object class="GtkCellRendererPixbuf" id="cellrendererpixbuf1"/>
+                              <attributes>
+                                <attribute name="pixbuf">1</attribute>
+                              </attributes>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox" id="genre_action_box">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkButton" id="add_button">
+                    <property name="use_action_appearance">False</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="tooltip_text" translatable="yes">Add a new alternative genre</property>
+                    <property name="use_action_appearance">False</property>
+                    <property name="image">add_image</property>
+                    <signal name="clicked" handler="on_add_button_clicked" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="pack_type">end</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="delete_button">
+                    <property name="use_action_appearance">False</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="tooltip_text" translatable="yes">Delete an alternative genre</property>
+                    <property name="use_action_appearance">False</property>
+                    <property name="image">remove_image</property>
+                    <signal name="clicked" handler="on_delete_button_clicked" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="pack_type">end</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">5</property>
               </packing>
             </child>
           </object>
@@ -764,346 +1148,37 @@
         <property name="tab_fill">False</property>
       </packing>
     </child>
-    <child>
-      <object class="GtkBox" id="genre_box">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
-        <child>
-          <object class="GtkLabel" id="label2">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="xalign">0.05000000074505806</property>
-            <property name="label" translatable="yes">Alternative Genres:</property>
-            <attributes>
-              <attribute name="weight" value="bold"/>
-            </attributes>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkTreeView" id="alt_treeview">
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="model">alt_liststore</property>
-            <child internal-child="selection">
-              <object class="GtkTreeSelection" id="treeview-selection1"/>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkBox" id="box3">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="border_width">3</property>
-            <property name="orientation">vertical</property>
-            <child>
-              <object class="GtkLabel" id="label6">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="margin_top">3</property>
-                <property name="margin_bottom">3</property>
-                <property name="xalign">0</property>
-                <property name="label" translatable="yes">Edit Genre Details:</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkBox" id="genre_edit_box">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <child>
-                  <object class="GtkButton" id="save_button">
-                    <property name="use_action_appearance">False</property>
-                    <property name="visible">True</property>
-                    <property name="sensitive">False</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
-                    <property name="tooltip_text" translatable="yes">Save changes</property>
-                    <property name="use_action_appearance">False</property>
-                    <property name="image">image3</property>
-                    <signal name="clicked" handler="on_save_button_clicked" swapped="no"/>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="pack_type">end</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="label3">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Name:</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkEntry" id="genre_entry">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="invisible_char">•</property>
-                    <signal name="changed" handler="set_save_sensitivity" swapped="no"/>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="label4">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Icon:</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">3</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkComboBox" id="genre_combobox">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="model">alt_liststore</property>
-                    <property name="wrap_width">5</property>
-                    <signal name="changed" handler="set_save_sensitivity" swapped="no"/>
-                    <child>
-                      <object class="GtkCellRendererPixbuf" id="cellrenderertext2"/>
-                      <attributes>
-                        <attribute name="pixbuf">1</attribute>
-                      </attributes>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">4</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkBox" id="box4">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <child>
-                  <object class="GtkLabel" id="label5">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Load New Icon: </property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkFileChooserButton" id="genre_filechooserbutton">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="tooltip_text" translatable="yes">Select a new genre icon</property>
-                    <property name="orientation">vertical</property>
-                    <property name="create_folders">False</property>
-                    <property name="filter">filefilter1</property>
-                    <property name="dialog">filechooserdialog</property>
-                    <signal name="file-set" handler="on_genre_filechooserbutton_file_set" swapped="no"/>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">2</property>
-          </packing>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <object class="GtkBox" id="genre_list_box">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="orientation">vertical</property>
-            <child>
-              <object class="GtkSeparator" id="separator1">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label7">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="margin_bottom">3</property>
-                <property name="xalign">0</property>
-                <property name="label" translatable="yes">Current user-defined Genres:</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkScrolledWindow" id="scrolledwindow1">
-                <property name="width_request">280</property>
-                <property name="height_request">230</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="shadow_type">in</property>
-                <child>
-                  <object class="GtkTreeView" id="genre_view">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="border_width">3</property>
-                    <property name="model">alt_user_liststore</property>
-                    <child internal-child="selection">
-                      <object class="GtkTreeSelection" id="treeview-selection2"/>
-                    </child>
-                    <child>
-                      <object class="GtkTreeViewColumn" id="genre_user_column">
-                        <property name="title" translatable="yes">Alternate Name</property>
-                        <child>
-                          <object class="GtkCellRendererText" id="cellrenderertext3"/>
-                          <attributes>
-                            <attribute name="text">0</attribute>
-                          </attributes>
-                        </child>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkTreeViewColumn" id="genre_icon_column">
-                        <property name="title" translatable="yes">Icon</property>
-                        <child>
-                          <object class="GtkCellRendererPixbuf" id="cellrendererpixbuf1"/>
-                          <attributes>
-                            <attribute name="pixbuf">1</attribute>
-                          </attributes>
-                        </child>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">4</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkBox" id="genre_action_box">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <child>
-              <object class="GtkButton" id="add_button">
-                <property name="use_action_appearance">False</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="tooltip_text" translatable="yes">Add a new alternative genre</property>
-                <property name="use_action_appearance">False</property>
-                <property name="image">image1</property>
-                <signal name="clicked" handler="on_add_button_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="pack_type">end</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="delete_button">
-                <property name="use_action_appearance">False</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="tooltip_text" translatable="yes">Delete an alternative genre</property>
-                <property name="use_action_appearance">False</property>
-                <property name="image">image2</property>
-                <signal name="clicked" handler="on_delete_button_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="pack_type">end</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">5</property>
-          </packing>
-        </child>
-      </object>
-      <packing>
-        <property name="position">3</property>
-      </packing>
-    </child>
-    <child type="tab">
-      <object class="GtkLabel" id="genre_label">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="label" translatable="yes">Genre</property>
-      </object>
-      <packing>
-        <property name="position">2</property>
-        <property name="tab_fill">False</property>
-      </packing>
-    </child>
+  </object>
+  <object class="GtkImage" id="remove_image">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-remove</property>
+  </object>
+  <object class="GtkImage" id="save_image">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-save</property>
+  </object>
+  <object class="GtkListStore" id="show_in_model">
+    <columns>
+      <!-- column-name id -->
+      <column type="gchararray"/>
+      <!-- column-name text -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">main</col>
+        <col id="1" translatable="yes">Above Cover View</col>
+      </row>
+      <row>
+        <col id="0">left</col>
+        <col id="1" translatable="yes">Left Sidebar</col>
+      </row>
+      <row>
+        <col id="0">right</col>
+        <col id="1" translatable="yes">Right Sidebar</col>
+      </row>
+    </data>
   </object>
 </interface>
