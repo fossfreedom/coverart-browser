@@ -314,29 +314,26 @@ class GenrePopupController(OptionsController):
         # and as usual python cannot mix and match these types.
 
         # next check alternates
-        
-        case_search = CaseInsensitiveDict(
-            dict((k.name, v) for k, v in self._spritesheet.genre_alternate.iteritems()
-                if k.genre_type==self._spritesheet.GENRE_USER))
-                
-        if test_genre in case_search:
-            return self._spritesheet[case_search[test_genre]]
-
         test_genre = RB.search_fold(test_genre)
         
+        ret, sprite = self._match_genres(test_genre, self._spritesheet.GENRE_USER)
+        if ret:
+            return sprite
+                
         for genre in sorted(self._spritesheet.locale_names,
             key=lambda b: (-len(b), b)):
             if RB.search_fold(genre) in test_genre:
                 return self._spritesheet[self._spritesheet.locale_names[genre]]
 
         # next check locale alternates
-        case_search = CaseInsensitiveDict(
-            dict((k.name, v) for k, v in self._spritesheet.genre_alternate.iteritems()
-                if k.genre_type==self._spritesheet.GENRE_LOCALE))
+        ret, sprite = self._match_genres(test_genre, self._spritesheet.GENRE_LOCALE)
+        if ret:
+            return sprite
 
-        if test_genre in case_search:
-            return self._spritesheet[case_search[test_genre]]
-
+        ret, sprite = self._match_genres(test_genre, self._spritesheet.GENRE_SYSTEM)
+        if ret:
+            return sprite
+        
         # check if any of the default genres are a substring
         # of test_genre - check in reverse order so that we
         # test largest strings first (prevents spurious matches with
@@ -348,6 +345,17 @@ class GenrePopupController(OptionsController):
                 
         # if no matches then default to unrecognised image
         return self._unrecognised_image
+
+    def _match_genres(self, test_genre, genre_type):
+        case_search = CaseInsensitiveDict(
+            dict((k.name, v) for k, v in self._spritesheet.genre_alternate.iteritems()
+                if k.genre_type==genre_type))
+
+        if test_genre in case_search:
+            return (True, self._spritesheet[case_search[test_genre]])
+        else:
+            return (False, None)
+
 
     def get_current_description(self):
         if self.current_key == self._initial_genre:
