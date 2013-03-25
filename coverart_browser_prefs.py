@@ -359,6 +359,9 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         self.settings[gs.PluginKey.RATING] = self.stars.get_rating()
 
     def on_save_button_clicked(self, button):
+        '''
+        action when genre edit area is saved
+        '''
         entry_value = self.genre_entry.get_text()        
         treeiter = self.genre_combobox.get_active_iter()
         icon_value = self.alt_liststore[treeiter][0]
@@ -394,13 +397,17 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
 
         
     def on_genre_filechooserbutton_file_set(self, filechooser):
-        print self.filechooserdialog.get_filename()
-        
+        '''
+        action when genre new icon button is pressed
+        '''
         key = self._sheet.add_genre_icon( self.filechooserdialog.get_filename() )
         store_iter = self.alt_liststore.append([key.name, self._sheet[key.name]])
         self._iters[(key.name,self.GENRE_POPUP)] = store_iter
         
     def on_genre_view_selection_changed(self, view):
+        '''
+        action when user selects a row in the list of genres
+        '''
         model, genre_iter = view.get_selected()
         if genre_iter:
             self.genre_entry.set_text(model[genre_iter][0])
@@ -424,6 +431,9 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
                 self.blank_iter = None
             
     def on_add_button_clicked(self, button):
+        '''
+        action when a new genre is added to the table
+        '''
         self.genre_entry.set_text('')
         self.genre_combobox.set_active(-1)
         self.amend_mode = False
@@ -433,6 +443,9 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         
         
     def on_delete_button_clicked(self, button):
+        '''
+        action when a genre is to be deleted
+        '''
         selection = self.genre_view.get_selection()
 
         model, genre_iter = selection.get_selected()
@@ -447,6 +460,10 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
                 self._toggle_new_genre_state()
             
     def set_save_sensitivity(self, _):
+        '''
+        action to toggle the state of the save button depending
+        upon the values entered in the genre edit fields
+        '''
         entry_value = self.genre_entry.get_text()
         treeiter = self.genre_combobox.get_active_iter()
 
@@ -468,6 +485,11 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         self.save_button.set_sensitive(enable)
 
     def _toggle_new_genre_state(self):
+        '''
+        fire an event - uses gsettings and an object such as a
+        controller connects to receive the signal that a new or amended
+        genre has been made
+        '''
         gs = GSetting()
         test = self.settings[gs.PluginKey.NEW_GENRE_ICON]
 

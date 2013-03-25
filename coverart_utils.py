@@ -530,6 +530,19 @@ class ConfiguredSpriteSheet(object):
         return self.names
         
 class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
+    '''
+    A sprite-sheet of genres. Creates a pixbuf representation of a picture
+    that has several icons in a regular pattern.  This uses the file
+    'popups.xml' for its definition
+
+    :plugin: rhythmbox plugin
+    :sprite_name: `str` containing name of the spritesheet pattern in
+      popups.xml
+    :size: `int` array dimension of the final sprite which is to be used.
+
+    output:
+    :names: `str` array  of sprite names
+    '''
     # types of genre
     GENRE_USER = 1
     GENRE_SYSTEM = 2

@@ -300,12 +300,12 @@ class GenrePopupController(OptionsController):
 
     def _find_alternates(self, test_genre):
         # the following genre checks are required
-        # 1. if we have locale specific genres check first
-        # 2. then check locale specific alternates
-        # 3. then check if we have default genres
-        # 4. then check if we have default alternates
+        # 1. if we have user defined genres
+        # 2. then check locale specific system genres
+        # 3. then check local specific alternates
+        # 4. then check if we system genres
 
-        # first check if any of the locale genres are a substring
+        # where necessary check if any of the genres are a substring
         # of test_genre - check in reverse order so that we
         # test largest strings first (prevents spurious matches with
         # short strings)
@@ -313,7 +313,7 @@ class GenrePopupController(OptionsController):
         # in a mixture of cases, both unicode (normalized or not) and str
         # and as usual python cannot mix and match these types.
 
-        # next check alternates
+        
         test_genre = RB.search_fold(test_genre)
         
         ret, sprite = self._match_genres(test_genre, self._spritesheet.GENRE_USER)
