@@ -16,6 +16,8 @@ Summary: whats new in this release
  - optional flat-button toolbar style
  - revised popup menu style genre & playlist windows when number of entries would exceed the desktop height
  - Use album and album-artist sort order tags for sorting if these values are utilised
+ - Allow user-defined genre names to be created mapped against default system genre icons
+ - Allow user-defined genre icons to be displayed. These can override system genre icons if required
 
 
 *How it works:*
