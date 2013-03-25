@@ -5,7 +5,7 @@
 # Section 1: Developers Only
 #+++++++++++++++++++++++++++
 #for each ui file run the following to create translation .h files
-intltool-extract --local --type=gettext/glade ui/coverart_album_search_prefs.ui
+intltool-extract --local --type=gettext/glade ui/coverart_listwindow.ui
 intltool-extract --local --type=gettext/glade ui/coverart_browser_prefs.ui
 intltool-extract --local --type=gettext/glade ui/coverart_browser.ui
 intltool-extract --local --type=gettext/glade ui/coverart_entryview.ui
@@ -33,7 +33,6 @@ cd po
 #cleanup
 cd ..
 rm -rf tmp
-rm img/*.h
 
 # Section 2: Translators
 #+++++++++++++++++++++++

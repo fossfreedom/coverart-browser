@@ -5,7 +5,6 @@ coverart_browser_source.py
 coverart_controllers.py
 coverart_entryview.py
 coverart_search.py
-coverart_timer.py
 coverart_utils.py
 coverart_widgets.py
  
