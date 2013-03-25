@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-25 16:37+0000\n"
+"POT-Creation-Date: 2013-03-25 19:49+0000\n"
 "PO-Revision-Date: 2013-01-11 15:03+0000\n"
 "Last-Translator: Wang Dianjin <Unknown>\n"
 "Language-Team: Chinese (Simplified) <zh_CN@li.org>\n"
@@ -47,7 +47,6 @@ msgid "Search text"
 msgstr "搜索文本"
 
 #: tmpl/albumartsearch-tmpl.html:199
-#: tmp/coverart_search_providers_prefs.ui.h:3
 msgid "Search"
 msgstr "搜索"
 
@@ -571,16 +570,6 @@ msgstr "嘻哈"
 msgid "children"
 msgstr ""
 
-#: tmp/coverart_search_providers_prefs.ui.h:1
-#, fuzzy
-msgid "Choose Search Providers:"
-msgstr "搜索封面"
-
-#: tmp/coverart_search_providers_prefs.ui.h:2
-#, fuzzy
-msgid "Provider"
-msgstr "提供方"
-
 #: coverart_album.py:1607 coverart_browser_source.py:806
 #, python-format
 msgid "%s by %s"
@@ -731,15 +720,17 @@ msgstr "搜索专辑"
 msgid "Search tracks"
 msgstr "搜索音轨"
 
-#. define .plugin text strings used for translation
-#: coverart_search_providers.py:65
 #, fuzzy
-msgid "CoverArt Browser Search Providers"
-msgstr "封面浏览器"
+#~ msgid "Choose Search Providers:"
+#~ msgstr "搜索封面"
 
-#: coverart_search_providers.py:66
-msgid "Additional coverart search providers for Rhythmbox"
-msgstr ""
+#, fuzzy
+#~ msgid "Provider"
+#~ msgstr "提供方"
+
+#, fuzzy
+#~ msgid "CoverArt Browser Search Providers"
+#~ msgstr "封面浏览器"
 
 #~ msgid "Search for embedded coverart"
 #~ msgstr "搜索内置封面"

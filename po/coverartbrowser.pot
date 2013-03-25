@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-25 16:37+0000\n"
+"POT-Creation-Date: 2013-03-25 19:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,7 +46,6 @@ msgid "Search text"
 msgstr ""
 
 #: tmpl/albumartsearch-tmpl.html:199
-#: tmp/coverart_search_providers_prefs.ui.h:3
 msgid "Search"
 msgstr ""
 
@@ -567,14 +566,6 @@ msgstr ""
 msgid "children"
 msgstr ""
 
-#: tmp/coverart_search_providers_prefs.ui.h:1
-msgid "Choose Search Providers:"
-msgstr ""
-
-#: tmp/coverart_search_providers_prefs.ui.h:2
-msgid "Provider"
-msgstr ""
-
 #: coverart_album.py:1607 coverart_browser_source.py:806
 #, python-format
 msgid "%s by %s"
@@ -723,13 +714,4 @@ msgstr ""
 
 #: coverart_controllers.py:557
 msgid "Search tracks"
-msgstr ""
-
-#. define .plugin text strings used for translation
-#: coverart_search_providers.py:65
-msgid "CoverArt Browser Search Providers"
-msgstr ""
-
-#: coverart_search_providers.py:66
-msgid "Additional coverart search providers for Rhythmbox"
 msgstr ""

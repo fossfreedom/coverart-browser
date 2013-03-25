@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-25 16:37+0000\n"
+"POT-Creation-Date: 2013-03-25 19:49+0000\n"
 "PO-Revision-Date: 2013-01-16 01:01+0000\n"
 "Last-Translator: Hélion du Mas des Bourboux <helion331990@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -56,7 +56,6 @@ msgid "Search text"
 msgstr "Texte de recherche"
 
 #: tmpl/albumartsearch-tmpl.html:199
-#: tmp/coverart_search_providers_prefs.ui.h:3
 msgid "Search"
 msgstr "Rechercher"
 
@@ -597,16 +596,6 @@ msgstr "hip-hop"
 msgid "children"
 msgstr "enfants"
 
-#: tmp/coverart_search_providers_prefs.ui.h:1
-#, fuzzy
-msgid "Choose Search Providers:"
-msgstr "Rechercher les jaquettes"
-
-#: tmp/coverart_search_providers_prefs.ui.h:2
-#, fuzzy
-msgid "Provider"
-msgstr "Fournisseurs"
-
 #: coverart_album.py:1607 coverart_browser_source.py:806
 #, python-format
 msgid "%s by %s"
@@ -757,15 +746,17 @@ msgstr "Rechercher les albums"
 msgid "Search tracks"
 msgstr "Rechercher les pistes"
 
-#. define .plugin text strings used for translation
-#: coverart_search_providers.py:65
 #, fuzzy
-msgid "CoverArt Browser Search Providers"
-msgstr "Navigateur de jaquettes"
+#~ msgid "Choose Search Providers:"
+#~ msgstr "Rechercher les jaquettes"
 
-#: coverart_search_providers.py:66
-msgid "Additional coverart search providers for Rhythmbox"
-msgstr ""
+#, fuzzy
+#~ msgid "Provider"
+#~ msgstr "Fournisseurs"
+
+#, fuzzy
+#~ msgid "CoverArt Browser Search Providers"
+#~ msgstr "Navigateur de jaquettes"
 
 #~ msgid "Find CoverArt:"
 #~ msgstr "Trouver la jaquette :"

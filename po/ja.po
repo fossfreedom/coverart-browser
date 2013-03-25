@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-25 16:37+0000\n"
+"POT-Creation-Date: 2013-03-25 19:49+0000\n"
 "PO-Revision-Date: 2013-01-10 16:15+0000\n"
 "Last-Translator: Kentaro Kazuhama <kazken3@gmail.com>\n"
 "Language-Team: Japanese <ja@li.org>\n"
@@ -47,7 +47,6 @@ msgid "Search text"
 msgstr ""
 
 #: tmpl/albumartsearch-tmpl.html:199
-#: tmp/coverart_search_providers_prefs.ui.h:3
 msgid "Search"
 msgstr "検索"
 
@@ -572,14 +571,6 @@ msgstr ""
 msgid "children"
 msgstr ""
 
-#: tmp/coverart_search_providers_prefs.ui.h:1
-msgid "Choose Search Providers:"
-msgstr ""
-
-#: tmp/coverart_search_providers_prefs.ui.h:2
-msgid "Provider"
-msgstr ""
-
 #: coverart_album.py:1607 coverart_browser_source.py:806
 #, python-format
 msgid "%s by %s"
@@ -731,12 +722,3 @@ msgstr "検索"
 #, fuzzy
 msgid "Search tracks"
 msgstr "検索オプション"
-
-#. define .plugin text strings used for translation
-#: coverart_search_providers.py:65
-msgid "CoverArt Browser Search Providers"
-msgstr ""
-
-#: coverart_search_providers.py:66
-msgid "Additional coverart search providers for Rhythmbox"
-msgstr ""

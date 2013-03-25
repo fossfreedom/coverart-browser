@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-25 16:37+0000\n"
+"POT-Creation-Date: 2013-03-25 19:49+0000\n"
 "PO-Revision-Date: 2013-01-25 17:40+0000\n"
 "Last-Translator: Jiri Grönroos <Unknown>\n"
 "Language-Team: Finnish <fi@li.org>\n"
@@ -48,7 +48,6 @@ msgid "Search text"
 msgstr "Etsi tekstiä"
 
 #: tmpl/albumartsearch-tmpl.html:199
-#: tmp/coverart_search_providers_prefs.ui.h:3
 msgid "Search"
 msgstr ""
 
@@ -579,15 +578,6 @@ msgstr "hip-hop"
 msgid "children"
 msgstr ""
 
-#: tmp/coverart_search_providers_prefs.ui.h:1
-#, fuzzy
-msgid "Choose Search Providers:"
-msgstr "Etsi kansikuvia"
-
-#: tmp/coverart_search_providers_prefs.ui.h:2
-msgid "Provider"
-msgstr ""
-
 #: coverart_album.py:1607 coverart_browser_source.py:806
 #, python-format
 msgid "%s by %s"
@@ -744,15 +734,13 @@ msgstr "Etsi kaikista kentistä"
 msgid "Search tracks"
 msgstr "Etsi tekstiä"
 
-#. define .plugin text strings used for translation
-#: coverart_search_providers.py:65
 #, fuzzy
-msgid "CoverArt Browser Search Providers"
-msgstr "Kansikuvaselain"
+#~ msgid "Choose Search Providers:"
+#~ msgstr "Etsi kansikuvia"
 
-#: coverart_search_providers.py:66
-msgid "Additional coverart search providers for Rhythmbox"
-msgstr ""
+#, fuzzy
+#~ msgid "CoverArt Browser Search Providers"
+#~ msgstr "Kansikuvaselain"
 
 #~ msgid "Find CoverArt:"
 #~ msgstr "Etsi kansikuvitus:"

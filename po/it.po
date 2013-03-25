@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-25 16:37+0000\n"
+"POT-Creation-Date: 2013-03-25 19:49+0000\n"
 "PO-Revision-Date: 2013-01-14 13:12+0000\n"
 "Last-Translator: Gianfranco Frisani <gfrisani@libero.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -49,7 +49,6 @@ msgid "Search text"
 msgstr "Cerca testo"
 
 #: tmpl/albumartsearch-tmpl.html:199
-#: tmp/coverart_search_providers_prefs.ui.h:3
 msgid "Search"
 msgstr "Ricerca"
 
@@ -591,16 +590,6 @@ msgstr "hip-hop"
 msgid "children"
 msgstr "per bambini"
 
-#: tmp/coverart_search_providers_prefs.ui.h:1
-#, fuzzy
-msgid "Choose Search Providers:"
-msgstr "Cerca copertine"
-
-#: tmp/coverart_search_providers_prefs.ui.h:2
-#, fuzzy
-msgid "Provider"
-msgstr "Fornitori"
-
 #: coverart_album.py:1607 coverart_browser_source.py:806
 #, python-format
 msgid "%s by %s"
@@ -751,15 +740,17 @@ msgstr "Cerca album"
 msgid "Search tracks"
 msgstr "Cerca tracce"
 
-#. define .plugin text strings used for translation
-#: coverart_search_providers.py:65
 #, fuzzy
-msgid "CoverArt Browser Search Providers"
-msgstr "Gestore di CoverArt"
+#~ msgid "Choose Search Providers:"
+#~ msgstr "Cerca copertine"
 
-#: coverart_search_providers.py:66
-msgid "Additional coverart search providers for Rhythmbox"
-msgstr ""
+#, fuzzy
+#~ msgid "Provider"
+#~ msgstr "Fornitori"
+
+#, fuzzy
+#~ msgid "CoverArt Browser Search Providers"
+#~ msgstr "Gestore di CoverArt"
 
 #~ msgid "Find CoverArt:"
 #~ msgstr "Cerca CoverArt:"
