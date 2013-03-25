@@ -601,6 +601,7 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
 
         key = RB.ExtDBKey.create_storage('icon', str(next_index))
         uri = "file://" + urllib.pathname2url(filename)
+        self._genre_db.store_uri(key, RB.ExtDBSourceType.USER_EXPLICIT, uri) 
         
         pixbuf = GdkPixbuf.Pixbuf.new_from_file(filename)
         new_genre = GenreType(name=str(next_index), genre_type=self.GENRE_USER)
