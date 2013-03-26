@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
-  <object class="GtkImage" id="image1">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixbuf">../img/pop_uparrow.png</property>
-  </object>
-  <object class="GtkImage" id="image2">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="pixbuf">../img/pop_downarrow.png</property>
-  </object>
   <object class="GtkListStore" id="liststore">
     <columns>
       <!-- column-name display_text -->
@@ -42,7 +32,6 @@
             <property name="margin_left">5</property>
             <property name="margin_right">5</property>
             <property name="use_action_appearance">False</property>
-            <property name="image">image1</property>
             <property name="relief">none</property>
             <property name="focus_on_click">False</property>
             <property name="image_position">bottom</property>
@@ -50,6 +39,13 @@
             <signal name="pressed" handler="on_scroll_button_pressed" swapped="no"/>
             <signal name="released" handler="on_scroll_button_released" swapped="no"/>
             <signal name="leave" handler="on_scroll_button_leave" swapped="no"/>
+            <child>
+              <object class="GtkArrow" id="arrow2">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="arrow_type">up</property>
+              </object>
+            </child>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -109,13 +105,19 @@
             <property name="margin_left">5</property>
             <property name="margin_right">5</property>
             <property name="use_action_appearance">False</property>
-            <property name="image">image2</property>
             <property name="relief">none</property>
             <property name="focus_on_click">False</property>
             <signal name="enter" handler="on_scroll_button_enter" swapped="no"/>
             <signal name="pressed" handler="on_scroll_button_pressed" swapped="no"/>
             <signal name="released" handler="on_scroll_button_released" swapped="no"/>
             <signal name="leave" handler="on_scroll_button_leave" swapped="no"/>
+            <child>
+              <object class="GtkArrow" id="arrow1">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="arrow_type">down</property>
+              </object>
+            </child>
           </object>
           <packing>
             <property name="expand">False</property>
