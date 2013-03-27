@@ -19,6 +19,7 @@
         <genre xml:lang="zh_TW" spritesheet="genre" name="rock">搖滾</genre>
         <genre spritesheet="genre" name="country">country</genre>
         <genre xml:lang="ca" spritesheet="genre" name="country">country</genre>
+        <genre xml:lang="de" spritesheet="genre" name="country">Land</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="country">country</genre>
         <genre xml:lang="es" spritesheet="genre" name="country">country</genre>
         <genre xml:lang="eu" spritesheet="genre" name="country">country</genre>
@@ -65,6 +66,7 @@
         <genre xml:lang="zh_TW" spritesheet="genre" name="classical">古典</genre>
         <genre spritesheet="genre" name="world">world</genre>
         <genre xml:lang="ca" spritesheet="genre" name="world">món</genre>
+        <genre xml:lang="de" spritesheet="genre" name="world">Welt</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="world">world</genre>
         <genre xml:lang="es" spritesheet="genre" name="world">mundo</genre>
         <genre xml:lang="eu" spritesheet="genre" name="world">mundukoa</genre>
@@ -86,6 +88,7 @@
         <genre xml:lang="zh_TW" spritesheet="genre" name="bluegrass">藍草</genre>
         <genre spritesheet="genre" name="oldies">oldies</genre>
         <genre xml:lang="ca" spritesheet="genre" name="oldies">antigues</genre>
+        <genre xml:lang="de" spritesheet="genre" name="oldies">Oldies</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="oldies">oldies</genre>
         <genre xml:lang="es" spritesheet="genre" name="oldies">antiguo</genre>
         <genre xml:lang="fr" spritesheet="genre" name="oldies">cabaret</genre>
@@ -119,6 +122,7 @@
         <genre xml:lang="zh_TW" spritesheet="genre" name="comedy">喜劇</genre>
         <genre spritesheet="genre" name="spoken">spoken</genre>
         <genre xml:lang="ca" spritesheet="genre" name="spoken">parlat</genre>
+        <genre xml:lang="de" spritesheet="genre" name="spoken">gesprochen</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="spoken">spoken</genre>
         <genre xml:lang="es" spritesheet="genre" name="spoken">hablado</genre>
         <genre xml:lang="fr" spritesheet="genre" name="spoken">livres et histoires</genre>
@@ -205,6 +209,7 @@
         <genre xml:lang="zh_TW" spritesheet="genre" name="rap">饒舌</genre>
         <genre spritesheet="genre" name="ragtime">ragtime</genre>
         <genre xml:lang="ca" spritesheet="genre" name="ragtime">ragtime</genre>
+        <genre xml:lang="de" spritesheet="genre" name="ragtime">Ragtime</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="ragtime">ragtime</genre>
         <genre xml:lang="es" spritesheet="genre" name="ragtime">ragtime</genre>
         <genre xml:lang="fr" spritesheet="genre" name="ragtime">ragtime</genre>
@@ -256,6 +261,7 @@
         <genre spritesheet="genre" name="electronic">electronic</genre>
         <genre xml:lang="az" spritesheet="genre" name="electronic">elektronik</genre>
         <genre xml:lang="ca" spritesheet="genre" name="electronic">electrònica</genre>
+        <genre xml:lang="de" spritesheet="genre" name="electronic">Electronic</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="electronic">electronic</genre>
         <genre xml:lang="es" spritesheet="genre" name="electronic">electrónica</genre>
         <genre xml:lang="fr" spritesheet="genre" name="electronic">électronique</genre>
@@ -268,6 +274,7 @@
         <genre xml:lang="zh_TW" spritesheet="genre" name="electronic">電音</genre>
         <genre spritesheet="genre" name="soundtrack">soundtrack</genre>
         <genre xml:lang="ca" spritesheet="genre" name="soundtrack">banda sonora</genre>
+        <genre xml:lang="de" spritesheet="genre" name="soundtrack">Soundtrack</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="soundtrack">soundtrack</genre>
         <genre xml:lang="es" spritesheet="genre" name="soundtrack">banda sonora</genre>
         <genre xml:lang="fr" spritesheet="genre" name="soundtrack">bande originale</genre>
@@ -363,6 +370,7 @@
         <genre spritesheet="genre" name="new age">new age</genre>
         <genre xml:lang="az" spritesheet="genre" name="new age">yeni əsr</genre>
         <genre xml:lang="ca" spritesheet="genre" name="new age">new age</genre>
+        <genre xml:lang="de" spritesheet="genre" name="new age">New Age</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="new age">new age</genre>
         <genre xml:lang="es" spritesheet="genre" name="new age">nueva era</genre>
         <genre xml:lang="fr" spritesheet="genre" name="new age">new age</genre>
@@ -392,6 +400,7 @@
         <genre spritesheet="genre" name="anime">anime</genre>
         <genre xml:lang="az" spritesheet="genre" name="anime">anime</genre>
         <genre xml:lang="ca" spritesheet="genre" name="anime">anime</genre>
+        <genre xml:lang="de" spritesheet="genre" name="anime">Anime</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="anime">anime</genre>
         <genre xml:lang="es" spritesheet="genre" name="anime">anime</genre>
         <genre xml:lang="fr" spritesheet="genre" name="anime">anime</genre>

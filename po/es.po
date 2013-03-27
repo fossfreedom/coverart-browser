@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-25 19:49+0000\n"
+"POT-Creation-Date: 2013-03-26 12:58+0000\n"
 "PO-Revision-Date: 2013-01-17 23:43+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitoschido@gmail.com>\n"
 "Language-Team: none\n"
@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-01-24 23:24+0000\n"
-"X-Generator: Launchpad (build 16445)\n"
+"X-Launchpad-Export-Date: 2013-03-27 08:28+0000\n"
+"X-Generator: Launchpad (build 16540)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -259,9 +259,8 @@ msgid "Icon Theme: "
 msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:40
-#, fuzzy
 msgid "Alternative Genres:"
-msgstr "alternativa"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:41
 msgid "Load New Icon: "
@@ -292,9 +291,8 @@ msgid "Current user-defined Genres:"
 msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:48
-#, fuzzy
 msgid "Alternate Name"
-msgstr "alternativa"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:49
 msgid "Icon"
@@ -735,26 +733,8 @@ msgstr "Buscar álbums"
 msgid "Search tracks"
 msgstr "Buscar por canción"
 
-#, fuzzy
-#~ msgid "Choose Search Providers:"
-#~ msgstr "Buscar portadas"
-
-#, fuzzy
-#~ msgid "Provider"
-#~ msgstr "Proveedores"
-
-#, fuzzy
-#~ msgid "CoverArt Browser Search Providers"
-#~ msgstr "Navegador de Portadas"
-
-#~ msgid "Find CoverArt:"
-#~ msgstr "Buscar portadas:"
-
-#~ msgid "Search for embedded coverart"
-#~ msgstr "Buscar portadas embebidas"
-
-#~ msgid "Search for coverart embedded within tracks for an album"
-#~ msgstr "Busca portadas embebidas dentro de las canciones del álbum"
+#~ msgid "Unknown"
+#~ msgstr "Desconocido"
 
 #~ msgid "Search for coverart on DISCOGS"
 #~ msgstr "Buscar portadas en DISCOGS"
@@ -762,5 +742,14 @@ msgstr "Buscar por canción"
 #~ msgid "Search for coverart on the internet provider DISCOGS"
 #~ msgstr "Busca portadas en la base de datos de DISCOGS"
 
-#~ msgid "Unknown"
-#~ msgstr "Desconocido"
+#~ msgid "Search for embedded coverart"
+#~ msgstr "Buscar portadas embebidas"
+
+#~ msgid "Search for coverart embedded within tracks for an album"
+#~ msgstr "Busca portadas embebidas dentro de las canciones del álbum"
+
+#~ msgid "Providers"
+#~ msgstr "Proveedores"
+
+#~ msgid "Find CoverArt:"
+#~ msgstr "Buscar portadas:"

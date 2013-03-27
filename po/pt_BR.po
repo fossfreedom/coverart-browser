@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-25 19:49+0000\n"
+"POT-Creation-Date: 2013-03-26 12:58+0000\n"
 "PO-Revision-Date: 2013-01-09 13:27+0000\n"
 "Last-Translator: Rafael Neri <Unknown>\n"
 "Language-Team: none\n"
@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-01-24 23:24+0000\n"
-"X-Generator: Launchpad (build 16445)\n"
+"X-Launchpad-Export-Date: 2013-03-27 08:28+0000\n"
+"X-Generator: Launchpad (build 16540)\n"
 "Generated-By: pygettext.py 1.5\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
@@ -116,15 +116,11 @@ msgid "Use source's custom statusbar."
 msgstr "Utilizar barra de status customizada da fonte"
 
 #: tmp/coverart_browser_prefs.ui.h:10
-#, fuzzy
 msgid ""
 "Use the source&apos;s custom statusbar to show the current selected "
 "album&apos;s related information instead of the global Rhythmbox&apos;s "
 "statusbar."
 msgstr ""
-"Utilizar a barra de status customizada da fonte para mostrar a informação "
-"relacionada ao álbum selecionado ao invés da barra de status global do "
-"Rhythmbox"
 
 #: tmp/coverart_browser_prefs.ui.h:11
 msgid ""
@@ -168,9 +164,8 @@ msgid "Display album's info under cover"
 msgstr "Exibir informações do álbum abaixo da capa"
 
 #: tmp/coverart_browser_prefs.ui.h:19
-#, fuzzy
 msgid "Show the album&apos;s basic information under the cover image."
-msgstr "Mostra informações básicas do álbum abaixo da imagem da capa."
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:20
 msgid "Show the album's basic information under the cover image."
@@ -257,9 +252,8 @@ msgid "Icon Theme: "
 msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:40
-#, fuzzy
 msgid "Alternative Genres:"
-msgstr "alternativa"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:41
 msgid "Load New Icon: "
@@ -290,9 +284,8 @@ msgid "Current user-defined Genres:"
 msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:48
-#, fuzzy
 msgid "Alternate Name"
-msgstr "alternativa"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:49
 msgid "Icon"
@@ -463,9 +456,8 @@ msgid "world"
 msgstr ""
 
 #: tmp/popups.xml.in.h:6
-#, fuzzy
 msgid "bluegrass"
-msgstr "blues"
+msgstr ""
 
 #: tmp/popups.xml.in.h:7
 msgid "oldies"
@@ -508,9 +500,8 @@ msgid "ragtime"
 msgstr ""
 
 #: tmp/popups.xml.in.h:17
-#, fuzzy
 msgid "musical"
-msgstr "clássico"
+msgstr ""
 
 #: tmp/popups.xml.in.h:18
 msgid "dance"
@@ -657,15 +648,13 @@ msgstr "década de 2020"
 
 #. '10s' as in the decade 2010
 #: coverart_controllers.py:437
-#, fuzzy
 msgid "10s"
-msgstr "década de 2020"
+msgstr ""
 
 #. '00s' as in the decade 2000
 #: coverart_controllers.py:439
-#, fuzzy
 msgid "00s"
-msgstr "década de 2020"
+msgstr ""
 
 #. '90s' as in the decade 1990
 #: coverart_controllers.py:441
@@ -735,14 +724,6 @@ msgstr "Procurar álbum"
 #: coverart_controllers.py:557
 msgid "Search tracks"
 msgstr "Procurar por faixas"
-
-#, fuzzy
-#~ msgid "Choose Search Providers:"
-#~ msgstr "Procurar por capas"
-
-#, fuzzy
-#~ msgid "CoverArt Browser Search Providers"
-#~ msgstr "Arte das Capas"
 
 #~ msgid "Unknown"
 #~ msgstr "Desconhecido(a)"

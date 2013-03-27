@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-25 19:49+0000\n"
-"PO-Revision-Date: 2013-01-11 15:03+0000\n"
+"POT-Creation-Date: 2013-03-26 12:58+0000\n"
+"PO-Revision-Date: 2013-02-18 12:17+0000\n"
 "Last-Translator: Wang Dianjin <Unknown>\n"
 "Language-Team: Chinese (Simplified) <zh_CN@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-01-24 23:24+0000\n"
-"X-Generator: Launchpad (build 16445)\n"
+"X-Launchpad-Export-Date: 2013-03-27 08:28+0000\n"
+"X-Generator: Launchpad (build 16540)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -205,7 +205,7 @@ msgstr "标明封面视图中专辑是否应该显示阴影"
 
 #: tmp/coverart_browser_prefs.ui.h:30
 msgid "Light Source: "
-msgstr ""
+msgstr "光线来源： "
 
 #: tmp/coverart_browser_prefs.ui.h:31
 msgid "Defines the size for the covers showed on the source."
@@ -244,9 +244,8 @@ msgid "Icon Theme: "
 msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:40
-#, fuzzy
 msgid "Alternative Genres:"
-msgstr "所有流派"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:41
 msgid "Load New Icon: "
@@ -449,9 +448,8 @@ msgid "world"
 msgstr ""
 
 #: tmp/popups.xml.in.h:6
-#, fuzzy
 msgid "bluegrass"
-msgstr "蓝调"
+msgstr ""
 
 #: tmp/popups.xml.in.h:7
 msgid "oldies"
@@ -494,9 +492,8 @@ msgid "ragtime"
 msgstr ""
 
 #: tmp/popups.xml.in.h:17
-#, fuzzy
 msgid "musical"
-msgstr "古典"
+msgstr ""
 
 #: tmp/popups.xml.in.h:18
 msgid "dance"
@@ -720,29 +717,23 @@ msgstr "搜索专辑"
 msgid "Search tracks"
 msgstr "搜索音轨"
 
-#, fuzzy
-#~ msgid "Choose Search Providers:"
-#~ msgstr "搜索封面"
-
-#, fuzzy
-#~ msgid "Provider"
-#~ msgstr "提供方"
-
-#, fuzzy
-#~ msgid "CoverArt Browser Search Providers"
-#~ msgstr "封面浏览器"
+#~ msgid "Search for coverart on DISCOGS"
+#~ msgstr "搜索 DISCOGS 上面的封面"
 
 #~ msgid "Search for embedded coverart"
 #~ msgstr "搜索内置封面"
 
-#~ msgid "Search for coverart embedded within tracks for an album"
-#~ msgstr "搜索专辑中歌曲内置的封面"
-
-#~ msgid "Search for coverart on DISCOGS"
-#~ msgstr "搜索 DISCOGS 上面的封面"
-
 #~ msgid "Search for coverart on the internet provider DISCOGS"
 #~ msgstr "搜索网络提供商 DISCOGS 提供的封面"
 
+#~ msgid "Providers"
+#~ msgstr "提供方"
+
+#~ msgid "Search for coverart embedded within tracks for an album"
+#~ msgstr "搜索专辑中歌曲内置的封面"
+
 #~ msgid "Unknown"
 #~ msgstr "未知"
+
+#~ msgid "Find CoverArt:"
+#~ msgstr "查找封面："

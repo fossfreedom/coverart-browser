@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-25 19:49+0000\n"
+"POT-Creation-Date: 2013-03-26 12:58+0000\n"
 "PO-Revision-Date: 2013-01-25 17:40+0000\n"
 "Last-Translator: Jiri Grönroos <Unknown>\n"
 "Language-Team: Finnish <fi@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-01-26 16:44+0000\n"
-"X-Generator: Launchpad (build 16451)\n"
+"X-Launchpad-Export-Date: 2013-03-27 08:28+0000\n"
+"X-Generator: Launchpad (build 16540)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -129,9 +129,8 @@ msgid ""
 msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:12
-#, fuzzy
 msgid "Display tracks and covers pane"
-msgstr "Näytä levyn tiedot kansikuvan alla"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:13
 msgid ""
@@ -246,9 +245,8 @@ msgid "Icon Theme: "
 msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:40
-#, fuzzy
 msgid "Alternative Genres:"
-msgstr "Kaikki tyylilajit"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:41
 msgid "Load New Icon: "
@@ -327,14 +325,12 @@ msgid "Play Album"
 msgstr "Toista levy"
 
 #: tmp/coverart_browser.ui.h:5
-#, fuzzy
 msgid "Add this album to your playing queue"
-msgstr "Lisää levy soittolistaan"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:6
-#, fuzzy
 msgid "Queue Album"
-msgstr "Levy"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:7 tmp/coverart_entryview.ui.h:5
 msgid "Add this album to a playlist"
@@ -369,14 +365,12 @@ msgid "Queue Favourites"
 msgstr ""
 
 #: tmp/coverart_browser.ui.h:15
-#, fuzzy
 msgid "Add favourite tracks from this album to a playlist"
-msgstr "Lisää levy soittolistaan"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:16
-#, fuzzy
 msgid "Add favourites to Playlist"
-msgstr "Lisää soittolistaan"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:17
 msgid "Search for this album cover"
@@ -399,27 +393,24 @@ msgid "Download all the covers"
 msgstr "Lataa kaikki kansikuvat"
 
 #: tmp/coverart_entryview.ui.h:1
-#, fuzzy
 msgid "Play this track"
-msgstr "Toista tämä levy"
+msgstr ""
 
 #: tmp/coverart_entryview.ui.h:2
 msgid "Play Track"
 msgstr ""
 
 #: tmp/coverart_entryview.ui.h:3
-#, fuzzy
 msgid "Add this track to your playing queue"
-msgstr "Lisää levy soittolistaan"
+msgstr ""
 
 #: tmp/coverart_entryview.ui.h:4
 msgid "Queue Track"
 msgstr ""
 
 #: tmp/coverart_entryview.ui.h:9
-#, fuzzy
 msgid "Show track properties"
-msgstr "Näytä levyn ominaisuudet"
+msgstr "Näytä kappaleen ominaisuudet"
 
 #: tmp/coverart_sidebar.ui.h:1 coverart_browser.py:102
 msgid "CoverArt"
@@ -458,9 +449,8 @@ msgid "world"
 msgstr ""
 
 #: tmp/popups.xml.in.h:6
-#, fuzzy
 msgid "bluegrass"
-msgstr "blues"
+msgstr ""
 
 #: tmp/popups.xml.in.h:7
 msgid "oldies"
@@ -633,18 +623,16 @@ msgid "Sort by album name"
 msgstr "Järjestä levyn nimen mukaan"
 
 #: coverart_controllers.py:379
-#, fuzzy
 msgid "Sort by album artist"
-msgstr "Järjestä levyn nimen mukaan"
+msgstr ""
 
 #: coverart_controllers.py:380
 msgid "Sort by year"
 msgstr "Järjestä vuoden mukaan"
 
 #: coverart_controllers.py:381
-#, fuzzy
 msgid "Sort by rating"
-msgstr "Järjestä vuoden mukaan"
+msgstr ""
 
 #. '20s' as in the decade 2010
 #: coverart_controllers.py:435 coverart_controllers.py:461
@@ -715,35 +703,23 @@ msgid "Search all fields"
 msgstr "Etsi kaikista kentistä"
 
 #: coverart_controllers.py:554
-#, fuzzy
 msgid "Search album artists"
-msgstr "Etsi kaikista kentistä"
+msgstr ""
 
 #: coverart_controllers.py:555
-#, fuzzy
 msgid "Search track artists"
-msgstr "Näytä kappaleen ominaisuudet"
+msgstr ""
 
 #: coverart_controllers.py:556
-#, fuzzy
 msgid "Search albums"
-msgstr "Etsi kaikista kentistä"
+msgstr ""
 
 #: coverart_controllers.py:557
-#, fuzzy
 msgid "Search tracks"
-msgstr "Etsi tekstiä"
-
-#, fuzzy
-#~ msgid "Choose Search Providers:"
-#~ msgstr "Etsi kansikuvia"
-
-#, fuzzy
-#~ msgid "CoverArt Browser Search Providers"
-#~ msgstr "Kansikuvaselain"
-
-#~ msgid "Find CoverArt:"
-#~ msgstr "Etsi kansikuvitus:"
+msgstr ""
 
 #~ msgid "Unknown"
 #~ msgstr "Tuntematon"
+
+#~ msgid "Find CoverArt:"
+#~ msgstr "Etsi kansikuvitus:"

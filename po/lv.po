@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-25 19:49+0000\n"
+"POT-Creation-Date: 2013-03-26 12:58+0000\n"
 "PO-Revision-Date: 2013-01-19 11:09+0000\n"
 "Last-Translator: admresdeserv. <jeanmarc.gailis@gmail.com>\n"
 "Language-Team: Latvian <lv@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-01-24 23:24+0000\n"
-"X-Generator: Launchpad (build 16445)\n"
+"X-Launchpad-Export-Date: 2013-03-27 08:28+0000\n"
+"X-Generator: Launchpad (build 16540)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -320,18 +320,16 @@ msgid "Play this album"
 msgstr ""
 
 #: tmp/coverart_browser.ui.h:4
-#, fuzzy
 msgid "Play Album"
-msgstr "Albūms"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:5
 msgid "Add this album to your playing queue"
 msgstr ""
 
 #: tmp/coverart_browser.ui.h:6
-#, fuzzy
 msgid "Queue Album"
-msgstr "Albūms"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:7 tmp/coverart_entryview.ui.h:5
 msgid "Add this album to a playlist"
@@ -374,14 +372,12 @@ msgid "Add favourites to Playlist"
 msgstr ""
 
 #: tmp/coverart_browser.ui.h:17
-#, fuzzy
 msgid "Search for this album cover"
-msgstr "Meklēt"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:18
-#, fuzzy
 msgid "Search for covers"
-msgstr "Meklēšanas opcijas"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:19
 msgid "Show album properties"
@@ -714,11 +710,9 @@ msgid "Search track artists"
 msgstr ""
 
 #: coverart_controllers.py:556
-#, fuzzy
 msgid "Search albums"
-msgstr "Meklēt"
+msgstr ""
 
 #: coverart_controllers.py:557
-#, fuzzy
 msgid "Search tracks"
-msgstr "Meklēšanas opcijas"
+msgstr ""
