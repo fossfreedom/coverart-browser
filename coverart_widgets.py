@@ -753,18 +753,32 @@ class PanedCollapsible(Gtk.Paned):
             print("GtkPaned cannot have more than 2 children")
 
     def do_add1(self, widget):
+        '''
+        Overrides the add1 superclass' method for pack1 to work correctly.
+        '''
         self.do_pack1(widget, True, True)
 
     def do_pack1(self, widget, *args, **kwargs):
+        '''
+        Packs the widget into the first paned child, adding a GtkExpander
+        around the packed widget if the collapsible1 property is True.
+        '''
         if self.collapsible1:
             widget = self._create_expander(widget)
 
         Gtk.Paned.pack1(self, widget, *args, **kwargs)
 
     def do_add2(self, widget):
+        '''
+        Overrides the add2 superclass' method for pack2 to work correctly.
+        '''
         self.do_pack2(widget, True, True)
 
     def do_pack2(self, widget, *args, **kwargs):
+        '''
+        Packs the widget into the second paned child, adding a GtkExpander
+        around the packed widget if the collapsible2 property is True.
+        '''
         if self.collapsible2:
             widget = self._create_expander(widget)
 
@@ -798,5 +812,8 @@ class PanedCollapsible(Gtk.Paned):
         self.set_position(new_y)
 
     def expand(self):
+        '''
+        Toggles the expanded property of the collapsible children.
+        '''
         if self._expander:
             self._expander.set_expanded(not self._expander.get_expanded())
