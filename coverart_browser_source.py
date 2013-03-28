@@ -35,6 +35,7 @@ from coverart_widgets import SearchEntry
 from coverart_widgets import QuickSearchEntry
 from coverart_widgets import ProxyPopupButton
 from coverart_widgets import EnhancedIconView
+from coverart_widgets import PanedCollapsible
 from coverart_controllers import PlaylistPopupController
 from coverart_controllers import GenrePopupController
 from coverart_controllers import SortPopupController
@@ -50,7 +51,6 @@ class CoverArtBrowserSource(RB.Source):
     Source utilized by the plugin to show all it's ui.
     '''
     custom_statusbar_enabled = GObject.property(type=bool, default=False)
-    display_bottom_enabled = GObject.property(type=bool, default=False)
     rating_threshold = GObject.property(type=float, default=0)
 
     # unique instance of the source
@@ -82,8 +82,6 @@ class CoverArtBrowserSource(RB.Source):
 
         setting.bind(self.gs.PluginKey.CUSTOM_STATUSBAR, self,
             'custom_statusbar_enabled', Gio.SettingsBindFlags.GET)
-        setting.bind(self.gs.PluginKey.DISPLAY_BOTTOM, self,
-            'display_bottom_enabled', Gio.SettingsBindFlags.GET)
         setting.bind(self.gs.PluginKey.RATING, self,
             'rating_threshold', Gio.SettingsBindFlags.GET)
 
@@ -158,9 +156,6 @@ class CoverArtBrowserSource(RB.Source):
         self.connect('notify::custom-statusbar-enabled',
             self.on_notify_custom_statusbar_enabled)
 
-        self.connect('notify::display-bottom-enabled',
-            self.on_notify_display_bottom_enabled)
-
         self.connect('notify::rating-threshold',
             self.on_notify_rating_threshold)
 
@@ -203,8 +198,6 @@ class CoverArtBrowserSource(RB.Source):
         self.request_statusbar = ui.get_object('request_statusbar')
         self.request_cancel_button = ui.get_object('request_cancel_button')
         self.paned = ui.get_object('paned')
-        self.bottom_box = ui.get_object('bottom_box')
-        self.bottom_expander = ui.get_object('bottom_expander')
         self.notebook = ui.get_object('bottom_notebook')
 
         # get widgets for source popup
@@ -248,9 +241,11 @@ class CoverArtBrowserSource(RB.Source):
             self.on_drag_data_received)
 
         # setup entry-view objects and widgets
-        y = self.gs.get_value(self.gs.Path.PLUGIN,
-            self.gs.PluginKey.PANED_POSITION)
-        self.paned.set_position(y)
+        setting = self.gs.get_setting(self.gs.Path.PLUGIN)
+        setting.bind(self.gs.PluginKey.PANED_POSITION,
+            self.paned, 'collapsible-y', Gio.SettingsBindFlags.DEFAULT)
+        setting.bind(self.gs.PluginKey.DISPLAY_BOTTOM,
+            self.paned.get_child2(), 'visible', Gio.SettingsBindFlags.DEFAULT)
 
         # create entry view. Don't allow to reorder until the load is finished
         self.entry_view = EV(self.shell, self)
@@ -328,7 +323,6 @@ class CoverArtBrowserSource(RB.Source):
 
         # enable some ui if necesary
         self.on_notify_rating_threshold(_)
-        self.on_notify_display_bottom_enabled(_)
 
         print "CoverArtBrowser DEBUG - end _apply_settings"
 
@@ -380,8 +374,7 @@ class CoverArtBrowserSource(RB.Source):
             and self.last_selected_album is album:
             # check if it's a second or third click on the album and expand
             # or collapse the entry view accordingly
-            self.bottom_expander.set_expanded(
-                not self.bottom_expander.get_expanded())
+            self.paned.expand()
 
         # update the selected album
         selected = self.covers_view.get_selected_objects()
@@ -426,57 +419,6 @@ class CoverArtBrowserSource(RB.Source):
         self.favourite_playlist_menu_item.set_sensitive(enable_menus)
 
         print "CoverArtBrowser DEBUG - end on_notify_rating_threshold"
-
-    def on_notify_display_bottom_enabled(self, *args):
-        '''
-        Callback called when the option 'display tracks' is enabled or disabled
-        on the plugin's preferences dialog
-        '''
-        print "CoverArtBrowser DEBUG - on_notify_display_bottom_enabled"
-
-        if self.display_bottom_enabled:
-            # make the entry view visible
-            self.bottom_box.set_visible(True)
-
-            self.bottom_expander_expanded_callback(
-                self.bottom_expander, None)
-
-            # update it with the current selected album
-            self.selectionchanged_callback(self.covers_view)
-
-        else:
-            if self.bottom_expander.get_expanded():
-                y = self.paned.get_position()
-                self.gs.set_value(self.gs.Path.PLUGIN,
-                                  self.gs.PluginKey.PANED_POSITION,
-                                  y)
-
-            self.bottom_box.set_visible(False)
-
-        print "CoverArtBrowser DEBUG - end on_notify_display_bottom_enabled"
-
-    def paned_button_press_callback(self, *args):
-        '''
-        This callback allows or denies the paned handle to move depending on
-        the expanded state of the entry_view
-        '''
-        print "CoverArtBrowser DEBUG - paned_button_press_callback"
-        return not self.bottom_expander.get_expanded()
-
-    def on_paned_button_release_event(self, *args):
-        '''
-        Callback when the paned handle is released from its mouse click.
-        '''
-
-        print "CoverArtBrowser DEBUG - on_paned_button_release_event"
-
-        if self.bottom_expander.get_expanded():
-            # save the new position
-            new_y = self.paned.get_position()
-            self.gs.set_value(self.gs.Path.PLUGIN,
-                self.gs.PluginKey.PANED_POSITION, new_y)
-
-        print "CoverArtBrowser DEBUG - end on_paned_button_release_event"
 
     def on_album_updated(self, model, path, tree_iter):
         '''
@@ -851,35 +793,11 @@ class CoverArtBrowserSource(RB.Source):
 
         print "CoverArtBrowser DEBUG - end update_statusbar"
 
-    def bottom_expander_expanded_callback(self, action, param):
+    def bottom_expander_expanded_callback(self, paned, expand):
         '''
         Callback connected to expanded signal of the paned GtkExpander
         '''
-        print "CoverArtBrowser DEBUG - bottom_expander_expanded_callback"
-
-        expand = action.get_expanded()
-
-        if not expand:
-            # move the lower pane to the bottom since it's collapsed
-            (x, y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
-            new_y = self.paned.get_position()
-            self.gs.set_value(self.gs.Path.PLUGIN,
-                self.gs.PluginKey.PANED_POSITION, new_y)
-            self.paned.set_position(y - 10)
-        else:
-            # restitute the lower pane to it's expanded size
-            new_y = self.gs.get_value(self.gs.Path.PLUGIN,
-                self.gs.PluginKey.PANED_POSITION)
-
-            if new_y == 0:
-                # if there isn't a saved size, use half of the space
-                (x, y) = Gtk.Widget.get_toplevel(self.status_label).get_size()
-                new_y = (y / 2)
-                self.gs.set_value(self.gs.Path.PLUGIN,
-                    self.gs.PluginKey.PANED_POSITION, new_y)
-
-            self.paned.set_position(new_y)
-
+        if expand:
             # acomodate the viewport if there's an album selected
             if self.last_selected_album:
                 def scroll_to_album(*args):
@@ -893,8 +811,6 @@ class CoverArtBrowserSource(RB.Source):
 
                 Gdk.threads_add_idle(GObject.PRIORITY_DEFAULT_IDLE,
                     scroll_to_album, None)
-
-        print "CoverArtBrowser DEBUG - end bottom_expander_expanded_callback"
 
     def on_drag_drop(self, widget, context, x, y, time):
         '''

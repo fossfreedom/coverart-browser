@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-25 19:49+0000\n"
+"POT-Creation-Date: 2013-03-26 12:58+0000\n"
 "PO-Revision-Date: 2013-01-17 18:08+0000\n"
 "Last-Translator: VPablo <villumar@gmail.com>\n"
 "Language-Team: Catalan <ca@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-01-24 23:24+0000\n"
-"X-Generator: Launchpad (build 16445)\n"
+"X-Launchpad-Export-Date: 2013-03-27 08:28+0000\n"
+"X-Generator: Launchpad (build 16540)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -257,9 +257,8 @@ msgid "Icon Theme: "
 msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:40
-#, fuzzy
 msgid "Alternative Genres:"
-msgstr "alternative"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:41
 msgid "Load New Icon: "
@@ -290,9 +289,8 @@ msgid "Current user-defined Genres:"
 msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:48
-#, fuzzy
 msgid "Alternate Name"
-msgstr "alternative"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:49
 msgid "Icon"
@@ -732,32 +730,23 @@ msgstr "Cerca els àlbums"
 msgid "Search tracks"
 msgstr "Cerca cançons"
 
-#, fuzzy
-#~ msgid "Choose Search Providers:"
-#~ msgstr "Cerca portades"
-
-#, fuzzy
-#~ msgid "Provider"
-#~ msgstr "Proveïdors"
-
-#, fuzzy
-#~ msgid "CoverArt Browser Search Providers"
-#~ msgstr "Navegador de Portades"
-
-#~ msgid "Find CoverArt:"
-#~ msgstr "Troba CoverArt:"
+#~ msgid "Search for coverart on DISCOGS"
+#~ msgstr "Busca portades a DISCOGS"
 
 #~ msgid "Search for embedded coverart"
 #~ msgstr "Busca portades incrustades"
 
-#~ msgid "Search for coverart embedded within tracks for an album"
-#~ msgstr "Busca portades incrustades dins les cançons d'un àlbum"
-
-#~ msgid "Search for coverart on DISCOGS"
-#~ msgstr "Busca portades a DISCOGS"
+#~ msgid "Find CoverArt:"
+#~ msgstr "Troba CoverArt:"
 
 #~ msgid "Search for coverart on the internet provider DISCOGS"
 #~ msgstr "Busca portades al proveïdor d'Internet DISCOGS"
+
+#~ msgid "Search for coverart embedded within tracks for an album"
+#~ msgstr "Busca portades incrustades dins les cançons d'un àlbum"
+
+#~ msgid "Providers"
+#~ msgstr "Proveïdors"
 
 #~ msgid "Unknown"
 #~ msgstr "Desconeguda"

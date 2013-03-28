@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-25 19:49+0000\n"
+"POT-Creation-Date: 2013-03-26 12:58+0000\n"
 "PO-Revision-Date: 2013-01-18 06:37+0000\n"
 "Last-Translator: Miguel Anxo Bouzada <mbouzada@gmail.com>\n"
 "Language-Team: Galician <gl@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-01-24 23:24+0000\n"
-"X-Generator: Launchpad (build 16445)\n"
+"X-Launchpad-Export-Date: 2013-03-27 08:28+0000\n"
+"X-Generator: Launchpad (build 16540)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -128,9 +128,8 @@ msgid ""
 msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:12
-#, fuzzy
 msgid "Display tracks and covers pane"
-msgstr "Amosar a información sobe o álbum baixo a cuberta"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:13
 msgid ""
@@ -217,9 +216,8 @@ msgid "Size (in pixels):"
 msgstr "Tamaño (en píxeles):"
 
 #: tmp/coverart_browser_prefs.ui.h:33
-#, fuzzy
 msgid "Cover"
-msgstr "Cubertas"
+msgstr "Cuberta"
 
 #: tmp/coverart_browser_prefs.ui.h:34
 msgid "Where the toolbar should be positioned"
@@ -246,9 +244,8 @@ msgid "Icon Theme: "
 msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:40
-#, fuzzy
 msgid "Alternative Genres:"
-msgstr "alternativa"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:41
 msgid "Load New Icon: "
@@ -279,9 +276,8 @@ msgid "Current user-defined Genres:"
 msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:48
-#, fuzzy
 msgid "Alternate Name"
-msgstr "alternativa"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:49
 msgid "Icon"
@@ -332,9 +328,8 @@ msgid "Add this album to your playing queue"
 msgstr "Engadir este álbum á cola de reprodución"
 
 #: tmp/coverart_browser.ui.h:6
-#, fuzzy
 msgid "Queue Album"
-msgstr "Álbum"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:7 tmp/coverart_entryview.ui.h:5
 msgid "Add this album to a playlist"
@@ -361,38 +356,32 @@ msgid "Play Favourites"
 msgstr ""
 
 #: tmp/coverart_browser.ui.h:13
-#, fuzzy
 msgid "Add favourite tracks from this album to your playing queue"
-msgstr "Engadir este álbum á cola de reprodución"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:14
 msgid "Queue Favourites"
 msgstr ""
 
 #: tmp/coverart_browser.ui.h:15
-#, fuzzy
 msgid "Add favourite tracks from this album to a playlist"
-msgstr "Engadir este álbum á lista de reprodución"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:16
-#, fuzzy
 msgid "Add favourites to Playlist"
-msgstr "Engadir á lista de reprodución"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:17
-#, fuzzy
 msgid "Search for this album cover"
-msgstr "Buscar álbums"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:18
-#, fuzzy
 msgid "Search for covers"
-msgstr "Buscar cuberta en DISCOGS"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:19
-#, fuzzy
 msgid "Show album properties"
-msgstr "Ordenar polo interprete do álbum"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:20
 msgid "Search for covers where an album does not currently have one"
@@ -403,32 +392,28 @@ msgid "Download all the covers"
 msgstr "Descargar todas as cubertas"
 
 #: tmp/coverart_entryview.ui.h:1
-#, fuzzy
 msgid "Play this track"
-msgstr "Reproducir este álbum"
+msgstr "Reproducir esta pista"
 
 #: tmp/coverart_entryview.ui.h:2
 msgid "Play Track"
 msgstr "Reproducir pista"
 
 #: tmp/coverart_entryview.ui.h:3
-#, fuzzy
 msgid "Add this track to your playing queue"
-msgstr "Engadir este álbum á cola de reprodución"
+msgstr ""
 
 #: tmp/coverart_entryview.ui.h:4
 msgid "Queue Track"
 msgstr ""
 
 #: tmp/coverart_entryview.ui.h:9
-#, fuzzy
 msgid "Show track properties"
-msgstr "Buscar pistas"
+msgstr ""
 
 #: tmp/coverart_sidebar.ui.h:1 coverart_browser.py:102
-#, fuzzy
 msgid "CoverArt"
-msgstr "Cuberta"
+msgstr ""
 
 #. initial genre
 #: tmp/coverart_sidebar.ui.h:2 tmp/coverart_topbar.ui.h:1
@@ -439,9 +424,8 @@ msgstr "Todos os xéneros"
 
 #: tmp/coverart_sidebar.ui.h:3 tmp/coverart_topbar.ui.h:2
 #: coverart_controllers.py:433
-#, fuzzy
 msgid "All Decades"
-msgstr "Todos os xéneros"
+msgstr ""
 
 #: tmp/popups.xml.in.h:1
 msgid "rock"
@@ -464,9 +448,8 @@ msgid "world"
 msgstr ""
 
 #: tmp/popups.xml.in.h:6
-#, fuzzy
 msgid "bluegrass"
-msgstr "blues"
+msgstr ""
 
 #: tmp/popups.xml.in.h:7
 msgid "oldies"
@@ -617,14 +600,13 @@ msgid "%d selected albums "
 msgstr ""
 
 #: coverart_browser_source.py:813
-#, fuzzy
 msgid " with 1 track"
-msgstr "Reproducir esta pista"
+msgstr ""
 
 #: coverart_browser_source.py:815
-#, fuzzy, python-format
+#, python-format
 msgid " with %d tracks"
-msgstr "Reproducir esta pista"
+msgstr ""
 
 #: coverart_browser_source.py:818
 msgid " and a duration of 1 minute"
@@ -648,9 +630,8 @@ msgid "Sort by year"
 msgstr "Ordenar por ano"
 
 #: coverart_controllers.py:381
-#, fuzzy
 msgid "Sort by rating"
-msgstr "Ordenar por ano"
+msgstr ""
 
 #. '20s' as in the decade 2010
 #: coverart_controllers.py:435 coverart_controllers.py:461
@@ -721,14 +702,12 @@ msgid "Search all fields"
 msgstr "Buscar todos os campos"
 
 #: coverart_controllers.py:554
-#, fuzzy
 msgid "Search album artists"
-msgstr "Buscar álbums"
+msgstr ""
 
 #: coverart_controllers.py:555
-#, fuzzy
 msgid "Search track artists"
-msgstr "Buscar pistas"
+msgstr ""
 
 #: coverart_controllers.py:556
 msgid "Search albums"
@@ -738,12 +717,14 @@ msgstr "Buscar álbums"
 msgid "Search tracks"
 msgstr "Buscar pistas"
 
-#, fuzzy
-#~ msgid "Provider"
-#~ msgstr "Provedores"
+#~ msgid "Search for coverart on DISCOGS"
+#~ msgstr "Buscar cuberta en DISCOGS"
 
 #~ msgid "Find CoverArt:"
 #~ msgstr "Buscar cuberta"
+
+#~ msgid "Providers"
+#~ msgstr "Provedores"
 
 #~ msgid "Unknown"
 #~ msgstr "Descoñecida"

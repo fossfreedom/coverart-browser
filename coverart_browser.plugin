@@ -5,6 +5,7 @@ IAge=2
 Depends=rb;coverart_search_providers
 Name=CoverArt Browser
 Name[ca]=Navegador de Portades
+Name[de]=CoverArt Browser
 Name[en_GB]=CoverArt Browser
 Name[en_US]=CoverArt Browser
 Name[es]=Navegador de Portadas

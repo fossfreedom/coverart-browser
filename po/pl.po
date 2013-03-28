@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-25 19:49+0000\n"
+"POT-Creation-Date: 2013-03-26 12:58+0000\n"
 "PO-Revision-Date: 2013-01-14 18:21+0000\n"
 "Last-Translator: Mike08 <micou8@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-01-24 23:24+0000\n"
-"X-Generator: Launchpad (build 16445)\n"
+"X-Launchpad-Export-Date: 2013-03-27 08:28+0000\n"
+"X-Generator: Launchpad (build 16540)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -256,9 +256,8 @@ msgid "Icon Theme: "
 msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:40
-#, fuzzy
 msgid "Alternative Genres:"
-msgstr "alternatywna"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:41
 msgid "Load New Icon: "
@@ -289,9 +288,8 @@ msgid "Current user-defined Genres:"
 msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:48
-#, fuzzy
 msgid "Alternate Name"
-msgstr "alternatywna"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:49
 msgid "Icon"
@@ -731,20 +729,17 @@ msgstr "Wyszukiwanie albumów"
 msgid "Search tracks"
 msgstr "Wyszukaj utwory"
 
-#, fuzzy
-#~ msgid "Choose Search Providers:"
-#~ msgstr "Szukaj okładek"
+#~ msgid "Search for coverart on DISCOGS"
+#~ msgstr "Szukaj okładek na DISCOGS"
 
-#, fuzzy
-#~ msgid "Provider"
+#~ msgid "Providers"
 #~ msgstr "Dostawcy"
 
-#, fuzzy
-#~ msgid "CoverArt Browser Search Providers"
-#~ msgstr "Przeglądarka okładek"
+#~ msgid "Unknown"
+#~ msgstr "Nieznany"
 
-#~ msgid "Find CoverArt:"
-#~ msgstr "Znajdź okładki:"
+#~ msgid "Search for coverart on the internet provider DISCOGS"
+#~ msgstr "Szukaj okładek w usłudze internetowej DISCOGS"
 
 #~ msgid "Search for embedded coverart"
 #~ msgstr "Szukaj osadzonych okładek"
@@ -752,11 +747,5 @@ msgstr "Wyszukaj utwory"
 #~ msgid "Search for coverart embedded within tracks for an album"
 #~ msgstr "Szukaj okładek dla albumu osadzonych w ścieżkach"
 
-#~ msgid "Search for coverart on DISCOGS"
-#~ msgstr "Szukaj okładek na DISCOGS"
-
-#~ msgid "Search for coverart on the internet provider DISCOGS"
-#~ msgstr "Szukaj okładek w usłudze internetowej DISCOGS"
-
-#~ msgid "Unknown"
-#~ msgstr "Nieznany"
+#~ msgid "Find CoverArt:"
+#~ msgstr "Znajdź okładki:"

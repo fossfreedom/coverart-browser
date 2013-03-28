@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-25 19:49+0000\n"
+"POT-Creation-Date: 2013-03-26 12:58+0000\n"
 "PO-Revision-Date: 2013-01-19 22:44+0000\n"
 "Last-Translator: fossfreedom <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,8 +21,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-01-24 23:24+0000\n"
-"X-Generator: Launchpad (build 16445)\n"
+"X-Launchpad-Export-Date: 2013-03-27 08:28+0000\n"
+"X-Generator: Launchpad (build 16540)\n"
 "Generated-By: Babel 0.9.6\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
@@ -352,9 +352,8 @@ msgid "Add this album to a playlist"
 msgstr "Add this album to a playlist"
 
 #: tmp/coverart_browser.ui.h:8 tmp/coverart_entryview.ui.h:6
-#, fuzzy
 msgid "Add to Playlist"
-msgstr "Add favorites to Playlist"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:9 tmp/coverart_entryview.ui.h:7
 msgid "Add this album to a new playlist"
@@ -734,25 +733,17 @@ msgstr "Search albums"
 msgid "Search tracks"
 msgstr "Search tracks"
 
-#, fuzzy
-#~ msgid "Choose Search Providers:"
-#~ msgstr "Search for covers"
-
-#, fuzzy
-#~ msgid "CoverArt Browser Search Providers"
-#~ msgstr "CoverArt Browser"
-
-#~ msgid "Find CoverArt:"
-#~ msgstr "Find CoverArt:"
+#~ msgid "Search for coverart on DISCOGS"
+#~ msgstr "Search for coverart on DISCOGS"
 
 #~ msgid "Search for embedded coverart"
 #~ msgstr "Search for embedded coverart"
 
-#~ msgid "Search for coverart embedded within tracks for an album"
-#~ msgstr "Search for coverart embedded within tracks for an album"
-
-#~ msgid "Search for coverart on DISCOGS"
-#~ msgstr "Search for coverart on DISCOGS"
-
 #~ msgid "Search for coverart on the internet provider DISCOGS"
 #~ msgstr "Search for coverart on the internet provider DISCOGS"
+
+#~ msgid "Find CoverArt:"
+#~ msgstr "Find CoverArt:"
+
+#~ msgid "Search for coverart embedded within tracks for an album"
+#~ msgstr "Search for coverart embedded within tracks for an album"

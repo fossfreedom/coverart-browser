@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-25 19:49+0000\n"
+"POT-Creation-Date: 2013-03-26 12:58+0000\n"
 "PO-Revision-Date: 2013-01-10 11:49+0000\n"
-"Last-Translator: Emin Mastizadeh <emin25@ovi.com>\n"
+"Last-Translator: Emin Mastizada <emin25@ovi.com>\n"
 "Language-Team: Azerbaijani <az@li.org>\n"
 "Language: az\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-01-24 23:24+0000\n"
-"X-Generator: Launchpad (build 16445)\n"
+"X-Launchpad-Export-Date: 2013-03-27 08:28+0000\n"
+"X-Generator: Launchpad (build 16540)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -244,9 +244,8 @@ msgid "Icon Theme: "
 msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:40
-#, fuzzy
 msgid "Alternative Genres:"
-msgstr "alternativ"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:41
 msgid "Load New Icon: "
@@ -277,9 +276,8 @@ msgid "Current user-defined Genres:"
 msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:48
-#, fuzzy
 msgid "Alternate Name"
-msgstr "alternativ"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:49
 msgid "Icon"
@@ -322,18 +320,16 @@ msgid "Play this album"
 msgstr ""
 
 #: tmp/coverart_browser.ui.h:4
-#, fuzzy
 msgid "Play Album"
-msgstr "Albom"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:5
 msgid "Add this album to your playing queue"
 msgstr ""
 
 #: tmp/coverart_browser.ui.h:6
-#, fuzzy
 msgid "Queue Album"
-msgstr "Albom"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:7 tmp/coverart_entryview.ui.h:5
 msgid "Add this album to a playlist"
@@ -376,14 +372,12 @@ msgid "Add favourites to Playlist"
 msgstr ""
 
 #: tmp/coverart_browser.ui.h:17
-#, fuzzy
 msgid "Search for this album cover"
-msgstr "Axtarış"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:18
-#, fuzzy
 msgid "Search for covers"
-msgstr "Axtarış mətni"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:19
 msgid "Show album properties"
@@ -498,9 +492,8 @@ msgid "ragtime"
 msgstr ""
 
 #: tmp/popups.xml.in.h:17
-#, fuzzy
 msgid "musical"
-msgstr "klassik"
+msgstr ""
 
 #: tmp/popups.xml.in.h:18
 msgid "dance"
@@ -717,11 +710,9 @@ msgid "Search track artists"
 msgstr ""
 
 #: coverart_controllers.py:556
-#, fuzzy
 msgid "Search albums"
-msgstr "Axtarış"
+msgstr ""
 
 #: coverart_controllers.py:557
-#, fuzzy
 msgid "Search tracks"
-msgstr "Axtarış mətni"
+msgstr ""
