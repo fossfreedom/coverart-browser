@@ -24,6 +24,8 @@ from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import Gio
 from coverart_browser_prefs import GSetting
+from coverart_external_plugins import CreateExternalPluginMenu 
+
 import rb
 
 class OptionsWidget(Gtk.Widget):
@@ -618,10 +620,14 @@ class EnhancedIconView(Gtk.IconView):
 
         self.popup = None
         self._reallocate_count = 0
+        self.view_name = None
+        self._external_plugins = None
+        self.shell = None
+        self.ext_menu_pos = 0
 
     def do_size_allocate(self, allocation):
         if self.get_allocated_width() != allocation.width:
-            # don't need to reacomodate if it's a vertical change
+            # don't need to reaccommodate if it's a vertical change
             self._reallocate_count += 1
             Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 500,
                         self._reallocate_columns, None)
@@ -652,6 +658,12 @@ class EnhancedIconView(Gtk.IconView):
                 self.set_cursor(current_path, None, False)
 
                 if self.popup:
+                    if not self._external_plugins:
+                        # initialise external plugin menu support
+                        self._external_plugins = \
+                        CreateExternalPluginMenu("ca_covers_view", self.shell)
+                    self._external_plugins.create_menu(self.popup,
+                        self.ext_menu_pos, True)
                     self.popup.popup(None, None, None, None, event.button,
                         event.time)
             else:

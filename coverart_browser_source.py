@@ -235,6 +235,9 @@ class CoverArtBrowserSource(RB.Source):
 
         # setup iconview popup
         self.covers_view.popup = self.popup_menu
+        self.covers_view.view_name = "covers_view"
+        self.covers_view.shell = self.shell
+        self.covers_view.ext_menu_pos = 9
 
         # setup iconview drag&drop support
         self.covers_view.enable_model_drag_dest([], Gdk.DragAction.COPY)
@@ -346,6 +349,9 @@ class CoverArtBrowserSource(RB.Source):
             True)
 
         print "CoverArtBrowser DEBUG - end load_finished_callback"
+
+    def get_entry_view(self):
+        return self.entry_view
 
     def item_clicked_callback(self, iconview, event, path):
         '''

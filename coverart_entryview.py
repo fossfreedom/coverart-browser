@@ -25,7 +25,7 @@ import rb
 
 from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import CoverLocale
-
+from coverart_external_plugins import CreateExternalPluginMenu 
 
 class CoverArtEntryView(RB.EntryView):
 
@@ -82,6 +82,9 @@ class CoverArtEntryView(RB.EntryView):
         uim = self.shell.props.ui_manager
         uim.insert_action_group(self.actiongroup)
 
+        self.external_plugins = \
+            CreateExternalPluginMenu("ca_entryview", self.shell)
+        
         # connect the visible-columns global setting to update our entryview
         gs = GSetting()
         rhythm_settings = gs.get_setting(gs.Path.RBSOURCE)
@@ -149,7 +152,7 @@ class CoverArtEntryView(RB.EntryView):
     def do_show_popup(self, over_entry):
         if over_entry:
             print "CoverArtBrowser DEBUG - do_show_popup()"
-
+            self.external_plugins.create_menu(self.popup_menu, 3)
             self.popup_menu.popup(None, None, None, None, 0,
                 Gtk.get_current_event_time())
 
