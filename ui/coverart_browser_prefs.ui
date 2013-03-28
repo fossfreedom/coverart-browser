@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
+  <object class="GtkAction" id="ok_action">
+    <property name="stock_id">gtk-ok</property>
+  </object>
   <object class="GtkImage" id="add_image">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -93,6 +96,7 @@
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
                 <property name="receives_default">False</property>
+                <property name="tooltip_text" translatable="yes">Select picture to add to Edit Genre icon drop-down list</property>
                 <property name="related_action">ok_action</property>
                 <property name="use_stock">True</property>
                 <property name="xalign">0</property>
@@ -132,10 +136,6 @@
     <property name="upper">72</property>
     <property name="step_increment">1</property>
     <property name="page_increment">1</property>
-  </object>
-  <object class="GtkAction" id="ok_action">
-    <property name="tooltip" translatable="yes">Select picture to add to Edit Genre icon drop-down list</property>
-    <property name="stock_id">gtk-ok</property>
   </object>
   <object class="GtkListStore" id="lightsource_model">
     <columns>
