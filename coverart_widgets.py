@@ -611,7 +611,7 @@ class EnhancedIconView(Gtk.IconView):
         'item-clicked': (GObject.SIGNAL_RUN_LAST, None, (object, object))
         }
 
-    object_column = GObject.property(type=int, default=-1)
+    object_column = GObject.property(type=int, default= -1)
 
     def __init__(self, *args, **kwargs):
         super(EnhancedIconView, self).__init__(*args, **kwargs)
@@ -620,6 +620,12 @@ class EnhancedIconView(Gtk.IconView):
         self._reallocate_count = 0
 
     def do_size_allocate(self, allocation):
+        '''
+        Forces the reallocation of the IconView columns when the width of the
+        widgets changes. Neverthless, it takes into account that multiple
+        reallocations could happen in a short amount of time, so it avoids
+        trying to refresh until the user has stopped resizing the component.
+        '''
         if self.get_allocated_width() != allocation.width:
             # don't need to reacomodate if it's a vertical change
             self._reallocate_count += 1
@@ -636,6 +642,11 @@ class EnhancedIconView(Gtk.IconView):
             self.set_columns(-1)
 
     def do_button_press_event(self, event):
+        '''
+        Other than the default behavior, adds an event firing when the mouse
+        has clicked on top of a current item, informing the listeners of the
+        path of the clicked item.
+        '''
         x = int(event.x)
         y = int(event.y)
         current_path = self.get_path_at_pos(x, y)
@@ -660,6 +671,12 @@ class EnhancedIconView(Gtk.IconView):
         Gtk.IconView.do_button_press_event(self, event)
 
     def get_selected_objects(self):
+        '''
+        Helper method that simplifies getting the objects stored on the
+        selected items, givent that the object_column property is setted.
+        This way there's no need for the client class to repeateadly access the
+        correct column to retrieve the object from the raw rows.
+        '''
         selected_items = self.get_selected_items()
 
         if not self.object_column:
@@ -675,6 +692,9 @@ class EnhancedIconView(Gtk.IconView):
         return selected_objects
 
     def select_and_scroll_to_path(self, path):
+        '''
+        Helper method to select and scroll to a given path on the IconView.
+        '''
         self.unselect_all()
         self.select_path(path)
         self.set_cursor(path, None, False)
