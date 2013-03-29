@@ -346,7 +346,7 @@ class CoverArtBrowserSource(RB.Source):
 
     def get_entry_view(self):
         return self.entry_view
-
+        
     def item_clicked_callback(self, iconview, event, path):
         '''
         Callback called when the user clicks somewhere on the cover_view.

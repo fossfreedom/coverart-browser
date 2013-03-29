@@ -166,6 +166,15 @@ class LastFMExtensionFingerprinter(ExternalPlugin):
         self.attributes['action_name'] = 'FingerprintSong'
         self.attributes['is_album_menu'] = False
 
+class FileOrganizer(ExternalPlugin):
+    def __init__(self, **kargs):
+        super(FileOrganizer, self).__init__(**kargs)
+
+        self.attributes['plugin_name'] = 'fileorganizer'
+        self.attributes['action_group_name'] = 'FileorganizerActions'
+        self.attributes['action_name'] = 'OrganizeSelection'
+        self.attributes['is_album_menu'] = True
+
 class CreateExternalPluginMenu(GObject.Object):
     '''
     This is the key class called to initialise all supported plugins
@@ -186,7 +195,8 @@ class CreateExternalPluginMenu(GObject.Object):
             OpenContainingFolder(),
             SendFirst(),
             SendTo(),
-            LastFMExtensionFingerprinter() ]
+            LastFMExtensionFingerprinter(),
+            FileOrganizer() ]
 
     def create_menu(self, menu_bar, at_position, for_album = False):
         '''
