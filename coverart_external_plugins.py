@@ -134,7 +134,7 @@ class OpenContainingFolder(ExternalPlugin):
     def __init__(self, **kargs):
         super(OpenContainingFolder, self).__init__(**kargs)
         
-        self.attributes['plugin_name'] = 'OpenContainingFolder'
+        self.attributes['plugin_name'] = 'opencontainingfolder'
         self.attributes['action_group_name'] = 'OpenContainingFolderActions'
         self.attributes['action_name'] = 'OpenContainingFolder'
         self.attributes['is_album_menu'] = True
