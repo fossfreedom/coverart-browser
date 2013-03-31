@@ -166,7 +166,23 @@ class CoverArtEntryView(RB.EntryView):
         for row in play_queue.props.query_model:
             play_queue.remove_entry(row[0])
 
-        self.add_tracks_to_source(self.shell.props.queue_source)
+        entries = self.get_selected_entries()
+        
+        if len(entries) == 1:
+            selected = []
+            found = False
+            entry_id = entries[0].get_ulong(RB.RhythmDBPropType.ENTRY_ID)
+            for row in self.qm:
+                test_id = row[0].get_ulong(RB.RhythmDBPropType.ENTRY_ID)
+                if entry_id == test_id:
+                    found = True
+
+                if found:
+                    selected.append(row[0])
+            self.add_tracks_to_source(self.shell.props.queue_source, selected)
+        else:
+            self.add_tracks_to_source(self.shell.props.queue_source)
+            
         # Start the music
         player = self.shell.props.shell_player
         player.stop()
@@ -180,8 +196,10 @@ class CoverArtEntryView(RB.EntryView):
 
         self.add_tracks_to_source(self.shell.props.queue_source)
 
-    def add_tracks_to_source(self, source):
-        selected = self.get_selected_entries()
+    def add_tracks_to_source(self, source, selected = None):
+        if not selected:
+            selected = self.get_selected_entries()
+            
         selected.reverse()
 
         selected = sorted(selected,
