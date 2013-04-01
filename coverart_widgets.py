@@ -24,7 +24,7 @@ from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import Gio
 from coverart_browser_prefs import GSetting
-from coverart_external_plugins import CreateExternalPluginMenu 
+from coverart_external_plugins import CreateExternalPluginMenu
 
 import rb
 
@@ -695,11 +695,9 @@ class EnhancedIconView(Gtk.IconView):
             # if no object_column is setted, return the selected rows
             return selected_items
 
-        selected_objects = []
-
-        for selected in selected_items:
-            selected_objects.append(
-                self.get_model()[selected][self.object_column])
+        model = self.get_model()
+        selected_objects = list(reversed([model[selected][self.object_column]
+            for selected in selected_items]))
 
         return selected_objects
 
