@@ -25,7 +25,7 @@ import rb
 
 from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import CoverLocale
-from coverart_external_plugins import CreateExternalPluginMenu 
+from coverart_external_plugins import CreateExternalPluginMenu
 
 class CoverArtEntryView(RB.EntryView):
 
@@ -84,7 +84,7 @@ class CoverArtEntryView(RB.EntryView):
 
         self.external_plugins = \
             CreateExternalPluginMenu("ca_entryview", self.shell)
-        
+
         # connect the visible-columns global setting to update our entryview
         gs = GSetting()
         rhythm_settings = gs.get_setting(gs.Path.RBSOURCE)
@@ -119,7 +119,7 @@ class CoverArtEntryView(RB.EntryView):
 
     def on_visible_columns_changed(self, settings, key):
         print "CoverArtBrowser DEBUG - on_visible_columns_changed()"
-        #reset current columns
+        # reset current columns
         self.props.visible_columns = settings[key]
         print "CoverArtBrowser DEBUG - end on_visible_columns_changed()"
 
@@ -136,7 +136,7 @@ class CoverArtEntryView(RB.EntryView):
 
     def clear(self):
         print "CoverArtBrowser DEBUG - clear()"
-        #self.set_model(RB.RhythmDBQueryModel.new_empty(self.shell.props.db))
+        # self.set_model(RB.RhythmDBQueryModel.new_empty(self.shell.props.db))
         for row in self.qm:
             self.qm.remove_entry(row[0])
 
@@ -160,35 +160,24 @@ class CoverArtEntryView(RB.EntryView):
 
     def play_track_menu_item_callback(self, entry):
         print "CoverArtBrowser DEBUG - play_track_menu_item_callback()"
+        query_model = RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
 
-        # clear the queue
-        play_queue = self.shell.props.queue_source
-        for row in play_queue.props.query_model:
-            play_queue.remove_entry(row[0])
+        selected = self.get_selected_entries()
+        first = selected[0]
 
-        entries = self.get_selected_entries()
-        
-        if len(entries) == 1:
-            selected = []
-            found = False
-            entry_id = entries[0].get_ulong(RB.RhythmDBPropType.ENTRY_ID)
-            for row in self.qm:
-                test_id = row[0].get_ulong(RB.RhythmDBPropType.ENTRY_ID)
-                if entry_id == test_id:
-                    found = True
-
-                if found:
-                    selected.append(row[0])
-            self.add_tracks_to_source(self.shell.props.queue_source, selected)
+        if len(selected) == 1:
+            query_model.copy_contents(self.qm)
         else:
-            self.add_tracks_to_source(self.shell.props.queue_source)
-            
+            for entry in selected:
+                query_model.add(entry, -1)
+
+        self.source.props.query_model = query_model
+
         # Start the music
         player = self.shell.props.shell_player
-        player.stop()
-        player.set_playing_source(self.shell.props.queue_source)
 
-        player.playpause(True)
+        player.play_entry(entry, self.source)
+
         print "CoverArtBrowser DEBUG - play_track_menu_item_callback()"
 
     def queue_track_menu_item_callback(self, entry):
@@ -196,10 +185,10 @@ class CoverArtEntryView(RB.EntryView):
 
         self.add_tracks_to_source(self.shell.props.queue_source)
 
-    def add_tracks_to_source(self, source, selected = None):
+    def add_tracks_to_source(self, source, selected=None):
         if not selected:
             selected = self.get_selected_entries()
-            
+
         selected.reverse()
 
         selected = sorted(selected,

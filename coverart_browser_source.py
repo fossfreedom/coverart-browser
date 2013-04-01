@@ -60,8 +60,7 @@ class CoverArtBrowserSource(RB.Source):
         '''
         Initializes the source.
         '''
-        super(CoverArtBrowserSource, self).__init__(
-            **kargs)
+        super(CoverArtBrowserSource, self).__init__(**kargs)
 
         # create source_source_settings and connect the source's properties
         self.gs = GSetting()
@@ -127,7 +126,7 @@ class CoverArtBrowserSource(RB.Source):
         if not self.hasActivated:
             self.do_impl_activate()
 
-            #indicate that the source was activated before
+            # indicate that the source was activated before
             self.hasActivated = True
 
         print "CoverArtBrowser DEBUG - end do_selected"
@@ -159,7 +158,7 @@ class CoverArtBrowserSource(RB.Source):
         self.connect('notify::rating-threshold',
             self.on_notify_rating_threshold)
 
-        #indicate that the source was activated before
+        # indicate that the source was activated before
         self.hasActivated = True
 
         self._create_ui()
@@ -291,7 +290,7 @@ class CoverArtBrowserSource(RB.Source):
             'model-load-finished', self.load_finished_callback)
 
         # prompt the loader to load the albums
-        self.album_manager.loader.load_albums(self.props.query_model)
+        self.album_manager.loader.load_albums(self.props.base_query_model)
 
         # set the model to the view
         self.covers_view.set_model(self.album_manager.model.store)
@@ -346,7 +345,7 @@ class CoverArtBrowserSource(RB.Source):
 
     def get_entry_view(self):
         return self.entry_view
-        
+
     def item_clicked_callback(self, iconview, event, path):
         '''
         Callback called when the user clicks somewhere on the cover_view.
@@ -472,18 +471,16 @@ class CoverArtBrowserSource(RB.Source):
         # callback when play an album
         print "CoverArtBrowser DEBUG - play_selected_album"
 
-        # clear the queue
-        play_queue = self.shell.props.queue_source
-        for row in play_queue.props.query_model:
-            play_queue.remove_entry(row[0])
+        query_model = RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
+        query_model.copy_contents(self.entry_view.qm)
 
-        self.queue_selected_album(play_queue, favourites)
+        self.props.query_model = query_model
 
         # Start the music
         player = self.shell.props.shell_player
-        player.stop()
-        player.set_playing_source(self.shell.props.queue_source)
-        player.playpause(True)
+
+        player.play_entry(query_model[0][0], self)
+
         print "CoverArtBrowser DEBUG - end play_selected_album"
 
     def queue_selected_album(self, source, favourites=False):
@@ -579,7 +576,7 @@ class CoverArtBrowserSource(RB.Source):
         playlist_manager = self.shell.props.playlist_manager
         playlists_entries = playlist_manager.get_playlists()
 
-        #tidy up old playlists menu items before recreating the list
+        # tidy up old playlists menu items before recreating the list
         for action in actiongroup.list_actions():
             actiongroup.remove_action(action)
 
@@ -703,10 +700,10 @@ class CoverArtBrowserSource(RB.Source):
         '''
         print "CoverArtBrowser DEBUG - selectionchanged_callback"
 
+        selected = self.covers_view.get_selected_objects()
+
         # clear the entry view
         self.entry_view.clear()
-
-        selected = self.covers_view.get_selected_objects()
 
         cover_search_pane_visible = self.notebook.get_current_page() == \
             self.notebook.page_num(self.cover_search_pane)
@@ -1045,5 +1042,5 @@ class ToolbarManager(GObject.Object):
         self._bars[self.toolbar_pos].show()
 
         self.last_toolbar_pos = self.toolbar_pos
-            
+
 GObject.type_register(CoverArtBrowserSource)

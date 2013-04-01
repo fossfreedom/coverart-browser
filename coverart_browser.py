@@ -67,7 +67,7 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         preferences.
         '''
 
-        #define .plugin text strings used for translation
+        # define .plugin text strings used for translation
         plugin = _('CoverArt Browser')
         desc = _('Browse and play your albums through their covers')
 
