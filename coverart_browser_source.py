@@ -472,7 +472,7 @@ class CoverArtBrowserSource(RB.Source):
         print "CoverArtBrowser DEBUG - play_selected_album"
 
         query_model = RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
-        query_model.copy_contents(self.entry_view.qm)
+        self.queue_selected_album(query_model)
 
         self.props.query_model = query_model
 
