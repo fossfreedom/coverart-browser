@@ -160,22 +160,14 @@ class CoverArtEntryView(RB.EntryView):
 
     def play_track_menu_item_callback(self, entry):
         print "CoverArtBrowser DEBUG - play_track_menu_item_callback()"
+        
         query_model = RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
 
-        selected = self.get_selected_entries()
-        first = selected[0]
-
-        if len(selected) == 1:
-            query_model.copy_contents(self.qm)
-        else:
-            for entry in selected:
-                query_model.add(entry, -1)
-
+        query_model.copy_contents(self.qm)
         self.source.props.query_model = query_model
 
         # Start the music
         player = self.shell.props.shell_player
-
         player.play_entry(entry, self.source)
 
         print "CoverArtBrowser DEBUG - play_track_menu_item_callback()"
