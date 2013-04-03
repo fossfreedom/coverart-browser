@@ -158,12 +158,19 @@ class CoverArtEntryView(RB.EntryView):
 
         return over_entry
 
-    def play_track_menu_item_callback(self, entry):
+    def play_track_menu_item_callback(self, _):
         print "CoverArtBrowser DEBUG - play_track_menu_item_callback()"
         
         query_model = RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
 
-        query_model.copy_contents(self.qm)
+        selected = self.get_selected_entries()
+        entry = selected[0]
+        
+        if len(selected) == 1:
+            query_model.copy_contents(self.qm)
+        else:
+            self.add_tracks_to_source(query_model)
+            
         self.source.props.query_model = query_model
 
         # Start the music
@@ -177,10 +184,8 @@ class CoverArtEntryView(RB.EntryView):
 
         self.add_tracks_to_source(self.shell.props.queue_source)
 
-    def add_tracks_to_source(self, source, selected=None):
-        if not selected:
-            selected = self.get_selected_entries()
-
+    def add_tracks_to_source(self, source):
+        selected = self.get_selected_entries()
         selected.reverse()
 
         selected = sorted(selected,

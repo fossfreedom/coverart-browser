@@ -16,11 +16,14 @@ Summary: whats new in this release
  - optional flat-button toolbar style
  - revised popup menu style genre & playlist windows when number of entries would exceed the desktop height
  - Use album and album-artist sort order tags for sorting if these values are utilised
+ - Play from Cover-view and Track view instead of queuing & playing
  - Allow user-defined genre names to be created mapped against default system genre icons
  - Allow user-defined genre icons to be displayed. These can override system genre icons if required
  - Support for other plugins via right-click menu options in a similar manner as the Library Browser - 
 
- OpenContainingFolder, SendFirst, Send Track, LastFMExtension - Fingerprinter, FileOrganizer 
+ OpenContainingFolder, SendFirst, Send Track, LastFMExtension - Fingerprinter, FileOrganizer, lLyrics
+
+ N.B. if NOT using my PPA then ensure you have the very latest version of the plugins installed.
 
 
 *How it works:*
