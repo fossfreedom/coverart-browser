@@ -175,6 +175,15 @@ class FileOrganizer(ExternalPlugin):
         self.attributes['action_name'] = 'OrganizeSelection'
         self.attributes['is_album_menu'] = True
 
+class lLyrics(ExternalPlugin):
+    def __init__(self, **kargs):
+        super(lLyrics, self).__init__(**kargs)
+
+        self.attributes['plugin_name'] = 'lLyrics'
+        self.attributes['action_group_name'] = 'lLyricsPluginPopupActions'
+        self.attributes['action_name'] = 'lLyricsPopupAction'
+        self.attributes['is_album_menu'] = False
+
 class CreateExternalPluginMenu(GObject.Object):
     '''
     This is the key class called to initialise all supported plugins
@@ -196,7 +205,8 @@ class CreateExternalPluginMenu(GObject.Object):
             SendFirst(),
             SendTo(),
             LastFMExtensionFingerprinter(),
-            FileOrganizer() ]
+            FileOrganizer(),
+            lLyrics() ]
 
     def create_menu(self, menu_bar, at_position, for_album = False):
         '''
