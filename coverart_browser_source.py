@@ -267,6 +267,7 @@ class CoverArtBrowserSource(RB.Source):
         self.covers_view.connect('drag-drop', self.on_drag_drop)
         self.covers_view.connect('drag-data-received',
             self.on_drag_data_received)
+        self.covers_view.connect('drag-begin', self.on_drag_begin)
 
         # lastly support drag-drop from coverart to devices/nautilus etc
         self.covers_view.enable_model_drag_source(Gdk.ModifierType.BUTTON1_MASK,
@@ -889,6 +890,22 @@ class CoverArtBrowserSource(RB.Source):
         # stop the propagation of the signal (deactivates superclass callback)
         widget.stop_emission('drag-data-get')
         print "CoverArtBrowser DEBUG - end on_drag_data_get"
+
+
+    def on_drag_begin(self, widget, context):
+        '''
+        Callback called when the drag-drop from coverview has started
+        Changes the drag icon as appropriate
+        '''
+        album_number = len(widget.get_selected_objects())
+
+        if album_number == 1:
+            item = Gtk.STOCK_DND
+        else:
+            item = Gtk.STOCK_DND_MULTIPLE
+            
+        widget.drag_source_set_icon_stock(item)
+        widget.stop_emission('drag-begin')
 
     def notebook_switch_page_callback(self, notebook, page, page_num):
         '''

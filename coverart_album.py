@@ -280,19 +280,6 @@ class Album(GObject.Object):
         
         self._signals_id = {}
 
-    #@property
-    #def calc_name(self):
-    #    if not self._calc_name and self.name:
-    #        self._calc_name = NaturalString(RB.search_fold(self.name))#
-
-    #    return self._calc_name
-
-    #@property
-    #def calc_artist(self):
-    #    if not self._calc_artist and self.artist:
-    #        self._calc_artist = NaturalString(RB.search_fold(self.artist))
-
-    #    return self._calc_artist
     @property
     def album_artist_sort(self):
         return self._tracks[0].album_artist_sort
