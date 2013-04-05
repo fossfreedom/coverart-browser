@@ -231,14 +231,6 @@ class CoverArtBrowserSource(RB.Source):
         self.covers_view.shell = self.shell
         self.covers_view.ext_menu_pos = 9
 
-        # setup iconview drag&drop support
-        self.covers_view.enable_model_drag_dest([], Gdk.DragAction.COPY)
-        self.covers_view.drag_dest_add_image_targets()
-        self.covers_view.drag_dest_add_text_targets()
-        self.covers_view.connect('drag-drop', self.on_drag_drop)
-        self.covers_view.connect('drag-data-received',
-            self.on_drag_data_received)
-
         # setup entry-view objects and widgets
         setting = self.gs.get_setting(self.gs.Path.PLUGIN)
         setting.bind(self.gs.PluginKey.PANED_POSITION,
@@ -265,6 +257,26 @@ class CoverArtBrowserSource(RB.Source):
         vbox.pack_start(a, False, False, 1)
         vbox.show_all()
         self.notebook.append_page(vbox, Gtk.Label(_("Tracks")))
+
+
+        # setup iconview drag&drop support
+        # first drag and drop on the coverart view to receive coverart
+        self.covers_view.enable_model_drag_dest([], Gdk.DragAction.COPY)
+        self.covers_view.drag_dest_add_image_targets()
+        self.covers_view.drag_dest_add_text_targets()
+        self.covers_view.connect('drag-drop', self.on_drag_drop)
+        self.covers_view.connect('drag-data-received',
+            self.on_drag_data_received)
+
+        # lastly support drag-drop from coverart to devices/nautilus etc
+        self.covers_view.enable_model_drag_source(Gdk.ModifierType.BUTTON1_MASK,
+            [], Gdk.DragAction.COPY)
+        targets = Gtk.TargetList.new([Gtk.TargetEntry.new("application/x-rhythmbox-entry", 0,0),
+            Gtk.TargetEntry.new("text/uri-list", 0,1) ])
+        # N.B. values taken from rhythmbox v2.97 widgets/rb_entry_view.c
+        targets.add_uri_targets(1)
+        self.covers_view.drag_source_set_target_list(targets)        
+        self.covers_view.connect("drag-data-get", self.on_drag_data_get)
 
         # create an album manager
         self.album_manager = AlbumManager(self.plugin, self.covers_view)
@@ -859,6 +871,24 @@ class CoverArtBrowserSource(RB.Source):
         drag_context.finish(True, False, time)
 
         print "CoverArtBrowser DEBUG - end on_drag_data_received"
+
+    def on_drag_data_get(self, widget, drag_context, data, info, time):
+        '''
+        Callback called when the drag destination (playlist) has
+        requested what album (icon) has been dragged
+        '''
+        print "CoverArtBrowser DEBUG - on_drag_data_get"
+
+        uris = []
+        for album in widget.get_selected_objects():
+            for track in album.get_tracks():
+                uris.append(track.location)
+
+        data.set_uris(uris)
+         
+        # stop the propagation of the signal (deactivates superclass callback)
+        widget.stop_emission('drag-data-get')
+        print "CoverArtBrowser DEBUG - end on_drag_data_get"
 
     def notebook_switch_page_callback(self, notebook, page, page_num):
         '''
