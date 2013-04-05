@@ -274,7 +274,7 @@ class CoverArtBrowserSource(RB.Source):
         targets = Gtk.TargetList.new([Gtk.TargetEntry.new("application/x-rhythmbox-entry", 0,0),
             Gtk.TargetEntry.new("text/uri-list", 0,1) ])
         # N.B. values taken from rhythmbox v2.97 widgets/rb_entry_view.c
-        targets.add_uri_targets(1)
+        targets.add_uri_targets(2)
         self.covers_view.drag_source_set_target_list(targets)        
         self.covers_view.connect("drag-data-get", self.on_drag_data_get)
 
