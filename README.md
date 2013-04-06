@@ -11,6 +11,7 @@ Browse your coverart albums in Rhythmbox v2.96 and later
 
 Summary: whats new in this release
 
+ - Drag & Drop CoverArt icons onto playlists and sources (such as a phone) so that all tracks for an album are added
  - separated coverart search into separate plugin (this is now a prerequisite) - https://github.com/fossfreedom/coverart-search-providers
  - New light & dark theme buttons to complement light & dark desktop themes
  - optional flat-button toolbar style
