@@ -218,28 +218,28 @@ class Track(GObject.Object):
     @property
     def track_number(self):
         return self.entry.get_ulong(RB.RhythmDBPropType.TRACK_NUMBER)
-        
+
     @property
     def disc_number(self):
         return self.entry.get_ulong(RB.RhythmDBPropType.DISC_NUMBER)
 
     @property
     def album_artist_sort(self):
-        sort = self.entry.get_string(RB.RhythmDBPropType.ALBUM_ARTIST_SORTNAME_FOLDED)
-        if sort == "":
-            sort = self.entry.get_string(RB.RhythmDBPropType.ALBUM_ARTIST_FOLDED)
-        if sort == "":
-            sort = self.entry.get_string(RB.RhythmDBPropType.ARTIST_FOLDED)
+        sort = self.entry.get_string(
+            RB.RhythmDBPropType.ALBUM_ARTIST_SORTNAME_FOLDED) or \
+            self.entry.get_string(RB.RhythmDBPropType.ALBUM_ARTIST_FOLDED) or \
+            self.entry.get_string(RB.RhythmDBPropType.ARTIST_FOLDED)
+
         return NaturalString(sort)
 
     @property
     def album_sort(self):
-        sort = self.entry.get_string(RB.RhythmDBPropType.ALBUM_SORTNAME_FOLDED)
-        if sort == "":
-            sort = self.entry.get_string(RB.RhythmDBPropType.ALBUM_FOLDED)
+        sort = self.entry.get_string(
+            RB.RhythmDBPropType.ALBUM_SORTNAME_FOLDED) or \
+            self.entry.get_string(RB.RhythmDBPropType.ALBUM_FOLDED)
 
         return NaturalString(sort)
-    
+
     def create_ext_db_key(self):
         '''
         Returns an `RB.ExtDBKey` that can be used to acces/write some other
@@ -268,6 +268,8 @@ class Album(GObject.Object):
 
         self.name = name
         self.artist = artist
+        self._album_artist_sort = None
+        self._album_sort = None
         self._artists = None
         self._titles = None
         self._genres = None
@@ -277,16 +279,23 @@ class Album(GObject.Object):
         self._year = None
         self._rating = None
         self._duration = None
-        
+
         self._signals_id = {}
 
     @property
     def album_artist_sort(self):
-        return self._tracks[0].album_artist_sort
+        if not self._album_artist_sort:
+            self._album_artist_sort = [track.album_artist_sort
+                for track in self._tracks]
+
+        return self._album_artist_sort
 
     @property
     def album_sort(self):
-        return self._tracks[0].album_sort
+        if not self._album_sort:
+            self._album_sort = [track.album_sort for track in self._tracks]
+
+        return self._album_sort
 
     @property
     def artists(self):
@@ -378,7 +387,7 @@ class Album(GObject.Object):
             tracks = [track for track in self._tracks
                 if track.rating >= rating_threshold]
 
-        return sorted(tracks, key=lambda track: (track.disc_number,track.track_number))
+        return sorted(tracks, key=lambda track: (track.disc_number, track.track_number))
 
     def add_track(self, track):
         '''
@@ -420,6 +429,8 @@ class Album(GObject.Object):
 
     def do_modified(self):
         self._album_artist = None
+        self._album_artist_sort = None
+        self._album_sort = None
         self._artists = None
         self._titles = None
         self._genres = None
@@ -670,7 +681,7 @@ class AlbumsModel(GObject.Object):
         if self._tree_store.iter_is_valid(tree_iter):
             # only update if the iter is valid
             # generate and update values
-            tooltip, pixbuf, album, markup, hidden =\
+            tooltip, pixbuf, album, markup, hidden = \
                 self._generate_values(album)
 
             self._tree_store.set(tree_iter, self.columns['tooltip'], tooltip,
@@ -681,7 +692,7 @@ class AlbumsModel(GObject.Object):
 
             if new_pos != -1:
                 old_album = self._albums[new_pos + 1]
-                old_iter =\
+                old_iter = \
                     self._iters[old_album.name][old_album.artist]['iter']
 
                 self._tree_store.move_before(tree_iter, old_iter)
@@ -1476,7 +1487,7 @@ class CoverManager(GObject.Object):
                             # set the new cover
                             self.update_cover(album, cover)
                         except:
-                            print "The URI doesn't point to an image or " +\
+                            print "The URI doesn't point to an image or " + \
                                 "the image couldn't be opened."
 
                 async = rb.Loader()
@@ -1559,9 +1570,9 @@ class TextManager(GObject.Object):
         self._text_renderer.props.wrap_mode = Pango.WrapMode.WORD
         self._text_renderer.props.xalign = 0.5
         self._text_renderer.props.yalign = 0
-        self._text_renderer.props.width =\
+        self._text_renderer.props.width = \
             self._album_manager.cover_man.cover_size
-        self._text_renderer.props.wrap_width =\
+        self._text_renderer.props.wrap_width = \
             self._album_manager.cover_man.cover_size
 
     def _activate_markup(self, *args):
