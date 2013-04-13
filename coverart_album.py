@@ -1116,7 +1116,7 @@ class AlbumLoader(GObject.Object):
     def load_albums(self, query_model):
         '''
         Loads and creates `Track` instances for all entries on query_model,
-        asigning them into their correspondant `Album`.
+        assigning them into their correspondant `Album`.
         '''
         print "CoverArtBrowser DEBUG - load_albums"
 
