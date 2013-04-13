@@ -1,18 +1,21 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-26 12:58+0000\n"
+"POT-Creation-Date: 2013-04-13 13:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-03-27 08:28+0000\n"
-"X-Generator: Launchpad (build 16540)\n"
-"Language: \n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -66,7 +69,7 @@ msgstr ""
 msgid "Extra Large"
 msgstr ""
 
-#: tmpl/albumartsearch-tmpl.html:211 coverart_browser_source.py:102
+#: tmpl/albumartsearch-tmpl.html:211 coverart_browser_source.py:100
 msgid "Loading..."
 msgstr ""
 
@@ -304,86 +307,90 @@ msgid "Right Sidebar"
 msgstr ""
 
 #: tmp/coverart_browser.ui.h:1
-msgid "Tracks & Covers"
-msgstr ""
-
-#: tmp/coverart_browser.ui.h:2
 msgid "Stop coverart fetch."
 msgstr ""
 
-#: tmp/coverart_browser.ui.h:3
+#: tmp/coverart_browser.ui.h:2
 msgid "Play this album"
 msgstr ""
 
-#: tmp/coverart_browser.ui.h:4
+#: tmp/coverart_browser.ui.h:3
 msgid "Play Album"
 msgstr ""
 
-#: tmp/coverart_browser.ui.h:5
+#: tmp/coverart_browser.ui.h:4
 msgid "Add this album to your playing queue"
 msgstr ""
 
-#: tmp/coverart_browser.ui.h:6
+#: tmp/coverart_browser.ui.h:5
 msgid "Queue Album"
 msgstr ""
 
-#: tmp/coverart_browser.ui.h:7 tmp/coverart_entryview.ui.h:5
+#: tmp/coverart_browser.ui.h:6 tmp/coverart_entryview.ui.h:5
 msgid "Add this album to a playlist"
 msgstr ""
 
-#: tmp/coverart_browser.ui.h:8 tmp/coverart_entryview.ui.h:6
+#: tmp/coverart_browser.ui.h:7 tmp/coverart_entryview.ui.h:6
 msgid "Add to Playlist"
 msgstr ""
 
-#: tmp/coverart_browser.ui.h:9 tmp/coverart_entryview.ui.h:7
+#: tmp/coverart_browser.ui.h:8 tmp/coverart_entryview.ui.h:7
 msgid "Add this album to a new playlist"
 msgstr ""
 
-#: tmp/coverart_browser.ui.h:10 tmp/coverart_entryview.ui.h:8
+#: tmp/coverart_browser.ui.h:9 tmp/coverart_entryview.ui.h:8
 msgid "New Playlist"
 msgstr ""
 
-#: tmp/coverart_browser.ui.h:11
+#: tmp/coverart_browser.ui.h:10
 msgid "Play favourites tracks from this album"
 msgstr ""
 
-#: tmp/coverart_browser.ui.h:12
+#: tmp/coverart_browser.ui.h:11
 msgid "Play Favourites"
 msgstr ""
 
-#: tmp/coverart_browser.ui.h:13
+#: tmp/coverart_browser.ui.h:12
 msgid "Add favourite tracks from this album to your playing queue"
 msgstr ""
 
-#: tmp/coverart_browser.ui.h:14
+#: tmp/coverart_browser.ui.h:13
 msgid "Queue Favourites"
 msgstr ""
 
-#: tmp/coverart_browser.ui.h:15
+#: tmp/coverart_browser.ui.h:14
 msgid "Add favourite tracks from this album to a playlist"
 msgstr ""
 
-#: tmp/coverart_browser.ui.h:16
+#: tmp/coverart_browser.ui.h:15
 msgid "Add favourites to Playlist"
 msgstr ""
 
-#: tmp/coverart_browser.ui.h:17
+#: tmp/coverart_browser.ui.h:16
 msgid "Search for this album cover"
 msgstr ""
 
-#: tmp/coverart_browser.ui.h:18
+#: tmp/coverart_browser.ui.h:17
 msgid "Search for covers"
 msgstr ""
 
+#: tmp/coverart_browser.ui.h:18
+msgid "Export album tracks and embed coverart in track files"
+msgstr ""
+
 #: tmp/coverart_browser.ui.h:19
-msgid "Show album properties"
+msgid "Export and embed coverart"
 msgstr ""
 
 #: tmp/coverart_browser.ui.h:20
-msgid "Search for covers where an album does not currently have one"
+msgid "Show album properties"
 msgstr ""
 
 #: tmp/coverart_browser.ui.h:21
+msgid "Search for covers where an album does not currently have one"
+msgstr ""
+
+#: tmp/coverart_browser.ui.h:22
 msgid "Download all the covers"
 msgstr ""
 
@@ -421,6 +428,28 @@ msgstr ""
 #: tmp/coverart_sidebar.ui.h:3 tmp/coverart_topbar.ui.h:2
 #: coverart_controllers.py:433
 msgid "All Decades"
+msgstr ""
+
+#: tmp/coverart_exportembed.ui.h:1
+msgid "Choose folder to save tracks:"
+msgstr ""
+
+#: tmp/coverart_exportembed.ui.h:2
+msgid "Select a Folder to export to"
+msgstr ""
+
+#: tmp/coverart_exportembed.ui.h:3
+msgid "Save tracks within folder using album name"
+msgstr ""
+
+#: tmp/coverart_exportembed.ui.h:4
+msgid "Open embedded track folder in file-manager"
+msgstr ""
+
+#: tmp/coverart_exportembed.ui.h:5
+msgid ""
+"Tip: Drag and Drop exported tracks from file-manager to a playlist or "
+"telephone/other device"
 msgstr ""
 
 #: tmp/popups.xml.in.h:1
@@ -563,7 +592,7 @@ msgstr ""
 msgid "children"
 msgstr ""
 
-#: coverart_album.py:1607 coverart_browser_source.py:806
+#: coverart_album.py:1605 coverart_browser_source.py:779
 #, python-format
 msgid "%s by %s"
 msgstr ""
@@ -577,38 +606,38 @@ msgstr ""
 msgid "Browse and play your albums through their covers"
 msgstr ""
 
-#: coverart_browser_source.py:270
+#: coverart_browser_source.py:260
 msgid "Tracks"
 msgstr ""
 
-#: coverart_browser_source.py:289
+#: coverart_browser_source.py:300
 msgid "Covers"
 msgstr ""
 
-#: coverart_browser_source.py:727
+#: coverart_browser_source.py:700
 #, python-format
 msgid "Requesting cover for %s - %s..."
 msgstr ""
 
-#: coverart_browser_source.py:809
+#: coverart_browser_source.py:782
 #, python-format
 msgid "%d selected albums "
 msgstr ""
 
-#: coverart_browser_source.py:813
+#: coverart_browser_source.py:786
 msgid " with 1 track"
 msgstr ""
 
-#: coverart_browser_source.py:815
+#: coverart_browser_source.py:788
 #, python-format
 msgid " with %d tracks"
 msgstr ""
 
-#: coverart_browser_source.py:818
+#: coverart_browser_source.py:791
 msgid " and a duration of 1 minute"
 msgstr ""
 
-#: coverart_browser_source.py:820
+#: coverart_browser_source.py:793
 #, python-format
 msgid " and a duration of %d minutes"
 msgstr ""

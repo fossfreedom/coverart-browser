@@ -4,4 +4,5 @@ tmp/coverart_entryview.ui.h
 tmp/coverart_sidebar.ui.h
 tmp/coverart_topbar.ui.h
 tmp/coverart_listwindow.ui.h
+tmp/coverart_exportembed.ui.h
 tmp/popups.xml.in.h

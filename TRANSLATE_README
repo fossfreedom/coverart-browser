@@ -11,6 +11,7 @@ intltool-extract --local --type=gettext/glade ui/coverart_browser.ui
 intltool-extract --local --type=gettext/glade ui/coverart_entryview.ui
 intltool-extract --local --type=gettext/glade ui/coverart_sidebar.ui
 intltool-extract --local --type=gettext/glade ui/coverart_topbar.ui
+intltool-extract --local --type=gettext/glade ui/coverart_exportembed.ui
 intltool-extract --local --type=gettext/xml img/popups.xml.in
 
 #create a new template file called po/package.pot by running below

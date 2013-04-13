@@ -44,6 +44,7 @@ from coverart_controllers import SortOrderToggleController
 from coverart_controllers import AlbumSearchEntryController
 from coverart_controllers import AlbumQuickSearchController
 from coverart_utils import Theme
+from coverart_export import CoverArtExport
 from stars import ReactiveStar
 
 class CoverArtBrowserSource(RB.Source):
@@ -229,7 +230,7 @@ class CoverArtBrowserSource(RB.Source):
         self.covers_view.popup = self.popup_menu
         self.covers_view.view_name = "covers_view"
         self.covers_view.shell = self.shell
-        self.covers_view.ext_menu_pos = 9
+        self.covers_view.ext_menu_pos = 10
 
         # setup entry-view objects and widgets
         setting = self.gs.get_setting(self.gs.Path.PLUGIN)
@@ -657,6 +658,21 @@ class CoverArtBrowserSource(RB.Source):
             self.update_request_status_bar)
 
         print "CoverArtBrowser DEBUG - end cover_search_menu_item_callback()"
+
+    def export_embed_menu_item_callback(self, menu_item):
+        '''
+        Callback called when the export and embed coverart option
+        is selected from the cover view popup.
+        It prompts the exporter to copy and embed art for the albums chosen
+        '''
+        print "CoverArtBrowser DEBUG - export_embed_menu_item_callback()"
+        selected_albums = self.covers_view.get_selected_objects()
+
+        CoverArtExport(self.plugin,
+            self.shell, self.album_manager).embed_albums(selected_albums)
+        
+
+        print "CoverArtBrowser DEBUG - export_embed_menu_item_callback()"
 
     def search_all_covers_callback(self, _):
         '''
