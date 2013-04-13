@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-26 12:58+0000\n"
+"POT-Creation-Date: 2013-04-13 13:18+0100\n"
 "PO-Revision-Date: 2013-02-18 12:17+0000\n"
 "Last-Translator: Wang Dianjin <Unknown>\n"
 "Language-Team: Chinese (Simplified) <zh_CN@li.org>\n"
@@ -70,7 +70,7 @@ msgstr "大"
 msgid "Extra Large"
 msgstr "超大"
 
-#: tmpl/albumartsearch-tmpl.html:211 coverart_browser_source.py:102
+#: tmpl/albumartsearch-tmpl.html:211 coverart_browser_source.py:100
 msgid "Loading..."
 msgstr "正在加载..."
 
@@ -308,86 +308,91 @@ msgid "Right Sidebar"
 msgstr "右侧边栏"
 
 #: tmp/coverart_browser.ui.h:1
-msgid "Tracks & Covers"
-msgstr "歌曲 & 封面"
-
-#: tmp/coverart_browser.ui.h:2
 msgid "Stop coverart fetch."
 msgstr "停止封面抓取。"
 
-#: tmp/coverart_browser.ui.h:3
+#: tmp/coverart_browser.ui.h:2
 msgid "Play this album"
 msgstr "播放该专辑"
 
-#: tmp/coverart_browser.ui.h:4
+#: tmp/coverart_browser.ui.h:3
 msgid "Play Album"
 msgstr "播放专辑"
 
-#: tmp/coverart_browser.ui.h:5
+#: tmp/coverart_browser.ui.h:4
 msgid "Add this album to your playing queue"
 msgstr "将该专辑添加到当前播放队列"
 
-#: tmp/coverart_browser.ui.h:6
+#: tmp/coverart_browser.ui.h:5
 msgid "Queue Album"
 msgstr "队列专辑"
 
-#: tmp/coverart_browser.ui.h:7 tmp/coverart_entryview.ui.h:5
+#: tmp/coverart_browser.ui.h:6 tmp/coverart_entryview.ui.h:5
 msgid "Add this album to a playlist"
 msgstr "将该专辑添加到播放列表"
 
-#: tmp/coverart_browser.ui.h:8 tmp/coverart_entryview.ui.h:6
+#: tmp/coverart_browser.ui.h:7 tmp/coverart_entryview.ui.h:6
 msgid "Add to Playlist"
 msgstr "添加到播放列表"
 
-#: tmp/coverart_browser.ui.h:9 tmp/coverart_entryview.ui.h:7
+#: tmp/coverart_browser.ui.h:8 tmp/coverart_entryview.ui.h:7
 msgid "Add this album to a new playlist"
 msgstr "将该专辑添加到一个新的播放列表"
 
-#: tmp/coverart_browser.ui.h:10 tmp/coverart_entryview.ui.h:8
+#: tmp/coverart_browser.ui.h:9 tmp/coverart_entryview.ui.h:8
 msgid "New Playlist"
 msgstr "新建播放列表"
 
-#: tmp/coverart_browser.ui.h:11
+#: tmp/coverart_browser.ui.h:10
 msgid "Play favourites tracks from this album"
 msgstr "播放该专辑中的收藏歌曲"
 
-#: tmp/coverart_browser.ui.h:12
+#: tmp/coverart_browser.ui.h:11
 msgid "Play Favourites"
 msgstr "播放收藏歌曲"
 
-#: tmp/coverart_browser.ui.h:13
+#: tmp/coverart_browser.ui.h:12
 msgid "Add favourite tracks from this album to your playing queue"
 msgstr "将该专辑中收藏的歌曲添加到播放队列"
 
-#: tmp/coverart_browser.ui.h:14
+#: tmp/coverart_browser.ui.h:13
 msgid "Queue Favourites"
 msgstr "队列收藏歌曲"
 
-#: tmp/coverart_browser.ui.h:15
+#: tmp/coverart_browser.ui.h:14
 msgid "Add favourite tracks from this album to a playlist"
 msgstr "将该专辑中的收藏歌曲添加到播放列表"
 
-#: tmp/coverart_browser.ui.h:16
+#: tmp/coverart_browser.ui.h:15
 msgid "Add favourites to Playlist"
 msgstr "将收藏歌曲添加到播放列表"
 
-#: tmp/coverart_browser.ui.h:17
+#: tmp/coverart_browser.ui.h:16
 msgid "Search for this album cover"
 msgstr "搜索该专辑封面"
 
-#: tmp/coverart_browser.ui.h:18
+#: tmp/coverart_browser.ui.h:17
 msgid "Search for covers"
 msgstr "搜索封面"
 
+#: tmp/coverart_browser.ui.h:18
+msgid "Export album tracks and embed coverart in track files"
+msgstr ""
+
 #: tmp/coverart_browser.ui.h:19
+#, fuzzy
+msgid "Export and embed coverart"
+msgstr "搜索内置封面"
+
+#: tmp/coverart_browser.ui.h:20
 msgid "Show album properties"
 msgstr "显示专辑属性"
 
-#: tmp/coverart_browser.ui.h:20
+#: tmp/coverart_browser.ui.h:21
 msgid "Search for covers where an album does not currently have one"
 msgstr "搜索无封面专辑的封面"
 
-#: tmp/coverart_browser.ui.h:21
+#: tmp/coverart_browser.ui.h:22
 msgid "Download all the covers"
 msgstr "下载全部封面"
 
@@ -426,6 +431,28 @@ msgstr "所有流派"
 #: coverart_controllers.py:433
 msgid "All Decades"
 msgstr "全部年代"
+
+#: tmp/coverart_exportembed.ui.h:1
+msgid "Choose folder to save tracks:"
+msgstr ""
+
+#: tmp/coverart_exportembed.ui.h:2
+msgid "Select a Folder to export to"
+msgstr ""
+
+#: tmp/coverart_exportembed.ui.h:3
+msgid "Save tracks within folder using album name"
+msgstr ""
+
+#: tmp/coverart_exportembed.ui.h:4
+msgid "Open embedded track folder in file-manager"
+msgstr ""
+
+#: tmp/coverart_exportembed.ui.h:5
+msgid ""
+"Tip: Drag and Drop exported tracks from file-manager to a playlist or "
+"telephone/other device"
+msgstr ""
 
 #: tmp/popups.xml.in.h:1
 msgid "rock"
@@ -567,7 +594,7 @@ msgstr "嘻哈"
 msgid "children"
 msgstr ""
 
-#: coverart_album.py:1607 coverart_browser_source.py:806
+#: coverart_album.py:1605 coverart_browser_source.py:779
 #, python-format
 msgid "%s by %s"
 msgstr "%s 作者 %s"
@@ -581,38 +608,38 @@ msgstr "封面浏览器"
 msgid "Browse and play your albums through their covers"
 msgstr "浏览封面并播放专辑"
 
-#: coverart_browser_source.py:270
+#: coverart_browser_source.py:260
 msgid "Tracks"
 msgstr "歌曲"
 
-#: coverart_browser_source.py:289
+#: coverart_browser_source.py:300
 msgid "Covers"
 msgstr "封面"
 
-#: coverart_browser_source.py:727
+#: coverart_browser_source.py:700
 #, python-format
 msgid "Requesting cover for %s - %s..."
 msgstr "正在请求  %s - %s 封面..."
 
-#: coverart_browser_source.py:809
+#: coverart_browser_source.py:782
 #, python-format
 msgid "%d selected albums "
 msgstr "已选中 %d 个专辑 "
 
-#: coverart_browser_source.py:813
+#: coverart_browser_source.py:786
 msgid " with 1 track"
 msgstr " 共有 1 首歌曲"
 
-#: coverart_browser_source.py:815
+#: coverart_browser_source.py:788
 #, python-format
 msgid " with %d tracks"
 msgstr " 共有 %d 首歌曲"
 
-#: coverart_browser_source.py:818
+#: coverart_browser_source.py:791
 msgid " and a duration of 1 minute"
 msgstr " 且计 1 分钟时长"
 
-#: coverart_browser_source.py:820
+#: coverart_browser_source.py:793
 #, python-format
 msgid " and a duration of %d minutes"
 msgstr " 且计 %d 分钟时长"
@@ -717,11 +744,11 @@ msgstr "搜索专辑"
 msgid "Search tracks"
 msgstr "搜索音轨"
 
+#~ msgid "Tracks & Covers"
+#~ msgstr "歌曲 & 封面"
+
 #~ msgid "Search for coverart on DISCOGS"
 #~ msgstr "搜索 DISCOGS 上面的封面"
-
-#~ msgid "Search for embedded coverart"
-#~ msgstr "搜索内置封面"
 
 #~ msgid "Search for coverart on the internet provider DISCOGS"
 #~ msgstr "搜索网络提供商 DISCOGS 提供的封面"
