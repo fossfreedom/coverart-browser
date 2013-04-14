@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-03-27 08:28+0000\n"
-"X-Generator: Launchpad (build 16540)\n"
+"X-Launchpad-Export-Date: 2013-04-14 12:52+0000\n"
+"X-Generator: Launchpad (build 16564)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -309,7 +309,7 @@ msgstr "右侧边栏"
 
 #: tmp/coverart_browser.ui.h:1
 msgid "Tracks & Covers"
-msgstr "歌曲 & 封面"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:2
 msgid "Stop coverart fetch."
@@ -384,9 +384,8 @@ msgid "Export album tracks and embed coverart in track files"
 msgstr ""
 
 #: tmp/coverart_browser.ui.h:20
-#, fuzzy
 msgid "Export and embed coverart"
-msgstr "搜索内置封面"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:21
 msgid "Show album properties"
@@ -747,21 +746,3 @@ msgstr "搜索专辑"
 #: coverart_controllers.py:557
 msgid "Search tracks"
 msgstr "搜索音轨"
-
-#~ msgid "Search for coverart on DISCOGS"
-#~ msgstr "搜索 DISCOGS 上面的封面"
-
-#~ msgid "Search for coverart on the internet provider DISCOGS"
-#~ msgstr "搜索网络提供商 DISCOGS 提供的封面"
-
-#~ msgid "Providers"
-#~ msgstr "提供方"
-
-#~ msgid "Search for coverart embedded within tracks for an album"
-#~ msgstr "搜索专辑中歌曲内置的封面"
-
-#~ msgid "Unknown"
-#~ msgstr "未知"
-
-#~ msgid "Find CoverArt:"
-#~ msgstr "查找封面："

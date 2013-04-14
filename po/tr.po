@@ -1,4 +1,4 @@
-# Galician translation for coverartbrowser
+# Turkish translation for coverartbrowser
 # Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
 # This file is distributed under the same license as the coverartbrowser package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-14 11:11+0100\n"
-"PO-Revision-Date: 2013-04-14 11:57+0000\n"
-"Last-Translator: Miguel Anxo Bouzada <mbouzada@gmail.com>\n"
-"Language-Team: Galician <gl@li.org>\n"
-"Language: gl\n"
+"PO-Revision-Date: 2013-04-13 10:40+0000\n"
+"Last-Translator: Osman Karagöz <Unknown>\n"
+"Language-Team: Turkish <tr@li.org>\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,104 +20,99 @@ msgstr ""
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
-msgstr "Opcións da busca"
+msgstr "Arama Seçenekleri"
 
 #: tmpl/albumartsearch-tmpl.html:187
 msgid "Tip: doubleclick or drag a cover to use it as the album cover"
 msgstr ""
-"Consello: prema dúas veces ou arrastre a cuberta para usala como cuberta "
-"deste álbum"
 
 #: tmpl/albumartsearch-tmpl.html:189
 msgid "Search Mode"
-msgstr "Modo de busca"
+msgstr "Arama Kipi"
 
 #: tmpl/albumartsearch-tmpl.html:191
 msgid "Artist"
-msgstr "Intérprete"
+msgstr "Sanatçı"
 
 #: tmpl/albumartsearch-tmpl.html:192
 msgid "Album"
-msgstr "Álbum"
+msgstr "Albüm"
 
 #: tmpl/albumartsearch-tmpl.html:193
 msgid "Artist and album"
-msgstr "Interprete e álbum"
+msgstr "Sanatçı ve albüm"
 
 #: tmpl/albumartsearch-tmpl.html:196
 msgid "Search text"
-msgstr "Buscar texto"
+msgstr "Arama metni"
 
 #: tmpl/albumartsearch-tmpl.html:199
 msgid "Search"
-msgstr "Buscar"
+msgstr "Ara"
 
 #: tmpl/albumartsearch-tmpl.html:201
 msgid "Image Size"
-msgstr "Tamaño da imaxe"
+msgstr "Görüntü Boyutu"
 
 #: tmpl/albumartsearch-tmpl.html:203
 msgid "Small"
-msgstr "Pequena"
+msgstr "Küçük"
 
 #: tmpl/albumartsearch-tmpl.html:204
 msgid "Medium"
-msgstr "Media"
+msgstr "Orta"
 
 #: tmpl/albumartsearch-tmpl.html:205
 msgid "Large"
-msgstr "Grande"
+msgstr "Büyük"
 
 #: tmpl/albumartsearch-tmpl.html:206
 msgid "Extra Large"
-msgstr "Moi grande"
+msgstr "Çok Büyük"
 
 #: tmpl/albumartsearch-tmpl.html:211 coverart_browser_source.py:100
 msgid "Loading..."
-msgstr "Cargando..."
+msgstr "Yükleniyor..."
 
 #: tmpl/albumartsearch-tmpl.html:213
 msgid "Show more results"
-msgstr "Amosar máis resultados"
+msgstr "Daha fazla sonuç göster"
 
 #: tmp/coverart_browser_prefs.ui.h:1
 msgid "Select a picture"
-msgstr "Seleccione unha imaxe"
+msgstr "Bir resim seçiniz"
 
 #: tmp/coverart_browser_prefs.ui.h:2
 msgid "Select picture to add to Edit Genre icon drop-down list"
 msgstr ""
-"Seleccione unha imaxe para engadir a Editar a icona de xénero na lista "
-"despregábel"
 
 #: tmp/coverart_browser_prefs.ui.h:3
 msgid "Above"
-msgstr "Enriba"
+msgstr "Üzerinde"
 
 #: tmp/coverart_browser_prefs.ui.h:4
 msgid "Top Left"
-msgstr "Arriba á esquerda"
+msgstr "Üst Sol"
 
 #: tmp/coverart_browser_prefs.ui.h:5
 msgid "Top Center"
-msgstr "Arriba ao centro"
+msgstr "Üst Orta"
 
 #: tmp/coverart_browser_prefs.ui.h:6
 msgid "Top Right"
-msgstr "Arriba á dereita"
+msgstr "Üst Sağ"
 
 #: tmp/coverart_browser_prefs.ui.h:7
 msgid "Automatically Start"
-msgstr "Comezar automáticamente"
+msgstr "Otomatik Başlat"
 
 #: tmp/coverart_browser_prefs.ui.h:8
 msgid "When rhythmbox starts, switch automatically to the coverart browser."
-msgstr ""
-"Cando se inicie Rhythmbox, conmutar automaticamente co navegador de cubertas."
+msgstr "Rhythmbox başlatıldığında otomatik olarak coverart browser'a geçiş yap"
 
 #: tmp/coverart_browser_prefs.ui.h:9
 msgid "Use source's custom statusbar."
-msgstr "Utilizar como orixe a barra de estado personalizada"
+msgstr "Kaynağın özel durum çubuğunu kullan"
 
 #: tmp/coverart_browser_prefs.ui.h:10
 msgid ""
@@ -125,355 +120,342 @@ msgid ""
 "album&apos;s related information instead of the global Rhythmbox&apos;s "
 "statusbar."
 msgstr ""
-"Utilizar a orixe da barra de estado personalizado, para amosar as "
-"informacións relacionadas co álbum seleccionado no canto da barra de estado "
-"global do Rhythmbox"
 
 #: tmp/coverart_browser_prefs.ui.h:11
 msgid ""
 "Use the source's custom statusbar to show the current selected album's "
 "related information instead of the global Rhythmbox's statusbar."
 msgstr ""
-"Utilizar a orixe da barra de estado personalizado, para amosar as "
-"informacións relacionadas co álbum seleccionado no canto da barra de estado "
-"global do Rhythmbox"
 
 #: tmp/coverart_browser_prefs.ui.h:12
 msgid "Display tracks and covers pane"
-msgstr "Amosar as pistas e o panel de cubertas"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:13
 msgid ""
 "Add a toggle-option to the coverart view to display the tracks and covers "
 "for the chosen album"
 msgstr ""
-"Engade unha opción para conmutar a vista da cuberta, amosando as pistas e as "
-"cubertas do álbum escollido"
 
 #: tmp/coverart_browser_prefs.ui.h:14
 msgid "Level above which is regarded as being a favourite track or album"
-msgstr "Nivel a partir do que unha pista ou álbum é considerada como preferida"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:15
 msgid "Favourite Threshold"
-msgstr "Limiar de preferida"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:16
 msgid "General"
-msgstr "Xeral"
+msgstr "Genel"
 
 #: tmp/coverart_browser_prefs.ui.h:17
 msgid "Album Information"
-msgstr "Información sobe o álbum"
+msgstr "Albüm Bilgisi"
 
 #: tmp/coverart_browser_prefs.ui.h:18
 msgid "Display album's info under cover"
-msgstr "Amosar a información do álbum baixo a cuberta"
+msgstr "Albüm bilgisini kapağın altında göster"
 
 #: tmp/coverart_browser_prefs.ui.h:19
 msgid "Show the album&apos;s basic information under the cover image."
-msgstr "Amosar a información básica do álbum baixo a imaxe da cuberta"
+msgstr "Albümün basit bilgilerini albüm kapağının altında göster."
 
 #: tmp/coverart_browser_prefs.ui.h:20
 msgid "Show the album's basic information under the cover image."
-msgstr "Amosar a información básica do álbum baixo a imaxe da cuberta"
+msgstr "Albümün basit bilgilerini albüm kapağının altında göster."
 
 #: tmp/coverart_browser_prefs.ui.h:21
 msgid "Font size for the text below the cover-art."
-msgstr "Tamaño da letra para o texto baixo a cuberta"
+msgstr "Albüm kapağı altındaki yazı tipi boyutu"
 
 #: tmp/coverart_browser_prefs.ui.h:22
 msgid "Font Size:"
-msgstr "Tamaño da letra:"
+msgstr "Yazıtipi Boyutu:"
 
 #: tmp/coverart_browser_prefs.ui.h:23
 msgid "Ellipsize albums names"
-msgstr "Reducir o nome dos álbums"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:24
 msgid ""
 "Ellipsizes the albums names to a fixed length when the display text option "
 "is enabled."
 msgstr ""
-"Reduce a unha lonxitude fixa os nomes dos álbumsL cando a está activada a "
-"opción de amosar o texto"
 
 #: tmp/coverart_browser_prefs.ui.h:25
 msgid "Maximum allowed length for an album's name before being ellipsized."
-msgstr "Lonxitude máxima permitida para o nome dun álbum antes de ser reducido"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:26
 msgid "Maximum length:"
-msgstr "Lonxitude máxima:"
+msgstr "En fazla uzunluk:"
 
 #: tmp/coverart_browser_prefs.ui.h:27
 msgid "Cover Appearance"
-msgstr "Aparencia das cubertas"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:28
 msgid "Drop shadow"
-msgstr "Sombra base"
+msgstr "Gölge düşürme"
 
 #: tmp/coverart_browser_prefs.ui.h:29
 msgid "Indicates if the albums should drop a shadow on the cover view"
-msgstr "Indica se os álbums deben ter unha sombra base no visor de cubertas"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:30
 msgid "Light Source: "
-msgstr "Orixe da luz: "
+msgstr "Işık Kaynağı: "
 
 #: tmp/coverart_browser_prefs.ui.h:31
 msgid "Defines the size for the covers showed on the source."
-msgstr "Define o tamaño na orixe das cubertas amosadas"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:32
 msgid "Size (in pixels):"
-msgstr "Tamaño (en píxeles):"
+msgstr "Boyut (piksel olarak):"
 
 #: tmp/coverart_browser_prefs.ui.h:33
 msgid "Cover"
-msgstr "Cuberta"
+msgstr "Kapak"
 
 #: tmp/coverart_browser_prefs.ui.h:34
 msgid "Where the toolbar should be positioned"
-msgstr "Onde debe ser situada a barra de ferramentas"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:35
 msgid "Position"
-msgstr "Posición"
+msgstr "Konum"
 
 #: tmp/coverart_browser_prefs.ui.h:36
 msgid "Show toolbar: "
-msgstr "Amosar a barra de ferramentas: "
+msgstr "Araç çubuğunu göster: "
 
 #: tmp/coverart_browser_prefs.ui.h:37
 msgid "Look & Feel"
-msgstr "Aparencia e comportamento"
+msgstr "Görünüş"
 
 #: tmp/coverart_browser_prefs.ui.h:38
 msgid "Flat-button style"
-msgstr "Botón de estilo plano"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:39
 msgid "Icon Theme: "
-msgstr "Tema de iconas: "
+msgstr "Simge Teması: "
 
 #: tmp/coverart_browser_prefs.ui.h:40
 msgid "Alternative Genres:"
-msgstr "Xéneros alternativos"
+msgstr "Değişik Türler:"
 
 #: tmp/coverart_browser_prefs.ui.h:41
 msgid "Load New Icon: "
-msgstr "Cargar unha nova icona: "
+msgstr "Yeni Simge Yükle "
 
 #: tmp/coverart_browser_prefs.ui.h:42
 msgid "Select a new genre icon"
-msgstr "Seleccionar unha nova icona para o xénero"
+msgstr "Yeni tür simgesi seçin"
 
 #: tmp/coverart_browser_prefs.ui.h:43
 msgid "Edit Genre Details:"
-msgstr "Editar os detalles do xénero:"
+msgstr "Tür Detaylarını Düzenle:"
 
 #: tmp/coverart_browser_prefs.ui.h:44
 msgid "Save changes"
-msgstr "Gardar os cambios"
+msgstr "Değişiklikleri kaydet"
 
 #: tmp/coverart_browser_prefs.ui.h:45
 msgid "Name:"
-msgstr "Nome:"
+msgstr "İsim:"
 
 #: tmp/coverart_browser_prefs.ui.h:46
 msgid "Icon:"
-msgstr "Icona:"
+msgstr "Simge:"
 
 #: tmp/coverart_browser_prefs.ui.h:47
 msgid "Current user-defined Genres:"
-msgstr "Xéneros actuais definidos polo usuario:"
+msgstr "Şuanki kullanıcı-tanımlı Türler:"
 
 #: tmp/coverart_browser_prefs.ui.h:48
 msgid "Alternate Name"
-msgstr "Nome alternativo"
+msgstr "Değişik İsim"
 
 #: tmp/coverart_browser_prefs.ui.h:49
 msgid "Icon"
-msgstr "Icona"
+msgstr "Simge"
 
 #: tmp/coverart_browser_prefs.ui.h:50
 msgid "Add a new alternative genre"
-msgstr "Engadir un novo xénero alternativo"
+msgstr "Yeni değişik tür ekle"
 
 #: tmp/coverart_browser_prefs.ui.h:51
 msgid "Delete an alternative genre"
-msgstr "Eliminar un xénero alternativo"
+msgstr "Değişik türü sil"
 
 #: tmp/coverart_browser_prefs.ui.h:52
 msgid "Toolbar"
-msgstr "Barra de ferramentas"
+msgstr "Araç Çubuğu"
 
 #: tmp/coverart_browser_prefs.ui.h:53
 msgid "Above Cover View"
-msgstr "Sobre o visor de cubertas"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:54
 msgid "Left Sidebar"
-msgstr "Barra lateral esquerda"
+msgstr "Sol Kenar Çubuğu"
 
 #: tmp/coverart_browser_prefs.ui.h:55
 msgid "Right Sidebar"
-msgstr "Barra lateral dereita"
+msgstr "Sağ Kenar Çubuğu"
 
 #: tmp/coverart_browser.ui.h:1
 msgid "Tracks & Covers"
-msgstr "Pistas e cubertas"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:2
 msgid "Stop coverart fetch."
-msgstr "Deter a busca de cubertas."
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:3
 msgid "Play this album"
-msgstr "Reproducir este álbum"
+msgstr "Bu albümü çal"
 
 #: tmp/coverart_browser.ui.h:4
 msgid "Play Album"
-msgstr "Reproducir o álbum"
+msgstr "Albümü Çal"
 
 #: tmp/coverart_browser.ui.h:5
 msgid "Add this album to your playing queue"
-msgstr "Engadir este álbum á cola de reprodución"
+msgstr "Bu albümü çalma kuyruğuna ekle"
 
 #: tmp/coverart_browser.ui.h:6
 msgid "Queue Album"
-msgstr "Álbum na cola de espera"
+msgstr "Albüm Kuyruğu"
 
 #: tmp/coverart_browser.ui.h:7 tmp/coverart_entryview.ui.h:5
 msgid "Add this album to a playlist"
-msgstr "Engadir este álbum á lista de reprodución"
+msgstr "Bu albümü çalma listesine ekle"
 
 #: tmp/coverart_browser.ui.h:8 tmp/coverart_entryview.ui.h:6
 msgid "Add to Playlist"
-msgstr "Engadir á lista de reprodución"
+msgstr "Çalma Listesine Ekle"
 
 #: tmp/coverart_browser.ui.h:9 tmp/coverart_entryview.ui.h:7
 msgid "Add this album to a new playlist"
-msgstr "Engadir este album á unha nova lista de reprodución"
+msgstr "Bu albümü yeni çalma listesine ekle"
 
 #: tmp/coverart_browser.ui.h:10 tmp/coverart_entryview.ui.h:8
 msgid "New Playlist"
-msgstr "Nova lista de reprodución"
+msgstr "Yeni Çalma Listesi"
 
 #: tmp/coverart_browser.ui.h:11
 msgid "Play favourites tracks from this album"
-msgstr "Reproducir as pistas preferidas deste álbum"
+msgstr "Bu albümdeki beğenilen parçaları çal"
 
 #: tmp/coverart_browser.ui.h:12
 msgid "Play Favourites"
-msgstr "Reproducir as preferidas"
+msgstr "Beğenilenleri çal"
 
 #: tmp/coverart_browser.ui.h:13
 msgid "Add favourite tracks from this album to your playing queue"
-msgstr "Engade as pistas preferidas á súa cola de reprodución"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:14
 msgid "Queue Favourites"
-msgstr "Poñer na cola de preferidas"
+msgstr "Beğenilenler Kuyruğu"
 
 #: tmp/coverart_browser.ui.h:15
 msgid "Add favourite tracks from this album to a playlist"
-msgstr "Engade as pistas preferidas deste álbom á súa lista de reprodución"
+msgstr "Bu albümdeki beğenilen parçaları çalma listesine ekle"
 
 #: tmp/coverart_browser.ui.h:16
 msgid "Add favourites to Playlist"
-msgstr "Engadir as preferidas á lista de reprodución"
+msgstr "Beğenilenleri Çalma Listesine Ekle"
 
 #: tmp/coverart_browser.ui.h:17
 msgid "Search for this album cover"
-msgstr "Buscar a cuberta deste álbum"
+msgstr "Bu albümün kapağını ara"
 
 #: tmp/coverart_browser.ui.h:18
 msgid "Search for covers"
-msgstr "Busca de cubertas"
+msgstr "Kapakları ara"
 
 #: tmp/coverart_browser.ui.h:19
 msgid "Export album tracks and embed coverart in track files"
 msgstr ""
-"Exportar as pistas do álbum e incrustar as portadas nos ficheiros de pistas"
 
 #: tmp/coverart_browser.ui.h:20
 msgid "Export and embed coverart"
-msgstr "Exportar e incrustar as portadas"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:21
 msgid "Show album properties"
-msgstr "Amosar as propiedades do álbum"
+msgstr "Albüm özelliklerini göster"
 
 #: tmp/coverart_browser.ui.h:22
 msgid "Search for covers where an album does not currently have one"
-msgstr "Busca de cubertas para os álbums que aínda non teñen unha"
+msgstr "Albüm kapağı olmayan albümler için kapak ara"
 
 #: tmp/coverart_browser.ui.h:23
 msgid "Download all the covers"
-msgstr "Descargar todas as cubertas"
+msgstr "Tüm kapakları indir"
 
 #: tmp/coverart_entryview.ui.h:1
 msgid "Play this track"
-msgstr "Reproducir esta pista"
+msgstr "Bu parçayı çal"
 
 #: tmp/coverart_entryview.ui.h:2
 msgid "Play Track"
-msgstr "Reproducir pista"
+msgstr "Parçayı Çal"
 
 #: tmp/coverart_entryview.ui.h:3
 msgid "Add this track to your playing queue"
-msgstr "Engadir esta pista na súa cola de reprodución"
+msgstr "Bu parçayı çalma kuyruğuna ekle"
 
 #: tmp/coverart_entryview.ui.h:4
 msgid "Queue Track"
-msgstr "Pór a pista en espera"
+msgstr "Parçayı Kuyruğa Ekle"
 
 #: tmp/coverart_entryview.ui.h:9
 msgid "Show track properties"
-msgstr "Amosar as propiedades da pista"
+msgstr "Parça özelliklerini göster"
 
 #: tmp/coverart_sidebar.ui.h:1 coverart_browser.py:102
 msgid "CoverArt"
-msgstr "Cubertas"
+msgstr "Albüm Kapığı"
 
 #. initial genre
 #: tmp/coverart_sidebar.ui.h:2 tmp/coverart_topbar.ui.h:1
 #: coverart_controllers.py:211 coverart_controllers.py:263
 #: coverart_controllers.py:362
 msgid "All Genres"
-msgstr "Todos os xéneros"
+msgstr "Tüm Türler"
 
 #: tmp/coverart_sidebar.ui.h:3 tmp/coverart_topbar.ui.h:2
 #: coverart_controllers.py:433
 msgid "All Decades"
-msgstr "Todas as décadas"
+msgstr "Tüm Yıllar"
 
 #: tmp/coverart_exportembed.ui.h:1
 msgid "Choose folder to save tracks:"
-msgstr "Escolla o cartafol no que gardar as pistas:"
+msgstr ""
 
 #: tmp/coverart_exportembed.ui.h:2
 msgid "Select a Folder to export to"
-msgstr "Seleccione un cartafol para exportar a"
+msgstr ""
 
 #: tmp/coverart_exportembed.ui.h:3
 msgid "Save tracks within folder using album name"
-msgstr "Gardar as pistas nun cartafol co nome do álbum"
+msgstr ""
 
 #: tmp/coverart_exportembed.ui.h:4
 msgid "Open embedded track folder in file-manager"
-msgstr "Abrir o cartafol coas pistas incrustadas no xestor de ficheiros"
+msgstr ""
 
 #: tmp/coverart_exportembed.ui.h:5
 msgid ""
 "Tip: Drag and Drop exported tracks from file-manager to a playlist or "
 "telephone/other device"
 msgstr ""
-"Consello: arrastrar e soltar as pistas exportadas desde o xestor de "
-"ficheiros a unha lista de reprodución ou teléfono/outro dispositivo"
 
 #: tmp/popups.xml.in.h:1
 msgid "rock"
@@ -481,286 +463,286 @@ msgstr "rock"
 
 #: tmp/popups.xml.in.h:2
 msgid "country"
-msgstr "country"
+msgstr ""
 
 #: tmp/popups.xml.in.h:3
 msgid "pop"
-msgstr "pop"
+msgstr ""
 
 #: tmp/popups.xml.in.h:4
 msgid "classical"
-msgstr "clásica"
+msgstr ""
 
 #: tmp/popups.xml.in.h:5
 msgid "world"
-msgstr "música do mundo"
+msgstr ""
 
 #: tmp/popups.xml.in.h:6
 msgid "bluegrass"
-msgstr "bluegrass"
+msgstr ""
 
 #: tmp/popups.xml.in.h:7
 msgid "oldies"
-msgstr "vellos éxitos"
+msgstr ""
 
 #: tmp/popups.xml.in.h:8
 msgid "holiday"
-msgstr "natividade"
+msgstr ""
 
 #: tmp/popups.xml.in.h:9
 msgid "comedy"
-msgstr "comedia"
+msgstr ""
 
 #: tmp/popups.xml.in.h:10
 msgid "spoken"
-msgstr "falado"
+msgstr ""
 
 #: tmp/popups.xml.in.h:11
 msgid "jazz"
-msgstr "jazz"
+msgstr ""
 
 #: tmp/popups.xml.in.h:12
 msgid "blues"
-msgstr "blues"
+msgstr ""
 
 #: tmp/popups.xml.in.h:13
 msgid "metal"
-msgstr "metal"
+msgstr ""
 
 #: tmp/popups.xml.in.h:14
 msgid "karaoke"
-msgstr "karaoke"
+msgstr ""
 
 #: tmp/popups.xml.in.h:15
 msgid "rap"
-msgstr "rap"
+msgstr ""
 
 #: tmp/popups.xml.in.h:16
 msgid "ragtime"
-msgstr "ragtime"
+msgstr ""
 
 #: tmp/popups.xml.in.h:17
 msgid "musical"
-msgstr "musical"
+msgstr ""
 
 #: tmp/popups.xml.in.h:18
 msgid "dance"
-msgstr "dance"
+msgstr ""
 
 #: tmp/popups.xml.in.h:19
 msgid "reggae"
-msgstr "reggae"
+msgstr ""
 
 #: tmp/popups.xml.in.h:20
 msgid "electronic"
-msgstr "electrónica"
+msgstr ""
 
 #: tmp/popups.xml.in.h:21
 msgid "soundtrack"
-msgstr "banda sonora"
+msgstr "film müziği"
 
 #: tmp/popups.xml.in.h:22
 msgid "latin"
-msgstr "latino"
+msgstr ""
 
 #: tmp/popups.xml.in.h:23
 msgid "alternative"
-msgstr "alternativa"
+msgstr ""
 
 #: tmp/popups.xml.in.h:24
 msgid "disco"
-msgstr "disco"
+msgstr ""
 
 #: tmp/popups.xml.in.h:25
 msgid "folk"
-msgstr "folclore"
+msgstr ""
 
 #: tmp/popups.xml.in.h:26
 msgid "gospel"
-msgstr "espiritual"
+msgstr ""
 
 #: tmp/popups.xml.in.h:27
 msgid "experimental"
-msgstr "experimental"
+msgstr ""
 
 #: tmp/popups.xml.in.h:28
 msgid "new age"
-msgstr "new age"
+msgstr ""
 
 #: tmp/popups.xml.in.h:29
 msgid "opera"
-msgstr "opera"
+msgstr ""
 
 #: tmp/popups.xml.in.h:30
 msgid "anime"
-msgstr "anime"
+msgstr ""
 
 #: tmp/popups.xml.in.h:31
 msgid "soul"
-msgstr "soul"
+msgstr ""
 
 #: tmp/popups.xml.in.h:32
 msgid "workout"
-msgstr "entretemento"
+msgstr ""
 
 #: tmp/popups.xml.in.h:33
 msgid "easy listening"
-msgstr "música lixeira"
+msgstr ""
 
 #: tmp/popups.xml.in.h:34
 msgid "hip-hop"
-msgstr "hip-hop"
+msgstr ""
 
 #: tmp/popups.xml.in.h:35
 msgid "children"
-msgstr "infantil"
+msgstr ""
 
 #: coverart_album.py:1605 coverart_browser_source.py:780
 #, python-format
 msgid "%s by %s"
-msgstr "%s por %s"
+msgstr ""
 
 #. define .plugin text strings used for translation
 #: coverart_browser.py:71
 msgid "CoverArt Browser"
-msgstr "Navegador de cubertas"
+msgstr ""
 
 #: coverart_browser.py:72
 msgid "Browse and play your albums through their covers"
-msgstr "Examinar e reproducir os seus álbums a través das súas cubertas"
+msgstr ""
 
 #: coverart_browser_source.py:260
 msgid "Tracks"
-msgstr "Pistas"
+msgstr "Parçalar"
 
 #: coverart_browser_source.py:300
 msgid "Covers"
-msgstr "Cubertas"
+msgstr "Albüm Kapakları"
 
 #: coverart_browser_source.py:701
 #, python-format
 msgid "Requesting cover for %s - %s..."
-msgstr "Solicitando a cuberta para %s - %s..."
+msgstr ""
 
 #: coverart_browser_source.py:783
 #, python-format
 msgid "%d selected albums "
-msgstr "%d álbums seleccionados "
+msgstr "%d seçilen albüm "
 
 #: coverart_browser_source.py:787
 msgid " with 1 track"
-msgstr " con 1 pista"
+msgstr " ve 1 parça"
 
 #: coverart_browser_source.py:789
 #, python-format
 msgid " with %d tracks"
-msgstr " con %d  pistas"
+msgstr " ve %d parça"
 
 #: coverart_browser_source.py:792
 msgid " and a duration of 1 minute"
-msgstr " e unha duración dun minuto"
+msgstr ""
 
 #: coverart_browser_source.py:794
 #, python-format
 msgid " and a duration of %d minutes"
-msgstr " e unha duración de %d minutos"
+msgstr ""
 
 #: coverart_controllers.py:378
 msgid "Sort by album name"
-msgstr "Ordear polo nome do álbum"
+msgstr "Albüm adına göre sırala"
 
 #: coverart_controllers.py:379
 msgid "Sort by album artist"
-msgstr "Ordear polo interprete do álbum"
+msgstr "Albüm sanatçısına göre sırala"
 
 #: coverart_controllers.py:380
 msgid "Sort by year"
-msgstr "Ordear polo ano"
+msgstr "Yıla göre sırala"
 
 #: coverart_controllers.py:381
 msgid "Sort by rating"
-msgstr "Ordear pola cualificación"
+msgstr "Beğeniye göre sırala"
 
 #. '20s' as in the decade 2010
 #: coverart_controllers.py:435 coverart_controllers.py:461
 msgid "20s"
-msgstr "década 2010"
+msgstr ""
 
 #. '10s' as in the decade 2010
 #: coverart_controllers.py:437
 msgid "10s"
-msgstr "década 2010"
+msgstr "10'lar"
 
 #. '00s' as in the decade 2000
 #: coverart_controllers.py:439
 msgid "00s"
-msgstr "década 2000"
+msgstr "00'lar"
 
 #. '90s' as in the decade 1990
 #: coverart_controllers.py:441
 msgid "90s"
-msgstr "anos 90"
+msgstr "90'lar"
 
 #. '80s' as in the decade 1980
 #: coverart_controllers.py:443
 msgid "80s"
-msgstr "anos 80"
+msgstr "80'ler"
 
 #. '70s' as in the decade 1970
 #: coverart_controllers.py:445
 msgid "70s"
-msgstr "anos 70"
+msgstr "70'ler"
 
 #. '60s' as in the decade 1960
 #: coverart_controllers.py:447
 msgid "60s"
-msgstr "anos 60"
+msgstr "60'lar"
 
 #. '50s' as in the decade 1950
 #: coverart_controllers.py:449
 msgid "50s"
-msgstr "anos 50"
+msgstr "50'ler"
 
 #. '40s' as in the decade 1940
 #: coverart_controllers.py:451
 msgid "40s"
-msgstr "anos 40"
+msgstr "40'lar"
 
 #. '30s' as in the decade 1930
 #: coverart_controllers.py:453
 msgid "30s"
-msgstr "anos 30"
+msgstr "30'lar"
 
 #. 'Older' as in 'older than the year 1930'
 #: coverart_controllers.py:455
 msgid "Older"
-msgstr "anterior aos anos 30"
+msgstr "Eski"
 
 #. options
 #: coverart_controllers.py:500
 msgid "Sort in descending order"
-msgstr "En orde descendente"
+msgstr "Azalan sıraya göre sıralama"
 
 #: coverart_controllers.py:501
 msgid "Sort in ascending order"
-msgstr "En orde ascendente"
+msgstr "Artan sıraya göre sıralama"
 
 #: coverart_controllers.py:553
 msgid "Search all fields"
-msgstr "Buscar todos os campos"
+msgstr "Tüm alanlarda ara"
 
 #: coverart_controllers.py:554
 msgid "Search album artists"
-msgstr "Buscar os interpretes do álbum"
+msgstr "Albüm sanatçılarını ara"
 
 #: coverart_controllers.py:555
 msgid "Search track artists"
-msgstr "Buscar os interpretes da pista"
+msgstr "Parça sanatçılarını ara"
 
 #: coverart_controllers.py:556
 msgid "Search albums"
-msgstr "Buscar álbums"
+msgstr "Albümleri ara"
 
 #: coverart_controllers.py:557
 msgid "Search tracks"
-msgstr "Buscar pistas"
+msgstr "Parçaları ara"

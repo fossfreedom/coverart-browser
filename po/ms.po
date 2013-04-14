@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-03-27 08:28+0000\n"
-"X-Generator: Launchpad (build 16540)\n"
+"X-Launchpad-Export-Date: 2013-04-14 12:52+0000\n"
+"X-Generator: Launchpad (build 16564)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -318,7 +318,7 @@ msgstr "Palang Sisi Kanan"
 
 #: tmp/coverart_browser.ui.h:1
 msgid "Tracks & Covers"
-msgstr "Trek & Kulit"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:2
 msgid "Stop coverart fetch."
@@ -393,9 +393,8 @@ msgid "Export album tracks and embed coverart in track files"
 msgstr ""
 
 #: tmp/coverart_browser.ui.h:20
-#, fuzzy
 msgid "Export and embed coverart"
-msgstr "Gelintar untuk coverart terbenam"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:21
 msgid "Show album properties"
@@ -756,21 +755,3 @@ msgstr "Gelintar album"
 #: coverart_controllers.py:557
 msgid "Search tracks"
 msgstr "Gelintar trek"
-
-#~ msgid "Search for coverart on DISCOGS"
-#~ msgstr "Gelintar coverart dalam DISCOGS"
-
-#~ msgid "Search for coverart on the internet provider DISCOGS"
-#~ msgstr "Gelintar coverart dalam penyedia internet DISCOGS"
-
-#~ msgid "Providers"
-#~ msgstr "Penyedia"
-
-#~ msgid "Search for coverart embedded within tracks for an album"
-#~ msgstr "Gelintar untuk coverart terbenam di dalam trek untuk sesebuah album"
-
-#~ msgid "Unknown"
-#~ msgstr "Tidak diketahui"
-
-#~ msgid "Find CoverArt:"
-#~ msgstr "Cari CoverArt:"

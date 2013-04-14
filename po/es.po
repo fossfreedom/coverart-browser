@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-14 11:11+0100\n"
-"PO-Revision-Date: 2013-01-17 23:43+0000\n"
-"Last-Translator: Adolfo Jayme Barrientos <fitoschido@gmail.com>\n"
+"PO-Revision-Date: 2013-04-14 11:30+0000\n"
+"Last-Translator: Aaron Farias <Unknown>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-03-27 08:28+0000\n"
-"X-Generator: Launchpad (build 16540)\n"
+"X-Launchpad-Export-Date: 2013-04-14 12:52+0000\n"
+"X-Generator: Launchpad (build 16564)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -82,11 +82,13 @@ msgstr "Mostrar más resultados"
 
 #: tmp/coverart_browser_prefs.ui.h:1
 msgid "Select a picture"
-msgstr ""
+msgstr "Seleccione una imagen"
 
 #: tmp/coverart_browser_prefs.ui.h:2
 msgid "Select picture to add to Edit Genre icon drop-down list"
 msgstr ""
+"Selecciona la imagen para añadir a Editar icono Género en la lista "
+"desplegable"
 
 #: tmp/coverart_browser_prefs.ui.h:3
 msgid "Above"
@@ -248,63 +250,63 @@ msgstr "Mostrar barra de herramientas: "
 
 #: tmp/coverart_browser_prefs.ui.h:37
 msgid "Look & Feel"
-msgstr ""
+msgstr "Aspecto y comportamiento"
 
 #: tmp/coverart_browser_prefs.ui.h:38
 msgid "Flat-button style"
-msgstr ""
+msgstr "Boton-Plano de estilo"
 
 #: tmp/coverart_browser_prefs.ui.h:39
 msgid "Icon Theme: "
-msgstr ""
+msgstr "Tema de iconos: "
 
 #: tmp/coverart_browser_prefs.ui.h:40
 msgid "Alternative Genres:"
-msgstr ""
+msgstr "Géneros alternativos:"
 
 #: tmp/coverart_browser_prefs.ui.h:41
 msgid "Load New Icon: "
-msgstr ""
+msgstr "Cargar nuevo icono: "
 
 #: tmp/coverart_browser_prefs.ui.h:42
 msgid "Select a new genre icon"
-msgstr ""
+msgstr "Seleccione el icono de un nuevo género"
 
 #: tmp/coverart_browser_prefs.ui.h:43
 msgid "Edit Genre Details:"
-msgstr ""
+msgstr "Editar detalles de Género:"
 
 #: tmp/coverart_browser_prefs.ui.h:44
 msgid "Save changes"
-msgstr ""
+msgstr "Guardar los cambios"
 
 #: tmp/coverart_browser_prefs.ui.h:45
 msgid "Name:"
-msgstr ""
+msgstr "Nómbre:"
 
 #: tmp/coverart_browser_prefs.ui.h:46
 msgid "Icon:"
-msgstr ""
+msgstr "Icono:"
 
 #: tmp/coverart_browser_prefs.ui.h:47
 msgid "Current user-defined Genres:"
-msgstr ""
+msgstr "Actuales definidos por el usuario de Géneros:"
 
 #: tmp/coverart_browser_prefs.ui.h:48
 msgid "Alternate Name"
-msgstr ""
+msgstr "Nombre Alternativo"
 
 #: tmp/coverart_browser_prefs.ui.h:49
 msgid "Icon"
-msgstr ""
+msgstr "Icono"
 
 #: tmp/coverart_browser_prefs.ui.h:50
 msgid "Add a new alternative genre"
-msgstr ""
+msgstr "Añadir un género alternativo nuevo"
 
 #: tmp/coverart_browser_prefs.ui.h:51
 msgid "Delete an alternative genre"
-msgstr ""
+msgstr "Eliminar un género alternativo"
 
 #: tmp/coverart_browser_prefs.ui.h:52
 msgid "Toolbar"
@@ -324,7 +326,7 @@ msgstr "Barra lateral derecha"
 
 #: tmp/coverart_browser.ui.h:1
 msgid "Tracks & Covers"
-msgstr "Canciones & Portadas"
+msgstr "Pistas y Carcasas"
 
 #: tmp/coverart_browser.ui.h:2
 msgid "Stop coverart fetch."
@@ -397,12 +399,11 @@ msgstr "Buscar portadas"
 
 #: tmp/coverart_browser.ui.h:19
 msgid "Export album tracks and embed coverart in track files"
-msgstr ""
+msgstr "Exportar canciones del disco e insertar Portada en archivos de pista"
 
 #: tmp/coverart_browser.ui.h:20
-#, fuzzy
 msgid "Export and embed coverart"
-msgstr "Buscar portadas embebidas"
+msgstr "Exportación y coverart Incrustar"
 
 #: tmp/coverart_browser.ui.h:21
 msgid "Show album properties"
@@ -454,25 +455,27 @@ msgstr "Todas las décadas"
 
 #: tmp/coverart_exportembed.ui.h:1
 msgid "Choose folder to save tracks:"
-msgstr ""
+msgstr "Seleccione la carpeta para guardar las pistas:"
 
 #: tmp/coverart_exportembed.ui.h:2
 msgid "Select a Folder to export to"
-msgstr ""
+msgstr "Seleccione una carpeta para exportar a"
 
 #: tmp/coverart_exportembed.ui.h:3
 msgid "Save tracks within folder using album name"
-msgstr ""
+msgstr "Guardar pistas dentro de la carpeta con el nombre del álbum"
 
 #: tmp/coverart_exportembed.ui.h:4
 msgid "Open embedded track folder in file-manager"
-msgstr ""
+msgstr "Abrir carpeta pista incrustado en el archivo-encargado"
 
 #: tmp/coverart_exportembed.ui.h:5
 msgid ""
 "Tip: Drag and Drop exported tracks from file-manager to a playlist or "
 "telephone/other device"
 msgstr ""
+"Consejo: arrastrar y soltar las pistas exportadas desde el archivo-encargado "
+"a una lista de reproducción o teléfono/otro dispositivo"
 
 #: tmp/popups.xml.in.h:1
 msgid "rock"
@@ -763,21 +766,3 @@ msgstr "Buscar álbums"
 #: coverart_controllers.py:557
 msgid "Search tracks"
 msgstr "Buscar por canción"
-
-#~ msgid "Unknown"
-#~ msgstr "Desconocido"
-
-#~ msgid "Search for coverart on DISCOGS"
-#~ msgstr "Buscar portadas en DISCOGS"
-
-#~ msgid "Search for coverart on the internet provider DISCOGS"
-#~ msgstr "Busca portadas en la base de datos de DISCOGS"
-
-#~ msgid "Search for coverart embedded within tracks for an album"
-#~ msgstr "Busca portadas embebidas dentro de las canciones del álbum"
-
-#~ msgid "Providers"
-#~ msgstr "Proveedores"
-
-#~ msgid "Find CoverArt:"
-#~ msgstr "Buscar portadas:"

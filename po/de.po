@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-14 11:11+0100\n"
-"PO-Revision-Date: 2013-03-22 20:09+0000\n"
-"Last-Translator: Phillip Sz <Unknown>\n"
+"PO-Revision-Date: 2013-04-09 14:17+0000\n"
+"Last-Translator: Simon Schütte <simonschuette@arcor.de>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-03-27 08:28+0000\n"
-"X-Generator: Launchpad (build 16540)\n"
+"X-Launchpad-Export-Date: 2013-04-14 12:52+0000\n"
+"X-Generator: Launchpad (build 16564)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -82,7 +82,7 @@ msgstr "Weitere Treffer anzeigen"
 
 #: tmp/coverart_browser_prefs.ui.h:1
 msgid "Select a picture"
-msgstr ""
+msgstr "Wählen Sie ein Bild"
 
 #: tmp/coverart_browser_prefs.ui.h:2
 msgid "Select picture to add to Edit Genre icon drop-down list"
@@ -223,7 +223,7 @@ msgstr "Cover"
 
 #: tmp/coverart_browser_prefs.ui.h:34
 msgid "Where the toolbar should be positioned"
-msgstr ""
+msgstr "Wo die Werkzeugleiste platziert sein sollte"
 
 #: tmp/coverart_browser_prefs.ui.h:35
 msgid "Position"
@@ -235,7 +235,7 @@ msgstr "Werkzeugleiste anzeigen: "
 
 #: tmp/coverart_browser_prefs.ui.h:37
 msgid "Look & Feel"
-msgstr ""
+msgstr "Erscheinungsbild & Verhalten"
 
 #: tmp/coverart_browser_prefs.ui.h:38
 msgid "Flat-button style"
@@ -243,55 +243,55 @@ msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:39
 msgid "Icon Theme: "
-msgstr ""
+msgstr "Icon Theme: "
 
 #: tmp/coverart_browser_prefs.ui.h:40
 msgid "Alternative Genres:"
-msgstr ""
+msgstr "Alternative Genres:"
 
 #: tmp/coverart_browser_prefs.ui.h:41
 msgid "Load New Icon: "
-msgstr ""
+msgstr "Neues Icon laden: "
 
 #: tmp/coverart_browser_prefs.ui.h:42
 msgid "Select a new genre icon"
-msgstr ""
+msgstr "Wählen Sie ein neues Genre-Icon"
 
 #: tmp/coverart_browser_prefs.ui.h:43
 msgid "Edit Genre Details:"
-msgstr ""
+msgstr "Genre-Details bearbeiten:"
 
 #: tmp/coverart_browser_prefs.ui.h:44
 msgid "Save changes"
-msgstr ""
+msgstr "Änderungen speichern"
 
 #: tmp/coverart_browser_prefs.ui.h:45
 msgid "Name:"
-msgstr ""
+msgstr "Name :"
 
 #: tmp/coverart_browser_prefs.ui.h:46
 msgid "Icon:"
-msgstr ""
+msgstr "Icon:"
 
 #: tmp/coverart_browser_prefs.ui.h:47
 msgid "Current user-defined Genres:"
-msgstr ""
+msgstr "Nutzerdefinierte Genres verwenden"
 
 #: tmp/coverart_browser_prefs.ui.h:48
 msgid "Alternate Name"
-msgstr ""
+msgstr "Alternativer Name"
 
 #: tmp/coverart_browser_prefs.ui.h:49
 msgid "Icon"
-msgstr ""
+msgstr "Icon"
 
 #: tmp/coverart_browser_prefs.ui.h:50
 msgid "Add a new alternative genre"
-msgstr ""
+msgstr "Alternatives Genre hinzufügen"
 
 #: tmp/coverart_browser_prefs.ui.h:51
 msgid "Delete an alternative genre"
-msgstr ""
+msgstr "Alternatives Genre löschen"
 
 #: tmp/coverart_browser_prefs.ui.h:52
 msgid "Toolbar"
@@ -311,7 +311,7 @@ msgstr "Rechte Seitenleiste"
 
 #: tmp/coverart_browser.ui.h:1
 msgid "Tracks & Covers"
-msgstr "Titel & Cover"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:2
 msgid "Stop coverart fetch."
@@ -386,9 +386,8 @@ msgid "Export album tracks and embed coverart in track files"
 msgstr ""
 
 #: tmp/coverart_browser.ui.h:20
-#, fuzzy
 msgid "Export and embed coverart"
-msgstr "Nach eingebetteten Covern suchen"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:21
 msgid "Show album properties"
@@ -490,7 +489,7 @@ msgstr "Oldies"
 
 #: tmp/popups.xml.in.h:8
 msgid "holiday"
-msgstr ""
+msgstr "Ferien"
 
 #: tmp/popups.xml.in.h:9
 msgid "comedy"
@@ -590,7 +589,7 @@ msgstr ""
 
 #: tmp/popups.xml.in.h:33
 msgid "easy listening"
-msgstr ""
+msgstr "Easy-Listening"
 
 #: tmp/popups.xml.in.h:34
 msgid "hip-hop"
@@ -652,7 +651,7 @@ msgstr " und einer Dauer von %d Minuten"
 
 #: coverart_controllers.py:378
 msgid "Sort by album name"
-msgstr ""
+msgstr "Sortiere nach Album-Name"
 
 #: coverart_controllers.py:379
 msgid "Sort by album artist"
@@ -664,7 +663,7 @@ msgstr "Nach Jahr sortieren"
 
 #: coverart_controllers.py:381
 msgid "Sort by rating"
-msgstr ""
+msgstr "Nach Bewertung sortieren"
 
 #. '20s' as in the decade 2010
 #: coverart_controllers.py:435 coverart_controllers.py:461
@@ -749,18 +748,3 @@ msgstr "Alben durchsuchen"
 #: coverart_controllers.py:557
 msgid "Search tracks"
 msgstr "Spuren durchsuchen"
-
-#~ msgid "Unknown"
-#~ msgstr "Unbekannt"
-
-#~ msgid "Search for coverart on DISCOGS"
-#~ msgstr "Beim DISCOGS nach Covern suchen"
-
-#~ msgid "Search for coverart on the internet provider DISCOGS"
-#~ msgstr "Beim Internetdienst DISCOGS nach Covern suchen"
-
-#~ msgid "Find CoverArt:"
-#~ msgstr "Cover suchen"
-
-#~ msgid "Providers"
-#~ msgstr "Anbieter"

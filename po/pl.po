@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-03-27 08:28+0000\n"
-"X-Generator: Launchpad (build 16540)\n"
+"X-Launchpad-Export-Date: 2013-04-14 12:52+0000\n"
+"X-Generator: Launchpad (build 16564)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -321,7 +321,7 @@ msgstr "Prawy panel"
 
 #: tmp/coverart_browser.ui.h:1
 msgid "Tracks & Covers"
-msgstr "Utwory i okładki"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:2
 msgid "Stop coverart fetch."
@@ -396,9 +396,8 @@ msgid "Export album tracks and embed coverart in track files"
 msgstr ""
 
 #: tmp/coverart_browser.ui.h:20
-#, fuzzy
 msgid "Export and embed coverart"
-msgstr "Szukaj osadzonych okładek"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:21
 msgid "Show album properties"
@@ -759,21 +758,3 @@ msgstr "Wyszukiwanie albumów"
 #: coverart_controllers.py:557
 msgid "Search tracks"
 msgstr "Wyszukaj utwory"
-
-#~ msgid "Search for coverart on DISCOGS"
-#~ msgstr "Szukaj okładek na DISCOGS"
-
-#~ msgid "Providers"
-#~ msgstr "Dostawcy"
-
-#~ msgid "Unknown"
-#~ msgstr "Nieznany"
-
-#~ msgid "Search for coverart on the internet provider DISCOGS"
-#~ msgstr "Szukaj okładek w usłudze internetowej DISCOGS"
-
-#~ msgid "Search for coverart embedded within tracks for an album"
-#~ msgstr "Szukaj okładek dla albumu osadzonych w ścieżkach"
-
-#~ msgid "Find CoverArt:"
-#~ msgstr "Znajdź okładki:"

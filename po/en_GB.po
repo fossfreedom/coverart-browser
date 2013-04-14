@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-14 11:11+0100\n"
-"PO-Revision-Date: 2013-03-26 13:15+0000\n"
+"PO-Revision-Date: 2013-04-14 10:34+0000\n"
 "Last-Translator: fossfreedom <Unknown>\n"
 "Language-Team: English (United Kingdom) <en_GB@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-03-27 08:28+0000\n"
-"X-Generator: Launchpad (build 16540)\n"
+"X-Launchpad-Export-Date: 2013-04-14 12:52+0000\n"
+"X-Generator: Launchpad (build 16564)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -390,12 +390,11 @@ msgstr "Search for covers"
 
 #: tmp/coverart_browser.ui.h:19
 msgid "Export album tracks and embed coverart in track files"
-msgstr ""
+msgstr "Export album tracks and embed coverart in track files"
 
 #: tmp/coverart_browser.ui.h:20
-#, fuzzy
 msgid "Export and embed coverart"
-msgstr "Search for embedded coverart"
+msgstr "Export and embed coverart"
 
 #: tmp/coverart_browser.ui.h:21
 msgid "Show album properties"
@@ -447,25 +446,27 @@ msgstr "All Decades"
 
 #: tmp/coverart_exportembed.ui.h:1
 msgid "Choose folder to save tracks:"
-msgstr ""
+msgstr "Choose folder to save tracks:"
 
 #: tmp/coverart_exportembed.ui.h:2
 msgid "Select a Folder to export to"
-msgstr ""
+msgstr "Select a Folder to export to"
 
 #: tmp/coverart_exportembed.ui.h:3
 msgid "Save tracks within folder using album name"
-msgstr ""
+msgstr "Save tracks within folder using album name"
 
 #: tmp/coverart_exportembed.ui.h:4
 msgid "Open embedded track folder in file-manager"
-msgstr ""
+msgstr "Open embedded track folder in file-manager"
 
 #: tmp/coverart_exportembed.ui.h:5
 msgid ""
 "Tip: Drag and Drop exported tracks from file-manager to a playlist or "
 "telephone/other device"
 msgstr ""
+"Tip: Drag and Drop exported tracks from file-manager to a playlist or "
+"telephone/other device"
 
 #: tmp/popups.xml.in.h:1
 msgid "rock"
@@ -756,21 +757,3 @@ msgstr "Search albums"
 #: coverart_controllers.py:557
 msgid "Search tracks"
 msgstr "Search tracks"
-
-#~ msgid "Search for coverart on DISCOGS"
-#~ msgstr "Search for coverart on DISCOGS"
-
-#~ msgid "Search for coverart on the internet provider DISCOGS"
-#~ msgstr "Search for coverart on the internet provider DISCOGS"
-
-#~ msgid "Providers"
-#~ msgstr "Providers"
-
-#~ msgid "Search for coverart embedded within tracks for an album"
-#~ msgstr "Search for coverart embedded within tracks for an album"
-
-#~ msgid "Unknown"
-#~ msgstr "Unknown"
-
-#~ msgid "Find CoverArt:"
-#~ msgstr "Find CoverArt:"

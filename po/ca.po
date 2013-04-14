@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-14 11:11+0100\n"
-"PO-Revision-Date: 2013-01-17 18:08+0000\n"
+"PO-Revision-Date: 2013-04-14 11:02+0000\n"
 "Last-Translator: VPablo <villumar@gmail.com>\n"
 "Language-Team: Catalan <ca@li.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-03-27 08:28+0000\n"
-"X-Generator: Launchpad (build 16540)\n"
+"X-Launchpad-Export-Date: 2013-04-14 12:52+0000\n"
+"X-Generator: Launchpad (build 16564)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -82,11 +82,13 @@ msgstr "Mostra més resultats"
 
 #: tmp/coverart_browser_prefs.ui.h:1
 msgid "Select a picture"
-msgstr ""
+msgstr "Seleccioneu una imatge"
 
 #: tmp/coverart_browser_prefs.ui.h:2
 msgid "Select picture to add to Edit Genre icon drop-down list"
 msgstr ""
+"Seleccioneu una imatge per afegir-la a la llista desplegable d'Edició de "
+"Gènere"
 
 #: tmp/coverart_browser_prefs.ui.h:3
 msgid "Above"
@@ -246,63 +248,63 @@ msgstr "Mostra la barra d'eines: "
 
 #: tmp/coverart_browser_prefs.ui.h:37
 msgid "Look & Feel"
-msgstr ""
+msgstr "Aspecte"
 
 #: tmp/coverart_browser_prefs.ui.h:38
 msgid "Flat-button style"
-msgstr ""
+msgstr "Estil de botó pla"
 
 #: tmp/coverart_browser_prefs.ui.h:39
 msgid "Icon Theme: "
-msgstr ""
+msgstr "Tema d'icones: "
 
 #: tmp/coverart_browser_prefs.ui.h:40
 msgid "Alternative Genres:"
-msgstr ""
+msgstr "Gèneres Alternatius:"
 
 #: tmp/coverart_browser_prefs.ui.h:41
 msgid "Load New Icon: "
-msgstr ""
+msgstr "Carrega Nou Icona: "
 
 #: tmp/coverart_browser_prefs.ui.h:42
 msgid "Select a new genre icon"
-msgstr ""
+msgstr "Seleccioneu una icona de nou gènere"
 
 #: tmp/coverart_browser_prefs.ui.h:43
 msgid "Edit Genre Details:"
-msgstr ""
+msgstr "Edita Detalls de Gènere:"
 
 #: tmp/coverart_browser_prefs.ui.h:44
 msgid "Save changes"
-msgstr ""
+msgstr "Desa els canvis"
 
 #: tmp/coverart_browser_prefs.ui.h:45
 msgid "Name:"
-msgstr ""
+msgstr "Nom:"
 
 #: tmp/coverart_browser_prefs.ui.h:46
 msgid "Icon:"
-msgstr ""
+msgstr "Icona:"
 
 #: tmp/coverart_browser_prefs.ui.h:47
 msgid "Current user-defined Genres:"
-msgstr ""
+msgstr "Gèneres definits per l'usuari actuals:"
 
 #: tmp/coverart_browser_prefs.ui.h:48
 msgid "Alternate Name"
-msgstr ""
+msgstr "Nom Alternatiu"
 
 #: tmp/coverart_browser_prefs.ui.h:49
 msgid "Icon"
-msgstr ""
+msgstr "Icona"
 
 #: tmp/coverart_browser_prefs.ui.h:50
 msgid "Add a new alternative genre"
-msgstr ""
+msgstr "Afegix un gènere nou alternatiu"
 
 #: tmp/coverart_browser_prefs.ui.h:51
 msgid "Delete an alternative genre"
-msgstr ""
+msgstr "Elimina un gènere alternatiu"
 
 #: tmp/coverart_browser_prefs.ui.h:52
 msgid "Toolbar"
@@ -322,7 +324,7 @@ msgstr "Barra dreta"
 
 #: tmp/coverart_browser.ui.h:1
 msgid "Tracks & Covers"
-msgstr "Cançons & Portades"
+msgstr "Pistes i Cobertes"
 
 #: tmp/coverart_browser.ui.h:2
 msgid "Stop coverart fetch."
@@ -394,12 +396,11 @@ msgstr "Cerca portades"
 
 #: tmp/coverart_browser.ui.h:19
 msgid "Export album tracks and embed coverart in track files"
-msgstr ""
+msgstr "Exporta pistes de l'àlbum i incrusta les cobertes als fitxers de pista"
 
 #: tmp/coverart_browser.ui.h:20
-#, fuzzy
 msgid "Export and embed coverart"
-msgstr "Busca portades incrustades"
+msgstr "Exporta i incrusta cobertes"
 
 #: tmp/coverart_browser.ui.h:21
 msgid "Show album properties"
@@ -451,25 +452,27 @@ msgstr "Totes les dècades"
 
 #: tmp/coverart_exportembed.ui.h:1
 msgid "Choose folder to save tracks:"
-msgstr ""
+msgstr "Tria carpeta per desar les pistes:"
 
 #: tmp/coverart_exportembed.ui.h:2
 msgid "Select a Folder to export to"
-msgstr ""
+msgstr "Tria una carpeta per exportar"
 
 #: tmp/coverart_exportembed.ui.h:3
 msgid "Save tracks within folder using album name"
-msgstr ""
+msgstr "Desa pistes dins de la carpeta usant un nom d'àlbum"
 
 #: tmp/coverart_exportembed.ui.h:4
 msgid "Open embedded track folder in file-manager"
-msgstr ""
+msgstr "Obre directori de pistes incrustat amb el navegador d'arxius"
 
 #: tmp/coverart_exportembed.ui.h:5
 msgid ""
 "Tip: Drag and Drop exported tracks from file-manager to a playlist or "
 "telephone/other device"
 msgstr ""
+"Consell: Arrossega i desa les pistes exportades des del navegador d'arxius a "
+"una llista o un telèfon/altres dispositius"
 
 #: tmp/popups.xml.in.h:1
 msgid "rock"
@@ -760,21 +763,3 @@ msgstr "Cerca els àlbums"
 #: coverart_controllers.py:557
 msgid "Search tracks"
 msgstr "Cerca cançons"
-
-#~ msgid "Search for coverart on DISCOGS"
-#~ msgstr "Busca portades a DISCOGS"
-
-#~ msgid "Find CoverArt:"
-#~ msgstr "Troba CoverArt:"
-
-#~ msgid "Search for coverart on the internet provider DISCOGS"
-#~ msgstr "Busca portades al proveïdor d'Internet DISCOGS"
-
-#~ msgid "Search for coverart embedded within tracks for an album"
-#~ msgstr "Busca portades incrustades dins les cançons d'un àlbum"
-
-#~ msgid "Providers"
-#~ msgstr "Proveïdors"
-
-#~ msgid "Unknown"
-#~ msgstr "Desconeguda"
