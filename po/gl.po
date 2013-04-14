@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-13 13:18+0100\n"
+"POT-Creation-Date: 2013-04-14 11:11+0100\n"
 "PO-Revision-Date: 2013-01-18 06:37+0000\n"
 "Last-Translator: Miguel Anxo Bouzada <mbouzada@gmail.com>\n"
 "Language-Team: Galician <gl@li.org>\n"
@@ -308,90 +308,94 @@ msgid "Right Sidebar"
 msgstr "Barra lateral á dereita"
 
 #: tmp/coverart_browser.ui.h:1
-msgid "Stop coverart fetch."
+msgid "Tracks & Covers"
 msgstr ""
 
 #: tmp/coverart_browser.ui.h:2
+msgid "Stop coverart fetch."
+msgstr ""
+
+#: tmp/coverart_browser.ui.h:3
 msgid "Play this album"
 msgstr "Reproducir este álbum"
 
-#: tmp/coverart_browser.ui.h:3
+#: tmp/coverart_browser.ui.h:4
 msgid "Play Album"
 msgstr "Reproducir o álbum"
 
-#: tmp/coverart_browser.ui.h:4
+#: tmp/coverart_browser.ui.h:5
 msgid "Add this album to your playing queue"
 msgstr "Engadir este álbum á cola de reprodución"
 
-#: tmp/coverart_browser.ui.h:5
+#: tmp/coverart_browser.ui.h:6
 msgid "Queue Album"
 msgstr ""
 
-#: tmp/coverart_browser.ui.h:6 tmp/coverart_entryview.ui.h:5
+#: tmp/coverart_browser.ui.h:7 tmp/coverart_entryview.ui.h:5
 msgid "Add this album to a playlist"
 msgstr "Engadir este álbum á lista de reprodución"
 
-#: tmp/coverart_browser.ui.h:7 tmp/coverart_entryview.ui.h:6
+#: tmp/coverart_browser.ui.h:8 tmp/coverart_entryview.ui.h:6
 msgid "Add to Playlist"
 msgstr "Engadir á lista de reprodución"
 
-#: tmp/coverart_browser.ui.h:8 tmp/coverart_entryview.ui.h:7
+#: tmp/coverart_browser.ui.h:9 tmp/coverart_entryview.ui.h:7
 msgid "Add this album to a new playlist"
 msgstr "Engadir este album á unha nova lista de reprodución"
 
-#: tmp/coverart_browser.ui.h:9 tmp/coverart_entryview.ui.h:8
+#: tmp/coverart_browser.ui.h:10 tmp/coverart_entryview.ui.h:8
 msgid "New Playlist"
 msgstr "Nova lista de reprodución"
 
-#: tmp/coverart_browser.ui.h:10
+#: tmp/coverart_browser.ui.h:11
 msgid "Play favourites tracks from this album"
 msgstr ""
 
-#: tmp/coverart_browser.ui.h:11
+#: tmp/coverart_browser.ui.h:12
 msgid "Play Favourites"
 msgstr ""
 
-#: tmp/coverart_browser.ui.h:12
+#: tmp/coverart_browser.ui.h:13
 msgid "Add favourite tracks from this album to your playing queue"
 msgstr ""
 
-#: tmp/coverart_browser.ui.h:13
+#: tmp/coverart_browser.ui.h:14
 msgid "Queue Favourites"
 msgstr ""
 
-#: tmp/coverart_browser.ui.h:14
+#: tmp/coverart_browser.ui.h:15
 msgid "Add favourite tracks from this album to a playlist"
 msgstr ""
 
-#: tmp/coverart_browser.ui.h:15
+#: tmp/coverart_browser.ui.h:16
 msgid "Add favourites to Playlist"
 msgstr ""
 
-#: tmp/coverart_browser.ui.h:16
+#: tmp/coverart_browser.ui.h:17
 msgid "Search for this album cover"
 msgstr ""
 
-#: tmp/coverart_browser.ui.h:17
+#: tmp/coverart_browser.ui.h:18
 msgid "Search for covers"
 msgstr ""
 
-#: tmp/coverart_browser.ui.h:18
+#: tmp/coverart_browser.ui.h:19
 msgid "Export album tracks and embed coverart in track files"
 msgstr ""
 
-#: tmp/coverart_browser.ui.h:19
+#: tmp/coverart_browser.ui.h:20
 msgid "Export and embed coverart"
 msgstr ""
 
-#: tmp/coverart_browser.ui.h:20
+#: tmp/coverart_browser.ui.h:21
 msgid "Show album properties"
 msgstr ""
 
-#: tmp/coverart_browser.ui.h:21
+#: tmp/coverart_browser.ui.h:22
 msgid "Search for covers where an album does not currently have one"
 msgstr ""
 
-#: tmp/coverart_browser.ui.h:22
+#: tmp/coverart_browser.ui.h:23
 msgid "Download all the covers"
 msgstr "Descargar todas as cubertas"
 
@@ -593,7 +597,7 @@ msgstr "hip-hop"
 msgid "children"
 msgstr ""
 
-#: coverart_album.py:1605 coverart_browser_source.py:779
+#: coverart_album.py:1605 coverart_browser_source.py:780
 #, python-format
 msgid "%s by %s"
 msgstr "%s por %s"
@@ -615,30 +619,30 @@ msgstr "Pistas"
 msgid "Covers"
 msgstr "Cubertas"
 
-#: coverart_browser_source.py:700
+#: coverart_browser_source.py:701
 #, python-format
 msgid "Requesting cover for %s - %s..."
 msgstr ""
 
-#: coverart_browser_source.py:782
+#: coverart_browser_source.py:783
 #, python-format
 msgid "%d selected albums "
 msgstr ""
 
-#: coverart_browser_source.py:786
+#: coverart_browser_source.py:787
 msgid " with 1 track"
 msgstr ""
 
-#: coverart_browser_source.py:788
+#: coverart_browser_source.py:789
 #, python-format
 msgid " with %d tracks"
 msgstr ""
 
-#: coverart_browser_source.py:791
+#: coverart_browser_source.py:792
 msgid " and a duration of 1 minute"
 msgstr ""
 
-#: coverart_browser_source.py:793
+#: coverart_browser_source.py:794
 #, python-format
 msgid " and a duration of %d minutes"
 msgstr ""
