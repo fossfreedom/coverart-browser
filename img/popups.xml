@@ -19,6 +19,7 @@
         <genre xml:lang="zh_CN" spritesheet="genre" name="rock">摇滚</genre>
         <genre xml:lang="zh_TW" spritesheet="genre" name="rock">搖滾</genre>
         <genre spritesheet="genre" name="country">country</genre>
+        <genre xml:lang="az" spritesheet="genre" name="country">ölkə</genre>
         <genre xml:lang="ca" spritesheet="genre" name="country">country</genre>
         <genre xml:lang="de" spritesheet="genre" name="country">Land</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="country">country</genre>
@@ -67,6 +68,7 @@
         <genre xml:lang="zh_CN" spritesheet="genre" name="classical">古典</genre>
         <genre xml:lang="zh_TW" spritesheet="genre" name="classical">古典</genre>
         <genre spritesheet="genre" name="world">world</genre>
+        <genre xml:lang="az" spritesheet="genre" name="world">dünya</genre>
         <genre xml:lang="ca" spritesheet="genre" name="world">món</genre>
         <genre xml:lang="de" spritesheet="genre" name="world">Welt</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="world">world</genre>
@@ -80,6 +82,7 @@
         <genre xml:lang="pl" spritesheet="genre" name="world">świat</genre>
         <genre xml:lang="zh_TW" spritesheet="genre" name="world">世界</genre>
         <genre spritesheet="genre" name="bluegrass">bluegrass</genre>
+        <genre xml:lang="az" spritesheet="genre" name="bluegrass">bluegrass</genre>
         <genre xml:lang="ca" spritesheet="genre" name="bluegrass">bluegrass</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="bluegrass">bluegrass</genre>
         <genre xml:lang="es" spritesheet="genre" name="bluegrass">bluegrass</genre>
@@ -91,6 +94,7 @@
         <genre xml:lang="pl" spritesheet="genre" name="bluegrass">Muzyka bluegrass</genre>
         <genre xml:lang="zh_TW" spritesheet="genre" name="bluegrass">藍草</genre>
         <genre spritesheet="genre" name="oldies">oldies</genre>
+        <genre xml:lang="az" spritesheet="genre" name="oldies">köhnə mahnılar</genre>
         <genre xml:lang="ca" spritesheet="genre" name="oldies">antigues</genre>
         <genre xml:lang="de" spritesheet="genre" name="oldies">Oldies</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="oldies">oldies</genre>
@@ -128,6 +132,7 @@
         <genre xml:lang="pl" spritesheet="genre" name="comedy">komedia</genre>
         <genre xml:lang="zh_TW" spritesheet="genre" name="comedy">喜劇</genre>
         <genre spritesheet="genre" name="spoken">spoken</genre>
+        <genre xml:lang="az" spritesheet="genre" name="spoken">danışıq</genre>
         <genre xml:lang="ca" spritesheet="genre" name="spoken">parlat</genre>
         <genre xml:lang="de" spritesheet="genre" name="spoken">gesprochen</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="spoken">spoken</genre>
@@ -155,6 +160,7 @@
         <genre xml:lang="zh_CN" spritesheet="genre" name="jazz">爵士</genre>
         <genre xml:lang="zh_TW" spritesheet="genre" name="jazz">爵士</genre>
         <genre spritesheet="genre" name="blues">blues</genre>
+        <genre xml:lang="az" spritesheet="genre" name="blues">gəmgin</genre>
         <genre xml:lang="ca" spritesheet="genre" name="blues">blues</genre>
         <genre xml:lang="de" spritesheet="genre" name="blues">Blues</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="blues">blues</genre>
@@ -216,6 +222,7 @@
         <genre xml:lang="zh_CN" spritesheet="genre" name="rap">说唱</genre>
         <genre xml:lang="zh_TW" spritesheet="genre" name="rap">饒舌</genre>
         <genre spritesheet="genre" name="ragtime">ragtime</genre>
+        <genre xml:lang="az" spritesheet="genre" name="ragtime">ragtime</genre>
         <genre xml:lang="ca" spritesheet="genre" name="ragtime">ragtime</genre>
         <genre xml:lang="de" spritesheet="genre" name="ragtime">Ragtime</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="ragtime">ragtime</genre>
@@ -227,6 +234,7 @@
         <genre xml:lang="ms" spritesheet="genre" name="ragtime">ragtime</genre>
         <genre xml:lang="pl" spritesheet="genre" name="ragtime">ragtime</genre>
         <genre spritesheet="genre" name="musical">musical</genre>
+        <genre xml:lang="az" spritesheet="genre" name="musical">nyuzikl</genre>
         <genre xml:lang="ca" spritesheet="genre" name="musical">musical</genre>
         <genre xml:lang="de" spritesheet="genre" name="musical">Musical</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="musical">musical</genre>
@@ -284,6 +292,7 @@
         <genre xml:lang="zh_CN" spritesheet="genre" name="electronic">电子</genre>
         <genre xml:lang="zh_TW" spritesheet="genre" name="electronic">電音</genre>
         <genre spritesheet="genre" name="soundtrack">soundtrack</genre>
+        <genre xml:lang="az" spritesheet="genre" name="soundtrack">soundtrak</genre>
         <genre xml:lang="ca" spritesheet="genre" name="soundtrack">banda sonora</genre>
         <genre xml:lang="de" spritesheet="genre" name="soundtrack">Soundtrack</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="soundtrack">soundtrack</genre>
@@ -354,6 +363,7 @@
         <genre xml:lang="zh_CN" spritesheet="genre" name="folk">民俗</genre>
         <genre xml:lang="zh_TW" spritesheet="genre" name="folk">民俗</genre>
         <genre spritesheet="genre" name="gospel">gospel</genre>
+        <genre xml:lang="az" spritesheet="genre" name="gospel">gospel</genre>
         <genre xml:lang="ca" spritesheet="genre" name="gospel">gospel</genre>
         <genre xml:lang="de" spritesheet="genre" name="gospel">Gospel</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="gospel">gospel</genre>
@@ -427,6 +437,7 @@
         <genre xml:lang="zh_CN" spritesheet="genre" name="anime">动漫</genre>
         <genre xml:lang="zh_TW" spritesheet="genre" name="anime">動漫</genre>
         <genre spritesheet="genre" name="soul">soul</genre>
+        <genre xml:lang="az" spritesheet="genre" name="soul">könül</genre>
         <genre xml:lang="ca" spritesheet="genre" name="soul">soul</genre>
         <genre xml:lang="de" spritesheet="genre" name="soul">Soul</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="soul">soul</genre>
@@ -463,6 +474,7 @@
         <genre xml:lang="it" spritesheet="genre" name="easy listening">easy listening</genre>
         <genre xml:lang="ms" spritesheet="genre" name="easy listening">sedap didengar</genre>
         <genre xml:lang="pl" spritesheet="genre" name="easy listening">easy listening</genre>
+        <genre xml:lang="pt_BR" spritesheet="genre" name="easy listening">música orquestrada</genre>
         <genre xml:lang="zh_CN" spritesheet="genre" name="easy listening">轻音乐</genre>
         <genre spritesheet="genre" name="hip-hop">hip-hop</genre>
         <genre xml:lang="az" spritesheet="genre" name="hip-hop">hip-hop</genre>

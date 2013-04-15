@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-14 11:11+0100\n"
-"PO-Revision-Date: 2013-01-09 13:27+0000\n"
-"Last-Translator: Rafael Neri <Unknown>\n"
+"PO-Revision-Date: 2013-04-14 14:42+0000\n"
+"Last-Translator: João Santana <joaosantana@outlook.com>\n"
 "Language-Team: none\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-04-14 12:52+0000\n"
+"X-Launchpad-Export-Date: 2013-04-15 11:28+0000\n"
 "X-Generator: Launchpad (build 16564)\n"
 "Generated-By: pygettext.py 1.5\n"
 
@@ -297,7 +297,7 @@ msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:51
 msgid "Delete an alternative genre"
-msgstr ""
+msgstr "Apagar um gênero alternativo"
 
 #: tmp/coverart_browser_prefs.ui.h:52
 msgid "Toolbar"
@@ -595,7 +595,7 @@ msgstr ""
 
 #: tmp/popups.xml.in.h:33
 msgid "easy listening"
-msgstr ""
+msgstr "música orquestrada"
 
 #: tmp/popups.xml.in.h:34
 msgid "hip-hop"
@@ -684,7 +684,7 @@ msgstr ""
 #. '00s' as in the decade 2000
 #: coverart_controllers.py:439
 msgid "00s"
-msgstr ""
+msgstr "anos 00"
 
 #. '90s' as in the decade 1990
 #: coverart_controllers.py:441

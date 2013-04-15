@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-14 11:11+0100\n"
-"PO-Revision-Date: 2013-03-27 05:41+0000\n"
+"PO-Revision-Date: 2013-04-14 15:18+0000\n"
 "Last-Translator: abuyop <Unknown>\n"
 "Language-Team: Malay <ms@li.org>\n"
 "Language: ms\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-04-14 12:52+0000\n"
+"X-Launchpad-Export-Date: 2013-04-15 11:28+0000\n"
 "X-Generator: Launchpad (build 16564)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
@@ -318,7 +318,7 @@ msgstr "Palang Sisi Kanan"
 
 #: tmp/coverart_browser.ui.h:1
 msgid "Tracks & Covers"
-msgstr ""
+msgstr "Trek & Kulit Album"
 
 #: tmp/coverart_browser.ui.h:2
 msgid "Stop coverart fetch."
@@ -390,11 +390,11 @@ msgstr "Gelintar untuk kulit"
 
 #: tmp/coverart_browser.ui.h:19
 msgid "Export album tracks and embed coverart in track files"
-msgstr ""
+msgstr "Eksport trek album dan seni kulit album terbenam dalam fail trek"
 
 #: tmp/coverart_browser.ui.h:20
 msgid "Export and embed coverart"
-msgstr ""
+msgstr "Seni kulit album terbenam & eksport"
 
 #: tmp/coverart_browser.ui.h:21
 msgid "Show album properties"
@@ -446,25 +446,27 @@ msgstr "Semua Dekad"
 
 #: tmp/coverart_exportembed.ui.h:1
 msgid "Choose folder to save tracks:"
-msgstr ""
+msgstr "Pilih folder untuk menyimpan trek:"
 
 #: tmp/coverart_exportembed.ui.h:2
 msgid "Select a Folder to export to"
-msgstr ""
+msgstr "Pilih satu Folder untuk dieksportkan"
 
 #: tmp/coverart_exportembed.ui.h:3
 msgid "Save tracks within folder using album name"
-msgstr ""
+msgstr "Simpan trek di dalam folder menggunakan nama album"
 
 #: tmp/coverart_exportembed.ui.h:4
 msgid "Open embedded track folder in file-manager"
-msgstr ""
+msgstr "Buka folder trek terbenam di dalam pengurus-fail"
 
 #: tmp/coverart_exportembed.ui.h:5
 msgid ""
 "Tip: Drag and Drop exported tracks from file-manager to a playlist or "
 "telephone/other device"
 msgstr ""
+"Petua: Seret dan Lepas trek tereksport dari pengurus-fail ke dalam senarai "
+"main atau telefon/peranti lain"
 
 #: tmp/popups.xml.in.h:1
 msgid "rock"

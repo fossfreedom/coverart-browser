@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-14 11:11+0100\n"
-"PO-Revision-Date: 2013-01-10 11:49+0000\n"
-"Last-Translator: Emin Mastizada <emin25@ovi.com>\n"
+"PO-Revision-Date: 2013-04-14 14:12+0000\n"
+"Last-Translator: Rashid Aliyev <Unknown>\n"
 "Language-Team: Azerbaijani <az@li.org>\n"
 "Language: az\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-04-14 12:52+0000\n"
+"X-Launchpad-Export-Date: 2013-04-15 11:28+0000\n"
 "X-Generator: Launchpad (build 16564)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
@@ -80,7 +80,7 @@ msgstr "Daha çox nəticə göstər"
 
 #: tmp/coverart_browser_prefs.ui.h:1
 msgid "Select a picture"
-msgstr ""
+msgstr "Şəkil seçin"
 
 #: tmp/coverart_browser_prefs.ui.h:2
 msgid "Select picture to add to Edit Genre icon drop-down list"
@@ -112,7 +112,7 @@ msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:9
 msgid "Use source's custom statusbar."
-msgstr ""
+msgstr "Məbəənin istifadəçi vəziyyət panelindən istifadə et."
 
 #: tmp/coverart_browser_prefs.ui.h:10
 msgid ""
@@ -129,7 +129,7 @@ msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:12
 msgid "Display tracks and covers pane"
-msgstr ""
+msgstr "Yollar və üz panelini əks etdir"
 
 #: tmp/coverart_browser_prefs.ui.h:13
 msgid ""
@@ -147,15 +147,15 @@ msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:16
 msgid "General"
-msgstr ""
+msgstr "Ümumi"
 
 #: tmp/coverart_browser_prefs.ui.h:17
 msgid "Album Information"
-msgstr ""
+msgstr "Albom haqda məlumat"
 
 #: tmp/coverart_browser_prefs.ui.h:18
 msgid "Display album's info under cover"
-msgstr ""
+msgstr "Albom hada məlumatı üzlüyün aşağısında göstər"
 
 #: tmp/coverart_browser_prefs.ui.h:19
 msgid "Show the album&apos;s basic information under the cover image."
@@ -163,19 +163,19 @@ msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:20
 msgid "Show the album's basic information under the cover image."
-msgstr ""
+msgstr "ALbom hada sadə məlumatı albomun üzlük şəklinin altında görüntülə."
 
 #: tmp/coverart_browser_prefs.ui.h:21
 msgid "Font size for the text below the cover-art."
-msgstr ""
+msgstr "Üzlük altındakı mətnin ölçüsü"
 
 #: tmp/coverart_browser_prefs.ui.h:22
 msgid "Font Size:"
-msgstr ""
+msgstr "Şriftin Ölçüsü:"
 
 #: tmp/coverart_browser_prefs.ui.h:23
 msgid "Ellipsize albums names"
-msgstr ""
+msgstr "Albomların adlarını yuvarla"
 
 #: tmp/coverart_browser_prefs.ui.h:24
 msgid ""
@@ -189,23 +189,24 @@ msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:26
 msgid "Maximum length:"
-msgstr ""
+msgstr "Maksimal uzunluq:"
 
 #: tmp/coverart_browser_prefs.ui.h:27
 msgid "Cover Appearance"
-msgstr ""
+msgstr "Üzlük şəkilin görüntüsü"
 
 #: tmp/coverart_browser_prefs.ui.h:28
 msgid "Drop shadow"
-msgstr ""
+msgstr "Kölkəsini əks etdir"
 
 #: tmp/coverart_browser_prefs.ui.h:29
 msgid "Indicates if the albums should drop a shadow on the cover view"
 msgstr ""
+"ALbomun üz qabığının görüntüsündə kölkənin əks olunub-olunmamasını təyin edir"
 
 #: tmp/coverart_browser_prefs.ui.h:30
 msgid "Light Source: "
-msgstr ""
+msgstr "İşıq mənbəyi: "
 
 #: tmp/coverart_browser_prefs.ui.h:31
 msgid "Defines the size for the covers showed on the source."
@@ -213,87 +214,87 @@ msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:32
 msgid "Size (in pixels):"
-msgstr ""
+msgstr "Ölçü (piksellə):"
 
 #: tmp/coverart_browser_prefs.ui.h:33
 msgid "Cover"
-msgstr ""
+msgstr "Üzlük"
 
 #: tmp/coverart_browser_prefs.ui.h:34
 msgid "Where the toolbar should be positioned"
-msgstr ""
+msgstr "Alətlər paneli harda yerləşdirilməlidir"
 
 #: tmp/coverart_browser_prefs.ui.h:35
 msgid "Position"
-msgstr ""
+msgstr "Səviyyə"
 
 #: tmp/coverart_browser_prefs.ui.h:36
 msgid "Show toolbar: "
-msgstr ""
+msgstr "Alət panelini göstər: "
 
 #: tmp/coverart_browser_prefs.ui.h:37
 msgid "Look & Feel"
-msgstr ""
+msgstr "Bax və hiss et"
 
 #: tmp/coverart_browser_prefs.ui.h:38
 msgid "Flat-button style"
-msgstr ""
+msgstr "Yastı-düymə stili"
 
 #: tmp/coverart_browser_prefs.ui.h:39
 msgid "Icon Theme: "
-msgstr ""
+msgstr "İkon Mövzusu: "
 
 #: tmp/coverart_browser_prefs.ui.h:40
 msgid "Alternative Genres:"
-msgstr ""
+msgstr "Alternativ Janrlar:"
 
 #: tmp/coverart_browser_prefs.ui.h:41
 msgid "Load New Icon: "
-msgstr ""
+msgstr "Yeni ikon yüklə: "
 
 #: tmp/coverart_browser_prefs.ui.h:42
 msgid "Select a new genre icon"
-msgstr ""
+msgstr "Yeni janr üçün ikon seç"
 
 #: tmp/coverart_browser_prefs.ui.h:43
 msgid "Edit Genre Details:"
-msgstr ""
+msgstr "Janr məlumatlarını redaktə et:"
 
 #: tmp/coverart_browser_prefs.ui.h:44
 msgid "Save changes"
-msgstr ""
+msgstr "Dəyişiklikləri yaddaşa al"
 
 #: tmp/coverart_browser_prefs.ui.h:45
 msgid "Name:"
-msgstr ""
+msgstr "Ad:"
 
 #: tmp/coverart_browser_prefs.ui.h:46
 msgid "Icon:"
-msgstr ""
+msgstr "İkon"
 
 #: tmp/coverart_browser_prefs.ui.h:47
 msgid "Current user-defined Genres:"
-msgstr ""
+msgstr "İstifadəçinin yaratdığı janrlar:"
 
 #: tmp/coverart_browser_prefs.ui.h:48
 msgid "Alternate Name"
-msgstr ""
+msgstr "Alternativ Ad"
 
 #: tmp/coverart_browser_prefs.ui.h:49
 msgid "Icon"
-msgstr ""
+msgstr "İkon"
 
 #: tmp/coverart_browser_prefs.ui.h:50
 msgid "Add a new alternative genre"
-msgstr ""
+msgstr "Yeni alternativ janr əlavə et"
 
 #: tmp/coverart_browser_prefs.ui.h:51
 msgid "Delete an alternative genre"
-msgstr ""
+msgstr "Alternativ janrı sil"
 
 #: tmp/coverart_browser_prefs.ui.h:52
 msgid "Toolbar"
-msgstr ""
+msgstr "Alətlər paneli"
 
 #: tmp/coverart_browser_prefs.ui.h:53
 msgid "Above Cover View"
@@ -309,51 +310,51 @@ msgstr "Sağ Yan Panel"
 
 #: tmp/coverart_browser.ui.h:1
 msgid "Tracks & Covers"
-msgstr ""
+msgstr "Mahnılar və üzlüklər"
 
 #: tmp/coverart_browser.ui.h:2
 msgid "Stop coverart fetch."
-msgstr ""
+msgstr "Üzlükləri yükləməyi dayandır"
 
 #: tmp/coverart_browser.ui.h:3
 msgid "Play this album"
-msgstr ""
+msgstr "Bu albomu oxud"
 
 #: tmp/coverart_browser.ui.h:4
 msgid "Play Album"
-msgstr ""
+msgstr "Albomu oxud"
 
 #: tmp/coverart_browser.ui.h:5
 msgid "Add this album to your playing queue"
-msgstr ""
+msgstr "Bu albomu öz mahnı siyahınıza növbəyə əlavə edin"
 
 #: tmp/coverart_browser.ui.h:6
 msgid "Queue Album"
-msgstr ""
+msgstr "Albomu növbəyə sal"
 
 #: tmp/coverart_browser.ui.h:7 tmp/coverart_entryview.ui.h:5
 msgid "Add this album to a playlist"
-msgstr ""
+msgstr "Bu albomu mahnı siyahısına əlavə et"
 
 #: tmp/coverart_browser.ui.h:8 tmp/coverart_entryview.ui.h:6
 msgid "Add to Playlist"
-msgstr ""
+msgstr "Mahnı siyahsına əlavə et"
 
 #: tmp/coverart_browser.ui.h:9 tmp/coverart_entryview.ui.h:7
 msgid "Add this album to a new playlist"
-msgstr ""
+msgstr "Bu albomu yeni mahnı siyahısına əlavə et"
 
 #: tmp/coverart_browser.ui.h:10 tmp/coverart_entryview.ui.h:8
 msgid "New Playlist"
-msgstr ""
+msgstr "Yeni müsiqi siyahısı"
 
 #: tmp/coverart_browser.ui.h:11
 msgid "Play favourites tracks from this album"
-msgstr ""
+msgstr "Bu albomdakı favorit mahnıları oxu"
 
 #: tmp/coverart_browser.ui.h:12
 msgid "Play Favourites"
-msgstr ""
+msgstr "Favoritləri oxu"
 
 #: tmp/coverart_browser.ui.h:13
 msgid "Add favourite tracks from this album to your playing queue"
@@ -361,7 +362,7 @@ msgstr ""
 
 #: tmp/coverart_browser.ui.h:14
 msgid "Queue Favourites"
-msgstr ""
+msgstr "Favoritləri növbəyə sal"
 
 #: tmp/coverart_browser.ui.h:15
 msgid "Add favourite tracks from this album to a playlist"
@@ -369,15 +370,15 @@ msgstr ""
 
 #: tmp/coverart_browser.ui.h:16
 msgid "Add favourites to Playlist"
-msgstr ""
+msgstr "Favoritləri mahnı syahısına əlavə et"
 
 #: tmp/coverart_browser.ui.h:17
 msgid "Search for this album cover"
-msgstr ""
+msgstr "Bu albomun üzlük şəklini axtar"
 
 #: tmp/coverart_browser.ui.h:18
 msgid "Search for covers"
-msgstr ""
+msgstr "Üzlkülər axtarışı"
 
 #: tmp/coverart_browser.ui.h:19
 msgid "Export album tracks and embed coverart in track files"
@@ -385,11 +386,11 @@ msgstr ""
 
 #: tmp/coverart_browser.ui.h:20
 msgid "Export and embed coverart"
-msgstr ""
+msgstr "Üz qabığını ixrac et və daxilinə həkk et"
 
 #: tmp/coverart_browser.ui.h:21
 msgid "Show album properties"
-msgstr ""
+msgstr "Albomun xüsusiyyətlərini göstər"
 
 #: tmp/coverart_browser.ui.h:22
 msgid "Search for covers where an album does not currently have one"
@@ -397,15 +398,15 @@ msgstr ""
 
 #: tmp/coverart_browser.ui.h:23
 msgid "Download all the covers"
-msgstr ""
+msgstr "Bütün üzlükləri yüklə"
 
 #: tmp/coverart_entryview.ui.h:1
 msgid "Play this track"
-msgstr ""
+msgstr "Bu mahnını oxu"
 
 #: tmp/coverart_entryview.ui.h:2
 msgid "Play Track"
-msgstr ""
+msgstr "Mahnını oxu"
 
 #: tmp/coverart_entryview.ui.h:3
 msgid "Add this track to your playing queue"
@@ -413,35 +414,35 @@ msgstr ""
 
 #: tmp/coverart_entryview.ui.h:4
 msgid "Queue Track"
-msgstr ""
+msgstr "Mahnını növbəyə sal"
 
 #: tmp/coverart_entryview.ui.h:9
 msgid "Show track properties"
-msgstr ""
+msgstr "Mahnının xüsusiyyətlərini göstər"
 
 #: tmp/coverart_sidebar.ui.h:1 coverart_browser.py:102
 msgid "CoverArt"
-msgstr ""
+msgstr "CoverArt"
 
 #. initial genre
 #: tmp/coverart_sidebar.ui.h:2 tmp/coverart_topbar.ui.h:1
 #: coverart_controllers.py:211 coverart_controllers.py:263
 #: coverart_controllers.py:362
 msgid "All Genres"
-msgstr ""
+msgstr "Bütün Janrlar"
 
 #: tmp/coverart_sidebar.ui.h:3 tmp/coverart_topbar.ui.h:2
 #: coverart_controllers.py:433
 msgid "All Decades"
-msgstr ""
+msgstr "Bütün araklqkar"
 
 #: tmp/coverart_exportembed.ui.h:1
 msgid "Choose folder to save tracks:"
-msgstr ""
+msgstr "Mahnıları köçürməj üçün qovluğu seç:"
 
 #: tmp/coverart_exportembed.ui.h:2
 msgid "Select a Folder to export to"
-msgstr ""
+msgstr "İxrac etmək üçün qovluğu seç"
 
 #: tmp/coverart_exportembed.ui.h:3
 msgid "Save tracks within folder using album name"
@@ -463,7 +464,7 @@ msgstr "rok"
 
 #: tmp/popups.xml.in.h:2
 msgid "country"
-msgstr ""
+msgstr "ölkə"
 
 #: tmp/popups.xml.in.h:3
 msgid "pop"
@@ -475,15 +476,15 @@ msgstr "klassik"
 
 #: tmp/popups.xml.in.h:5
 msgid "world"
-msgstr ""
+msgstr "dünya"
 
 #: tmp/popups.xml.in.h:6
 msgid "bluegrass"
-msgstr ""
+msgstr "bluegrass"
 
 #: tmp/popups.xml.in.h:7
 msgid "oldies"
-msgstr ""
+msgstr "köhnə mahnılar"
 
 #: tmp/popups.xml.in.h:8
 msgid "holiday"
@@ -495,7 +496,7 @@ msgstr "komediya"
 
 #: tmp/popups.xml.in.h:10
 msgid "spoken"
-msgstr ""
+msgstr "danışıq"
 
 #: tmp/popups.xml.in.h:11
 msgid "jazz"
@@ -503,7 +504,7 @@ msgstr "cazz"
 
 #: tmp/popups.xml.in.h:12
 msgid "blues"
-msgstr ""
+msgstr "gəmgin"
 
 #: tmp/popups.xml.in.h:13
 msgid "metal"
@@ -519,11 +520,11 @@ msgstr "rep"
 
 #: tmp/popups.xml.in.h:16
 msgid "ragtime"
-msgstr ""
+msgstr "ragtime"
 
 #: tmp/popups.xml.in.h:17
 msgid "musical"
-msgstr ""
+msgstr "nyuzikl"
 
 #: tmp/popups.xml.in.h:18
 msgid "dance"
@@ -539,7 +540,7 @@ msgstr "elektronik"
 
 #: tmp/popups.xml.in.h:21
 msgid "soundtrack"
-msgstr ""
+msgstr "soundtrak"
 
 #: tmp/popups.xml.in.h:22
 msgid "latin"
@@ -559,7 +560,7 @@ msgstr "folk"
 
 #: tmp/popups.xml.in.h:26
 msgid "gospel"
-msgstr ""
+msgstr "gospel"
 
 #: tmp/popups.xml.in.h:27
 msgid "experimental"
@@ -579,7 +580,7 @@ msgstr "anime"
 
 #: tmp/popups.xml.in.h:31
 msgid "soul"
-msgstr ""
+msgstr "könül"
 
 #: tmp/popups.xml.in.h:32
 msgid "workout"
@@ -600,12 +601,12 @@ msgstr "uşaqlar"
 #: coverart_album.py:1605 coverart_browser_source.py:780
 #, python-format
 msgid "%s by %s"
-msgstr ""
+msgstr "%s - %s"
 
 #. define .plugin text strings used for translation
 #: coverart_browser.py:71
 msgid "CoverArt Browser"
-msgstr ""
+msgstr "CoverArt gəzgini"
 
 #: coverart_browser.py:72
 msgid "Browse and play your albums through their covers"
@@ -613,11 +614,11 @@ msgstr ""
 
 #: coverart_browser_source.py:260
 msgid "Tracks"
-msgstr ""
+msgstr "Mahnılar"
 
 #: coverart_browser_source.py:300
 msgid "Covers"
-msgstr ""
+msgstr "Üzlüklər"
 
 #: coverart_browser_source.py:701
 #, python-format
@@ -631,12 +632,12 @@ msgstr ""
 
 #: coverart_browser_source.py:787
 msgid " with 1 track"
-msgstr ""
+msgstr " 1 mahnı ilə"
 
 #: coverart_browser_source.py:789
 #, python-format
 msgid " with %d tracks"
-msgstr ""
+msgstr " %d mahnısı ilə birgə"
 
 #: coverart_browser_source.py:792
 msgid " and a duration of 1 minute"
@@ -649,19 +650,19 @@ msgstr ""
 
 #: coverart_controllers.py:378
 msgid "Sort by album name"
-msgstr ""
+msgstr "Albom adı ilə düz"
 
 #: coverart_controllers.py:379
 msgid "Sort by album artist"
-msgstr ""
+msgstr "Albomun müəllifi adı ilə düz"
 
 #: coverart_controllers.py:380
 msgid "Sort by year"
-msgstr ""
+msgstr "İlinə görə düz"
 
 #: coverart_controllers.py:381
 msgid "Sort by rating"
-msgstr ""
+msgstr "Reytinqinə görə düz"
 
 #. '20s' as in the decade 2010
 #: coverart_controllers.py:435 coverart_controllers.py:461
@@ -716,33 +717,33 @@ msgstr "30-cu illər"
 #. 'Older' as in 'older than the year 1930'
 #: coverart_controllers.py:455
 msgid "Older"
-msgstr ""
+msgstr "Köhnə"
 
 #. options
 #: coverart_controllers.py:500
 msgid "Sort in descending order"
-msgstr ""
+msgstr "Azalma üzrə düz"
 
 #: coverart_controllers.py:501
 msgid "Sort in ascending order"
-msgstr ""
+msgstr "Artma üzrə düz"
 
 #: coverart_controllers.py:553
 msgid "Search all fields"
-msgstr ""
+msgstr "Bütün xanalarda axtar"
 
 #: coverart_controllers.py:554
 msgid "Search album artists"
-msgstr ""
+msgstr "Albomun müəllifini axtar"
 
 #: coverart_controllers.py:555
 msgid "Search track artists"
-msgstr ""
+msgstr "Mahnıların ifaçısına görə axtar"
 
 #: coverart_controllers.py:556
 msgid "Search albums"
-msgstr ""
+msgstr "Albomlarda axtar"
 
 #: coverart_controllers.py:557
 msgid "Search tracks"
-msgstr ""
+msgstr "Mahnılarda axtar"
