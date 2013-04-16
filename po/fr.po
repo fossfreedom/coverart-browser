@@ -14,14 +14,14 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-14 11:11+0100\n"
-"PO-Revision-Date: 2013-03-30 23:29+0000\n"
+"PO-Revision-Date: 2013-04-16 00:41+0000\n"
 "Last-Translator: Hélion du Mas des Bourboux <helion331990@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-04-15 11:28+0000\n"
+"X-Launchpad-Export-Date: 2013-04-16 08:32+0000\n"
 "X-Generator: Launchpad (build 16564)\n"
 "Generated-By: Babel 0.9.6\n"
 
@@ -338,7 +338,7 @@ msgstr "Dans la barre latérale droite"
 
 #: tmp/coverart_browser.ui.h:1
 msgid "Tracks & Covers"
-msgstr ""
+msgstr "Pistes & Jaquettes"
 
 #: tmp/coverart_browser.ui.h:2
 msgid "Stop coverart fetch."
@@ -411,10 +411,12 @@ msgstr "Rechercher les jaquettes"
 #: tmp/coverart_browser.ui.h:19
 msgid "Export album tracks and embed coverart in track files"
 msgstr ""
+"Exporter, dans les fichiers des pistes, les pistes de l'album et leurs "
+"intégrer la jaquette"
 
 #: tmp/coverart_browser.ui.h:20
 msgid "Export and embed coverart"
-msgstr ""
+msgstr "Exporter et associer la jaquette"
 
 #: tmp/coverart_browser.ui.h:21
 msgid "Show album properties"
@@ -466,25 +468,29 @@ msgstr "Toutes les décennies"
 
 #: tmp/coverart_exportembed.ui.h:1
 msgid "Choose folder to save tracks:"
-msgstr ""
+msgstr "Choisir dans quel dossier enregistrer les pistes :"
 
 #: tmp/coverart_exportembed.ui.h:2
 msgid "Select a Folder to export to"
-msgstr ""
+msgstr "Choisir un dossier où exporter"
 
 #: tmp/coverart_exportembed.ui.h:3
 msgid "Save tracks within folder using album name"
-msgstr ""
+msgstr "Enregistrer les pistes dans un dossier du nom de l'album"
 
 #: tmp/coverart_exportembed.ui.h:4
 msgid "Open embedded track folder in file-manager"
 msgstr ""
+"Ouvrir le dossier contenant les pistes à jaquettes intégrées dans votre "
+"gestionnaire de fichiers"
 
 #: tmp/coverart_exportembed.ui.h:5
 msgid ""
 "Tip: Drag and Drop exported tracks from file-manager to a playlist or "
 "telephone/other device"
 msgstr ""
+"Astuce : Glisser-déposer les pistes exportées depuis votre gestionnaire de "
+"fichiers vers une liste de lecture ou un téléphone (ou autre périphérique)"
 
 #: tmp/popups.xml.in.h:1
 msgid "rock"

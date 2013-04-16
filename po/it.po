@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-14 11:11+0100\n"
-"PO-Revision-Date: 2013-01-14 13:12+0000\n"
+"PO-Revision-Date: 2013-04-15 12:57+0000\n"
 "Last-Translator: Gianfranco Frisani <gfrisani@libero.it>\n"
 "Language-Team: Italian <it@li.org>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-04-15 11:28+0000\n"
+"X-Launchpad-Export-Date: 2013-04-16 08:32+0000\n"
 "X-Generator: Launchpad (build 16564)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
@@ -82,11 +82,13 @@ msgstr "Mostra altri risultati"
 
 #: tmp/coverart_browser_prefs.ui.h:1
 msgid "Select a picture"
-msgstr ""
+msgstr "Seleziona un'immagine"
 
 #: tmp/coverart_browser_prefs.ui.h:2
 msgid "Select picture to add to Edit Genre icon drop-down list"
 msgstr ""
+"Seleziona un'immagine da aggiungere all'elenco a discesa delle icone nella "
+"modifica del genere"
 
 #: tmp/coverart_browser_prefs.ui.h:3
 msgid "Above"
@@ -254,63 +256,63 @@ msgstr "Mostra la barra degli strumenti: "
 
 #: tmp/coverart_browser_prefs.ui.h:37
 msgid "Look & Feel"
-msgstr ""
+msgstr "Aspetto"
 
 #: tmp/coverart_browser_prefs.ui.h:38
 msgid "Flat-button style"
-msgstr ""
+msgstr "Stile pulsante piatto"
 
 #: tmp/coverart_browser_prefs.ui.h:39
 msgid "Icon Theme: "
-msgstr ""
+msgstr "Tema dell'icona: "
 
 #: tmp/coverart_browser_prefs.ui.h:40
 msgid "Alternative Genres:"
-msgstr ""
+msgstr "Generi alternativi:"
 
 #: tmp/coverart_browser_prefs.ui.h:41
 msgid "Load New Icon: "
-msgstr ""
+msgstr "Carica nuova icona: "
 
 #: tmp/coverart_browser_prefs.ui.h:42
 msgid "Select a new genre icon"
-msgstr ""
+msgstr "Seleziona una nuova icona di genere"
 
 #: tmp/coverart_browser_prefs.ui.h:43
 msgid "Edit Genre Details:"
-msgstr ""
+msgstr "Modifica dettagli dei generi:"
 
 #: tmp/coverart_browser_prefs.ui.h:44
 msgid "Save changes"
-msgstr ""
+msgstr "Salva le modifiche"
 
 #: tmp/coverart_browser_prefs.ui.h:45
 msgid "Name:"
-msgstr ""
+msgstr "Nome:"
 
 #: tmp/coverart_browser_prefs.ui.h:46
 msgid "Icon:"
-msgstr ""
+msgstr "Icona:"
 
 #: tmp/coverart_browser_prefs.ui.h:47
 msgid "Current user-defined Genres:"
-msgstr ""
+msgstr "Generi definiti dall'attuale utente:"
 
 #: tmp/coverart_browser_prefs.ui.h:48
 msgid "Alternate Name"
-msgstr ""
+msgstr "Nome alternativo"
 
 #: tmp/coverart_browser_prefs.ui.h:49
 msgid "Icon"
-msgstr ""
+msgstr "Icona"
 
 #: tmp/coverart_browser_prefs.ui.h:50
 msgid "Add a new alternative genre"
-msgstr ""
+msgstr "Aggiungere un nuovo genere alternativo"
 
 #: tmp/coverart_browser_prefs.ui.h:51
 msgid "Delete an alternative genre"
-msgstr ""
+msgstr "Elimina un genere alternativo"
 
 #: tmp/coverart_browser_prefs.ui.h:52
 msgid "Toolbar"
@@ -330,7 +332,7 @@ msgstr "Barra laterale destra"
 
 #: tmp/coverart_browser.ui.h:1
 msgid "Tracks & Covers"
-msgstr ""
+msgstr "Tracce e copertine"
 
 #: tmp/coverart_browser.ui.h:2
 msgid "Stop coverart fetch."
@@ -403,10 +405,11 @@ msgstr "Cerca copertine"
 #: tmp/coverart_browser.ui.h:19
 msgid "Export album tracks and embed coverart in track files"
 msgstr ""
+"Esporta le tracce di un album e incorpora le coverart nei file delle tracce."
 
 #: tmp/coverart_browser.ui.h:20
 msgid "Export and embed coverart"
-msgstr ""
+msgstr "Esporta e incorpora le coverart"
 
 #: tmp/coverart_browser.ui.h:21
 msgid "Show album properties"
@@ -458,25 +461,27 @@ msgstr "Tutte le decadi"
 
 #: tmp/coverart_exportembed.ui.h:1
 msgid "Choose folder to save tracks:"
-msgstr ""
+msgstr "Scegliere la cartella in cui salvare le tracce:"
 
 #: tmp/coverart_exportembed.ui.h:2
 msgid "Select a Folder to export to"
-msgstr ""
+msgstr "Selezionare una cartella in cui esportare"
 
 #: tmp/coverart_exportembed.ui.h:3
 msgid "Save tracks within folder using album name"
-msgstr ""
+msgstr "Salva le tracce in una cartella con il nome dell'album"
 
 #: tmp/coverart_exportembed.ui.h:4
 msgid "Open embedded track folder in file-manager"
-msgstr ""
+msgstr "Apre la cartella con la traccia incorporata nel gestore di file"
 
 #: tmp/coverart_exportembed.ui.h:5
 msgid ""
 "Tip: Drag and Drop exported tracks from file-manager to a playlist or "
 "telephone/other device"
 msgstr ""
+"Suggerimento: trascinare le tracce dal gestore di file nella playlist, nel "
+"telefono o in altro dispositivo"
 
 #: tmp/popups.xml.in.h:1
 msgid "rock"
