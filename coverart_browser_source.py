@@ -213,7 +213,10 @@ class CoverArtBrowserSource(RB.Source):
         self.playlist_sub_menu_item = ui.get_object('playlist_sub_menu_item')
         self.favourite_playlist_sub_menu_item = ui.get_object(
             'favourite_playlist_sub_menu_item')
-
+            
+        self.export_embed_menu_item = ui.get_object(
+            'export_embed_menu_item')
+        
         # quick search
         self.quick_search = ui.get_object('quick_search_entry')
 
@@ -317,6 +320,12 @@ class CoverArtBrowserSource(RB.Source):
         self.quick_search_controller = AlbumQuickSearchController(
             self.album_manager)
         self.quick_search_controller.connect_quick_search(self.quick_search)
+
+        # set sensitivity of export menu item for iconview
+        self.export_embed_menu_item.set_sensitive(
+            CoverArtExport(self.plugin,
+                self.shell, self.album_manager).is_search_plugin_enabled())
+
 
         print "CoverArtBrowser DEBUG - end _setup_source"
 

@@ -23,7 +23,6 @@ from gi.repository import GLib
 from gi.repository import RB
 from gi.repository import Gdk
 from coverart_album import Album
-from coverart_search_tracks import CoverArtTracks
 import rb
 import shutil
 import urllib
@@ -42,6 +41,16 @@ class CoverArtExport(GObject.Object):
         self.shell = shell
         self.album_manager = album_manager
         
+    def is_search_plugin_enabled(self):
+        # very dirty hack - lets tidy this correctly for v0.9
+        
+        try:
+            from coverart_search_tracks import CoverArtTracks
+        except:
+            return False
+        
+        return True
+        
     def embed_albums(self, selected_albums):
         '''
         method to create the menu items for all supported plugins
@@ -49,6 +58,9 @@ class CoverArtExport(GObject.Object):
         :selected_albums: `Album` - array of albums
         
         '''
+        # temporarily move this import to here for v0.8
+        # need to separate the two plugins correctly for v0.9
+        from coverart_search_tracks import CoverArtTracks
         
         search_tracks = CoverArtTracks()
         playlist_manager = self.shell.props.playlist_manager
