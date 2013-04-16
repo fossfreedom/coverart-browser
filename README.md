@@ -1,4 +1,4 @@
-coverart-browser v0.8 (in development)
+#coverart-browser v0.8 (in development)
 ================
 
 Browse your coverart albums in Rhythmbox v2.96 and later
@@ -7,9 +7,18 @@ Browse your coverart albums in Rhythmbox v2.96 and later
 
 -----------
 
-**Please help out with translating - skip to the end for details**
+##Authors
 
-Summary: whats new in this release
+ - asermax <asermax@gmail.com>, website - https://github.com/asermax
+
+[![Flattr Button](http://api.flattr.com/button/button-compact-static-100x17.png "Flattr This!")](https://flattr.com/thing/9345f3f0142a83b01bb3a4503cabcca8 "asermax")
+
+ - fossfreedom <foss.freedom@gmail.com>, website - https://github.com/fossfreedom
+
+[![Flattr Button](http://api.flattr.com/button/button-compact-static-100x17.png "Flattr This!")](https://flattr.com/thing/1238849/fossfreedom-at-Flattr "fossfreedom")  [![paypaldonate](https://www.paypalobjects.com/en_GB/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KBV682WJ3BDGL)
+-----------
+
+##Summary: whats new in this release
 
  - Export whole albums and embed coverart in the album tracks so that some phones can display coverart correctly
  - Drag & Drop CoverArt icons onto playlists and sources (such as a phone) so that all tracks for an album are added
@@ -90,12 +99,6 @@ When emailing - tell me your locale & language.  You can find these by typing:
 
     echo $LANG
     echo $LANGUAGE
-
--------
-
-Authors:
-
-The authors of this plugin are fossfreedom <foss.freedom@gmail.com>, Agustín Carrasco <asermax@gmail.com>
 
 -------
 
