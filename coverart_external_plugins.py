@@ -37,6 +37,7 @@ class ExternalPlugin(GObject.Object):
 
         self.attributes = {}
         self.attributes['is_album_menu'] = False
+        self.attributes['new_menu_name'] = ''
 
     def is_activated(self):
         '''
@@ -85,7 +86,10 @@ class ExternalPlugin(GObject.Object):
         if action:
             self.attributes['action']=action
             self.attributes['tooltip']=action.get_tooltip()
-            self.attributes['label']=action.get_label()
+            if self.attributes['new_menu_name'] != '':
+                self.attributes['label'] = self.attributes['new_menu_name']
+            else:
+                self.attributes['label']=action.get_label()
             self.attributes['visible']=action.get_visible()
             self.attributes['sensitive']=action.get_sensitive()
         else:
@@ -183,6 +187,16 @@ class lLyrics(ExternalPlugin):
         self.attributes['action_group_name'] = 'lLyricsPluginPopupActions'
         self.attributes['action_name'] = 'lLyricsPopupAction'
         self.attributes['is_album_menu'] = False
+        
+class wikipediasearch(ExternalPlugin):
+    def __init__(self, **kargs):
+        super(wikipediasearch, self).__init__(**kargs)
+
+        self.attributes['plugin_name'] = 'WikipediaSearch'
+        self.attributes['action_group_name'] = 'WikipediaActions'
+        self.attributes['action_name'] = 'SearchWikipediaAlbum'
+        self.attributes['new_menu_name'] = 'WikipediaSearch - Album'
+        self.attributes['is_album_menu'] = True
 
 class CreateExternalPluginMenu(GObject.Object):
     '''
@@ -206,7 +220,8 @@ class CreateExternalPluginMenu(GObject.Object):
             SendTo(),
             LastFMExtensionFingerprinter(),
             FileOrganizer(),
-            lLyrics() ]
+            lLyrics(),
+            wikipediasearch() ]
 
     def create_menu(self, menu_bar, at_position, for_album = False):
         '''

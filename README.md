@@ -23,7 +23,7 @@ Summary: whats new in this release
  - Allow user-defined genre icons to be displayed. These can override system genre icons if required
  - Support for other plugins via right-click menu options in a similar manner as the Library Browser - 
 
- OpenContainingFolder, SendFirst, Send Track, LastFMExtension - Fingerprinter, FileOrganizer, lLyrics
+ OpenContainingFolder, SendFirst, Send Track, LastFMExtension - Fingerprinter, FileOrganizer, lLyrics, WikipediaSearch
 
  N.B. if NOT using my PPA then ensure you have the very latest version of the plugins installed.
 
