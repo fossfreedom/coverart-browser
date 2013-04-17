@@ -11,7 +11,7 @@ Browse your coverart albums in Rhythmbox v2.96 and later
 
  - asermax <asermax@gmail.com>, website - https://github.com/asermax
 
-[![Flattr Button](http://api.flattr.com/button/button-compact-static-100x17.png "Flattr This!")](http://flattr.com/thing/1262052/asermax-on-GitHub) "asermax")
+[![Flattr Button](http://api.flattr.com/button/button-compact-static-100x17.png "Flattr This!")](http://flattr.com/thing/1262052/asermax-on-GitHub "asermax")
 
  - fossfreedom <foss.freedom@gmail.com>, website - https://github.com/fossfreedom
 
