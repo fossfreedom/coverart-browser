@@ -3,13 +3,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>CoverArt Browser: Class Members - Functions</title>
+<title>Coverart Browser: Class Members - Functions</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-
-<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
   $(document).ready(function() { searchBox.OnSelectItem(0); });
@@ -27,10 +32,10 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">CoverArt Browser
-   &#160;<span id="projectnumber">0.7</span>
+   <div id="projectname">Coverart Browser
+   &#160;<span id="projectnumber">v0.8</span>
    </div>
-   <div id="projectbrief">Browser your rhythmbox collection by their album cover</div>
+   <div id="projectbrief">Browse your cover-art albums in Rhythmbox</div>
   </td>
   
   
@@ -47,6 +52,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -79,365 +85,200 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="functions.html"><span>All</span></a></li>
       <li class="current"><a href="functions_func.html"><span>Functions</span></a></li>
+      <li><a href="functions_vars.html"><span>Variables</span></a></li>
+      <li><a href="functions_prop.html"><span>Properties</span></a></li>
     </ul>
   </div>
   <div id="navrow4" class="tabs3">
     <ul class="tablist">
-      <li><a href="#index__"><span>_</span></a></li>
-      <li><a href="#index_a"><span>a</span></a></li>
-      <li><a href="#index_b"><span>b</span></a></li>
-      <li><a href="#index_c"><span>c</span></a></li>
-      <li><a href="#index_d"><span>d</span></a></li>
-      <li><a href="#index_g"><span>g</span></a></li>
-      <li><a href="#index_i"><span>i</span></a></li>
-      <li><a href="#index_l"><span>l</span></a></li>
-      <li><a href="#index_m"><span>m</span></a></li>
-      <li><a href="#index_n"><span>n</span></a></li>
-      <li><a href="#index_o"><span>o</span></a></li>
-      <li><a href="#index_p"><span>p</span></a></li>
-      <li><a href="#index_q"><span>q</span></a></li>
-      <li><a href="#index_r"><span>r</span></a></li>
-      <li><a href="#index_s"><span>s</span></a></li>
-      <li><a href="#index_u"><span>u</span></a></li>
+      <li class="current"><a href="functions_func.html#index__"><span>_</span></a></li>
+      <li><a href="functions_func_0x61.html#index_a"><span>a</span></a></li>
+      <li><a href="functions_func_0x62.html#index_b"><span>b</span></a></li>
+      <li><a href="functions_func_0x63.html#index_c"><span>c</span></a></li>
+      <li><a href="functions_func_0x64.html#index_d"><span>d</span></a></li>
+      <li><a href="functions_func_0x65.html#index_e"><span>e</span></a></li>
+      <li><a href="functions_func_0x66.html#index_f"><span>f</span></a></li>
+      <li><a href="functions_func_0x67.html#index_g"><span>g</span></a></li>
+      <li><a href="functions_func_0x68.html#index_h"><span>h</span></a></li>
+      <li><a href="functions_func_0x69.html#index_i"><span>i</span></a></li>
+      <li><a href="functions_func_0x6b.html#index_k"><span>k</span></a></li>
+      <li><a href="functions_func_0x6c.html#index_l"><span>l</span></a></li>
+      <li><a href="functions_func_0x6d.html#index_m"><span>m</span></a></li>
+      <li><a href="functions_func_0x6e.html#index_n"><span>n</span></a></li>
+      <li><a href="functions_func_0x6f.html#index_o"><span>o</span></a></li>
+      <li><a href="functions_func_0x70.html#index_p"><span>p</span></a></li>
+      <li><a href="functions_func_0x71.html#index_q"><span>q</span></a></li>
+      <li><a href="functions_func_0x72.html#index_r"><span>r</span></a></li>
+      <li><a href="functions_func_0x73.html#index_s"><span>s</span></a></li>
+      <li><a href="functions_func_0x74.html#index_t"><span>t</span></a></li>
+      <li><a href="functions_func_0x75.html#index_u"><span>u</span></a></li>
+      <li><a href="functions_func_0x79.html#index_y"><span>y</span></a></li>
     </ul>
   </div>
 </div>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+  initNavTree('functions_func.html','');
+</script>
+<div id="doc-content">
 <div class="contents">
 &#160;
 
 <h3><a class="anchor" id="index__"></a>- _ -</h3><ul>
+<li>__call__()
+: <a class="el" href="classcoverart__utils_1_1_idle_call_iterator.html#aa26ba18c7d1d7fb2271d31d43a21035e">coverart_utils.IdleCallIterator</a>
+</li>
+<li>__contains__()
+: <a class="el" href="classcoverart__utils_1_1_sorted_collection.html#ad3012f9568384abb6ffb29b1e431f854">coverart_utils.SortedCollection</a>
+, <a class="el" href="classcoverart__utils_1_1_case_insensitive_dict.html#a731f3bf125a26a1ab4d90103b86f42f4">coverart_utils.CaseInsensitiveDict</a>
+, <a class="el" href="classcoverart__utils_1_1_configured_sprite_sheet.html#a13167e8444d3af7ad6da4da61f9deaa9">coverart_utils.ConfiguredSpriteSheet</a>
+</li>
+<li>__del__()
+: <a class="el" href="classcoverart__entryview_1_1_cover_art_entry_view.html#acd6e67211fe28a8a734266c7f2abdac6">coverart_entryview.CoverArtEntryView</a>
+</li>
+<li>__eq__()
+: <a class="el" href="classcoverart__album_1_1_track.html#a2c8c06c91f07e7ed341a76f2d80c8ccb">coverart_album.Track</a>
+, <a class="el" href="classcoverart__album_1_1_album.html#af1c77435cabe078b70c457e855751e07">coverart_album.Album</a>
+</li>
+<li>__ge__()
+: <a class="el" href="classcoverart__utils_1_1_natural_string.html#a1d48ca0451b79211b19ef02babdf3c7c">coverart_utils.NaturalString</a>
+</li>
 <li>__getattr__()
 : <a class="el" href="classcoverart__browser__prefs_1_1_cover_locale.html#aa1940a153feb7d86cd9f711bd3952ee7">coverart_browser_prefs.CoverLocale</a>
 , <a class="el" href="classcoverart__browser__prefs_1_1_g_setting.html#af6912e1fb1aa861e1786bade99d583bb">coverart_browser_prefs.GSetting</a>
+, <a class="el" href="classcoverart__utils_1_1_reversed_sorted_collection.html#ae915e2e5fe680e92fc27a594e4f95a12">coverart_utils.ReversedSortedCollection</a>
+, <a class="el" href="classcoverart__utils_1_1_theme.html#a54ec54ddd7d201452febb85db67f5d89">coverart_utils.Theme</a>
+</li>
+<li>__getitem__()
+: <a class="el" href="classcoverart__utils_1_1_configured_sprite_sheet.html#ab1dc393810c08dd92ab8da097f372060">coverart_utils.ConfiguredSpriteSheet</a>
+, <a class="el" href="classcoverart__utils_1_1_genre_configured_sprite_sheet.html#ae1375c79fadfb676015004a461a44b48">coverart_utils.GenreConfiguredSpriteSheet</a>
+, <a class="el" href="classcoverart__utils_1_1_case_insensitive_dict.html#ac4f4720c8625538fc69b3131afb3475c">coverart_utils.CaseInsensitiveDict</a>
+, <a class="el" href="classcoverart__utils_1_1_sorted_collection.html#a640f98a871fac5a3427e9ed68175e2b9">coverart_utils.SortedCollection</a>
+, <a class="el" href="classcoverart__utils_1_1_reversed_sorted_collection.html#af2243796bf9d70f8c3089d8e64f665dd">coverart_utils.ReversedSortedCollection</a>
+, <a class="el" href="classcoverart__utils_1_1_sprite_sheet.html#a3934e8e2635b02cd4d7c5b885bc7e5d2">coverart_utils.SpriteSheet</a>
+</li>
+<li>__gt__()
+: <a class="el" href="classcoverart__utils_1_1_natural_string.html#a09ab040ff1a66361b3a20ae261a4c19e">coverart_utils.NaturalString</a>
 </li>
 <li>__init__()
-: <a class="el" href="classcoverart__browser_1_1_cover_art_browser_plugin.html#aff994210366d97f35e85115ced66a165">coverart_browser.CoverArtBrowserPlugin</a>
-, <a class="el" href="classcoverart__widgets_1_1_image_toggle_button.html#accd0f84e5852a54913bf546186257adb">coverart_widgets.ImageToggleButton</a>
+: <a class="el" href="classcoverart__browser_1_1_cover_art_browser_entry_type.html#a107d5628558e39f18ec53860e3c6e859">coverart_browser.CoverArtBrowserEntryType</a>
+, <a class="el" href="classcoverart__utils_1_1_reversed_sorted_collection.html#ac53a083ab1378d6b78dbbf1011d95305">coverart_utils.ReversedSortedCollection</a>
+, <a class="el" href="classcoverart__utils_1_1_idle_call_iterator.html#a967c2f02593eed0f1005d06d8d4b56ea">coverart_utils.IdleCallIterator</a>
+, <a class="el" href="classcoverart__browser_1_1_cover_art_browser_plugin.html#aff994210366d97f35e85115ced66a165">coverart_browser.CoverArtBrowserPlugin</a>
+, <a class="el" href="classstars_1_1_star_ratings_widget.html#a92320d7714f87906147dfec68b51abea">stars.StarRatingsWidget</a>
+, <a class="el" href="classstars_1_1_star.html#a5d476fd1f9082e5b9cd92d4b5c460eb4">stars.Star</a>
+, <a class="el" href="classstars_1_1_star_renderer.html#a80f450f53a8bb0802c0071c464840f70">stars.StarRenderer</a>
+, <a class="el" href="classstars_1_1_shape_star.html#a2fbb6feb75ef9f294375570d256b84f7">stars.ShapeStar</a>
+, <a class="el" href="classcoverart__widgets_1_1_paned_collapsible.html#a4522225b62ef938e1d93007843798522">coverart_widgets.PanedCollapsible</a>
+, <a class="el" href="classcoverart__widgets_1_1_enhanced_icon_view.html#ab4d5ca33bda0cd89d7fbba54d81b6d90">coverart_widgets.EnhancedIconView</a>
+, <a class="el" href="classcoverart__utils_1_1_theme_1_1__impl.html#a408ba0b49dd0ac820d47c0c9efcc0433">coverart_utils.Theme._impl</a>
+, <a class="el" href="classcoverart__utils_1_1_theme.html#a6d637f29f9fb8b2cae564802aa8e71bb">coverart_utils.Theme</a>
+, <a class="el" href="classcoverart__widgets_1_1_proxy_popup_button.html#a80c4a5d666f0c74b9892b71cf977b550">coverart_widgets.ProxyPopupButton</a>
+, <a class="el" href="classcoverart__widgets_1_1_quick_search_entry.html#a7813f54fe7495ea2b718e2f2427b54a6">coverart_widgets.QuickSearchEntry</a>
+, <a class="el" href="classcoverart__widgets_1_1_search_entry.html#aeb331fec5c7ca33ba5a0dfd2335540c1">coverart_widgets.SearchEntry</a>
+, <a class="el" href="classcoverart__browser__prefs_1_1_cover_locale_1_1____impl.html#af4e24c4a678d313080b7f0d146a01187">coverart_browser_prefs.CoverLocale.__impl</a>
 , <a class="el" href="classcoverart__widgets_1_1_popup_button.html#aa219785885f317290118d599c7e1995a">coverart_widgets.PopupButton</a>
-, <a class="el" href="classcoverart__search__providers_1_1_cover_art_album_search_plugin.html#a9f9c6988e744865b9f86c1c4a8f65f54">coverart_search_providers.CoverArtAlbumSearchPlugin</a>
-, <a class="el" href="classcoverart__search_1_1_cover_search_pane.html#a053c0d434b4cdb54ca453d4688f436df">coverart_search.CoverSearchPane</a>
-, <a class="el" href="classcoverart__entryview_1_1_cover_art_entry_view.html#aa41ddf95918cf8e316546b1604334ac1">coverart_entryview.CoverArtEntryView</a>
-, <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a258cc42772e4eb0bab9b0eac962de794">coverart_browser_source.CoverArtBrowserSource</a>
+, <a class="el" href="classcoverart__widgets_1_1_pixbuf_button.html#af038c72a9bd16fd4c6d7dcf01af5fd2b">coverart_widgets.PixbufButton</a>
+, <a class="el" href="classcoverart__utils_1_1_sprite_sheet.html#a1508d995af987102351a797e6a39db7a">coverart_utils.SpriteSheet</a>
+, <a class="el" href="classcoverart__utils_1_1_configured_sprite_sheet.html#a6b83b04dfd8225db0d79525708194b7e">coverart_utils.ConfiguredSpriteSheet</a>
+, <a class="el" href="classcoverart__browser__prefs_1_1_cover_locale.html#a41e95deacdb141d34fa2c87530f5c46a">coverart_browser_prefs.CoverLocale</a>
+, <a class="el" href="classcoverart__utils_1_1_genre_configured_sprite_sheet.html#a5a479ecc52100a0c2d6d076f17323779">coverart_utils.GenreConfiguredSpriteSheet</a>
+, <a class="el" href="classcoverart__utils_1_1_case_insensitive_dict.html#a8247460e54ddde9b2230f46dc6c97b48">coverart_utils.CaseInsensitiveDict</a>
+, <a class="el" href="classcoverart__browser__prefs_1_1_g_setting_1_1____impl.html#aebbffd2db6a47e6f559fd6851d251f07">coverart_browser_prefs.GSetting.__impl</a>
+, <a class="el" href="classcoverart__widgets_1_1_options_widget.html#a1202b2f154d483650e6b545135e9a018">coverart_widgets.OptionsWidget</a>
+, <a class="el" href="classcoverart__widgets_1_1_options_popup_widget.html#a279c2434b4abcb7a8f1b1088c1b5a16a">coverart_widgets.OptionsPopupWidget</a>
 , <a class="el" href="classcoverart__browser__prefs_1_1_g_setting.html#a2facc913f18011fdbe9e23b87571cf13">coverart_browser_prefs.GSetting</a>
 , <a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#a0a75c7fe4178aea037ea9fa536585889">coverart_browser_prefs.Preferences</a>
-, <a class="el" href="classcoverart__browser__prefs_1_1_g_setting_1_1____impl.html#aebbffd2db6a47e6f559fd6851d251f07">coverart_browser_prefs.GSetting.__impl</a>
-, <a class="el" href="classcoverart__browser__prefs_1_1_cover_locale.html#a41e95deacdb141d34fa2c87530f5c46a">coverart_browser_prefs.CoverLocale</a>
-, <a class="el" href="classcoverart__browser__prefs_1_1_cover_locale_1_1____impl.html#af4e24c4a678d313080b7f0d146a01187">coverart_browser_prefs.CoverLocale.__impl</a>
-, <a class="el" href="classcoverart__browser_1_1_cover_art_browser_entry_type.html#a107d5628558e39f18ec53860e3c6e859">coverart_browser.CoverArtBrowserEntryType</a>
+, <a class="el" href="classcoverart__utils_1_1_sorted_collection.html#a07f1c7b0b20f3f94fa16c14fb2503a4a">coverart_utils.SortedCollection</a>
+, <a class="el" href="classcoverart__utils_1_1_natural_string.html#a09a9a939a47fca7a645bbe85fb15246e">coverart_utils.NaturalString</a>
+, <a class="el" href="classcoverart__search_1_1_cover_search_pane.html#a053c0d434b4cdb54ca453d4688f436df">coverart_search.CoverSearchPane</a>
+, <a class="el" href="classcoverart__widgets_1_1_image_toggle_button.html#accd0f84e5852a54913bf546186257adb">coverart_widgets.ImageToggleButton</a>
+, <a class="el" href="classcoverart__external__plugins_1_1wikipediasearch.html#a44c6ac7d63d0dca33020efa6f7038ac0">coverart_external_plugins.wikipediasearch</a>
+, <a class="el" href="classcoverart__external__plugins_1_1l_lyrics.html#a5fbd946cef588d410f5216c59757e7d6">coverart_external_plugins.lLyrics</a>
+, <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a258cc42772e4eb0bab9b0eac962de794">coverart_browser_source.CoverArtBrowserSource</a>
+, <a class="el" href="classcoverart__album_1_1_cover.html#ac27bb2238a689a96419a74d75f985b29">coverart_album.Cover</a>
+, <a class="el" href="classcoverart__external__plugins_1_1_send_to.html#aa19298749cb0194a2e4969293ac2c820">coverart_external_plugins.SendTo</a>
+, <a class="el" href="classcoverart__external__plugins_1_1_send_first.html#a4360e123240702f0e527264c6ded1b6f">coverart_external_plugins.SendFirst</a>
+, <a class="el" href="classcoverart__external__plugins_1_1_open_containing_folder.html#acb56a6d73a2a71b0a11d25a1584492e1">coverart_external_plugins.OpenContainingFolder</a>
+, <a class="el" href="classcoverart__browser__source_1_1_toolbar.html#aa8d3cddd897b20d4db8142206700af09">coverart_browser_source.Toolbar</a>
+, <a class="el" href="classcoverart__export_1_1_cover_art_export.html#a7477ca0971f9db6631f5dc4651307e29">coverart_export.CoverArtExport</a>
+, <a class="el" href="classcoverart__entryview_1_1_cover_art_entry_view.html#aa41ddf95918cf8e316546b1604334ac1">coverart_entryview.CoverArtEntryView</a>
+, <a class="el" href="classcoverart__widgets_1_1_options_list_view_widget.html#ab1d3ae93bf7aa63d92a4a2e075527489">coverart_widgets.OptionsListViewWidget</a>
+, <a class="el" href="classcoverart__widgets_1_1_list_view_button.html#adada2e81246854ca6c8b05a0d18df0e4">coverart_widgets.ListViewButton</a>
+, <a class="el" href="classcoverart__controllers_1_1_sort_order_toggle_controller.html#aa94c1361119e57d0ecb4dbad304771a6">coverart_controllers.SortOrderToggleController</a>
+, <a class="el" href="classcoverart__controllers_1_1_decade_popup_controller.html#ab2bae00f073286826a9d10dc81317d57">coverart_controllers.DecadePopupController</a>
+, <a class="el" href="classcoverart__controllers_1_1_sort_popup_controller.html#a197a6a6e49868010859f50926e1d0f1c">coverart_controllers.SortPopupController</a>
+, <a class="el" href="classstars_1_1_reactive_star.html#ae3d1064d56f7889f5fa2607d997b7b4e">stars.ReactiveStar</a>
+, <a class="el" href="classcoverart__browser__source_1_1_toolbar_manager.html#ab23cd4c441149d089cd79e82d77c53a6">coverart_browser_source.ToolbarManager</a>
+, <a class="el" href="classcoverart__album_1_1_shadow.html#a7ad3b9014b187ccb26f1745529aee2de">coverart_album.Shadow</a>
+, <a class="el" href="classcoverart__controllers_1_1_options_controller.html#aeaa1058d37ffaed37aee3365aec9a33c">coverart_controllers.OptionsController</a>
+, <a class="el" href="classcoverart__controllers_1_1_playlist_popup_controller.html#a2a6b6258a33d9556c420616202248464">coverart_controllers.PlaylistPopupController</a>
+, <a class="el" href="classcoverart__album_1_1_shadowed_cover.html#a6da2df2c849de7e3da857cddd3d32bef">coverart_album.ShadowedCover</a>
+, <a class="el" href="classcoverart__controllers_1_1_genre_popup_controller.html#aeb4c4416da26a99023a61c16ba59eb48">coverart_controllers.GenrePopupController</a>
+, <a class="el" href="classcoverart__album_1_1_track.html#a95b86003d9c0797ed438c41214444e16">coverart_album.Track</a>
+, <a class="el" href="classcoverart__album_1_1_album.html#a63959a33149a1d88a6b58998c1ba7184">coverart_album.Album</a>
+, <a class="el" href="classcoverart__controllers_1_1_album_search_entry_controller.html#af361398486d2e2ebbe6352631bbcf105">coverart_controllers.AlbumSearchEntryController</a>
+, <a class="el" href="classcoverart__controllers_1_1_album_quick_search_controller.html#aacd9062f4ab16fc2ad4b56268139c633">coverart_controllers.AlbumQuickSearchController</a>
+, <a class="el" href="classcoverart__album_1_1_albums_model.html#a0bbc8c63d5f2658eb6ea6e89ae07b86b">coverart_album.AlbumsModel</a>
+, <a class="el" href="classcoverart__album_1_1_album_loader.html#a23c2747dfb74d0e99529c3f9d63cc9b9">coverart_album.AlbumLoader</a>
+, <a class="el" href="classcoverart__album_1_1_album_manager.html#a61e6dd039b5912427406a82813fba34c">coverart_album.AlbumManager</a>
+, <a class="el" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#a8add27c644ec8efa0d5f2161419a49d9">coverart_external_plugins.CreateExternalPluginMenu</a>
+, <a class="el" href="classcoverart__album_1_1_text_manager.html#aac06bc62edc48ea764060e991bbe1dba">coverart_album.TextManager</a>
+, <a class="el" href="classcoverart__external__plugins_1_1_file_organizer.html#a715cac6fba4d6a4157235894b5fdc0e8">coverart_external_plugins.FileOrganizer</a>
+, <a class="el" href="classcoverart__external__plugins_1_1_external_plugin.html#a0b9cef109b21f6475a136f31d9d20805">coverart_external_plugins.ExternalPlugin</a>
+, <a class="el" href="classcoverart__album_1_1_cover_requester.html#a2e31bd3bbd54cadd59a72613d3cb0d21">coverart_album.CoverRequester</a>
+, <a class="el" href="classcoverart__album_1_1_cover_manager.html#a18ad7c6892d3f929c526b401ca300dee">coverart_album.CoverManager</a>
+, <a class="el" href="classcoverart__external__plugins_1_1_last_f_m_extension_fingerprinter.html#a3dbe4d402167972ce6eac8743cdcf885">coverart_external_plugins.LastFMExtensionFingerprinter</a>
+, <a class="el" href="classcoverart__album_1_1_album_showing_policy.html#aaa4044f222faf7fe7a7a21417d19c017">coverart_album.AlbumShowingPolicy</a>
+</li>
+<li>__iter__()
+: <a class="el" href="classcoverart__utils_1_1_sorted_collection.html#a7688297a2267a8b00ecfebb54bd8d23e">coverart_utils.SortedCollection</a>
+, <a class="el" href="classcoverart__utils_1_1_reversed_sorted_collection.html#ad0b880d335d410dd989c7bd5add5dee7">coverart_utils.ReversedSortedCollection</a>
+, <a class="el" href="classcoverart__utils_1_1_case_insensitive_dict.html#ae33c5e60c07e059914edec09488629e4">coverart_utils.CaseInsensitiveDict</a>
+</li>
+<li>__le__()
+: <a class="el" href="classcoverart__utils_1_1_natural_string.html#acdb43931e5a10579f5f830652a0c5316">coverart_utils.NaturalString</a>
+</li>
+<li>__len__()
+: <a class="el" href="classcoverart__utils_1_1_sprite_sheet.html#ae7fc3e52a621eb8697646b9fa10d6d14">coverart_utils.SpriteSheet</a>
+, <a class="el" href="classcoverart__utils_1_1_case_insensitive_dict.html#a856bcdbdb3ed1797b9fdbbb2402b95e1">coverart_utils.CaseInsensitiveDict</a>
+, <a class="el" href="classcoverart__utils_1_1_reversed_sorted_collection.html#a13e3891aea12bbc97c3a4f2763231e45">coverart_utils.ReversedSortedCollection</a>
+, <a class="el" href="classcoverart__utils_1_1_configured_sprite_sheet.html#a140e34ee73c82b30b91434a1a9995ba2">coverart_utils.ConfiguredSpriteSheet</a>
+, <a class="el" href="classcoverart__utils_1_1_sorted_collection.html#a2a3e3890e778b081460df36ee5dfadaa">coverart_utils.SortedCollection</a>
+</li>
+<li>__lt__()
+: <a class="el" href="classcoverart__utils_1_1_natural_string.html#a9c0fbe940efb5dc7a0fe715180f68472">coverart_utils.NaturalString</a>
+</li>
+<li>__ne__()
+: <a class="el" href="classcoverart__album_1_1_album.html#a0e3a15fcb044b6896b63359161b9cbaa">coverart_album.Album</a>
+</li>
+<li>__reduce__()
+: <a class="el" href="classcoverart__utils_1_1_sorted_collection.html#a9717176be7fc024a5711a7502a900f6a">coverart_utils.SortedCollection</a>
+, <a class="el" href="classcoverart__utils_1_1_reversed_sorted_collection.html#ad0ffa45f46f89671b9849595e1a72514">coverart_utils.ReversedSortedCollection</a>
+</li>
+<li>__repr__()
+: <a class="el" href="classcoverart__utils_1_1_sorted_collection.html#a18571ea165170a5fc1ad762e034bcb00">coverart_utils.SortedCollection</a>
+, <a class="el" href="classcoverart__utils_1_1_reversed_sorted_collection.html#ac84e07390f8289d258017994b0e67ce0">coverart_utils.ReversedSortedCollection</a>
+</li>
+<li>__reversed__()
+: <a class="el" href="classcoverart__utils_1_1_reversed_sorted_collection.html#a26382c7cbcebe17b0a4fe8480af99c5c">coverart_utils.ReversedSortedCollection</a>
+, <a class="el" href="classcoverart__utils_1_1_sorted_collection.html#ae4ccc5e7276f9f33a0571df94cbfc857">coverart_utils.SortedCollection</a>
 </li>
 <li>__setattr__()
-: <a class="el" href="classcoverart__browser__prefs_1_1_cover_locale.html#ac0407cc75bb09d724ca05ffa64f743b5">coverart_browser_prefs.CoverLocale</a>
-, <a class="el" href="classcoverart__browser__prefs_1_1_g_setting.html#a2c1a7bd006616078198ae878dc906da6">coverart_browser_prefs.GSetting</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_a"></a>- a -</h3><ul>
-<li>add()
-: <a class="el" href="classcoverart__album_1_1_albums_model.html#ac6146d843a94d617d2828ccc088f409c">coverart_album.AlbumsModel</a>
-</li>
-<li>add_menuitem()
-: <a class="el" href="classcoverart__widgets_1_1_options_popup_widget.html#acb7f9b48cc5030a1e4ce72a76c2d6ce4">coverart_widgets.OptionsPopupWidget</a>
-</li>
-<li>add_track()
-: <a class="el" href="classcoverart__album_1_1_album.html#a0f78a357ee116999ae5249cf260d865e">coverart_album.Album</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_b"></a>- b -</h3><ul>
-<li>bottom_expander_expanded_callback()
-: <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a178b85b080bc4672d3fdfeb3dc7b92d2">coverart_browser_source.CoverArtBrowserSource</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_c"></a>- c -</h3><ul>
-<li>cancel_cover_request()
-: <a class="el" href="classcoverart__album_1_1_cover_manager.html#a552bbf04218ad0da645adbbb0c0e77ba">coverart_album.CoverManager</a>
-</li>
-<li>cancel_request_callback()
-: <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#aff533f73226f699a7ada6cf243618961">coverart_browser_source.CoverArtBrowserSource</a>
-</li>
-<li>clear()
-: <a class="el" href="classcoverart__search_1_1_cover_search_pane.html#a0a57f51993e59b4f7455e74944bfeef6">coverart_search.CoverSearchPane</a>
-</li>
-<li>clear_filters()
-: <a class="el" href="classcoverart__album_1_1_albums_model.html#ab2c99bf99820dd0cc823d349237e3ddc">coverart_album.AlbumsModel</a>
-</li>
-<li>clear_popupmenu()
-: <a class="el" href="classcoverart__widgets_1_1_options_popup_widget.html#aa2f25b77c36889cce14567f409933890">coverart_widgets.OptionsPopupWidget</a>
-</li>
-<li>contains()
-: <a class="el" href="classcoverart__album_1_1_albums_model.html#a07d599fd2b94a01c1a4f21fea8e5e333">coverart_album.AlbumsModel</a>
-</li>
-<li>cover_search_menu_item_callback()
-: <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a8ee80b82d74da803104539a57d579e6e">coverart_browser_source.CoverArtBrowserSource</a>
-</li>
-<li>create_ext_db_key()
-: <a class="el" href="classcoverart__album_1_1_track.html#a38d449643e9566c4a1262ed4105089eb">coverart_album.Track</a>
-, <a class="el" href="classcoverart__album_1_1_album.html#a3a4145694b0f64f4d8b213da489007ce">coverart_album.Album</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_d"></a>- d -</h3><ul>
-<li>decade_filter()
-: <a class="el" href="classcoverart__album_1_1_album_filters.html#a92a1aeaccefb5d5858b4a7478061d254">coverart_album.AlbumFilters</a>
-</li>
-<li>do_action()
-: <a class="el" href="classcoverart__controllers_1_1_genre_popup_controller.html#a14b6b83a5799ae4aa4fc1756c9b01cc1">coverart_controllers.GenrePopupController</a>
-</li>
-<li>do_activate()
-: <a class="el" href="classcoverart__search__providers_1_1_cover_art_album_search_plugin.html#af2aed132fe8159f8adbb784ae9251fc6">coverart_search_providers.CoverArtAlbumSearchPlugin</a>
-, <a class="el" href="classcoverart__browser_1_1_cover_art_browser_plugin.html#a896c19c3293023133fdeffc03a905d5d">coverart_browser.CoverArtBrowserPlugin</a>
-</li>
-<li>do_clicked()
-: <a class="el" href="classcoverart__widgets_1_1_popup_button.html#ae38bb81cacf7b72d9c6686d282fb859d">coverart_widgets.PopupButton</a>
-</li>
-<li>do_create_configure_widget()
-: <a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#a15f74152d53e2dad215fdc0f41b24742">coverart_browser_prefs.Preferences</a>
-</li>
-<li>do_deactivate()
-: <a class="el" href="classcoverart__search__providers_1_1_cover_art_album_search_plugin.html#a24412c6092811062c5ef04f9cd477f34">coverart_search_providers.CoverArtAlbumSearchPlugin</a>
-, <a class="el" href="classcoverart__browser_1_1_cover_art_browser_plugin.html#a754b9bd654f21a7974c407c5378707d0">coverart_browser.CoverArtBrowserPlugin</a>
-</li>
-<li>do_get_status()
-: <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a11110486aa3c0a40e144bcadb3d3ec2a">coverart_browser_source.CoverArtBrowserSource</a>
-</li>
-<li>do_impl_activate()
-: <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a7b73af3875350f3da8c47e6d640543c7">coverart_browser_source.CoverArtBrowserSource</a>
-</li>
-<li>do_search()
-: <a class="el" href="classcoverart__search_1_1_cover_search_pane.html#a69d8bebd26b48a2dccd716cdc28aed7c">coverart_search.CoverSearchPane</a>
-, <a class="el" href="classcoverart__widgets_1_1_search_entry.html#a72f7192bbd9f7f6d95c9655e417f4cb8">coverart_widgets.SearchEntry</a>
-</li>
-<li>do_selected()
-: <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a2ea6ee493dee4607554a506991a22bc0">coverart_browser_source.CoverArtBrowserSource</a>
-</li>
-<li>do_show_popup()
-: <a class="el" href="classcoverart__widgets_1_1_search_entry.html#aaea84476f6efb34c960deda3d21b78c3">coverart_widgets.SearchEntry</a>
-, <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#abf2ee25ed717539796c5b5b85b75b68b">coverart_browser_source.CoverArtBrowserSource</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_g"></a>- g -</h3><ul>
-<li>get()
-: <a class="el" href="classcoverart__album_1_1_albums_model.html#a5e40ea9d83b393b2189157888fb9dbb8">coverart_album.AlbumsModel</a>
-</li>
-<li>get_all()
-: <a class="el" href="classcoverart__album_1_1_albums_model.html#a99c872921528db376daa01c8bb32f038">coverart_album.AlbumsModel</a>
-</li>
-<li>get_from_path()
-: <a class="el" href="classcoverart__album_1_1_albums_model.html#ad4d7209e1a9101a739289fd86019ed6d">coverart_album.AlbumsModel</a>
-</li>
-<li>get_instance()
-: <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#afe81d463b50657eaa771834ed178010d">coverart_browser_source.CoverArtBrowserSource</a>
-</li>
-<li>get_locale()
-: <a class="el" href="classcoverart__browser__prefs_1_1_cover_locale_1_1____impl.html#aa35c847a1548f0d3ec1e7fe64a234914">coverart_browser_prefs.CoverLocale.__impl</a>
-</li>
-<li>get_selected_albums()
-: <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a5e351c7bf40b31d0013a9e4c93da4618">coverart_browser_source.CoverArtBrowserSource</a>
-</li>
-<li>get_setting()
-: <a class="el" href="classcoverart__browser__prefs_1_1_g_setting_1_1____impl.html#a9ec6aa417c32d80cd89f8308bbfbdb43">coverart_browser_prefs.GSetting.__impl</a>
-</li>
-<li>get_tracks()
-: <a class="el" href="classcoverart__album_1_1_album.html#aa8c0fdd0de0384dfcf249b8df9bc5a1b">coverart_album.Album</a>
-</li>
-<li>get_value()
-: <a class="el" href="classcoverart__browser__prefs_1_1_g_setting_1_1____impl.html#ada0671110c72ab7ef9b81fe19e6acbc7">coverart_browser_prefs.GSetting.__impl</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_i"></a>- i -</h3><ul>
-<li>init_gui()
-: <a class="el" href="classcoverart__search_1_1_cover_search_pane.html#ab0434a5f9f4ab161dcf436a32d676365">coverart_search.CoverSearchPane</a>
-</li>
-<li>item_activated_callback()
-: <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a62b62536dd76e18100ac22798eb0b501">coverart_browser_source.CoverArtBrowserSource</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_l"></a>- l -</h3><ul>
-<li>load_albums()
-: <a class="el" href="classcoverart__album_1_1_album_loader.html#a344b50b56aff212b2b07008aade1ca02">coverart_album.AlbumLoader</a>
-</li>
-<li>load_complete()
-: <a class="el" href="classcoverart__browser_1_1_cover_art_browser_plugin.html#aff2c1cf6e18b9b608d945cef736d34aa">coverart_browser.CoverArtBrowserPlugin</a>
-</li>
-<li>load_cover()
-: <a class="el" href="classcoverart__album_1_1_cover_manager.html#a2e7fbd2e322d90d9f0faafd8bdc4cecf">coverart_album.CoverManager</a>
-</li>
-<li>load_covers()
-: <a class="el" href="classcoverart__album_1_1_cover_manager.html#a8847c91f1affbde59d08b5b1b3975900">coverart_album.CoverManager</a>
-</li>
-<li>load_finished_callback()
-: <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#aeb03b4f6caba32356ec896ea69321a3d">coverart_browser_source.CoverArtBrowserSource</a>
-</li>
-<li>load_templates()
-: <a class="el" href="classcoverart__search_1_1_cover_search_pane.html#aa45a2540317083820ff637fac7c54d6f">coverart_search.CoverSearchPane</a>
-</li>
-<li>love_track()
-: <a class="el" href="classcoverart__entryview_1_1_cover_art_entry_view.html#ad4231ea8ec6a171e7620698af0251338">coverart_entryview.CoverArtEntryView</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_m"></a>- m -</h3><ul>
-<li>mouseclick_callback()
-: <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a5cc00eac617f1a01ee5c100c3737a71b">coverart_browser_source.CoverArtBrowserSource</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_n"></a>- n -</h3><ul>
-<li>notebook_switch_page_callback()
-: <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a3acf741a50f907f004728c34acba7ea2">coverart_browser_source.CoverArtBrowserSource</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_o"></a>- o -</h3><ul>
-<li>on_album_updated()
-: <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#accd1988690643e8f58684fc1541ffadd">coverart_browser_source.CoverArtBrowserSource</a>
-</li>
-<li>on_drag_data_received()
-: <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a237865b6ed58d0ef7812a340ac91ae49">coverart_browser_source.CoverArtBrowserSource</a>
-</li>
-<li>on_drag_drop()
-: <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a77e54a49ee93def2c502a1d2e228401f">coverart_browser_source.CoverArtBrowserSource</a>
-</li>
-<li>on_notify_custom_statusbar_enabled()
-: <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a33ef1bf5bb8389228e2dfa66193f6f0a">coverart_browser_source.CoverArtBrowserSource</a>
-</li>
-<li>on_notify_display_bottom_enabled()
-: <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a8311c4dddbad39c0b6e5686c138701a6">coverart_browser_source.CoverArtBrowserSource</a>
-</li>
-<li>on_notify_rating_threshold()
-: <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a82b1dfa096f4c0e117a2911d5722943d">coverart_browser_source.CoverArtBrowserSource</a>
-</li>
-<li>on_notify_toolbar_pos()
-: <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a094c17380a6c778b27a03c5f91497770">coverart_browser_source.CoverArtBrowserSource</a>
-</li>
-<li>on_paned_button_release_event()
-: <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a3bac0b1c456253e47b4c1ddde4663162">coverart_browser_source.CoverArtBrowserSource</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_p"></a>- p -</h3><ul>
-<li>paned_button_press_callback()
-: <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#abd36d4bbea0a40ce992844c613280af1">coverart_browser_source.CoverArtBrowserSource</a>
-</li>
-<li>play_album_menu_item_callback()
-: <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a5dda8ee5650841c1ffc021f9f502d901">coverart_browser_source.CoverArtBrowserSource</a>
-</li>
-<li>play_favourites_album_menu_item_callback()
-: <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#aac01ff745769e0f742c6439b3c36918b">coverart_browser_source.CoverArtBrowserSource</a>
-</li>
-<li>play_selected_album()
-: <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a2c0f51e8b4129c8c4b24c511cd4b7b04">coverart_browser_source.CoverArtBrowserSource</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_q"></a>- q -</h3><ul>
-<li>queue_album_menu_item_callback()
-: <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#acde64b15ca2036363dad5f553c180681">coverart_browser_source.CoverArtBrowserSource</a>
-</li>
-<li>queue_favourites_album_menu_item_callback()
-: <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#afc252af49dbb7e8d37e2eee295dd9aa7">coverart_browser_source.CoverArtBrowserSource</a>
-</li>
-<li>queue_selected_album()
-: <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#ad8e7559c16e91c5e88c1929fd2d7bb41">coverart_browser_source.CoverArtBrowserSource</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_r"></a>- r -</h3><ul>
-<li>rating_changed_callback()
-: <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#adfcf97176a5fdcf0c5cd3900bc4a240c">coverart_browser_source.CoverArtBrowserSource</a>
-</li>
-<li>recreate_text()
-: <a class="el" href="classcoverart__album_1_1_albums_model.html#a28ac52a0668842a1f0a9cec8b34c2775">coverart_album.AlbumsModel</a>
-</li>
-<li>remove()
-: <a class="el" href="classcoverart__album_1_1_albums_model.html#a1f475795177b44e3c3f11e52f1d2e0fb">coverart_album.AlbumsModel</a>
-</li>
-<li>remove_filter()
-: <a class="el" href="classcoverart__album_1_1_albums_model.html#acc4119975fc2d712d8a219f386de0f17">coverart_album.AlbumsModel</a>
-</li>
-<li>render_album_art_search()
-: <a class="el" href="classcoverart__search_1_1_cover_search_pane.html#abf109b9c13d4086ca9d5b6cbd29f8a61">coverart_search.CoverSearchPane</a>
-</li>
-<li>reorder()
-: <a class="el" href="classcoverart__utils_1_1_sorted_collection.html#a3d9f448b77a4788e5b089568447d51f6">coverart_utils.SortedCollection</a>
-</li>
-<li>replace_filter()
-: <a class="el" href="classcoverart__album_1_1_albums_model.html#a093f5b9f3b029d89ddbc4bf786891b79">coverart_album.AlbumsModel</a>
-</li>
-<li>resize()
-: <a class="el" href="classcoverart__album_1_1_shadowed_cover.html#a0cdde5e95c5f615755ea7ef82fdf0daa">coverart_album.ShadowedCover</a>
-, <a class="el" href="classcoverart__album_1_1_shadow.html#a27ec18fd126782782562a2e724fed324">coverart_album.Shadow</a>
-, <a class="el" href="classcoverart__album_1_1_cover.html#a516da337565833121646d39102662d3a">coverart_album.Cover</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_s"></a>- s -</h3><ul>
-<li>search_all_covers_callback()
-: <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a46cdd69da1f9088c19f34252881aeec0">coverart_browser_source.CoverArtBrowserSource</a>
-</li>
-<li>search_cover_for_album()
-: <a class="el" href="classcoverart__album_1_1_cover_manager.html#a0ed9182143c3b6833147f0fdada0b28c">coverart_album.CoverManager</a>
-</li>
-<li>search_covers()
-: <a class="el" href="classcoverart__album_1_1_cover_manager.html#a760d400f95b436f987de568a9ef4e3ad">coverart_album.CoverManager</a>
-</li>
-<li>selectionchanged_callback()
-: <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a74cb1c8de51ff9551d72ef27d1a4d1e9">coverart_browser_source.CoverArtBrowserSource</a>
-</li>
-<li>set_cover()
-: <a class="el" href="classcoverart__search_1_1_cover_search_pane.html#a9a6f7a6a69e4979e218e5cf2cd5c62c1">coverart_search.CoverSearchPane</a>
-</li>
-<li>set_value()
-: <a class="el" href="classcoverart__browser__prefs_1_1_g_setting_1_1____impl.html#a72a1f0743db7f84ae68d809b0f3e81b6">coverart_browser_prefs.GSetting.__impl</a>
-</li>
-<li>show()
-: <a class="el" href="classcoverart__album_1_1_albums_model.html#ac924ddb12ce50c328fa74a8709db0df1">coverart_album.AlbumsModel</a>
-</li>
-<li>show_popup()
-: <a class="el" href="classcoverart__widgets_1_1_options_popup_widget.html#a003779b6b04f934d4ff09a05b13f3ad8">coverart_widgets.OptionsPopupWidget</a>
-</li>
-<li>show_properties_menu_item_callback()
-: <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a8fec3b2b464dba8954a4ca984d7e500b">coverart_browser_source.CoverArtBrowserSource</a>
-</li>
-<li>sort()
-: <a class="el" href="classcoverart__album_1_1_albums_model.html#a3ee11451839cff26cd2de0e56f4480c8">coverart_album.AlbumsModel</a>
-</li>
-<li>switch_locale()
-: <a class="el" href="classcoverart__browser__prefs_1_1_cover_locale_1_1____impl.html#ac290de8e8c3e92f0bfdf8c31ebb4e2cd">coverart_browser_prefs.CoverLocale.__impl</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_u"></a>- u -</h3><ul>
-<li>update_cover()
-: <a class="el" href="classcoverart__album_1_1_cover_manager.html#a9ea9049a9d40f01afd5f0385913b4e91">coverart_album.CoverManager</a>
-</li>
-<li>update_iconview_callback()
-: <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a4c14d8dcc4e20e459e26324bc0e29f57">coverart_browser_source.CoverArtBrowserSource</a>
-</li>
-<li>update_request_status_bar()
-: <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a40a67861e63560d5a2951df77121654e">coverart_browser_source.CoverArtBrowserSource</a>
-</li>
-<li>update_statusbar()
-: <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a29adbd1bcf33a853b713d6396312cb53">coverart_browser_source.CoverArtBrowserSource</a>
+: <a class="el" href="classcoverart__browser__prefs_1_1_g_setting.html#a2c1a7bd006616078198ae878dc906da6">coverart_browser_prefs.GSetting</a>
+, <a class="el" href="classcoverart__utils_1_1_theme.html#a67284f75b014e5498f3d764216a1c06c">coverart_utils.Theme</a>
+, <a class="el" href="classcoverart__browser__prefs_1_1_cover_locale.html#ac0407cc75bb09d724ca05ffa64f743b5">coverart_browser_prefs.CoverLocale</a>
+</li>
+<li>__str__()
+: <a class="el" href="classcoverart__album_1_1_album.html#aba8d9b4927a05fc6eaa715174d05ab4a">coverart_album.Album</a>
 </li>
 </ul>
 </div><!-- contents -->
@@ -446,7 +287,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Properties</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -455,13 +296,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
+</div>
+  <div id="nav-path" class="navpath">
+    <ul>
 
+    <li class="footer">Generated on Wed Apr 17 2013 22:48:21 for Coverart Browser by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
+   </ul>
+ </div>
 
-<hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 19 2013 18:51:57 for CoverArt Browser by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.7.6.1
-</small></address>
 
 </body>
 </html>

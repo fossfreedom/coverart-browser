@@ -3,13 +3,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>CoverArt Browser: coverart_browser_source.RightToolbar Class Reference</title>
+<title>Coverart Browser: coverart_browser_source.RightToolbar Class Reference</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-
-<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
   $(document).ready(function() { searchBox.OnSelectItem(0); });
@@ -27,10 +32,10 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">CoverArt Browser
-   &#160;<span id="projectnumber">0.7</span>
+   <div id="projectname">Coverart Browser
+   &#160;<span id="projectnumber">v0.8</span>
    </div>
-   <div id="projectbrief">Browser your rhythmbox collection by their album cover</div>
+   <div id="projectbrief">Browse your cover-art albums in Rhythmbox</div>
   </td>
   
   
@@ -47,6 +52,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -75,27 +81,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
-<!-- window showing the filter options -->
-<div id="MSearchSelectWindow"
-     onmouseover="return searchBox.OnSearchSelectShow()"
-     onmouseout="return searchBox.OnSearchSelectHide()"
-     onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
-
-<!-- iframe showing the search results (closed by default) -->
-<div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
 </div>
-
-  <div id="nav-path" class="navpath">
-    <ul>
-      <li class="navelem"><b>coverart_browser_source</b>      </li>
-      <li class="navelem"><a class="el" href="classcoverart__browser__source_1_1_right_toolbar.html">RightToolbar</a>      </li>
-    </ul>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
   </div>
 </div>
+<script type="text/javascript">
+  initNavTree('classcoverart__browser__source_1_1_right_toolbar.html','');
+</script>
+<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -118,30 +117,97 @@ Inheritance diagram for coverart_browser_source.RightToolbar:</div>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9ee3b1370f0e571a6c48ba596aad746f"></a><!-- doxytag: member="coverart_browser_source::RightToolbar::hide" ref="a9ee3b1370f0e571a6c48ba596aad746f" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>hide</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0bc10cc33ea13e0b81a9ba6c62d8cab8"></a><!-- doxytag: member="coverart_browser_source::RightToolbar::show" ref="a0bc10cc33ea13e0b81a9ba6c62d8cab8" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>show</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_right_toolbar.html#a9ee3b1370f0e571a6c48ba596aad746f">hide</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_right_toolbar.html#a0bc10cc33ea13e0b81a9ba6c62d8cab8">show</a></td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5e5c9ea2e57671dfd5a9be7382153a8f"></a><!-- doxytag: member="coverart_browser_source::RightToolbar::ui" ref="a5e5c9ea2e57671dfd5a9be7382153a8f" args="" -->
-string&#160;</td><td class="memItemRight" valign="bottom"><b>ui</b> = 'ui/coverart_sidebar.ui'</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a37ff398a8462db2913375fad05367877"></a><!-- doxytag: member="coverart_browser_source::RightToolbar::name" ref="a37ff398a8462db2913375fad05367877" args="" -->
-string&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> = 'right'</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_right_toolbar.html#a5e5c9ea2e57671dfd5a9be7382153a8f">ui</a> = '<a class="el" href="classcoverart__browser__source_1_1_right_toolbar.html#a5e5c9ea2e57671dfd5a9be7382153a8f">ui</a>/coverart_sidebar.ui'</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_right_toolbar.html#a37ff398a8462db2913375fad05367877">name</a> = 'right'</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock">
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l01164">1164</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/home/dad/.local/share/rhythmbox/plugins/coverart_browser/<a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a></li>
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l01047">1047</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+</div><hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a9ee3b1370f0e571a6c48ba596aad746f"></a><!-- doxytag: member="coverart_browser_source::RightToolbar::hide" ref="a9ee3b1370f0e571a6c48ba596aad746f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__browser__source_1_1_right_toolbar.html#a9ee3b1370f0e571a6c48ba596aad746f">coverart_browser_source.RightToolbar.hide</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l01051">1051</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0bc10cc33ea13e0b81a9ba6c62d8cab8"></a><!-- doxytag: member="coverart_browser_source::RightToolbar::show" ref="a0bc10cc33ea13e0b81a9ba6c62d8cab8" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__browser__source_1_1_right_toolbar.html#a0bc10cc33ea13e0b81a9ba6c62d8cab8">coverart_browser_source.RightToolbar.show</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l01057">1057</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="a37ff398a8462db2913375fad05367877"></a><!-- doxytag: member="coverart_browser_source::RightToolbar::name" ref="a37ff398a8462db2913375fad05367877" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string <a class="el" href="classcoverart__browser__source_1_1_right_toolbar.html#a37ff398a8462db2913375fad05367877">coverart_browser_source.RightToolbar::name</a> = 'right'<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l01049">1049</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5e5c9ea2e57671dfd5a9be7382153a8f"></a><!-- doxytag: member="coverart_browser_source::RightToolbar::ui" ref="a5e5c9ea2e57671dfd5a9be7382153a8f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string <a class="el" href="classcoverart__browser__source_1_1_right_toolbar.html#a5e5c9ea2e57671dfd5a9be7382153a8f">coverart_browser_source.RightToolbar::ui</a> = '<a class="el" href="classcoverart__browser__source_1_1_right_toolbar.html#a5e5c9ea2e57671dfd5a9be7382153a8f">ui</a>/coverart_sidebar.ui'<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l01048">1048</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>/home/home/dad/Downloads/coverart-browser/<a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a></li>
 </ul>
 </div><!-- contents -->
+</div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Properties</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -150,13 +216,17 @@ string&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> = 'right'<
 </iframe>
 </div>
 
+  <div id="nav-path" class="navpath">
+    <ul>
+      <li class="navelem"><a class="el" href="namespacecoverart__browser__source.html">coverart_browser_source</a>      </li>
+      <li class="navelem"><a class="el" href="classcoverart__browser__source_1_1_right_toolbar.html">RightToolbar</a>      </li>
 
+    <li class="footer">Generated on Wed Apr 17 2013 22:48:21 for Coverart Browser by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
+   </ul>
+ </div>
 
-<hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 19 2013 18:51:56 for CoverArt Browser by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.7.6.1
-</small></address>
 
 </body>
 </html>

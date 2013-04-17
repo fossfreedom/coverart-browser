@@ -3,13 +3,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>CoverArt Browser: /home/home/dad/.local/share/rhythmbox/plugins/coverart_browser/em.py Source File</title>
+<title>Coverart Browser: /home/home/dad/Downloads/coverart-browser/em.py Source File</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-
-<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
   $(document).ready(function() { searchBox.OnSelectItem(0); });
@@ -27,10 +32,10 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">CoverArt Browser
-   &#160;<span id="projectnumber">0.7</span>
+   <div id="projectname">Coverart Browser
+   &#160;<span id="projectnumber">v0.8</span>
    </div>
-   <div id="projectbrief">Browser your rhythmbox collection by their album cover</div>
+   <div id="projectbrief">Browse your cover-art albums in Rhythmbox</div>
   </td>
   
   
@@ -47,6 +52,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -73,22 +79,35 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     </ul>
   </div>
 </div>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+  initNavTree('em_8py.html','');
+</script>
+<div id="doc-content">
 <div class="header">
   <div class="headertitle">
-<div class="title">/home/home/dad/.local/share/rhythmbox/plugins/coverart_browser/em.py</div>  </div>
+<div class="title">/home/home/dad/Downloads/coverart-browser/em.py</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="keyword">import</span> gi
+<a href="em_8py.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a><a class="code" href="namespaceem.html">00001</a> <span class="keyword">import</span> gi
 <a name="l00002"></a>00002 <span class="keyword">from</span> gi.repository <span class="keyword">import</span> Pango
 <a name="l00003"></a>00003 <span class="keyword">from</span> gi.repository <span class="keyword">import</span> Gtk
 <a name="l00004"></a>00004 gi.require_version(<span class="stringliteral">&quot;Gtk&quot;</span>, <span class="stringliteral">&quot;3.0&quot;</span>)
 <a name="l00005"></a>00005 
 <a name="l00006"></a>00006 <span class="keyword">import</span> logging
 <a name="l00007"></a>00007 
-<a name="l00008"></a>00008 LOG = logging.getLogger(__name__)
+<a name="l00008"></a><a class="code" href="namespaceem.html#a880bafd9dabd2afca94131c521666120">00008</a> LOG = logging.getLogger(__name__)
 <a name="l00009"></a>00009 
 <a name="l00010"></a>00010 
-<a name="l00011"></a>00011 <span class="keyword">def </span>get_em(size=&quot;&quot;):
+<a name="l00011"></a><a class="code" href="namespaceem.html#a13dd58694e671a1dfc2f88ba4798b678">00011</a> <span class="keyword">def </span><a class="code" href="namespaceem.html#a13dd58694e671a1dfc2f88ba4798b678">get_em</a>(size=&quot;&quot;):
 <a name="l00012"></a>00012     <span class="comment"># calc the height of a character, use as 1em</span>
 <a name="l00013"></a>00013     <span class="keywordflow">if</span> size:
 <a name="l00014"></a>00014         m = <span class="stringliteral">&#39;&lt;%s&gt;M&lt;/%s&gt;&#39;</span> % (size, size)
@@ -101,45 +120,46 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00021"></a>00021     <span class="keywordflow">return</span> h / Pango.SCALE
 <a name="l00022"></a>00022 
 <a name="l00023"></a>00023 
-<a name="l00024"></a>00024 <span class="keyword">def </span>get_small_em():
-<a name="l00025"></a>00025     <span class="keywordflow">return</span> get_em(<span class="stringliteral">&quot;small&quot;</span>)
+<a name="l00024"></a><a class="code" href="namespaceem.html#ae4dbbec988a7a43121ca866bd1d3e5f1">00024</a> <span class="keyword">def </span><a class="code" href="namespaceem.html#ae4dbbec988a7a43121ca866bd1d3e5f1">get_small_em</a>():
+<a name="l00025"></a>00025     <span class="keywordflow">return</span> <a class="code" href="namespaceem.html#a13dd58694e671a1dfc2f88ba4798b678">get_em</a>(<span class="stringliteral">&quot;small&quot;</span>)
 <a name="l00026"></a>00026 
 <a name="l00027"></a>00027 
-<a name="l00028"></a>00028 <span class="keyword">def </span>get_big_em():
-<a name="l00029"></a>00029     <span class="keywordflow">return</span> get_em(<span class="stringliteral">&quot;big&quot;</span>)
+<a name="l00028"></a><a class="code" href="namespaceem.html#a61f6cdf449730d91ef05fc359464ce2d">00028</a> <span class="keyword">def </span><a class="code" href="namespaceem.html#a61f6cdf449730d91ef05fc359464ce2d">get_big_em</a>():
+<a name="l00029"></a>00029     <span class="keywordflow">return</span> <a class="code" href="namespaceem.html#a13dd58694e671a1dfc2f88ba4798b678">get_em</a>(<span class="stringliteral">&quot;big&quot;</span>)
 <a name="l00030"></a>00030 
 <a name="l00031"></a>00031 
-<a name="l00032"></a>00032 EM = get_em()
-<a name="l00033"></a>00033 SMALL_EM = get_small_em()
-<a name="l00034"></a>00034 BIG_EM = get_big_em()
+<a name="l00032"></a><a class="code" href="namespaceem.html#a1ff007d01f302f230eb643363219d444">00032</a> EM = <a class="code" href="namespaceem.html#a13dd58694e671a1dfc2f88ba4798b678">get_em</a>()
+<a name="l00033"></a><a class="code" href="namespaceem.html#a9f19455483592a4896e5810a0e4e7da1">00033</a> SMALL_EM = <a class="code" href="namespaceem.html#ae4dbbec988a7a43121ca866bd1d3e5f1">get_small_em</a>()
+<a name="l00034"></a><a class="code" href="namespaceem.html#ab02b745e88e72bfc9446acbe39c3db84">00034</a> BIG_EM = <a class="code" href="namespaceem.html#a61f6cdf449730d91ef05fc359464ce2d">get_big_em</a>()
 <a name="l00035"></a>00035 LOG.debug(<span class="stringliteral">&quot;EM&#39;s: %s %s %s&quot;</span> % (EM, SMALL_EM, BIG_EM))
 <a name="l00036"></a>00036 
 <a name="l00037"></a>00037 
-<a name="l00038"></a>00038 <span class="keyword">def </span>em(multiplier=1, min=1):
+<a name="l00038"></a><a class="code" href="namespaceem.html#abfdd5cacb260ec02ffd9b1b0f4c54b37">00038</a> <span class="keyword">def </span><a class="code" href="namespaceem.html#abfdd5cacb260ec02ffd9b1b0f4c54b37">em</a>(multiplier=1, min=1):
 <a name="l00039"></a>00039     <span class="keywordflow">return</span> max(int(min), int(round(EM * multiplier, 0)))
 <a name="l00040"></a>00040 
 <a name="l00041"></a>00041 
-<a name="l00042"></a>00042 <span class="keyword">def </span>small_em(multiplier=1, min=1):
+<a name="l00042"></a><a class="code" href="namespaceem.html#abfa5bcbbdfeb04cc49e175c8e37ce489">00042</a> <span class="keyword">def </span><a class="code" href="namespaceem.html#abfa5bcbbdfeb04cc49e175c8e37ce489">small_em</a>(multiplier=1, min=1):
 <a name="l00043"></a>00043     <span class="keywordflow">return</span> max(int(min), int(round(SMALL_EM * multiplier, 0)))
 <a name="l00044"></a>00044 
 <a name="l00045"></a>00045 
-<a name="l00046"></a>00046 <span class="keyword">def </span>big_em(multiplier=1, min=1):
+<a name="l00046"></a><a class="code" href="namespaceem.html#a3a75448d33b38ddb1ce6c835e5032f5a">00046</a> <span class="keyword">def </span><a class="code" href="namespaceem.html#a3a75448d33b38ddb1ce6c835e5032f5a">big_em</a>(multiplier=1, min=1):
 <a name="l00047"></a>00047     <span class="keywordflow">return</span> max(int(min), int(round(BIG_EM * multiplier, 0)))
 <a name="l00048"></a>00048 
 <a name="l00049"></a>00049 
 <a name="l00050"></a>00050 <span class="comment"># common values</span>
 <a name="l00051"></a><a class="code" href="classem_1_1_stock_ems.html">00051</a> <span class="keyword">class </span><a class="code" href="classem_1_1_stock_ems.html">StockEms</a>:
-<a name="l00052"></a>00052     XLARGE = em(1.33, 5)
-<a name="l00053"></a>00053     LARGE = em(min=3)
-<a name="l00054"></a>00054     MEDIUM = em(0.666, 2)
-<a name="l00055"></a>00055     SMALL = em(0.333, 1)
+<a name="l00052"></a><a class="code" href="classem_1_1_stock_ems.html#abb465f37f8886449f7ac1c9641dda33f">00052</a>     XLARGE = <a class="code" href="namespaceem.html#abfdd5cacb260ec02ffd9b1b0f4c54b37">em</a>(1.33, 5)
+<a name="l00053"></a><a class="code" href="classem_1_1_stock_ems.html#a0e63362982a66a558040d8bfb0885c8a">00053</a>     LARGE = <a class="code" href="namespaceem.html#abfdd5cacb260ec02ffd9b1b0f4c54b37">em</a>(min=3)
+<a name="l00054"></a><a class="code" href="classem_1_1_stock_ems.html#a342fe729cb9b287e572bd954dbd5b653">00054</a>     MEDIUM = <a class="code" href="namespaceem.html#abfdd5cacb260ec02ffd9b1b0f4c54b37">em</a>(0.666, 2)
+<a name="l00055"></a><a class="code" href="classem_1_1_stock_ems.html#a30098b69300b042ccd208c863067585a">00055</a>     SMALL = <a class="code" href="namespaceem.html#abfdd5cacb260ec02ffd9b1b0f4c54b37">em</a>(0.333, 1)
 </pre></div></div><!-- contents -->
+</div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Properties</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -148,13 +168,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
+  <div id="nav-path" class="navpath">
+    <ul>
+      <li class="navelem"><a class="el" href="em_8py.html">em.py</a>      </li>
 
+    <li class="footer">Generated on Wed Apr 17 2013 22:48:21 for Coverart Browser by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
+   </ul>
+ </div>
 
-<hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 19 2013 18:51:56 for CoverArt Browser by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.7.6.1
-</small></address>
 
 </body>
 </html>

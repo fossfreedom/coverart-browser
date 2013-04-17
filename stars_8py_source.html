@@ -3,13 +3,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>CoverArt Browser: /home/home/dad/.local/share/rhythmbox/plugins/coverart_browser/stars.py Source File</title>
+<title>Coverart Browser: /home/home/dad/Downloads/coverart-browser/stars.py Source File</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-
-<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
   $(document).ready(function() { searchBox.OnSelectItem(0); });
@@ -27,10 +32,10 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">CoverArt Browser
-   &#160;<span id="projectnumber">0.7</span>
+   <div id="projectname">Coverart Browser
+   &#160;<span id="projectnumber">v0.8</span>
    </div>
-   <div id="projectbrief">Browser your rhythmbox collection by their album cover</div>
+   <div id="projectbrief">Browse your cover-art albums in Rhythmbox</div>
   </td>
   
   
@@ -47,6 +52,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -73,12 +79,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     </ul>
   </div>
 </div>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+  initNavTree('stars_8py.html','');
+</script>
+<div id="doc-content">
 <div class="header">
   <div class="headertitle">
-<div class="title">/home/home/dad/.local/share/rhythmbox/plugins/coverart_browser/stars.py</div>  </div>
+<div class="title">/home/home/dad/Downloads/coverart-browser/stars.py</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment"># Copyright (C) 2011 Canonical</span>
+<a href="stars_8py.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a><a class="code" href="namespacestars.html">00001</a> <span class="comment"># Copyright (C) 2011 Canonical</span>
 <a name="l00002"></a>00002 <span class="comment">#</span>
 <a name="l00003"></a>00003 <span class="comment"># Authors:</span>
 <a name="l00004"></a>00004 <span class="comment">#  Matthew McGowan</span>
@@ -107,30 +126,30 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00027"></a>00027 <span class="keyword">from</span> em <span class="keyword">import</span> StockEms, em, small_em, big_em
 <a name="l00028"></a>00028 
 <a name="l00029"></a>00029 
-<a name="l00030"></a>00030 _star_surface_cache = {}
+<a name="l00030"></a><a class="code" href="namespacestars.html#a460276204dd342f8058e3e626c43e3cd">00030</a> _star_surface_cache = {}
 <a name="l00031"></a>00031 
-<a name="l00032"></a>00032 LOG = logging.getLogger(__name__)
+<a name="l00032"></a><a class="code" href="namespacestars.html#a3f2eb5fa111c7788b597244adbf062de">00032</a> LOG = logging.getLogger(__name__)
 <a name="l00033"></a>00033 
 <a name="l00034"></a>00034 
 <a name="l00035"></a><a class="code" href="classstars_1_1_star_size.html">00035</a> <span class="keyword">class </span><a class="code" href="classstars_1_1_star_size.html">StarSize</a>:
-<a name="l00036"></a>00036     SMALL = 1
-<a name="l00037"></a>00037     NORMAL = 2
-<a name="l00038"></a>00038     BIG = 3
-<a name="l00039"></a>00039     PIXEL_VALUE = 4
+<a name="l00036"></a><a class="code" href="classstars_1_1_star_size.html#a952b10e8cc8c739b930de91f9a21f26c">00036</a>     SMALL = 1
+<a name="l00037"></a><a class="code" href="classstars_1_1_star_size.html#a76433bba406617aadf2a20e769753c9b">00037</a>     NORMAL = 2
+<a name="l00038"></a><a class="code" href="classstars_1_1_star_size.html#af1247f7e208aaccac08d6ef9a9363da5">00038</a>     BIG = 3
+<a name="l00039"></a><a class="code" href="classstars_1_1_star_size.html#a45af5d81f07fd12cd5a72e389200af7d">00039</a>     PIXEL_VALUE = 4
 <a name="l00040"></a>00040 
 <a name="l00041"></a>00041 
 <a name="l00042"></a><a class="code" href="classstars_1_1_star_fill_state.html">00042</a> <span class="keyword">class </span><a class="code" href="classstars_1_1_star_fill_state.html">StarFillState</a>:
-<a name="l00043"></a>00043     FULL = 10
-<a name="l00044"></a>00044     EMPTY = 20
+<a name="l00043"></a><a class="code" href="classstars_1_1_star_fill_state.html#a38e2536666d6112670f441b92e20fbad">00043</a>     FULL = 10
+<a name="l00044"></a><a class="code" href="classstars_1_1_star_fill_state.html#ace5bdb16b64dfe61591c7d3a5be0566f">00044</a>     EMPTY = 20
 <a name="l00045"></a>00045 
 <a name="l00046"></a>00046 
 <a name="l00047"></a><a class="code" href="classstars_1_1_star_render_hints.html">00047</a> <span class="keyword">class </span><a class="code" href="classstars_1_1_star_render_hints.html">StarRenderHints</a>:
-<a name="l00048"></a>00048     NORMAL = 1
-<a name="l00049"></a>00049     REACTIVE = -1
+<a name="l00048"></a><a class="code" href="classstars_1_1_star_render_hints.html#a0f9120a9134a12417e9a44af507eaf70">00048</a>     NORMAL = 1
+<a name="l00049"></a><a class="code" href="classstars_1_1_star_render_hints.html#ad132b44bdea4226b9b7be58cfa71588b">00049</a>     REACTIVE = -1
 <a name="l00050"></a>00050 
 <a name="l00051"></a>00051 
 <a name="l00052"></a><a class="code" href="classstars_1_1_shape_star.html">00052</a> <span class="keyword">class </span><a class="code" href="classstars_1_1_shape_star.html">ShapeStar</a>():
-<a name="l00053"></a>00053     <span class="keyword">def </span>__init__(self, points, indent=0.61):
+<a name="l00053"></a><a class="code" href="classstars_1_1_shape_star.html#a372ed0f42778a39584abf700e2ee215f">00053</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_shape_star.html#a2fbb6feb75ef9f294375570d256b84f7">__init__</a>(self, points, indent=0.61):
 <a name="l00054"></a>00054         self.<a class="code" href="classstars_1_1_shape_star.html#a372ed0f42778a39584abf700e2ee215f">coords</a> = self.<a class="code" href="classstars_1_1_shape_star.html#a41cd540b410da9ff334e7749a262a715">_calc_coords</a>(points, 1 - indent)
 <a name="l00055"></a>00055 
 <a name="l00056"></a>00056     <span class="keyword">def </span>_calc_coords(self, points, indent):
@@ -150,7 +169,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00070"></a>00070             coords.append((x, y))
 <a name="l00071"></a>00071         <span class="keywordflow">return</span> coords
 <a name="l00072"></a>00072 
-<a name="l00073"></a>00073     <span class="keyword">def </span>layout(self, cr, x, y, w, h):
+<a name="l00073"></a><a class="code" href="classstars_1_1_shape_star.html#a05d944816cd5fa49a04f75a6c6c8a8f3">00073</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_shape_star.html#a05d944816cd5fa49a04f75a6c6c8a8f3">layout</a>(self, cr, x, y, w, h):
 <a name="l00074"></a>00074         points = [(sx_sy[0] * w + x, sx_sy[1] * h + y)
 <a name="l00075"></a>00075             <span class="keywordflow">for</span> sx_sy <span class="keywordflow">in</span> self.<a class="code" href="classstars_1_1_shape_star.html#a372ed0f42778a39584abf700e2ee215f">coords</a>]
 <a name="l00076"></a>00076         cr.move_to(*points[0])
@@ -163,7 +182,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00083"></a>00083 
 <a name="l00084"></a><a class="code" href="classstars_1_1_star_renderer.html">00084</a> <span class="keyword">class </span><a class="code" href="classstars_1_1_star_renderer.html">StarRenderer</a>(<a class="code" href="classstars_1_1_shape_star.html">ShapeStar</a>):
 <a name="l00085"></a>00085 
-<a name="l00086"></a>00086     <span class="keyword">def </span>__init__(self):
+<a name="l00086"></a><a class="code" href="classstars_1_1_star_renderer.html#ad7ea40b23ec641cd29b32e2238d2f6f4">00086</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_star_renderer.html#a80f450f53a8bb0802c0071c464840f70">__init__</a>(self):
 <a name="l00087"></a>00087         ShapeStar.__init__(self, 5, 0.6)
 <a name="l00088"></a>00088 
 <a name="l00089"></a>00089         self.<a class="code" href="classstars_1_1_star_renderer.html#acb992e5c518a41146715e490d926f4d7">size</a> = StarSize.NORMAL
@@ -186,7 +205,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00106"></a>00106         <span class="keywordflow">return</span> keys
 <a name="l00107"></a>00107 
 <a name="l00108"></a>00108     <span class="comment"># public</span>
-<a name="l00109"></a>00109     <span class="keyword">def </span>create_normal_surfaces(self,
+<a name="l00109"></a><a class="code" href="classstars_1_1_star_renderer.html#a0eb1cb3ade1260e50c19afb2d46c043c">00109</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_star_renderer.html#a0eb1cb3ade1260e50c19afb2d46c043c">create_normal_surfaces</a>(self,
 <a name="l00110"></a>00110                     context, vis_width, vis_height, star_width):
 <a name="l00111"></a>00111 
 <a name="l00112"></a>00112         rgba1 = context.get_border_color(Gtk.StateFlags.NORMAL)
@@ -233,7 +252,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00153"></a>00153 
 <a name="l00154"></a>00154         <span class="keywordflow">return</span> full_surf, empty_surf
 <a name="l00155"></a>00155 
-<a name="l00156"></a>00156     <span class="keyword">def </span>create_reactive_surfaces(self,
+<a name="l00156"></a><a class="code" href="classstars_1_1_star_renderer.html#a94689e9c747ed496ac0e8ab03006335b">00156</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_star_renderer.html#a94689e9c747ed496ac0e8ab03006335b">create_reactive_surfaces</a>(self,
 <a name="l00157"></a>00157                     context, vis_width, vis_height, star_width):
 <a name="l00158"></a>00158 
 <a name="l00159"></a>00159         <span class="comment"># paint full</span>
@@ -297,7 +316,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00217"></a>00217 
 <a name="l00218"></a>00218         <span class="keywordflow">return</span> full_surf, empty_surf
 <a name="l00219"></a>00219 
-<a name="l00220"></a>00220     <span class="keyword">def </span>update_cache_surfaces(self, context, size):
+<a name="l00220"></a><a class="code" href="classstars_1_1_star_renderer.html#a462cd7b3178df1c656799ee2be74d2c0">00220</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_star_renderer.html#a462cd7b3178df1c656799ee2be74d2c0">update_cache_surfaces</a>(self, context, size):
 <a name="l00221"></a>00221         LOG.debug(<span class="stringliteral">&#39;update cache&#39;</span>)
 <a name="l00222"></a>00222         <span class="keyword">global</span> _star_surface_cache
 <a name="l00223"></a>00223 
@@ -320,7 +339,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00240"></a>00240         _star_surface_cache[empty_key] = surfs[1]
 <a name="l00241"></a>00241         <span class="keywordflow">return</span> surfs
 <a name="l00242"></a>00242 
-<a name="l00243"></a>00243     <span class="keyword">def </span>lookup_surfaces_for_size(self, size):
+<a name="l00243"></a><a class="code" href="classstars_1_1_star_renderer.html#afc9fd923b4c165f1b98020a4a4e51411">00243</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_star_renderer.html#afc9fd923b4c165f1b98020a4a4e51411">lookup_surfaces_for_size</a>(self, size):
 <a name="l00244"></a>00244         full_key, empty_key = self.<a class="code" href="classstars_1_1_star_renderer.html#a2d5f565481422a9f3801b3f6302c3315">_get_mangled_keys</a>(size)
 <a name="l00245"></a>00245 
 <a name="l00246"></a>00246         <span class="keywordflow">if</span> full_key <span class="keywordflow">not</span> <span class="keywordflow">in</span> _star_surface_cache:
@@ -330,7 +349,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00250"></a>00250         empty_surf = _star_surface_cache[empty_key]
 <a name="l00251"></a>00251         <span class="keywordflow">return</span> full_surf, empty_surf
 <a name="l00252"></a>00252 
-<a name="l00253"></a>00253     <span class="keyword">def </span>render_star(self, context, cr, x, y):
+<a name="l00253"></a><a class="code" href="classstars_1_1_star_renderer.html#a80f712d16c60a7e2a10b1746a2586d9f">00253</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_star_renderer.html#a80f712d16c60a7e2a10b1746a2586d9f">render_star</a>(self, context, cr, x, y):
 <a name="l00254"></a>00254         size = self.<a class="code" href="classstars_1_1_star_renderer.html#acb992e5c518a41146715e490d926f4d7">size</a>
 <a name="l00255"></a>00255 
 <a name="l00256"></a>00256         full, empty = self.<a class="code" href="classstars_1_1_star_renderer.html#afc9fd923b4c165f1b98020a4a4e51411">lookup_surfaces_for_size</a>(size)
@@ -356,10 +375,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00276"></a>00276             cr.paint()
 <a name="l00277"></a>00277             cr.reset_clip()
 <a name="l00278"></a>00278 
-<a name="l00279"></a>00279     <span class="keyword">def </span>get_pixel_size(self):
+<a name="l00279"></a><a class="code" href="classstars_1_1_star_renderer.html#ad7eb48143787c8b307d7d43997631a28">00279</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_star_renderer.html#ad7eb48143787c8b307d7d43997631a28">get_pixel_size</a>(self):
 <a name="l00280"></a>00280         <span class="keywordflow">return</span> self.<a class="code" href="classstars_1_1_star_renderer.html#aec3b85010813f45fcaf8f05d6702cbdc">pixel_value</a>
 <a name="l00281"></a>00281 
-<a name="l00282"></a>00282     <span class="keyword">def </span>get_visible_size(self, context):
+<a name="l00282"></a><a class="code" href="classstars_1_1_star_renderer.html#a325cd7c0250383449dd966ea5f8c99bb">00282</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_star_renderer.html#a325cd7c0250383449dd966ea5f8c99bb">get_visible_size</a>(self, context):
 <a name="l00283"></a>00283         surf, _ = self.<a class="code" href="classstars_1_1_star_renderer.html#afc9fd923b4c165f1b98020a4a4e51411">lookup_surfaces_for_size</a>(self.<a class="code" href="classstars_1_1_star_renderer.html#acb992e5c518a41146715e490d926f4d7">size</a>)
 <a name="l00284"></a>00284         <span class="keywordflow">if</span> surf <span class="keywordflow">is</span> <span class="keywordtype">None</span>:
 <a name="l00285"></a>00285             surf, _ = self.<a class="code" href="classstars_1_1_star_renderer.html#a462cd7b3178df1c656799ee2be74d2c0">update_cache_surfaces</a>(context, self.<a class="code" href="classstars_1_1_star_renderer.html#acb992e5c518a41146715e490d926f4d7">size</a>)
@@ -367,7 +386,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00287"></a>00287 
 <a name="l00288"></a>00288 
 <a name="l00289"></a><a class="code" href="classstars_1_1_star.html">00289</a> <span class="keyword">class </span><a class="code" href="classstars_1_1_star.html">Star</a>(Gtk.EventBox, StarRenderer):
-<a name="l00290"></a>00290     <span class="keyword">def </span>__init__(self, size=StarSize.NORMAL):
+<a name="l00290"></a><a class="code" href="classstars_1_1_star.html#ab9d29346ec645bf89fc0e8e5e03626de">00290</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_star.html#a5d476fd1f9082e5b9cd92d4b5c460eb4">__init__</a>(self, size=StarSize.NORMAL):
 <a name="l00291"></a>00291         Gtk.EventBox.__init__(self)
 <a name="l00292"></a>00292         StarRenderer.__init__(self)
 <a name="l00293"></a>00293         self.set_name(<span class="stringliteral">&quot;featured-star&quot;</span>)
@@ -384,17 +403,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00304"></a>00304         self.connect(<span class="stringliteral">&quot;draw&quot;</span>, self.<a class="code" href="classstars_1_1_star.html#a5f8d4fbc574bdc16cc1e14e92a0d3806">on_draw</a>)
 <a name="l00305"></a>00305         self.connect(<span class="stringliteral">&quot;style-updated&quot;</span>, self.<a class="code" href="classstars_1_1_star.html#a07c1f0d129de8664f2bfffa6fbe3d9fc">on_style_updated</a>)
 <a name="l00306"></a>00306 
-<a name="l00307"></a>00307     <span class="keyword">def </span>do_get_preferred_width(self):
+<a name="l00307"></a><a class="code" href="classstars_1_1_star.html#a43df6f7f91dcc854da8885652296cf1b">00307</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_star.html#a43df6f7f91dcc854da8885652296cf1b">do_get_preferred_width</a>(self):
 <a name="l00308"></a>00308         context = self.get_style_context()
 <a name="l00309"></a>00309         pref_w, _ = self.get_visible_size(context)
 <a name="l00310"></a>00310         <span class="keywordflow">return</span> pref_w, pref_w
 <a name="l00311"></a>00311 
-<a name="l00312"></a>00312     <span class="keyword">def </span>do_get_preferred_height(self):
+<a name="l00312"></a><a class="code" href="classstars_1_1_star.html#a4275377c583d6d5ec0aa78e3315c11e7">00312</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_star.html#a4275377c583d6d5ec0aa78e3315c11e7">do_get_preferred_height</a>(self):
 <a name="l00313"></a>00313         context = self.get_style_context()
 <a name="l00314"></a>00314         _, pref_h = self.get_visible_size(context)
 <a name="l00315"></a>00315         <span class="keywordflow">return</span> pref_h, pref_h
 <a name="l00316"></a>00316 
-<a name="l00317"></a>00317     <span class="keyword">def </span>set_alignment(self, xalign, yalign):
+<a name="l00317"></a><a class="code" href="classstars_1_1_star.html#ab53612011485ae7268bd17da062bd9a4">00317</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_star.html#ab53612011485ae7268bd17da062bd9a4">set_alignment</a>(self, xalign, yalign):
 <a name="l00318"></a>00318         self.<a class="code" href="classstars_1_1_star.html#aa3ab2dd2f2f8abb69e54df55d81a17e3">xalign</a> = xalign
 <a name="l00319"></a>00319         self.<a class="code" href="classstars_1_1_star.html#ab9d29346ec645bf89fc0e8e5e03626de">yalign</a> = yalign
 <a name="l00320"></a>00320         self.queue_draw()
@@ -402,18 +421,18 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00322"></a>00322     <span class="comment">#~ def set_padding(*args):</span>
 <a name="l00323"></a>00323         <span class="comment">#~ return</span>
 <a name="l00324"></a>00324 
-<a name="l00325"></a>00325     <span class="keyword">def </span>get_alignment(self):
+<a name="l00325"></a><a class="code" href="classstars_1_1_star.html#a001dd3264d04ea94cfb943d74b61c725">00325</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_star.html#a001dd3264d04ea94cfb943d74b61c725">get_alignment</a>(self):
 <a name="l00326"></a>00326         <span class="keywordflow">return</span> self.<a class="code" href="classstars_1_1_star.html#aa3ab2dd2f2f8abb69e54df55d81a17e3">xalign</a>, self.<a class="code" href="classstars_1_1_star.html#ab9d29346ec645bf89fc0e8e5e03626de">yalign</a>
 <a name="l00327"></a>00327 
 <a name="l00328"></a>00328     <span class="comment">#~ def get_padding(*args):</span>
 <a name="l00329"></a>00329         <span class="comment">#~ return</span>
 <a name="l00330"></a>00330 
-<a name="l00331"></a>00331     <span class="keyword">def </span>on_style_updated(self, widget):
+<a name="l00331"></a><a class="code" href="classstars_1_1_star.html#a07c1f0d129de8664f2bfffa6fbe3d9fc">00331</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_star.html#a07c1f0d129de8664f2bfffa6fbe3d9fc">on_style_updated</a>(self, widget):
 <a name="l00332"></a>00332         <span class="keyword">global</span> _star_surface_cache
 <a name="l00333"></a>00333         _star_surface_cache = {}
 <a name="l00334"></a>00334         self.queue_draw()
 <a name="l00335"></a>00335 
-<a name="l00336"></a>00336     <span class="keyword">def </span>on_draw(self, widget, cr):
+<a name="l00336"></a><a class="code" href="classstars_1_1_star.html#a5f8d4fbc574bdc16cc1e14e92a0d3806">00336</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_star.html#a5f8d4fbc574bdc16cc1e14e92a0d3806">on_draw</a>(self, widget, cr):
 <a name="l00337"></a>00337         self.render_star(widget.get_style_context(), cr, 0, 0)
 <a name="l00338"></a>00338 
 <a name="l00339"></a>00339         <span class="keywordflow">if</span> self.<a class="code" href="classstars_1_1_star.html#a28686571b318ca98536e2d25cf17a295">_render_allocation_bbox</a>:
@@ -423,7 +442,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00343"></a>00343             cr.set_line_width(2)
 <a name="l00344"></a>00344             cr.stroke()
 <a name="l00345"></a>00345 
-<a name="l00346"></a>00346     <span class="keyword">def </span>set_n_stars(self, n_stars):
+<a name="l00346"></a><a class="code" href="classstars_1_1_star.html#a5e1ffa81786e2c4f5624b9599bd32d68">00346</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_star.html#a5e1ffa81786e2c4f5624b9599bd32d68">set_n_stars</a>(self, n_stars):
 <a name="l00347"></a>00347         <span class="keywordflow">if</span> n_stars == self.<a class="code" href="classstars_1_1_star.html#a4ac85e1bd08d4749cd8ddb91682e5cb2">n_stars</a>:
 <a name="l00348"></a>00348             <span class="keywordflow">return</span>
 <a name="l00349"></a>00349 
@@ -432,34 +451,34 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00352"></a>00352         _star_surface_cache = {}
 <a name="l00353"></a>00353         self.queue_draw()
 <a name="l00354"></a>00354 
-<a name="l00355"></a>00355     <span class="keyword">def </span>set_rating(self, rating):
+<a name="l00355"></a><a class="code" href="classstars_1_1_star.html#a133efc7a8a1c3c28d4f7ee7fba6c39c0">00355</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_star.html#a133efc7a8a1c3c28d4f7ee7fba6c39c0">set_rating</a>(self, rating):
 <a name="l00356"></a>00356         self.<a class="code" href="classstars_1_1_star.html#a2770bfd4375f5169e272ef5aa85d8830">rating</a> = float(rating)
 <a name="l00357"></a>00357         self.queue_draw()
 <a name="l00358"></a>00358 
-<a name="l00359"></a>00359     <span class="keyword">def </span>set_avg_rating(self, rating):
+<a name="l00359"></a><a class="code" href="classstars_1_1_star.html#a2f461b41b591c00951f2af693805499e">00359</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_star.html#a2f461b41b591c00951f2af693805499e">set_avg_rating</a>(self, rating):
 <a name="l00360"></a>00360         <span class="comment"># compat for ratings container</span>
 <a name="l00361"></a>00361         <span class="keywordflow">return</span> self.<a class="code" href="classstars_1_1_star.html#a133efc7a8a1c3c28d4f7ee7fba6c39c0">set_rating</a>(rating)
 <a name="l00362"></a>00362 
-<a name="l00363"></a>00363     <span class="keyword">def </span>set_size(self, size):
+<a name="l00363"></a><a class="code" href="classstars_1_1_star.html#ae12b8faaacfaba2a0cade371fc85d92c">00363</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_star.html#ae12b8faaacfaba2a0cade371fc85d92c">set_size</a>(self, size):
 <a name="l00364"></a>00364         self.<a class="code" href="classstars_1_1_star.html#aeebc4d39e7f046f2a0c332410cd9e215">size</a> = size
 <a name="l00365"></a>00365         self.queue_draw()
 <a name="l00366"></a>00366 
-<a name="l00367"></a>00367     <span class="keyword">def </span>set_size_big(self):
+<a name="l00367"></a><a class="code" href="classstars_1_1_star.html#a109c8609c353356806616cd0555f644a">00367</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_star.html#a109c8609c353356806616cd0555f644a">set_size_big</a>(self):
 <a name="l00368"></a>00368         <span class="keywordflow">return</span> self.<a class="code" href="classstars_1_1_star.html#ae12b8faaacfaba2a0cade371fc85d92c">set_size</a>(StarSize.BIG)
 <a name="l00369"></a>00369 
-<a name="l00370"></a>00370     <span class="keyword">def </span>set_size_small(self):
+<a name="l00370"></a><a class="code" href="classstars_1_1_star.html#a5da74ba69f45ae0912996947cb15f62f">00370</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_star.html#a5da74ba69f45ae0912996947cb15f62f">set_size_small</a>(self):
 <a name="l00371"></a>00371         <span class="keywordflow">return</span> self.<a class="code" href="classstars_1_1_star.html#ae12b8faaacfaba2a0cade371fc85d92c">set_size</a>(StarSize.SMALL)
 <a name="l00372"></a>00372 
-<a name="l00373"></a>00373     <span class="keyword">def </span>set_size_normal(self):
+<a name="l00373"></a><a class="code" href="classstars_1_1_star.html#a2d4a3008365558fd8bfeeaf68e25ba0f">00373</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_star.html#a2d4a3008365558fd8bfeeaf68e25ba0f">set_size_normal</a>(self):
 <a name="l00374"></a>00374         <span class="keywordflow">return</span> self.<a class="code" href="classstars_1_1_star.html#ae12b8faaacfaba2a0cade371fc85d92c">set_size</a>(StarSize.NORMAL)
 <a name="l00375"></a>00375 
-<a name="l00376"></a>00376     <span class="keyword">def </span>set_use_rounded_caps(self, use_rounded):
+<a name="l00376"></a><a class="code" href="classstars_1_1_star.html#a1c4089f82fc58298b91fcafa9412f213">00376</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_star.html#a1c4089f82fc58298b91fcafa9412f213">set_use_rounded_caps</a>(self, use_rounded):
 <a name="l00377"></a>00377         self.<a class="code" href="classstars_1_1_star.html#a2fc9a7e6a7821c10d8bc213be9bc5d50">rounded</a> = use_rounded
 <a name="l00378"></a>00378         <span class="keyword">global</span> _star_surface_cache
 <a name="l00379"></a>00379         _star_surface_cache = {}
 <a name="l00380"></a>00380         self.queue_draw()
 <a name="l00381"></a>00381 
-<a name="l00382"></a>00382     <span class="keyword">def </span>set_size_as_pixel_value(self, pixel_value):
+<a name="l00382"></a><a class="code" href="classstars_1_1_star.html#a1f06d7f4ed2a132712fd18435918ef66">00382</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_star.html#a1f06d7f4ed2a132712fd18435918ef66">set_size_as_pixel_value</a>(self, pixel_value):
 <a name="l00383"></a>00383         <span class="keywordflow">if</span> pixel_value == self.<a class="code" href="classstars_1_1_star.html#a3c7b1fa3ad1da392b375b7cb6ac924c7">pixel_value</a>:
 <a name="l00384"></a>00384             <span class="keywordflow">return</span>
 <a name="l00385"></a>00385 
@@ -477,7 +496,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00397"></a>00397 
 <a name="l00398"></a><a class="code" href="classstars_1_1_star_ratings_widget.html">00398</a> <span class="keyword">class </span><a class="code" href="classstars_1_1_star_ratings_widget.html">StarRatingsWidget</a>(Gtk.HBox):
 <a name="l00399"></a>00399 
-<a name="l00400"></a>00400     <span class="keyword">def </span>__init__(self):
+<a name="l00400"></a><a class="code" href="classstars_1_1_star_ratings_widget.html#ad49569c2a1f65b0b14d054c43651e9f7">00400</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_star_ratings_widget.html#a92320d7714f87906147dfec68b51abea">__init__</a>(self):
 <a name="l00401"></a>00401         Gtk.Box.__init__(self)
 <a name="l00402"></a>00402         self.set_spacing(StockEms.SMALL)
 <a name="l00403"></a>00403         self.<a class="code" href="classstars_1_1_star_ratings_widget.html#ad49569c2a1f65b0b14d054c43651e9f7">stars</a> = <a class="code" href="classstars_1_1_star.html">Star</a>()
@@ -487,11 +506,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00407"></a>00407         self.label.set_alignment(0, 0.5)
 <a name="l00408"></a>00408         self.pack_start(self.<a class="code" href="classstars_1_1_star_ratings_widget.html#a32092476d06a15aa782a30f03a842d62">label</a>, <span class="keyword">False</span>, <span class="keyword">False</span>, 0)
 <a name="l00409"></a>00409 
-<a name="l00410"></a>00410     <span class="keyword">def </span>set_avg_rating(self, rating):
+<a name="l00410"></a><a class="code" href="classstars_1_1_star_ratings_widget.html#a0e890361dc8df1b808bd6c26c95796b1">00410</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_star_ratings_widget.html#a0e890361dc8df1b808bd6c26c95796b1">set_avg_rating</a>(self, rating):
 <a name="l00411"></a>00411         <span class="comment"># compat for ratings container</span>
 <a name="l00412"></a>00412         <span class="keywordflow">return</span> self.stars.set_rating(rating)
 <a name="l00413"></a>00413 
-<a name="l00414"></a>00414     <span class="keyword">def </span>set_nr_reviews(self, nr_reviews):
+<a name="l00414"></a><a class="code" href="classstars_1_1_star_ratings_widget.html#abc2b67c45527c54408cfd0b58b275af5">00414</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_star_ratings_widget.html#abc2b67c45527c54408cfd0b58b275af5">set_nr_reviews</a>(self, nr_reviews):
 <a name="l00415"></a>00415         s = gettext.ngettext(
 <a name="l00416"></a>00416             <span class="stringliteral">&quot;%(nr_ratings)i rating&quot;</span>,
 <a name="l00417"></a>00417             <span class="stringliteral">&quot;%(nr_ratings)i ratings&quot;</span>,
@@ -510,7 +529,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00430"></a>00430                     (),)
 <a name="l00431"></a>00431         }
 <a name="l00432"></a>00432 
-<a name="l00433"></a>00433     <span class="keyword">def </span>__init__(self, size=StarSize.SMALL):
+<a name="l00433"></a><a class="code" href="classstars_1_1_reactive_star.html#ae8889a46f7cd1b5643ff934f723c1d2c">00433</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_reactive_star.html#ae3d1064d56f7889f5fa2607d997b7b4e">__init__</a>(self, size=StarSize.SMALL):
 <a name="l00434"></a>00434         Star.__init__(self, size)
 <a name="l00435"></a>00435         self.<a class="code" href="classstars_1_1_reactive_star.html#ae8889a46f7cd1b5643ff934f723c1d2c">hints</a> = StarRenderHints.NORMAL
 <a name="l00436"></a>00436         self.set_rating(0)
@@ -533,16 +552,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00453"></a>00453         self.connect(<span class="stringliteral">&quot;focus-out-event&quot;</span>, self.<a class="code" href="classstars_1_1_reactive_star.html#ae255e458ffef67b06a8d960c01b54c3d">on_focus_out</a>)
 <a name="l00454"></a>00454 
 <a name="l00455"></a>00455     <span class="comment"># signal handlers</span>
-<a name="l00456"></a>00456     <span class="keyword">def </span>on_enter_notify(self, widget, event):
+<a name="l00456"></a><a class="code" href="classstars_1_1_reactive_star.html#ab497127cd5c63191af0566077fee3006">00456</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_reactive_star.html#ab497127cd5c63191af0566077fee3006">on_enter_notify</a>(self, widget, event):
 <a name="l00457"></a>00457         <span class="keywordflow">pass</span>
 <a name="l00458"></a>00458 
-<a name="l00459"></a>00459     <span class="keyword">def </span>on_leave_notify(self, widget, event):
+<a name="l00459"></a><a class="code" href="classstars_1_1_reactive_star.html#a183486a20c299095f00ad097bdc1d94b">00459</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_reactive_star.html#a183486a20c299095f00ad097bdc1d94b">on_leave_notify</a>(self, widget, event):
 <a name="l00460"></a>00460         <span class="keywordflow">pass</span>
 <a name="l00461"></a>00461 
-<a name="l00462"></a>00462     <span class="keyword">def </span>on_button_press(self, widget, event):
+<a name="l00462"></a><a class="code" href="classstars_1_1_reactive_star.html#ac74f80654bb3357a3087736312a3eb39">00462</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_reactive_star.html#ac74f80654bb3357a3087736312a3eb39">on_button_press</a>(self, widget, event):
 <a name="l00463"></a>00463         <span class="keywordflow">pass</span>
 <a name="l00464"></a>00464 
-<a name="l00465"></a>00465     <span class="keyword">def </span>on_button_release(self, widget, event):
+<a name="l00465"></a><a class="code" href="classstars_1_1_reactive_star.html#a10653497cdd0b7fdb5db933f3ba54fdc">00465</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_reactive_star.html#a10653497cdd0b7fdb5db933f3ba54fdc">on_button_release</a>(self, widget, event):
 <a name="l00466"></a>00466         star_index = self.get_star_at_xy(event.x, event.y)
 <a name="l00467"></a>00467         <span class="keywordflow">if</span> star_index <span class="keywordflow">is</span> <span class="keywordtype">None</span>:
 <a name="l00468"></a>00468             <span class="keywordflow">return</span>
@@ -553,29 +572,29 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00473"></a>00473         self.set_rating(star_index)
 <a name="l00474"></a>00474         self.emit(<span class="stringliteral">&#39;changed&#39;</span>)
 <a name="l00475"></a>00475 
-<a name="l00476"></a>00476     <span class="keyword">def </span>on_key_press(self, widget, event):
+<a name="l00476"></a><a class="code" href="classstars_1_1_reactive_star.html#ae3b78ff14ab3d4aef5dce0f9d548e488">00476</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_reactive_star.html#ae3b78ff14ab3d4aef5dce0f9d548e488">on_key_press</a>(self, widget, event):
 <a name="l00477"></a>00477         <span class="keywordflow">pass</span>
 <a name="l00478"></a>00478 
-<a name="l00479"></a>00479     <span class="keyword">def </span>on_key_release(self, widget, event):
+<a name="l00479"></a><a class="code" href="classstars_1_1_reactive_star.html#a30984980703b2e5a6c6ce42f2f795ab7">00479</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_reactive_star.html#a30984980703b2e5a6c6ce42f2f795ab7">on_key_release</a>(self, widget, event):
 <a name="l00480"></a>00480         <span class="keywordflow">pass</span>
 <a name="l00481"></a>00481 
-<a name="l00482"></a>00482     <span class="keyword">def </span>on_focus_in(self, widget, event):
+<a name="l00482"></a><a class="code" href="classstars_1_1_reactive_star.html#ad9786ae316a48ff419896e373e2bca28">00482</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_reactive_star.html#ad9786ae316a48ff419896e373e2bca28">on_focus_in</a>(self, widget, event):
 <a name="l00483"></a>00483         <span class="keywordflow">pass</span>
 <a name="l00484"></a>00484 
-<a name="l00485"></a>00485     <span class="keyword">def </span>on_focus_out(self, widget, event):
+<a name="l00485"></a><a class="code" href="classstars_1_1_reactive_star.html#ae255e458ffef67b06a8d960c01b54c3d">00485</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_reactive_star.html#ae255e458ffef67b06a8d960c01b54c3d">on_focus_out</a>(self, widget, event):
 <a name="l00486"></a>00486         <span class="keywordflow">pass</span>
 <a name="l00487"></a>00487 
 <a name="l00488"></a>00488     <span class="comment"># public</span>
-<a name="l00489"></a>00489     <span class="keyword">def </span>get_rating(self):
+<a name="l00489"></a><a class="code" href="classstars_1_1_reactive_star.html#acd71a59c1b3cfef6221f421b116f50fe">00489</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_reactive_star.html#acd71a59c1b3cfef6221f421b116f50fe">get_rating</a>(self):
 <a name="l00490"></a>00490         <span class="keywordflow">return</span> self.rating
 <a name="l00491"></a>00491 
-<a name="l00492"></a>00492     <span class="keyword">def </span>render_star(self, widget, cr, x, y):
+<a name="l00492"></a><a class="code" href="classstars_1_1_reactive_star.html#a564b21e61379d83701c5c041df67ef12">00492</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_reactive_star.html#a564b21e61379d83701c5c041df67ef12">render_star</a>(self, widget, cr, x, y):
 <a name="l00493"></a>00493         <span class="comment"># paint focus</span>
 <a name="l00494"></a>00494 
 <a name="l00495"></a>00495         StarRenderer.render_star(self, widget, cr, x, y)
 <a name="l00496"></a>00496         <span class="comment"># if a star is hovered paint prelit star</span>
 <a name="l00497"></a>00497 
-<a name="l00498"></a>00498     <span class="keyword">def </span>get_star_at_xy(self, x, y, half_star_precision=False):
+<a name="l00498"></a><a class="code" href="classstars_1_1_reactive_star.html#a5c6621920076f690893f30199278f071">00498</a>     <span class="keyword">def </span><a class="code" href="classstars_1_1_reactive_star.html#a5c6621920076f690893f30199278f071">get_star_at_xy</a>(self, x, y, half_star_precision=False):
 <a name="l00499"></a>00499         star_width = self._size_map[self.size]()
 <a name="l00500"></a>00500 
 <a name="l00501"></a>00501         star_index = x / star_width
@@ -590,12 +609,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00510"></a>00510 
 <a name="l00511"></a>00511         <span class="keywordflow">return</span> int(star_index) + remainder
 </pre></div></div><!-- contents -->
+</div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Properties</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -604,13 +624,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
+  <div id="nav-path" class="navpath">
+    <ul>
+      <li class="navelem"><a class="el" href="stars_8py.html">stars.py</a>      </li>
 
+    <li class="footer">Generated on Wed Apr 17 2013 22:48:21 for Coverart Browser by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
+   </ul>
+ </div>
 
-<hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 19 2013 18:51:56 for CoverArt Browser by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.7.6.1
-</small></address>
 
 </body>
 </html>

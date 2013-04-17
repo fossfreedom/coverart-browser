@@ -3,13 +3,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>CoverArt Browser: coverart_browser_prefs.Preferences Class Reference</title>
+<title>Coverart Browser: coverart_browser_prefs.Preferences Class Reference</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-
-<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
   $(document).ready(function() { searchBox.OnSelectItem(0); });
@@ -27,10 +32,10 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">CoverArt Browser
-   &#160;<span id="projectnumber">0.7</span>
+   <div id="projectname">Coverart Browser
+   &#160;<span id="projectnumber">v0.8</span>
    </div>
-   <div id="projectbrief">Browser your rhythmbox collection by their album cover</div>
+   <div id="projectbrief">Browse your cover-art albums in Rhythmbox</div>
   </td>
   
   
@@ -47,6 +52,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -75,27 +81,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
-<!-- window showing the filter options -->
-<div id="MSearchSelectWindow"
-     onmouseover="return searchBox.OnSearchSelectShow()"
-     onmouseout="return searchBox.OnSearchSelectHide()"
-     onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
-
-<!-- iframe showing the search results (closed by default) -->
-<div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
 </div>
-
-  <div id="nav-path" class="navpath">
-    <ul>
-      <li class="navelem"><b>coverart_browser_prefs</b>      </li>
-      <li class="navelem"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html">Preferences</a>      </li>
-    </ul>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
   </div>
 </div>
+<script type="text/javascript">
+  initNavTree('classcoverart__browser__prefs_1_1_preferences.html','');
+</script>
+<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -112,25 +111,39 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#a0a75c7fe4178aea037ea9fa536585889">__init__</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#a15f74152d53e2dad215fdc0f41b24742">do_create_configure_widget</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a046cf8c434295cbab3650ea212a5d5c8"></a><!-- doxytag: member="coverart_browser_prefs::Preferences::rating_changed_callback" ref="a046cf8c434295cbab3650ea212a5d5c8" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>rating_changed_callback</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#a046cf8c434295cbab3650ea212a5d5c8">rating_changed_callback</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#aa35207f5417592aa1b7cc6128f0d9529">on_save_button_clicked</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#a3614ab236ec4e4b6a4db6c8844088381">on_genre_filechooserbutton_file_set</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#a641b69a7a28a0e1c2f4e2602efc323bf">on_genre_view_selection_changed</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#a6f77506e6f7645d3085f6835706ecfa0">on_add_button_clicked</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#aa9491094f86d699f1813af632fc51d46">on_delete_button_clicked</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#a571f3e0e7b081c39f1501955a51bc594">set_save_sensitivity</a></td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aee837e2535a870252793e96a8e3e5192"></a><!-- doxytag: member="coverart_browser_prefs::Preferences::settings" ref="aee837e2535a870252793e96a8e3e5192" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>settings</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af9e19a8a0855d712f0bb2eb93ea2bb23"></a><!-- doxytag: member="coverart_browser_prefs::Preferences::stars" ref="af9e19a8a0855d712f0bb2eb93ea2bb23" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>stars</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#aee837e2535a870252793e96a8e3e5192">settings</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#af9e19a8a0855d712f0bb2eb93ea2bb23">stars</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#a6f2f4cc5e3b02d6a05aae46ea867246f">alt_liststore</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#abf47ee91c2936e380fde797bbacc2afe">alt_user_liststore</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#a06cbab602b8657d306342c95591e23bf">amend_mode</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#aa9c6d2e65caf70cef4602bfc90ef5d40">blank_iter</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#a93135670774de8707974e7b2826158a6">genre_combobox</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#aa44451eefae50bae09720d450cd61b6d">genre_entry</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#a13c350993e95020495e3ea507a3f7cd0">genre_view</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#a2edcbbf7b57289fb93d006a310289e66">save_button</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#a8fe70923d0d8dae9a3ebf34e8f584958">filechooserdialog</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#a24e403467f6dd90e8bd51d7d4bfb23b7">current_genre</a></td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a314522f2c91df3659ccf58221580beb5"></a><!-- doxytag: member="coverart_browser_prefs::Preferences::object" ref="a314522f2c91df3659ccf58221580beb5" args="" -->
-tuple&#160;</td><td class="memItemRight" valign="bottom"><b>object</b> = GObject.property(type=GObject.Object)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#a314522f2c91df3659ccf58221580beb5">object</a> = GObject.property(type=GObject.Object)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#a16e9dded17f3985ba78036c14ecb7903">GENRE_POPUP</a> = 1</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#aa001c0610313385023a5f237145af937">GENRE_LIST</a> = 2</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><div class="fragment"><pre class="fragment">
 Preferences for the CoverArt Browser Plugins. It holds the settings for
 the plugin and also is the responsible of creating the preferences dialog.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__prefs_8py_source.html#l00189">189</a> of file <a class="el" href="coverart__browser__prefs_8py_source.html">coverart_browser_prefs.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser__prefs_8py_source.html#l00190">190</a> of file <a class="el" href="coverart__browser__prefs_8py_source.html">coverart_browser_prefs.py</a>.</p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a0a75c7fe4178aea037ea9fa536585889"></a><!-- doxytag: member="coverart_browser_prefs::Preferences::__init__" ref="a0a75c7fe4178aea037ea9fa536585889" args="" -->
 <div class="memitem">
@@ -150,7 +163,7 @@ the plugin and also is the responsible of creating the preferences dialog.
 Initialises the preferences, getting an instance of the settings saved
 by Gio.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__prefs_8py_source.html#l00197">197</a> of file <a class="el" href="coverart__browser__prefs_8py_source.html">coverart_browser_prefs.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser__prefs_8py_source.html#l00200">200</a> of file <a class="el" href="coverart__browser__prefs_8py_source.html">coverart_browser_prefs.py</a>.</p>
 
 </div>
 </div>
@@ -172,20 +185,463 @@ by Gio.
 <div class="fragment"><pre class="fragment">
 Creates the plugin's preferences dialog
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__prefs_8py_source.html#l00206">206</a> of file <a class="el" href="coverart__browser__prefs_8py_source.html">coverart_browser_prefs.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser__prefs_8py_source.html#l00209">209</a> of file <a class="el" href="coverart__browser__prefs_8py_source.html">coverart_browser_prefs.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6f77506e6f7645d3085f6835706ecfa0"></a><!-- doxytag: member="coverart_browser_prefs::Preferences::on_add_button_clicked" ref="a6f77506e6f7645d3085f6835706ecfa0" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#a6f77506e6f7645d3085f6835706ecfa0">coverart_browser_prefs.Preferences.on_add_button_clicked</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>button</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">
+action when a new genre is added to the table
+</pre></div> 
+<p>Definition at line <a class="el" href="coverart__browser__prefs_8py_source.html#l00436">436</a> of file <a class="el" href="coverart__browser__prefs_8py_source.html">coverart_browser_prefs.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa9491094f86d699f1813af632fc51d46"></a><!-- doxytag: member="coverart_browser_prefs::Preferences::on_delete_button_clicked" ref="aa9491094f86d699f1813af632fc51d46" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#aa9491094f86d699f1813af632fc51d46">coverart_browser_prefs.Preferences.on_delete_button_clicked</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>button</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">
+action when a genre is to be deleted
+</pre></div> 
+<p>Definition at line <a class="el" href="coverart__browser__prefs_8py_source.html#l00448">448</a> of file <a class="el" href="coverart__browser__prefs_8py_source.html">coverart_browser_prefs.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3614ab236ec4e4b6a4db6c8844088381"></a><!-- doxytag: member="coverart_browser_prefs::Preferences::on_genre_filechooserbutton_file_set" ref="a3614ab236ec4e4b6a4db6c8844088381" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#a3614ab236ec4e4b6a4db6c8844088381">coverart_browser_prefs.Preferences.on_genre_filechooserbutton_file_set</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>filechooser</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">
+action when genre new icon button is pressed
+</pre></div> 
+<p>Definition at line <a class="el" href="coverart__browser__prefs_8py_source.html#l00402">402</a> of file <a class="el" href="coverart__browser__prefs_8py_source.html">coverart_browser_prefs.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a641b69a7a28a0e1c2f4e2602efc323bf"></a><!-- doxytag: member="coverart_browser_prefs::Preferences::on_genre_view_selection_changed" ref="a641b69a7a28a0e1c2f4e2602efc323bf" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#a641b69a7a28a0e1c2f4e2602efc323bf">coverart_browser_prefs.Preferences.on_genre_view_selection_changed</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>view</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">
+action when user selects a row in the list of genres
+</pre></div> 
+<p>Definition at line <a class="el" href="coverart__browser__prefs_8py_source.html#l00410">410</a> of file <a class="el" href="coverart__browser__prefs_8py_source.html">coverart_browser_prefs.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa35207f5417592aa1b7cc6128f0d9529"></a><!-- doxytag: member="coverart_browser_prefs::Preferences::on_save_button_clicked" ref="aa35207f5417592aa1b7cc6128f0d9529" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#aa35207f5417592aa1b7cc6128f0d9529">coverart_browser_prefs.Preferences.on_save_button_clicked</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>button</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">
+action when genre edit area is saved
+</pre></div> 
+<p>Definition at line <a class="el" href="coverart__browser__prefs_8py_source.html#l00364">364</a> of file <a class="el" href="coverart__browser__prefs_8py_source.html">coverart_browser_prefs.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a046cf8c434295cbab3650ea212a5d5c8"></a><!-- doxytag: member="coverart_browser_prefs::Preferences::rating_changed_callback" ref="a046cf8c434295cbab3650ea212a5d5c8" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#a046cf8c434295cbab3650ea212a5d5c8">coverart_browser_prefs.Preferences.rating_changed_callback</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>stars</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__prefs_8py_source.html#l00359">359</a> of file <a class="el" href="coverart__browser__prefs_8py_source.html">coverart_browser_prefs.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a571f3e0e7b081c39f1501955a51bc594"></a><!-- doxytag: member="coverart_browser_prefs::Preferences::set_save_sensitivity" ref="a571f3e0e7b081c39f1501955a51bc594" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#a571f3e0e7b081c39f1501955a51bc594">coverart_browser_prefs.Preferences.set_save_sensitivity</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>_</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">
+action to toggle the state of the save button depending
+upon the values entered in the genre edit fields
+</pre></div> 
+<p>Definition at line <a class="el" href="coverart__browser__prefs_8py_source.html#l00465">465</a> of file <a class="el" href="coverart__browser__prefs_8py_source.html">coverart_browser_prefs.py</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="a6f2f4cc5e3b02d6a05aae46ea867246f"></a><!-- doxytag: member="coverart_browser_prefs::Preferences::alt_liststore" ref="a6f2f4cc5e3b02d6a05aae46ea867246f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#a6f2f4cc5e3b02d6a05aae46ea867246f">coverart_browser_prefs.Preferences::alt_liststore</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__prefs_8py_source.html#l00211">211</a> of file <a class="el" href="coverart__browser__prefs_8py_source.html">coverart_browser_prefs.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="abf47ee91c2936e380fde797bbacc2afe"></a><!-- doxytag: member="coverart_browser_prefs::Preferences::alt_user_liststore" ref="abf47ee91c2936e380fde797bbacc2afe" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#abf47ee91c2936e380fde797bbacc2afe">coverart_browser_prefs.Preferences::alt_user_liststore</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__prefs_8py_source.html#l00211">211</a> of file <a class="el" href="coverart__browser__prefs_8py_source.html">coverart_browser_prefs.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a06cbab602b8657d306342c95591e23bf"></a><!-- doxytag: member="coverart_browser_prefs::Preferences::amend_mode" ref="a06cbab602b8657d306342c95591e23bf" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#a06cbab602b8657d306342c95591e23bf">coverart_browser_prefs.Preferences::amend_mode</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__prefs_8py_source.html#l00211">211</a> of file <a class="el" href="coverart__browser__prefs_8py_source.html">coverart_browser_prefs.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa9c6d2e65caf70cef4602bfc90ef5d40"></a><!-- doxytag: member="coverart_browser_prefs::Preferences::blank_iter" ref="aa9c6d2e65caf70cef4602bfc90ef5d40" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#aa9c6d2e65caf70cef4602bfc90ef5d40">coverart_browser_prefs.Preferences::blank_iter</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__prefs_8py_source.html#l00211">211</a> of file <a class="el" href="coverart__browser__prefs_8py_source.html">coverart_browser_prefs.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a24e403467f6dd90e8bd51d7d4bfb23b7"></a><!-- doxytag: member="coverart_browser_prefs::Preferences::current_genre" ref="a24e403467f6dd90e8bd51d7d4bfb23b7" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#a24e403467f6dd90e8bd51d7d4bfb23b7">coverart_browser_prefs.Preferences::current_genre</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__prefs_8py_source.html#l00366">366</a> of file <a class="el" href="coverart__browser__prefs_8py_source.html">coverart_browser_prefs.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8fe70923d0d8dae9a3ebf34e8f584958"></a><!-- doxytag: member="coverart_browser_prefs::Preferences::filechooserdialog" ref="a8fe70923d0d8dae9a3ebf34e8f584958" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#a8fe70923d0d8dae9a3ebf34e8f584958">coverart_browser_prefs.Preferences::filechooserdialog</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__prefs_8py_source.html#l00211">211</a> of file <a class="el" href="coverart__browser__prefs_8py_source.html">coverart_browser_prefs.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a93135670774de8707974e7b2826158a6"></a><!-- doxytag: member="coverart_browser_prefs::Preferences::genre_combobox" ref="a93135670774de8707974e7b2826158a6" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#a93135670774de8707974e7b2826158a6">coverart_browser_prefs.Preferences::genre_combobox</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__prefs_8py_source.html#l00211">211</a> of file <a class="el" href="coverart__browser__prefs_8py_source.html">coverart_browser_prefs.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa44451eefae50bae09720d450cd61b6d"></a><!-- doxytag: member="coverart_browser_prefs::Preferences::genre_entry" ref="aa44451eefae50bae09720d450cd61b6d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#aa44451eefae50bae09720d450cd61b6d">coverart_browser_prefs.Preferences::genre_entry</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__prefs_8py_source.html#l00211">211</a> of file <a class="el" href="coverart__browser__prefs_8py_source.html">coverart_browser_prefs.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa001c0610313385023a5f237145af937"></a><!-- doxytag: member="coverart_browser_prefs::Preferences::GENRE_LIST" ref="aa001c0610313385023a5f237145af937" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#aa001c0610313385023a5f237145af937">coverart_browser_prefs.Preferences::GENRE_LIST</a> = 2<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__prefs_8py_source.html#l00198">198</a> of file <a class="el" href="coverart__browser__prefs_8py_source.html">coverart_browser_prefs.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a16e9dded17f3985ba78036c14ecb7903"></a><!-- doxytag: member="coverart_browser_prefs::Preferences::GENRE_POPUP" ref="a16e9dded17f3985ba78036c14ecb7903" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#a16e9dded17f3985ba78036c14ecb7903">coverart_browser_prefs.Preferences::GENRE_POPUP</a> = 1<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__prefs_8py_source.html#l00197">197</a> of file <a class="el" href="coverart__browser__prefs_8py_source.html">coverart_browser_prefs.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a13c350993e95020495e3ea507a3f7cd0"></a><!-- doxytag: member="coverart_browser_prefs::Preferences::genre_view" ref="a13c350993e95020495e3ea507a3f7cd0" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#a13c350993e95020495e3ea507a3f7cd0">coverart_browser_prefs.Preferences::genre_view</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__prefs_8py_source.html#l00211">211</a> of file <a class="el" href="coverart__browser__prefs_8py_source.html">coverart_browser_prefs.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a314522f2c91df3659ccf58221580beb5"></a><!-- doxytag: member="coverart_browser_prefs::Preferences::object" ref="a314522f2c91df3659ccf58221580beb5" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tuple <a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#a314522f2c91df3659ccf58221580beb5">coverart_browser_prefs.Preferences::object</a> = GObject.property(type=GObject.Object)<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__prefs_8py_source.html#l00196">196</a> of file <a class="el" href="coverart__browser__prefs_8py_source.html">coverart_browser_prefs.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2edcbbf7b57289fb93d006a310289e66"></a><!-- doxytag: member="coverart_browser_prefs::Preferences::save_button" ref="a2edcbbf7b57289fb93d006a310289e66" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#a2edcbbf7b57289fb93d006a310289e66">coverart_browser_prefs.Preferences::save_button</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__prefs_8py_source.html#l00211">211</a> of file <a class="el" href="coverart__browser__prefs_8py_source.html">coverart_browser_prefs.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aee837e2535a870252793e96a8e3e5192"></a><!-- doxytag: member="coverart_browser_prefs::Preferences::settings" ref="aee837e2535a870252793e96a8e3e5192" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#aee837e2535a870252793e96a8e3e5192">coverart_browser_prefs.Preferences::settings</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__prefs_8py_source.html#l00203">203</a> of file <a class="el" href="coverart__browser__prefs_8py_source.html">coverart_browser_prefs.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af9e19a8a0855d712f0bb2eb93ea2bb23"></a><!-- doxytag: member="coverart_browser_prefs::Preferences::stars" ref="af9e19a8a0855d712f0bb2eb93ea2bb23" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html#af9e19a8a0855d712f0bb2eb93ea2bb23">coverart_browser_prefs.Preferences::stars</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__prefs_8py_source.html#l00211">211</a> of file <a class="el" href="coverart__browser__prefs_8py_source.html">coverart_browser_prefs.py</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/home/dad/.local/share/rhythmbox/plugins/coverart_browser/<a class="el" href="coverart__browser__prefs_8py_source.html">coverart_browser_prefs.py</a></li>
+<li>/home/home/dad/Downloads/coverart-browser/<a class="el" href="coverart__browser__prefs_8py_source.html">coverart_browser_prefs.py</a></li>
 </ul>
 </div><!-- contents -->
+</div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Properties</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -194,13 +650,17 @@ Creates the plugin's preferences dialog
 </iframe>
 </div>
 
+  <div id="nav-path" class="navpath">
+    <ul>
+      <li class="navelem"><a class="el" href="namespacecoverart__browser__prefs.html">coverart_browser_prefs</a>      </li>
+      <li class="navelem"><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html">Preferences</a>      </li>
 
+    <li class="footer">Generated on Wed Apr 17 2013 22:48:21 for Coverart Browser by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
+   </ul>
+ </div>
 
-<hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 19 2013 18:51:56 for CoverArt Browser by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.7.6.1
-</small></address>
 
 </body>
 </html>

@@ -1,9 +1,19 @@
 var searchData=
 [
+  ['template',['template',['../classcoverart__search_1_1_cover_search_pane.html#a124f94258b128898f84e5fe37f99479a',1,'coverart_search::CoverSearchPane']]],
+  ['text_5fman',['text_man',['../classcoverart__album_1_1_album_manager.html#af586ef172c87e5e8023e2e3d445735a9',1,'coverart_album::AlbumManager']]],
   ['textmanager',['TextManager',['../classcoverart__album_1_1_text_manager.html',1,'coverart_album']]],
+  ['theme',['Theme',['../classcoverart__utils_1_1_theme.html',1,'coverart_utils']]],
+  ['theme',['theme',['../classcoverart__utils_1_1_theme_1_1__impl.html#a138aecebb958d49242cd34e210028977',1,'coverart_utils::Theme::_impl']]],
+  ['themes',['themes',['../classcoverart__utils_1_1_theme_1_1__impl.html#abd26ebfddb438e799dcb8a4ad6fde642',1,'coverart_utils::Theme::_impl']]],
+  ['title',['title',['../classcoverart__album_1_1_track.html#ad631f6716cc7665b3c47751e4ef87d70',1,'coverart_album::Track']]],
   ['toolbar',['Toolbar',['../classcoverart__browser__source_1_1_toolbar.html',1,'coverart_browser_source']]],
+  ['toolbar_5fpos',['toolbar_pos',['../classcoverart__browser__source_1_1_toolbar_manager.html#a126d995243c66d307e363805446b3820',1,'coverart_browser_source::ToolbarManager']]],
   ['toolbarmanager',['ToolbarManager',['../classcoverart__browser__source_1_1_toolbar_manager.html',1,'coverart_browser_source']]],
   ['toptoolbar',['TopToolbar',['../classcoverart__browser__source_1_1_top_toolbar.html',1,'coverart_browser_source']]],
   ['track',['Track',['../classcoverart__album_1_1_track.html',1,'coverart_album']]],
-  ['ttimer',['ttimer',['../classcoverart__timer_1_1ttimer.html',1,'coverart_timer']]]
+  ['track_5fcount',['track_count',['../classcoverart__album_1_1_album.html#a6df3a95fe555dd908a8a0d4521b1794e',1,'coverart_album::Album']]],
+  ['track_5fnumber',['track_number',['../classcoverart__album_1_1_track.html#a9f01fbca65542f0cfd97f2f04d109383',1,'coverart_album::Track']]],
+  ['track_5ftitle_5ffilter',['track_title_filter',['../classcoverart__album_1_1_album_filters.html#a4a08d030dbae2c29651d9893579ac1d6',1,'coverart_album::AlbumFilters']]],
+  ['track_5ftitles',['track_titles',['../classcoverart__album_1_1_album.html#ab83cd6d6313a841415a314a3d76b276e',1,'coverart_album::Album']]]
 ];

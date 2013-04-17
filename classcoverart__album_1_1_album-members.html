@@ -3,13 +3,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>CoverArt Browser: Member List</title>
+<title>Coverart Browser: Member List</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-
-<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
   $(document).ready(function() { searchBox.OnSelectItem(0); });
@@ -27,10 +32,10 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">CoverArt Browser
-   &#160;<span id="projectnumber">0.7</span>
+   <div id="projectname">Coverart Browser
+   &#160;<span id="projectnumber">v0.8</span>
    </div>
-   <div id="projectbrief">Browser your rhythmbox collection by their album cover</div>
+   <div id="projectbrief">Browse your cover-art albums in Rhythmbox</div>
   </td>
   
   
@@ -47,6 +52,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -75,49 +81,56 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
-  <div id="nav-path" class="navpath">
-    <ul>
-      <li class="navelem"><b>coverart_album</b>      </li>
-      <li class="navelem"><a class="el" href="classcoverart__album_1_1_album.html">Album</a>      </li>
-    </ul>
+</div>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
   </div>
 </div>
+<script type="text/javascript">
+  initNavTree('classcoverart__album_1_1_album.html','');
+</script>
+<div id="doc-content">
 <div class="header">
   <div class="headertitle">
 <div class="title">coverart_album.Album Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 This is the complete list of members for <a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a>, including all inherited members.<table>
-  <tr bgcolor="#f0f0f0"><td><b>__eq__</b> (defined in <a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a>)</td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>__init__</b> (defined in <a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a>)</td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>__ne__</b> (defined in <a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a>)</td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>__str__</b> (defined in <a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a>)</td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classcoverart__album_1_1_album.html#af1c77435cabe078b70c457e855751e07">__eq__</a></td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classcoverart__album_1_1_album.html#a63959a33149a1d88a6b58998c1ba7184">__init__</a></td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classcoverart__album_1_1_album.html#a0e3a15fcb044b6896b63359161b9cbaa">__ne__</a></td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classcoverart__album_1_1_album.html#aba8d9b4927a05fc6eaa715174d05ab4a">__str__</a></td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classcoverart__album_1_1_album.html#a0f78a357ee116999ae5249cf260d865e">add_track</a></td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>artist</b> (defined in <a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a>)</td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>artists</b> (defined in <a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a>)</td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>calc_artist</b> (defined in <a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a>)</td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>calc_name</b> (defined in <a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a>)</td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>cover</b> (defined in <a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a>)</td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>cover</b> (defined in <a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a>)</td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>cover</b> (defined in <a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a>)</td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classcoverart__album_1_1_album.html#a1005d3c8abe391d3004f11624826fd6a">album_artist_sort</a></td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classcoverart__album_1_1_album.html#a1ddec7ffe2f7680944fc9de703ad125f">album_sort</a></td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classcoverart__album_1_1_album.html#adfbb762f27c1e3a22ede4935ad08dfea">artist</a></td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classcoverart__album_1_1_album.html#a63ca6e0e5582f32ab41c0cbe47a51319">artists</a></td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classcoverart__album_1_1_album.html#af63eebb2be69e0af5d726531af0716a3">cover</a></td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classcoverart__album_1_1_album.html#a6078a69a8859084e4a8e17cb384417a8">cover</a></td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classcoverart__album_1_1_album.html#a6078a69a8859084e4a8e17cb384417a8">cover</a></td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classcoverart__album_1_1_album.html#a3a4145694b0f64f4d8b213da489007ce">create_ext_db_key</a></td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>do_modified</b> (defined in <a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a>)</td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>duration</b> (defined in <a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a>)</td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>genres</b> (defined in <a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a>)</td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classcoverart__album_1_1_album.html#a36e057c2da9f8d537f12342e4d814613">do_modified</a></td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classcoverart__album_1_1_album.html#a7afe8cab8ec0f82e1646b57689fb5877">duration</a></td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classcoverart__album_1_1_album.html#a7a57992c74493328924e7cdc698fdd28">genres</a></td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classcoverart__album_1_1_album.html#aa8c0fdd0de0384dfcf249b8df9bc5a1b">get_tracks</a></td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>name</b> (defined in <a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a>)</td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>rating</b> (defined in <a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a>)</td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>rating</b> (defined in <a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a>)</td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>track_count</b> (defined in <a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a>)</td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>track_titles</b> (defined in <a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a>)</td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>year</b> (defined in <a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a>)</td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classcoverart__album_1_1_album.html#a4e4a6458c6687ee71a8ce10ea4890339">name</a></td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classcoverart__album_1_1_album.html#ae3f28a5cd64d4ef4e91cfccf3870cae5">rating</a></td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classcoverart__album_1_1_album.html#ae3f28a5cd64d4ef4e91cfccf3870cae5">rating</a></td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classcoverart__album_1_1_album.html#a6df3a95fe555dd908a8a0d4521b1794e">track_count</a></td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classcoverart__album_1_1_album.html#ab83cd6d6313a841415a314a3d76b276e">track_titles</a></td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classcoverart__album_1_1_album.html#a93531c78d2843ea07d0a9c6494da3f6f">year</a></td><td><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></td><td></td></tr>
 </table></div><!-- contents -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Properties</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -126,13 +139,16 @@ This is the complete list of members for <a class="el" href="classcoverart__albu
 </iframe>
 </div>
 
+</div>
+  <div id="nav-path" class="navpath">
+    <ul>
 
+    <li class="footer">Generated on Wed Apr 17 2013 22:48:21 for Coverart Browser by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
+   </ul>
+ </div>
 
-<hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 19 2013 18:51:56 for CoverArt Browser by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.7.6.1
-</small></address>
 
 </body>
 </html>

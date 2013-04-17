@@ -1,12 +1,27 @@
 var searchData=
 [
-  ['label',['Label',['../classdiscogs__client_1_1_label.html',1,'discogs_client']]],
+  ['label',['label',['../classstars_1_1_star.html#ae565d59906409c4811e0f4bcf0197dbd',1,'stars::Star::label()'],['../classstars_1_1_star_ratings_widget.html#a32092476d06a15aa782a30f03a842d62',1,'stars::StarRatingsWidget.label()']]],
+  ['large',['LARGE',['../classem_1_1_stock_ems.html#a0e63362982a66a558040d8bfb0885c8a',1,'em::StockEms']]],
+  ['last_5fselected_5falbum',['last_selected_album',['../classcoverart__browser__source_1_1_cover_art_browser_source.html#a238d4ec5de4e0c15dad27e88dfd366b4',1,'coverart_browser_source::CoverArtBrowserSource']]],
+  ['last_5ftoolbar_5fpos',['last_toolbar_pos',['../classcoverart__browser__source_1_1_toolbar_manager.html#a9c65ea41a275567b29bef0c5710e8624',1,'coverart_browser_source::ToolbarManager']]],
+  ['last_5fwidth',['last_width',['../classcoverart__browser__source_1_1_cover_art_browser_source.html#a201ec0ff9f047b6ebce6201076f92754',1,'coverart_browser_source::CoverArtBrowserSource']]],
+  ['lastfmextensionfingerprinter',['LastFMExtensionFingerprinter',['../classcoverart__external__plugins_1_1_last_f_m_extension_fingerprinter.html',1,'coverart_external_plugins']]],
+  ['layout',['layout',['../classstars_1_1_shape_star.html#a05d944816cd5fa49a04f75a6c6c8a8f3',1,'stars::ShapeStar']]],
   ['lefttoolbar',['LeftToolbar',['../classcoverart__browser__source_1_1_left_toolbar.html',1,'coverart_browser_source']]],
+  ['listviewbutton',['ListViewButton',['../classcoverart__widgets_1_1_list_view_button.html',1,'coverart_widgets']]],
+  ['llyrics',['lLyrics',['../classcoverart__external__plugins_1_1l_lyrics.html',1,'coverart_external_plugins']]],
   ['load_5falbums',['load_albums',['../classcoverart__album_1_1_album_loader.html#a344b50b56aff212b2b07008aade1ca02',1,'coverart_album::AlbumLoader']]],
   ['load_5fcomplete',['load_complete',['../classcoverart__browser_1_1_cover_art_browser_plugin.html#aff2c1cf6e18b9b608d945cef736d34aa',1,'coverart_browser::CoverArtBrowserPlugin']]],
   ['load_5fcover',['load_cover',['../classcoverart__album_1_1_cover_manager.html#a2e7fbd2e322d90d9f0faafd8bdc4cecf',1,'coverart_album::CoverManager']]],
   ['load_5fcovers',['load_covers',['../classcoverart__album_1_1_cover_manager.html#a8847c91f1affbde59d08b5b1b3975900',1,'coverart_album::CoverManager']]],
+  ['load_5ffin_5fid',['load_fin_id',['../classcoverart__browser__source_1_1_cover_art_browser_source.html#a607abf3903716bef59e3b11aa20399a2',1,'coverart_browser_source::CoverArtBrowserSource']]],
   ['load_5ffinished_5fcallback',['load_finished_callback',['../classcoverart__browser__source_1_1_cover_art_browser_source.html#aeb03b4f6caba32356ec896ea69321a3d',1,'coverart_browser_source::CoverArtBrowserSource']]],
   ['load_5ftemplates',['load_templates',['../classcoverart__search_1_1_cover_search_pane.html#aa45a2540317083820ff637fac7c54d6f',1,'coverart_search::CoverSearchPane']]],
+  ['loader',['loader',['../classcoverart__album_1_1_album_manager.html#aeb7cb2ada6f94ce469fc410ef302819b',1,'coverart_album::AlbumManager']]],
+  ['locale',['Locale',['../classcoverart__browser__prefs_1_1_cover_locale_1_1____impl.html#a83b255e957360e808ed788b6985ac9ca',1,'coverart_browser_prefs::CoverLocale::__impl']]],
+  ['locale_5fnames',['locale_names',['../classcoverart__utils_1_1_configured_sprite_sheet.html#a6c3d766e876865696d1a593f67bc07aa',1,'coverart_utils::ConfiguredSpriteSheet']]],
+  ['location',['location',['../classcoverart__album_1_1_track.html#a4aa562f5660cb31f3b2fb1fee4175da2',1,'coverart_album::Track']]],
+  ['log',['LOG',['../namespaceem.html#a880bafd9dabd2afca94131c521666120',1,'em.LOG()'],['../namespacestars.html#a3f2eb5fa111c7788b597244adbf062de',1,'stars.LOG()']]],
+  ['lookup_5fsurfaces_5ffor_5fsize',['lookup_surfaces_for_size',['../classstars_1_1_star_renderer.html#afc9fd923b4c165f1b98020a4a4e51411',1,'stars::StarRenderer']]],
   ['love_5ftrack',['love_track',['../classcoverart__entryview_1_1_cover_art_entry_view.html#ad4231ea8ec6a171e7620698af0251338',1,'coverart_entryview::CoverArtEntryView']]]
 ];

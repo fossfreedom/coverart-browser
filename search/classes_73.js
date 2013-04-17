@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['search',['Search',['../classdiscogs__client_1_1_search.html',1,'discogs_client']]],
   ['searchentry',['SearchEntry',['../classcoverart__widgets_1_1_search_entry.html',1,'coverart_widgets']]],
+  ['sendfirst',['SendFirst',['../classcoverart__external__plugins_1_1_send_first.html',1,'coverart_external_plugins']]],
+  ['sendto',['SendTo',['../classcoverart__external__plugins_1_1_send_to.html',1,'coverart_external_plugins']]],
   ['shadow',['Shadow',['../classcoverart__album_1_1_shadow.html',1,'coverart_album']]],
   ['shadowedcover',['ShadowedCover',['../classcoverart__album_1_1_shadowed_cover.html',1,'coverart_album']]],
   ['shapestar',['ShapeStar',['../classstars_1_1_shape_star.html',1,'stars']]],

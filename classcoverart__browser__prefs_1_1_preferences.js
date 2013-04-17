@@ -1,0 +1,27 @@
+var classcoverart__browser__prefs_1_1_preferences =
+[
+    [ "__init__", "classcoverart__browser__prefs_1_1_preferences.html#a0a75c7fe4178aea037ea9fa536585889", null ],
+    [ "do_create_configure_widget", "classcoverart__browser__prefs_1_1_preferences.html#a15f74152d53e2dad215fdc0f41b24742", null ],
+    [ "on_add_button_clicked", "classcoverart__browser__prefs_1_1_preferences.html#a6f77506e6f7645d3085f6835706ecfa0", null ],
+    [ "on_delete_button_clicked", "classcoverart__browser__prefs_1_1_preferences.html#aa9491094f86d699f1813af632fc51d46", null ],
+    [ "on_genre_filechooserbutton_file_set", "classcoverart__browser__prefs_1_1_preferences.html#a3614ab236ec4e4b6a4db6c8844088381", null ],
+    [ "on_genre_view_selection_changed", "classcoverart__browser__prefs_1_1_preferences.html#a641b69a7a28a0e1c2f4e2602efc323bf", null ],
+    [ "on_save_button_clicked", "classcoverart__browser__prefs_1_1_preferences.html#aa35207f5417592aa1b7cc6128f0d9529", null ],
+    [ "rating_changed_callback", "classcoverart__browser__prefs_1_1_preferences.html#a046cf8c434295cbab3650ea212a5d5c8", null ],
+    [ "set_save_sensitivity", "classcoverart__browser__prefs_1_1_preferences.html#a571f3e0e7b081c39f1501955a51bc594", null ],
+    [ "alt_liststore", "classcoverart__browser__prefs_1_1_preferences.html#a6f2f4cc5e3b02d6a05aae46ea867246f", null ],
+    [ "alt_user_liststore", "classcoverart__browser__prefs_1_1_preferences.html#abf47ee91c2936e380fde797bbacc2afe", null ],
+    [ "amend_mode", "classcoverart__browser__prefs_1_1_preferences.html#a06cbab602b8657d306342c95591e23bf", null ],
+    [ "blank_iter", "classcoverart__browser__prefs_1_1_preferences.html#aa9c6d2e65caf70cef4602bfc90ef5d40", null ],
+    [ "current_genre", "classcoverart__browser__prefs_1_1_preferences.html#a24e403467f6dd90e8bd51d7d4bfb23b7", null ],
+    [ "filechooserdialog", "classcoverart__browser__prefs_1_1_preferences.html#a8fe70923d0d8dae9a3ebf34e8f584958", null ],
+    [ "genre_combobox", "classcoverart__browser__prefs_1_1_preferences.html#a93135670774de8707974e7b2826158a6", null ],
+    [ "genre_entry", "classcoverart__browser__prefs_1_1_preferences.html#aa44451eefae50bae09720d450cd61b6d", null ],
+    [ "GENRE_LIST", "classcoverart__browser__prefs_1_1_preferences.html#aa001c0610313385023a5f237145af937", null ],
+    [ "GENRE_POPUP", "classcoverart__browser__prefs_1_1_preferences.html#a16e9dded17f3985ba78036c14ecb7903", null ],
+    [ "genre_view", "classcoverart__browser__prefs_1_1_preferences.html#a13c350993e95020495e3ea507a3f7cd0", null ],
+    [ "object", "classcoverart__browser__prefs_1_1_preferences.html#a314522f2c91df3659ccf58221580beb5", null ],
+    [ "save_button", "classcoverart__browser__prefs_1_1_preferences.html#a2edcbbf7b57289fb93d006a310289e66", null ],
+    [ "settings", "classcoverart__browser__prefs_1_1_preferences.html#aee837e2535a870252793e96a8e3e5192", null ],
+    [ "stars", "classcoverart__browser__prefs_1_1_preferences.html#af9e19a8a0855d712f0bb2eb93ea2bb23", null ]
+];

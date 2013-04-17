@@ -3,13 +3,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>CoverArt Browser: coverart_controllers.OptionsController Class Reference</title>
+<title>Coverart Browser: coverart_controllers.OptionsController Class Reference</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-
-<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
   $(document).ready(function() { searchBox.OnSelectItem(0); });
@@ -27,10 +32,10 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">CoverArt Browser
-   &#160;<span id="projectnumber">0.7</span>
+   <div id="projectname">Coverart Browser
+   &#160;<span id="projectnumber">v0.8</span>
    </div>
-   <div id="projectbrief">Browser your rhythmbox collection by their album cover</div>
+   <div id="projectbrief">Browse your cover-art albums in Rhythmbox</div>
   </td>
   
   
@@ -47,6 +52,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -75,27 +81,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
-<!-- window showing the filter options -->
-<div id="MSearchSelectWindow"
-     onmouseover="return searchBox.OnSearchSelectShow()"
-     onmouseout="return searchBox.OnSearchSelectHide()"
-     onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
-
-<!-- iframe showing the search results (closed by default) -->
-<div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
 </div>
-
-  <div id="nav-path" class="navpath">
-    <ul>
-      <li class="navelem"><b>coverart_controllers</b>      </li>
-      <li class="navelem"><a class="el" href="classcoverart__controllers_1_1_options_controller.html">OptionsController</a>      </li>
-    </ul>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
   </div>
 </div>
+<script type="text/javascript">
+  initNavTree('classcoverart__controllers_1_1_options_controller.html','');
+</script>
+<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -124,42 +123,356 @@ Inheritance diagram for coverart_controllers.OptionsController:</div>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aeaa1058d37ffaed37aee3365aec9a33c"></a><!-- doxytag: member="coverart_controllers::OptionsController::__init__" ref="aeaa1058d37ffaed37aee3365aec9a33c" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>__init__</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a22b9a94a73e939328304d7df629d2099"></a><!-- doxytag: member="coverart_controllers::OptionsController::get_current_key_index" ref="a22b9a94a73e939328304d7df629d2099" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>get_current_key_index</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a21981f3f61f5022a391a8c66983dd870"></a><!-- doxytag: member="coverart_controllers::OptionsController::option_selected" ref="a21981f3f61f5022a391a8c66983dd870" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>option_selected</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a216a04d3d62c0d67f46f00d9dce2ddbb"></a><!-- doxytag: member="coverart_controllers::OptionsController::do_action" ref="a216a04d3d62c0d67f46f00d9dce2ddbb" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>do_action</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a220c4a3607c51723fc2568cf25687b6a"></a><!-- doxytag: member="coverart_controllers::OptionsController::get_current_image" ref="a220c4a3607c51723fc2568cf25687b6a" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>get_current_image</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a48fc75ef568ae7f8c0a4c36653a13657"></a><!-- doxytag: member="coverart_controllers::OptionsController::get_current_description" ref="a48fc75ef568ae7f8c0a4c36653a13657" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>get_current_description</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__controllers_1_1_options_controller.html#aeaa1058d37ffaed37aee3365aec9a33c">__init__</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__controllers_1_1_options_controller.html#a22b9a94a73e939328304d7df629d2099">get_current_key_index</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__controllers_1_1_options_controller.html#a21981f3f61f5022a391a8c66983dd870">option_selected</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__controllers_1_1_options_controller.html#a216a04d3d62c0d67f46f00d9dce2ddbb">do_action</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__controllers_1_1_options_controller.html#a220c4a3607c51723fc2568cf25687b6a">get_current_image</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__controllers_1_1_options_controller.html#a48fc75ef568ae7f8c0a4c36653a13657">get_current_description</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__controllers_1_1_options_controller.html#ad84dfb2a011ea5810d4cd064416fc0da">update_images</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__controllers_1_1_options_controller.html#aa99f9181e772755765f4cb487dc711e9">create_spritesheet</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__controllers_1_1_options_controller.html#ade5eaeaee4ba63f4f96ed277699f2f71">create_button_image</a></td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae16b756e975cf610f101bcfedbfe21e8"></a><!-- doxytag: member="coverart_controllers::OptionsController::current_key" ref="ae16b756e975cf610f101bcfedbfe21e8" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>current_key</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__controllers_1_1_options_controller.html#ae16b756e975cf610f101bcfedbfe21e8">current_key</a></td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abb3c4ea2f9963ec29b13eb9a717a7251"></a><!-- doxytag: member="coverart_controllers::OptionsController::options" ref="abb3c4ea2f9963ec29b13eb9a717a7251" args="" -->
-tuple&#160;</td><td class="memItemRight" valign="bottom"><b>options</b> = GObject.property(type=object, default=None)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a45ac3c57a67cbc069cb06cb0de9452b4"></a><!-- doxytag: member="coverart_controllers::OptionsController::current_key" ref="a45ac3c57a67cbc069cb06cb0de9452b4" args="" -->
-tuple&#160;</td><td class="memItemRight" valign="bottom"><b>current_key</b> = GObject.property(type=str, default=None)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__controllers_1_1_options_controller.html#abb3c4ea2f9963ec29b13eb9a717a7251">options</a> = GObject.property(type=object, default=None)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__controllers_1_1_options_controller.html#a45ac3c57a67cbc069cb06cb0de9452b4">current_key</a> = GObject.property(type=str, default=None)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__controllers_1_1_options_controller.html#a9d9e9600f02c33c9316d20348ede9072">update_image</a> = GObject.property(type=bool, default=False)</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock">
 <p>Definition at line <a class="el" href="coverart__controllers_8py_source.html#l00037">37</a> of file <a class="el" href="coverart__controllers_8py_source.html">coverart_controllers.py</a>.</p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/home/dad/.local/share/rhythmbox/plugins/coverart_browser/<a class="el" href="coverart__controllers_8py_source.html">coverart_controllers.py</a></li>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="aeaa1058d37ffaed37aee3365aec9a33c"></a><!-- doxytag: member="coverart_controllers::OptionsController::__init__" ref="aeaa1058d37ffaed37aee3365aec9a33c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__controllers_1_1_options_controller.html#aeaa1058d37ffaed37aee3365aec9a33c">coverart_controllers.OptionsController.__init__</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__controllers_8py_source.html#l00044">44</a> of file <a class="el" href="coverart__controllers_8py_source.html">coverart_controllers.py</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="ade5eaeaee4ba63f4f96ed277699f2f71"></a><!-- doxytag: member="coverart_controllers::OptionsController::create_button_image" ref="ade5eaeaee4ba63f4f96ed277699f2f71" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__controllers_1_1_options_controller.html#ade5eaeaee4ba63f4f96ed277699f2f71">coverart_controllers.OptionsController.create_button_image</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>plugin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>image</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>icon_name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">
+helper function to create a button image
+</pre></div> 
+<p>Definition at line <a class="el" href="coverart__controllers_8py_source.html#l00082">82</a> of file <a class="el" href="coverart__controllers_8py_source.html">coverart_controllers.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa99f9181e772755765f4cb487dc711e9"></a><!-- doxytag: member="coverart_controllers::OptionsController::create_spritesheet" ref="aa99f9181e772755765f4cb487dc711e9" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__controllers_1_1_options_controller.html#aa99f9181e772755765f4cb487dc711e9">coverart_controllers.OptionsController.create_spritesheet</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>plugin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>sheet</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>typestr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">
+helper function to create a specific spritesheet
+</pre></div> 
+<p>Definition at line <a class="el" href="coverart__controllers_8py_source.html#l00073">73</a> of file <a class="el" href="coverart__controllers_8py_source.html">coverart_controllers.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a216a04d3d62c0d67f46f00d9dce2ddbb"></a><!-- doxytag: member="coverart_controllers::OptionsController::do_action" ref="a216a04d3d62c0d67f46f00d9dce2ddbb" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__controllers_1_1_options_controller.html#a216a04d3d62c0d67f46f00d9dce2ddbb">coverart_controllers.OptionsController.do_action</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classcoverart__controllers_1_1_album_search_entry_controller.html#ade2799e51b6f76baffead87726c09226">coverart_controllers.AlbumSearchEntryController</a>, <a class="el" href="classcoverart__controllers_1_1_sort_order_toggle_controller.html#a559278be56e3211373d3ffc1b632f003">coverart_controllers.SortOrderToggleController</a>, <a class="el" href="classcoverart__controllers_1_1_decade_popup_controller.html#a789bd698dc39dad306828bff19017d36">coverart_controllers.DecadePopupController</a>, <a class="el" href="classcoverart__controllers_1_1_sort_popup_controller.html#a326253a4cf3acb6ff833ffb8014bb402">coverart_controllers.SortPopupController</a>, <a class="el" href="classcoverart__controllers_1_1_genre_popup_controller.html#a14b6b83a5799ae4aa4fc1756c9b01cc1">coverart_controllers.GenrePopupController</a>, and <a class="el" href="classcoverart__controllers_1_1_playlist_popup_controller.html#accf91d83be3a33863084adf2d9f372f9">coverart_controllers.PlaylistPopupController</a>.</p>
+
+<p>Definition at line <a class="el" href="coverart__controllers_8py_source.html#l00061">61</a> of file <a class="el" href="coverart__controllers_8py_source.html">coverart_controllers.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a48fc75ef568ae7f8c0a4c36653a13657"></a><!-- doxytag: member="coverart_controllers::OptionsController::get_current_description" ref="a48fc75ef568ae7f8c0a4c36653a13657" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__controllers_1_1_options_controller.html#a48fc75ef568ae7f8c0a4c36653a13657">coverart_controllers.OptionsController.get_current_description</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classcoverart__controllers_1_1_decade_popup_controller.html#a67526e5f650a0d6d58f26f07cba63675">coverart_controllers.DecadePopupController</a>, and <a class="el" href="classcoverart__controllers_1_1_genre_popup_controller.html#aa9863a77847217635c26931309094ed3">coverart_controllers.GenrePopupController</a>.</p>
+
+<p>Definition at line <a class="el" href="coverart__controllers_8py_source.html#l00067">67</a> of file <a class="el" href="coverart__controllers_8py_source.html">coverart_controllers.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a220c4a3607c51723fc2568cf25687b6a"></a><!-- doxytag: member="coverart_controllers::OptionsController::get_current_image" ref="a220c4a3607c51723fc2568cf25687b6a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__controllers_1_1_options_controller.html#a220c4a3607c51723fc2568cf25687b6a">coverart_controllers.OptionsController.get_current_image</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classcoverart__controllers_1_1_sort_order_toggle_controller.html#ac64ed090086ddc086432b7631a8b34b9">coverart_controllers.SortOrderToggleController</a>, <a class="el" href="classcoverart__controllers_1_1_decade_popup_controller.html#a172ee195c1518b2bd544226ca3f7482a">coverart_controllers.DecadePopupController</a>, <a class="el" href="classcoverart__controllers_1_1_sort_popup_controller.html#a79ad54605a215598ace8391dba610b45">coverart_controllers.SortPopupController</a>, <a class="el" href="classcoverart__controllers_1_1_genre_popup_controller.html#ada7f4b6f8816c7732247731724579744">coverart_controllers.GenrePopupController</a>, and <a class="el" href="classcoverart__controllers_1_1_playlist_popup_controller.html#aa5635d69e223f6b2eae425b3494322cb">coverart_controllers.PlaylistPopupController</a>.</p>
+
+<p>Definition at line <a class="el" href="coverart__controllers_8py_source.html#l00064">64</a> of file <a class="el" href="coverart__controllers_8py_source.html">coverart_controllers.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a22b9a94a73e939328304d7df629d2099"></a><!-- doxytag: member="coverart_controllers::OptionsController::get_current_key_index" ref="a22b9a94a73e939328304d7df629d2099" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__controllers_1_1_options_controller.html#a22b9a94a73e939328304d7df629d2099">coverart_controllers.OptionsController.get_current_key_index</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__controllers_8py_source.html#l00050">50</a> of file <a class="el" href="coverart__controllers_8py_source.html">coverart_controllers.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a21981f3f61f5022a391a8c66983dd870"></a><!-- doxytag: member="coverart_controllers::OptionsController::option_selected" ref="a21981f3f61f5022a391a8c66983dd870" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__controllers_1_1_options_controller.html#a21981f3f61f5022a391a8c66983dd870">coverart_controllers.OptionsController.option_selected</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>key</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__controllers_8py_source.html#l00053">53</a> of file <a class="el" href="coverart__controllers_8py_source.html">coverart_controllers.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad84dfb2a011ea5810d4cd064416fc0da"></a><!-- doxytag: member="coverart_controllers::OptionsController::update_images" ref="ad84dfb2a011ea5810d4cd064416fc0da" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__controllers_1_1_options_controller.html#ad84dfb2a011ea5810d4cd064416fc0da">coverart_controllers.OptionsController.update_images</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classcoverart__controllers_1_1_sort_order_toggle_controller.html#a2363013e73742e7ff7d6918e74434c6d">coverart_controllers.SortOrderToggleController</a>, <a class="el" href="classcoverart__controllers_1_1_decade_popup_controller.html#ab61c0fe25feb95481c737619ac7b6684">coverart_controllers.DecadePopupController</a>, <a class="el" href="classcoverart__controllers_1_1_sort_popup_controller.html#a5d9668662e294cb6298150a9f631f66a">coverart_controllers.SortPopupController</a>, <a class="el" href="classcoverart__controllers_1_1_genre_popup_controller.html#af173c00e07679aac81e509dbd799d929">coverart_controllers.GenrePopupController</a>, and <a class="el" href="classcoverart__controllers_1_1_playlist_popup_controller.html#a772d7ad7e62642d5435aaaeb02a5f01a">coverart_controllers.PlaylistPopupController</a>.</p>
+
+<p>Definition at line <a class="el" href="coverart__controllers_8py_source.html#l00070">70</a> of file <a class="el" href="coverart__controllers_8py_source.html">coverart_controllers.py</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="a45ac3c57a67cbc069cb06cb0de9452b4"></a><!-- doxytag: member="coverart_controllers::OptionsController::current_key" ref="a45ac3c57a67cbc069cb06cb0de9452b4" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tuple <a class="el" href="classcoverart__controllers_1_1_options_controller.html#a45ac3c57a67cbc069cb06cb0de9452b4">coverart_controllers.OptionsController::current_key</a> = GObject.property(type=str, default=None)<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classcoverart__controllers_1_1_album_search_entry_controller.html#a9345c36bc3efbe547a3a049fcb3fcc54">coverart_controllers.AlbumSearchEntryController</a>, <a class="el" href="classcoverart__controllers_1_1_sort_order_toggle_controller.html#a3613113a019e33ce204208fd6a797065">coverart_controllers.SortOrderToggleController</a>, <a class="el" href="classcoverart__controllers_1_1_decade_popup_controller.html#a7a01f25780ba3f694213b443f403e6de">coverart_controllers.DecadePopupController</a>, <a class="el" href="classcoverart__controllers_1_1_sort_popup_controller.html#a081e382b3cd0bcbaecde91191bf5cc6a">coverart_controllers.SortPopupController</a>, <a class="el" href="classcoverart__controllers_1_1_genre_popup_controller.html#ae861ec99add909c3a2feb85e88edbc8c">coverart_controllers.GenrePopupController</a>, and <a class="el" href="classcoverart__controllers_1_1_playlist_popup_controller.html#a1e37d9e288c098a566ddfcd083b2b048">coverart_controllers.PlaylistPopupController</a>.</p>
+
+<p>Definition at line <a class="el" href="coverart__controllers_8py_source.html#l00041">41</a> of file <a class="el" href="coverart__controllers_8py_source.html">coverart_controllers.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae16b756e975cf610f101bcfedbfe21e8"></a><!-- doxytag: member="coverart_controllers::OptionsController::current_key" ref="ae16b756e975cf610f101bcfedbfe21e8" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__controllers_1_1_options_controller.html#a45ac3c57a67cbc069cb06cb0de9452b4">coverart_controllers.OptionsController::current_key</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classcoverart__controllers_1_1_album_search_entry_controller.html#a9345c36bc3efbe547a3a049fcb3fcc54">coverart_controllers.AlbumSearchEntryController</a>, <a class="el" href="classcoverart__controllers_1_1_sort_order_toggle_controller.html#a3613113a019e33ce204208fd6a797065">coverart_controllers.SortOrderToggleController</a>, <a class="el" href="classcoverart__controllers_1_1_decade_popup_controller.html#a7a01f25780ba3f694213b443f403e6de">coverart_controllers.DecadePopupController</a>, <a class="el" href="classcoverart__controllers_1_1_sort_popup_controller.html#a081e382b3cd0bcbaecde91191bf5cc6a">coverart_controllers.SortPopupController</a>, <a class="el" href="classcoverart__controllers_1_1_genre_popup_controller.html#ae861ec99add909c3a2feb85e88edbc8c">coverart_controllers.GenrePopupController</a>, and <a class="el" href="classcoverart__controllers_1_1_playlist_popup_controller.html#a1e37d9e288c098a566ddfcd083b2b048">coverart_controllers.PlaylistPopupController</a>.</p>
+
+<p>Definition at line <a class="el" href="coverart__controllers_8py_source.html#l00053">53</a> of file <a class="el" href="coverart__controllers_8py_source.html">coverart_controllers.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="abb3c4ea2f9963ec29b13eb9a717a7251"></a><!-- doxytag: member="coverart_controllers::OptionsController::options" ref="abb3c4ea2f9963ec29b13eb9a717a7251" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tuple <a class="el" href="classcoverart__controllers_1_1_options_controller.html#abb3c4ea2f9963ec29b13eb9a717a7251">coverart_controllers.OptionsController::options</a> = GObject.property(type=object, default=None)<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classcoverart__controllers_1_1_album_search_entry_controller.html#a7e9b9fad078a4b58437e6799b2900516">coverart_controllers.AlbumSearchEntryController</a>, <a class="el" href="classcoverart__controllers_1_1_sort_order_toggle_controller.html#aafc7ef740fa8ee01a42f816938524590">coverart_controllers.SortOrderToggleController</a>, <a class="el" href="classcoverart__controllers_1_1_decade_popup_controller.html#ab78d1401993d024b5591b995eedaa827">coverart_controllers.DecadePopupController</a>, <a class="el" href="classcoverart__controllers_1_1_sort_popup_controller.html#aee275cc5d2a4243c6bf0725abd59faf8">coverart_controllers.SortPopupController</a>, <a class="el" href="classcoverart__controllers_1_1_genre_popup_controller.html#a4606323dd0c7264eff72474ad9b3d270">coverart_controllers.GenrePopupController</a>, and <a class="el" href="classcoverart__controllers_1_1_playlist_popup_controller.html#acf5ced3e09d14f4b4b8808337ca26661">coverart_controllers.PlaylistPopupController</a>.</p>
+
+<p>Definition at line <a class="el" href="coverart__controllers_8py_source.html#l00040">40</a> of file <a class="el" href="coverart__controllers_8py_source.html">coverart_controllers.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9d9e9600f02c33c9316d20348ede9072"></a><!-- doxytag: member="coverart_controllers::OptionsController::update_image" ref="a9d9e9600f02c33c9316d20348ede9072" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tuple <a class="el" href="classcoverart__controllers_1_1_options_controller.html#a9d9e9600f02c33c9316d20348ede9072">coverart_controllers.OptionsController::update_image</a> = GObject.property(type=bool, default=False)<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classcoverart__controllers_1_1_sort_order_toggle_controller.html#a09f3eed8f772530c8d7793dc53a50119">coverart_controllers.SortOrderToggleController</a>, <a class="el" href="classcoverart__controllers_1_1_decade_popup_controller.html#aaf6f6e634dd38338d1645b15b21a13bb">coverart_controllers.DecadePopupController</a>, <a class="el" href="classcoverart__controllers_1_1_sort_popup_controller.html#ab086f2107cb2363b19cf6300ca5126c9">coverart_controllers.SortPopupController</a>, <a class="el" href="classcoverart__controllers_1_1_genre_popup_controller.html#a45890e82abcdcb81577eaa3a5444d7a7">coverart_controllers.GenrePopupController</a>, and <a class="el" href="classcoverart__controllers_1_1_playlist_popup_controller.html#a30405af6c34a12e30b9e251a43971dd6">coverart_controllers.PlaylistPopupController</a>.</p>
+
+<p>Definition at line <a class="el" href="coverart__controllers_8py_source.html#l00042">42</a> of file <a class="el" href="coverart__controllers_8py_source.html">coverart_controllers.py</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>/home/home/dad/Downloads/coverart-browser/<a class="el" href="coverart__controllers_8py_source.html">coverart_controllers.py</a></li>
 </ul>
 </div><!-- contents -->
+</div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Properties</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -168,13 +481,17 @@ tuple&#160;</td><td class="memItemRight" valign="bottom"><b>current_key</b> = GO
 </iframe>
 </div>
 
+  <div id="nav-path" class="navpath">
+    <ul>
+      <li class="navelem"><a class="el" href="namespacecoverart__controllers.html">coverart_controllers</a>      </li>
+      <li class="navelem"><a class="el" href="classcoverart__controllers_1_1_options_controller.html">OptionsController</a>      </li>
 
+    <li class="footer">Generated on Wed Apr 17 2013 22:48:21 for Coverart Browser by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
+   </ul>
+ </div>
 
-<hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 19 2013 18:51:56 for CoverArt Browser by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.7.6.1
-</small></address>
 
 </body>
 </html>

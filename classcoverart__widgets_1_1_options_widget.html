@@ -3,13 +3,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>CoverArt Browser: coverart_widgets.OptionsWidget Class Reference</title>
+<title>Coverart Browser: coverart_widgets.OptionsWidget Class Reference</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-
-<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
   $(document).ready(function() { searchBox.OnSelectItem(0); });
@@ -27,10 +32,10 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">CoverArt Browser
-   &#160;<span id="projectnumber">0.7</span>
+   <div id="projectname">Coverart Browser
+   &#160;<span id="projectnumber">v0.8</span>
    </div>
-   <div id="projectbrief">Browser your rhythmbox collection by their album cover</div>
+   <div id="projectbrief">Browse your cover-art albums in Rhythmbox</div>
   </td>
   
   
@@ -47,6 +52,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -75,27 +81,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
-<!-- window showing the filter options -->
-<div id="MSearchSelectWindow"
-     onmouseover="return searchBox.OnSearchSelectShow()"
-     onmouseout="return searchBox.OnSearchSelectHide()"
-     onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
-
-<!-- iframe showing the search results (closed by default) -->
-<div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
 </div>
-
-  <div id="nav-path" class="navpath">
-    <ul>
-      <li class="navelem"><b>coverart_widgets</b>      </li>
-      <li class="navelem"><a class="el" href="classcoverart__widgets_1_1_options_widget.html">OptionsWidget</a>      </li>
-    </ul>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
   </div>
 </div>
+<script type="text/javascript">
+  initNavTree('classcoverart__widgets_1_1_options_widget.html','');
+</script>
+<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a>  </div>
@@ -109,10 +108,12 @@ Inheritance diagram for coverart_widgets.OptionsWidget:</div>
  <div class="center">
   <img src="classcoverart__widgets_1_1_options_widget.png" usemap="#coverart_widgets.OptionsWidget_map" alt=""/>
   <map id="coverart_widgets.OptionsWidget_map" name="coverart_widgets.OptionsWidget_map">
-<area href="classcoverart__widgets_1_1_image_toggle_button.html" alt="coverart_widgets.ImageToggleButton" shape="rect" coords="0,56,230,80"/>
-<area href="classcoverart__widgets_1_1_options_popup_widget.html" alt="coverart_widgets.OptionsPopupWidget" shape="rect" coords="240,56,470,80"/>
-<area href="classcoverart__widgets_1_1_popup_button.html" alt="coverart_widgets.PopupButton" shape="rect" coords="120,112,350,136"/>
-<area href="classcoverart__widgets_1_1_search_entry.html" alt="coverart_widgets.SearchEntry" shape="rect" coords="360,112,590,136"/>
+<area href="classcoverart__widgets_1_1_image_toggle_button.html" alt="coverart_widgets.ImageToggleButton" shape="rect" coords="0,56,241,80"/>
+<area href="classcoverart__widgets_1_1_options_list_view_widget.html" alt="coverart_widgets.OptionsListViewWidget" shape="rect" coords="251,56,492,80"/>
+<area href="classcoverart__widgets_1_1_options_popup_widget.html" alt="coverart_widgets.OptionsPopupWidget" shape="rect" coords="627,56,868,80"/>
+<area href="classcoverart__widgets_1_1_list_view_button.html" alt="coverart_widgets.ListViewButton" shape="rect" coords="251,112,492,136"/>
+<area href="classcoverart__widgets_1_1_popup_button.html" alt="coverart_widgets.PopupButton" shape="rect" coords="502,112,743,136"/>
+<area href="classcoverart__widgets_1_1_search_entry.html" alt="coverart_widgets.SearchEntry" shape="rect" coords="753,112,994,136"/>
 </map>
  </div></div>
 
@@ -120,30 +121,176 @@ Inheritance diagram for coverart_widgets.OptionsWidget:</div>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1202b2f154d483650e6b545135e9a018"></a><!-- doxytag: member="coverart_widgets::OptionsWidget::__init__" ref="a1202b2f154d483650e6b545135e9a018" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>__init__</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3a79ed651a96606e12510c1504cad232"></a><!-- doxytag: member="coverart_widgets::OptionsWidget::controller" ref="a3a79ed651a96606e12510c1504cad232" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>controller</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3a79ed651a96606e12510c1504cad232"></a><!-- doxytag: member="coverart_widgets::OptionsWidget::controller" ref="a3a79ed651a96606e12510c1504cad232" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>controller</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad2a4e02a2b68535c75282b9bc4dc52e3"></a><!-- doxytag: member="coverart_widgets::OptionsWidget::update_options" ref="ad2a4e02a2b68535c75282b9bc4dc52e3" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>update_options</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac85481933376ad5c2ad8d2eb5364afd6"></a><!-- doxytag: member="coverart_widgets::OptionsWidget::update_current_key" ref="ac85481933376ad5c2ad8d2eb5364afd6" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>update_current_key</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__widgets_1_1_options_widget.html#a1202b2f154d483650e6b545135e9a018">__init__</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__widgets_1_1_options_widget.html#a3a79ed651a96606e12510c1504cad232">controller</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__widgets_1_1_options_widget.html#a3a79ed651a96606e12510c1504cad232">controller</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__widgets_1_1_options_widget.html#ad2a4e02a2b68535c75282b9bc4dc52e3">update_options</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__widgets_1_1_options_widget.html#ac85481933376ad5c2ad8d2eb5364afd6">update_current_key</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__widgets_1_1_options_widget.html#a22dff7440651f5ceb2939809aa5e0326">update_image</a></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock">
-<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l00027">27</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/home/dad/.local/share/rhythmbox/plugins/coverart_browser/<a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a></li>
+<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l00031">31</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a1202b2f154d483650e6b545135e9a018"></a><!-- doxytag: member="coverart_widgets::OptionsWidget::__init__" ref="a1202b2f154d483650e6b545135e9a018" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__widgets_1_1_options_widget.html#a1202b2f154d483650e6b545135e9a018">coverart_widgets.OptionsWidget.__init__</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>args</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>kwargs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classcoverart__widgets_1_1_list_view_button.html#adada2e81246854ca6c8b05a0d18df0e4">coverart_widgets.ListViewButton</a>, <a class="el" href="classcoverart__widgets_1_1_options_list_view_widget.html#ab1d3ae93bf7aa63d92a4a2e075527489">coverart_widgets.OptionsListViewWidget</a>, <a class="el" href="classcoverart__widgets_1_1_search_entry.html#aeb331fec5c7ca33ba5a0dfd2335540c1">coverart_widgets.SearchEntry</a>, <a class="el" href="classcoverart__widgets_1_1_image_toggle_button.html#accd0f84e5852a54913bf546186257adb">coverart_widgets.ImageToggleButton</a>, <a class="el" href="classcoverart__widgets_1_1_popup_button.html#aa219785885f317290118d599c7e1995a">coverart_widgets.PopupButton</a>, and <a class="el" href="classcoverart__widgets_1_1_options_popup_widget.html#a279c2434b4abcb7a8f1b1088c1b5a16a">coverart_widgets.OptionsPopupWidget</a>.</p>
+
+<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l00032">32</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a3a79ed651a96606e12510c1504cad232"></a><!-- doxytag: member="coverart_widgets::OptionsWidget::controller" ref="a3a79ed651a96606e12510c1504cad232" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__widgets_1_1_options_widget.html#a3a79ed651a96606e12510c1504cad232">coverart_widgets.OptionsWidget.controller</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l00037">37</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3a79ed651a96606e12510c1504cad232"></a><!-- doxytag: member="coverart_widgets::OptionsWidget::controller" ref="a3a79ed651a96606e12510c1504cad232" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__widgets_1_1_options_widget.html#a3a79ed651a96606e12510c1504cad232">coverart_widgets.OptionsWidget.controller</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>controller</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classcoverart__widgets_1_1_options_list_view_widget.html#a13932ce32d1e0ac55de2eeb2a4f4964d">coverart_widgets.OptionsListViewWidget</a>, and <a class="el" href="classcoverart__widgets_1_1_search_entry.html#afb5c18072c3a65e2e2e2b2cc21d00e84">coverart_widgets.SearchEntry</a>.</p>
+
+<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l00041">41</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac85481933376ad5c2ad8d2eb5364afd6"></a><!-- doxytag: member="coverart_widgets::OptionsWidget::update_current_key" ref="ac85481933376ad5c2ad8d2eb5364afd6" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__widgets_1_1_options_widget.html#ac85481933376ad5c2ad8d2eb5364afd6">coverart_widgets.OptionsWidget.update_current_key</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l00071">71</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a22dff7440651f5ceb2939809aa5e0326"></a><!-- doxytag: member="coverart_widgets::OptionsWidget::update_image" ref="a22dff7440651f5ceb2939809aa5e0326" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__widgets_1_1_options_widget.html#a22dff7440651f5ceb2939809aa5e0326">coverart_widgets.OptionsWidget.update_image</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classcoverart__widgets_1_1_list_view_button.html#ada68229da945860475d83b48b77f0544">coverart_widgets.ListViewButton</a>, <a class="el" href="classcoverart__widgets_1_1_image_toggle_button.html#a031473a1d87b9ea9febb472de7632a03">coverart_widgets.ImageToggleButton</a>, and <a class="el" href="classcoverart__widgets_1_1_popup_button.html#a314173ffc328228a323d906c8ce82526">coverart_widgets.PopupButton</a>.</p>
+
+<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l00077">77</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad2a4e02a2b68535c75282b9bc4dc52e3"></a><!-- doxytag: member="coverart_widgets::OptionsWidget::update_options" ref="ad2a4e02a2b68535c75282b9bc4dc52e3" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__widgets_1_1_options_widget.html#ad2a4e02a2b68535c75282b9bc4dc52e3">coverart_widgets.OptionsWidget.update_options</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classcoverart__widgets_1_1_options_list_view_widget.html#a0a5350a611ddaf18955667bcfd99ebf4">coverart_widgets.OptionsListViewWidget</a>, and <a class="el" href="classcoverart__widgets_1_1_options_popup_widget.html#abbd6d1bf9ccbd21f80b1d88db3f9d658">coverart_widgets.OptionsPopupWidget</a>.</p>
+
+<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l00065">65</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>/home/home/dad/Downloads/coverart-browser/<a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a></li>
 </ul>
 </div><!-- contents -->
+</div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Properties</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -152,13 +299,17 @@ def&#160;</td><td class="memItemRight" valign="bottom"><b>update_current_key</b>
 </iframe>
 </div>
 
+  <div id="nav-path" class="navpath">
+    <ul>
+      <li class="navelem"><a class="el" href="namespacecoverart__widgets.html">coverart_widgets</a>      </li>
+      <li class="navelem"><a class="el" href="classcoverart__widgets_1_1_options_widget.html">OptionsWidget</a>      </li>
 
+    <li class="footer">Generated on Wed Apr 17 2013 22:48:21 for Coverart Browser by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
+   </ul>
+ </div>
 
-<hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 19 2013 18:51:56 for CoverArt Browser by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.7.6.1
-</small></address>
 
 </body>
 </html>

@@ -3,13 +3,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>CoverArt Browser: stars.ReactiveStar Class Reference</title>
+<title>Coverart Browser: stars.ReactiveStar Class Reference</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-
-<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
   $(document).ready(function() { searchBox.OnSelectItem(0); });
@@ -27,10 +32,10 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">CoverArt Browser
-   &#160;<span id="projectnumber">0.7</span>
+   <div id="projectname">Coverart Browser
+   &#160;<span id="projectnumber">v0.8</span>
    </div>
-   <div id="projectbrief">Browser your rhythmbox collection by their album cover</div>
+   <div id="projectbrief">Browse your cover-art albums in Rhythmbox</div>
   </td>
   
   
@@ -47,6 +52,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -75,27 +81,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
-<!-- window showing the filter options -->
-<div id="MSearchSelectWindow"
-     onmouseover="return searchBox.OnSearchSelectShow()"
-     onmouseout="return searchBox.OnSearchSelectHide()"
-     onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
-
-<!-- iframe showing the search results (closed by default) -->
-<div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
 </div>
-
-  <div id="nav-path" class="navpath">
-    <ul>
-      <li class="navelem"><b>stars</b>      </li>
-      <li class="navelem"><a class="el" href="classstars_1_1_reactive_star.html">ReactiveStar</a>      </li>
-    </ul>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
   </div>
 </div>
+<script type="text/javascript">
+  initNavTree('classstars_1_1_reactive_star.html','');
+</script>
+<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -120,48 +119,476 @@ Inheritance diagram for stars.ReactiveStar:</div>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae3d1064d56f7889f5fa2607d997b7b4e"></a><!-- doxytag: member="stars::ReactiveStar::__init__" ref="ae3d1064d56f7889f5fa2607d997b7b4e" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>__init__</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab497127cd5c63191af0566077fee3006"></a><!-- doxytag: member="stars::ReactiveStar::on_enter_notify" ref="ab497127cd5c63191af0566077fee3006" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>on_enter_notify</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a183486a20c299095f00ad097bdc1d94b"></a><!-- doxytag: member="stars::ReactiveStar::on_leave_notify" ref="a183486a20c299095f00ad097bdc1d94b" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>on_leave_notify</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac74f80654bb3357a3087736312a3eb39"></a><!-- doxytag: member="stars::ReactiveStar::on_button_press" ref="ac74f80654bb3357a3087736312a3eb39" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>on_button_press</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a10653497cdd0b7fdb5db933f3ba54fdc"></a><!-- doxytag: member="stars::ReactiveStar::on_button_release" ref="a10653497cdd0b7fdb5db933f3ba54fdc" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>on_button_release</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae3b78ff14ab3d4aef5dce0f9d548e488"></a><!-- doxytag: member="stars::ReactiveStar::on_key_press" ref="ae3b78ff14ab3d4aef5dce0f9d548e488" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>on_key_press</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a30984980703b2e5a6c6ce42f2f795ab7"></a><!-- doxytag: member="stars::ReactiveStar::on_key_release" ref="a30984980703b2e5a6c6ce42f2f795ab7" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>on_key_release</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad9786ae316a48ff419896e373e2bca28"></a><!-- doxytag: member="stars::ReactiveStar::on_focus_in" ref="ad9786ae316a48ff419896e373e2bca28" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>on_focus_in</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae255e458ffef67b06a8d960c01b54c3d"></a><!-- doxytag: member="stars::ReactiveStar::on_focus_out" ref="ae255e458ffef67b06a8d960c01b54c3d" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>on_focus_out</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acd71a59c1b3cfef6221f421b116f50fe"></a><!-- doxytag: member="stars::ReactiveStar::get_rating" ref="acd71a59c1b3cfef6221f421b116f50fe" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>get_rating</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a564b21e61379d83701c5c041df67ef12"></a><!-- doxytag: member="stars::ReactiveStar::render_star" ref="a564b21e61379d83701c5c041df67ef12" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>render_star</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5c6621920076f690893f30199278f071"></a><!-- doxytag: member="stars::ReactiveStar::get_star_at_xy" ref="a5c6621920076f690893f30199278f071" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>get_star_at_xy</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstars_1_1_reactive_star.html#ae3d1064d56f7889f5fa2607d997b7b4e">__init__</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstars_1_1_reactive_star.html#ab497127cd5c63191af0566077fee3006">on_enter_notify</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstars_1_1_reactive_star.html#a183486a20c299095f00ad097bdc1d94b">on_leave_notify</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstars_1_1_reactive_star.html#ac74f80654bb3357a3087736312a3eb39">on_button_press</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstars_1_1_reactive_star.html#a10653497cdd0b7fdb5db933f3ba54fdc">on_button_release</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstars_1_1_reactive_star.html#ae3b78ff14ab3d4aef5dce0f9d548e488">on_key_press</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstars_1_1_reactive_star.html#a30984980703b2e5a6c6ce42f2f795ab7">on_key_release</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstars_1_1_reactive_star.html#ad9786ae316a48ff419896e373e2bca28">on_focus_in</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstars_1_1_reactive_star.html#ae255e458ffef67b06a8d960c01b54c3d">on_focus_out</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstars_1_1_reactive_star.html#acd71a59c1b3cfef6221f421b116f50fe">get_rating</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstars_1_1_reactive_star.html#a564b21e61379d83701c5c041df67ef12">render_star</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstars_1_1_reactive_star.html#a5c6621920076f690893f30199278f071">get_star_at_xy</a></td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae8889a46f7cd1b5643ff934f723c1d2c"></a><!-- doxytag: member="stars::ReactiveStar::hints" ref="ae8889a46f7cd1b5643ff934f723c1d2c" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>hints</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstars_1_1_reactive_star.html#ae8889a46f7cd1b5643ff934f723c1d2c">hints</a></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock">
 <p>Definition at line <a class="el" href="stars_8py_source.html#l00425">425</a> of file <a class="el" href="stars_8py_source.html">stars.py</a>.</p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/home/dad/.local/share/rhythmbox/plugins/coverart_browser/<a class="el" href="stars_8py_source.html">stars.py</a></li>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="ae3d1064d56f7889f5fa2607d997b7b4e"></a><!-- doxytag: member="stars::ReactiveStar::__init__" ref="ae3d1064d56f7889f5fa2607d997b7b4e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classstars_1_1_reactive_star.html#ae3d1064d56f7889f5fa2607d997b7b4e">stars.ReactiveStar.__init__</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>size</em> = <code><a class="el" href="classstars_1_1_star_size.html#a952b10e8cc8c739b930de91f9a21f26c">StarSize.SMALL</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classstars_1_1_star.html#a5d476fd1f9082e5b9cd92d4b5c460eb4">stars.Star</a>.</p>
+
+<p>Definition at line <a class="el" href="stars_8py_source.html#l00433">433</a> of file <a class="el" href="stars_8py_source.html">stars.py</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="acd71a59c1b3cfef6221f421b116f50fe"></a><!-- doxytag: member="stars::ReactiveStar::get_rating" ref="acd71a59c1b3cfef6221f421b116f50fe" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classstars_1_1_reactive_star.html#acd71a59c1b3cfef6221f421b116f50fe">stars.ReactiveStar.get_rating</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="stars_8py_source.html#l00489">489</a> of file <a class="el" href="stars_8py_source.html">stars.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5c6621920076f690893f30199278f071"></a><!-- doxytag: member="stars::ReactiveStar::get_star_at_xy" ref="a5c6621920076f690893f30199278f071" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classstars_1_1_reactive_star.html#a5c6621920076f690893f30199278f071">stars.ReactiveStar.get_star_at_xy</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>half_star_precision</em> = <code>False</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="stars_8py_source.html#l00498">498</a> of file <a class="el" href="stars_8py_source.html">stars.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac74f80654bb3357a3087736312a3eb39"></a><!-- doxytag: member="stars::ReactiveStar::on_button_press" ref="ac74f80654bb3357a3087736312a3eb39" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classstars_1_1_reactive_star.html#ac74f80654bb3357a3087736312a3eb39">stars.ReactiveStar.on_button_press</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>widget</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>event</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="stars_8py_source.html#l00462">462</a> of file <a class="el" href="stars_8py_source.html">stars.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a10653497cdd0b7fdb5db933f3ba54fdc"></a><!-- doxytag: member="stars::ReactiveStar::on_button_release" ref="a10653497cdd0b7fdb5db933f3ba54fdc" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classstars_1_1_reactive_star.html#a10653497cdd0b7fdb5db933f3ba54fdc">stars.ReactiveStar.on_button_release</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>widget</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>event</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="stars_8py_source.html#l00465">465</a> of file <a class="el" href="stars_8py_source.html">stars.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab497127cd5c63191af0566077fee3006"></a><!-- doxytag: member="stars::ReactiveStar::on_enter_notify" ref="ab497127cd5c63191af0566077fee3006" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classstars_1_1_reactive_star.html#ab497127cd5c63191af0566077fee3006">stars.ReactiveStar.on_enter_notify</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>widget</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>event</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="stars_8py_source.html#l00456">456</a> of file <a class="el" href="stars_8py_source.html">stars.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad9786ae316a48ff419896e373e2bca28"></a><!-- doxytag: member="stars::ReactiveStar::on_focus_in" ref="ad9786ae316a48ff419896e373e2bca28" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classstars_1_1_reactive_star.html#ad9786ae316a48ff419896e373e2bca28">stars.ReactiveStar.on_focus_in</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>widget</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>event</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="stars_8py_source.html#l00482">482</a> of file <a class="el" href="stars_8py_source.html">stars.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae255e458ffef67b06a8d960c01b54c3d"></a><!-- doxytag: member="stars::ReactiveStar::on_focus_out" ref="ae255e458ffef67b06a8d960c01b54c3d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classstars_1_1_reactive_star.html#ae255e458ffef67b06a8d960c01b54c3d">stars.ReactiveStar.on_focus_out</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>widget</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>event</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="stars_8py_source.html#l00485">485</a> of file <a class="el" href="stars_8py_source.html">stars.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae3b78ff14ab3d4aef5dce0f9d548e488"></a><!-- doxytag: member="stars::ReactiveStar::on_key_press" ref="ae3b78ff14ab3d4aef5dce0f9d548e488" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classstars_1_1_reactive_star.html#ae3b78ff14ab3d4aef5dce0f9d548e488">stars.ReactiveStar.on_key_press</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>widget</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>event</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="stars_8py_source.html#l00476">476</a> of file <a class="el" href="stars_8py_source.html">stars.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a30984980703b2e5a6c6ce42f2f795ab7"></a><!-- doxytag: member="stars::ReactiveStar::on_key_release" ref="a30984980703b2e5a6c6ce42f2f795ab7" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classstars_1_1_reactive_star.html#a30984980703b2e5a6c6ce42f2f795ab7">stars.ReactiveStar.on_key_release</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>widget</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>event</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="stars_8py_source.html#l00479">479</a> of file <a class="el" href="stars_8py_source.html">stars.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a183486a20c299095f00ad097bdc1d94b"></a><!-- doxytag: member="stars::ReactiveStar::on_leave_notify" ref="a183486a20c299095f00ad097bdc1d94b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classstars_1_1_reactive_star.html#a183486a20c299095f00ad097bdc1d94b">stars.ReactiveStar.on_leave_notify</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>widget</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>event</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="stars_8py_source.html#l00459">459</a> of file <a class="el" href="stars_8py_source.html">stars.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a564b21e61379d83701c5c041df67ef12"></a><!-- doxytag: member="stars::ReactiveStar::render_star" ref="a564b21e61379d83701c5c041df67ef12" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classstars_1_1_reactive_star.html#a564b21e61379d83701c5c041df67ef12">stars.ReactiveStar.render_star</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>widget</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>cr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classstars_1_1_star_renderer.html#a80f712d16c60a7e2a10b1746a2586d9f">stars.StarRenderer</a>.</p>
+
+<p>Definition at line <a class="el" href="stars_8py_source.html#l00492">492</a> of file <a class="el" href="stars_8py_source.html">stars.py</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="ae8889a46f7cd1b5643ff934f723c1d2c"></a><!-- doxytag: member="stars::ReactiveStar::hints" ref="ae8889a46f7cd1b5643ff934f723c1d2c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classstars_1_1_reactive_star.html#ae8889a46f7cd1b5643ff934f723c1d2c">stars.ReactiveStar::hints</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classstars_1_1_star_renderer.html#aa18e9dfba2d2d56ed270055f6673d464">stars.StarRenderer</a>.</p>
+
+<p>Definition at line <a class="el" href="stars_8py_source.html#l00433">433</a> of file <a class="el" href="stars_8py_source.html">stars.py</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>/home/home/dad/Downloads/coverart-browser/<a class="el" href="stars_8py_source.html">stars.py</a></li>
 </ul>
 </div><!-- contents -->
+</div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Properties</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -170,13 +597,17 @@ Public Attributes</h2></td></tr>
 </iframe>
 </div>
 
+  <div id="nav-path" class="navpath">
+    <ul>
+      <li class="navelem"><a class="el" href="namespacestars.html">stars</a>      </li>
+      <li class="navelem"><a class="el" href="classstars_1_1_reactive_star.html">ReactiveStar</a>      </li>
 
+    <li class="footer">Generated on Wed Apr 17 2013 22:48:21 for Coverart Browser by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
+   </ul>
+ </div>
 
-<hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 19 2013 18:51:57 for CoverArt Browser by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.7.6.1
-</small></address>
 
 </body>
 </html>

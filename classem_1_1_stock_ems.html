@@ -3,13 +3,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>CoverArt Browser: em.StockEms Class Reference</title>
+<title>Coverart Browser: em.StockEms Class Reference</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-
-<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
   $(document).ready(function() { searchBox.OnSelectItem(0); });
@@ -27,10 +32,10 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">CoverArt Browser
-   &#160;<span id="projectnumber">0.7</span>
+   <div id="projectname">Coverart Browser
+   &#160;<span id="projectnumber">v0.8</span>
    </div>
-   <div id="projectbrief">Browser your rhythmbox collection by their album cover</div>
+   <div id="projectbrief">Browse your cover-art albums in Rhythmbox</div>
   </td>
   
   
@@ -47,6 +52,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -75,27 +81,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
-<!-- window showing the filter options -->
-<div id="MSearchSelectWindow"
-     onmouseover="return searchBox.OnSearchSelectShow()"
-     onmouseout="return searchBox.OnSearchSelectHide()"
-     onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
-
-<!-- iframe showing the search results (closed by default) -->
-<div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
 </div>
-
-  <div id="nav-path" class="navpath">
-    <ul>
-      <li class="navelem"><b>em</b>      </li>
-      <li class="navelem"><a class="el" href="classem_1_1_stock_ems.html">StockEms</a>      </li>
-    </ul>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
   </div>
 </div>
+<script type="text/javascript">
+  initNavTree('classem_1_1_stock_ems.html','');
+</script>
+<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-static-attribs">Static Public Attributes</a>  </div>
@@ -108,28 +107,86 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abb465f37f8886449f7ac1c9641dda33f"></a><!-- doxytag: member="em::StockEms::XLARGE" ref="abb465f37f8886449f7ac1c9641dda33f" args="" -->
-tuple&#160;</td><td class="memItemRight" valign="bottom"><b>XLARGE</b> = em(1.33, 5)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0e63362982a66a558040d8bfb0885c8a"></a><!-- doxytag: member="em::StockEms::LARGE" ref="a0e63362982a66a558040d8bfb0885c8a" args="" -->
-tuple&#160;</td><td class="memItemRight" valign="bottom"><b>LARGE</b> = em(min=3)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a342fe729cb9b287e572bd954dbd5b653"></a><!-- doxytag: member="em::StockEms::MEDIUM" ref="a342fe729cb9b287e572bd954dbd5b653" args="" -->
-tuple&#160;</td><td class="memItemRight" valign="bottom"><b>MEDIUM</b> = em(0.666, 2)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a30098b69300b042ccd208c863067585a"></a><!-- doxytag: member="em::StockEms::SMALL" ref="a30098b69300b042ccd208c863067585a" args="" -->
-tuple&#160;</td><td class="memItemRight" valign="bottom"><b>SMALL</b> = em(0.333, 1)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classem_1_1_stock_ems.html#abb465f37f8886449f7ac1c9641dda33f">XLARGE</a> = <a class="el" href="namespaceem.html#abfdd5cacb260ec02ffd9b1b0f4c54b37">em</a>(1.33, 5)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classem_1_1_stock_ems.html#a0e63362982a66a558040d8bfb0885c8a">LARGE</a> = <a class="el" href="namespaceem.html#abfdd5cacb260ec02ffd9b1b0f4c54b37">em</a>(min=3)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classem_1_1_stock_ems.html#a342fe729cb9b287e572bd954dbd5b653">MEDIUM</a> = <a class="el" href="namespaceem.html#abfdd5cacb260ec02ffd9b1b0f4c54b37">em</a>(0.666, 2)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classem_1_1_stock_ems.html#a30098b69300b042ccd208c863067585a">SMALL</a> = <a class="el" href="namespaceem.html#abfdd5cacb260ec02ffd9b1b0f4c54b37">em</a>(0.333, 1)</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock">
 <p>Definition at line <a class="el" href="em_8py_source.html#l00051">51</a> of file <a class="el" href="em_8py_source.html">em.py</a>.</p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/home/dad/.local/share/rhythmbox/plugins/coverart_browser/<a class="el" href="em_8py_source.html">em.py</a></li>
+</div><hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="a0e63362982a66a558040d8bfb0885c8a"></a><!-- doxytag: member="em::StockEms::LARGE" ref="a0e63362982a66a558040d8bfb0885c8a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tuple <a class="el" href="classem_1_1_stock_ems.html#a0e63362982a66a558040d8bfb0885c8a">em.StockEms::LARGE</a> = <a class="el" href="namespaceem.html#abfdd5cacb260ec02ffd9b1b0f4c54b37">em</a>(min=3)<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="em_8py_source.html#l00053">53</a> of file <a class="el" href="em_8py_source.html">em.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a342fe729cb9b287e572bd954dbd5b653"></a><!-- doxytag: member="em::StockEms::MEDIUM" ref="a342fe729cb9b287e572bd954dbd5b653" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tuple <a class="el" href="classem_1_1_stock_ems.html#a342fe729cb9b287e572bd954dbd5b653">em.StockEms::MEDIUM</a> = <a class="el" href="namespaceem.html#abfdd5cacb260ec02ffd9b1b0f4c54b37">em</a>(0.666, 2)<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="em_8py_source.html#l00054">54</a> of file <a class="el" href="em_8py_source.html">em.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a30098b69300b042ccd208c863067585a"></a><!-- doxytag: member="em::StockEms::SMALL" ref="a30098b69300b042ccd208c863067585a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tuple <a class="el" href="classem_1_1_stock_ems.html#a30098b69300b042ccd208c863067585a">em.StockEms::SMALL</a> = <a class="el" href="namespaceem.html#abfdd5cacb260ec02ffd9b1b0f4c54b37">em</a>(0.333, 1)<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="em_8py_source.html#l00055">55</a> of file <a class="el" href="em_8py_source.html">em.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="abb465f37f8886449f7ac1c9641dda33f"></a><!-- doxytag: member="em::StockEms::XLARGE" ref="abb465f37f8886449f7ac1c9641dda33f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tuple <a class="el" href="classem_1_1_stock_ems.html#abb465f37f8886449f7ac1c9641dda33f">em.StockEms::XLARGE</a> = <a class="el" href="namespaceem.html#abfdd5cacb260ec02ffd9b1b0f4c54b37">em</a>(1.33, 5)<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="em_8py_source.html#l00052">52</a> of file <a class="el" href="em_8py_source.html">em.py</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>/home/home/dad/Downloads/coverart-browser/<a class="el" href="em_8py_source.html">em.py</a></li>
 </ul>
 </div><!-- contents -->
+</div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Properties</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -138,13 +195,17 @@ tuple&#160;</td><td class="memItemRight" valign="bottom"><b>SMALL</b> = em(0.333
 </iframe>
 </div>
 
+  <div id="nav-path" class="navpath">
+    <ul>
+      <li class="navelem"><a class="el" href="namespaceem.html">em</a>      </li>
+      <li class="navelem"><a class="el" href="classem_1_1_stock_ems.html">StockEms</a>      </li>
 
+    <li class="footer">Generated on Wed Apr 17 2013 22:48:21 for Coverart Browser by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
+   </ul>
+ </div>
 
-<hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 19 2013 18:51:57 for CoverArt Browser by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.7.6.1
-</small></address>
 
 </body>
 </html>

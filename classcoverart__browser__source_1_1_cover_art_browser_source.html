@@ -3,13 +3,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>CoverArt Browser: coverart_browser_source.CoverArtBrowserSource Class Reference</title>
+<title>Coverart Browser: coverart_browser_source.CoverArtBrowserSource Class Reference</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-
-<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
   $(document).ready(function() { searchBox.OnSelectItem(0); });
@@ -27,10 +32,10 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">CoverArt Browser
-   &#160;<span id="projectnumber">0.7</span>
+   <div id="projectname">Coverart Browser
+   &#160;<span id="projectnumber">v0.8</span>
    </div>
-   <div id="projectbrief">Browser your rhythmbox collection by their album cover</div>
+   <div id="projectbrief">Browse your cover-art albums in Rhythmbox</div>
   </td>
   
   
@@ -47,6 +52,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -75,27 +81,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
-<!-- window showing the filter options -->
-<div id="MSearchSelectWindow"
-     onmouseover="return searchBox.OnSearchSelectShow()"
-     onmouseout="return searchBox.OnSearchSelectHide()"
-     onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
-
-<!-- iframe showing the search results (closed by default) -->
-<div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
 </div>
-
-  <div id="nav-path" class="navpath">
-    <ul>
-      <li class="navelem"><b>coverart_browser_source</b>      </li>
-      <li class="navelem"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html">CoverArtBrowserSource</a>      </li>
-    </ul>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
   </div>
 </div>
+<script type="text/javascript">
+  initNavTree('classcoverart__browser__source_1_1_cover_art_browser_source.html','');
+</script>
+<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -116,37 +115,27 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a2ea6ee493dee4607554a506991a22bc0">do_selected</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a7b73af3875350f3da8c47e6d640543c7">do_impl_activate</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#aeb03b4f6caba32356ec896ea69321a3d">load_finished_callback</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a24c2ea07e3abea4d49eccc24844a10cb">get_entry_view</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a1817a88478cb3d28794a1b704c77e593">item_clicked_callback</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a33ef1bf5bb8389228e2dfa66193f6f0a">on_notify_custom_statusbar_enabled</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a82b1dfa096f4c0e117a2911d5722943d">on_notify_rating_threshold</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a094c17380a6c778b27a03c5f91497770">on_notify_toolbar_pos</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a8311c4dddbad39c0b6e5686c138701a6">on_notify_display_bottom_enabled</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#abd36d4bbea0a40ce992844c613280af1">paned_button_press_callback</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a3bac0b1c456253e47b4c1ddde4663162">on_paned_button_release_event</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#accd1988690643e8f58684fc1541ffadd">on_album_updated</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a8fec3b2b464dba8954a4ca984d7e500b">show_properties_menu_item_callback</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a4c14d8dcc4e20e459e26324bc0e29f57">update_iconview_callback</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a5cc00eac617f1a01ee5c100c3737a71b">mouseclick_callback</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a62b62536dd76e18100ac22798eb0b501">item_activated_callback</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a5e351c7bf40b31d0013a9e4c93da4618">get_selected_albums</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a2c0f51e8b4129c8c4b24c511cd4b7b04">play_selected_album</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#ad8e7559c16e91c5e88c1929fd2d7bb41">queue_selected_album</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a5dda8ee5650841c1ffc021f9f502d901">play_album_menu_item_callback</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#acde64b15ca2036363dad5f553c180681">queue_album_menu_item_callback</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#afc252af49dbb7e8d37e2eee295dd9aa7">queue_favourites_album_menu_item_callback</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#aac01ff745769e0f742c6439b3c36918b">play_favourites_album_menu_item_callback</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aed29cb20c97957f2534449753a710fc8"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::playlist_menu_item_callback" ref="aed29cb20c97957f2534449753a710fc8" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>playlist_menu_item_callback</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2e939c7c256af71dbf2fc886656a5a65"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::favourite_playlist_menu_item_callback" ref="a2e939c7c256af71dbf2fc886656a5a65" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>favourite_playlist_menu_item_callback</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab60fd8a98c3f3065b7a7032b651bc83a"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::playlist_fillmenu" ref="ab60fd8a98c3f3065b7a7032b651bc83a" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>playlist_fillmenu</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a40d727cf34152af6940ad1ddec070124"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::add_to_static_playlist_menu_item_callback" ref="a40d727cf34152af6940ad1ddec070124" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>add_to_static_playlist_menu_item_callback</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a51136f02643432a6b9091f6bbaced431"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::add_playlist_menu_item_callback" ref="a51136f02643432a6b9091f6bbaced431" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>add_playlist_menu_item_callback</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0468dc625f6f498a81beb811c950528d"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::favourite_add_playlist_menu_item_callback" ref="a0468dc625f6f498a81beb811c950528d" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>favourite_add_playlist_menu_item_callback</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#aed29cb20c97957f2534449753a710fc8">playlist_menu_item_callback</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a2e939c7c256af71dbf2fc886656a5a65">favourite_playlist_menu_item_callback</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#ab60fd8a98c3f3065b7a7032b651bc83a">playlist_fillmenu</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a40d727cf34152af6940ad1ddec070124">add_to_static_playlist_menu_item_callback</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a51136f02643432a6b9091f6bbaced431">add_playlist_menu_item_callback</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a0468dc625f6f498a81beb811c950528d">favourite_add_playlist_menu_item_callback</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a8ee80b82d74da803104539a57d579e6e">cover_search_menu_item_callback</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#ae6f173315d05e08d19e7c737362a61a9">export_embed_menu_item_callback</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a46cdd69da1f9088c19f34252881aeec0">search_all_covers_callback</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a40a67861e63560d5a2951df77121654e">update_request_status_bar</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#aff533f73226f699a7ada6cf243618961">cancel_request_callback</a></td></tr>
@@ -155,115 +144,63 @@ def&#160;</td><td class="memItemRight" valign="bottom"><b>favourite_add_playlist
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a178b85b080bc4672d3fdfeb3dc7b92d2">bottom_expander_expanded_callback</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a77e54a49ee93def2c502a1d2e228401f">on_drag_drop</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a237865b6ed58d0ef7812a340ac91ae49">on_drag_data_received</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a840f621311cc478e3bc4b4dd6e8e19af">on_drag_data_get</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#afe757e1b7407ab449a695cf7b0f9b7bb">on_drag_begin</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a3acf741a50f907f004728c34acba7ea2">notebook_switch_page_callback</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#adfcf97176a5fdcf0c5cd3900bc4a240c">rating_changed_callback</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aebc154d8bb4a23359c421ab8928be580"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::select_album" ref="aebc154d8bb4a23359c421ab8928be580" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>select_album</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#afe81d463b50657eaa771834ed178010d">get_instance</a></td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8d33f622b7e4519a707db6f0cb74a410"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::gs" ref="a8d33f622b7e4519a707db6f0cb74a410" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>gs</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a260802f7348f3701d4b65894bd2ef35d"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::hasActivated" ref="a260802f7348f3701d4b65894bd2ef35d" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>hasActivated</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a201ec0ff9f047b6ebce6201076f92754"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::last_width" ref="a201ec0ff9f047b6ebce6201076f92754" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>last_width</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a238d4ec5de4e0c15dad27e88dfd366b4"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::last_selected_album" ref="a238d4ec5de4e0c15dad27e88dfd366b4" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>last_selected_album</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a321f85777460a61b4a124383bf8e2ca9"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::click_count" ref="a321f85777460a61b4a124383bf8e2ca9" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>click_count</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aeeafb0fc127396205538628cdaebb028"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::plugin" ref="aeeafb0fc127396205538628cdaebb028" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>plugin</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3002eb96a0abe85fe3681b960a8d733f"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::shell" ref="a3002eb96a0abe85fe3681b960a8d733f" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>shell</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af46375eba7efcf09782e71e8fe5c0130"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::status" ref="af46375eba7efcf09782e71e8fe5c0130" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>status</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a91272fbb2ebd1423b9fff8475096e457"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::search_text" ref="a91272fbb2ebd1423b9fff8475096e457" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>search_text</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acfa0417c564ab7b3ea888c6592c57234"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::actiongroup" ref="acfa0417c564ab7b3ea888c6592c57234" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>actiongroup</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac1024338b81ca2edd3164bc285ccdea3"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::favourite_actiongroup" ref="ac1024338b81ca2edd3164bc285ccdea3" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>favourite_actiongroup</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a808773331982f717568b42af18f33eaf"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::coversearchtimer" ref="a808773331982f717568b42af18f33eaf" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>coversearchtimer</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9f129f6415f87789ec3c2e93640f3955"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::page" ref="a9f129f6415f87789ec3c2e93640f3955" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>page</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3ecdaa28d79c949f763ff6f453025427"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::status_label" ref="a3ecdaa28d79c949f763ff6f453025427" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>status_label</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad47d0c3c8b1204528b2a3348763fd864"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::covers_view" ref="ad47d0c3c8b1204528b2a3348763fd864" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>covers_view</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a27e9cc291d692265e2d0437591ec094d"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::popup_menu" ref="a27e9cc291d692265e2d0437591ec094d" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>popup_menu</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a114f048e8edcf48e40e2a1fa03f8e7fc"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::cover_search_menu_item" ref="a114f048e8edcf48e40e2a1fa03f8e7fc" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>cover_search_menu_item</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abf83bfee17441afc8e341adc30d41827"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::request_status_box" ref="abf83bfee17441afc8e341adc30d41827" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>request_status_box</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2a8e1038c79f59b8f2ce6eacc4ef711d"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::request_spinner" ref="a2a8e1038c79f59b8f2ce6eacc4ef711d" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>request_spinner</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a52ec0e8227c549f8452f727544058656"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::request_statusbar" ref="a52ec0e8227c549f8452f727544058656" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>request_statusbar</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a699f367bd838c0938d7f84542b7bc41d"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::request_cancel_button" ref="a699f367bd838c0938d7f84542b7bc41d" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>request_cancel_button</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0b8ec22c47de8d13c64689e9e214e769"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::paned" ref="a0b8ec22c47de8d13c64689e9e214e769" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>paned</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1c5359ac1b666fba842ce9d8fcd16106"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::bottom_box" ref="a1c5359ac1b666fba842ce9d8fcd16106" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>bottom_box</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afd3cc1747abf362407b893d66b526f94"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::bottom_expander" ref="afd3cc1747abf362407b893d66b526f94" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>bottom_expander</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1343f416e40e8eb8ce8e01f4eea1edab"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::notebook" ref="a1343f416e40e8eb8ce8e01f4eea1edab" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>notebook</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a552472104a6ff5b25651d03f03245b43"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::source_menu" ref="a552472104a6ff5b25651d03f03245b43" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>source_menu</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adc617c558eb8a6ac8a66e574371260a3"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::source_menu_search_all_item" ref="adc617c558eb8a6ac8a66e574371260a3" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>source_menu_search_all_item</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a48200c3cfaa9878bcc86b4c90c3637c0"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::play_favourites_album_menu_item" ref="a48200c3cfaa9878bcc86b4c90c3637c0" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>play_favourites_album_menu_item</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac68afaf76a1c70c093294e662dd9b4e4"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::queue_favourites_album_menu_item" ref="ac68afaf76a1c70c093294e662dd9b4e4" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>queue_favourites_album_menu_item</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a056abaf5d82838000aeedc7b72a8d84e"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::favourite_playlist_menu_item" ref="a056abaf5d82838000aeedc7b72a8d84e" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>favourite_playlist_menu_item</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a448b2d8c62601c1a19495831a0f1ad2d"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::playlist_sub_menu_item" ref="a448b2d8c62601c1a19495831a0f1ad2d" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>playlist_sub_menu_item</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a63c433a9da502336100fd0afc036f60f"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::favourite_playlist_sub_menu_item" ref="a63c433a9da502336100fd0afc036f60f" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>favourite_playlist_sub_menu_item</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae97c071a82146d6720b2074437583b18"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::quick_search" ref="ae97c071a82146d6720b2074437583b18" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>quick_search</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab4e7d37fc0ede1434f168e21c87f3a6b"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::entry_view" ref="ab4e7d37fc0ede1434f168e21c87f3a6b" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>entry_view</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8717357d2cc8c62e03aa9eb04bc757be"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::stars" ref="a8717357d2cc8c62e03aa9eb04bc757be" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>stars</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a858f328a9a1f5710f909c57e3aba4fc7"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::album_manager" ref="a858f328a9a1f5710f909c57e3aba4fc7" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>album_manager</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac40cc928a79f34802f44347859df3b7e"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::cover_search_pane" ref="ac40cc928a79f34802f44347859df3b7e" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>cover_search_pane</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a607abf3903716bef59e3b11aa20399a2"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::load_fin_id" ref="a607abf3903716bef59e3b11aa20399a2" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>load_fin_id</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a030c7361088fa0b3587c167f34762e53"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::quick_search_controller" ref="a030c7361088fa0b3587c167f34762e53" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>quick_search_controller</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aeb963755b128434461082da5d6ac91b4"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::album_mod_id" ref="aeb963755b128434461082da5d6ac91b4" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>album_mod_id</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adc29c6f82a5aee4cd9a5fd6707854871"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::notify_prog_id" ref="adc29c6f82a5aee4cd9a5fd6707854871" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>notify_prog_id</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac23a691cb5bf232e296ac7d3d0675901"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::last_toolbar_pos" ref="ac23a691cb5bf232e296ac7d3d0675901" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>last_toolbar_pos</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5c4923dcc15e4e3972beab1600e830e0"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::toolbar_pos" ref="a5c4923dcc15e4e3972beab1600e830e0" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>toolbar_pos</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a8d33f622b7e4519a707db6f0cb74a410">gs</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a260802f7348f3701d4b65894bd2ef35d">hasActivated</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a201ec0ff9f047b6ebce6201076f92754">last_width</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a238d4ec5de4e0c15dad27e88dfd366b4">last_selected_album</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a321f85777460a61b4a124383bf8e2ca9">click_count</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#aeeafb0fc127396205538628cdaebb028">plugin</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a3002eb96a0abe85fe3681b960a8d733f">shell</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#af46375eba7efcf09782e71e8fe5c0130">status</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a91272fbb2ebd1423b9fff8475096e457">search_text</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#acfa0417c564ab7b3ea888c6592c57234">actiongroup</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#ac1024338b81ca2edd3164bc285ccdea3">favourite_actiongroup</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a9f129f6415f87789ec3c2e93640f3955">page</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a3ecdaa28d79c949f763ff6f453025427">status_label</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#ad47d0c3c8b1204528b2a3348763fd864">covers_view</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a27e9cc291d692265e2d0437591ec094d">popup_menu</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a114f048e8edcf48e40e2a1fa03f8e7fc">cover_search_menu_item</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#abf83bfee17441afc8e341adc30d41827">request_status_box</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a2a8e1038c79f59b8f2ce6eacc4ef711d">request_spinner</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a52ec0e8227c549f8452f727544058656">request_statusbar</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a699f367bd838c0938d7f84542b7bc41d">request_cancel_button</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a0b8ec22c47de8d13c64689e9e214e769">paned</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a1343f416e40e8eb8ce8e01f4eea1edab">notebook</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a552472104a6ff5b25651d03f03245b43">source_menu</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#adc617c558eb8a6ac8a66e574371260a3">source_menu_search_all_item</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a48200c3cfaa9878bcc86b4c90c3637c0">play_favourites_album_menu_item</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#ac68afaf76a1c70c093294e662dd9b4e4">queue_favourites_album_menu_item</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a056abaf5d82838000aeedc7b72a8d84e">favourite_playlist_menu_item</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a448b2d8c62601c1a19495831a0f1ad2d">playlist_sub_menu_item</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a63c433a9da502336100fd0afc036f60f">favourite_playlist_sub_menu_item</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a942dee02f9082dae09841ae023022c6c">export_embed_menu_item</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#ae97c071a82146d6720b2074437583b18">quick_search</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#ab4e7d37fc0ede1434f168e21c87f3a6b">entry_view</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a8717357d2cc8c62e03aa9eb04bc757be">stars</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a858f328a9a1f5710f909c57e3aba4fc7">album_manager</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#ac40cc928a79f34802f44347859df3b7e">cover_search_pane</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a607abf3903716bef59e3b11aa20399a2">load_fin_id</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a030c7361088fa0b3587c167f34762e53">quick_search_controller</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#aeb963755b128434461082da5d6ac91b4">album_mod_id</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#adc29c6f82a5aee4cd9a5fd6707854871">notify_prog_id</a></td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1e340eb08c549c3ccfa7b574185e300f"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::custom_statusbar_enabled" ref="a1e340eb08c549c3ccfa7b574185e300f" args="" -->
-tuple&#160;</td><td class="memItemRight" valign="bottom"><b>custom_statusbar_enabled</b> = GObject.property(type=bool, default=False)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a603e0c8020facef602dfe21dbdde0832"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::display_bottom_enabled" ref="a603e0c8020facef602dfe21dbdde0832" args="" -->
-tuple&#160;</td><td class="memItemRight" valign="bottom"><b>display_bottom_enabled</b> = GObject.property(type=bool, default=False)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad929e4e6b2e9ce753f05b998dd3ec7b0"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::rating_threshold" ref="ad929e4e6b2e9ce753f05b998dd3ec7b0" args="" -->
-tuple&#160;</td><td class="memItemRight" valign="bottom"><b>rating_threshold</b> = GObject.property(type=float, default=0)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5e89212e9040adb978f0211aea82cb23"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::instance" ref="a5e89212e9040adb978f0211aea82cb23" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>instance</b> = None</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a1e340eb08c549c3ccfa7b574185e300f">custom_statusbar_enabled</a> = GObject.property(type=bool, default=False)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#ad929e4e6b2e9ce753f05b998dd3ec7b0">rating_threshold</a> = GObject.property(type=float, default=0)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a5e89212e9040adb978f0211aea82cb23">instance</a> = None</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><div class="fragment"><pre class="fragment">
 Source utilized by the plugin to show all it's ui.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00048">48</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00050">50</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a258cc42772e4eb0bab9b0eac962de794"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::__init__" ref="a258cc42772e4eb0bab9b0eac962de794" args="" -->
 <div class="memitem">
@@ -292,17 +229,46 @@ Source utilized by the plugin to show all it's ui.
 <div class="fragment"><pre class="fragment">
 Initializes the source.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00059">59</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00060">60</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
 
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a178b85b080bc4672d3fdfeb3dc7b92d2"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::bottom_expander_expanded_callback" ref="a178b85b080bc4672d3fdfeb3dc7b92d2" args="" -->
+<a class="anchor" id="a51136f02643432a6b9091f6bbaced431"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::add_playlist_menu_item_callback" ref="a51136f02643432a6b9091f6bbaced431" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a178b85b080bc4672d3fdfeb3dc7b92d2">coverart_browser_source.CoverArtBrowserSource.bottom_expander_expanded_callback</a> </td>
+          <td class="memname">def <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a51136f02643432a6b9091f6bbaced431">coverart_browser_source.CoverArtBrowserSource.add_playlist_menu_item_callback</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>menu_item</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00640">640</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a40d727cf34152af6940ad1ddec070124"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::add_to_static_playlist_menu_item_callback" ref="a40d727cf34152af6940ad1ddec070124" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a40d727cf34152af6940ad1ddec070124">coverart_browser_source.CoverArtBrowserSource.add_to_static_playlist_menu_item_callback</a> </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>self</em>, </td>
@@ -317,7 +283,48 @@ Initializes the source.
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>param</em>&#160;</td>
+          <td class="paramname"><em>playlist</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>favourite</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00634">634</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a178b85b080bc4672d3fdfeb3dc7b92d2"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::bottom_expander_expanded_callback" ref="a178b85b080bc4672d3fdfeb3dc7b92d2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a178b85b080bc4672d3fdfeb3dc7b92d2">coverart_browser_source.CoverArtBrowserSource.bottom_expander_expanded_callback</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>paned</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>expand</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -330,7 +337,7 @@ Initializes the source.
 <div class="fragment"><pre class="fragment">
 Callback connected to expanded signal of the paned GtkExpander
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00958">958</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00831">831</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
 
 </div>
 </div>
@@ -363,7 +370,7 @@ Callback connected to the cancel button on the request statusbar.
 When called, it prompts the album loader to cancel the full cover
 search after the current cover.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00846">846</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00719">719</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
 
 </div>
 </div>
@@ -396,7 +403,7 @@ Callback called when the search cover option is selected from the
 cover view popup. It prompts the album loader to retrieve the selected
 album cover
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00781">781</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00655">655</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
 
 </div>
 </div>
@@ -431,7 +438,7 @@ If the custom statusbar is disabled, the source will
 show the selected album info.
 Also, it makes sure to show the progress on the album loading.s
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00092">92</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00090">90</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
 
 </div>
 </div>
@@ -454,7 +461,7 @@ Called by do_selected the first time the source is activated.
 It creates all the source ui and connects the necesary signals for it
 correct behavior.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00137">137</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00135">135</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
 
 </div>
 </div>
@@ -476,7 +483,7 @@ correct behavior.
 Called by Rhythmbox when the source is selected. It makes sure to
 create the ui the first time the source is showed.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00121">121</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00119">119</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
 
 </div>
 </div>
@@ -498,7 +505,117 @@ create the ui the first time the source is showed.
 Method called by Rhythmbox when an action on our source prompts it
 to show a popup.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00109">109</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00107">107</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae6f173315d05e08d19e7c737362a61a9"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::export_embed_menu_item_callback" ref="ae6f173315d05e08d19e7c737362a61a9" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#ae6f173315d05e08d19e7c737362a61a9">coverart_browser_source.CoverArtBrowserSource.export_embed_menu_item_callback</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>menu_item</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">
+Callback called when the export and embed coverart option
+is selected from the cover view popup.
+It prompts the exporter to copy and embed art for the albums chosen
+</pre></div> 
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00671">671</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0468dc625f6f498a81beb811c950528d"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::favourite_add_playlist_menu_item_callback" ref="a0468dc625f6f498a81beb811c950528d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a0468dc625f6f498a81beb811c950528d">coverart_browser_source.CoverArtBrowserSource.favourite_add_playlist_menu_item_callback</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>menu_item</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00647">647</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2e939c7c256af71dbf2fc886656a5a65"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::favourite_playlist_menu_item_callback" ref="a2e939c7c256af71dbf2fc886656a5a65" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a2e939c7c256af71dbf2fc886656a5a65">coverart_browser_source.CoverArtBrowserSource.favourite_playlist_menu_item_callback</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>menu_item</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00586">586</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a24c2ea07e3abea4d49eccc24844a10cb"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::get_entry_view" ref="a24c2ea07e3abea4d49eccc24844a10cb" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a24c2ea07e3abea4d49eccc24844a10cb">coverart_browser_source.CoverArtBrowserSource.get_entry_view</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00369">369</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
 
 </div>
 </div>
@@ -529,28 +646,7 @@ to show a popup.
 <div class="fragment"><pre class="fragment">
 Returns the unique instance of the manager.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l01091">1091</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a5e351c7bf40b31d0013a9e4c93da4618"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::get_selected_albums" ref="a5e351c7bf40b31d0013a9e4c93da4618" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a5e351c7bf40b31d0013a9e4c93da4618">coverart_browser_source.CoverArtBrowserSource.get_selected_albums</a> </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<div class="fragment"><pre class="fragment">
-Retrieves the currently selected albums on the cover_view.
-</pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00601">601</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00964">964</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
 
 </div>
 </div>
@@ -588,7 +684,52 @@ Retrieves the currently selected albums on the cover_view.
 Callback called when the cover view is double clicked or space-bar
 is pressed. It plays the selected album
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00591">591</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00480">480</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1817a88478cb3d28794a1b704c77e593"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::item_clicked_callback" ref="a1817a88478cb3d28794a1b704c77e593" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a1817a88478cb3d28794a1b704c77e593">coverart_browser_source.CoverArtBrowserSource.item_clicked_callback</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>iconview</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>event</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>path</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">
+Callback called when the user clicks somewhere on the cover_view.
+Along with _timeout_expand, takes care of showing/hiding the bottom
+pane after a second click on a selected album.
+</pre></div> 
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00372">372</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
 
 </div>
 </div>
@@ -620,46 +761,7 @@ is pressed. It plays the selected album
 Callback called when the loader finishes loading albums into the
 covers view model.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00332">332</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a5cc00eac617f1a01ee5c100c3737a71b"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::mouseclick_callback" ref="a5cc00eac617f1a01ee5c100c3737a71b" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a5cc00eac617f1a01ee5c100c3737a71b">coverart_browser_source.CoverArtBrowserSource.mouseclick_callback</a> </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>iconview</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>event</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<div class="fragment"><pre class="fragment">
-Callback called when the user clicks somewhere on the cover_view.
-If it's a right click, it shows a popup showing different actions to
-perform with the selected album.
-</pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00529">529</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00351">351</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
 
 </div>
 </div>
@@ -703,7 +805,7 @@ perform with the selected album.
 Callback called when the notebook page gets switched. It initiates
 the cover search when the cover search pane's page is selected.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l01054">1054</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00935">935</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
 
 </div>
 </div>
@@ -747,7 +849,101 @@ the cover search when the cover search pane's page is selected.
 Callback called by the album loader when one of the albums managed
 by him gets modified in some way.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00477">477</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00445">445</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="afe757e1b7407ab449a695cf7b0f9b7bb"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::on_drag_begin" ref="afe757e1b7407ab449a695cf7b0f9b7bb" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#afe757e1b7407ab449a695cf7b0f9b7bb">coverart_browser_source.CoverArtBrowserSource.on_drag_begin</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>widget</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>context</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">
+Callback called when the drag-drop from coverview has started
+Changes the drag icon as appropriate
+</pre></div> 
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00920">920</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a840f621311cc478e3bc4b4dd6e8e19af"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::on_drag_data_get" ref="a840f621311cc478e3bc4b4dd6e8e19af" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a840f621311cc478e3bc4b4dd6e8e19af">coverart_browser_source.CoverArtBrowserSource.on_drag_data_get</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>widget</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>drag_context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>info</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>time</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">
+Callback called when the drag destination (playlist) has
+requested what album (icon) has been dragged
+</pre></div> 
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00901">901</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
 
 </div>
 </div>
@@ -815,7 +1011,7 @@ by him gets modified in some way.
 Callback called when the drag source has prepared the data (pixbuf)
 for us to use.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l01026">1026</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00873">873</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
 
 </div>
 </div>
@@ -872,7 +1068,7 @@ Callback called when a drag operation finishes over the cover view
 of the source. It decides if the dropped item can be processed as
 an image to use as a cover.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l01003">1003</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00850">850</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
 
 </div>
 </div>
@@ -904,39 +1100,7 @@ an image to use as a cover.
 Callback for when the option to show the custom statusbar is enabled
 or disabled from the plugin's preferences dialog.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00350">350</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a8311c4dddbad39c0b6e5686c138701a6"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::on_notify_display_bottom_enabled" ref="a8311c4dddbad39c0b6e5686c138701a6" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a8311c4dddbad39c0b6e5686c138701a6">coverart_browser_source.CoverArtBrowserSource.on_notify_display_bottom_enabled</a> </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>args</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<div class="fragment"><pre class="fragment">
-Callback called when the option 'display tracks' is enabled or disabled
-on the plugin's preferences dialog
-</pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00426">426</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00408">408</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
 
 </div>
 </div>
@@ -970,102 +1134,7 @@ on the plugin's preferences dialog
 If the threshold is zero then the rating menu options in the
 coverview should not be enabled
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00367">367</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a094c17380a6c778b27a03c5f91497770"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::on_notify_toolbar_pos" ref="a094c17380a6c778b27a03c5f91497770" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a094c17380a6c778b27a03c5f91497770">coverart_browser_source.CoverArtBrowserSource.on_notify_toolbar_pos</a> </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>args</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<div class="fragment"><pre class="fragment">
-Callback called when the toolbar position is changed in
-preferences
-</pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00387">387</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a3bac0b1c456253e47b4c1ddde4663162"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::on_paned_button_release_event" ref="a3bac0b1c456253e47b4c1ddde4663162" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a3bac0b1c456253e47b4c1ddde4663162">coverart_browser_source.CoverArtBrowserSource.on_paned_button_release_event</a> </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>args</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<div class="fragment"><pre class="fragment">
-Callback when the paned handle is released from its mouse click.
-</pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00462">462</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="abd36d4bbea0a40ce992844c613280af1"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::paned_button_press_callback" ref="abd36d4bbea0a40ce992844c613280af1" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#abd36d4bbea0a40ce992844c613280af1">coverart_browser_source.CoverArtBrowserSource.paned_button_press_callback</a> </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>args</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<div class="fragment"><pre class="fragment">
-This callback allows or denies the paned handle to move depending on
-the expanded state of the entry_view
-</pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00454">454</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00425">425</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
 
 </div>
 </div>
@@ -1097,7 +1166,7 @@ the expanded state of the entry_view
 Callback called when the play album item from the cover view popup is
 selected. It cleans the play queue and queues the selected album.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00655">655</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00529">529</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
 
 </div>
 </div>
@@ -1130,7 +1199,7 @@ Callback called when the play favourites album item from the cover view
 popup is selected. It queues the selected album at the end of the play
 queue.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00691">691</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00565">565</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
 
 </div>
 </div>
@@ -1162,7 +1231,83 @@ queue.
 Utilitary method that plays all entries from an album into the play
 queue.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00613">613</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00489">489</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab60fd8a98c3f3065b7a7032b651bc83a"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::playlist_fillmenu" ref="ab60fd8a98c3f3065b7a7032b651bc83a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#ab60fd8a98c3f3065b7a7032b651bc83a">coverart_browser_source.CoverArtBrowserSource.playlist_fillmenu</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>menubar</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>actiongroup</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>func</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>favourite</em> = <code>False</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00594">594</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aed29cb20c97957f2534449753a710fc8"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::playlist_menu_item_callback" ref="aed29cb20c97957f2534449753a710fc8" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#aed29cb20c97957f2534449753a710fc8">coverart_browser_source.CoverArtBrowserSource.playlist_menu_item_callback</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>menu_item</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00579">579</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
 
 </div>
 </div>
@@ -1194,7 +1339,7 @@ queue.
 Callback called when the queue album item from the cover view popup is
 selected. It queues the selected album at the end of the play queue.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00666">666</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00540">540</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
 
 </div>
 </div>
@@ -1227,7 +1372,7 @@ Callback called when the queue-favourites album item from the cover
 view popup is selected. It queues the selected album at the end of the
 play queue.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00677">677</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00551">551</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
 
 </div>
 </div>
@@ -1265,7 +1410,7 @@ play queue.
 Utilitary method that queues all entries from an album into the play
 queue.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00635">635</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00509">509</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
 
 </div>
 </div>
@@ -1296,7 +1441,7 @@ queue.
 <div class="fragment"><pre class="fragment">
 Callback called when the Rating stars is changed
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l01069">1069</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00950">950</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
 
 </div>
 </div>
@@ -1329,7 +1474,7 @@ Callback called when the search all covers option is selected from the
 source's popup. It prompts the album loader to request ALL album's
 covers
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00801">801</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00686">686</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
 
 </div>
 </div>
@@ -1363,7 +1508,7 @@ It changes the content of the statusbar (which statusbar is dependant
 on the custom_statusbar_enabled property) to show info about the
 current selected album.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00859">859</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00732">732</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
 
 </div>
 </div>
@@ -1396,46 +1541,7 @@ Callback called when the show album properties option is selected from
 the cover view popup. It shows a SongInfo dialog showing the selected
 albums' entries info, which can be modified.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00496">496</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a4c14d8dcc4e20e459e26324bc0e29f57"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::update_iconview_callback" ref="a4c14d8dcc4e20e459e26324bc0e29f57" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a4c14d8dcc4e20e459e26324bc0e29f57">coverart_browser_source.CoverArtBrowserSource.update_iconview_callback</a> </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>scrolled</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>args</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<div class="fragment"><pre class="fragment">
-Callback called by the cover view when its view port gets resized.
-It forces the cover_view to redraw it's contents to fill the available
-space.
-</pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00512">512</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00464">464</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
 
 </div>
 </div>
@@ -1468,7 +1574,7 @@ Callback called by the album loader starts performing a new cover
 request. It prompts the source to change the content of the request
 statusbar.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00819">819</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00700">700</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
 
 </div>
 </div>
@@ -1499,20 +1605,652 @@ statusbar.
 <div class="fragment"><pre class="fragment">
 Utility method that updates the status bar.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00941">941</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00814">814</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="acfa0417c564ab7b3ea888c6592c57234"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::actiongroup" ref="acfa0417c564ab7b3ea888c6592c57234" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#acfa0417c564ab7b3ea888c6592c57234">coverart_browser_source.CoverArtBrowserSource::actiongroup</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00139">139</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a858f328a9a1f5710f909c57e3aba4fc7"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::album_manager" ref="a858f328a9a1f5710f909c57e3aba4fc7" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a858f328a9a1f5710f909c57e3aba4fc7">coverart_browser_source.CoverArtBrowserSource::album_manager</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00228">228</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aeb963755b128434461082da5d6ac91b4"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::album_mod_id" ref="aeb963755b128434461082da5d6ac91b4" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#aeb963755b128434461082da5d6ac91b4">coverart_browser_source.CoverArtBrowserSource::album_mod_id</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00336">336</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a321f85777460a61b4a124383bf8e2ca9"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::click_count" ref="a321f85777460a61b4a124383bf8e2ca9" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a321f85777460a61b4a124383bf8e2ca9">coverart_browser_source.CoverArtBrowserSource::click_count</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00062">62</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a114f048e8edcf48e40e2a1fa03f8e7fc"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::cover_search_menu_item" ref="a114f048e8edcf48e40e2a1fa03f8e7fc" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a114f048e8edcf48e40e2a1fa03f8e7fc">coverart_browser_source.CoverArtBrowserSource::cover_search_menu_item</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00174">174</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac40cc928a79f34802f44347859df3b7e"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::cover_search_pane" ref="ac40cc928a79f34802f44347859df3b7e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#ac40cc928a79f34802f44347859df3b7e">coverart_browser_source.CoverArtBrowserSource::cover_search_pane</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00228">228</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad47d0c3c8b1204528b2a3348763fd864"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::covers_view" ref="ad47d0c3c8b1204528b2a3348763fd864" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#ad47d0c3c8b1204528b2a3348763fd864">coverart_browser_source.CoverArtBrowserSource::covers_view</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00174">174</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1e340eb08c549c3ccfa7b574185e300f"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::custom_statusbar_enabled" ref="a1e340eb08c549c3ccfa7b574185e300f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tuple <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a1e340eb08c549c3ccfa7b574185e300f">coverart_browser_source.CoverArtBrowserSource::custom_statusbar_enabled</a> = GObject.property(type=bool, default=False)<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00054">54</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab4e7d37fc0ede1434f168e21c87f3a6b"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::entry_view" ref="ab4e7d37fc0ede1434f168e21c87f3a6b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#ab4e7d37fc0ede1434f168e21c87f3a6b">coverart_browser_source.CoverArtBrowserSource::entry_view</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00228">228</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a942dee02f9082dae09841ae023022c6c"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::export_embed_menu_item" ref="a942dee02f9082dae09841ae023022c6c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a942dee02f9082dae09841ae023022c6c">coverart_browser_source.CoverArtBrowserSource::export_embed_menu_item</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00174">174</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac1024338b81ca2edd3164bc285ccdea3"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::favourite_actiongroup" ref="ac1024338b81ca2edd3164bc285ccdea3" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#ac1024338b81ca2edd3164bc285ccdea3">coverart_browser_source.CoverArtBrowserSource::favourite_actiongroup</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00139">139</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a056abaf5d82838000aeedc7b72a8d84e"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::favourite_playlist_menu_item" ref="a056abaf5d82838000aeedc7b72a8d84e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a056abaf5d82838000aeedc7b72a8d84e">coverart_browser_source.CoverArtBrowserSource::favourite_playlist_menu_item</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00174">174</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a63c433a9da502336100fd0afc036f60f"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::favourite_playlist_sub_menu_item" ref="a63c433a9da502336100fd0afc036f60f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a63c433a9da502336100fd0afc036f60f">coverart_browser_source.CoverArtBrowserSource::favourite_playlist_sub_menu_item</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00174">174</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8d33f622b7e4519a707db6f0cb74a410"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::gs" ref="a8d33f622b7e4519a707db6f0cb74a410" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a8d33f622b7e4519a707db6f0cb74a410">coverart_browser_source.CoverArtBrowserSource::gs</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00062">62</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a260802f7348f3701d4b65894bd2ef35d"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::hasActivated" ref="a260802f7348f3701d4b65894bd2ef35d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a260802f7348f3701d4b65894bd2ef35d">coverart_browser_source.CoverArtBrowserSource::hasActivated</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00062">62</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5e89212e9040adb978f0211aea82cb23"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::instance" ref="a5e89212e9040adb978f0211aea82cb23" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a5e89212e9040adb978f0211aea82cb23">coverart_browser_source.CoverArtBrowserSource::instance</a> = None<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00058">58</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a238d4ec5de4e0c15dad27e88dfd366b4"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::last_selected_album" ref="a238d4ec5de4e0c15dad27e88dfd366b4" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a238d4ec5de4e0c15dad27e88dfd366b4">coverart_browser_source.CoverArtBrowserSource::last_selected_album</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00062">62</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a201ec0ff9f047b6ebce6201076f92754"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::last_width" ref="a201ec0ff9f047b6ebce6201076f92754" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a201ec0ff9f047b6ebce6201076f92754">coverart_browser_source.CoverArtBrowserSource::last_width</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00062">62</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a607abf3903716bef59e3b11aa20399a2"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::load_fin_id" ref="a607abf3903716bef59e3b11aa20399a2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a607abf3903716bef59e3b11aa20399a2">coverart_browser_source.CoverArtBrowserSource::load_fin_id</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00228">228</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1343f416e40e8eb8ce8e01f4eea1edab"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::notebook" ref="a1343f416e40e8eb8ce8e01f4eea1edab" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a1343f416e40e8eb8ce8e01f4eea1edab">coverart_browser_source.CoverArtBrowserSource::notebook</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00174">174</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="adc29c6f82a5aee4cd9a5fd6707854871"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::notify_prog_id" ref="adc29c6f82a5aee4cd9a5fd6707854871" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#adc29c6f82a5aee4cd9a5fd6707854871">coverart_browser_source.CoverArtBrowserSource::notify_prog_id</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00336">336</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9f129f6415f87789ec3c2e93640f3955"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::page" ref="a9f129f6415f87789ec3c2e93640f3955" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a9f129f6415f87789ec3c2e93640f3955">coverart_browser_source.CoverArtBrowserSource::page</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00174">174</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0b8ec22c47de8d13c64689e9e214e769"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::paned" ref="a0b8ec22c47de8d13c64689e9e214e769" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a0b8ec22c47de8d13c64689e9e214e769">coverart_browser_source.CoverArtBrowserSource::paned</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00174">174</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a48200c3cfaa9878bcc86b4c90c3637c0"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::play_favourites_album_menu_item" ref="a48200c3cfaa9878bcc86b4c90c3637c0" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a48200c3cfaa9878bcc86b4c90c3637c0">coverart_browser_source.CoverArtBrowserSource::play_favourites_album_menu_item</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00174">174</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a448b2d8c62601c1a19495831a0f1ad2d"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::playlist_sub_menu_item" ref="a448b2d8c62601c1a19495831a0f1ad2d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a448b2d8c62601c1a19495831a0f1ad2d">coverart_browser_source.CoverArtBrowserSource::playlist_sub_menu_item</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00174">174</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aeeafb0fc127396205538628cdaebb028"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::plugin" ref="aeeafb0fc127396205538628cdaebb028" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#aeeafb0fc127396205538628cdaebb028">coverart_browser_source.CoverArtBrowserSource::plugin</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00139">139</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a27e9cc291d692265e2d0437591ec094d"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::popup_menu" ref="a27e9cc291d692265e2d0437591ec094d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a27e9cc291d692265e2d0437591ec094d">coverart_browser_source.CoverArtBrowserSource::popup_menu</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00174">174</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac68afaf76a1c70c093294e662dd9b4e4"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::queue_favourites_album_menu_item" ref="ac68afaf76a1c70c093294e662dd9b4e4" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#ac68afaf76a1c70c093294e662dd9b4e4">coverart_browser_source.CoverArtBrowserSource::queue_favourites_album_menu_item</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00174">174</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae97c071a82146d6720b2074437583b18"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::quick_search" ref="ae97c071a82146d6720b2074437583b18" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#ae97c071a82146d6720b2074437583b18">coverart_browser_source.CoverArtBrowserSource::quick_search</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00174">174</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a030c7361088fa0b3587c167f34762e53"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::quick_search_controller" ref="a030c7361088fa0b3587c167f34762e53" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a030c7361088fa0b3587c167f34762e53">coverart_browser_source.CoverArtBrowserSource::quick_search_controller</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00228">228</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad929e4e6b2e9ce753f05b998dd3ec7b0"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::rating_threshold" ref="ad929e4e6b2e9ce753f05b998dd3ec7b0" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tuple <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#ad929e4e6b2e9ce753f05b998dd3ec7b0">coverart_browser_source.CoverArtBrowserSource::rating_threshold</a> = GObject.property(type=float, default=0)<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00055">55</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a699f367bd838c0938d7f84542b7bc41d"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::request_cancel_button" ref="a699f367bd838c0938d7f84542b7bc41d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a699f367bd838c0938d7f84542b7bc41d">coverart_browser_source.CoverArtBrowserSource::request_cancel_button</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00174">174</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2a8e1038c79f59b8f2ce6eacc4ef711d"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::request_spinner" ref="a2a8e1038c79f59b8f2ce6eacc4ef711d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a2a8e1038c79f59b8f2ce6eacc4ef711d">coverart_browser_source.CoverArtBrowserSource::request_spinner</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00174">174</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="abf83bfee17441afc8e341adc30d41827"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::request_status_box" ref="abf83bfee17441afc8e341adc30d41827" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#abf83bfee17441afc8e341adc30d41827">coverart_browser_source.CoverArtBrowserSource::request_status_box</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00174">174</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a52ec0e8227c549f8452f727544058656"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::request_statusbar" ref="a52ec0e8227c549f8452f727544058656" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a52ec0e8227c549f8452f727544058656">coverart_browser_source.CoverArtBrowserSource::request_statusbar</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00174">174</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a91272fbb2ebd1423b9fff8475096e457"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::search_text" ref="a91272fbb2ebd1423b9fff8475096e457" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a91272fbb2ebd1423b9fff8475096e457">coverart_browser_source.CoverArtBrowserSource::search_text</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00139">139</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3002eb96a0abe85fe3681b960a8d733f"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::shell" ref="a3002eb96a0abe85fe3681b960a8d733f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a3002eb96a0abe85fe3681b960a8d733f">coverart_browser_source.CoverArtBrowserSource::shell</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00139">139</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a552472104a6ff5b25651d03f03245b43"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::source_menu" ref="a552472104a6ff5b25651d03f03245b43" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a552472104a6ff5b25651d03f03245b43">coverart_browser_source.CoverArtBrowserSource::source_menu</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00174">174</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="adc617c558eb8a6ac8a66e574371260a3"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::source_menu_search_all_item" ref="adc617c558eb8a6ac8a66e574371260a3" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#adc617c558eb8a6ac8a66e574371260a3">coverart_browser_source.CoverArtBrowserSource::source_menu_search_all_item</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00174">174</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8717357d2cc8c62e03aa9eb04bc757be"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::stars" ref="a8717357d2cc8c62e03aa9eb04bc757be" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a8717357d2cc8c62e03aa9eb04bc757be">coverart_browser_source.CoverArtBrowserSource::stars</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00228">228</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af46375eba7efcf09782e71e8fe5c0130"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::status" ref="af46375eba7efcf09782e71e8fe5c0130" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#af46375eba7efcf09782e71e8fe5c0130">coverart_browser_source.CoverArtBrowserSource::status</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00139">139</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3ecdaa28d79c949f763ff6f453025427"></a><!-- doxytag: member="coverart_browser_source::CoverArtBrowserSource::status_label" ref="a3ecdaa28d79c949f763ff6f453025427" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a3ecdaa28d79c949f763ff6f453025427">coverart_browser_source.CoverArtBrowserSource::status_label</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__browser__source_8py_source.html#l00174">174</a> of file <a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/home/dad/.local/share/rhythmbox/plugins/coverart_browser/<a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a></li>
+<li>/home/home/dad/Downloads/coverart-browser/<a class="el" href="coverart__browser__source_8py_source.html">coverart_browser_source.py</a></li>
 </ul>
 </div><!-- contents -->
+</div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Properties</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -1521,13 +2259,17 @@ Utility method that updates the status bar.
 </iframe>
 </div>
 
+  <div id="nav-path" class="navpath">
+    <ul>
+      <li class="navelem"><a class="el" href="namespacecoverart__browser__source.html">coverart_browser_source</a>      </li>
+      <li class="navelem"><a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html">CoverArtBrowserSource</a>      </li>
 
+    <li class="footer">Generated on Wed Apr 17 2013 22:48:21 for Coverart Browser by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
+   </ul>
+ </div>
 
-<hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 19 2013 18:51:56 for CoverArt Browser by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.7.6.1
-</small></address>
 
 </body>
 </html>

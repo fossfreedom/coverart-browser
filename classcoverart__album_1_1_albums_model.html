@@ -3,13 +3,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>CoverArt Browser: coverart_album.AlbumsModel Class Reference</title>
+<title>Coverart Browser: coverart_album.AlbumsModel Class Reference</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
-
-<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
 <script type="text/javascript">
   $(document).ready(function() { searchBox.OnSelectItem(0); });
@@ -27,10 +32,10 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">CoverArt Browser
-   &#160;<span id="projectnumber">0.7</span>
+   <div id="projectname">Coverart Browser
+   &#160;<span id="projectnumber">v0.8</span>
    </div>
-   <div id="projectbrief">Browser your rhythmbox collection by their album cover</div>
+   <div id="projectbrief">Browse your cover-art albums in Rhythmbox</div>
   </td>
   
   
@@ -47,6 +52,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -75,27 +81,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
-<!-- window showing the filter options -->
-<div id="MSearchSelectWindow"
-     onmouseover="return searchBox.OnSearchSelectShow()"
-     onmouseout="return searchBox.OnSearchSelectHide()"
-     onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
-
-<!-- iframe showing the search results (closed by default) -->
-<div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
-        name="MSearchResults" id="MSearchResults">
-</iframe>
 </div>
-
-  <div id="nav-path" class="navpath">
-    <ul>
-      <li class="navelem"><b>coverart_album</b>      </li>
-      <li class="navelem"><a class="el" href="classcoverart__album_1_1_albums_model.html">AlbumsModel</a>      </li>
-    </ul>
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
   </div>
 </div>
+<script type="text/javascript">
+  initNavTree('classcoverart__album_1_1_albums_model.html','');
+</script>
+<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -109,32 +108,27 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0bbc8c63d5f2658eb6ea6e89ae07b86b"></a><!-- doxytag: member="coverart_album::AlbumsModel::__init__" ref="a0bbc8c63d5f2658eb6ea6e89ae07b86b" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>__init__</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a68ffa3f3aa9ac2d2ab01a3ad58ade1e8"></a><!-- doxytag: member="coverart_album::AlbumsModel::store" ref="a68ffa3f3aa9ac2d2ab01a3ad58ade1e8" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>store</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__album_1_1_albums_model.html#a0bbc8c63d5f2658eb6ea6e89ae07b86b">__init__</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__album_1_1_albums_model.html#a68ffa3f3aa9ac2d2ab01a3ad58ade1e8">store</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__album_1_1_albums_model.html#ac6146d843a94d617d2828ccc088f409c">add</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__album_1_1_albums_model.html#a1f475795177b44e3c3f11e52f1d2e0fb">remove</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__album_1_1_albums_model.html#a07d599fd2b94a01c1a4f21fea8e5e333">contains</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__album_1_1_albums_model.html#a5e40ea9d83b393b2189157888fb9dbb8">get</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__album_1_1_albums_model.html#a99c872921528db376daa01c8bb32f038">get_all</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__album_1_1_albums_model.html#ad4d7209e1a9101a739289fd86019ed6d">get_from_path</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6d0d1b15379d440f08fc612a00f9b9c4"></a><!-- doxytag: member="coverart_album::AlbumsModel::get_path" ref="a6d0d1b15379d440f08fc612a00f9b9c4" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>get_path</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a49a637873e27f1ea8c7f6ff45fa5d12e"></a><!-- doxytag: member="coverart_album::AlbumsModel::find_first_visible" ref="a49a637873e27f1ea8c7f6ff45fa5d12e" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>find_first_visible</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__album_1_1_albums_model.html#af1780c55232fb2e91affb1de3392342d">get_from_ext_db_key</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__album_1_1_albums_model.html#a6d0d1b15379d440f08fc612a00f9b9c4">get_path</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__album_1_1_albums_model.html#a49a637873e27f1ea8c7f6ff45fa5d12e">find_first_visible</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__album_1_1_albums_model.html#ac924ddb12ce50c328fa74a8709db0df1">show</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__album_1_1_albums_model.html#a3ee11451839cff26cd2de0e56f4480c8">sort</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__album_1_1_albums_model.html#a093f5b9f3b029d89ddbc4bf786891b79">replace_filter</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__album_1_1_albums_model.html#acc4119975fc2d712d8a219f386de0f17">remove_filter</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__album_1_1_albums_model.html#ab2c99bf99820dd0cc823d349237e3ddc">clear_filters</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8d2a7b386d808252c5959efb9f1cee5d"></a><!-- doxytag: member="coverart_album::AlbumsModel::do_filter_changed" ref="a8d2a7b386d808252c5959efb9f1cee5d" args="" -->
-def&#160;</td><td class="memItemRight" valign="bottom"><b>do_filter_changed</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__album_1_1_albums_model.html#a8d2a7b386d808252c5959efb9f1cee5d">do_filter_changed</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__album_1_1_albums_model.html#a28ac52a0668842a1f0a9cec8b34c2775">recreate_text</a></td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad3f7bf814743349c5240c032f21bb27f"></a><!-- doxytag: member="coverart_album::AlbumsModel::columns" ref="ad3f7bf814743349c5240c032f21bb27f" args="" -->
-dictionary&#160;</td><td class="memItemRight" valign="bottom"><b>columns</b> = {'tooltip': 0, 'pixbuf': 1, 'album': 2, 'markup': 3, '<a class="el" href="classcoverart__album_1_1_albums_model.html#ac924ddb12ce50c328fa74a8709db0df1">show</a>': 4}</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__album_1_1_albums_model.html#ad3f7bf814743349c5240c032f21bb27f">columns</a> = {'tooltip': 0, 'pixbuf': 1, 'album': 2, 'markup': 3, '<a class="el" href="classcoverart__album_1_1_albums_model.html#ac924ddb12ce50c328fa74a8709db0df1">show</a>': 4}</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><div class="fragment"><pre class="fragment">
@@ -148,8 +142,28 @@ column 2 -&gt; instance of the album itself.
 column 3 -&gt; markup text showed under the cover.
 column 4 -&gt; boolean that indicates if the row should be shown
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00572">572</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
-</div><hr/><h2>Member Function Documentation</h2>
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00598">598</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a0bbc8c63d5f2658eb6ea6e89ae07b86b"></a><!-- doxytag: member="coverart_album::AlbumsModel::__init__" ref="a0bbc8c63d5f2658eb6ea6e89ae07b86b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__album_1_1_albums_model.html#a0bbc8c63d5f2658eb6ea6e89ae07b86b">coverart_album.AlbumsModel.__init__</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00622">622</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="ac6146d843a94d617d2828ccc088f409c"></a><!-- doxytag: member="coverart_album::AlbumsModel::add" ref="ac6146d843a94d617d2828ccc088f409c" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -179,7 +193,7 @@ Add an album to the model.
 
 :param album: `Album` to be added to the model.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00706">706</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00728">728</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
 
 </div>
 </div>
@@ -200,7 +214,7 @@ Add an album to the model.
 <div class="fragment"><pre class="fragment">
 Clears all filters on the model.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00882">882</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00928">928</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
 
 </div>
 </div>
@@ -235,11 +249,77 @@ Clears all filters on the model.
 </div>
 <div class="memdoc">
 <div class="fragment"><pre class="fragment">
-Indicates if the model contains an especific album.
+Indicates if the model contains a specific album.
 
 :param album_name: `str` name of the album.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00754">754</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00776">776</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8d2a7b386d808252c5959efb9f1cee5d"></a><!-- doxytag: member="coverart_album::AlbumsModel::do_filter_changed" ref="a8d2a7b386d808252c5959efb9f1cee5d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__album_1_1_albums_model.html#a8d2a7b386d808252c5959efb9f1cee5d">coverart_album.AlbumsModel.do_filter_changed</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00937">937</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a49a637873e27f1ea8c7f6ff45fa5d12e"></a><!-- doxytag: member="coverart_album::AlbumsModel::find_first_visible" ref="a49a637873e27f1ea8c7f6ff45fa5d12e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__album_1_1_albums_model.html#a49a637873e27f1ea8c7f6ff45fa5d12e">coverart_album.AlbumsModel.find_first_visible</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>filter_key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>filter_arg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>start</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>backwards</em> = <code>False</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00836">836</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
 
 </div>
 </div>
@@ -278,7 +358,7 @@ Returns the requested album.
 
 :param album_name: `str` name of the album.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00763">763</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00785">785</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
 
 </div>
 </div>
@@ -299,7 +379,40 @@ Returns the requested album.
 <div class="fragment"><pre class="fragment">
 Returns a collection of all the albums in this model.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00771">771</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00793">793</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af1780c55232fb2e91affb1de3392342d"></a><!-- doxytag: member="coverart_album::AlbumsModel::get_from_ext_db_key" ref="af1780c55232fb2e91affb1de3392342d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__album_1_1_albums_model.html#af1780c55232fb2e91affb1de3392342d">coverart_album.AlbumsModel.get_from_ext_db_key</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>key</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">
+Returns the requested album.
+
+:param key: ext_db_key
+</pre></div> 
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00807">807</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
 
 </div>
 </div>
@@ -332,7 +445,36 @@ Returns an album referenced by a `Gtk.TreeModel` path.
 
 :param path: `Gtk.TreePath` referencing the album.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00777">777</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00799">799</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6d0d1b15379d440f08fc612a00f9b9c4"></a><!-- doxytag: member="coverart_album::AlbumsModel::get_path" ref="a6d0d1b15379d440f08fc612a00f9b9c4" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__album_1_1_albums_model.html#a6d0d1b15379d440f08fc612a00f9b9c4">coverart_album.AlbumsModel.get_path</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>album</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00831">831</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
 
 </div>
 </div>
@@ -353,7 +495,7 @@ Returns an album referenced by a `Gtk.TreeModel` path.
 <div class="fragment"><pre class="fragment">
 Forces the recreation and update of the markup text for each album.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00901">901</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00947">947</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
 
 </div>
 </div>
@@ -386,7 +528,7 @@ Removes this album from the model.
 
 :param album: `Album` to be removed from the model.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00739">739</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00761">761</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
 
 </div>
 </div>
@@ -428,7 +570,7 @@ Removes a filter by it's filter_key
 :param refilter: `bool` indicating whether to force a refilter and
 emit the 'filter-changed' signal(True) or not(False).
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00867">867</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00913">913</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
 
 </div>
 </div>
@@ -478,7 +620,7 @@ Adds or replaces a filter by it's filter_key.
 :param refilter: `bool` indicating whether to force a refilter and
 emit the 'filter-changed' signal(True) or not(False).
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00851">851</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00897">897</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
 
 </div>
 </div>
@@ -520,7 +662,7 @@ Unfilters an album, making it visible to the publicly available model's
 :param show: `bool` indcating whether to show(True) or hide(False) the
     album.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00805">805</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00851">851</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
 
 </div>
 </div>
@@ -562,20 +704,56 @@ Changes the sorting strategy for the model.
 :param reverse: `bool` indicating whether the sort order should be
     reversed from the current one.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00819">819</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00865">865</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a68ffa3f3aa9ac2d2ab01a3ad58ade1e8"></a><!-- doxytag: member="coverart_album::AlbumsModel::store" ref="a68ffa3f3aa9ac2d2ab01a3ad58ade1e8" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__album_1_1_albums_model.html#a68ffa3f3aa9ac2d2ab01a3ad58ade1e8">coverart_album.AlbumsModel.store</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00643">643</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+
+</div>
+</div>
+<hr/><h2>Member Data Documentation</h2>
+<a class="anchor" id="ad3f7bf814743349c5240c032f21bb27f"></a><!-- doxytag: member="coverart_album::AlbumsModel::columns" ref="ad3f7bf814743349c5240c032f21bb27f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">dictionary <a class="el" href="classcoverart__album_1_1_albums_model.html#ad3f7bf814743349c5240c032f21bb27f">coverart_album.AlbumsModel::columns</a> = {'tooltip': 0, 'pixbuf': 1, 'album': 2, 'markup': 3, '<a class="el" href="classcoverart__album_1_1_albums_model.html#ac924ddb12ce50c328fa74a8709db0df1">show</a>': 4}<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00620">620</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/home/dad/.local/share/rhythmbox/plugins/coverart_browser/<a class="el" href="coverart__album_8py_source.html">coverart_album.py</a></li>
+<li>/home/home/dad/Downloads/coverart-browser/<a class="el" href="coverart__album_8py_source.html">coverart_album.py</a></li>
 </ul>
 </div><!-- contents -->
+</div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Properties</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -584,13 +762,17 @@ Changes the sorting strategy for the model.
 </iframe>
 </div>
 
+  <div id="nav-path" class="navpath">
+    <ul>
+      <li class="navelem"><a class="el" href="namespacecoverart__album.html">coverart_album</a>      </li>
+      <li class="navelem"><a class="el" href="classcoverart__album_1_1_albums_model.html">AlbumsModel</a>      </li>
 
+    <li class="footer">Generated on Wed Apr 17 2013 22:48:21 for Coverart Browser by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
+   </ul>
+ </div>
 
-<hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 19 2013 18:51:56 for CoverArt Browser by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.7.6.1
-</small></address>
 
 </body>
 </html>
