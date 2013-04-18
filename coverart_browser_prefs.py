@@ -220,8 +220,12 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         builder.connect_signals(self)
 
         #. TRANSLATORS: Do not translate this string.  
-        translators = _("translator-credits")
-    
+        translators = _('translator-credits')
+
+        if translators != "translator-credits":
+            launchpad_label = builder.get_object('launchpad_label')
+            launchpad_label.set_text(translators)
+        
         gs = GSetting()
         # bind the toggles to the settings
         toggle_statusbar = builder.get_object('custom_statusbar_checkbox')
