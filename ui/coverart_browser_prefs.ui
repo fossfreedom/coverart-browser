@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
-  <object class="GtkAction" id="ok_action">
-    <property name="stock_id">gtk-ok</property>
-  </object>
-  <object class="GtkImage" id="add_image">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-add</property>
-  </object>
   <object class="GtkListStore" id="alt_liststore">
     <columns>
       <!-- column-name genre_name -->
@@ -57,6 +49,20 @@
       <mime-type>image/jpeg</mime-type>
       <mime-type>image/gif</mime-type>
     </mime-types>
+  </object>
+  <object class="GtkAdjustment" id="font_adjustment">
+    <property name="lower">4</property>
+    <property name="upper">72</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">1</property>
+  </object>
+  <object class="GtkAction" id="ok_action">
+    <property name="stock_id">gtk-ok</property>
+  </object>
+  <object class="GtkImage" id="add_image">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-add</property>
   </object>
   <object class="GtkFileChooserDialog" id="filechooserdialog">
     <property name="can_focus">False</property>
@@ -131,11 +137,10 @@
       <action-widget response="-3">fc_ok_button</action-widget>
     </action-widgets>
   </object>
-  <object class="GtkAdjustment" id="font_adjustment">
-    <property name="lower">4</property>
-    <property name="upper">72</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">1</property>
+  <object class="GtkImage" id="launchpad_image">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-info</property>
   </object>
   <object class="GtkListStore" id="lightsource_model">
     <columns>
@@ -291,12 +296,55 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="launchpad_label">
+          <object class="GtkBox" id="box6">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <attributes>
-              <attribute name="scale" value="0.69999999999999996"/>
-            </attributes>
+            <child>
+              <object class="GtkBox" id="box7">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="orientation">vertical</property>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <object class="GtkToggleButton" id="show_launchpad">
+                    <property name="use_action_appearance">False</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="use_action_appearance">False</property>
+                    <property name="image">launchpad_image</property>
+                    <signal name="toggled" handler="on_show_launchpad_toggled" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="pack_type">end</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="launchpad_label">
+                <property name="can_focus">False</property>
+                <property name="no_show_all">True</property>
+                <attributes>
+                  <attribute name="scale" value="0.69999999999999996"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
           </object>
           <packing>
             <property name="expand">False</property>

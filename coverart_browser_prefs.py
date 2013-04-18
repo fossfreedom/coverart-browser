@@ -217,14 +217,18 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         builder.set_translation_domain(cl.Locale.LOCALE_DOMAIN)
         builder.add_from_file(rb.find_plugin_file(self,
             'ui/coverart_browser_prefs.ui'))
+        self.launchpad_button = builder.get_object('show_launchpad')
+        self.launchpad_label = builder.get_object('launchpad_label')
+        
         builder.connect_signals(self)
 
         #. TRANSLATORS: Do not translate this string.  
         translators = _('translator-credits')
 
         if translators != "translator-credits":
-            launchpad_label = builder.get_object('launchpad_label')
-            launchpad_label.set_text(translators)
+            self.launchpad_label.set_text(translators)
+        else:
+            self.launchpad_button.set_visible(False)
         
         gs = GSetting()
         # bind the toggles to the settings
@@ -510,5 +514,6 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
 
         self.settings[gs.PluginKey.NEW_GENRE_ICON]=test
             
-
+    def on_show_launchpad_toggled(self, button):
+        self.launchpad_label.set_visible(button.get_active())
     
