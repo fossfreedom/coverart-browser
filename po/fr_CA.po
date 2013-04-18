@@ -5,17 +5,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-14 11:11+0100\n"
-"PO-Revision-Date: 2013-04-15 16:29+0000\n"
-"Last-Translator: Jean-Rene Bastien <Unknown>\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2013-04-18 19:50+0100\n"
+"PO-Revision-Date: 2013-04-18 19:01+0000\n"
+"Last-Translator: Launchpad Translations Administrators <Unknown>\n"
 "Language-Team: none\n"
-"Language: fr_CA\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-04-16 08:32+0000\n"
-"X-Generator: Launchpad (build 16564)\n"
+"X-Launchpad-Export-Date: 2013-04-18 19:04+0000\n"
+"X-Generator: Launchpad (build 16567)\n"
+"Language: fr_CA\n"
 "Generated-By: pygettext.py 1.5\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
@@ -462,7 +462,8 @@ msgstr "Choisir un dossier où exporter"
 
 #: tmp/coverart_exportembed.ui.h:3
 msgid "Save tracks within folder using album name"
-msgstr "Enregistrer les pistes dans le dossier en utilisant le nom de l'album"
+msgstr ""
+"Enregistrer les pistes dans le dossier en utilisant le nom de l'album"
 
 #: tmp/coverart_exportembed.ui.h:4
 msgid "Open embedded track folder in file-manager"
@@ -618,10 +619,19 @@ msgstr "hip-hop"
 msgid "children"
 msgstr "enfants"
 
-#: coverart_album.py:1605 coverart_browser_source.py:780
+#: coverart_album.py:1605 coverart_browser_source.py:789
 #, python-format
 msgid "%s by %s"
 msgstr "%s par %s"
+
+#. . TRANSLATORS: Do not translate this string.
+#: coverart_browser_prefs.py:223
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  Hélion du Mas des Bourboux https://launchpad.net/~helion331990\n"
+"  Jean-Rene Bastien https://launchpad.net/~jrbastien\n"
+"  fossfreedom https://launchpad.net/~fossfreedom"
 
 #. define .plugin text strings used for translation
 #: coverart_browser.py:71
@@ -632,38 +642,38 @@ msgstr "Navigateur de pochettes"
 msgid "Browse and play your albums through their covers"
 msgstr "Parcourir les pochettes de vos albums et les jouer"
 
-#: coverart_browser_source.py:260
+#: coverart_browser_source.py:263
 msgid "Tracks"
 msgstr "Pistes"
 
-#: coverart_browser_source.py:300
+#: coverart_browser_source.py:303
 msgid "Covers"
 msgstr "Pochettes"
 
-#: coverart_browser_source.py:701
+#: coverart_browser_source.py:710
 #, python-format
 msgid "Requesting cover for %s - %s..."
 msgstr "Demande de la pochette pour %s - %s..."
 
-#: coverart_browser_source.py:783
+#: coverart_browser_source.py:792
 #, python-format
 msgid "%d selected albums "
 msgstr "%d albums sélectionnés "
 
-#: coverart_browser_source.py:787
+#: coverart_browser_source.py:796
 msgid " with 1 track"
 msgstr " avec 1 piste"
 
-#: coverart_browser_source.py:789
+#: coverart_browser_source.py:798
 #, python-format
 msgid " with %d tracks"
 msgstr " avec %d pistes"
 
-#: coverart_browser_source.py:792
+#: coverart_browser_source.py:801
 msgid " and a duration of 1 minute"
 msgstr " et une durée de 1 minute"
 
-#: coverart_browser_source.py:794
+#: coverart_browser_source.py:803
 #, python-format
 msgid " and a duration of %d minutes"
 msgstr " et une durée de %d minutes"

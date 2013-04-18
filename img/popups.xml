@@ -59,7 +59,7 @@
         <genre xml:lang="ca" spritesheet="genre" name="classical">Clàssica</genre>
         <genre xml:lang="de" spritesheet="genre" name="classical">Klassik</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="classical">classical</genre>
-        <genre xml:lang="es" spritesheet="genre" name="classical">Clásica</genre>
+        <genre xml:lang="es" spritesheet="genre" name="classical">clásica</genre>
         <genre xml:lang="eu" spritesheet="genre" name="classical">klasikoa</genre>
         <genre xml:lang="fr" spritesheet="genre" name="classical">classique</genre>
         <genre xml:lang="fr_CA" spritesheet="genre" name="classical">classique</genre>
@@ -264,7 +264,7 @@
         <genre xml:lang="ca" spritesheet="genre" name="dance">dance</genre>
         <genre xml:lang="de" spritesheet="genre" name="dance">Dance</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="dance">dance</genre>
-        <genre xml:lang="es" spritesheet="genre" name="dance">baile</genre>
+        <genre xml:lang="es" spritesheet="genre" name="dance">danza</genre>
         <genre xml:lang="fr" spritesheet="genre" name="dance">dance</genre>
         <genre xml:lang="fr_CA" spritesheet="genre" name="dance">danse</genre>
         <genre xml:lang="gl" spritesheet="genre" name="dance">dance</genre>
@@ -296,7 +296,7 @@
         <genre xml:lang="ca" spritesheet="genre" name="electronic">electrònica</genre>
         <genre xml:lang="de" spritesheet="genre" name="electronic">Electronic</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="electronic">electronic</genre>
-        <genre xml:lang="es" spritesheet="genre" name="electronic">electrónica</genre>
+        <genre xml:lang="es" spritesheet="genre" name="electronic">electronica</genre>
         <genre xml:lang="fr" spritesheet="genre" name="electronic">électronique</genre>
         <genre xml:lang="fr_CA" spritesheet="genre" name="electronic">électronique</genre>
         <genre xml:lang="gl" spritesheet="genre" name="electronic">electrónica</genre>
@@ -433,7 +433,7 @@
         <genre xml:lang="ca" spritesheet="genre" name="opera">òpera</genre>
         <genre xml:lang="de" spritesheet="genre" name="opera">Oper</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="opera">opera</genre>
-        <genre xml:lang="es" spritesheet="genre" name="opera">ópera</genre>
+        <genre xml:lang="es" spritesheet="genre" name="opera">opera</genre>
         <genre xml:lang="fi" spritesheet="genre" name="opera">opera</genre>
         <genre xml:lang="fr" spritesheet="genre" name="opera">opéra</genre>
         <genre xml:lang="fr_CA" spritesheet="genre" name="opera">opéra</genre>
@@ -481,7 +481,7 @@
         <genre spritesheet="genre" name="workout">workout</genre>
         <genre xml:lang="ca" spritesheet="genre" name="workout">workout</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="workout">workout</genre>
-        <genre xml:lang="es" spritesheet="genre" name="workout">workout</genre>
+        <genre xml:lang="es" spritesheet="genre" name="workout">ejercicio</genre>
         <genre xml:lang="fr" spritesheet="genre" name="workout">entraînement</genre>
         <genre xml:lang="fr_CA" spritesheet="genre" name="workout">entraînement</genre>
         <genre xml:lang="gl" spritesheet="genre" name="workout">entretemento</genre>
@@ -493,7 +493,7 @@
         <genre xml:lang="ca" spritesheet="genre" name="easy listening">easy listening</genre>
         <genre xml:lang="de" spritesheet="genre" name="easy listening">Easy-Listening</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="easy listening">easy listening</genre>
-        <genre xml:lang="es" spritesheet="genre" name="easy listening">easy listening</genre>
+        <genre xml:lang="es" spritesheet="genre" name="easy listening">facil escucha</genre>
         <genre xml:lang="fr" spritesheet="genre" name="easy listening">easy listening</genre>
         <genre xml:lang="fr_CA" spritesheet="genre" name="easy listening">écoute facile</genre>
         <genre xml:lang="gl" spritesheet="genre" name="easy listening">música lixeira</genre>

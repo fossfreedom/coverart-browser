@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-14 11:11+0100\n"
+"POT-Creation-Date: 2013-04-18 19:50+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -596,9 +596,14 @@ msgstr ""
 msgid "children"
 msgstr ""
 
-#: coverart_album.py:1605 coverart_browser_source.py:780
+#: coverart_album.py:1605 coverart_browser_source.py:789
 #, python-format
 msgid "%s by %s"
+msgstr ""
+
+#. . TRANSLATORS: Do not translate this string.
+#: coverart_browser_prefs.py:223
+msgid "translator-credits"
 msgstr ""
 
 #. define .plugin text strings used for translation
@@ -610,38 +615,38 @@ msgstr ""
 msgid "Browse and play your albums through their covers"
 msgstr ""
 
-#: coverart_browser_source.py:260
+#: coverart_browser_source.py:263
 msgid "Tracks"
 msgstr ""
 
-#: coverart_browser_source.py:300
+#: coverart_browser_source.py:303
 msgid "Covers"
 msgstr ""
 
-#: coverart_browser_source.py:701
+#: coverart_browser_source.py:710
 #, python-format
 msgid "Requesting cover for %s - %s..."
 msgstr ""
 
-#: coverart_browser_source.py:783
+#: coverart_browser_source.py:792
 #, python-format
 msgid "%d selected albums "
 msgstr ""
 
-#: coverart_browser_source.py:787
+#: coverart_browser_source.py:796
 msgid " with 1 track"
 msgstr ""
 
-#: coverart_browser_source.py:789
+#: coverart_browser_source.py:798
 #, python-format
 msgid " with %d tracks"
 msgstr ""
 
-#: coverart_browser_source.py:792
+#: coverart_browser_source.py:801
 msgid " and a duration of 1 minute"
 msgstr ""
 
-#: coverart_browser_source.py:794
+#: coverart_browser_source.py:803
 #, python-format
 msgid " and a duration of %d minutes"
 msgstr ""

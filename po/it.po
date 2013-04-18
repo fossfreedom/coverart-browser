@@ -6,17 +6,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-14 11:11+0100\n"
-"PO-Revision-Date: 2013-04-15 12:57+0000\n"
-"Last-Translator: Gianfranco Frisani <gfrisani@libero.it>\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-04-18 19:50+0100\n"
+"PO-Revision-Date: 2013-04-18 19:01+0000\n"
+"Last-Translator: Launchpad Translations Administrators <Unknown>\n"
 "Language-Team: Italian <it@li.org>\n"
-"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-04-16 08:32+0000\n"
-"X-Generator: Launchpad (build 16564)\n"
+"X-Launchpad-Export-Date: 2013-04-18 19:04+0000\n"
+"X-Generator: Launchpad (build 16567)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -380,7 +379,8 @@ msgstr "Riproduci preferiti"
 
 #: tmp/coverart_browser.ui.h:13
 msgid "Add favourite tracks from this album to your playing queue"
-msgstr "Aggiunge le tracce preferite di quest'album alla coda di riproduzione"
+msgstr ""
+"Aggiunge le tracce preferite di quest'album alla coda di riproduzione"
 
 #: tmp/coverart_browser.ui.h:14
 msgid "Queue Favourites"
@@ -623,10 +623,17 @@ msgstr "hip-hop"
 msgid "children"
 msgstr "per bambini"
 
-#: coverart_album.py:1605 coverart_browser_source.py:780
+#: coverart_album.py:1605 coverart_browser_source.py:789
 #, python-format
 msgid "%s by %s"
 msgstr "%s di %s"
+
+#. . TRANSLATORS: Do not translate this string.
+#: coverart_browser_prefs.py:223
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  Gianfranco Frisani https://launchpad.net/~gfrisani"
 
 #. define .plugin text strings used for translation
 #: coverart_browser.py:71
@@ -637,38 +644,38 @@ msgstr "Gestore di CoverArt"
 msgid "Browse and play your albums through their covers"
 msgstr "Sfoglia e riproduce gli album per copertina"
 
-#: coverart_browser_source.py:260
+#: coverart_browser_source.py:263
 msgid "Tracks"
 msgstr "Tracce"
 
-#: coverart_browser_source.py:300
+#: coverart_browser_source.py:303
 msgid "Covers"
 msgstr "Copertine"
 
-#: coverart_browser_source.py:701
+#: coverart_browser_source.py:710
 #, python-format
 msgid "Requesting cover for %s - %s..."
 msgstr "Richiesta di copertina per %s - %s..."
 
-#: coverart_browser_source.py:783
+#: coverart_browser_source.py:792
 #, python-format
 msgid "%d selected albums "
 msgstr "%d album selezionati "
 
-#: coverart_browser_source.py:787
+#: coverart_browser_source.py:796
 msgid " with 1 track"
 msgstr " con 1 traccia"
 
-#: coverart_browser_source.py:789
+#: coverart_browser_source.py:798
 #, python-format
 msgid " with %d tracks"
 msgstr " con %d tracce"
 
-#: coverart_browser_source.py:792
+#: coverart_browser_source.py:801
 msgid " and a duration of 1 minute"
 msgstr " e una durata di 1 minuto"
 
-#: coverart_browser_source.py:794
+#: coverart_browser_source.py:803
 #, python-format
 msgid " and a duration of %d minutes"
 msgstr " e una durata di %d minuti"

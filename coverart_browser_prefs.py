@@ -219,6 +219,9 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
             'ui/coverart_browser_prefs.ui'))
         builder.connect_signals(self)
 
+        #. TRANSLATORS: Do not translate this string.  
+        translators = _("translator-credits")
+    
         gs = GSetting()
         # bind the toggles to the settings
         toggle_statusbar = builder.get_object('custom_statusbar_checkbox')
