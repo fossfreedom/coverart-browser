@@ -81,25 +81,11 @@ Note - installing the package `coverart-browser` will also install `coverart-sea
 
 We need you to help us translate the english text to your native language.
 
-Don't worry - it is easier that you think.
-
-Just visit:
+Don't worry - it is easier that you think. Just visit:
 
  - https://translations.launchpad.net/coverartbrowser
 
 Remember to set your preferred language and then just submit your translation.
-
-Instructions are in the file TRANSLATE_README. Post a link to the file as a new issue, or
-if you are feeling generous - fork and push a pull-request. Thanks!
-
-If they look scary - just email me (foss dot freedom at gmail dot com) and I'll send you the 
-file that needs to be translated - it is less than 20 text strings so it should only take a
-few minutes.
-
-When emailing - tell me your locale & language.  You can find these by typing:
-
-    echo $LANG
-    echo $LANGUAGE
 
 -------
 
@@ -107,8 +93,9 @@ Credits:
 
  - thanks to Luqman Aden <laden@uwaterloo.ca> for the coverart-search plugin which our cover-search pane is based upon
  - thanks to Canonical for the Star widget which the ratings capabilities use
- - our Translators: Launchpad Translation team, jrbastien (fr_CA), asermax (es), mateuswetah (pt_BR), jrbastien & lannic (fr.po)
+ - our Translators: Launchpad Translation team - individual credits for each locale is shown in the plugin preferences dialog
  - Button Icons - jrbastien for the three toolbar icon-sets (standard, light & dark)
+ - Chief Tester and good all-round egg - jrbastien!
 
  Licenses:
 
