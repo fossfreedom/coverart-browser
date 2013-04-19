@@ -7,13 +7,13 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2013-04-18 19:50+0100\n"
-"PO-Revision-Date: 2013-04-18 19:01+0000\n"
-"Last-Translator: Launchpad Translations Administrators <Unknown>\n"
+"PO-Revision-Date: 2013-04-19 00:29+0000\n"
+"Last-Translator: mateus ml <Unknown>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-04-18 19:04+0000\n"
+"X-Launchpad-Export-Date: 2013-04-19 11:36+0000\n"
 "X-Generator: Launchpad (build 16567)\n"
 "Language: pt_BR\n"
 "Generated-By: pygettext.py 1.5\n"
@@ -80,11 +80,11 @@ msgstr "Exibir mais resultados"
 
 #: tmp/coverart_browser_prefs.ui.h:1
 msgid "Select a picture"
-msgstr ""
+msgstr "Selecione uma imagem"
 
 #: tmp/coverart_browser_prefs.ui.h:2
 msgid "Select picture to add to Edit Genre icon drop-down list"
-msgstr ""
+msgstr "Selecione a imagem para adicionar à lista drop-down de Editar Gênero"
 
 #: tmp/coverart_browser_prefs.ui.h:3
 msgid "Above"
@@ -92,7 +92,7 @@ msgstr "Acima"
 
 #: tmp/coverart_browser_prefs.ui.h:4
 msgid "Top Left"
-msgstr "Superior esquerdo"
+msgstr "Canto Superior Esquerdo"
 
 #: tmp/coverart_browser_prefs.ui.h:5
 msgid "Top Center"
@@ -100,7 +100,7 @@ msgstr "Acima centralizado"
 
 #: tmp/coverart_browser_prefs.ui.h:6
 msgid "Top Right"
-msgstr "Superior direito"
+msgstr "Canto Superior Direito"
 
 #: tmp/coverart_browser_prefs.ui.h:7
 msgid "Automatically Start"
@@ -109,7 +109,7 @@ msgstr "Iniciar automaticamente"
 #: tmp/coverart_browser_prefs.ui.h:8
 msgid "When rhythmbox starts, switch automatically to the coverart browser."
 msgstr ""
-"Quando o rhythmbox inicia, muda automaticamente para o navegador de capas."
+"Quando o rhythmbox inicia, mudar automaticamente para o navegador de capas."
 
 #: tmp/coverart_browser_prefs.ui.h:9
 msgid "Use source's custom statusbar."
@@ -121,6 +121,8 @@ msgid ""
 "album&apos;s related information instead of the global Rhythmbox&apos;s "
 "statusbar."
 msgstr ""
+"Use a barra de status da fonte para mostrar a informação relacionada ao "
+"álbum selecionado atual ao invés da barra de status global do Rhythmbox."
 
 #: tmp/coverart_browser_prefs.ui.h:11
 msgid ""
@@ -149,7 +151,7 @@ msgstr "Nível acima do qual é considerada como sendo uma faixa pontuada."
 
 #: tmp/coverart_browser_prefs.ui.h:15
 msgid "Favourite Threshold"
-msgstr ""
+msgstr "Limite Favorito"
 
 #: tmp/coverart_browser_prefs.ui.h:16
 msgid "General"
@@ -165,7 +167,7 @@ msgstr "Exibir informações do álbum abaixo da capa"
 
 #: tmp/coverart_browser_prefs.ui.h:19
 msgid "Show the album&apos;s basic information under the cover image."
-msgstr ""
+msgstr "Mostra a informação básica do álbum abaixo da imagem de capa."
 
 #: tmp/coverart_browser_prefs.ui.h:20
 msgid "Show the album's basic information under the cover image."
@@ -173,7 +175,7 @@ msgstr "Mostra informações básicas do álbum abaixo da imagem da capa."
 
 #: tmp/coverart_browser_prefs.ui.h:21
 msgid "Font size for the text below the cover-art."
-msgstr ""
+msgstr "Tamanho da fonte para texto abaixo da arte da capa."
 
 #: tmp/coverart_browser_prefs.ui.h:22
 msgid "Font Size:"
@@ -194,6 +196,8 @@ msgstr ""
 #: tmp/coverart_browser_prefs.ui.h:25
 msgid "Maximum allowed length for an album's name before being ellipsized."
 msgstr ""
+"Comprimento máximo permitido para o nome de um álbum antes de serem "
+"adicionadas reticências."
 
 #: tmp/coverart_browser_prefs.ui.h:26
 msgid "Maximum length:"
@@ -201,7 +205,7 @@ msgstr "Comprimento máximo"
 
 #: tmp/coverart_browser_prefs.ui.h:27
 msgid "Cover Appearance"
-msgstr ""
+msgstr "Aparência da Capa"
 
 #: tmp/coverart_browser_prefs.ui.h:28
 msgid "Drop shadow"
@@ -209,11 +213,11 @@ msgstr "Sombra projetada"
 
 #: tmp/coverart_browser_prefs.ui.h:29
 msgid "Indicates if the albums should drop a shadow on the cover view"
-msgstr ""
+msgstr "Indica se dos álbuns deva cair uma sombra na visualização de capa"
 
 #: tmp/coverart_browser_prefs.ui.h:30
 msgid "Light Source: "
-msgstr ""
+msgstr "Fonte de Luz: "
 
 #: tmp/coverart_browser_prefs.ui.h:31
 msgid "Defines the size for the covers showed on the source."
@@ -241,59 +245,59 @@ msgstr "Mostrar a barra de ferramentas: "
 
 #: tmp/coverart_browser_prefs.ui.h:37
 msgid "Look & Feel"
-msgstr ""
+msgstr "Aparência"
 
 #: tmp/coverart_browser_prefs.ui.h:38
 msgid "Flat-button style"
-msgstr ""
+msgstr "Estilo de botão plano"
 
 #: tmp/coverart_browser_prefs.ui.h:39
 msgid "Icon Theme: "
-msgstr ""
+msgstr "Tema de Ícone: "
 
 #: tmp/coverart_browser_prefs.ui.h:40
 msgid "Alternative Genres:"
-msgstr ""
+msgstr "Gêneros Alternativos:"
 
 #: tmp/coverart_browser_prefs.ui.h:41
 msgid "Load New Icon: "
-msgstr ""
+msgstr "Carregar Novo Ícone: "
 
 #: tmp/coverart_browser_prefs.ui.h:42
 msgid "Select a new genre icon"
-msgstr ""
+msgstr "Selecionar um novo ícone de gênero"
 
 #: tmp/coverart_browser_prefs.ui.h:43
 msgid "Edit Genre Details:"
-msgstr ""
+msgstr "Editar Detalhes do Gênero:"
 
 #: tmp/coverart_browser_prefs.ui.h:44
 msgid "Save changes"
-msgstr ""
+msgstr "Salvar alterações"
 
 #: tmp/coverart_browser_prefs.ui.h:45
 msgid "Name:"
-msgstr ""
+msgstr "Nome:"
 
 #: tmp/coverart_browser_prefs.ui.h:46
 msgid "Icon:"
-msgstr ""
+msgstr "Ícone:"
 
 #: tmp/coverart_browser_prefs.ui.h:47
 msgid "Current user-defined Genres:"
-msgstr ""
+msgstr "Gêneros atualmente definidos pelo usuário:"
 
 #: tmp/coverart_browser_prefs.ui.h:48
 msgid "Alternate Name"
-msgstr ""
+msgstr "Nome Alternativo"
 
 #: tmp/coverart_browser_prefs.ui.h:49
 msgid "Icon"
-msgstr ""
+msgstr "Ícone"
 
 #: tmp/coverart_browser_prefs.ui.h:50
 msgid "Add a new alternative genre"
-msgstr ""
+msgstr "Adicionar um novo gênero alternativo"
 
 #: tmp/coverart_browser_prefs.ui.h:51
 msgid "Delete an alternative genre"
@@ -305,7 +309,7 @@ msgstr "Barra de ferramentas"
 
 #: tmp/coverart_browser_prefs.ui.h:53
 msgid "Above Cover View"
-msgstr ""
+msgstr "Visualização Acima da Capa"
 
 #: tmp/coverart_browser_prefs.ui.h:54
 msgid "Left Sidebar"
@@ -317,7 +321,7 @@ msgstr "Barra lateral direita"
 
 #: tmp/coverart_browser.ui.h:1
 msgid "Tracks & Covers"
-msgstr ""
+msgstr "Faixas e Capas"
 
 #: tmp/coverart_browser.ui.h:2
 msgid "Stop coverart fetch."
@@ -389,11 +393,11 @@ msgstr "Procurar por capas"
 
 #: tmp/coverart_browser.ui.h:19
 msgid "Export album tracks and embed coverart in track files"
-msgstr ""
+msgstr "Exportar faixas de álbum e incorporar capa nos arquivos de faixa"
 
 #: tmp/coverart_browser.ui.h:20
 msgid "Export and embed coverart"
-msgstr ""
+msgstr "Exportar e incorporar arte de capa"
 
 #: tmp/coverart_browser.ui.h:21
 msgid "Show album properties"
@@ -445,25 +449,27 @@ msgstr "Todas as décadas"
 
 #: tmp/coverart_exportembed.ui.h:1
 msgid "Choose folder to save tracks:"
-msgstr ""
+msgstr "Escolha a pasta onde salvar as faixas:"
 
 #: tmp/coverart_exportembed.ui.h:2
 msgid "Select a Folder to export to"
-msgstr ""
+msgstr "Selecionar uma Pasta para onde exportar"
 
 #: tmp/coverart_exportembed.ui.h:3
 msgid "Save tracks within folder using album name"
-msgstr ""
+msgstr "Salvar faixas dentro da pasta usando nome do álbum"
 
 #: tmp/coverart_exportembed.ui.h:4
 msgid "Open embedded track folder in file-manager"
-msgstr ""
+msgstr "Abrir pasta de faixa incorporada no gerenciador de arquivos"
 
 #: tmp/coverart_exportembed.ui.h:5
 msgid ""
 "Tip: Drag and Drop exported tracks from file-manager to a playlist or "
 "telephone/other device"
 msgstr ""
+"Dica: Arraste e Solte faixas exportadas do gerenciador de arquivos para uma "
+"lista de execução ou telefone/outro dispositivo"
 
 #: tmp/popups.xml.in.h:1
 msgid "rock"
@@ -483,27 +489,27 @@ msgstr "clássico"
 
 #: tmp/popups.xml.in.h:5
 msgid "world"
-msgstr ""
+msgstr "mundo"
 
 #: tmp/popups.xml.in.h:6
 msgid "bluegrass"
-msgstr ""
+msgstr "bluegrass"
 
 #: tmp/popups.xml.in.h:7
 msgid "oldies"
-msgstr ""
+msgstr "antigas"
 
 #: tmp/popups.xml.in.h:8
 msgid "holiday"
-msgstr ""
+msgstr "feriados"
 
 #: tmp/popups.xml.in.h:9
 msgid "comedy"
-msgstr ""
+msgstr "comédia"
 
 #: tmp/popups.xml.in.h:10
 msgid "spoken"
-msgstr ""
+msgstr "falado"
 
 #: tmp/popups.xml.in.h:11
 msgid "jazz"
@@ -527,11 +533,11 @@ msgstr "rap"
 
 #: tmp/popups.xml.in.h:16
 msgid "ragtime"
-msgstr ""
+msgstr "ragtime"
 
 #: tmp/popups.xml.in.h:17
 msgid "musical"
-msgstr ""
+msgstr "musical"
 
 #: tmp/popups.xml.in.h:18
 msgid "dance"
@@ -547,7 +553,7 @@ msgstr "eletrônico"
 
 #: tmp/popups.xml.in.h:21
 msgid "soundtrack"
-msgstr ""
+msgstr "trilha sonora"
 
 #: tmp/popups.xml.in.h:22
 msgid "latin"
@@ -559,11 +565,11 @@ msgstr "alternativa"
 
 #: tmp/popups.xml.in.h:24
 msgid "disco"
-msgstr ""
+msgstr "discoteca"
 
 #: tmp/popups.xml.in.h:25
 msgid "folk"
-msgstr ""
+msgstr "folk"
 
 #: tmp/popups.xml.in.h:26
 msgid "gospel"
@@ -583,7 +589,7 @@ msgstr "ópera"
 
 #: tmp/popups.xml.in.h:30
 msgid "anime"
-msgstr "animé"
+msgstr "anime"
 
 #: tmp/popups.xml.in.h:31
 msgid "soul"
@@ -591,11 +597,11 @@ msgstr "soul"
 
 #: tmp/popups.xml.in.h:32
 msgid "workout"
-msgstr ""
+msgstr "academia"
 
 #: tmp/popups.xml.in.h:33
 msgid "easy listening"
-msgstr "música orquestrada"
+msgstr "fácil de se ouvir"
 
 #: tmp/popups.xml.in.h:34
 msgid "hip-hop"
@@ -617,7 +623,8 @@ msgstr ""
 "Launchpad Contributions:\n"
 "  João Santana https://launchpad.net/~joaosantana\n"
 "  Rafael Neri https://launchpad.net/~rafepel\n"
-"  fossfreedom https://launchpad.net/~fossfreedom"
+"  fossfreedom https://launchpad.net/~fossfreedom\n"
+"  mateus ml https://launchpad.net/~mateus-m-luna"
 
 #. define .plugin text strings used for translation
 #: coverart_browser.py:71
@@ -688,12 +695,12 @@ msgstr "década de 2020"
 #. '10s' as in the decade 2010
 #: coverart_controllers.py:437
 msgid "10s"
-msgstr ""
+msgstr "década de 2010"
 
 #. '00s' as in the decade 2000
 #: coverart_controllers.py:439
 msgid "00s"
-msgstr "anos 00"
+msgstr "década de 2000"
 
 #. '90s' as in the decade 1990
 #: coverart_controllers.py:441
@@ -733,7 +740,7 @@ msgstr "Anos 30"
 #. 'Older' as in 'older than the year 1930'
 #: coverart_controllers.py:455
 msgid "Older"
-msgstr "Antiga"
+msgstr "Mais antiga"
 
 #. options
 #: coverart_controllers.py:500
@@ -746,7 +753,7 @@ msgstr "Ordenar em ordem crescente"
 
 #: coverart_controllers.py:553
 msgid "Search all fields"
-msgstr "Procurar todos os campos"
+msgstr "Pesquisar em todos os campos"
 
 #: coverart_controllers.py:554
 msgid "Search album artists"
