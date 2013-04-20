@@ -134,7 +134,9 @@ class GSetting:
                 TOOLBAR_POS='toolbar-pos',
                 BUTTON_RELIEF='button-relief',
                 THEME='theme',
-                NEW_GENRE_ICON='new-genre-icon')
+                NEW_GENRE_ICON='new-genre-icon',
+                ICON_PADDING='icon-padding',
+                ICON_SPACING='icon-spacing')
 
             self.setting = {}
 
@@ -363,7 +365,15 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         self.genre_view = builder.get_object('genre_view')
         self.save_button = builder.get_object('save_button')
         self.filechooserdialog = builder.get_object('filechooserdialog')
-        
+
+        padding_scale = builder.get_object('padding_adjustment')
+        self.settings.bind(gs.PluginKey.ICON_PADDING, padding_scale, 'value',
+            Gio.SettingsBindFlags.DEFAULT)
+
+        spacing_scale = builder.get_object('spacing_adjustment')
+        self.settings.bind(gs.PluginKey.ICON_SPACING, spacing_scale, 'value',
+            Gio.SettingsBindFlags.DEFAULT)
+
         # return the dialog
         return builder.get_object('main_notebook')
 
@@ -516,4 +526,5 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
             
     def on_show_launchpad_toggled(self, button):
         self.launchpad_label.set_visible(button.get_active())
+
     
