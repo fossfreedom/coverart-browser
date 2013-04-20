@@ -12,17 +12,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-04-18 19:50+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-20 11:52+0100\n"
 "PO-Revision-Date: 2013-04-18 19:01+0000\n"
 "Last-Translator: Launchpad Translations Administrators <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-04-18 19:04+0000\n"
+"X-Launchpad-Export-Date: 2013-04-20 22:04+0000\n"
 "X-Generator: Launchpad (build 16567)\n"
-"Language: fr\n"
 "Generated-By: Babel 0.9.6\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
@@ -129,16 +129,6 @@ msgstr "Utiliser comme source la barre d'état personnalisée"
 
 #: tmp/coverart_browser_prefs.ui.h:10
 msgid ""
-"Use the source&apos;s custom statusbar to show the current selected "
-"album&apos;s related information instead of the global Rhythmbox&apos;s "
-"statusbar."
-msgstr ""
-"Utiliser la source de la barre d'état personnalisée pour montrer les "
-"informations reliées à l'album sélectionné au lieu de la barre d'état "
-"globale de Rhythmbox"
-
-#: tmp/coverart_browser_prefs.ui.h:11
-msgid ""
 "Use the source's custom statusbar to show the current selected album's "
 "related information instead of the global Rhythmbox's statusbar."
 msgstr ""
@@ -146,11 +136,11 @@ msgstr ""
 "informations reliées à l'album sélectionné au lieu de la barre d'état "
 "globale de Rhythmbox"
 
-#: tmp/coverart_browser_prefs.ui.h:12
+#: tmp/coverart_browser_prefs.ui.h:11
 msgid "Display tracks and covers pane"
 msgstr "Afficher les pistes et le volet des jaquettes"
 
-#: tmp/coverart_browser_prefs.ui.h:13
+#: tmp/coverart_browser_prefs.ui.h:12
 msgid ""
 "Add a toggle-option to the coverart view to display the tracks and covers "
 "for the chosen album"
@@ -158,49 +148,44 @@ msgstr ""
 "Ajouter une option pour basculer entre l'affichage des jaquettes seules et "
 "l'affichage des pistes et des jaquettes pour l'album choisi"
 
-#: tmp/coverart_browser_prefs.ui.h:14
+#: tmp/coverart_browser_prefs.ui.h:13
 msgid "Level above which is regarded as being a favourite track or album"
 msgstr ""
 "Note à partir de laquelle une piste est considérée comme étant favorite"
 
-#: tmp/coverart_browser_prefs.ui.h:15
+#: tmp/coverart_browser_prefs.ui.h:14
 msgid "Favourite Threshold"
 msgstr "Seuil de favoris"
 
-#: tmp/coverart_browser_prefs.ui.h:16
+#: tmp/coverart_browser_prefs.ui.h:15
 msgid "General"
 msgstr "Général"
 
-#: tmp/coverart_browser_prefs.ui.h:17
+#: tmp/coverart_browser_prefs.ui.h:16
 msgid "Album Information"
 msgstr "Informations sur l'album"
 
-#: tmp/coverart_browser_prefs.ui.h:18
+#: tmp/coverart_browser_prefs.ui.h:17
 msgid "Display album's info under cover"
 msgstr "Afficher les informations de l'album sous la jaquette"
 
-#: tmp/coverart_browser_prefs.ui.h:19
-msgid "Show the album&apos;s basic information under the cover image."
-msgstr ""
-"Montrer les informations de base de l'album sous l'image de la jaquettes"
-
-#: tmp/coverart_browser_prefs.ui.h:20
+#: tmp/coverart_browser_prefs.ui.h:18
 msgid "Show the album's basic information under the cover image."
 msgstr "Afficher les informations de base sous l'image de la jaquette"
 
-#: tmp/coverart_browser_prefs.ui.h:21
+#: tmp/coverart_browser_prefs.ui.h:19
 msgid "Font size for the text below the cover-art."
 msgstr "Taille de la police du texte situé sous la jaquettes"
 
-#: tmp/coverart_browser_prefs.ui.h:22
+#: tmp/coverart_browser_prefs.ui.h:20
 msgid "Font Size:"
 msgstr "Taille de la police :"
 
-#: tmp/coverart_browser_prefs.ui.h:23
+#: tmp/coverart_browser_prefs.ui.h:21
 msgid "Ellipsize albums names"
 msgstr "Réduire les noms des albums"
 
-#: tmp/coverart_browser_prefs.ui.h:24
+#: tmp/coverart_browser_prefs.ui.h:22
 msgid ""
 "Ellipsizes the albums names to a fixed length when the display text option "
 "is enabled."
@@ -208,131 +193,131 @@ msgstr ""
 "Réduire à une longueur fixe les noms des albums quand l'option de "
 "l'affichage des textes est activé"
 
-#: tmp/coverart_browser_prefs.ui.h:25
+#: tmp/coverart_browser_prefs.ui.h:23
 msgid "Maximum allowed length for an album's name before being ellipsized."
 msgstr ""
 "Longueur maximale autorisée pour le nom d'un album avant d'être qu'il soit "
 "réduit"
 
-#: tmp/coverart_browser_prefs.ui.h:26
+#: tmp/coverart_browser_prefs.ui.h:24
 msgid "Maximum length:"
 msgstr "Longueur maximale :"
 
-#: tmp/coverart_browser_prefs.ui.h:27
+#: tmp/coverart_browser_prefs.ui.h:25
 msgid "Cover Appearance"
 msgstr "Apparence des jaquettes"
 
-#: tmp/coverart_browser_prefs.ui.h:28
+#: tmp/coverart_browser_prefs.ui.h:26
 msgid "Drop shadow"
 msgstr "Ombre portée"
 
-#: tmp/coverart_browser_prefs.ui.h:29
+#: tmp/coverart_browser_prefs.ui.h:27
 msgid "Indicates if the albums should drop a shadow on the cover view"
 msgstr ""
 "Indique si une ombre doit être portée aux albums sur le navigateur de "
 "jaquettes"
 
-#: tmp/coverart_browser_prefs.ui.h:30
+#: tmp/coverart_browser_prefs.ui.h:28
 msgid "Light Source: "
 msgstr "Source de lumière : "
 
-#: tmp/coverart_browser_prefs.ui.h:31
+#: tmp/coverart_browser_prefs.ui.h:29
 msgid "Defines the size for the covers showed on the source."
 msgstr "Défini la taille des jaquettes montrées dans le volet"
 
-#: tmp/coverart_browser_prefs.ui.h:32
+#: tmp/coverart_browser_prefs.ui.h:30
 msgid "Size (in pixels):"
 msgstr "Taille (en pixels) :"
 
-#: tmp/coverart_browser_prefs.ui.h:33
+#: tmp/coverart_browser_prefs.ui.h:31
 msgid "Cover"
 msgstr "Jaquettes"
 
-#: tmp/coverart_browser_prefs.ui.h:34
+#: tmp/coverart_browser_prefs.ui.h:32
 msgid "Where the toolbar should be positioned"
 msgstr "Endroit où la barre d'outils doit être localisée"
 
-#: tmp/coverart_browser_prefs.ui.h:35
+#: tmp/coverart_browser_prefs.ui.h:33
 msgid "Position"
 msgstr "Position"
 
-#: tmp/coverart_browser_prefs.ui.h:36
+#: tmp/coverart_browser_prefs.ui.h:34
 msgid "Show toolbar: "
 msgstr "Montrer la barre d'outils : "
 
-#: tmp/coverart_browser_prefs.ui.h:37
+#: tmp/coverart_browser_prefs.ui.h:35
 msgid "Look & Feel"
 msgstr "Apparence et comportement"
 
-#: tmp/coverart_browser_prefs.ui.h:38
+#: tmp/coverart_browser_prefs.ui.h:36
 msgid "Flat-button style"
 msgstr "Effet bouton plat"
 
-#: tmp/coverart_browser_prefs.ui.h:39
+#: tmp/coverart_browser_prefs.ui.h:37
 msgid "Icon Theme: "
 msgstr "Thème d'icône : "
 
-#: tmp/coverart_browser_prefs.ui.h:40
+#: tmp/coverart_browser_prefs.ui.h:38
 msgid "Alternative Genres:"
 msgstr "Genres alternatifs :"
 
-#: tmp/coverart_browser_prefs.ui.h:41
+#: tmp/coverart_browser_prefs.ui.h:39
 msgid "Load New Icon: "
 msgstr "Charger une nouvelle icône : "
 
-#: tmp/coverart_browser_prefs.ui.h:42
+#: tmp/coverart_browser_prefs.ui.h:40
 msgid "Select a new genre icon"
 msgstr "Choisir une nouvelle icône de genre"
 
-#: tmp/coverart_browser_prefs.ui.h:43
+#: tmp/coverart_browser_prefs.ui.h:41
 msgid "Edit Genre Details:"
 msgstr "Éditer les détails du genre :"
 
-#: tmp/coverart_browser_prefs.ui.h:44
+#: tmp/coverart_browser_prefs.ui.h:42
 msgid "Save changes"
 msgstr "Enregistrer les modifications"
 
-#: tmp/coverart_browser_prefs.ui.h:45
+#: tmp/coverart_browser_prefs.ui.h:43
 msgid "Name:"
 msgstr "Nom :"
 
-#: tmp/coverart_browser_prefs.ui.h:46
+#: tmp/coverart_browser_prefs.ui.h:44
 msgid "Icon:"
 msgstr "Icône :"
 
-#: tmp/coverart_browser_prefs.ui.h:47
+#: tmp/coverart_browser_prefs.ui.h:45
 msgid "Current user-defined Genres:"
 msgstr "Genres actuels définis par l'utilisateur :"
 
-#: tmp/coverart_browser_prefs.ui.h:48
+#: tmp/coverart_browser_prefs.ui.h:46
 msgid "Alternate Name"
 msgstr "Autre nom"
 
-#: tmp/coverart_browser_prefs.ui.h:49
+#: tmp/coverart_browser_prefs.ui.h:47
 msgid "Icon"
 msgstr "Icône"
 
-#: tmp/coverart_browser_prefs.ui.h:50
+#: tmp/coverart_browser_prefs.ui.h:48
 msgid "Add a new alternative genre"
 msgstr "Ajouter un nouveau genre alternatif"
 
-#: tmp/coverart_browser_prefs.ui.h:51
+#: tmp/coverart_browser_prefs.ui.h:49
 msgid "Delete an alternative genre"
 msgstr "Supprimer un genre alternatif"
 
-#: tmp/coverart_browser_prefs.ui.h:52
+#: tmp/coverart_browser_prefs.ui.h:50
 msgid "Toolbar"
 msgstr "Barre d'outils"
 
-#: tmp/coverart_browser_prefs.ui.h:53
+#: tmp/coverart_browser_prefs.ui.h:51
 msgid "Above Cover View"
 msgstr "Au-dessus du navigateur de jaquettes"
 
-#: tmp/coverart_browser_prefs.ui.h:54
+#: tmp/coverart_browser_prefs.ui.h:52
 msgid "Left Sidebar"
 msgstr "Dans la barre latérale gauche"
 
-#: tmp/coverart_browser_prefs.ui.h:55
+#: tmp/coverart_browser_prefs.ui.h:53
 msgid "Right Sidebar"
 msgstr "Dans la barre latérale droite"
 
@@ -638,7 +623,7 @@ msgid "%s by %s"
 msgstr "%s par %s"
 
 #. . TRANSLATORS: Do not translate this string.
-#: coverart_browser_prefs.py:223
+#: coverart_browser_prefs.py:226
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -790,3 +775,16 @@ msgstr "Rechercher les albums"
 #: coverart_controllers.py:557
 msgid "Search tracks"
 msgstr "Rechercher les pistes"
+
+#~ msgid "Show the album&apos;s basic information under the cover image."
+#~ msgstr ""
+#~ "Montrer les informations de base de l'album sous l'image de la jaquettes"
+
+#~ msgid ""
+#~ "Use the source&apos;s custom statusbar to show the current selected "
+#~ "album&apos;s related information instead of the global Rhythmbox&apos;s "
+#~ "statusbar."
+#~ msgstr ""
+#~ "Utiliser la source de la barre d'état personnalisée pour montrer les "
+#~ "informations reliées à l'album sélectionné au lieu de la barre d'état "
+#~ "globale de Rhythmbox"
