@@ -189,7 +189,6 @@
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
             <property name="has_tooltip">True</property>
-            <property name="tooltip_markup" translatable="yes">When rhythmbox starts, switch automatically to the coverart browser.</property>
             <property name="tooltip_text" translatable="yes">When rhythmbox starts, switch automatically to the coverart browser.</property>
             <property name="margin_left">5</property>
             <property name="margin_right">5</property>
@@ -213,7 +212,6 @@
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
             <property name="has_tooltip">True</property>
-            <property name="tooltip_markup" translatable="yes">Use the source&amp;apos;s custom statusbar to show the current selected album&amp;apos;s related information instead of the global Rhythmbox&amp;apos;s statusbar.</property>
             <property name="tooltip_text" translatable="yes">Use the source's custom statusbar to show the current selected album's related information instead of the global Rhythmbox's statusbar.</property>
             <property name="margin_left">5</property>
             <property name="margin_right">5</property>
@@ -237,7 +235,6 @@
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
             <property name="has_tooltip">True</property>
-            <property name="tooltip_markup" translatable="yes">Add a toggle-option to the coverart view to display the tracks and covers for the chosen album</property>
             <property name="tooltip_text" translatable="yes">Add a toggle-option to the coverart view to display the tracks and covers for the chosen album</property>
             <property name="margin_left">5</property>
             <property name="margin_right">5</property>
@@ -417,7 +414,6 @@
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
             <property name="has_tooltip">True</property>
-            <property name="tooltip_markup" translatable="yes">Show the album&amp;apos;s basic information under the cover image.</property>
             <property name="tooltip_text" translatable="yes">Show the album's basic information under the cover image.</property>
             <property name="margin_left">5</property>
             <property name="margin_right">5</property>
@@ -492,7 +488,6 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="has_tooltip">True</property>
-                <property name="tooltip_markup" translatable="yes">Ellipsizes the albums names to a fixed length when the display text option is enabled.</property>
                 <property name="tooltip_text" translatable="yes">Ellipsizes the albums names to a fixed length when the display text option is enabled.</property>
                 <property name="margin_left">20</property>
                 <property name="margin_right">5</property>
