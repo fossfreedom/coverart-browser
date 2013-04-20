@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-18 19:50+0100\n"
+"POT-Creation-Date: 2013-04-20 11:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -115,194 +115,183 @@ msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:10
 msgid ""
-"Use the source&apos;s custom statusbar to show the current selected "
-"album&apos;s related information instead of the global Rhythmbox&apos;s "
-"statusbar."
-msgstr ""
-
-#: tmp/coverart_browser_prefs.ui.h:11
-msgid ""
 "Use the source's custom statusbar to show the current selected album's "
 "related information instead of the global Rhythmbox's statusbar."
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:12
+#: tmp/coverart_browser_prefs.ui.h:11
 msgid "Display tracks and covers pane"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:13
+#: tmp/coverart_browser_prefs.ui.h:12
 msgid ""
 "Add a toggle-option to the coverart view to display the tracks and covers "
 "for the chosen album"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:14
+#: tmp/coverart_browser_prefs.ui.h:13
 msgid "Level above which is regarded as being a favourite track or album"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:15
+#: tmp/coverart_browser_prefs.ui.h:14
 msgid "Favourite Threshold"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:16
+#: tmp/coverart_browser_prefs.ui.h:15
 msgid "General"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:17
+#: tmp/coverart_browser_prefs.ui.h:16
 msgid "Album Information"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:18
+#: tmp/coverart_browser_prefs.ui.h:17
 msgid "Display album's info under cover"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:19
-msgid "Show the album&apos;s basic information under the cover image."
-msgstr ""
-
-#: tmp/coverart_browser_prefs.ui.h:20
+#: tmp/coverart_browser_prefs.ui.h:18
 msgid "Show the album's basic information under the cover image."
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:21
+#: tmp/coverart_browser_prefs.ui.h:19
 msgid "Font size for the text below the cover-art."
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:22
+#: tmp/coverart_browser_prefs.ui.h:20
 msgid "Font Size:"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:23
+#: tmp/coverart_browser_prefs.ui.h:21
 msgid "Ellipsize albums names"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:24
+#: tmp/coverart_browser_prefs.ui.h:22
 msgid ""
 "Ellipsizes the albums names to a fixed length when the display text option "
 "is enabled."
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:25
+#: tmp/coverart_browser_prefs.ui.h:23
 msgid "Maximum allowed length for an album's name before being ellipsized."
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:26
+#: tmp/coverart_browser_prefs.ui.h:24
 msgid "Maximum length:"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:27
+#: tmp/coverart_browser_prefs.ui.h:25
 msgid "Cover Appearance"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:28
+#: tmp/coverart_browser_prefs.ui.h:26
 msgid "Drop shadow"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:29
+#: tmp/coverart_browser_prefs.ui.h:27
 msgid "Indicates if the albums should drop a shadow on the cover view"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:30
+#: tmp/coverart_browser_prefs.ui.h:28
 msgid "Light Source: "
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:31
+#: tmp/coverart_browser_prefs.ui.h:29
 msgid "Defines the size for the covers showed on the source."
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:32
+#: tmp/coverart_browser_prefs.ui.h:30
 msgid "Size (in pixels):"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:33
+#: tmp/coverart_browser_prefs.ui.h:31
 msgid "Cover"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:34
+#: tmp/coverart_browser_prefs.ui.h:32
 msgid "Where the toolbar should be positioned"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:35
+#: tmp/coverart_browser_prefs.ui.h:33
 msgid "Position"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:36
+#: tmp/coverart_browser_prefs.ui.h:34
 msgid "Show toolbar: "
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:37
+#: tmp/coverart_browser_prefs.ui.h:35
 msgid "Look & Feel"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:38
+#: tmp/coverart_browser_prefs.ui.h:36
 msgid "Flat-button style"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:39
+#: tmp/coverart_browser_prefs.ui.h:37
 msgid "Icon Theme: "
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:40
+#: tmp/coverart_browser_prefs.ui.h:38
 msgid "Alternative Genres:"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:41
+#: tmp/coverart_browser_prefs.ui.h:39
 msgid "Load New Icon: "
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:42
+#: tmp/coverart_browser_prefs.ui.h:40
 msgid "Select a new genre icon"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:43
+#: tmp/coverart_browser_prefs.ui.h:41
 msgid "Edit Genre Details:"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:44
+#: tmp/coverart_browser_prefs.ui.h:42
 msgid "Save changes"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:45
+#: tmp/coverart_browser_prefs.ui.h:43
 msgid "Name:"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:46
+#: tmp/coverart_browser_prefs.ui.h:44
 msgid "Icon:"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:47
+#: tmp/coverart_browser_prefs.ui.h:45
 msgid "Current user-defined Genres:"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:48
+#: tmp/coverart_browser_prefs.ui.h:46
 msgid "Alternate Name"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:49
+#: tmp/coverart_browser_prefs.ui.h:47
 msgid "Icon"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:50
+#: tmp/coverart_browser_prefs.ui.h:48
 msgid "Add a new alternative genre"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:51
+#: tmp/coverart_browser_prefs.ui.h:49
 msgid "Delete an alternative genre"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:52
+#: tmp/coverart_browser_prefs.ui.h:50
 msgid "Toolbar"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:53
+#: tmp/coverart_browser_prefs.ui.h:51
 msgid "Above Cover View"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:54
+#: tmp/coverart_browser_prefs.ui.h:52
 msgid "Left Sidebar"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:55
+#: tmp/coverart_browser_prefs.ui.h:53
 msgid "Right Sidebar"
 msgstr ""
 
@@ -602,7 +591,7 @@ msgid "%s by %s"
 msgstr ""
 
 #. . TRANSLATORS: Do not translate this string.
-#: coverart_browser_prefs.py:223
+#: coverart_browser_prefs.py:226
 msgid "translator-credits"
 msgstr ""
 
