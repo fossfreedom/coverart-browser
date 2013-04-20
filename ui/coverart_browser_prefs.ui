@@ -140,7 +140,8 @@
   <object class="GtkImage" id="howitworks_image">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="stock">gtk-jump-to</property>
+    <property name="tooltip_text">https://github.com/fossfreedom/coverart-browser/wiki/How-the-plugin-works</property>
+    <property name="stock">gtk-about</property>
   </object>
   <object class="GtkImage" id="launchpad_image">
     <property name="visible">True</property>
@@ -305,7 +306,6 @@
               <object class="GtkBox" id="box7">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkLinkButton" id="howitworks_button">
                     <property name="use_action_appearance">False</property>
