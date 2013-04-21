@@ -156,7 +156,7 @@ class PlaylistPopupController(OptionsController):
                 still_exists = still_exists or name == self.current_key
 
         self.values = values
-        self.options = list(values.keys())
+        self.options = values.keys()
 
         self.current_key = self.current_key if still_exists else\
             self._library_name
@@ -348,7 +348,7 @@ class GenrePopupController(OptionsController):
 
     def _match_genres(self, test_genre, genre_type):
         case_search = CaseInsensitiveDict(
-            dict((k.name, v) for k, v in self._spritesheet.genre_alternate.items()
+            dict((k.name, v) for k, v in self._spritesheet.genre_alternate.iteritems()
                 if k.genre_type==genre_type))
 
         if test_genre in case_search:
@@ -380,7 +380,7 @@ class SortPopupController(OptionsController):
             (_('Sort by year'), 'year'),
             (_('Sort by rating'), 'rating')])
 
-        self.options = list(self.values.keys())
+        self.options = self.values.keys()
         
         # get the current sort key and initialise the superclass
         gs = GSetting()
@@ -390,8 +390,8 @@ class SortPopupController(OptionsController):
         self._spritesheet = None
         self.update_images(False)
         
-        self.current_key = list(self.values.keys())[
-            list(self.values.values()).index(value)]
+        self.current_key = self.values.keys()[
+            self.values.values().index(value)]
 
     def update_images(self, *args):
         self._spritesheet = self.create_spritesheet( self.plugin,
@@ -454,7 +454,7 @@ class DecadePopupController(OptionsController):
         #'Older' as in 'older than the year 1930'
         self.values[_('Older')] = [-1, 'Older']
 
-        self.options = list(self.values.keys())
+        self.options = self.values.keys()
 
         # if we aren't on the 20s yet, remove it
         if date.today().year < 2020:
@@ -499,7 +499,7 @@ class SortOrderToggleController(OptionsController):
         # options
         self.values = OrderedDict([(_('Sort in descending order'), False),
             (_('Sort in ascending order'), True)])
-        self.options = list(self.values.keys())
+        self.options = self.values.keys()
 
         self._images = []
         
@@ -507,8 +507,8 @@ class SortOrderToggleController(OptionsController):
         self.gs = GSetting()
         self.settings = self.gs.get_setting(self.gs.Path.PLUGIN)
         sort_order = self.settings[self.gs.PluginKey.SORT_ORDER]
-        self.current_key = list(self.values.keys())[
-            list(self.values.values()).index(sort_order)]
+        self.current_key = self.values.keys()[
+            self.values.values().index(sort_order)]
         self.update_images(False)
         
     def update_images(self, *args):
@@ -556,8 +556,8 @@ class AlbumSearchEntryController(OptionsController):
         self.values[_('Search albums')] = 'album_name'
         self.values[_('Search tracks')] = 'track'
 
-        self.options = list(self.values.keys())
-        self.current_key = list(self.values.keys())[0]
+        self.options = self.values.keys()
+        self.current_key = self.values.keys()[0]
 
     def do_action(self):
         # remove old filter

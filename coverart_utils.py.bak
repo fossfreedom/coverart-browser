@@ -28,7 +28,7 @@ from coverart_browser_prefs import CoverLocale
 from coverart_browser_prefs import GSetting
 import collections
 import re
-import urllib.request, urllib.parse, urllib.error
+import urllib
 
 from collections import namedtuple
 
@@ -324,7 +324,7 @@ class IdleCallIterator(object):
 
         for i in range(self._chunk):
             try:
-                next_elem = next(self._iter)
+                next_elem = self._iter.next()
 
                 self._process(next_elem, data)
             except StopIteration:
@@ -483,8 +483,8 @@ class ConfiguredSpriteSheet(object):
         down_dimension = int(root.xpath(base + 'dimension')[0].attrib['down'])
 
         try:
-            alpha_color = list(map(int,
-                    root.xpath(base + 'alpha')[0].text.split(' ')))
+            alpha_color = map(int,
+                    root.xpath(base + 'alpha')[0].text.split(' '))
         except:
             alpha_color = None
 
@@ -565,7 +565,7 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
             root = ET.parse(open(self._user_popups)).getroot()
             self._parse_popups(plugin, root, self.GENRE_USER)
             elem = root.xpath(self._sprite_name + '/index')
-            curr_index = int(elem[0].text)
+            curr_index = long(elem[0].text)
 
             for index in range(0,curr_index+1):
                 key = RB.ExtDBKey.create_lookup('icon', str(index))
@@ -607,13 +607,13 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
     def add_genre_icon( self, filename ):
         root = ET.parse(open(self._user_popups)).getroot()
         elem = root.xpath(self._sprite_name + '/index')
-        next_index = int(elem[0].text)
+        next_index = long(elem[0].text)
         elem[0].text = str(next_index+1)
         tree = ET.ElementTree(root)
         tree.write(self._user_popups, pretty_print=True, xml_declaration=True)
 
         key = RB.ExtDBKey.create_storage('icon', str(next_index))
-        uri = "file://" + urllib.request.pathname2url(filename)
+        uri = "file://" + urllib.pathname2url(filename)
         self._genre_db.store_uri(key, RB.ExtDBSourceType.USER_EXPLICIT, uri) 
         
         pixbuf = GdkPixbuf.Pixbuf.new_from_file(filename)
@@ -644,7 +644,7 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
             tree = ET.ElementTree(root)
             tree.write(self._user_popups, pretty_print=True, xml_declaration=True)
         else:
-            print("not found to delete")
+            print "not found to delete"
         
 
     def amend_genre_info( self, current_genre, new_genre, icon_name):
@@ -666,7 +666,7 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
                 found = True
 
         if found:
-            elem.text = str(new_genre, 'utf-8')
+            elem.text = unicode(new_genre, 'utf-8')
             elem.attrib['genre'] = icon_name
 
             tree = ET.ElementTree(root)
@@ -674,7 +674,7 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
             self.genre_alternate[GenreType(name=elem.text, genre_type=self.GENRE_USER)] = icon_name
             return GenreType(name=elem.text, genre_type=self.GENRE_USER)
         else:
-            print("nothing found to amend")
+            print "nothing found to amend"
             return None
             
 def get_stock_size():

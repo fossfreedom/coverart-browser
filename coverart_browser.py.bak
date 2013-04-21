@@ -71,7 +71,7 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         plugin = _('CoverArt Browser')
         desc = _('Browse and play your albums through their covers')
 
-        print("CoverArtBrowser DEBUG - do_activate")
+        print "CoverArtBrowser DEBUG - do_activate"
         self.shell = self.object
         self.db = self.shell.props.db
 
@@ -108,20 +108,20 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
 
         self.source.props.query_model.connect('complete', self.load_complete)
 
-        print("CoverArtBrowser DEBUG - end do_activate")
+        print "CoverArtBrowser DEBUG - end do_activate"
 
     def do_deactivate(self):
         '''
         Called by Rhythmbox when the plugin is deactivated. It makes sure to
         free all the resources used by the plugin.
         '''
-        print("CoverArtBrowser DEBUG - do_deactivate")
+        print "CoverArtBrowser DEBUG - do_deactivate"
         self.source.delete_thyself()
         del self.shell
         del self.db
         del self.source
 
-        print("CoverArtBrowser DEBUG - end do_deactivate")
+        print "CoverArtBrowser DEBUG - end do_deactivate"
 
     def load_complete(self, *args, **kwargs):
         '''

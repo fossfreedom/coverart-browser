@@ -118,13 +118,13 @@ class CoverArtEntryView(RB.EntryView):
         del self.queue_action
 
     def on_visible_columns_changed(self, settings, key):
-        print("CoverArtBrowser DEBUG - on_visible_columns_changed()")
+        print "CoverArtBrowser DEBUG - on_visible_columns_changed()"
         # reset current columns
         self.props.visible_columns = settings[key]
-        print("CoverArtBrowser DEBUG - end on_visible_columns_changed()")
+        print "CoverArtBrowser DEBUG - end on_visible_columns_changed()"
 
     def add_album(self, album):
-        print("CoverArtBrowser DEBUG - add_album()")
+        print "CoverArtBrowser DEBUG - add_album()"
         tracks = album.get_tracks()
 
         for track in tracks:
@@ -132,26 +132,26 @@ class CoverArtEntryView(RB.EntryView):
 
         (_, playing) = self.shell.props.shell_player.get_playing()
         self.playing_changed(self.shell.props.shell_player, playing)
-        print("CoverArtBrowser DEBUG - add_album()")
+        print "CoverArtBrowser DEBUG - add_album()"
 
     def clear(self):
-        print("CoverArtBrowser DEBUG - clear()")
+        print "CoverArtBrowser DEBUG - clear()"
         # self.set_model(RB.RhythmDBQueryModel.new_empty(self.shell.props.db))
         for row in self.qm:
             self.qm.remove_entry(row[0])
 
-        print("CoverArtBrowser DEBUG - clear()")
+        print "CoverArtBrowser DEBUG - clear()"
 
     def do_entry_activated(self, entry):
-        print("CoverArtBrowser DEBUG - do_entry_activated()")
+        print "CoverArtBrowser DEBUG - do_entry_activated()"
         self.select_entry(entry)
         self.play_track_menu_item_callback(entry)
-        print("CoverArtBrowser DEBUG - do_entry_activated()")
+        print "CoverArtBrowser DEBUG - do_entry_activated()"
         return True
 
     def do_show_popup(self, over_entry):
         if over_entry:
-            print("CoverArtBrowser DEBUG - do_show_popup()")
+            print "CoverArtBrowser DEBUG - do_show_popup()"
             self.external_plugins.create_menu(self.popup_menu, 3)
             self.popup_menu.popup(None, None, None, None, 0,
                 Gtk.get_current_event_time())
@@ -159,7 +159,7 @@ class CoverArtEntryView(RB.EntryView):
         return over_entry
 
     def play_track_menu_item_callback(self, _):
-        print("CoverArtBrowser DEBUG - play_track_menu_item_callback()")
+        print "CoverArtBrowser DEBUG - play_track_menu_item_callback()"
         
         query_model = RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
 
@@ -177,10 +177,10 @@ class CoverArtEntryView(RB.EntryView):
         player = self.shell.props.shell_player
         player.play_entry(entry, self.source)
 
-        print("CoverArtBrowser DEBUG - play_track_menu_item_callback()")
+        print "CoverArtBrowser DEBUG - play_track_menu_item_callback()"
 
     def queue_track_menu_item_callback(self, entry):
-        print("CoverArtBrowser DEBUG - queue_track_menu_item_callback()")
+        print "CoverArtBrowser DEBUG - queue_track_menu_item_callback()"
 
         self.add_tracks_to_source(self.shell.props.queue_source)
 
@@ -194,7 +194,7 @@ class CoverArtEntryView(RB.EntryView):
         for entry in selected:
             source.add_entry(entry, -1)
 
-        print("CoverArtBrowser DEBUG - queue_track_menu_item_callback()")
+        print "CoverArtBrowser DEBUG - queue_track_menu_item_callback()"
 
     def love_track(self, rating):
         '''
@@ -209,26 +209,26 @@ class CoverArtEntryView(RB.EntryView):
         self.shell.props.db.commit()
 
     def show_properties_menu_item_callback(self, entry):
-        print("CoverArtBrowser DEBUG - show_properties_menu_item_callback()")
+        print "CoverArtBrowser DEBUG - show_properties_menu_item_callback()"
 
         info_dialog = RB.SongInfo(source=self.source, entry_view=self)
 
         info_dialog.show_all()
 
-        print("CoverArtBrowser DEBUG - show_properties_menu_item_callback()")
+        print "CoverArtBrowser DEBUG - show_properties_menu_item_callback()"
 
     def playing_song_changed(self, shell_player, entry):
-        print("CoverArtBrowser DEBUG - playing_song_changed()")
+        print "CoverArtBrowser DEBUG - playing_song_changed()"
 
         if entry is not None and self.get_entry_contained(entry):
             self.set_state(RB.EntryViewState.PLAYING)
         else:
             self.set_state(RB.EntryViewState.NOT_PLAYING)
 
-        print("CoverArtBrowser DEBUG - playing_song_changed()")
+        print "CoverArtBrowser DEBUG - playing_song_changed()"
 
     def playing_changed(self, shell_player, playing):
-        print("CoverArtBrowser DEBUG - playing_changed()")
+        print "CoverArtBrowser DEBUG - playing_changed()"
         entry = shell_player.get_playing_entry()
 
         if entry is not None and self.get_entry_contained(entry):
@@ -239,25 +239,25 @@ class CoverArtEntryView(RB.EntryView):
         else:
             self.set_state(RB.EntryViewState.NOT_PLAYING)
 
-        print("CoverArtBrowser DEBUG - playing_changed()")
+        print "CoverArtBrowser DEBUG - playing_changed()"
 
     def add_playlist_menu_item_callback(self, menu_item):
-        print("CoverArtBrowser DEBUG - add_playlist_menu_item_callback")
+        print "CoverArtBrowser DEBUG - add_playlist_menu_item_callback"
         playlist_manager = self.shell.props.playlist_manager
         playlist = playlist_manager.new_playlist('', False)
 
         self.add_tracks_to_source(playlist)
 
     def playlist_menu_item_callback(self, menu_item):
-        print("CoverArtBrowser DEBUG - playlist_menu_item_callback")
+        print "CoverArtBrowser DEBUG - playlist_menu_item_callback"
 
         self.source.playlist_fillmenu(self.playlist_sub_menu_item,
             self.actiongroup, self.add_to_static_playlist_menu_item_callback)
 
     def add_to_static_playlist_menu_item_callback(self, action, playlist,
         favourite):
-        print("CoverArtBrowser DEBUG - " + \
-            "add_to_static_playlist_menu_item_callback")
+        print "CoverArtBrowser DEBUG - " + \
+            "add_to_static_playlist_menu_item_callback"
         self.add_tracks_to_source(playlist)
 
     def _on_library_sorting_changed(self, view, _):

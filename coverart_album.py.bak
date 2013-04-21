@@ -37,10 +37,10 @@ from coverart_utils import create_pixbuf_from_file_at_size
 from coverart_utils import SortedCollection
 from coverart_utils import idle_iterator
 from coverart_utils import NaturalString
-from urllib.parse import urlparse
+from urlparse import urlparse
 from datetime import datetime, date
 
-import urllib.request, urllib.parse, urllib.error
+import urllib
 import os
 import cgi
 import tempfile
@@ -413,7 +413,7 @@ class Album(GObject.Object):
     def _track_deleted(self, track):
         self._tracks.remove(track)
 
-        list(map(track.disconnect, self._signals_id[track]))
+        map(track.disconnect, self._signals_id[track])
         del self._signals_id[track]
 
         if len(self._tracks) == 0:
@@ -469,8 +469,8 @@ class AlbumFilters(object):
                 return True
 
             words = RB.search_fold(searchtext).split()
-            params = list(map(RB.search_fold, [album.name, album.artist,
-                album.artists, album.track_titles]))
+            params = map(RB.search_fold, [album.name, album.artist,
+                album.artists, album.track_titles])
             matches = []
 
             for word in words:
@@ -652,7 +652,7 @@ class AlbumsModel(GObject.Object):
             self._iters[album.name][album.artist]['iter'] = tree_iter
 
         def error(exception):
-            print('Error while adding albums to the model: ' + str(exception))
+            print 'Error while adding albums to the model: ' + str(exception)
 
         def finish(data):
             self._sort_process = None
@@ -671,7 +671,7 @@ class AlbumsModel(GObject.Object):
             self._emit_signal(tree_iter, 'visual-updated')
 
         def error(exception):
-            print('Error while recreating text: ' + str(exception))
+            print 'Error while recreating text: ' + str(exception)
 
         return ALBUM_LOAD_CHUNK, process, None, error, None
 
@@ -819,7 +819,7 @@ class AlbumsModel(GObject.Object):
 
         if not album:
             # get all the albums with the given name and look for a match
-            albums = [artist['album'] for artist in list(self._iters[name].values())]
+            albums = [artist['album'] for artist in self._iters[name].values()]
 
             for curr_album in albums:
                 if key.matches(curr_album.create_ext_db_key()):
@@ -935,10 +935,10 @@ class AlbumsModel(GObject.Object):
             self.emit('filter-changed')
 
     def do_filter_changed(self):
-        list(map(self.show, self._albums, list(map(self._album_filter, self._albums))))
+        map(self.show, self._albums, map(self._album_filter, self._albums))
 
     def _album_filter(self, album):
-            for f in list(self._filters.values()):
+            for f in self._filters.values():
                 if not f(album):
                     return False
 
@@ -1014,7 +1014,7 @@ class AlbumLoader(GObject.Object):
             self._album_manager.progress = data['progress'] / data['total']
 
         def error(exception):
-            print('Error processing entries: ' + str(exception))
+            print 'Error processing entries: ' + str(exception)
 
         def finish(data):
             self._album_manager.progress = 1
@@ -1026,7 +1026,7 @@ class AlbumLoader(GObject.Object):
     def _load_model(self):
         def process(albums, data):
             # add  the album to the model
-            for album in list(albums.values()):
+            for album in albums.values():
                 self._album_manager.model.add(album)
 
         def after(data):
@@ -1036,7 +1036,7 @@ class AlbumLoader(GObject.Object):
             self._album_manager.progress = 1 - data['progress'] / data['total']
 
         def error(exception):
-            print('Error while adding albums to the model: ' + str(exception))
+            print 'Error while adding albums to the model: ' + str(exception)
 
         def finish(data):
             self._album_manager.progress = 0
@@ -1046,7 +1046,7 @@ class AlbumLoader(GObject.Object):
         return ALBUM_LOAD_CHUNK, process, after, error, finish
 
     def _entry_changed_callback(self, db, entry, changes):
-        print("CoverArtBrowser DEBUG - entry_changed_callback")
+        print "CoverArtBrowser DEBUG - entry_changed_callback"
         # NOTE: changes are packed on a GValueArray
 
         # look at all the changes and update the albums acordingly
@@ -1077,22 +1077,22 @@ class AlbumLoader(GObject.Object):
             # we finished reading the GValueArray
             pass
 
-        print("CoverArtBrowser DEBUG - end entry_changed_callback")
+        print "CoverArtBrowser DEBUG - end entry_changed_callback"
 
     def _entry_added_callback(self, db, entry):
-        print("CoverArtBrowser DEBUG - entry_added_callback")
+        print "CoverArtBrowser DEBUG - entry_added_callback"
         self._allocate_track(Track(entry, db))
 
-        print("CoverArtBrowser DEBUG - end entry_added_callback")
+        print "CoverArtBrowser DEBUG - end entry_added_callback"
 
     def _entry_deleted_callback(self, db, entry):
-        print("CoverArtBrowser DEBUG - entry_deleted_callback")
+        print "CoverArtBrowser DEBUG - entry_deleted_callback"
         track = self._tracks[Track(entry).location]
         del self._tracks[track.location]
 
         track.emit('deleted')
 
-        print("CoverArtBrowser DEBUG - end entry_deleted_callback")
+        print "CoverArtBrowser DEBUG - end entry_deleted_callback"
 
     def _allocate_track(self, track):
         if track.duration > 0:
@@ -1118,17 +1118,17 @@ class AlbumLoader(GObject.Object):
         Loads and creates `Track` instances for all entries on query_model,
         assigning them into their correspondant `Album`.
         '''
-        print("CoverArtBrowser DEBUG - load_albums")
+        print "CoverArtBrowser DEBUG - load_albums"
 
         self._load_albums(iter(query_model), albums={}, model=query_model,
             total=len(query_model), progress=0.)
 
-        print("CoverArtBrowser DEBUG - load_albums finished")
+        print "CoverArtBrowser DEBUG - load_albums finished"
 
     def do_albums_load_finished(self, albums):
         # load the albums to the model
         self._album_manager.model.replace_filter('nay')
-        self._load_model(iter(list(albums.values())), total=len(albums), progress=0.)
+        self._load_model(iter(albums.values()), total=len(albums), progress=0.)
 
     def do_model_load_finished(self):
         self._album_manager.model.remove_filter('nay')
@@ -1297,7 +1297,7 @@ class CoverManager(GObject.Object):
             self.emit('load-finished')
 
         def error(exception):
-            print('Error while loading covers: ' + str(exception))
+            print 'Error while loading covers: ' + str(exception)
 
         def after(data):
             data['progress'] += COVER_LOAD_CHUNK
@@ -1317,7 +1317,7 @@ class CoverManager(GObject.Object):
             self.emit('load-finished')
 
         def error(exception):
-            print("Error while resizing covers: " + str(exception))
+            print "Error while resizing covers: " + str(exception)
 
         def after(data):
             data['progress'] += COVER_LOAD_CHUNK
@@ -1369,7 +1369,7 @@ class CoverManager(GObject.Object):
         self._resize_covers(iter(albums), total=len(albums), progress=0.)
 
     def _albumart_added_callback(self, ext_db, key, path, pixbuf):
-        print("CoverArtBrowser DEBUG - albumart_added_callback")
+        print "CoverArtBrowser DEBUG - albumart_added_callback"
 
         # use the name to get the album and update it's cover
         if pixbuf:
@@ -1378,7 +1378,7 @@ class CoverManager(GObject.Object):
             if album:
                 album.cover = self._create_cover(pixbuf)
 
-        print("CoverArtBrowser DEBUG - end albumart_added_callback")
+        print "CoverArtBrowser DEBUG - end albumart_added_callback"
 
     def update_item_width(self):
         self._album_manager.cover_view.set_item_width(self.cover_size)
@@ -1467,7 +1467,7 @@ class CoverManager(GObject.Object):
 
             if parsed.scheme == 'file':
                 # local file, load it on a pixbuf and asign it
-                path = urllib.request.url2pathname(uri.strip()).replace('file://', '')
+                path = urllib.url2pathname(uri.strip()).replace('file://', '')
 
                 if os.path.exists(path):
                     cover = GdkPixbuf.Pixbuf.new_from_file(path)
@@ -1487,8 +1487,8 @@ class CoverManager(GObject.Object):
                             # set the new cover
                             self.update_cover(album, cover)
                         except:
-                            print("The URI doesn't point to an image or " + \
-                                "the image couldn't be opened.")
+                            print "The URI doesn't point to an image or " + \
+                                "the image couldn't be opened."
 
                 async = rb.Loader()
                 async.get_url(uri, cover_update, album)
@@ -1580,7 +1580,7 @@ class TextManager(GObject.Object):
         Utility method to activate/deactivate the markup text on the
         cover view.
         '''
-        print("CoverArtBrowser DEBUG - activate_markup")
+        print "CoverArtBrowser DEBUG - activate_markup"
         if self.display_text_enabled:
             if not self._text_renderer:
                 # create and configure the custom cell renderer
@@ -1595,7 +1595,7 @@ class TextManager(GObject.Object):
             # remove the cell renderer
             self._cover_view.props.cell_area.remove(self._text_renderer)
 
-        print("CoverArtBrowser DEBUG - end activate_markup")
+        print "CoverArtBrowser DEBUG - end activate_markup"
 
     def _generate_tooltip(self, model, album):
         '''
@@ -1611,8 +1611,8 @@ class TextManager(GObject.Object):
         into the model.
         '''
         # we use unicode to avoid problems with non ascii albums
-        name = str(album.name, 'utf-8')
-        artist = str(album.artist, 'utf-8')
+        name = unicode(album.name, 'utf-8')
+        artist = unicode(album.artist, 'utf-8')
 
         if self.display_text_ellipsize_enabled:
             ellipsize = self.display_text_ellipsize_length
@@ -1738,12 +1738,12 @@ class AlbumManager(GObject.Object):
         :param changes: GValueArray with the RhythmDBEntryChange made on the
         entry.
         '''
-        print("CoverArtBrowser DEBUG - entry_changed_callback")
+        print "CoverArtBrowser DEBUG - entry_changed_callback"
 
         track = self.loader._tracks[Track(entry).location]
         track.emit('modified')
 
-        print("CoverArtBrowser DEBUG - end entry_changed_callback")
+        print "CoverArtBrowser DEBUG - end entry_changed_callback"
 
     def _load_finished_callback(self, *args):
         self.cover_man.load_covers()

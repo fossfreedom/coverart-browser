@@ -25,7 +25,7 @@ from gi.repository import Gdk
 from coverart_album import Album
 import rb
 import shutil
-import urllib.request, urllib.parse, urllib.error
+import urllib
 import os.path
 import os
 import sys
@@ -106,16 +106,16 @@ class CoverArtExport(GObject.Object):
             if open_filemanager:
                 #code taken from http://stackoverflow.com/questions/1795111/is-there-a-cross-platform-way-to-open-a-file-browser-in-python
                 if sys.platform=='win32':
-                    import winreg
+                    import _winreg
                     path= r('SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon')
-                    for root in (winreg.HKEY_CURRENT_USER, winreg.HKEY_LOCAL_MACHINE):
+                    for root in (_winreg.HKEY_CURRENT_USER, _winreg.HKEY_LOCAL_MACHINE):
                         try:
-                            with winreg.OpenKey(root, path) as k:
-                                value, regtype= winreg.QueryValueEx(k, 'Shell')
+                            with _winreg.OpenKey(root, path) as k:
+                                value, regtype= _winreg.QueryValueEx(k, 'Shell')
                         except WindowsError:
                             pass
                         else:
-                            if regtype in (winreg.REG_SZ, winreg.REG_EXPAND_SZ):
+                            if regtype in (_winreg.REG_SZ, _winreg.REG_EXPAND_SZ):
                                 shell= value
                             break
                     else:
@@ -130,7 +130,7 @@ class CoverArtExport(GObject.Object):
 
         self._albumiter = iter(albums)
         self._tracknumber = 0
-        self._album = next(self._albumiter)
+        self._album = self._albumiter.next()
         
         def idle_call(data):
             exit_idle = True
@@ -145,7 +145,7 @@ class CoverArtExport(GObject.Object):
             if self._tracknumber >= len(albums[self._album]):          
                 try:
                     self._tracknumber = 0
-                    self._album = next(self._albumiter)
+                    self._album = self._albumiter.next()
                 except StopIteration:
                     exit_idle = False
            
@@ -159,7 +159,7 @@ class CoverArtExport(GObject.Object):
             self._track_count = self._track_count + 1
 
             key = album.create_ext_db_key()
-            finalPath = urllib.parse.unquote(track.location)[7:]
+            finalPath = urllib.unquote(track.location)[7:]
             album_name = RB.search_fold(album.name)
             
             if use_album_name:
@@ -172,11 +172,11 @@ class CoverArtExport(GObject.Object):
                     os.makedirs(folder_store)
                 shutil.copy(finalPath, folder_store)
             except IOError as err:
-                print(err.args[0])
+                print err.args[0]
                 return False
 
             dest = os.path.join(folder_store, os.path.basename(finalPath))
-            desturi = 'file://' + urllib.request.pathname2url(dest)
+            desturi = 'file://' + urllib.pathname2url(dest)
             
             return search_tracks.embed(desturi, key)
 

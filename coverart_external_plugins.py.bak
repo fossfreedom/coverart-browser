@@ -46,7 +46,7 @@ class ExternalPlugin(GObject.Object):
         peas = Peas.Engine.get_default()
         loaded_plugins = peas.get_loaded_plugins()
 
-        print(loaded_plugins)
+        print loaded_plugins
         if self.attributes['plugin_name'] in loaded_plugins:
             return True
 
@@ -237,7 +237,7 @@ class CreateExternalPluginMenu(GObject.Object):
         
         #tidy up old menu items before recreating the list
         for action in self._actiongroup.list_actions():
-            print("removing")
+            print "removing"
             self._actiongroup.remove_action(action)
 
         for menu_item in self._menu_array:

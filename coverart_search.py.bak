@@ -114,9 +114,9 @@ class CoverSearchPane(Gtk.Box):
             artist = ""
 
         if not(album_name == "" and artist == ""):
-            artist = str(artist.replace('&', '&amp;'),
+            artist = unicode(artist.replace('&', '&amp;'),
                 'utf-8')
-            album_name = str(album_name.replace('&', '&amp;'), 'utf-8')
+            album_name = unicode(album_name.replace('&', '&amp;'), 'utf-8')
             self.render_album_art_search(artist, album_name)
 
     def render_album_art_search(self, artist, album_name):
@@ -148,7 +148,7 @@ class CoverSearchPane(Gtk.Box):
         # update the cover
         title = webview.get_title()
 
-        print(title)
+        print title
         if title:
             self.album_manager.cover_man.update_cover(self.current_album,
                 uri=title)
