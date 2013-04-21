@@ -1,4 +1,4 @@
-#coverart-browser v0.8 (in development)
+#coverart-browser v0.9 (in development)
 ================
 
 Browse your coverart albums in Rhythmbox v2.96 and later
@@ -20,22 +20,8 @@ Browse your coverart albums in Rhythmbox v2.96 and later
 
 ##Summary: whats new in this release
 
- - Export whole albums and embed coverart in the album tracks so that (where required) phones/tablets can display coverart correctly
- - Drag & Drop CoverArt icons onto playlists and sources (such as a phone) so that all tracks for an album are added
- - separated coverart search into separate plugin (this is now a prerequisite) - https://github.com/fossfreedom/coverart-search-providers
- - New light & dark theme buttons to complement light & dark desktop themes
- - optional flat-button toolbar style
- - revised popup menu style genre & playlist windows when number of entries would exceed the desktop height
- - Use album and album-artist sort order tags for sorting if these values are utilised
- - Play from Cover-view and Track view instead of queuing & playing
- - Allow user-defined genre names to be created mapped against default system genre icons
- - Allow user-defined genre icons to be displayed. These can override system genre icons if required
- - Support for other plugins via right-click menu options in a similar manner as the Library Browser - 
-
- OpenContainingFolder, SendFirst, Send Track, LastFMExtension - Fingerprinter, FileOrganizer, lLyrics, WikipediaSearch
-
- N.B. if NOT using my PPA then ensure you have the very latest version of the plugins installed.
-
+ - Advance options to control the icon-view spacing and selection padding - this can give a very different look to the plugin
+ - ...
  - for developers - doxygen documentation: http://fossfreedom.github.io/coverart-browser/classes.html
 
 *How it works:*
