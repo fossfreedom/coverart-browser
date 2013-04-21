@@ -174,6 +174,48 @@
       </row>
     </data>
   </object>
+  <object class="GtkAdjustment" id="padding_adjustment">
+    <property name="upper">50</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkImage" id="remove_image">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-remove</property>
+  </object>
+  <object class="GtkImage" id="save_image">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-save</property>
+  </object>
+  <object class="GtkListStore" id="show_in_model">
+    <columns>
+      <!-- column-name id -->
+      <column type="gchararray"/>
+      <!-- column-name text -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">main</col>
+        <col id="1" translatable="yes">Above Cover View</col>
+      </row>
+      <row>
+        <col id="0">left</col>
+        <col id="1" translatable="yes">Left Sidebar</col>
+      </row>
+      <row>
+        <col id="0">right</col>
+        <col id="1" translatable="yes">Right Sidebar</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkAdjustment" id="spacing_adjustment">
+    <property name="upper">50</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
   <object class="GtkNotebook" id="main_notebook">
     <property name="visible">True</property>
     <property name="can_focus">True</property>
@@ -576,40 +618,24 @@
           </packing>
         </child>
         <child>
-          <object class="GtkCheckButton" id="add_shadow_checkbox">
-            <property name="label" translatable="yes">Drop shadow</property>
-            <property name="use_action_appearance">False</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">False</property>
-            <property name="tooltip_text" translatable="yes">Indicates if the albums should drop a shadow on the cover view</property>
-            <property name="margin_left">5</property>
-            <property name="margin_right">5</property>
-            <property name="margin_top">5</property>
-            <property name="margin_bottom">5</property>
-            <property name="use_action_appearance">False</property>
-            <property name="xalign">0</property>
-            <property name="draw_indicator">True</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">4</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkBox" id="light_source_box">
+          <object class="GtkBox" id="box8">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="margin_left">25</property>
-            <property name="margin_right">5</property>
-            <property name="margin_top">5</property>
-            <property name="margin_bottom">5</property>
             <child>
-              <object class="GtkLabel" id="light_source_label">
+              <object class="GtkCheckButton" id="add_shadow_checkbox">
+                <property name="label" translatable="yes">Drop shadow</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Light Source: </property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="tooltip_text" translatable="yes">Indicates if the albums should drop a shadow on the cover view</property>
+                <property name="margin_left">5</property>
+                <property name="margin_right">5</property>
+                <property name="margin_top">5</property>
+                <property name="margin_bottom">5</property>
+                <property name="use_action_appearance">False</property>
+                <property name="xalign">0</property>
+                <property name="draw_indicator">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -618,24 +644,51 @@
               </packing>
             </child>
             <child>
-              <object class="GtkComboBox" id="light_source_combobox">
+              <object class="GtkBox" id="light_source_box">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="model">lightsource_model</property>
-                <property name="active">0</property>
-                <property name="id_column">0</property>
+                <property name="margin_left">25</property>
+                <property name="margin_right">5</property>
+                <property name="margin_top">5</property>
+                <property name="margin_bottom">5</property>
+                <child>
+                  <object class="GtkLabel" id="light_source_label">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Light Source: </property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkComboBox" id="light_source_combobox">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="model">lightsource_model</property>
+                    <property name="active">0</property>
+                    <property name="id_column">0</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">1</property>
+                <property name="position">5</property>
               </packing>
             </child>
           </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">5</property>
+            <property name="position">4</property>
           </packing>
         </child>
         <child>
@@ -645,7 +698,6 @@
             <property name="tooltip_text" translatable="yes">Defines the size for the covers showed on the source.</property>
             <property name="margin_left">5</property>
             <property name="margin_top">5</property>
-            <property name="orientation">vertical</property>
             <child>
               <object class="GtkLabel" id="cover_size_label">
                 <property name="visible">True</property>
@@ -673,7 +725,7 @@
                 <property name="digits">0</property>
               </object>
               <packing>
-                <property name="expand">False</property>
+                <property name="expand">True</property>
                 <property name="fill">True</property>
                 <property name="position">1</property>
               </packing>
@@ -682,7 +734,96 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
+            <property name="position">5</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label8">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="xalign">0.05000000074505806</property>
+            <property name="label" translatable="yes">Advanced Options</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
             <property name="position">6</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkGrid" id="grid1">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkSpinButton" id="padding_spin">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="tooltip_text" translatable="yes">Padding (space) around each icon</property>
+                <property name="max_length">2</property>
+                <property name="invisible_char">•</property>
+                <property name="adjustment">padding_adjustment</property>
+                <property name="climb_rate">1</property>
+                <property name="numeric">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">0</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSpinButton" id="spacing_spin">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="max_length">2</property>
+                <property name="invisible_char">•</property>
+                <property name="adjustment">spacing_adjustment</property>
+                <property name="climb_rate">1</property>
+                <property name="numeric">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">1</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label9">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Padding</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">0</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label11">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="tooltip_text" translatable="yes">Spacing between columns and rows</property>
+                <property name="label" translatable="yes">Spacing</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">1</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">7</property>
           </packing>
         </child>
       </object>
@@ -1245,36 +1386,9 @@
       </packing>
     </child>
   </object>
-  <object class="GtkImage" id="remove_image">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-remove</property>
-  </object>
-  <object class="GtkImage" id="save_image">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-save</property>
-  </object>
-  <object class="GtkListStore" id="show_in_model">
-    <columns>
-      <!-- column-name id -->
-      <column type="gchararray"/>
-      <!-- column-name text -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0">main</col>
-        <col id="1" translatable="yes">Above Cover View</col>
-      </row>
-      <row>
-        <col id="0">left</col>
-        <col id="1" translatable="yes">Left Sidebar</col>
-      </row>
-      <row>
-        <col id="0">right</col>
-        <col id="1" translatable="yes">Right Sidebar</col>
-      </row>
-    </data>
+  <object class="GtkAdjustment" id="width_adjustment">
+    <property name="upper">50</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
   </object>
 </interface>

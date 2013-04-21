@@ -116,5 +116,15 @@
             <summary>System Toggle</summary>
             <description>Plugin toggles this to indicate a new genre - it has no real meaning other than to fire a signal when the state is changed.</description>
         </key>
+        <key type="i" name="icon-padding">
+            <default>6</default>
+            <summary>icon view item-padding</summary>
+            <description>icon view item-padding</description>
+        </key>
+        <key type="i" name="icon-spacing">
+            <default>6</default>
+            <summary>icon view spacing (rows and columns)</summary>
+            <description>icon view (rows and columns)</description>
+        </key>
     </schema>
 </schemalist>
