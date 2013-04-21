@@ -290,7 +290,7 @@
         <genre xml:lang="de" spritesheet="genre" name="dance">Dance</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="dance">dance</genre>
         <genre xml:lang="en_US" spritesheet="genre" name="dance">dance</genre>
-        <genre xml:lang="es" spritesheet="genre" name="dance">danza</genre>
+        <genre xml:lang="es" spritesheet="genre" name="dance">dance</genre>
         <genre xml:lang="fr" spritesheet="genre" name="dance">dance</genre>
         <genre xml:lang="fr_CA" spritesheet="genre" name="dance">danse</genre>
         <genre xml:lang="gl" spritesheet="genre" name="dance">dance</genre>
@@ -324,7 +324,7 @@
         <genre xml:lang="de" spritesheet="genre" name="electronic">Electronic</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="electronic">electronic</genre>
         <genre xml:lang="en_US" spritesheet="genre" name="electronic">electronic</genre>
-        <genre xml:lang="es" spritesheet="genre" name="electronic">electronica</genre>
+        <genre xml:lang="es" spritesheet="genre" name="electronic">electrónica</genre>
         <genre xml:lang="fr" spritesheet="genre" name="electronic">électronique</genre>
         <genre xml:lang="fr_CA" spritesheet="genre" name="electronic">électronique</genre>
         <genre xml:lang="gl" spritesheet="genre" name="electronic">electrónica</genre>
@@ -473,7 +473,7 @@
         <genre xml:lang="de" spritesheet="genre" name="opera">Oper</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="opera">opera</genre>
         <genre xml:lang="en_US" spritesheet="genre" name="opera">opera</genre>
-        <genre xml:lang="es" spritesheet="genre" name="opera">opera</genre>
+        <genre xml:lang="es" spritesheet="genre" name="opera">ópera</genre>
         <genre xml:lang="fi" spritesheet="genre" name="opera">opera</genre>
         <genre xml:lang="fr" spritesheet="genre" name="opera">opéra</genre>
         <genre xml:lang="fr_CA" spritesheet="genre" name="opera">opéra</genre>
