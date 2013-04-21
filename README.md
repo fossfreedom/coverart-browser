@@ -1,7 +1,7 @@
-#coverart-browser v0.8 (in development)
+#coverart-browser v0.8
 ================
 
-Browse your coverart albums in Rhythmbox v2.96 and later
+Browse your coverart albums in Rhythmbox v2.96 - Rhythmbox v2.98
 
 ![Imgur](http://i.imgur.com/yXYmcOt.png)
 
