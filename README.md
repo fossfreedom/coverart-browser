@@ -22,6 +22,9 @@ Browse your coverart albums in Rhythmbox v2.96 - Rhythmbox v2.98
 
  - Export whole albums and embed coverart in the album tracks so that (where required) phones/tablets can display coverart correctly
  - Drag & Drop CoverArt icons onto playlists and sources (such as a phone) so that all tracks for an album are added
+
+*note* - remember to use the *Portable Players - Ipod* and/or *Portable Players - MTP* plugin if your phone requires these to sync music
+
  - separated coverart search into separate plugin (this is now a prerequisite) - https://github.com/fossfreedom/coverart-search-providers
  - New light & dark theme buttons to complement light & dark desktop themes
  - optional flat-button toolbar style
