@@ -46,7 +46,7 @@ Browse your coverart albums in Rhythmbox v2.96 - Rhythmbox v2.98
  - Click the new CoverArt source button (left hand side of screen)
  - Albums are displayed as clickable buttons containing their album cover
  - Right click menu option to play, queue & search for coverart for an album.
-
+ 
  - https://github.com/fossfreedom/coverart-browser/wiki/How-the-plugin-works
 
 *How to install:*
@@ -63,16 +63,18 @@ Then install the plugin:
 
 <pre>
 rm -rf ~/.local/share/rhythmbox/plugins/coverart_browser
-git clone https://github.com/fossfreedom/coverart-browser.git -b master
+git clone https://github.com/fossfreedom/coverart-browser.git
 cd coverart-browser
 sh ./install.sh
 </pre>
 
-Note - the CoverArt Browser plugin also requires installing the following plugin:
+Note 1 - the CoverArt Browser plugin also requires installing the following plugin:
 
  - https://github.com/fossfreedom/coverart-search-providers
+ 
+Note 2 - Due to upstream changes this plugin does NOT work with rhythmbox 2.99.  Patches are most welcome to support this version of rhythmbox.
 
-*For Ubuntu 12.04 & 12.10:* --- NOT YET - INSTRUCTIONS BELOW ONLY VALID ON RELEASE OF v0.8
+*For Ubuntu 12.04 & 12.10:* 
 
 This is now available in my rhythmbox PPA - installation instructions in this AskUbuntu Q&A:
 
@@ -98,7 +100,7 @@ Credits:
  - thanks to Canonical for the Star widget which the ratings capabilities use
  - our Translators: Launchpad Translation team - individual credits for each locale is shown in the plugin preferences dialog
  - Button Icons - jrbastien for the three toolbar icon-sets (standard, light & dark)
- - Chief Tester and good all-round egg - jrbastien!
+ - Chief Tester and all-round good egg - jrbastien!
 
  Licenses:
 
