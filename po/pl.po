@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-20 11:52+0100\n"
-"PO-Revision-Date: 2013-04-22 16:56+0000\n"
+"PO-Revision-Date: 2013-04-23 15:45+0000\n"
 "Last-Translator: Szymon Nieznański <isamu715@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-04-22 19:00+0000\n"
-"X-Generator: Launchpad (build 16567)\n"
+"X-Launchpad-Export-Date: 2013-04-24 08:41+0000\n"
+"X-Generator: Launchpad (build 16580)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -264,31 +264,31 @@ msgstr "Zachowaj zmiany"
 
 #: tmp/coverart_browser_prefs.ui.h:43
 msgid "Name:"
-msgstr ""
+msgstr "Nazwa:"
 
 #: tmp/coverart_browser_prefs.ui.h:44
 msgid "Icon:"
-msgstr ""
+msgstr "Ikona:"
 
 #: tmp/coverart_browser_prefs.ui.h:45
 msgid "Current user-defined Genres:"
-msgstr ""
+msgstr "Gatunki zdefiniowane przez użytkownika:"
 
 #: tmp/coverart_browser_prefs.ui.h:46
 msgid "Alternate Name"
-msgstr ""
+msgstr "Alternatywna nazwa"
 
 #: tmp/coverart_browser_prefs.ui.h:47
 msgid "Icon"
-msgstr ""
+msgstr "Ikona"
 
 #: tmp/coverart_browser_prefs.ui.h:48
 msgid "Add a new alternative genre"
-msgstr ""
+msgstr "Dodaj nowy alternatywny gatunek"
 
 #: tmp/coverart_browser_prefs.ui.h:49
 msgid "Delete an alternative genre"
-msgstr ""
+msgstr "Usuń alternatywny gatunek"
 
 #: tmp/coverart_browser_prefs.ui.h:50
 msgid "Toolbar"
@@ -308,7 +308,7 @@ msgstr "Prawy panel"
 
 #: tmp/coverart_browser.ui.h:1
 msgid "Tracks & Covers"
-msgstr ""
+msgstr "Ścieżki i okładki"
 
 #: tmp/coverart_browser.ui.h:2
 msgid "Stop coverart fetch."
@@ -380,7 +380,7 @@ msgstr "Szukaj okładek"
 
 #: tmp/coverart_browser.ui.h:19
 msgid "Export album tracks and embed coverart in track files"
-msgstr ""
+msgstr "Eksportuj ścieżki albumu zapisując okładkę w plikach ścieżek"
 
 #: tmp/coverart_browser.ui.h:20
 msgid "Export and embed coverart"
@@ -436,7 +436,7 @@ msgstr "Wszystkie dekady"
 
 #: tmp/coverart_exportembed.ui.h:1
 msgid "Choose folder to save tracks:"
-msgstr ""
+msgstr "Wybierz folder do zapisu ścieżek:"
 
 #: tmp/coverart_exportembed.ui.h:2
 msgid "Select a Folder to export to"
