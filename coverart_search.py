@@ -23,7 +23,7 @@ import rb
 from gi.repository import Gtk
 from gi.repository import WebKit
 from mako.template import Template
-
+import rb3compat
 from coverart_album import AlbumManager
 
 
@@ -114,9 +114,9 @@ class CoverSearchPane(Gtk.Box):
             artist = ""
 
         if not(album_name == "" and artist == ""):
-            artist = str(artist.replace('&', '&amp;'),
+            artist = rb3compat.unicodestr(artist.replace('&', '&amp;'),
                 'utf-8')
-            album_name = str(album_name.replace('&', '&amp;'), 'utf-8')
+            album_name = rb3compat.unicodestr(album_name.replace('&', '&amp;'), 'utf-8')
             self.render_album_art_search(artist, album_name)
 
     def render_album_art_search(self, artist, album_name):

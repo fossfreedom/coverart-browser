@@ -37,10 +37,9 @@ from coverart_utils import create_pixbuf_from_file_at_size
 from coverart_utils import SortedCollection
 from coverart_utils import idle_iterator
 from coverart_utils import NaturalString
-from urllib.parse import urlparse
+import rb3compat
 from datetime import datetime, date
 
-import urllib.request, urllib.parse, urllib.error
 import os
 import cgi
 import tempfile
@@ -1463,11 +1462,11 @@ class CoverManager(GObject.Object):
                 pixbuf)
 
         elif uri:
-            parsed = urlparse(uri)
+            parsed = rb3compat.urlparse(uri)
 
             if parsed.scheme == 'file':
                 # local file, load it on a pixbuf and asign it
-                path = urllib.request.url2pathname(uri.strip()).replace('file://', '')
+                path = rb3compat.url2pathname(uri.strip()).replace('file://', '')
 
                 if os.path.exists(path):
                     cover = GdkPixbuf.Pixbuf.new_from_file(path)
@@ -1611,8 +1610,8 @@ class TextManager(GObject.Object):
         into the model.
         '''
         # we use unicode to avoid problems with non ascii albums
-        name = str(album.name, 'utf-8')
-        artist = str(album.artist, 'utf-8')
+        name = rb3compat.unicodestr(album.name, 'utf-8')
+        artist = rb3compat.unicodestr(album.artist, 'utf-8')
 
         if self.display_text_ellipsize_enabled:
             ellipsize = self.display_text_ellipsize_length

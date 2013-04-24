@@ -28,7 +28,7 @@ from coverart_browser_prefs import CoverLocale
 from coverart_browser_prefs import GSetting
 import collections
 import re
-import urllib.request, urllib.parse, urllib.error
+import rb3compat
 
 from collections import namedtuple
 
@@ -613,7 +613,9 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
         tree.write(self._user_popups, pretty_print=True, xml_declaration=True)
 
         key = RB.ExtDBKey.create_storage('icon', str(next_index))
-        uri = "file://" + urllib.request.pathname2url(filename)
+        uri = "file://" + rb3compat.pathname2url(filename)
+        print filename
+        print uri
         self._genre_db.store_uri(key, RB.ExtDBSourceType.USER_EXPLICIT, uri) 
         
         pixbuf = GdkPixbuf.Pixbuf.new_from_file(filename)
@@ -666,7 +668,7 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
                 found = True
 
         if found:
-            elem.text = str(new_genre, 'utf-8')
+            elem.text = rb3compat.unicodestr(new_genre, 'utf-8')
             elem.attrib['genre'] = icon_name
 
             tree = ET.ElementTree(root)

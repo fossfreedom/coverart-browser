@@ -29,6 +29,7 @@ import os
 import shutil
 from stars import ReactiveStar
 from stars import StarSize
+import rb3compat
 
 class CoverLocale:
     '''
@@ -439,7 +440,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
             if index != '':
                 self.genre_combobox.set_active_iter(self._iters[(index, self.GENRE_POPUP)])
                 self.amend_mode = True
-                self.current_genre=str(model[genre_iter][0], 'utf-8')
+                self.current_genre=rb3compat.unicodestr(model[genre_iter][0], 'utf-8')
         else:
             self.genre_entry.set_text('')
             self.genre_combobox.set_active_iter(None)
@@ -474,7 +475,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
 
         model, genre_iter = selection.get_selected()
         if genre_iter:
-            index = str(model[genre_iter][0],'utf-8')
+            index = rb3compat.unicodestr(model[genre_iter][0],'utf-8')
             model.remove(genre_iter)
 
             if index:
@@ -491,7 +492,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         entry_value = self.genre_entry.get_text()
         treeiter = self.genre_combobox.get_active_iter()
 
-        entry_value = str(entry_value, 'utf-8')
+        entry_value = rb3compat.unicodestr(entry_value, 'utf-8')
         enable = False
         try:
             test = self._iters[(entry_value, self.GENRE_LIST)]

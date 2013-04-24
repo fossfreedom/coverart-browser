@@ -25,7 +25,7 @@ from gi.repository import Gdk
 from coverart_album import Album
 import rb
 import shutil
-import urllib.request, urllib.parse, urllib.error
+import rb3compat
 import os.path
 import os
 import sys
@@ -159,7 +159,7 @@ class CoverArtExport(GObject.Object):
             self._track_count = self._track_count + 1
 
             key = album.create_ext_db_key()
-            finalPath = urllib.parse.unquote(track.location)[7:]
+            finalPath = rb3compat.unquote(track.location)[7:]
             album_name = RB.search_fold(album.name)
             
             if use_album_name:
@@ -176,7 +176,7 @@ class CoverArtExport(GObject.Object):
                 return False
 
             dest = os.path.join(folder_store, os.path.basename(finalPath))
-            desturi = 'file://' + urllib.request.pathname2url(dest)
+            desturi = 'file://' + rb3compat.pathname2url(dest)
             
             return search_tracks.embed(desturi, key)
 
