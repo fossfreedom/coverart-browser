@@ -80,7 +80,7 @@ This is now available in my rhythmbox PPA - installation instructions in this As
 
 http://askubuntu.com/questions/147942/how-do-i-install-third-party-rhythmbox-plugins
 
-Note - installing the package `coverart-browser` will also install `coverart-search`
+Note - installing the package `rhythmbox-plugin-coverart-browser` will also install `rhythmbox-plugin-coverart-search`
 
 **Please help out with translating**
 
