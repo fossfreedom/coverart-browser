@@ -887,10 +887,10 @@ class AlbumsModel(GObject.Object):
             reversed from the current one.
         '''
         if key:
-            sort_keys = sort_keys[key]
+            props = sort_keys[key]
 
             def key_function(album):
-                keys = [getattr(album, key) for key in sort_keys]
+                keys = [getattr(album, prop) for prop in props]
                 return keys
 
             self._albums.key = key_function
