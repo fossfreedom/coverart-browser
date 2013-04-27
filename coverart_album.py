@@ -37,6 +37,7 @@ from coverart_utils import create_pixbuf_from_file_at_size
 from coverart_utils import SortedCollection
 from coverart_utils import idle_iterator
 from coverart_utils import NaturalString
+from coverart_utils import uniqyfy_and_sort
 from urlparse import urlparse
 from datetime import datetime, date
 
@@ -289,31 +290,32 @@ class Album(GObject.Object):
     @property
     def album_artist_sort(self):
         if not self._album_artist_sort:
-            self._album_artist_sort = [track.album_artist_sort
-                for track in self._tracks]
+            self._album_artist_sort = uniqyfy_and_sort(
+                [track.album_artist_sort for track in self._tracks])
 
         return self._album_artist_sort
 
     @property
     def album_sort(self):
         if not self._album_sort:
-            self._album_sort = [track.album_sort for track in self._tracks]
+            self._album_sort = uniqyfy_and_sort(
+                [track.album_sort for track in self._tracks])
 
         return self._album_sort
 
     @property
     def artists(self):
         if not self._artists:
-            self._artists = ', '.join(
-                set([track.artist for track in self._tracks]))
+            self._artists = ', '.join(set(
+                [track.artist for track in self._tracks]))
 
         return self._artists
 
     @property
     def track_titles(self):
         if not self._titles:
-            self._titles = ' '.join(
-                set([track.title for track in self._tracks]))
+            self._titles = ' '.join(set(
+                [track.title for track in self._tracks]))
 
         return self._titles
 
@@ -587,16 +589,25 @@ class AlbumFilters(object):
         return filt
 
 
-AlbumFilters.keys = {'nay': AlbumFilters.nay_filter,
-        'all': AlbumFilters.global_filter,
-        'album_artist': AlbumFilters.album_artist_filter,
-        'artist': AlbumFilters.artist_filter,
-        'album_name': AlbumFilters.album_name_filter,
-        'track': AlbumFilters.track_title_filter,
-        'genre': AlbumFilters.genre_filter,
-        'model': AlbumFilters.model_filter,
-        'decade': AlbumFilters.decade_filter
-        }
+AlbumFilters.keys = {
+    'nay': AlbumFilters.nay_filter,
+    'all': AlbumFilters.global_filter,
+    'album_artist': AlbumFilters.album_artist_filter,
+    'artist': AlbumFilters.artist_filter,
+    'album_name': AlbumFilters.album_name_filter,
+    'track': AlbumFilters.track_title_filter,
+    'genre': AlbumFilters.genre_filter,
+    'model': AlbumFilters.model_filter,
+    'decade': AlbumFilters.decade_filter
+}
+
+
+sort_keys = {
+    'name': ('album_sort', 'album_artist_sort'),
+    'artist': ('album_artist_sort', 'album_sort'),
+    'year': ('year', 'album_sort'),
+    'rating': ('rating', 'album_sort'),
+}
 
 
 class AlbumsModel(GObject.Object):
@@ -876,12 +887,13 @@ class AlbumsModel(GObject.Object):
             reversed from the current one.
         '''
         if key:
-            if key == 'name':
-                key = 'album_sort'
-            elif key == 'artist':
-                key = 'album_artist_sort'
+            sort_keys = sort_keys[key]
 
-            self._albums.key = lambda album: getattr(album, key)
+            def key_function(album):
+                keys = [getattr(album, key) for key in sort_keys]
+                return keys
+
+            self._albums.key = key_function
 
         if reverse:
             self._albums = reversed(self._albums)
