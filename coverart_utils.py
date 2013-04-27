@@ -32,6 +32,20 @@ import urllib
 
 from collections import namedtuple
 
+
+def uniqyfy_and_sort(iterable):
+    ''' Removes duplicates of an iterables and returns a list of this uniques
+    elements.
+    '''
+    uniques = []
+
+    for element in iterable:
+        if element not in uniques:
+            uniques.append(element)
+
+    return sorted(uniques)
+
+
 GenreType = namedtuple("GenreType", ["name", "genre_type"])
 
 class NaturalString(str):
@@ -357,12 +371,12 @@ class Theme:
     '''
     # storage for the instance reference
     __instance = None
-        
+
     class _impl(GObject.Object):
         """ Implementation of the singleton interface """
-        #properties
+        # properties
         theme = GObject.property(type=str, default="standard")
-    
+
         # signals
         '''
         changed = signal emitted when a theme has changed
@@ -377,31 +391,31 @@ class Theme:
             used to access the plugin's settings.
             '''
             super(Theme._impl, self).__init__()
-            
+
             self.plugin = plugin
             popups = rb.find_plugin_file(plugin, 'img/popups.xml')
             root = ET.parse(open(popups)).getroot()
 
             base = 'theme/theme'
             self.themes = []
-            
+
             for elem in root.xpath(base):
                 self.themes.append(elem.attrib['folder_name'])
 
-            self.gs=GSetting()
-            self.setting=self.gs.get_setting(self.gs.Path.PLUGIN)
+            self.gs = GSetting()
+            self.setting = self.gs.get_setting(self.gs.Path.PLUGIN)
 
             # connect properties and signals
             self._connect_properties()
             self._connect_signals()
-            
+
         @property
         def current(self):
             return self.setting[self.gs.PluginKey.THEME]
 
         def _connect_properties(self):
             self.setting.bind(self.gs.PluginKey.THEME, self,
-                'theme',  Gio.SettingsBindFlags.GET)
+                'theme', Gio.SettingsBindFlags.GET)
 
         def _connect_signals(self):
             self.connect('notify::theme', self._on_theme_changed,
@@ -427,11 +441,11 @@ class Theme:
     def __setattr__(self, attr, value):
         """ Delegate access to implementation """
         return setattr(self.__instance, attr, value)
-        
+
 class SpriteSheet(object):
 
     def __init__(self, image, icon_width, icon_height, x_spacing, y_spacing,
-        x_start, y_start, across_dimension, down_dimension, 
+        x_start, y_start, across_dimension, down_dimension,
         alpha_color=None, size=None):
         # load the image
         base_image = GdkPixbuf.Pixbuf.new_from_file(image)
@@ -472,7 +486,7 @@ class ConfiguredSpriteSheet(object):
         base = 'theme/theme[@folder_name="' + Theme(plugin).current\
             + '"]/spritesheet[@name="' + sprite_name + '"]/'
         image = rb.find_plugin_file(plugin, 'img/' + Theme(plugin).current\
-            +'/' + root.xpath(base + 'image')[0].text)
+            + '/' + root.xpath(base + 'image')[0].text)
         icon_width = int(root.xpath(base + 'icon')[0].attrib['width'])
         icon_height = int(root.xpath(base + 'icon')[0].attrib['height'])
         x_spacing = int(root.xpath(base + 'spacing')[0].attrib['x'])
@@ -490,26 +504,26 @@ class ConfiguredSpriteSheet(object):
 
         self.names = []
         self.locale_names = {}
-        
-        cl = CoverLocale()
-        lang=cl.get_locale()
 
-        base = sprite_name + '/' + sprite_name +\
+        cl = CoverLocale()
+        lang = cl.get_locale()
+
+        base = sprite_name + '/' + sprite_name + \
             '[@spritesheet="' + sprite_name + '"]'
 
         for elem in root.xpath(base + '[not(@xml:lang)]'):
             self.names.append(elem.text)
-            
+
         for elem in root.xpath(base + '[@xml:lang="' + lang + '"]'):
-            self.locale_names[elem.text]=elem.attrib['name']
+            self.locale_names[elem.text] = elem.attrib['name']
 
         if (not self.locale_names) and len(lang) > 2:
-            for elem in root.xpath(base + '[@xml:lang="' +\
+            for elem in root.xpath(base + '[@xml:lang="' + \
                 lang[0:2] + '"]'):
-                self.locale_names[elem.text]=elem.attrib['name']
+                self.locale_names[elem.text] = elem.attrib['name']
 
         self._sheet = SpriteSheet(image, icon_width, icon_height, x_spacing,
-            y_spacing, x_start, y_start, across_dimension, down_dimension, 
+            y_spacing, x_start, y_start, across_dimension, down_dimension,
             alpha_color, size)
 
         self._genre_db = RB.ExtDB(name='cb_genre')
@@ -528,7 +542,7 @@ class ConfiguredSpriteSheet(object):
 
     def keys(self):
         return self.names
-        
+
 class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
     '''
     A sprite-sheet of genres. Creates a pixbuf representation of a picture
@@ -547,11 +561,11 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
     GENRE_USER = 1
     GENRE_SYSTEM = 2
     GENRE_LOCALE = 3
-    
+
     def __init__(self, plugin, sprite_name, size=None):
         super(GenreConfiguredSpriteSheet, self).__init__(plugin, sprite_name,
             size)
-        self.genre_alternate = {} # contains GenreType tuples
+        self.genre_alternate = {}  # contains GenreType tuples
         self._alt_icons = {}
         self._sprite_name = sprite_name
         self._size = size
@@ -567,14 +581,14 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
             elem = root.xpath(self._sprite_name + '/index')
             curr_index = long(elem[0].text)
 
-            for index in range(0,curr_index+1):
+            for index in range(0, curr_index + 1):
                 key = RB.ExtDBKey.create_lookup('icon', str(index))
                 icon_location = self._genre_db.lookup(key)
                 sprite = GdkPixbuf.Pixbuf.new_from_file(icon_location)
                 if self._size:
                     sprite = sprite.scale_simple(self._size[0], self._size[1],
                         GdkPixbuf.InterpType.BILINEAR)
-                
+
                 self._alt_icons[str(index)] = sprite
                 self.names.append(str(index))
         except:
@@ -589,7 +603,7 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
     def _parse_popups(self, plugin, root, genre_type):
         icon_names = {}
         cl = CoverLocale()
-        lang=cl.get_locale()
+        lang = cl.get_locale()
 
         base = self._sprite_name + '/alt'
         for elem in root.xpath(base + '[not(@xml:lang)]/alt'):
@@ -597,32 +611,32 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
 
         for elem in root.xpath(base + '[@xml:lang="' + lang + '"]/alt'):
             self.genre_alternate[GenreType(name=elem.text, genre_type=self.GENRE_LOCALE)] = elem.attrib['genre']
-            
-        #if (not self.locale_alternate) and len(lang) > 2:
+
+        # if (not self.locale_alternate) and len(lang) > 2:
         if len(lang) > 2:
-            for elem in root.xpath(base + '[@xml:lang="' +\
+            for elem in root.xpath(base + '[@xml:lang="' + \
                 lang[0:2] + '"]/alt'):
                 self.genre_alternate[GenreType(name=elem.text, genre_type=self.GENRE_LOCALE)] = elem.attrib['genre']
 
-    def add_genre_icon( self, filename ):
+    def add_genre_icon(self, filename):
         root = ET.parse(open(self._user_popups)).getroot()
         elem = root.xpath(self._sprite_name + '/index')
         next_index = long(elem[0].text)
-        elem[0].text = str(next_index+1)
+        elem[0].text = str(next_index + 1)
         tree = ET.ElementTree(root)
         tree.write(self._user_popups, pretty_print=True, xml_declaration=True)
 
         key = RB.ExtDBKey.create_storage('icon', str(next_index))
         uri = "file://" + urllib.pathname2url(filename)
-        self._genre_db.store_uri(key, RB.ExtDBSourceType.USER_EXPLICIT, uri) 
-        
+        self._genre_db.store_uri(key, RB.ExtDBSourceType.USER_EXPLICIT, uri)
+
         pixbuf = GdkPixbuf.Pixbuf.new_from_file(filename)
         new_genre = GenreType(name=str(next_index), genre_type=self.GENRE_USER)
 
         if self._size:
             pixbuf = pixbuf.scale_simple(self._size[0], self._size[1],
                 GdkPixbuf.InterpType.BILINEAR)
-        
+
         self._alt_icons[new_genre.name] = pixbuf
         self.names.append(new_genre.name)
 
@@ -633,7 +647,7 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
         base = self._sprite_name + '/alt/alt'
 
         found = False
-        
+
         for elem in root.xpath(base):
             if RB.search_fold(elem.text) == RB.search_fold(current_genre):
                 found = True
@@ -645,14 +659,14 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
             tree.write(self._user_popups, pretty_print=True, xml_declaration=True)
         else:
             print "not found to delete"
-        
 
-    def amend_genre_info( self, current_genre, new_genre, icon_name):
+
+    def amend_genre_info(self, current_genre, new_genre, icon_name):
         root = ET.parse(open(self._user_popups)).getroot()
         base = self._sprite_name + '/alt/alt'
 
         found = False
-        
+
         if current_genre != "":
             for elem in root.xpath(base):
                 if RB.search_fold(elem.text) == RB.search_fold(current_genre):
@@ -676,7 +690,7 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
         else:
             print "nothing found to amend"
             return None
-            
+
 def get_stock_size():
     what, width, height = Gtk.icon_size_lookup(Gtk.IconSize.BUTTON)
 
