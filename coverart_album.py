@@ -412,7 +412,10 @@ class Album(GObject.Object):
     def _track_deleted(self, track):
         self._tracks.remove(track)
 
-        list(map(track.disconnect, self._signals_id[track]))
+        #list(map(track.disconnect, self._signals_id[track]))
+        for signal_id in self._signals_id[track]:
+            track.disconnect(signal_id)
+            
         del self._signals_id[track]
 
         if len(self._tracks) == 0:
@@ -934,7 +937,10 @@ class AlbumsModel(GObject.Object):
             self.emit('filter-changed')
 
     def do_filter_changed(self):
-        list(map(self.show, self._albums, list(map(self._album_filter, self._albums))))
+        pos = 0
+        for show_result in list(map(self._album_filter, self._albums)):
+            self.show( self._albums[pos], show_result )
+            pos = pos + 1
 
     def _album_filter(self, album):
             for f in list(self._filters.values()):
