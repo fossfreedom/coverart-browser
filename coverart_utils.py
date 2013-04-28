@@ -33,8 +33,8 @@ import urllib
 from collections import namedtuple
 
 
-def uniqyfy_and_sort(iterable):
-    ''' Removes duplicates of an iterables and returns a list of this uniques
+def uniquify_and_sort(iterable):
+    ''' Removes duplicates of an iterables and returns a list of unique
     elements.
     '''
     uniques = []

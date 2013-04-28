@@ -37,7 +37,7 @@ from coverart_utils import create_pixbuf_from_file_at_size
 from coverart_utils import SortedCollection
 from coverart_utils import idle_iterator
 from coverart_utils import NaturalString
-from coverart_utils import uniqyfy_and_sort
+from coverart_utils import uniquify_and_sort
 from urlparse import urlparse
 from datetime import datetime, date
 
@@ -290,7 +290,7 @@ class Album(GObject.Object):
     @property
     def album_artist_sort(self):
         if not self._album_artist_sort:
-            self._album_artist_sort = uniqyfy_and_sort(
+            self._album_artist_sort = uniquify_and_sort(
                 [track.album_artist_sort for track in self._tracks])
 
         return self._album_artist_sort
@@ -298,7 +298,7 @@ class Album(GObject.Object):
     @property
     def album_sort(self):
         if not self._album_sort:
-            self._album_sort = uniqyfy_and_sort(
+            self._album_sort = uniquify_and_sort(
                 [track.album_sort for track in self._tracks])
 
         return self._album_sort
