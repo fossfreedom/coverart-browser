@@ -1096,10 +1096,14 @@ class AlbumLoader(GObject.Object):
 
     def _entry_deleted_callback(self, db, entry):
         print("CoverArtBrowser DEBUG - entry_deleted_callback")
-        track = self._tracks[Track(entry).location]
-        del self._tracks[track.location]
+        prototype = Track(entry).location
 
-        track.emit('deleted')
+        if prototype in self._tracks:
+            # gotta check if the track is loaded first
+            track = self._tracks[prototype]
+            del self._tracks[track.location]
+
+            track.emit('deleted')
 
         print("CoverArtBrowser DEBUG - end entry_deleted_callback")
 
