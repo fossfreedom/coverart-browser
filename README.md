@@ -55,13 +55,13 @@ Note - the CoverArt Browser plugin also requires installing the following plugin
 
  - https://github.com/fossfreedom/coverart-search-providers
 
-*For Ubuntu 12.04 & 12.10:* --- NOT YET - INSTRUCTIONS BELOW ONLY VALID ON RELEASE OF v0.8
+*For Ubuntu 12.04 & 12.10:* --- NOT YET - INSTRUCTIONS BELOW ONLY VALID ON RELEASE OF v0.9
 
 This is now available in my rhythmbox PPA - installation instructions in this AskUbuntu Q&A:
 
 http://askubuntu.com/questions/147942/how-do-i-install-third-party-rhythmbox-plugins
 
-Note - installing the package `coverart-browser` will also install `coverart-search-providers`
+Note - installing the package `rhythmbox-plugin-coverart-browser` will also install `rhythmbox-plugin-coverart-search`
 
 **Please help out with translating**
 

@@ -239,6 +239,10 @@ class Track(GObject.Object):
 
         return NaturalString(sort)
 
+    @property
+    def is_saveable(self):
+        return self.entry.get_entry_type().props.save_to_disk
+
     def create_ext_db_key(self):
         '''
         Returns an `RB.ExtDBKey` that can be used to acces/write some other
@@ -1100,7 +1104,7 @@ class AlbumLoader(GObject.Object):
         print("CoverArtBrowser DEBUG - end entry_deleted_callback")
 
     def _allocate_track(self, track):
-        if track.duration > 0:
+        if track.duration > 0 and track.is_saveable:
             # only allocate the track if it's a valid track
             self._tracks[track.location] = track
 
