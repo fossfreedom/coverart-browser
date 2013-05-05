@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- RB 2.99 and later -->
+  <menu id="popup_menu">
+    <section>
+      <item>
+		<attribute name="label" translatable="yes">Play Album</attribute>
+		<attribute name="action">win.play_album_menu_item</attribute>
+      </item>
+      <item>
+		<attribute name="label" translatable="yes">Queue Album</attribute>
+		<attribute name="action">win.queue_album_menu_item</attribute>
+      </item>
+      <submenu>
+		  <attribute name="label" translatable="yes">Add to Playlist</attribute>
+		  <attribute name="action">win.playlist_menu_item</attribute>
+		<section>
+		  <item>
+			<attribute name="label" translatable="yes">New Playlist</attribute>
+			<attribute name="action">win.new_playlist</attribute>
+		  </item>
+		</section>
+		<section>
+		</section>      
+      </submenu>
+    </section>
+	<section>
+	</section>
+	<section>
+      <item>
+		<attribute name="label" translatable="yes">Play Favourites</attribute>
+		<attribute name="action">win.play_favourites_album_menu_item</attribute>
+      </item>
+      <item>
+		<attribute name="label" translatable="yes">Queue Favourites</attribute>
+		<attribute name="action">win.queue_favourites_album_menu_item</attribute>
+      </item>
+      <submenu>
+		  <attribute name="label" translatable="yes">Add favourites to Playlist</attribute>
+		  <attribute name="action">win.favourite_playlist_menu_item</attribute>
+		<section>
+		  <item>
+			<attribute name="label" translatable="yes">New Playlist</attribute>
+			<attribute name="action">win.favourite_new_playlist</attribute>
+		  </item>
+		</section>
+		<section>
+		</section>      
+      </submenu>
+	</section>
+	<section>
+      <item>
+		<attribute name="label" translatable="yes">Search for covers</attribute>
+		<attribute name="action">win.cover_search_menu_item</attribute>
+      </item>
+      <item>
+		<attribute name="label" translatable="yes">Export and embed coverart</attribute>
+		<attribute name="action">win.export_embed_menu_item</attribute>
+      </item>
+	</section>
+	<section>
+      <item>
+		<attribute name="label" translatable="yes">Properties</attribute>
+		<attribute name="action">win.show_properties_menu_item</attribute>
+      </item>
+	</section>
+  </menu>
+</interface>

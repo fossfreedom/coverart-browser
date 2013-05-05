@@ -46,6 +46,7 @@ from coverart_controllers import AlbumQuickSearchController
 from coverart_utils import Theme
 from coverart_export import CoverArtExport
 from stars import ReactiveStar
+from rb3compat import Menu
 
 class CoverArtBrowserSource(RB.Source):
     '''
@@ -152,12 +153,12 @@ class CoverArtBrowserSource(RB.Source):
         self.shell = self.props.shell
         self.status = ''
         self.search_text = ''
-        self.actiongroup = Gtk.ActionGroup('coverplaylist_submenu')
-        self.favourite_actiongroup = Gtk.ActionGroup(
-            'favourite_coverplaylist_submenu')
-        uim = self.shell.props.ui_manager
-        uim.insert_action_group(self.actiongroup)
-        uim.insert_action_group(self.favourite_actiongroup)
+        #self.actiongroup = Gtk.ActionGroup('coverplaylist_submenu')
+        #self.favourite_actiongroup = Gtk.ActionGroup(
+        #    'favourite_coverplaylist_submenu')
+        #uim = self.shell.props.ui_manager
+        #uim.insert_action_group(self.actiongroup)
+        #uim.insert_action_group(self.favourite_actiongroup)
 
         # connect properties signals
         self.connect('notify::custom-statusbar-enabled',
@@ -195,7 +196,7 @@ class CoverArtBrowserSource(RB.Source):
         ui.add_from_file(rb.find_plugin_file(self.plugin,
             'ui/coverart_browser.ui'))
         ui.connect_signals(self)
-
+        
         # load the page and put it in the source
         self.page = ui.get_object('main_box')
         self.pack_start(self.page, True, True, 0)
@@ -203,8 +204,25 @@ class CoverArtBrowserSource(RB.Source):
         # get widgets for main icon-view
         self.status_label = ui.get_object('status_label')
         self.covers_view = ui.get_object('covers_view')
-        self.popup_menu = ui.get_object('popup_menu')
-        self.cover_search_menu_item = ui.get_object('cover_search_menu_item')
+        self.popup_menu = Menu(self)
+        self.popup_menu.load_from_file('ui/coverart_popupmenu_rb2.ui',
+			'ui/coverart_popupmenu_rb3.ui')
+			
+		signals = \
+			{ 'play_album_menu_item': self.play_album_menu_item_callback,
+			  'queue_album_menu_item': self.queue_favourites_album_menu_item_callback,
+			  'playlist_menu_item': self.playlist_menu_item_callback,
+			  'play_favourites_album_menu_item': self.play_favourites_album_menu_item_callback,
+			  'queue_favourites_album_menu_item':  self.queue_favourites_album_menu_item_callback,
+			  'favourite_playlist_menu_item':  self.favourite_playlist_menu_item_callback,
+			  'new_playlist': self.add_playlist_menu_item_callback,
+			  'favourite_new_playlist': self.favourite_add_playlist_menu_item_callback,
+			  'cover_search_menu_item': self.cover_search_menu_item_callback,
+			  'export_embed_menu_item': self.export_embed_menu_item_callback,
+			  'show_properties_menu_item': self.show_properties_menu_item_callback}
+			  
+		self.popup_menu.connect_signals(signals)
+		
         self.status_label = ui.get_object('status_label')
         self.request_status_box = ui.get_object('request_status_box')
         self.request_spinner = ui.get_object('request_spinner')
@@ -214,27 +232,15 @@ class CoverArtBrowserSource(RB.Source):
         self.notebook = ui.get_object('bottom_notebook')
 
         # get widgets for source popup
-        self.source_menu = ui.get_object('source_menu')
-        self.source_menu_search_all_item = ui.get_object(
-            'source_search_menu_item')
-        self.play_favourites_album_menu_item = ui.get_object(
-            'play_favourites_album_menu_item')
-        self.queue_favourites_album_menu_item = ui.get_object(
-            'queue_favourites_album_menu_item')
-        self.favourite_playlist_menu_item = ui.get_object(
-            'favourite_playlist_menu_item')
-        self.playlist_sub_menu_item = ui.get_object('playlist_sub_menu_item')
-        self.favourite_playlist_sub_menu_item = ui.get_object(
-            'favourite_playlist_sub_menu_item')
-            
-        self.export_embed_menu_item = ui.get_object(
-            'export_embed_menu_item')
+        #self.source_menu = ui.get_object('source_menu')
+        #self.source_menu_search_all_item = ui.get_object(
+        #    'source_search_menu_item')
         
         # quick search
         self.quick_search = ui.get_object('quick_search_entry')
 
         print("CoverArtBrowser DEBUG - end _create_ui")
-
+        
     def _setup_source(self):
         '''
         Setups the differents parts of the source so they are ready to be used
@@ -243,7 +249,7 @@ class CoverArtBrowserSource(RB.Source):
         print("CoverArtBrowser DEBUG - _setup_source")
 
         # setup iconview popup
-        self.covers_view.popup = self.popup_menu
+        self.covers_view.popup = self.popup_menu.get_menu_object('popup_menu')
         self.covers_view.view_name = "covers_view"
         self.covers_view.shell = self.shell
         self.covers_view.ext_menu_pos = 10
@@ -335,10 +341,9 @@ class CoverArtBrowserSource(RB.Source):
         self.quick_search_controller.connect_quick_search(self.quick_search)
 
         # set sensitivity of export menu item for iconview
-        self.export_embed_menu_item.set_sensitive(
+        self.popup_menu.set_sensitive('export_embed_menu_item', 
             CoverArtExport(self.plugin,
                 self.shell, self.album_manager).is_search_plugin_enabled())
-
 
         print("CoverArtBrowser DEBUG - end _setup_source")
 
@@ -368,9 +373,9 @@ class CoverArtBrowserSource(RB.Source):
         '''
         print("CoverArtBrowser DEBUG - load_finished_callback")
 
-        if not self.request_status_box.get_visible():
+        #if not self.request_status_box.get_visible():
             # it should only be enabled if no cover request is going on
-            self.source_menu_search_all_item.set_sensitive(True)
+            #self.source_menu_search_all_item.set_sensitive(True)
 
         # enable sorting on the entryview
         self.entry_view.set_columns_clickable(True)
@@ -449,9 +454,9 @@ class CoverArtBrowserSource(RB.Source):
         else:
             enable_menus = False
 
-        self.play_favourites_album_menu_item.set_sensitive(enable_menus)
-        self.queue_favourites_album_menu_item.set_sensitive(enable_menus)
-        self.favourite_playlist_menu_item.set_sensitive(enable_menus)
+        self.popup_menu.set_sensitive('play_favourites_album_menu_item', enable_menus)
+        self.popup_menu.set_sensitive('queue_favourites_album_menu_item', enable_menus)
+        self.popup_menu.set_sensitive('favourite_playlist_menu_item', enable_menus)
 
         print("CoverArtBrowser DEBUG - end on_notify_rating_threshold")
 
@@ -539,7 +544,7 @@ class CoverArtBrowserSource(RB.Source):
 
         print("CoverArtBrowser DEBUG - end queue_select_album")
 
-    def play_album_menu_item_callback(self, _):
+    def play_album_menu_item_callback(self, *args):
         '''
         Callback called when the play album item from the cover view popup is
         selected. It cleans the play queue and queues the selected album.
@@ -550,7 +555,7 @@ class CoverArtBrowserSource(RB.Source):
 
         print("CoverArtBrowser DEBUG - end play_album_menu_item_callback")
 
-    def queue_album_menu_item_callback(self, _):
+    def queue_album_menu_item_callback(self, *args):
         '''
         Callback called when the queue album item from the cover view popup is
         selected. It queues the selected album at the end of the play queue.
@@ -561,7 +566,7 @@ class CoverArtBrowserSource(RB.Source):
 
         print("CoverArtBrowser DEBUG - end queue_album_menu_item_callback()")
 
-    def queue_favourites_album_menu_item_callback(self, _):
+    def queue_favourites_album_menu_item_callback(self, *args):
         '''
         Callback called when the queue-favourites album item from the cover
         view popup is selected. It queues the selected album at the end of the
@@ -575,7 +580,7 @@ class CoverArtBrowserSource(RB.Source):
         print('''CoverArtBrowser DEBUG -
             end queue_favourites_album_menu_item_callback()''')
 
-    def play_favourites_album_menu_item_callback(self, _):
+    def play_favourites_album_menu_item_callback(self, *args):
         '''
         Callback called when the play favourites album item from the cover view
         popup is selected. It queues the selected album at the end of the play
@@ -589,14 +594,14 @@ class CoverArtBrowserSource(RB.Source):
         print('''CoverArtBrowser DEBUG -
             end play_favourites_album_menu_item_callback()''')
 
-    def playlist_menu_item_callback(self, menu_item):
+    def playlist_menu_item_callback(self, *args):
         print("CoverArtBrowser DEBUG - playlist_menu_item_callback")
 
         self.playlist_fillmenu(self.playlist_sub_menu_item,
                                self.actiongroup,
                                self.add_to_static_playlist_menu_item_callback)
 
-    def favourite_playlist_menu_item_callback(self, menu_item):
+    def favourite_playlist_menu_item_callback(self, *args):
         print("CoverArtBrowser DEBUG - favourite_playlist_menu_item_callback")
 
         self.playlist_fillmenu(self.favourite_playlist_sub_menu_item,
@@ -650,14 +655,14 @@ class CoverArtBrowserSource(RB.Source):
             add_to_static_playlist_menu_item_callback''')
         self.queue_selected_album(playlist, favourite)
 
-    def add_playlist_menu_item_callback(self, menu_item):
+    def add_playlist_menu_item_callback(self, *args):
         print('''CoverArtBrowser DEBUG - add_playlist_menu_item_callback''')
         playlist_manager = self.shell.props.playlist_manager
         playlist = playlist_manager.new_playlist('', False)
 
         self.queue_selected_album(playlist, False)
 
-    def favourite_add_playlist_menu_item_callback(self, menu_item):
+    def favourite_add_playlist_menu_item_callback(self, *args):
         print('''CoverArtBrowser DEBUG -
          favourite_add_playlist_menu_item_callback''')
         playlist_manager = self.shell.props.playlist_manager
@@ -665,7 +670,7 @@ class CoverArtBrowserSource(RB.Source):
 
         self.queue_selected_album(playlist, True)
 
-    def cover_search_menu_item_callback(self, menu_item):
+    def cover_search_menu_item_callback(self, *args):
         '''
         Callback called when the search cover option is selected from the
         cover view popup. It prompts the album loader to retrieve the selected
@@ -681,7 +686,7 @@ class CoverArtBrowserSource(RB.Source):
 
         print("CoverArtBrowser DEBUG - end cover_search_menu_item_callback()")
 
-    def export_embed_menu_item_callback(self, menu_item):
+    def export_embed_menu_item_callback(self, *args):
         '''
         Callback called when the export and embed coverart option
         is selected from the cover view popup.
@@ -696,7 +701,7 @@ class CoverArtBrowserSource(RB.Source):
 
         print("CoverArtBrowser DEBUG - export_embed_menu_item_callback()")
 
-    def search_all_covers_callback(self, _):
+    def search_all_covers_callback(self, *args):
         '''
         Callback called when the search all covers option is selected from the
         source's popup. It prompts the album loader to request ALL album's
@@ -724,8 +729,8 @@ class CoverArtBrowserSource(RB.Source):
                 album.artist)).decode('UTF-8'))
         else:
             self.request_status_box.hide()
-            self.source_menu_search_all_item.set_sensitive(True)
-            self.cover_search_menu_item.set_sensitive(True)
+            #self.popup_menu.set_sensitive('source_menu_search_all_item', True)
+            self.popup_menu.set_sensitive('cover_search_menu_item', True)
             self.request_cancel_button.set_sensitive(True)
         print("CoverArtBrowser DEBUG - end update_request_status_bar")
 

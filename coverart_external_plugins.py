@@ -234,7 +234,7 @@ class CreateExternalPluginMenu(GObject.Object):
           by default a menu is assumed to be applicable to a track in an
           EntryView
         '''
-        
+        return
         #tidy up old menu items before recreating the list
         for action in self._actiongroup.list_actions():
             print("removing")

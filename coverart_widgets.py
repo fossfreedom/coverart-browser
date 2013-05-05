@@ -675,6 +675,7 @@ class EnhancedIconView(Gtk.IconView):
                         CreateExternalPluginMenu("ca_covers_view", self.shell)
                     self._external_plugins.create_menu(self.popup,
                         self.ext_menu_pos, True)
+                        
                     self.popup.popup(None, None, None, None, event.button,
                         event.time)
             else:

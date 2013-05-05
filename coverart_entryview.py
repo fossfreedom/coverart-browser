@@ -78,9 +78,9 @@ class CoverArtEntryView(RB.EntryView):
             self.playing_changed)
 
         self.playlist_sub_menu_item = ui.get_object('playlist_sub_menu_item')
-        self.actiongroup = Gtk.ActionGroup('coverentryplaylist_submenu')
-        uim = self.shell.props.ui_manager
-        uim.insert_action_group(self.actiongroup)
+        #self.actiongroup = Gtk.ActionGroup('coverentryplaylist_submenu')
+        #uim = self.shell.props.ui_manager
+        #uim.insert_action_group(self.actiongroup)
 
         self.external_plugins = \
             CreateExternalPluginMenu("ca_entryview", self.shell)
