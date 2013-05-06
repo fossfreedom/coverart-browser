@@ -12,7 +12,6 @@
         <property name="tooltip_text" translatable="yes">Play this album</property>
         <property name="label" translatable="yes">Play Album</property>
         <property name="use_underline">True</property>
-        <signal name="activate" handler="play_album_menu_item_callback" swapped="no"/>
       </object>
     </child>
     <child>
@@ -23,7 +22,6 @@
         <property name="tooltip_text" translatable="yes">Add this album to your playing queue</property>
         <property name="label" translatable="yes">Queue Album</property>
         <property name="use_underline">True</property>
-        <signal name="activate" handler="queue_album_menu_item_callback" swapped="no"/>
       </object>
     </child>
     <child>
@@ -34,7 +32,6 @@
         <property name="tooltip_text" translatable="yes">Add this album to a playlist</property>
         <property name="label" translatable="yes">Add to Playlist</property>
         <property name="use_underline">True</property>
-        <signal name="select" handler="playlist_menu_item_callback" swapped="no"/>
         <child type="submenu">
           <object class="GtkMenu" id="playlist_sub_menu_item">
             <property name="visible">True</property>
@@ -47,7 +44,6 @@
                 <property name="tooltip_text" translatable="yes">Add this album to a new playlist</property>
                 <property name="label" translatable="yes">New Playlist</property>
                 <property name="use_underline">True</property>
-                <signal name="activate" handler="add_playlist_menu_item_callback" swapped="no"/>
               </object>
             </child>
             <child>
@@ -76,7 +72,6 @@
         <property name="tooltip_text" translatable="yes">Play favourites tracks from this album</property>
         <property name="label" translatable="yes">Play Favourites</property>
         <property name="use_underline">True</property>
-        <signal name="activate" handler="play_favourites_album_menu_item_callback" swapped="no"/>
       </object>
     </child>
     <child>
@@ -87,7 +82,6 @@
         <property name="tooltip_text" translatable="yes">Add favourite tracks from this album to your playing queue</property>
         <property name="label" translatable="yes">Queue Favourites</property>
         <property name="use_underline">True</property>
-        <signal name="activate" handler="queue_favourites_album_menu_item_callback" swapped="no"/>
       </object>
     </child>
     <child>
@@ -98,7 +92,6 @@
         <property name="tooltip_text" translatable="yes">Add favourite tracks from this album to a playlist</property>
         <property name="label" translatable="yes">Add favourites to Playlist</property>
         <property name="use_underline">True</property>
-        <signal name="select" handler="favourite_playlist_menu_item_callback" swapped="no"/>
         <child type="submenu">
           <object class="GtkMenu" id="favourite_playlist_sub_menu_item">
             <property name="visible">True</property>
@@ -110,7 +103,6 @@
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">New Playlist</property>
                 <property name="use_underline">True</property>
-                <signal name="activate" handler="favourite_add_playlist_menu_item_callback" swapped="no"/>
               </object>
             </child>
             <child>
@@ -139,7 +131,6 @@
         <property name="tooltip_text" translatable="yes">Search for this album cover</property>
         <property name="label" translatable="yes">Search for covers</property>
         <property name="use_underline">True</property>
-        <signal name="activate" handler="cover_search_menu_item_callback" swapped="no"/>
       </object>
     </child>
     <child>
@@ -150,7 +141,6 @@
         <property name="tooltip_text" translatable="yes">Export album tracks and embed coverart in track files</property>
         <property name="label" translatable="yes">Export and embed coverart</property>
         <property name="use_underline">True</property>
-        <signal name="activate" handler="export_embed_menu_item_callback" swapped="no"/>
       </object>
     </child>
     <child>
@@ -169,7 +159,6 @@
         <property name="tooltip_text" translatable="yes">Show album properties</property>
         <property name="use_underline">True</property>
         <property name="use_stock">True</property>
-        <signal name="activate" handler="show_properties_menu_item_callback" swapped="no"/>
       </object>
     </child>
   </object>

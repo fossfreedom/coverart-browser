@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <menu id="entryview_popup_menu">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Play Track</attribute>
+        <attribute name="action">win.play_track_menu_item</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Queue Track</attribute>
+        <attribute name="action">win.queue_track_menu_item</attribute>
+      </item>
+      <submenu>
+        <attribute name="label" translatable="yes">Add to Playlist</attribute>
+        <attribute name="action">win.playlist_menu_item</attribute>
+        <section>
+            <item>
+                <attribute name="label" translatable="yes">New Playlist</attribute>
+                <attribute name="action">win.new_playlist</attribute>
+            </item>
+        </section>
+        <section>
+        </section>
+      </submenu>
+     </section>
+	 <section>
+      <item>
+        <attribute name="label" translatable="yes">Properties</attribute>
+        <attribute name="action">win.show_properties_menu_item</attribute>
+      </item>
+    </section>
+   </menu>
+</interface>

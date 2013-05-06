@@ -62,17 +62,12 @@ def is_rb3(shell):
 	if hasattr( shell.props.window, 'add_action' ):
 		return True
 	else:
-		return False 
-        
-class MenuItem(object):
-	def __init__(self):
-		pass
-		
+		return False 	
 		
 class Menu(object):
-	def __init__(self, source):
-		self.plugin = source.props.plugin
-		self.shell = source.props.shell
+	def __init__(self, source, plugin, shell):
+		self.plugin = plugin
+		self.shell = shell
 		self.source = source
 		
 	def load_from_file(self, rb2_ui_filename, rb3_ui_filename ):
@@ -90,22 +85,30 @@ class Menu(object):
             ui_filename))
             			
         self.builder.connect_signals(self.source)
-
-	def connect_signals(self, signals):
-		
-		if not is_rb3(self.shell):
-			self.builder.connect_signals(self.source)
-			return
-		
+        
+    def connect_rb3_signals(self, signals):
 		def _menu_connect(action_name, func):
 			action = Gio.SimpleAction(name=action_name)
 			action.connect('activate', func)
 			action.set_enabled(True)
 			self.shell.props.window.add_action(action)
-			return action
 			
 		for key,value in signals.items():
 			_menu_connect( key, value)
+		
+	def connect_rb2_signals(self, signals):
+		def _menu_connect(menu_item_name, func):
+			menu_item = self.builder.get_object(menu_item_name)
+			menu_item.connect('activate', func)
+			
+		for key,value in signals.items():
+			_menu_connect( key, value)
+			
+	def connect_signals(self, signals):
+		if is_rb3(self.shell):
+			self.connect_rb3_signals(signals)
+		else:
+			self.connect_rb2_signals(signals)
 			
 	def get_menu_object(self, menu_name):
 		item = self.builder.get_object(menu_name)
@@ -127,3 +130,15 @@ class Menu(object):
 		else:
 			item = self.builder.get_object(menu_or_action_item)
 			item.set_sensitive(enable)
+			
+class ActionGroup(object):
+	def __init__(self, shell, group_name):
+		self.group_name = group_name
+		
+		if is_rb3(shell):
+			self.actiongroup = Gio.SimpleActionGroup()
+		else:			
+			self.actiongroup = Gtk.ActionGroup(group_name)
+			uim = shell.props.ui_manager
+			uim.insert_action_group(self.actiongroup)
+	

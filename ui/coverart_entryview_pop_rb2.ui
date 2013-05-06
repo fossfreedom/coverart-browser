@@ -12,7 +12,6 @@
         <property name="tooltip_text" translatable="yes">Play this track</property>
         <property name="label" translatable="yes">Play Track</property>
         <property name="use_underline">True</property>
-        <signal name="activate" handler="play_track_menu_item_callback" swapped="no"/>
       </object>
     </child>
     <child>
@@ -23,7 +22,6 @@
         <property name="tooltip_text" translatable="yes">Add this track to your playing queue</property>
         <property name="label" translatable="yes">Queue Track</property>
         <property name="use_underline">True</property>
-        <signal name="activate" handler="queue_track_menu_item_callback" swapped="no"/>
       </object>
     </child>
     <child>
@@ -34,7 +32,6 @@
         <property name="tooltip_text" translatable="yes">Add this album to a playlist</property>
         <property name="label" translatable="yes">Add to Playlist</property>
         <property name="use_underline">True</property>
-        <signal name="select" handler="playlist_menu_item_callback" swapped="no"/>
         <child type="submenu">
             <object class="GtkMenu" id="playlist_sub_menu_item">
                 <property name="visible">True</property>
@@ -47,7 +44,6 @@
                         <property name="tooltip_text" translatable="yes">Add this album to a new playlist</property>
                         <property name="label" translatable="yes">New Playlist</property>
                         <property name="use_underline">True</property>
-                        <signal name="activate" handler="add_playlist_menu_item_callback" swapped="no"/>
                     </object>
                 </child>
                 <child>
@@ -76,7 +72,6 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="use_stock">True</property>
-        <signal name="activate" handler="show_properties_menu_item_callback" swapped="no"/>
       </object>
     </child>
    </object>

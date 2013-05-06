@@ -47,6 +47,7 @@ from coverart_utils import Theme
 from coverart_export import CoverArtExport
 from stars import ReactiveStar
 from rb3compat import Menu
+from rb3compat import ActionGroup
 
 class CoverArtBrowserSource(RB.Source):
     '''
@@ -153,13 +154,10 @@ class CoverArtBrowserSource(RB.Source):
         self.shell = self.props.shell
         self.status = ''
         self.search_text = ''
-        #self.actiongroup = Gtk.ActionGroup('coverplaylist_submenu')
+        self.actiongroup = ActionGroup(self.shell, 'coverplaylist_submenu')
         #self.favourite_actiongroup = Gtk.ActionGroup(
         #    'favourite_coverplaylist_submenu')
-        #uim = self.shell.props.ui_manager
-        #uim.insert_action_group(self.actiongroup)
-        #uim.insert_action_group(self.favourite_actiongroup)
-
+        
         # connect properties signals
         self.connect('notify::custom-statusbar-enabled',
             self.on_notify_custom_statusbar_enabled)
@@ -204,9 +202,9 @@ class CoverArtBrowserSource(RB.Source):
         # get widgets for main icon-view
         self.status_label = ui.get_object('status_label')
         self.covers_view = ui.get_object('covers_view')
-        self.popup_menu = Menu(self)
-        self.popup_menu.load_from_file('ui/coverart_popupmenu_rb2.ui',
-			'ui/coverart_popupmenu_rb3.ui')
+        self.popup_menu = Menu(self, self.plugin, self.shell)
+        self.popup_menu.load_from_file('ui/coverart_browser_pop_rb2.ui',
+			'ui/coverart_browser_pop_rb3.ui')
 			
 		signals = \
 			{ 'play_album_menu_item': self.play_album_menu_item_callback,
@@ -597,22 +595,20 @@ class CoverArtBrowserSource(RB.Source):
     def playlist_menu_item_callback(self, *args):
         print("CoverArtBrowser DEBUG - playlist_menu_item_callback")
 
-        self.playlist_fillmenu(self.playlist_sub_menu_item,
+        self.playlist_fillmenu(self.popup_menu.get_menu_object('playlist_sub_menu_item'),
                                self.actiongroup,
                                self.add_to_static_playlist_menu_item_callback)
 
     def favourite_playlist_menu_item_callback(self, *args):
         print("CoverArtBrowser DEBUG - favourite_playlist_menu_item_callback")
 
-        self.playlist_fillmenu(self.favourite_playlist_sub_menu_item,
+        self.playlist_fillmenu(self.popup_menu.get_menu_object('favourite_playlist_sub_menu_item'),
                                self.favourite_actiongroup,
                                self.add_to_static_playlist_menu_item_callback,
                                True)
 
     def playlist_fillmenu(self, menubar, actiongroup, func, favourite=False):
         print("CoverArtBrowser DEBUG - playlist_fillmenu")
-
-        uim = self.shell.props.ui_manager
 
         playlist_manager = self.shell.props.playlist_manager
         playlists_entries = playlist_manager.get_playlists()
@@ -621,6 +617,8 @@ class CoverArtBrowserSource(RB.Source):
         for action in actiongroup.list_actions():
             actiongroup.remove_action(action)
 
+
+		uim = self.shell.props.ui_manager
         count = 0
 
         for menu_item in menubar:
