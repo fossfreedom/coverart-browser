@@ -21,11 +21,10 @@
 		  </item>
 		</section>
 		<section>
-		</section>      
+            <attribute name="rb-plugin-menu-link">playlist_sub_menu_item</attribute>
+		</section>         
       </submenu>
     </section>
-	<section>
-	</section>
 	<section>
       <item>
 		<attribute name="label" translatable="yes">Play Favourites</attribute>
@@ -45,7 +44,8 @@
 		  </item>
 		</section>
 		<section>
-		</section>      
+            <attribute name="rb-plugin-menu-link">favourite_playlist_sub_menu_item</attribute>
+		</section>         
       </submenu>
 	</section>
 	<section>
@@ -58,6 +58,9 @@
 		<attribute name="action">win.export_embed_menu_item</attribute>
       </item>
 	</section>
+    <section>
+        <attribute name="rb-plugin-menu-link">external-plugins</attribute>
+    </section>   
 	<section>
       <item>
 		<attribute name="label" translatable="yes">Properties</attribute>

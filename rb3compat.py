@@ -69,6 +69,49 @@ class Menu(object):
 		self.plugin = plugin
 		self.shell = shell
 		self.source = source
+        
+        self._rb3menu_items = {}
+        self._rb3menu_name = {}
+        
+    def add_menu_item(self, menubar, label, action):
+        if is_rb3(self.shell):
+            app = self.shell.props.application
+            item = Gio.MenuItem()
+            item.set_label(label)
+            item.set_detailed_action('win.'+label)
+            self._rb3menu_name[menubar] = label
+            app.add_plugin_menu_item(menubar, label, item)
+        else:
+            new_menu_item = Gtk.MenuItem(label=label)
+            new_menu_item.set_related_action(action)
+            self.get_menu_object(menubar).append(new_menu_item)
+            menubar.show_all()
+            uim = self.shell.props.ui_manager
+            uim.ensure_update()
+            
+        
+    def remove_menu_items(self, menubar):
+        if is_rb3(self.shell):
+            if not menubar in self._rb3menu_items:
+                return
+                
+            app = self.shell.props.application
+            
+            for menu_item in self._rb3menu_items[menubar]:
+                app.remove_plugin_menu_item(self._rb3menu_name[menubar], menu_item)
+            
+        else:
+            uim = self.shell.props.ui_manager
+            count = 0
+
+            bar = self.get_menu_object(menubar)
+            for menu_item in bar:
+                if count > 1:  # ignore the first two menu items
+                    bar.remove(menu_item)
+                count += 1
+
+            bar.show_all()
+            uim.ensure_update()
 		
 	def load_from_file(self, rb2_ui_filename, rb3_ui_filename ):
 		from coverart_browser_prefs import CoverLocale
@@ -86,7 +129,7 @@ class Menu(object):
             			
         self.builder.connect_signals(self.source)
         
-    def connect_rb3_signals(self, signals):
+    def _connect_rb3_signals(self, signals):
 		def _menu_connect(action_name, func):
 			action = Gio.SimpleAction(name=action_name)
 			action.connect('activate', func)
@@ -96,7 +139,7 @@ class Menu(object):
 		for key,value in signals.items():
 			_menu_connect( key, value)
 		
-	def connect_rb2_signals(self, signals):
+	def _connect_rb2_signals(self, signals):
 		def _menu_connect(menu_item_name, func):
 			menu_item = self.builder.get_object(menu_item_name)
 			menu_item.connect('activate', func)
@@ -106,19 +149,32 @@ class Menu(object):
 			
 	def connect_signals(self, signals):
 		if is_rb3(self.shell):
-			self.connect_rb3_signals(signals)
+			self._connect_rb3_signals(signals)
 		else:
-			self.connect_rb2_signals(signals)
+			self._connect_rb2_signals(signals)
+            
+    def create_gtkmenu(self, popup_name):
+        item = self.builder.get_object(popup_name)
+        
+        if is_rb3(self.shell):
+            popup_menu = Gtk.Menu.new_from_model(item)
+            popup_menu.attach_to_widget(self.source, None)
+        else:
+            popup_menu = item
+        
+        return popup_menu
 			
-	def get_menu_object(self, menu_name):
-		item = self.builder.get_object(menu_name)
+	def get_menu_object(self, menu_name_or_link):
+		item = self.builder.get_object(menu_name_or_link)
 		
 		if is_rb3(self.shell):
-			popup_menu = Gtk.Menu.new_from_model(item)
+            if item:
+                popup_menu = item
+            else:
+                app = self.shell.props.application
+                popup_menu = app.get_plugin_menu(menu_name_or_link)
 		else:
 			popup_menu = item
-			
-		popup_menu.attach_to_widget(self.source, None)
 			
 		return popup_menu
 
@@ -134,11 +190,30 @@ class Menu(object):
 class ActionGroup(object):
 	def __init__(self, shell, group_name):
 		self.group_name = group_name
-		
-		if is_rb3(shell):
+		self.shell = shell
+        
+		if is_rb3(self.shell):
 			self.actiongroup = Gio.SimpleActionGroup()
 		else:			
 			self.actiongroup = Gtk.ActionGroup(group_name)
-			uim = shell.props.ui_manager
+			uim = self.shell.props.ui_manager
 			uim.insert_action_group(self.actiongroup)
+            
+    def remove_actions(self):
+        for action in self.actiongroup.list_actions():
+            self.actiongroup.remove_action(action)
+            
+    def add_action(self, func, action_name, *args):
+        if is_rb3(self.shell):
+            action = Gio.SimpleAction.new(action_name, None)
+            action.connect('activate', func, args)
+            self.shell.props.window.add_action(action)
+            self.actiongroup.add_action(action)
+        else:
+            action = Gtk.Action(label=action_name,
+                name=action_name,
+               tooltip='', stock_id=Gtk.STOCK_CLEAR)
+            action.connect('activate', func, args)
+            self.actiongroup.add_action(action)
 	
+        return action

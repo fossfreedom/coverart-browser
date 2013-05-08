@@ -21,6 +21,7 @@ from gi.repository import RB
 from gi.repository import Gtk
 from gi.repository import GObject
 from rb3compat import Menu
+from rb3compat import ActionGroup
 
 import rb
 
@@ -74,7 +75,7 @@ class CoverArtEntryView(RB.EntryView):
 			'show_properties_menu_item': self.show_properties_menu_item_callback }
 			
 		popup.connect_signals(signals)
-		self.popup_menu = popup.get_menu_object('entryview_popup_menu')
+		self.popup_menu = popup.create_gtkmenu('entryview_popup_menu')
             
 
         # connect signals to the shell to know when the playing state changes
@@ -83,7 +84,7 @@ class CoverArtEntryView(RB.EntryView):
         self.shell.props.shell_player.connect('playing-changed',
             self.playing_changed)
 
-        #self.actiongroup = Gtk.ActionGroup('coverentryplaylist_submenu')
+        self.actiongroup = ActionGroup(self.shell, 'coverentryplaylist_submenu')
         #uim = self.shell.props.ui_manager
         #uim.insert_action_group(self.actiongroup)
 
@@ -256,7 +257,7 @@ class CoverArtEntryView(RB.EntryView):
     def playlist_menu_item_callback(self, *args):
         print("CoverArtBrowser DEBUG - playlist_menu_item_callback")
 
-        self.source.playlist_fillmenu(self.playlist_sub_menu_item,
+        self.source.playlist_fillmenu('playlist_sub_menu_item',
             self.actiongroup, self.add_to_static_playlist_menu_item_callback)
 
     def add_to_static_playlist_menu_item_callback(self, action, playlist,

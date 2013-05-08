@@ -155,8 +155,8 @@ class CoverArtBrowserSource(RB.Source):
         self.status = ''
         self.search_text = ''
         self.actiongroup = ActionGroup(self.shell, 'coverplaylist_submenu')
-        #self.favourite_actiongroup = Gtk.ActionGroup(
-        #    'favourite_coverplaylist_submenu')
+        self.favourite_actiongroup = ActionGroup(self.shell,
+            'favourite_coverplaylist_submenu')
         
         # connect properties signals
         self.connect('notify::custom-statusbar-enabled',
@@ -220,7 +220,7 @@ class CoverArtBrowserSource(RB.Source):
 			  'show_properties_menu_item': self.show_properties_menu_item_callback}
 			  
 		self.popup_menu.connect_signals(signals)
-		
+        
         self.status_label = ui.get_object('status_label')
         self.request_status_box = ui.get_object('request_status_box')
         self.request_spinner = ui.get_object('request_spinner')
@@ -247,7 +247,7 @@ class CoverArtBrowserSource(RB.Source):
         print("CoverArtBrowser DEBUG - _setup_source")
 
         # setup iconview popup
-        self.covers_view.popup = self.popup_menu.get_menu_object('popup_menu')
+        self.covers_view.popup = self.popup_menu.create_gtkmenu('popup_menu')
         self.covers_view.view_name = "covers_view"
         self.covers_view.shell = self.shell
         self.covers_view.ext_menu_pos = 10
@@ -595,14 +595,14 @@ class CoverArtBrowserSource(RB.Source):
     def playlist_menu_item_callback(self, *args):
         print("CoverArtBrowser DEBUG - playlist_menu_item_callback")
 
-        self.playlist_fillmenu(self.popup_menu.get_menu_object('playlist_sub_menu_item'),
+        self.playlist_fillmenu('playlist_sub_menu_item',
                                self.actiongroup,
                                self.add_to_static_playlist_menu_item_callback)
 
     def favourite_playlist_menu_item_callback(self, *args):
         print("CoverArtBrowser DEBUG - favourite_playlist_menu_item_callback")
 
-        self.playlist_fillmenu(self.popup_menu.get_menu_object('favourite_playlist_sub_menu_item'),
+        self.playlist_fillmenu('favourite_playlist_sub_menu_item',
                                self.favourite_actiongroup,
                                self.add_to_static_playlist_menu_item_callback,
                                True)
@@ -614,38 +614,19 @@ class CoverArtBrowserSource(RB.Source):
         playlists_entries = playlist_manager.get_playlists()
 
         # tidy up old playlists menu items before recreating the list
-        for action in actiongroup.list_actions():
-            actiongroup.remove_action(action)
-
-
-		uim = self.shell.props.ui_manager
-        count = 0
-
-        for menu_item in menubar:
-            if count > 1:  # ignore the first two menu items
-                menubar.remove(menu_item)
-            count += 1
-
-            menubar.show_all()
-            uim.ensure_update()
+        actiongroup.remove_actions()
+        self.popup_menu.remove_menu_items(menubar)
 
         if playlists_entries:
             for playlist in playlists_entries:
                 if playlist.props.is_local and \
                     isinstance(playlist, RB.StaticPlaylistSource):
 
-                    new_menu_item = Gtk.MenuItem(label=playlist.props.name)
-
-                    action = Gtk.Action(label=playlist.props.name,
-                        name=playlist.props.name,
-                       tooltip='', stock_id=Gtk.STOCK_CLEAR)
-                    action.connect('activate', func, playlist, favourite)
-                    new_menu_item.set_related_action(action)
-                    menubar.append(new_menu_item)
-                    actiongroup.add_action(action)
-
-            menubar.show_all()
-            uim.ensure_update()
+                    action = actiongroup.add_action(func, playlist.props.name,
+                        playlist, favourite)
+                        
+                    self.popup_menu.add_menu_item( menubar,
+                        playlist.props.name, action )
 
     def add_to_static_playlist_menu_item_callback(self, action, playlist,
         favourite):
