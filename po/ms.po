@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-04-20 22:04+0000\n"
-"X-Generator: Launchpad (build 16567)\n"
+"X-Launchpad-Export-Date: 2013-05-10 12:44+0000\n"
+"X-Generator: Launchpad (build 16598)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -751,14 +751,3 @@ msgstr "Gelintar album"
 #: coverart_controllers.py:557
 msgid "Search tracks"
 msgstr "Gelintar trek"
-
-#~ msgid ""
-#~ "Use the source&apos;s custom statusbar to show the current selected "
-#~ "album&apos;s related information instead of the global Rhythmbox&apos;s "
-#~ "statusbar."
-#~ msgstr ""
-#~ "Guna sumber palang status suai untuk paparkan album pilihan semasa yang "
-#~ "berkaitan dengan maklumat selain dari palang status sejagat Rhythmbox."
-
-#~ msgid "Show the album&apos;s basic information under the cover image."
-#~ msgstr "Papar maklumat asas album dibawah imej kulit."

@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-04-20 22:04+0000\n"
-"X-Generator: Launchpad (build 16567)\n"
+"X-Launchpad-Export-Date: 2013-05-10 12:44+0000\n"
+"X-Generator: Launchpad (build 16598)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -757,15 +757,3 @@ msgstr "Buscar álbums"
 #: coverart_controllers.py:557
 msgid "Search tracks"
 msgstr "Buscar pistas"
-
-#~ msgid ""
-#~ "Use the source&apos;s custom statusbar to show the current selected "
-#~ "album&apos;s related information instead of the global Rhythmbox&apos;s "
-#~ "statusbar."
-#~ msgstr ""
-#~ "Utilizar a orixe da barra de estado personalizado, para amosar as "
-#~ "informacións relacionadas co álbum seleccionado no canto da barra de "
-#~ "estado global do Rhythmbox"
-
-#~ msgid "Show the album&apos;s basic information under the cover image."
-#~ msgstr "Amosar a información básica do álbum baixo a imaxe da cuberta"

@@ -79,6 +79,7 @@
         <genre spritesheet="genre" name="bluegrass">bluegrass</genre>
         <genre xml:lang="az" spritesheet="genre" name="bluegrass">bluegrass</genre>
         <genre xml:lang="ca" spritesheet="genre" name="bluegrass">bluegrass</genre>
+        <genre xml:lang="de" spritesheet="genre" name="bluegrass">Bluegrass</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="bluegrass">bluegrass</genre>
         <genre xml:lang="en_US" spritesheet="genre" name="bluegrass">bluegrass</genre>
         <genre xml:lang="es" spritesheet="genre" name="bluegrass">bluegrass</genre>
