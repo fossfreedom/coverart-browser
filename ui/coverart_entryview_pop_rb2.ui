@@ -5,7 +5,7 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <child>
-      <object class="GtkMenuItem" id="play_track_menu_item">
+      <object class="GtkMenuItem" id="ev_play_track_menu_item">
         <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
@@ -15,7 +15,7 @@
       </object>
     </child>
     <child>
-      <object class="GtkMenuItem" id="queue_track_menu_item">
+      <object class="GtkMenuItem" id="ev_queue_track_menu_item">
         <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
@@ -25,7 +25,7 @@
       </object>
     </child>
     <child>
-      <object class="GtkMenuItem" id="playlist_menu_item">
+      <object class="GtkMenuItem" id="ev_playlist_menu_item">
         <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
@@ -33,11 +33,11 @@
         <property name="label" translatable="yes">Add to Playlist</property>
         <property name="use_underline">True</property>
         <child type="submenu">
-            <object class="GtkMenu" id="playlist_sub_menu_item">
+            <object class="GtkMenu" id="ev_playlist_sub_menu_item">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <child>
-                    <object class="GtkMenuItem" id="new_playlist">
+                    <object class="GtkMenuItem" id="ev_new_playlist">
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
@@ -47,7 +47,7 @@
                     </object>
                 </child>
                 <child>
-                  <object class="GtkSeparatorMenuItem" id="popup_separator_playlist">
+                  <object class="GtkSeparatorMenuItem" id="ev_popup_separator_playlist">
                     <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
@@ -58,14 +58,14 @@
       </object>
     </child>
     <child>
-      <object class="GtkSeparatorMenuItem" id="popup_separator1">
+      <object class="GtkSeparatorMenuItem" id="ev_popup_separator1">
         <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
       </object>
     </child>
     <child>
-      <object class="GtkImageMenuItem" id="show_properties_menu_item">
+      <object class="GtkImageMenuItem" id="ev_show_properties_menu_item">
         <property name="label">gtk-properties</property>
         <property name="tooltip_text" translatable="yes">Show track properties</property>
         <property name="use_action_appearance">False</property>

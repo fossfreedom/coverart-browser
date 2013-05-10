@@ -65,40 +65,63 @@ def is_rb3(shell):
 		return False 	
 		
 class Menu(object):
+    '''
+    Menu object used to create window popup menus
+    '''
 	def __init__(self, source, plugin, shell):
+        '''
+        Initializes the menu.
+        '''
 		self.plugin = plugin
 		self.shell = shell
 		self.source = source
         
         self._rb3menu_items = {}
-        self._rb3menu_name = {}
         
     def add_menu_item(self, menubar, label, action):
+        '''
+        add a new menu item to the popup
+        :param menubar: `str` is the name of the section to add the item to
+        :param label: `str` is the text of the menu item displayed to the user
+        :param action: `GtkAction` or `Gio.SimpleAction associated with the menu item
+        '''
         if is_rb3(self.shell):
             app = self.shell.props.application
             item = Gio.MenuItem()
             item.set_label(label)
             item.set_detailed_action('win.'+label)
-            self._rb3menu_name[menubar] = label
+            
+            if not menubar in self._rb3menu_items:
+                self._rb3menu_items[menubar] = []
+            self._rb3menu_items[menubar].append(label)
+            
             app.add_plugin_menu_item(menubar, label, item)
         else:
             new_menu_item = Gtk.MenuItem(label=label)
             new_menu_item.set_related_action(action)
-            self.get_menu_object(menubar).append(new_menu_item)
-            menubar.show_all()
+            bar = self.get_menu_object(menubar)
+            bar.append(new_menu_item)
+            bar.show_all()
             uim = self.shell.props.ui_manager
             uim.ensure_update()
             
         
     def remove_menu_items(self, menubar):
+        '''
+        utility function to remove all menuitems associated with the menu section
+        :param menubar: `str` is the name of the section containing the menu items
+        '''
         if is_rb3(self.shell):
+            
             if not menubar in self._rb3menu_items:
                 return
                 
             app = self.shell.props.application
             
             for menu_item in self._rb3menu_items[menubar]:
-                app.remove_plugin_menu_item(self._rb3menu_name[menubar], menu_item)
+                app.remove_plugin_menu_item(menubar, menu_item)
+                
+            del self._rb3menu_items[menubar][:]
             
         else:
             uim = self.shell.props.ui_manager
@@ -114,6 +137,11 @@ class Menu(object):
             uim.ensure_update()
 		
 	def load_from_file(self, rb2_ui_filename, rb3_ui_filename ):
+        '''
+        utility function to load the menu structure
+        :param rb2_ui_filename: `str` RB2.98 and below UI file
+        :param rb3_ui_filename: `str` RB2.99 and higher UI file
+        '''
 		from coverart_browser_prefs import CoverLocale
 		cl = CoverLocale()
 		self.builder = Gtk.Builder()
@@ -148,15 +176,26 @@ class Menu(object):
 			_menu_connect( key, value)
 			
 	def connect_signals(self, signals):
-		if is_rb3(self.shell):
+        '''
+        connect all signal handlers with their menuitem counterparts
+        :param signals: `dict` key is the name of the menuitem 
+             and value is the function callback when the menu is activated
+        '''		
+        if is_rb3(self.shell):
 			self._connect_rb3_signals(signals)
 		else:
 			self._connect_rb2_signals(signals)
             
     def create_gtkmenu(self, popup_name):
+        '''
+        utility function to obtain the GtkMenu from the menu UI file
+        :param popup_name: `str` is the name menu-id in the UI file
+        '''
         item = self.builder.get_object(popup_name)
         
         if is_rb3(self.shell):
+            app = self.shell.props.application
+            app.link_shared_menus(item)
             popup_menu = Gtk.Menu.new_from_model(item)
             popup_menu.attach_to_widget(self.source, None)
         else:
@@ -165,6 +204,10 @@ class Menu(object):
         return popup_menu
 			
 	def get_menu_object(self, menu_name_or_link):
+        '''
+        utility function returns the GtkMenuItem/Gio.MenuItem
+        :param menu_name_or_link: `str` to search for in the UI file
+        '''
 		item = self.builder.get_object(menu_name_or_link)
 		
 		if is_rb3(self.shell):
@@ -179,7 +222,13 @@ class Menu(object):
 		return popup_menu
 
 	def set_sensitive(self, menu_or_action_item, enable):
-		
+		'''
+        utility function to enable/disable a menu-item
+        :param menu_or_action_item: `GtkMenuItem` or `Gio.SimpleAction`
+           that is to be enabled/disabled
+        :param enable: `bool` value to enable/disable
+        '''
+        
 		if is_rb3(self.shell):
 			item = self.shell.props.window.lookup_action(menu_or_action_item)
 			item.set_enabled(enable)
@@ -213,7 +262,7 @@ class ActionGroup(object):
             action = Gtk.Action(label=action_name,
                 name=action_name,
                tooltip='', stock_id=Gtk.STOCK_CLEAR)
-            action.connect('activate', func, args)
+            action.connect('activate', func, None, args)
             self.actiongroup.add_action(action)
 	
         return action

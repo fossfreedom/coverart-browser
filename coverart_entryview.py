@@ -68,11 +68,11 @@ class CoverArtEntryView(RB.EntryView):
         popup.load_from_file('ui/coverart_entryview_pop_rb2.ui',
 						     'ui/coverart_entryview_pop_rb3.ui')
 		signals = {
-			'play_track_menu_item': self.play_track_menu_item_callback,
-			'queue_track_menu_item': self.queue_track_menu_item_callback,
-			'playlist_menu_item': self.playlist_menu_item_callback,
-			'new_playlist': self.add_playlist_menu_item_callback,
-			'show_properties_menu_item': self.show_properties_menu_item_callback }
+			'ev_play_track_menu_item': self.play_track_menu_item_callback,
+			'ev_queue_track_menu_item': self.queue_track_menu_item_callback,
+			'ev_playlist_menu_item': self.playlist_menu_item_callback,
+			'ev_new_playlist': self.add_playlist_menu_item_callback,
+			'ev_show_properties_menu_item': self.show_properties_menu_item_callback }
 			
 		popup.connect_signals(signals)
 		self.popup_menu = popup.create_gtkmenu('entryview_popup_menu')
@@ -257,13 +257,14 @@ class CoverArtEntryView(RB.EntryView):
     def playlist_menu_item_callback(self, *args):
         print("CoverArtBrowser DEBUG - playlist_menu_item_callback")
 
-        self.source.playlist_fillmenu('playlist_sub_menu_item',
+        self.source.playlist_fillmenu('ev_playlist_sub_menu_item',
             self.actiongroup, self.add_to_static_playlist_menu_item_callback)
 
-    def add_to_static_playlist_menu_item_callback(self, action, playlist,
-        favourite):
+    def add_to_static_playlist_menu_item_callback(self, action, param, args):
         print("CoverArtBrowser DEBUG - " + \
             "add_to_static_playlist_menu_item_callback")
+        
+        playlist = args[0]
         self.add_tracks_to_source(playlist)
 
     def _on_library_sorting_changed(self, view, _):

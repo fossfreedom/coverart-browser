@@ -279,7 +279,6 @@ class CoverArtBrowserSource(RB.Source):
         vbox.show_all()
         self.notebook.append_page(vbox, Gtk.Label(_("Tracks")))
 
-
         # setup iconview drag&drop support
         # first drag and drop on the coverart view to receive coverart
         self.covers_view.enable_model_drag_dest([], Gdk.DragAction.COPY)
@@ -477,7 +476,7 @@ class CoverArtBrowserSource(RB.Source):
                 self.cover_search_pane.clear()
                 self.cover_search_pane.do_search(album)
 
-    def show_properties_menu_item_callback(self, menu_item):
+    def show_properties_menu_item_callback(self, *args):
         '''
         Callback called when the show album properties option is selected from
         the cover view popup. It shows a SongInfo dialog showing the selected
@@ -628,10 +627,13 @@ class CoverArtBrowserSource(RB.Source):
                     self.popup_menu.add_menu_item( menubar,
                         playlist.props.name, action )
 
-    def add_to_static_playlist_menu_item_callback(self, action, playlist,
-        favourite):
+    def add_to_static_playlist_menu_item_callback(self, action, param, args):
         print('''CoverArtBrowser DEBUG -
             add_to_static_playlist_menu_item_callback''')
+            
+        playlist=args[0]
+        favourite = args[1]
+        
         self.queue_selected_album(playlist, favourite)
 
     def add_playlist_menu_item_callback(self, *args):
@@ -1107,6 +1109,7 @@ class ToolbarManager(GObject.Object):
 
     def _create_controllers(self, plugin, album_model):
         controllers = {}
+        
         controllers['sort_by'] = SortPopupController(plugin, album_model)
         controllers['sort_order'] = SortOrderToggleController(plugin,
             album_model)
