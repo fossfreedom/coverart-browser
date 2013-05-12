@@ -55,7 +55,7 @@ class CoverArtBrowserSource(RB.Source):
     rating_threshold = GObject.property(type=float, default=0)
     icon_spacing = GObject.property(type=int, default=0)
     icon_padding = GObject.property(type=int, default=0)
-    
+
     # unique instance of the source
     instance = None
 
@@ -90,7 +90,7 @@ class CoverArtBrowserSource(RB.Source):
             'icon_spacing', Gio.SettingsBindFlags.GET)
         setting.bind(self.gs.PluginKey.ICON_PADDING, self,
             'icon_padding', Gio.SettingsBindFlags.GET)
-        
+
 
         print "CoverArtBrowser DEBUG - end _connect_properties"
 
@@ -205,7 +205,6 @@ class CoverArtBrowserSource(RB.Source):
         self.covers_view = ui.get_object('covers_view')
         self.popup_menu = ui.get_object('popup_menu')
         self.cover_search_menu_item = ui.get_object('cover_search_menu_item')
-        self.status_label = ui.get_object('status_label')
         self.request_status_box = ui.get_object('request_status_box')
         self.request_spinner = ui.get_object('request_spinner')
         self.request_statusbar = ui.get_object('request_statusbar')
@@ -226,10 +225,10 @@ class CoverArtBrowserSource(RB.Source):
         self.playlist_sub_menu_item = ui.get_object('playlist_sub_menu_item')
         self.favourite_playlist_sub_menu_item = ui.get_object(
             'favourite_playlist_sub_menu_item')
-            
+
         self.export_embed_menu_item = ui.get_object(
             'export_embed_menu_item')
-        
+
         # quick search
         self.quick_search = ui.get_object('quick_search_entry')
 
@@ -289,11 +288,11 @@ class CoverArtBrowserSource(RB.Source):
         # lastly support drag-drop from coverart to devices/nautilus etc
         self.covers_view.enable_model_drag_source(Gdk.ModifierType.BUTTON1_MASK,
             [], Gdk.DragAction.COPY)
-        targets = Gtk.TargetList.new([Gtk.TargetEntry.new("application/x-rhythmbox-entry", 0,0),
-            Gtk.TargetEntry.new("text/uri-list", 0,1) ])
+        targets = Gtk.TargetList.new([Gtk.TargetEntry.new("application/x-rhythmbox-entry", 0, 0),
+            Gtk.TargetEntry.new("text/uri-list", 0, 1) ])
         # N.B. values taken from rhythmbox v2.97 widgets/rb_entry_view.c
         targets.add_uri_targets(2)
-        self.covers_view.drag_source_set_target_list(targets)        
+        self.covers_view.drag_source_set_target_list(targets)
         self.covers_view.connect("drag-data-get", self.on_drag_data_get)
 
         # create an album manager
@@ -692,7 +691,7 @@ class CoverArtBrowserSource(RB.Source):
 
         CoverArtExport(self.plugin,
             self.shell, self.album_manager).embed_albums(selected_albums)
-        
+
 
         print "CoverArtBrowser DEBUG - export_embed_menu_item_callback()"
 
@@ -924,7 +923,7 @@ class CoverArtBrowserSource(RB.Source):
                 uris.append(track.location)
 
         data.set_uris(uris)
-         
+
         # stop the propagation of the signal (deactivates superclass callback)
         widget.stop_emission('drag-data-get')
         print "CoverArtBrowser DEBUG - end on_drag_data_get"
@@ -941,7 +940,7 @@ class CoverArtBrowserSource(RB.Source):
             item = Gtk.STOCK_DND
         else:
             item = Gtk.STOCK_DND_MULTIPLE
-            
+
         widget.drag_source_set_icon_stock(item)
         widget.stop_emission('drag-begin')
 
@@ -987,7 +986,7 @@ class CoverArtBrowserSource(RB.Source):
         print self.covers_view.set_row_spacing(self.icon_spacing)
         print self.covers_view.set_column_spacing(self.icon_spacing)
         pass
-        
+
     @classmethod
     def get_instance(cls, **kwargs):
         '''
@@ -997,6 +996,111 @@ class CoverArtBrowserSource(RB.Source):
             cls.instance = CoverArtBrowserSource(**kwargs)
 
         return cls.instance
+
+
+class Statusbar(GObject.Object):
+    custom_statusbar_enabled = GObject.property(type=bool, default=False)
+
+    def __init__(self, status_label, source):
+        super(Statusbar, self).__init__()
+
+        self._status_label = status_label
+        self._source_statusbar = SourceStatusBar(source)
+        self._custom_statusbar = CustomStatusBar(status_label)
+        self.current_statusbar = self._source_statusbar
+
+        self._connect_signals()
+        self._connect_properties()
+
+    def _connect_properties(self):
+        gs = GSetting()
+        settings = self.gs.get_setting(self.gs.Path.PLUGIN)
+
+        settings.bind(self.gs.PluginKey.CUSTOM_STATUSBAR, self,
+            'custom_statusbar_enabled', Gio.SettingsBindFlags.GET)
+
+    def _connect_signals(self):
+        self.connect('notify::custom-statusbar-enabled',
+            self._custom_statusbar_enabled_changed)
+
+    def _custom_statusbar_enabled_changed(self, *args):
+        self.current_statusbar.hide()
+
+        if self.custom_statusbar_enabled:
+            self.current_statusbar = self._custom_statusbar
+        else:
+            self.current_statusbar = self._source_statusbar
+
+        self.current_statusbar.show()
+        self.current_statusbar.update(self.status)
+
+    def _generate_status(self, albums=None):
+        self.status = ''
+
+        if albums:
+            track_count = 0
+            duration = 0
+
+            for album in albums:
+                # Calculate duration and number of tracks from that album
+                track_count += album.track_count
+                duration += album.duration / 60
+
+            # now lets build up a status label containing some
+            # 'interesting stuff' about the album
+            if len(selected) == 1:
+                self.status = (_('%s by %s') % (album.name, album.artist)).\
+                    decode('UTF-8')
+            else:
+                self.status = (_('%d selected albums ') % (len(selected))).\
+                    decode('UTF-8')
+
+            if track_count == 1:
+                self.status += (_(' with 1 track')).decode('UTF-8')
+            else:
+                self.status += (_(' with %d tracks') % track_count).\
+                    decode('UTF-8')
+
+            if duration == 1:
+                self.status += (_(' and a duration of 1 minute')).\
+                    decode('UTF-8')
+            else:
+                self.status += \
+                    (_(' and a duration of %d minutes') % duration).\
+                        decode('UTF-8')
+
+    def update(self, albums=None):
+        self._generate_status(albums)
+        self.current_statusbar._update(self.status)
+
+
+class SourceStatusBar(object):
+    def __init__(self, source):
+        self._source
+
+    def show(self):
+        pass
+
+    def hide(self):
+        self.update('')
+
+    def update(self, status):
+        self._source.status = status
+        self._source.notify_status_changed()
+
+
+class CustomStatusBar(object):
+    def __init__(self, status_label):
+        self._label = status_label
+
+    def show(self):
+        self._label.show()
+
+    def hide(self):
+        self._label.hide()
+
+    def update(self, status):
+        self._label.set_text(status)
 
 
 class Toolbar(GObject.Object):
