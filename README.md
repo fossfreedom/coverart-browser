@@ -58,6 +58,11 @@ for debian & debian-based distros such as Ubuntu & Mint
 for fedora and similar:
 
     yum install git gettext python-mako python-lxml
+    
+for opensuse
+
+    sudo zypper in git gettext-runtime python-mako python-lxml
+
 
 Then install the plugin:
 
