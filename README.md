@@ -34,13 +34,18 @@ Browse your coverart albums in Rhythmbox v2.96 and later
 
 *How to install:*
 
-for debian & debian-based distros such as Ubuntu & Mint
+for debian & debian-based distros such as Ubuntu & Mint:
 
     sudo apt-get install git gettext python-mako python-lxml
 
 for fedora and similar:
 
     yum install git gettext python-mako python-lxml
+    
+for opensuse:
+
+    sudo zypper in git gettext-runtime python-mako python-lxml
+
 
 Then install the plugin:
 
