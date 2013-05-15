@@ -89,7 +89,7 @@ class CoverArtEntryView(RB.EntryView):
         #uim.insert_action_group(self.actiongroup)
 
         self.external_plugins = \
-            CreateExternalPluginMenu("ca_entryview", self.shell)
+            CreateExternalPluginMenu("ca_entryview", self.shell, self.plugin)
 
         # connect the visible-columns global setting to update our entryview
         gs = GSetting()

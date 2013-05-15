@@ -20,6 +20,9 @@
 from gi.repository import Peas
 from gi.repository import GObject
 from gi.repository import Gtk
+import lxml.etree as ET
+import rb
+import rb3compat
 
 class ExternalPlugin(GObject.Object):
     '''
@@ -39,6 +42,15 @@ class ExternalPlugin(GObject.Object):
         self.attributes['is_album_menu'] = False
         self.attributes['new_menu_name'] = ''
 
+    def appendattribute(self, key, val):
+        if key == 'is_album_menu':
+            if val == 'yes':
+                self.attributes[key] = True
+            else:
+                self.attributes[key] = False
+        else:
+            self.attributes[key] = val
+
     def is_activated(self):
         '''
         method to test whether the plugin is actually loaded. Returns a bool
@@ -46,7 +58,7 @@ class ExternalPlugin(GObject.Object):
         peas = Peas.Engine.get_default()
         loaded_plugins = peas.get_loaded_plugins()
 
-        print(loaded_plugins)
+        #print(loaded_plugins)
         if self.attributes['plugin_name'] in loaded_plugins:
             return True
 
@@ -81,11 +93,12 @@ class ExternalPlugin(GObject.Object):
 
         action = None
         if actiongroup:
+            print self.attributes['action_name']
             action = actiongroup.get_action(self.attributes['action_name'])
+            print action
 
         if action:
             self.attributes['action']=action
-            self.attributes['tooltip']=action.get_tooltip()
             if self.attributes['new_menu_name'] != '':
                 self.attributes['label'] = self.attributes['new_menu_name']
             else:
@@ -101,7 +114,7 @@ class ExternalPlugin(GObject.Object):
 
         action = Gtk.Action(label=self.attributes['label'],
             name=menu_name + self.attributes['label'],
-            tooltip=self.attributes['tooltip'], stock_id=Gtk.STOCK_CLEAR)
+            tooltip='', stock_id=Gtk.STOCK_CLEAR)
            
         action.connect('activate', self.menuitem_callback, for_album, shell)
         new_menu_item.set_related_action(action)
@@ -134,70 +147,6 @@ class ExternalPlugin(GObject.Object):
             
         self.attributes['action'].activate()
 
-class OpenContainingFolder(ExternalPlugin):
-    def __init__(self, **kargs):
-        super(OpenContainingFolder, self).__init__(**kargs)
-        
-        self.attributes['plugin_name'] = 'opencontainingfolder'
-        self.attributes['action_group_name'] = 'OpenContainingFolderActions'
-        self.attributes['action_name'] = 'OpenContainingFolder'
-        self.attributes['is_album_menu'] = True
-
-class SendFirst(ExternalPlugin):
-    def __init__(self, **kargs):
-        super(SendFirst, self).__init__(**kargs)
-
-        self.attributes['plugin_name'] = 'send_first'
-        self.attributes['action_group_name'] = 'SendFirstPluginActionGroup'
-        self.attributes['action_name'] = 'QueueFirstAction'
-        self.attributes['is_album_menu'] = True
-
-class SendTo(ExternalPlugin):
-    def __init__(self, **kargs):
-        super(SendTo, self).__init__(**kargs)
-
-        self.attributes['plugin_name'] = 'sendto'
-        self.attributes['action_group_name'] = 'SendToActionGroup'
-        self.attributes['action_name'] = 'SendTo'
-        self.attributes['is_album_menu'] = True
-
-class LastFMExtensionFingerprinter(ExternalPlugin):
-    def __init__(self, **kargs):
-        super(LastFMExtensionFingerprinter, self).__init__(**kargs)
-
-        self.attributes['plugin_name'] = 'lastfm_extension'
-        self.attributes['action_group_name'] = 'LastFMExtensionFingerprinter'
-        self.attributes['action_name'] = 'FingerprintSong'
-        self.attributes['is_album_menu'] = False
-
-class FileOrganizer(ExternalPlugin):
-    def __init__(self, **kargs):
-        super(FileOrganizer, self).__init__(**kargs)
-
-        self.attributes['plugin_name'] = 'fileorganizer'
-        self.attributes['action_group_name'] = 'FileorganizerActions'
-        self.attributes['action_name'] = 'OrganizeSelection'
-        self.attributes['is_album_menu'] = True
-
-class lLyrics(ExternalPlugin):
-    def __init__(self, **kargs):
-        super(lLyrics, self).__init__(**kargs)
-
-        self.attributes['plugin_name'] = 'lLyrics'
-        self.attributes['action_group_name'] = 'lLyricsPluginPopupActions'
-        self.attributes['action_name'] = 'lLyricsPopupAction'
-        self.attributes['is_album_menu'] = False
-        
-class wikipediasearch(ExternalPlugin):
-    def __init__(self, **kargs):
-        super(wikipediasearch, self).__init__(**kargs)
-
-        self.attributes['plugin_name'] = 'WikipediaSearch'
-        self.attributes['action_group_name'] = 'WikipediaActions'
-        self.attributes['action_name'] = 'SearchWikipediaAlbum'
-        self.attributes['new_menu_name'] = 'WikipediaSearch - Album'
-        self.attributes['is_album_menu'] = True
-
 class CreateExternalPluginMenu(GObject.Object):
     '''
     This is the key class called to initialise all supported plugins
@@ -205,23 +154,49 @@ class CreateExternalPluginMenu(GObject.Object):
     :menu_name: `str` unique name of the (popup) menu
     :shell: `RB.Shell` plugin shell attribute
     '''
-    def __init__(self, menu_name, shell, **kargs):
+    def __init__(self, menu_name, shell, plugin, **kargs):
         super(CreateExternalPluginMenu, self).__init__(**kargs)
 
         self.menu_name = menu_name
         self.shell = shell
+        self.plugin = plugin
         self._actiongroup = Gtk.ActionGroup(menu_name + '_externalplugins')
         self._menu_array = []
 
         # all supported plugins MUST be defined in the following array
-        self.supported_plugins = [
-            OpenContainingFolder(),
-            SendFirst(),
-            SendTo(),
-            LastFMExtensionFingerprinter(),
-            FileOrganizer(),
-            lLyrics(),
-            wikipediasearch() ]
+        self.supported_plugins = []
+        
+        extplugins = rb.find_plugin_file(plugin, 'ui/coverart_external_plugins.xml')
+        root = ET.parse(open(extplugins)).getroot()
+
+        if rb3compat.is_rb3(self.shell):
+            base = 'rb3/plugin'
+        else:
+            base = 'rb2/plugin'
+
+        for elem in root.xpath(base):
+            pluginname = elem.attrib['name']
+
+            basemenu = base + "[@name='" + pluginname + "']/menu"
+            
+            for menuelem in root.xpath(basemenu):
+                ext = ExternalPlugin()
+                ext.appendattribute('plugin_name', pluginname)
+
+                label = menuelem.attrib['label']
+                if label != "":
+                    ext.appendattribute('new_menu_name', label)
+                    baseattrib = basemenu + "[@label='" + label + "']/attribute"
+                else:
+                    baseattrib = basemenu + "/attribute"
+
+                for attribelem in root.xpath(baseattrib):
+                    key = attribelem.attrib['name']
+                    val = attribelem.text
+                    ext.appendattribute(key, val)
+
+                self.supported_plugins.append(ext)
+        
 
     def create_menu(self, menu_bar, at_position, for_album = False):
         '''
@@ -234,7 +209,7 @@ class CreateExternalPluginMenu(GObject.Object):
           by default a menu is assumed to be applicable to a track in an
           EntryView
         '''
-        return
+        #return
         #tidy up old menu items before recreating the list
         for action in self._actiongroup.list_actions():
             print("removing")

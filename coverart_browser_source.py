@@ -250,6 +250,7 @@ class CoverArtBrowserSource(RB.Source):
         self.covers_view.popup = self.popup_menu.create_gtkmenu('popup_menu')
         self.covers_view.view_name = "covers_view"
         self.covers_view.shell = self.shell
+        self.covers_view.plugin = self.plugin
         self.covers_view.ext_menu_pos = 10
 
         # setup entry-view objects and widgets
