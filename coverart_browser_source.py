@@ -981,7 +981,7 @@ class Statusbar(GObject.Object):
                 self.status = (_('%s by %s') % (album.name, album.artist)).\
                     decode('UTF-8')
             else:
-                self.status = (_('%d selected albums ') % (len(albums))).\
+                self.status = (_('%d selected albums') % (len(albums))).\
                     decode('UTF-8')
 
             if track_count == 1:
