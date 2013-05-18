@@ -23,6 +23,10 @@ from gi.repository import Gtk
 import lxml.etree as ET
 import rb
 import rb3compat
+from rb3compat import ActionGroup
+from rb3compat import Action
+from rb3compat import ApplicationShell
+from rb3compat import Menu
 
 class ExternalPlugin(GObject.Object):
     '''
@@ -64,8 +68,8 @@ class ExternalPlugin(GObject.Object):
 
         return False
 
-    def create_menu_item(self, menu_name, shell,
-        save_actiongroup, for_album = False):
+    def create_menu_item(self, menu_name, at_position, rb_plugin_name, 
+        save_actiongroup, save_menu, for_album = False):
         '''
         method to create the menu item appropriate to the plugin
         
@@ -83,42 +87,39 @@ class ExternalPlugin(GObject.Object):
         if not self.is_activated():
             return False
 
-        uim = shell.props.ui_manager
-        ui_actiongroups = uim.get_action_groups()
-
-        actiongroup = None
-        for actiongroup in ui_actiongroups:
-            if actiongroup.get_name() == self.attributes['action_group_name']:
-                break
-
-        action = None
-        if actiongroup:
-            print self.attributes['action_name']
-            action = actiongroup.get_action(self.attributes['action_name'])
-            print action
-
+        action = ApplicationShell(save_menu.shell).get_action(self.attributes['action_group_name'],
+            self.attributes['action_name'])
+            
         if action:
             self.attributes['action']=action
+            act = Action(save_menu.shell, action)
+            
             if self.attributes['new_menu_name'] != '':
                 self.attributes['label'] = self.attributes['new_menu_name']
             else:
-                self.attributes['label']=action.get_label()
-            self.attributes['visible']=action.get_visible()
-            self.attributes['sensitive']=action.get_sensitive()
+                self.attributes['label']=act.get_label()
+            self.attributes['sensitive']=act.get_sensitive()
         else:
             return False
 
-        new_menu_item = Gtk.MenuItem(label=self.attributes['label'])
-        new_menu_item.set_visible(self.attributes['visible'])
-        new_menu_item.set_sensitive(self.attributes['sensitive'])
+        #menu.add_menu_item(
+        #new_menu_item = Gtk.MenuItem(label=self.attributes['label'])
+        #new_menu_item.set_sensitive(self.attributes['sensitive'])
 
-        action = Gtk.Action(label=self.attributes['label'],
-            name=menu_name + self.attributes['label'],
-            tooltip='', stock_id=Gtk.STOCK_CLEAR)
+        #action = Gtk.Action(label=self.attributes['label'],
+        #    name=menu_name + self.attributes['label'],
+        #    tooltip='', stock_id=Gtk.STOCK_CLEAR)
            
-        action.connect('activate', self.menuitem_callback, for_album, shell)
-        new_menu_item.set_related_action(action)
-        save_actiongroup.add_action(action)
+        #action.connect('activate', self.menuitem_callback, for_album, shell)
+        #new_menu_item.set_related_action(action)
+        action = save_actiongroup.add_action(self.menuitem_callback, self.attributes['action_name'])
+        if rb3compat.is_rb3(save_menu.shell):
+            menu_name = rb_plugin_name
+        else:
+            menu_name = 'popup_menu'
+            
+        save_menu.insert_menu_item(section_name, at_position, self.attributes['label'],  action)
+        #save_actiongroup.add_action(action)
 
         return new_menu_item
         
@@ -154,22 +155,22 @@ class CreateExternalPluginMenu(GObject.Object):
     :menu_name: `str` unique name of the (popup) menu
     :shell: `RB.Shell` plugin shell attribute
     '''
-    def __init__(self, menu_name, shell, plugin, **kargs):
+    def __init__(self, menu_name, popup, **kargs):
         super(CreateExternalPluginMenu, self).__init__(**kargs)
 
         self.menu_name = menu_name
-        self.shell = shell
-        self.plugin = plugin
-        self._actiongroup = Gtk.ActionGroup(menu_name + '_externalplugins')
-        self._menu_array = []
-
+        self._menu = popup
+        
+        self._actiongroup = ActionGroup(popup.shell, menu_name + '_externalplugins')
+        #self._menu = Menu(self.source, self.plugin, self.shell)
+        
         # all supported plugins MUST be defined in the following array
         self.supported_plugins = []
         
-        extplugins = rb.find_plugin_file(plugin, 'ui/coverart_external_plugins.xml')
+        extplugins = rb.find_plugin_file(popup.plugin, 'ui/coverart_external_plugins.xml')
         root = ET.parse(open(extplugins)).getroot()
 
-        if rb3compat.is_rb3(self.shell):
+        if rb3compat.is_rb3(popup.shell):
             base = 'rb3/plugin'
         else:
             base = 'rb2/plugin'
@@ -198,11 +199,11 @@ class CreateExternalPluginMenu(GObject.Object):
                 self.supported_plugins.append(ext)
         
 
-    def create_menu(self, menu_bar, at_position, for_album = False):
+    def create_menu(self, at_position, for_album = False):
         '''
         method to create the menu items for all supported plugins
 
-        :menu_bar: `GtkMenu` - where the menu-items are to be added
+        :menu_name: `str` - where the menu-items are to be added
         :at_position: `int` - position in the menu list where menu-items
            are to be added
         :for_album: `bool` - create a menu applicable for Albums
@@ -211,30 +212,38 @@ class CreateExternalPluginMenu(GObject.Object):
         '''
         #return
         #tidy up old menu items before recreating the list
-        for action in self._actiongroup.list_actions():
-            print("removing")
-            self._actiongroup.remove_action(action)
-
-        for menu_item in self._menu_array:
-            menu_bar.remove(menu_item)
+        #for action in self._actiongroup.list_actions():
+        #    print("removing")
+        #    self._actiongroup.remove_action(action)
+        self._actiongroup.remove_actions()
+        
+        if rb3compat.is_rb3(save_menu.shell):
+            menu_name = rb_plugin_name
+        else:
+            menu_name = 'popup_menu'
+        
+        self._menu.remove_menu_items(self.menu_name)
+        
+        #for menu_item in self._menu_array:
+        #    menu_bar.remove(menu_item)
 
         self._menu_array = []
 
         for plugin in self.supported_plugins:
-            menu_item = plugin.create_menu_item(self.menu_name,
-                self.shell, self._actiongroup, for_album)
+            plugin.create_menu_item(self.menu_name, at_position, 'external-plugins',
+                self._actiongroup, self._menu, for_album)
 
-            if menu_item:
-                self._menu_array.append(menu_item)
+            #if menu_item:
+            #    self._menu_array.append(menu_item)
 
-        if len(self._menu_array) > 0:
-            menu_item = Gtk.SeparatorMenuItem().new()
-            menu_item.set_visible(True)
-            self._menu_array.append(menu_item)
+        #if len(self._menu_array) > 0:
+        #    menu_item = Gtk.SeparatorMenuItem().new()
+        #    menu_item.set_visible(True)
+        #    self._menu_array.append(menu_item)
 
-        for menu_item in self._menu_array:
-            menu_bar.insert(menu_item, at_position)
+        #for menu_item in self._menu_array:
+        #    menu_bar.insert(menu_item, at_position)
 
-        uim = self.shell.props.ui_manager
-        menu_bar.show_all()
-        uim.ensure_update()
+        #uim = self.shell.props.ui_manager
+        #menu_bar.show_all()
+        #uim.ensure_update()

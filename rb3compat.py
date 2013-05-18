@@ -117,7 +117,7 @@ class Menu(object):
 		self.shell = shell
 		self.source = source
         
-        self._rb3menu_items = {}
+        self._rbmenu_items = {}
         
     def add_menu_item(self, menubar, label, action):
         '''
@@ -126,54 +126,81 @@ class Menu(object):
         :param label: `str` is the text of the menu item displayed to the user
         :param action: `GtkAction` or `Gio.SimpleAction associated with the menu item
         '''
+        self.insert_menu_item(menubar, -1, label, action)
+
+    def insert_menu_item(self, menubar, position, label, action):
         if is_rb3(self.shell):
             app = self.shell.props.application
             item = Gio.MenuItem()
             item.set_label(label)
             item.set_detailed_action('win.'+label)
             
-            if not menubar in self._rb3menu_items:
-                self._rb3menu_items[menubar] = []
-            self._rb3menu_items[menubar].append(label)
+            if not menubar in self._rbmenu_items:
+                self._rbmenu_items[menubar] = []
+            self._rbmenu_items[menubar].append(label)
             
             app.add_plugin_menu_item(menubar, label, item)
         else:
             new_menu_item = Gtk.MenuItem(label=label)
             new_menu_item.set_related_action(action)
+            self._rbmenu_items[label] = new_menu_item
             bar = self.get_menu_object(menubar)
-            bar.append(new_menu_item)
+            if position == -1:
+                bar.append(new_menu_item)
+            else:
+                bar.insert(new_menu_item, position)
             bar.show_all()
             uim = self.shell.props.ui_manager
             uim.ensure_update()
-            
-        
+
+    def add_separator(self, menubar):
+        if not is_rb3(self.shell):
+            menu_item = Gtk.SeparatorMenuItem().new()
+            menu_item.set_visible(True)
+            self._rbmenu_items['separator'] = menu_item
+            bar = self.get_menu_object(menubar)
+            bar.append(menu_item)
+            bar.show_all()
+            uim = self.shell.props.ui_manager
+            uim.ensure_update()
+
     def remove_menu_items(self, menubar):
         '''
         utility function to remove all menuitems associated with the menu section
         :param menubar: `str` is the name of the section containing the menu items
         '''
         if is_rb3(self.shell):
-            
             if not menubar in self._rb3menu_items:
                 return
                 
             app = self.shell.props.application
             
-            for menu_item in self._rb3menu_items[menubar]:
+            for menu_item in self._rbmenu_items[menubar]:
                 app.remove_plugin_menu_item(menubar, menu_item)
-                
-            del self._rb3menu_items[menubar][:]
+
+            if self._rbmenu_items[menubar]:
+                del self._rbmenu_items[menubar][:]
             
         else:
+
+            if not self._rbmenu_items:
+                return
+
             uim = self.shell.props.ui_manager
-            count = 0
+            #count = 0
 
             bar = self.get_menu_object(menubar)
-            for menu_item in bar:
-                if count > 1:  # ignore the first two menu items
-                    bar.remove(menu_item)
-                count += 1
 
+            #for menu_item in bar:
+            #    if count > 1:  # ignore the first two menu items
+            #        bar.remove(menu_item)
+            #    count += 1
+
+            for menu_item in self._rbmenu_items:
+                bar.remove(menu_item)
+
+            del self._rbmenu_items[:]
+            
             bar.show_all()
             uim.ensure_update()
 		
@@ -307,3 +334,46 @@ class ActionGroup(object):
             self.actiongroup.add_action(action)
 	
         return action
+
+class ApplicationShell(object):
+    def __init__(self, shell):
+		self.shell = shell
+        
+    def get_action(self, action_group_name, action_name):
+        if is_rb3(self.shell):
+            if action_group_name == "app":
+                action = self.shell.props.application.lookup_action(action_name)
+            else:
+                action = self.shell.props.window.lookup_action(action_name)
+
+        else:
+            uim = self.shell.props.ui_manager
+            ui_actiongroups = uim.get_action_groups()
+
+            actiongroup = None
+            for actiongroup in ui_actiongroups:
+                if actiongroup.get_name() == action_group_name:
+                    break
+
+            action = None
+            if actiongroup:
+                action = actiongroup.get_action(action_name)
+
+        return action
+
+class Action(object):
+    def __init__(self, shell, action):
+		self.shell = shell
+        self.action = action
+
+    def get_label(self):
+        if is_rb3(self.shell):
+            return self.action.get_label()
+        else:
+            return ''
+
+    def get_sensitive(self):
+        if is_rb3(self.shell):
+            return self.action.get_enabled()
+        else:
+            return self.action.get_sensitive()

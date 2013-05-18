@@ -55,8 +55,9 @@
     <rb3> <!-- section for RB versions 2.99 and above -->
         <plugin name="sendto">
             <menu label="Send To">
-                <attribute name="action_group_name">app.sendto</attribute>
+                <attribute name="action_group_name">app</attribute>
                 <attribute name="action_name">sendto</attribute>
+                <attribute name="new_menu_name">SendTo...</attribute>
                 <attribute name="is_album_menu">yes</attribute>
             </menu>
         </plugin>
