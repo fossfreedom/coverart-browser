@@ -20,7 +20,7 @@
             </item>
         </section>
         <section>
-            <attribute name="rb-plugin-menu-link">ev_playlist_sub_menu_item</attribute>
+            <attribute name="rb-plugin-menu-link">ca_entryview</attribute>
 		</section>
       </submenu>
      </section>

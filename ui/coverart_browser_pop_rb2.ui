@@ -33,7 +33,7 @@
         <property name="label" translatable="yes">Add to Playlist</property>
         <property name="use_underline">True</property>
         <child type="submenu">
-          <object class="GtkMenu" id="playlist_sub_menu_item">
+          <object class="GtkMenu" id="playlist_submenu">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
@@ -93,7 +93,7 @@
         <property name="label" translatable="yes">Add favourites to Playlist</property>
         <property name="use_underline">True</property>
         <child type="submenu">
-          <object class="GtkMenu" id="favourite_playlist_sub_menu_item">
+          <object class="GtkMenu" id="favourite_playlist_submenu">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>

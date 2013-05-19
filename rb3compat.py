@@ -116,70 +116,75 @@ class Menu(object):
 		self.plugin = plugin
 		self.shell = shell
 		self.source = source
+        self._unique_num = 0
         
         self._rbmenu_items = {}
         
-    def add_menu_item(self, menubar, label, action):
+    def add_menu_item(self, menubar, section_name, label, action):
         '''
         add a new menu item to the popup
-        :param menubar: `str` is the name of the section to add the item to
+        :param menubar: `str` is the name GtkMenu (or blank for RB2.99+)
+        :param section_name: `str` is the name of the section to add the item to
         :param label: `str` is the text of the menu item displayed to the user
         :param action: `GtkAction` or `Gio.SimpleAction associated with the menu item
         '''
-        self.insert_menu_item(menubar, -1, label, action)
+        return self.insert_menu_item(menubar, section_name, -1, label, action)
 
-    def insert_menu_item(self, menubar, position, label, action):
+    def insert_menu_item(self, menubar, section_name, position, label, action):
         if is_rb3(self.shell):
             app = self.shell.props.application
             item = Gio.MenuItem()
             item.set_label(label)
             item.set_detailed_action('win.'+label)
             
-            if not menubar in self._rbmenu_items:
-                self._rbmenu_items[menubar] = []
-            self._rbmenu_items[menubar].append(label)
+            if not section_name in self._rbmenu_items:
+                self._rbmenu_items[section_name] = []
+            self._rbmenu_items[section_name].append(label)
             
-            app.add_plugin_menu_item(menubar, label, item)
+            app.add_plugin_menu_item(section_name, label, item)
         else:
-            new_menu_item = Gtk.MenuItem(label=label)
-            new_menu_item.set_related_action(action)
-            self._rbmenu_items[label] = new_menu_item
+            item = Gtk.MenuItem(label=label)
+            item.set_related_action(action)
+            self._rbmenu_items[label] = item
             bar = self.get_menu_object(menubar)
             if position == -1:
-                bar.append(new_menu_item)
+                bar.append(item)
             else:
-                bar.insert(new_menu_item, position)
+                bar.insert(item, position)
             bar.show_all()
             uim = self.shell.props.ui_manager
             uim.ensure_update()
 
-    def add_separator(self, menubar):
+        return item
+
+    def insert_separator(self, menubar, at_position):
         if not is_rb3(self.shell):
             menu_item = Gtk.SeparatorMenuItem().new()
             menu_item.set_visible(True)
-            self._rbmenu_items['separator'] = menu_item
+            self._rbmenu_items['separator' + str(self._unique_num)] = menu_item
+            self._unique_num = self._unique_num + 1
             bar = self.get_menu_object(menubar)
-            bar.append(menu_item)
+            bar.insert(menu_item, at_position)
             bar.show_all()
             uim = self.shell.props.ui_manager
             uim.ensure_update()
 
-    def remove_menu_items(self, menubar):
+    def remove_menu_items(self, menubar, section_name):
         '''
         utility function to remove all menuitems associated with the menu section
         :param menubar: `str` is the name of the section containing the menu items
         '''
         if is_rb3(self.shell):
-            if not menubar in self._rb3menu_items:
+            if not section_name in self._rb3menu_items:
                 return
                 
             app = self.shell.props.application
             
-            for menu_item in self._rbmenu_items[menubar]:
-                app.remove_plugin_menu_item(menubar, menu_item)
+            for menu_item in self._rbmenu_items[section_name]:
+                app.remove_plugin_menu_item(section_name, menu_item)
 
-            if self._rbmenu_items[menubar]:
-                del self._rbmenu_items[menubar][:]
+            if self._rbmenu_items[section_name]:
+                del self._rbmenu_items[section_name][:]
             
         else:
 
@@ -278,6 +283,9 @@ class Menu(object):
         :param menu_name_or_link: `str` to search for in the UI file
         '''
 		item = self.builder.get_object(menu_name_or_link)
+        print menu_name_or_link
+        print item
+        
 		
 		if is_rb3(self.shell):
             if item:

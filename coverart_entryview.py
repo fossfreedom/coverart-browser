@@ -89,7 +89,7 @@ class CoverArtEntryView(RB.EntryView):
         #uim.insert_action_group(self.actiongroup)
 
         self.external_plugins = \
-            CreateExternalPluginMenu("ca_entryview", popup)
+            CreateExternalPluginMenu("ca_entryview", 3, popup)
 
         # connect the visible-columns global setting to update our entryview
         gs = GSetting()
@@ -158,7 +158,7 @@ class CoverArtEntryView(RB.EntryView):
     def do_show_popup(self, over_entry):
         if over_entry:
             print("CoverArtBrowser DEBUG - do_show_popup()")
-            self.external_plugins.create_menu(self.popup_menu, 3)
+            self.external_plugins.create_menu()
             self.popup_menu.popup(None, None, None, None, 0,
                 Gtk.get_current_event_time())
 

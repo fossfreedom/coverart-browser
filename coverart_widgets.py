@@ -674,11 +674,12 @@ class EnhancedIconView(Gtk.IconView):
                     if not self._external_plugins:
                         # initialise external plugin menu support
                         self._external_plugins = \
-                        CreateExternalPluginMenu("ca_covers_view", self.popup)
-                    self._external_plugins.create_menu(self.ext_menu_pos, True)
+                        CreateExternalPluginMenu("ca_covers_view",
+                            self.ext_menu_pos, self.popup)
+                    self._external_plugins.create_menu(True)
                         
-                    self.popup.create_gtkmenu('popup_menu').popup(None, None, None, None, event.button,
-                        event.time)
+                    self.popup.create_gtkmenu('popup_menu').popup(None,
+                        None, None, None, event.button, event.time)
             else:
                 self.emit('item-clicked', event, current_path)
 

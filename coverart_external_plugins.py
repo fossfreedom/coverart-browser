@@ -68,7 +68,7 @@ class ExternalPlugin(GObject.Object):
 
         return False
 
-    def create_menu_item(self, menu_name, at_position, rb_plugin_name, 
+    def create_menu_item(self, menubar, section_name, at_position,
         save_actiongroup, save_menu, for_album = False):
         '''
         method to create the menu item appropriate to the plugin
@@ -117,14 +117,16 @@ class ExternalPlugin(GObject.Object):
         print self.attributes
         action = save_actiongroup.add_action(self.menuitem_callback,
             self.attributes['action_name'], for_album, save_menu.shell)
-        if rb3compat.is_rb3(save_menu.shell):
-            section_name = rb_plugin_name
-        else:
-            section_name = 'popup_menu'
+
+        #if rb3compat.is_rb3(save_menu.shell):
+        #    section_name = rb_plugin_name
+        #else:
+        #    section_name = 'popup_menu'
 
         print section_name
         
-        new_menu_item = save_menu.insert_menu_item(section_name, at_position, self.attributes['label'],  action)
+        new_menu_item = save_menu.insert_menu_item(menubar, section_name,
+            at_position, self.attributes['label'],  action)
         #save_actiongroup.add_action(action)
 
         return new_menu_item
@@ -163,13 +165,15 @@ class CreateExternalPluginMenu(GObject.Object):
     :menu_name: `str` unique name of the (popup) menu
     :shell: `RB.Shell` plugin shell attribute
     '''
-    def __init__(self, menu_name, popup, **kargs):
+    def __init__(self, section_name, at_position, popup, **kargs):
         super(CreateExternalPluginMenu, self).__init__(**kargs)
 
-        self.menu_name = menu_name
-        self._menu = popup
+        self.menu_name = 'popup_menu'
+        self.menu = popup
+        self.section_name = section_name
+        self.at_position = at_position
         
-        self._actiongroup = ActionGroup(popup.shell, menu_name + '_externalplugins')
+        self._actiongroup = ActionGroup(popup.shell, section_name + '_externalplugins')
         #self._menu = Menu(self.source, self.plugin, self.shell)
         
         # all supported plugins MUST be defined in the following array
@@ -206,8 +210,7 @@ class CreateExternalPluginMenu(GObject.Object):
 
                 self.supported_plugins.append(ext)
         
-
-    def create_menu(self, at_position, for_album = False):
+    def create_menu(self, for_album = False):
         '''
         method to create the menu items for all supported plugins
 
@@ -225,22 +228,33 @@ class CreateExternalPluginMenu(GObject.Object):
         #    self._actiongroup.remove_action(action)
         self._actiongroup.remove_actions()
         
-        if rb3compat.is_rb3(self._menu.shell):
-            menu_name = rb_plugin_name
-        else:
-            menu_name = 'popup_menu'
-        
-        self._menu.remove_menu_items(self.menu_name)
+        #if rb3compat.is_rb3(self._menu.shell):
+        #    menu_name = rb_plugin_name
+        #else:
+        #    menu_name = 'popup_menu'
+
+        self.menu.remove_menu_items(self.menu_name, self.section_name)
         
         #for menu_item in self._menu_array:
         #    menu_bar.remove(menu_item)
 
-        self._menu_array = []
+        #self._menu_array = []
+
+        items_added = False
 
         for plugin in self.supported_plugins:
-            plugin.create_menu_item(self.menu_name, at_position, 'external-plugins',
-                self._actiongroup, self._menu, for_album)
+            new_menu_item = plugin.create_menu_item(self.menu_name, self.section_name,
+                self.at_position, self._actiongroup, self.menu, for_album)
 
+            print new_menu_item
+            print items_added
+            if (not items_added) and new_menu_item:
+                items_added = True 
+
+        if items_added:
+            print "hi"
+            self.menu.insert_separator(self.menu_name, self.at_position)
+            
             #if menu_item:
             #    self._menu_array.append(menu_item)
 

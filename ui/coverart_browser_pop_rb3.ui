@@ -21,7 +21,7 @@
 		  </item>
 		</section>
 		<section>
-            <attribute name="rb-plugin-menu-link">playlist_sub_menu_item</attribute>
+            <attribute name="rb-plugin-menu-link">playlist_section</attribute>
 		</section>         
       </submenu>
     </section>
@@ -44,7 +44,7 @@
 		  </item>
 		</section>
 		<section>
-            <attribute name="rb-plugin-menu-link">favourite_playlist_sub_menu_item</attribute>
+            <attribute name="rb-plugin-menu-link">favourite_playlist_section</attribute>
 		</section>         
       </submenu>
 	</section>
@@ -59,7 +59,7 @@
       </item>
 	</section>
     <section>
-        <attribute name="rb-plugin-menu-link">external-plugins</attribute>
+        <attribute name="rb-plugin-menu-link">ca_covers_view</attribute>
     </section>   
 	<section>
       <item>

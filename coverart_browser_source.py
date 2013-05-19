@@ -596,19 +596,20 @@ class CoverArtBrowserSource(RB.Source):
     def playlist_menu_item_callback(self, *args):
         print("CoverArtBrowser DEBUG - playlist_menu_item_callback")
 
-        self.playlist_fillmenu('playlist_sub_menu_item',
+        self.playlist_fillmenu('playlist_submenu', 'playlist_section',
                                self.actiongroup,
                                self.add_to_static_playlist_menu_item_callback)
 
     def favourite_playlist_menu_item_callback(self, *args):
         print("CoverArtBrowser DEBUG - favourite_playlist_menu_item_callback")
 
-        self.playlist_fillmenu('favourite_playlist_sub_menu_item',
+        self.playlist_fillmenu('favourite_playlist_submenu',
+                               'favourite_playlist_section',
                                self.favourite_actiongroup,
                                self.add_to_static_playlist_menu_item_callback,
                                True)
 
-    def playlist_fillmenu(self, menubar, actiongroup, func, favourite=False):
+    def playlist_fillmenu(self, menubar, section_name, actiongroup, func, favourite=False):
         print("CoverArtBrowser DEBUG - playlist_fillmenu")
 
         playlist_manager = self.shell.props.playlist_manager
@@ -616,7 +617,7 @@ class CoverArtBrowserSource(RB.Source):
 
         # tidy up old playlists menu items before recreating the list
         actiongroup.remove_actions()
-        self.popup_menu.remove_menu_items(menubar)
+        self.popup_menu.remove_menu_items(menubar, section_name)
 
         if playlists_entries:
             for playlist in playlists_entries:
@@ -626,7 +627,7 @@ class CoverArtBrowserSource(RB.Source):
                     action = actiongroup.add_action(func, playlist.props.name,
                         playlist, favourite)
                         
-                    self.popup_menu.add_menu_item( menubar,
+                    self.popup_menu.add_menu_item( menubar, section_name,
                         playlist.props.name, action )
 
     def add_to_static_playlist_menu_item_callback(self, action, param, args):
