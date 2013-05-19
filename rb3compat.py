@@ -196,10 +196,11 @@ class Menu(object):
             #        bar.remove(menu_item)
             #    count += 1
 
+            print self._rbmenu_items
             for menu_item in self._rbmenu_items:
-                bar.remove(menu_item)
+                bar.remove(self._rbmenu_items[menu_item])
 
-            del self._rbmenu_items[:]
+            #del self._rbmenu_items[:]
             
             bar.show_all()
             uim.ensure_update()
@@ -367,7 +368,7 @@ class Action(object):
         self.action = action
 
     def get_label(self):
-        if is_rb3(self.shell):
+        if not is_rb3(self.shell):
             return self.action.get_label()
         else:
             return ''

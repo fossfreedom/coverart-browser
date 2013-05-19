@@ -91,6 +91,7 @@ class ExternalPlugin(GObject.Object):
             self.attributes['action_name'])
             
         if action:
+            print "found action"
             self.attributes['action']=action
             act = Action(save_menu.shell, action)
             
@@ -100,6 +101,7 @@ class ExternalPlugin(GObject.Object):
                 self.attributes['label']=act.get_label()
             self.attributes['sensitive']=act.get_sensitive()
         else:
+            print "not found action"
             return False
 
         #menu.add_menu_item(
@@ -112,13 +114,17 @@ class ExternalPlugin(GObject.Object):
            
         #action.connect('activate', self.menuitem_callback, for_album, shell)
         #new_menu_item.set_related_action(action)
-        action = save_actiongroup.add_action(self.menuitem_callback, self.attributes['action_name'])
+        print self.attributes
+        action = save_actiongroup.add_action(self.menuitem_callback,
+            self.attributes['action_name'], for_album, save_menu.shell)
         if rb3compat.is_rb3(save_menu.shell):
-            menu_name = rb_plugin_name
+            section_name = rb_plugin_name
         else:
-            menu_name = 'popup_menu'
-            
-        save_menu.insert_menu_item(section_name, at_position, self.attributes['label'],  action)
+            section_name = 'popup_menu'
+
+        print section_name
+        
+        new_menu_item = save_menu.insert_menu_item(section_name, at_position, self.attributes['label'],  action)
         #save_actiongroup.add_action(action)
 
         return new_menu_item
@@ -139,10 +145,12 @@ class ExternalPlugin(GObject.Object):
 
         page.get_entry_view().select_all()
 
-    def menuitem_callback(self, menu, for_album, shell):
+    def menuitem_callback(self, menu, param, args):
         '''
         method called when a menu-item is clicked
         '''
+        for_album = args[0]
+        shell = args[1]
         if for_album:
             self.set_entry_view_selected_entries(shell)
             
@@ -217,7 +225,7 @@ class CreateExternalPluginMenu(GObject.Object):
         #    self._actiongroup.remove_action(action)
         self._actiongroup.remove_actions()
         
-        if rb3compat.is_rb3(save_menu.shell):
+        if rb3compat.is_rb3(self._menu.shell):
             menu_name = rb_plugin_name
         else:
             menu_name = 'popup_menu'
