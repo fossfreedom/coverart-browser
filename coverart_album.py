@@ -37,7 +37,7 @@ from coverart_utils import create_pixbuf_from_file_at_size
 from coverart_utils import SortedCollection
 from coverart_utils import idle_iterator
 from coverart_utils import NaturalString
-import rb3compat
+import coverart_rb3compat as rb3compat
 from datetime import datetime, date
 
 import os

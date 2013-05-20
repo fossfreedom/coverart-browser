@@ -135,7 +135,7 @@ class Menu(object):
             app = self.shell.props.application
             item = Gio.MenuItem()
             item.set_label(label)
-            item.set_detailed_action('win.'+label)
+            item.set_detailed_action('win.'+action.get_name())
             
             if not section_name in self._rbmenu_items:
                 self._rbmenu_items[section_name] = []
@@ -175,7 +175,7 @@ class Menu(object):
         :param menubar: `str` is the name of the section containing the menu items
         '''
         if is_rb3(self.shell):
-            if not section_name in self._rb3menu_items:
+            if not section_name in self._rbmenu_items:
                 return
                 
             app = self.shell.props.application
@@ -192,16 +192,8 @@ class Menu(object):
                 return
 
             uim = self.shell.props.ui_manager
-            #count = 0
-
             bar = self.get_menu_object(menubar)
 
-            #for menu_item in bar:
-            #    if count > 1:  # ignore the first two menu items
-            #        bar.remove(menu_item)
-            #    count += 1
-
-            print self._rbmenu_items
             for menu_item in self._rbmenu_items:
                 bar.remove(self._rbmenu_items[menu_item])
 
@@ -283,10 +275,7 @@ class Menu(object):
         :param menu_name_or_link: `str` to search for in the UI file
         '''
 		item = self.builder.get_object(menu_name_or_link)
-        print menu_name_or_link
-        print item
-        
-		
+
 		if is_rb3(self.shell):
             if item:
                 popup_menu = item
@@ -368,7 +357,7 @@ class ApplicationShell(object):
             if actiongroup:
                 action = actiongroup.get_action(action_name)
 
-        return action
+        return Action(self.shell, action)
 
 class Action(object):
     def __init__(self, shell, action):
@@ -386,3 +375,10 @@ class Action(object):
             return self.action.get_enabled()
         else:
             return self.action.get_sensitive()
+            
+    def activate(self):
+        if is_rb3(self.shell):
+            self.action.activate(None)
+        else:
+            self.action.activate()
+        

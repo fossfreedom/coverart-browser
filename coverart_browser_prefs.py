@@ -29,7 +29,7 @@ import os
 import shutil
 from stars import ReactiveStar
 from stars import StarSize
-import rb3compat
+import coverart_rb3compat as rb3compat
 
 class CoverLocale:
     '''

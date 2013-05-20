@@ -46,8 +46,8 @@ from coverart_controllers import AlbumQuickSearchController
 from coverart_utils import Theme
 from coverart_export import CoverArtExport
 from stars import ReactiveStar
-from rb3compat import Menu
-from rb3compat import ActionGroup
+from coverart_rb3compat import Menu
+from coverart_rb3compat import ActionGroup
 
 class CoverArtBrowserSource(RB.Source):
     '''

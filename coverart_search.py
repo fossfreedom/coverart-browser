@@ -23,7 +23,7 @@ import rb
 from gi.repository import Gtk
 from gi.repository import WebKit
 from mako.template import Template
-import rb3compat
+import coverart_rb3compat as rb3compat
 from coverart_album import AlbumManager
 
 

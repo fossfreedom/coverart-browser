@@ -20,8 +20,8 @@
 from gi.repository import RB
 from gi.repository import Gtk
 from gi.repository import GObject
-from rb3compat import Menu
-from rb3compat import ActionGroup
+from coverart_rb3compat import Menu
+from coverart_rb3compat import ActionGroup
 
 import rb
 

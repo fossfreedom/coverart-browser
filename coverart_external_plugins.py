@@ -22,31 +22,32 @@ from gi.repository import GObject
 from gi.repository import Gtk
 import lxml.etree as ET
 import rb
-import rb3compat
-from rb3compat import ActionGroup
-from rb3compat import Action
-from rb3compat import ApplicationShell
-from rb3compat import Menu
+import coverart_rb3compat as rb3compat
+from coverart_rb3compat import ActionGroup
+from coverart_rb3compat import Action
+from coverart_rb3compat import ApplicationShell
+from coverart_rb3compat import Menu
 
 class ExternalPlugin(GObject.Object):
     '''
-    Base class for all supported ExternalPlugins
-    At a minimum, the following `attributes` keys must be defined:
-    
-    :plugin_name: `str` module name of the plugin
-    :action_group_name: `str` plugin GtkActionGroup
-    :action: `str` plugin GtkAction - this is the action which is activated
-    :is_album_menu: `bool` if the menu is applicable to albums
-       by default, menus are created only for EntryViews
+    class for all supported ExternalPlugins
     '''
     def __init__(self, **kargs):
         super(ExternalPlugin, self).__init__(**kargs)
 
+        # dict of attributes associated with the external plugin
         self.attributes = {}
         self.attributes['is_album_menu'] = False
         self.attributes['new_menu_name'] = ''
 
     def appendattribute(self, key, val):
+        '''
+        append another attribute to the dict
+        
+        :param key: `str` name of attribute
+        :param val: `str` value of attribute
+        '''
+        
         if key == 'is_album_menu':
             if val == 'yes':
                 self.attributes[key] = True
@@ -62,7 +63,6 @@ class ExternalPlugin(GObject.Object):
         peas = Peas.Engine.get_default()
         loaded_plugins = peas.get_loaded_plugins()
 
-        #print(loaded_plugins)
         if self.attributes['plugin_name'] in loaded_plugins:
             return True
 
@@ -71,13 +71,16 @@ class ExternalPlugin(GObject.Object):
     def create_menu_item(self, menubar, section_name, at_position,
         save_actiongroup, save_menu, for_album = False):
         '''
-        method to create the menu item appropriate to the plugin
+        method to create the menu item appropriate to the plugin.
+        A plugin can have many menu items - all menuitems are enclosed
+        in a section.
         
-        :menu_name: `str` unique name for the calling (popup) menu
-        :shell: `RB.Shell` rhythmbox shell
-        :save_actiongroup: `GtkActionGroup` - this is our action-group
-          where our menus are described
-        :for_album: `bool` create the menu for the album - if not given
+        :param menubar: `str` name for the GtkMenu - ignored for RB2.99
+        :param section_name: `str` unique name of the section holding the menu items
+        :param at_position: `int` position within the GtkMenu to create menu - ignored for RB2.99
+        :param save_actiongroup: `ActionGroup` container for all menu-item Actions
+        :param save_menu: `Menu` whole popupmenu including sub-menus
+        :param for_album: `bool` create the menu for the album - if not given
           then its assumed the menu item is appropriate just for tracks
         '''
 
@@ -91,43 +94,21 @@ class ExternalPlugin(GObject.Object):
             self.attributes['action_name'])
             
         if action:
-            print "found action"
             self.attributes['action']=action
-            act = Action(save_menu.shell, action)
             
             if self.attributes['new_menu_name'] != '':
                 self.attributes['label'] = self.attributes['new_menu_name']
             else:
-                self.attributes['label']=act.get_label()
-            self.attributes['sensitive']=act.get_sensitive()
+                self.attributes['label']=action.get_label()
+            self.attributes['sensitive']=action.get_sensitive()
         else:
-            print "not found action"
             return False
 
-        #menu.add_menu_item(
-        #new_menu_item = Gtk.MenuItem(label=self.attributes['label'])
-        #new_menu_item.set_sensitive(self.attributes['sensitive'])
-
-        #action = Gtk.Action(label=self.attributes['label'],
-        #    name=menu_name + self.attributes['label'],
-        #    tooltip='', stock_id=Gtk.STOCK_CLEAR)
-           
-        #action.connect('activate', self.menuitem_callback, for_album, shell)
-        #new_menu_item.set_related_action(action)
-        print self.attributes
         action = save_actiongroup.add_action(self.menuitem_callback,
             self.attributes['action_name'], for_album, save_menu.shell)
-
-        #if rb3compat.is_rb3(save_menu.shell):
-        #    section_name = rb_plugin_name
-        #else:
-        #    section_name = 'popup_menu'
-
-        print section_name
         
         new_menu_item = save_menu.insert_menu_item(menubar, section_name,
             at_position, self.attributes['label'],  action)
-        #save_actiongroup.add_action(action)
 
         return new_menu_item
         
@@ -147,9 +128,14 @@ class ExternalPlugin(GObject.Object):
 
         page.get_entry_view().select_all()
 
-    def menuitem_callback(self, menu, param, args):
+    def menuitem_callback(self, action, param, args):
         '''
-        method called when a menu-item is clicked
+        method called when a menu-item is clicked.  Basically, an Action
+        is activated by the user
+        
+        :param action: `Gio.SimpleAction` or `Gtk.Action`
+        :param param: Not used
+        :param args: tuple associated with the action
         '''
         for_album = args[0]
         shell = args[1]
@@ -162,8 +148,9 @@ class CreateExternalPluginMenu(GObject.Object):
     '''
     This is the key class called to initialise all supported plugins
     
-    :menu_name: `str` unique name of the (popup) menu
-    :shell: `RB.Shell` plugin shell attribute
+    :param section_name: `str` unique name of the section holding the menu items
+    :param at_position: `int` position within the GtkMenu to create menu - ignored for RB2.99
+    :param popup: `Menu` whole popupmenu including sub-menus
     '''
     def __init__(self, section_name, at_position, popup, **kargs):
         super(CreateExternalPluginMenu, self).__init__(**kargs)
@@ -174,9 +161,8 @@ class CreateExternalPluginMenu(GObject.Object):
         self.at_position = at_position
         
         self._actiongroup = ActionGroup(popup.shell, section_name + '_externalplugins')
-        #self._menu = Menu(self.source, self.plugin, self.shell)
         
-        # all supported plugins MUST be defined in the following array
+        # all supported plugins will be defined in the following array
         self.supported_plugins = []
         
         extplugins = rb.find_plugin_file(popup.plugin, 'ui/coverart_external_plugins.xml')
@@ -214,58 +200,22 @@ class CreateExternalPluginMenu(GObject.Object):
         '''
         method to create the menu items for all supported plugins
 
-        :menu_name: `str` - where the menu-items are to be added
-        :at_position: `int` - position in the menu list where menu-items
-           are to be added
         :for_album: `bool` - create a menu applicable for Albums
           by default a menu is assumed to be applicable to a track in an
           EntryView
         '''
-        #return
-        #tidy up old menu items before recreating the list
-        #for action in self._actiongroup.list_actions():
-        #    print("removing")
-        #    self._actiongroup.remove_action(action)
-        self._actiongroup.remove_actions()
         
-        #if rb3compat.is_rb3(self._menu.shell):
-        #    menu_name = rb_plugin_name
-        #else:
-        #    menu_name = 'popup_menu'
-
+        self._actiongroup.remove_actions()        
         self.menu.remove_menu_items(self.menu_name, self.section_name)
         
-        #for menu_item in self._menu_array:
-        #    menu_bar.remove(menu_item)
-
-        #self._menu_array = []
-
         items_added = False
 
         for plugin in self.supported_plugins:
             new_menu_item = plugin.create_menu_item(self.menu_name, self.section_name,
                 self.at_position, self._actiongroup, self.menu, for_album)
 
-            print new_menu_item
-            print items_added
             if (not items_added) and new_menu_item:
                 items_added = True 
 
         if items_added:
-            print "hi"
             self.menu.insert_separator(self.menu_name, self.at_position)
-            
-            #if menu_item:
-            #    self._menu_array.append(menu_item)
-
-        #if len(self._menu_array) > 0:
-        #    menu_item = Gtk.SeparatorMenuItem().new()
-        #    menu_item.set_visible(True)
-        #    self._menu_array.append(menu_item)
-
-        #for menu_item in self._menu_array:
-        #    menu_bar.insert(menu_item, at_position)
-
-        #uim = self.shell.props.ui_manager
-        #menu_bar.show_all()
-        #uim.ensure_update()
