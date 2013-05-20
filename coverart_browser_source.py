@@ -202,7 +202,7 @@ class CoverArtBrowserSource(RB.Source):
         # get widgets for main icon-view
         self.status_label = ui.get_object('status_label')
         self.covers_view = ui.get_object('covers_view')
-        self.popup_menu = Menu(self, self.plugin, self.shell)
+        self.popup_menu = Menu(self.plugin, self.shell)
         self.popup_menu.load_from_file('ui/coverart_browser_pop_rb2.ui',
 			'ui/coverart_browser_pop_rb3.ui')
 			
@@ -251,7 +251,7 @@ class CoverArtBrowserSource(RB.Source):
         self.covers_view.view_name = "covers_view"
         #self.covers_view.shell = self.shell
         #self.covers_view.plugin = self.plugin
-        #self.covers_view.source = self
+        self.covers_view.source = self
         self.covers_view.ext_menu_pos = 10
 
         # setup entry-view objects and widgets

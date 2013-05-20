@@ -109,13 +109,12 @@ class Menu(object):
     '''
     Menu object used to create window popup menus
     '''
-	def __init__(self, source, plugin, shell):
+	def __init__(self, plugin, shell):
         '''
         Initializes the menu.
         '''
 		self.plugin = plugin
 		self.shell = shell
-		self.source = source
         self._unique_num = 0
         
         self._rbmenu_items = {}
@@ -220,9 +219,7 @@ class Menu(object):
 			
         self.builder.add_from_file(rb.find_plugin_file(self.plugin,
             ui_filename))
-            			
-        self.builder.connect_signals(self.source)
-        
+
     def _connect_rb3_signals(self, signals):
 		def _menu_connect(action_name, func):
 			action = Gio.SimpleAction(name=action_name)
@@ -252,7 +249,7 @@ class Menu(object):
 		else:
 			self._connect_rb2_signals(signals)
             
-    def create_gtkmenu(self, popup_name):
+    def get_gtkmenu(self, source, popup_name):
         '''
         utility function to obtain the GtkMenu from the menu UI file
         :param popup_name: `str` is the name menu-id in the UI file
@@ -263,7 +260,7 @@ class Menu(object):
             app = self.shell.props.application
             app.link_shared_menus(item)
             popup_menu = Gtk.Menu.new_from_model(item)
-            popup_menu.attach_to_widget(self.source, None)
+            popup_menu.attach_to_widget(source, None)
         else:
             popup_menu = item
         

@@ -64,7 +64,7 @@ class CoverArtEntryView(RB.EntryView):
 
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
 
-        popup = Menu(self, self.plugin, self.shell)
+        popup = Menu(self.plugin, self.shell)
         popup.load_from_file('ui/coverart_entryview_pop_rb2.ui',
 						     'ui/coverart_entryview_pop_rb3.ui')
 		signals = {
@@ -75,7 +75,7 @@ class CoverArtEntryView(RB.EntryView):
 			'ev_show_properties_menu_item': self.show_properties_menu_item_callback }
 			
 		popup.connect_signals(signals)
-		self.popup_menu = popup.create_gtkmenu('entryview_popup_menu')
+		self.popup_menu = popup.get_gtkmenu(self.source, 'entryview_popup_menu')
             
 
         # connect signals to the shell to know when the playing state changes
