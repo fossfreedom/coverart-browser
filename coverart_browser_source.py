@@ -624,8 +624,10 @@ class CoverArtBrowserSource(RB.Source):
                 if playlist.props.is_local and \
                     isinstance(playlist, RB.StaticPlaylistSource):
 
-                    action = actiongroup.add_action(func, playlist.props.name,
-                        playlist, favourite)
+                    args=(playlist, favourite)
+                    action = actiongroup.add_action(func=func,
+                        action_name=playlist.props.name,
+                        playlist=playlist,favourite=favourite)
                         
                     self.popup_menu.add_menu_item( menubar, section_name,
                         playlist.props.name, action )
@@ -634,8 +636,8 @@ class CoverArtBrowserSource(RB.Source):
         print('''CoverArtBrowser DEBUG -
             add_to_static_playlist_menu_item_callback''')
             
-        playlist=args[0]
-        favourite = args[1]
+        playlist=args['playlist']
+        favourite = args['favourite']
         
         self.queue_selected_album(playlist, favourite)
 

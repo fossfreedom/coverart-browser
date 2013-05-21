@@ -104,8 +104,9 @@ class ExternalPlugin(GObject.Object):
         else:
             return False
 
-        action = save_actiongroup.add_action(self.menuitem_callback,
-            self.attributes['action_name'], for_album, save_menu.shell)
+        action = save_actiongroup.add_action(func=self.menuitem_callback,
+            action_name=self.attributes['action_name'], album=for_album,
+            shell=save_menu.shell)
         
         new_menu_item = save_menu.insert_menu_item(menubar, section_name,
             at_position, self.attributes['label'],  action)
@@ -135,10 +136,10 @@ class ExternalPlugin(GObject.Object):
         
         :param action: `Gio.SimpleAction` or `Gtk.Action`
         :param param: Not used
-        :param args: tuple associated with the action
+        :param args: dict associated with the action
         '''
-        for_album = args[0]
-        shell = args[1]
+        for_album = args['album']
+        shell = args['shell']
         if for_album:
             self.set_entry_view_selected_entries(shell)
             

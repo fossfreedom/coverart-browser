@@ -315,14 +315,20 @@ class ActionGroup(object):
         for action in self.actiongroup.list_actions():
             self.actiongroup.remove_action(action)
             
-    def add_action(self, func, action_name, *args):
+    def add_action(self, func, action_name, **args ):
         if is_rb3(self.shell):
             action = Gio.SimpleAction.new(action_name, None)
             action.connect('activate', func, args)
             self.shell.props.window.add_action(action)
             self.actiongroup.add_action(action)
         else:
-            action = Gtk.Action(label=action_name,
+            if 'label' in args:
+                label = args['label']
+                args.pop('label',0)
+            else:
+                label=action_name
+                
+            action = Gtk.Action(label=label,
                 name=action_name,
                tooltip='', stock_id=Gtk.STOCK_CLEAR)
             action.connect('activate', func, None, args)
@@ -333,6 +339,7 @@ class ActionGroup(object):
 class ApplicationShell(object):
     def __init__(self, shell):
 		self.shell = shell
+        self._uids = []
         
     def get_action(self, action_group_name, action_name):
         if is_rb3(self.shell):
@@ -355,6 +362,29 @@ class ApplicationShell(object):
                 action = actiongroup.get_action(action_name)
 
         return Action(self.shell, action)
+
+    def add_app_menuitems(self, ui_string):
+        if is_rb3(self.shell):
+            root = ET.fromstring(ui_string)
+            for elem in root.findall(".//menuitem"):
+                action_name = elem.attrib['action']
+                item_name = elem.attrib['name']
+                
+        else:
+            uim = self.shell.props.ui_manager
+            self._uids.append(uim.add_ui_from_string(ui_string))
+            print self._uids
+            uim.ensure_update()
+
+    def cleanup(self):
+        if is_rb3(self.shell):
+            pass
+        else:
+            uim = self.shell.props.ui_manager
+            for uid in self._uids:
+                print uid
+                uim.remove_ui(uid)
+            uim.ensure_update();
 
 class Action(object):
     def __init__(self, shell, action):
