@@ -18,6 +18,7 @@ from gi.repository import Gtk
 from gi.repository import Gio
 import sys
 import rb
+import lxml.etree as ET
 
 PYVER = sys.version_info[0]
 
@@ -319,12 +320,20 @@ class ActionGroup(object):
         if is_rb3(self.shell):
             action = Gio.SimpleAction.new(action_name, None)
             action.connect('activate', func, args)
-            self.shell.props.window.add_action(action)
-            self.actiongroup.add_action(action)
+            action_type = 'win'
+            if 'action_type' in args:
+                if args['action_type'] == 'app':
+                    action_type = 'app'
+
+            if action_type == 'app':
+                app = Gio.Application.get_default()
+                app.add_action(action)
+            else:
+                self.shell.props.window.add_action(action)
+                self.actiongroup.add_action(action)
         else:
             if 'label' in args:
                 label = args['label']
-                args.pop('label',0)
             else:
                 label=action_name
                 
@@ -370,19 +379,26 @@ class ApplicationShell(object):
                 action_name = elem.attrib['action']
                 item_name = elem.attrib['name']
                 
+                item = Gio.MenuItem()
+                item.set_label(item_name)
+                item.set_detailed_action('app.' + action_name)
+                app = Gio.Application.get_default()
+                app.add_plugin_menu_item('tools', 
+                    action_name, item)
+                self._uids.append(action_name)
         else:
             uim = self.shell.props.ui_manager
             self._uids.append(uim.add_ui_from_string(ui_string))
-            print self._uids
             uim.ensure_update()
 
     def cleanup(self):
         if is_rb3(self.shell):
-            pass
+            for uid in self._uids:
+                Gio.Application.get_default().remove_plugin_menu_item('tools', 
+                    uid)
         else:
             uim = self.shell.props.ui_manager
             for uid in self._uids:
-                print uid
                 uim.remove_ui(uid)
             uim.ensure_update();
 
