@@ -51,11 +51,10 @@ class CoverArtBrowserSource(RB.Source):
     '''
     Source utilized by the plugin to show all it's ui.
     '''
-    custom_statusbar_enabled = GObject.property(type=bool, default=False)
     rating_threshold = GObject.property(type=float, default=0)
     icon_spacing = GObject.property(type=int, default=0)
     icon_padding = GObject.property(type=int, default=0)
-    
+
     # unique instance of the source
     instance = None
 
@@ -82,15 +81,13 @@ class CoverArtBrowserSource(RB.Source):
         print "CoverArtBrowser DEBUG - _connect_properties"
         setting = self.gs.get_setting(self.gs.Path.PLUGIN)
 
-        setting.bind(self.gs.PluginKey.CUSTOM_STATUSBAR, self,
-            'custom_statusbar_enabled', Gio.SettingsBindFlags.GET)
         setting.bind(self.gs.PluginKey.RATING, self,
             'rating_threshold', Gio.SettingsBindFlags.GET)
         setting.bind(self.gs.PluginKey.ICON_SPACING, self,
             'icon_spacing', Gio.SettingsBindFlags.GET)
         setting.bind(self.gs.PluginKey.ICON_PADDING, self,
             'icon_padding', Gio.SettingsBindFlags.GET)
-        
+
 
         print "CoverArtBrowser DEBUG - end _connect_properties"
 
@@ -160,9 +157,6 @@ class CoverArtBrowserSource(RB.Source):
         uim.insert_action_group(self.favourite_actiongroup)
 
         # connect properties signals
-        self.connect('notify::custom-statusbar-enabled',
-            self.on_notify_custom_statusbar_enabled)
-
         self.connect('notify::rating-threshold',
             self.on_notify_rating_threshold)
 
@@ -205,7 +199,6 @@ class CoverArtBrowserSource(RB.Source):
         self.covers_view = ui.get_object('covers_view')
         self.popup_menu = ui.get_object('popup_menu')
         self.cover_search_menu_item = ui.get_object('cover_search_menu_item')
-        self.status_label = ui.get_object('status_label')
         self.request_status_box = ui.get_object('request_status_box')
         self.request_spinner = ui.get_object('request_spinner')
         self.request_statusbar = ui.get_object('request_statusbar')
@@ -226,10 +219,10 @@ class CoverArtBrowserSource(RB.Source):
         self.playlist_sub_menu_item = ui.get_object('playlist_sub_menu_item')
         self.favourite_playlist_sub_menu_item = ui.get_object(
             'favourite_playlist_sub_menu_item')
-            
+
         self.export_embed_menu_item = ui.get_object(
             'export_embed_menu_item')
-        
+
         # quick search
         self.quick_search = ui.get_object('quick_search_entry')
 
@@ -275,7 +268,6 @@ class CoverArtBrowserSource(RB.Source):
         vbox.show_all()
         self.notebook.append_page(vbox, Gtk.Label(_("Tracks")))
 
-
         # setup iconview drag&drop support
         # first drag and drop on the coverart view to receive coverart
         self.covers_view.enable_model_drag_dest([], Gdk.DragAction.COPY)
@@ -289,11 +281,11 @@ class CoverArtBrowserSource(RB.Source):
         # lastly support drag-drop from coverart to devices/nautilus etc
         self.covers_view.enable_model_drag_source(Gdk.ModifierType.BUTTON1_MASK,
             [], Gdk.DragAction.COPY)
-        targets = Gtk.TargetList.new([Gtk.TargetEntry.new("application/x-rhythmbox-entry", 0,0),
-            Gtk.TargetEntry.new("text/uri-list", 0,1) ])
+        targets = Gtk.TargetList.new([Gtk.TargetEntry.new("application/x-rhythmbox-entry", 0, 0),
+            Gtk.TargetEntry.new("text/uri-list", 0, 1) ])
         # N.B. values taken from rhythmbox v2.97 widgets/rb_entry_view.c
         targets.add_uri_targets(2)
-        self.covers_view.drag_source_set_target_list(targets)        
+        self.covers_view.drag_source_set_target_list(targets)
         self.covers_view.connect("drag-data-get", self.on_drag_data_get)
 
         # create an album manager
@@ -339,6 +331,8 @@ class CoverArtBrowserSource(RB.Source):
             CoverArtExport(self.plugin,
                 self.shell, self.album_manager).is_search_plugin_enabled())
 
+        # setup the statusbar component
+        self.statusbar = Statusbar(self)
 
         print "CoverArtBrowser DEBUG - end _setup_source"
 
@@ -417,23 +411,6 @@ class CoverArtBrowserSource(RB.Source):
 
         # clear the click count
         self.click_count = 0
-
-    def on_notify_custom_statusbar_enabled(self, *args):
-        '''
-        Callback for when the option to show the custom statusbar is enabled
-        or disabled from the plugin's preferences dialog.
-        '''
-        print "CoverArtBrowser DEBUG - on_notify_custom_statusbar_enabled"
-
-        if self.custom_statusbar_enabled:
-            self.status = ''
-            self.notify_status_changed()
-        else:
-            self.status_label.hide()
-
-        self.selectionchanged_callback(self.covers_view)
-
-        print "CoverArtBrowser DEBUG - end on_notify_custom_statusbar_enabled"
 
     def on_notify_rating_threshold(self, *args):
         '''
@@ -692,7 +669,7 @@ class CoverArtBrowserSource(RB.Source):
 
         CoverArtExport(self.plugin,
             self.shell, self.album_manager).embed_albums(selected_albums)
-        
+
 
         print "CoverArtBrowser DEBUG - export_embed_menu_item_callback()"
 
@@ -745,9 +722,6 @@ class CoverArtBrowserSource(RB.Source):
     def selectionchanged_callback(self, widget):
         '''
         Callback called when an item from the cover view gets selected.
-        It changes the content of the statusbar (which statusbar is dependant
-        on the custom_statusbar_enabled property) to show info about the
-        current selected album.
         '''
         print "CoverArtBrowser DEBUG - selectionchanged_callback"
 
@@ -760,10 +734,7 @@ class CoverArtBrowserSource(RB.Source):
             self.notebook.page_num(self.cover_search_pane)
 
         if not selected:
-            # if no album selected, clean the status and the cover tab if
-            # if selected
-            self.update_statusbar()
-
+            # clean cover tab if selected
             if cover_search_pane_visible:
                 self.cover_search_pane.clear()
 
@@ -785,61 +756,15 @@ class CoverArtBrowserSource(RB.Source):
         else:
             self.stars.set_rating(0)
 
-        track_count = 0
-        duration = 0
-
         for album in selected:
-            # Calculate duration and number of tracks from that album
-            track_count += album.track_count
-            duration += album.duration / 60
-
             # add the album to the entry_view
             self.entry_view.add_album(album)
-
-        # now lets build up a status label containing some 'interesting stuff'
-        # about the album
-        if len(selected) == 1:
-            status = (_('%s by %s') % (album.name, album.artist)).decode(
-                'UTF-8')
-        else:
-            status = (_('%d selected albums ') % (len(selected))).decode(
-                'UTF-8')
-
-        if track_count == 1:
-            status += (_(' with 1 track')).decode('UTF-8')
-        else:
-            status += (_(' with %d tracks') % track_count).decode('UTF-8')
-
-        if duration == 1:
-            status += (_(' and a duration of 1 minute')).decode('UTF-8')
-        else:
-            status += (_(' and a duration of %d minutes') % duration).decode(
-                'UTF-8')
-
-        self.update_statusbar(status)
 
         # update the cover search pane with the first selected album
         if cover_search_pane_visible:
             self.cover_search_pane.do_search(selected[0])
 
         print "CoverArtBrowser DEBUG - end selectionchanged_callback"
-
-    def update_statusbar(self, status=''):
-        '''
-        Utility method that updates the status bar.
-        '''
-        print "CoverArtBrowser DEBUG - update_statusbar"
-
-        if self.custom_statusbar_enabled:
-            # if the custom statusbar is enabled... use it.
-            self.status_label.set_text(status)
-            self.status_label.show()
-        else:
-            # use the global statusbar from Rhythmbox
-            self.status = status
-            self.notify_status_changed()
-
-        print "CoverArtBrowser DEBUG - end update_statusbar"
 
     def bottom_expander_expanded_callback(self, paned, expand):
         '''
@@ -924,7 +849,7 @@ class CoverArtBrowserSource(RB.Source):
                 uris.append(track.location)
 
         data.set_uris(uris)
-         
+
         # stop the propagation of the signal (deactivates superclass callback)
         widget.stop_emission('drag-data-get')
         print "CoverArtBrowser DEBUG - end on_drag_data_get"
@@ -941,7 +866,7 @@ class CoverArtBrowserSource(RB.Source):
             item = Gtk.STOCK_DND
         else:
             item = Gtk.STOCK_DND_MULTIPLE
-            
+
         widget.drag_source_set_icon_stock(item)
         widget.stop_emission('drag-begin')
 
@@ -987,7 +912,7 @@ class CoverArtBrowserSource(RB.Source):
         print self.covers_view.set_row_spacing(self.icon_spacing)
         print self.covers_view.set_column_spacing(self.icon_spacing)
         pass
-        
+
     @classmethod
     def get_instance(cls, **kwargs):
         '''
@@ -997,6 +922,115 @@ class CoverArtBrowserSource(RB.Source):
             cls.instance = CoverArtBrowserSource(**kwargs)
 
         return cls.instance
+
+
+class Statusbar(GObject.Object):
+    custom_statusbar_enabled = GObject.property(type=bool, default=False)
+
+    def __init__(self, source):
+        super(Statusbar, self).__init__()
+
+        self.status = ''
+
+        self._source_statusbar = SourceStatusBar(source)
+        self._custom_statusbar = CustomStatusBar(source.status_label)
+        self.current_statusbar = self._source_statusbar
+
+        self._connect_signals(source)
+        self._connect_properties()
+
+    def _connect_properties(self):
+        gs = GSetting()
+        settings = gs.get_setting(gs.Path.PLUGIN)
+
+        settings.bind(gs.PluginKey.CUSTOM_STATUSBAR, self,
+            'custom_statusbar_enabled', Gio.SettingsBindFlags.GET)
+
+    def _connect_signals(self, source):
+        self.connect('notify::custom-statusbar-enabled',
+            self._custom_statusbar_enabled_changed)
+        source.covers_view.connect('selection-changed', self._update)
+
+
+    def _custom_statusbar_enabled_changed(self, *args):
+        self.current_statusbar.hide()
+
+        if self.custom_statusbar_enabled:
+            self.current_statusbar = self._custom_statusbar
+        else:
+            self.current_statusbar = self._source_statusbar
+
+        self.current_statusbar.show()
+        self.current_statusbar.update(self.status)
+
+    def _generate_status(self, albums=None):
+        self.status = ''
+
+        if albums:
+            track_count = 0
+            duration = 0
+
+            for album in albums:
+                # Calculate duration and number of tracks from that album
+                track_count += album.track_count
+                duration += album.duration / 60
+
+            # now lets build up a status label containing some
+            # 'interesting stuff' about the album
+            if len(albums) == 1:
+                self.status = (_('%s by %s') % (album.name, album.artist)).\
+                    decode('UTF-8')
+            else:
+                self.status = (_('%d selected albums') % (len(albums))).\
+                    decode('UTF-8')
+
+            if track_count == 1:
+                self.status += (_(' with 1 track')).decode('UTF-8')
+            else:
+                self.status += (_(' with %d tracks') % track_count).\
+                    decode('UTF-8')
+
+            if duration == 1:
+                self.status += (_(' and a duration of 1 minute')).\
+                    decode('UTF-8')
+            else:
+                self.status += \
+                    (_(' and a duration of %d minutes') % duration).\
+                        decode('UTF-8')
+
+    def _update(self, widget):
+        albums = widget.get_selected_objects()
+        self._generate_status(albums)
+        self.current_statusbar.update(self.status)
+
+
+class SourceStatusBar(object):
+    def __init__(self, source):
+        self._source = source
+
+    def show(self):
+        pass
+
+    def hide(self):
+        self.update('')
+
+    def update(self, status):
+        self._source.status = status
+        self._source.notify_status_changed()
+
+
+class CustomStatusBar(object):
+    def __init__(self, status_label):
+        self._label = status_label
+
+    def show(self):
+        self._label.show()
+
+    def hide(self):
+        self._label.hide()
+
+    def update(self, status):
+        self._label.set_text(status)
 
 
 class Toolbar(GObject.Object):
