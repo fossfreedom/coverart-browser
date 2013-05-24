@@ -596,20 +596,21 @@ class CoverArtBrowserSource(RB.Source):
     def playlist_menu_item_callback(self, *args):
         print("CoverArtBrowser DEBUG - playlist_menu_item_callback")
 
-        self.playlist_fillmenu('playlist_submenu', 'playlist_section',
+        self.playlist_fillmenu(self.popup_menu, 'playlist_submenu', 'playlist_section',
                                self.actiongroup,
                                self.add_to_static_playlist_menu_item_callback)
 
     def favourite_playlist_menu_item_callback(self, *args):
         print("CoverArtBrowser DEBUG - favourite_playlist_menu_item_callback")
 
-        self.playlist_fillmenu('favourite_playlist_submenu',
+        self.playlist_fillmenu(self.popup_menu, 'favourite_playlist_submenu',
                                'favourite_playlist_section',
                                self.favourite_actiongroup,
                                self.add_to_static_playlist_menu_item_callback,
                                True)
 
-    def playlist_fillmenu(self, menubar, section_name, actiongroup, func, favourite=False):
+    def playlist_fillmenu(self, popup_menu, menubar, section_name,
+        actiongroup, func, favourite=False):
         print("CoverArtBrowser DEBUG - playlist_fillmenu")
 
         playlist_manager = self.shell.props.playlist_manager
@@ -617,7 +618,7 @@ class CoverArtBrowserSource(RB.Source):
 
         # tidy up old playlists menu items before recreating the list
         actiongroup.remove_actions()
-        self.popup_menu.remove_menu_items(menubar, section_name)
+        popup_menu.remove_menu_items(menubar, section_name)
 
         if playlists_entries:
             for playlist in playlists_entries:
@@ -627,10 +628,11 @@ class CoverArtBrowserSource(RB.Source):
                     args=(playlist, favourite)
                     action = actiongroup.add_action(func=func,
                         action_name=playlist.props.name,
-                        playlist=playlist,favourite=favourite)
+                        playlist=playlist,favourite=favourite,
+                        label=playlist.props.name)
                         
-                    self.popup_menu.add_menu_item( menubar, section_name,
-                        playlist.props.name, action )
+                    popup_menu.add_menu_item( menubar, section_name,
+                        action )
 
     def add_to_static_playlist_menu_item_callback(self, action, param, args):
         print('''CoverArtBrowser DEBUG -

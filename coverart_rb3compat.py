@@ -120,22 +120,23 @@ class Menu(object):
         
         self._rbmenu_items = {}
         
-    def add_menu_item(self, menubar, section_name, label, action):
+    def add_menu_item(self, menubar, section_name, action):
         '''
         add a new menu item to the popup
         :param menubar: `str` is the name GtkMenu (or blank for RB2.99+)
         :param section_name: `str` is the name of the section to add the item to
-        :param label: `str` is the text of the menu item displayed to the user
-        :param action: `GtkAction` or `Gio.SimpleAction associated with the menu item
+        :param action: `Action`  to associate with the menu item
         '''
-        return self.insert_menu_item(menubar, section_name, -1, label, action)
+        return self.insert_menu_item(menubar, section_name, -1, action)
 
-    def insert_menu_item(self, menubar, section_name, position, label, action):
+    def insert_menu_item(self, menubar, section_name, position, action):
+        label = action.label
+        
         if is_rb3(self.shell):
             app = self.shell.props.application
             item = Gio.MenuItem()
             item.set_label(label)
-            item.set_detailed_action('win.'+action.get_name())
+            action.associate_menuitem(item)
             
             if not section_name in self._rbmenu_items:
                 self._rbmenu_items[section_name] = []
@@ -144,9 +145,11 @@ class Menu(object):
             app.add_plugin_menu_item(section_name, label, item)
         else:
             item = Gtk.MenuItem(label=label)
-            item.set_related_action(action)
+            action.associate_menuitem(item)
             self._rbmenu_items[label] = item
             bar = self.get_menu_object(menubar)
+            print menubar
+            print self.ui_filename 
             if position == -1:
                 bar.append(item)
             else:
@@ -217,6 +220,8 @@ class Menu(object):
 			ui_filename = rb3_ui_filename
 		else:
 			ui_filename = rb2_ui_filename
+
+        self.ui_filename = ui_filename
 			
         self.builder.add_from_file(rb.find_plugin_file(self.plugin,
             ui_filename))
@@ -304,6 +309,8 @@ class ActionGroup(object):
 	def __init__(self, shell, group_name):
 		self.group_name = group_name
 		self.shell = shell
+    
+        self._actions = {}
         
 		if is_rb3(self.shell):
 			self.actiongroup = Gio.SimpleActionGroup()
@@ -311,12 +318,25 @@ class ActionGroup(object):
 			self.actiongroup = Gtk.ActionGroup(group_name)
 			uim = self.shell.props.ui_manager
 			uim.insert_action_group(self.actiongroup)
+
+    @property
+    def name(self):
+        return self.group_name
             
     def remove_actions(self):
         for action in self.actiongroup.list_actions():
             self.actiongroup.remove_action(action)
             
+    def get_action(self, action_name):
+        return self._actions[action_name]
+            
     def add_action(self, func, action_name, **args ):
+        print args
+        if 'label' in args:
+            label = args['label']
+        else:
+            label=action_name
+        
         if is_rb3(self.shell):
             action = Gio.SimpleAction.new(action_name, None)
             action.connect('activate', func, args)
@@ -332,86 +352,168 @@ class ActionGroup(object):
                 self.shell.props.window.add_action(action)
                 self.actiongroup.add_action(action)
         else:
-            if 'label' in args:
-                label = args['label']
-            else:
-                label=action_name
-                
             action = Gtk.Action(label=label,
                 name=action_name,
                tooltip='', stock_id=Gtk.STOCK_CLEAR)
             action.connect('activate', func, None, args)
             self.actiongroup.add_action(action)
-	
-        return action
+            
+        act = Action(self.shell, action)
+        act.label = label
+            
+        self._actions[action_name] = act
+            
+        return act
 
 class ApplicationShell(object):
-    def __init__(self, shell):
-		self.shell = shell
-        self._uids = []
-        
-    def get_action(self, action_group_name, action_name):
-        if is_rb3(self.shell):
-            if action_group_name == "app":
-                action = self.shell.props.application.lookup_action(action_name)
+    # storage for the instance reference
+    __instance = None
+    
+    class __impl:
+        """ Implementation of the singleton interface """
+        def __init__(self, shell):
+            self.shell = shell
+            
+            if is_rb3(self.shell):
+                self._uids = {}
             else:
-                action = self.shell.props.window.lookup_action(action_name)
-
-        else:
-            uim = self.shell.props.ui_manager
-            ui_actiongroups = uim.get_action_groups()
-
-            actiongroup = None
-            for actiongroup in ui_actiongroups:
-                if actiongroup.get_name() == action_group_name:
-                    break
-
-            action = None
-            if actiongroup:
-                action = actiongroup.get_action(action_name)
-
-        return Action(self.shell, action)
-
-    def add_app_menuitems(self, ui_string):
-        if is_rb3(self.shell):
-            root = ET.fromstring(ui_string)
-            for elem in root.findall(".//menuitem"):
-                action_name = elem.attrib['action']
-                item_name = elem.attrib['name']
+                self._uids = []
                 
-                item = Gio.MenuItem()
-                item.set_label(item_name)
-                item.set_detailed_action('app.' + action_name)
-                app = Gio.Application.get_default()
-                app.add_plugin_menu_item('tools', 
-                    action_name, item)
-                self._uids.append(action_name)
-        else:
-            uim = self.shell.props.ui_manager
-            self._uids.append(uim.add_ui_from_string(ui_string))
-            uim.ensure_update()
+            self._action_groups = {}
+            
+        def insert_action_group(self, action_group):
+            self._action_groups[action_group.name] = action_group
+            
+        def lookup_action(self, action_group_name, action_name, action_type='app'):
+            if is_rb3(self.shell):
+                if action_type == "app":
+                    action = self.shell.props.application.lookup_action(action_name)
+                else:
+                    action = self.shell.props.window.lookup_action(action_name)
 
-    def cleanup(self):
-        if is_rb3(self.shell):
-            for uid in self._uids:
-                Gio.Application.get_default().remove_plugin_menu_item('tools', 
-                    uid)
-        else:
-            uim = self.shell.props.ui_manager
-            for uid in self._uids:
-                uim.remove_ui(uid)
-            uim.ensure_update();
+            else:
+                uim = self.shell.props.ui_manager
+                ui_actiongroups = uim.get_action_groups()
+
+                actiongroup = None
+                for actiongroup in ui_actiongroups:
+                    if actiongroup.get_name() == action_group_name:
+                        break
+
+                action = None
+                if actiongroup:
+                    action = actiongroup.get_action(action_name)
+
+            return Action(self.shell, action)
+
+        def add_app_menuitems(self, ui_string, group_name):
+            if is_rb3(self.shell):
+                root = ET.fromstring(ui_string)
+                for elem in root.findall(".//menuitem"):
+                    action_name = elem.attrib['action']
+                    item_name = elem.attrib['name']
+                    
+                    group = self._action_groups[group_name]
+                    act = group.get_action(action_name)
+                    
+                    item = Gio.MenuItem()
+                    item.set_label(act.label)
+                    item.set_detailed_action('app.' + action_name)
+                    app = Gio.Application.get_default()
+                    app.add_plugin_menu_item('tools', 
+                        action_name, item)
+                    self._uids[action_name] = 'tools'
+            else:
+                uim = self.shell.props.ui_manager
+                self._uids.append(uim.add_ui_from_string(ui_string))
+                uim.ensure_update()
+                
+        def add_browser_menuitems(self, ui_string, group_name):
+            if is_rb3(self.shell):
+                root = ET.fromstring(ui_string)
+                for elem in root.findall("./popup"):
+                    popup_name = elem.attrib['name']
+                    
+                    menuelem = elem.find('.//menuitem')
+                    action_name = menuelem.attrib['action']
+                    item_name = menuelem.attrib['name']
+                    
+                    group = self._action_groups[group_name]
+                    act = group.get_action(action_name)
+                    
+                    item = Gio.MenuItem()
+                    item.set_label(act.label)
+                    item.set_detailed_action('win.' + action_name)
+                    app = Gio.Application.get_default()
+                    
+                    if popup_name == 'QueuePlaylistViewPopup':
+                        plugin_type = 'queue-popup'
+                    elif popup_name == 'BrowserSourceViewPopup':
+                        plugin_type = 'browser-popup'
+                    elif popup_name == 'PlaylistViewPopup':
+                        plugin_type = 'playlist-popup'
+                    elif popup_name == 'PodcastViewPopup':
+                        plugin_type = 'podcast-episode-popup'
+                    else:
+                        print "unknown type %s" % plugin_type
+                        
+                    app.add_plugin_menu_item(plugin_type, action_name, item)
+                    self._uids[plugin_type]=action_name
+            else:
+                uim = self.shell.props.ui_manager
+                self._uids.append(uim.add_ui_from_string(ui_string))
+                uim.ensure_update()
+
+        def cleanup(self):
+            if is_rb3(self.shell):
+                for uid in self._uids:
+                    
+                    Gio.Application.get_default().remove_plugin_menu_item(uid, 
+                        self._uids[uid])
+            else:
+                uim = self.shell.props.ui_manager
+                for uid in self._uids:
+                    uim.remove_ui(uid)
+                uim.ensure_update();
+
+    def __init__(self, shell):
+        """ Create singleton instance """
+        # Check whether we already have an instance
+        if ApplicationShell.__instance is None:
+            # Create and remember instance
+            ApplicationShell.__instance = ApplicationShell.__impl(shell)
+
+        # Store instance reference as the only member in the handle
+        self.__dict__['_ApplicationShell__instance'] = ApplicationShell.__instance
+
+    def __getattr__(self, attr):
+        """ Delegate access to implementation """
+        return getattr(self.__instance, attr)
+
+    def __setattr__(self, attr, value):
+        """ Delegate access to implementation """
+        return setattr(self.__instance, attr, value)
 
 class Action(object):
     def __init__(self, shell, action):
 		self.shell = shell
         self.action = action
+        
+        self._label = ''
 
-    def get_label(self):
+    @property
+    def label(self):
         if not is_rb3(self.shell):
             return self.action.get_label()
         else:
-            return ''
+            return self._label
+            
+    @label.setter
+    def label(self, new_label):
+        if not is_rb3(self.shell):
+            self.action.set_label(new_label)
+            
+        self._label = new_label
 
     def get_sensitive(self):
         if is_rb3(self.shell):
@@ -424,4 +526,10 @@ class Action(object):
             self.action.activate(None)
         else:
             self.action.activate()
+
+    def associate_menuitem(self, menuitem):
+        if is_rb3(self.shell):
+            menuitem.set_detailed_action('win.'+self.action.label)
+        else:
+            menuitem.set_related_action(self.action)
         

@@ -75,8 +75,7 @@ class CoverArtEntryView(RB.EntryView):
 			'ev_show_properties_menu_item': self.show_properties_menu_item_callback }
 			
 		popup.connect_signals(signals)
-		self.popup_menu = popup.get_gtkmenu(self.source, 'entryview_popup_menu')
-            
+		self.popup = popup
 
         # connect signals to the shell to know when the playing state changes
         self.shell.props.shell_player.connect('playing-song-changed',
@@ -85,11 +84,8 @@ class CoverArtEntryView(RB.EntryView):
             self.playing_changed)
 
         self.actiongroup = ActionGroup(self.shell, 'coverentryplaylist_submenu')
-        #uim = self.shell.props.ui_manager
-        #uim.insert_action_group(self.actiongroup)
-
-        self.external_plugins = \
-            CreateExternalPluginMenu("ca_entryview", 3, popup)
+        
+        self.external_plugins = None
 
         # connect the visible-columns global setting to update our entryview
         gs = GSetting()
@@ -113,12 +109,6 @@ class CoverArtEntryView(RB.EntryView):
             library_view)
 
     def __del__(self):
-        #uim = self.shell.props.ui_manager
-
-        #uim.remove_action_group(self.action_group)
-        #uim.remove_ui(self.ui_id)
-        #uim.ensure_update()
-
         del self.action_group
         del self.play_action
         del self.queue_action
@@ -158,8 +148,13 @@ class CoverArtEntryView(RB.EntryView):
     def do_show_popup(self, over_entry):
         if over_entry:
             print("CoverArtBrowser DEBUG - do_show_popup()")
-            self.external_plugins.create_menu()
-            self.popup_menu.popup(None, None, None, None, 0,
+            if not self.external_plugins:
+                self.external_plugins = \
+                    CreateExternalPluginMenu("ev_entryview", 3, self.popup)
+            print self.popup.ui_filename
+            self.external_plugins.create_menu('entryview_popup_menu')
+            self.popup.get_gtkmenu(self.source,
+                'entryview_popup_menu').popup(None, None, None, None, 0,
                 Gtk.get_current_event_time())
 
         return over_entry
@@ -257,14 +252,14 @@ class CoverArtEntryView(RB.EntryView):
     def playlist_menu_item_callback(self, *args):
         print("CoverArtBrowser DEBUG - playlist_menu_item_callback")
 
-        self.source.playlist_fillmenu('ev_playlist_sub_menu_item',
+        self.source.playlist_fillmenu(self.popup, 'ev_playlist_sub_menu_item', 'ev_playlist_section',
             self.actiongroup, self.add_to_static_playlist_menu_item_callback)
 
     def add_to_static_playlist_menu_item_callback(self, action, param, args):
         print("CoverArtBrowser DEBUG - " + \
             "add_to_static_playlist_menu_item_callback")
         
-        playlist = args[0]
+        playlist = args['playlist']
         self.add_tracks_to_source(playlist)
 
     def _on_library_sorting_changed(self, view, _):

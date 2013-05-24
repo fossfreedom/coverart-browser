@@ -20,10 +20,13 @@
             </item>
         </section>
         <section>
-            <attribute name="rb-plugin-menu-link">ca_entryview</attribute>
-		</section>
+            <attribute name="rb-plugin-menu-link">ev_playlist_section</attribute>
+		</section> 
       </submenu>
      </section>
+     <section>
+        <attribute name="rb-plugin-menu-link">ev_entryview</attribute>
+    </section>
 	 <section>
       <item>
         <attribute name="label" translatable="yes">Properties</attribute>

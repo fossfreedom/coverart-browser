@@ -90,7 +90,7 @@ class ExternalPlugin(GObject.Object):
         if not self.is_activated():
             return False
 
-        action = ApplicationShell(save_menu.shell).get_action(self.attributes['action_group_name'],
+        action = ApplicationShell(save_menu.shell).lookup_action(self.attributes['action_group_name'],
             self.attributes['action_name'])
             
         if action:
@@ -99,17 +99,17 @@ class ExternalPlugin(GObject.Object):
             if self.attributes['new_menu_name'] != '':
                 self.attributes['label'] = self.attributes['new_menu_name']
             else:
-                self.attributes['label']=action.get_label()
+                self.attributes['label']=action.label
             self.attributes['sensitive']=action.get_sensitive()
         else:
             return False
 
         action = save_actiongroup.add_action(func=self.menuitem_callback,
             action_name=self.attributes['action_name'], album=for_album,
-            shell=save_menu.shell)
+            shell=save_menu.shell, label=self.attributes['label'])
         
         new_menu_item = save_menu.insert_menu_item(menubar, section_name,
-            at_position, self.attributes['label'],  action)
+            at_position, action)
 
         return new_menu_item
         
@@ -156,7 +156,7 @@ class CreateExternalPluginMenu(GObject.Object):
     def __init__(self, section_name, at_position, popup, **kargs):
         super(CreateExternalPluginMenu, self).__init__(**kargs)
 
-        self.menu_name = 'popup_menu'
+        #self.menu_name = 'popup_menu'
         self.menu = popup
         self.section_name = section_name
         self.at_position = at_position
@@ -197,7 +197,7 @@ class CreateExternalPluginMenu(GObject.Object):
 
                 self.supported_plugins.append(ext)
         
-    def create_menu(self, for_album = False):
+    def create_menu(self, menu_name, for_album = False):
         '''
         method to create the menu items for all supported plugins
 
@@ -205,6 +205,7 @@ class CreateExternalPluginMenu(GObject.Object):
           by default a menu is assumed to be applicable to a track in an
           EntryView
         '''
+        self.menu_name = menu_name
         
         self._actiongroup.remove_actions()        
         self.menu.remove_menu_items(self.menu_name, self.section_name)
