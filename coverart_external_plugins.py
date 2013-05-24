@@ -39,6 +39,8 @@ class ExternalPlugin(GObject.Object):
         self.attributes = {}
         self.attributes['is_album_menu'] = False
         self.attributes['new_menu_name'] = ''
+        self.attributes['action_type'] = ''
+        self.attributes['action_group_name'] = ''
 
     def appendattribute(self, key, val):
         '''
@@ -91,7 +93,7 @@ class ExternalPlugin(GObject.Object):
             return False
 
         action = ApplicationShell(save_menu.shell).lookup_action(self.attributes['action_group_name'],
-            self.attributes['action_name'])
+            self.attributes['action_name'], self.attributes['action_type'])
             
         if action:
             self.attributes['action']=action
@@ -100,13 +102,14 @@ class ExternalPlugin(GObject.Object):
                 self.attributes['label'] = self.attributes['new_menu_name']
             else:
                 self.attributes['label']=action.label
-            self.attributes['sensitive']=action.get_sensitive()
+            #self.attributes['sensitive']=action.get_sensitive()
         else:
             return False
 
         action = save_actiongroup.add_action(func=self.menuitem_callback,
             action_name=self.attributes['action_name'], album=for_album,
-            shell=save_menu.shell, label=self.attributes['label'])
+            shell=save_menu.shell, label=self.attributes['label'],
+            action_type=self.attributes['action_type'])
         
         new_menu_item = save_menu.insert_menu_item(menubar, section_name,
             at_position, action)

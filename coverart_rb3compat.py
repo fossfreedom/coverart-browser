@@ -385,12 +385,14 @@ class ApplicationShell(object):
             self._action_groups[action_group.name] = action_group
             
         def lookup_action(self, action_group_name, action_name, action_type='app'):
+            print action_name
+            print action_type
+            
             if is_rb3(self.shell):
                 if action_type == "app":
                     action = self.shell.props.application.lookup_action(action_name)
                 else:
                     action = self.shell.props.window.lookup_action(action_name)
-
             else:
                 uim = self.shell.props.ui_manager
                 ui_actiongroups = uim.get_action_groups()
@@ -403,8 +405,13 @@ class ApplicationShell(object):
                 action = None
                 if actiongroup:
                     action = actiongroup.get_action(action_name)
-
-            return Action(self.shell, action)
+                    
+            print action
+            
+            if action:
+                return Action(self.shell, action)
+            else:
+                return None
 
         def add_app_menuitems(self, ui_string, group_name):
             if is_rb3(self.shell):
@@ -529,7 +536,7 @@ class Action(object):
 
     def associate_menuitem(self, menuitem):
         if is_rb3(self.shell):
-            menuitem.set_detailed_action('win.'+self.action.label)
+            menuitem.set_detailed_action('win.'+self.label)
         else:
             menuitem.set_related_action(self.action)
         
