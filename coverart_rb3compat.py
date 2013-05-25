@@ -491,11 +491,12 @@ class ApplicationShell(object):
                     
                     item = Gio.MenuItem()
                     item.set_label(act.label)
-                    item.set_detailed_action('app.' + action_name)
+                    item.set_detailed_action('app.' + act.label)
                     app = Gio.Application.get_default()
+                    index = 'tools'+action_name
                     app.add_plugin_menu_item('tools', 
-                        action_name, item)
-                    self._uids[action_name] = 'tools'
+                        index, item)
+                    self._uids[index] = 'tools'
             else:
                 uim = self.shell.props.ui_manager
                 self._uids.append(uim.add_ui_from_string(ui_string))
@@ -544,8 +545,9 @@ class ApplicationShell(object):
                     else:
                         print "unknown type %s" % plugin_type
                         
-                    app.add_plugin_menu_item(plugin_type, action_name, item)
-                    self._uids[plugin_type]=action_name
+                    index = plugin_type+action_name
+                    app.add_plugin_menu_item(plugin_type, index, item)
+                    self._uids[index]=plugin_type
             else:
                 uim = self.shell.props.ui_manager
                 self._uids.append(uim.add_ui_from_string(ui_string))
@@ -558,8 +560,8 @@ class ApplicationShell(object):
             if is_rb3(self.shell):
                 for uid in self._uids:
                     
-                    Gio.Application.get_default().remove_plugin_menu_item(uid, 
-                        self._uids[uid])
+                    Gio.Application.get_default().remove_plugin_menu_item(self._uids[uid], 
+                        uid)
             else:
                 uim = self.shell.props.ui_manager
                 for uid in self._uids:
