@@ -145,9 +145,9 @@ class Menu(object):
         if is_rb3(self.shell):
             app = self.shell.props.application
             item = Gio.MenuItem()
-            item.set_label(label)
             action.associate_menuitem(item)
-            
+            item.set_label(label)
+
             if not section_name in self._rbmenu_items:
                 self._rbmenu_items[section_name] = []
             self._rbmenu_items[section_name].append(label)
@@ -385,7 +385,7 @@ class ActionGroup(object):
             label=action_name
         
         if is_rb3(self.shell):
-            action = Gio.SimpleAction.new(label, None)
+            action = Gio.SimpleAction.new(action_name, None)
             action.connect('activate', func, args)
             action_type = 'win'
             if 'action_type' in args:
@@ -498,8 +498,8 @@ class ApplicationShell(object):
                     act = group.get_action(action_name)
                     
                     item = Gio.MenuItem()
+                    item.set_detailed_action('app.' + action_name)
                     item.set_label(act.label)
-                    item.set_detailed_action('app.' + act.label)
                     app = Gio.Application.get_default()
                     index = 'tools'+action_name
                     app.add_plugin_menu_item('tools', 
@@ -538,8 +538,8 @@ class ApplicationShell(object):
                     act = group.get_action(action_name)
                     
                     item = Gio.MenuItem()
+                    item.set_detailed_action('win.' + action_name)
                     item.set_label(act.label)
-                    item.set_detailed_action('win.' + act.label)
                     app = Gio.Application.get_default()
                     
                     if popup_name == 'QueuePlaylistViewPopup':
@@ -656,7 +656,8 @@ class Action(object):
         
         '''
         if is_rb3(self.shell):
-            menuitem.set_detailed_action('win.'+self.label)
+            print self.action.get_name()
+            menuitem.set_detailed_action('win.'+self.action.get_name())
         else:
             menuitem.set_related_action(self.action)
             
