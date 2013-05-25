@@ -62,7 +62,7 @@
             </menu>
         </plugin>
         <plugin name="send_first">
-            <menu label="Send To">
+            <menu label="Queue First">
                 <attribute name="action_type">app</attribute>
                 <attribute name="action_name">QueueFirstAction</attribute>
                 <attribute name="new_menu_name">Queue first</attribute>

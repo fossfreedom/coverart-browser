@@ -123,13 +123,20 @@ class Menu(object):
     def add_menu_item(self, menubar, section_name, action):
         '''
         add a new menu item to the popup
-        :param menubar: `str` is the name GtkMenu (or blank for RB2.99+)
-        :param section_name: `str` is the name of the section to add the item to
+        :param menubar: `str` is the name GtkMenu (or ignored for RB2.99+)
+        :param section_name: `str` is the name of the section to add the item to (RB2.99+)
         :param action: `Action`  to associate with the menu item
         '''
         return self.insert_menu_item(menubar, section_name, -1, action)
 
     def insert_menu_item(self, menubar, section_name, position, action):
+        '''
+        add a new menu item to the popup
+        :param menubar: `str` is the name GtkMenu (or ignored for RB2.99+)
+        :param section_name: `str` is the name of the section to add the item to (RB2.99+)
+        :param position: `int` position to add to GtkMenu (ignored for RB2.99+)
+        :param action: `Action`  to associate with the menu item
+        '''
         label = action.label
         
         if is_rb3(self.shell):
@@ -161,6 +168,11 @@ class Menu(object):
         return item
 
     def insert_separator(self, menubar, at_position):
+        '''
+        add a separator to the popup (only required for RB2.98 and earlier)
+        :param menubar: `str` is the name GtkMenu (or ignored for RB2.99+)
+        :param position: `int` position to add to GtkMenu (ignored for RB2.99+)
+        '''
         if not is_rb3(self.shell):
             menu_item = Gtk.SeparatorMenuItem().new()
             menu_item.set_visible(True)
@@ -175,7 +187,8 @@ class Menu(object):
     def remove_menu_items(self, menubar, section_name):
         '''
         utility function to remove all menuitems associated with the menu section
-        :param menubar: `str` is the name of the section containing the menu items
+        :param menubar: `str` is the name of the GtkMenu containing the menu items (ignored for RB2.99+)
+        :param section_name: `str` is the name of the section containing the menu items (for RB2.99+ only)
         '''
         if is_rb3(self.shell):
             if not section_name in self._rbmenu_items:
@@ -306,7 +319,15 @@ class Menu(object):
 			item.set_sensitive(enable)
 			
 class ActionGroup(object):
+    '''
+    container for all Actions used to associate with menu items
+    '''
 	def __init__(self, shell, group_name):
+        '''
+        constructor
+        :param shell: `RBShell`
+        :param group_name: `str` unique name for the object to create
+        '''
 		self.group_name = group_name
 		self.shell = shell
     
@@ -324,21 +345,39 @@ class ActionGroup(object):
         return self.group_name
             
     def remove_actions(self):
+        '''
+        utility function to remove all actions associated with the ActionGroup
+        '''
         for action in self.actiongroup.list_actions():
             self.actiongroup.remove_action(action)
             
     def get_action(self, action_name):
+        '''
+        utility function to obtain the Action from the ActionGroup
+        
+        :param action_name: `str` is the Action unique name
+        '''
         return self._actions[action_name]
             
     def add_action(self, func, action_name, **args ):
-        print args
+        '''
+        Creates an Action and adds it to the ActionGroup
+        
+        :param func: function callback used when user activates the action
+        :param action_name: `str` unique name to associate with an action
+        :param args: dict of arguments - this is passed to the function callback
+        Notes: 
+        key value of "label" is the visual menu label to display
+        key value of "action_type" is the RB2.99 Gio.Action type ("win" or "app")
+           by default it assumes all actions are "win" type
+        '''
         if 'label' in args:
             label = args['label']
         else:
             label=action_name
         
         if is_rb3(self.shell):
-            action = Gio.SimpleAction.new(action_name, None)
+            action = Gio.SimpleAction.new(label, None)
             action.connect('activate', func, args)
             action_type = 'win'
             if 'action_type' in args:
@@ -366,6 +405,9 @@ class ActionGroup(object):
         return act
 
 class ApplicationShell(object):
+    '''
+    Unique class that mirrors RB.Application & RB.Shell menu functionality
+    '''
     # storage for the instance reference
     __instance = None
     
@@ -382,11 +424,22 @@ class ApplicationShell(object):
             self._action_groups = {}
             
         def insert_action_group(self, action_group):
+            '''
+            Adds an ActionGroup to the ApplicationShell
+        
+            :param action_group: `ActionGroup` to add
+            '''
             self._action_groups[action_group.name] = action_group
             
         def lookup_action(self, action_group_name, action_name, action_type='app'):
-            print action_name
-            print action_type
+            '''
+            looks up (finds) an action created by another plugin.  If found returns
+            an Action or None if no matching Action.
+        
+            :param action_group_name: `str` is the Gtk.ActionGroup name (ignored for RB2.99+)
+            :param action_name: `str` unique name for the action to look for
+            :param action_type: `str` RB2.99+ action type ("win" or "app")
+            '''
             
             if is_rb3(self.shell):
                 if action_type == "app":
@@ -405,8 +458,6 @@ class ApplicationShell(object):
                 action = None
                 if actiongroup:
                     action = actiongroup.get_action(action_name)
-                    
-            print action
             
             if action:
                 return Action(self.shell, action)
@@ -414,6 +465,21 @@ class ApplicationShell(object):
                 return None
 
         def add_app_menuitems(self, ui_string, group_name):
+            '''
+            utility function to add application menu items.
+            
+            For RB2.99 all application menu items are added to the "tools" section of the
+            application menu. All Actions are assumed to be of action_type "app".
+            
+            For RB2.98 or less, it is added however the UI_MANAGER string
+            is defined.
+            
+            :param ui_string: `str` is the Gtk UI definition.  There is not an
+            equivalent UI definition in RB2.99 but we can parse out menu items since
+            this string is in XML format
+        
+            :param group_name: `str` unique name of the ActionGroup to add menu items to
+            '''
             if is_rb3(self.shell):
                 root = ET.fromstring(ui_string)
                 for elem in root.findall(".//menuitem"):
@@ -436,6 +502,20 @@ class ApplicationShell(object):
                 uim.ensure_update()
                 
         def add_browser_menuitems(self, ui_string, group_name):
+            '''
+            utility function to add popup menu items to existing browser popups
+            
+            For RB2.99 all menu items are are assumed to be of action_type "win".
+            
+            For RB2.98 or less, it is added however the UI_MANAGER string
+            is defined.
+            
+            :param ui_string: `str` is the Gtk UI definition.  There is not an
+            equivalent UI definition in RB2.99 but we can parse out menu items since
+            this string is in XML format
+        
+            :param group_name: `str` unique name of the ActionGroup to add menu items to
+            '''
             if is_rb3(self.shell):
                 root = ET.fromstring(ui_string)
                 for elem in root.findall("./popup"):
@@ -472,6 +552,9 @@ class ApplicationShell(object):
                 uim.ensure_update()
 
         def cleanup(self):
+            '''
+            utility remove any menuitems created.
+            '''
             if is_rb3(self.shell):
                 for uid in self._uids:
                     
@@ -502,7 +585,16 @@ class ApplicationShell(object):
         return setattr(self.__instance, attr, value)
 
 class Action(object):
+    '''
+    class that wraps around either a Gio.Action or a Gtk.Action
+    '''
     def __init__(self, shell, action):
+        '''
+        constructor.
+
+        :param shell: `RBShell`
+        :param action: `Gio.Action` or `Gtk.Action`
+        '''
 		self.shell = shell
         self.action = action
         
@@ -510,6 +602,12 @@ class Action(object):
 
     @property
     def label(self):
+        ''' 
+        get the menu label associated with the Action
+        
+        for RB2.99+ actions dont have menu labels so this is managed
+        manually
+        '''
         if not is_rb3(self.shell):
             return self.action.get_label()
         else:
@@ -523,20 +621,33 @@ class Action(object):
         self._label = new_label
 
     def get_sensitive(self):
+        ''' 
+        get the sensitivity (enabled/disabled) state of the Action
+        
+        returns boolean
+        '''
         if is_rb3(self.shell):
             return self.action.get_enabled()
         else:
             return self.action.get_sensitive()
             
     def activate(self):
+        ''' 
+        invokes the activate signal for the action
+        '''
         if is_rb3(self.shell):
             self.action.activate(None)
         else:
             self.action.activate()
 
     def associate_menuitem(self, menuitem):
+        ''' 
+        links a menu with the action
+        
+        '''
         if is_rb3(self.shell):
             menuitem.set_detailed_action('win.'+self.label)
         else:
             menuitem.set_related_action(self.action)
-        
+            
+

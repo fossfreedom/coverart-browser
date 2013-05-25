@@ -108,8 +108,7 @@ class ExternalPlugin(GObject.Object):
 
         action = save_actiongroup.add_action(func=self.menuitem_callback,
             action_name=self.attributes['action_name'], album=for_album,
-            shell=save_menu.shell, label=self.attributes['label'],
-            action_type=self.attributes['action_type'])
+            shell=save_menu.shell, label=self.attributes['label'])
         
         new_menu_item = save_menu.insert_menu_item(menubar, section_name,
             at_position, action)
@@ -159,14 +158,17 @@ class CreateExternalPluginMenu(GObject.Object):
     def __init__(self, section_name, at_position, popup, **kargs):
         super(CreateExternalPluginMenu, self).__init__(**kargs)
 
-        #self.menu_name = 'popup_menu'
         self.menu = popup
         self.section_name = section_name
         self.at_position = at_position
         
         self._actiongroup = ActionGroup(popup.shell, section_name + '_externalplugins')
         
-        # all supported plugins will be defined in the following array
+        # all supported plugins will be defined in the following array by parsing
+        # the plugins XML file for the definition.  Supported plugins are split between
+        # rb2.99 and later and rb2.98 and earlier due to the likelihood that earlier
+        # plugins may never be updated by their authors
+        
         self.supported_plugins = []
         
         extplugins = rb.find_plugin_file(popup.plugin, 'ui/coverart_external_plugins.xml')
@@ -204,6 +206,7 @@ class CreateExternalPluginMenu(GObject.Object):
         '''
         method to create the menu items for all supported plugins
 
+        :param menu_name: `str` unique name (GtkMenu) id for the menu to create
         :for_album: `bool` - create a menu applicable for Albums
           by default a menu is assumed to be applicable to a track in an
           EntryView
