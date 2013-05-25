@@ -66,8 +66,12 @@ class ExternalPlugin(GObject.Object):
         loaded_plugins = peas.get_loaded_plugins()
 
         if self.attributes['plugin_name'] in loaded_plugins:
+            print ("found %s" % self.attributes['plugin_name'])
             return True
 
+        print ("search for %s" % self.attributes['plugin_name'])
+        print (loaded_plugins)
+        
         return False
 
     def create_menu_item(self, menubar, section_name, at_position,
@@ -94,7 +98,7 @@ class ExternalPlugin(GObject.Object):
 
         action = ApplicationShell(save_menu.shell).lookup_action(self.attributes['action_group_name'],
             self.attributes['action_name'], self.attributes['action_type'])
-            
+
         if action:
             self.attributes['action']=action
             

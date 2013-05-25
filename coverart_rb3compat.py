@@ -1,5 +1,8 @@
 # -*- Mode: python; coding: utf-8; tab-width: 4; indent-tabs-mode: nil; -*-
 #
+# Copyright (C) 2012 - fossfreedom
+# Copyright (C) 2012 - Agustin Carrasco
+#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2, or (at your option)
@@ -101,21 +104,21 @@ def quote_plus(uri):
 
         
 def is_rb3(shell):
-	if hasattr( shell.props.window, 'add_action' ):
-		return True
-	else:
-		return False 	
-		
+    if hasattr( shell.props.window, 'add_action' ):
+        return True
+    else:
+        return False    
+        
 class Menu(object):
     '''
     Menu object used to create window popup menus
     '''
-	def __init__(self, plugin, shell):
+    def __init__(self, plugin, shell):
         '''
         Initializes the menu.
         '''
-		self.plugin = plugin
-		self.shell = shell
+        self.plugin = plugin
+        self.shell = shell
         self._unique_num = 0
         
         self._rbmenu_items = {}
@@ -217,56 +220,60 @@ class Menu(object):
             
             bar.show_all()
             uim.ensure_update()
-		
-	def load_from_file(self, rb2_ui_filename, rb3_ui_filename ):
+        
+    def load_from_file(self, rb2_ui_filename, rb3_ui_filename ):
         '''
         utility function to load the menu structure
         :param rb2_ui_filename: `str` RB2.98 and below UI file
         :param rb3_ui_filename: `str` RB2.99 and higher UI file
         '''
-		from coverart_browser_prefs import CoverLocale
-		cl = CoverLocale()
-		self.builder = Gtk.Builder()
-        self.builder.set_translation_domain(cl.Locale.LOCALE_DOMAIN)
+        self.builder = Gtk.Builder()
+        try:
+            from coverart_browser_prefs import CoverLocale
+            cl = CoverLocale()
+            
+            self.builder.set_translation_domain(cl.Locale.LOCALE_DOMAIN)
+        except:
+            pass
         
         if is_rb3(self.shell):
-			ui_filename = rb3_ui_filename
-		else:
-			ui_filename = rb2_ui_filename
+            ui_filename = rb3_ui_filename
+        else:
+            ui_filename = rb2_ui_filename
 
         self.ui_filename = ui_filename
-			
+            
         self.builder.add_from_file(rb.find_plugin_file(self.plugin,
             ui_filename))
 
     def _connect_rb3_signals(self, signals):
-		def _menu_connect(action_name, func):
-			action = Gio.SimpleAction(name=action_name)
-			action.connect('activate', func)
-			action.set_enabled(True)
-			self.shell.props.window.add_action(action)
-			
-		for key,value in signals.items():
-			_menu_connect( key, value)
-		
-	def _connect_rb2_signals(self, signals):
-		def _menu_connect(menu_item_name, func):
-			menu_item = self.builder.get_object(menu_item_name)
-			menu_item.connect('activate', func)
-			
-		for key,value in signals.items():
-			_menu_connect( key, value)
-			
-	def connect_signals(self, signals):
+        def _menu_connect(action_name, func):
+            action = Gio.SimpleAction(name=action_name)
+            action.connect('activate', func)
+            action.set_enabled(True)
+            self.shell.props.window.add_action(action)
+            
+        for key,value in signals.items():
+            _menu_connect( key, value)
+        
+    def _connect_rb2_signals(self, signals):
+        def _menu_connect(menu_item_name, func):
+            menu_item = self.builder.get_object(menu_item_name)
+            menu_item.connect('activate', func)
+            
+        for key,value in signals.items():
+            _menu_connect( key, value)
+            
+    def connect_signals(self, signals):
         '''
         connect all signal handlers with their menuitem counterparts
         :param signals: `dict` key is the name of the menuitem 
              and value is the function callback when the menu is activated
-        '''		
+        '''     
         if is_rb3(self.shell):
-			self._connect_rb3_signals(signals)
-		else:
-			self._connect_rb2_signals(signals)
+            self._connect_rb3_signals(signals)
+        else:
+            self._connect_rb2_signals(signals)
             
     def get_gtkmenu(self, source, popup_name):
         '''
@@ -284,61 +291,61 @@ class Menu(object):
             popup_menu = item
         
         return popup_menu
-			
-	def get_menu_object(self, menu_name_or_link):
+            
+    def get_menu_object(self, menu_name_or_link):
         '''
         utility function returns the GtkMenuItem/Gio.MenuItem
         :param menu_name_or_link: `str` to search for in the UI file
         '''
-		item = self.builder.get_object(menu_name_or_link)
+        item = self.builder.get_object(menu_name_or_link)
 
-		if is_rb3(self.shell):
+        if is_rb3(self.shell):
             if item:
                 popup_menu = item
             else:
                 app = self.shell.props.application
                 popup_menu = app.get_plugin_menu(menu_name_or_link)
-		else:
-			popup_menu = item
-			
-		return popup_menu
+        else:
+            popup_menu = item
+            
+        return popup_menu
 
-	def set_sensitive(self, menu_or_action_item, enable):
-		'''
+    def set_sensitive(self, menu_or_action_item, enable):
+        '''
         utility function to enable/disable a menu-item
         :param menu_or_action_item: `GtkMenuItem` or `Gio.SimpleAction`
            that is to be enabled/disabled
         :param enable: `bool` value to enable/disable
         '''
         
-		if is_rb3(self.shell):
-			item = self.shell.props.window.lookup_action(menu_or_action_item)
-			item.set_enabled(enable)
-		else:
-			item = self.builder.get_object(menu_or_action_item)
-			item.set_sensitive(enable)
-			
+        if is_rb3(self.shell):
+            item = self.shell.props.window.lookup_action(menu_or_action_item)
+            item.set_enabled(enable)
+        else:
+            item = self.builder.get_object(menu_or_action_item)
+            item.set_sensitive(enable)
+            
 class ActionGroup(object):
     '''
     container for all Actions used to associate with menu items
     '''
-	def __init__(self, shell, group_name):
+    def __init__(self, shell, group_name):
         '''
         constructor
         :param shell: `RBShell`
         :param group_name: `str` unique name for the object to create
         '''
-		self.group_name = group_name
-		self.shell = shell
+        self.group_name = group_name
+        self.shell = shell
     
         self._actions = {}
         
-		if is_rb3(self.shell):
-			self.actiongroup = Gio.SimpleActionGroup()
-		else:			
-			self.actiongroup = Gtk.ActionGroup(group_name)
-			uim = self.shell.props.ui_manager
-			uim.insert_action_group(self.actiongroup)
+        if is_rb3(self.shell):
+            self.actiongroup = Gio.SimpleActionGroup()
+        else:           
+            self.actiongroup = Gtk.ActionGroup(group_name)
+            uim = self.shell.props.ui_manager
+            uim.insert_action_group(self.actiongroup)
 
     @property
     def name(self):
@@ -366,6 +373,7 @@ class ActionGroup(object):
         :param func: function callback used when user activates the action
         :param action_name: `str` unique name to associate with an action
         :param args: dict of arguments - this is passed to the function callback
+        
         Notes: 
         key value of "label" is the visual menu label to display
         key value of "action_type" is the RB2.99 Gio.Action type ("win" or "app")
@@ -597,7 +605,7 @@ class Action(object):
         :param shell: `RBShell`
         :param action: `Gio.Action` or `Gtk.Action`
         '''
-		self.shell = shell
+        self.shell = shell
         self.action = action
         
         self._label = ''
