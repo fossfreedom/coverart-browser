@@ -530,7 +530,7 @@ class ApplicationShell(object):
                     
                     item = Gio.MenuItem()
                     item.set_label(act.label)
-                    item.set_detailed_action('win.' + action_name)
+                    item.set_detailed_action('win.' + act.label)
                     app = Gio.Application.get_default()
                     
                     if popup_name == 'QueuePlaylistViewPopup':
