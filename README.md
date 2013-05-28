@@ -79,7 +79,7 @@ Note 1 - the CoverArt Browser plugin also requires installing the following plug
 
  - https://github.com/fossfreedom/coverart-search-providers
  
-Note 2 - Due to upstream changes v0.8 of this plugin does NOT work with rhythmbox 2.99.  
+*Note 2 - Due to upstream changes v0.8 of this plugin does NOT work with rhythmbox 2.99.  
 
 However, we have made fairly extensive changes in the master (testing) branch.  We would love RB2.99 users to
 test this out and give us feedback.  Thanks.
