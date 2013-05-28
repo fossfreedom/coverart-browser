@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- definition describing how to support various external plugins -->
+<root>
+    <rb2> <!-- section for RB versions below 2.99 -->
+        <plugin name="opencontainingfolder">
+            <menu label="">
+                <attribute name="action_group_name">OpenContainingFolderActions</attribute>
+                <attribute name="action_name">OpenContainingFolder</attribute>
+                <attribute name="is_album_menu">yes</attribute>
+            </menu>
+        </plugin>
+        <plugin name="send_first">
+            <menu label="">
+                <attribute name="action_group_name">SendFirstPluginActionGroup</attribute>
+                <attribute name="action_name">QueueFirstAction</attribute>
+                <attribute name="is_album_menu">yes</attribute>
+            </menu>
+        </plugin>
+        <plugin name="sendto">
+            <menu label="">
+                <attribute name="action_group_name">SendToActionGroup</attribute>
+                <attribute name="action_name">SendTo</attribute>
+                <attribute name="is_album_menu">yes</attribute>
+            </menu>
+        </plugin>
+        <plugin name="lastfm_extension">
+            <menu label="">
+                <attribute name="action_group_name">LastFMExtensionFingerprinter</attribute>
+                <attribute name="action_name">FingerprintSong</attribute>
+                <attribute name="is_album_menu">no</attribute>
+            </menu>
+        </plugin>
+        <plugin name="fileorganizer">
+            <menu label="">
+                <attribute name="action_group_name">FileorganizerActions</attribute>
+                <attribute name="action_name">OrganizeSelection</attribute>
+                <attribute name="is_album_menu">yes</attribute>
+            </menu>
+        </plugin>
+        <plugin name="lLyrics">
+            <menu label="">
+                <attribute name="action_group_name">lLyricsPluginPopupActions</attribute>
+                <attribute name="action_name">lLyricsPopupAction</attribute>
+                <attribute name="is_album_menu">no</attribute>
+            </menu>
+        </plugin>
+        <plugin name="WikipediaSearch">
+            <menu label="WikipediaSearch - Album">
+                <attribute name="action_group_name">WikipediaActions</attribute>
+                <attribute name="action_name">SearchWikipediaAlbum</attribute>
+                <attribute name="is_album_menu">yes</attribute>
+            </menu>
+        </plugin>
+    </rb2>
+    <rb3> <!-- section for RB versions 2.99 and above -->
+        <plugin name="sendto">
+            <menu label="Send To">
+                <attribute name="action_type">app</attribute>
+                <attribute name="action_name">sendto</attribute>
+                <attribute name="new_menu_name">SendTo...</attribute>
+                <attribute name="is_album_menu">yes</attribute>
+            </menu>
+        </plugin>
+        <plugin name="send_first">
+            <menu label="Queue First">
+                <attribute name="action_type">win</attribute>
+                <attribute name="action_name">QueueFirstAction</attribute>
+                <attribute name="new_menu_name">Queue first</attribute>
+                <attribute name="is_album_menu">yes</attribute>
+            </menu>
+        </plugin>
+    </rb3>
+</root>

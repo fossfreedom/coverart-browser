@@ -49,6 +49,7 @@ from stars import ReactiveStar
 from coverart_rb3compat import Menu
 from coverart_rb3compat import ActionGroup
 
+
 class CoverArtBrowserSource(RB.Source):
     '''
     Source utilized by the plugin to show all it's ui.
@@ -196,7 +197,7 @@ class CoverArtBrowserSource(RB.Source):
         ui.add_from_file(rb.find_plugin_file(self.plugin,
             'ui/coverart_browser.ui'))
         ui.connect_signals(self)
-
+        
         # load the page and put it in the source
         self.page = ui.get_object('main_box')
         self.pack_start(self.page, True, True, 0)
@@ -204,6 +205,10 @@ class CoverArtBrowserSource(RB.Source):
         # get widgets for main icon-view
         self.status_label = ui.get_object('status_label')
         self.covers_view = ui.get_object('covers_view')
+<<<<<<< HEAD
+        self.popup_menu = ui.get_object('popup_menu')
+        self.cover_search_menu_item = ui.get_object('cover_search_menu_item')
+=======
         self.popup_menu = Menu(self.plugin, self.shell)
         self.popup_menu.load_from_file('ui/coverart_browser_pop_rb2.ui',
 			'ui/coverart_browser_pop_rb3.ui')
@@ -224,6 +229,7 @@ class CoverArtBrowserSource(RB.Source):
 		self.popup_menu.connect_signals(signals)
         
         self.status_label = ui.get_object('status_label')
+>>>>>>> menu
         self.request_status_box = ui.get_object('request_status_box')
         self.request_spinner = ui.get_object('request_spinner')
         self.request_statusbar = ui.get_object('request_statusbar')
@@ -232,15 +238,34 @@ class CoverArtBrowserSource(RB.Source):
         self.notebook = ui.get_object('bottom_notebook')
 
         # get widgets for source popup
+<<<<<<< HEAD
+        self.source_menu = ui.get_object('source_menu')
+        self.source_menu_search_all_item = ui.get_object(
+            'source_search_menu_item')
+        self.play_favourites_album_menu_item = ui.get_object(
+            'play_favourites_album_menu_item')
+        self.queue_favourites_album_menu_item = ui.get_object(
+            'queue_favourites_album_menu_item')
+        self.favourite_playlist_menu_item = ui.get_object(
+            'favourite_playlist_menu_item')
+        self.playlist_sub_menu_item = ui.get_object('playlist_sub_menu_item')
+        self.favourite_playlist_sub_menu_item = ui.get_object(
+            'favourite_playlist_sub_menu_item')
+
+        self.export_embed_menu_item = ui.get_object(
+            'export_embed_menu_item')
+
+=======
         #self.source_menu = ui.get_object('source_menu')
         #self.source_menu_search_all_item = ui.get_object(
         #    'source_search_menu_item')
         
+>>>>>>> menu
         # quick search
         self.quick_search = ui.get_object('quick_search_entry')
 
         print("CoverArtBrowser DEBUG - end _create_ui")
-
+        
     def _setup_source(self):
         '''
         Setups the differents parts of the source so they are ready to be used
@@ -346,9 +371,12 @@ class CoverArtBrowserSource(RB.Source):
             CoverArtExport(self.plugin,
                 self.shell, self.album_manager).is_search_plugin_enabled())
 
+<<<<<<< HEAD
         # setup the statusbar component
         self.statusbar = Statusbar(self)
 
+=======
+>>>>>>> menu
         print("CoverArtBrowser DEBUG - end _setup_source")
 
     def _apply_settings(self):
@@ -674,6 +702,7 @@ class CoverArtBrowserSource(RB.Source):
         CoverArtExport(self.plugin,
             self.shell, self.album_manager).embed_albums(selected_albums)
 
+
         print("CoverArtBrowser DEBUG - export_embed_menu_item_callback()")
 
     def search_all_covers_callback(self, *args):
@@ -852,6 +881,7 @@ class CoverArtBrowserSource(RB.Source):
                 uris.append(track.location)
 
         data.set_uris(uris)
+
         # stop the propagation of the signal (deactivates superclass callback)
         widget.stop_emission('drag-data-get')
         print("CoverArtBrowser DEBUG - end on_drag_data_get")
@@ -1159,6 +1189,7 @@ class ToolbarManager(GObject.Object):
 
     def _create_controllers(self, plugin, album_model):
         controllers = {}
+        
         controllers['sort_by'] = SortPopupController(plugin, album_model)
         controllers['sort_order'] = SortOrderToggleController(plugin,
             album_model)

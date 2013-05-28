@@ -37,8 +37,12 @@ from coverart_utils import create_pixbuf_from_file_at_size
 from coverart_utils import SortedCollection
 from coverart_utils import idle_iterator
 from coverart_utils import NaturalString
-import coverart_rb3compat as rb3compat
+<<<<<<< HEAD
+import rb3compat
 from coverart_utils import uniquify_and_sort
+=======
+import coverart_rb3compat as rb3compat
+>>>>>>> menu
 from datetime import datetime, date
 
 import os

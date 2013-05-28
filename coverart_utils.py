@@ -28,7 +28,7 @@ from coverart_browser_prefs import CoverLocale
 from coverart_browser_prefs import GSetting
 import collections
 import re
-import rb3compat
+import coverart_rb3compat as rb3compat
 
 from collections import namedtuple
 

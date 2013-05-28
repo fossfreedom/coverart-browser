@@ -25,7 +25,7 @@ from gi.repository import Gdk
 from coverart_album import Album
 import rb
 import shutil
-import rb3compat
+import coverart_rb3compat as rb3compat
 import os.path
 import os
 import sys

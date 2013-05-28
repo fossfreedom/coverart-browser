@@ -20,24 +20,43 @@
 from gi.repository import Peas
 from gi.repository import GObject
 from gi.repository import Gtk
+import lxml.etree as ET
+import rb
+import coverart_rb3compat as rb3compat
+from coverart_rb3compat import ActionGroup
+from coverart_rb3compat import Action
+from coverart_rb3compat import ApplicationShell
+from coverart_rb3compat import Menu
 
 class ExternalPlugin(GObject.Object):
     '''
-    Base class for all supported ExternalPlugins
-    At a minimum, the following `attributes` keys must be defined:
-    
-    :plugin_name: `str` module name of the plugin
-    :action_group_name: `str` plugin GtkActionGroup
-    :action: `str` plugin GtkAction - this is the action which is activated
-    :is_album_menu: `bool` if the menu is applicable to albums
-       by default, menus are created only for EntryViews
+    class for all supported ExternalPlugins
     '''
     def __init__(self, **kargs):
         super(ExternalPlugin, self).__init__(**kargs)
 
+        # dict of attributes associated with the external plugin
         self.attributes = {}
         self.attributes['is_album_menu'] = False
         self.attributes['new_menu_name'] = ''
+        self.attributes['action_type'] = ''
+        self.attributes['action_group_name'] = ''
+
+    def appendattribute(self, key, val):
+        '''
+        append another attribute to the dict
+        
+        :param key: `str` name of attribute
+        :param val: `str` value of attribute
+        '''
+        
+        if key == 'is_album_menu':
+            if val == 'yes':
+                self.attributes[key] = True
+            else:
+                self.attributes[key] = False
+        else:
+            self.attributes[key] = val
 
     def is_activated(self):
         '''
@@ -46,22 +65,28 @@ class ExternalPlugin(GObject.Object):
         peas = Peas.Engine.get_default()
         loaded_plugins = peas.get_loaded_plugins()
 
-        print(loaded_plugins)
         if self.attributes['plugin_name'] in loaded_plugins:
+            print ("found %s" % self.attributes['plugin_name'])
             return True
 
+        print ("search for %s" % self.attributes['plugin_name'])
+        print (loaded_plugins)
+        
         return False
 
-    def create_menu_item(self, menu_name, shell,
-        save_actiongroup, for_album = False):
+    def create_menu_item(self, menubar, section_name, at_position,
+        save_actiongroup, save_menu, for_album = False):
         '''
-        method to create the menu item appropriate to the plugin
+        method to create the menu item appropriate to the plugin.
+        A plugin can have many menu items - all menuitems are enclosed
+        in a section.
         
-        :menu_name: `str` unique name for the calling (popup) menu
-        :shell: `RB.Shell` rhythmbox shell
-        :save_actiongroup: `GtkActionGroup` - this is our action-group
-          where our menus are described
-        :for_album: `bool` create the menu for the album - if not given
+        :param menubar: `str` name for the GtkMenu - ignored for RB2.99
+        :param section_name: `str` unique name of the section holding the menu items
+        :param at_position: `int` position within the GtkMenu to create menu - ignored for RB2.99
+        :param save_actiongroup: `ActionGroup` container for all menu-item Actions
+        :param save_menu: `Menu` whole popupmenu including sub-menus
+        :param for_album: `bool` create the menu for the album - if not given
           then its assumed the menu item is appropriate just for tracks
         '''
 
@@ -71,41 +96,26 @@ class ExternalPlugin(GObject.Object):
         if not self.is_activated():
             return False
 
-        uim = shell.props.ui_manager
-        ui_actiongroups = uim.get_action_groups()
-
-        actiongroup = None
-        for actiongroup in ui_actiongroups:
-            if actiongroup.get_name() == self.attributes['action_group_name']:
-                break
-
-        action = None
-        if actiongroup:
-            action = actiongroup.get_action(self.attributes['action_name'])
+        action = ApplicationShell(save_menu.shell).lookup_action(self.attributes['action_group_name'],
+            self.attributes['action_name'], self.attributes['action_type'])
 
         if action:
             self.attributes['action']=action
-            self.attributes['tooltip']=action.get_tooltip()
+            
             if self.attributes['new_menu_name'] != '':
                 self.attributes['label'] = self.attributes['new_menu_name']
             else:
-                self.attributes['label']=action.get_label()
-            self.attributes['visible']=action.get_visible()
-            self.attributes['sensitive']=action.get_sensitive()
+                self.attributes['label']=action.label
+            #self.attributes['sensitive']=action.get_sensitive()
         else:
             return False
 
-        new_menu_item = Gtk.MenuItem(label=self.attributes['label'])
-        new_menu_item.set_visible(self.attributes['visible'])
-        new_menu_item.set_sensitive(self.attributes['sensitive'])
-
-        action = Gtk.Action(label=self.attributes['label'],
-            name=menu_name + self.attributes['label'],
-            tooltip=self.attributes['tooltip'], stock_id=Gtk.STOCK_CLEAR)
-           
-        action.connect('activate', self.menuitem_callback, for_album, shell)
-        new_menu_item.set_related_action(action)
-        save_actiongroup.add_action(action)
+        action = save_actiongroup.add_action(func=self.menuitem_callback,
+            action_name=self.attributes['action_name'], album=for_album,
+            shell=save_menu.shell, label=self.attributes['label'])
+        
+        new_menu_item = save_menu.insert_menu_item(menubar, section_name,
+            at_position, action)
 
         return new_menu_item
         
@@ -125,141 +135,99 @@ class ExternalPlugin(GObject.Object):
 
         page.get_entry_view().select_all()
 
-    def menuitem_callback(self, menu, for_album, shell):
+    def menuitem_callback(self, action, param, args):
         '''
-        method called when a menu-item is clicked
+        method called when a menu-item is clicked.  Basically, an Action
+        is activated by the user
+        
+        :param action: `Gio.SimpleAction` or `Gtk.Action`
+        :param param: Not used
+        :param args: dict associated with the action
         '''
+        for_album = args['album']
+        shell = args['shell']
         if for_album:
             self.set_entry_view_selected_entries(shell)
             
         self.attributes['action'].activate()
 
-class OpenContainingFolder(ExternalPlugin):
-    def __init__(self, **kargs):
-        super(OpenContainingFolder, self).__init__(**kargs)
-        
-        self.attributes['plugin_name'] = 'opencontainingfolder'
-        self.attributes['action_group_name'] = 'OpenContainingFolderActions'
-        self.attributes['action_name'] = 'OpenContainingFolder'
-        self.attributes['is_album_menu'] = True
-
-class SendFirst(ExternalPlugin):
-    def __init__(self, **kargs):
-        super(SendFirst, self).__init__(**kargs)
-
-        self.attributes['plugin_name'] = 'send_first'
-        self.attributes['action_group_name'] = 'SendFirstPluginActionGroup'
-        self.attributes['action_name'] = 'QueueFirstAction'
-        self.attributes['is_album_menu'] = True
-
-class SendTo(ExternalPlugin):
-    def __init__(self, **kargs):
-        super(SendTo, self).__init__(**kargs)
-
-        self.attributes['plugin_name'] = 'sendto'
-        self.attributes['action_group_name'] = 'SendToActionGroup'
-        self.attributes['action_name'] = 'SendTo'
-        self.attributes['is_album_menu'] = True
-
-class LastFMExtensionFingerprinter(ExternalPlugin):
-    def __init__(self, **kargs):
-        super(LastFMExtensionFingerprinter, self).__init__(**kargs)
-
-        self.attributes['plugin_name'] = 'lastfm_extension'
-        self.attributes['action_group_name'] = 'LastFMExtensionFingerprinter'
-        self.attributes['action_name'] = 'FingerprintSong'
-        self.attributes['is_album_menu'] = False
-
-class FileOrganizer(ExternalPlugin):
-    def __init__(self, **kargs):
-        super(FileOrganizer, self).__init__(**kargs)
-
-        self.attributes['plugin_name'] = 'fileorganizer'
-        self.attributes['action_group_name'] = 'FileorganizerActions'
-        self.attributes['action_name'] = 'OrganizeSelection'
-        self.attributes['is_album_menu'] = True
-
-class lLyrics(ExternalPlugin):
-    def __init__(self, **kargs):
-        super(lLyrics, self).__init__(**kargs)
-
-        self.attributes['plugin_name'] = 'lLyrics'
-        self.attributes['action_group_name'] = 'lLyricsPluginPopupActions'
-        self.attributes['action_name'] = 'lLyricsPopupAction'
-        self.attributes['is_album_menu'] = False
-        
-class wikipediasearch(ExternalPlugin):
-    def __init__(self, **kargs):
-        super(wikipediasearch, self).__init__(**kargs)
-
-        self.attributes['plugin_name'] = 'WikipediaSearch'
-        self.attributes['action_group_name'] = 'WikipediaActions'
-        self.attributes['action_name'] = 'SearchWikipediaAlbum'
-        self.attributes['new_menu_name'] = 'WikipediaSearch - Album'
-        self.attributes['is_album_menu'] = True
-
 class CreateExternalPluginMenu(GObject.Object):
     '''
     This is the key class called to initialise all supported plugins
     
-    :menu_name: `str` unique name of the (popup) menu
-    :shell: `RB.Shell` plugin shell attribute
+    :param section_name: `str` unique name of the section holding the menu items
+    :param at_position: `int` position within the GtkMenu to create menu - ignored for RB2.99
+    :param popup: `Menu` whole popupmenu including sub-menus
     '''
-    def __init__(self, menu_name, shell, **kargs):
+    def __init__(self, section_name, at_position, popup, **kargs):
         super(CreateExternalPluginMenu, self).__init__(**kargs)
 
-        self.menu_name = menu_name
-        self.shell = shell
-        self._actiongroup = Gtk.ActionGroup(menu_name + '_externalplugins')
-        self._menu_array = []
+        self.menu = popup
+        self.section_name = section_name
+        self.at_position = at_position
+        
+        self._actiongroup = ActionGroup(popup.shell, section_name + '_externalplugins')
+        
+        # all supported plugins will be defined in the following array by parsing
+        # the plugins XML file for the definition.  Supported plugins are split between
+        # rb2.99 and later and rb2.98 and earlier due to the likelihood that earlier
+        # plugins may never be updated by their authors
+        
+        self.supported_plugins = []
+        
+        extplugins = rb.find_plugin_file(popup.plugin, 'ui/coverart_external_plugins.xml')
+        root = ET.parse(open(extplugins)).getroot()
 
-        # all supported plugins MUST be defined in the following array
-        self.supported_plugins = [
-            OpenContainingFolder(),
-            SendFirst(),
-            SendTo(),
-            LastFMExtensionFingerprinter(),
-            FileOrganizer(),
-            lLyrics(),
-            wikipediasearch() ]
+        if rb3compat.is_rb3(popup.shell):
+            base = 'rb3/plugin'
+        else:
+            base = 'rb2/plugin'
 
-    def create_menu(self, menu_bar, at_position, for_album = False):
+        for elem in root.xpath(base):
+            pluginname = elem.attrib['name']
+
+            basemenu = base + "[@name='" + pluginname + "']/menu"
+            
+            for menuelem in root.xpath(basemenu):
+                ext = ExternalPlugin()
+                ext.appendattribute('plugin_name', pluginname)
+
+                label = menuelem.attrib['label']
+                if label != "":
+                    ext.appendattribute('new_menu_name', label)
+                    baseattrib = basemenu + "[@label='" + label + "']/attribute"
+                else:
+                    baseattrib = basemenu + "/attribute"
+
+                for attribelem in root.xpath(baseattrib):
+                    key = attribelem.attrib['name']
+                    val = attribelem.text
+                    ext.appendattribute(key, val)
+
+                self.supported_plugins.append(ext)
+        
+    def create_menu(self, menu_name, for_album = False):
         '''
         method to create the menu items for all supported plugins
 
-        :menu_bar: `GtkMenu` - where the menu-items are to be added
-        :at_position: `int` - position in the menu list where menu-items
-           are to be added
+        :param menu_name: `str` unique name (GtkMenu) id for the menu to create
         :for_album: `bool` - create a menu applicable for Albums
           by default a menu is assumed to be applicable to a track in an
           EntryView
         '''
+        self.menu_name = menu_name
         
-        #tidy up old menu items before recreating the list
-        for action in self._actiongroup.list_actions():
-            print("removing")
-            self._actiongroup.remove_action(action)
-
-        for menu_item in self._menu_array:
-            menu_bar.remove(menu_item)
-
-        self._menu_array = []
+        self._actiongroup.remove_actions()        
+        self.menu.remove_menu_items(self.menu_name, self.section_name)
+        
+        items_added = False
 
         for plugin in self.supported_plugins:
-            menu_item = plugin.create_menu_item(self.menu_name,
-                self.shell, self._actiongroup, for_album)
+            new_menu_item = plugin.create_menu_item(self.menu_name, self.section_name,
+                self.at_position, self._actiongroup, self.menu, for_album)
 
-            if menu_item:
-                self._menu_array.append(menu_item)
+            if (not items_added) and new_menu_item:
+                items_added = True 
 
-        if len(self._menu_array) > 0:
-            menu_item = Gtk.SeparatorMenuItem().new()
-            menu_item.set_visible(True)
-            self._menu_array.append(menu_item)
-
-        for menu_item in self._menu_array:
-            menu_bar.insert(menu_item, at_position)
-
-        uim = self.shell.props.ui_manager
-        menu_bar.show_all()
-        uim.ensure_update()
+        if items_added:
+            self.menu.insert_separator(self.menu_name, self.at_position)

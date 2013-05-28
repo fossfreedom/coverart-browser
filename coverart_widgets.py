@@ -622,7 +622,9 @@ class EnhancedIconView(Gtk.IconView):
         self._reallocate_count = 0
         self.view_name = None
         self._external_plugins = None
-        self.shell = None
+        #self.shell = None
+        #self.plugin = None
+        self.source = None
         self.ext_menu_pos = 0
 
     def do_size_allocate(self, allocation):
@@ -672,11 +674,12 @@ class EnhancedIconView(Gtk.IconView):
                     if not self._external_plugins:
                         # initialise external plugin menu support
                         self._external_plugins = \
-                        CreateExternalPluginMenu("ca_covers_view", self.shell)
-                    self._external_plugins.create_menu(self.popup,
-                        self.ext_menu_pos, True)
-                    self.popup.popup(None, None, None, None, event.button,
-                        event.time)
+                        CreateExternalPluginMenu("ca_covers_view",
+                            self.ext_menu_pos, self.popup)
+                    self._external_plugins.create_menu('popup_menu', True)
+                        
+                    self.popup.get_gtkmenu(self.source, 'popup_menu').popup(None,
+                        None, None, None, event.button, event.time)
             else:
                 self.emit('item-clicked', event, current_path)
 

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <menu id="entryview_popup_menu">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Play Track</attribute>
+        <attribute name="action">win.ev_play_track_menu_item</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Queue Track</attribute>
+        <attribute name="action">win.ev_queue_track_menu_item</attribute>
+      </item>
+      <submenu>
+        <attribute name="label" translatable="yes">Add to Playlist</attribute>
+        <attribute name="action">win.ev_playlist_menu_item</attribute>
+        <section>
+            <item>
+                <attribute name="label" translatable="yes">New Playlist</attribute>
+                <attribute name="action">win.ev_new_playlist</attribute>
+            </item>
+        </section>
+        <section>
+            <attribute name="rb-plugin-menu-link">ev_playlist_section</attribute>
+		</section> 
+      </submenu>
+     </section>
+     <section>
+        <attribute name="rb-plugin-menu-link">ev_entryview</attribute>
+    </section>
+	 <section>
+      <item>
+        <attribute name="label" translatable="yes">Properties</attribute>
+        <attribute name="action">win.ev_show_properties_menu_item</attribute>
+      </item>
+    </section>
+   </menu>
+</interface>
