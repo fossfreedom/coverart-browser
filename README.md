@@ -1,7 +1,9 @@
 #coverart-browser v0.8
 ================
 
-Browse your coverart albums in Rhythmbox v2.96 - Rhythmbox v2.98
+Browse your coverart albums in Rhythmbox v2.96 - Rhythmbox v2.98*
+
+(for rhythmbox 2.99 please look at the Notes section below - we need help testing support for RB2.99)
 
 ![Imgur](http://i.imgur.com/yXYmcOt.png)
 
@@ -77,11 +79,14 @@ Note 1 - the CoverArt Browser plugin also requires installing the following plug
 
  - https://github.com/fossfreedom/coverart-search-providers
  
-Note 2 - Due to upstream changes this plugin does NOT work with rhythmbox 2.99.  Patches are most welcome to support this version of rhythmbox.
+Note 2 - Due to upstream changes v0.8 of this plugin does NOT work with rhythmbox 2.99.  
+
+However, we have made fairly extensive changes in the master (testing) branch.  We would love RB2.99 users to
+test this out and give us feedback.  Thanks.
 
 *For Ubuntu 12.04 & 12.10:* 
 
-This is now available in my rhythmbox PPA - installation instructions in this AskUbuntu Q&A:
+V0.8 is now available in my rhythmbox PPA - installation instructions in this AskUbuntu Q&A:
 
 http://askubuntu.com/questions/147942/how-do-i-install-third-party-rhythmbox-plugins
 
