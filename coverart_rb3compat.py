@@ -1,5 +1,10 @@
 # -*- Mode: python; coding: utf-8; tab-width: 4; indent-tabs-mode: nil; -*-
 #
+# IMPORTANT - WHILST THIS MODULE IS USED BY SEVERAL OTHER PLUGINS
+# THE MASTER AND MOST UP-TO-DATE IS FOUND IN THE COVERART BROWSER
+# PLUGIN - https://github.com/fossfreedom/coverart-browser
+# PLEASE SUBMIT CHANGES BACK TO HELP EXPAND THIS API
+#
 # Copyright (C) 2012 - fossfreedom
 # Copyright (C) 2012 - Agustin Carrasco
 #
