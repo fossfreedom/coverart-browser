@@ -378,6 +378,17 @@ class ActionGroup(object):
         return self._actions[action_name]
 
     def add_action_with_accel(self, func, action_name, accel, **args):
+        '''
+        Creates an Action with an accelerator and adds it to the ActionGroup
+        
+        :param func: function callback used when user activates the action
+        :param action_name: `str` unique name to associate with an action
+        :param accel: `str` accelerator
+        :param args: dict of arguments - this is passed to the function callback
+        
+        Notes: 
+        see notes for add_action
+        '''
         args['accel'] = accel
         return self.add_action(func, action_name, **args)
             
@@ -517,7 +528,7 @@ class ApplicationShell(object):
             else:
                 return None
 
-        def add_app_menuitems(self, ui_string, group_name):
+        def add_app_menuitems(self, ui_string, group_name, menu='tools'):
             '''
             utility function to add application menu items.
             
@@ -532,6 +543,8 @@ class ApplicationShell(object):
             this string is in XML format
         
             :param group_name: `str` unique name of the ActionGroup to add menu items to
+            :param menu: `str` RB2.99 menu section to add to - nominally either
+              'tools' or 'view'
             '''
             if is_rb3(self.shell):
                 root = ET.fromstring(ui_string)
@@ -546,10 +559,10 @@ class ApplicationShell(object):
                     item.set_detailed_action('app.' + action_name)
                     item.set_label(act.label)
                     app = Gio.Application.get_default()
-                    index = 'tools'+action_name
-                    app.add_plugin_menu_item('tools', 
+                    index = menu+action_name
+                    app.add_plugin_menu_item(menu, 
                         index, item)
-                    self._uids[index] = 'tools'
+                    self._uids[index] = menu
             else:
                 uim = self.shell.props.ui_manager
                 self._uids.append(uim.add_ui_from_string(ui_string))
