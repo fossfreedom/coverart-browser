@@ -376,6 +376,10 @@ class ActionGroup(object):
         :param action_name: `str` is the Action unique name
         '''
         return self._actions[action_name]
+
+    def add_action_with_accel(self, func, action_name, accel, **args):
+        args['accel'] = accel
+        return self.add_action(func, action_name, **args)
             
     def add_action(self, func, action_name, **args ):
         '''
@@ -395,7 +399,12 @@ class ActionGroup(object):
             label = args['label']
         else:
             label=action_name
-        
+
+        if 'accel' in args:
+            accel = args['accel']
+        else:
+            accel = None
+            
         state = ActionGroup.STANDARD            
         if 'action_state' in args:
             state = args['action_state']
@@ -414,12 +423,16 @@ class ActionGroup(object):
                 if args['action_type'] == 'app':
                     action_type = 'app'
 
+            app = Gio.Application.get_default()
+                
             if action_type == 'app':
-                app = Gio.Application.get_default()
                 app.add_action(action)
             else:
                 self.shell.props.window.add_action(action)
                 self.actiongroup.add_action(action)
+
+            if accel:
+                app.add_accelerator(accel, action_type+"."+action_name, None)
         else:
             if state == ActionGroup.TOGGLE:
                 action = Gtk.ToggleAction(label=label,
@@ -431,7 +444,11 @@ class ActionGroup(object):
                    tooltip='', stock_id=Gtk.STOCK_CLEAR)
 
             action.connect('activate', func, None, args)
-            self.actiongroup.add_action(action)
+
+            if accel:
+                self.actiongroup.add_action_with_accel(action, accel)
+            else:
+                self.actiongroup.add_action(action)
             
         act = Action(self.shell, action)
         act.label = label
