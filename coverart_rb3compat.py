@@ -463,6 +463,7 @@ class ActionGroup(object):
             
         act = Action(self.shell, action)
         act.label = label
+        act.accel = accel
             
         self._actions[action_name] = act
             
@@ -558,6 +559,7 @@ class ApplicationShell(object):
                     item = Gio.MenuItem()
                     item.set_detailed_action('app.' + action_name)
                     item.set_label(act.label)
+                    item.set_attribute_value("accel", GLib.Variant("s", act.accel))
                     app = Gio.Application.get_default()
                     index = menu+action_name
                     app.add_plugin_menu_item(menu, 
@@ -667,6 +669,7 @@ class Action(object):
         self.action = action
         
         self._label = ''
+        self._accel = ''
 
     @property
     def label(self):
@@ -687,6 +690,20 @@ class Action(object):
             self.action.set_label(new_label)
             
         self._label = new_label
+        
+    @property
+    def accel(self):
+        ''' 
+        get the accelerator associated with the Action
+        '''
+        return self._accel
+            
+    @accel.setter
+    def accel(self, new_accelerator):
+        if new_accelerator:
+            self._accel = new_accelerator
+        else:
+            self._accel = ''
 
     def get_sensitive(self):
         ''' 
