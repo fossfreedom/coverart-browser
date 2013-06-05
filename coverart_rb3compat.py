@@ -724,7 +724,37 @@ class Action(object):
             self.action.activate(None)
         else:
             self.action.activate()
+            
+    def set_active(self, value):
+        ''' 
+        activate or deactivate a stateful action signal
+        For consistency with earlier RB versions, this will fire the 
+        activate signal for the action
+        
+        :param value: `boolean` state value
+        '''
+        
+        if is_rb3(self.shell):
+            self.action.change_state(GLib.Variant('b', value))
+            self.activate()
+        else:
+            self.action.set_active(value)
+            
+    def get_active(self):
+        ''' 
+        get the state of the action
+        
+        returns `boolean` state value
+        '''
+        
+        returnval = None
+        
+        if is_rb3(self.shell):
+            returnval = self.action.get_state()
+        else:
+            returnval = self.action.get_active()
 
+        return returnval
     def associate_menuitem(self, menuitem):
         ''' 
         links a menu with the action
