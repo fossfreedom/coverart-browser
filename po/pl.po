@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-20 11:52+0100\n"
-"PO-Revision-Date: 2013-04-23 15:45+0000\n"
-"Last-Translator: Szymon Nieznański <isamu715@gmail.com>\n"
+"PO-Revision-Date: 2013-06-06 14:13+0000\n"
+"Last-Translator: Michał Nieznański <katsu229@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-05-10 12:44+0000\n"
-"X-Generator: Launchpad (build 16598)\n"
+"X-Launchpad-Export-Date: 2013-06-06 15:52+0000\n"
+"X-Generator: Launchpad (build 16667)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -236,7 +236,7 @@ msgstr "Wygląd"
 
 #: tmp/coverart_browser_prefs.ui.h:36
 msgid "Flat-button style"
-msgstr ""
+msgstr "Płaski styl przycisków"
 
 #: tmp/coverart_browser_prefs.ui.h:37
 msgid "Icon Theme: "
@@ -440,21 +440,23 @@ msgstr "Wybierz folder do zapisu ścieżek:"
 
 #: tmp/coverart_exportembed.ui.h:2
 msgid "Select a Folder to export to"
-msgstr ""
+msgstr "Wybierz folder, do którego bedziesz eksportować"
 
 #: tmp/coverart_exportembed.ui.h:3
 msgid "Save tracks within folder using album name"
-msgstr ""
+msgstr "Zapisuj ścieżki w folderze używając nazwy albumu"
 
 #: tmp/coverart_exportembed.ui.h:4
 msgid "Open embedded track folder in file-manager"
-msgstr ""
+msgstr "Otwórz wbudowany folder ścieżki managerem plików"
 
 #: tmp/coverart_exportembed.ui.h:5
 msgid ""
 "Tip: Drag and Drop exported tracks from file-manager to a playlist or "
 "telephone/other device"
 msgstr ""
+"Wskazówka: Przeciągnij i upuść eksportowane ścieżki z managera plików do "
+"listy odtwarzania lub telefonu/innego urządzenia"
 
 #: tmp/popups.xml.in.h:1
 msgid "rock"
@@ -606,6 +608,7 @@ msgstr "%s w wykonaniu %s"
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
+"  Michał Nieznański https://launchpad.net/~katsu229\n"
 "  Mike08 https://launchpad.net/~micou8\n"
 "  Szymon Nieznański https://launchpad.net/~isamu715"
 
