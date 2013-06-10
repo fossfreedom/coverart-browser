@@ -491,6 +491,7 @@
         <genre xml:lang="zh_CN" spritesheet="genre" name="soul">灵歌</genre>
         <genre spritesheet="genre" name="workout">workout</genre>
         <genre xml:lang="ast" spritesheet="genre" name="workout">exerciciu</genre>
+        <genre xml:lang="az" spritesheet="genre" name="workout">iş gedir</genre>
         <genre xml:lang="ca" spritesheet="genre" name="workout">workout</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="workout">workout</genre>
         <genre xml:lang="en_US" spritesheet="genre" name="workout">workout</genre>
