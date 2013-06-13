@@ -21,6 +21,8 @@ Browse your coverart albums in Rhythmbox v2.96 and later
 ##Summary: whats new in this release
 
  - Advance options to control the icon-view spacing and selection padding - this can give a very different look to the plugin
+ - Added support for compatibility for RB2.99
+ - Added support for python3 for the upcoming RB3.0
  - ...
  - for developers - doxygen documentation: http://fossfreedom.github.io/coverart-browser/classes.html
 
