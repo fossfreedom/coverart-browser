@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-20 11:52+0100\n"
-"PO-Revision-Date: 2013-04-19 13:10+0000\n"
-"Last-Translator: Phillip Sz <Unknown>\n"
+"PO-Revision-Date: 2013-05-10 07:37+0000\n"
+"Last-Translator: Spencer Young <Unknown>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-04-20 22:04+0000\n"
-"X-Generator: Launchpad (build 16567)\n"
+"X-Launchpad-Export-Date: 2013-05-10 12:44+0000\n"
+"X-Generator: Launchpad (build 16598)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -166,7 +166,7 @@ msgstr "Schriftgröße:"
 
 #: tmp/coverart_browser_prefs.ui.h:21
 msgid "Ellipsize albums names"
-msgstr ""
+msgstr "Alben-Namenabkürzen"
 
 #: tmp/coverart_browser_prefs.ui.h:22
 msgid ""
@@ -176,7 +176,7 @@ msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:23
 msgid "Maximum allowed length for an album's name before being ellipsized."
-msgstr ""
+msgstr "Maximallänge eines Albumnamens bevor er abgekürzt wird."
 
 #: tmp/coverart_browser_prefs.ui.h:24
 msgid "Maximum length:"
@@ -360,7 +360,7 @@ msgstr ""
 
 #: tmp/coverart_browser.ui.h:16
 msgid "Add favourites to Playlist"
-msgstr ""
+msgstr "Favoriten zur Wiedergabeliste hinzufügen"
 
 #: tmp/coverart_browser.ui.h:17
 msgid "Search for this album cover"
@@ -376,7 +376,7 @@ msgstr ""
 
 #: tmp/coverart_browser.ui.h:20
 msgid "Export and embed coverart"
-msgstr ""
+msgstr "Coverart exportieren und einbinden"
 
 #: tmp/coverart_browser.ui.h:21
 msgid "Show album properties"
@@ -400,7 +400,7 @@ msgstr "Titel wiedergeben"
 
 #: tmp/coverart_entryview.ui.h:3
 msgid "Add this track to your playing queue"
-msgstr ""
+msgstr "Diesen Musiktitel zur Wiedergabeliste hinzufügen"
 
 #: tmp/coverart_entryview.ui.h:4
 msgid "Queue Track"
@@ -424,7 +424,7 @@ msgstr "Alle Genres"
 #: tmp/coverart_sidebar.ui.h:3 tmp/coverart_topbar.ui.h:2
 #: coverart_controllers.py:433
 msgid "All Decades"
-msgstr ""
+msgstr "Alle Jahrzehnte"
 
 #: tmp/coverart_exportembed.ui.h:1
 msgid "Choose folder to save tracks:"
@@ -470,7 +470,7 @@ msgstr "Welt"
 
 #: tmp/popups.xml.in.h:6
 msgid "bluegrass"
-msgstr ""
+msgstr "Bluegrass"
 
 #: tmp/popups.xml.in.h:7
 msgid "oldies"
@@ -602,6 +602,7 @@ msgstr ""
 "  Daniel Winzen https://launchpad.net/~q-d\n"
 "  Phillip Sz https://launchpad.net/~phillip-sz\n"
 "  Simon Schütte https://launchpad.net/~simonschuette\n"
+"  Spencer Young https://launchpad.net/~spenceryoung\n"
 "  quaec https://launchpad.net/~quaec"
 
 #. define .plugin text strings used for translation

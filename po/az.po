@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-20 11:52+0100\n"
-"PO-Revision-Date: 2013-04-20 10:19+0000\n"
+"PO-Revision-Date: 2013-06-10 13:34+0000\n"
 "Last-Translator: Rashid Aliyev <Unknown>\n"
 "Language-Team: Azerbaijani <az@li.org>\n"
 "Language: az\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-04-20 22:04+0000\n"
-"X-Generator: Launchpad (build 16567)\n"
+"X-Launchpad-Export-Date: 2013-06-10 14:32+0000\n"
+"X-Generator: Launchpad (build 16667)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -353,7 +353,7 @@ msgstr "Favoritləri oxu"
 
 #: tmp/coverart_browser.ui.h:13
 msgid "Add favourite tracks from this album to your playing queue"
-msgstr ""
+msgstr "Bu albomdan sevdiyiniz mahnıları oxudmaq üçün növbəyə salın"
 
 #: tmp/coverart_browser.ui.h:14
 msgid "Queue Favourites"
@@ -389,7 +389,7 @@ msgstr "Albomun xüsusiyyətlərini göstər"
 
 #: tmp/coverart_browser.ui.h:22
 msgid "Search for covers where an album does not currently have one"
-msgstr ""
+msgstr "Üz qabıöı şəkili olmayan albomları axtar"
 
 #: tmp/coverart_browser.ui.h:23
 msgid "Download all the covers"
@@ -441,11 +441,11 @@ msgstr "İxrac etmək üçün qovluğu seç"
 
 #: tmp/coverart_exportembed.ui.h:3
 msgid "Save tracks within folder using album name"
-msgstr ""
+msgstr "Mahnının albomun adına uyğun qovluqda saxla"
 
 #: tmp/coverart_exportembed.ui.h:4
 msgid "Open embedded track folder in file-manager"
-msgstr ""
+msgstr "Yeridilmiş mahnılar qovluğunu fayl-menecerində aç"
 
 #: tmp/coverart_exportembed.ui.h:5
 msgid ""
@@ -579,7 +579,7 @@ msgstr "könül"
 
 #: tmp/popups.xml.in.h:32
 msgid "workout"
-msgstr ""
+msgstr "iş gedir"
 
 #: tmp/popups.xml.in.h:33
 msgid "easy listening"
@@ -613,7 +613,7 @@ msgstr "CoverArt gəzgini"
 
 #: coverart_browser.py:72
 msgid "Browse and play your albums through their covers"
-msgstr ""
+msgstr "Üz şəklinə görə albomlara bax və oxud"
 
 #: coverart_browser_source.py:263
 msgid "Tracks"
@@ -750,6 +750,3 @@ msgstr "Albomlarda axtar"
 #: coverart_controllers.py:557
 msgid "Search tracks"
 msgstr "Mahnılarda axtar"
-
-#~ msgid "Show the album&apos;s basic information under the cover image."
-#~ msgstr "Albomun sadə məlumatlarını üzlük şəklinin altında göstər."

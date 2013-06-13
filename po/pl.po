@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-20 11:52+0100\n"
-"PO-Revision-Date: 2013-04-18 19:01+0000\n"
-"Last-Translator: Launchpad Translations Administrators <Unknown>\n"
+"PO-Revision-Date: 2013-06-12 09:47+0000\n"
+"Last-Translator: Mike08 <micou8@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-04-20 22:04+0000\n"
-"X-Generator: Launchpad (build 16567)\n"
+"X-Launchpad-Export-Date: 2013-06-13 10:16+0000\n"
+"X-Generator: Launchpad (build 16667)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -82,7 +82,7 @@ msgstr "Pokaż więcej wyników"
 
 #: tmp/coverart_browser_prefs.ui.h:1
 msgid "Select a picture"
-msgstr ""
+msgstr "Wybierz obraz"
 
 #: tmp/coverart_browser_prefs.ui.h:2
 msgid "Select picture to add to Edit Genre icon drop-down list"
@@ -232,63 +232,63 @@ msgstr "Pokaż pasek narzędzi: "
 
 #: tmp/coverart_browser_prefs.ui.h:35
 msgid "Look & Feel"
-msgstr ""
+msgstr "Wygląd"
 
 #: tmp/coverart_browser_prefs.ui.h:36
 msgid "Flat-button style"
-msgstr ""
+msgstr "Płaski styl przycisków"
 
 #: tmp/coverart_browser_prefs.ui.h:37
 msgid "Icon Theme: "
-msgstr ""
+msgstr "Motyw ikon: "
 
 #: tmp/coverart_browser_prefs.ui.h:38
 msgid "Alternative Genres:"
-msgstr ""
+msgstr "Alternatywne gatunki:"
 
 #: tmp/coverart_browser_prefs.ui.h:39
 msgid "Load New Icon: "
-msgstr ""
+msgstr "Wczytaj nową ikonę: "
 
 #: tmp/coverart_browser_prefs.ui.h:40
 msgid "Select a new genre icon"
-msgstr ""
+msgstr "Wybierz nową ikonę gatunku"
 
 #: tmp/coverart_browser_prefs.ui.h:41
 msgid "Edit Genre Details:"
-msgstr ""
+msgstr "Edytuj szczegóły gatunku"
 
 #: tmp/coverart_browser_prefs.ui.h:42
 msgid "Save changes"
-msgstr ""
+msgstr "Zachowaj zmiany"
 
 #: tmp/coverart_browser_prefs.ui.h:43
 msgid "Name:"
-msgstr ""
+msgstr "Nazwa:"
 
 #: tmp/coverart_browser_prefs.ui.h:44
 msgid "Icon:"
-msgstr ""
+msgstr "Ikona:"
 
 #: tmp/coverart_browser_prefs.ui.h:45
 msgid "Current user-defined Genres:"
-msgstr ""
+msgstr "Gatunki zdefiniowane przez użytkownika:"
 
 #: tmp/coverart_browser_prefs.ui.h:46
 msgid "Alternate Name"
-msgstr ""
+msgstr "Alternatywna nazwa"
 
 #: tmp/coverart_browser_prefs.ui.h:47
 msgid "Icon"
-msgstr ""
+msgstr "Ikona"
 
 #: tmp/coverart_browser_prefs.ui.h:48
 msgid "Add a new alternative genre"
-msgstr ""
+msgstr "Dodaj nowy alternatywny gatunek"
 
 #: tmp/coverart_browser_prefs.ui.h:49
 msgid "Delete an alternative genre"
-msgstr ""
+msgstr "Usuń alternatywny gatunek"
 
 #: tmp/coverart_browser_prefs.ui.h:50
 msgid "Toolbar"
@@ -308,7 +308,7 @@ msgstr "Prawy panel"
 
 #: tmp/coverart_browser.ui.h:1
 msgid "Tracks & Covers"
-msgstr ""
+msgstr "Ścieżki i okładki"
 
 #: tmp/coverart_browser.ui.h:2
 msgid "Stop coverart fetch."
@@ -380,11 +380,11 @@ msgstr "Szukaj okładek"
 
 #: tmp/coverart_browser.ui.h:19
 msgid "Export album tracks and embed coverart in track files"
-msgstr ""
+msgstr "Eksportuj ścieżki albumu zapisując okładkę w plikach ścieżek"
 
 #: tmp/coverart_browser.ui.h:20
 msgid "Export and embed coverart"
-msgstr ""
+msgstr "Eksportuj i osadź okładkę"
 
 #: tmp/coverart_browser.ui.h:21
 msgid "Show album properties"
@@ -436,25 +436,27 @@ msgstr "Wszystkie dekady"
 
 #: tmp/coverart_exportembed.ui.h:1
 msgid "Choose folder to save tracks:"
-msgstr ""
+msgstr "Wybierz folder do zapisu ścieżek:"
 
 #: tmp/coverart_exportembed.ui.h:2
 msgid "Select a Folder to export to"
-msgstr ""
+msgstr "Wybierz folder, do którego bedziesz eksportować"
 
 #: tmp/coverart_exportembed.ui.h:3
 msgid "Save tracks within folder using album name"
-msgstr ""
+msgstr "Zapisuj ścieżki w folderze używając nazwy albumu"
 
 #: tmp/coverart_exportembed.ui.h:4
 msgid "Open embedded track folder in file-manager"
-msgstr ""
+msgstr "Otwórz wbudowany folder ścieżki managerem plików"
 
 #: tmp/coverart_exportembed.ui.h:5
 msgid ""
 "Tip: Drag and Drop exported tracks from file-manager to a playlist or "
 "telephone/other device"
 msgstr ""
+"Wskazówka: Przeciągnij i upuść eksportowane ścieżki z managera plików do "
+"listy odtwarzania lub telefonu/innego urządzenia"
 
 #: tmp/popups.xml.in.h:1
 msgid "rock"
@@ -606,6 +608,7 @@ msgstr "%s w wykonaniu %s"
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
+"  Michał Nieznański https://launchpad.net/~katsu229\n"
 "  Mike08 https://launchpad.net/~micou8\n"
 "  Szymon Nieznański https://launchpad.net/~isamu715"
 
@@ -753,14 +756,3 @@ msgstr "Wyszukiwanie albumów"
 #: coverart_controllers.py:557
 msgid "Search tracks"
 msgstr "Wyszukaj utwory"
-
-#~ msgid "Show the album&apos;s basic information under the cover image."
-#~ msgstr "Pokaż podstawowe informacje o albumie pod obrazkiem okładki."
-
-#~ msgid ""
-#~ "Use the source&apos;s custom statusbar to show the current selected "
-#~ "album&apos;s related information instead of the global Rhythmbox&apos;s "
-#~ "statusbar."
-#~ msgstr ""
-#~ "Użyj źródłowego paska stanu zamiast globalnego paska stanu Rhytmboxa by "
-#~ "wyświetlić powiązane informacje na temat zaznaczonych albumów."
