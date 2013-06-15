@@ -206,22 +206,22 @@ class CoverArtBrowserSource(RB.Source):
         self.covers_view = ui.get_object('covers_view')
         self.popup_menu = Menu(self.plugin, self.shell)
         self.popup_menu.load_from_file('ui/coverart_browser_pop_rb2.ui',
-			'ui/coverart_browser_pop_rb3.ui')
-			
-		signals = \
-			{ 'play_album_menu_item': self.play_album_menu_item_callback,
-			  'queue_album_menu_item': self.queue_favourites_album_menu_item_callback,
-			  'playlist_menu_item': self.playlist_menu_item_callback,
-			  'play_favourites_album_menu_item': self.play_favourites_album_menu_item_callback,
-			  'queue_favourites_album_menu_item':  self.queue_favourites_album_menu_item_callback,
-			  'favourite_playlist_menu_item':  self.favourite_playlist_menu_item_callback,
-			  'new_playlist': self.add_playlist_menu_item_callback,
-			  'favourite_new_playlist': self.favourite_add_playlist_menu_item_callback,
-			  'cover_search_menu_item': self.cover_search_menu_item_callback,
-			  'export_embed_menu_item': self.export_embed_menu_item_callback,
-			  'show_properties_menu_item': self.show_properties_menu_item_callback}
-			  
-		self.popup_menu.connect_signals(signals)
+            'ui/coverart_browser_pop_rb3.ui')
+            
+        signals = \
+            { 'play_album_menu_item': self.play_album_menu_item_callback,
+              'queue_album_menu_item': self.queue_favourites_album_menu_item_callback,
+              'playlist_menu_item': self.playlist_menu_item_callback,
+              'play_favourites_album_menu_item': self.play_favourites_album_menu_item_callback,
+              'queue_favourites_album_menu_item':  self.queue_favourites_album_menu_item_callback,
+              'favourite_playlist_menu_item':  self.favourite_playlist_menu_item_callback,
+              'new_playlist': self.add_playlist_menu_item_callback,
+              'favourite_new_playlist': self.favourite_add_playlist_menu_item_callback,
+              'cover_search_menu_item': self.cover_search_menu_item_callback,
+              'export_embed_menu_item': self.export_embed_menu_item_callback,
+              'show_properties_menu_item': self.show_properties_menu_item_callback}
+              
+        self.popup_menu.connect_signals(signals)
         
         self.status_label = ui.get_object('status_label')
         self.request_status_box = ui.get_object('request_status_box')

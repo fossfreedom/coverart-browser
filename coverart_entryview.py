@@ -66,16 +66,16 @@ class CoverArtEntryView(RB.EntryView):
 
         popup = Menu(self.plugin, self.shell)
         popup.load_from_file('ui/coverart_entryview_pop_rb2.ui',
-						     'ui/coverart_entryview_pop_rb3.ui')
-		signals = {
-			'ev_play_track_menu_item': self.play_track_menu_item_callback,
-			'ev_queue_track_menu_item': self.queue_track_menu_item_callback,
-			'ev_playlist_menu_item': self.playlist_menu_item_callback,
-			'ev_new_playlist': self.add_playlist_menu_item_callback,
-			'ev_show_properties_menu_item': self.show_properties_menu_item_callback }
-			
-		popup.connect_signals(signals)
-		self.popup = popup
+                             'ui/coverart_entryview_pop_rb3.ui')
+        signals = {
+            'ev_play_track_menu_item': self.play_track_menu_item_callback,
+            'ev_queue_track_menu_item': self.queue_track_menu_item_callback,
+            'ev_playlist_menu_item': self.playlist_menu_item_callback,
+            'ev_new_playlist': self.add_playlist_menu_item_callback,
+            'ev_show_properties_menu_item': self.show_properties_menu_item_callback }
+            
+        popup.connect_signals(signals)
+        self.popup = popup
 
         # connect signals to the shell to know when the playing state changes
         self.shell.props.shell_player.connect('playing-song-changed',
@@ -151,7 +151,6 @@ class CoverArtEntryView(RB.EntryView):
             if not self.external_plugins:
                 self.external_plugins = \
                     CreateExternalPluginMenu("ev_entryview", 3, self.popup)
-            print self.popup.ui_filename
             self.external_plugins.create_menu('entryview_popup_menu')
             self.popup.get_gtkmenu(self.source,
                 'entryview_popup_menu').popup(None, None, None, None, 0,
