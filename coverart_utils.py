@@ -56,7 +56,7 @@ class NaturalString(str):
     '''
 
     def __init__(self, string):
-        super(NaturalString, self).__init__(string)
+        super(NaturalString, self).__init__()
         convert = lambda text: int(text) if text.isdigit() else text.lower()
         alphanum_key = lambda key: [convert(c) for c in re.split('([0-9]+)',
             key)]
