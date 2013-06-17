@@ -50,15 +50,21 @@ def responses():
 
 def unicodestr(param, charset):
     if PYVER >=3:
-        return str(param, charset)
+        return param#str(param, charset)
     else:
         return unicode(param, charset)
         
 def unicodeencode(param, charset):
     if PYVER >=3:
-        return str(param).encode(charset)
+        return param#str(param).encode(charset)
     else:
         return unicode(param).encode(charset)
+        
+def unicodedecode(param, charset):
+    if PYVER >=3:
+        return param
+    else:
+        return param.decode(charset)
 
 def urlparse(uri):
     if PYVER >=3:

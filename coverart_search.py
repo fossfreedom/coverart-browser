@@ -63,15 +63,15 @@ class CoverSearchPane(Gtk.Box):
         self.template = Template(filename=path,
             default_filters=['decode.utf8'],
             module_directory='/tmp/',
-            output_encoding='utf-8',
             encoding_errors='replace')
+        #output_encoding='utf-8',
         path = rb.find_plugin_file(plugin,
             'tmpl/albumartsearchempty-tmpl.html')
         self.empty_template = Template(filename=path,
             default_filters=['decode.utf8'],
             module_directory='/tmp/',
-            output_encoding='utf-8',
             encoding_errors='replace')
+        #output_encoding='utf-8',
         self.styles = rb.find_plugin_file(plugin, 'tmpl/main.css')
 
     def init_gui(self):

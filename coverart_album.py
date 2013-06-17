@@ -39,6 +39,7 @@ from coverart_utils import idle_iterator
 from coverart_utils import NaturalString
 import coverart_rb3compat as rb3compat
 from coverart_utils import uniquify_and_sort
+from coverart_utils import dumpstack
 from datetime import datetime, date
 
 import os
@@ -53,7 +54,6 @@ ALBUM_LOAD_CHUNK = 50
 
 # default chunk of albums to procces when loading covers
 COVER_LOAD_CHUNK = 5
-
 
 class Cover(GObject.Object):
     '''
@@ -166,6 +166,8 @@ class Track(GObject.Object):
         'deleted': (GObject.SIGNAL_RUN_LAST, None, ())
         }
 
+    __hash__ = GObject.__hash__
+    
     def __init__(self, entry, db=None):
         super(Track, self).__init__()
 
@@ -174,7 +176,7 @@ class Track(GObject.Object):
 
     def __eq__(self, other):
         return rb.entry_equal(self.entry, other.entry)
-
+        
     @property
     def title(self):
         return self.entry.get_string(RB.RhythmDBPropType.TITLE)
@@ -267,6 +269,8 @@ class Album(GObject.Object):
         'cover-updated': (GObject.SIGNAL_RUN_LAST, None, ())
         }
 
+    __hash__ = GObject.__hash__
+    
     def __init__(self, name, artist, cover):
         super(Album, self).__init__()
 
@@ -401,12 +405,10 @@ class Album(GObject.Object):
         :param track: `Track` track to be added.
         '''
         self._tracks.append(track)
-
         ids = (track.connect('modified', self._track_modified),
             track.connect('deleted', self._track_deleted))
 
         self._signals_id[track] = ids
-
         self.emit('modified')
 
     def _track_modified(self, track):
@@ -669,7 +671,7 @@ class AlbumsModel(GObject.Object):
             self._iters[album.name][album.artist]['iter'] = tree_iter
 
         def error(exception):
-            print('Error while adding albums to the model: ' + str(exception))
+            print('Error(1) while adding albums to the model: ' + str(exception))
 
         def finish(data):
             self._sort_process = None
@@ -750,21 +752,16 @@ class AlbumsModel(GObject.Object):
         '''
         # generate necesary values
         values = self._generate_values(album)
-
         # insert the values
         tree_iter = self._tree_store.insert(self._albums.insert(album), values)
-
         # connect signals
         ids = (album.connect('modified', self._album_modified),
             album.connect('cover-updated', self._cover_updated),
             album.connect('emptied', self.remove))
-
         if not album.name in self._iters:
             self._iters[album.name] = {}
-
         self._iters[album.name][album.artist] = {'album': album,
             'iter': tree_iter, 'ids': ids}
-
         return tree_iter
 
     def _generate_values(self, album):
@@ -1009,9 +1006,8 @@ class AlbumLoader(GObject.Object):
 
             # allocate the track
             track = Track(entry, self._album_manager.db)
-
             self._tracks[track.location] = track
-
+            
             album_name = track.album
             album_artist = track.album_artist
             album_artist = album_artist if album_artist else track.artist
@@ -1027,7 +1023,7 @@ class AlbumLoader(GObject.Object):
                 data['albums'][album_name][album_artist] = album
 
             album.add_track(track)
-
+            
         def after(data):
             # update the progress
             data['progress'] += ALBUM_LOAD_CHUNK
@@ -1057,7 +1053,8 @@ class AlbumLoader(GObject.Object):
             self._album_manager.progress = 1 - data['progress'] / data['total']
 
         def error(exception):
-            print('Error while adding albums to the model: ' + str(exception))
+            dumpstack("Something awful happened!")
+            print('Error(2) while adding albums to the model: ' + str(exception))
 
         def finish(data):
             self._album_manager.progress = 0
@@ -1068,7 +1065,10 @@ class AlbumLoader(GObject.Object):
 
     def _entry_changed_callback(self, db, entry, changes):
         print("CoverArtBrowser DEBUG - entry_changed_callback")
-        # NOTE: changes are packed on a GValueArray
+        # NOTE: changes are packed on a GValueArray for RB 2.96 & 2.97
+        # changes are a GArray in 2.98 and higher.  Currently
+        # this will silently fail - thus changes are never reflected
+        # in the plugin until RB is restarted.
 
         # look at all the changes and update the albums acordingly
         try:
@@ -1627,7 +1627,7 @@ class TextManager(GObject.Object):
         Utility function that creates the tooltip for this album to set into
         the model.
         '''
-        return cgi.escape(_('%s by %s').encode('utf-8') % (album.name,
+        return cgi.escape(rb3compat.unicodeencode(_('%s by %s'), 'utf-8') % (album.name,
             album.artists))
 
     def _generate_markup_text(self, model, album):
@@ -1648,8 +1648,8 @@ class TextManager(GObject.Object):
             if len(artist) > ellipsize:
                 artist = artist[:ellipsize] + '...'
 
-        name = name.encode('utf-8')
-        artist = artist.encode('utf-8')
+        name = rb3compat.unicodeencode(name, 'utf-8')
+        artist = rb3compat.unicodeencode(artist, 'utf-8')
 
         # escape odd chars
         artist = GLib.markup_escape_text(artist)

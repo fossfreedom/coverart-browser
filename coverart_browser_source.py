@@ -48,6 +48,7 @@ from coverart_export import CoverArtExport
 from stars import ReactiveStar
 from coverart_rb3compat import Menu
 from coverart_rb3compat import ActionGroup
+import coverart_rb3compat as rb3compat
 
 class CoverArtBrowserSource(RB.Source):
     '''
@@ -700,8 +701,8 @@ class CoverArtBrowserSource(RB.Source):
 
         if album:
             self.request_statusbar.set_text(
-                (_('Requesting cover for %s - %s...') % (album.name,
-                album.artist)).decode('UTF-8'))
+                rb3compat.unicodedecode(_('Requesting cover for %s - %s...') % (album.name,
+                album.artist), 'UTF-8'))
         else:
             self.request_status_box.hide()
             #self.popup_menu.set_sensitive('source_menu_search_all_item', True)
@@ -980,25 +981,23 @@ class Statusbar(GObject.Object):
             # now lets build up a status label containing some
             # 'interesting stuff' about the album
             if len(albums) == 1:
-                self.status = (_('%s by %s') % (album.name, album.artist)).\
-                    decode('UTF-8')
+                self.status = rb3compat.unicodedecode(_('%s by %s') % 
+                        (album.name, album.artist), 'UTF-8')
             else:
-                self.status = (_('%d selected albums') % (len(albums))).\
-                    decode('UTF-8')
+                self.status = rb3compat.unicodedecode(_('%d selected albums') % 
+                        (len(albums)), 'UTF-8')
 
             if track_count == 1:
-                self.status += (_(' with 1 track')).decode('UTF-8')
+                self.status += rb3compat.unicodedecode(_(' with 1 track'), 'UTF-8')
             else:
-                self.status += (_(' with %d tracks') % track_count).\
-                    decode('UTF-8')
+                self.status += rb3compat.unicodedecode(_(' with %d tracks') % 
+                        track_count, 'UTF-8')
 
             if duration == 1:
-                self.status += (_(' and a duration of 1 minute')).\
-                    decode('UTF-8')
+                self.status += rb3compat.unicodedecode(_(' and a duration of 1 minute'), 'UTF-8')
             else:
-                self.status += \
-                    (_(' and a duration of %d minutes') % duration).\
-                        decode('UTF-8')
+                self.status += rb3compat.unicodedecode(_(' and a duration of %d minutes') % 
+                        duration, 'UTF-8')
 
     def _update(self, widget):
         albums = widget.get_selected_objects()
