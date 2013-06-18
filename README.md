@@ -63,7 +63,7 @@ for fedora and similar:
     
 for opensuse
 
-    sudo zypper in git gettext-runtime python-mako python-lxml
+    sudo zypper in git gettext-runtime python-mako python-lxml typelib-1_0-WebKit-3_0
 
 
 Then install the plugin:
