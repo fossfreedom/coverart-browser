@@ -44,22 +44,27 @@ class CoverArtEntryView(RB.EntryView):
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.RB)
 
-        self.append_column(RB.EntryViewColumn.TRACK_NUMBER, False)
         self.append_column(RB.EntryViewColumn.TITLE, True)  # always shown
-        self.append_column(RB.EntryViewColumn.GENRE, False)
-        self.append_column(RB.EntryViewColumn.ARTIST, False)
-        self.append_column(RB.EntryViewColumn.ALBUM, False)
-        self.append_column(RB.EntryViewColumn.DURATION, False)
-        self.append_column(RB.EntryViewColumn.COMMENT, False)
-        self.append_column(RB.EntryViewColumn.RATING, False)
-        self.append_column(RB.EntryViewColumn.QUALITY, False)
-        self.append_column(RB.EntryViewColumn.PLAY_COUNT, False)
-        self.append_column(RB.EntryViewColumn.LAST_PLAYED, False)
-        self.append_column(RB.EntryViewColumn.YEAR, False)
-        self.append_column(RB.EntryViewColumn.FIRST_SEEN, False)
-        self.append_column(RB.EntryViewColumn.LOCATION, False)
-        self.append_column(RB.EntryViewColumn.BPM, False)
-
+        
+        self.col_map = {'artist' : RB.EntryViewColumn.ARTIST,
+                        'duration': RB.EntryViewColumn.DURATION,
+                        'genre': RB.EntryViewColumn.GENRE,
+                        'track-number': RB.EntryViewColumn.TRACK_NUMBER,
+                        'album': RB.EntryViewColumn.ALBUM,
+                        'bitrate': RB.EntryViewColumn.QUALITY,
+                        'location': RB.EntryViewColumn.LOCATION,
+                        'rating': RB.EntryViewColumn.RATING,
+                        'first-seen': RB.EntryViewColumn.FIRST_SEEN,
+                        'play-count': RB.EntryViewColumn.PLAY_COUNT,
+                        'comment': RB.EntryViewColumn.COMMENT,
+                        'date': RB.EntryViewColumn.YEAR,
+                        'last-played': RB.EntryViewColumn.LAST_PLAYED}
+                        
+        # 'beats-per-minute': RB.EntryViewColumn.BPM - RB crashes with this - issue#188
+        
+        for entry in self.col_map:
+            self.append_column(self.col_map[entry], False)
+                
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
 
         # UI elements need to be imported.
@@ -120,7 +125,13 @@ class CoverArtEntryView(RB.EntryView):
     def on_visible_columns_changed(self, settings, key):
         print "CoverArtBrowser DEBUG - on_visible_columns_changed()"
         # reset current columns
-        self.props.visible_columns = settings[key]
+        for entry in self.col_map:
+            col = self.get_column(self.col_map[entry])
+            if entry in settings[key]:
+                col.set_visible(True)
+            else:
+                col.set_visible(False)
+            
         print "CoverArtBrowser DEBUG - end on_visible_columns_changed()"
 
     def add_album(self, album):
