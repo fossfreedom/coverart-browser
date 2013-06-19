@@ -64,6 +64,11 @@ for fedora and similar:
 for opensuse
 
     sudo zypper in git gettext-runtime python-mako python-lxml typelib-1_0-WebKit-3_0
+    
+NOTE - for opensuse 12.3 please do NOT install typelib-1_0-WebKit-3_0.  You also need to make
+the following code change to enable the plugin to work:
+
+ - https://github.com/fossfreedom/coverart-browser/wiki/OpenSuse-12.3-WebKit-issue
 
 
 Then install the plugin:
