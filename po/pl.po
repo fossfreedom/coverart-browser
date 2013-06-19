@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-20 11:52+0100\n"
-"PO-Revision-Date: 2013-06-12 09:47+0000\n"
-"Last-Translator: Mike08 <micou8@gmail.com>\n"
+"PO-Revision-Date: 2013-06-18 19:55+0000\n"
+"Last-Translator: Michał Rzepiński <Unknown>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-06-13 10:16+0000\n"
+"X-Launchpad-Export-Date: 2013-06-19 07:32+0000\n"
 "X-Generator: Launchpad (build 16667)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
@@ -86,7 +86,7 @@ msgstr "Wybierz obraz"
 
 #: tmp/coverart_browser_prefs.ui.h:2
 msgid "Select picture to add to Edit Genre icon drop-down list"
-msgstr ""
+msgstr "Wybierz obrazek do dodania do rozwijanej listy ikon edytowania gatunku"
 
 #: tmp/coverart_browser_prefs.ui.h:3
 msgid "Above"
@@ -609,7 +609,7 @@ msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Michał Nieznański https://launchpad.net/~katsu229\n"
-"  Mike08 https://launchpad.net/~micou8\n"
+"  Michał Rzepiński https://launchpad.net/~micou8\n"
 "  Szymon Nieznański https://launchpad.net/~isamu715"
 
 #. define .plugin text strings used for translation
