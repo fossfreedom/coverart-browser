@@ -22,9 +22,15 @@ from coverart_external_plugins import CreateExternalPluginMenu
 from gi.repository import Gdk
 from gi.repository import Gtk
 from gi.repository import GLib
+from gi.repository import GObject
+from gi.repository import Gio
+from coverart_browser_prefs import GSetting
 
 class CoverIconView(EnhancedIconView):
     __gtype_name__ = "CoverIconView"
+
+    icon_spacing = GObject.property(type=int, default=0)
+    icon_padding = GObject.property(type=int, default=0)
 
     def __init__(self, *args, **kwargs):
         super(CoverIconView, self).__init__(*args, **kwargs)
@@ -32,7 +38,7 @@ class CoverIconView(EnhancedIconView):
         self.ext_menu_pos = 0
         self._external_plugins = None
         self.click_count = 0
-
+        self.gs = GSetting()
 
     def pre_display_popup(self):
         if not self._external_plugins:
@@ -76,6 +82,28 @@ class CoverIconView(EnhancedIconView):
         self.connect("item-clicked", self.item_clicked_callback)
         self.connect("selection-changed", self.selectionchanged_callback)
         self.connect("item-activated", self.item_activated_callback)
+
+        setting = self.gs.get_setting(self.gs.Path.PLUGIN)
+        setting.bind(
+            self.gs.PluginKey.ICON_SPACING,
+            self,
+            'icon_spacing',
+            Gio.SettingsBindFlags.GET)
+        setting.bind(
+            self.gs.PluginKey.ICON_PADDING,
+            self,
+            'icon_padding',
+            Gio.SettingsBindFlags.GET)
+
+        self.connect('notify::icon-spacing',
+            self.on_notify_icon_spacing)
+
+        self.on_notify_icon_spacing()
+
+        self.connect('notify::icon-padding',
+            self.on_notify_icon_padding)
+
+        self.on_notify_icon_padding()
 
     def on_drag_drop(self, widget, context, x, y, time):
         '''
@@ -247,3 +275,15 @@ class CoverIconView(EnhancedIconView):
 
         return True
 
+    def on_notify_icon_padding(self, *args):
+        '''
+        Callback called when the icon-padding gsetting value is changed
+        '''
+        self.set_item_padding(self.icon_padding)
+
+    def on_notify_icon_spacing(self, *args):
+        '''
+        Callback called when the icon-spacing gsetting value is changed
+        '''
+        self.set_row_spacing(self.icon_spacing)
+        self.set_column_spacing(self.icon_spacing)

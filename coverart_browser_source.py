@@ -34,7 +34,6 @@ from coverart_browser_prefs import CoverLocale
 from coverart_widgets import SearchEntry
 from coverart_widgets import QuickSearchEntry
 from coverart_widgets import ProxyPopupButton
-from coverart_widgets import EnhancedIconView
 from coverart_widgets import PanedCollapsible
 from coverart_controllers import PlaylistPopupController
 from coverart_controllers import GenrePopupController
@@ -56,8 +55,6 @@ class CoverArtBrowserSource(RB.Source):
     Source utilized by the plugin to show all it's ui.
     '''
     rating_threshold = GObject.property(type=float, default=0)
-    icon_spacing = GObject.property(type=int, default=0)
-    icon_padding = GObject.property(type=int, default=0)
 
     # unique instance of the source
     instance = None
@@ -88,16 +85,6 @@ class CoverArtBrowserSource(RB.Source):
             self.gs.PluginKey.RATING,
             self,
             'rating_threshold',
-            Gio.SettingsBindFlags.GET)
-        setting.bind(
-            self.gs.PluginKey.ICON_SPACING,
-            self,
-            'icon_spacing',
-            Gio.SettingsBindFlags.GET)
-        setting.bind(
-            self.gs.PluginKey.ICON_PADDING,
-            self,
-            'icon_padding',
             Gio.SettingsBindFlags.GET)
 
         print("CoverArtBrowser DEBUG - end _connect_properties")
@@ -167,12 +154,6 @@ class CoverArtBrowserSource(RB.Source):
         # connect properties signals
         self.connect('notify::rating-threshold',
             self.on_notify_rating_threshold)
-
-        self.connect('notify::icon-spacing',
-            self.on_notify_icon_spacing)
-
-        self.connect('notify::icon-padding',
-            self.on_notify_icon_padding)
 
         # indicate that the source was activated before
         self.hasActivated = True
@@ -696,19 +677,6 @@ class CoverArtBrowserSource(RB.Source):
             album.rating = rating
 
         print("CoverArtBrowser DEBUG - end rating_changed_callback")
-
-    def on_notify_icon_padding(self, *args):
-        '''
-        Callback called when the icon-padding gsetting value is changed
-        '''
-        self.covers_view.set_item_padding(self.icon_padding)
-
-    def on_notify_icon_spacing(self, *args):
-        '''
-        Callback called when the icon-spacing gsetting value is changed
-        '''
-        self.covers_view.set_row_spacing(self.icon_spacing)
-        self.covers_view.set_column_spacing(self.icon_spacing)
 
     @classmethod
     def get_instance(cls, **kwargs):
