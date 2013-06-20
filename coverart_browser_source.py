@@ -252,10 +252,7 @@ class CoverArtBrowserSource(RB.Source):
 
         # setup iconview popup
         self.covers_view.popup = self.popup_menu
-        self.covers_view.view_name = "covers_view"
-        self.covers_view.source = self
-        self.covers_view.ext_menu_pos = 10
-
+        
         # setup entry-view objects and widgets
         setting = self.gs.get_setting(self.gs.Path.PLUGIN)
         setting.bind(self.gs.PluginKey.PANED_POSITION,
@@ -283,29 +280,9 @@ class CoverArtBrowserSource(RB.Source):
         vbox.show_all()
         self.notebook.append_page(vbox, Gtk.Label(_("Tracks")))
 
-        # setup iconview drag&drop support
-        # first drag and drop on the coverart view to receive coverart
-        self.covers_view.enable_model_drag_dest([], Gdk.DragAction.COPY)
-        self.covers_view.drag_dest_add_image_targets()
-        self.covers_view.drag_dest_add_text_targets()
-        self.covers_view.connect('drag-drop', self.on_drag_drop)
-        self.covers_view.connect('drag-data-received',
-            self.on_drag_data_received)
-        self.covers_view.connect('drag-begin', self.on_drag_begin)
-
-        # lastly support drag-drop from coverart to devices/nautilus etc
-        self.covers_view.enable_model_drag_source(Gdk.ModifierType.BUTTON1_MASK,
-            [], Gdk.DragAction.COPY)
-        targets = Gtk.TargetList.new([Gtk.TargetEntry.new("application/x-rhythmbox-entry", 0, 0),
-            Gtk.TargetEntry.new("text/uri-list", 0, 1) ])
-        # N.B. values taken from rhythmbox v2.97 widgets/rb_entry_view.c
-        targets.add_uri_targets(2)
-        self.covers_view.drag_source_set_target_list(targets)
-        self.covers_view.connect("drag-data-get", self.on_drag_data_get)
-
         # create an album manager
         self.album_manager = AlbumManager(self.plugin, self.covers_view)
-
+        self.covers_view.initialise(self)
         # setup cover search pane
         try:
             color = self.covers_view.get_style_context().get_background_color(
@@ -328,9 +305,6 @@ class CoverArtBrowserSource(RB.Source):
 
         # prompt the loader to load the albums
         self.album_manager.loader.load_albums(self.props.base_query_model)
-
-        # set the model to the view
-        self.covers_view.set_model(self.album_manager.model.store)
 
         # initialise the toolbar manager
         self._toolbar_manager = ToolbarManager(self.plugin, self.page,
@@ -774,7 +748,7 @@ class CoverArtBrowserSource(RB.Source):
         Callback connected to expanded signal of the paned GtkExpander
         '''
         if expand:
-            # acomodate the viewport if there's an album selected
+            # accommodate the viewport if there's an album selected
             if self.last_selected_album:
                 def scroll_to_album(*args):
                     # acomodate the viewport if there's an album selected
@@ -787,90 +761,6 @@ class CoverArtBrowserSource(RB.Source):
 
                 Gdk.threads_add_idle(GObject.PRIORITY_DEFAULT_IDLE,
                     scroll_to_album, None)
-
-    def on_drag_drop(self, widget, context, x, y, time):
-        '''
-        Callback called when a drag operation finishes over the cover view
-        of the source. It decides if the dropped item can be processed as
-        an image to use as a cover.
-        '''
-        print("CoverArtBrowser DEBUG - on_drag_drop")
-
-        # stop the propagation of the signal (deactivates superclass callback)
-        widget.stop_emission('drag-drop')
-
-        # obtain the path of the icon over which the drag operation finished
-        path, pos = widget.get_dest_item_at_pos(x, y)
-        result = path is not None
-
-        if result:
-            target = self.covers_view.drag_dest_find_target(context, None)
-            widget.drag_get_data(context, target, time)
-
-        print("CoverArtBrowser DEBUG - end on_drag_drop")
-
-        return result
-
-    def on_drag_data_received(self, widget, drag_context, x, y, data, info,
-        time):
-        '''
-        Callback called when the drag source has prepared the data (pixbuf)
-        for us to use.
-        '''
-        print("CoverArtBrowser DEBUG - on_drag_data_received")
-
-        # stop the propagation of the signal (deactivates superclass callback)
-        widget.stop_emission('drag-data-received')
-
-        # get the album and the info and ask the loader to update the cover
-        path, pos = widget.get_dest_item_at_pos(x, y)
-        album = widget.get_model()[path][2]
-
-        pixbuf = data.get_pixbuf()
-
-        if pixbuf:
-            self.album_manager.cover_man.update_cover(album, pixbuf)
-        else:
-            uri = data.get_text()
-            self.album_manager.cover_man.update_cover(album, uri=uri)
-
-        # call the context drag_finished to inform the source about it
-        drag_context.finish(True, False, time)
-
-        print("CoverArtBrowser DEBUG - end on_drag_data_received")
-
-    def on_drag_data_get(self, widget, drag_context, data, info, time):
-        '''
-        Callback called when the drag destination (playlist) has
-        requested what album (icon) has been dragged
-        '''
-        print("CoverArtBrowser DEBUG - on_drag_data_get")
-
-        uris = []
-        for album in widget.get_selected_objects():
-            for track in album.get_tracks():
-                uris.append(track.location)
-
-        data.set_uris(uris)
-        # stop the propagation of the signal (deactivates superclass callback)
-        widget.stop_emission('drag-data-get')
-        print("CoverArtBrowser DEBUG - end on_drag_data_get")
-
-
-    def on_drag_begin(self, widget, context):
-        '''
-        Callback called when the drag-drop from coverview has started
-        Changes the drag icon as appropriate
-        '''
-        album_number = len(widget.get_selected_objects())
-
-        if album_number == 1:
-            item = Gtk.STOCK_DND
-        else:
-            item = Gtk.STOCK_DND_MULTIPLE
-
-        widget.drag_source_set_icon_stock(item)
-        widget.stop_emission('drag-begin')
 
     def notebook_switch_page_callback(self, notebook, page, page_num):
         '''

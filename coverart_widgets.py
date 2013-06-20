@@ -653,7 +653,7 @@ class EnhancedIconView(Gtk.IconView):
                 self.set_cursor(current_path, None, False)
 
                 if self.popup:
-                    self.pre_button_press_event(self)    
+                    self.pre_display_popup()    
                     self.popup.get_gtkmenu(self.source, 'popup_menu').popup(None,
                         None, None, None, event.button, event.time)
             else:
