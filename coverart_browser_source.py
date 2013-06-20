@@ -48,6 +48,7 @@ from coverart_export import CoverArtExport
 from stars import ReactiveStar
 from coverart_rb3compat import Menu
 from coverart_rb3compat import ActionGroup
+from coverart_covericonview import CoverIconView
 import coverart_rb3compat as rb3compat
 
 class CoverArtBrowserSource(RB.Source):
@@ -252,8 +253,6 @@ class CoverArtBrowserSource(RB.Source):
         # setup iconview popup
         self.covers_view.popup = self.popup_menu
         self.covers_view.view_name = "covers_view"
-        #self.covers_view.shell = self.shell
-        #self.covers_view.plugin = self.plugin
         self.covers_view.source = self
         self.covers_view.ext_menu_pos = 10
 

@@ -22,6 +22,9 @@
     <glade-widget-class title="EnhancedIconView" name="EnhancedIconView" 
                         generic-name="EnhancedIconView" parent="GtkIconView"
                         icon-name="widget-gtk-iconview"/>
+    <glade-widget-class title="CoverIconView" name="CoverIconView" 
+                        generic-name="CoverIconView" parent="GtkIconView"
+                        icon-name="widget-gtk-iconview"/>
     <glade-widget-class title="CollapsiblePaned" name="CollapsiblePaned"
                         generic-name="CollapsiblePaned" parent="GtkPaned"
                         icon-name="widget-gtk-paned"/>
