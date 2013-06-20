@@ -21,6 +21,7 @@ from coverart_widgets import EnhancedIconView
 from coverart_external_plugins import CreateExternalPluginMenu
 from gi.repository import Gdk
 from gi.repository import Gtk
+from gi.repository import GLib
 
 class CoverIconView(EnhancedIconView):
     __gtype_name__ = "CoverIconView"
@@ -30,6 +31,8 @@ class CoverIconView(EnhancedIconView):
 
         self.ext_menu_pos = 0
         self._external_plugins = None
+        self.click_count = 0
+
 
     def pre_display_popup(self):
         if not self._external_plugins:
@@ -69,6 +72,10 @@ class CoverIconView(EnhancedIconView):
 
         # set the model to the view
         self.set_model(self.album_manager.model.store)
+
+        self.connect("item-clicked", self.item_clicked_callback)
+        self.connect("selection-changed", self.selectionchanged_callback)
+        self.connect("item-activated", self.item_activated_callback)
 
     def on_drag_drop(self, widget, context, x, y, time):
         '''
@@ -146,4 +153,97 @@ class CoverIconView(EnhancedIconView):
 
         widget.drag_source_set_icon_stock(item)
         widget.stop_emission('drag-begin')
+
+    def item_clicked_callback(self, iconview, event, path):
+        '''
+        Callback called when the user clicks somewhere on the cover_view.
+        Along with _timeout_expand, takes care of showing/hiding the bottom
+        pane after a second click on a selected album.
+        '''
+        # to expand the entry view
+        ctrl = event.state & Gdk.ModifierType.CONTROL_MASK
+        shift = event.state & Gdk.ModifierType.SHIFT_MASK
+
+        self.click_count += 1 if not ctrl and not shift else 0
+
+        if self.click_count == 1:
+            album = self.album_manager.model.get_from_path(path)\
+                if path else None
+            Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
+                self._timeout_expand, album)
+
+    def _timeout_expand(self, album):
+        '''
+        helper function - if the entry is manually expanded
+        then if necessary scroll the view to the last selected album
+        '''
+        if album and self.click_count == 1 \
+            and self.source.last_selected_album is album:
+            # check if it's a second or third click on the album and expand
+            # or collapse the entry view accordingly
+            self.source.paned.expand()
+
+        # update the selected album
+        selected = self.get_selected_objects()
+        self.source.last_selected_album = selected[0] if len(selected) == 1 else None
+
+        # clear the click count
+        self.click_count = 0
+
+
+    def selectionchanged_callback(self, widget):
+        '''
+        Callback called when an item from the cover view gets selected.
+        '''
+        print("CoverArtBrowser DEBUG - selectionchanged_callback")
+
+        selected = self.get_selected_objects()
+
+        # clear the entry view
+        self.source.entry_view.clear()
+
+        cover_search_pane_visible = self.source.notebook.get_current_page() == \
+            self.source.notebook.page_num(self.source.cover_search_pane)
+
+        if not selected:
+            # clean cover tab if selected
+            if cover_search_pane_visible:
+                self.source.cover_search_pane.clear()
+
+            return
+        elif len(selected) == 1:
+            self.source.stars.set_rating(selected[0].rating)
+
+            if selected[0] is not self.source.last_selected_album:
+                # when the selection changes we've to take into account two
+                # things
+                if not self.click_count:
+                    # we may be using the arrows, so if there is no mouse
+                    # involved, we should change the last selected
+                    self.source.last_selected_album = selected[0]
+                else:
+                    # we may've doing a fast change after a valid second click,
+                    # so it shouldn't be considered a double click
+                    self.click_count -= 1
+        else:
+            self.source.stars.set_rating(0)
+
+        for album in selected:
+            # add the album to the entry_view
+            self.source.entry_view.add_album(album)
+
+        # update the cover search pane with the first selected album
+        if cover_search_pane_visible:
+            self.source.cover_search_pane.do_search(selected[0])
+
+        print("CoverArtBrowser DEBUG - end selectionchanged_callback")
+
+    def item_activated_callback(self, iconview, path):
+        '''
+        Callback called when the cover view is double clicked or space-bar
+        is pressed. It plays the selected album
+        '''
+        self.source.play_selected_album()
+
+        return True
 

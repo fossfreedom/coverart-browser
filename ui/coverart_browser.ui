@@ -41,9 +41,6 @@
                     <property name="tooltip_column">0</property>
                     <property name="pixbuf_column">1</property>
                     <property name="object_column">2</property>
-                    <signal name="item-clicked" handler="item_clicked_callback" swapped="no"/>
-                    <signal name="selection-changed" handler="selectionchanged_callback" swapped="no"/>
-                    <signal name="item-activated" handler="item_activated_callback" swapped="no"/>
                   </object>
                 </child>
               </object>

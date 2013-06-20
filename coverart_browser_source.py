@@ -76,8 +76,7 @@ class CoverArtBrowserSource(RB.Source):
         self.hasActivated = False
         self.last_width = 0
         self.last_selected_album = None
-        self.click_count = 0
-
+ 
     def _connect_properties(self):
         '''
         Connects the source properties to the saved preferences.
@@ -365,42 +364,6 @@ class CoverArtBrowserSource(RB.Source):
     def get_entry_view(self):
         return self.entry_view
 
-    def item_clicked_callback(self, iconview, event, path):
-        '''
-        Callback called when the user clicks somewhere on the cover_view.
-        Along with _timeout_expand, takes care of showing/hiding the bottom
-        pane after a second click on a selected album.
-        '''
-        # to expand the entry view
-        ctrl = event.state & Gdk.ModifierType.CONTROL_MASK
-        shift = event.state & Gdk.ModifierType.SHIFT_MASK
-
-        self.click_count += 1 if not ctrl and not shift else 0
-
-        if self.click_count == 1:
-            album = self.album_manager.model.get_from_path(path)\
-                if path else None
-            Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
-                self._timeout_expand, album)
-
-    def _timeout_expand(self, album):
-        '''
-        helper function - if the entry is manually expanded
-        then if necessary scroll the view to the last selected album
-        '''
-        if album and self.click_count == 1 \
-            and self.last_selected_album is album:
-            # check if it's a second or third click on the album and expand
-            # or collapse the entry view accordingly
-            self.paned.expand()
-
-        # update the selected album
-        selected = self.covers_view.get_selected_objects()
-        self.last_selected_album = selected[0] if len(selected) == 1 else None
-
-        # clear the click count
-        self.click_count = 0
-
     def on_notify_rating_threshold(self, *args):
         '''
         Callback called when the option rating threshold is changed
@@ -455,15 +418,6 @@ class CoverArtBrowserSource(RB.Source):
         info_dialog.show_all()
 
         print("CoverArtBrowser DEBUG - end show_properties_menu_item_callback")
-
-    def item_activated_callback(self, iconview, path):
-        '''
-        Callback called when the cover view is double clicked or space-bar
-        is pressed. It plays the selected album
-        '''
-        self.play_selected_album()
-
-        return True
 
     def play_selected_album(self, favourites=False):
         '''
@@ -696,53 +650,6 @@ class CoverArtBrowserSource(RB.Source):
 
         print("CoverArtBrowser DEBUG - end cancel_request_callback")
 
-    def selectionchanged_callback(self, widget):
-        '''
-        Callback called when an item from the cover view gets selected.
-        '''
-        print("CoverArtBrowser DEBUG - selectionchanged_callback")
-
-        selected = self.covers_view.get_selected_objects()
-
-        # clear the entry view
-        self.entry_view.clear()
-
-        cover_search_pane_visible = self.notebook.get_current_page() == \
-            self.notebook.page_num(self.cover_search_pane)
-
-        if not selected:
-            # clean cover tab if selected
-            if cover_search_pane_visible:
-                self.cover_search_pane.clear()
-
-            return
-        elif len(selected) == 1:
-            self.stars.set_rating(selected[0].rating)
-
-            if selected[0] is not self.last_selected_album:
-                # when the selection changes we've to take into account two
-                # things
-                if not self.click_count:
-                    # we may be using the arrows, so if there is no mouse
-                    # involved, we should change the last selected
-                    self.last_selected_album = selected[0]
-                else:
-                    # we may've doing a fast change after a valid second click,
-                    # so it shouldn't be considered a double click
-                    self.click_count -= 1
-        else:
-            self.stars.set_rating(0)
-
-        for album in selected:
-            # add the album to the entry_view
-            self.entry_view.add_album(album)
-
-        # update the cover search pane with the first selected album
-        if cover_search_pane_visible:
-            self.cover_search_pane.do_search(selected[0])
-
-        print("CoverArtBrowser DEBUG - end selectionchanged_callback")
-
     def bottom_expander_expanded_callback(self, paned, expand):
         '''
         Callback connected to expanded signal of the paned GtkExpander
@@ -751,7 +658,7 @@ class CoverArtBrowserSource(RB.Source):
             # accommodate the viewport if there's an album selected
             if self.last_selected_album:
                 def scroll_to_album(*args):
-                    # acomodate the viewport if there's an album selected
+                    # accommodate the viewport if there's an album selected
                     path = self.album_manager.model.get_path(
                         self.last_selected_album)
 
@@ -794,16 +701,14 @@ class CoverArtBrowserSource(RB.Source):
         '''
         Callback called when the icon-padding gsetting value is changed
         '''
-        print(self.covers_view.set_item_padding(self.icon_padding))
-        pass
+        self.covers_view.set_item_padding(self.icon_padding)
 
     def on_notify_icon_spacing(self, *args):
         '''
         Callback called when the icon-spacing gsetting value is changed
         '''
-        print(self.covers_view.set_row_spacing(self.icon_spacing))
-        print(self.covers_view.set_column_spacing(self.icon_spacing))
-        pass
+        self.covers_view.set_row_spacing(self.icon_spacing)
+        self.covers_view.set_column_spacing(self.icon_spacing)
 
     @classmethod
     def get_instance(cls, **kwargs):
