@@ -1,4 +1,4 @@
-# Polish translation for coverartbrowser
+# Bosnian translation for coverartbrowser
 # Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
 # This file is distributed under the same license as the coverartbrowser package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
@@ -8,33 +8,31 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-20 11:52+0100\n"
-"PO-Revision-Date: 2013-06-18 19:55+0000\n"
-"Last-Translator: Michał Rzepiński <Unknown>\n"
-"Language-Team: Polish <pl@li.org>\n"
-"Language: pl\n"
+"PO-Revision-Date: 2013-06-20 13:29+0000\n"
+"Last-Translator: Kenan Dervišević <kenan3008@gmail.com>\n"
+"Language-Team: Bosnian <bs@li.org>\n"
+"Language: bs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-06-19 07:32+0000\n"
-"X-Generator: Launchpad (build 16667)\n"
+"X-Launchpad-Export-Date: 2013-06-20 20:41+0000\n"
+"X-Generator: Launchpad (build 16673)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
-msgstr "Opcje wyszukiwania"
+msgstr "Opcije pretrage"
 
 #: tmpl/albumartsearch-tmpl.html:187
 msgid "Tip: doubleclick or drag a cover to use it as the album cover"
 msgstr ""
-"Wskazówka: kliknij podwójnie lub przeciągnij okładkę by użyć jej jako "
-"okładki albumu"
 
 #: tmpl/albumartsearch-tmpl.html:189
 msgid "Search Mode"
-msgstr "Tryb wyszukiwania"
+msgstr "Režim pretrage"
 
 #: tmpl/albumartsearch-tmpl.html:191
 msgid "Artist"
-msgstr "Wykonawca"
+msgstr "Izvođač"
 
 #: tmpl/albumartsearch-tmpl.html:192
 msgid "Album"
@@ -42,241 +40,233 @@ msgstr "Album"
 
 #: tmpl/albumartsearch-tmpl.html:193
 msgid "Artist and album"
-msgstr "Wykonawca i album"
+msgstr "Izvođač i album"
 
 #: tmpl/albumartsearch-tmpl.html:196
 msgid "Search text"
-msgstr "Wyszukaj tekst"
+msgstr "Pretraga teksta"
 
 #: tmpl/albumartsearch-tmpl.html:199
 msgid "Search"
-msgstr "Szukaj"
+msgstr "Pretraga"
 
 #: tmpl/albumartsearch-tmpl.html:201
 msgid "Image Size"
-msgstr "Rozmiar obrazu"
+msgstr "Veličina slike"
 
 #: tmpl/albumartsearch-tmpl.html:203
 msgid "Small"
-msgstr "Mały"
+msgstr "Malo"
 
 #: tmpl/albumartsearch-tmpl.html:204
 msgid "Medium"
-msgstr "Średni"
+msgstr "Srednje"
 
 #: tmpl/albumartsearch-tmpl.html:205
 msgid "Large"
-msgstr "Duży"
+msgstr "Veliko"
 
 #: tmpl/albumartsearch-tmpl.html:206
 msgid "Extra Large"
-msgstr "Bardzo duży"
+msgstr "Ekstra veliko"
 
 #: tmpl/albumartsearch-tmpl.html:211 coverart_browser_source.py:100
 msgid "Loading..."
-msgstr "Ładowanie..."
+msgstr "Učitavam..."
 
 #: tmpl/albumartsearch-tmpl.html:213
 msgid "Show more results"
-msgstr "Pokaż więcej wyników"
+msgstr "Prikaži više rezultata"
 
 #: tmp/coverart_browser_prefs.ui.h:1
 msgid "Select a picture"
-msgstr "Wybierz obraz"
+msgstr "Izaberite sliku"
 
 #: tmp/coverart_browser_prefs.ui.h:2
 msgid "Select picture to add to Edit Genre icon drop-down list"
-msgstr "Wybierz obrazek do dodania do rozwijanej listy ikon edytowania gatunku"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:3
 msgid "Above"
-msgstr "Powyżej"
+msgstr "Iznad"
 
 #: tmp/coverart_browser_prefs.ui.h:4
 msgid "Top Left"
-msgstr "Lewy górny"
+msgstr "Gore lijevo"
 
 #: tmp/coverart_browser_prefs.ui.h:5
 msgid "Top Center"
-msgstr "Górny środkowy"
+msgstr "Gore sredina"
 
 #: tmp/coverart_browser_prefs.ui.h:6
 msgid "Top Right"
-msgstr "Prawy górny"
+msgstr "Gore desno"
 
 #: tmp/coverart_browser_prefs.ui.h:7
 msgid "Automatically Start"
-msgstr "Automatycznie uruchom"
+msgstr "Autmatsko pokretanje"
 
 #: tmp/coverart_browser_prefs.ui.h:8
 msgid "When rhythmbox starts, switch automatically to the coverart browser."
 msgstr ""
-"Automatycznie przełącz do przeglądarki okładek gdy Rhytmbox jest uruchamiany."
 
 #: tmp/coverart_browser_prefs.ui.h:9
 msgid "Use source's custom statusbar."
-msgstr "Użyj źródłowego paska stanu."
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:10
 msgid ""
 "Use the source's custom statusbar to show the current selected album's "
 "related information instead of the global Rhythmbox's statusbar."
 msgstr ""
-"Użyj źródłowego domyślnego paska stanu zamiast globalnego paska stanu "
-"Rhytmboxa  by wyświetlić powiązane informacje na temat zaznaczonych albumów."
 
 #: tmp/coverart_browser_prefs.ui.h:11
 msgid "Display tracks and covers pane"
-msgstr "Wyświetl panel utworów i okładek"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:12
 msgid ""
 "Add a toggle-option to the coverart view to display the tracks and covers "
 "for the chosen album"
 msgstr ""
-"Dodaj opcję przełączenia do widoku okładek by wyświetlać utwory i okładki "
-"dla wybranego albumu"
 
 #: tmp/coverart_browser_prefs.ui.h:13
 msgid "Level above which is regarded as being a favourite track or album"
-msgstr "Poziom, powyżej którego ścieżka lub album jest uznawany za ulubiony."
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:14
 msgid "Favourite Threshold"
-msgstr "Próg ulubionych"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:15
 msgid "General"
-msgstr "Ogólne"
+msgstr "Općenito"
 
 #: tmp/coverart_browser_prefs.ui.h:16
 msgid "Album Information"
-msgstr "Informacje o Albumie"
+msgstr "Informacije o albumu"
 
 #: tmp/coverart_browser_prefs.ui.h:17
 msgid "Display album's info under cover"
-msgstr "Wyświetl informacje o albumie pod okładką"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:18
 msgid "Show the album's basic information under the cover image."
-msgstr "Pokaż podstawowe informacje o albumie pod obrazkiem okładki."
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:19
 msgid "Font size for the text below the cover-art."
-msgstr "Rozmiar tekstu pod okładką."
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:20
 msgid "Font Size:"
-msgstr "Rozmiar tekstu:"
+msgstr "Veličina fonta:"
 
 #: tmp/coverart_browser_prefs.ui.h:21
 msgid "Ellipsize albums names"
-msgstr "Nadawaj nazwom albumów kształt elipsy"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:22
 msgid ""
 "Ellipsizes the albums names to a fixed length when the display text option "
 "is enabled."
 msgstr ""
-"Nadaje nazwom albumów kształt elipsy do określonej długości kiedy opcja "
-"wyświetlania tekstu jest włączona."
 
 #: tmp/coverart_browser_prefs.ui.h:23
 msgid "Maximum allowed length for an album's name before being ellipsized."
 msgstr ""
-"Maksymalna dozwolona długość nazwy albumu przed nadaniem jej kształtu elipsy."
 
 #: tmp/coverart_browser_prefs.ui.h:24
 msgid "Maximum length:"
-msgstr "Maksymalna długość:"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:25
 msgid "Cover Appearance"
-msgstr "Wygląd Okładki"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:26
 msgid "Drop shadow"
-msgstr "Cień"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:27
 msgid "Indicates if the albums should drop a shadow on the cover view"
-msgstr "Wskazuje, czy album powinien rzucać cień na widok okładek"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:28
 msgid "Light Source: "
-msgstr "Źródło światła: "
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:29
 msgid "Defines the size for the covers showed on the source."
-msgstr "Określa rozmiar okładek pokazywanych w źródle"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:30
 msgid "Size (in pixels):"
-msgstr "Wielkość (w pikselach):"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:31
 msgid "Cover"
-msgstr "Okładka"
+msgstr "Omot"
 
 #: tmp/coverart_browser_prefs.ui.h:32
 msgid "Where the toolbar should be positioned"
-msgstr "Gdzie powinien być umiejscowiony pasek narzędzi"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:33
 msgid "Position"
-msgstr "Położenie"
+msgstr "Pozicija"
 
 #: tmp/coverart_browser_prefs.ui.h:34
 msgid "Show toolbar: "
-msgstr "Pokaż pasek narzędzi: "
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:35
 msgid "Look & Feel"
-msgstr "Wygląd"
+msgstr "Izgled"
 
 #: tmp/coverart_browser_prefs.ui.h:36
 msgid "Flat-button style"
-msgstr "Płaski styl przycisków"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:37
 msgid "Icon Theme: "
-msgstr "Motyw ikon: "
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:38
 msgid "Alternative Genres:"
-msgstr "Alternatywne gatunki:"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:39
 msgid "Load New Icon: "
-msgstr "Wczytaj nową ikonę: "
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:40
 msgid "Select a new genre icon"
-msgstr "Wybierz nową ikonę gatunku"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:41
 msgid "Edit Genre Details:"
-msgstr "Edytuj szczegóły gatunku"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:42
 msgid "Save changes"
-msgstr "Zachowaj zmiany"
+msgstr "Sačuvaj izmjene"
 
 #: tmp/coverart_browser_prefs.ui.h:43
 msgid "Name:"
-msgstr "Nazwa:"
+msgstr "Ime:"
 
 #: tmp/coverart_browser_prefs.ui.h:44
 msgid "Icon:"
-msgstr "Ikona:"
+msgstr "Ikone:"
 
 #: tmp/coverart_browser_prefs.ui.h:45
 msgid "Current user-defined Genres:"
-msgstr "Gatunki zdefiniowane przez użytkownika:"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:46
 msgid "Alternate Name"
-msgstr "Alternatywna nazwa"
+msgstr "Alternativno ime"
 
 #: tmp/coverart_browser_prefs.ui.h:47
 msgid "Icon"
@@ -284,179 +274,177 @@ msgstr "Ikona"
 
 #: tmp/coverart_browser_prefs.ui.h:48
 msgid "Add a new alternative genre"
-msgstr "Dodaj nowy alternatywny gatunek"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:49
 msgid "Delete an alternative genre"
-msgstr "Usuń alternatywny gatunek"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:50
 msgid "Toolbar"
-msgstr "Pasek narzędzi"
+msgstr "Alatna traka"
 
 #: tmp/coverart_browser_prefs.ui.h:51
 msgid "Above Cover View"
-msgstr "Widok nad okładką"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:52
 msgid "Left Sidebar"
-msgstr "Lewy panel"
+msgstr "Lijeva bočna traka"
 
 #: tmp/coverart_browser_prefs.ui.h:53
 msgid "Right Sidebar"
-msgstr "Prawy panel"
+msgstr "Desna bočna traka"
 
 #: tmp/coverart_browser.ui.h:1
 msgid "Tracks & Covers"
-msgstr "Ścieżki i okładki"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:2
 msgid "Stop coverart fetch."
-msgstr "Przerwij pobieranie okładek."
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:3
 msgid "Play this album"
-msgstr "Odtwarzaj ten album"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:4
 msgid "Play Album"
-msgstr "Odtwórz album"
+msgstr "Pusti album"
 
 #: tmp/coverart_browser.ui.h:5
 msgid "Add this album to your playing queue"
-msgstr "Dodaj ten album do Twojej kolejki odtwarzania"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:6
 msgid "Queue Album"
-msgstr "Kolejkuj album"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:7 tmp/coverart_entryview.ui.h:5
 msgid "Add this album to a playlist"
-msgstr "Dodaj ten album do listy odtwarzania"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:8 tmp/coverart_entryview.ui.h:6
 msgid "Add to Playlist"
-msgstr "Dodaj do listy odtwarzania"
+msgstr "Dodajte u listu za izvedbu"
 
 #: tmp/coverart_browser.ui.h:9 tmp/coverart_entryview.ui.h:7
 msgid "Add this album to a new playlist"
-msgstr "Dodaj ten album do nowej listy odtwarzania"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:10 tmp/coverart_entryview.ui.h:8
 msgid "New Playlist"
-msgstr "Nowa lista odtwarzania"
+msgstr "Nova lista"
 
 #: tmp/coverart_browser.ui.h:11
 msgid "Play favourites tracks from this album"
-msgstr "Odtwórz ulubione utwory z tego albumu"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:12
 msgid "Play Favourites"
-msgstr "Odtwórz ulubione"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:13
 msgid "Add favourite tracks from this album to your playing queue"
-msgstr "Dodaj ulubione utwory z tego albumu do kolejki odtwarzania"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:14
 msgid "Queue Favourites"
-msgstr "Kolejkuj ulubione"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:15
 msgid "Add favourite tracks from this album to a playlist"
-msgstr "Dodaj ulubione utwory z tego albumu do listy odtwarzania"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:16
 msgid "Add favourites to Playlist"
-msgstr "Dodaj ulubione do listy odtwarzania"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:17
 msgid "Search for this album cover"
-msgstr "Szukaj tej okładki albumu"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:18
 msgid "Search for covers"
-msgstr "Szukaj okładek"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:19
 msgid "Export album tracks and embed coverart in track files"
-msgstr "Eksportuj ścieżki albumu zapisując okładkę w plikach ścieżek"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:20
 msgid "Export and embed coverart"
-msgstr "Eksportuj i osadź okładkę"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:21
 msgid "Show album properties"
-msgstr "Szukaj właściwości albumu"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:22
 msgid "Search for covers where an album does not currently have one"
-msgstr "Szukaj okładek gdzie album nie ma obecnie żadnej"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:23
 msgid "Download all the covers"
-msgstr "Pobierz wszystkie okładki"
+msgstr ""
 
 #: tmp/coverart_entryview.ui.h:1
 msgid "Play this track"
-msgstr "Odtwórz ten utwór"
+msgstr ""
 
 #: tmp/coverart_entryview.ui.h:2
 msgid "Play Track"
-msgstr "Odtwórz utwór"
+msgstr "Pusti numeru"
 
 #: tmp/coverart_entryview.ui.h:3
 msgid "Add this track to your playing queue"
-msgstr "Dodaj ten utwór do Twojej kolejki odtwarzania"
+msgstr ""
 
 #: tmp/coverart_entryview.ui.h:4
 msgid "Queue Track"
-msgstr "Kolejkuj utwór"
+msgstr "Stavi numeru u red"
 
 #: tmp/coverart_entryview.ui.h:9
 msgid "Show track properties"
-msgstr "Pokaż właściwości utworu"
+msgstr ""
 
 #: tmp/coverart_sidebar.ui.h:1 coverart_browser.py:102
 msgid "CoverArt"
-msgstr "Okładki"
+msgstr ""
 
 #. initial genre
 #: tmp/coverart_sidebar.ui.h:2 tmp/coverart_topbar.ui.h:1
 #: coverart_controllers.py:211 coverart_controllers.py:263
 #: coverart_controllers.py:362
 msgid "All Genres"
-msgstr "Wszystkie gatunki"
+msgstr ""
 
 #: tmp/coverart_sidebar.ui.h:3 tmp/coverart_topbar.ui.h:2
 #: coverart_controllers.py:433
 msgid "All Decades"
-msgstr "Wszystkie dekady"
+msgstr "Sve decenije"
 
 #: tmp/coverart_exportembed.ui.h:1
 msgid "Choose folder to save tracks:"
-msgstr "Wybierz folder do zapisu ścieżek:"
+msgstr ""
 
 #: tmp/coverart_exportembed.ui.h:2
 msgid "Select a Folder to export to"
-msgstr "Wybierz folder, do którego bedziesz eksportować"
+msgstr ""
 
 #: tmp/coverart_exportembed.ui.h:3
 msgid "Save tracks within folder using album name"
-msgstr "Zapisuj ścieżki w folderze używając nazwy albumu"
+msgstr ""
 
 #: tmp/coverart_exportembed.ui.h:4
 msgid "Open embedded track folder in file-manager"
-msgstr "Otwórz wbudowany folder ścieżki managerem plików"
+msgstr ""
 
 #: tmp/coverart_exportembed.ui.h:5
 msgid ""
 "Tip: Drag and Drop exported tracks from file-manager to a playlist or "
 "telephone/other device"
 msgstr ""
-"Wskazówka: Przeciągnij i upuść eksportowane ścieżki z managera plików do "
-"listy odtwarzania lub telefonu/innego urządzenia"
 
 #: tmp/popups.xml.in.h:1
 msgid "rock"
@@ -472,31 +460,31 @@ msgstr "pop"
 
 #: tmp/popups.xml.in.h:4
 msgid "classical"
-msgstr "muzyka klasyczna"
+msgstr "classical"
 
 #: tmp/popups.xml.in.h:5
 msgid "world"
-msgstr "świat"
+msgstr "world"
 
 #: tmp/popups.xml.in.h:6
 msgid "bluegrass"
-msgstr "Muzyka bluegrass"
+msgstr "bluegrass"
 
 #: tmp/popups.xml.in.h:7
 msgid "oldies"
-msgstr "stare"
+msgstr "oldies"
 
 #: tmp/popups.xml.in.h:8
 msgid "holiday"
-msgstr "wakacje"
+msgstr "holiday"
 
 #: tmp/popups.xml.in.h:9
 msgid "comedy"
-msgstr "komedia"
+msgstr "komedija"
 
 #: tmp/popups.xml.in.h:10
 msgid "spoken"
-msgstr "mówione"
+msgstr "govor"
 
 #: tmp/popups.xml.in.h:11
 msgid "jazz"
@@ -536,19 +524,19 @@ msgstr "reggae"
 
 #: tmp/popups.xml.in.h:20
 msgid "electronic"
-msgstr "elektroniczna"
+msgstr "electronic"
 
 #: tmp/popups.xml.in.h:21
 msgid "soundtrack"
-msgstr "ścieżka dźwiękowa"
+msgstr "muzika iz filma"
 
 #: tmp/popups.xml.in.h:22
 msgid "latin"
-msgstr "latynoska"
+msgstr "latin"
 
 #: tmp/popups.xml.in.h:23
 msgid "alternative"
-msgstr "alternatywna"
+msgstr "alternative"
 
 #: tmp/popups.xml.in.h:24
 msgid "disco"
@@ -564,7 +552,7 @@ msgstr "gospel"
 
 #: tmp/popups.xml.in.h:27
 msgid "experimental"
-msgstr "eksperymentalna"
+msgstr "experimental"
 
 #: tmp/popups.xml.in.h:28
 msgid "new age"
@@ -584,11 +572,11 @@ msgstr "soul"
 
 #: tmp/popups.xml.in.h:32
 msgid "workout"
-msgstr "do ćwiczeń"
+msgstr "vježbanje"
 
 #: tmp/popups.xml.in.h:33
 msgid "easy listening"
-msgstr "easy listening"
+msgstr "odmor"
 
 #: tmp/popups.xml.in.h:34
 msgid "hip-hop"
@@ -596,163 +584,161 @@ msgstr "hip-hop"
 
 #: tmp/popups.xml.in.h:35
 msgid "children"
-msgstr "dzieci"
+msgstr "dječije"
 
 #: coverart_album.py:1605 coverart_browser_source.py:789
 #, python-format
 msgid "%s by %s"
-msgstr "%s w wykonaniu %s"
+msgstr "%s od %s"
 
 #. . TRANSLATORS: Do not translate this string.
 #: coverart_browser_prefs.py:226
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  Michał Nieznański https://launchpad.net/~katsu229\n"
-"  Michał Rzepiński https://launchpad.net/~micou8\n"
-"  Szymon Nieznański https://launchpad.net/~isamu715"
+"  Kenan Dervišević https://launchpad.net/~kenan3008"
 
 #. define .plugin text strings used for translation
 #: coverart_browser.py:71
 msgid "CoverArt Browser"
-msgstr "Przeglądarka okładek"
+msgstr "CoverArt Browser"
 
 #: coverart_browser.py:72
 msgid "Browse and play your albums through their covers"
-msgstr "Przeglądaj i odtwarzaj Twoje albumy według ich okładek"
+msgstr "Pregledajte i reproducirajte vaše albume na osnovu njihovih omota"
 
 #: coverart_browser_source.py:263
 msgid "Tracks"
-msgstr "Utwory"
+msgstr "Numere"
 
 #: coverart_browser_source.py:303
 msgid "Covers"
-msgstr "Okładki"
+msgstr "Omoti"
 
 #: coverart_browser_source.py:710
 #, python-format
 msgid "Requesting cover for %s - %s..."
-msgstr "Żadanie okładki dla %s - %s..."
+msgstr ""
 
 #: coverart_browser_source.py:792
 #, python-format
 msgid "%d selected albums "
-msgstr "%d zaznaczonych albumów "
+msgstr ""
 
 #: coverart_browser_source.py:796
 msgid " with 1 track"
-msgstr " z jednym utworem"
+msgstr ""
 
 #: coverart_browser_source.py:798
 #, python-format
 msgid " with %d tracks"
-msgstr " z %d utworami"
+msgstr ""
 
 #: coverart_browser_source.py:801
 msgid " and a duration of 1 minute"
-msgstr " i z czasem trwania równym jednej minucie"
+msgstr ""
 
 #: coverart_browser_source.py:803
 #, python-format
 msgid " and a duration of %d minutes"
-msgstr " i z czasem trwania równym %d minutom"
+msgstr ""
 
 #: coverart_controllers.py:378
 msgid "Sort by album name"
-msgstr "Sortuj według nazwy albumu"
+msgstr ""
 
 #: coverart_controllers.py:379
 msgid "Sort by album artist"
-msgstr "Sortuj według wykonawcy albumu"
+msgstr ""
 
 #: coverart_controllers.py:380
 msgid "Sort by year"
-msgstr "Sortuj według roku"
+msgstr "Sortiraj po godini"
 
 #: coverart_controllers.py:381
 msgid "Sort by rating"
-msgstr "Sortuj według oceny"
+msgstr "Sortiraj prema ocjenama"
 
 #. '20s' as in the decade 2010
 #: coverart_controllers.py:435 coverart_controllers.py:461
 msgid "20s"
-msgstr "Lata 20-ste"
+msgstr "20-te"
 
 #. '10s' as in the decade 2010
 #: coverart_controllers.py:437
 msgid "10s"
-msgstr "Lata 10-te"
+msgstr "10-te"
 
 #. '00s' as in the decade 2000
 #: coverart_controllers.py:439
 msgid "00s"
-msgstr "Lata 00"
+msgstr "00-te"
 
 #. '90s' as in the decade 1990
 #: coverart_controllers.py:441
 msgid "90s"
-msgstr "Lata 90-te"
+msgstr "90-te"
 
 #. '80s' as in the decade 1980
 #: coverart_controllers.py:443
 msgid "80s"
-msgstr "Lata 80-te"
+msgstr "80-te"
 
 #. '70s' as in the decade 1970
 #: coverart_controllers.py:445
 msgid "70s"
-msgstr "Lata 70-te"
+msgstr "70-te"
 
 #. '60s' as in the decade 1960
 #: coverart_controllers.py:447
 msgid "60s"
-msgstr "Lata 60-te"
+msgstr "60-te"
 
 #. '50s' as in the decade 1950
 #: coverart_controllers.py:449
 msgid "50s"
-msgstr "Lata 50-te"
+msgstr "50-te"
 
 #. '40s' as in the decade 1940
 #: coverart_controllers.py:451
 msgid "40s"
-msgstr "Lata 40-ste"
+msgstr ""
 
 #. '30s' as in the decade 1930
 #: coverart_controllers.py:453
 msgid "30s"
-msgstr "Lata 30-ste"
+msgstr ""
 
 #. 'Older' as in 'older than the year 1930'
 #: coverart_controllers.py:455
 msgid "Older"
-msgstr "Starsze"
+msgstr "Starije"
 
 #. options
 #: coverart_controllers.py:500
 msgid "Sort in descending order"
-msgstr "Posortuj w porządku malejącym"
+msgstr "Sortiraj po silaznom redoslijedu"
 
 #: coverart_controllers.py:501
 msgid "Sort in ascending order"
-msgstr "Posortuj w porządku rosnącym"
+msgstr "Sortiraj po uzlaznom redoslijedu"
 
 #: coverart_controllers.py:553
 msgid "Search all fields"
-msgstr "Przeszukiwanie wszystkich pól"
+msgstr "Pretraži sva polja"
 
 #: coverart_controllers.py:554
 msgid "Search album artists"
-msgstr "Wyszukaj wykonawców albumu"
+msgstr "Pretraži izvođače albuma"
 
 #: coverart_controllers.py:555
 msgid "Search track artists"
-msgstr "Wyszukaj artystów utworu"
+msgstr "Pretraži izvođače numera"
 
 #: coverart_controllers.py:556
 msgid "Search albums"
-msgstr "Wyszukiwanie albumów"
+msgstr "Pretraži albume"
 
 #: coverart_controllers.py:557
 msgid "Search tracks"
-msgstr "Wyszukaj utwory"
+msgstr "Pretraži numere"
