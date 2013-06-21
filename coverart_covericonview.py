@@ -25,12 +25,69 @@ from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import Gio
 from coverart_browser_prefs import GSetting
+from gi.repository import Pango
+from coverart_album import AlbumsModel
+
+
+class AlbumShowingPolicy(GObject.Object):
+    '''
+    Policy that mostly takes care of how and when things should be showed on
+    the view that makes use of the `AlbumsModel`.
+    '''
+
+    def __init__(self, cover_view):
+        super(AlbumShowingPolicy, self).__init__()
+
+        self._cover_view = cover_view
+        self._visible_paths = None
+
+    def initialise(self, album_manager):
+        self._album_manager = album_manager
+        self._model = album_manager.model
+        self._connect_signals()
+
+    def _connect_signals(self):
+        self._cover_view.props.vadjustment.connect('value-changed',
+            self._viewport_changed)
+        self._model.connect('album-updated', self._album_updated)
+        self._model.connect('visual-updated', self._album_updated)
+
+    def _viewport_changed(self, *args):
+        visible_range = self._cover_view.get_visible_range()
+
+        if visible_range:
+            init, end = visible_range
+
+            # i have to use the tree iter instead of the path to iterate since
+            # for some reason path.next doesn't work whit the filtermodel
+            tree_iter = self._model.store.get_iter(init)
+
+            self._visible_paths = []
+
+            while init and init != end:
+                self._visible_paths.append(init)
+
+                tree_iter = self._model.store.iter_next(tree_iter)
+                init = self._model.store.get_path(tree_iter)
+
+            self._visible_paths.append(end)
+
+    def _album_updated(self, model, album_path, album_iter):
+        # get the currently showing paths
+        if not self._visible_paths:
+            self._viewport_changed()
+
+        if album_path and album_path in self._visible_paths:
+            # if our path is on the viewport, emit the signal to update it
+            self._cover_view.queue_draw()
 
 class CoverIconView(EnhancedIconView):
     __gtype_name__ = "CoverIconView"
 
     icon_spacing = GObject.property(type=int, default=0)
     icon_padding = GObject.property(type=int, default=0)
+
+    display_text_enabled = GObject.property(type=bool, default=False)
 
     def __init__(self, *args, **kwargs):
         super(CoverIconView, self).__init__(*args, **kwargs)
@@ -39,6 +96,9 @@ class CoverIconView(EnhancedIconView):
         self._external_plugins = None
         self.click_count = 0
         self.gs = GSetting()
+        # custom text renderer
+        self._text_renderer = None
+        self.show_policy = AlbumShowingPolicy(self)
 
     def pre_display_popup(self):
         if not self._external_plugins:
@@ -104,6 +164,12 @@ class CoverIconView(EnhancedIconView):
             self.on_notify_icon_padding)
 
         self.on_notify_icon_padding()
+
+        self.connect('notify::display-text-enabled',
+            self._activate_markup)
+
+        setting.bind(self.gs.PluginKey.DISPLAY_TEXT, self,
+            'display_text_enabled', Gio.SettingsBindFlags.GET)
 
     def on_drag_drop(self, widget, context, x, y, time):
         '''
@@ -287,3 +353,41 @@ class CoverIconView(EnhancedIconView):
         '''
         self.set_row_spacing(self.icon_spacing)
         self.set_column_spacing(self.icon_spacing)
+
+    def resize_icon(self, cover_size):
+        '''
+        Callback called when to resize the icon
+        [common to all views]
+        '''
+        self.set_item_width(cover_size)
+
+    def _create_and_configure_renderer(self):
+        self._text_renderer = Gtk.CellRendererText()
+
+        self._text_renderer.props.alignment = Pango.Alignment.CENTER
+        self._text_renderer.props.wrap_mode = Pango.WrapMode.WORD
+        self._text_renderer.props.xalign = 0.5
+        self._text_renderer.props.yalign = 0
+        self._text_renderer.props.width = \
+            self.album_manager.cover_man.cover_size
+        self._text_renderer.props.wrap_width = \
+            self.album_manager.cover_man.cover_size
+
+    def _activate_markup(self, *args):
+        '''
+        Utility method to activate/deactivate the markup text on the
+        cover view.
+        '''
+        if self.display_text_enabled:
+            if not self._text_renderer:
+                # create and configure the custom cell renderer
+                self._create_and_configure_renderer()
+
+            # set the renderer
+            self.pack_end(self._text_renderer, False)
+            self.add_attribute(self._text_renderer,
+                'markup', AlbumsModel.columns['markup']) 
+
+        elif self._text_renderer:
+            # remove the cell renderer
+            self.props.cell_area.remove(self._text_renderer)

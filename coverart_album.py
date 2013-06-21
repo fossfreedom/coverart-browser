@@ -29,7 +29,6 @@ from gi.repository import GLib
 from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
-from gi.repository import Pango
 import cairo
 
 from coverart_browser_prefs import GSetting
@@ -1406,7 +1405,7 @@ class CoverManager(GObject.Object):
         print("CoverArtBrowser DEBUG - end albumart_added_callback")
 
     def update_item_width(self):
-        self._album_manager.cover_view.set_item_width(self.cover_size)
+        self._album_manager.current_view.resize_icon(self.cover_size)
 
     def load_cover(self, album):
         '''
@@ -1530,16 +1529,12 @@ class TextManager(GObject.Object):
     display_text_ellipsize_enabled = GObject.property(type=bool, default=False)
     display_text_ellipsize_length = GObject.property(type=int, default=0)
     display_font_size = GObject.property(type=int, default=0)
-    display_text_enabled = GObject.property(type=bool, default=False)
-
+    
     def __init__(self, album_manager):
         super(TextManager, self).__init__()
 
         self._album_manager = album_manager
-        self._cover_view = self._album_manager.cover_view
-
-        # custom text renderer
-        self._text_renderer = None
+        self._current_view = self._album_manager.current_view
 
         # connect properties and signals
         self._connect_signals()
@@ -1556,9 +1551,7 @@ class TextManager(GObject.Object):
             self._on_notify_display_text_ellipsize)
         self.connect('notify::display-font-size',
             self._on_notify_display_text_ellipsize)
-        self.connect('notify::display-text-enabled',
-            self._activate_markup)
-
+        
         self._album_manager.model.connect('generate-tooltip',
             self._generate_tooltip)
         self._album_manager.model.connect('generate-markup',
@@ -1578,50 +1571,14 @@ class TextManager(GObject.Object):
             Gio.SettingsBindFlags.GET)
         setting.bind(gs.PluginKey.DISPLAY_FONT_SIZE, self, 'display_font_size',
             Gio.SettingsBindFlags.GET)
-        setting.bind(gs.PluginKey.DISPLAY_TEXT, self,
-            'display_text_enabled', Gio.SettingsBindFlags.GET)
-
+        
     def _on_notify_display_text_ellipsize(self, *args):
         '''
         Callback called when one of the properties related with the ellipsize
         option is changed.
         '''
         self._album_manager.model.recreate_text()
-
-    def _create_and_configure_renderer(self):
-        self._text_renderer = Gtk.CellRendererText()
-
-        self._text_renderer.props.alignment = Pango.Alignment.CENTER
-        self._text_renderer.props.wrap_mode = Pango.WrapMode.WORD
-        self._text_renderer.props.xalign = 0.5
-        self._text_renderer.props.yalign = 0
-        self._text_renderer.props.width = \
-            self._album_manager.cover_man.cover_size
-        self._text_renderer.props.wrap_width = \
-            self._album_manager.cover_man.cover_size
-
-    def _activate_markup(self, *args):
-        '''
-        Utility method to activate/deactivate the markup text on the
-        cover view.
-        '''
-        print("CoverArtBrowser DEBUG - activate_markup")
-        if self.display_text_enabled:
-            if not self._text_renderer:
-                # create and configure the custom cell renderer
-                self._create_and_configure_renderer()
-
-            # set the renderer
-            self._cover_view.pack_end(self._text_renderer, False)
-            self._cover_view.add_attribute(self._text_renderer,
-                'markup', AlbumsModel.columns['markup'])
-
-        elif self._text_renderer:
-            # remove the cell renderer
-            self._cover_view.props.cell_area.remove(self._text_renderer)
-
-        print("CoverArtBrowser DEBUG - end activate_markup")
-
+        
     def _generate_tooltip(self, model, album):
         '''
         Utility function that creates the tooltip for this album to set into
@@ -1659,66 +1616,13 @@ class TextManager(GObject.Object):
         markup = "<span font='%d'><b>%s</b>\n<i>%s</i></span>"
         return markup % (self.display_font_size, name, artist)
 
-
-class AlbumShowingPolicy(GObject.Object):
-    '''
-    Policy that mostly takes care of how and when things should be showed on
-    the view that makes use of the `AlbumsModel`.
-    '''
-
-    def __init__(self, cover_view, album_manager):
-        super(AlbumShowingPolicy, self).__init__()
-
-        self._cover_view = cover_view
-        self._album_manager = album_manager
-        self._model = album_manager.model
-        self._visible_paths = None
-
-        self._connect_signals()
-
-    def _connect_signals(self):
-        self._cover_view.props.vadjustment.connect('value-changed',
-            self._viewport_changed)
-        self._model.connect('album-updated', self._album_updated)
-        self._model.connect('visual-updated', self._album_updated)
-
-    def _viewport_changed(self, *args):
-        visible_range = self._cover_view.get_visible_range()
-
-        if visible_range:
-            init, end = visible_range
-
-            # i have to use the tree iter instead of the path to iterate since
-            # for some reason path.next doesn't work whit the filtermodel
-            tree_iter = self._model.store.get_iter(init)
-
-            self._visible_paths = []
-
-            while init and init != end:
-                self._visible_paths.append(init)
-
-                tree_iter = self._model.store.iter_next(tree_iter)
-                init = self._model.store.get_path(tree_iter)
-
-            self._visible_paths.append(end)
-
-    def _album_updated(self, model, album_path, album_iter):
-        # get the currently showing paths
-        if not self._visible_paths:
-            self._viewport_changed()
-
-        if album_path and album_path in self._visible_paths:
-            # if our path is on the viewport, emit the signal to update it
-            self._cover_view.queue_draw()
-
-
 class AlbumManager(GObject.Object):
     '''
     Main construction that glues together the different managers, the loader
     and the model. It takes care of initializing all the system.
 
     :param plugin: `Peas.PluginInfo` instance.
-    :param cover_view: `Gtk.IconView` where the album's cover are shown.
+    :param current_view: `AlbumView` where the album's cover are shown.
     '''
     # singleton instance
     instance = None
@@ -1726,10 +1630,10 @@ class AlbumManager(GObject.Object):
     # properties
     progress = GObject.property(type=float, default=0)
 
-    def __init__(self, plugin, cover_view):
+    def __init__(self, plugin, current_view):
         super(AlbumManager, self).__init__()
 
-        self.cover_view = cover_view
+        self.current_view = current_view
         self.db = plugin.shell.props.db
 
         self.model = AlbumsModel()
@@ -1738,7 +1642,7 @@ class AlbumManager(GObject.Object):
         self.loader = AlbumLoader(self)
         self.cover_man = CoverManager(plugin, self)
         self.text_man = TextManager(self)
-        self._show_policy = AlbumShowingPolicy(cover_view, self)
+        self._show_policy = current_view.show_policy.initialise(self)
 
         # connect signals
         self._connect_signals()
