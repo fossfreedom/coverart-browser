@@ -375,7 +375,7 @@ class CoverArtBrowserSource(RB.Source):
 
         if album in selected:
             # update the selection since it may have changed
-            self.selectionchanged_callback(self.covers_view)
+            self.covers_view.selectionchanged_callback(self.covers_view)
 
             if album is selected[0] and \
                 self.notebook.get_current_page() == \
