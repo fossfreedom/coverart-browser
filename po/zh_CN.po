@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-20 11:52+0100\n"
-"PO-Revision-Date: 2013-04-18 19:01+0000\n"
-"Last-Translator: Launchpad Translations Administrators <Unknown>\n"
+"PO-Revision-Date: 2013-06-21 06:39+0000\n"
+"Last-Translator: ZhangCheng <skyxxzc@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <zh_CN@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-05-10 12:44+0000\n"
-"X-Generator: Launchpad (build 16598)\n"
+"X-Launchpad-Export-Date: 2013-06-21 07:32+0000\n"
+"X-Generator: Launchpad (build 16677)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -80,11 +80,11 @@ msgstr "显示更多结果"
 
 #: tmp/coverart_browser_prefs.ui.h:1
 msgid "Select a picture"
-msgstr ""
+msgstr "选择一张图片"
 
 #: tmp/coverart_browser_prefs.ui.h:2
 msgid "Select picture to add to Edit Genre icon drop-down list"
-msgstr ""
+msgstr "选择一张在“编辑风格”下拉菜单中显示的图片"
 
 #: tmp/coverart_browser_prefs.ui.h:3
 msgid "Above"
@@ -132,11 +132,11 @@ msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:13
 msgid "Level above which is regarded as being a favourite track or album"
-msgstr ""
+msgstr "评分大于此限度的被视作”最喜爱的“"
 
 #: tmp/coverart_browser_prefs.ui.h:14
 msgid "Favourite Threshold"
-msgstr ""
+msgstr "”最喜爱的“限度"
 
 #: tmp/coverart_browser_prefs.ui.h:15
 msgid "General"
@@ -164,17 +164,17 @@ msgstr "字体大小："
 
 #: tmp/coverart_browser_prefs.ui.h:21
 msgid "Ellipsize albums names"
-msgstr ""
+msgstr "截短专辑名"
 
 #: tmp/coverart_browser_prefs.ui.h:22
 msgid ""
 "Ellipsizes the albums names to a fixed length when the display text option "
 "is enabled."
-msgstr ""
+msgstr "开启显示文字选项后，截短专辑名至一特定长度。"
 
 #: tmp/coverart_browser_prefs.ui.h:23
 msgid "Maximum allowed length for an album's name before being ellipsized."
-msgstr ""
+msgstr "使专辑名不致截短的最长长度。"
 
 #: tmp/coverart_browser_prefs.ui.h:24
 msgid "Maximum length:"
@@ -222,15 +222,15 @@ msgstr "显示工具栏： "
 
 #: tmp/coverart_browser_prefs.ui.h:35
 msgid "Look & Feel"
-msgstr ""
+msgstr "外观"
 
 #: tmp/coverart_browser_prefs.ui.h:36
 msgid "Flat-button style"
-msgstr ""
+msgstr "平按钮风格"
 
 #: tmp/coverart_browser_prefs.ui.h:37
 msgid "Icon Theme: "
-msgstr ""
+msgstr "图标主题: "
 
 #: tmp/coverart_browser_prefs.ui.h:38
 msgid "Alternative Genres:"
@@ -238,19 +238,19 @@ msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:39
 msgid "Load New Icon: "
-msgstr ""
+msgstr "加载新图标: "
 
 #: tmp/coverart_browser_prefs.ui.h:40
 msgid "Select a new genre icon"
-msgstr ""
+msgstr "选择新的流派图标"
 
 #: tmp/coverart_browser_prefs.ui.h:41
 msgid "Edit Genre Details:"
-msgstr ""
+msgstr "编辑流派细节:"
 
 #: tmp/coverart_browser_prefs.ui.h:42
 msgid "Save changes"
-msgstr ""
+msgstr "保存改动"
 
 #: tmp/coverart_browser_prefs.ui.h:43
 msgid "Name:"
@@ -258,11 +258,11 @@ msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:44
 msgid "Icon:"
-msgstr ""
+msgstr "图标:"
 
 #: tmp/coverart_browser_prefs.ui.h:45
 msgid "Current user-defined Genres:"
-msgstr ""
+msgstr "目前用户定义的流派:"
 
 #: tmp/coverart_browser_prefs.ui.h:46
 msgid "Alternate Name"
@@ -596,7 +596,8 @@ msgstr "%s 作者 %s"
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  Wang Dianjin https://launchpad.net/~tuhaihe"
+"  Wang Dianjin https://launchpad.net/~tuhaihe\n"
+"  ZhangCheng https://launchpad.net/~xxzc"
 
 #. define .plugin text strings used for translation
 #: coverart_browser.py:71
