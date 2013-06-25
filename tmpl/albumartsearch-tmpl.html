@@ -141,11 +141,11 @@
                 searchstr="${_('Search Options')}";
                 if (searchdiv.style.display=="none") {
                     searchdiv.style.display="block";
-                    linkObj.innerText=searchstr+": [-]";
+                    linkObj.innerText=searchstr+" : [-]";
 
                 } else {
                     searchdiv.style.display="none";
-                    linkObj.innerText=searchstr+": [+]";
+                    linkObj.innerText=searchstr+" : [+]";
                 }
             }
 
@@ -184,21 +184,21 @@
     <body>
         <div id="searchoptioncontainer">
             <a href="#" onclick="toggleSelectOption(this); return false;">
-                ${_("Search Options")}: [+]</a> ${_("Tip: doubleclick or drag a cover to use it as the album cover")}
+                ${_("Search Options")} : [+]</a> ${_("Tip: doubleclick or drag a cover to use it as the album cover")}
             <div id="searchoption" style="display:none;">
-                <label>${_("Search Mode")}: </label>
+                <label>${_("Search Mode")} : </label>
                 <select id="searchmode" onchange="onOptionChange(this);">
                     <option value="artist">${_("Artist")}</option>
                     <option value="album">${_("Album")}</option>
                     <option value="both" selected>${_("Artist and album")}</option>
                 </select>
                 <hr/>
-                <label>${_("Search text")}: </label>
+                <label>${_("Search text")} : </label>
                 <input type="text" id="searchtext" width="75%"/>
                 <button type="button" id="searchbutton"
                     onclick="onSearchText();">${_("Search")}</button>
                 <hr/>
-                <label>${_("Image Size")}: </label>
+                <label>${_("Image Size")} : </label>
                 <select id="imagesize" onchange="onOptionChange(this);">
                     <option value="small">${_("Small")}</option>
                     <option value="medium">${_("Medium")}</option>
