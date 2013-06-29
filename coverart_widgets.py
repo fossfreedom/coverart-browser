@@ -904,3 +904,58 @@ class PanedCollapsible(Gtk.Paned):
         '''
         if self._expander:
             self._expander.set_expanded(not self._expander.get_expanded())
+
+class AbstractView(GObject.Object):
+    '''
+    intention is to document 'the must have' methods all views should define
+    N.B. this is preliminary and will change as and when
+    coverflow view is added with lessons learned
+    '''
+    has_initialised = False
+    view = None
+    
+    def __init__(self):
+        pass
+
+    def initialise(self, source):
+        self.source = source
+        self.plugin = source.plugin
+
+    def resize_icon(self, cover_size):
+        '''
+        resize the view main picture icon
+
+        :param cover_size: `int` icon size
+        '''
+        pass
+
+    def get_selected_objects(self):
+        '''
+        finds what has been selected
+
+        returns an array of `Album`
+        '''
+        pass
+
+    def selectionchanged_callback(self, _):
+        '''
+        callback when a selection has changed
+        '''
+        pass
+
+    def scroll_to_object(self, path):
+        '''
+        scroll to the object
+
+        :param path: model path
+        '''
+        pass
+
+    def select_and_scroll_to_path(self, path):
+        pass
+
+    def set_popup_menu(self, popup):
+        self.view.popup = popup
+
+    def grab_focus(self):
+        pass

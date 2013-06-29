@@ -27,7 +27,8 @@ from gi.repository import Gio
 from coverart_browser_prefs import GSetting
 from gi.repository import Pango
 from coverart_album import AlbumsModel
-
+from coverart_widgets import AbstractView
+import rb
 
 class AlbumShowingPolicy(GObject.Object):
     '''
@@ -38,7 +39,7 @@ class AlbumShowingPolicy(GObject.Object):
     def __init__(self, cover_view):
         super(AlbumShowingPolicy, self).__init__()
 
-        self._cover_view = cover_view
+        self._cover_view = cover_view  # this will need to be reworked for all views
         self._visible_paths = None
 
     def initialise(self, album_manager):
@@ -81,37 +82,35 @@ class AlbumShowingPolicy(GObject.Object):
             # if our path is on the viewport, emit the signal to update it
             self._cover_view.queue_draw()
 
-class CoverIconView(EnhancedIconView):
+class CoverIconView(EnhancedIconView, AbstractView):
     __gtype_name__ = "CoverIconView"
 
     icon_spacing = GObject.property(type=int, default=0)
     icon_padding = GObject.property(type=int, default=0)
 
     display_text_enabled = GObject.property(type=bool, default=False)
+    name = 'coverview'
 
     def __init__(self, *args, **kwargs):
         super(CoverIconView, self).__init__(*args, **kwargs)
-
+        
         self.ext_menu_pos = 0
         self._external_plugins = None
-        self.click_count = 0
         self.gs = GSetting()
         # custom text renderer
         self._text_renderer = None
         self.show_policy = AlbumShowingPolicy(self)
-
-    def pre_display_popup(self):
-        if not self._external_plugins:
-            # initialise external plugin menu support
-            self._external_plugins = \
-            CreateExternalPluginMenu("ca_covers_view",
-                self.ext_menu_pos, self.popup)
-            self._external_plugins.create_menu('popup_menu', True)
-                    
+        self.view = self
+        
     def initialise(self, source):
+        if self.has_initialised:
+            return
+            
+        self.has_initialised = True
 
         self.view_name = "covers_view"
         self.source = source
+        self.plugin = source.plugin
         self.album_manager = source.album_manager
         self.ext_menu_pos = 10
 
@@ -171,6 +170,27 @@ class CoverIconView(EnhancedIconView):
         setting.bind(self.gs.PluginKey.DISPLAY_TEXT, self,
             'display_text_enabled', Gio.SettingsBindFlags.GET)
 
+    def resize_icon(self, cover_size):
+        '''
+        Callback called when to resize the icon
+        [common to all views]
+        '''
+        self.set_item_width(cover_size)
+
+    def selectionchanged_callback(self, _):
+        self.source.update_with_selection()
+
+    def scroll_to_object(self, path):
+        self.view.scroll_to_path(path, False, 0, 0)
+
+    def pre_display_popup(self):
+        if not self._external_plugins:
+            # initialise external plugin menu support
+            self._external_plugins = \
+            CreateExternalPluginMenu("ca_covers_view",
+                self.ext_menu_pos, self.popup)
+            self._external_plugins.create_menu('popup_menu', True)
+            
     def on_drag_drop(self, widget, context, x, y, time):
         '''
         Callback called when a drag operation finishes over the cover view
@@ -251,86 +271,20 @@ class CoverIconView(EnhancedIconView):
     def item_clicked_callback(self, iconview, event, path):
         '''
         Callback called when the user clicks somewhere on the cover_view.
-        Along with _timeout_expand, takes care of showing/hiding the bottom
+        Along with source "show_hide_pane", takes care of showing/hiding the bottom
         pane after a second click on a selected album.
         '''
         # to expand the entry view
         ctrl = event.state & Gdk.ModifierType.CONTROL_MASK
         shift = event.state & Gdk.ModifierType.SHIFT_MASK
 
-        self.click_count += 1 if not ctrl and not shift else 0
+        self.source.click_count += 1 if not ctrl and not shift else 0
 
-        if self.click_count == 1:
+        if self.source.click_count == 1:
             album = self.album_manager.model.get_from_path(path)\
                 if path else None
             Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
-                self._timeout_expand, album)
-
-    def _timeout_expand(self, album):
-        '''
-        helper function - if the entry is manually expanded
-        then if necessary scroll the view to the last selected album
-        '''
-        if album and self.click_count == 1 \
-            and self.source.last_selected_album is album:
-            # check if it's a second or third click on the album and expand
-            # or collapse the entry view accordingly
-            self.source.paned.expand()
-
-        # update the selected album
-        selected = self.get_selected_objects()
-        self.source.last_selected_album = selected[0] if len(selected) == 1 else None
-
-        # clear the click count
-        self.click_count = 0
-
-
-    def selectionchanged_callback(self, widget):
-        '''
-        Callback called when an item from the cover view gets selected.
-        '''
-        print("CoverArtBrowser DEBUG - selectionchanged_callback")
-
-        selected = self.get_selected_objects()
-
-        # clear the entry view
-        self.source.entry_view.clear()
-
-        cover_search_pane_visible = self.source.notebook.get_current_page() == \
-            self.source.notebook.page_num(self.source.cover_search_pane)
-
-        if not selected:
-            # clean cover tab if selected
-            if cover_search_pane_visible:
-                self.source.cover_search_pane.clear()
-
-            return
-        elif len(selected) == 1:
-            self.source.stars.set_rating(selected[0].rating)
-
-            if selected[0] is not self.source.last_selected_album:
-                # when the selection changes we've to take into account two
-                # things
-                if not self.click_count:
-                    # we may be using the arrows, so if there is no mouse
-                    # involved, we should change the last selected
-                    self.source.last_selected_album = selected[0]
-                else:
-                    # we may've doing a fast change after a valid second click,
-                    # so it shouldn't be considered a double click
-                    self.click_count -= 1
-        else:
-            self.source.stars.set_rating(0)
-
-        for album in selected:
-            # add the album to the entry_view
-            self.source.entry_view.add_album(album)
-
-        # update the cover search pane with the first selected album
-        if cover_search_pane_visible:
-            self.source.cover_search_pane.do_search(selected[0])
-
-        print("CoverArtBrowser DEBUG - end selectionchanged_callback")
+                self.source.show_hide_pane, album)
 
     def item_activated_callback(self, iconview, path):
         '''
@@ -353,13 +307,6 @@ class CoverIconView(EnhancedIconView):
         '''
         self.set_row_spacing(self.icon_spacing)
         self.set_column_spacing(self.icon_spacing)
-
-    def resize_icon(self, cover_size):
-        '''
-        Callback called when to resize the icon
-        [common to all views]
-        '''
-        self.set_item_width(cover_size)
 
     def _create_and_configure_renderer(self):
         self._text_renderer = Gtk.CellRendererText()

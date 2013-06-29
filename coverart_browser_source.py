@@ -48,6 +48,7 @@ from stars import ReactiveStar
 from coverart_rb3compat import Menu
 from coverart_rb3compat import ActionGroup
 from coverart_covericonview import CoverIconView
+
 import coverart_rb3compat as rb3compat
 
 class CoverArtBrowserSource(RB.Source):
@@ -73,7 +74,8 @@ class CoverArtBrowserSource(RB.Source):
         self.hasActivated = False
         self.last_width = 0
         self.last_selected_album = None
- 
+        self.click_count = 0
+        
     def _connect_properties(self):
         '''
         Connects the source properties to the saved preferences.
@@ -185,7 +187,12 @@ class CoverArtBrowserSource(RB.Source):
 
         # get widgets for main icon-view
         self.status_label = ui.get_object('status_label')
-        self.covers_view = ui.get_object('covers_view')
+
+        window = ui.get_object('scrolled_window')
+        
+        self.viewmgr = ViewManager(self.plugin, window)
+        self.current_view = self.viewmgr.current_view
+        
         self.popup_menu = Menu(self.plugin, self.shell)
         self.popup_menu.load_from_file('ui/coverart_browser_pop_rb2.ui',
             'ui/coverart_browser_pop_rb3.ui')
@@ -231,7 +238,7 @@ class CoverArtBrowserSource(RB.Source):
         print("CoverArtBrowser DEBUG - _setup_source")
 
         # setup iconview popup
-        self.covers_view.popup = self.popup_menu
+        self.current_view.set_popup_menu(self.popup_menu)
         
         # setup entry-view objects and widgets
         setting = self.gs.get_setting(self.gs.Path.PLUGIN)
@@ -261,21 +268,13 @@ class CoverArtBrowserSource(RB.Source):
         self.notebook.append_page(vbox, Gtk.Label(_("Tracks")))
 
         # create an album manager
-        self.album_manager = AlbumManager(self.plugin, self.covers_view)
-        self.covers_view.initialise(self)
+        self.album_manager = AlbumManager(self.plugin, self.current_view)
+        self.current_view.initialise(self)
         # setup cover search pane
-        try:
-            color = self.covers_view.get_style_context().get_background_color(
-                Gtk.StateFlags.SELECTED)
-            color = '#%s%s%s' % (
-                str(hex(int(color.red * 255))).replace('0x', ''),
-                str(hex(int(color.green * 255))).replace('0x', ''),
-                str(hex(int(color.blue * 255))).replace('0x', ''))
-        except:
-            color = '#0000FF'
+        colour = self.viewmgr.get_selection_colour()
 
         self.cover_search_pane = CoverSearchPane(self.plugin,
-            self.album_manager, color)
+            self.album_manager, colour)
         self.notebook.append_page(self.cover_search_pane, Gtk.Label(
             _("Covers")))
 
@@ -371,11 +370,11 @@ class CoverArtBrowserSource(RB.Source):
         by him gets modified in some way.
         '''
         album = model.get_from_path(path)
-        selected = self.covers_view.get_selected_objects()
+        selected = self.current_view.get_selected_objects()
 
         if album in selected:
             # update the selection since it may have changed
-            self.covers_view.selectionchanged_callback(self.covers_view)
+            self.current_view.selectionchanged_callback(self.current_view)
 
             if album is selected[0] and \
                 self.notebook.get_current_page() == \
@@ -427,7 +426,7 @@ class CoverArtBrowserSource(RB.Source):
         '''
         print("CoverArtBrowser DEBUG - queue_selected_album")
 
-        selected_albums = self.covers_view.get_selected_objects()
+        selected_albums = self.current_view.get_selected_objects()
         threshold = self.rating_threshold if favourites else 0
 
         for album in selected_albums:
@@ -562,7 +561,7 @@ class CoverArtBrowserSource(RB.Source):
         album cover
         '''
         print("CoverArtBrowser DEBUG - cover_search_menu_item_callback()")
-        selected_albums = self.covers_view.get_selected_objects()
+        selected_albums = self.current_view.get_selected_objects()
 
         self.request_status_box.show_all()
 
@@ -578,7 +577,7 @@ class CoverArtBrowserSource(RB.Source):
         It prompts the exporter to copy and embed art for the albums chosen
         '''
         print("CoverArtBrowser DEBUG - export_embed_menu_item_callback()")
-        selected_albums = self.covers_view.get_selected_objects()
+        selected_albums = self.current_view.get_selected_objects()
 
         CoverArtExport(self.plugin,
             self.shell, self.album_manager).embed_albums(selected_albums)
@@ -643,7 +642,7 @@ class CoverArtBrowserSource(RB.Source):
                     path = self.album_manager.model.get_path(
                         self.last_selected_album)
 
-                    self.covers_view.scroll_to_path(path, False, 0, 0)
+                    self.current_view.scroll_to_object(path)
 
                     return False
 
@@ -658,7 +657,7 @@ class CoverArtBrowserSource(RB.Source):
         print("CoverArtBrowser DEBUG - notebook_switch_page_callback")
 
         if page_num == 1:
-            selected_albums = self.covers_view.get_selected_objects()
+            selected_albums = self.current_view.get_selected_objects()
 
             if selected_albums:
                 self.cover_search_pane.do_search(selected_albums[0])
@@ -673,10 +672,73 @@ class CoverArtBrowserSource(RB.Source):
 
         rating = widget.get_rating()
 
-        for album in self.covers_view.get_selected_objects():
+        for album in self.current_view.get_selected_objects():
             album.rating = rating
 
         print("CoverArtBrowser DEBUG - end rating_changed_callback")
+
+    def show_hide_pane(self, album):
+        '''
+        helper function - if the entry is manually expanded
+        then if necessary scroll the view to the last selected album
+        '''
+        if album and self.click_count == 1 \
+            and self.last_selected_album is album:
+            # check if it's a second or third click on the album and expand
+            # or collapse the entry view accordingly
+            self.paned.expand()
+
+        # update the selected album
+        selected = self.current_view.get_selected_objects()
+        self.last_selected_album = selected[0] if len(selected) == 1 else None
+
+        # clear the click count
+        self.click_count = 0
+
+    def update_with_selection(self):
+        '''
+        Update the source view when an item gets selected.
+        '''
+        selected = self.current_view.get_selected_objects()
+
+        # clear the entry view
+        self.entry_view.clear()
+
+        cover_search_pane_visible = self.notebook.get_current_page() == \
+            self.notebook.page_num(self.cover_search_pane)
+
+        if not selected:
+            # clean cover tab if selected
+            if cover_search_pane_visible:
+                self.cover_search_pane.clear()
+
+            return
+        elif len(selected) == 1:
+            self.stars.set_rating(selected[0].rating)
+
+            if selected[0] is not self.last_selected_album:
+                # when the selection changes we've to take into account two
+                # things
+                if not self.click_count:
+                    # we may be using the arrows, so if there is no mouse
+                    # involved, we should change the last selected
+                    self.last_selected_album = selected[0]
+                else:
+                    # we may've doing a fast change after a valid second click,
+                    # so it shouldn't be considered a double click
+                    self.click_count -= 1
+        else:
+            self.stars.set_rating(0)
+
+        for album in selected:
+            # add the album to the entry_view
+            self.entry_view.add_album(album)
+
+        # update the cover search pane with the first selected album
+        if cover_search_pane_visible:
+            self.cover_search_pane.do_search(selected[0])
+
+        self.statusbar.emit('display-status', self.current_view)
 
     @classmethod
     def get_instance(cls, **kwargs):
@@ -690,6 +752,11 @@ class CoverArtBrowserSource(RB.Source):
 
 
 class Statusbar(GObject.Object):
+    # signals
+    __gsignals__ = {
+        'display-status': (GObject.SIGNAL_RUN_LAST, None, (object,))
+    }
+    
     custom_statusbar_enabled = GObject.property(type=bool, default=False)
 
     def __init__(self, source):
@@ -714,8 +781,7 @@ class Statusbar(GObject.Object):
     def _connect_signals(self, source):
         self.connect('notify::custom-statusbar-enabled',
             self._custom_statusbar_enabled_changed)
-        source.covers_view.connect('selection-changed', self._update)
-
+        self.connect('display-status', self._update)
 
     def _custom_statusbar_enabled_changed(self, *args):
         self.current_statusbar.hide()
@@ -761,8 +827,8 @@ class Statusbar(GObject.Object):
                 self.status += rb3compat.unicodedecode(_(' and a duration of %d minutes') % 
                         duration, 'UTF-8')
 
-    def _update(self, widget):
-        albums = widget.get_selected_objects()
+    def _update(self, widget, current_view):
+        albums = current_view.get_selected_objects()
         self._generate_status(albums)
         self.current_statusbar.update(self.status)
 
@@ -940,4 +1006,58 @@ class ToolbarManager(GObject.Object):
 
         self.last_toolbar_pos = self.toolbar_pos
 
+
+class ViewManager(GObject.Object):
+    # properties
+    
+    def __init__(self, plugin, window):
+        super(ViewManager, self).__init__()
+
+        self.plugin = plugin
+        # create the view controllers
+        #controllers = self._create_controllers()
+
+        # initialize views
+        self._views = {}
+        ui = Gtk.Builder()
+        ui.add_from_file(rb.find_plugin_file(plugin,
+            'ui/coverart_iconview.ui'))
+        self._views[CoverIconView.name] = ui.get_object('covers_view')
+
+        self._lastview = CoverIconView.name # this will eventually be hooked up to view radio buttons
+        window.add(self.current_view.view) # this will need to be hooked up to view-button manager
+
+        # connect signal and properties
+        self._connect_signals()
+        self._connect_properties()
+
+    @property
+    def current_view(self):
+        return self._views[self._lastview]
+
+    def _connect_signals(self):
+        pass
+        
+    def _connect_properties(self):
+        pass
+        
+    def _create_controllers(self, plugin, album_model):
+        controllers = {}
+        controllers[CoverView.name] = CoverViewController()
+        
+        return controllers
+
+    def get_selection_colour(self):
+        try:
+            colour = self._views[CoverIconView.name].view.get_style_context().get_background_color(
+                Gtk.StateFlags.SELECTED)
+            colour = '#%s%s%s' % (
+                str(hex(int(colour.red * 255))).replace('0x', ''),
+                str(hex(int(colour.green * 255))).replace('0x', ''),
+                str(hex(int(colour.blue * 255))).replace('0x', ''))
+        except:
+            colour = '#0000FF'
+
+        return colour
+        
 GObject.type_register(CoverArtBrowserSource)
