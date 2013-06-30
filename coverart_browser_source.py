@@ -48,6 +48,7 @@ from stars import ReactiveStar
 from coverart_rb3compat import Menu
 from coverart_rb3compat import ActionGroup
 from coverart_covericonview import CoverIconView
+from coverart_coverflowview import CoverFlowView
 
 import coverart_rb3compat as rb3compat
 
@@ -1023,10 +1024,13 @@ class ViewManager(GObject.Object):
         ui.add_from_file(rb.find_plugin_file(plugin,
             'ui/coverart_iconview.ui'))
         self._views[CoverIconView.name] = ui.get_object('covers_view')
+        self._views[CoverFlowView.name] = CoverFlowView()
+
 
         self._lastview = CoverIconView.name # this will eventually be hooked up to view radio buttons
+        #self._lastview = CoverFlowView.name # this will eventually be hooked up to view radio buttons
         window.add(self.current_view.view) # this will need to be hooked up to view-button manager
-
+        window.show_all()
         # connect signal and properties
         self._connect_signals()
         self._connect_properties()

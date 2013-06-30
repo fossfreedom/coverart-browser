@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <link rel="stylesheet" title="Standard" href="styles.css" type="text/css" media="screen" />
+
+    <!-- styles.css contains white for background colour - we'll need an equivalent css statement for a black background -->
+    <script language="JavaScript" type="text/javascript" src="contentflow.js" load="#BACKGROUND_COLOUR"></script>
+    <script tyle="text/javascript">
+        var cf = new ContentFlow('contentFlow',
+            {reflectionColor: "#000000",
+             endOpacity : 0.3,
+             maxItemHeight: "#HEIGHT",
+             circularFlow: false,
+             startItem: "start",
+             visibleItems: 7
+            });
+    </script>
+</head>
+<body>
+    <div class="maincontent">
+    <div style="width: 600px; margin: 0px auto;">
+    
+    <!-- ===== FLOW ===== -->
+    <div id="contentFlow" class="ContentFlow">
+        <!-- should be place before flow so that contained images will be loaded first -->
+        <div class="loadIndicator"><div class="indicator"></div></div>
+
+        <div class="flow">
+
+            #ITEMS
+            
+        </div>
+        <div class="globalCaption"></div>
+        <!--
+        <div class="scrollbar">
+            <div class="preButton"></div>
+            <div class="nextButton"></div>
+            <div class="slider"><div class="position"></div></div>
+        </div> -->
+
+    </div>
+
+    <table id="mytable">
+        <tbody>
+            
+        </tbody>
+    </table>
+    
+    </div>
+
+</body>
+</html>

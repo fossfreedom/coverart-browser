@@ -1,0 +1,20 @@
+/*  ContentFlowAddOn_gallery2, version 1.0 
+ *  (c) 2008 - 2010 Sebastian Kutsch
+ *  <http://www.jacksasylum.eu/ContentFlow/>
+ *
+ *  This file is distributed under the terms of the MIT license.
+ *  (see http://www.jacksasylum.eu/ContentFlow/LICENSE)
+ *
+ *--------------------------------------------------------------------------*/
+
+
+.ContentFlowAddOn_gallery2 {
+}
+
+        .ContentFlowAddOn_gallery2 .flow .item:hover {
+            opacity: 1 !important;
+            filter: alpha(opacity = 100) !important;
+        }
+
+/* ================================= */
+
