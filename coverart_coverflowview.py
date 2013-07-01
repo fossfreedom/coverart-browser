@@ -183,8 +183,6 @@ class FlowControl(object):
         self.batches = []
         
     def get_flow_batch(self, args):
-        #print "get_flow_batch"
-        #print args
         messagevalue = args[0]
         index = int(args[1])
 
@@ -193,12 +191,7 @@ class FlowControl(object):
 
         if messagevalue == 'next':
             calc_batch = int(index / 50) + 1
-
-            #print index
-            #print calc_batch
-            #print self.next_batch
-            #print len(self.batches)
-            
+                        
             if ((calc_batch >= self.next_batch) and
                 (len(self.batches) > calc_batch) and
                 (not self.batches[calc_batch].fetched)):
@@ -219,7 +212,7 @@ class FlowControl(object):
                 self.batches[calc_batch].fetched = True
                 self.next_batch = calc_batch + 1
         else:
-            print "unknown message %", messagevalue
+            print ("unknown message %", messagevalue)
             
         obj['batchtype'] = position
         ret = json.dumps(obj)
@@ -237,10 +230,9 @@ class FlowControl(object):
         try:
             signal = args["signal"]
         except:
-            print "unhandled: %s " % title
+            print ("unhandled: %s " % title)
             return
 
-        print signal
         if signal == 'getflowbatch':
             #webview.execute_script("new_flow_batch(%s)" % self.get_flow_batch(args['param']))
             s = self.get_flow_batch(args['param'])

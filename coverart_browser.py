@@ -27,12 +27,14 @@ from gi.repository import Gtk
 from gi.repository import RB
 from gi.repository import GdkPixbuf
 from gi.repository import Peas
+from gi.repository import Gio
 
 from coverart_browser_prefs import Preferences
 from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import CoverLocale
 from coverart_browser_source import CoverArtBrowserSource
 from coverart_utils import Theme
+import coverart_rb3compat as rb3compat
 
 class CoverArtBrowserEntryType(RB.RhythmDBEntryType):
     '''
@@ -86,23 +88,36 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
 
         entry_type.category = RB.RhythmDBEntryCategory.NORMAL
-
+        
+        group = RB.DisplayPageGroup.get_by_id('library')
         # load plugin icon
         theme = Gtk.IconTheme.get_default()
         rb.append_plugin_source_path(theme, '/icons')
+                
+        if rb3compat.is_rb3(self.shell):
+                iconfile = Gio.File.new_for_path(
+                    rb.find_plugin_file(self, 'img/' + Theme(self).current\
+                    + '/covermgr.png'))
+                    
+                self.source = CoverArtBrowserSource(
+                        shell=self.shell,
+                        name=_("CoverArt"), 
+                        entry_type=entry_type,
+                        plugin=self,
+                        icon=Gio.FileIcon.new(iconfile), 
+                        query_model=self.shell.props.library_source.props.base_query_model)
+        else:
+                what, width, height = Gtk.icon_size_lookup(Gtk.IconSize.LARGE_TOOLBAR)
+                pxbf = GdkPixbuf.Pixbuf.new_from_file_at_size(
+                    rb.find_plugin_file(self, 'img/' + Theme(self).current\
+                    + '/covermgr.png'), width, height)
 
-        what, width, height = Gtk.icon_size_lookup(Gtk.IconSize.LARGE_TOOLBAR)
-        pxbf = GdkPixbuf.Pixbuf.new_from_file_at_size(
-            rb.find_plugin_file(self, 'img/' + Theme(self).current\
-            + '/covermgr.png'), width, height)
-
-        group = RB.DisplayPageGroup.get_by_id('library')
-
-        self.source = CoverArtBrowserSource(shell=self.shell,
-            name=_("CoverArt"), entry_type=entry_type,
-            plugin=self, pixbuf=pxbf,
-            query_model=self.shell.props.library_source.props.base_query_model)
-
+                self.source = CoverArtBrowserSource(
+                        shell=self.shell,
+                        name=_("CoverArt"), entry_type=entry_type,
+                        plugin=self, pixbuf=pxbf,
+                        query_model=self.shell.props.library_source.props.base_query_model)
+                    
         self.shell.register_entry_type_for_source(self.source, entry_type)
         self.shell.append_display_page(self.source, group)
 

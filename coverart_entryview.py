@@ -129,7 +129,7 @@ class CoverArtEntryView(RB.EntryView):
             else:
                 col.set_visible(False)
             
-        print "CoverArtBrowser DEBUG - end on_visible_columns_changed()"
+        print ("CoverArtBrowser DEBUG - end on_visible_columns_changed()")
 
     def add_album(self, album):
         print("CoverArtBrowser DEBUG - add_album()")
