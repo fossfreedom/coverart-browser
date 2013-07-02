@@ -78,6 +78,7 @@ class CoverFlowView(AbstractView):
         self.gs = GSetting()
         self.show_policy = FlowShowingPolicy(self)
         self.view = WebKit.WebView()
+        self.last_album = None
 
     def filter_changed(self, *args):
         #for some reason three filter change events occur on startup
@@ -103,7 +104,7 @@ class CoverFlowView(AbstractView):
         self.album_manager.model.connect('filter-changed', self.filter_changed)
 
         self.flow = FlowControl()
-        self.view.connect("notify::title", self.flow.receive_message_signal)
+        self.view.connect("notify::title", self.flow.receive_message_signal, self)
 
         
         # set the model to the view
@@ -121,8 +122,7 @@ class CoverFlowView(AbstractView):
         pass
 
     def selectionchanged_callback(self, _):
-        #self.source.update_with_selection()
-        pass
+        self.source.update_with_selection()
 
     def scroll_to_object(self, path):
         pass
@@ -135,44 +135,55 @@ class CoverFlowView(AbstractView):
                 self.ext_menu_pos, self.popup)
             self._external_plugins.create_menu('popup_menu', True)
             
-    def item_clicked_callback(self, iconview, event, path):
+    def item_clicked_callback(self, album):
         '''
         Callback called when the user clicks somewhere on the cover_view.
         Along with source "show_hide_pane", takes care of showing/hiding the bottom
         pane after a second click on a selected album.
         '''
         # to expand the entry view
-        ctrl = event.state & Gdk.ModifierType.CONTROL_MASK
-        shift = event.state & Gdk.ModifierType.SHIFT_MASK
+        self.source.click_count += 1
 
-        self.source.click_count += 1 if not ctrl and not shift else 0
+        selection_changed = False
+        if self.last_album != album:
+            selection_changed = True
+            
+        self.last_album = album
 
+        if selection_changed:
+            self.selectionchanged_callback(_)
+        
         if self.source.click_count == 1:
-            album = self.album_manager.model.get_from_path(path)\
-                if path else None
             Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
                 self.source.show_hide_pane, album)
 
-    def item_activated_callback(self, iconview, path):
+    def item_activated_callback(self, album):
         '''
         Callback called when the cover view is double clicked or space-bar
         is pressed. It plays the selected album
         '''
+        self.last_album = album
+        
         self.source.play_selected_album()
 
         return True
+
+    def get_selected_objects(self):
+        return [self.last_album]
 
 class FlowBatch(object):
     def __init__(self):
         self.filename = []
         self.title = []
         self.caption = []
+        self.identifier = []
         self.fetched = False
 
-    def append(self, fullfilename, title, caption):
+    def append(self, fullfilename, title, caption, identifier):
         self.filename.append(fullfilename)
         self.title.append(title)
         self.caption.append(caption)
+        self.identifier.append(identifier)
 
     def html_elements(self):
         
@@ -180,7 +191,8 @@ class FlowBatch(object):
         for loop in range(len(self.filename)):
             str = str + '<div class="item"><img class="content" src="' +\
                 self.filename[loop] + '" title="' +\
-                self.title[loop] + '"/> <div class="caption">' +\
+                self.title[loop] + '" identifier="' +\
+                self.identifier[loop] + '"/> <div class="caption">' +\
                 self.caption[loop] + '</div> </div>'
 
         self.fetched = True
@@ -190,6 +202,7 @@ class FlowControl(object):
     def __init__(self):
         self.next_batch = 0
         self.batches = []
+        self.album_identifier = {}
         
     def get_flow_batch(self, args):
         messagevalue = args[0]
@@ -227,7 +240,7 @@ class FlowControl(object):
         ret = json.dumps(obj)
         return ret
                  
-    def receive_message_signal(self, webview, param):
+    def receive_message_signal(self, webview, param, callback_view):
         # this will be key to passing stuff back and forth - need
         # to develop some-sort of message protocol to distinguish "events"
         
@@ -243,9 +256,16 @@ class FlowControl(object):
             return
 
         if signal == 'getflowbatch':
-            #webview.execute_script("new_flow_batch(%s)" % self.get_flow_batch(args['param']))
             s = self.get_flow_batch(args['param'])
             webview.execute_script("new_flow_batch('%s')" % s)
+        elif signal == 'clickactive':
+            callback_view.item_clicked_callback(self.album_identifier[args['param'][0]])
+        elif signal == 'rightclickactive':
+            callback_view.item_rightclicked_callback(self.album_identifier[args['param'][0]])
+        elif signal == 'doubleclickactive':
+            callback_view.item_activated_callback(self.album_identifier[args['param'][0]])
+        else:
+            print ("unhandled signal: %s" % signal)
         
 
     def initialise(self, string, model):
@@ -255,8 +275,7 @@ class FlowControl(object):
         album_col = model.columns['album']
         pos = 0
         del self.batches[:]
-        print self.batches
-
+        
         for row in model.store:
             if not (element < 50):
                 batch = None
@@ -270,12 +289,17 @@ class FlowControl(object):
                 'rhythmbox-missing-artwork.svg',
                 'rhythmbox-missing-artwork.png')  ## need a white vs black when we change the background colour
 
+            pos = pos + 1
+            element = element + 1
+            index = str(pos*element)
+            self.album_identifier[index] = row[album_col]
+            
             batch.append(
                 fullfilename = cover,
                 caption=row[album_col].name,
-                title=row[album_col].artist)
-            pos = pos + 1
-            element = element + 1
+                title=row[album_col].artist,
+                identifier=index)
+            
 
         items = ""
         if len(self.batches) > 0:

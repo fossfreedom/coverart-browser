@@ -834,7 +834,7 @@ ContentFlow.prototype = {
         onclickActiveItem: function (item) {
             var url, target;
 
-            if (url = item.content.getAttribute('href')) {
+            /*if (url = item.content.getAttribute('href')) {
                 target = item.content.getAttribute('target');
             }
             else if (url = item.element.getAttribute('href')) {
@@ -842,15 +842,17 @@ ContentFlow.prototype = {
             }
             else if (url = item.content.getAttribute('src')) {
                 target = item.content.getAttribute('target');
-            }
+            }*/
 
-            message_signal('clickactive', url);
+            var identifier;
+            identifier = item.content.getAttribute('identifier');
+            message_signal('clickactive', identifier);
         },
 
         onrightclickActiveItem: function (item, mousex, mousey) {
             var url, target;
 
-            if (url = item.content.getAttribute('href')) {
+            /*if (url = item.content.getAttribute('href')) {
                 target = item.content.getAttribute('target');
             }
             else if (url = item.element.getAttribute('href')) {
@@ -858,15 +860,17 @@ ContentFlow.prototype = {
             }
             else if (url = item.content.getAttribute('src')) {
                 target = item.content.getAttribute('target');
-            }
+            }*/
+            var identifier;
+            identifier = item.content.getAttribute('identifier');
 
-            message_signal('rightclickactive', url);
+            message_signal('rightclickactive', identifier);
         },
 
         ondblclickActiveItem: function (item) {
             var url, target;
 
-            if (url = item.content.getAttribute('href')) {
+            /*if (url = item.content.getAttribute('href')) {
                 target = item.content.getAttribute('target');
             }
             else if (url = item.element.getAttribute('href')) {
@@ -874,9 +878,11 @@ ContentFlow.prototype = {
             }
             else if (url = item.content.getAttribute('src')) {
                 target = item.content.getAttribute('target');
-            }
+            }*/
+            var identifier;
+            identifier = item.content.getAttribute('identifier');
 
-            message_signal('doubleclickactive', url);
+            message_signal('doubleclickactive', identifier);
         },
 
         onMakeInactive: function (item) {},
