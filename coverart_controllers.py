@@ -116,7 +116,6 @@ class PlaylistPopupController(OptionsController):
         
         # get the playlist manager and it's model
         playlist_manager = shell.props.playlist_manager
-        return
         playlist_model = playlist_manager.props.display_page_model
 
         # connect signals to update playlists
