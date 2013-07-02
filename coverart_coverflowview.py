@@ -45,6 +45,7 @@ class FlowShowingPolicy(GObject.Object):
         super(FlowShowingPolicy, self).__init__()
 
         self._flow_view = flow_view
+        self.counter = 0
 
     def initialise(self, album_manager):
         self._album_manager = album_manager
@@ -52,11 +53,17 @@ class FlowShowingPolicy(GObject.Object):
         self._connect_signals()
 
     def _connect_signals(self):
-        self._model.connect('album-updated', self._album_updated)
-        self._model.connect('visual-updated', self._album_updated)
+        #self._model.connect('album-updated', self._album_updated)
+        #self._model.connect('visual-updated', self._album_updated)
+        pass
 
     def _album_updated(self, model, album_path, album_iter):
-        pass
+        #print self.counter
+        self.counter = self.counter + 1
+        # this method is called once for every album in the model if the events above are connected
+        #for row in self._model.store:
+        #    print row[:]
+
 
 class CoverFlowView(AbstractView):
     __gtype_name__ = "CoverFlowView"
@@ -72,6 +79,17 @@ class CoverFlowView(AbstractView):
         self.show_policy = FlowShowingPolicy(self)
         self.view = WebKit.WebView()
 
+    def filter_changed(self, *args):
+        #for some reason three filter change events occur on startup
+        path = rb.find_plugin_file(self.plugin, 'coverflow/index.html')
+        f = open(path)
+        string = f.read()
+        f.close()
+
+        string = self.flow.initialise(string, self.album_manager.model)
+        base =  os.path.dirname(path) + "/"
+        self.view.load_string(string, "text/html", "UTF-8", "file://" + base)
+        
     def initialise(self, source):
         if self.has_initialised:
             return
@@ -82,18 +100,11 @@ class CoverFlowView(AbstractView):
         self.plugin = source.plugin
         self.album_manager = source.album_manager
         self.ext_menu_pos = 10
+        self.album_manager.model.connect('filter-changed', self.filter_changed)
 
-        flow = FlowControl()
-        self.view.connect("notify::title", flow.receive_message_signal)
+        self.flow = FlowControl()
+        self.view.connect("notify::title", self.flow.receive_message_signal)
 
-        path = rb.find_plugin_file(self.plugin, 'coverflow/index.html')
-        f = open(path)
-        string = f.read()
-        f.close()
-
-        string = flow.initialise(string)
-        base =  os.path.dirname(path) + "/"
-        self.view.load_string(string, "text/html", "UTF-8", "file://" + base)
         
         # set the model to the view
         #self.set_model(self.album_manager.model.store)
@@ -156,22 +167,20 @@ class FlowBatch(object):
         self.filename = []
         self.title = []
         self.caption = []
-        self.identifier = []
         self.fetched = False
 
     def append(self, fullfilename, title, caption):
         self.filename.append(fullfilename)
         self.title.append(title)
         self.caption.append(caption)
-        self.identifier.append('')
 
     def html_elements(self):
         
         str = ""
         for loop in range(len(self.filename)):
             str = str + '<div class="item"><img class="content" src="' +\
-                self.filename[loop] + '" title="tooltip ' +\
-                self.title[loop] + '"/> <div class="caption">album name ' +\
+                self.filename[loop] + '" title="' +\
+                self.title[loop] + '"/> <div class="caption">' +\
                 self.caption[loop] + '</div> </div>'
 
         self.fetched = True
@@ -206,7 +215,7 @@ class FlowControl(object):
                     batch['filename'] = chosen.filename[index]
                     batch['title'] = "tooltip " + chosen.title[index]
                     batch['caption'] = "album name " + chosen.caption[index]
-                    batch['identifier'] = chosen.identifier[index]
+
                     params.append(batch)
                 obj['flowbatch'] = params
                 self.batches[calc_batch].fetched = True
@@ -239,34 +248,41 @@ class FlowControl(object):
             webview.execute_script("new_flow_batch('%s')" % s)
         
 
-    def initialise(self, string):
+    def initialise(self, string, model):
         element = 0
         batch = None
 
-        home = expanduser("~")
-
-        albumdir = home + '/.cache/rhythmbox/album-art'
-
-
+        album_col = model.columns['album']
         pos = 0
-        for fn in os.listdir(albumdir):
-            if fn != 'store.tdb':
-                if not (element < 50):
-                    batch = None
-                    element = 0
-                    
-                if not batch:
-                    batch = FlowBatch()
-                    self.batches.append(batch)
+        del self.batches[:]
+        print self.batches
 
-                batch.append(fullfilename = albumdir + "/" + fn, caption=str(pos), title=str(pos))
-                pos = pos + 1
-                element = element + 1
+        for row in model.store:
+            if not (element < 50):
+                batch = None
+                element = 0
+                
+            if not batch:
+                batch = FlowBatch()
+                self.batches.append(batch)
 
-        items = self.batches[0].html_elements() +\
-                self.batches[1].html_elements() #+\
-                #self.batches[2].html_elements()
-        self.next_batch = 2
+            cover = row[album_col].cover.original.replace(
+                'rhythmbox-missing-artwork.svg',
+                'rhythmbox-missing-artwork.png')  ## need a white vs black when we change the background colour
+
+            batch.append(
+                fullfilename = cover,
+                caption=row[album_col].name,
+                title=row[album_col].artist)
+            pos = pos + 1
+            element = element + 1
+
+        items = ""
+        if len(self.batches) > 0:
+            items = self.batches[0].html_elements() #+\
+                    #self.batches[1].html_elements() #+\
+                    #self.batches[2].html_elements()
+            self.next_batch = 1
 
         string = string.replace('#ITEMS', items)
         string = string.replace('#BACKGROUND_COLOUR', 'white')

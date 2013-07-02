@@ -60,7 +60,7 @@ class AlbumShowingPolicy(GObject.Object):
             init, end = visible_range
 
             # i have to use the tree iter instead of the path to iterate since
-            # for some reason path.next doesn't work whit the filtermodel
+            # for some reason path.next doesn't work with the filtermodel
             tree_iter = self._model.store.get_iter(init)
 
             self._visible_paths = []
