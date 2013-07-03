@@ -78,7 +78,7 @@ class CoverFlowView(AbstractView):
         self.gs = GSetting()
         self.show_policy = FlowShowingPolicy(self)
         self.view = WebKit.WebView()
-        self.last_album = None
+        self._last_album = None
 
     def filter_changed(self, *args):
         #for some reason three filter change events occur on startup
@@ -103,16 +103,8 @@ class CoverFlowView(AbstractView):
         self.ext_menu_pos = 10
         self.album_manager.model.connect('filter-changed', self.filter_changed)
 
-        self.flow = FlowControl()
-        self.view.connect("notify::title", self.flow.receive_message_signal, self)
-
-        
-        # set the model to the view
-        #self.set_model(self.album_manager.model.store)
-
-        #self.connect("item-clicked", self.item_clicked_callback)
-        #self.connect("selection-changed", self.selectionchanged_callback)
-        #self.connect("item-activated", self.item_activated_callback)
+        self.flow = FlowControl(self)
+        self.view.connect("notify::title", self.flow.receive_message_signal)
 
     def resize_icon(self, cover_size):
         '''
@@ -127,13 +119,32 @@ class CoverFlowView(AbstractView):
     def scroll_to_object(self, path):
         pass
 
-    def pre_display_popup(self):
+    @property
+    def last_album(self):
+        return self._last_album
+
+    @last_album.setter
+    def last_album(self, new_album):
+        if self._last_album != new_album:
+            self._last_album = new_album
+            self.selectionchanged_callback(_)
+
+    def item_rightclicked_callback(self, album):
         if not self._external_plugins:
             # initialise external plugin menu support
             self._external_plugins = \
             CreateExternalPluginMenu("ca_covers_view",
                 self.ext_menu_pos, self.popup)
             self._external_plugins.create_menu('popup_menu', True)
+            
+        self.last_album = album
+        
+        self.popup.get_gtkmenu(self.source, 'popup_menu').popup(None,
+                        None, 
+                        None,
+                        None,
+                        3,
+                        Gtk.get_current_event_time())
             
     def item_clicked_callback(self, album):
         '''
@@ -143,16 +154,9 @@ class CoverFlowView(AbstractView):
         '''
         # to expand the entry view
         self.source.click_count += 1
-
-        selection_changed = False
-        if self.last_album != album:
-            selection_changed = True
             
         self.last_album = album
 
-        if selection_changed:
-            self.selectionchanged_callback(_)
-        
         if self.source.click_count == 1:
             Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
                 self.source.show_hide_pane, album)
@@ -169,7 +173,10 @@ class CoverFlowView(AbstractView):
         return True
 
     def get_selected_objects(self):
-        return [self.last_album]
+        if self.last_album:
+            return [self.last_album]
+        else:
+            return []
 
 class FlowBatch(object):
     def __init__(self):
@@ -199,10 +206,11 @@ class FlowBatch(object):
         return str
 
 class FlowControl(object):
-    def __init__(self):
+    def __init__(self, callback_view):
         self.next_batch = 0
         self.batches = []
         self.album_identifier = {}
+        self.callback_view = callback_view
         
     def get_flow_batch(self, args):
         messagevalue = args[0]
@@ -240,7 +248,7 @@ class FlowControl(object):
         ret = json.dumps(obj)
         return ret
                  
-    def receive_message_signal(self, webview, param, callback_view):
+    def receive_message_signal(self, webview, param):
         # this will be key to passing stuff back and forth - need
         # to develop some-sort of message protocol to distinguish "events"
         
@@ -259,11 +267,12 @@ class FlowControl(object):
             s = self.get_flow_batch(args['param'])
             webview.execute_script("new_flow_batch('%s')" % s)
         elif signal == 'clickactive':
-            callback_view.item_clicked_callback(self.album_identifier[args['param'][0]])
+            self.callback_view.item_clicked_callback(self.album_identifier[args['param'][0]])
         elif signal == 'rightclickactive':
-            callback_view.item_rightclicked_callback(self.album_identifier[args['param'][0]])
+            self.callback_view.item_rightclicked_callback(
+                self.album_identifier[args['param'][0]])
         elif signal == 'doubleclickactive':
-            callback_view.item_activated_callback(self.album_identifier[args['param'][0]])
+            self.callback_view.item_activated_callback(self.album_identifier[args['param'][0]])
         else:
             print ("unhandled signal: %s" % signal)
         
@@ -299,7 +308,6 @@ class FlowControl(object):
                 caption=row[album_col].name,
                 title=row[album_col].artist,
                 identifier=index)
-            
 
         items = ""
         if len(self.batches) > 0:
@@ -307,6 +315,9 @@ class FlowControl(object):
                     #self.batches[1].html_elements() #+\
                     #self.batches[2].html_elements()
             self.next_batch = 1
+            self.callback_view.last_album = self.album_identifier['1']
+        else:
+            self.callback_view.last_album = None
 
         string = string.replace('#ITEMS', items)
         string = string.replace('#BACKGROUND_COLOUR', 'white')

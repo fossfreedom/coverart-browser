@@ -955,7 +955,7 @@ class AbstractView(GObject.Object):
         pass
 
     def set_popup_menu(self, popup):
-        self.view.popup = popup
+        self.popup = popup
 
     def grab_focus(self):
         pass

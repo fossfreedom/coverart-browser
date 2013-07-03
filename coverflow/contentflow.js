@@ -450,7 +450,7 @@ var ContentFlowItem  = function (CFobj, element, index) {
         var index = el.itemIndex ? el.itemIndex : el.parentNode.itemIndex;
         var item = this.items[index];
         if (this._activeItem == item) {
-            this.conf.onrightclickActiveItem(item, event.screenX, event.screenY);
+            this.conf.onrightclickActiveItem(item);
         }
     }.bind(CFobj),
 
@@ -483,7 +483,10 @@ var ContentFlowItem  = function (CFobj, element, index) {
             this.conf.onclickActiveItem(item);
         }
         else {
-            if (this.conf.onclickInactiveItem(item) != false ) this.moveToIndex(index);
+            if (this.conf.onclickInactiveItem(item) != false ) {
+                this.moveToIndex(index);
+                this.conf.onclickActiveItem(this.items[index]);
+            }
         }
     }.bind(CFobj),
 
@@ -849,7 +852,7 @@ ContentFlow.prototype = {
             message_signal('clickactive', identifier);
         },
 
-        onrightclickActiveItem: function (item, mousex, mousey) {
+        onrightclickActiveItem: function (item) {
             var url, target;
 
             /*if (url = item.content.getAttribute('href')) {
