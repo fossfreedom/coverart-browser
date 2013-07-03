@@ -449,8 +449,9 @@ var ContentFlowItem  = function (CFobj, element, index) {
         var el = event.target ? event.target : event.srcElement;
         var index = el.itemIndex ? el.itemIndex : el.parentNode.itemIndex;
         var item = this.items[index];
-        if (this._activeItem == item) {
+        if (this._activeItem == item && event.button==2) {
             this.conf.onrightclickActiveItem(item);
+            
         }
     }.bind(CFobj),
 
@@ -580,7 +581,7 @@ ContentFlowItem.prototype = {
         var rcItem = this.rightclickItem;
         var dcItem = this.dblclickItem;
         this[this._activeElement].addEvent('click', cItem, false);
-        this[this._activeElement].addEvent('contextmenu', rcItem, false);
+        this[this._activeElement].addEvent('mouseup', rcItem, false);
         this[this._activeElement].addEvent('dblclick', dcItem, false);
     },
     
@@ -835,35 +836,12 @@ ContentFlow.prototype = {
         onclickInactiveItem: function (item) {},
 
         onclickActiveItem: function (item) {
-            var url, target;
-
-            /*if (url = item.content.getAttribute('href')) {
-                target = item.content.getAttribute('target');
-            }
-            else if (url = item.element.getAttribute('href')) {
-                target = item.element.getAttribute('target');
-            }
-            else if (url = item.content.getAttribute('src')) {
-                target = item.content.getAttribute('target');
-            }*/
-
             var identifier;
             identifier = item.content.getAttribute('identifier');
             message_signal('clickactive', identifier);
         },
 
         onrightclickActiveItem: function (item) {
-            var url, target;
-
-            /*if (url = item.content.getAttribute('href')) {
-                target = item.content.getAttribute('target');
-            }
-            else if (url = item.element.getAttribute('href')) {
-                target = item.element.getAttribute('target');
-            }
-            else if (url = item.content.getAttribute('src')) {
-                target = item.content.getAttribute('target');
-            }*/
             var identifier;
             identifier = item.content.getAttribute('identifier');
 
@@ -871,17 +849,6 @@ ContentFlow.prototype = {
         },
 
         ondblclickActiveItem: function (item) {
-            var url, target;
-
-            /*if (url = item.content.getAttribute('href')) {
-                target = item.content.getAttribute('target');
-            }
-            else if (url = item.element.getAttribute('href')) {
-                target = item.element.getAttribute('target');
-            }
-            else if (url = item.content.getAttribute('src')) {
-                target = item.content.getAttribute('target');
-            }*/
             var identifier;
             identifier = item.content.getAttribute('identifier');
 
