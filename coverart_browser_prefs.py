@@ -137,7 +137,8 @@ class GSetting:
                 THEME='theme',
                 NEW_GENRE_ICON='new-genre-icon',
                 ICON_PADDING='icon-padding',
-                ICON_SPACING='icon-spacing')
+                ICON_SPACING='icon-spacing',
+                VIEW_NAME='view-name')
 
             self.setting = {}
 

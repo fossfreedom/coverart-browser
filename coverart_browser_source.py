@@ -191,7 +191,7 @@ class CoverArtBrowserSource(RB.Source):
 
         window = ui.get_object('scrolled_window')
         
-        self.viewmgr = ViewManager(self.plugin, window)
+        self.viewmgr = ViewManager(self, window)
         self.current_view = self.viewmgr.current_view
         
         self.popup_menu = Menu(self.plugin, self.shell)
@@ -991,47 +991,55 @@ class ToolbarManager(GObject.Object):
 
 class ViewManager(GObject.Object):
     # properties
+    view_name = GObject.property(type=str, default=CoverIconView.name)
     
-    def __init__(self, plugin, window):
+    def __init__(self, source, window):
         super(ViewManager, self).__init__()
 
-        self.plugin = plugin
-        # create the view controllers
-        #controllers = self._create_controllers()
-
+        self.source = source
+        self.window = window
+        
         # initialize views
         self._views = {}
         ui = Gtk.Builder()
-        ui.add_from_file(rb.find_plugin_file(plugin,
+        ui.add_from_file(rb.find_plugin_file(source.plugin,
             'ui/coverart_iconview.ui'))
         self._views[CoverIconView.name] = ui.get_object('covers_view')
         self._views[CoverFlowView.name] = CoverFlowView()
+        self._lastview = None
 
-
-        self._lastview = CoverIconView.name # this will eventually be hooked up to view radio buttons
-        #self._lastview = CoverFlowView.name # this will eventually be hooked up to view radio buttons
-        window.add(self.current_view.view) # this will need to be hooked up to view-button manager
-        window.show_all()
         # connect signal and properties
         self._connect_signals()
         self._connect_properties()
-
+        self._lastview = self.view_name
+        
+        window.add(self.current_view.view) # this will need to be hooked up to view-button manager
+        window.show_all()
+        
     @property
     def current_view(self):
-        return self._views[self._lastview]
+        return self._views[self.view_name]
 
     def _connect_signals(self):
-        pass
+        self.connect('notify::view-name', self.on_notify_view_name)
         
     def _connect_properties(self):
-        pass
-        
-    def _create_controllers(self, plugin, album_model):
-        controllers = {}
-        controllers[CoverView.name] = CoverViewController()
-        
-        return controllers
+        gs = GSetting()
+        setting = gs.get_setting(gs.Path.PLUGIN)
+        setting.bind(gs.PluginKey.VIEW_NAME, self, 'view_name',
+            Gio.SettingsBindFlags.GET)
 
+    def on_notify_view_name(self, *args):
+        if self._lastview and self.view_name != self._lastview:
+            self.window.remove(self._views[self._lastview].view)
+
+            self.window.add(self._views[self.view_name].view)
+            self._views[self.view_name].initialise(self.source)
+            self._views[self.view_name].show_policy.initialise(self.source.album_manager)
+            self.window.show_all()
+
+            self._lastview = self.view_name
+        
     def get_selection_colour(self):
         try:
             colour = self._views[CoverIconView.name].view.get_style_context().get_background_color(

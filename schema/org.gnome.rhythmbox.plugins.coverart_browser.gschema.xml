@@ -126,5 +126,10 @@
             <summary>icon view spacing (rows and columns)</summary>
             <description>icon view (rows and columns)</description>
         </key>
+        <key type="s" name="view-name">
+            <default>'coverview'</default>
+            <summary>Name of view.</summary>
+            <description>View name to start with when the plugin is initialised.</description>
+        </key>
     </schema>
 </schemalist>

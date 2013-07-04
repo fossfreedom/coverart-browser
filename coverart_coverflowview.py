@@ -31,6 +31,7 @@ import rb
 import json
 import os
 from os.path import expanduser
+from xml.sax.saxutils import escape
 
 from collections import namedtuple
 
@@ -187,10 +188,10 @@ class FlowBatch(object):
         str = ""
         for loop in range(len(self.filename)):
             str = str + '<div class="item"><img class="content" src="' +\
-                self.filename[loop] + '" title="' +\
-                self.title[loop] + '" identifier="' +\
+                escape(self.filename[loop]) + '" title="' +\
+                escape(self.title[loop]) + '" identifier="' +\
                 self.identifier[loop] + '"/> <div class="caption">' +\
-                self.caption[loop] + '</div> </div>'
+                escape(self.caption[loop]) + '</div> </div>'
 
         self.fetched = True
         return str
@@ -301,11 +302,15 @@ class FlowControl(object):
                 identifier=index)
 
         items = ""
-        if len(self.batches) > 0:
-            items = self.batches[0].html_elements() #+\
-                    #self.batches[1].html_elements() #+\
-                    #self.batches[2].html_elements()
-            self.next_batch = 1
+
+        index = 0
+        while index <  len(self.batches) and index != 3:
+            items += self.batches[index].html_elements()
+            index += 1
+
+        self.next_batch = index
+        
+        if index != 0:
             self.callback_view.last_album = self.album_identifier['1']
         else:
             self.callback_view.last_album = None
