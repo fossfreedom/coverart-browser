@@ -88,6 +88,9 @@ class CoverFlowView(AbstractView):
         f.close()
 
         string = self.flow.initialise(string, self.album_manager.model)
+        string = string.replace('#BACKGROUND_COLOUR', 'white') # to be user-defined - black/white
+        string = string.replace('#HEIGHT', '200') # to be user-defined
+        
         base =  os.path.dirname(path) + "/"
         self.view.load_string(string, "text/html", "UTF-8", "file://" + base)
         
@@ -105,13 +108,6 @@ class CoverFlowView(AbstractView):
 
         self.flow = FlowControl(self)
         self.view.connect("notify::title", self.flow.receive_message_signal)
-
-    def resize_icon(self, cover_size):
-        '''
-        Callback called when to resize the icon
-        [common to all views]
-        '''
-        pass
 
     @property
     def last_album(self):
@@ -228,8 +224,9 @@ class FlowControl(object):
                 for index in range(0, size):
                     batch = {}
                     batch['filename'] = chosen.filename[index]
-                    batch['title'] = "tooltip " + chosen.title[index]
-                    batch['caption'] = "album name " + chosen.caption[index]
+                    batch['title'] = chosen.title[index]
+                    batch['caption'] = chosen.caption[index]
+                    batch['identifier'] = chosen.identifier[index]
 
                     params.append(batch)
                 obj['flowbatch'] = params
@@ -314,7 +311,5 @@ class FlowControl(object):
             self.callback_view.last_album = None
 
         string = string.replace('#ITEMS', items)
-        string = string.replace('#BACKGROUND_COLOUR', 'white')
-        string = string.replace('#HEIGHT', '200')
-
+        
         return string

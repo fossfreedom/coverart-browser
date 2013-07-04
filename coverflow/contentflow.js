@@ -334,6 +334,7 @@ function new_flow_batch(msg) {
             link.setAttribute('src', obj.flowbatch[i].filename);
             link.setAttribute('title', obj.flowbatch[i].title);
             link.setAttribute('caption', obj.flowbatch[i].filename);
+            link.setAttribute('identifier', obj.flowbatch[i].identifier);
             cf.addItem(link, position);
         }
     }
