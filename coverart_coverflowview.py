@@ -113,12 +113,6 @@ class CoverFlowView(AbstractView):
         '''
         pass
 
-    def selectionchanged_callback(self, _):
-        self.source.update_with_selection()
-
-    def scroll_to_object(self, path):
-        pass
-
     @property
     def last_album(self):
         return self._last_album
@@ -127,7 +121,7 @@ class CoverFlowView(AbstractView):
     def last_album(self, new_album):
         if self._last_album != new_album:
             self._last_album = new_album
-            self.selectionchanged_callback(_)
+            self.selectionchanged_callback()
 
     def item_rightclicked_callback(self, album):
         if not self._external_plugins:

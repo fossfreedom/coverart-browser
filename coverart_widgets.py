@@ -937,19 +937,11 @@ class AbstractView(GObject.Object):
         '''
         pass
 
-    def selectionchanged_callback(self, _):
+    def selectionchanged_callback(self, *args):
         '''
         callback when a selection has changed
         '''
-        pass
-
-    def scroll_to_object(self, path):
-        '''
-        scroll to the object
-
-        :param path: model path
-        '''
-        pass
+        self.source.update_with_selection()
 
     def select_and_scroll_to_path(self, path):
         pass

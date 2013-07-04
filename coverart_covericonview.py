@@ -123,6 +123,8 @@ class CoverIconView(EnhancedIconView, AbstractView):
         self.connect('drag-data-received',
             self.on_drag_data_received)
         self.connect('drag-begin', self.on_drag_begin)
+        self.source.paned.connect("expanded", self.bottom_expander_expanded_callback)
+        
         self.enable_model_drag_source(Gdk.ModifierType.BUTTON1_MASK,
             [], Gdk.DragAction.COPY)
 
@@ -176,12 +178,6 @@ class CoverIconView(EnhancedIconView, AbstractView):
         [common to all views]
         '''
         self.set_item_width(cover_size)
-
-    def selectionchanged_callback(self, _):
-        self.source.update_with_selection()
-
-    def scroll_to_object(self, path):
-        self.view.scroll_to_path(path, False, 0, 0)
 
     def pre_display_popup(self):
         if not self._external_plugins:
@@ -338,3 +334,22 @@ class CoverIconView(EnhancedIconView, AbstractView):
         elif self._text_renderer:
             # remove the cell renderer
             self.props.cell_area.remove(self._text_renderer)
+            
+    def bottom_expander_expanded_callback(self, paned, expand):
+        '''
+        Callback connected to expanded signal of the paned GtkExpander
+        '''
+        if expand:
+            # accommodate the viewport if there's an album selected
+            if self.source.last_selected_album:
+                def scroll_to_album(*args):
+                    # accommodate the viewport if there's an album selected
+                    path = self.album_manager.model.get_path(
+                        self.source.last_selected_album)
+
+                    self.scroll_to_path(path, False, 0, 0)
+                    
+                    return False
+
+                Gdk.threads_add_idle(GObject.PRIORITY_DEFAULT_IDLE,
+                    scroll_to_album, None)

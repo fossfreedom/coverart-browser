@@ -375,7 +375,7 @@ class CoverArtBrowserSource(RB.Source):
 
         if album in selected:
             # update the selection since it may have changed
-            self.current_view.selectionchanged_callback(self.current_view)
+            self.current_view.selectionchanged_callback()
 
             if album is selected[0] and \
                 self.notebook.get_current_page() == \
@@ -630,25 +630,6 @@ class CoverArtBrowserSource(RB.Source):
         self.album_manager.cover_man.cancel_cover_request()
 
         print("CoverArtBrowser DEBUG - end cancel_request_callback")
-
-    def bottom_expander_expanded_callback(self, paned, expand):
-        '''
-        Callback connected to expanded signal of the paned GtkExpander
-        '''
-        if expand:
-            # accommodate the viewport if there's an album selected
-            if self.last_selected_album:
-                def scroll_to_album(*args):
-                    # accommodate the viewport if there's an album selected
-                    path = self.album_manager.model.get_path(
-                        self.last_selected_album)
-
-                    self.current_view.scroll_to_object(path)
-
-                    return False
-
-                Gdk.threads_add_idle(GObject.PRIORITY_DEFAULT_IDLE,
-                    scroll_to_album, None)
 
     def notebook_switch_page_callback(self, notebook, page, page_num):
         '''
