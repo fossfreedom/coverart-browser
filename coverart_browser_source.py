@@ -1031,12 +1031,17 @@ class ViewManager(GObject.Object):
 
     def on_notify_view_name(self, *args):
         if self._lastview and self.view_name != self._lastview:
+
+            current_album = self._views[self._lastview].get_selected_objects()[0]
             self.window.remove(self._views[self._lastview].view)
 
             self.window.add(self._views[self.view_name].view)
             self._views[self.view_name].initialise(self.source)
             self._views[self.view_name].show_policy.initialise(self.source.album_manager)
             self.window.show_all()
+            if current_album:
+                path = self.source.album_manager.model.get_path(current_album)
+                self._views[self.view_name].select_and_scroll_to_path(path)
 
             self._lastview = self.view_name
         

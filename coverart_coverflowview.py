@@ -169,6 +169,10 @@ class CoverFlowView(AbstractView):
         else:
             return []
 
+    def select_and_scroll_to_path(self, path):
+        album = self.source.album_manager.model.get_from_path(path)
+        self.flow.scroll_to_album(album, self.view)
+
 class FlowBatch(object):
     def __init__(self):
         self.filename = []
@@ -197,6 +201,8 @@ class FlowBatch(object):
         return str
 
 class FlowControl(object):
+    batch_size = 50
+    
     def __init__(self, callback_view):
         self.next_batch = 0
         self.batches = []
@@ -211,7 +217,7 @@ class FlowControl(object):
         position = 'stop'
 
         if messagevalue == 'next':
-            calc_batch = int(index / 50) + 1
+            calc_batch = int(index / self.batch_size) + 1
                         
             if ((calc_batch >= self.next_batch) and
                 (len(self.batches) > calc_batch) and
@@ -259,14 +265,20 @@ class FlowControl(object):
             s = self.get_flow_batch(args['param'])
             webview.execute_script("new_flow_batch('%s')" % s)
         elif signal == 'clickactive':
-            self.callback_view.item_clicked_callback(self.album_identifier[args['param'][0]])
+            self.callback_view.item_clicked_callback(self.album_identifier[int(args['param'][0])])
         elif signal == 'rightclickactive':
             self.callback_view.item_rightclicked_callback(
                 self.album_identifier[args['param'][0]])
         elif signal == 'doubleclickactive':
-            self.callback_view.item_activated_callback(self.album_identifier[args['param'][0]])
+            self.callback_view.item_activated_callback(self.album_identifier[int(args['param'][0])])
         else:
             print ("unhandled signal: %s" % signal)
+
+    def scroll_to_album(self, album, webview):
+        for row in self.album_identifier:
+            if self.album_identifier[row] == album:
+                webview.execute_script("scroll_to_identifier('%s')" % str(row))
+                break
         
 
     def initialise(self, string, model):
@@ -278,10 +290,11 @@ class FlowControl(object):
         del self.batches[:]
         
         for row in model.store:
-            if not (element < 50):
+            if not (element < self.batch_size):
                 batch = None
                 element = 0
-                
+                pos = pos + 1
+            
             if not batch:
                 batch = FlowBatch()
                 self.batches.append(batch)
@@ -290,16 +303,16 @@ class FlowControl(object):
                 'rhythmbox-missing-artwork.svg',
                 'rhythmbox-missing-artwork.png')  ## need a white vs black when we change the background colour
 
-            pos = pos + 1
-            element = element + 1
-            index = str(pos*element)
+            index = (pos*self.batch_size) + element
             self.album_identifier[index] = row[album_col]
+            
+            element = element + 1
             
             batch.append(
                 fullfilename = cover,
                 caption=row[album_col].name,
                 title=row[album_col].artist,
-                identifier=index)
+                identifier=str(index))
 
         items = ""
 
@@ -311,7 +324,7 @@ class FlowControl(object):
         self.next_batch = index
         
         if index != 0:
-            self.callback_view.last_album = self.album_identifier['1']
+            self.callback_view.last_album = self.album_identifier[0]
         else:
             self.callback_view.last_album = None
 

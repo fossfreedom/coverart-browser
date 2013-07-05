@@ -341,6 +341,11 @@ function new_flow_batch(msg) {
     ContentFlowGlobal.batchmessage = null;
 }
 
+function scroll_to_identifier(msg) {
+    var x = Math.floor(msg);
+    cf.moveTo(x);
+}
+
 /* 
  * ============================================================
  * ContentFlowGUIElement
