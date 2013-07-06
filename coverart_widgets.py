@@ -911,7 +911,6 @@ class AbstractView(GObject.Object):
     N.B. this is preliminary and will change as and when
     coverflow view is added with lessons learned
     '''
-    has_initialised = False
     view = None
     
     def __init__(self):
@@ -950,4 +949,7 @@ class AbstractView(GObject.Object):
         self.popup = popup
 
     def grab_focus(self):
+        pass
+
+    def switch_to_view(self, source, album):
         pass

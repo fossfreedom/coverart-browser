@@ -1036,13 +1036,9 @@ class ViewManager(GObject.Object):
             self.window.remove(self._views[self._lastview].view)
 
             self.window.add(self._views[self.view_name].view)
-            self._views[self.view_name].initialise(self.source)
-            self._views[self.view_name].show_policy.initialise(self.source.album_manager)
             self.window.show_all()
-            if current_album:
-                path = self.source.album_manager.model.get_path(current_album)
-                self._views[self.view_name].select_and_scroll_to_path(path)
-
+            self._views[self.view_name].switch_to_view(self.source, current_album)
+            
             self._lastview = self.view_name
         
     def get_selection_colour(self):

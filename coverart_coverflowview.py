@@ -47,8 +47,13 @@ class FlowShowingPolicy(GObject.Object):
 
         self._flow_view = flow_view
         self.counter = 0
+        self._has_initialised = False
 
     def initialise(self, album_manager):
+        if self._has_initialised:
+            return
+
+        self._has_initialised = True
         self._album_manager = album_manager
         self._model = album_manager.model
         self._connect_signals()
@@ -80,6 +85,7 @@ class CoverFlowView(AbstractView):
         self.show_policy = FlowShowingPolicy(self)
         self.view = WebKit.WebView()
         self._last_album = None
+        self._has_initialised = False
 
     def filter_changed(self, *args):
         #for some reason three filter change events occur on startup
@@ -96,10 +102,10 @@ class CoverFlowView(AbstractView):
         self.view.load_string(string, "text/html", "UTF-8", "file://" + base)
         
     def initialise(self, source):
-        if self.has_initialised:
+        if self._has_initialised:
             return
             
-        self.has_initialised = True
+        self._has_initialised = True
 
         self.source = source
         self.plugin = source.plugin
@@ -172,6 +178,22 @@ class CoverFlowView(AbstractView):
     def select_and_scroll_to_path(self, path):
         album = self.source.album_manager.model.get_from_path(path)
         self.flow.scroll_to_album(album, self.view)
+
+    def switch_to_view(self, source, album):
+        self.initialise(source)
+        self.show_policy.initialise(source.album_manager)
+
+        if not self._last_album:
+            self.filter_changed()
+            
+        def scroll_to_album(*args):
+            self.flow.scroll_to_album(album, self.view)
+            return False
+
+        if album:
+            Gdk.threads_add_timeout_seconds(GLib.PRIORITY_DEFAULT_IDLE, 2,
+                scroll_to_album, None)
+
 
 class FlowBatch(object):
     def __init__(self):
@@ -277,6 +299,7 @@ class FlowControl(object):
     def scroll_to_album(self, album, webview):
         for row in self.album_identifier:
             if self.album_identifier[row] == album:
+                print ("scroll_to_identifier('%s')" % str(row))
                 webview.execute_script("scroll_to_identifier('%s')" % str(row))
                 break
         
@@ -331,3 +354,4 @@ class FlowControl(object):
         string = string.replace('#ITEMS', items)
         
         return string
+        

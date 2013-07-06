@@ -41,11 +41,16 @@ class AlbumShowingPolicy(GObject.Object):
 
         self._cover_view = cover_view  # this will need to be reworked for all views
         self._visible_paths = None
+        self._has_initialised = False
 
     def initialise(self, album_manager):
+        if self._has_initialised:
+            return
+
         self._album_manager = album_manager
         self._model = album_manager.model
         self._connect_signals()
+        self._has_initialised = True
 
     def _connect_signals(self):
         self._cover_view.props.vadjustment.connect('value-changed',
@@ -101,12 +106,13 @@ class CoverIconView(EnhancedIconView, AbstractView):
         self._text_renderer = None
         self.show_policy = AlbumShowingPolicy(self)
         self.view = self
+        self._has_initialised = False
         
     def initialise(self, source):
-        if self.has_initialised:
+        if self._has_initialised:
             return
             
-        self.has_initialised = True
+        self._has_initialised = True
 
         self.view_name = "covers_view"
         self.source = source
@@ -353,3 +359,12 @@ class CoverIconView(EnhancedIconView, AbstractView):
 
                 Gdk.threads_add_idle(GObject.PRIORITY_DEFAULT_IDLE,
                     scroll_to_album, None)
+
+
+    def switch_to_view(self, source, album):
+        self.initialise(source)
+        self.show_policy.initialise(source.album_manager)
+        if album:
+            path = source.album_manager.model.get_path(album)
+            self.select_and_scroll_to_path(path)
+
