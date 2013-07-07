@@ -93,8 +93,9 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         # load plugin icon
         theme = Gtk.IconTheme.get_default()
         rb.append_plugin_source_path(theme, '/icons')
-                
-        if rb3compat.is_rb3(self.shell):
+
+        # lets assume that python3 versions of RB only has the new icon attribute in the source
+        if PYVER >=3:
                 iconfile = Gio.File.new_for_path(
                     rb.find_plugin_file(self, 'img/' + Theme(self).current\
                     + '/covermgr.png'))
