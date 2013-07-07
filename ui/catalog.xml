@@ -3,10 +3,14 @@
   <init-function>glade_python_init</init-function>
   <glade-widget-classes>
     <glade-widget-class title="PopupButton" name="PopupButton" 
-                        generic-name="PopupButton" parent="GtkButton"/>    
+                        generic-name="PopupButton" parent="GtkButton"
+                        icon-name="widget-gtk-button"/>    
     <glade-widget-class title="ImageToggleButton" name="ImageToggleButton" 
                         generic-name="ImageToggleButton" parent="GtkButton"
                         icon-name="widget-gtk-button"/>
+    <glade-widget-class title="ImageRadioButton" name="ImageRadioButton" 
+                        generic-name="ImageRadioButton" parent="GtkRadioButton"
+                        icon-name="widget-gtk-radiobutton"/>
     <glade-widget-class title="RBSearchEntry" name="RBSearchEntry" 
                         generic-name="RBSearchEntry" parent="GtkHBox"
                         icon-name="widget-gtk-box"/>
@@ -33,6 +37,7 @@
    <glade-widget-group name="python" title="Python">
      <glade-widget-class-ref name="PopupButton"/>    
      <glade-widget-class-ref name="ImageToggleButton"/>
+     <glade-widget-class-ref name="ImageRadioButton"/>
      <glade-widget-class-ref name="RBSearchEntry"/>
      <glade-widget-class-ref name="SearchEntry"/>
      <glade-widget-class-ref name="QuickSearchEntry"/>

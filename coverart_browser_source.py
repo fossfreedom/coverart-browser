@@ -42,6 +42,7 @@ from coverart_controllers import DecadePopupController
 from coverart_controllers import SortOrderToggleController
 from coverart_controllers import AlbumSearchEntryController
 from coverart_controllers import AlbumQuickSearchController
+from coverart_controllers import ViewController
 from coverart_utils import Theme
 from coverart_export import CoverArtExport
 from stars import ReactiveStar
@@ -288,7 +289,7 @@ class CoverArtBrowserSource(RB.Source):
 
         # initialise the toolbar manager
         self._toolbar_manager = ToolbarManager(self.plugin, self.page,
-            self.album_manager.model)
+            self.album_manager.model, self.viewmgr)
 
         # initialise the variables of the quick search
         self.quick_search_controller = AlbumQuickSearchController(
@@ -863,6 +864,7 @@ class Toolbar(GObject.Object):
         # assign the controllers to the buttons
         for button, controller in controllers.items():
             if button != 'search':
+                print button
                 builder.get_object(button).controller = controller
 
         # workaround to translate the search entry tooltips
@@ -937,11 +939,11 @@ class ToolbarManager(GObject.Object):
     # properties
     toolbar_pos = GObject.property(type=str, default=TopToolbar.name)
 
-    def __init__(self, plugin, main_box, album_model):
+    def __init__(self, plugin, main_box, album_model, viewmgr):
         super(ToolbarManager, self).__init__()
         self.plugin = plugin
         # create the buttons controllers
-        controllers = self._create_controllers(plugin, album_model)
+        controllers = self._create_controllers(plugin, album_model, viewmgr)
 
         # initialize toolbars
         self._bars = {}
@@ -966,7 +968,7 @@ class ToolbarManager(GObject.Object):
         setting.bind(gs.PluginKey.TOOLBAR_POS, self, 'toolbar_pos',
             Gio.SettingsBindFlags.GET)
 
-    def _create_controllers(self, plugin, album_model):
+    def _create_controllers(self, plugin, album_model, viewmgr):
         controllers = {}
         controllers['sort_by'] = SortPopupController(plugin, album_model)
         controllers['sort_order'] = SortOrderToggleController(plugin,
@@ -977,6 +979,8 @@ class ToolbarManager(GObject.Object):
         controllers['decade_button'] = DecadePopupController(plugin,
             album_model)
         controllers['search'] = AlbumSearchEntryController(album_model)
+        controllers['iconview_button'] = viewmgr.controller
+        controllers['flowview_button'] = viewmgr.controller
 
         return controllers
 
@@ -998,6 +1002,10 @@ class ViewManager(GObject.Object):
 
         self.source = source
         self.window = window
+
+        self.controller = ViewController(source.plugin, self)
+        self.controller.add_key_pair(CoverFlowView.name, 'flowview_button')
+        self.controller.add_key_pair(CoverIconView.name, 'iconview_button')
         
         # initialize views
         self._views = {}
@@ -1027,20 +1035,28 @@ class ViewManager(GObject.Object):
         gs = GSetting()
         setting = gs.get_setting(gs.Path.PLUGIN)
         setting.bind(gs.PluginKey.VIEW_NAME, self, 'view_name',
-            Gio.SettingsBindFlags.GET)
+            Gio.SettingsBindFlags.DEFAULT)
 
     def on_notify_view_name(self, *args):
         if self._lastview and self.view_name != self._lastview:
 
-            current_album = self._views[self._lastview].get_selected_objects()[0]
+            selected = self._views[self._lastview].get_selected_objects()
+            current_album = None
+            if len(selected) > 0:
+                current_album = self._views[self._lastview].get_selected_objects()[0]
+                
             self.window.remove(self._views[self._lastview].view)
-
             self.window.add(self._views[self.view_name].view)
             self.window.show_all()
+            
             self._views[self.view_name].switch_to_view(self.source, current_album)
             
             self._lastview = self.view_name
-        
+            
+            gs = GSetting()
+            setting = gs.get_setting(gs.Path.PLUGIN)
+            setting[gs.PluginKey.VIEW_NAME] = self.view_name
+
     def get_selection_colour(self):
         try:
             colour = self._views[CoverIconView.name].view.get_style_context().get_background_color(

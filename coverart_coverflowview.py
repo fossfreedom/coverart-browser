@@ -86,6 +86,7 @@ class CoverFlowView(AbstractView):
         self.view = WebKit.WebView()
         self._last_album = None
         self._has_initialised = False
+        self._first_time = True
 
     def filter_changed(self, *args):
         #for some reason three filter change events occur on startup
@@ -124,6 +125,7 @@ class CoverFlowView(AbstractView):
     def last_album(self, new_album):
         if self._last_album != new_album:
             self._last_album = new_album
+            self.source.click_count = 0
             self.selectionchanged_callback()
 
     def item_rightclicked_callback(self, album):
@@ -145,7 +147,7 @@ class CoverFlowView(AbstractView):
             
     def item_clicked_callback(self, album):
         '''
-        Callback called when the user clicks somewhere on the cover_view.
+        Callback called when the user clicks somewhere on the flow_view.
         Along with source "show_hide_pane", takes care of showing/hiding the bottom
         pane after a second click on a selected album.
         '''
@@ -160,11 +162,9 @@ class CoverFlowView(AbstractView):
 
     def item_activated_callback(self, album):
         '''
-        Callback called when the cover view is double clicked or space-bar
-        is pressed. It plays the selected album
+        Callback called when the flow view is double clicked. It plays the selected album
         '''
         self.last_album = album
-        
         self.source.play_selected_album()
 
         return True
@@ -191,7 +191,18 @@ class CoverFlowView(AbstractView):
             return False
 
         if album:
-            Gdk.threads_add_timeout_seconds(GLib.PRIORITY_DEFAULT_IDLE, 2,
+            '''
+            hack - for the situation where the iconview is displayed first,
+            the flow view will need a couple of seconds to display before
+            we can scroll
+            '''
+            if self._first_time:
+                timeout = 2000
+            else:
+                timeout = 250
+                self._first_time = False
+                
+            Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, timeout,
                 scroll_to_album, None)
 
 

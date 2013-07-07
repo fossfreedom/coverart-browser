@@ -262,6 +262,76 @@ class ImageToggleButton(PixbufButton, OptionsWidget):
                 self._controller.options[index])
 
 
+class RadioPixbufButton(Gtk.RadioButton):
+
+    button_relief = GObject.property(type=bool, default=False)
+
+    def __init__(self, *args, **kwargs):
+        super(RadioPixbufButton, self).__init__(*args, **kwargs)
+
+        gs = GSetting()
+        setting = gs.get_setting(gs.Path.PLUGIN)
+        setting.bind(gs.PluginKey.BUTTON_RELIEF, self,
+            'button_relief', Gio.SettingsBindFlags.GET)
+
+        self.connect('notify::button-relief',
+            self.on_notify_button_relief)
+
+    def set_image(self, pixbuf):
+        image = self.get_image()
+
+        if not image:
+            image = Gtk.Image()
+            super(RadioPixbufButton, self).set_image(image)
+
+        self.get_image().set_from_pixbuf(pixbuf)
+
+        self.on_notify_button_relief()
+
+    def on_notify_button_relief(self, *arg):
+        if self.button_relief:
+            self.set_relief(Gtk.ReliefStyle.NONE)
+        else:
+            self.set_relief(Gtk.ReliefStyle.HALF)
+
+    def update_current_key(self):
+        # update the current image and tooltip
+        self.set_image(self._controller.get_current_image())
+        self.set_tooltip_text(self._controller.get_current_description())
+
+
+class ImageRadioButton(RadioPixbufButton, OptionsWidget):
+    __gtype_name__ = "ImageRadioButton"
+
+    def __init__(self, *args, **kwargs):
+        '''
+        Initializes the button.
+        '''
+        RadioPixbufButton.__init__(self, *args, **kwargs)
+        OptionsWidget.__init__(self, *args, **kwargs)
+
+        # initialise some variables
+        self.image_display = False
+        self.initialised = False
+
+        #ensure button appearance rather than standard radio toggle
+        self.set_mode(False)
+
+    def update_image(self):
+        super(ImageRadioButton, self).update_image()
+        self.set_image(self._controller.get_current_image())
+
+    def do_toggled(self):
+        if self.get_active():
+            self.controller.option_selected(Gtk.Buildable.get_name(self))
+
+    def update_current_key(self):
+        super(ImageRadioButton, self).update_current_key()
+
+        if self.controller.current_key == Gtk.Buildable.get_name(self):
+            self.set_active(True)
+
+        
 class SearchEntry(RB.SearchEntry, OptionsPopupWidget):
     __gtype_name__ = "SearchEntry"
 
