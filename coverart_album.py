@@ -1065,11 +1065,13 @@ class AlbumLoader(GObject.Object):
     def _entry_changed_callback(self, db, entry, changes):
         print("CoverArtBrowser DEBUG - entry_changed_callback")
         # NOTE: changes are packed on a GValueArray for RB 2.96 & 2.97
-        # changes are a GArray in 2.98 and higher.  Currently
+        # changes are a GArray in 2.98 and 2.99.  Currently
         # this will silently fail - thus changes are never reflected
         # in the plugin until RB is restarted.
+        # note for RB3.00 a GPtrArray is used thus this now works correctly
 
         # look at all the changes and update the albums acordingly
+        
         try:
             track = self._tracks[Track(entry).location]
 
