@@ -95,7 +95,7 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         rb.append_plugin_source_path(theme, '/icons')
 
         # lets assume that python3 versions of RB only has the new icon attribute in the source
-        if PYVER >=3:
+        if rb3compat.PYVER >=3:
                 iconfile = Gio.File.new_for_path(
                     rb.find_plugin_file(self, 'img/' + Theme(self).current\
                     + '/covermgr.png'))
