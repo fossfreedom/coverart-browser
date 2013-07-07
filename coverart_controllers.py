@@ -118,16 +118,17 @@ class PlaylistPopupController(OptionsController):
         # get the playlist manager and it's model
         playlist_manager = shell.props.playlist_manager
         if rb3compat.is_rb3(shell):
-            playlist_manager.connect('playlist-added', self._update_options, shell)
-            playlist_manager.connect('playlist-created', self._update_options, shell)
+            #playlist_manager.connect('playlist-added', self._update_options, shell)
+            #playlist_manager.connect('playlist-created', self._update_options, shell)
+            playlist_model = shell.props.display_page_model
             
         else:
             playlist_model = playlist_manager.props.display_page_model
 
-            # connect signals to update playlists
-            playlist_model.connect('row-inserted', self._update_options, shell)
-            playlist_model.connect('row-deleted', self._update_options, shell)
-            playlist_model.connect('row-changed', self._update_options, shell)
+        # connect signals to update playlists
+        playlist_model.connect('row-inserted', self._update_options, shell)
+        playlist_model.connect('row-deleted', self._update_options, shell)
+        playlist_model.connect('row-changed', self._update_options, shell)
 
     def update_images(self, *args):
         self._spritesheet = self.create_spritesheet( self.plugin,
