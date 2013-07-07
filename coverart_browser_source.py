@@ -864,7 +864,6 @@ class Toolbar(GObject.Object):
         # assign the controllers to the buttons
         for button, controller in controllers.items():
             if button != 'search':
-                print button
                 builder.get_object(button).controller = controller
 
         # workaround to translate the search entry tooltips

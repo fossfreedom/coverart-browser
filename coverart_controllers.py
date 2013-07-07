@@ -633,24 +633,25 @@ class ViewController(OptionsController):
         self._keys[view_name] = button_name
         
     def on_notify_view_name(self, *args):
-        print "on notify"
         self.current_key = self._keys[self._viewmgr.view_name]    
         
     def update_images(self, *args):
         # initialize images
-        print "update_images"
         pass
             
     def do_action(self):
-        print "do_action"
         # now search keys list by value to find the key name (which is the viewname)
-        controller_current_view = self._keys.keys()[self._keys.values().index(self.current_key)]
+        controller_current_view = None
+        
+        for key in self._keys:
+            if self._keys[key] == self.current_key:
+                controller_current_view = key
+        #self._keys.keys()[self._keys.values().index(self.current_key)]
 
         if controller_current_view != self._viewmgr.view_name:
             self._viewmgr.view_name = controller_current_view 
         
         
     def get_current_image(self):
-        print "get_current_image"
         return None
 
