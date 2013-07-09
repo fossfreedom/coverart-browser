@@ -209,9 +209,7 @@ var ContentFlowGlobal = {
             }
         }
 
-        /* DM disable right click - really need to pass message back saying
-         * right click as been clicked
-         */
+        /* DM disable standard webview right click*/
         window.addEventListener("contextmenu", function(event) {
             event.preventDefault();
         }, false);
@@ -323,7 +321,18 @@ function jscallback(msg) {
     
 };
 
+function update_album(msg) {
+    var obj = eval('(' + msg + ')');
+    var index = Math.floor(obj.identifier);
+    var item = cf.getItem(index);
+    item.content.setAttribute('src', obj.filename);
+    item.caption.innerHTML = obj.caption;
+    item.content.setAttribute('title', obj.title);
+    //console.log(x);
+};
+
 function new_flow_batch(msg) {
+    return;
     var obj = eval('(' + msg + ')');
     var ic = document.getElementById('flow');
     var position = obj.batchtype;
@@ -339,12 +348,12 @@ function new_flow_batch(msg) {
         }
     }
     ContentFlowGlobal.batchmessage = null;
-}
+};
 
 function scroll_to_identifier(msg) {
-    var x = Math.floor(msg);
-    cf.moveTo(x);
-}
+    var index = Math.floor(msg);
+    cf.moveTo(index);
+};
 
 /* 
  * ============================================================
@@ -760,7 +769,7 @@ ContentFlowItem.prototype = {
             reflection.className = "reflection";
             this.element.appendChild(reflection);
 
-            /* be shure that caption is last child */
+            /* be sure that caption is last child */
             if (this.caption) this.element.appendChild(this.caption);
         } 
 

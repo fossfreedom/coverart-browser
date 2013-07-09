@@ -1277,6 +1277,7 @@ class CoverManager(GObject.Object):
     cover_size = GObject.property(type=int, default=0)
     add_shadow = GObject.property(type=bool, default=False)
     shadow_image = GObject.property(type=str, default="album-shadow-all.png")
+    has_finished_loading = False
 
     def __init__(self, plugin, album_manager):
         super(CoverManager, self).__init__()
@@ -1300,6 +1301,7 @@ class CoverManager(GObject.Object):
         # connect the signal to update cover arts when added
         self.req_id = self._cover_db.connect('added',
             self._albumart_added_callback)
+        self.connect('load-finished', self._on_load_finished)
 
     def _connect_properties(self):
         gs = GSetting()
@@ -1311,6 +1313,9 @@ class CoverManager(GObject.Object):
             Gio.SettingsBindFlags.GET)
         setting.bind(gs.PluginKey.SHADOW_IMAGE, self, 'shadow_image',
             Gio.SettingsBindFlags.GET)
+
+    def _on_load_finished(self, *args):
+        self.has_finished_loading = True
 
     @idle_iterator
     def _load_covers(self):
@@ -1474,7 +1479,7 @@ class CoverManager(GObject.Object):
         :param uri: `str` from where we should try to retrieve an image.
         '''
         if pixbuf:
-            # if it's a pixbuf, asign it to all the artist for the album
+            # if it's a pixbuf, assign it to all the artist for the album
             key = RB.ExtDBKey.create_storage('album', album.name)
             key.add_field('artist', album.artist)
 
@@ -1492,7 +1497,7 @@ class CoverManager(GObject.Object):
             parsed = rb3compat.urlparse(uri)
 
             if parsed.scheme == 'file':
-                # local file, load it on a pixbuf and asign it
+                # local file, load it on a pixbuf and assign it
                 path = rb3compat.url2pathname(uri.strip()).replace('file://', '')
 
                 if os.path.exists(path):

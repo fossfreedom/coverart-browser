@@ -56,19 +56,19 @@ class FlowShowingPolicy(GObject.Object):
         self._has_initialised = True
         self._album_manager = album_manager
         self._model = album_manager.model
-        self._connect_signals()
+        #self._connect_signals()
 
     def _connect_signals(self):
-        #self._model.connect('album-updated', self._album_updated)
-        #self._model.connect('visual-updated', self._album_updated)
-        pass
+        self._model.connect('album-updated', self._album_updated)
+        self._model.connect('visual-updated', self._album_updated)
+        
 
     def _album_updated(self, model, album_path, album_iter):
-        #print self.counter
         self.counter = self.counter + 1
         # this method is called once for every album in the model if the events above are connected
         #for row in self._model.store:
         #    print row[:]
+        print model.get_from_path(album_path).cover.original
 
 
 class CoverFlowView(AbstractView):
@@ -86,9 +86,10 @@ class CoverFlowView(AbstractView):
         self.view = WebKit.WebView()
         self._last_album = None
         self._has_initialised = False
-        self._first_time = True
-
+        self._flow_first_call = False
+        
     def filter_changed(self, *args):
+        print "############filter_changed"
         #for some reason three filter change events occur on startup
         path = rb.find_plugin_file(self.plugin, 'coverflow/index.html')
         f = open(path)
@@ -101,9 +102,27 @@ class CoverFlowView(AbstractView):
         
         base =  os.path.dirname(path) + "/"
         self.view.load_string(string, "text/html", "UTF-8", "file://" + base)
+
+        self.scroll_to_album()
+
+    def scroll_to_album(self):
+
+        def start_scroll(*args):
+            self._flow_first_call = True
+            self.flow.scroll_to_album(self.last_album, self.view)
+
+        # hack - wait a couple of seconds on the very first time that
+        # the flow has loaded to give it time to finish loading before
+        # initiating the scroll otherwise the scroll signal will get lost
+        if not self._flow_first_call:
+            Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 2000, start_scroll, None)
+        else:
+            self.flow.scroll_to_album(self.last_album, self.view)
         
     def initialise(self, source):
+        print "###########initialise"
         if self._has_initialised:
+            print "exited"
             return
             
         self._has_initialised = True
@@ -112,10 +131,22 @@ class CoverFlowView(AbstractView):
         self.plugin = source.plugin
         self.album_manager = source.album_manager
         self.ext_menu_pos = 10
-        self.album_manager.model.connect('filter-changed', self.filter_changed)
 
+        # lets check that all covers have finished loading before
+        # initialising the flowcontrol and other signals
+        if not self.album_manager.cover_man.has_finished_loading:
+            self.album_manager.cover_man.connect('load-finished', self.covers_loaded)
+        else:
+            self.covers_loaded()
+
+    def covers_loaded(self, *args):
+        print "#########coversloaded"
         self.flow = FlowControl(self)
         self.view.connect("notify::title", self.flow.receive_message_signal)
+        self.album_manager.model.connect('album-updated', self.flow.update_album, self.view)
+        self.album_manager.model.connect('visual-updated', self.flow.update_album, self.view)
+        self.album_manager.model.connect('filter-changed', self.filter_changed)
+        self.filter_changed()
 
     @property
     def last_album(self):
@@ -182,29 +213,9 @@ class CoverFlowView(AbstractView):
     def switch_to_view(self, source, album):
         self.initialise(source)
         self.show_policy.initialise(source.album_manager)
-
-        if not self._last_album:
-            self.filter_changed()
-            
-        def scroll_to_album(*args):
-            self.flow.scroll_to_album(album, self.view)
-            return False
-
-        if album:
-            '''
-            hack - for the situation where the iconview is displayed first,
-            the flow view will need a couple of seconds to display before
-            we can scroll
-            '''
-            if self._first_time:
-                timeout = 2000
-            else:
-                timeout = 250
-                self._first_time = False
-                
-            Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, timeout,
-                scroll_to_album, None)
-
+        
+        self.last_album = album
+        self.scroll_to_album()
 
 class FlowBatch(object):
     def __init__(self):
@@ -221,7 +232,6 @@ class FlowBatch(object):
         self.identifier.append(identifier)
 
     def html_elements(self):
-        
         str = ""
         for loop in range(len(self.filename)):
             str = str + '<div class="item"><img class="content" src="' +\
@@ -278,6 +288,25 @@ class FlowControl(object):
         obj['batchtype'] = position
         ret = json.dumps(obj)
         return ret
+
+    def update_album(self, model, album_path, album_iter, webview):
+        album = model.get_from_path(album_path)
+        index = -1
+        for row in self.album_identifier:
+            if self.album_identifier[row] == album:
+                index = row
+                break
+
+        if index == -1:
+            return
+
+        obj = {}
+        obj['filename'] = album.cover.original
+        obj['title'] = album.artist
+        obj['caption'] = album.name
+        obj['identifier'] = str(index)
+
+        webview.execute_script("update_album('%s')" % json.dumps(obj))
                  
     def receive_message_signal(self, webview, param):
         # this will be key to passing stuff back and forth - need
@@ -310,10 +339,8 @@ class FlowControl(object):
     def scroll_to_album(self, album, webview):
         for row in self.album_identifier:
             if self.album_identifier[row] == album:
-                print ("scroll_to_identifier('%s')" % str(row))
                 webview.execute_script("scroll_to_identifier('%s')" % str(row))
                 break
-        
 
     def initialise(self, string, model):
         element = 0
