@@ -193,8 +193,7 @@ class CoverArtBrowserSource(RB.Source):
         window = ui.get_object('scrolled_window')
         
         self.viewmgr = ViewManager(self, window)
-        self.current_view = self.viewmgr.current_view
-        
+                
         self.popup_menu = Menu(self.plugin, self.shell)
         self.popup_menu.load_from_file('ui/coverart_browser_pop_rb2.ui',
             'ui/coverart_browser_pop_rb3.ui')
@@ -240,7 +239,7 @@ class CoverArtBrowserSource(RB.Source):
         print("CoverArtBrowser DEBUG - _setup_source")
 
         # setup iconview popup
-        self.current_view.set_popup_menu(self.popup_menu)
+        self.viewmgr.current_view.set_popup_menu(self.popup_menu)
         
         # setup entry-view objects and widgets
         setting = self.gs.get_setting(self.gs.Path.PLUGIN)
@@ -270,8 +269,8 @@ class CoverArtBrowserSource(RB.Source):
         self.notebook.append_page(vbox, Gtk.Label(_("Tracks")))
 
         # create an album manager
-        self.album_manager = AlbumManager(self.plugin, self.current_view)
-        self.current_view.initialise(self)
+        self.album_manager = AlbumManager(self.plugin, self.viewmgr.current_view)
+        self.viewmgr.current_view.initialise(self)
         # setup cover search pane
         colour = self.viewmgr.get_selection_colour()
 
@@ -372,11 +371,11 @@ class CoverArtBrowserSource(RB.Source):
         by him gets modified in some way.
         '''
         album = model.get_from_path(path)
-        selected = self.current_view.get_selected_objects()
+        selected = self.viewmgr.current_view.get_selected_objects()
 
         if album in selected:
             # update the selection since it may have changed
-            self.current_view.selectionchanged_callback()
+            self.viewmgr.current_view.selectionchanged_callback()
 
             if album is selected[0] and \
                 self.notebook.get_current_page() == \
@@ -428,7 +427,7 @@ class CoverArtBrowserSource(RB.Source):
         '''
         print("CoverArtBrowser DEBUG - queue_selected_album")
 
-        selected_albums = self.current_view.get_selected_objects()
+        selected_albums = self.viewmgr.current_view.get_selected_objects()
         threshold = self.rating_threshold if favourites else 0
 
         for album in selected_albums:
@@ -563,7 +562,7 @@ class CoverArtBrowserSource(RB.Source):
         album cover
         '''
         print("CoverArtBrowser DEBUG - cover_search_menu_item_callback()")
-        selected_albums = self.current_view.get_selected_objects()
+        selected_albums = self.viewmgr.current_view.get_selected_objects()
 
         self.request_status_box.show_all()
 
@@ -579,7 +578,7 @@ class CoverArtBrowserSource(RB.Source):
         It prompts the exporter to copy and embed art for the albums chosen
         '''
         print("CoverArtBrowser DEBUG - export_embed_menu_item_callback()")
-        selected_albums = self.current_view.get_selected_objects()
+        selected_albums = self.viewmgr.current_view.get_selected_objects()
 
         CoverArtExport(self.plugin,
             self.shell, self.album_manager).embed_albums(selected_albums)
@@ -640,7 +639,7 @@ class CoverArtBrowserSource(RB.Source):
         print("CoverArtBrowser DEBUG - notebook_switch_page_callback")
 
         if page_num == 1:
-            selected_albums = self.current_view.get_selected_objects()
+            selected_albums = self.viewmgr.current_view.get_selected_objects()
 
             if selected_albums:
                 self.cover_search_pane.do_search(selected_albums[0])
@@ -655,7 +654,7 @@ class CoverArtBrowserSource(RB.Source):
 
         rating = widget.get_rating()
 
-        for album in self.current_view.get_selected_objects():
+        for album in self.viewmgr.current_view.get_selected_objects():
             album.rating = rating
 
         print("CoverArtBrowser DEBUG - end rating_changed_callback")
@@ -672,7 +671,7 @@ class CoverArtBrowserSource(RB.Source):
             self.paned.expand()
 
         # update the selected album
-        selected = self.current_view.get_selected_objects()
+        selected = self.viewmgr.current_view.get_selected_objects()
         self.last_selected_album = selected[0] if len(selected) == 1 else None
 
         # clear the click count
@@ -682,7 +681,7 @@ class CoverArtBrowserSource(RB.Source):
         '''
         Update the source view when an item gets selected.
         '''
-        selected = self.current_view.get_selected_objects()
+        selected = self.viewmgr.current_view.get_selected_objects()
 
         # clear the entry view
         self.entry_view.clear()
@@ -721,7 +720,7 @@ class CoverArtBrowserSource(RB.Source):
         if cover_search_pane_visible:
             self.cover_search_pane.do_search(selected[0])
 
-        self.statusbar.emit('display-status', self.current_view)
+        self.statusbar.emit('display-status', self.viewmgr.current_view)
 
     @classmethod
     def get_instance(cls, **kwargs):
@@ -1047,10 +1046,10 @@ class ViewManager(GObject.Object):
             self.window.remove(self._views[self._lastview].view)
             self.window.add(self._views[self.view_name].view)
             self.window.show_all()
-            
+            self.click_count = 0
             self._views[self.view_name].switch_to_view(self.source, current_album)
-            
             self._lastview = self.view_name
+            self.current_view.set_popup_menu(self.source.popup_menu)
             
             gs = GSetting()
             setting = gs.get_setting(gs.Path.PLUGIN)

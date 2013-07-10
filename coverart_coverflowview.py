@@ -330,7 +330,7 @@ class FlowControl(object):
             self.callback_view.item_clicked_callback(self.album_identifier[int(args['param'][0])])
         elif signal == 'rightclickactive':
             self.callback_view.item_rightclicked_callback(
-                self.album_identifier[args['param'][0]])
+                self.album_identifier[int(args['param'][0])])
         elif signal == 'doubleclickactive':
             self.callback_view.item_activated_callback(self.album_identifier[int(args['param'][0])])
         else:
