@@ -288,6 +288,18 @@ class ImageRadioButton(Gtk.RadioButton, OptionsWidget):
         #ensure button appearance rather than standard radio toggle
         self.set_mode(False)
 
+    def add_menuitem(self, label):
+        '''
+        add a new menu item to the popup
+        '''
+
+        new_menu_item = Gtk.MenuItem.new_with_label(label)
+
+        new_menu_item.connect('activate', self._fire_item_clicked)
+        new_menu_item.show()
+
+        self._popup_menu.append(new_menu_item)
+
     def update_image(self):
         super(ImageRadioButton, self).update_image()
         self.set_image(self._controller.get_current_image(Gtk.Buildable.get_name(self)))
@@ -295,12 +307,6 @@ class ImageRadioButton(Gtk.RadioButton, OptionsWidget):
     def do_toggled(self):
         if self.get_active():
             self.controller.option_selected(Gtk.Buildable.get_name(self))
-
-    def update_current_key(self):
-        super(ImageRadioButton, self).update_current_key()
-
-        if self.controller.current_key == self._name:
-            self.set_active(True)
 
     def set_image(self, pixbuf):
         image = self.get_image()
@@ -323,7 +329,8 @@ class ImageRadioButton(Gtk.RadioButton, OptionsWidget):
         # update the current image and tooltip
         self.set_image(self._controller.get_current_image(Gtk.Buildable.get_name(self)))
         self.set_tooltip_text("") #self._controller.get_current_description())
-        
+
+
 class SearchEntry(RB.SearchEntry, OptionsPopupWidget):
     __gtype_name__ = "SearchEntry"
 
