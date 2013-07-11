@@ -157,6 +157,21 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <child>
+          <object class="ImageToggleButton" id="properties_button">
+            <property name="use_action_appearance">False</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="receives_default">False</property>
+            <property name="use_action_appearance">False</property>
+            <property name="relief">half</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
           <object class="ImageRadioButton" id="iconview_button">
             <property name="label" translatable="yes">icon</property>
             <property name="use_action_appearance">False</property>
@@ -170,7 +185,8 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">0</property>
+            <property name="padding">5</property>
+            <property name="position">1</property>
           </packing>
         </child>
         <child>
@@ -182,13 +198,31 @@
             <property name="receives_default">False</property>
             <property name="use_action_appearance">False</property>
             <property name="xalign">0</property>
-            <property name="group">iconview_button</property>
             <property name="draw_indicator">False</property>
+            <property name="group">iconview_button</property>
           </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">1</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="ImageRadioButton" id="artistview_button">
+            <property name="label" translatable="yes">flow</property>
+            <property name="use_action_appearance">False</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="use_action_appearance">False</property>
+            <property name="xalign">0</property>
+            <property name="draw_indicator">True</property>
+            <property name="group">iconview_button</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">3</property>
           </packing>
         </child>
       </object>

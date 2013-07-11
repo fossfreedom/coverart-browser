@@ -104,6 +104,9 @@ class CoverFlowView(AbstractView):
         self.view.load_string(string, "text/html", "UTF-8", "file://" + base)
 
         self.scroll_to_album()
+        
+    def get_view_icon_name(self):
+        return "flowview.png"
 
     def scroll_to_album(self):
 

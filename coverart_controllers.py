@@ -417,6 +417,42 @@ class SortPopupController(OptionsController):
         sort = self.values[self.current_key]
         return self._spritesheet[sort]
 
+class PropertiesPopupController(OptionsController):
+
+    def __init__(self, plugin, album_model):
+        super(PropertiesPopupController, self).__init__()
+
+        self._album_model = album_model
+        self.plugin = plugin
+        # sorts dictionary
+        cl = CoverLocale()
+        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+        # options
+        self.values = OrderedDict()
+        self.values[_('Properties')] = [-1, 'All Decades']
+        self.values[_('Download all covers')] = [1, 'All Decades']
+        self.values[_('Browser preferences')] = [2, 'All Decades']
+        self.values[_('Search preferences')] = [3, 'All Decades']
+        
+        self.options = list(self.values.keys())
+
+        self.update_images(False)
+        
+        self.current_key = self.options[0]
+
+    def update_images(self, *args):
+        self._image = self.create_button_image( self.plugin,
+            None, 'properties.png')
+        
+        if args[-1]:
+            self.update_image = True
+            
+    def do_action(self):
+        pass
+
+    def get_current_image(self):
+        return self._image
+
 
 class DecadePopupController(OptionsController):
 
@@ -628,7 +664,7 @@ class ViewController(OptionsController):
         self._plugin = plugin
         self._keys = {}
         viewmgr.connect('notify::view-name', self.on_notify_view_name)
-
+        
     def add_key_pair(self, view_name, button_name):
         self._keys[view_name] = button_name
         
@@ -636,8 +672,8 @@ class ViewController(OptionsController):
         self.current_key = self._keys[self._viewmgr.view_name]    
         
     def update_images(self, *args):
-        # initialize images
-        pass
+        # reinitialize images
+        self.update_image = True
             
     def do_action(self):
         # now search keys list by value to find the key name (which is the viewname)
@@ -650,8 +686,21 @@ class ViewController(OptionsController):
 
         if controller_current_view != self._viewmgr.view_name:
             self._viewmgr.view_name = controller_current_view 
-        
-        
-    def get_current_image(self):
-        return None
+                
+    def get_current_image(self, button_name):
+        row = None
+        for row in self._keys:
+            if self._keys[row] == button_name:
+                break
 
+        assert row!=None, ("unknown button %s", button_name)
+            
+        icon_name = self._viewmgr.get_view_icon_name(row)
+        path = 'img/' + Theme(self._plugin).current + '/'
+        
+        width, height = get_stock_size()
+        image = create_pixbuf_from_file_at_size(
+            rb.find_plugin_file(self._plugin, path + icon_name),
+            width*2, height)
+        
+        return image

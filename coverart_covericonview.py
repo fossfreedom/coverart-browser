@@ -177,6 +177,9 @@ class CoverIconView(EnhancedIconView, AbstractView):
 
         setting.bind(self.gs.PluginKey.DISPLAY_TEXT, self,
             'display_text_enabled', Gio.SettingsBindFlags.GET)
+            
+    def get_view_icon_name(self):
+        return "iconview.png"
 
     def resize_icon(self, cover_size):
         '''

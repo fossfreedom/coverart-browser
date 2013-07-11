@@ -38,6 +38,7 @@ from coverart_widgets import PanedCollapsible
 from coverart_controllers import PlaylistPopupController
 from coverart_controllers import GenrePopupController
 from coverart_controllers import SortPopupController
+from coverart_controllers import PropertiesPopupController
 from coverart_controllers import DecadePopupController
 from coverart_controllers import SortOrderToggleController
 from coverart_controllers import AlbumSearchEntryController
@@ -50,6 +51,7 @@ from coverart_rb3compat import Menu
 from coverart_rb3compat import ActionGroup
 from coverart_covericonview import CoverIconView
 from coverart_coverflowview import CoverFlowView
+from coverart_artistview import ArtistView
 
 import coverart_rb3compat as rb3compat
 
@@ -968,6 +970,7 @@ class ToolbarManager(GObject.Object):
 
     def _create_controllers(self, plugin, album_model, viewmgr):
         controllers = {}
+        controllers['properties_button'] = PropertiesPopupController(plugin, album_model)
         controllers['sort_by'] = SortPopupController(plugin, album_model)
         controllers['sort_order'] = SortOrderToggleController(plugin,
             album_model)
@@ -977,8 +980,13 @@ class ToolbarManager(GObject.Object):
         controllers['decade_button'] = DecadePopupController(plugin,
             album_model)
         controllers['search'] = AlbumSearchEntryController(album_model)
-        controllers['iconview_button'] = viewmgr.controller
-        controllers['flowview_button'] = viewmgr.controller
+        viewcontroller = ViewController(plugin, viewmgr)
+        viewcontroller.add_key_pair(CoverFlowView.name, 'flowview_button')
+        viewcontroller.add_key_pair(CoverIconView.name, 'iconview_button')
+        viewcontroller.add_key_pair(ArtistView.name, 'artistview_button')
+        controllers['iconview_button'] = viewcontroller
+        controllers['flowview_button'] = viewcontroller
+        controllers['artistview_button'] = viewcontroller
 
         return controllers
 
@@ -1000,10 +1008,6 @@ class ViewManager(GObject.Object):
 
         self.source = source
         self.window = window
-
-        self.controller = ViewController(source.plugin, self)
-        self.controller.add_key_pair(CoverFlowView.name, 'flowview_button')
-        self.controller.add_key_pair(CoverIconView.name, 'iconview_button')
         
         # initialize views
         self._views = {}
@@ -1012,6 +1016,7 @@ class ViewManager(GObject.Object):
             'ui/coverart_iconview.ui'))
         self._views[CoverIconView.name] = ui.get_object('covers_view')
         self._views[CoverFlowView.name] = CoverFlowView()
+        self._views[ArtistView.name] = ArtistView()
         self._lastview = None
 
         # connect signal and properties
@@ -1054,6 +1059,9 @@ class ViewManager(GObject.Object):
             gs = GSetting()
             setting = gs.get_setting(gs.Path.PLUGIN)
             setting[gs.PluginKey.VIEW_NAME] = self.view_name
+            
+    def get_view_icon_name(self, view_name):
+        return self._views[view_name].get_view_icon_name()
 
     def get_selection_colour(self):
         try:
