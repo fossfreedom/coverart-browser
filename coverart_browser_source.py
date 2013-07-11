@@ -980,13 +980,10 @@ class ToolbarManager(GObject.Object):
         controllers['decade_button'] = DecadePopupController(plugin,
             album_model)
         controllers['search'] = AlbumSearchEntryController(album_model)
-        viewcontroller = ViewController(plugin, viewmgr)
-        viewcontroller.add_key_pair(CoverFlowView.name, 'flowview_button')
-        viewcontroller.add_key_pair(CoverIconView.name, 'iconview_button')
-        viewcontroller.add_key_pair(ArtistView.name, 'artistview_button')
-        controllers['iconview_button'] = viewcontroller
-        controllers['flowview_button'] = viewcontroller
-        controllers['artistview_button'] = viewcontroller
+        
+        controllers['iconview_button'] = viewmgr.controller
+        controllers['flowview_button'] = viewmgr.controller
+        controllers['artistview_button'] = viewmgr.controller
 
         return controllers
 
@@ -1000,6 +997,11 @@ class ToolbarManager(GObject.Object):
 
 
 class ViewManager(GObject.Object):
+    # signals
+    __gsignals__ = {
+        'new-view': (GObject.SIGNAL_RUN_LAST, None, ())
+        }
+    
     # properties
     view_name = GObject.property(type=str, default=CoverIconView.name)
     
@@ -1019,12 +1021,16 @@ class ViewManager(GObject.Object):
         self._views[ArtistView.name] = ArtistView()
         self._lastview = None
 
+        self.controller = ViewController(source.plugin, self)
+        self.controller.add_key_pair(CoverFlowView.name, 'flowview_button')
+        self.controller.add_key_pair(CoverIconView.name, 'iconview_button')
+        self.controller.add_key_pair(ArtistView.name, 'artistview_button')
+
         # connect signal and properties
         self._connect_signals()
         self._connect_properties()
         self._lastview = self.view_name
-        
-        window.add(self.current_view.view) # this will need to be hooked up to view-button manager
+        window.add(self.current_view.view)
         window.show_all()
         
     @property
@@ -1059,6 +1065,8 @@ class ViewManager(GObject.Object):
             gs = GSetting()
             setting = gs.get_setting(gs.Path.PLUGIN)
             setting[gs.PluginKey.VIEW_NAME] = self.view_name
+
+        self.emit('new-view')
             
     def get_view_icon_name(self, view_name):
         return self._views[view_name].get_view_icon_name()

@@ -663,13 +663,14 @@ class ViewController(OptionsController):
         self._viewmgr = viewmgr
         self._plugin = plugin
         self._keys = {}
-        viewmgr.connect('notify::view-name', self.on_notify_view_name)
+        viewmgr.connect('new-view', self.on_notify_view_name)
         
     def add_key_pair(self, view_name, button_name):
         self._keys[view_name] = button_name
         
     def on_notify_view_name(self, *args):
-        self.current_key = self._keys[self._viewmgr.view_name]    
+        self.current_key = self._keys[self._viewmgr.view_name]
+        print self.current_key    
         
     def update_images(self, *args):
         # reinitialize images

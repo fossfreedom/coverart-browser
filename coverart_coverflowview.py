@@ -98,7 +98,7 @@ class CoverFlowView(AbstractView):
 
         string = self.flow.initialise(string, self.album_manager.model)
         string = string.replace('#BACKGROUND_COLOUR', 'white') # to be user-defined - black/white
-        string = string.replace('#FACTOR', '2') # to be user-defined
+        string = string.replace('#FACTOR', '1.5') # to be user-defined
         
         base =  os.path.dirname(path) + "/"
         self.view.load_string(string, "text/html", "UTF-8", "file://" + base)
