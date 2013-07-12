@@ -38,7 +38,7 @@ from coverart_widgets import PanedCollapsible
 from coverart_controllers import PlaylistPopupController
 from coverart_controllers import GenrePopupController
 from coverart_controllers import SortPopupController
-from coverart_controllers import PropertiesPopupController
+from coverart_controllers import PropertiesMenuController
 from coverart_controllers import DecadePopupController
 from coverart_controllers import SortOrderToggleController
 from coverart_controllers import AlbumSearchEntryController
@@ -587,20 +587,6 @@ class CoverArtBrowserSource(RB.Source):
 
         print("CoverArtBrowser DEBUG - export_embed_menu_item_callback()")
 
-    def search_all_covers_callback(self, *args):
-        '''
-        Callback called when the search all covers option is selected from the
-        source's popup. It prompts the album loader to request ALL album's
-        covers
-        '''
-        print("CoverArtBrowser DEBUG - search_all_covers_callback()")
-        self.request_status_box.show_all()
-
-        self.album_manager.cover_man.search_covers(
-            callback=self.update_request_status_bar)
-
-        print("CoverArtBrowser DEBUG - end search_all_covers_callback()")
-
     def update_request_status_bar(self, album):
         '''
         Callback called by the album loader starts performing a new cover
@@ -724,6 +710,19 @@ class CoverArtBrowserSource(RB.Source):
 
         self.statusbar.emit('display-status', self.viewmgr.current_view)
 
+    def propertiesbutton_callback(self, choice):
+        if choice == 'download':
+            self.request_status_box.show_all()
+            self.album_manager.cover_man.search_covers(
+                callback=self.update_request_status_bar)
+
+        elif choice == 'browser prefs':
+            pass
+        elif choice == 'search prefs':
+            pass
+        else:
+            assert 1==2, ("unknown choice %s", choice)
+
     @classmethod
     def get_instance(cls, **kwargs):
         '''
@@ -815,7 +814,6 @@ class Statusbar(GObject.Object):
         albums = current_view.get_selected_objects()
         self._generate_status(albums)
         self.current_statusbar.update(self.status)
-
 
 class SourceStatusBar(object):
     def __init__(self, source):
@@ -970,7 +968,7 @@ class ToolbarManager(GObject.Object):
 
     def _create_controllers(self, plugin, album_model, viewmgr):
         controllers = {}
-        controllers['properties_button'] = PropertiesPopupController(plugin, album_model)
+        controllers['properties_button'] = PropertiesMenuController(plugin, viewmgr.source)
         controllers['sort_by'] = SortPopupController(plugin, album_model)
         controllers['sort_order'] = SortOrderToggleController(plugin,
             album_model)

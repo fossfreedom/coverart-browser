@@ -227,6 +227,66 @@ class PopupButton(PixbufButton, OptionsPopupWidget):
         '''
         self.show_popup()
 
+class MenuButton(PixbufButton, OptionsPopupWidget):
+    __gtype_name__ = "MenuButton"
+
+    # signals
+    __gsignals__ = {
+        'item-clicked': (GObject.SIGNAL_RUN_LAST, None, (str,))
+        }
+
+    def __init__(self, *args, **kwargs):
+        '''
+        Initializes the button.
+        '''
+        PixbufButton.__init__(self, *args, **kwargs)
+        OptionsPopupWidget.__init__(self, *args, **kwargs)
+
+        self._popup_menu = Gtk.Menu()
+
+    def add_menuitem(self, label):
+        '''
+        add a new menu item to the popup
+        '''
+        new_menu_item = Gtk.MenuItem(label=label)
+        new_menu_item.connect('activate', self._fire_item_clicked)
+        new_menu_item.show()
+
+        self._popup_menu.append(new_menu_item)
+
+    def update_options(self):
+        self.clear_popupmenu()
+
+        for key in self._controller.options:
+            self.add_menuitem(key)
+
+    def _fire_item_clicked(self, menu_item):
+        '''
+        Fires the item-clicked signal if the item is selected, passing the
+        given value as a parameter. Also updates the current value with the
+        value of the selected item.
+        '''
+        self.emit('item-clicked', menu_item.get_label())
+        
+    def update_image(self):
+        super(MenuButton, self).update_image()
+        self.set_image(self._controller.get_current_image())
+
+    def update_current_key(self):
+        # select the item if it isn't already
+        #item = self.get_menuitems()[self._controller.get_current_key_index()]
+
+        # update the current image and tooltip
+        self.set_image(self._controller.get_current_image())
+        self.set_tooltip_text(self._controller.get_current_description())
+
+    def do_clicked(self):
+        '''
+        when button is clicked, update the popup with the sorting options
+        before displaying the popup
+        '''
+        self.show_popup()
+
 
 class ImageToggleButton(PixbufButton, OptionsWidget):
     __gtype_name__ = "ImageToggleButton"

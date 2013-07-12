@@ -417,28 +417,27 @@ class SortPopupController(OptionsController):
         sort = self.values[self.current_key]
         return self._spritesheet[sort]
 
-class PropertiesPopupController(OptionsController):
+class PropertiesMenuController(OptionsController):
 
-    def __init__(self, plugin, album_model):
-        super(PropertiesPopupController, self).__init__()
+    def __init__(self, plugin, source):
+        super(PropertiesMenuController, self).__init__()
 
-        self._album_model = album_model
+        self._source = source
         self.plugin = plugin
         # sorts dictionary
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
         # options
         self.values = OrderedDict()
-        self.values[_('Properties')] = [-1, 'All Decades']
-        self.values[_('Download all covers')] = [1, 'All Decades']
-        self.values[_('Browser preferences')] = [2, 'All Decades']
-        self.values[_('Search preferences')] = [3, 'All Decades']
+        self.values[_('Download all covers')] = 'download'
+        self.values[_('Browser preferences')] = 'browser prefs'
+        self.values[_('Search preferences')] = 'search prefs'
         
         self.options = list(self.values.keys())
 
         self.update_images(False)
         
-        self.current_key = self.options[0]
+        self.current_key = None
 
     def update_images(self, *args):
         self._image = self.create_button_image( self.plugin,
@@ -448,11 +447,14 @@ class PropertiesPopupController(OptionsController):
             self.update_image = True
             
     def do_action(self):
-        pass
+        if self.current_key:
+            self._source.propertiesbutton_callback(self.values[self.current_key])
 
     def get_current_image(self):
         return self._image
 
+    def get_current_description(self):
+        return _('Properties')
 
 class DecadePopupController(OptionsController):
 
