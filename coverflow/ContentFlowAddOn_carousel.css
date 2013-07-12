@@ -1,0 +1,65 @@
+/*  ContentFlowAddOn_carousel, version 1.1 
+ *  (c) 2008 - 2010 Sebastian Kutsch
+ *  <http://www.jacksasylum.eu/ContentFlow/>
+ *
+ *  This file is distributed under the terms of the MIT license.
+ *  (see http://www.jacksasylum.eu/ContentFlow/LICENSE)
+ *
+ *--------------------------------------------------------------------------*/
+
+
+.ContentFlowAddOn_carousel {
+
+    border: 5px solid #767676;
+    margin: 0 25px;
+    padding: 25px 0px;
+    overflow: visible;
+    /*overflow: hidden;*/
+}
+    .ContentFlowAddOn_carousel #preButton,
+    .ContentFlowAddOn_carousel #nextButton {
+        position: absolute;
+        top: 50%;
+        margin-top: -25px;
+        width: 50px;
+        height: 50px;
+    }
+    .ContentFlowAddOn_carousel #preButton {
+        background: url(img/pre_h.png) center no-repeat;
+        left: -25px;
+        left: -28px;
+    }
+        * html .ContentFlowAddOn_carousel #preButton {
+            background-image: none;
+            filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale, src='img/pre_h.png');
+        }
+    .ContentFlowAddOn_carousel #preButton:hover {
+        background: url(img/pre_h.png) center no-repeat;
+    }
+    .ContentFlowAddOn_carousel #nextButton {
+        background: url(img/next_h.png) center no-repeat;
+        right: -25px;
+        right: -28px;
+    }
+        * html .ContentFlowAddOn_carousel #nextButton {
+            background-image: none;
+            filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale, src='img/next_h.png');
+        }
+    .ContentFlowAddOn_carousel #nextButton:hover {
+        background: url(img/next_h.png) center no-repeat;
+    }
+
+    /* ----- styling of items ----- */
+        .ContentFlowAddOn_carousel .showCaption .item .caption {
+            display: block !important;
+        }
+
+
+    /* ----- global caption ----- */
+    .ContentFlowAddOn_carousel .globalCaption {
+        margin-top: -3em;
+    }
+
+
+/* ================================= */
+

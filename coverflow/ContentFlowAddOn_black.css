@@ -1,0 +1,81 @@
+/*  ContentFlowAddOn_black, version 2.0 
+ *  (c) 2008 - 2010 Sebastian Kutsch
+ *  <http://www.jacksasylum.eu/ContentFlow/>
+ *
+ *  This file is distributed under the terms of the MIT license.
+ *  (see http://www.jacksasylum.eu/ContentFlow/LICENSE)
+ *
+ *--------------------------------------------------------------------------*/
+
+/* ========== ContentFlow ========== */
+/*
+ * Within this file you can ajust the styling of ContentFlow
+ * to your personal needs. The default styling is the same as found on the 
+ * projectpage.
+ *
+ */
+
+.ContentFlowAddOn_black {
+    background: black;
+}
+
+    /* ----- styling of items ----- */
+        .ContentFlowAddOn_black .flow .item .caption {
+            background: url(img/1x1_0.5_black.png);
+        }
+        * html .ContentFlowAddOn_black .flow .item .caption {
+            background-image: none;
+            filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale, src='img/1x1_0.5_black.png');
+        }
+            .ContentFlowAddOn_black .flow .item .caption a,
+            .ContentFlowAddOn_black .flow .item .caption a:link,
+            .ContentFlowAddOn_black .flow .item .caption a:visited,
+            .ContentFlowAddOn_black .flow .item .caption a:active,
+            .ContentFlowAddOn_black .flow .item .caption a:hover {
+                color: black;
+            }
+    /* ----- scrollbar ----- */
+    .ContentFlowAddOn_black .scrollbar {
+        background: url(img/scrollbar_white.png) left center repeat-x;
+    }
+
+        .ContentFlowAddOn_black .scrollbar .slider {
+            background: url(img/slider_white.png) center center no-repeat;
+        }
+        
+        /* only for IE <= 6 and a alphatransparent slider image */
+        * html .ContentFlowAddOn_black .scrollbar .slider { background-image: none; }
+        * html .ContentFlowAddOn_black .scrollbar .slider .virtualSlider {
+            filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=crop, src='img/slider_white.png');
+        }
+            .ContentFlowAddOn_black .scrollbar .slider .position {
+                color:silver; 
+            }
+
+
+    /* ----- global caption ----- */
+    .ContentFlowAddOn_black .globalCaption {
+        color: white;
+    }
+            .ContentFlowAddOn_black .globalCaption .caption a,
+            .ContentFlowAddOn_black .globalCaption .caption a:link,
+            .ContentFlowAddOn_black .globalCaption .caption a:visited,
+            .ContentFlowAddOn_black .globalCaption .caption a:active,
+            .ContentFlowAddOn_black .globalCaption .caption a:hover {
+                color: white;
+            }
+
+    /* ----- load indicator ----- */
+    .ContentFlowAddOn_black .loadIndicator {
+        background: url(img/1x1_0.5_black.png);
+    }
+    * html .ContentFlowAddOn_black .loadIndicator {
+        background-image: none;
+        filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale, src='img/1x1_0.5_black.png');
+    }
+        .ContentFlowAddOn_black .loadIndicator .indicator {
+            background: url(img/loader_black.gif) center center no-repeat;
+        }
+
+/* ================================= */
+
