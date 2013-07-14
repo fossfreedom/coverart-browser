@@ -62,7 +62,7 @@ class Cover(GObject.Object):
     :param size: `int` size in pixels of the side of the cover (asuming a
         square-shapped cover).
     :param image: `str` containing a path of an image from where to create
-        the cover or `GdkPixbuf.Pixbuf` containing the cover.
+        the cover.
     '''
     # signals
     __gsignals__ = {
@@ -72,6 +72,8 @@ class Cover(GObject.Object):
     def __init__(self, size, image):
         super(Cover, self).__init__()
 
+        assert isinstance( image, str ), "image should be a string"
+        
         self.original = image
 
         self._create_pixbuf(size)
@@ -1407,7 +1409,7 @@ class CoverManager(GObject.Object):
             album = self._album_manager.model.get_from_ext_db_key(key)
 
             if album:
-                album.cover = self._create_cover(pixbuf)
+                album.cover = self._create_cover(path)
 
         print("CoverArtBrowser DEBUG - end albumart_added_callback")
 
