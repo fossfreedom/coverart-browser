@@ -926,8 +926,9 @@ class PanedCollapsible(Gtk.Paned):
         '''
         Callback when the paned handle is released from its mouse click.
         '''
-        Gtk.Paned.do_button_release_event(self, *args)
-        self.collapsible_y = self.get_position()
+        if not self._expander or self._expander.get_expanded():
+            Gtk.Paned.do_button_release_event(self, *args)
+            self.collapsible_y = self.get_position()
 
     def do_remove(self, widget):
         '''
