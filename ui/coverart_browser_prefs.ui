@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
-  <object class="GtkImage" id="add_image">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-add</property>
-  </object>
   <object class="GtkListStore" id="alt_liststore">
     <columns>
       <!-- column-name genre_name -->
@@ -32,6 +27,16 @@
       <column type="gchararray"/>
     </columns>
   </object>
+  <object class="GtkAdjustment" id="cover_scale_adjustment">
+    <property name="lower">1</property>
+    <property name="upper">2</property>
+    <property name="value">1.7</property>
+    <property name="step_increment">0.10000000000000001</property>
+    <property name="page_increment">0.10000000000000001</property>
+  </object>
+  <object class="GtkEntryBuffer" id="cover_scale_buffer">
+    <property name="text" translatable="yes">92.0</property>
+  </object>
   <object class="GtkAdjustment" id="cover_size_adjustment">
     <property name="lower">5</property>
     <property name="upper">200</property>
@@ -39,13 +44,21 @@
     <property name="step_increment">1</property>
     <property name="page_increment">5</property>
   </object>
+  <object class="GtkAction" id="ok_action">
+    <property name="stock_id">gtk-ok</property>
+  </object>
+  <object class="GtkImage" id="add_image">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-add</property>
+  </object>
   <object class="GtkAdjustment" id="display_text_ellipsize_length_adjustment">
     <property name="upper">999</property>
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
   <object class="GtkEntryBuffer" id="display_text_ellipsize_length_buffer">
-    <property name="text">0</property>
+    <property name="text">92</property>
     <property name="max_length">3</property>
   </object>
   <object class="GtkFileFilter" id="filefilter1">
@@ -128,14 +141,37 @@
       <action-widget response="-3">fc_ok_button</action-widget>
     </action-widgets>
   </object>
+  <object class="GtkListStore" id="flow_model">
+    <columns>
+      <!-- column-name id -->
+      <column type="gchararray"/>
+      <!-- column-name text -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">flow-horiz</col>
+        <col id="1" translatable="yes">Coverflow</col>
+      </row>
+      <row>
+        <col id="0">flow-vert</col>
+        <col id="1" translatable="yes">Coverflow (Vertical)</col>
+      </row>
+      <row>
+        <col id="0">carousel</col>
+        <col id="1" translatable="yes">Carousel</col>
+      </row>
+      <row>
+        <col id="0">roundabout</col>
+        <col id="1" translatable="yes">Roundabout</col>
+      </row>
+    </data>
+  </object>
   <object class="GtkAdjustment" id="font_adjustment">
     <property name="lower">4</property>
     <property name="upper">72</property>
     <property name="step_increment">1</property>
     <property name="page_increment">1</property>
-  </object>
-  <object class="GtkAction" id="ok_action">
-    <property name="stock_id">gtk-ok</property>
   </object>
   <object class="GtkImage" id="howitworks_image">
     <property name="visible">True</property>
@@ -1382,6 +1418,210 @@
       </object>
       <packing>
         <property name="position">2</property>
+        <property name="tab_fill">False</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkBox" id="flow_box">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkLabel" id="label10">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="xalign">0</property>
+            <property name="label" translatable="yes">Flow Appearance</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkComboBox" id="flow_combobox">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="halign">start</property>
+            <property name="model">flow_model</property>
+            <property name="active">0</property>
+            <property name="id_column">0</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="hide_caption_checkbox">
+            <property name="label" translatable="yes">Hide Caption</property>
+            <property name="use_action_appearance">False</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="use_action_appearance">False</property>
+            <property name="xalign">0</property>
+            <property name="draw_indicator">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="box9">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkLabel" id="label14">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Scale by:</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSpinButton" id="cover_scale_spin">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="margin_left">5</property>
+                <property name="buffer">cover_scale_buffer</property>
+                <property name="editable">False</property>
+                <property name="max_length">3</property>
+                <property name="invisible_char">•</property>
+                <property name="width_chars">3</property>
+                <property name="invisible_char_set">True</property>
+                <property name="adjustment">cover_size_adjustment</property>
+                <property name="climb_rate">0.10000000000000001</property>
+                <property name="digits">1</property>
+                <property name="numeric">True</property>
+                <property name="update_policy">if-valid</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label12">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_top">3</property>
+            <property name="xalign">0</property>
+            <property name="label" translatable="yes">Background Colour</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">4</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="white_radiobutton">
+            <property name="label" translatable="yes">White</property>
+            <property name="use_action_appearance">False</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="use_action_appearance">False</property>
+            <property name="xalign">0</property>
+            <property name="active">True</property>
+            <property name="draw_indicator">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">5</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="black_radiobutton">
+            <property name="label" translatable="yes">Black</property>
+            <property name="use_action_appearance">False</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="use_action_appearance">False</property>
+            <property name="xalign">0</property>
+            <property name="active">True</property>
+            <property name="draw_indicator">True</property>
+            <property name="group">white_radiobutton</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">6</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label13">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_top">3</property>
+            <property name="xalign">0</property>
+            <property name="label" translatable="yes">Tracks Pane</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">7</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="automatic_checkbox">
+            <property name="label" translatable="yes">Enable automatic display
+on click of cover</property>
+            <property name="use_action_appearance">False</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="use_action_appearance">False</property>
+            <property name="xalign">0</property>
+            <property name="draw_indicator">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">8</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="position">3</property>
+      </packing>
+    </child>
+    <child type="tab">
+      <object class="GtkLabel" id="flow_label">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Flow</property>
+      </object>
+      <packing>
+        <property name="position">3</property>
         <property name="tab_fill">False</property>
       </packing>
     </child>
