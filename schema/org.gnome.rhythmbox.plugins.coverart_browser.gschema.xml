@@ -156,6 +156,10 @@
             <summary>Open and close track-view on click.</summary>
             <description>When clicking the flow picture automatically show or hide the track-view</description>
         </key>
-        
+        <key type="i" name="flow-width">
+            <default>150</default>
+            <summary>Width of coverflow.</summary>
+            <description>Width of the chosen coverflow in px.</description>
+        </key>
     </schema>
 </schemalist>

@@ -76,12 +76,34 @@ class CoverFlowView(AbstractView):
 
     name = 'coverflowview'
 
+    #properties
+    flow_background = GObject.property(type=str, default='W')
+    flow_automatic = GObject.property(type=bool, default=False)
+    flow_scale = GObject.property(type=int, default=100)
+    flow_hide = GObject.property(type=bool, default=False)
+    flow_width = GObject.property(type=int, default=150)
+    flow_appearance = GObject.property(type=str, default='coverflow')
+
     def __init__(self, *args, **kwargs):
         super(CoverFlowView, self).__init__(*args, **kwargs)
         
         self.ext_menu_pos = 0
         self._external_plugins = None
         self.gs = GSetting()
+        self.settings = self.gs.get_setting(self.gs.Path.PLUGIN)
+        self.settings.bind(self.gs.PluginKey.FLOW_APPEARANCE, self,
+            'flow_appearance', Gio.SettingsBindFlags.GET)
+        self.settings.bind(self.gs.PluginKey.FLOW_HIDE_CAPTION, self,
+            'flow_hide', Gio.SettingsBindFlags.GET)
+        self.settings.bind(self.gs.PluginKey.FLOW_SCALE, self,
+            'flow_scale', Gio.SettingsBindFlags.GET)
+        self.settings.bind(self.gs.PluginKey.FLOW_AUTOMATIC, self,
+            'flow_automatic', Gio.SettingsBindFlags.GET)
+        self.settings.bind(self.gs.PluginKey.FLOW_BACKGROUND_COLOUR, self,
+            'flow_background', Gio.SettingsBindFlags.GET)
+        self.settings.bind(self.gs.PluginKey.FLOW_WIDTH, self,
+            'flow_width', Gio.SettingsBindFlags.GET)
+            
         self.show_policy = FlowShowingPolicy(self)
         self.view = WebKit.WebView()
         self._last_album = None
@@ -97,8 +119,34 @@ class CoverFlowView(AbstractView):
         f.close()
 
         string = self.flow.initialise(string, self.album_manager.model)
-        string = string.replace('#BACKGROUND_COLOUR', 'white') # to be user-defined - black/white
-        string = string.replace('#FACTOR', '1.5') # to be user-defined
+        
+        if self.flow_background == 'W':
+            colour = 'white'
+        else:
+            colour = 'black'
+            
+        string = string.replace('#BACKGROUND_COLOUR', colour)
+        print str(float(self.flow_scale)/1000)
+        string = string.replace('#FACTOR', str(float(self.flow_scale)/100))
+
+        if  self.flow_hide:
+            caption = ""
+        else:
+            caption = '<div class="globalCaption"></div>'
+            
+        string = string.replace('#GLOBAL_CAPTION', caption)
+
+        addon = colour
+        if self.flow_appearance == 'flow-vert':
+            addon += " vertical"
+        elif self.flow_appearance == 'carousel':
+            addon += " carousel"
+        elif self.flow_appearance == 'roundabout':
+            addon += " roundabout"
+
+        string = string.replace('#ADDON', addon)
+
+        string = string.replace('#WIDTH', str(self.flow_width))
         
         base =  os.path.dirname(path) + "/"
         self.view.load_string(string, "text/html", "UTF-8", "file://" + base)
@@ -134,7 +182,7 @@ class CoverFlowView(AbstractView):
         self.plugin = source.plugin
         self.album_manager = source.album_manager
         self.ext_menu_pos = 10
-
+        
         # lets check that all covers have finished loading before
         # initialising the flowcontrol and other signals
         if not self.album_manager.cover_man.has_finished_loading:
@@ -146,9 +194,11 @@ class CoverFlowView(AbstractView):
         print "#########coversloaded"
         self.flow = FlowControl(self)
         self.view.connect("notify::title", self.flow.receive_message_signal)
+
         self.album_manager.model.connect('album-updated', self.flow.update_album, self.view)
         self.album_manager.model.connect('visual-updated', self.flow.update_album, self.view)
         self.album_manager.model.connect('filter-changed', self.filter_changed)
+        
         self.filter_changed()
 
     @property

@@ -5,7 +5,7 @@
     <link rel="stylesheet" title="Standard" href="styles.css" type="text/css" media="screen" />
 
     <!-- styles.css contains white for background colour - we'll need an equivalent css statement for a black background -->
-    <script language="JavaScript" type="text/javascript" src="contentflow.js" load="#BACKGROUND_COLOUR"></script>
+    <script language="JavaScript" type="text/javascript" src="contentflow.js" load="#BACKGROUND_COLOUR #ADDON"></script>
     <script tyle="text/javascript">
         var cf = new ContentFlow('contentFlow',
             {reflectionColor: "#000000",
@@ -16,10 +16,16 @@
              visibleItems: 7
             });
     </script>
+
+    <style>
+        body{
+            background: #BACKGROUND_COLOUR;
+        }
+    </style>
 </head>
 <body>
     <div class="maincontent">
-    <div style="width: 600px; margin: 0px auto;">
+    <div style="width: #WIDTHpx; margin: 0px auto;">
     
     <!-- ===== FLOW ===== -->
     <div id="contentFlow" class="ContentFlow">
@@ -31,7 +37,7 @@
             #ITEMS
             
         </div>
-        <div class="globalCaption"></div>
+        #GLOBAL_CAPTION
         <!--
         <div class="scrollbar">
             <div class="preButton"></div>

@@ -143,7 +143,8 @@ class GSetting:
                 FLOW_HIDE_CAPTION='flow-hide-caption',
                 FLOW_SCALE='flow-scale',
                 FLOW_BACKGROUND_COLOUR='flow-background-colour',
-                FLOW_AUTOMATIC='flow-automatic')
+                FLOW_AUTOMATIC='flow-automatic',
+                FLOW_WIDTH='flow-width')
 
             self.setting = {}
 
@@ -206,8 +207,6 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
     GENRE_POPUP = 1
     GENRE_LIST = 2
 
-    background_colour = GObject.property(type=str, default='W')
-    
     def __init__(self):
         '''
         Initialises the preferences, getting an instance of the settings saved
@@ -399,13 +398,15 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         self.settings.bind(gs.PluginKey.FLOW_SCALE, flow_scale, 'value',
             Gio.SettingsBindFlags.DEFAULT)
 
+        flow_width = builder.get_object('cover_width_adjustment')
+        self.settings.bind(gs.PluginKey.FLOW_WIDTH, flow_width, 'value',
+            Gio.SettingsBindFlags.DEFAULT)
+
         flow_automatic = builder.get_object('automatic_checkbox')
         self.settings.bind(gs.PluginKey.FLOW_AUTOMATIC,
             flow_automatic, 'active', Gio.SettingsBindFlags.DEFAULT)
 
-        self.settings.bind(gs.PluginKey.FLOW_BACKGROUND_COLOUR,
-            self, 'background_colour', Gio.SettingsBindFlags.DEFAULT)
-
+        self.background_colour = self.settings[gs.PluginKey.FLOW_BACKGROUND_COLOUR]
         self.white_radiobutton = builder.get_object('white_radiobutton')
         self.black_radiobutton = builder.get_object('black_radiobutton')
 
@@ -416,6 +417,16 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
             
         # return the dialog
         return builder.get_object('main_notebook')
+
+    def on_flow_combobox_changed(self, combobox):
+        current_val = combobox.get_model()[combobox.get_active()][0]
+        default_size = 600
+        gs=GSetting()
+        if self.settings[gs.PluginKey.FLOW_APPEARANCE] != current_val:
+            if current_val == 'flow-vert':
+                default_size = 150
+                
+            self.settings[gs.PluginKey.FLOW_WIDTH] = default_size
 
     def on_background_radio_toggled(self, button):
         if button.get_active():

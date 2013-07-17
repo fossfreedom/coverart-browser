@@ -1034,8 +1034,8 @@ class AbstractView(GObject.Object):
     '''
     view = None
     
-    def __init__(self):
-        pass
+    def __init__(self, *args, **kwargs):
+        super(AbstractView, self).__init__(*args, **kwargs)
 
     def initialise(self, source):
         self.source = source
