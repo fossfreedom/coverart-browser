@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
+  <object class="GtkImage" id="add_image">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-add</property>
+  </object>
   <object class="GtkListStore" id="alt_liststore">
     <columns>
       <!-- column-name genre_name -->
@@ -28,14 +33,14 @@
     </columns>
   </object>
   <object class="GtkAdjustment" id="cover_scale_adjustment">
-    <property name="lower">1</property>
-    <property name="upper">2</property>
-    <property name="value">1.7</property>
-    <property name="step_increment">0.10000000000000001</property>
-    <property name="page_increment">0.10000000000000001</property>
+    <property name="lower">100</property>
+    <property name="upper">200</property>
+    <property name="value">170</property>
+    <property name="step_increment">10</property>
+    <property name="page_increment">10</property>
   </object>
   <object class="GtkEntryBuffer" id="cover_scale_buffer">
-    <property name="text" translatable="yes">92.0</property>
+    <property name="text" translatable="yes">170</property>
   </object>
   <object class="GtkAdjustment" id="cover_size_adjustment">
     <property name="lower">5</property>
@@ -44,21 +49,13 @@
     <property name="step_increment">1</property>
     <property name="page_increment">5</property>
   </object>
-  <object class="GtkAction" id="ok_action">
-    <property name="stock_id">gtk-ok</property>
-  </object>
-  <object class="GtkImage" id="add_image">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-add</property>
-  </object>
   <object class="GtkAdjustment" id="display_text_ellipsize_length_adjustment">
     <property name="upper">999</property>
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
   <object class="GtkEntryBuffer" id="display_text_ellipsize_length_buffer">
-    <property name="text">92</property>
+    <property name="text">0</property>
     <property name="max_length">3</property>
   </object>
   <object class="GtkFileFilter" id="filefilter1">
@@ -209,6 +206,9 @@
         <col id="1" translatable="yes">Top Right</col>
       </row>
     </data>
+  </object>
+  <object class="GtkAction" id="ok_action">
+    <property name="stock_id">gtk-ok</property>
   </object>
   <object class="GtkAdjustment" id="padding_adjustment">
     <property name="upper">50</property>
@@ -1482,7 +1482,7 @@
               <object class="GtkLabel" id="label14">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Scale by:</property>
+                <property name="label" translatable="yes">Scale by %:</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -1495,15 +1495,12 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="margin_left">5</property>
-                <property name="buffer">cover_scale_buffer</property>
-                <property name="editable">False</property>
                 <property name="max_length">3</property>
                 <property name="invisible_char">•</property>
                 <property name="width_chars">3</property>
                 <property name="invisible_char_set">True</property>
-                <property name="adjustment">cover_size_adjustment</property>
-                <property name="climb_rate">0.10000000000000001</property>
-                <property name="digits">1</property>
+                <property name="adjustment">cover_scale_adjustment</property>
+                <property name="climb_rate">10</property>
                 <property name="numeric">True</property>
                 <property name="update_policy">if-valid</property>
               </object>
@@ -1546,8 +1543,8 @@
             <property name="receives_default">False</property>
             <property name="use_action_appearance">False</property>
             <property name="xalign">0</property>
-            <property name="active">True</property>
             <property name="draw_indicator">True</property>
+            <signal name="toggled" handler="on_background_radio_toggled" swapped="no"/>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -1564,9 +1561,9 @@
             <property name="receives_default">False</property>
             <property name="use_action_appearance">False</property>
             <property name="xalign">0</property>
-            <property name="active">True</property>
             <property name="draw_indicator">True</property>
             <property name="group">white_radiobutton</property>
+            <signal name="toggled" handler="on_background_radio_toggled" swapped="no"/>
           </object>
           <packing>
             <property name="expand">False</property>

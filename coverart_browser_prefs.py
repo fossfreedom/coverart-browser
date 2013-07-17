@@ -138,7 +138,12 @@ class GSetting:
                 NEW_GENRE_ICON='new-genre-icon',
                 ICON_PADDING='icon-padding',
                 ICON_SPACING='icon-spacing',
-                VIEW_NAME='view-name')
+                VIEW_NAME='view-name',
+                FLOW_APPEARANCE='flow-appearance',
+                FLOW_HIDE_CAPTION='flow-hide-caption',
+                FLOW_SCALE='flow-scale',
+                FLOW_BACKGROUND_COLOUR='flow-background-colour',
+                FLOW_AUTOMATIC='flow-automatic')
 
             self.setting = {}
 
@@ -201,6 +206,8 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
     GENRE_POPUP = 1
     GENRE_LIST = 2
 
+    background_colour = GObject.property(type=str, default='W')
+    
     def __init__(self):
         '''
         Initialises the preferences, getting an instance of the settings saved
@@ -376,8 +383,47 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         self.settings.bind(gs.PluginKey.ICON_SPACING, spacing_scale, 'value',
             Gio.SettingsBindFlags.DEFAULT)
 
+        #flow tab
+        flow_combo = builder.get_object('flow_combobox')
+        renderer = Gtk.CellRendererText()
+        flow_combo.pack_start(renderer, True)
+        flow_combo.add_attribute(renderer, 'text', 1)
+        self.settings.bind(gs.PluginKey.FLOW_APPEARANCE, flow_combo,
+            'active-id', Gio.SettingsBindFlags.DEFAULT)
+
+        flow_hide = builder.get_object('hide_caption_checkbox')
+        self.settings.bind(gs.PluginKey.FLOW_HIDE_CAPTION,
+            flow_hide, 'active', Gio.SettingsBindFlags.DEFAULT)
+
+        flow_scale = builder.get_object('cover_scale_adjustment')
+        self.settings.bind(gs.PluginKey.FLOW_SCALE, flow_scale, 'value',
+            Gio.SettingsBindFlags.DEFAULT)
+
+        flow_automatic = builder.get_object('automatic_checkbox')
+        self.settings.bind(gs.PluginKey.FLOW_AUTOMATIC,
+            flow_automatic, 'active', Gio.SettingsBindFlags.DEFAULT)
+
+        self.settings.bind(gs.PluginKey.FLOW_BACKGROUND_COLOUR,
+            self, 'background_colour', Gio.SettingsBindFlags.DEFAULT)
+
+        self.white_radiobutton = builder.get_object('white_radiobutton')
+        self.black_radiobutton = builder.get_object('black_radiobutton')
+
+        if self.background_colour == 'W':
+            self.white_radiobutton.set_active(True)
+        else:
+            self.black_radiobutton.set_active(True)
+            
         # return the dialog
         return builder.get_object('main_notebook')
+
+    def on_background_radio_toggled(self, button):
+        if button.get_active():
+            gs = GSetting()
+            if button == self.white_radiobutton:
+                self.settings[gs.PluginKey.FLOW_BACKGROUND_COLOUR] = 'W'
+            else:
+                self.settings[gs.PluginKey.FLOW_BACKGROUND_COLOUR] = 'B'
 
     def rating_changed_callback(self, stars):
         print("rating_changed_callback")

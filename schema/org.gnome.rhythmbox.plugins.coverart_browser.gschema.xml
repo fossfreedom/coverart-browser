@@ -131,5 +131,31 @@
             <summary>Name of view.</summary>
             <description>View name to start with when the plugin is initialised.</description>
         </key>
+        <key type="s" name="flow-appearance">
+            <default>'coverflow'</default>
+            <summary>Name of the type of coverflow.</summary>
+            <description>Coverflow type.</description>
+        </key>
+        <key type="b" name="flow-hide-caption">
+            <default>false</default>
+            <summary>Hide flow caption.</summary>
+            <description>Whether to hide the caption on the coverflow.</description>
+        </key>
+        <key type="i" name="flow-scale">
+            <default>170</default>
+            <summary>Scale Size.</summary>
+            <description>Percentage size for the coverflow image from 100% to 200%.</description>
+        </key>
+        <key type="s" name="flow-background-colour">
+            <default>'W'</default>
+            <summary>Colour of the background.</summary>
+            <description>W is white B is Black.</description>
+        </key>
+        <key type="b" name="flow-automatic">
+            <default>false</default>
+            <summary>Open and close track-view on click.</summary>
+            <description>When clicking the flow picture automatically show or hide the track-view</description>
+        </key>
+        
     </schema>
 </schemalist>
