@@ -56,20 +56,6 @@ class FlowShowingPolicy(GObject.Object):
         self._has_initialised = True
         self._album_manager = album_manager
         self._model = album_manager.model
-        #self._connect_signals()
-
-    def _connect_signals(self):
-        self._model.connect('album-updated', self._album_updated)
-        self._model.connect('visual-updated', self._album_updated)
-        
-
-    def _album_updated(self, model, album_path, album_iter):
-        self.counter = self.counter + 1
-        # this method is called once for every album in the model if the events above are connected
-        #for row in self._model.store:
-        #    print row[:]
-        print model.get_from_path(album_path).cover.original
-
 
 class CoverFlowView(AbstractView):
     __gtype_name__ = "CoverFlowView"
@@ -81,7 +67,7 @@ class CoverFlowView(AbstractView):
     flow_automatic = GObject.property(type=bool, default=False)
     flow_scale = GObject.property(type=int, default=100)
     flow_hide = GObject.property(type=bool, default=False)
-    flow_width = GObject.property(type=int, default=150)
+    flow_width = GObject.property(type=int, default=600)
     flow_appearance = GObject.property(type=str, default='coverflow')
 
     def __init__(self, *args, **kwargs):
@@ -89,26 +75,41 @@ class CoverFlowView(AbstractView):
         
         self.ext_menu_pos = 0
         self._external_plugins = None
-        self.gs = GSetting()
-        self.settings = self.gs.get_setting(self.gs.Path.PLUGIN)
-        self.settings.bind(self.gs.PluginKey.FLOW_APPEARANCE, self,
-            'flow_appearance', Gio.SettingsBindFlags.GET)
-        self.settings.bind(self.gs.PluginKey.FLOW_HIDE_CAPTION, self,
-            'flow_hide', Gio.SettingsBindFlags.GET)
-        self.settings.bind(self.gs.PluginKey.FLOW_SCALE, self,
-            'flow_scale', Gio.SettingsBindFlags.GET)
-        self.settings.bind(self.gs.PluginKey.FLOW_AUTOMATIC, self,
-            'flow_automatic', Gio.SettingsBindFlags.GET)
-        self.settings.bind(self.gs.PluginKey.FLOW_BACKGROUND_COLOUR, self,
-            'flow_background', Gio.SettingsBindFlags.GET)
-        self.settings.bind(self.gs.PluginKey.FLOW_WIDTH, self,
-            'flow_width', Gio.SettingsBindFlags.GET)
-            
         self.show_policy = FlowShowingPolicy(self)
         self.view = WebKit.WebView()
         self._last_album = None
         self._has_initialised = False
         self._flow_first_call = False
+        
+    def _connect_properties(self):
+        gs = GSetting()
+        self.settings = gs.get_setting(gs.Path.PLUGIN)
+        self.settings.bind(gs.PluginKey.FLOW_APPEARANCE, self,
+            'flow_appearance', Gio.SettingsBindFlags.GET)
+        self.settings.bind(gs.PluginKey.FLOW_HIDE_CAPTION, self,
+            'flow_hide', Gio.SettingsBindFlags.GET)
+        self.settings.bind(gs.PluginKey.FLOW_SCALE, self,
+            'flow_scale', Gio.SettingsBindFlags.GET)
+        self.settings.bind(gs.PluginKey.FLOW_AUTOMATIC, self,
+            'flow_automatic', Gio.SettingsBindFlags.GET)
+        self.settings.bind(gs.PluginKey.FLOW_BACKGROUND_COLOUR, self,
+            'flow_background', Gio.SettingsBindFlags.GET)
+        self.settings.bind(gs.PluginKey.FLOW_WIDTH, self,
+            'flow_width', Gio.SettingsBindFlags.GET)
+            
+    def _connect_signals(self, source):
+        self.connect('notify::flow_background',
+            self.filter_changed)
+        #self.connect('notify::flow_automatic',
+        #    self.filter_changed) ## need
+        self.connect('notify::flow_scale',
+            self.filter_changed)
+        self.connect('notify::flow_hide',
+            self.filter_changed)
+        self.connect('notify::flow_width',
+            self.filter_changed)
+        self.connect('notify::flow_appearance',
+            self.filter_changed)
         
     def filter_changed(self, *args):
         print "############filter_changed"
@@ -126,7 +127,6 @@ class CoverFlowView(AbstractView):
             colour = 'black'
             
         string = string.replace('#BACKGROUND_COLOUR', colour)
-        print str(float(self.flow_scale)/1000)
         string = string.replace('#FACTOR', str(float(self.flow_scale)/100))
 
         if  self.flow_hide:
@@ -182,6 +182,9 @@ class CoverFlowView(AbstractView):
         self.plugin = source.plugin
         self.album_manager = source.album_manager
         self.ext_menu_pos = 10
+        
+        self._connect_properties()
+        self._connect_signals(source)
         
         # lets check that all covers have finished loading before
         # initialising the flowcontrol and other signals
