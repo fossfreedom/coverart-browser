@@ -70,8 +70,8 @@ class CoverFlowView(AbstractView):
     flow_width = GObject.property(type=int, default=600)
     flow_appearance = GObject.property(type=str, default='coverflow')
 
-    def __init__(self, *args, **kwargs):
-        super(CoverFlowView, self).__init__(*args, **kwargs)
+    def __init__(self):
+        super(CoverFlowView, self).__init__()
         
         self.ext_menu_pos = 0
         self._external_plugins = None
@@ -81,34 +81,35 @@ class CoverFlowView(AbstractView):
         self._has_initialised = False
         self._flow_first_call = False
         
-    def _connect_properties(self):
+    def connect_properties(self):
         gs = GSetting()
-        self.settings = gs.get_setting(gs.Path.PLUGIN)
-        self.settings.bind(gs.PluginKey.FLOW_APPEARANCE, self,
+        settings = gs.get_setting(gs.Path.PLUGIN)
+        settings.bind(gs.PluginKey.FLOW_APPEARANCE, self,
             'flow_appearance', Gio.SettingsBindFlags.GET)
-        self.settings.bind(gs.PluginKey.FLOW_HIDE_CAPTION, self,
+        settings.bind(gs.PluginKey.FLOW_HIDE_CAPTION, self,
             'flow_hide', Gio.SettingsBindFlags.GET)
-        self.settings.bind(gs.PluginKey.FLOW_SCALE, self,
+        settings.bind(gs.PluginKey.FLOW_SCALE, self,
             'flow_scale', Gio.SettingsBindFlags.GET)
-        self.settings.bind(gs.PluginKey.FLOW_AUTOMATIC, self,
+        settings.bind(gs.PluginKey.FLOW_AUTOMATIC, self,
             'flow_automatic', Gio.SettingsBindFlags.GET)
-        self.settings.bind(gs.PluginKey.FLOW_BACKGROUND_COLOUR, self,
+        settings.bind(gs.PluginKey.FLOW_BACKGROUND_COLOUR, self,
             'flow_background', Gio.SettingsBindFlags.GET)
-        self.settings.bind(gs.PluginKey.FLOW_WIDTH, self,
+        settings.bind(gs.PluginKey.FLOW_WIDTH, self,
             'flow_width', Gio.SettingsBindFlags.GET)
             
-    def _connect_signals(self, source):
-        self.connect('notify::flow_background',
+    def connect_signals(self, source):
+        print "here"
+        self.connect('notify::flow-background',
             self.filter_changed)
         #self.connect('notify::flow_automatic',
         #    self.filter_changed) ## need
-        self.connect('notify::flow_scale',
+        self.connect('notify::flow-scale',
             self.filter_changed)
-        self.connect('notify::flow_hide',
+        self.connect('notify::flow-hide',
             self.filter_changed)
-        self.connect('notify::flow_width',
+        self.connect('notify::flow-width',
             self.filter_changed)
-        self.connect('notify::flow_appearance',
+        self.connect('notify::flow-appearance',
             self.filter_changed)
         
     def filter_changed(self, *args):
@@ -183,8 +184,9 @@ class CoverFlowView(AbstractView):
         self.album_manager = source.album_manager
         self.ext_menu_pos = 10
         
-        self._connect_properties()
-        self._connect_signals(source)
+        self.connect_properties()
+        print "connecting"
+        self.connect_signals(source)
         
         # lets check that all covers have finished loading before
         # initialising the flowcontrol and other signals

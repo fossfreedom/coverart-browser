@@ -420,14 +420,18 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
 
     def on_flow_combobox_changed(self, combobox):
         current_val = combobox.get_model()[combobox.get_active()][0]
-        default_size = 600
         gs=GSetting()
         if self.settings[gs.PluginKey.FLOW_APPEARANCE] != current_val:
             if current_val == 'flow-vert':
                 default_size = 150
-                
-            self.settings[gs.PluginKey.FLOW_WIDTH] = default_size
+            else:
+                default_size = 600
 
+            self.settings[gs.PluginKey.FLOW_WIDTH] = default_size
+            
+            if current_val == 'carousel':
+                self.settings[gs.PluginKey.FLOW_HIDE_CAPTION] = True
+                
     def on_background_radio_toggled(self, button):
         if button.get_active():
             gs = GSetting()
