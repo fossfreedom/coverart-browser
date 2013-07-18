@@ -403,6 +403,10 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         self.settings.bind(gs.PluginKey.FLOW_WIDTH, flow_width, 'value',
             Gio.SettingsBindFlags.DEFAULT)
 
+        flow_max = builder.get_object('flow_max_adjustment')
+        self.settings.bind(gs.PluginKey.FLOW_MAX, flow_max, 'value',
+            Gio.SettingsBindFlags.DEFAULT)
+
         flow_automatic = builder.get_object('automatic_checkbox')
         self.settings.bind(gs.PluginKey.FLOW_AUTOMATIC,
             flow_automatic, 'active', Gio.SettingsBindFlags.DEFAULT)

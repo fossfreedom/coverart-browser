@@ -64,40 +64,12 @@
     <property name="text">0</property>
     <property name="max_length">3</property>
   </object>
-  <object class="GtkListStore" id="flow_model">
-    <columns>
-      <!-- column-name id -->
-      <column type="gchararray"/>
-      <!-- column-name text -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0">flow-horiz</col>
-        <col id="1" translatable="yes">Coverflow</col>
-      </row>
-      <row>
-        <col id="0">flow-vert</col>
-        <col id="1" translatable="yes">Coverflow (Vertical)</col>
-      </row>
-      <row>
-        <col id="0">carousel</col>
-        <col id="1" translatable="yes">Carousel</col>
-      </row>
-      <row>
-        <col id="0">roundabout</col>
-        <col id="1" translatable="yes">Roundabout</col>
-      </row>
-    </data>
-  </object>
-  <object class="GtkAdjustment" id="font_adjustment">
-    <property name="lower">4</property>
-    <property name="upper">72</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">1</property>
-  </object>
-  <object class="GtkAction" id="ok_action">
-    <property name="stock_id">gtk-ok</property>
+  <object class="GtkFileFilter" id="filefilter1">
+    <mime-types>
+      <mime-type>image/png</mime-type>
+      <mime-type>image/jpeg</mime-type>
+      <mime-type>image/gif</mime-type>
+    </mime-types>
   </object>
   <object class="GtkFileChooserDialog" id="filechooserdialog">
     <property name="can_focus">False</property>
@@ -172,12 +144,47 @@
       <action-widget response="-3">fc_ok_button</action-widget>
     </action-widgets>
   </object>
-  <object class="GtkFileFilter" id="filefilter1">
-    <mime-types>
-      <mime-type>image/png</mime-type>
-      <mime-type>image/jpeg</mime-type>
-      <mime-type>image/gif</mime-type>
-    </mime-types>
+  <object class="GtkListStore" id="flow_model">
+    <columns>
+      <!-- column-name id -->
+      <column type="gchararray"/>
+      <!-- column-name text -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">flow-horiz</col>
+        <col id="1" translatable="yes">Coverflow</col>
+      </row>
+      <row>
+        <col id="0">flow-vert</col>
+        <col id="1" translatable="yes">Coverflow (Vertical)</col>
+      </row>
+      <row>
+        <col id="0">carousel</col>
+        <col id="1" translatable="yes">Carousel</col>
+      </row>
+      <row>
+        <col id="0">roundabout</col>
+        <col id="1" translatable="yes">Roundabout</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkAdjustment" id="flow_max_adjustment">
+    <property name="lower">50</property>
+    <property name="upper">500</property>
+    <property name="value">100</property>
+    <property name="step_increment">25</property>
+    <property name="page_increment">50</property>
+  </object>
+  <object class="GtkAdjustment" id="font_adjustment">
+    <property name="lower">4</property>
+    <property name="upper">72</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">1</property>
+  </object>
+  <object class="GtkAction" id="ok_action">
+    <property name="stock_id">gtk-ok</property>
   </object>
   <object class="GtkImage" id="howitworks_image">
     <property name="visible">True</property>
@@ -1582,6 +1589,50 @@
           </packing>
         </child>
         <child>
+          <object class="GtkBox" id="box12">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkLabel" id="label15">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Maximum covers to display:</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSpinButton" id="flow_max_spin">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="margin_left">5</property>
+                <property name="max_length">3</property>
+                <property name="invisible_char">•</property>
+                <property name="width_chars">3</property>
+                <property name="invisible_char_set">True</property>
+                <property name="adjustment">flow_max_adjustment</property>
+                <property name="climb_rate">10</property>
+                <property name="snap_to_ticks">True</property>
+                <property name="numeric">True</property>
+                <property name="update_policy">if-valid</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">5</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkLabel" id="label12">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
@@ -1595,7 +1646,7 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">5</property>
+            <property name="position">6</property>
           </packing>
         </child>
         <child>
@@ -1613,7 +1664,7 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">6</property>
+            <property name="position">7</property>
           </packing>
         </child>
         <child>
@@ -1632,7 +1683,7 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">7</property>
+            <property name="position">8</property>
           </packing>
         </child>
         <child>
@@ -1649,7 +1700,7 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">8</property>
+            <property name="position">9</property>
           </packing>
         </child>
         <child>
@@ -1667,7 +1718,7 @@ on click of cover</property>
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">9</property>
+            <property name="position">10</property>
           </packing>
         </child>
       </object>
