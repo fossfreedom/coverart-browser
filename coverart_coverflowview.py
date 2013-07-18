@@ -121,20 +121,19 @@ class CoverFlowView(AbstractView):
         print "############filter_changed"
         #for some reason three filter change events occur on startup
 
-        print len(self.album_manager.model.get_all())
-        if len(self.album_manager.model.store) > self.flow_max:
-            path = rb.find_plugin_file(self.plugin, 'coverflow/filter.html')
-            f = open(path)
-            string = f.read()
-            f.close()
-        else:
-            path = rb.find_plugin_file(self.plugin, 'coverflow/index.html')
-            f = open(path)
-            string = f.read()
-            f.close()
-        
-            string = self.flow.initialise(string, self.album_manager.model)
-        
+        #if len(self.album_manager.model.store) > self.flow_max:
+        #    path = rb.find_plugin_file(self.plugin, 'coverflow/filter.html')
+        #    f = open(path)
+        #    string = f.read()
+        #    f.close()
+        #else:
+        path = rb.find_plugin_file(self.plugin, 'coverflow/index.html')
+        f = open(path)
+        string = f.read()
+        f.close()
+    
+        string = self.flow.initialise(string, self.album_manager.model)
+    
         if self.flow_background == 'W':
             colour = 'white'
         else:
