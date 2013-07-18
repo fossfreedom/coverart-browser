@@ -161,5 +161,10 @@
             <summary>Width of coverflow.</summary>
             <description>Width of the chosen coverflow in px.</description>
         </key>
+        <key type="i" name="flow-max-albums">
+            <default>100</default>
+            <summary>Maximum number of albums.</summary>
+            <description>Total number of albums to display in the coverflow.</description>
+        </key>
     </schema>
 </schemalist>

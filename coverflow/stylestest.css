@@ -1,0 +1,22 @@
+
+body{
+	/* Setting default text color, background and a font stack */
+	color:#555555;
+	font-size:0.825em;
+	background: #fcfcfc;
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+
+.className{
+	background-color:#338BC7;
+	width:270px;
+	height:150px;
+	position:relative;
+	
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+}
+
+

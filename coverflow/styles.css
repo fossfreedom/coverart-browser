@@ -7,6 +7,17 @@ body {
     padding: 0 7%; 
 }
 
+.className{
+	background-color:#338BC7;
+	width:270px;
+	height:150px;
+	position:relative;
+	
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+}
+
 a,
 a:link,
 a:visited,

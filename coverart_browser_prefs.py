@@ -144,7 +144,8 @@ class GSetting:
                 FLOW_SCALE='flow-scale',
                 FLOW_BACKGROUND_COLOUR='flow-background-colour',
                 FLOW_AUTOMATIC='flow-automatic',
-                FLOW_WIDTH='flow-width')
+                FLOW_WIDTH='flow-width',
+                FLOW_MAX='flow-max-albums')
 
             self.setting = {}
 

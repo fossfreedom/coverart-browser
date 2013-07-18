@@ -69,6 +69,7 @@ class CoverFlowView(AbstractView):
     flow_hide = GObject.property(type=bool, default=False)
     flow_width = GObject.property(type=int, default=600)
     flow_appearance = GObject.property(type=str, default='coverflow')
+    flow_max = GObject.property(type=int, default=100)
 
     def __init__(self):
         super(CoverFlowView, self).__init__()
@@ -96,6 +97,8 @@ class CoverFlowView(AbstractView):
             'flow_background', Gio.SettingsBindFlags.GET)
         settings.bind(gs.PluginKey.FLOW_WIDTH, self,
             'flow_width', Gio.SettingsBindFlags.GET)
+        settings.bind(gs.PluginKey.FLOW_MAX, self,
+            'flow_max', Gio.SettingsBindFlags.GET)
             
     def connect_signals(self, source):
         print "here"
@@ -111,16 +114,26 @@ class CoverFlowView(AbstractView):
             self.filter_changed)
         self.connect('notify::flow-appearance',
             self.filter_changed)
+        self.connect('notify::flow-max',
+            self.filter_changed)
         
     def filter_changed(self, *args):
         print "############filter_changed"
         #for some reason three filter change events occur on startup
-        path = rb.find_plugin_file(self.plugin, 'coverflow/index.html')
-        f = open(path)
-        string = f.read()
-        f.close()
 
-        string = self.flow.initialise(string, self.album_manager.model)
+        print len(self.album_manager.model.get_all())
+        if len(self.album_manager.model.store) > self.flow_max:
+            path = rb.find_plugin_file(self.plugin, 'coverflow/filter.html')
+            f = open(path)
+            string = f.read()
+            f.close()
+        else:
+            path = rb.find_plugin_file(self.plugin, 'coverflow/index.html')
+            f = open(path)
+            string = f.read()
+            f.close()
+        
+            string = self.flow.initialise(string, self.album_manager.model)
         
         if self.flow_background == 'W':
             colour = 'white'
