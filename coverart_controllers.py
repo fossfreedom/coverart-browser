@@ -449,6 +449,7 @@ class PropertiesMenuController(OptionsController):
     def do_action(self):
         if self.current_key:
             self._source.propertiesbutton_callback(self.values[self.current_key])
+            self.current_key = None
 
     def get_current_image(self):
         return self._image

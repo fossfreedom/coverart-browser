@@ -216,17 +216,36 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         GObject.Object.__init__(self)
         gs = GSetting()
         self.settings = gs.get_setting(gs.Path.PLUGIN)
+        
+        self._first_run = True
 
     def do_create_configure_widget(self):
         '''
         Creates the plugin's preferences dialog
         '''
+        return self._create_display_contents(self)
+        
+    def display_preferences_dialog(self, plugin):
+        if self._first_run:
+            self._first_run = False
+            self._dialog = Gtk.Dialog(_('Preferences'), None,
+                Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT, (Gtk.STOCK_OK, Gtk.ResponseType.OK))
+                
+            content_area = self._dialog.get_content_area()
+            content_area.pack_start(self._create_display_contents(plugin), True, True, 0)
+            
+        self._dialog.show_all()
+        response = self._dialog.run()
+        
+        self._dialog.hide()
+        
+    def _create_display_contents(self, plugin):
         # create the ui
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
         builder = Gtk.Builder()
         builder.set_translation_domain(cl.Locale.LOCALE_DOMAIN)
-        builder.add_from_file(rb.find_plugin_file(self,
+        builder.add_from_file(rb.find_plugin_file(plugin,
             'ui/coverart_browser_prefs.ui'))
         self.launchpad_button = builder.get_object('show_launchpad')
         self.launchpad_label = builder.get_object('launchpad_label')
@@ -340,7 +359,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         popup = RB.find_user_data_file('plugins/coverart_browser/img/usericons/popups.xml')
         
         if not os.path.isfile(popup):
-            template = rb.find_plugin_file(self, 'template/popups.xml')
+            template = rb.find_plugin_file(plugin, 'template/popups.xml')
             folder = os.path.split(popup)[0]
             if not os.path.exists(folder):
                 os.makedirs(folder)
@@ -351,7 +370,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         from coverart_utils import get_stock_size
         from coverart_utils import GenreType
 
-        self._sheet = GenreConfiguredSpriteSheet(self, "genre", get_stock_size())
+        self._sheet = GenreConfiguredSpriteSheet(plugin, "genre", get_stock_size())
 
         self.alt_liststore = builder.get_object('alt_liststore')
         self.alt_user_liststore = builder.get_object('alt_user_liststore')

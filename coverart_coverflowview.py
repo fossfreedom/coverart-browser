@@ -395,6 +395,7 @@ class FlowControl(object):
 
         if signal == 'getflowbatch':
             s = self.get_flow_batch(args['param'])
+            print s
             webview.execute_script("new_flow_batch('%s')" % s)
         elif signal == 'clickactive':
             self.callback_view.item_clicked_callback(self.album_identifier[int(args['param'][0])])

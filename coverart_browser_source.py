@@ -31,6 +31,7 @@ from coverart_entryview import CoverArtEntryView as EV
 from coverart_search import CoverSearchPane
 from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import CoverLocale
+from coverart_browser_prefs import Preferences
 from coverart_widgets import SearchEntry
 from coverart_widgets import QuickSearchEntry
 from coverart_widgets import ProxyPopupButton
@@ -156,6 +157,7 @@ class CoverArtBrowserSource(RB.Source):
         self.actiongroup = ActionGroup(self.shell, 'coverplaylist_submenu')
         self.favourite_actiongroup = ActionGroup(self.shell,
             'favourite_coverplaylist_submenu')
+        self._preferences = Preferences()
         
         # connect properties signals
         self.connect('notify::rating-threshold',
@@ -711,13 +713,14 @@ class CoverArtBrowserSource(RB.Source):
         self.statusbar.emit('display-status', self.viewmgr.current_view)
 
     def propertiesbutton_callback(self, choice):
+        
         if choice == 'download':
             self.request_status_box.show_all()
             self.album_manager.cover_man.search_covers(
                 callback=self.update_request_status_bar)
 
         elif choice == 'browser prefs':
-            pass
+            self._preferences.display_preferences_dialog(self.plugin)
         elif choice == 'search prefs':
             pass
         else:
@@ -732,7 +735,6 @@ class CoverArtBrowserSource(RB.Source):
             cls.instance = CoverArtBrowserSource(**kwargs)
 
         return cls.instance
-
 
 class Statusbar(GObject.Object):
     # signals
