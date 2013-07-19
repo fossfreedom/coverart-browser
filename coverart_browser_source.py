@@ -157,7 +157,8 @@ class CoverArtBrowserSource(RB.Source):
         self.actiongroup = ActionGroup(self.shell, 'coverplaylist_submenu')
         self.favourite_actiongroup = ActionGroup(self.shell,
             'favourite_coverplaylist_submenu')
-        self._preferences = Preferences()
+        self._browser_preferences = None
+        self._search_preferences = None
         
         # connect properties signals
         self.connect('notify::rating-threshold',
@@ -720,9 +721,32 @@ class CoverArtBrowserSource(RB.Source):
                 callback=self.update_request_status_bar)
 
         elif choice == 'browser prefs':
-            self._preferences.display_preferences_dialog(self.plugin)
+            if not self._browser_preferences:
+                self._browser_preferences = Preferences()
+                
+            self._browser_preferences.display_preferences_dialog(self.plugin)
         elif choice == 'search prefs':
-            pass
+            try:
+                if not self._search_preferences:                
+                    from gi.repository import Peas
+                    peas = Peas.Engine.get_default()
+                    plugin_info = peas.get_plugin_info('coverart_search_providers')
+                    module_name = plugin_info.get_module_name()
+                    mod = __import__(module_name)
+                    sp = getattr(mod, "SearchPreferences")
+                    self._search_preferences = sp()
+                    self._search_preferences.plugin_info = plugin_info
+
+                self._search_preferences.display_preferences_dialog(self._search_preferences)
+            except:
+                dialog = Gtk.MessageDialog(None,
+                    Gtk.DialogFlags.MODAL,
+                    Gtk.MessageType.INFO,
+                    Gtk.ButtonsType.OK,
+                    _("Please install and activate the latest version of the Coverart Search Providers plugin"))
+
+                dialog.run()
+                dialog.destroy()
         else:
             assert 1==2, ("unknown choice %s", choice)
 

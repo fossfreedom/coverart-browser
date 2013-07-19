@@ -430,8 +430,8 @@ class PropertiesMenuController(OptionsController):
         # options
         self.values = OrderedDict()
         self.values[_('Download all covers')] = 'download'
-        self.values[_('Browser preferences')] = 'browser prefs'
-        self.values[_('Search preferences')] = 'search prefs'
+        self.values[_('Browser Preferences')] = 'browser prefs'
+        self.values[_('Search Preferences')] = 'search prefs'
         
         self.options = list(self.values.keys())
 

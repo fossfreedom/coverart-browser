@@ -228,7 +228,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
     def display_preferences_dialog(self, plugin):
         if self._first_run:
             self._first_run = False
-            self._dialog = Gtk.Dialog(_('Preferences'), None,
+            self._dialog = Gtk.Dialog(_('Browser Preferences'), None,
                 Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT, (Gtk.STOCK_OK, Gtk.ResponseType.OK))
                 
             content_area = self._dialog.get_content_area()
