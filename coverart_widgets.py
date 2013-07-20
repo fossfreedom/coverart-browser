@@ -351,9 +351,13 @@ class ImageRadioButton(Gtk.RadioButton, OptionsWidget):
         #ensure button appearance rather than standard radio toggle
         self.set_mode(False)
 
+        #label colours
+        self._not_active_colour = None
+        self._active_colour = None
+
     def update_image(self):
         super(ImageRadioButton, self).update_image()
-        self.set_image(self._controller.get_current_image(Gtk.Buildable.get_name(self)))
+        #self.set_image(self._controller.get_current_image(Gtk.Buildable.get_name(self)))
 
     def do_toggled(self):
         if self.get_active():
@@ -378,12 +382,37 @@ class ImageRadioButton(Gtk.RadioButton, OptionsWidget):
 
     def update_current_key(self):
         # update the current image and tooltip
-        self.set_image(self._controller.get_current_image(Gtk.Buildable.get_name(self)))
+        #self.set_image(self._controller.get_current_image(Gtk.Buildable.get_name(self)))
         self.set_tooltip_text("") #self._controller.get_current_description())
-        
+
+        from gi.repository import Gdk
         if self.controller.current_key == Gtk.Buildable.get_name(self):
             self.set_active(True)
+            self._set_colour(Gtk.StateFlags.NORMAL)
+        else:
+            self._set_colour(Gtk.StateFlags.INSENSITIVE)
 
+    def _set_colour(self, state_flag):
+    
+        if len(self.get_children()) == 0:
+            return
+
+        def get_standard_colour(label, state_flag):        
+            context = label.get_style_context()
+            return context.get_color(state_flag)
+    
+        label0 = self.get_children()[0]
+
+        if not self._not_active_colour:
+            self._not_active_colour = get_standard_colour(label0, Gtk.StateFlags.INSENSITIVE)
+
+        if not self._active_colour:
+            self._active_colour = get_standard_colour(label0, Gtk.StateFlags.NORMAL)
+
+        if state_flag ==  Gtk.StateFlags.INSENSITIVE:            
+            label0.override_color(Gtk.StateType.NORMAL, self._not_active_colour)
+        else:
+            label0.override_color(Gtk.StateType.NORMAL, self._active_colour)
 
 class SearchEntry(RB.SearchEntry, OptionsPopupWidget):
     __gtype_name__ = "SearchEntry"
