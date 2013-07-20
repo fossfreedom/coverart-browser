@@ -248,10 +248,13 @@ class MenuButton(PixbufButton, OptionsPopupWidget):
         '''
         add a new menu item to the popup
         '''
-        new_menu_item = Gtk.MenuItem(label=label)
-        new_menu_item.connect('activate', self._fire_item_clicked)
-        new_menu_item.show()
+        if 'separator' in label:
+            new_menu_item = Gtk.SeparatorMenuItem().new()
+        else:
+            new_menu_item = Gtk.MenuItem(label=label)
+            new_menu_item.connect('activate', self._fire_item_clicked)
 
+        new_menu_item.show()
         self._popup_menu.append(new_menu_item)
 
     def update_options(self):
