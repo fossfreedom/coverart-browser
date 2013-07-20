@@ -253,7 +253,8 @@ class CoverFlowView(AbstractView):
         pane after a second click on a selected album.
         '''
         # to expand the entry view
-        self.source.click_count += 1
+        if self.flow_automatic:
+            self.source.click_count += 1
             
         self.last_album = album
 
