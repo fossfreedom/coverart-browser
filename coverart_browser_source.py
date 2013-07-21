@@ -55,6 +55,7 @@ from coverart_coverflowview import CoverFlowView
 from coverart_artistview import ArtistView
 
 import coverart_rb3compat as rb3compat
+import random
 
 class CoverArtBrowserSource(RB.Source):
     '''
@@ -560,6 +561,64 @@ class CoverArtBrowserSource(RB.Source):
 
         self.queue_selected_album(playlist, True)
 
+    def play_random_album_menu_item_callback(self, favourites=False):
+        print('''CoverArtBrowser DEBUG - play_random_album_menu_item_callback''')
+        query_model = RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
+
+        num_albums = len(self.album_manager.model.store)
+
+        #random_list = []
+        selected_albums = []
+
+        gs = GSetting()
+        settings = gs.get_setting(gs.Path.PLUGIN)        
+        to_queue = settings[gs.PluginKey.RANDOM]
+
+        if num_albums <= to_queue:
+            dialog = Gtk.MessageDialog(None,
+                    Gtk.DialogFlags.MODAL,
+                    Gtk.MessageType.INFO,
+                    Gtk.ButtonsType.OK,
+                    _("The number of albums to randomly play is less than that displayed."))
+
+            dialog.run()
+            dialog.destroy()
+            return
+            
+        album_col = self.album_manager.model.columns['album']
+
+        chosen = {}
+
+        # now loop through finding unique random albums
+        # i.e. ensure we dont queue the same album twice
+        
+        for loop in range(0, to_queue):
+            while True:
+                pos = random.randint(0, num_albums - 1)
+                if pos not in chosen:
+                    chosen[pos] = None
+                    selected_albums.append(self.album_manager.model.store[pos][album_col])
+                    break
+
+        threshold = self.rating_threshold if favourites else 0
+
+        for album in selected_albums:
+            # Retrieve and sort the entries of the album
+            tracks = album.get_tracks(threshold)
+
+            # Add the songs to the play queue
+            for track in tracks:
+                query_model.add_entry(track.entry, -1)
+
+        self.props.query_model = query_model
+
+        # Start the music
+        player = self.shell.props.shell_player
+
+        player.play_entry(query_model[0][0], self)
+
+        print("CoverArtBrowser DEBUG - end play_selected_album")
+
     def cover_search_menu_item_callback(self, *args):
         '''
         Callback called when the search cover option is selected from the
@@ -719,7 +778,10 @@ class CoverArtBrowserSource(RB.Source):
             self.request_status_box.show_all()
             self.album_manager.cover_man.search_covers(
                 callback=self.update_request_status_bar)
-
+        elif choice == 'random':
+            self.play_random_album_menu_item_callback()
+        elif choice == 'random favourite':
+            self.play_random_album_menu_item_callback(True)
         elif choice == 'browser prefs':
             if not self._browser_preferences:
                 self._browser_preferences = Preferences()

@@ -120,6 +120,7 @@ class GSetting:
                 CUSTOM_STATUSBAR='custom-statusbar',
                 DISPLAY_BOTTOM='display-bottom',
                 DISPLAY_TEXT='display-text',
+                RANDOM='random-queue',
                 DISPLAY_TEXT_LOADING='display-text-loading',
                 DISPLAY_TEXT_ELLIPSIZE='display-text-ellipsize',
                 DISPLAY_TEXT_ELLIPSIZE_LENGTH='display-text-ellipsize-length',
@@ -277,6 +278,10 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         box_text = builder.get_object('display_text_box')
         self.settings.bind(gs.PluginKey.DISPLAY_TEXT, box_text, 'sensitive',
             Gio.SettingsBindFlags.GET)
+
+        random_scale = builder.get_object('random_adjustment')
+        self.settings.bind(gs.PluginKey.RANDOM, random_scale, 'value',
+            Gio.SettingsBindFlags.DEFAULT)
 
         toggle_text_ellipsize = builder.get_object(
             'display_text_ellipsize_checkbox')

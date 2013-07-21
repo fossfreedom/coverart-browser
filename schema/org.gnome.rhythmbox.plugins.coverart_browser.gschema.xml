@@ -166,5 +166,10 @@
             <summary>Maximum number of albums.</summary>
             <description>Total number of albums to display in the coverflow.</description>
         </key>
+        <key type="i" name="random-queue">
+            <default>1</default>
+            <summary>Queue random-albums.</summary>
+            <description>Number of random albums to queue.</description>
+        </key>
     </schema>
 </schemalist>
