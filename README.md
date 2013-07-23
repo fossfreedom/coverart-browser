@@ -23,7 +23,10 @@ Browse your coverart albums in Rhythmbox v2.96 - Rhythmbox v3.0
  - Advance options to control the icon-view spacing and selection padding - this can give a very different look to the plugin
  - Added support for compatibility for RB2.99
  - Added support for python3 for the upcoming RB3.0
- - ...
+ - New Coverflow view together with options to display new view in three different ways
+ - Toggle buttons to switch view as well as new Properties button
+ - Access preferences for both Search and Browswer plugins via Properties button
+ - Play random albums from your current playlist & search filters
  - for developers - doxygen documentation: http://fossfreedom.github.io/coverart-browser/classes.html
 
 *How it works:*
@@ -51,7 +54,7 @@ for opensuse
 NOTE - for opensuse 12.3 please do NOT install typelib-1_0-WebKit-3_0.  You also need to make
 the following code change to enable the plugin to work:
 
- - https://github.com/fossfreedom/coverart-browser/wiki/OpenSuse-12.3-WebKit-issue
+ - https://github.com/fossfreedom/coverart-browser/wiki/OpenSuse-12.3-WebKit-issue **subject to change in v0.9**
 
 Then install the plugin:
 
@@ -68,7 +71,7 @@ Note 1 - the CoverArt Browser plugin also requires installing the following plug
  
 *For Ubuntu 12.04 & 12.10:* --- NOT YET - INSTRUCTIONS BELOW ONLY VALID ON RELEASE OF v0.9
 
-V0.8 is now available in my rhythmbox PPA - installation instructions in this AskUbuntu Q&A:
+V0.9 is now available in my rhythmbox PPA - installation instructions in this AskUbuntu Q&A:
 
 http://askubuntu.com/questions/147942/how-do-i-install-third-party-rhythmbox-plugins
 
@@ -97,6 +100,8 @@ Credits:
  Licenses:
 
  This plugin code is released under the GPL3+ license.
+ 
+ Coverflow source is released under the MIT license
 
  All translations are released under the BSD license
 
