@@ -132,14 +132,23 @@ class CoverFlowView(AbstractView):
         string = f.read()
         f.close()
     
-        string = self.flow.initialise(string, self.album_manager.model)
-    
+        string = self.flow.initialise(string, self.album_manager.model, self.flow_max)
+
         if self.flow_background == 'W':
-            colour = 'white'
+            background_colour = 'white'
+            if len(self.album_manager.model.store) <= self.flow_max:
+                foreground_colour = 'white'
+            else:
+                foreground_colour = 'black'
         else:
-            colour = 'black'
-            
-        string = string.replace('#BACKGROUND_COLOUR', colour)
+            background_colour = 'black'
+            if len(self.album_manager.model.store) <= self.flow_max:
+                foreground_colour = 'black'
+            else:
+                foreground_colour = 'white'
+
+        string = string.replace('#BACKGROUND_COLOUR', background_colour)
+        string = string.replace('#FOREGROUND_COLOUR', foreground_colour)
         string = string.replace('#FACTOR', str(float(self.flow_scale)/100))
 
         if  self.flow_hide:
@@ -149,7 +158,7 @@ class CoverFlowView(AbstractView):
             
         string = string.replace('#GLOBAL_CAPTION', caption)
 
-        addon = colour
+        addon = background_colour
         if self.flow_appearance == 'flow-vert':
             addon += " vertical"
         elif self.flow_appearance == 'carousel':
@@ -288,78 +297,12 @@ class CoverFlowView(AbstractView):
         self.last_album = album
         self.scroll_to_album()
 
-class FlowBatch(object):
-    def __init__(self):
-        self.filename = []
-        self.title = []
-        self.caption = []
-        self.identifier = []
-        self.fetched = False
-
-    def append(self, fullfilename, title, caption, identifier):
-        self.filename.append(fullfilename)
-        self.title.append(title)
-        self.caption.append(caption)
-        self.identifier.append(identifier)
-
-    def html_elements(self):
-        str = ""
-        for loop in range(len(self.filename)):
-            str = str + '<div class="item"><img class="content" src="' +\
-                escape(self.filename[loop]) + '" title="' +\
-                escape(self.title[loop]) + '" identifier="' +\
-                self.identifier[loop] + '"/> <div class="caption">' +\
-                escape(self.caption[loop]) + '</div> </div>'
-
-        self.fetched = True
-        return str
-
 class FlowControl(object):
-    batch_size = 50
     
     def __init__(self, callback_view):
-        self.next_batch = 0
-        self.batches = []
         self.album_identifier = {}
         self.callback_view = callback_view
-        
-    def get_flow_batch(self, args):
-        messagevalue = args[0]
-        index = int(args[1])
-
-        obj = {}
-        position = 'stop'
-
-        if messagevalue == 'next':
-            calc_batch = int(index / self.batch_size) + 1
-                        
-            if ((calc_batch >= self.next_batch) and
-                (len(self.batches) > calc_batch) and
-                (not self.batches[calc_batch].fetched)):
-
-                position = 'last'
-                chosen = self.batches[calc_batch]
-                size = len(chosen.filename)
-                params = []
-            
-                for index in range(0, size):
-                    batch = {}
-                    batch['filename'] = chosen.filename[index]
-                    batch['title'] = chosen.title[index]
-                    batch['caption'] = chosen.caption[index]
-                    batch['identifier'] = chosen.identifier[index]
-
-                    params.append(batch)
-                obj['flowbatch'] = params
-                self.batches[calc_batch].fetched = True
-                self.next_batch = calc_batch + 1
-        else:
-            print ("unknown message %", messagevalue)
-            
-        obj['batchtype'] = position
-        ret = json.dumps(obj)
-        return ret
-
+    
     def update_album(self, model, album_path, album_iter, webview):
         album = model.get_from_path(album_path)
         index = -1
@@ -394,11 +337,7 @@ class FlowControl(object):
             print ("unhandled: %s " % title)
             return
 
-        if signal == 'getflowbatch':
-            s = self.get_flow_batch(args['param'])
-            print s
-            webview.execute_script("new_flow_batch('%s')" % s)
-        elif signal == 'clickactive':
+        if signal == 'clickactive':
             self.callback_view.item_clicked_callback(self.album_identifier[int(args['param'][0])])
         elif signal == 'rightclickactive':
             self.callback_view.item_rightclicked_callback(
@@ -414,48 +353,38 @@ class FlowControl(object):
                 webview.execute_script("scroll_to_identifier('%s')" % str(row))
                 break
 
-    def initialise(self, string, model):
-        element = 0
-        batch = None
+    def initialise(self, string, model, max_covers):
 
         album_col = model.columns['album']
-        pos = 0
-        del self.batches[:]
-        
+        index = 0
+        items = ""
+        def html_elements(fullfilename, title, caption, identifier):
+
+            return '<div class="item"><img class="content" src="' +\
+                escape(fullfilename) + '" title="' +\
+                escape(title) + '" identifier="' +\
+                identifier + '"/> <div class="caption">' +\
+                escape(caption) + '</div> </div>'
+
+
         for row in model.store:
-            if not (element < self.batch_size):
-                batch = None
-                element = 0
-                pos = pos + 1
-            
-            if not batch:
-                batch = FlowBatch()
-                self.batches.append(batch)
 
             cover = row[album_col].cover.original.replace(
                 'rhythmbox-missing-artwork.svg',
                 'rhythmbox-missing-artwork.png')  ## need a white vs black when we change the background colour
 
-            index = (pos*self.batch_size) + element
             self.album_identifier[index] = row[album_col]
-            
-            element = element + 1
-            
-            batch.append(
+            items += html_elements(
                 fullfilename = cover,
                 caption=row[album_col].name,
                 title=row[album_col].artist,
                 identifier=str(index))
 
-        items = ""
-
-        index = 0
-        while index <  len(self.batches) and index != 3:
-            items += self.batches[index].html_elements()
             index += 1
 
-        self.next_batch = index
-        
+            if index == max_covers:
+                break
+
         if index != 0:
             self.callback_view.last_album = self.album_identifier[0]
         else:
@@ -464,4 +393,3 @@ class FlowControl(object):
         string = string.replace('#ITEMS', items)
         
         return string
-        

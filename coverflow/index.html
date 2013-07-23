@@ -10,7 +10,7 @@
         var cf = new ContentFlow('contentFlow',
             {reflectionColor: "#000000",
              endOpacity : 0.3,
-             circularFlow: false,
+             circularFlow: true,
              startItem: "start",
              scaleFactor: #FACTOR,
              visibleItems: 7
@@ -20,10 +20,12 @@
     <style>
         body{
             background: #BACKGROUND_COLOUR;
+            color: #FOREGROUND_COLOUR;
         }
     </style>
 </head>
 <body>
+    <p>Search and Filter to display more covers</p>
     <div class="maincontent">
     <div style="width: #WIDTHpx; margin: 0px auto;">
     
@@ -38,20 +40,14 @@
             
         </div>
         #GLOBAL_CAPTION
-        <!--
+
         <div class="scrollbar">
             <div class="preButton"></div>
             <div class="nextButton"></div>
-            <div class="slider"><div class="position"></div></div>
-        </div> -->
+            <div class="slider"></div>
+        </div>
 
     </div>
-
-    <table id="mytable">
-        <tbody>
-            
-        </tbody>
-    </table>
     
     </div>
 

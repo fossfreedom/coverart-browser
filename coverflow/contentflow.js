@@ -1075,15 +1075,6 @@ ContentFlow.prototype = {
 
 
     _setCaptionLabel: function (index) {
-        if (index < 50 && ContentFlowGlobal.batchmessage == null) {
-            ContentFlowGlobal.batchmessage = "previous"
-            message_signal('getflowbatch',ContentFlowGlobal.batchmessage, index) 
-        }
-        else if (index > (cf.getNumberOfItems() - 50) && ContentFlowGlobal.batchmessage == null) {
-            ContentFlowGlobal.batchmessage = "next"
-            message_signal('getflowbatch',ContentFlowGlobal.batchmessage, index)
-        }
-            
         if(this.Position && !this.Slider.locked)
             this.Position.setLabel(index);
         this._setGlobalCaption();
