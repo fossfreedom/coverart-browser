@@ -213,6 +213,15 @@ var ContentFlowGlobal = {
         window.addEventListener("contextmenu", function(event) {
             event.preventDefault();
         }, false);
+        /* DM disable standard webview drag-drop*/
+        window.addEventListener("drop", function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }, false);
+        window.addEventListener("dragover", function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }, false);
     }
 };
 
@@ -506,6 +515,18 @@ var ContentFlowItem  = function (CFobj, element, index) {
         }
     }.bind(CFobj),
 
+    this.dropItem = function (event) {
+        if(!event) var event = window.event;
+        var el = event.target ? event.target : event.srcElement;
+        var index = el.itemIndex ? el.itemIndex : el.parentNode.itemIndex;
+        var item = this.items[index];
+        event.preventDefault();
+        
+        if (this._activeItem == item) {
+            this.conf.ondropActiveItem(item, event.dataTransfer.getData("Text"));
+        }
+    }.bind(CFobj),
+
     this.setIndex = function (index) {
         this.index = index;
         this.element.itemIndex = index;
@@ -595,9 +616,11 @@ ContentFlowItem.prototype = {
         var cItem = this.clickItem;
         var rcItem = this.rightclickItem;
         var dcItem = this.dblclickItem;
+        var dropItem = this.dropItem;
         this[this._activeElement].addEvent('click', cItem, false);
         this[this._activeElement].addEvent('mouseup', rcItem, false);
         this[this._activeElement].addEvent('dblclick', dcItem, false);
+        this[this._activeElement].addEvent('drop', dropItem, false);
     },
     
     setImageFormat: function (img) {
@@ -868,6 +891,12 @@ ContentFlow.prototype = {
             identifier = item.content.getAttribute('identifier');
 
             message_signal('doubleclickactive', identifier);
+        },
+
+        ondropActiveItem: function (item, webpath) {
+            var identifier;
+            identifier = item.content.getAttribute('identifier');
+            message_signal('dropactive', identifier, webpath);
         },
 
         onMakeInactive: function (item) {},

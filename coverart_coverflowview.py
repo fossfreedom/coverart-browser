@@ -280,6 +280,17 @@ class CoverFlowView(AbstractView):
 
         return True
 
+    def item_drop_callback(self, album, webpath):
+        '''
+        Callback called when something is dropped onto the flow view - hopefully a webpath
+        to a picture
+        '''
+
+        print album
+        print webpath
+
+        self.album_manager.cover_man.update_cover(album, uri=webpath)
+
     def get_selected_objects(self):
         if self.last_album:
             return [self.last_album]
@@ -344,6 +355,9 @@ class FlowControl(object):
                 self.album_identifier[int(args['param'][0])])
         elif signal == 'doubleclickactive':
             self.callback_view.item_activated_callback(self.album_identifier[int(args['param'][0])])
+        elif signal == 'dropactive':
+            self.callback_view.item_drop_callback(self.album_identifier[int(args['param'][0])],
+                args['param'][1])
         else:
             print ("unhandled signal: %s" % signal)
 
