@@ -1147,6 +1147,7 @@ class ViewManager(GObject.Object):
             self._views[self.view_name].switch_to_view(self.source, current_album)
             self._lastview = self.view_name
             self.current_view.set_popup_menu(self.source.popup_menu)
+            self.source.album_manager.current_view = self.current_view
             
             gs = GSetting()
             setting = gs.get_setting(gs.Path.PLUGIN)
