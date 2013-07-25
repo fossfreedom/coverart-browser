@@ -334,10 +334,25 @@ function update_album(msg) {
     var obj = eval('(' + msg + ')');
     var index = Math.floor(obj.identifier);
     var item = cf.getItem(index);
-    item.content.setAttribute('src', obj.filename);
-    item.caption.innerHTML = obj.caption;
-    item.content.setAttribute('title', obj.title);
+    //console.log(item.content.getAttribute('src'))
+    //item.content.setAttribute('src', '/home/dad/.cache/rhythmbox/album-art/000000ab');
+    //item.content.setAttribute('src', obj.filename);
+    //item.caption.innerHTML = obj.caption;
+    //item.content.setAttribute('title', obj.title);
     //console.log(x);
+    console.log(index)
+    console.log(item.pre)
+    console.log(item.pre.index)
+    var element = cf.rmItem(index)
+    item = cf.getActiveItem()
+    console.log(item.index)
+    var link = document.createElement('img');
+    link.setAttribute('src', obj.filename);
+    link.setAttribute('title', obj.title);
+    link.setAttribute('caption', obj.filename);
+    link.setAttribute('identifier', obj.identifier);
+    cf.addItem(link, index - 1);
+    cf.moveTo(index - 1)
 };
 
 function new_flow_batch(msg) {

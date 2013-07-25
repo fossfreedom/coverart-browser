@@ -101,11 +101,8 @@ class CoverFlowView(AbstractView):
             'flow_max', Gio.SettingsBindFlags.GET)
             
     def connect_signals(self, source):
-        print "here"
         self.connect('notify::flow-background',
             self.filter_changed)
-        #self.connect('notify::flow_automatic',
-        #    self.filter_changed) ## need
         self.connect('notify::flow-scale',
             self.filter_changed)
         self.connect('notify::flow-hide',
@@ -118,15 +115,7 @@ class CoverFlowView(AbstractView):
             self.filter_changed)
         
     def filter_changed(self, *args):
-        print "############filter_changed"
-        #for some reason three filter change events occur on startup
-
-        #if len(self.album_manager.model.store) > self.flow_max:
-        #    path = rb.find_plugin_file(self.plugin, 'coverflow/filter.html')
-        #    f = open(path)
-        #    string = f.read()
-        #    f.close()
-        #else:
+        print ("filter_changed %s" % self.last_album)
         path = rb.find_plugin_file(self.plugin, 'coverflow/index.html')
         f = open(path)
         string = f.read()
@@ -169,11 +158,21 @@ class CoverFlowView(AbstractView):
         string = string.replace('#ADDON', addon)
 
         string = string.replace('#WIDTH', str(self.flow_width))
+
+        identifier = self.flow.get_identifier(self.last_album)
+        if not identifier:
+            identifier = "'start'"
+        else:
+            identifier = str(identifier)
+            
+        string = string.replace('#START', identifier)
         
         base =  os.path.dirname(path) + "/"
+        print ("###########1filter_changed %s" % self.last_album)
         self.view.load_string(string, "text/html", "UTF-8", "file://" + base)
-
-        self.scroll_to_album()
+        print ("###########2filter_changed %s" % self.last_album)
+        
+        #self.scroll_to_album()
         
     def get_view_icon_name(self):
         return "flowview.png"
@@ -193,9 +192,7 @@ class CoverFlowView(AbstractView):
             self.flow.scroll_to_album(self.last_album, self.view)
         
     def initialise(self, source):
-        print "###########initialise"
         if self._has_initialised:
-            print "exited"
             return
             
         self._has_initialised = True
@@ -206,7 +203,6 @@ class CoverFlowView(AbstractView):
         self.ext_menu_pos = 10
         
         self.connect_properties()
-        print "connecting"
         self.connect_signals(source)
         
         # lets check that all covers have finished loading before
@@ -217,12 +213,13 @@ class CoverFlowView(AbstractView):
             self.covers_loaded()
 
     def covers_loaded(self, *args):
-        print "#########coversloaded"
         self.flow = FlowControl(self)
         self.view.connect("notify::title", self.flow.receive_message_signal)
 
-        self.album_manager.model.connect('album-updated', self.flow.update_album, self.view)
-        self.album_manager.model.connect('visual-updated', self.flow.update_album, self.view)
+        #self.album_manager.model.connect('album-updated', self.flow.update_album, self.view)
+        #self.album_manager.model.connect('visual-updated', self.flow.update_album, self.view)
+        self.album_manager.model.connect('album-updated', self.filter_changed)
+        self.album_manager.model.connect('visual-updated', self.filter_changed)
         self.album_manager.model.connect('filter-changed', self.filter_changed)
         
         self.filter_changed()
@@ -285,10 +282,6 @@ class CoverFlowView(AbstractView):
         Callback called when something is dropped onto the flow view - hopefully a webpath
         to a picture
         '''
-
-        print album
-        print webpath
-
         self.album_manager.cover_man.update_cover(album, uri=webpath)
 
     def get_selected_objects(self):
@@ -313,7 +306,19 @@ class FlowControl(object):
     def __init__(self, callback_view):
         self.album_identifier = {}
         self.callback_view = callback_view
-    
+
+    def get_identifier(self, album):
+        index = -1
+        for row in self.album_identifier:
+            if self.album_identifier[row] == album:
+                index = row
+                break
+
+        if index == -1:
+            return None
+        else:
+            return row
+
     def update_album(self, model, album_path, album_iter, webview):
         album = model.get_from_path(album_path)
         index = -1
@@ -400,7 +405,8 @@ class FlowControl(object):
                 break
 
         if index != 0:
-            self.callback_view.last_album = self.album_identifier[0]
+            #self.callback_view.last_album = self.album_identifier[0]
+            pass
         else:
             self.callback_view.last_album = None
 
