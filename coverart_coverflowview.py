@@ -113,16 +113,30 @@ class CoverFlowView(AbstractView):
             self.filter_changed)
         self.connect('notify::flow-max',
             self.filter_changed)
-        
+
     def filter_changed(self, *args):
-        print ("filter_changed %s" % self.last_album)
+        # we can get several filter_changed calls per second
+        # lets simplify the processing & potential flickering when the
+        # call to this method has slowed stopped
+        
+        self._filter_changed_event = True
+
+        def filter_events(*args):
+            if not self._filter_changed_event:
+                self._filter_changed()
+            else:
+                self._filter_changed_event = False
+                return True
+                
+        Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250, filter_events, None)
+        
+    
+    def _filter_changed(self, *args):
         path = rb.find_plugin_file(self.plugin, 'coverflow/index.html')
         f = open(path)
         string = f.read()
         f.close()
     
-        string = self.flow.initialise(string, self.album_manager.model, self.flow_max)
-
         if self.flow_background == 'W':
             background_colour = 'white'
             if len(self.album_manager.model.store) <= self.flow_max:
@@ -166,13 +180,11 @@ class CoverFlowView(AbstractView):
             identifier = str(identifier)
             
         string = string.replace('#START', identifier)
-        
+
+        string = self.flow.initialise(string, self.album_manager.model, self.flow_max)
+
         base =  os.path.dirname(path) + "/"
-        print ("###########1filter_changed %s" % self.last_album)
         self.view.load_string(string, "text/html", "UTF-8", "file://" + base)
-        print ("###########2filter_changed %s" % self.last_album)
-        
-        #self.scroll_to_album()
         
     def get_view_icon_name(self):
         return "flowview.png"
@@ -293,6 +305,7 @@ class CoverFlowView(AbstractView):
     def select_and_scroll_to_path(self, path):
         album = self.source.album_manager.model.get_from_path(path)
         self.flow.scroll_to_album(album, self.view)
+        self.item_clicked_callback(album)
 
     def switch_to_view(self, source, album):
         self.initialise(source)
