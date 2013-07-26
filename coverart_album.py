@@ -718,7 +718,7 @@ class AlbumsModel(GObject.Object):
                 self._tree_store.move_before(tree_iter, old_iter)
 
             # inform that the album is updated
-            self._emit_signal(tree_iter, 'album_updated')
+            self._emit_signal(tree_iter, 'album-updated')
 
     def _cover_updated(self, album):
         tree_iter = self._iters[album.name][album.artist]['iter']
@@ -751,7 +751,7 @@ class AlbumsModel(GObject.Object):
 
         :param album: `Album` to be added to the model.
         '''
-        # generate necesary values
+        # generate necessary values
         values = self._generate_values(album)
         # insert the values
         tree_iter = self._tree_store.insert(self._albums.insert(album), values)
