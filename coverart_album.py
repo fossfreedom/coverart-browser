@@ -1079,8 +1079,9 @@ class AlbumLoader(GObject.Object):
         try:
             track = self._tracks[Track(entry).location]
 
-            while True:
+            while changes.n_values != 0:
                 change = changes.values
+                print change.prop
                 if change.prop is RB.RhythmDBPropType.ALBUM \
                     or change.prop is RB.RhythmDBPropType.ALBUM_ARTIST \
                     or change.prop is RB.RhythmDBPropType.ARTIST:
@@ -1100,8 +1101,11 @@ class AlbumLoader(GObject.Object):
                 # removes the last change from the GValueArray
                 changes.remove(0)
         except:
-            # we finished reading the GValueArray
-            pass
+            # we have a problem houston ... RB2.98 and 2.99 cant cope
+            # lets just assume something has just changed
+            
+            track = self._tracks[Track(entry).location]
+            track.emit('modified')
 
         print("CoverArtBrowser DEBUG - end entry_changed_callback")
 
