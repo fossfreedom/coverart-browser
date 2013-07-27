@@ -413,12 +413,14 @@ class Album(GObject.Object):
         self.emit('modified')
 
     def _track_modified(self, track):
+        print ("_track_modified")
         if track.album != self.name:
             self._track_deleted(track)
         else:
             self.emit('modified')
 
     def _track_deleted(self, track):
+        print ("_track_deleted")
         self._tracks.remove(track)
 
         #list(map(track.disconnect, self._signals_id[track]))
@@ -696,6 +698,7 @@ class AlbumsModel(GObject.Object):
         return ALBUM_LOAD_CHUNK, process, None, error, None
 
     def _album_modified(self, album):
+        print ("_album_modified")
         tree_iter = self._iters[album.name][album.artist]['iter']
 
         if self._tree_store.iter_is_valid(tree_iter):
@@ -1073,20 +1076,19 @@ class AlbumLoader(GObject.Object):
         # note for RB3.00 a GPtrArray is used thus this now works correctly
 
         # look at all the changes and update the albums acordingly
-        
         try:
             track = self._tracks[Track(entry).location]
 
             while True:
                 change = changes.values
-
                 if change.prop is RB.RhythmDBPropType.ALBUM \
                     or change.prop is RB.RhythmDBPropType.ALBUM_ARTIST \
                     or change.prop is RB.RhythmDBPropType.ARTIST:
                     # called when the album of a entry is modified
                     track.emit('deleted')
+                    track.emit('modified')
                     self._allocate_track(track)
-
+                    
                 elif change.prop is RB.RhythmDBPropType.HIDDEN:
                     # called when an entry gets hidden (e.g.:the sound file is
                     # removed.
@@ -1094,7 +1096,7 @@ class AlbumLoader(GObject.Object):
                         track.emit('deleted')
                     else:
                         self._allocate_track(track)
-
+                    
                 # removes the last change from the GValueArray
                 changes.remove(0)
         except:
@@ -1660,28 +1662,9 @@ class AlbumManager(GObject.Object):
         '''
         Connects the manager to all the needed signals for it to work.
         '''
-        # connect signals for updating the albums
-        self.entry_changed_id = self.db.connect('entry-changed',
-            self._entry_changed_callback)
-
         # connect signal to the loader so it shows the albums when it finishes
         self._load_finished_id = self.loader.connect('model-load-finished',
             self._load_finished_callback)
-
-    def _entry_changed_callback(self, db, entry, changes):
-        '''
-        Callback called when a RhythDB entry is modified. Updates the albums
-        accordingly to the changes made on the db.
-
-        :param changes: GValueArray with the RhythmDBEntryChange made on the
-        entry.
-        '''
-        print("CoverArtBrowser DEBUG - entry_changed_callback")
-
-        track = self.loader._tracks[Track(entry).location]
-        track.emit('modified')
-
-        print("CoverArtBrowser DEBUG - end entry_changed_callback")
 
     def _load_finished_callback(self, *args):
         self.cover_man.load_covers()

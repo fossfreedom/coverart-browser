@@ -325,9 +325,9 @@ class CoverFlowView(AbstractView):
 class FlowControl(object):
     
     def __init__(self, callback_view):
-        self.album_identifier = {}
         self.callback_view = callback_view
-
+        self.album_identifier = {}
+        
     def get_identifier(self, album):
         index = -1
         for row in self.album_identifier:
@@ -398,6 +398,8 @@ class FlowControl(object):
         album_col = model.columns['album']
         index = 0
         items = ""
+        self.album_identifier = {}
+        
         def html_elements(fullfilename, title, caption, identifier):
 
             return '<div class="item"><img class="content" src="' +\
