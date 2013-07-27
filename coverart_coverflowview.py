@@ -32,9 +32,7 @@ import json
 import os
 from os.path import expanduser
 from xml.sax.saxutils import escape
-
 from collections import namedtuple
-
 
 class FlowShowingPolicy(GObject.Object):
     '''
@@ -81,6 +79,7 @@ class CoverFlowView(AbstractView):
         self._last_album = None
         self._has_initialised = False
         self._flow_first_call = False
+        self._filter_changed_inprogress = False
         
     def connect_properties(self):
         gs = GSetting()
@@ -121,12 +120,19 @@ class CoverFlowView(AbstractView):
         
         self._filter_changed_event = True
 
+        if self._filter_changed_inprogress:
+            return
+
+        self._filter_changed_inprogress = True
+
         def filter_events(*args):
             if not self._filter_changed_event:
                 self._filter_changed()
+                self._filter_changed_inprogress = False
             else:
                 self._filter_changed_event = False
                 return True
+        
                 
         Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250, filter_events, None)
         
@@ -184,7 +190,9 @@ class CoverFlowView(AbstractView):
         string = self.flow.initialise(string, self.album_manager.model, self.flow_max)
 
         base =  os.path.dirname(path) + "/"
+        Gdk.threads_enter()
         self.view.load_string(string, "text/html", "UTF-8", "file://" + base)
+        Gdk.threads_leave()
         
     def get_view_icon_name(self):
         return "flowview.png"
