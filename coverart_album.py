@@ -353,7 +353,8 @@ class Album(GObject.Object):
     def rating(self, new_rating):
         for track in self._tracks:
             track.rating = new_rating
-
+        self._rating = None
+        
     @property
     def track_count(self):
         return len(self._tracks)
