@@ -191,10 +191,13 @@ class CoverFlowView(AbstractView):
             
         string = string.replace('#START', identifier)
 
-        string = self.flow.initialise(string, self.album_manager.model, self.flow_max)
+        items = self.flow.initialise(self.album_manager.model, self.flow_max)
 
+        string = string.replace('#ITEMS', items)
+        
         base =  os.path.dirname(path) + "/"
         Gdk.threads_enter()
+        print (string)
         self.view.load_string(string, "text/html", "UTF-8", "file://" + base)
         Gdk.threads_leave()
         
@@ -295,6 +298,8 @@ class CoverFlowView(AbstractView):
         Callback called when something is dropped onto the flow view - hopefully a webpath
         to a picture
         '''
+        print ("item_drop_callback %s" % webpath)
+        print ("dropped on album %s" % album)
         self.album_manager.cover_man.update_cover(album, uri=webpath)
 
     def get_selected_objects(self):
@@ -389,7 +394,7 @@ class FlowControl(object):
                 webview.execute_script("scroll_to_identifier('%s')" % str(row))
                 break
 
-    def initialise(self, string, model, max_covers):
+    def initialise(self, model, max_covers):
 
         album_col = model.columns['album']
         index = 0
@@ -407,7 +412,8 @@ class FlowControl(object):
 
         for row in model.store:
 
-            cover = row[album_col].cover.original.replace(
+            cover = row[album_col].cover.original
+            cover = cover.replace(
                 'rhythmbox-missing-artwork.svg',
                 'rhythmbox-missing-artwork.png')  ## need a white vs black when we change the background colour
 
@@ -429,6 +435,4 @@ class FlowControl(object):
         else:
             self.callback_view.last_album = None
 
-        string = string.replace('#ITEMS', items)
-        
-        return string
+        return items

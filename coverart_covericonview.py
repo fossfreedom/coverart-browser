@@ -83,7 +83,7 @@ class AlbumShowingPolicy(GObject.Object):
         if not self._visible_paths:
             self._viewport_changed()
 
-        if album_path and album_path in self._visible_paths:
+        if (album_path and self._visible_paths) and album_path in self._visible_paths:
             # if our path is on the viewport, emit the signal to update it
             self._cover_view.queue_draw()
 
