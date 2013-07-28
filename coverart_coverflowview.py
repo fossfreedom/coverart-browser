@@ -78,10 +78,9 @@ class CoverFlowView(AbstractView):
         self.view = WebKit.WebView()
         self._last_album = None
         self._has_initialised = False
-        self._flow_first_call = False
         self._filter_changed_inprogress = False
         
-    def connect_properties(self):
+    def _connect_properties(self):
         gs = GSetting()
         settings = gs.get_setting(gs.Path.PLUGIN)
         settings.bind(gs.PluginKey.FLOW_APPEARANCE, self,
@@ -99,7 +98,7 @@ class CoverFlowView(AbstractView):
         settings.bind(gs.PluginKey.FLOW_MAX, self,
             'flow_max', Gio.SettingsBindFlags.GET)
             
-    def connect_signals(self, source):
+    def _connect_signals(self, source):
         self.connect('notify::flow-background',
             self.filter_changed)
         self.connect('notify::flow-scale',
@@ -198,18 +197,7 @@ class CoverFlowView(AbstractView):
         return "flowview.png"
 
     def scroll_to_album(self):
-
-        def start_scroll(*args):
-            self._flow_first_call = True
-            self.flow.scroll_to_album(self.last_album, self.view)
-
-        # hack - wait a couple of seconds on the very first time that
-        # the flow has loaded to give it time to finish loading before
-        # initiating the scroll otherwise the scroll signal will get lost
-        if not self._flow_first_call:
-            Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 2000, start_scroll, None)
-        else:
-            self.flow.scroll_to_album(self.last_album, self.view)
+        self.flow.scroll_to_album(self.last_album, self.view)
         
     def initialise(self, source):
         if self._has_initialised:
@@ -222,17 +210,17 @@ class CoverFlowView(AbstractView):
         self.album_manager = source.album_manager
         self.ext_menu_pos = 10
         
-        self.connect_properties()
-        self.connect_signals(source)
+        self._connect_properties()
+        self._connect_signals(source)
         
         # lets check that all covers have finished loading before
         # initialising the flowcontrol and other signals
         if not self.album_manager.cover_man.has_finished_loading:
-            self.album_manager.cover_man.connect('load-finished', self.covers_loaded)
+            self.album_manager.cover_man.connect('load-finished', self._covers_loaded)
         else:
-            self.covers_loaded()
+            self._covers_loaded()
 
-    def covers_loaded(self, *args):
+    def _covers_loaded(self, *args):
         self.flow = FlowControl(self)
         self.view.connect("notify::title", self.flow.receive_message_signal)
 
