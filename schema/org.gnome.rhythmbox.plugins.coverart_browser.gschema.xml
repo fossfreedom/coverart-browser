@@ -171,5 +171,10 @@
             <summary>Queue random-albums.</summary>
             <description>Number of random albums to queue.</description>
         </key>
+        <key type="b" name="webkit-support">
+            <default>true</default>
+            <summary>Support webkit functionality</summary>
+            <description>For some distros, webkit causes RB crashes and as such webkit-support and associated functionality can be turned off with this flag</description>
+        </key>
     </schema>
 </schemalist>

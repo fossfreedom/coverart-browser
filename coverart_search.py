@@ -19,13 +19,11 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
 import rb
-
 from gi.repository import Gtk
-from gi.repository import WebKit
 from mako.template import Template
 import coverart_rb3compat as rb3compat
 from coverart_album import AlbumManager
-
+from coverart_browser_prefs import webkit_support
 
 class CoverSearchPane(Gtk.Box):
     '''
@@ -47,10 +45,11 @@ class CoverSearchPane(Gtk.Box):
         self.basepath = 'file://' + plugin.plugin_info.get_data_dir()
 
         self.load_templates(plugin)
-        self.init_gui()
+        if webkit_support():
+            self.init_gui()
 
-        # init the pane with the empty template
-        self.clear()
+            # init the pane with the empty template
+            self.clear()
 
     def load_templates(self, plugin):
         '''
@@ -79,6 +78,7 @@ class CoverSearchPane(Gtk.Box):
         Initializes the pane ui.
         '''
         #---- set up webkit pane -----#
+        from gi.repository import WebKit
         self.webview = WebKit.WebView()
         settings = self.webview.get_settings()
         settings.set_property('enable-default-context-menu', False)

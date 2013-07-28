@@ -31,6 +31,14 @@ from stars import ReactiveStar
 from stars import StarSize
 import coverart_rb3compat as rb3compat
 
+def webkit_support():
+    '''
+    function that returns True/False if webkit technology is supported
+    '''
+    gs = GSetting()
+    settings = gs.get_setting(gs.Path.PLUGIN)
+    return settings[gs.PluginKey.WEBKIT]
+
 class CoverLocale:
     '''
     This class manages the locale
@@ -146,7 +154,8 @@ class GSetting:
                 FLOW_BACKGROUND_COLOUR='flow-background-colour',
                 FLOW_AUTOMATIC='flow-automatic',
                 FLOW_WIDTH='flow-width',
-                FLOW_MAX='flow-max-albums')
+                FLOW_MAX='flow-max-albums',
+                WEBKIT='webkit-support')
 
             self.setting = {}
 

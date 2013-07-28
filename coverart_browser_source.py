@@ -53,6 +53,7 @@ from coverart_rb3compat import ActionGroup
 from coverart_covericonview import CoverIconView
 from coverart_coverflowview import CoverFlowView
 from coverart_artistview import ArtistView
+from coverart_browser_prefs import webkit_support
 
 import coverart_rb3compat as rb3compat
 import random
@@ -952,6 +953,15 @@ class Toolbar(GObject.Object):
         for button, controller in controllers.items():
             if button != 'search':
                 builder.get_object(button).controller = controller
+
+        if not webkit_support():
+            button = builder.get_object('iconview_button')
+            button.set_visible(False)
+            button = builder.get_object('flowview_button')
+            button.set_visible(False)
+            separator = builder.get_object('properties_separator')
+            if separator:
+                separator.set_visible(False)
 
         # workaround to translate the search entry tooltips
         cl.switch_locale(cl.Locale.RB)

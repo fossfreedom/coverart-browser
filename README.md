@@ -50,11 +50,6 @@ for fedora and similar:
 for opensuse
 
     sudo zypper in git gettext-runtime python-mako python-lxml typelib-1_0-WebKit-3_0
-    
-NOTE - for opensuse 12.3 please do NOT install typelib-1_0-WebKit-3_0.  You also need to make
-the following code change to enable the plugin to work:
-
- - https://github.com/fossfreedom/coverart-browser/wiki/OpenSuse-12.3-WebKit-issue **subject to change in v0.9**
 
 Then install the plugin:
 
@@ -68,7 +63,18 @@ sh ./install.sh
 Note 1 - the CoverArt Browser plugin also requires installing the following plugin:
 
  - https://github.com/fossfreedom/coverart-search-providers
- 
+
+Note 2 - IMPORTANT NOTE - for some distros that do not have rhythmbox webkit support, DO NOT install your
+webkit library.  For these distros, it is highly likely that installing webkit v3 will
+crash rhythmbox if this plugin is also installed and activated.
+
+For example, opensuse 12.3 please do NOT install `typelib-1_0-WebKit-3_0`.
+
+You also need to make the following change to enable the plugin to work:
+
+    gsettings set org.gnome.rhythmbox.plugins.coverart_browser webkit-support true
+
+
 *For Ubuntu 12.04 & 12.10:* --- NOT YET - INSTRUCTIONS BELOW ONLY VALID ON RELEASE OF v0.9
 
 V0.9 is now available in my rhythmbox PPA - installation instructions in this AskUbuntu Q&A:

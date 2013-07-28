@@ -18,7 +18,6 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
 from coverart_external_plugins import CreateExternalPluginMenu
-from gi.repository import WebKit
 from gi.repository import Gdk
 from gi.repository import Gtk
 from gi.repository import GLib

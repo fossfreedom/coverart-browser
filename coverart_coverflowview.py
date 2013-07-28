@@ -18,13 +18,13 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
 from coverart_external_plugins import CreateExternalPluginMenu
-from gi.repository import WebKit
 from gi.repository import Gdk
 from gi.repository import Gtk
 from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import Gio
 from coverart_browser_prefs import GSetting
+from coverart_browser_prefs import webkit_support
 from coverart_album import AlbumsModel
 from coverart_widgets import AbstractView
 import rb
@@ -75,7 +75,12 @@ class CoverFlowView(AbstractView):
         self.ext_menu_pos = 0
         self._external_plugins = None
         self.show_policy = FlowShowingPolicy(self)
-        self.view = WebKit.WebView()
+        if webkit_support():
+            from gi.repository import WebKit
+            self.view = WebKit.WebView()
+        else:
+            self.view = None
+            
         self._last_album = None
         self._has_initialised = False
         self._filter_changed_inprogress = False
