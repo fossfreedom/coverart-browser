@@ -72,7 +72,7 @@ For example, opensuse 12.3 please do NOT install `typelib-1_0-WebKit-3_0`.
 
 You also need to make the following change to enable the plugin to work:
 
-    gsettings set org.gnome.rhythmbox.plugins.coverart_browser webkit-support true
+    gsettings set org.gnome.rhythmbox.plugins.coverart_browser webkit-support false
 
 
 *For Ubuntu 12.04 & 12.10:* --- NOT YET - INSTRUCTIONS BELOW ONLY VALID ON RELEASE OF v0.9
@@ -107,7 +107,7 @@ Credits:
 
  This plugin code is released under the GPL3+ license.
  
- Coverflow source is released under the MIT license
+ Contentflow source is released under the MIT license
 
  All translations are released under the BSD license
 
