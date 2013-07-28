@@ -1096,16 +1096,33 @@ class AbstractView(GObject.Object):
         self.source.update_with_selection()
 
     def select_and_scroll_to_path(self, path):
+        '''
+        find a path and highlight (select) that object
+        '''
         pass
 
     def set_popup_menu(self, popup):
+        '''
+        define the popup menu (right click) used for the view
+        '''
         self.popup = popup
 
     def grab_focus(self):
+        '''
+        ensures main view object retains the focus
+        '''
         pass
 
     def switch_to_view(self, source, album):
+        '''
+        ensures that when the user toggles to a view stuff remains
+        consistent
+        '''
         pass
         
     def get_view_icon_name(self):
+        '''
+        every view should have an icon - subject to removal
+        since we'll probably just have text buttons for the view
+        '''
         return ""

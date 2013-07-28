@@ -310,6 +310,9 @@ class CoverFlowView(AbstractView):
         self.last_album = album
         self.scroll_to_album()
 
+    def grab_focus(self):
+        self.view.grab_focus()
+
 class FlowControl(object):
     
     def __init__(self, callback_view):

@@ -371,3 +371,6 @@ class CoverIconView(EnhancedIconView, AbstractView):
             path = source.album_manager.model.get_path(album)
             self.select_and_scroll_to_path(path)
 
+    def grab_focus(self):
+        super(EnhancedIconView, self).grab_focus()
+
