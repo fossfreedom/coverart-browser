@@ -2131,6 +2131,7 @@ ContentFlow.prototype = {
             this.globalCaption.innerHTML = '';
             if(this._activeItem && this._activeItem.caption)
                 this.globalCaption.appendChild(this._activeItem.caption.cloneNode(true));
+                this.conf.onclickActiveItem(this._activeItem);
         }
     },
 
