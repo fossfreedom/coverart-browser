@@ -190,6 +190,11 @@ class CoverFlowView(AbstractView):
             identifier = str(identifier)
             
         string = string.replace('#START', identifier)
+        
+        #TRANSLATORS: for example 'Number of covers limited to 150'
+        display_message = _("Number of covers limited to %d") % self.flow_max
+        string = string.replace('#MAXCOVERS',
+          '<p>' + display_message + '</p>')
 
         items = self.flow.initialise(self.album_manager.model, self.flow_max)
 
