@@ -1051,7 +1051,7 @@ class PanedCollapsible(Gtk.Paned):
 
         self.set_position(new_y)
 
-    def expand(self, force_expand):
+    def expand(self, force_expand=False):
         '''
         Toggles the expanded property of the collapsible children.
         unless requested to force expansion
