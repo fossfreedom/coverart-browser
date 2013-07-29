@@ -1218,7 +1218,7 @@ albums to play</property>
         </child>
         <child>
           <object class="GtkCheckButton" id="automatic_checkbox">
-            <property name="label" translatable="yes">Enable automatic display
+            <property name="label" translatable="yes">open or close
 on click of cover</property>
             <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
