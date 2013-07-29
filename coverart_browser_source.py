@@ -710,16 +710,24 @@ class CoverArtBrowserSource(RB.Source):
 
         print("CoverArtBrowser DEBUG - end rating_changed_callback")
 
-    def show_hide_pane(self, album):
+    def show_hide_pane(self, params):
         '''
         helper function - if the entry is manually expanded
         then if necessary scroll the view to the last selected album
+        params is "album" or a tuple of "album" and "force_expand" boolean
         '''
-        if album and self.click_count == 1 \
-            and self.last_selected_album is album:
+        
+        if isinstance(params, tuple):
+            album, force_expand = params
+        else:
+            album = params
+            force_expand = False
+        
+        if (album and self.click_count == 1 \
+            and self.last_selected_album is album) or force_expand:
             # check if it's a second or third click on the album and expand
             # or collapse the entry view accordingly
-            self.paned.expand()
+            self.paned.expand(force_expand)
 
         # update the selected album
         selected = self.viewmgr.current_view.get_selected_objects()

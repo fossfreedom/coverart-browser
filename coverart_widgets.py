@@ -1051,12 +1051,16 @@ class PanedCollapsible(Gtk.Paned):
 
         self.set_position(new_y)
 
-    def expand(self):
+    def expand(self, force_expand):
         '''
         Toggles the expanded property of the collapsible children.
+        unless requested to force expansion
         '''
         if self._expander:
-            self._expander.set_expanded(not self._expander.get_expanded())
+            if force_expand:
+                self._expander.set_expanded(True)
+            else:
+                self._expander.set_expanded(not self._expander.get_expanded())
 
 class AbstractView(GObject.Object):
     '''

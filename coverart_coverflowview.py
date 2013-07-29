@@ -84,6 +84,7 @@ class CoverFlowView(AbstractView):
         self._last_album = None
         self._has_initialised = False
         self._filter_changed_inprogress = False
+        self._on_first_use = True
         
     def _connect_properties(self):
         gs = GSetting()
@@ -205,7 +206,11 @@ class CoverFlowView(AbstractView):
         print (string)
         self.view.load_string(string, "text/html", "UTF-8", "file://" + base)
         Gdk.threads_leave()
-        
+
+        if self._on_first_use:
+            Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
+                    self.source.show_hide_pane, (self.last_album, True))
+
     def get_view_icon_name(self):
         return "flowview.png"
 
@@ -324,7 +329,7 @@ class CoverFlowView(AbstractView):
         
         self.last_album = album
         self.scroll_to_album()
-
+        
     def grab_focus(self):
         self.view.grab_focus()
 
