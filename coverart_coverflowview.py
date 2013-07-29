@@ -208,6 +208,7 @@ class CoverFlowView(AbstractView):
         Gdk.threads_leave()
 
         if self._on_first_use:
+            self._on_first_use = False
             Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
                     self.source.show_hide_pane, (self.last_album, True))
 
