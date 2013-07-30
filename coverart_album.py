@@ -1082,7 +1082,7 @@ class AlbumLoader(GObject.Object):
 
             while changes.n_values != 0:
                 change = changes.values
-                print change.prop
+
                 if change.prop is RB.RhythmDBPropType.ALBUM \
                     or change.prop is RB.RhythmDBPropType.ALBUM_ARTIST \
                     or change.prop is RB.RhythmDBPropType.ARTIST:

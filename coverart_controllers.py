@@ -676,7 +676,6 @@ class ViewController(OptionsController):
         
     def on_notify_view_name(self, *args):
         self.current_key = self._keys[self._viewmgr.view_name]
-        print self.current_key    
         
     def update_images(self, *args):
         # reinitialize images
