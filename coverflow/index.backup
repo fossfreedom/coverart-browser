@@ -41,13 +41,14 @@
         </div>
         #GLOBAL_CAPTION
 
-         <div class="scrollbar">
+        <div class="scrollbar">
+            <div class="preButton"></div>
+            <div class="nextButton"></div>
             <div class="slider"></div>
         </div>
+
     </div>
     
-    </div>
-
     </div>
 
 </body>
