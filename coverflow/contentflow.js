@@ -1682,7 +1682,8 @@ ContentFlow.prototype = {
 
                     if (this.Browser.WebKit) {
                         document.body.addEvent('keydown',  function (event) {
-                            if (mouseoverCheck.offsetLeft > 0) key(event) ;
+                            //(if (mouseoverCheck.offsetLeft > 0) key(event) ;
+                            key(event);
                         });
                     } else {
                         window.addEvent('keydown',  function (event) {
