@@ -27,6 +27,7 @@ from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import webkit_support
 from coverart_album import AlbumsModel
 from coverart_widgets import AbstractView
+from coverart_widgets import PanedCollapsible
 import rb
 import json
 import os
@@ -68,6 +69,7 @@ class CoverFlowView(AbstractView):
     flow_width = GObject.property(type=int, default=600)
     flow_appearance = GObject.property(type=str, default='coverflow')
     flow_max = GObject.property(type=int, default=100)
+    panedposition = PanedCollapsible.Paned.EXPAND
 
     def __init__(self):
         super(CoverFlowView, self).__init__()
@@ -137,7 +139,6 @@ class CoverFlowView(AbstractView):
             else:
                 self._filter_changed_event = False
                 return True
-        
                 
         Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250, filter_events, None)
         
@@ -210,7 +211,7 @@ class CoverFlowView(AbstractView):
         if self._on_first_use:
             self._on_first_use = False
             Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
-                    self.source.show_hide_pane, (self.last_album, True))
+                    self.source.show_hide_pane, (self.last_album, PanedCollapsible.Paned.EXPAND))
 
     def get_view_icon_name(self):
         return "flowview.png"

@@ -27,6 +27,9 @@ from coverart_browser_prefs import GSetting
 
 import rb
 
+def enum(**enums):
+    return type('Enum', (object,), enums)
+
 class OptionsWidget(Gtk.Widget):
     def __init__(self, *args, **kwargs):
         super(OptionsWidget, self).__init__(*args, **kwargs)
@@ -871,6 +874,9 @@ class PanedCollapsible(Gtk.Paned):
     collapsible1 = GObject.property(type=bool, default=False)
     collapsible2 = GObject.property(type=bool, default=False)
 
+    # values for expand method
+    Paned = enum(DEFAULT=1, EXPAND=2, COLLAPSE=3)
+    
     # this indicates the latest position for the handle before a child was
     # collapsed
     collapsible_y = GObject.property(type=int, default=0)
@@ -1051,16 +1057,28 @@ class PanedCollapsible(Gtk.Paned):
 
         self.set_position(new_y)
 
-    def expand(self, force_expand=False):
+    def expand(self, force):
         '''
         Toggles the expanded property of the collapsible children.
         unless requested to force expansion
         '''
         if self._expander:
-            if force_expand:
+            if force == PanedCollapsible.Paned.EXPAND:
                 self._expander.set_expanded(True)
-            else:
+            elif force == PanedCollapsible.Paned.COLLAPSE:
+                self._expander.set_expanded(False)
+            elif force==PanedCollapsible.Paned.DEFAULT:
                 self._expander.set_expanded(not self._expander.get_expanded())
+                    
+    def get_expansion_status(self):
+        '''
+        returns the position of the expander i.e. expanded or not
+        '''
+        value = PanedCollapsible.Paned.COLLAPSE
+        if self._expander and self._expander.get_expanded():
+            value = PanedCollapsible.Paned.EXPAND
+
+        return value
 
 class AbstractView(GObject.Object):
     '''
@@ -1069,6 +1087,8 @@ class AbstractView(GObject.Object):
     coverflow view is added with lessons learned
     '''
     view = None
+    
+    panedposition = PanedCollapsible.Paned.DEFAULT
     
     def __init__(self):
         super(AbstractView, self).__init__()

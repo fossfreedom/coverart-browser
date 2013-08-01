@@ -718,16 +718,16 @@ class CoverArtBrowserSource(RB.Source):
         '''
         
         if isinstance(params, tuple):
-            album, force_expand = params
+            album, force = params
         else:
             album = params
-            force_expand = False
+            force = PanedCollapsible.Paned.DEFAULT
         
         if (album and self.click_count == 1 \
-            and self.last_selected_album is album) or force_expand:
+            and self.last_selected_album is album) or force != PanedCollapsible.Paned.DEFAULT:
             # check if it's a second or third click on the album and expand
             # or collapse the entry view accordingly
-            self.paned.expand(force_expand)
+            self.paned.expand(force)
 
         # update the selected album
         selected = self.viewmgr.current_view.get_selected_objects()
@@ -1162,7 +1162,11 @@ class ViewManager(GObject.Object):
             self.window.add(self._views[self.view_name].view)
             self.window.show_all()
             self.click_count = 0
+            
+            self._views[self._lastview].panedposition = self.source.paned.get_expansion_status()
             self._views[self.view_name].switch_to_view(self.source, current_album)
+            self.source.paned.expand(self._views[self.view_name].panedposition)
+            
             self._lastview = self.view_name
             self.current_view.set_popup_menu(self.source.popup_menu)
             self.source.album_manager.current_view = self.current_view
