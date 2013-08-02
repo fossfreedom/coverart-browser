@@ -13,6 +13,7 @@ clean:
 install:
 	install -d $(DESTDIR)$(SUBDIR)
 	install -m 644 *.py $(DESTDIR)$(SUBDIR)
+	install -m 644 LICENSE.txt $(DESTDIR)$(SUBDIR)
 	install -d $(DESTDIR)$(DATADIR)img
 	install -m 644 img/*.png $(DESTDIR)$(DATADIR)img/
 	install -m 644 img/*.svg $(DESTDIR)$(DATADIR)img/
@@ -28,6 +29,13 @@ install:
 	install -d $(DESTDIR)$(DATADIR)ui
 	install -m 644 ui/*.ui $(DESTDIR)$(DATADIR)ui/
 	install -m 644 ui/*.xml $(DESTDIR)$(DATADIR)ui/
+	install -d $(DESTDIR)$(DATADIR)coverflow
+	install -d $(DESTDIR)$(DATADIR)coverflow/img
+	install -m 644 coverflow/*.css $(DESTDIR)$(DATADIR)coverflow/
+	install -m 644 coverflow/*.js $(DESTDIR)$(DATADIR)coverflow/
+	install -m 644 coverflow/*.html $(DESTDIR)$(DATADIR)coverflow/
+	install -m 644 coverflow/LICENSE $(DESTDIR)$(DATADIR)coverflow/
+	install -m 644 coverflow/img/* $(DESTDIR)$(DATADIR)coverflow/img/
 	install -m 644 coverart_browser.plugin $(DESTDIR)$(SUBDIR)
 	install -d $(DESTDIR)$(DATADIR)tmpl
 	install -m 644 tmpl/* $(DESTDIR)$(DATADIR)tmpl/
