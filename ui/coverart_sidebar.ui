@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <!-- interface-requires gtk+ 3.0 -->
   <!-- interface-requires coverart_widgets 1.0 -->
+  <!-- interface-requires gtk+ 3.0 -->
   <object class="GtkBox" id="main_box">
     <property name="can_focus">False</property>
     <property name="valign">start</property>
@@ -173,7 +173,7 @@
         </child>
         <child>
           <object class="ImageRadioButton" id="iconview_button">
-            <property name="label" translatable="yes">Tile</property>
+            <property name="label" translatable="yes" context="This is the icon-grid view that the user sees" comments="Please try to keep the translation to less than 8 characters">Tile</property>
             <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
@@ -190,7 +190,7 @@
         </child>
         <child>
           <object class="ImageRadioButton" id="flowview_button">
-            <property name="label" translatable="yes">Flow</property>
+            <property name="label" translatable="yes" context="This is the cover-flow view the user sees - they can swipe album covers from side-to-side" comments="Please try to keep the translation to less than 8 characters">Flow</property>
             <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
@@ -208,9 +208,8 @@
         </child>
         <child>
           <object class="ImageRadioButton" id="artistview_button">
-            <property name="label" translatable="yes">Artist</property>
+            <property name="label">Artist</property>
             <property name="use_action_appearance">False</property>
-            <property name="visible">False</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
             <property name="use_action_appearance">False</property>

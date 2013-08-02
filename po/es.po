@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-20 11:52+0100\n"
+"POT-Creation-Date: 2013-08-02 14:58+0100\n"
 "PO-Revision-Date: 2013-04-21 05:49+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitoschido@gmail.com>\n"
 "Language-Team: none\n"
@@ -72,241 +72,13 @@ msgstr "Grande"
 msgid "Extra Large"
 msgstr "Muy grande"
 
-#: tmpl/albumartsearch-tmpl.html:211 coverart_browser_source.py:100
+#: tmpl/albumartsearch-tmpl.html:211 coverart_browser_source.py:111
 msgid "Loading..."
 msgstr "Cargando…"
 
 #: tmpl/albumartsearch-tmpl.html:213
 msgid "Show more results"
 msgstr "Mostrar más resultados"
-
-#: tmp/coverart_browser_prefs.ui.h:1
-msgid "Select a picture"
-msgstr "Seleccione una imagen"
-
-#: tmp/coverart_browser_prefs.ui.h:2
-msgid "Select picture to add to Edit Genre icon drop-down list"
-msgstr ""
-"Selecciona la imagen para añadir a Editar icono Género en la lista "
-"desplegable"
-
-#: tmp/coverart_browser_prefs.ui.h:3
-msgid "Above"
-msgstr "Frente"
-
-#: tmp/coverart_browser_prefs.ui.h:4
-msgid "Top Left"
-msgstr "Arriba-Izquierda"
-
-#: tmp/coverart_browser_prefs.ui.h:5
-msgid "Top Center"
-msgstr "Arriba"
-
-#: tmp/coverart_browser_prefs.ui.h:6
-msgid "Top Right"
-msgstr "Arriba-Derecha"
-
-#: tmp/coverart_browser_prefs.ui.h:7
-msgid "Automatically Start"
-msgstr "Iniciar automáticamente"
-
-#: tmp/coverart_browser_prefs.ui.h:8
-msgid "When rhythmbox starts, switch automatically to the coverart browser."
-msgstr ""
-"Abrir el navegador de portadas automáticamente cuando inicia Rhythmbox."
-
-#: tmp/coverart_browser_prefs.ui.h:9
-msgid "Use source's custom statusbar."
-msgstr "Utilizar la barra de estado personalizada del plugin"
-
-#: tmp/coverart_browser_prefs.ui.h:10
-msgid ""
-"Use the source's custom statusbar to show the current selected album's "
-"related information instead of the global Rhythmbox's statusbar."
-msgstr ""
-"Utiliza la barra de estado personalizada del plugin para mostrar información "
-"relacionada con el álbum, en lugar de utilizar la barra de estado global de "
-"Rhythmbox"
-
-#: tmp/coverart_browser_prefs.ui.h:11
-msgid "Display tracks and covers pane"
-msgstr "Mostrar panel de canciones y portadas"
-
-#: tmp/coverart_browser_prefs.ui.h:12
-msgid ""
-"Add a toggle-option to the coverart view to display the tracks and covers "
-"for the chosen album"
-msgstr ""
-"Agrega una ventana desplegable a la vista de portadas para mostrar las "
-"canciones y portadas del álbum seleccionado"
-
-#: tmp/coverart_browser_prefs.ui.h:13
-msgid "Level above which is regarded as being a favourite track or album"
-msgstr "Nivel a partir del cual se considera a una pista o álbum como favorito"
-
-#: tmp/coverart_browser_prefs.ui.h:14
-msgid "Favourite Threshold"
-msgstr "Umbral de puntuación"
-
-#: tmp/coverart_browser_prefs.ui.h:15
-msgid "General"
-msgstr "General"
-
-#: tmp/coverart_browser_prefs.ui.h:16
-msgid "Album Information"
-msgstr "Información del álbum"
-
-#: tmp/coverart_browser_prefs.ui.h:17
-msgid "Display album's info under cover"
-msgstr "Mostrar información del álbum bajo su carátula"
-
-#: tmp/coverart_browser_prefs.ui.h:18
-msgid "Show the album's basic information under the cover image."
-msgstr "Muestra información básica del album debajo de su imagen de portada."
-
-#: tmp/coverart_browser_prefs.ui.h:19
-msgid "Font size for the text below the cover-art."
-msgstr "Tamaño del texto bajo las carátulas."
-
-#: tmp/coverart_browser_prefs.ui.h:20
-msgid "Font Size:"
-msgstr "Tamaño de la letra:"
-
-#: tmp/coverart_browser_prefs.ui.h:21
-msgid "Ellipsize albums names"
-msgstr "Acortar el nombre de los álbums"
-
-#: tmp/coverart_browser_prefs.ui.h:22
-msgid ""
-"Ellipsizes the albums names to a fixed length when the display text option "
-"is enabled."
-msgstr ""
-"Acorta los nombres de los álbums a un tamaño fijo, mostrando puntos "
-"suspensivos cuando la opción para mostrar texto esta activada."
-
-#: tmp/coverart_browser_prefs.ui.h:23
-msgid "Maximum allowed length for an album's name before being ellipsized."
-msgstr "Lago máximo permitido para el nombre del álbum antes de ser acortado."
-
-#: tmp/coverart_browser_prefs.ui.h:24
-msgid "Maximum length:"
-msgstr "Longitud máxima:"
-
-#: tmp/coverart_browser_prefs.ui.h:25
-msgid "Cover Appearance"
-msgstr "Apariencia"
-
-#: tmp/coverart_browser_prefs.ui.h:26
-msgid "Drop shadow"
-msgstr "Sombra"
-
-#: tmp/coverart_browser_prefs.ui.h:27
-msgid "Indicates if the albums should drop a shadow on the cover view"
-msgstr "Indica si el album deberia tener sombra"
-
-#: tmp/coverart_browser_prefs.ui.h:28
-msgid "Light Source: "
-msgstr "Origen de la luz: "
-
-#: tmp/coverart_browser_prefs.ui.h:29
-msgid "Defines the size for the covers showed on the source."
-msgstr "Define el tamaño para las carátulas mostradas en el origen."
-
-#: tmp/coverart_browser_prefs.ui.h:30
-msgid "Size (in pixels):"
-msgstr "Tamaño (en píxeles):"
-
-#: tmp/coverart_browser_prefs.ui.h:31
-msgid "Cover"
-msgstr "Carátula"
-
-#: tmp/coverart_browser_prefs.ui.h:32
-msgid "Where the toolbar should be positioned"
-msgstr "Donde debería posicionarse la barra de herramientas"
-
-#: tmp/coverart_browser_prefs.ui.h:33
-msgid "Position"
-msgstr "Posición"
-
-#: tmp/coverart_browser_prefs.ui.h:34
-msgid "Show toolbar: "
-msgstr "Mostrar barra de herramientas: "
-
-#: tmp/coverart_browser_prefs.ui.h:35
-msgid "Look & Feel"
-msgstr "Aspecto y comportamiento"
-
-#: tmp/coverart_browser_prefs.ui.h:36
-msgid "Flat-button style"
-msgstr "Estilo de botón plano"
-
-#: tmp/coverart_browser_prefs.ui.h:37
-msgid "Icon Theme: "
-msgstr "Tema de iconos: "
-
-#: tmp/coverart_browser_prefs.ui.h:38
-msgid "Alternative Genres:"
-msgstr "Géneros alternativos:"
-
-#: tmp/coverart_browser_prefs.ui.h:39
-msgid "Load New Icon: "
-msgstr "Cargar nuevo icono: "
-
-#: tmp/coverart_browser_prefs.ui.h:40
-msgid "Select a new genre icon"
-msgstr "Seleccione el icono de un nuevo género"
-
-#: tmp/coverart_browser_prefs.ui.h:41
-msgid "Edit Genre Details:"
-msgstr "Editar los detalles del género:"
-
-#: tmp/coverart_browser_prefs.ui.h:42
-msgid "Save changes"
-msgstr "Guardar los cambios"
-
-#: tmp/coverart_browser_prefs.ui.h:43
-msgid "Name:"
-msgstr "Nombre:"
-
-#: tmp/coverart_browser_prefs.ui.h:44
-msgid "Icon:"
-msgstr "Icono:"
-
-#: tmp/coverart_browser_prefs.ui.h:45
-msgid "Current user-defined Genres:"
-msgstr "Géneros definidos por el usuario actuales:"
-
-#: tmp/coverart_browser_prefs.ui.h:46
-msgid "Alternate Name"
-msgstr "Nombre alternativo"
-
-#: tmp/coverart_browser_prefs.ui.h:47
-msgid "Icon"
-msgstr "Icono"
-
-#: tmp/coverart_browser_prefs.ui.h:48
-msgid "Add a new alternative genre"
-msgstr "Añadir un nuevo género alternativo"
-
-#: tmp/coverart_browser_prefs.ui.h:49
-msgid "Delete an alternative genre"
-msgstr "Eliminar un género alternativo"
-
-#: tmp/coverart_browser_prefs.ui.h:50
-msgid "Toolbar"
-msgstr "Barra de herramientas"
-
-#: tmp/coverart_browser_prefs.ui.h:51
-msgid "Above Cover View"
-msgstr "Por encima de la visualización"
-
-#: tmp/coverart_browser_prefs.ui.h:52
-msgid "Left Sidebar"
-msgstr "Barra lateral izquierda"
-
-#: tmp/coverart_browser_prefs.ui.h:53
-msgid "Right Sidebar"
-msgstr "Barra lateral derecha"
 
 #: tmp/coverart_browser.ui.h:1
 msgid "Tracks & Covers"
@@ -316,126 +88,397 @@ msgstr "Pistas y carátulas"
 msgid "Stop coverart fetch."
 msgstr "Detener la búsqueda de portadas."
 
-#: tmp/coverart_browser.ui.h:3
+#. initial genre
+#: tmp/coverart_topbar.ui.h:2 tmp/coverart_sidebar.ui.h:6
+#: coverart_controllers.py:215 coverart_controllers.py:267
+#: coverart_controllers.py:366
+msgid "All Genres"
+msgstr "Todos los géneros"
+
+#: tmp/coverart_topbar.ui.h:6 tmp/coverart_sidebar.ui.h:10
+#: coverart_controllers.py:479
+msgid "All Decades"
+msgstr "Todas las décadas"
+
+#: tmp/coverart_topbar.ui.h:11 tmp/coverart_browser_prefs.ui.h:139
+#: tmp/coverart_sidebar.ui.h:15
+msgid "Tile"
+msgstr ""
+
+#: tmp/coverart_topbar.ui.h:16 tmp/coverart_browser_prefs.ui.h:184
+#: tmp/coverart_sidebar.ui.h:20
+msgid "Flow"
+msgstr ""
+
+#: tmp/coverart_browser_pop_rb2.ui.h:1
 msgid "Play this album"
 msgstr "Reproducir este álbum"
 
-#: tmp/coverart_browser.ui.h:4
+#: tmp/coverart_browser_pop_rb2.ui.h:2 tmp/coverart_browser_pop_rb3.ui.h:1
 msgid "Play Album"
 msgstr "Reproducir el álbum"
 
-#: tmp/coverart_browser.ui.h:5
+#: tmp/coverart_browser_pop_rb2.ui.h:3
 msgid "Add this album to your playing queue"
 msgstr "Añadir este álbum a su cola de reproducción"
 
-#: tmp/coverart_browser.ui.h:6
+#: tmp/coverart_browser_pop_rb2.ui.h:4 tmp/coverart_browser_pop_rb3.ui.h:2
 msgid "Queue Album"
 msgstr "Encolar el álbum"
 
-#: tmp/coverart_browser.ui.h:7 tmp/coverart_entryview.ui.h:5
+#: tmp/coverart_browser_pop_rb2.ui.h:5 tmp/coverart_entryview_pop_rb2.ui.h:5
 msgid "Add this album to a playlist"
 msgstr "Añadir este álbum a una lista de reproducción"
 
-#: tmp/coverart_browser.ui.h:8 tmp/coverart_entryview.ui.h:6
+#: tmp/coverart_browser_pop_rb2.ui.h:6 tmp/coverart_entryview_pop_rb2.ui.h:6
+#: tmp/coverart_browser_pop_rb3.ui.h:3 tmp/coverart_entryview_pop_rb3.ui.h:3
 msgid "Add to Playlist"
 msgstr "Añadir a una lista de reproducción"
 
-#: tmp/coverart_browser.ui.h:9 tmp/coverart_entryview.ui.h:7
+#: tmp/coverart_browser_pop_rb2.ui.h:7 tmp/coverart_entryview_pop_rb2.ui.h:7
 msgid "Add this album to a new playlist"
 msgstr "Agrega este álbum a una nueva lista de reproducción"
 
-#: tmp/coverart_browser.ui.h:10 tmp/coverart_entryview.ui.h:8
+#: tmp/coverart_browser_pop_rb2.ui.h:8 tmp/coverart_entryview_pop_rb2.ui.h:8
+#: tmp/coverart_browser_pop_rb3.ui.h:4 tmp/coverart_entryview_pop_rb3.ui.h:4
 msgid "New Playlist"
 msgstr "Lista de reproducción nueva"
 
-#: tmp/coverart_browser.ui.h:11
+#: tmp/coverart_browser_pop_rb2.ui.h:9
 msgid "Play favourites tracks from this album"
 msgstr "Reproduce las canciones favoritas de este álbum"
 
-#: tmp/coverart_browser.ui.h:12
+#: tmp/coverart_browser_pop_rb2.ui.h:10 tmp/coverart_browser_pop_rb3.ui.h:5
 msgid "Play Favourites"
 msgstr "Reproducir favoritos"
 
-#: tmp/coverart_browser.ui.h:13
+#: tmp/coverart_browser_pop_rb2.ui.h:11
 msgid "Add favourite tracks from this album to your playing queue"
 msgstr "Agrega las canciones favoritas de este álbum a tu cola de reproducción"
 
-#: tmp/coverart_browser.ui.h:14
+#: tmp/coverart_browser_pop_rb2.ui.h:12 tmp/coverart_browser_pop_rb3.ui.h:6
 msgid "Queue Favourites"
 msgstr "Encolar favoritos"
 
-#: tmp/coverart_browser.ui.h:15
+#: tmp/coverart_browser_pop_rb2.ui.h:13
 msgid "Add favourite tracks from this album to a playlist"
 msgstr ""
 "Agrega las canciones favoritas de este álbum a una lista de reproducción"
 
-#: tmp/coverart_browser.ui.h:16
+#: tmp/coverart_browser_pop_rb2.ui.h:14 tmp/coverart_browser_pop_rb3.ui.h:7
 msgid "Add favourites to Playlist"
 msgstr "Agregar favoritos a una lista de reproducción"
 
-#: tmp/coverart_browser.ui.h:17
+#: tmp/coverart_browser_pop_rb2.ui.h:15
 msgid "Search for this album cover"
 msgstr "Busca portada para este álbum"
 
-#: tmp/coverart_browser.ui.h:18
+#: tmp/coverart_browser_pop_rb2.ui.h:16 tmp/coverart_browser_pop_rb3.ui.h:8
 msgid "Search for covers"
 msgstr "Buscar portadas"
 
-#: tmp/coverart_browser.ui.h:19
+#: tmp/coverart_browser_pop_rb2.ui.h:17
 msgid "Export album tracks and embed coverart in track files"
 msgstr "Exportar canciones del disco e insertar Portada en archivos de pista"
 
-#: tmp/coverart_browser.ui.h:20
+#: tmp/coverart_browser_pop_rb2.ui.h:18 tmp/coverart_browser_pop_rb3.ui.h:9
 msgid "Export and embed coverart"
 msgstr "Exportar y embeber portada"
 
-#: tmp/coverart_browser.ui.h:21
+#: tmp/coverart_browser_pop_rb2.ui.h:19
 msgid "Show album properties"
 msgstr "Mostrar propiedades del álbum"
 
-#: tmp/coverart_browser.ui.h:22
-msgid "Search for covers where an album does not currently have one"
-msgstr "Busca portadas para aquellos álbums que no tienen una"
-
-#: tmp/coverart_browser.ui.h:23
-msgid "Download all the covers"
-msgstr "Descarga todas las portadas"
-
-#: tmp/coverart_entryview.ui.h:1
+#: tmp/coverart_entryview_pop_rb2.ui.h:1
 msgid "Play this track"
 msgstr "Reproduce esta canción"
 
-#: tmp/coverart_entryview.ui.h:2
+#: tmp/coverart_entryview_pop_rb2.ui.h:2 tmp/coverart_entryview_pop_rb3.ui.h:1
 msgid "Play Track"
 msgstr "Reproducir pista"
 
-#: tmp/coverart_entryview.ui.h:3
+#: tmp/coverart_entryview_pop_rb2.ui.h:3
 msgid "Add this track to your playing queue"
 msgstr "Agrega esta canción a tu cola de reproducción"
 
-#: tmp/coverart_entryview.ui.h:4
+#: tmp/coverart_entryview_pop_rb2.ui.h:4 tmp/coverart_entryview_pop_rb3.ui.h:2
 msgid "Queue Track"
 msgstr "Encolar pista"
 
-#: tmp/coverart_entryview.ui.h:9
+#: tmp/coverart_entryview_pop_rb2.ui.h:9
 msgid "Show track properties"
 msgstr "Mostrar propiedades de la pista"
 
-#: tmp/coverart_sidebar.ui.h:1 coverart_browser.py:102
-msgid "CoverArt"
-msgstr "Carátula"
+#: tmp/coverart_browser_pop_rb3.ui.h:10 tmp/coverart_entryview_pop_rb3.ui.h:5
+#: coverart_controllers.py:461
+msgid "Properties"
+msgstr ""
 
-#. initial genre
-#: tmp/coverart_sidebar.ui.h:2 tmp/coverart_topbar.ui.h:1
-#: coverart_controllers.py:211 coverart_controllers.py:263
-#: coverart_controllers.py:362
-msgid "All Genres"
-msgstr "Todos los géneros"
+#: tmp/coverart_browser_prefs.ui.h:2
+msgid "Select a picture"
+msgstr "Seleccione una imagen"
 
-#: tmp/coverart_sidebar.ui.h:3 tmp/coverart_topbar.ui.h:2
-#: coverart_controllers.py:433
-msgid "All Decades"
-msgstr "Todas las décadas"
+#: tmp/coverart_browser_prefs.ui.h:6
+msgid "Select picture to add to Edit Genre icon drop-down list"
+msgstr ""
+"Selecciona la imagen para añadir a Editar icono Género en la lista "
+"desplegable"
+
+#: tmp/coverart_browser_prefs.ui.h:10
+msgid "Automatically Start"
+msgstr "Iniciar automáticamente"
+
+#: tmp/coverart_browser_prefs.ui.h:14
+msgid "When rhythmbox starts, switch automatically to the coverart browser."
+msgstr ""
+"Abrir el navegador de portadas automáticamente cuando inicia Rhythmbox."
+
+#: tmp/coverart_browser_prefs.ui.h:18
+#, fuzzy
+msgid "Use source's custom statusbar"
+msgstr "Utilizar la barra de estado personalizada del plugin"
+
+#: tmp/coverart_browser_prefs.ui.h:22
+msgid ""
+"Use the source's custom statusbar to show the current selected album's "
+"related information instead of the global Rhythmbox's statusbar."
+msgstr ""
+"Utiliza la barra de estado personalizada del plugin para mostrar información "
+"relacionada con el álbum, en lugar de utilizar la barra de estado global de "
+"Rhythmbox"
+
+#: tmp/coverart_browser_prefs.ui.h:28
+msgid "Display tracks and covers pane"
+msgstr "Mostrar panel de canciones y portadas"
+
+#: tmp/coverart_browser_prefs.ui.h:32
+msgid ""
+"Add a toggle-option to the coverart view to display the tracks and covers "
+"for the chosen album"
+msgstr ""
+"Agrega una ventana desplegable a la vista de portadas para mostrar las "
+"canciones y portadas del álbum seleccionado"
+
+#: tmp/coverart_browser_prefs.ui.h:38
+msgid ""
+"Number of random\n"
+"albums to play"
+msgstr ""
+
+#: tmp/coverart_browser_prefs.ui.h:44
+msgid "Level above which is regarded as being a favourite track or album"
+msgstr "Nivel a partir del cual se considera a una pista o álbum como favorito"
+
+#: tmp/coverart_browser_prefs.ui.h:48
+msgid "Favourite Threshold"
+msgstr "Umbral de puntuación"
+
+#: tmp/coverart_browser_prefs.ui.h:52
+msgid "General"
+msgstr "General"
+
+#: tmp/coverart_browser_prefs.ui.h:56
+msgid "Album Information"
+msgstr "Información del álbum"
+
+#: tmp/coverart_browser_prefs.ui.h:60
+msgid "Display album's info under cover"
+msgstr "Mostrar información del álbum bajo su carátula"
+
+#: tmp/coverart_browser_prefs.ui.h:64
+msgid "Show the album's basic information under the cover image."
+msgstr "Muestra información básica del album debajo de su imagen de portada."
+
+#: tmp/coverart_browser_prefs.ui.h:68
+msgid "Font size for the text below the cover-art."
+msgstr "Tamaño del texto bajo las carátulas."
+
+#: tmp/coverart_browser_prefs.ui.h:72
+msgid "Font Size:"
+msgstr "Tamaño de la letra:"
+
+#: tmp/coverart_browser_prefs.ui.h:76
+msgid "Ellipsize albums names"
+msgstr "Acortar el nombre de los álbums"
+
+#: tmp/coverart_browser_prefs.ui.h:80
+msgid ""
+"Ellipsizes the albums names to a fixed length when the display text option "
+"is enabled."
+msgstr ""
+"Acorta los nombres de los álbums a un tamaño fijo, mostrando puntos "
+"suspensivos cuando la opción para mostrar texto esta activada."
+
+#: tmp/coverart_browser_prefs.ui.h:86
+msgid "Maximum allowed length for an album's name before being ellipsized."
+msgstr "Lago máximo permitido para el nombre del álbum antes de ser acortado."
+
+#: tmp/coverart_browser_prefs.ui.h:90
+msgid "Maximum length:"
+msgstr "Longitud máxima:"
+
+#: tmp/coverart_browser_prefs.ui.h:94
+msgid "Cover Appearance"
+msgstr "Apariencia"
+
+#: tmp/coverart_browser_prefs.ui.h:98
+msgid "Drop shadow"
+msgstr "Sombra"
+
+#: tmp/coverart_browser_prefs.ui.h:102
+msgid "Indicates if the albums should drop a shadow on the cover view"
+msgstr "Indica si el album deberia tener sombra"
+
+#: tmp/coverart_browser_prefs.ui.h:106
+msgid "Light Source: "
+msgstr "Origen de la luz: "
+
+#: tmp/coverart_browser_prefs.ui.h:110
+msgid "Defines the size for the covers showed on the source."
+msgstr "Define el tamaño para las carátulas mostradas en el origen."
+
+#: tmp/coverart_browser_prefs.ui.h:114
+msgid "Size (in pixels):"
+msgstr "Tamaño (en píxeles):"
+
+#: tmp/coverart_browser_prefs.ui.h:118
+#, fuzzy
+msgid "Advanced Options"
+msgstr "Opciones de búsqueda"
+
+#: tmp/coverart_browser_prefs.ui.h:122
+msgid "Padding (space) around each icon"
+msgstr ""
+
+#: tmp/coverart_browser_prefs.ui.h:126
+msgid "Padding"
+msgstr ""
+
+#: tmp/coverart_browser_prefs.ui.h:130
+msgid "Spacing between columns and rows"
+msgstr ""
+
+#: tmp/coverart_browser_prefs.ui.h:134
+msgid "Spacing"
+msgstr ""
+
+#: tmp/coverart_browser_prefs.ui.h:143
+#, fuzzy
+msgid "Flow Appearance"
+msgstr "Apariencia"
+
+#: tmp/coverart_browser_prefs.ui.h:147
+msgid "width (px):"
+msgstr ""
+
+#: tmp/coverart_browser_prefs.ui.h:151
+msgid "Scale by %:"
+msgstr ""
+
+#: tmp/coverart_browser_prefs.ui.h:155
+msgid "Hide Caption"
+msgstr ""
+
+#: tmp/coverart_browser_prefs.ui.h:159
+msgid "Maximum covers to display:"
+msgstr ""
+
+#: tmp/coverart_browser_prefs.ui.h:163
+msgid "Background Colour"
+msgstr ""
+
+#: tmp/coverart_browser_prefs.ui.h:167
+msgid "White"
+msgstr ""
+
+#: tmp/coverart_browser_prefs.ui.h:171
+msgid "Black"
+msgstr ""
+
+#: tmp/coverart_browser_prefs.ui.h:175
+#, fuzzy
+msgid "Tracks Pane"
+msgstr "Pistas"
+
+#: tmp/coverart_browser_prefs.ui.h:179
+msgid "open or close on click of cover"
+msgstr ""
+
+#: tmp/coverart_browser_prefs.ui.h:188
+msgid "Where the toolbar should be positioned"
+msgstr "Donde debería posicionarse la barra de herramientas"
+
+#: tmp/coverart_browser_prefs.ui.h:192
+msgid "Position"
+msgstr "Posición"
+
+#: tmp/coverart_browser_prefs.ui.h:196
+msgid "Show toolbar: "
+msgstr "Mostrar barra de herramientas: "
+
+#: tmp/coverart_browser_prefs.ui.h:200
+msgid "Look & Feel"
+msgstr "Aspecto y comportamiento"
+
+#: tmp/coverart_browser_prefs.ui.h:204
+msgid "Flat-button style"
+msgstr "Estilo de botón plano"
+
+#: tmp/coverart_browser_prefs.ui.h:208
+msgid "Icon Theme: "
+msgstr "Tema de iconos: "
+
+#: tmp/coverart_browser_prefs.ui.h:212
+msgid "Alternative Genres:"
+msgstr "Géneros alternativos:"
+
+#: tmp/coverart_browser_prefs.ui.h:216
+msgid "Load New Icon: "
+msgstr "Cargar nuevo icono: "
+
+#: tmp/coverart_browser_prefs.ui.h:220
+msgid "Select a new genre icon"
+msgstr "Seleccione el icono de un nuevo género"
+
+#: tmp/coverart_browser_prefs.ui.h:224
+msgid "Edit Genre Details:"
+msgstr "Editar los detalles del género:"
+
+#: tmp/coverart_browser_prefs.ui.h:228
+msgid "Save changes"
+msgstr "Guardar los cambios"
+
+#: tmp/coverart_browser_prefs.ui.h:232
+msgid "Name:"
+msgstr "Nombre:"
+
+#: tmp/coverart_browser_prefs.ui.h:236
+msgid "Icon:"
+msgstr "Icono:"
+
+#: tmp/coverart_browser_prefs.ui.h:240
+msgid "Current user-defined Genres:"
+msgstr "Géneros definidos por el usuario actuales:"
+
+#: tmp/coverart_browser_prefs.ui.h:244
+msgid "Alternate Name"
+msgstr "Nombre alternativo"
+
+#: tmp/coverart_browser_prefs.ui.h:248
+msgid "Icon"
+msgstr "Icono"
+
+#: tmp/coverart_browser_prefs.ui.h:252
+msgid "Add a new alternative genre"
+msgstr "Añadir un nuevo género alternativo"
+
+#: tmp/coverart_browser_prefs.ui.h:256
+msgid "Delete an alternative genre"
+msgstr "Eliminar un género alternativo"
+
+#: tmp/coverart_browser_prefs.ui.h:260
+msgid "Toolbar"
+msgstr "Barra de herramientas"
 
 #: tmp/coverart_exportembed.ui.h:1
 msgid "Choose folder to save tracks:"
@@ -460,6 +503,10 @@ msgid ""
 msgstr ""
 "Consejo: arrastrar y soltar las pistas exportadas desde el gestor de "
 "archivos a una lista de reproducción o a un télefono/otro dispositivo"
+
+#: tmp/coverart_sidebar.ui.h:2 coverart_browser.py:105 coverart_browser.py:118
+msgid "CoverArt"
+msgstr "Carátula"
 
 #: tmp/popups.xml.in.h:1
 msgid "rock"
@@ -601,13 +648,183 @@ msgstr "hip-hop"
 msgid "children"
 msgstr "niños"
 
-#: coverart_album.py:1605 coverart_browser_source.py:789
+#: coverart_album.py:1603 coverart_browser_source.py:892
 #, python-format
 msgid "%s by %s"
 msgstr "%s por %s"
 
+#: coverart_browser_source.py:276
+msgid "Tracks"
+msgstr "Pistas"
+
+#: coverart_browser_source.py:287
+msgid "Covers"
+msgstr "Carátulas"
+
+#: coverart_browser_source.py:583
+msgid "The number of albums to randomly play is less than that displayed."
+msgstr ""
+
+#: coverart_browser_source.py:663
+#, python-format
+msgid "Requesting cover for %s - %s..."
+msgstr "Solicitando la carátula para %s – %s…"
+
+#: coverart_browser_source.py:817
+msgid ""
+"Please install and activate the latest version of the Coverart Search "
+"Providers plugin"
+msgstr ""
+
+#: coverart_browser_source.py:895
+#, fuzzy, python-format
+msgid "%d selected albums"
+msgstr "%d álbumes seleccionados "
+
+#: coverart_browser_source.py:899
+msgid " with 1 track"
+msgstr " con una canción"
+
+#: coverart_browser_source.py:901
+#, python-format
+msgid " with %d tracks"
+msgstr " con %d canciones"
+
+#: coverart_browser_source.py:905
+msgid " and a duration of 1 minute"
+msgstr " y una duración de un minuto"
+
+#: coverart_browser_source.py:907
+#, python-format
+msgid " and a duration of %d minutes"
+msgstr " y una duración de %d minutos"
+
+#: coverart_controllers.py:382
+msgid "Sort by album name"
+msgstr "Ordenar por nombre del álbum"
+
+#: coverart_controllers.py:383
+msgid "Sort by album artist"
+msgstr "Buscar por artista del álbum"
+
+#: coverart_controllers.py:384
+msgid "Sort by year"
+msgstr "Ordenar por año"
+
+#: coverart_controllers.py:385
+msgid "Sort by rating"
+msgstr "Buscar por puntuación"
+
+#: coverart_controllers.py:432
+#, fuzzy
+msgid "Download all covers"
+msgstr "Descarga todas las portadas"
+
+#: coverart_controllers.py:433
+#, fuzzy
+msgid "Play random album"
+msgstr "Reproducir este álbum"
+
+#: coverart_controllers.py:434
+#, fuzzy
+msgid "Play favourite random album"
+msgstr "Reproduce las canciones favoritas de este álbum"
+
+#: coverart_controllers.py:436 coverart_browser_prefs.py:241
+msgid "Browser Preferences"
+msgstr ""
+
+#: coverart_controllers.py:437
+#, fuzzy
+msgid "Search Preferences"
+msgstr "Buscar portadas"
+
+#. '20s' as in the decade 2010
+#: coverart_controllers.py:481 coverart_controllers.py:507
+msgid "20s"
+msgstr "20s"
+
+#. '10s' as in the decade 2010
+#: coverart_controllers.py:483
+msgid "10s"
+msgstr "2010"
+
+#. '00s' as in the decade 2000
+#: coverart_controllers.py:485
+msgid "00s"
+msgstr "2000"
+
+#. '90s' as in the decade 1990
+#: coverart_controllers.py:487
+msgid "90s"
+msgstr "1990"
+
+#. '80s' as in the decade 1980
+#: coverart_controllers.py:489
+msgid "80s"
+msgstr "1980"
+
+#. '70s' as in the decade 1970
+#: coverart_controllers.py:491
+msgid "70s"
+msgstr "1970"
+
+#. '60s' as in the decade 1960
+#: coverart_controllers.py:493
+msgid "60s"
+msgstr "1960"
+
+#. '50s' as in the decade 1950
+#: coverart_controllers.py:495
+msgid "50s"
+msgstr "1950"
+
+#. '40s' as in the decade 1940
+#: coverart_controllers.py:497
+msgid "40s"
+msgstr "1940"
+
+#. '30s' as in the decade 1930
+#: coverart_controllers.py:499
+msgid "30s"
+msgstr "1930"
+
+#. 'Older' as in 'older than the year 1930'
+#: coverart_controllers.py:501
+msgid "Older"
+msgstr "Más antiguas"
+
+#. options
+#: coverart_controllers.py:546
+msgid "Sort in descending order"
+msgstr "Ordenar descendentemente"
+
+#: coverart_controllers.py:547
+msgid "Sort in ascending order"
+msgstr "Ordenar ascendentemente"
+
+#: coverart_controllers.py:599
+msgid "Search all fields"
+msgstr "Buscar en todos los campos"
+
+#: coverart_controllers.py:600
+msgid "Search album artists"
+msgstr "Buscar por artista del álbum"
+
+#: coverart_controllers.py:601
+msgid "Search track artists"
+msgstr "Buscar por artista de canción"
+
+#: coverart_controllers.py:602
+msgid "Search albums"
+msgstr "Buscar álbumes"
+
+#: coverart_controllers.py:603
+msgid "Search tracks"
+msgstr "Buscar canciones"
+
 #. . TRANSLATORS: Do not translate this string.
-#: coverart_browser_prefs.py:226
+#: coverart_browser_prefs.py:266
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -618,147 +835,49 @@ msgstr ""
 "  fossfreedom https://launchpad.net/~fossfreedom\n"
 "  hhlp https://launchpad.net/~hhlp-deactivatedaccount"
 
+#. TRANSLATORS: for example 'Number of covers limited to 150'
+#: coverart_coverflowview.py:197
+#, python-format
+msgid "Number of covers limited to %d"
+msgstr ""
+
 #. define .plugin text strings used for translation
-#: coverart_browser.py:71
+#: coverart_browser.py:73
 msgid "CoverArt Browser"
 msgstr "Navegador de carátulas"
 
-#: coverart_browser.py:72
+#: coverart_browser.py:74
 msgid "Browse and play your albums through their covers"
 msgstr "Navegue y reproduzca sus álbumes mediante sus carátulas"
 
-#: coverart_browser_source.py:263
-msgid "Tracks"
-msgstr "Pistas"
+#~ msgid "Above"
+#~ msgstr "Frente"
 
-#: coverart_browser_source.py:303
-msgid "Covers"
-msgstr "Carátulas"
+#~ msgid "Top Left"
+#~ msgstr "Arriba-Izquierda"
 
-#: coverart_browser_source.py:710
-#, python-format
-msgid "Requesting cover for %s - %s..."
-msgstr "Solicitando la carátula para %s – %s…"
+#~ msgid "Top Center"
+#~ msgstr "Arriba"
 
-#: coverart_browser_source.py:792
-#, python-format
-msgid "%d selected albums "
-msgstr "%d álbumes seleccionados "
+#~ msgid "Top Right"
+#~ msgstr "Arriba-Derecha"
 
-#: coverart_browser_source.py:796
-msgid " with 1 track"
-msgstr " con una canción"
+#~ msgid "Above Cover View"
+#~ msgstr "Por encima de la visualización"
 
-#: coverart_browser_source.py:798
-#, python-format
-msgid " with %d tracks"
-msgstr " con %d canciones"
+#~ msgid "Left Sidebar"
+#~ msgstr "Barra lateral izquierda"
 
-#: coverart_browser_source.py:801
-msgid " and a duration of 1 minute"
-msgstr " y una duración de un minuto"
+#~ msgid "Right Sidebar"
+#~ msgstr "Barra lateral derecha"
 
-#: coverart_browser_source.py:803
-#, python-format
-msgid " and a duration of %d minutes"
-msgstr " y una duración de %d minutos"
+#, fuzzy
+#~ msgid "170"
+#~ msgstr "2010"
 
-#: coverart_controllers.py:378
-msgid "Sort by album name"
-msgstr "Ordenar por nombre del álbum"
+#, fuzzy
+#~ msgid "Coverflow"
+#~ msgstr "Carátula"
 
-#: coverart_controllers.py:379
-msgid "Sort by album artist"
-msgstr "Buscar por artista del álbum"
-
-#: coverart_controllers.py:380
-msgid "Sort by year"
-msgstr "Ordenar por año"
-
-#: coverart_controllers.py:381
-msgid "Sort by rating"
-msgstr "Buscar por puntuación"
-
-#. '20s' as in the decade 2010
-#: coverart_controllers.py:435 coverart_controllers.py:461
-msgid "20s"
-msgstr "20s"
-
-#. '10s' as in the decade 2010
-#: coverart_controllers.py:437
-msgid "10s"
-msgstr "2010"
-
-#. '00s' as in the decade 2000
-#: coverart_controllers.py:439
-msgid "00s"
-msgstr "2000"
-
-#. '90s' as in the decade 1990
-#: coverart_controllers.py:441
-msgid "90s"
-msgstr "1990"
-
-#. '80s' as in the decade 1980
-#: coverart_controllers.py:443
-msgid "80s"
-msgstr "1980"
-
-#. '70s' as in the decade 1970
-#: coverart_controllers.py:445
-msgid "70s"
-msgstr "1970"
-
-#. '60s' as in the decade 1960
-#: coverart_controllers.py:447
-msgid "60s"
-msgstr "1960"
-
-#. '50s' as in the decade 1950
-#: coverart_controllers.py:449
-msgid "50s"
-msgstr "1950"
-
-#. '40s' as in the decade 1940
-#: coverart_controllers.py:451
-msgid "40s"
-msgstr "1940"
-
-#. '30s' as in the decade 1930
-#: coverart_controllers.py:453
-msgid "30s"
-msgstr "1930"
-
-#. 'Older' as in 'older than the year 1930'
-#: coverart_controllers.py:455
-msgid "Older"
-msgstr "Más antiguas"
-
-#. options
-#: coverart_controllers.py:500
-msgid "Sort in descending order"
-msgstr "Ordenar descendentemente"
-
-#: coverart_controllers.py:501
-msgid "Sort in ascending order"
-msgstr "Ordenar ascendentemente"
-
-#: coverart_controllers.py:553
-msgid "Search all fields"
-msgstr "Buscar en todos los campos"
-
-#: coverart_controllers.py:554
-msgid "Search album artists"
-msgstr "Buscar por artista del álbum"
-
-#: coverart_controllers.py:555
-msgid "Search track artists"
-msgstr "Buscar por artista de canción"
-
-#: coverart_controllers.py:556
-msgid "Search albums"
-msgstr "Buscar álbumes"
-
-#: coverart_controllers.py:557
-msgid "Search tracks"
-msgstr "Buscar canciones"
+#~ msgid "Search for covers where an album does not currently have one"
+#~ msgstr "Busca portadas para aquellos álbums que no tienen una"

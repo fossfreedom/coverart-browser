@@ -40,7 +40,7 @@
     <property name="page_increment">10</property>
   </object>
   <object class="GtkEntryBuffer" id="cover_scale_buffer">
-    <property name="text" translatable="yes">170</property>
+    <property name="text">170</property>
   </object>
   <object class="GtkAdjustment" id="cover_size_adjustment">
     <property name="lower">5</property>
@@ -161,19 +161,19 @@
     <data>
       <row>
         <col id="0">flow-horiz</col>
-        <col id="1" translatable="yes">Coverflow</col>
+        <col id="1">Coverflow</col>
       </row>
       <row>
         <col id="0">flow-vert</col>
-        <col id="1" translatable="yes">Coverflow (Vertical)</col>
+        <col id="1">Coverflow (Vertical)</col>
       </row>
       <row>
         <col id="0">carousel</col>
-        <col id="1" translatable="yes">Carousel</col>
+        <col id="1">Carousel</col>
       </row>
       <row>
         <col id="0">roundabout</col>
-        <col id="1" translatable="yes">Roundabout</col>
+        <col id="1">Roundabout</col>
       </row>
     </data>
   </object>
@@ -940,7 +940,7 @@ albums to play</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="yalign">0.46000000834465027</property>
-        <property name="label" translatable="yes">Tile</property>
+        <property name="label" translatable="yes" context="This is the icon-grid view that the user sees" comments="Please try to keep the translation to less than 8 characters">Tile</property>
       </object>
       <packing>
         <property name="position">1</property>
@@ -1218,8 +1218,7 @@ albums to play</property>
         </child>
         <child>
           <object class="GtkCheckButton" id="automatic_checkbox">
-            <property name="label" translatable="yes">open or close
-on click of cover</property>
+            <property name="label" translatable="yes">open or close on click of cover</property>
             <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
@@ -1243,7 +1242,7 @@ on click of cover</property>
       <object class="GtkLabel" id="flow_label">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="label" translatable="yes">Flow</property>
+        <property name="label" translatable="yes" context="This is the cover-flow view the user sees - they can swipe album covers from side-to-side" comments="Please try to keep the translation to less than 8 characters">Flow</property>
       </object>
       <packing>
         <property name="position">2</property>
