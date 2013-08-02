@@ -28,6 +28,7 @@ from coverart_browser_prefs import GSetting
 from gi.repository import Pango
 from coverart_album import AlbumsModel
 from coverart_widgets import AbstractView
+import coverart_rb3compat as rb3compat 
 import rb
 
 class AlbumShowingPolicy(GObject.Object):
@@ -117,6 +118,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
         self.view_name = "covers_view"
         self.source = source
         self.plugin = source.plugin
+        self.shell = source.shell
         self.album_manager = source.album_manager
         self.ext_menu_pos = 10
 
@@ -204,7 +206,10 @@ class CoverIconView(EnhancedIconView, AbstractView):
         '''
 
         # stop the propagation of the signal (deactivates superclass callback)
-        widget.stop_emission('drag-drop')
+        if rb3compat.is_rb3(self.shell):
+            widget.stop_emission_by_name('drag-drop')
+        else:
+            widget.stop_emission('drag-drop')
 
         # obtain the path of the icon over which the drag operation finished
         path, pos = widget.get_dest_item_at_pos(x, y)
@@ -224,7 +229,10 @@ class CoverIconView(EnhancedIconView, AbstractView):
         '''
 
         # stop the propagation of the signal (deactivates superclass callback)
-        widget.stop_emission('drag-data-received')
+        if rb3compat.is_rb3(self.shell):
+            widget.stop_emission_by_name('drag-data-received')
+        else:
+            widget.stop_emission('drag-data-received')
 
         # get the album and the info and ask the loader to update the cover
         path, pos = widget.get_dest_item_at_pos(x, y)
@@ -255,8 +263,10 @@ class CoverIconView(EnhancedIconView, AbstractView):
 
         data.set_uris(uris)
         # stop the propagation of the signal (deactivates superclass callback)
-        widget.stop_emission('drag-data-get')
-
+        if rb3compat.is_rb3(self.shell):
+            widget.stop_emission_by_name('drag-data-get')
+        else:
+            widget.stop_emission('drag-data-get')
 
     def on_drag_begin(self, widget, context):
         '''
@@ -271,7 +281,10 @@ class CoverIconView(EnhancedIconView, AbstractView):
             item = Gtk.STOCK_DND_MULTIPLE
 
         widget.drag_source_set_icon_stock(item)
-        widget.stop_emission('drag-begin')
+        if rb3compat.is_rb3(self.shell):
+            widget.stop_emission_by_name('drag-begin')
+        else:
+            widget.stop_emission('drag-begin')
 
     def item_clicked_callback(self, iconview, event, path):
         '''
