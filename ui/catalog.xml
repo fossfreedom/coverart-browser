@@ -32,8 +32,8 @@
     <glade-widget-class title="CoverIconView" name="CoverIconView" 
                         generic-name="CoverIconView" parent="GtkIconView"
                         icon-name="widget-gtk-iconview"/>
-    <glade-widget-class title="CollapsiblePaned" name="CollapsiblePaned"
-                        generic-name="CollapsiblePaned" parent="GtkPaned"
+    <glade-widget-class title="PanedCollapsible" name="PanedCollapsible"
+                        generic-name="PanedCollapsible" parent="GtkPaned"
                         icon-name="widget-gtk-paned"/>
   </glade-widget-classes>
 
@@ -47,7 +47,7 @@
      <glade-widget-class-ref name="QuickSearchEntry"/>
      <glade-widget-class-ref name="ProxyPopupButton"/>
      <glade-widget-class-ref name="EnhancedIconView"/>
-     <glade-widget-class-ref name="CollapsiblePaned"/>
+     <glade-widget-class-ref name="PanedCollapsible"/>
    </glade-widget-group>
 
 </glade-catalog>
