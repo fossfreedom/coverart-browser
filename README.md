@@ -27,6 +27,7 @@ Browse your coverart albums in Rhythmbox v2.96 - Rhythmbox v3.0
  - Toggle buttons to switch view as well as new Properties button
  - Access preferences for both Search and Browswer plugins via Properties button
  - Play random albums from your current playlist & search filters
+ - Track view can be toggled automatically on click as well as configured to manually open
  - for developers - doxygen documentation: http://fossfreedom.github.io/coverart-browser/classes.html
 
 *How it works:*
