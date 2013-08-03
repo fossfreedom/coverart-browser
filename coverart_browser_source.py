@@ -194,6 +194,10 @@ class CoverArtBrowserSource(RB.Source):
         self.page = ui.get_object('main_box')
         self.pack_start(self.page, True, True, 0)
 
+        # get widgets for the artist paned
+        self.artist_paned = ui.get_object('vertical_paned')
+        self.artist_treeview = ui.get_object('artist_treeview')
+
         # get widgets for main icon-view
         self.status_label = ui.get_object('status_label')
 
@@ -309,6 +313,19 @@ class CoverArtBrowserSource(RB.Source):
 
         # setup the statusbar component
         self.statusbar = Statusbar(self)
+
+        # setup the artist pane
+
+        artist_pview = None
+        for view in self.shell.props.library_source.get_property_views():
+            if view.props.title == _("Artist"):
+                artist_pview = view
+                break
+
+        assert artist_pview, "cannot find artist property view"
+
+        self.artist_treeview.set_model(artist_pview.get_model())
+
 
         print("CoverArtBrowser DEBUG - end _setup_source")
 
