@@ -93,6 +93,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
 
     icon_spacing = GObject.property(type=int, default=0)
     icon_padding = GObject.property(type=int, default=0)
+    icon_automatic = GObject.property(type=bool, default=True)
 
     display_text_enabled = GObject.property(type=bool, default=False)
     name = 'coverview'
@@ -148,10 +149,13 @@ class CoverIconView(EnhancedIconView, AbstractView):
         # set the model to the view
         self.set_model(self.album_manager.model.store)
 
-        self.connect("item-clicked", self.item_clicked_callback)
-        self.connect("selection-changed", self.selectionchanged_callback)
-        self.connect("item-activated", self.item_activated_callback)
+        self._connect_properties()
+        self._connect_signals()
 
+        self.on_notify_icon_padding()
+        self.on_notify_icon_spacing()
+
+    def _connect_properties(self):
         setting = self.gs.get_setting(self.gs.Path.PLUGIN)
         setting.bind(
             self.gs.PluginKey.ICON_SPACING,
@@ -164,22 +168,23 @@ class CoverIconView(EnhancedIconView, AbstractView):
             'icon_padding',
             Gio.SettingsBindFlags.GET)
 
+        setting.bind(self.gs.PluginKey.DISPLAY_TEXT, self,
+            'display_text_enabled', Gio.SettingsBindFlags.GET)
+
+        setting.bind(self.gs.PluginKey.ICON_AUTOMATIC, self,
+            'icon_automatic', Gio.SettingsBindFlags.GET)
+
+    def _connect_signals(self):
+        self.connect("item-clicked", self.item_clicked_callback)
+        self.connect("selection-changed", self.selectionchanged_callback)
+        self.connect("item-activated", self.item_activated_callback)        
         self.connect('notify::icon-spacing',
             self.on_notify_icon_spacing)
-
-        self.on_notify_icon_spacing()
-
         self.connect('notify::icon-padding',
             self.on_notify_icon_padding)
-
-        self.on_notify_icon_padding()
-
         self.connect('notify::display-text-enabled',
             self._activate_markup)
 
-        setting.bind(self.gs.PluginKey.DISPLAY_TEXT, self,
-            'display_text_enabled', Gio.SettingsBindFlags.GET)
-            
     def get_view_icon_name(self):
         return "iconview.png"
 
@@ -296,7 +301,8 @@ class CoverIconView(EnhancedIconView, AbstractView):
         ctrl = event.state & Gdk.ModifierType.CONTROL_MASK
         shift = event.state & Gdk.ModifierType.SHIFT_MASK
 
-        self.source.click_count += 1 if not ctrl and not shift else 0
+        if self.icon_automatic:
+            self.source.click_count += 1 if not ctrl and not shift else 0
 
         if self.source.click_count == 1:
             album = self.album_manager.model.get_from_path(path)\

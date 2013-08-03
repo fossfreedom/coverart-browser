@@ -126,6 +126,11 @@
             <summary>icon view spacing (rows and columns)</summary>
             <description>icon view (rows and columns)</description>
         </key>
+        <key type="b" name="icon-automatic">
+            <default>true</default>
+            <summary>Open and close track-view on click.</summary>
+            <description>When clicking the iconview automatically show or hide the track-view</description>
+        </key>
         <key type="s" name="view-name">
             <default>'coverview'</default>
             <summary>Name of view.</summary>

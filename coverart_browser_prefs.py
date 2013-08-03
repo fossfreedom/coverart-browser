@@ -147,6 +147,7 @@ class GSetting:
                 NEW_GENRE_ICON='new-genre-icon',
                 ICON_PADDING='icon-padding',
                 ICON_SPACING='icon-spacing',
+                ICON_AUTOMATIC='icon-automatic',
                 VIEW_NAME='view-name',
                 FLOW_APPEARANCE='flow-appearance',
                 FLOW_HIDE_CAPTION='flow-hide-caption',
@@ -415,6 +416,10 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         spacing_scale = builder.get_object('spacing_adjustment')
         self.settings.bind(gs.PluginKey.ICON_SPACING, spacing_scale, 'value',
             Gio.SettingsBindFlags.DEFAULT)
+
+        icon_automatic = builder.get_object('icon_automatic_checkbox')
+        self.settings.bind(gs.PluginKey.ICON_AUTOMATIC,
+            icon_automatic, 'active', Gio.SettingsBindFlags.DEFAULT)
 
         #flow tab
         flow_combo = builder.get_object('flow_combobox')
