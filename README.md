@@ -51,13 +51,22 @@ for opensuse
 
     sudo zypper in git gettext-runtime python-mako python-lxml typelib-1_0-WebKit-3_0
 
-Then install the plugin:
+Then install the plugin for rhythmbox version 2.96 to 2.99:
 
 <pre>
 rm -rf ~/.local/share/rhythmbox/plugins/coverart_browser
 git clone https://github.com/fossfreedom/coverart-browser.git
 cd coverart-browser
 sh ./install.sh
+</pre>
+
+To install the plugin for rhythmbox version 3.0 and later:
+
+<pre>
+rm -rf ~/.local/share/rhythmbox/plugins/coverart_browser
+git clone https://github.com/fossfreedom/coverart-browser.git
+cd coverart-browser
+sh ./install.sh --rb3
 </pre>
 
 Note 1 - the CoverArt Browser plugin also requires installing the following plugin:
