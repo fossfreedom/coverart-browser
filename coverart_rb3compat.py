@@ -26,6 +26,7 @@ from gi.repository import Gtk
 from gi.repository import Gio
 from gi.repository import GLib
 from gi.repository import GObject
+from gi.repository import RB
 import sys
 import rb
 import lxml.etree as ET
