@@ -126,12 +126,11 @@ def quote_plus(uri):
     else:
         return urllib.quote_plus(uri)
 
-        
-def is_rb3(shell):
-    if hasattr( shell.props.window, 'add_action' ):
-        return True
+def is_rb3(*args):
+    if hasattr(RB.Shell.props, 'ui_manager'):
+        return False
     else:
-        return False    
+        return True 
         
 class Menu(object):
     '''
