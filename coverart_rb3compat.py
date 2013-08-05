@@ -708,6 +708,7 @@ class Action(object):
     def _activate(self, action, *args):
         if self._do_update_state:
             self._current_state = not self._current_state
+            self.set_state(self._current_state)
         
         self._connect_func(action, None, self._connect_args)
         
@@ -756,6 +757,14 @@ class Action(object):
         else:
             return self.action.get_sensitive()
             
+    def set_state(self, value):
+        ''' 
+        set the state of a stateful action - this is applicable only
+        to RB2.99+
+        '''
+        if is_rb3(self.shell) and self.action.props.state_type:
+            self.action.change_state(GLib.Variant('b', value))
+
     def activate(self):
         ''' 
         invokes the activate signal for the action
