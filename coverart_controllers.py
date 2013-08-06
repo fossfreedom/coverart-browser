@@ -433,6 +433,8 @@ class PropertiesMenuController(OptionsController):
         self.values[_('Play random album')] = 'random'
         self.values[_('Play favourite random album')] = 'random favourite' 
         self.values['separator1'] = ''
+        self.values['check::' + _('Quick artist filter')] = 'quick artist'
+        self.values['separator2'] = ''
         self.values[_('Browser Preferences')] = 'browser prefs'
         self.values[_('Search Preferences')] = 'search prefs'
         
@@ -451,6 +453,10 @@ class PropertiesMenuController(OptionsController):
             
     def do_action(self):
         if self.current_key:
+            if self.current_key not in self.values.keys():
+                #for the scenario where this is the label from a check menuitem
+                self.current_key = 'check::' + self.current_key
+                
             self._source.propertiesbutton_callback(self.values[self.current_key])
             self.current_key = None
 

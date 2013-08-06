@@ -253,6 +253,10 @@ class MenuButton(PixbufButton, OptionsPopupWidget):
         '''
         if 'separator' in label:
             new_menu_item = Gtk.SeparatorMenuItem().new()
+        elif 'check::' in label:
+            label = label.split('check::')[1]
+            new_menu_item = Gtk.CheckMenuItem(label=label)
+            new_menu_item.connect('toggled', self._fire_item_clicked)
         else:
             new_menu_item = Gtk.MenuItem(label=label)
             new_menu_item.connect('activate', self._fire_item_clicked)

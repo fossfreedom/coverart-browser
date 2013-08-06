@@ -197,6 +197,7 @@ class CoverArtBrowserSource(RB.Source):
         # get widgets for the artist paned
         self.artist_paned = ui.get_object('vertical_paned')
         self.artist_treeview = ui.get_object('artist_treeview')
+        self.artist_scrolledwindow = ui.get_object('artist_scrolledwindow')
 
         # get widgets for main icon-view
         self.status_label = ui.get_object('status_label')
@@ -329,16 +330,31 @@ class CoverArtBrowserSource(RB.Source):
 
         print("CoverArtBrowser DEBUG - end _setup_source")
 
+    def display_quick_artist_filter_callback(self):
+        if self.artist_treeview.get_visible():
+            self.artist_treeview.set_visible(False)
+            self.artist_scrolledwindow.set_visible(False)
+            self.artist_treeview.get_selection().unselect_all()
+            self.album_manager.model.remove_filter('quick_artist')
+        else:
+            self.artist_scrolledwindow.set_visible(True)
+            self.artist_treeview.set_visible(True)
+            self.artist_paned.set_position(100)
+
+        
     def on_artist_treeview_selection_changed(self, view):
         model, artist_iter = view.get_selected()
         if artist_iter:
             artist = model[artist_iter][0]
 
+            cl = CoverLocale()
+            cl.switch_locale(cl.Locale.RB)
             if artist == _('All'):
                 self.album_manager.model.remove_filter('quick_artist')
             else:
                 self.album_manager.model.replace_filter('quick_artist', artist)
-        
+
+            cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
     def _apply_settings(self):
         '''
         Applies all the settings related to the source and connects those that
@@ -818,6 +834,8 @@ class CoverArtBrowserSource(RB.Source):
             self.play_random_album_menu_item_callback()
         elif choice == 'random favourite':
             self.play_random_album_menu_item_callback(True)
+        elif choice == 'quick artist':
+            self.display_quick_artist_filter_callback()
         elif choice == 'browser prefs':
             if not self._browser_preferences:
                 self._browser_preferences = Preferences()
