@@ -329,6 +329,16 @@ class CoverArtBrowserSource(RB.Source):
 
         print("CoverArtBrowser DEBUG - end _setup_source")
 
+    def on_artist_treeview_selection_changed(self, view):
+        model, artist_iter = view.get_selected()
+        if artist_iter:
+            artist = model[artist_iter][0]
+
+            if artist == _('All'):
+                self.album_manager.model.remove_filter('quick_artist')
+            else:
+                self.album_manager.model.replace_filter('quick_artist', artist)
+        
     def _apply_settings(self):
         '''
         Applies all the settings related to the source and connects those that

@@ -602,6 +602,7 @@ AlbumFilters.keys = {
     'all': AlbumFilters.global_filter,
     'album_artist': AlbumFilters.album_artist_filter,
     'artist': AlbumFilters.artist_filter,
+    'quick_artist': AlbumFilters.artist_filter,
     'album_name': AlbumFilters.album_name_filter,
     'track': AlbumFilters.track_title_filter,
     'genre': AlbumFilters.genre_filter,
