@@ -70,10 +70,6 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         preferences.
         '''
 
-        # define .plugin text strings used for translation
-        plugin = _('CoverArt Browser')
-        desc = _('Browse and play your albums through their covers')
-
         print("CoverArtBrowser DEBUG - do_activate")
         self.shell = self.object
         self.db = self.shell.props.db
@@ -152,3 +148,24 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         if setting[gs.PluginKey.AUTOSTART]:
             GObject.idle_add(self.shell.props.display_page_tree.select,
                 self.source)
+                
+    def _translation_helper(self):
+        '''
+        a method just to help out with translation strings
+        it is not meant to be called by itself
+        '''
+        
+        # define .plugin text strings used for translation
+        plugin = _('CoverArt Browser')
+        desc = _('Browse and play your albums through their covers')
+        
+        #. TRANSLATORS: This is the icon-grid view that the user sees
+        #. TRANSLATORS: Please try to keep the translation to less than 8 characters
+        tile = _('Tile')
+        
+        #. TRANSLATORS: This is the cover-flow view the user sees - they can swipe album covers from side-to-side
+        #. TRANSLATORS: Please try to keep the translation to less than 8 characters
+        artist = _('Flow')
+        
+        #. TRANSLATORS: percentage size that the image will be expanded
+        scale = _('Scale by %:')

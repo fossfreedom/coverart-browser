@@ -934,9 +934,11 @@ class Statusbar(GObject.Object):
             # now lets build up a status label containing some
             # 'interesting stuff' about the album
             if len(albums) == 1:
+                #. TRANSLATORS - for example "abba's greatest hits by ABBA"
                 self.status = rb3compat.unicodedecode(_('%s by %s') % 
                         (album.name, album.artist), 'UTF-8')
             else:
+                #. TRANSLATORS - the number of albums that have been selected/highlighted
                 self.status = rb3compat.unicodedecode(_('%d selected albums') % 
                         (len(albums)), 'UTF-8')
 

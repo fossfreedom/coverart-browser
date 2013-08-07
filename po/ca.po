@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-02 14:58+0100\n"
+"POT-Creation-Date: 2013-08-07 14:45+0100\n"
 "PO-Revision-Date: 2013-04-18 19:01+0000\n"
 "Last-Translator: Launchpad Translations Administrators <Unknown>\n"
 "Language-Team: Catalan <ca@li.org>\n"
@@ -32,7 +32,7 @@ msgstr ""
 msgid "Search Mode"
 msgstr "Mode de recerca"
 
-#: tmpl/albumartsearch-tmpl.html:191
+#: tmpl/albumartsearch-tmpl.html:191 coverart_browser_source.py:322
 msgid "Artist"
 msgstr "Artista"
 
@@ -85,6 +85,11 @@ msgid "Tracks & Covers"
 msgstr "Pistes i Cobertes"
 
 #: tmp/coverart_browser.ui.h:2
+#, fuzzy
+msgid "Track Artist"
+msgstr "Artista"
+
+#: tmp/coverart_browser.ui.h:3
 msgid "Stop coverart fetch."
 msgstr "Para la cerca de portades."
 
@@ -96,17 +101,21 @@ msgid "All Genres"
 msgstr "Tots els gèneres"
 
 #: tmp/coverart_topbar.ui.h:6 tmp/coverart_sidebar.ui.h:10
-#: coverart_controllers.py:479
+#: coverart_controllers.py:485
 msgid "All Decades"
 msgstr "Totes les dècades"
 
-#: tmp/coverart_topbar.ui.h:11 tmp/coverart_browser_prefs.ui.h:139
-#: tmp/coverart_sidebar.ui.h:15
+#. . TRANSLATORS: This is the icon-grid view that the user sees
+#. . TRANSLATORS: Please try to keep the translation to less than 8 characters
+#: tmp/coverart_topbar.ui.h:11 tmp/coverart_browser_prefs.ui.h:147
+#: tmp/coverart_sidebar.ui.h:15 coverart_browser.py:164
 msgid "Tile"
 msgstr ""
 
+#. . TRANSLATORS: This is the cover-flow view the user sees - they can swipe album covers from side-to-side
+#. . TRANSLATORS: Please try to keep the translation to less than 8 characters
 #: tmp/coverart_topbar.ui.h:16 tmp/coverart_browser_prefs.ui.h:184
-#: tmp/coverart_sidebar.ui.h:20
+#: tmp/coverart_sidebar.ui.h:20 coverart_browser.py:168
 msgid "Flow"
 msgstr ""
 
@@ -209,7 +218,7 @@ msgid "Show track properties"
 msgstr "Mostra les propietats de la cançó"
 
 #: tmp/coverart_browser_pop_rb3.ui.h:10 tmp/coverart_entryview_pop_rb3.ui.h:5
-#: coverart_controllers.py:461
+#: coverart_controllers.py:467
 msgid "Properties"
 msgstr ""
 
@@ -341,65 +350,66 @@ msgstr "Mida (en pixels):"
 
 #: tmp/coverart_browser_prefs.ui.h:118
 #, fuzzy
-msgid "Advanced Options"
-msgstr "Opcions de recerca"
+msgid "Tracks Pane"
+msgstr "Cançons"
 
 #: tmp/coverart_browser_prefs.ui.h:122
-msgid "Padding (space) around each icon"
+msgid "open or close on click of cover"
 msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:126
-msgid "Padding"
-msgstr ""
+#, fuzzy
+msgid "Advanced Options"
+msgstr "Opcions de recerca"
 
 #: tmp/coverart_browser_prefs.ui.h:130
-msgid "Spacing between columns and rows"
+msgid "Padding (space) around each icon"
 msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:134
+msgid "Padding"
+msgstr ""
+
+#: tmp/coverart_browser_prefs.ui.h:138
+msgid "Spacing between columns and rows"
+msgstr ""
+
+#: tmp/coverart_browser_prefs.ui.h:142
 msgid "Spacing"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:143
+#: tmp/coverart_browser_prefs.ui.h:151
 #, fuzzy
 msgid "Flow Appearance"
 msgstr "Aparença de la Portada"
 
-#: tmp/coverart_browser_prefs.ui.h:147
+#: tmp/coverart_browser_prefs.ui.h:155
 msgid "width (px):"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:151
+#. . TRANSLATORS: percentage size that the image will be expanded
+#: tmp/coverart_browser_prefs.ui.h:159 coverart_browser.py:171
 msgid "Scale by %:"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:155
+#: tmp/coverart_browser_prefs.ui.h:163
 msgid "Hide Caption"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:159
+#: tmp/coverart_browser_prefs.ui.h:167
 msgid "Maximum covers to display:"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:163
+#: tmp/coverart_browser_prefs.ui.h:171
 msgid "Background Colour"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:167
+#: tmp/coverart_browser_prefs.ui.h:175
 msgid "White"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:171
-msgid "Black"
-msgstr ""
-
-#: tmp/coverart_browser_prefs.ui.h:175
-#, fuzzy
-msgid "Tracks Pane"
-msgstr "Cançons"
-
 #: tmp/coverart_browser_prefs.ui.h:179
-msgid "open or close on click of cover"
+msgid "Black"
 msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:188
@@ -502,7 +512,7 @@ msgstr ""
 "Consell: Arrossega i desa les pistes exportades des del navegador d'arxius a "
 "una llista o un telèfon/altres dispositius"
 
-#: tmp/coverart_sidebar.ui.h:2 coverart_browser.py:105 coverart_browser.py:118
+#: tmp/coverart_sidebar.ui.h:2 coverart_browser.py:102 coverart_browser.py:115
 msgid "CoverArt"
 msgstr "CoverArt"
 
@@ -646,53 +656,59 @@ msgstr "hip-hop"
 msgid "children"
 msgstr "xiquets"
 
-#: coverart_album.py:1603 coverart_browser_source.py:892
+#. . TRANSLATORS - for example "abba's greatest hits by ABBA"
+#: coverart_album.py:1604 coverart_browser_source.py:938
 #, python-format
 msgid "%s by %s"
 msgstr "%s per %s"
 
-#: coverart_browser_source.py:276
+#: coverart_browser_source.py:281
 msgid "Tracks"
 msgstr "Cançons"
 
-#: coverart_browser_source.py:287
+#: coverart_browser_source.py:292
 msgid "Covers"
 msgstr "Portades"
 
-#: coverart_browser_source.py:583
+#: coverart_browser_source.py:352
+msgid "All"
+msgstr ""
+
+#: coverart_browser_source.py:626
 msgid "The number of albums to randomly play is less than that displayed."
 msgstr ""
 
-#: coverart_browser_source.py:663
+#: coverart_browser_source.py:706
 #, python-format
 msgid "Requesting cover for %s - %s..."
 msgstr "Cercant portada per %s - %s..."
 
-#: coverart_browser_source.py:817
+#: coverart_browser_source.py:862
 msgid ""
 "Please install and activate the latest version of the Coverart Search "
 "Providers plugin"
 msgstr ""
 
-#: coverart_browser_source.py:895
+#. . TRANSLATORS - the number of albums that have been selected/highlighted
+#: coverart_browser_source.py:942
 #, fuzzy, python-format
 msgid "%d selected albums"
 msgstr "%d àlbums seleccionats "
 
-#: coverart_browser_source.py:899
+#: coverart_browser_source.py:946
 msgid " with 1 track"
 msgstr " amb 1 cançó"
 
-#: coverart_browser_source.py:901
+#: coverart_browser_source.py:948
 #, python-format
 msgid " with %d tracks"
 msgstr " amb %d cançons"
 
-#: coverart_browser_source.py:905
+#: coverart_browser_source.py:952
 msgid " and a duration of 1 minute"
 msgstr " i una duració d'un minut"
 
-#: coverart_browser_source.py:907
+#: coverart_browser_source.py:954
 #, python-format
 msgid " and a duration of %d minutes"
 msgstr " i una duració de %d minuts"
@@ -728,101 +744,105 @@ msgstr "Reprodueix este àlbum"
 msgid "Play favourite random album"
 msgstr "Reprodueix les cançons favorites a este àlbum"
 
-#: coverart_controllers.py:436 coverart_browser_prefs.py:241
+#: coverart_controllers.py:436
+msgid "Quick artist filter"
+msgstr ""
+
+#: coverart_controllers.py:438 coverart_browser_prefs.py:242
 msgid "Browser Preferences"
 msgstr ""
 
-#: coverart_controllers.py:437
+#: coverart_controllers.py:439
 #, fuzzy
 msgid "Search Preferences"
 msgstr "Cerca portades"
 
 #. '20s' as in the decade 2010
-#: coverart_controllers.py:481 coverart_controllers.py:507
+#: coverart_controllers.py:487 coverart_controllers.py:513
 msgid "20s"
 msgstr "20s"
 
 #. '10s' as in the decade 2010
-#: coverart_controllers.py:483
+#: coverart_controllers.py:489
 msgid "10s"
 msgstr "10s"
 
 #. '00s' as in the decade 2000
-#: coverart_controllers.py:485
+#: coverart_controllers.py:491
 msgid "00s"
 msgstr "00s"
 
 #. '90s' as in the decade 1990
-#: coverart_controllers.py:487
+#: coverart_controllers.py:493
 msgid "90s"
 msgstr "90s"
 
 #. '80s' as in the decade 1980
-#: coverart_controllers.py:489
+#: coverart_controllers.py:495
 msgid "80s"
 msgstr "80s"
 
 #. '70s' as in the decade 1970
-#: coverart_controllers.py:491
+#: coverart_controllers.py:497
 msgid "70s"
 msgstr "70s"
 
 #. '60s' as in the decade 1960
-#: coverart_controllers.py:493
+#: coverart_controllers.py:499
 msgid "60s"
 msgstr "60s"
 
 #. '50s' as in the decade 1950
-#: coverart_controllers.py:495
+#: coverart_controllers.py:501
 msgid "50s"
 msgstr "50s"
 
 #. '40s' as in the decade 1940
-#: coverart_controllers.py:497
+#: coverart_controllers.py:503
 msgid "40s"
 msgstr "40s"
 
 #. '30s' as in the decade 1930
-#: coverart_controllers.py:499
+#: coverart_controllers.py:505
 msgid "30s"
 msgstr "30s"
 
 #. 'Older' as in 'older than the year 1930'
-#: coverart_controllers.py:501
+#: coverart_controllers.py:507
 msgid "Older"
 msgstr "Més antigues"
 
 #. options
-#: coverart_controllers.py:546
+#: coverart_controllers.py:552
 msgid "Sort in descending order"
 msgstr "Ordena en ordre descendent"
 
-#: coverart_controllers.py:547
+#: coverart_controllers.py:553
 msgid "Sort in ascending order"
 msgstr "Ordena en ordre ascendent"
 
-#: coverart_controllers.py:599
+#: coverart_controllers.py:605
 msgid "Search all fields"
 msgstr "Cerca tots els camps"
 
-#: coverart_controllers.py:600
+#: coverart_controllers.py:606
 msgid "Search album artists"
 msgstr "Cerca per artista de l'àlbum"
 
-#: coverart_controllers.py:601
+#: coverart_controllers.py:607
 msgid "Search track artists"
 msgstr "Cerca per artista de la cançó"
 
-#: coverart_controllers.py:602
+#: coverart_controllers.py:608
 msgid "Search albums"
 msgstr "Cerca els àlbums"
 
-#: coverart_controllers.py:603
+#: coverart_controllers.py:609
 msgid "Search tracks"
 msgstr "Cerca cançons"
 
 #. . TRANSLATORS: Do not translate this string.
-#: coverart_browser_prefs.py:266
+#: coverart_browser_prefs.py:267
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -835,11 +855,11 @@ msgid "Number of covers limited to %d"
 msgstr ""
 
 #. define .plugin text strings used for translation
-#: coverart_browser.py:73
+#: coverart_browser.py:159
 msgid "CoverArt Browser"
 msgstr "Navegador de Portades"
 
-#: coverart_browser.py:74
+#: coverart_browser.py:160
 msgid "Browse and play your albums through their covers"
 msgstr "Navega i reprodueix els àlbums mitjançant les seues portades"
 
