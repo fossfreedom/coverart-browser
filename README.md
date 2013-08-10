@@ -85,6 +85,9 @@ You also need to make the following change to enable the plugin to work:
 
     gsettings set org.gnome.rhythmbox.plugins.coverart_browser webkit-support false
 
+Note 3 - Due to an upstream Rhythmbox bug affecting RB V2.98 & V2.99 only - any changes made to the details of a track 
+are not reflected back into the plugin.  This can lead to inconsistencies.  Please restart rhythmbox for these details
+to be correctly cached.  This bug is fixed in RB3.0 and does not affect RB2.96 & RB2.97 users
 
 *For Ubuntu 12.04 & 12.10:* --- NOT YET - INSTRUCTIONS BELOW ONLY VALID ON RELEASE OF v0.9
 
@@ -112,6 +115,7 @@ Credits:
  - thanks to Canonical for the Star widget which the ratings capabilities use
  - our Translators: Launchpad Translation team - individual credits for each locale is shown in the plugin preferences dialog
  - Button Icons - jrbastien for the three toolbar icon-sets (standard, light & dark)
+ - Flow view is based upon [Contentflow](http://jacksasylum.eu/ContentFlow)
  - Chief Tester and all-round good egg - jrbastien!
 
  Licenses:
