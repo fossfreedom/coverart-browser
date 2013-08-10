@@ -85,5 +85,21 @@
                 <attribute name="is_album_menu">yes</attribute>
             </menu>
         </plugin>
+        <plugin name="lLyrics">
+            <menu label="Lyrics">
+                <attribute name="action_type">win</attribute>
+                <attribute name="action_name">lLyricsPopupAction</attribute>
+                <attribute name="new_menu_name">Show Lyrics</attribute>
+                <attribute name="is_album_menu">no</attribute>
+            </menu>
+        </plugin>
+        <plugin name="fileorganizer">
+            <menu label="fileorganizer">
+                <attribute name="action_type">app</attribute>
+                <attribute name="action_name">organize-selection</attribute>
+                <attribute name="new_menu_name">Organize Selection</attribute>
+                <attribute name="is_album_menu">yes</attribute>
+            </menu>
+        </plugin>
     </rb3>
 </root>
