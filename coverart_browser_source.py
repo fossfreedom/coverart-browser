@@ -115,18 +115,6 @@ class CoverArtBrowserSource(RB.Source):
 
         return (self.status, progress_text, progress)
 
-    def do_show_popup(self):
-        '''
-        Method called by Rhythmbox when an action on our source prompts it
-        to show a popup.
-        '''
-        print("CoverArtBrowser DEBUG - do_show_popup")
-        self.source_menu.popup(None, None, None, None, 0,
-            Gtk.get_current_event_time())
-
-        print("CoverArtBrowser DEBUG - end do_show_popup")
-        return True
-
     def do_selected(self):
         '''
         Called by Rhythmbox when the source is selected. It makes sure to
