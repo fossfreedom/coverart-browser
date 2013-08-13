@@ -20,6 +20,7 @@ from gi.repository import Gio
 from gi.repository import GObject
 from gi.repository import Gtk
 from gi.repository import PeasGtk
+from gi.repository import Peas
 from gi.repository import RB
 
 import rb
@@ -27,6 +28,7 @@ import locale
 import gettext
 import os
 import shutil
+import webbrowser
 from stars import ReactiveStar
 from stars import StarSize
 import coverart_rb3compat as rb3compat
@@ -245,10 +247,24 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
             content_area = self._dialog.get_content_area()
             content_area.pack_start(self._create_display_contents(plugin), True, True, 0)
             
+        helpbutton = self._dialog.add_button(Gtk.STOCK_HELP, Gtk.ResponseType.HELP)
+        helpbutton.connect('clicked', self._display_help)
+            
         self._dialog.show_all()
-        response = self._dialog.run()
+        
+        while True:
+            response = self._dialog.run()
+            
+            if response != Gtk.ResponseType.HELP:
+                break
         
         self._dialog.hide()
+        
+    def _display_help(self, *args):
+        peas = Peas.Engine.get_default()
+        uri = peas.get_plugin_info('coverart_browser').get_help_uri()
+        
+        webbrowser.open(uri)
         
     def _create_display_contents(self, plugin):
         # create the ui
