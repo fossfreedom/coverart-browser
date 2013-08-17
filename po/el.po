@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-07 14:45+0100\n"
+"POT-Creation-Date: 2013-08-17 20:25+0100\n"
 "PO-Revision-Date: 2013-06-20 13:30+0000\n"
 "Last-Translator: George Christofis <geochr22@gmail.com>\n"
 "Language-Team: Greek <el@li.org>\n"
@@ -32,7 +32,7 @@ msgstr ""
 msgid "Search Mode"
 msgstr "Λειτουργία αναζήτησης"
 
-#: tmpl/albumartsearch-tmpl.html:191 coverart_browser_source.py:322
+#: tmpl/albumartsearch-tmpl.html:191 coverart_browser_source.py:310
 msgid "Artist"
 msgstr "Καλλιτέχνης"
 
@@ -94,28 +94,28 @@ msgid "Stop coverart fetch."
 msgstr ""
 
 #. initial genre
-#: tmp/coverart_topbar.ui.h:2 tmp/coverart_sidebar.ui.h:6
+#: tmp/coverart_topbar.ui.h:1 tmp/coverart_sidebar.ui.h:2
 #: coverart_controllers.py:215 coverart_controllers.py:267
 #: coverart_controllers.py:366
 msgid "All Genres"
 msgstr "Όλα τα είδη"
 
-#: tmp/coverart_topbar.ui.h:6 tmp/coverart_sidebar.ui.h:10
+#: tmp/coverart_topbar.ui.h:2 tmp/coverart_sidebar.ui.h:3
 #: coverart_controllers.py:485
 msgid "All Decades"
 msgstr "Όλες οι δεκαετίες"
 
 #. . TRANSLATORS: This is the icon-grid view that the user sees
 #. . TRANSLATORS: Please try to keep the translation to less than 8 characters
-#: tmp/coverart_topbar.ui.h:11 tmp/coverart_browser_prefs.ui.h:147
-#: tmp/coverart_sidebar.ui.h:15 coverart_browser.py:164
-msgid "Tile"
+#: tmp/coverart_topbar.ui.h:3 tmp/coverart_browser_prefs.ui.h:43
+#: tmp/coverart_sidebar.ui.h:4 coverart_browser.py:164
+msgid "Tiles"
 msgstr ""
 
 #. . TRANSLATORS: This is the cover-flow view the user sees - they can swipe album covers from side-to-side
 #. . TRANSLATORS: Please try to keep the translation to less than 8 characters
-#: tmp/coverart_topbar.ui.h:16 tmp/coverart_browser_prefs.ui.h:184
-#: tmp/coverart_sidebar.ui.h:20 coverart_browser.py:168
+#: tmp/coverart_topbar.ui.h:4 tmp/coverart_browser_prefs.ui.h:53
+#: tmp/coverart_sidebar.ui.h:5 coverart_browser.py:168
 msgid "Flow"
 msgstr ""
 
@@ -224,262 +224,291 @@ msgstr ""
 msgid "Properties"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:2
+#: tmp/coverart_browser_prefs.ui.h:1
 msgid "Select a picture"
 msgstr "Επιλογή μιας εικόνας"
 
-#: tmp/coverart_browser_prefs.ui.h:6
+#: tmp/coverart_browser_prefs.ui.h:2
 msgid "Select picture to add to Edit Genre icon drop-down list"
 msgstr ""
+
+#: tmp/coverart_browser_prefs.ui.h:3
+msgid "Above"
+msgstr "Επάνω"
+
+#: tmp/coverart_browser_prefs.ui.h:4
+msgid "Top Left"
+msgstr "Επάνω Αριστερά"
+
+#: tmp/coverart_browser_prefs.ui.h:5
+msgid "Top Center"
+msgstr "Πάνω κέντρο"
+
+#: tmp/coverart_browser_prefs.ui.h:6
+msgid "Top Right"
+msgstr "Επάνω Δεξιά"
+
+#: tmp/coverart_browser_prefs.ui.h:7
+msgid "Above Cover View"
+msgstr ""
+
+#: tmp/coverart_browser_prefs.ui.h:8
+msgid "Left Sidebar"
+msgstr "Αριστερή πλευρική μπάρα"
+
+#: tmp/coverart_browser_prefs.ui.h:9
+msgid "Right Sidebar"
+msgstr "Δεξιά πλευρική μπάρα"
 
 #: tmp/coverart_browser_prefs.ui.h:10
 msgid "Automatically Start"
 msgstr "Αυτόματη εκκίνηση"
 
-#: tmp/coverart_browser_prefs.ui.h:14
+#: tmp/coverart_browser_prefs.ui.h:11
 msgid "When rhythmbox starts, switch automatically to the coverart browser."
 msgstr ""
 "Όταν το Rhythmbox εκκινεί, να γίνεται αυτόματη μετάβαση στο coverart browser."
 
-#: tmp/coverart_browser_prefs.ui.h:18
+#: tmp/coverart_browser_prefs.ui.h:12
 msgid "Use source's custom statusbar"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:22
+#: tmp/coverart_browser_prefs.ui.h:13
 msgid ""
 "Use the source's custom statusbar to show the current selected album's "
 "related information instead of the global Rhythmbox's statusbar."
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:28
+#: tmp/coverart_browser_prefs.ui.h:14
 msgid "Display tracks and covers pane"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:32
+#: tmp/coverart_browser_prefs.ui.h:15
 msgid ""
 "Add a toggle-option to the coverart view to display the tracks and covers "
 "for the chosen album"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:38
+#: tmp/coverart_browser_prefs.ui.h:16
 msgid ""
 "Number of random\n"
 "albums to play"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:44
+#: tmp/coverart_browser_prefs.ui.h:18
 msgid "Level above which is regarded as being a favourite track or album"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:48
+#: tmp/coverart_browser_prefs.ui.h:19
 msgid "Favourite Threshold"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:52
+#: tmp/coverart_browser_prefs.ui.h:20
 msgid "General"
 msgstr "Γενικά"
 
-#: tmp/coverart_browser_prefs.ui.h:56
+#: tmp/coverart_browser_prefs.ui.h:21
 msgid "Album Information"
 msgstr "Πληροφορίες άλμπουμ"
 
-#: tmp/coverart_browser_prefs.ui.h:60
+#: tmp/coverart_browser_prefs.ui.h:22
 msgid "Display album's info under cover"
 msgstr "Εμφάνιση πληροφοριών του άλμπουμ κάτω από το εξώφυλλο"
 
-#: tmp/coverart_browser_prefs.ui.h:64
+#: tmp/coverart_browser_prefs.ui.h:23
 msgid "Show the album's basic information under the cover image."
 msgstr ""
 "Εμφάνιση των βασικών πληροφοριών του άλμπουμ κάτω από την εικόνα του "
 "εξωφύλλου"
 
-#: tmp/coverart_browser_prefs.ui.h:68
+#: tmp/coverart_browser_prefs.ui.h:24
 msgid "Font size for the text below the cover-art."
 msgstr "Μέγεθος γραμματοσειράς για το κείμενο κάτω από το cover-art."
 
-#: tmp/coverart_browser_prefs.ui.h:72
+#: tmp/coverart_browser_prefs.ui.h:25
 msgid "Font Size:"
 msgstr "Μέγεθος γραμματοσειράς:"
 
-#: tmp/coverart_browser_prefs.ui.h:76
+#: tmp/coverart_browser_prefs.ui.h:26
 msgid "Ellipsize albums names"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:80
+#: tmp/coverart_browser_prefs.ui.h:27
 msgid ""
 "Ellipsizes the albums names to a fixed length when the display text option "
 "is enabled."
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:86
+#: tmp/coverart_browser_prefs.ui.h:28
 msgid "Maximum allowed length for an album's name before being ellipsized."
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:90
+#: tmp/coverart_browser_prefs.ui.h:29
 msgid "Maximum length:"
 msgstr "Μέγιστο μήκος:"
 
-#: tmp/coverart_browser_prefs.ui.h:94
+#: tmp/coverart_browser_prefs.ui.h:30
 msgid "Cover Appearance"
 msgstr "Εμφάνιση εξωφύλλου"
 
-#: tmp/coverart_browser_prefs.ui.h:98
+#: tmp/coverart_browser_prefs.ui.h:31
 msgid "Drop shadow"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:102
+#: tmp/coverart_browser_prefs.ui.h:32
 msgid "Indicates if the albums should drop a shadow on the cover view"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:106
+#: tmp/coverart_browser_prefs.ui.h:33
 msgid "Light Source: "
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:110
+#: tmp/coverart_browser_prefs.ui.h:34
 msgid "Defines the size for the covers showed on the source."
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:114
+#: tmp/coverart_browser_prefs.ui.h:35
 msgid "Size (in pixels):"
 msgstr "Μέγεθος (σε pixels):"
 
-#: tmp/coverart_browser_prefs.ui.h:118
+#: tmp/coverart_browser_prefs.ui.h:36
 #, fuzzy
 msgid "Tracks Pane"
 msgstr "Κομμάτια"
 
-#: tmp/coverart_browser_prefs.ui.h:122
+#: tmp/coverart_browser_prefs.ui.h:37
 msgid "open or close on click of cover"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:126
+#: tmp/coverart_browser_prefs.ui.h:38
 #, fuzzy
 msgid "Advanced Options"
 msgstr "Επιλογές αναζήτησης"
 
-#: tmp/coverart_browser_prefs.ui.h:130
+#: tmp/coverart_browser_prefs.ui.h:39
 msgid "Padding (space) around each icon"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:134
-msgid "Padding"
-msgstr ""
-
-#: tmp/coverart_browser_prefs.ui.h:138
+#: tmp/coverart_browser_prefs.ui.h:40
 msgid "Spacing between columns and rows"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:142
+#: tmp/coverart_browser_prefs.ui.h:41
+msgid "Padding"
+msgstr ""
+
+#: tmp/coverart_browser_prefs.ui.h:42
 msgid "Spacing"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:151
+#: tmp/coverart_browser_prefs.ui.h:44
 #, fuzzy
 msgid "Flow Appearance"
 msgstr "Εμφάνιση εξωφύλλου"
 
-#: tmp/coverart_browser_prefs.ui.h:155
-msgid "width (px):"
+#: tmp/coverart_browser_prefs.ui.h:45
+msgid "Width (px):"
 msgstr ""
 
 #. . TRANSLATORS: percentage size that the image will be expanded
-#: tmp/coverart_browser_prefs.ui.h:159 coverart_browser.py:171
+#: tmp/coverart_browser_prefs.ui.h:47 coverart_browser.py:171
+#, no-c-format
 msgid "Scale by %:"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:163
+#: tmp/coverart_browser_prefs.ui.h:48
 msgid "Hide Caption"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:167
+#: tmp/coverart_browser_prefs.ui.h:49
 msgid "Maximum covers to display:"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:171
+#: tmp/coverart_browser_prefs.ui.h:50
 msgid "Background Colour"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:175
+#: tmp/coverart_browser_prefs.ui.h:51
 msgid "White"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:179
+#: tmp/coverart_browser_prefs.ui.h:52
 msgid "Black"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:188
+#: tmp/coverart_browser_prefs.ui.h:54
 msgid "Where the toolbar should be positioned"
 msgstr "Που θα τοποθετηθεί η γραμμή εργαλείων"
 
-#: tmp/coverart_browser_prefs.ui.h:192
+#: tmp/coverart_browser_prefs.ui.h:55
 msgid "Position"
 msgstr "Θέση"
 
-#: tmp/coverart_browser_prefs.ui.h:196
+#: tmp/coverart_browser_prefs.ui.h:56
 msgid "Show toolbar: "
 msgstr "Εμφάνιση γραμμής εργαλείων: "
 
-#: tmp/coverart_browser_prefs.ui.h:200
+#: tmp/coverart_browser_prefs.ui.h:57
 msgid "Look & Feel"
 msgstr "Εμφάνιση & Αίσθηση"
 
-#: tmp/coverart_browser_prefs.ui.h:204
+#: tmp/coverart_browser_prefs.ui.h:58
 msgid "Flat-button style"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:208
+#: tmp/coverart_browser_prefs.ui.h:59
 msgid "Icon Theme: "
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:212
+#: tmp/coverart_browser_prefs.ui.h:60
 msgid "Alternative Genres:"
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:216
+#: tmp/coverart_browser_prefs.ui.h:61
 msgid "Load New Icon: "
 msgstr ""
 
-#: tmp/coverart_browser_prefs.ui.h:220
+#: tmp/coverart_browser_prefs.ui.h:62
 msgid "Select a new genre icon"
 msgstr "Επιλογή ενός νέου εικονιδίου για το είδος"
 
-#: tmp/coverart_browser_prefs.ui.h:224
+#: tmp/coverart_browser_prefs.ui.h:63
 msgid "Edit Genre Details:"
 msgstr "Επεξεργασία λεπτομερειών είδους:"
 
-#: tmp/coverart_browser_prefs.ui.h:228
+#: tmp/coverart_browser_prefs.ui.h:64
 msgid "Save changes"
 msgstr "Αποθήκευση αλλαγών"
 
-#: tmp/coverart_browser_prefs.ui.h:232
+#: tmp/coverart_browser_prefs.ui.h:65
 msgid "Name:"
 msgstr "Όνομα:"
 
-#: tmp/coverart_browser_prefs.ui.h:236
+#: tmp/coverart_browser_prefs.ui.h:66
 msgid "Icon:"
 msgstr "Εικονίδιο:"
 
-#: tmp/coverart_browser_prefs.ui.h:240
+#: tmp/coverart_browser_prefs.ui.h:67
 msgid "Current user-defined Genres:"
 msgstr "Τρέχοντα είδη ορισμένα από τον χρήστη:"
 
-#: tmp/coverart_browser_prefs.ui.h:244
+#: tmp/coverart_browser_prefs.ui.h:68
 msgid "Alternate Name"
 msgstr "Εναλλακτικό όνομα"
 
-#: tmp/coverart_browser_prefs.ui.h:248
+#: tmp/coverart_browser_prefs.ui.h:69
 msgid "Icon"
 msgstr "Εικονίδιο"
 
-#: tmp/coverart_browser_prefs.ui.h:252
+#: tmp/coverart_browser_prefs.ui.h:70
 msgid "Add a new alternative genre"
 msgstr "Προσθήκη ενός νέου εναλλακτικού είδους"
 
-#: tmp/coverart_browser_prefs.ui.h:256
+#: tmp/coverart_browser_prefs.ui.h:71
 msgid "Delete an alternative genre"
 msgstr "Διαγραφή ενός εναλλακτικού είδους"
 
-#: tmp/coverart_browser_prefs.ui.h:260
+#: tmp/coverart_browser_prefs.ui.h:72
 msgid "Toolbar"
 msgstr "Γραμμή εργαλείων"
 
@@ -505,7 +534,7 @@ msgid ""
 "telephone/other device"
 msgstr ""
 
-#: tmp/coverart_sidebar.ui.h:2 coverart_browser.py:102 coverart_browser.py:115
+#: tmp/coverart_sidebar.ui.h:1 coverart_browser.py:102 coverart_browser.py:115
 msgid "CoverArt"
 msgstr ""
 
@@ -650,58 +679,59 @@ msgid "children"
 msgstr "παιδική"
 
 #. . TRANSLATORS - for example "abba's greatest hits by ABBA"
-#: coverart_album.py:1604 coverart_browser_source.py:938
+#: coverart_album.py:1604 coverart_browser_source.py:927
 #, python-format
 msgid "%s by %s"
 msgstr "%s από %s"
 
-#: coverart_browser_source.py:281
+#: coverart_browser_source.py:269
 msgid "Tracks"
 msgstr "Κομμάτια"
 
-#: coverart_browser_source.py:292
+#: coverart_browser_source.py:280
 msgid "Covers"
 msgstr ""
 
-#: coverart_browser_source.py:352
+#. . TRANSLATORS - "All" is used in the context of "All artist names"
+#: coverart_browser_source.py:341
 msgid "All"
 msgstr ""
 
-#: coverart_browser_source.py:626
+#: coverart_browser_source.py:615
 msgid "The number of albums to randomly play is less than that displayed."
 msgstr ""
 
-#: coverart_browser_source.py:706
+#: coverart_browser_source.py:695
 #, python-format
 msgid "Requesting cover for %s - %s..."
 msgstr ""
 
-#: coverart_browser_source.py:862
+#: coverart_browser_source.py:851
 msgid ""
 "Please install and activate the latest version of the Coverart Search "
 "Providers plugin"
 msgstr ""
 
 #. . TRANSLATORS - the number of albums that have been selected/highlighted
-#: coverart_browser_source.py:942
+#: coverart_browser_source.py:931
 #, python-format
 msgid "%d selected albums"
 msgstr ""
 
-#: coverart_browser_source.py:946
+#: coverart_browser_source.py:935
 msgid " with 1 track"
 msgstr " με 1 κομμάτι"
 
-#: coverart_browser_source.py:948
+#: coverart_browser_source.py:937
 #, python-format
 msgid " with %d tracks"
 msgstr " με %d κομμάτια"
 
-#: coverart_browser_source.py:952
+#: coverart_browser_source.py:941
 msgid " and a duration of 1 minute"
 msgstr ""
 
-#: coverart_browser_source.py:954
+#: coverart_browser_source.py:943
 #, python-format
 msgid " and a duration of %d minutes"
 msgstr ""
@@ -741,7 +771,7 @@ msgstr "Αναπαραγωγή αγαπημένων κομματιίων από 
 msgid "Quick artist filter"
 msgstr ""
 
-#: coverart_controllers.py:438 coverart_browser_prefs.py:242
+#: coverart_controllers.py:438 coverart_browser_prefs.py:244
 msgid "Browser Preferences"
 msgstr ""
 
@@ -835,7 +865,7 @@ msgid "Search tracks"
 msgstr "Αναζήτηση κομματιών"
 
 #. . TRANSLATORS: Do not translate this string.
-#: coverart_browser_prefs.py:267
+#: coverart_browser_prefs.py:283
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -855,24 +885,6 @@ msgstr ""
 #: coverart_browser.py:160
 msgid "Browse and play your albums through their covers"
 msgstr ""
-
-#~ msgid "Above"
-#~ msgstr "Επάνω"
-
-#~ msgid "Top Left"
-#~ msgstr "Επάνω Αριστερά"
-
-#~ msgid "Top Center"
-#~ msgstr "Πάνω κέντρο"
-
-#~ msgid "Top Right"
-#~ msgstr "Επάνω Δεξιά"
-
-#~ msgid "Left Sidebar"
-#~ msgstr "Αριστερή πλευρική μπάρα"
-
-#~ msgid "Right Sidebar"
-#~ msgstr "Δεξιά πλευρική μπάρα"
 
 #, fuzzy
 #~ msgid "Coverflow"
