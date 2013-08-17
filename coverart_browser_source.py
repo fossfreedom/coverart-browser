@@ -337,6 +337,7 @@ class CoverArtBrowserSource(RB.Source):
 
             cl = CoverLocale()
             cl.switch_locale(cl.Locale.RB)
+            #. TRANSLATORS - "All" is used in the context of "All artist names"
             if artist == _('All'):
                 self.album_manager.model.remove_filter('quick_artist')
             else:

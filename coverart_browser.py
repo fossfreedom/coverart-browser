@@ -161,7 +161,7 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         
         #. TRANSLATORS: This is the icon-grid view that the user sees
         #. TRANSLATORS: Please try to keep the translation to less than 8 characters
-        tile = _('Tile')
+        tile = _('Tiles')
         
         #. TRANSLATORS: This is the cover-flow view the user sees - they can swipe album covers from side-to-side
         #. TRANSLATORS: Please try to keep the translation to less than 8 characters

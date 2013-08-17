@@ -917,6 +917,7 @@ albums to play</property>
               <object class="GtkSpinButton" id="spacing_spin">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="tooltip_text" translatable="yes">Spacing between columns and rows</property>
                 <property name="max_length">2</property>
                 <property name="invisible_char">•</property>
                 <property name="adjustment">spacing_adjustment</property>
@@ -947,7 +948,6 @@ albums to play</property>
               <object class="GtkLabel" id="label11">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="tooltip_text" translatable="yes">Spacing between columns and rows</property>
                 <property name="label" translatable="yes">Spacing</property>
               </object>
               <packing>
@@ -974,7 +974,7 @@ albums to play</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="yalign">0.46000000834465027</property>
-        <property name="label" translatable="yes" context="This is the icon-grid view that the user sees" comments="Please try to keep the translation to less than 8 characters">Tile</property>
+        <property name="label" translatable="yes">Tiles</property>
       </object>
       <packing>
         <property name="position">1</property>
@@ -1031,7 +1031,7 @@ albums to play</property>
                   <object class="GtkLabel" id="label16">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">width (px):</property>
+                    <property name="label" translatable="yes">Width (px):</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -1276,7 +1276,7 @@ albums to play</property>
       <object class="GtkLabel" id="flow_label">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="label" translatable="yes" context="This is the cover-flow view the user sees - they can swipe album covers from side-to-side" comments="Please try to keep the translation to less than 8 characters">Flow</property>
+        <property name="label" translatable="yes">Flow</property>
       </object>
       <packing>
         <property name="position">2</property>
