@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-17 20:25+0100\n"
-"PO-Revision-Date: 2013-04-18 19:01+0000\n"
-"Last-Translator: Launchpad Translations Administrators <Unknown>\n"
+"PO-Revision-Date: 2013-08-17 20:46+0000\n"
+"Last-Translator: fossfreedom <Unknown>\n"
 "Language-Team: none\n"
-"Language: fr_CA\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-05-10 12:44+0000\n"
-"X-Generator: Launchpad (build 16598)\n"
+"X-Launchpad-Export-Date: 2013-08-17 20:52+0000\n"
+"X-Generator: Launchpad (build 16723)\n"
+"Language: fr_CA\n"
 "Generated-By: pygettext.py 1.5\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
@@ -85,9 +85,8 @@ msgid "Tracks & Covers"
 msgstr "Pistes & Pochettes"
 
 #: tmp/coverart_browser.ui.h:2
-#, fuzzy
 msgid "Track Artist"
-msgstr "Artiste"
+msgstr "Artiste de la piste"
 
 #: tmp/coverart_browser.ui.h:3
 msgid "Stop coverart fetch."
@@ -117,7 +116,7 @@ msgstr ""
 #: tmp/coverart_topbar.ui.h:4 tmp/coverart_browser_prefs.ui.h:53
 #: tmp/coverart_sidebar.ui.h:5 coverart_browser.py:168
 msgid "Flow"
-msgstr ""
+msgstr "Flux"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:1
 msgid "Play this album"
@@ -222,7 +221,7 @@ msgstr "Afficher les propriétés de la piste"
 #: tmp/coverart_browser_pop_rb3.ui.h:10 tmp/coverart_entryview_pop_rb3.ui.h:5
 #: coverart_controllers.py:467
 msgid "Properties"
-msgstr ""
+msgstr "Propriétés"
 
 #: tmp/coverart_browser_prefs.ui.h:1
 msgid "Select a picture"
@@ -273,7 +272,6 @@ msgstr ""
 "pochettes"
 
 #: tmp/coverart_browser_prefs.ui.h:12
-#, fuzzy
 msgid "Use source's custom statusbar"
 msgstr "Utiliser la barre d'état personnalisée de ce greffon"
 
@@ -301,7 +299,7 @@ msgstr ""
 msgid ""
 "Number of random\n"
 "albums to play"
-msgstr ""
+msgstr "Utiliser la barre d'état personnalisée de ce greffon"
 
 #: tmp/coverart_browser_prefs.ui.h:18
 msgid "Level above which is regarded as being a favourite track or album"
@@ -381,39 +379,36 @@ msgid "Size (in pixels):"
 msgstr "Taille (en pixels):"
 
 #: tmp/coverart_browser_prefs.ui.h:36
-#, fuzzy
 msgid "Tracks Pane"
-msgstr "Pistes"
+msgstr "Volet Pistes"
 
 #: tmp/coverart_browser_prefs.ui.h:37
 msgid "open or close on click of cover"
-msgstr ""
+msgstr "Ouvre ou ferme en cliquant sur la pochette"
 
 #: tmp/coverart_browser_prefs.ui.h:38
-#, fuzzy
 msgid "Advanced Options"
-msgstr "Options de recherche"
+msgstr "Options avancées"
 
 #: tmp/coverart_browser_prefs.ui.h:39
 msgid "Padding (space) around each icon"
-msgstr ""
+msgstr "Remplissage (espace) autour de chaque icône"
 
 #: tmp/coverart_browser_prefs.ui.h:40
 msgid "Spacing between columns and rows"
-msgstr ""
+msgstr "Espace entre les colonnes et les lignes"
 
 #: tmp/coverart_browser_prefs.ui.h:41
 msgid "Padding"
-msgstr ""
+msgstr "Remplissage"
 
 #: tmp/coverart_browser_prefs.ui.h:42
 msgid "Spacing"
-msgstr ""
+msgstr "Espacement"
 
 #: tmp/coverart_browser_prefs.ui.h:44
-#, fuzzy
 msgid "Flow Appearance"
-msgstr "Apparence de la pochette"
+msgstr "Apparence du flux"
 
 #: tmp/coverart_browser_prefs.ui.h:45
 msgid "Width (px):"
@@ -423,27 +418,27 @@ msgstr ""
 #: tmp/coverart_browser_prefs.ui.h:47 coverart_browser.py:171
 #, no-c-format
 msgid "Scale by %:"
-msgstr ""
+msgstr "Échelle %"
 
 #: tmp/coverart_browser_prefs.ui.h:48
 msgid "Hide Caption"
-msgstr ""
+msgstr "Cacher le titre"
 
 #: tmp/coverart_browser_prefs.ui.h:49
 msgid "Maximum covers to display:"
-msgstr ""
+msgstr "Nombre maximum de pochettes à afficher :"
 
 #: tmp/coverart_browser_prefs.ui.h:50
 msgid "Background Colour"
-msgstr ""
+msgstr "Couleur d'arrière-plan"
 
 #: tmp/coverart_browser_prefs.ui.h:51
 msgid "White"
-msgstr ""
+msgstr "Blanc"
 
 #: tmp/coverart_browser_prefs.ui.h:52
 msgid "Black"
-msgstr ""
+msgstr "Noir"
 
 #: tmp/coverart_browser_prefs.ui.h:54
 msgid "Where the toolbar should be positioned"
@@ -531,7 +526,8 @@ msgstr "Choisir un dossier où exporter"
 
 #: tmp/coverart_exportembed.ui.h:3
 msgid "Save tracks within folder using album name"
-msgstr "Enregistrer les pistes dans le dossier en utilisant le nom de l'album"
+msgstr ""
+"Enregistrer les pistes dans le dossier en utilisant le nom de l'album"
 
 #: tmp/coverart_exportembed.ui.h:4
 msgid "Open embedded track folder in file-manager"
@@ -708,11 +704,11 @@ msgstr "Pochettes"
 #. . TRANSLATORS - "All" is used in the context of "All artist names"
 #: coverart_browser_source.py:341
 msgid "All"
-msgstr ""
+msgstr "Tous"
 
 #: coverart_browser_source.py:615
 msgid "The number of albums to randomly play is less than that displayed."
-msgstr ""
+msgstr "Le nombre d'albums à jouer aléatoirement est moindre qu'affiché."
 
 #: coverart_browser_source.py:695
 #, python-format
@@ -724,12 +720,14 @@ msgid ""
 "Please install and activate the latest version of the Coverart Search "
 "Providers plugin"
 msgstr ""
+"SVP installer et activer la dernière version du greffon \"Navigateur de "
+"pochettes - Moteurs de recherche\""
 
 #. . TRANSLATORS - the number of albums that have been selected/highlighted
 #: coverart_browser_source.py:931
-#, fuzzy, python-format
+#, python-format
 msgid "%d selected albums"
-msgstr "%d albums sélectionnés "
+msgstr "%d albums sélectionnés"
 
 #: coverart_browser_source.py:935
 msgid " with 1 track"
@@ -766,32 +764,28 @@ msgid "Sort by rating"
 msgstr "Trier par notation"
 
 #: coverart_controllers.py:432
-#, fuzzy
 msgid "Download all covers"
 msgstr "Télécharger toutes les pochettes"
 
 #: coverart_controllers.py:433
-#, fuzzy
 msgid "Play random album"
-msgstr "Jouer cet album"
+msgstr "Jouer un album au hasard"
 
 #: coverart_controllers.py:434
-#, fuzzy
 msgid "Play favourite random album"
-msgstr "Jouer les pistes favorites de cet album"
+msgstr "Jouer un album favori au hasard"
 
 #: coverart_controllers.py:436
 msgid "Quick artist filter"
-msgstr ""
+msgstr "Filtre rapide par artiste"
 
 #: coverart_controllers.py:438 coverart_browser_prefs.py:244
 msgid "Browser Preferences"
-msgstr ""
+msgstr "Préférences du navigateur"
 
 #: coverart_controllers.py:439
-#, fuzzy
 msgid "Search Preferences"
-msgstr "Rechercher les pochettes"
+msgstr "Préférences de recherche"
 
 #. '20s' as in the decade 2010
 #: coverart_controllers.py:487 coverart_controllers.py:513
@@ -882,15 +876,15 @@ msgstr "Rechercher les pistes"
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  Hélion du Mas des Bourboux https://launchpad.net/~helion331990\n"
 "  Jean-Rene Bastien https://launchpad.net/~jrbastien\n"
-"  fossfreedom https://launchpad.net/~fossfreedom"
+"  fossfreedom https://launchpad.net/~fossfreedom\n"
+"  londumas https://launchpad.net/~helion331990"
 
 #. TRANSLATORS: for example 'Number of covers limited to 150'
 #: coverart_coverflowview.py:197
 #, python-format
 msgid "Number of covers limited to %d"
-msgstr ""
+msgstr "Nombre de pochettes limité à %d"
 
 #. define .plugin text strings used for translation
 #: coverart_browser.py:159
@@ -901,13 +895,11 @@ msgstr "Navigateur de pochettes"
 msgid "Browse and play your albums through their covers"
 msgstr "Parcourir les pochettes de vos albums et les jouer"
 
-#, fuzzy
-#~ msgid "170"
-#~ msgstr "Années 2010"
+#~ msgid "Tile"
+#~ msgstr "Tuiles"
 
-#, fuzzy
-#~ msgid "Coverflow"
-#~ msgstr "Pochette"
+#~ msgid "width (px):"
+#~ msgstr "Largeur (px) :"
 
 #~ msgid "Search for covers where an album does not currently have one"
 #~ msgstr "Rechercher les pochettes des albums qui n'en ont pas"
