@@ -1123,7 +1123,7 @@ class ToolbarManager(GObject.Object):
         
         controllers['iconview_button'] = viewmgr.controller
         controllers['flowview_button'] = viewmgr.controller
-        controllers['artistview_button'] = viewmgr.controller
+        #controllers['artistview_button'] = viewmgr.controller
 
         return controllers
 
