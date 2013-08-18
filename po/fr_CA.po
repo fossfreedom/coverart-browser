@@ -6,16 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-17 20:25+0100\n"
+"POT-Creation-Date: 2013-08-18 15:41+0100\n"
 "PO-Revision-Date: 2013-08-18 09:52+0000\n"
 "Last-Translator: fossfreedom <Unknown>\n"
 "Language-Team: none\n"
+"Language: fr_CA\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2013-08-18 09:56+0000\n"
 "X-Generator: Launchpad (build 16723)\n"
-"Language: fr_CA\n"
 "Generated-By: pygettext.py 1.5\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
@@ -32,7 +32,7 @@ msgstr ""
 msgid "Search Mode"
 msgstr "Mode de recherche"
 
-#: tmpl/albumartsearch-tmpl.html:191 coverart_browser_source.py:310
+#: tmpl/albumartsearch-tmpl.html:191 coverart_browser_source.py:305
 msgid "Artist"
 msgstr "Artiste"
 
@@ -72,7 +72,7 @@ msgstr "Grande"
 msgid "Extra Large"
 msgstr "Énorme"
 
-#: tmpl/albumartsearch-tmpl.html:211 coverart_browser_source.py:111
+#: tmpl/albumartsearch-tmpl.html:211 coverart_browser_source.py:112
 msgid "Loading..."
 msgstr "Chargement..."
 
@@ -391,7 +391,8 @@ msgid "Advanced Options"
 msgstr "Options avancées"
 
 #: tmp/coverart_browser_prefs.ui.h:39
-msgid "Padding (space) around each icon"
+#, fuzzy
+msgid "Padding (space) around the cover and its highlight"
 msgstr "Remplissage (espace) autour de chaque icône"
 
 #: tmp/coverart_browser_prefs.ui.h:40
@@ -526,8 +527,7 @@ msgstr "Choisir un dossier où exporter"
 
 #: tmp/coverart_exportembed.ui.h:3
 msgid "Save tracks within folder using album name"
-msgstr ""
-"Enregistrer les pistes dans le dossier en utilisant le nom de l'album"
+msgstr "Enregistrer les pistes dans le dossier en utilisant le nom de l'album"
 
 #: tmp/coverart_exportembed.ui.h:4
 msgid "Open embedded track folder in file-manager"
@@ -688,34 +688,34 @@ msgid "children"
 msgstr "enfants"
 
 #. . TRANSLATORS - for example "abba's greatest hits by ABBA"
-#: coverart_album.py:1604 coverart_browser_source.py:927
+#: coverart_album.py:1604 coverart_browser_source.py:933
 #, python-format
 msgid "%s by %s"
 msgstr "%s par %s"
 
-#: coverart_browser_source.py:269
+#: coverart_browser_source.py:265
 msgid "Tracks"
 msgstr "Pistes"
 
-#: coverart_browser_source.py:280
+#: coverart_browser_source.py:276
 msgid "Covers"
 msgstr "Pochettes"
 
 #. . TRANSLATORS - "All" is used in the context of "All artist names"
-#: coverart_browser_source.py:341
+#: coverart_browser_source.py:347
 msgid "All"
 msgstr "Tous"
 
-#: coverart_browser_source.py:615
+#: coverart_browser_source.py:621
 msgid "The number of albums to randomly play is less than that displayed."
 msgstr "Le nombre d'albums à jouer aléatoirement est moindre qu'affiché."
 
-#: coverart_browser_source.py:695
+#: coverart_browser_source.py:701
 #, python-format
 msgid "Requesting cover for %s - %s..."
 msgstr "Demande de la pochette pour %s - %s..."
 
-#: coverart_browser_source.py:851
+#: coverart_browser_source.py:857
 msgid ""
 "Please install and activate the latest version of the Coverart Search "
 "Providers plugin"
@@ -724,25 +724,25 @@ msgstr ""
 "pochettes - Moteurs de recherche\""
 
 #. . TRANSLATORS - the number of albums that have been selected/highlighted
-#: coverart_browser_source.py:931
+#: coverart_browser_source.py:937
 #, python-format
 msgid "%d selected albums"
 msgstr "%d albums sélectionnés"
 
-#: coverart_browser_source.py:935
+#: coverart_browser_source.py:941
 msgid " with 1 track"
 msgstr " avec 1 piste"
 
-#: coverart_browser_source.py:937
+#: coverart_browser_source.py:943
 #, python-format
 msgid " with %d tracks"
 msgstr " avec %d pistes"
 
-#: coverart_browser_source.py:941
+#: coverart_browser_source.py:947
 msgid " and a duration of 1 minute"
 msgstr " et une durée de 1 minute"
 
-#: coverart_browser_source.py:943
+#: coverart_browser_source.py:949
 #, python-format
 msgid " and a duration of %d minutes"
 msgstr " et une durée de %d minutes"
@@ -779,7 +779,7 @@ msgstr "Jouer un album favori au hasard"
 msgid "Quick artist filter"
 msgstr "Filtre rapide par artiste"
 
-#: coverart_controllers.py:438 coverart_browser_prefs.py:244
+#: coverart_controllers.py:438 coverart_browser_prefs.py:245
 msgid "Browser Preferences"
 msgstr "Préférences du navigateur"
 
@@ -872,7 +872,7 @@ msgid "Search tracks"
 msgstr "Rechercher les pistes"
 
 #. . TRANSLATORS: Do not translate this string.
-#: coverart_browser_prefs.py:283
+#: coverart_browser_prefs.py:284
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"

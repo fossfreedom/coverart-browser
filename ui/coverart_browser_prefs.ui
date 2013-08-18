@@ -899,7 +899,7 @@ albums to play</property>
               <object class="GtkSpinButton" id="padding_spin">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="tooltip_text" translatable="yes">Padding (space) around each icon</property>
+                <property name="tooltip_text" translatable="yes">Padding (space) around the cover and its highlight</property>
                 <property name="max_length">2</property>
                 <property name="invisible_char">•</property>
                 <property name="adjustment">padding_adjustment</property>

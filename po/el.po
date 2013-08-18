@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-17 20:25+0100\n"
+"POT-Creation-Date: 2013-08-18 15:41+0100\n"
 "PO-Revision-Date: 2013-06-20 13:30+0000\n"
 "Last-Translator: George Christofis <geochr22@gmail.com>\n"
 "Language-Team: Greek <el@li.org>\n"
@@ -32,7 +32,7 @@ msgstr ""
 msgid "Search Mode"
 msgstr "Λειτουργία αναζήτησης"
 
-#: tmpl/albumartsearch-tmpl.html:191 coverart_browser_source.py:310
+#: tmpl/albumartsearch-tmpl.html:191 coverart_browser_source.py:305
 msgid "Artist"
 msgstr "Καλλιτέχνης"
 
@@ -72,7 +72,7 @@ msgstr "Μεγάλο"
 msgid "Extra Large"
 msgstr "Πολύ μεγάλο"
 
-#: tmpl/albumartsearch-tmpl.html:211 coverart_browser_source.py:111
+#: tmpl/albumartsearch-tmpl.html:211 coverart_browser_source.py:112
 msgid "Loading..."
 msgstr "Φόρτωση ..."
 
@@ -386,7 +386,7 @@ msgid "Advanced Options"
 msgstr "Επιλογές αναζήτησης"
 
 #: tmp/coverart_browser_prefs.ui.h:39
-msgid "Padding (space) around each icon"
+msgid "Padding (space) around the cover and its highlight"
 msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:40
@@ -679,59 +679,59 @@ msgid "children"
 msgstr "παιδική"
 
 #. . TRANSLATORS - for example "abba's greatest hits by ABBA"
-#: coverart_album.py:1604 coverart_browser_source.py:927
+#: coverart_album.py:1604 coverart_browser_source.py:933
 #, python-format
 msgid "%s by %s"
 msgstr "%s από %s"
 
-#: coverart_browser_source.py:269
+#: coverart_browser_source.py:265
 msgid "Tracks"
 msgstr "Κομμάτια"
 
-#: coverart_browser_source.py:280
+#: coverart_browser_source.py:276
 msgid "Covers"
 msgstr ""
 
 #. . TRANSLATORS - "All" is used in the context of "All artist names"
-#: coverart_browser_source.py:341
+#: coverart_browser_source.py:347
 msgid "All"
 msgstr ""
 
-#: coverart_browser_source.py:615
+#: coverart_browser_source.py:621
 msgid "The number of albums to randomly play is less than that displayed."
 msgstr ""
 
-#: coverart_browser_source.py:695
+#: coverart_browser_source.py:701
 #, python-format
 msgid "Requesting cover for %s - %s..."
 msgstr ""
 
-#: coverart_browser_source.py:851
+#: coverart_browser_source.py:857
 msgid ""
 "Please install and activate the latest version of the Coverart Search "
 "Providers plugin"
 msgstr ""
 
 #. . TRANSLATORS - the number of albums that have been selected/highlighted
-#: coverart_browser_source.py:931
+#: coverart_browser_source.py:937
 #, python-format
 msgid "%d selected albums"
 msgstr ""
 
-#: coverart_browser_source.py:935
+#: coverart_browser_source.py:941
 msgid " with 1 track"
 msgstr " με 1 κομμάτι"
 
-#: coverart_browser_source.py:937
+#: coverart_browser_source.py:943
 #, python-format
 msgid " with %d tracks"
 msgstr " με %d κομμάτια"
 
-#: coverart_browser_source.py:941
+#: coverart_browser_source.py:947
 msgid " and a duration of 1 minute"
 msgstr ""
 
-#: coverart_browser_source.py:943
+#: coverart_browser_source.py:949
 #, python-format
 msgid " and a duration of %d minutes"
 msgstr ""
@@ -771,7 +771,7 @@ msgstr "Αναπαραγωγή αγαπημένων κομματιίων από 
 msgid "Quick artist filter"
 msgstr ""
 
-#: coverart_controllers.py:438 coverart_browser_prefs.py:244
+#: coverart_controllers.py:438 coverart_browser_prefs.py:245
 msgid "Browser Preferences"
 msgstr ""
 
@@ -865,7 +865,7 @@ msgid "Search tracks"
 msgstr "Αναζήτηση κομματιών"
 
 #. . TRANSLATORS: Do not translate this string.
-#: coverart_browser_prefs.py:283
+#: coverart_browser_prefs.py:284
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
