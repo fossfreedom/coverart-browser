@@ -63,7 +63,8 @@ class CoverArtBrowserSource(RB.Source):
     Source utilized by the plugin to show all it's ui.
     '''
     rating_threshold = GObject.property(type=float, default=0)
-
+    artist_paned_pos = GObject.property(type=int, default=150)
+    
     # unique instance of the source
     instance = None
 
@@ -221,11 +222,6 @@ class CoverArtBrowserSource(RB.Source):
         self.paned = ui.get_object('paned')
         self.notebook = ui.get_object('bottom_notebook')
 
-        # get widgets for source popup
-        #self.source_menu = ui.get_object('source_menu')
-        #self.source_menu_search_all_item = ui.get_object(
-        #    'source_search_menu_item')
-        
         # quick search
         self.quick_search = ui.get_object('quick_search_entry')
 
@@ -303,8 +299,7 @@ class CoverArtBrowserSource(RB.Source):
         # setup the statusbar component
         self.statusbar = Statusbar(self)
 
-        # setup the artist pane
-
+        # setup the artist paned
         artist_pview = None
         for view in self.shell.props.library_source.get_property_views():
             if view.props.title == _("Artist"):
@@ -314,9 +309,19 @@ class CoverArtBrowserSource(RB.Source):
         assert artist_pview, "cannot find artist property view"
 
         self.artist_treeview.set_model(artist_pview.get_model())
+        setting.bind(self.gs.PluginKey.ARTIST_PANED_POSITION,
+            self, 'artist-paned-pos', Gio.SettingsBindFlags.DEFAULT)
 
-
+        self.artist_paned.connect('button-release-event', 
+            self.artist_paned_button_release_callback)
         print("CoverArtBrowser DEBUG - end _setup_source")
+        
+    def artist_paned_button_release_callback(self, *args):
+        '''
+        Callback when the artist paned handle is released from its mouse click.
+        '''
+        self.artist_paned_pos = self.artist_paned.get_position()
+
 
     def display_quick_artist_filter_callback(self):
         if self.artist_treeview.get_visible():
@@ -327,7 +332,8 @@ class CoverArtBrowserSource(RB.Source):
         else:
             self.artist_scrolledwindow.set_visible(True)
             self.artist_treeview.set_visible(True)
-            self.artist_paned.set_position(100)
+            
+            self.artist_paned.set_position(self.artist_paned_pos)
 
         
     def on_artist_treeview_selection_changed(self, view):

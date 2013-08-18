@@ -181,5 +181,10 @@
             <summary>Support webkit functionality</summary>
             <description>For some distros, webkit causes RB crashes and as such webkit-support and associated functionality can be turned off with this flag</description>
         </key>
+        <key type="i" name="artist-paned-pos">
+            <default>150</default>
+            <summary>Position of the artist paned.</summary>
+            <description>Position of the artist paned.</description>
+        </key>
     </schema>
 </schemalist>
