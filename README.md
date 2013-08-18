@@ -59,7 +59,7 @@ Then install the plugin for rhythmbox version 2.96 to 2.99:
 rm -rf ~/.local/share/rhythmbox/plugins/coverart_browser
 git clone https://github.com/fossfreedom/coverart-browser.git
 cd coverart-browser
-sh ./install.sh
+./install.sh
 </pre>
 
 To install the plugin for rhythmbox version 3.0 and later:
@@ -68,7 +68,7 @@ To install the plugin for rhythmbox version 3.0 and later:
 rm -rf ~/.local/share/rhythmbox/plugins/coverart_browser
 git clone https://github.com/fossfreedom/coverart-browser.git
 cd coverart-browser
-sh ./install.sh --rb3
+./install.sh --rb3
 </pre>
 
 Note 1 - the CoverArt Browser plugin also requires installing the following plugin:
