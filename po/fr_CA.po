@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-18 15:41+0100\n"
-"PO-Revision-Date: 2013-08-18 09:52+0000\n"
-"Last-Translator: fossfreedom <Unknown>\n"
+"PO-Revision-Date: 2013-08-18 18:57+0000\n"
+"Last-Translator: Jean-Rene Bastien <Unknown>\n"
 "Language-Team: none\n"
-"Language: fr_CA\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-08-18 09:56+0000\n"
+"X-Launchpad-Export-Date: 2013-08-18 19:04+0000\n"
 "X-Generator: Launchpad (build 16723)\n"
+"Language: fr_CA\n"
 "Generated-By: pygettext.py 1.5\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
@@ -391,9 +391,8 @@ msgid "Advanced Options"
 msgstr "Options avancées"
 
 #: tmp/coverart_browser_prefs.ui.h:39
-#, fuzzy
 msgid "Padding (space) around the cover and its highlight"
-msgstr "Remplissage (espace) autour de chaque icône"
+msgstr "Remplissage (espace) autour de la pochette et de sa mise en évidence"
 
 #: tmp/coverart_browser_prefs.ui.h:40
 msgid "Spacing between columns and rows"
@@ -527,7 +526,8 @@ msgstr "Choisir un dossier où exporter"
 
 #: tmp/coverart_exportembed.ui.h:3
 msgid "Save tracks within folder using album name"
-msgstr "Enregistrer les pistes dans le dossier en utilisant le nom de l'album"
+msgstr ""
+"Enregistrer les pistes dans le dossier en utilisant le nom de l'album"
 
 #: tmp/coverart_exportembed.ui.h:4
 msgid "Open embedded track folder in file-manager"
@@ -894,3 +894,6 @@ msgstr "Navigateur de pochettes"
 #: coverart_browser.py:160
 msgid "Browse and play your albums through their covers"
 msgstr "Parcourir les pochettes de vos albums et les jouer"
+
+#~ msgid "Padding (space) around each icon"
+#~ msgstr "Remplissage (espace) autour de chaque icône"
