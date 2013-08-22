@@ -1,4 +1,4 @@
-# Turkish translation for coverartbrowser
+# Croatian translation for coverartbrowser
 # Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
 # This file is distributed under the same license as the coverartbrowser package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-18 15:41+0100\n"
-"PO-Revision-Date: 2013-08-22 07:32+0000\n"
-"Last-Translator: Rashid Aliyev <Unknown>\n"
-"Language-Team: Turkish <tr@li.org>\n"
-"Language: tr\n"
+"PO-Revision-Date: 2013-08-21 13:19+0000\n"
+"Last-Translator: Paolo Pelesk <ted.teddy.cro@gmail.com>\n"
+"Language-Team: Croatian <hr@li.org>\n"
+"Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,512 +20,519 @@ msgstr ""
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
-msgstr "Arama Seçenekleri"
+msgstr "Opcije pretraživanja"
 
 #: tmpl/albumartsearch-tmpl.html:187
 msgid "Tip: doubleclick or drag a cover to use it as the album cover"
-msgstr ""
+msgstr "Savjet: dvoklik ili dovuci omot koji će se koristiti kao omot albuma"
 
 #: tmpl/albumartsearch-tmpl.html:189
 msgid "Search Mode"
-msgstr "Arama Kipi"
+msgstr "Način pretraživanja"
 
 #: tmpl/albumartsearch-tmpl.html:191 coverart_browser_source.py:305
 msgid "Artist"
-msgstr "Sanatçı"
+msgstr "Izvođač"
 
 #: tmpl/albumartsearch-tmpl.html:192
 msgid "Album"
-msgstr "Albüm"
+msgstr "Album"
 
 #: tmpl/albumartsearch-tmpl.html:193
 msgid "Artist and album"
-msgstr "Sanatçı ve albüm"
+msgstr "Izvođač i album"
 
 #: tmpl/albumartsearch-tmpl.html:196
 msgid "Search text"
-msgstr "Arama metni"
+msgstr "Pretraži tekst"
 
 #: tmpl/albumartsearch-tmpl.html:199
 msgid "Search"
-msgstr "Ara"
+msgstr "Pretraga"
 
 #: tmpl/albumartsearch-tmpl.html:201
 msgid "Image Size"
-msgstr "Görüntü Boyutu"
+msgstr "Veličina slike"
 
 #: tmpl/albumartsearch-tmpl.html:203
 msgid "Small"
-msgstr "Küçük"
+msgstr "Mala"
 
 #: tmpl/albumartsearch-tmpl.html:204
 msgid "Medium"
-msgstr "Orta"
+msgstr "Srednja"
 
 #: tmpl/albumartsearch-tmpl.html:205
 msgid "Large"
-msgstr "Büyük"
+msgstr "Velika"
 
 #: tmpl/albumartsearch-tmpl.html:206
 msgid "Extra Large"
-msgstr "Çok Büyük"
+msgstr "Vrlo velika"
 
 #: tmpl/albumartsearch-tmpl.html:211 coverart_browser_source.py:112
 msgid "Loading..."
-msgstr "Yükleniyor..."
+msgstr "Učitavanje..."
 
 #: tmpl/albumartsearch-tmpl.html:213
 msgid "Show more results"
-msgstr "Daha fazla sonuç göster"
+msgstr "Prikaži više rezultata"
 
 #: tmp/coverart_browser.ui.h:1
 msgid "Tracks & Covers"
-msgstr "Parça ve Yüzlükler"
+msgstr "Zapisi i omoti"
 
 #: tmp/coverart_browser.ui.h:2
 msgid "Track Artist"
-msgstr "Parça Sanatçısı"
+msgstr "Izvođač zapisa"
 
 #: tmp/coverart_browser.ui.h:3
 msgid "Stop coverart fetch."
-msgstr ""
+msgstr "Zaustavi dohvaćanje omota"
 
 #. initial genre
 #: tmp/coverart_topbar.ui.h:1 tmp/coverart_sidebar.ui.h:2
 #: coverart_controllers.py:215 coverart_controllers.py:267
 #: coverart_controllers.py:366
 msgid "All Genres"
-msgstr "Tüm Türler"
+msgstr "Svi žanrovi"
 
 #: tmp/coverart_topbar.ui.h:2 tmp/coverart_sidebar.ui.h:3
 #: coverart_controllers.py:485
 msgid "All Decades"
-msgstr "Tüm Yıllar"
+msgstr "Sva desetljeća"
 
 #. . TRANSLATORS: This is the icon-grid view that the user sees
 #. . TRANSLATORS: Please try to keep the translation to less than 8 characters
 #: tmp/coverart_topbar.ui.h:3 tmp/coverart_browser_prefs.ui.h:43
 #: tmp/coverart_sidebar.ui.h:4 coverart_browser.py:164
 msgid "Tiles"
-msgstr "Başlıklar"
+msgstr "Pločice"
 
 #. . TRANSLATORS: This is the cover-flow view the user sees - they can swipe album covers from side-to-side
 #. . TRANSLATORS: Please try to keep the translation to less than 8 characters
 #: tmp/coverart_topbar.ui.h:4 tmp/coverart_browser_prefs.ui.h:53
 #: tmp/coverart_sidebar.ui.h:5 coverart_browser.py:168
 msgid "Flow"
-msgstr "Akıntı"
+msgstr "Protok"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:1
 msgid "Play this album"
-msgstr "Bu albümü çal"
+msgstr "Reproduciraj ovaj album"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:2 tmp/coverart_browser_pop_rb3.ui.h:1
 msgid "Play Album"
-msgstr "Albümü Çal"
+msgstr "Reproduciraj album"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:3
 msgid "Add this album to your playing queue"
-msgstr "Bu albümü çalma kuyruğuna ekle"
+msgstr "Dodaj album u red za sviranje"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:4 tmp/coverart_browser_pop_rb3.ui.h:2
 msgid "Queue Album"
-msgstr "Albüm Kuyruğu"
+msgstr "Dodaj album na listu za reprodukciju"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:5 tmp/coverart_entryview_pop_rb2.ui.h:5
 msgid "Add this album to a playlist"
-msgstr "Bu albümü çalma listesine ekle"
+msgstr "Dodaj album na popis izvođenja"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:6 tmp/coverart_entryview_pop_rb2.ui.h:6
 #: tmp/coverart_browser_pop_rb3.ui.h:3 tmp/coverart_entryview_pop_rb3.ui.h:3
 msgid "Add to Playlist"
-msgstr "Çalma Listesine Ekle"
+msgstr "Dodaj na popis izvođenja"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:7 tmp/coverart_entryview_pop_rb2.ui.h:7
 msgid "Add this album to a new playlist"
-msgstr "Bu albümü yeni çalma listesine ekle"
+msgstr "Dodaj album na novi popis izvođenja"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:8 tmp/coverart_entryview_pop_rb2.ui.h:8
 #: tmp/coverart_browser_pop_rb3.ui.h:4 tmp/coverart_entryview_pop_rb3.ui.h:4
 msgid "New Playlist"
-msgstr "Yeni Çalma Listesi"
+msgstr "Novi popis izvođenja"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:9
 msgid "Play favourites tracks from this album"
-msgstr "Bu albümdeki beğenilen parçaları çal"
+msgstr "Sviraj omiljenu glazbu s ovog albuma"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:10 tmp/coverart_browser_pop_rb3.ui.h:5
 msgid "Play Favourites"
-msgstr "Beğenilenleri çal"
+msgstr "Sviraj favorite"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:11
 msgid "Add favourite tracks from this album to your playing queue"
-msgstr ""
+msgstr "Dodaj omiljene zapise s albuma na red za sviranje"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:12 tmp/coverart_browser_pop_rb3.ui.h:6
 msgid "Queue Favourites"
-msgstr "Beğenilenler Kuyruğu"
+msgstr "Dodaj favorite na listu za reprodukciju"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:13
 msgid "Add favourite tracks from this album to a playlist"
-msgstr "Bu albümdeki beğenilen parçaları çalma listesine ekle"
+msgstr "Dodaj omiljene zapise s albuma"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:14 tmp/coverart_browser_pop_rb3.ui.h:7
 msgid "Add favourites to Playlist"
-msgstr "Beğenilenleri Çalma Listesine Ekle"
+msgstr "Dodaj favorite na popis za izvođenje"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:15
 msgid "Search for this album cover"
-msgstr "Bu albümün kapağını ara"
+msgstr "Pretraži omot albuma"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:16 tmp/coverart_browser_pop_rb3.ui.h:8
 msgid "Search for covers"
-msgstr "Kapakları ara"
+msgstr "Traži omote"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:17
 msgid "Export album tracks and embed coverart in track files"
-msgstr ""
+msgstr "Izvezi zapise albuma i omote u datoteke zapisa"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:18 tmp/coverart_browser_pop_rb3.ui.h:9
 msgid "Export and embed coverart"
-msgstr ""
+msgstr "Izvezi i omote"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:19
 msgid "Show album properties"
-msgstr "Albüm özelliklerini göster"
+msgstr "Pokaži svojstva albuma"
 
 #: tmp/coverart_entryview_pop_rb2.ui.h:1
 msgid "Play this track"
-msgstr "Bu parçayı çal"
+msgstr "Sviraj ovaj zapis"
 
 #: tmp/coverart_entryview_pop_rb2.ui.h:2 tmp/coverart_entryview_pop_rb3.ui.h:1
 msgid "Play Track"
-msgstr "Parçayı Çal"
+msgstr "Sviraj zapis"
 
 #: tmp/coverart_entryview_pop_rb2.ui.h:3
 msgid "Add this track to your playing queue"
-msgstr "Bu parçayı çalma kuyruğuna ekle"
+msgstr "Dodaj zapis na popis za čekanje"
 
 #: tmp/coverart_entryview_pop_rb2.ui.h:4 tmp/coverart_entryview_pop_rb3.ui.h:2
 msgid "Queue Track"
-msgstr "Parçayı Kuyruğa Ekle"
+msgstr "Dodaj pjesmu na listu za reprodukciju"
 
 #: tmp/coverart_entryview_pop_rb2.ui.h:9
 msgid "Show track properties"
-msgstr "Parça özelliklerini göster"
+msgstr "Prikaži svojstva zapisa"
 
 #: tmp/coverart_browser_pop_rb3.ui.h:10 tmp/coverart_entryview_pop_rb3.ui.h:5
 #: coverart_controllers.py:467
 msgid "Properties"
-msgstr "Özellikler"
+msgstr "Svojstva"
 
 #: tmp/coverart_browser_prefs.ui.h:1
 msgid "Select a picture"
-msgstr "Bir resim seçiniz"
+msgstr "Odaberi sliku"
 
 #: tmp/coverart_browser_prefs.ui.h:2
 msgid "Select picture to add to Edit Genre icon drop-down list"
-msgstr ""
+msgstr "Odaberite sliku za dodati na padajući popis kod uređivanja žanra"
 
 #: tmp/coverart_browser_prefs.ui.h:3
 msgid "Above"
-msgstr "Üzerinde"
+msgstr "Iznad"
 
 #: tmp/coverart_browser_prefs.ui.h:4
 msgid "Top Left"
-msgstr "Üst Sol"
+msgstr "Vrh lijevo"
 
 #: tmp/coverart_browser_prefs.ui.h:5
 msgid "Top Center"
-msgstr "Üst Orta"
+msgstr "Vrh centar"
 
 #: tmp/coverart_browser_prefs.ui.h:6
 msgid "Top Right"
-msgstr "Üst Sağ"
+msgstr "Vrh desno"
 
 #: tmp/coverart_browser_prefs.ui.h:7
 msgid "Above Cover View"
-msgstr ""
+msgstr "Iznad pregleda omota"
 
 #: tmp/coverart_browser_prefs.ui.h:8
 msgid "Left Sidebar"
-msgstr "Sol Kenar Çubuğu"
+msgstr "Lijeva rubna traka"
 
 #: tmp/coverart_browser_prefs.ui.h:9
 msgid "Right Sidebar"
-msgstr "Sağ Kenar Çubuğu"
+msgstr "Desna rubna traka"
 
 #: tmp/coverart_browser_prefs.ui.h:10
 msgid "Automatically Start"
-msgstr "Otomatik Başlat"
+msgstr "Automatsko pokretanje"
 
 #: tmp/coverart_browser_prefs.ui.h:11
 msgid "When rhythmbox starts, switch automatically to the coverart browser."
-msgstr "Rhythmbox başlatıldığında otomatik olarak coverart browser'a geçiş yap"
+msgstr "Pri pokretanju rhythmbox-a, automatski prebaci na coverart preglednik"
 
 #: tmp/coverart_browser_prefs.ui.h:12
 msgid "Use source's custom statusbar"
-msgstr ""
+msgstr "Koristi statusnu traku izvora"
 
 #: tmp/coverart_browser_prefs.ui.h:13
 msgid ""
 "Use the source's custom statusbar to show the current selected album's "
 "related information instead of the global Rhythmbox's statusbar."
 msgstr ""
+"Koristi izvornu statusnu traku za prikaz relativnih informacija odabranih "
+"albuma umjesto globalne Rhythmbox statusne trake."
 
 #: tmp/coverart_browser_prefs.ui.h:14
 msgid "Display tracks and covers pane"
-msgstr ""
+msgstr "Prikaži zapise i okno omota"
 
 #: tmp/coverart_browser_prefs.ui.h:15
 msgid ""
 "Add a toggle-option to the coverart view to display the tracks and covers "
 "for the chosen album"
 msgstr ""
+"Dodaj prekidač na coverart pregled za prikaz zapisa i omota odabranog albuma"
 
 #: tmp/coverart_browser_prefs.ui.h:16
 msgid ""
 "Number of random\n"
 "albums to play"
 msgstr ""
+"Broj nasumičnih\n"
+"albuma za sviranje"
 
 #: tmp/coverart_browser_prefs.ui.h:18
 msgid "Level above which is regarded as being a favourite track or album"
-msgstr ""
+msgstr "Razina iznad koje se smatra da je zapis favorit"
 
 #: tmp/coverart_browser_prefs.ui.h:19
 msgid "Favourite Threshold"
-msgstr ""
+msgstr "Omiljeni trag"
 
 #: tmp/coverart_browser_prefs.ui.h:20
 msgid "General"
-msgstr "Genel"
+msgstr "Općenito"
 
 #: tmp/coverart_browser_prefs.ui.h:21
 msgid "Album Information"
-msgstr "Albüm Bilgisi"
+msgstr "Informacije albuma"
 
 #: tmp/coverart_browser_prefs.ui.h:22
 msgid "Display album's info under cover"
-msgstr "Albüm bilgisini kapağın altında göster"
+msgstr "Prikaži informacije albuma ispod omota"
 
 #: tmp/coverart_browser_prefs.ui.h:23
 msgid "Show the album's basic information under the cover image."
-msgstr "Albümün basit bilgilerini albüm kapağının altında göster."
+msgstr "Prikaži osnovne informacije albuma ispod omota."
 
 #: tmp/coverart_browser_prefs.ui.h:24
 msgid "Font size for the text below the cover-art."
-msgstr "Albüm kapağı altındaki yazı tipi boyutu"
+msgstr "Veličina teksta ispod omota."
 
 #: tmp/coverart_browser_prefs.ui.h:25
 msgid "Font Size:"
-msgstr "Yazıtipi Boyutu:"
+msgstr "Veličina fonta:"
 
 #: tmp/coverart_browser_prefs.ui.h:26
 msgid "Ellipsize albums names"
-msgstr ""
+msgstr "Smanji nazive albuma"
 
 #: tmp/coverart_browser_prefs.ui.h:27
 msgid ""
 "Ellipsizes the albums names to a fixed length when the display text option "
 "is enabled."
-msgstr ""
+msgstr "Smanji naziv albuma na zadanu duljinu kad je prikaz teksta omogućen."
 
 #: tmp/coverart_browser_prefs.ui.h:28
 msgid "Maximum allowed length for an album's name before being ellipsized."
-msgstr ""
+msgstr "Maksimalna dozvoljena duljina naziva albuma prije smanjivanja."
 
 #: tmp/coverart_browser_prefs.ui.h:29
 msgid "Maximum length:"
-msgstr "En fazla uzunluk:"
+msgstr "Maksimalna duljina:"
 
 #: tmp/coverart_browser_prefs.ui.h:30
 msgid "Cover Appearance"
-msgstr ""
+msgstr "Izgled omota"
 
 #: tmp/coverart_browser_prefs.ui.h:31
 msgid "Drop shadow"
-msgstr "Gölge düşürme"
+msgstr "Padajuća sjena"
 
 #: tmp/coverart_browser_prefs.ui.h:32
 msgid "Indicates if the albums should drop a shadow on the cover view"
-msgstr ""
+msgstr "Upućuje da li album treba spustiti sjenu na prikaz omota"
 
 #: tmp/coverart_browser_prefs.ui.h:33
 msgid "Light Source: "
-msgstr "Işık Kaynağı: "
+msgstr "Izvor svijetla: "
 
 #: tmp/coverart_browser_prefs.ui.h:34
 msgid "Defines the size for the covers showed on the source."
-msgstr ""
+msgstr "Definira veličinu omota prikazanu na izvoru."
 
 #: tmp/coverart_browser_prefs.ui.h:35
 msgid "Size (in pixels):"
-msgstr "Boyut (piksel olarak):"
+msgstr "Veličina (u pikselima):"
 
 #: tmp/coverart_browser_prefs.ui.h:36
 msgid "Tracks Pane"
-msgstr ""
+msgstr "Okno zapisa"
 
 #: tmp/coverart_browser_prefs.ui.h:37
 msgid "open or close on click of cover"
-msgstr ""
+msgstr "otvori ili zatvori na odabir omota"
 
 #: tmp/coverart_browser_prefs.ui.h:38
 msgid "Advanced Options"
-msgstr ""
+msgstr "Napredne mogućnosti"
 
 #: tmp/coverart_browser_prefs.ui.h:39
 msgid "Padding (space) around the cover and its highlight"
-msgstr ""
+msgstr "Ispunjavanje oko omota i naglašenog dijela"
 
 #: tmp/coverart_browser_prefs.ui.h:40
 msgid "Spacing between columns and rows"
-msgstr ""
+msgstr "Razmak između stupaca i redova"
 
 #: tmp/coverart_browser_prefs.ui.h:41
 msgid "Padding"
-msgstr ""
+msgstr "Ispunjavanje"
 
 #: tmp/coverart_browser_prefs.ui.h:42
 msgid "Spacing"
-msgstr ""
+msgstr "Razmak"
 
 #: tmp/coverart_browser_prefs.ui.h:44
 msgid "Flow Appearance"
-msgstr ""
+msgstr "Prikaz toka"
 
 #: tmp/coverart_browser_prefs.ui.h:45
 msgid "Width (px):"
-msgstr ""
+msgstr "Širina (px):"
 
 #. . TRANSLATORS: percentage size that the image will be expanded
 #: tmp/coverart_browser_prefs.ui.h:47 coverart_browser.py:171
 #, no-c-format
 msgid "Scale by %:"
-msgstr ""
+msgstr "Skaliraj za %:"
 
 #: tmp/coverart_browser_prefs.ui.h:48
 msgid "Hide Caption"
-msgstr ""
+msgstr "Sakrij opis"
 
 #: tmp/coverart_browser_prefs.ui.h:49
 msgid "Maximum covers to display:"
-msgstr ""
+msgstr "Najviše omota prikaži:"
 
 #: tmp/coverart_browser_prefs.ui.h:50
 msgid "Background Colour"
-msgstr ""
+msgstr "Boja pozadine"
 
 #: tmp/coverart_browser_prefs.ui.h:51
 msgid "White"
-msgstr ""
+msgstr "Bijela"
 
 #: tmp/coverart_browser_prefs.ui.h:52
 msgid "Black"
-msgstr ""
+msgstr "Crna"
 
 #: tmp/coverart_browser_prefs.ui.h:54
 msgid "Where the toolbar should be positioned"
-msgstr ""
+msgstr "Gdje postaviti alatnu traku"
 
 #: tmp/coverart_browser_prefs.ui.h:55
 msgid "Position"
-msgstr "Konum"
+msgstr "Pozicija"
 
 #: tmp/coverart_browser_prefs.ui.h:56
 msgid "Show toolbar: "
-msgstr "Araç çubuğunu göster: "
+msgstr "Prikaži alatnu traku: "
 
 #: tmp/coverart_browser_prefs.ui.h:57
 msgid "Look & Feel"
-msgstr "Görünüş"
+msgstr "Izgled & osjećaj"
 
 #: tmp/coverart_browser_prefs.ui.h:58
 msgid "Flat-button style"
-msgstr ""
+msgstr "Gumb ravnog stila"
 
 #: tmp/coverart_browser_prefs.ui.h:59
 msgid "Icon Theme: "
-msgstr "Simge Teması: "
+msgstr "Tema ikona: "
 
 #: tmp/coverart_browser_prefs.ui.h:60
 msgid "Alternative Genres:"
-msgstr "Değişik Türler:"
+msgstr "Alternativni žanrovi:"
 
 #: tmp/coverart_browser_prefs.ui.h:61
 msgid "Load New Icon: "
-msgstr "Yeni Simge Yükle "
+msgstr "Učitaj novu ikonu: "
 
 #: tmp/coverart_browser_prefs.ui.h:62
 msgid "Select a new genre icon"
-msgstr "Yeni tür simgesi seçin"
+msgstr "Odaberi novu ikonu žarna"
 
 #: tmp/coverart_browser_prefs.ui.h:63
 msgid "Edit Genre Details:"
-msgstr "Tür Detaylarını Düzenle:"
+msgstr "Uredi detalje žarna:"
 
 #: tmp/coverart_browser_prefs.ui.h:64
 msgid "Save changes"
-msgstr "Değişiklikleri kaydet"
+msgstr "Spremi promjene"
 
 #: tmp/coverart_browser_prefs.ui.h:65
 msgid "Name:"
-msgstr "İsim:"
+msgstr "Naziv:"
 
 #: tmp/coverart_browser_prefs.ui.h:66
 msgid "Icon:"
-msgstr "Simge:"
+msgstr "Ikona:"
 
 #: tmp/coverart_browser_prefs.ui.h:67
 msgid "Current user-defined Genres:"
-msgstr "Şuanki kullanıcı-tanımlı Türler:"
+msgstr "Trenutni korisnički definirani žanrovi:"
 
 #: tmp/coverart_browser_prefs.ui.h:68
 msgid "Alternate Name"
-msgstr "Değişik İsim"
+msgstr "Alternativni naziv"
 
 #: tmp/coverart_browser_prefs.ui.h:69
 msgid "Icon"
-msgstr "Simge"
+msgstr "Ikona"
 
 #: tmp/coverart_browser_prefs.ui.h:70
 msgid "Add a new alternative genre"
-msgstr "Yeni değişik tür ekle"
+msgstr "Dodaj novi alternativni žanr"
 
 #: tmp/coverart_browser_prefs.ui.h:71
 msgid "Delete an alternative genre"
-msgstr "Değişik türü sil"
+msgstr "Ukloni alternativni žanr"
 
 #: tmp/coverart_browser_prefs.ui.h:72
 msgid "Toolbar"
-msgstr "Araç Çubuğu"
+msgstr "Alatna traka"
 
 #: tmp/coverart_exportembed.ui.h:1
 msgid "Choose folder to save tracks:"
-msgstr ""
+msgstr "Odaberi mapu za pohranu zapisa:"
 
 #: tmp/coverart_exportembed.ui.h:2
 msgid "Select a Folder to export to"
-msgstr ""
+msgstr "Odaberi mapu za izvoz u"
 
 #: tmp/coverart_exportembed.ui.h:3
 msgid "Save tracks within folder using album name"
-msgstr ""
+msgstr "Pohrani zapise u mapi koristeći naziv albuma"
 
 #: tmp/coverart_exportembed.ui.h:4
 msgid "Open embedded track folder in file-manager"
-msgstr ""
+msgstr "Otvori ugrađenu mapu zapisa u pregledniku datoteka"
 
 #: tmp/coverart_exportembed.ui.h:5
 msgid ""
 "Tip: Drag and Drop exported tracks from file-manager to a playlist or "
 "telephone/other device"
 msgstr ""
+"Savjet: Dovuci i pusti izvezene zapise iz preglednika datoteka na popis za "
+"sviranje ili telefon/drugi uređaj"
 
 #: tmp/coverart_sidebar.ui.h:1 coverart_browser.py:102 coverart_browser.py:115
 msgid "CoverArt"
-msgstr "Albüm Kapığı"
+msgstr "Omot"
 
 #: tmp/popups.xml.in.h:1
 msgid "rock"
@@ -533,342 +540,342 @@ msgstr "rock"
 
 #: tmp/popups.xml.in.h:2
 msgid "country"
-msgstr ""
+msgstr "country"
 
 #: tmp/popups.xml.in.h:3
 msgid "pop"
-msgstr ""
+msgstr "pop"
 
 #: tmp/popups.xml.in.h:4
 msgid "classical"
-msgstr ""
+msgstr "klasika"
 
 #: tmp/popups.xml.in.h:5
 msgid "world"
-msgstr ""
+msgstr "world"
 
 #: tmp/popups.xml.in.h:6
 msgid "bluegrass"
-msgstr ""
+msgstr "bluegrass"
 
 #: tmp/popups.xml.in.h:7
 msgid "oldies"
-msgstr ""
+msgstr "stare"
 
 #: tmp/popups.xml.in.h:8
 msgid "holiday"
-msgstr ""
+msgstr "holiday"
 
 #: tmp/popups.xml.in.h:9
 msgid "comedy"
-msgstr ""
+msgstr "smiješne"
 
 #: tmp/popups.xml.in.h:10
 msgid "spoken"
-msgstr ""
+msgstr "govoreće"
 
 #: tmp/popups.xml.in.h:11
 msgid "jazz"
-msgstr ""
+msgstr "jazz"
 
 #: tmp/popups.xml.in.h:12
 msgid "blues"
-msgstr ""
+msgstr "blues"
 
 #: tmp/popups.xml.in.h:13
 msgid "metal"
-msgstr ""
+msgstr "metal"
 
 #: tmp/popups.xml.in.h:14
 msgid "karaoke"
-msgstr ""
+msgstr "karaoke"
 
 #: tmp/popups.xml.in.h:15
 msgid "rap"
-msgstr ""
+msgstr "rap"
 
 #: tmp/popups.xml.in.h:16
 msgid "ragtime"
-msgstr ""
+msgstr "ragtime"
 
 #: tmp/popups.xml.in.h:17
 msgid "musical"
-msgstr ""
+msgstr "musical"
 
 #: tmp/popups.xml.in.h:18
 msgid "dance"
-msgstr ""
+msgstr "dance"
 
 #: tmp/popups.xml.in.h:19
 msgid "reggae"
-msgstr ""
+msgstr "reggae"
 
 #: tmp/popups.xml.in.h:20
 msgid "electronic"
-msgstr ""
+msgstr "electronic"
 
 #: tmp/popups.xml.in.h:21
 msgid "soundtrack"
-msgstr "film müziği"
+msgstr "soundtrack"
 
 #: tmp/popups.xml.in.h:22
 msgid "latin"
-msgstr ""
+msgstr "latin"
 
 #: tmp/popups.xml.in.h:23
 msgid "alternative"
-msgstr ""
+msgstr "alternative"
 
 #: tmp/popups.xml.in.h:24
 msgid "disco"
-msgstr ""
+msgstr "disco"
 
 #: tmp/popups.xml.in.h:25
 msgid "folk"
-msgstr ""
+msgstr "folk"
 
 #: tmp/popups.xml.in.h:26
 msgid "gospel"
-msgstr ""
+msgstr "gospel"
 
 #: tmp/popups.xml.in.h:27
 msgid "experimental"
-msgstr ""
+msgstr "experimental"
 
 #: tmp/popups.xml.in.h:28
 msgid "new age"
-msgstr ""
+msgstr "new age"
 
 #: tmp/popups.xml.in.h:29
 msgid "opera"
-msgstr ""
+msgstr "opera"
 
 #: tmp/popups.xml.in.h:30
 msgid "anime"
-msgstr ""
+msgstr "anime"
 
 #: tmp/popups.xml.in.h:31
 msgid "soul"
-msgstr ""
+msgstr "soul"
 
 #: tmp/popups.xml.in.h:32
 msgid "workout"
-msgstr ""
+msgstr "workout"
 
 #: tmp/popups.xml.in.h:33
 msgid "easy listening"
-msgstr ""
+msgstr "easy listening"
 
 #: tmp/popups.xml.in.h:34
 msgid "hip-hop"
-msgstr ""
+msgstr "hip-hop"
 
 #: tmp/popups.xml.in.h:35
 msgid "children"
-msgstr ""
+msgstr "children"
 
 #. . TRANSLATORS - for example "abba's greatest hits by ABBA"
 #: coverart_album.py:1604 coverart_browser_source.py:933
 #, python-format
 msgid "%s by %s"
-msgstr ""
+msgstr "%s od %s"
 
 #: coverart_browser_source.py:265
 msgid "Tracks"
-msgstr "Parçalar"
+msgstr "Zapisi"
 
 #: coverart_browser_source.py:276
 msgid "Covers"
-msgstr "Albüm Kapakları"
+msgstr "Omoti"
 
 #. . TRANSLATORS - "All" is used in the context of "All artist names"
 #: coverart_browser_source.py:347
 msgid "All"
-msgstr ""
+msgstr "Sve"
 
 #: coverart_browser_source.py:621
 msgid "The number of albums to randomly play is less than that displayed."
-msgstr ""
+msgstr "Broj albuma za nasumično izvođenje je manja nego prikazano."
 
 #: coverart_browser_source.py:701
 #, python-format
 msgid "Requesting cover for %s - %s..."
-msgstr ""
+msgstr "Tražim omot za  %s - %s..."
 
 #: coverart_browser_source.py:857
 msgid ""
 "Please install and activate the latest version of the Coverart Search "
 "Providers plugin"
 msgstr ""
+"Molimo instalirajte i pokrenite najnoviju verziju Coverart Search Providers "
+"priključka"
 
 #. . TRANSLATORS - the number of albums that have been selected/highlighted
 #: coverart_browser_source.py:937
 #, python-format
 msgid "%d selected albums"
-msgstr ""
+msgstr "%d odabranih albuma"
 
 #: coverart_browser_source.py:941
 msgid " with 1 track"
-msgstr " ve 1 parça"
+msgstr " s jednim zapisom"
 
 #: coverart_browser_source.py:943
 #, python-format
 msgid " with %d tracks"
-msgstr " ve %d parça"
+msgstr " s %d zapisa"
 
 #: coverart_browser_source.py:947
 msgid " and a duration of 1 minute"
-msgstr ""
+msgstr " i trajanje od jedne minute"
 
 #: coverart_browser_source.py:949
 #, python-format
 msgid " and a duration of %d minutes"
-msgstr ""
+msgstr " i trajanje od %d minuta"
 
 #: coverart_controllers.py:382
 msgid "Sort by album name"
-msgstr "Albüm adına göre sırala"
+msgstr "Sortiraj po nazivu albuma"
 
 #: coverart_controllers.py:383
 msgid "Sort by album artist"
-msgstr "Albüm sanatçısına göre sırala"
+msgstr "Sortiraj po izvođaču albuma"
 
 #: coverart_controllers.py:384
 msgid "Sort by year"
-msgstr "Yıla göre sırala"
+msgstr "Sortiraj po godini"
 
 #: coverart_controllers.py:385
 msgid "Sort by rating"
-msgstr "Beğeniye göre sırala"
+msgstr "Sortiraj po ocijeni"
 
 #: coverart_controllers.py:432
 msgid "Download all covers"
-msgstr ""
+msgstr "Preuzmi sve omote"
 
 #: coverart_controllers.py:433
 msgid "Play random album"
-msgstr ""
+msgstr "Sviraj nasumični album"
 
 #: coverart_controllers.py:434
 msgid "Play favourite random album"
-msgstr ""
+msgstr "Sviraj omiljeni nasumični album"
 
 #: coverart_controllers.py:436
 msgid "Quick artist filter"
-msgstr ""
+msgstr "Brzi filter izvođača"
 
 #: coverart_controllers.py:438 coverart_browser_prefs.py:245
 msgid "Browser Preferences"
-msgstr ""
+msgstr "Svojstva preglednika"
 
 #: coverart_controllers.py:439
 msgid "Search Preferences"
-msgstr ""
+msgstr "Postavke pretraživanja"
 
 #. '20s' as in the decade 2010
 #: coverart_controllers.py:487 coverart_controllers.py:513
 msgid "20s"
-msgstr ""
+msgstr "2000te"
 
 #. '10s' as in the decade 2010
 #: coverart_controllers.py:489
 msgid "10s"
-msgstr "10'lar"
+msgstr "2010te"
 
 #. '00s' as in the decade 2000
 #: coverart_controllers.py:491
 msgid "00s"
-msgstr "00'lar"
+msgstr "2000te"
 
 #. '90s' as in the decade 1990
 #: coverart_controllers.py:493
 msgid "90s"
-msgstr "90'lar"
+msgstr "90te"
 
 #. '80s' as in the decade 1980
 #: coverart_controllers.py:495
 msgid "80s"
-msgstr "80'ler"
+msgstr "80te"
 
 #. '70s' as in the decade 1970
 #: coverart_controllers.py:497
 msgid "70s"
-msgstr "70'ler"
+msgstr "70te"
 
 #. '60s' as in the decade 1960
 #: coverart_controllers.py:499
 msgid "60s"
-msgstr "60'lar"
+msgstr "60te"
 
 #. '50s' as in the decade 1950
 #: coverart_controllers.py:501
 msgid "50s"
-msgstr "50'ler"
+msgstr "50te"
 
 #. '40s' as in the decade 1940
 #: coverart_controllers.py:503
 msgid "40s"
-msgstr "40'lar"
+msgstr "40te"
 
 #. '30s' as in the decade 1930
 #: coverart_controllers.py:505
 msgid "30s"
-msgstr "30'lar"
+msgstr "30te"
 
 #. 'Older' as in 'older than the year 1930'
 #: coverart_controllers.py:507
 msgid "Older"
-msgstr "Eski"
+msgstr "Starije"
 
 #. options
 #: coverart_controllers.py:552
 msgid "Sort in descending order"
-msgstr "Azalan sıraya göre sıralama"
+msgstr "Sortiraj po silaznom redoslijedu"
 
 #: coverart_controllers.py:553
 msgid "Sort in ascending order"
-msgstr "Artan sıraya göre sıralama"
+msgstr "Sortiraj po ulaznom redoslijedu"
 
 #: coverart_controllers.py:605
 msgid "Search all fields"
-msgstr "Tüm alanlarda ara"
+msgstr "Pretraži sva polja"
 
 #: coverart_controllers.py:606
 msgid "Search album artists"
-msgstr "Albüm sanatçılarını ara"
+msgstr "Pretraži izvođače albuma"
 
 #: coverart_controllers.py:607
 msgid "Search track artists"
-msgstr "Parça sanatçılarını ara"
+msgstr "Pretraži izvođače zapisa"
 
 #: coverart_controllers.py:608
 msgid "Search albums"
-msgstr "Albümleri ara"
+msgstr "Pretraži albume"
 
 #: coverart_controllers.py:609
 msgid "Search tracks"
-msgstr "Parçaları ara"
+msgstr "Pretraži zapise"
 
 #. . TRANSLATORS: Do not translate this string.
 #: coverart_browser_prefs.py:284
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  Osman Karagöz https://launchpad.net/~osmank3\n"
-"  Rashid Aliyev https://launchpad.net/~rashid\n"
-"  fossfreedom https://launchpad.net/~fossfreedom"
+"  Paolo Pelesk https://launchpad.net/~teddx"
 
 #. TRANSLATORS: for example 'Number of covers limited to 150'
 #: coverart_coverflowview.py:197
 #, python-format
 msgid "Number of covers limited to %d"
-msgstr ""
+msgstr "Broj omota ograničen na %d"
 
 #. define .plugin text strings used for translation
 #: coverart_browser.py:159
 msgid "CoverArt Browser"
-msgstr ""
+msgstr "CoverArt Preglednik"
 
 #: coverart_browser.py:160
 msgid "Browse and play your albums through their covers"
-msgstr ""
+msgstr "Pregledavajte i slušajte albume preko omota"

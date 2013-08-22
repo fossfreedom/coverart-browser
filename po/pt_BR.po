@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-18 15:41+0100\n"
-"PO-Revision-Date: 2013-04-19 00:29+0000\n"
-"Last-Translator: mateus ml <Unknown>\n"
+"PO-Revision-Date: 2013-08-18 20:35+0000\n"
+"Last-Translator: Rafael Neri <Unknown>\n"
 "Language-Team: none\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-05-10 12:44+0000\n"
-"X-Generator: Launchpad (build 16598)\n"
+"X-Launchpad-Export-Date: 2013-08-22 10:36+0000\n"
+"X-Generator: Launchpad (build 16737)\n"
 "Generated-By: pygettext.py 1.5\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
@@ -83,9 +83,8 @@ msgid "Tracks & Covers"
 msgstr "Faixas e Capas"
 
 #: tmp/coverart_browser.ui.h:2
-#, fuzzy
 msgid "Track Artist"
-msgstr "Artista"
+msgstr "Artista da faixa"
 
 #: tmp/coverart_browser.ui.h:3
 msgid "Stop coverart fetch."
@@ -218,7 +217,7 @@ msgstr "Exibir propriedades da faixa"
 #: tmp/coverart_browser_pop_rb3.ui.h:10 tmp/coverart_entryview_pop_rb3.ui.h:5
 #: coverart_controllers.py:467
 msgid "Properties"
-msgstr ""
+msgstr "Propriedades"
 
 #: tmp/coverart_browser_prefs.ui.h:1
 msgid "Select a picture"
@@ -266,9 +265,8 @@ msgstr ""
 "Quando o rhythmbox inicia, mudar automaticamente para o navegador de capas."
 
 #: tmp/coverart_browser_prefs.ui.h:12
-#, fuzzy
 msgid "Use source's custom statusbar"
-msgstr "Utilizar barra de status customizada da fonte"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:13
 msgid ""
@@ -376,18 +374,16 @@ msgid "Size (in pixels):"
 msgstr "Tamanho (em pixels):"
 
 #: tmp/coverart_browser_prefs.ui.h:36
-#, fuzzy
 msgid "Tracks Pane"
-msgstr "Faixas"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:37
 msgid "open or close on click of cover"
 msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:38
-#, fuzzy
 msgid "Advanced Options"
-msgstr "Opções de Pesquisa"
+msgstr "Opções avançadas"
 
 #: tmp/coverart_browser_prefs.ui.h:39
 msgid "Padding (space) around the cover and its highlight"
@@ -406,9 +402,8 @@ msgid "Spacing"
 msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:44
-#, fuzzy
 msgid "Flow Appearance"
-msgstr "Aparência da Capa"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:45
 msgid "Width (px):"
@@ -720,9 +715,9 @@ msgstr ""
 
 #. . TRANSLATORS - the number of albums that have been selected/highlighted
 #: coverart_browser_source.py:937
-#, fuzzy, python-format
+#, python-format
 msgid "%d selected albums"
-msgstr "%d álbuns selecionados "
+msgstr ""
 
 #: coverart_browser_source.py:941
 msgid " with 1 track"
@@ -759,19 +754,16 @@ msgid "Sort by rating"
 msgstr "Ordenar por pontuação"
 
 #: coverart_controllers.py:432
-#, fuzzy
 msgid "Download all covers"
-msgstr "Baixar todas as capas"
+msgstr ""
 
 #: coverart_controllers.py:433
-#, fuzzy
 msgid "Play random album"
-msgstr "Reproduzir este Álbum"
+msgstr ""
 
 #: coverart_controllers.py:434
-#, fuzzy
 msgid "Play favourite random album"
-msgstr "Tocar faixas favoritas deste álbum"
+msgstr ""
 
 #: coverart_controllers.py:436
 msgid "Quick artist filter"
@@ -782,9 +774,8 @@ msgid "Browser Preferences"
 msgstr ""
 
 #: coverart_controllers.py:439
-#, fuzzy
 msgid "Search Preferences"
-msgstr "Procurar por capas"
+msgstr ""
 
 #. '20s' as in the decade 2010
 #: coverart_controllers.py:487 coverart_controllers.py:513
@@ -894,14 +885,3 @@ msgstr "Arte das Capas"
 #: coverart_browser.py:160
 msgid "Browse and play your albums through their covers"
 msgstr "Navegue e toque seus álbums através de suas capas"
-
-#, fuzzy
-#~ msgid "170"
-#~ msgstr "década de 2010"
-
-#, fuzzy
-#~ msgid "Coverflow"
-#~ msgstr "Capa"
-
-#~ msgid "Search for covers where an album does not currently have one"
-#~ msgstr "Procurar por capas dos álbuns que ainda não possuem"

@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-18 15:41+0100\n"
-"PO-Revision-Date: 2013-06-20 12:19+0000\n"
+"PO-Revision-Date: 2013-08-22 08:13+0000\n"
 "Last-Translator: Jiri Grönroos <Unknown>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-06-20 20:41+0000\n"
-"X-Generator: Launchpad (build 16673)\n"
+"X-Launchpad-Export-Date: 2013-08-22 10:36+0000\n"
+"X-Generator: Launchpad (build 16737)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -84,9 +84,8 @@ msgid "Tracks & Covers"
 msgstr "Kappaleet ja kannet"
 
 #: tmp/coverart_browser.ui.h:2
-#, fuzzy
 msgid "Track Artist"
-msgstr "Esittäjä"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:3
 msgid "Stop coverart fetch."
@@ -109,14 +108,14 @@ msgstr "Kaikki vuosikymmenet"
 #: tmp/coverart_topbar.ui.h:3 tmp/coverart_browser_prefs.ui.h:43
 #: tmp/coverart_sidebar.ui.h:4 coverart_browser.py:164
 msgid "Tiles"
-msgstr ""
+msgstr "Laatat"
 
 #. . TRANSLATORS: This is the cover-flow view the user sees - they can swipe album covers from side-to-side
 #. . TRANSLATORS: Please try to keep the translation to less than 8 characters
 #: tmp/coverart_topbar.ui.h:4 tmp/coverart_browser_prefs.ui.h:53
 #: tmp/coverart_sidebar.ui.h:5 coverart_browser.py:168
 msgid "Flow"
-msgstr ""
+msgstr "Virta"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:1
 msgid "Play this album"
@@ -128,7 +127,7 @@ msgstr "Toista levy"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:3
 msgid "Add this album to your playing queue"
-msgstr ""
+msgstr "Lisää tämä levy soittojonoosi"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:4 tmp/coverart_browser_pop_rb3.ui.h:2
 msgid "Queue Album"
@@ -162,15 +161,15 @@ msgstr "Toista suosikit"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:11
 msgid "Add favourite tracks from this album to your playing queue"
-msgstr ""
+msgstr "Lisää tämän levyn suosikkikappaleesi soittojonoon"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:12 tmp/coverart_browser_pop_rb3.ui.h:6
 msgid "Queue Favourites"
-msgstr ""
+msgstr "Aseta suosikit jonoon"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:13
 msgid "Add favourite tracks from this album to a playlist"
-msgstr ""
+msgstr "Lisää tämän levyn suosikkikappaleet soittolistalle"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:14 tmp/coverart_browser_pop_rb3.ui.h:7
 msgid "Add favourites to Playlist"
@@ -186,7 +185,7 @@ msgstr "Etsi kansikuvia"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:17
 msgid "Export album tracks and embed coverart in track files"
-msgstr ""
+msgstr "Vie levyn kappaleet ja upota kansikuvitus kappaletiedostoihin"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:18 tmp/coverart_browser_pop_rb3.ui.h:9
 msgid "Export and embed coverart"
@@ -206,7 +205,7 @@ msgstr "Toista kappale"
 
 #: tmp/coverart_entryview_pop_rb2.ui.h:3
 msgid "Add this track to your playing queue"
-msgstr ""
+msgstr "Lisää tämä kappale soittojonoosi"
 
 #: tmp/coverart_entryview_pop_rb2.ui.h:4 tmp/coverart_entryview_pop_rb3.ui.h:2
 msgid "Queue Track"
@@ -219,7 +218,7 @@ msgstr "Näytä kappaleen ominaisuudet"
 #: tmp/coverart_browser_pop_rb3.ui.h:10 tmp/coverart_entryview_pop_rb3.ui.h:5
 #: coverart_controllers.py:467
 msgid "Properties"
-msgstr ""
+msgstr "Ominaisuudet"
 
 #: tmp/coverart_browser_prefs.ui.h:1
 msgid "Select a picture"
@@ -366,18 +365,16 @@ msgid "Size (in pixels):"
 msgstr "Koko (pikseleissä):"
 
 #: tmp/coverart_browser_prefs.ui.h:36
-#, fuzzy
 msgid "Tracks Pane"
-msgstr "Kappaleet ja kannet"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:37
 msgid "open or close on click of cover"
 msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:38
-#, fuzzy
 msgid "Advanced Options"
-msgstr "Hakuasetukset"
+msgstr "Lisävalinnat"
 
 #: tmp/coverart_browser_prefs.ui.h:39
 msgid "Padding (space) around the cover and its highlight"
@@ -396,9 +393,8 @@ msgid "Spacing"
 msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:44
-#, fuzzy
 msgid "Flow Appearance"
-msgstr "Kansikuvan ulkoasu"
+msgstr "Virran ulkoasu"
 
 #: tmp/coverart_browser_prefs.ui.h:45
 msgid "Width (px):"
@@ -416,19 +412,19 @@ msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:49
 msgid "Maximum covers to display:"
-msgstr ""
+msgstr "Näytettävien kansien enimmäismäärä:"
 
 #: tmp/coverart_browser_prefs.ui.h:50
 msgid "Background Colour"
-msgstr ""
+msgstr "Taustan väri"
 
 #: tmp/coverart_browser_prefs.ui.h:51
 msgid "White"
-msgstr ""
+msgstr "Valkoinen"
 
 #: tmp/coverart_browser_prefs.ui.h:52
 msgid "Black"
-msgstr ""
+msgstr "Musta"
 
 #: tmp/coverart_browser_prefs.ui.h:54
 msgid "Where the toolbar should be positioned"
@@ -448,7 +444,7 @@ msgstr "Ulkoasu"
 
 #: tmp/coverart_browser_prefs.ui.h:58
 msgid "Flat-button style"
-msgstr ""
+msgstr "Litteä painiketyyli"
 
 #: tmp/coverart_browser_prefs.ui.h:59
 msgid "Icon Theme: "
@@ -680,7 +676,7 @@ msgstr "%s, esittäjä %s -"
 
 #: coverart_browser_source.py:265
 msgid "Tracks"
-msgstr ""
+msgstr "Kappaleet"
 
 #: coverart_browser_source.py:276
 msgid "Covers"
@@ -689,7 +685,7 @@ msgstr "Kansikuvat"
 #. . TRANSLATORS - "All" is used in the context of "All artist names"
 #: coverart_browser_source.py:347
 msgid "All"
-msgstr ""
+msgstr "Kaikki"
 
 #: coverart_browser_source.py:621
 msgid "The number of albums to randomly play is less than that displayed."
@@ -708,9 +704,9 @@ msgstr ""
 
 #. . TRANSLATORS - the number of albums that have been selected/highlighted
 #: coverart_browser_source.py:937
-#, fuzzy, python-format
+#, python-format
 msgid "%d selected albums"
-msgstr "%d valittua levyä "
+msgstr ""
 
 #: coverart_browser_source.py:941
 msgid " with 1 track"
@@ -747,19 +743,16 @@ msgid "Sort by rating"
 msgstr ""
 
 #: coverart_controllers.py:432
-#, fuzzy
 msgid "Download all covers"
-msgstr "Lataa kaikki kansikuvat"
+msgstr ""
 
 #: coverart_controllers.py:433
-#, fuzzy
 msgid "Play random album"
-msgstr "Toista tämä levy"
+msgstr ""
 
 #: coverart_controllers.py:434
-#, fuzzy
 msgid "Play favourite random album"
-msgstr "Toista tämän levyn suosikkikappaleet"
+msgstr ""
 
 #: coverart_controllers.py:436
 msgid "Quick artist filter"
@@ -770,9 +763,8 @@ msgid "Browser Preferences"
 msgstr ""
 
 #: coverart_controllers.py:439
-#, fuzzy
 msgid "Search Preferences"
-msgstr "Etsi kansikuvia"
+msgstr ""
 
 #. '20s' as in the decade 2010
 #: coverart_controllers.py:487 coverart_controllers.py:513
@@ -863,13 +855,14 @@ msgstr "Etsi kappaleita"
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  Jiri Grönroos https://launchpad.net/~jiri-gronroos"
+"  Jiri Grönroos https://launchpad.net/~jiri-gronroos\n"
+"  fossfreedom https://launchpad.net/~fossfreedom"
 
 #. TRANSLATORS: for example 'Number of covers limited to 150'
 #: coverart_coverflowview.py:197
 #, python-format
 msgid "Number of covers limited to %d"
-msgstr ""
+msgstr "Kansien määrä rajattu - %d"
 
 #. define .plugin text strings used for translation
 #: coverart_browser.py:159
@@ -879,10 +872,3 @@ msgstr "Kansikuvaselain"
 #: coverart_browser.py:160
 msgid "Browse and play your albums through their covers"
 msgstr "Selaa ja toista levyjäsi kansikuvien kautta"
-
-#, fuzzy
-#~ msgid "Coverflow"
-#~ msgstr "Kansikuva"
-
-#~ msgid "Search for covers where an album does not currently have one"
-#~ msgstr "Etsi kansikuvia niille levyille, joilta se vielä puuttuu"

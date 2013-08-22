@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-18 15:41+0100\n"
-"PO-Revision-Date: 2013-04-21 05:49+0000\n"
+"PO-Revision-Date: 2013-08-22 08:44+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitoschido@gmail.com>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-05-10 12:44+0000\n"
-"X-Generator: Launchpad (build 16598)\n"
+"X-Launchpad-Export-Date: 2013-08-22 10:36+0000\n"
+"X-Generator: Launchpad (build 16737)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -54,7 +54,7 @@ msgstr "Buscar"
 
 #: tmpl/albumartsearch-tmpl.html:201
 msgid "Image Size"
-msgstr "Tamaño de imagen"
+msgstr "Tamaño de la imagen"
 
 #: tmpl/albumartsearch-tmpl.html:203
 msgid "Small"
@@ -85,13 +85,12 @@ msgid "Tracks & Covers"
 msgstr "Pistas y carátulas"
 
 #: tmp/coverart_browser.ui.h:2
-#, fuzzy
 msgid "Track Artist"
-msgstr "Artista"
+msgstr "Artista de la pista"
 
 #: tmp/coverart_browser.ui.h:3
 msgid "Stop coverart fetch."
-msgstr "Detener la búsqueda de portadas."
+msgstr "Detener la búsqueda de carátulas."
 
 #. initial genre
 #: tmp/coverart_topbar.ui.h:1 tmp/coverart_sidebar.ui.h:2
@@ -110,14 +109,14 @@ msgstr "Todas las décadas"
 #: tmp/coverart_topbar.ui.h:3 tmp/coverart_browser_prefs.ui.h:43
 #: tmp/coverart_sidebar.ui.h:4 coverart_browser.py:164
 msgid "Tiles"
-msgstr ""
+msgstr "Mosaicos"
 
 #. . TRANSLATORS: This is the cover-flow view the user sees - they can swipe album covers from side-to-side
 #. . TRANSLATORS: Please try to keep the translation to less than 8 characters
 #: tmp/coverart_topbar.ui.h:4 tmp/coverart_browser_prefs.ui.h:53
 #: tmp/coverart_sidebar.ui.h:5 coverart_browser.py:168
 msgid "Flow"
-msgstr ""
+msgstr "Flujo"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:1
 msgid "Play this album"
@@ -146,7 +145,7 @@ msgstr "Añadir a una lista de reproducción"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:7 tmp/coverart_entryview_pop_rb2.ui.h:7
 msgid "Add this album to a new playlist"
-msgstr "Agrega este álbum a una nueva lista de reproducción"
+msgstr "Añadir este álbum a una lista de reproducción nueva"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:8 tmp/coverart_entryview_pop_rb2.ui.h:8
 #: tmp/coverart_browser_pop_rb3.ui.h:4 tmp/coverart_entryview_pop_rb3.ui.h:4
@@ -180,19 +179,19 @@ msgstr "Agregar favoritos a una lista de reproducción"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:15
 msgid "Search for this album cover"
-msgstr "Busca portada para este álbum"
+msgstr "Buscar la carátula de este álbum"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:16 tmp/coverart_browser_pop_rb3.ui.h:8
 msgid "Search for covers"
-msgstr "Buscar portadas"
+msgstr "Buscar carátulas"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:17
 msgid "Export album tracks and embed coverart in track files"
-msgstr "Exportar canciones del disco e insertar Portada en archivos de pista"
+msgstr "Exportar las pistas del álbum e incrustar la carátula en ellas"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:18 tmp/coverart_browser_pop_rb3.ui.h:9
 msgid "Export and embed coverart"
-msgstr "Exportar y embeber portada"
+msgstr "Exportar e incrustar carátula"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:19
 msgid "Show album properties"
@@ -221,7 +220,7 @@ msgstr "Mostrar propiedades de la pista"
 #: tmp/coverart_browser_pop_rb3.ui.h:10 tmp/coverart_entryview_pop_rb3.ui.h:5
 #: coverart_controllers.py:467
 msgid "Properties"
-msgstr ""
+msgstr "Propiedades"
 
 #: tmp/coverart_browser_prefs.ui.h:1
 msgid "Select a picture"
@@ -229,9 +228,7 @@ msgstr "Seleccione una imagen"
 
 #: tmp/coverart_browser_prefs.ui.h:2
 msgid "Select picture to add to Edit Genre icon drop-down list"
-msgstr ""
-"Selecciona la imagen para añadir a Editar icono Género en la lista "
-"desplegable"
+msgstr "Seleccione la imagen a añadir a la lista de iconos Editar género"
 
 #: tmp/coverart_browser_prefs.ui.h:3
 msgid "Above"
@@ -239,7 +236,7 @@ msgstr "Frente"
 
 #: tmp/coverart_browser_prefs.ui.h:4
 msgid "Top Left"
-msgstr "Arriba-Izquierda"
+msgstr "Arriba a la izquierda"
 
 #: tmp/coverart_browser_prefs.ui.h:5
 msgid "Top Center"
@@ -247,7 +244,7 @@ msgstr "Arriba"
 
 #: tmp/coverart_browser_prefs.ui.h:6
 msgid "Top Right"
-msgstr "Arriba-Derecha"
+msgstr "Arriba a la derecha"
 
 #: tmp/coverart_browser_prefs.ui.h:7
 msgid "Above Cover View"
@@ -271,9 +268,8 @@ msgstr ""
 "Abrir el navegador de portadas automáticamente cuando inicia Rhythmbox."
 
 #: tmp/coverart_browser_prefs.ui.h:12
-#, fuzzy
 msgid "Use source's custom statusbar"
-msgstr "Utilizar la barra de estado personalizada del plugin"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:13
 msgid ""
@@ -301,6 +297,8 @@ msgid ""
 "Number of random\n"
 "albums to play"
 msgstr ""
+"N.º de álbumes al\n"
+"azar que reproducir"
 
 #: tmp/coverart_browser_prefs.ui.h:18
 msgid "Level above which is regarded as being a favourite track or album"
@@ -379,18 +377,16 @@ msgid "Size (in pixels):"
 msgstr "Tamaño (en píxeles):"
 
 #: tmp/coverart_browser_prefs.ui.h:36
-#, fuzzy
 msgid "Tracks Pane"
-msgstr "Pistas"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:37
 msgid "open or close on click of cover"
 msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:38
-#, fuzzy
 msgid "Advanced Options"
-msgstr "Opciones de búsqueda"
+msgstr "Opciones avanzadas"
 
 #: tmp/coverart_browser_prefs.ui.h:39
 msgid "Padding (space) around the cover and its highlight"
@@ -409,13 +405,12 @@ msgid "Spacing"
 msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:44
-#, fuzzy
 msgid "Flow Appearance"
-msgstr "Apariencia"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:45
 msgid "Width (px):"
-msgstr ""
+msgstr "Anchura (px):"
 
 #. . TRANSLATORS: percentage size that the image will be expanded
 #: tmp/coverart_browser_prefs.ui.h:47 coverart_browser.py:171
@@ -433,15 +428,15 @@ msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:50
 msgid "Background Colour"
-msgstr ""
+msgstr "Color de fondo"
 
 #: tmp/coverart_browser_prefs.ui.h:51
 msgid "White"
-msgstr ""
+msgstr "Blanco"
 
 #: tmp/coverart_browser_prefs.ui.h:52
 msgid "Black"
-msgstr ""
+msgstr "Negro"
 
 #: tmp/coverart_browser_prefs.ui.h:54
 msgid "Where the toolbar should be positioned"
@@ -704,7 +699,7 @@ msgstr "Carátulas"
 #. . TRANSLATORS - "All" is used in the context of "All artist names"
 #: coverart_browser_source.py:347
 msgid "All"
-msgstr ""
+msgstr "Todos"
 
 #: coverart_browser_source.py:621
 msgid "The number of albums to randomly play is less than that displayed."
@@ -723,9 +718,9 @@ msgstr ""
 
 #. . TRANSLATORS - the number of albums that have been selected/highlighted
 #: coverart_browser_source.py:937
-#, fuzzy, python-format
+#, python-format
 msgid "%d selected albums"
-msgstr "%d álbumes seleccionados "
+msgstr "%d álbumes seleccionados"
 
 #: coverart_browser_source.py:941
 msgid " with 1 track"
@@ -762,19 +757,16 @@ msgid "Sort by rating"
 msgstr "Buscar por puntuación"
 
 #: coverart_controllers.py:432
-#, fuzzy
 msgid "Download all covers"
-msgstr "Descarga todas las portadas"
+msgstr ""
 
 #: coverart_controllers.py:433
-#, fuzzy
 msgid "Play random album"
-msgstr "Reproducir este álbum"
+msgstr ""
 
 #: coverart_controllers.py:434
-#, fuzzy
 msgid "Play favourite random album"
-msgstr "Reproduce las canciones favoritas de este álbum"
+msgstr ""
 
 #: coverart_controllers.py:436
 msgid "Quick artist filter"
@@ -785,9 +777,8 @@ msgid "Browser Preferences"
 msgstr ""
 
 #: coverart_controllers.py:439
-#, fuzzy
 msgid "Search Preferences"
-msgstr "Buscar portadas"
+msgstr "Preferencias de búsqueda"
 
 #. '20s' as in the decade 2010
 #: coverart_controllers.py:487 coverart_controllers.py:513
@@ -881,6 +872,7 @@ msgstr ""
 "  Aaron Farias https://launchpad.net/~timido\n"
 "  Adolfo Jayme Barrientos https://launchpad.net/~fitoschido\n"
 "  Agustin Carrasco https://launchpad.net/~asermax\n"
+"  Alfredo Hernández https://launchpad.net/~aldomann\n"
 "  Eduardo Battaglia https://launchpad.net/~eduardo-battaglia\n"
 "  fossfreedom https://launchpad.net/~fossfreedom\n"
 "  hhlp https://launchpad.net/~hhlp-deactivatedaccount"
@@ -899,14 +891,3 @@ msgstr "Navegador de carátulas"
 #: coverart_browser.py:160
 msgid "Browse and play your albums through their covers"
 msgstr "Navegue y reproduzca sus álbumes mediante sus carátulas"
-
-#, fuzzy
-#~ msgid "170"
-#~ msgstr "2010"
-
-#, fuzzy
-#~ msgid "Coverflow"
-#~ msgstr "Carátula"
-
-#~ msgid "Search for covers where an album does not currently have one"
-#~ msgstr "Busca portadas para aquellos álbums que no tienen una"

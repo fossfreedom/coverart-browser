@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-18 15:41+0100\n"
-"PO-Revision-Date: 2013-04-18 19:01+0000\n"
-"Last-Translator: Launchpad Translations Administrators <Unknown>\n"
+"PO-Revision-Date: 2013-08-21 12:05+0000\n"
+"Last-Translator: Gianfranco Frisani <gfrisani@libero.it>\n"
 "Language-Team: Italian <it@li.org>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-05-10 12:44+0000\n"
-"X-Generator: Launchpad (build 16598)\n"
+"X-Launchpad-Export-Date: 2013-08-22 10:36+0000\n"
+"X-Generator: Launchpad (build 16737)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -85,9 +85,8 @@ msgid "Tracks & Covers"
 msgstr "Tracce e copertine"
 
 #: tmp/coverart_browser.ui.h:2
-#, fuzzy
 msgid "Track Artist"
-msgstr "Artista"
+msgstr "Artista della traccia"
 
 #: tmp/coverart_browser.ui.h:3
 msgid "Stop coverart fetch."
@@ -110,14 +109,14 @@ msgstr "Tutte le decadi"
 #: tmp/coverart_topbar.ui.h:3 tmp/coverart_browser_prefs.ui.h:43
 #: tmp/coverart_sidebar.ui.h:4 coverart_browser.py:164
 msgid "Tiles"
-msgstr ""
+msgstr "Miniature"
 
 #. . TRANSLATORS: This is the cover-flow view the user sees - they can swipe album covers from side-to-side
 #. . TRANSLATORS: Please try to keep the translation to less than 8 characters
 #: tmp/coverart_topbar.ui.h:4 tmp/coverart_browser_prefs.ui.h:53
 #: tmp/coverart_sidebar.ui.h:5 coverart_browser.py:168
 msgid "Flow"
-msgstr ""
+msgstr "Flusso"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:1
 msgid "Play this album"
@@ -221,7 +220,7 @@ msgstr "Visualizza le proprietà della traccia"
 #: tmp/coverart_browser_pop_rb3.ui.h:10 tmp/coverart_entryview_pop_rb3.ui.h:5
 #: coverart_controllers.py:467
 msgid "Properties"
-msgstr ""
+msgstr "Proprietà"
 
 #: tmp/coverart_browser_prefs.ui.h:1
 msgid "Select a picture"
@@ -270,9 +269,8 @@ msgid "When rhythmbox starts, switch automatically to the coverart browser."
 msgstr "Quando parte rhytmbox, passa automaticamente al gestore di coverart."
 
 #: tmp/coverart_browser_prefs.ui.h:12
-#, fuzzy
 msgid "Use source's custom statusbar"
-msgstr "Usa la barra di stato originaria personalizzata."
+msgstr "Usa la barra di stato originaria personalizzata"
 
 #: tmp/coverart_browser_prefs.ui.h:13
 msgid ""
@@ -300,6 +298,8 @@ msgid ""
 "Number of random\n"
 "albums to play"
 msgstr ""
+"Numero di album\n"
+"da riprodurre a caso"
 
 #: tmp/coverart_browser_prefs.ui.h:18
 msgid "Level above which is regarded as being a favourite track or album"
@@ -385,69 +385,66 @@ msgid "Size (in pixels):"
 msgstr "Dimensioni (in pixel):"
 
 #: tmp/coverart_browser_prefs.ui.h:36
-#, fuzzy
 msgid "Tracks Pane"
-msgstr "Tracce"
+msgstr "Pannello delle tracce"
 
 #: tmp/coverart_browser_prefs.ui.h:37
 msgid "open or close on click of cover"
-msgstr ""
+msgstr "Apre o chiude facendo clic su una copertina"
 
 #: tmp/coverart_browser_prefs.ui.h:38
-#, fuzzy
 msgid "Advanced Options"
-msgstr "Opzioni di ricerca"
+msgstr "Opzioni Avanzate"
 
 #: tmp/coverart_browser_prefs.ui.h:39
 msgid "Padding (space) around the cover and its highlight"
-msgstr ""
+msgstr "Spaziatura intorno alla copertina e sua evidenziazione"
 
 #: tmp/coverart_browser_prefs.ui.h:40
 msgid "Spacing between columns and rows"
-msgstr ""
+msgstr "Spaziatura fra colonne e righe"
 
 #: tmp/coverart_browser_prefs.ui.h:41
 msgid "Padding"
-msgstr ""
+msgstr "Spaziatura"
 
 #: tmp/coverart_browser_prefs.ui.h:42
 msgid "Spacing"
-msgstr ""
+msgstr "Spaziatura"
 
 #: tmp/coverart_browser_prefs.ui.h:44
-#, fuzzy
 msgid "Flow Appearance"
-msgstr "Aspetto della copertina"
+msgstr "Aspetto del flusso"
 
 #: tmp/coverart_browser_prefs.ui.h:45
 msgid "Width (px):"
-msgstr ""
+msgstr "Larghezza (px):"
 
 #. . TRANSLATORS: percentage size that the image will be expanded
 #: tmp/coverart_browser_prefs.ui.h:47 coverart_browser.py:171
 #, no-c-format
 msgid "Scale by %:"
-msgstr ""
+msgstr "Ridimensiona al %:"
 
 #: tmp/coverart_browser_prefs.ui.h:48
 msgid "Hide Caption"
-msgstr ""
+msgstr "Nasconde didascalia"
 
 #: tmp/coverart_browser_prefs.ui.h:49
 msgid "Maximum covers to display:"
-msgstr ""
+msgstr "Numero massimo di copertine da visualizzare:"
 
 #: tmp/coverart_browser_prefs.ui.h:50
 msgid "Background Colour"
-msgstr ""
+msgstr "Colore sfondo"
 
 #: tmp/coverart_browser_prefs.ui.h:51
 msgid "White"
-msgstr ""
+msgstr "Bianco"
 
 #: tmp/coverart_browser_prefs.ui.h:52
 msgid "Black"
-msgstr ""
+msgstr "Nero"
 
 #: tmp/coverart_browser_prefs.ui.h:54
 msgid "Where the toolbar should be positioned"
@@ -710,11 +707,12 @@ msgstr "Copertine"
 #. . TRANSLATORS - "All" is used in the context of "All artist names"
 #: coverart_browser_source.py:347
 msgid "All"
-msgstr ""
+msgstr "Tutti"
 
 #: coverart_browser_source.py:621
 msgid "The number of albums to randomly play is less than that displayed."
 msgstr ""
+"Il numero di album da riprodurre a caso è minore di quelli visualizzati."
 
 #: coverart_browser_source.py:701
 #, python-format
@@ -726,12 +724,13 @@ msgid ""
 "Please install and activate the latest version of the Coverart Search "
 "Providers plugin"
 msgstr ""
+"Installare e attivare l'ultima versione del plugin Coverart Search Providers"
 
 #. . TRANSLATORS - the number of albums that have been selected/highlighted
 #: coverart_browser_source.py:937
-#, fuzzy, python-format
+#, python-format
 msgid "%d selected albums"
-msgstr "%d album selezionati "
+msgstr "%d album selezionati"
 
 #: coverart_browser_source.py:941
 msgid " with 1 track"
@@ -768,32 +767,28 @@ msgid "Sort by rating"
 msgstr "Elenca per classificazione"
 
 #: coverart_controllers.py:432
-#, fuzzy
 msgid "Download all covers"
 msgstr "Scarica tutte le copertine"
 
 #: coverart_controllers.py:433
-#, fuzzy
 msgid "Play random album"
-msgstr "Riproduci questo album"
+msgstr "Riproduce album a caso"
 
 #: coverart_controllers.py:434
-#, fuzzy
 msgid "Play favourite random album"
-msgstr "Riproduce le tracce preferite di questo album"
+msgstr "Riproduce un album preferito a caso"
 
 #: coverart_controllers.py:436
 msgid "Quick artist filter"
-msgstr ""
+msgstr "Filtro rapido in base all'artista"
 
 #: coverart_controllers.py:438 coverart_browser_prefs.py:245
 msgid "Browser Preferences"
-msgstr ""
+msgstr "Preferenze del gestore"
 
 #: coverart_controllers.py:439
-#, fuzzy
 msgid "Search Preferences"
-msgstr "Cerca copertine"
+msgstr "Preferenze di ricerca"
 
 #. '20s' as in the decade 2010
 #: coverart_controllers.py:487 coverart_controllers.py:513
@@ -884,13 +879,14 @@ msgstr "Cerca tracce"
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  Gianfranco Frisani https://launchpad.net/~gfrisani"
+"  Gianfranco Frisani https://launchpad.net/~gfrisani\n"
+"  fossfreedom https://launchpad.net/~fossfreedom"
 
 #. TRANSLATORS: for example 'Number of covers limited to 150'
 #: coverart_coverflowview.py:197
 #, python-format
 msgid "Number of covers limited to %d"
-msgstr ""
+msgstr "Numero di copertine limitato a %d"
 
 #. define .plugin text strings used for translation
 #: coverart_browser.py:159
@@ -900,14 +896,3 @@ msgstr "Gestore di CoverArt"
 #: coverart_browser.py:160
 msgid "Browse and play your albums through their covers"
 msgstr "Sfoglia e riproduce gli album per copertina"
-
-#, fuzzy
-#~ msgid "170"
-#~ msgstr "Anni 2010"
-
-#, fuzzy
-#~ msgid "Coverflow"
-#~ msgstr "Copertina"
-
-#~ msgid "Search for covers where an album does not currently have one"
-#~ msgstr "Cerca le copertine se un album ne è attualmente sprovvisto"

@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-18 15:41+0100\n"
-"PO-Revision-Date: 2013-05-10 07:37+0000\n"
-"Last-Translator: Spencer Young <Unknown>\n"
+"PO-Revision-Date: 2013-08-17 20:46+0000\n"
+"Last-Translator: fossfreedom <Unknown>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-05-10 12:44+0000\n"
-"X-Generator: Launchpad (build 16598)\n"
+"X-Launchpad-Export-Date: 2013-08-22 10:36+0000\n"
+"X-Generator: Launchpad (build 16737)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -85,9 +85,8 @@ msgid "Tracks & Covers"
 msgstr "Titel & Cover"
 
 #: tmp/coverart_browser.ui.h:2
-#, fuzzy
 msgid "Track Artist"
-msgstr "Künstler"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:3
 msgid "Stop coverart fetch."
@@ -367,18 +366,16 @@ msgid "Size (in pixels):"
 msgstr "Größe (in Pixeln):"
 
 #: tmp/coverart_browser_prefs.ui.h:36
-#, fuzzy
 msgid "Tracks Pane"
-msgstr "Titel"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:37
 msgid "open or close on click of cover"
 msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:38
-#, fuzzy
 msgid "Advanced Options"
-msgstr "Suchoptionen"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:39
 msgid "Padding (space) around the cover and its highlight"
@@ -397,9 +394,8 @@ msgid "Spacing"
 msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:44
-#, fuzzy
 msgid "Flow Appearance"
-msgstr "Cover-Erscheinungsbild"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:45
 msgid "Width (px):"
@@ -709,9 +705,9 @@ msgstr ""
 
 #. . TRANSLATORS - the number of albums that have been selected/highlighted
 #: coverart_browser_source.py:937
-#, fuzzy, python-format
+#, python-format
 msgid "%d selected albums"
-msgstr "%d ausgewählte Alben "
+msgstr ""
 
 #: coverart_browser_source.py:941
 msgid " with 1 track"
@@ -748,19 +744,16 @@ msgid "Sort by rating"
 msgstr "Nach Bewertung sortieren"
 
 #: coverart_controllers.py:432
-#, fuzzy
 msgid "Download all covers"
-msgstr "Lade alle Cover herunter"
+msgstr ""
 
 #: coverart_controllers.py:433
-#, fuzzy
 msgid "Play random album"
-msgstr "Spiele dieses Album"
+msgstr ""
 
 #: coverart_controllers.py:434
-#, fuzzy
 msgid "Play favourite random album"
-msgstr "Spiele Favoriten"
+msgstr ""
 
 #: coverart_controllers.py:436
 msgid "Quick artist filter"
@@ -771,9 +764,8 @@ msgid "Browser Preferences"
 msgstr ""
 
 #: coverart_controllers.py:439
-#, fuzzy
 msgid "Search Preferences"
-msgstr "Suche nach Cover"
+msgstr ""
 
 #. '20s' as in the decade 2010
 #: coverart_controllers.py:487 coverart_controllers.py:513
@@ -869,6 +861,7 @@ msgstr ""
 "  Phillip Sz https://launchpad.net/~phillip-sz\n"
 "  Simon Schütte https://launchpad.net/~simonschuette\n"
 "  Spencer Young https://launchpad.net/~spenceryoung\n"
+"  fossfreedom https://launchpad.net/~fossfreedom\n"
 "  quaec https://launchpad.net/~quaec"
 
 #. TRANSLATORS: for example 'Number of covers limited to 150'
@@ -885,11 +878,3 @@ msgstr "CoverArt Browser"
 #: coverart_browser.py:160
 msgid "Browse and play your albums through their covers"
 msgstr ""
-
-#, fuzzy
-#~ msgid "170"
-#~ msgstr "10er"
-
-#, fuzzy
-#~ msgid "Coverflow"
-#~ msgstr "Cover"

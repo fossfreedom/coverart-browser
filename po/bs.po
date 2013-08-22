@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-18 15:41+0100\n"
-"PO-Revision-Date: 2013-06-20 13:29+0000\n"
+"PO-Revision-Date: 2013-08-17 20:46+0000\n"
 "Last-Translator: Kenan Dervišević <kenan3008@gmail.com>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
 "Language: bs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-06-20 20:41+0000\n"
-"X-Generator: Launchpad (build 16673)\n"
+"X-Launchpad-Export-Date: 2013-08-22 10:36+0000\n"
+"X-Generator: Launchpad (build 16737)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -83,9 +83,8 @@ msgid "Tracks & Covers"
 msgstr ""
 
 #: tmp/coverart_browser.ui.h:2
-#, fuzzy
 msgid "Track Artist"
-msgstr "Izvođač"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:3
 msgid "Stop coverart fetch."
@@ -365,18 +364,16 @@ msgid "Size (in pixels):"
 msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:36
-#, fuzzy
 msgid "Tracks Pane"
-msgstr "Numere"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:37
 msgid "open or close on click of cover"
 msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:38
-#, fuzzy
 msgid "Advanced Options"
-msgstr "Opcije pretrage"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:39
 msgid "Padding (space) around the cover and its highlight"
@@ -749,14 +746,12 @@ msgid "Download all covers"
 msgstr ""
 
 #: coverart_controllers.py:433
-#, fuzzy
 msgid "Play random album"
-msgstr "Pusti album"
+msgstr ""
 
 #: coverart_controllers.py:434
-#, fuzzy
 msgid "Play favourite random album"
-msgstr "Izvođač i album"
+msgstr ""
 
 #: coverart_controllers.py:436
 msgid "Quick artist filter"
@@ -767,9 +762,8 @@ msgid "Browser Preferences"
 msgstr ""
 
 #: coverart_controllers.py:439
-#, fuzzy
 msgid "Search Preferences"
-msgstr "Pretraži numere"
+msgstr ""
 
 #. '20s' as in the decade 2010
 #: coverart_controllers.py:487 coverart_controllers.py:513
@@ -876,11 +870,3 @@ msgstr "CoverArt Browser"
 #: coverart_browser.py:160
 msgid "Browse and play your albums through their covers"
 msgstr "Pregledajte i reproducirajte vaše albume na osnovu njihovih omota"
-
-#, fuzzy
-#~ msgid "170"
-#~ msgstr "10-te"
-
-#, fuzzy
-#~ msgid "Coverflow"
-#~ msgstr "Omot"

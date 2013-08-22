@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-18 15:41+0100\n"
-"PO-Revision-Date: 2013-06-10 13:34+0000\n"
-"Last-Translator: Rashid Aliyev <Unknown>\n"
+"PO-Revision-Date: 2013-08-17 20:46+0000\n"
+"Last-Translator: fossfreedom <Unknown>\n"
 "Language-Team: Azerbaijani <az@li.org>\n"
 "Language: az\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-06-10 14:32+0000\n"
-"X-Generator: Launchpad (build 16667)\n"
+"X-Launchpad-Export-Date: 2013-08-22 10:36+0000\n"
+"X-Generator: Launchpad (build 16737)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -85,9 +85,8 @@ msgid "Tracks & Covers"
 msgstr "Mahnılar və üzlüklər"
 
 #: tmp/coverart_browser.ui.h:2
-#, fuzzy
 msgid "Track Artist"
-msgstr "Müğənni"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:3
 msgid "Stop coverart fetch."
@@ -268,9 +267,8 @@ msgid "When rhythmbox starts, switch automatically to the coverart browser."
 msgstr "RhytmBox başladıqda, avtomatik olaraq coverart gəzginini başlat."
 
 #: tmp/coverart_browser_prefs.ui.h:12
-#, fuzzy
 msgid "Use source's custom statusbar"
-msgstr "Məbəənin istifadəçi vəziyyət panelindən istifadə et."
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:13
 msgid ""
@@ -299,6 +297,8 @@ msgstr ""
 #: tmp/coverart_browser_prefs.ui.h:18
 msgid "Level above which is regarded as being a favourite track or album"
 msgstr ""
+"Bu rəqəmnən yixarı qiymətləndirmələr favorit mahnı və albom kimi hesab "
+"olunacaq"
 
 #: tmp/coverart_browser_prefs.ui.h:19
 msgid "Favourite Threshold"
@@ -373,18 +373,16 @@ msgid "Size (in pixels):"
 msgstr "Ölçü (piksellə):"
 
 #: tmp/coverart_browser_prefs.ui.h:36
-#, fuzzy
 msgid "Tracks Pane"
-msgstr "Mahnılar"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:37
 msgid "open or close on click of cover"
 msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:38
-#, fuzzy
 msgid "Advanced Options"
-msgstr "Axtarış Seçimləri"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:39
 msgid "Padding (space) around the cover and its highlight"
@@ -403,9 +401,8 @@ msgid "Spacing"
 msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:44
-#, fuzzy
 msgid "Flow Appearance"
-msgstr "Üzlük şəkilin görüntüsü"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:45
 msgid "Width (px):"
@@ -533,7 +530,7 @@ msgstr "Yeridilmiş mahnılar qovluğunu fayl-menecerində aç"
 msgid ""
 "Tip: Drag and Drop exported tracks from file-manager to a playlist or "
 "telephone/other device"
-msgstr ""
+msgstr "Qeyd: Çək-və-Burax"
 
 #: tmp/coverart_sidebar.ui.h:1 coverart_browser.py:102 coverart_browser.py:115
 msgid "CoverArt"
@@ -715,9 +712,9 @@ msgstr ""
 
 #. . TRANSLATORS - the number of albums that have been selected/highlighted
 #: coverart_browser_source.py:937
-#, fuzzy, python-format
+#, python-format
 msgid "%d selected albums"
-msgstr "%d seçilmiş albomlar "
+msgstr ""
 
 #: coverart_browser_source.py:941
 msgid " with 1 track"
@@ -754,19 +751,16 @@ msgid "Sort by rating"
 msgstr "Reytinqinə görə düz"
 
 #: coverart_controllers.py:432
-#, fuzzy
 msgid "Download all covers"
-msgstr "Bütün üzlükləri yüklə"
+msgstr ""
 
 #: coverart_controllers.py:433
-#, fuzzy
 msgid "Play random album"
-msgstr "Bu albomu oxud"
+msgstr ""
 
 #: coverart_controllers.py:434
-#, fuzzy
 msgid "Play favourite random album"
-msgstr "Bu albomdakı favorit mahnıları oxu"
+msgstr ""
 
 #: coverart_controllers.py:436
 msgid "Quick artist filter"
@@ -777,9 +771,8 @@ msgid "Browser Preferences"
 msgstr ""
 
 #: coverart_controllers.py:439
-#, fuzzy
 msgid "Search Preferences"
-msgstr "Üzlkülər axtarışı"
+msgstr ""
 
 #. '20s' as in the decade 2010
 #: coverart_controllers.py:487 coverart_controllers.py:513
@@ -871,7 +864,8 @@ msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Emin Mastizada https://launchpad.net/~emin25\n"
-"  Rashid Aliyev https://launchpad.net/~rashid"
+"  Rashid Aliyev https://launchpad.net/~rashid\n"
+"  fossfreedom https://launchpad.net/~fossfreedom"
 
 #. TRANSLATORS: for example 'Number of covers limited to 150'
 #: coverart_coverflowview.py:197
@@ -887,14 +881,3 @@ msgstr "CoverArt gəzgini"
 #: coverart_browser.py:160
 msgid "Browse and play your albums through their covers"
 msgstr "Üz şəklinə görə albomlara bax və oxud"
-
-#, fuzzy
-#~ msgid "170"
-#~ msgstr "10-cu illər"
-
-#, fuzzy
-#~ msgid "Coverflow"
-#~ msgstr "Üzlük"
-
-#~ msgid "Search for covers where an album does not currently have one"
-#~ msgstr "Üz qabıöı şəkili olmayan albomları axtar"

@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-18 15:41+0100\n"
-"PO-Revision-Date: 2013-06-17 23:17+0000\n"
+"PO-Revision-Date: 2013-08-17 20:46+0000\n"
 "Last-Translator: Radu Rădeanu <radu.radeanu@gmail.com>\n"
 "Language-Team: Romanian <ro@li.org>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-06-18 07:32+0000\n"
-"X-Generator: Launchpad (build 16667)\n"
+"X-Launchpad-Export-Date: 2013-08-22 10:36+0000\n"
+"X-Generator: Launchpad (build 16737)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -85,9 +85,8 @@ msgid "Tracks & Covers"
 msgstr "Melodii și coperte"
 
 #: tmp/coverart_browser.ui.h:2
-#, fuzzy
 msgid "Track Artist"
-msgstr "Artist"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:3
 msgid "Stop coverart fetch."
@@ -268,9 +267,8 @@ msgid "When rhythmbox starts, switch automatically to the coverart browser."
 msgstr "Când Rhythmbox pornește, trece automat la navigatorul copertei."
 
 #: tmp/coverart_browser_prefs.ui.h:12
-#, fuzzy
 msgid "Use source's custom statusbar"
-msgstr "Utilizați bara de status personalizat sursă."
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:13
 msgid ""
@@ -378,18 +376,16 @@ msgid "Size (in pixels):"
 msgstr "Dimensiune (în pixeli):"
 
 #: tmp/coverart_browser_prefs.ui.h:36
-#, fuzzy
 msgid "Tracks Pane"
-msgstr "Piese"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:37
 msgid "open or close on click of cover"
 msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:38
-#, fuzzy
 msgid "Advanced Options"
-msgstr "Opțiuni căutare"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:39
 msgid "Padding (space) around the cover and its highlight"
@@ -408,9 +404,8 @@ msgid "Spacing"
 msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:44
-#, fuzzy
 msgid "Flow Appearance"
-msgstr "Aspect coertă"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:45
 msgid "Width (px):"
@@ -722,9 +717,9 @@ msgstr ""
 
 #. . TRANSLATORS - the number of albums that have been selected/highlighted
 #: coverart_browser_source.py:937
-#, fuzzy, python-format
+#, python-format
 msgid "%d selected albums"
-msgstr "%d albume selectate "
+msgstr ""
 
 #: coverart_browser_source.py:941
 msgid " with 1 track"
@@ -761,19 +756,16 @@ msgid "Sort by rating"
 msgstr "Sortare după rată"
 
 #: coverart_controllers.py:432
-#, fuzzy
 msgid "Download all covers"
-msgstr "Descarcă toate coperțile"
+msgstr ""
 
 #: coverart_controllers.py:433
-#, fuzzy
 msgid "Play random album"
-msgstr "Redă acest album"
+msgstr ""
 
 #: coverart_controllers.py:434
-#, fuzzy
 msgid "Play favourite random album"
-msgstr "Redă piese favorite din acest album"
+msgstr ""
 
 #: coverart_controllers.py:436
 msgid "Quick artist filter"
@@ -784,9 +776,8 @@ msgid "Browser Preferences"
 msgstr ""
 
 #: coverart_controllers.py:439
-#, fuzzy
 msgid "Search Preferences"
-msgstr "Caută coperți"
+msgstr ""
 
 #. '20s' as in the decade 2010
 #: coverart_controllers.py:487 coverart_controllers.py:513
@@ -893,14 +884,3 @@ msgstr "Navigator CoverArt"
 #: coverart_browser.py:160
 msgid "Browse and play your albums through their covers"
 msgstr "Parcurge și redă albumele prin intermediul coperților lor"
-
-#, fuzzy
-#~ msgid "170"
-#~ msgstr "Anii 2010"
-
-#, fuzzy
-#~ msgid "Coverflow"
-#~ msgstr "Copertă"
-
-#~ msgid "Search for covers where an album does not currently have one"
-#~ msgstr "Caută coperți pentru albumele care nu au momentan una"

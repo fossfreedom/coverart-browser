@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-18 15:41+0100\n"
-"PO-Revision-Date: 2013-04-18 19:01+0000\n"
-"Last-Translator: Launchpad Translations Administrators <Unknown>\n"
+"PO-Revision-Date: 2013-08-21 15:58+0000\n"
+"Last-Translator: abuyop <Unknown>\n"
 "Language-Team: Malay <ms@li.org>\n"
 "Language: ms\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-05-10 12:44+0000\n"
-"X-Generator: Launchpad (build 16598)\n"
+"X-Launchpad-Export-Date: 2013-08-22 10:36+0000\n"
+"X-Generator: Launchpad (build 16737)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -83,9 +83,8 @@ msgid "Tracks & Covers"
 msgstr "Trek & Kulit Album"
 
 #: tmp/coverart_browser.ui.h:2
-#, fuzzy
 msgid "Track Artist"
-msgstr "Artis"
+msgstr "Trek Artis"
 
 #: tmp/coverart_browser.ui.h:3
 msgid "Stop coverart fetch."
@@ -108,14 +107,14 @@ msgstr "Semua Dekad"
 #: tmp/coverart_topbar.ui.h:3 tmp/coverart_browser_prefs.ui.h:43
 #: tmp/coverart_sidebar.ui.h:4 coverart_browser.py:164
 msgid "Tiles"
-msgstr ""
+msgstr "Jubin"
 
 #. . TRANSLATORS: This is the cover-flow view the user sees - they can swipe album covers from side-to-side
 #. . TRANSLATORS: Please try to keep the translation to less than 8 characters
 #: tmp/coverart_topbar.ui.h:4 tmp/coverart_browser_prefs.ui.h:53
 #: tmp/coverart_sidebar.ui.h:5 coverart_browser.py:168
 msgid "Flow"
-msgstr ""
+msgstr "Aliran"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:1
 msgid "Play this album"
@@ -218,7 +217,7 @@ msgstr "Papar sifat trek"
 #: tmp/coverart_browser_pop_rb3.ui.h:10 tmp/coverart_entryview_pop_rb3.ui.h:5
 #: coverart_controllers.py:467
 msgid "Properties"
-msgstr ""
+msgstr "Sifat"
 
 #: tmp/coverart_browser_prefs.ui.h:1
 msgid "Select a picture"
@@ -265,9 +264,8 @@ msgid "When rhythmbox starts, switch automatically to the coverart browser."
 msgstr "Bila rhythmbox bermula, tukar secara automatik ke pelayar coverart."
 
 #: tmp/coverart_browser_prefs.ui.h:12
-#, fuzzy
 msgid "Use source's custom statusbar"
-msgstr "Guna sumber palang status suai."
+msgstr "Guna sumber palang status suai"
 
 #: tmp/coverart_browser_prefs.ui.h:13
 msgid ""
@@ -294,6 +292,8 @@ msgid ""
 "Number of random\n"
 "albums to play"
 msgstr ""
+"Bilangan album\n"
+"rawak hendak dimainkan"
 
 #: tmp/coverart_browser_prefs.ui.h:18
 msgid "Level above which is regarded as being a favourite track or album"
@@ -373,69 +373,66 @@ msgid "Size (in pixels):"
 msgstr "Saiz (dalam piksel):"
 
 #: tmp/coverart_browser_prefs.ui.h:36
-#, fuzzy
 msgid "Tracks Pane"
-msgstr "Trek"
+msgstr "Anak Tetingkap Trek"
 
 #: tmp/coverart_browser_prefs.ui.h:37
 msgid "open or close on click of cover"
-msgstr ""
+msgstr "buka atau tutup bila mengklik kulit album"
 
 #: tmp/coverart_browser_prefs.ui.h:38
-#, fuzzy
 msgid "Advanced Options"
-msgstr "Pilihan Gelintar"
+msgstr "Pilihan Lanjutan"
 
 #: tmp/coverart_browser_prefs.ui.h:39
 msgid "Padding (space) around the cover and its highlight"
-msgstr ""
+msgstr "Pemadatan (jarak) diantara kulit album dengan sorotannya"
 
 #: tmp/coverart_browser_prefs.ui.h:40
 msgid "Spacing between columns and rows"
-msgstr ""
+msgstr "Penjarakan diantara lajur dengan baris"
 
 #: tmp/coverart_browser_prefs.ui.h:41
 msgid "Padding"
-msgstr ""
+msgstr "Pemadatan"
 
 #: tmp/coverart_browser_prefs.ui.h:42
 msgid "Spacing"
-msgstr ""
+msgstr "Penjarakan"
 
 #: tmp/coverart_browser_prefs.ui.h:44
-#, fuzzy
 msgid "Flow Appearance"
-msgstr "Penampilan Kulit"
+msgstr "Penampilan Aliran"
 
 #: tmp/coverart_browser_prefs.ui.h:45
 msgid "Width (px):"
-msgstr ""
+msgstr "Lebar (px):"
 
 #. . TRANSLATORS: percentage size that the image will be expanded
 #: tmp/coverart_browser_prefs.ui.h:47 coverart_browser.py:171
 #, no-c-format
 msgid "Scale by %:"
-msgstr ""
+msgstr "Skala mengikut %:"
 
 #: tmp/coverart_browser_prefs.ui.h:48
 msgid "Hide Caption"
-msgstr ""
+msgstr "Sembunyi Kapsyen"
 
 #: tmp/coverart_browser_prefs.ui.h:49
 msgid "Maximum covers to display:"
-msgstr ""
+msgstr "Kulit album maksimum dipapar:"
 
 #: tmp/coverart_browser_prefs.ui.h:50
 msgid "Background Colour"
-msgstr ""
+msgstr "Warna Latar Belakang"
 
 #: tmp/coverart_browser_prefs.ui.h:51
 msgid "White"
-msgstr ""
+msgstr "Putih"
 
 #: tmp/coverart_browser_prefs.ui.h:52
 msgid "Black"
-msgstr ""
+msgstr "Hitam"
 
 #: tmp/coverart_browser_prefs.ui.h:54
 msgid "Where the toolbar should be positioned"
@@ -698,11 +695,12 @@ msgstr "Kulit Album"
 #. . TRANSLATORS - "All" is used in the context of "All artist names"
 #: coverart_browser_source.py:347
 msgid "All"
-msgstr ""
+msgstr "Semua"
 
 #: coverart_browser_source.py:621
 msgid "The number of albums to randomly play is less than that displayed."
 msgstr ""
+"Bilangan album yang dimainkan secara rawak kurang dari yang dipaparkan."
 
 #: coverart_browser_source.py:701
 #, python-format
@@ -714,12 +712,13 @@ msgid ""
 "Please install and activate the latest version of the Coverart Search "
 "Providers plugin"
 msgstr ""
+"Sila pasang dan aktifkan versi terkini pemalam Penyedia Gelintar Coverart"
 
 #. . TRANSLATORS - the number of albums that have been selected/highlighted
 #: coverart_browser_source.py:937
-#, fuzzy, python-format
+#, python-format
 msgid "%d selected albums"
-msgstr "%d album terpilih "
+msgstr "%d album terpilih"
 
 #: coverart_browser_source.py:941
 msgid " with 1 track"
@@ -756,32 +755,28 @@ msgid "Sort by rating"
 msgstr "Isih mengikut penarafan"
 
 #: coverart_controllers.py:432
-#, fuzzy
 msgid "Download all covers"
-msgstr "Muat turun semua kulit"
+msgstr "Muat turun semua kulit album"
 
 #: coverart_controllers.py:433
-#, fuzzy
 msgid "Play random album"
-msgstr "Mainkan album ini"
+msgstr "Main album rawak"
 
 #: coverart_controllers.py:434
-#, fuzzy
 msgid "Play favourite random album"
-msgstr "Main trek kegemaean daripada album ini"
+msgstr "Main album rawak kegemaran"
 
 #: coverart_controllers.py:436
 msgid "Quick artist filter"
-msgstr ""
+msgstr "Penapis artis pantas"
 
 #: coverart_controllers.py:438 coverart_browser_prefs.py:245
 msgid "Browser Preferences"
-msgstr ""
+msgstr "Keutamaan Pelayar"
 
 #: coverart_controllers.py:439
-#, fuzzy
 msgid "Search Preferences"
-msgstr "Gelintar untuk kulit"
+msgstr "Keutamaan Gelintar"
 
 #. '20s' as in the decade 2010
 #: coverart_controllers.py:487 coverart_controllers.py:513
@@ -872,13 +867,14 @@ msgstr "Gelintar trek"
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  abuyop https://launchpad.net/~abuyop"
+"  abuyop https://launchpad.net/~abuyop\n"
+"  fossfreedom https://launchpad.net/~fossfreedom"
 
 #. TRANSLATORS: for example 'Number of covers limited to 150'
 #: coverart_coverflowview.py:197
 #, python-format
 msgid "Number of covers limited to %d"
-msgstr ""
+msgstr "Bilangan kulit album dihadkan ke %d"
 
 #. define .plugin text strings used for translation
 #: coverart_browser.py:159
@@ -888,14 +884,3 @@ msgstr "Pelayar CoverArt"
 #: coverart_browser.py:160
 msgid "Browse and play your albums through their covers"
 msgstr "Layar dan mainkan album anda menerusi kulit album mereka"
-
-#, fuzzy
-#~ msgid "170"
-#~ msgstr "10-an"
-
-#, fuzzy
-#~ msgid "Coverflow"
-#~ msgstr "Kulit"
-
-#~ msgid "Search for covers where an album does not currently have one"
-#~ msgstr "Gelintar kulit yang mana album tiadanya"
