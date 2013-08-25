@@ -39,7 +39,7 @@ Browse your coverart albums in Rhythmbox v2.96 - Rhythmbox v3.0
  - Albums are displayed as clickable buttons containing their album cover
  - Right click menu option to play, queue & search for coverart for an album.
  
- - https://github.com/fossfreedom/coverart-browser/wiki/How-the-plugin-works
+ - https://github.com/fossfreedom/coverart-browser/wiki/how-to-for-version-0.9
 
 *How to install:*
 
