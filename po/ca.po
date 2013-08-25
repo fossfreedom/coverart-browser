@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-18 15:41+0100\n"
-"PO-Revision-Date: 2013-08-19 12:05+0000\n"
-"Last-Translator: VPablo <villumar@gmail.com>\n"
+"PO-Revision-Date: 2013-08-24 18:41+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitoschido@gmail.com>\n"
 "Language-Team: Catalan <ca@li.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-08-22 10:36+0000\n"
-"X-Generator: Launchpad (build 16737)\n"
+"X-Launchpad-Export-Date: 2013-08-25 08:41+0000\n"
+"X-Generator: Launchpad (build 16738)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -74,7 +74,7 @@ msgstr "Extra gran"
 
 #: tmpl/albumartsearch-tmpl.html:211 coverart_browser_source.py:112
 msgid "Loading..."
-msgstr "Carregant..."
+msgstr "S'està carregant…"
 
 #: tmpl/albumartsearch-tmpl.html:213
 msgid "Show more results"
@@ -150,7 +150,7 @@ msgstr "Afegeix este àlbum a una llista de reproducció nova"
 #: tmp/coverart_browser_pop_rb2.ui.h:8 tmp/coverart_entryview_pop_rb2.ui.h:8
 #: tmp/coverart_browser_pop_rb3.ui.h:4 tmp/coverart_entryview_pop_rb3.ui.h:4
 msgid "New Playlist"
-msgstr "Nova Llista de Reproducció"
+msgstr "Llista de reproducció nova"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:9
 msgid "Play favourites tracks from this album"
@@ -390,7 +390,7 @@ msgstr "Opcions avançades"
 
 #: tmp/coverart_browser_prefs.ui.h:39
 msgid "Padding (space) around the cover and its highlight"
-msgstr ""
+msgstr "Separació al voltant de la caràtula i el seu realç"
 
 #: tmp/coverart_browser_prefs.ui.h:40
 msgid "Spacing between columns and rows"
@@ -464,11 +464,11 @@ msgstr "Tema d'icones: "
 
 #: tmp/coverart_browser_prefs.ui.h:60
 msgid "Alternative Genres:"
-msgstr "Gèneres Alternatius:"
+msgstr "Gèneres alternatius:"
 
 #: tmp/coverart_browser_prefs.ui.h:61
 msgid "Load New Icon: "
-msgstr "Carrega Nou Icona: "
+msgstr "Carrega una icona nova: "
 
 #: tmp/coverart_browser_prefs.ui.h:62
 msgid "Select a new genre icon"
@@ -873,6 +873,7 @@ msgstr "Cerca cançons"
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
+"  Adolfo Jayme Barrientos https://launchpad.net/~fitoschido\n"
 "  VPablo https://launchpad.net/~villumar\n"
 "  fossfreedom https://launchpad.net/~fossfreedom"
 

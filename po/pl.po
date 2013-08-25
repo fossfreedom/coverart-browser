@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-18 15:41+0100\n"
-"PO-Revision-Date: 2013-08-21 15:39+0000\n"
-"Last-Translator: Michał Rzepiński <Unknown>\n"
+"PO-Revision-Date: 2013-08-24 17:52+0000\n"
+"Last-Translator: Łukasz Wiśniewski <Unknown>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-08-22 10:36+0000\n"
-"X-Generator: Launchpad (build 16737)\n"
+"X-Launchpad-Export-Date: 2013-08-25 08:41+0000\n"
+"X-Generator: Launchpad (build 16738)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -703,6 +703,7 @@ msgstr "Wszystkie"
 #: coverart_browser_source.py:621
 msgid "The number of albums to randomly play is less than that displayed."
 msgstr ""
+"Ilość albumów do losowego odtwarzania jest mniejsza niż to co wyświetlono"
 
 #: coverart_browser_source.py:701
 #, python-format
@@ -713,7 +714,7 @@ msgstr "Żadanie okładki dla %s - %s..."
 msgid ""
 "Please install and activate the latest version of the Coverart Search "
 "Providers plugin"
-msgstr ""
+msgstr "Zainstaluj i aktywuj najnowszą wersję wtyczki wyszukiwania Coverart"
 
 #. . TRANSLATORS - the number of albums that have been selected/highlighted
 #: coverart_browser_source.py:937
@@ -757,7 +758,7 @@ msgstr "Sortuj według oceny"
 
 #: coverart_controllers.py:432
 msgid "Download all covers"
-msgstr ""
+msgstr "Pobierz wszystkie okładki"
 
 #: coverart_controllers.py:433
 msgid "Play random album"
@@ -769,7 +770,7 @@ msgstr "Odtwórz ulubiony losowy album"
 
 #: coverart_controllers.py:436
 msgid "Quick artist filter"
-msgstr ""
+msgstr "Szybki filtr artystów"
 
 #: coverart_controllers.py:438 coverart_browser_prefs.py:245
 msgid "Browser Preferences"
@@ -871,13 +872,14 @@ msgstr ""
 "  Michał Nieznański https://launchpad.net/~katsu229\n"
 "  Michał Rzepiński https://launchpad.net/~micou8\n"
 "  Szymon Nieznański https://launchpad.net/~isamu715\n"
-"  fossfreedom https://launchpad.net/~fossfreedom"
+"  fossfreedom https://launchpad.net/~fossfreedom\n"
+"  Łukasz Wiśniewski https://launchpad.net/~fr-luksus"
 
 #. TRANSLATORS: for example 'Number of covers limited to 150'
 #: coverart_coverflowview.py:197
 #, python-format
 msgid "Number of covers limited to %d"
-msgstr ""
+msgstr "Liczba okładek ograniczona do %d"
 
 #. define .plugin text strings used for translation
 #: coverart_browser.py:159

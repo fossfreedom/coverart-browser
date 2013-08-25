@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-18 15:41+0100\n"
-"PO-Revision-Date: 2013-08-17 20:47+0000\n"
-"Last-Translator: fossfreedom <Unknown>\n"
+"PO-Revision-Date: 2013-08-24 20:53+0000\n"
+"Last-Translator: Xiaoxing Ye <Unknown>\n"
 "Language-Team: Chinese (Simplified) <zh_CN@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-08-22 10:36+0000\n"
-"X-Generator: Launchpad (build 16737)\n"
+"X-Launchpad-Export-Date: 2013-08-25 08:41+0000\n"
+"X-Generator: Launchpad (build 16738)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -84,7 +84,7 @@ msgstr "歌曲及封面"
 
 #: tmp/coverart_browser.ui.h:2
 msgid "Track Artist"
-msgstr ""
+msgstr "曲目艺人"
 
 #: tmp/coverart_browser.ui.h:3
 msgid "Stop coverart fetch."
@@ -107,14 +107,14 @@ msgstr "全部年代"
 #: tmp/coverart_topbar.ui.h:3 tmp/coverart_browser_prefs.ui.h:43
 #: tmp/coverart_sidebar.ui.h:4 coverart_browser.py:164
 msgid "Tiles"
-msgstr ""
+msgstr "拼贴"
 
 #. . TRANSLATORS: This is the cover-flow view the user sees - they can swipe album covers from side-to-side
 #. . TRANSLATORS: Please try to keep the translation to less than 8 characters
 #: tmp/coverart_topbar.ui.h:4 tmp/coverart_browser_prefs.ui.h:53
 #: tmp/coverart_sidebar.ui.h:5 coverart_browser.py:168
 msgid "Flow"
-msgstr ""
+msgstr "专辑流"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:1
 msgid "Play this album"
@@ -217,7 +217,7 @@ msgstr "显示歌曲属性"
 #: tmp/coverart_browser_pop_rb3.ui.h:10 tmp/coverart_entryview_pop_rb3.ui.h:5
 #: coverart_controllers.py:467
 msgid "Properties"
-msgstr ""
+msgstr "属性"
 
 #: tmp/coverart_browser_prefs.ui.h:1
 msgid "Select a picture"
@@ -265,7 +265,7 @@ msgstr "rhythmbox 启动时，自动切换到封面浏览器。"
 
 #: tmp/coverart_browser_prefs.ui.h:12
 msgid "Use source's custom statusbar"
-msgstr ""
+msgstr "使用源自定义状态栏"
 
 #: tmp/coverart_browser_prefs.ui.h:13
 msgid ""
@@ -290,6 +290,8 @@ msgid ""
 "Number of random\n"
 "albums to play"
 msgstr ""
+"要播放的随机\n"
+"专辑数目"
 
 #: tmp/coverart_browser_prefs.ui.h:18
 msgid "Level above which is regarded as being a favourite track or album"
@@ -371,61 +373,61 @@ msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:37
 msgid "open or close on click of cover"
-msgstr ""
+msgstr "点击封面时打开或关闭"
 
 #: tmp/coverart_browser_prefs.ui.h:38
 msgid "Advanced Options"
-msgstr ""
+msgstr "高级选项"
 
 #: tmp/coverart_browser_prefs.ui.h:39
 msgid "Padding (space) around the cover and its highlight"
-msgstr ""
+msgstr "封面周围的留空及其颜色"
 
 #: tmp/coverart_browser_prefs.ui.h:40
 msgid "Spacing between columns and rows"
-msgstr ""
+msgstr "行与列之间的间距"
 
 #: tmp/coverart_browser_prefs.ui.h:41
 msgid "Padding"
-msgstr ""
+msgstr "留空"
 
 #: tmp/coverart_browser_prefs.ui.h:42
 msgid "Spacing"
-msgstr ""
+msgstr "间距"
 
 #: tmp/coverart_browser_prefs.ui.h:44
 msgid "Flow Appearance"
-msgstr ""
+msgstr "专辑流外观"
 
 #: tmp/coverart_browser_prefs.ui.h:45
 msgid "Width (px):"
-msgstr ""
+msgstr "宽度(像素)："
 
 #. . TRANSLATORS: percentage size that the image will be expanded
 #: tmp/coverart_browser_prefs.ui.h:47 coverart_browser.py:171
 #, no-c-format
 msgid "Scale by %:"
-msgstr ""
+msgstr "缩放比例（百分比）："
 
 #: tmp/coverart_browser_prefs.ui.h:48
 msgid "Hide Caption"
-msgstr ""
+msgstr "隐藏标题"
 
 #: tmp/coverart_browser_prefs.ui.h:49
 msgid "Maximum covers to display:"
-msgstr ""
+msgstr "最多显示的封面："
 
 #: tmp/coverart_browser_prefs.ui.h:50
 msgid "Background Colour"
-msgstr ""
+msgstr "背景颜色"
 
 #: tmp/coverart_browser_prefs.ui.h:51
 msgid "White"
-msgstr ""
+msgstr "白色"
 
 #: tmp/coverart_browser_prefs.ui.h:52
 msgid "Black"
-msgstr ""
+msgstr "黑色"
 
 #: tmp/coverart_browser_prefs.ui.h:54
 msgid "Where the toolbar should be positioned"
@@ -523,7 +525,7 @@ msgstr ""
 msgid ""
 "Tip: Drag and Drop exported tracks from file-manager to a playlist or "
 "telephone/other device"
-msgstr ""
+msgstr "提示：您可以从文件管理器拖曳已导出的音轨到播放列表或者您的设备中"
 
 #: tmp/coverart_sidebar.ui.h:1 coverart_browser.py:102 coverart_browser.py:115
 msgid "CoverArt"
@@ -686,7 +688,7 @@ msgstr "封面"
 #. . TRANSLATORS - "All" is used in the context of "All artist names"
 #: coverart_browser_source.py:347
 msgid "All"
-msgstr ""
+msgstr "所有"
 
 #: coverart_browser_source.py:621
 msgid "The number of albums to randomly play is less than that displayed."
@@ -701,13 +703,13 @@ msgstr "正在请求  %s - %s 封面..."
 msgid ""
 "Please install and activate the latest version of the Coverart Search "
 "Providers plugin"
-msgstr ""
+msgstr "请安装并激活最新版本的封面搜索提供商插件"
 
 #. . TRANSLATORS - the number of albums that have been selected/highlighted
 #: coverart_browser_source.py:937
 #, python-format
 msgid "%d selected albums"
-msgstr ""
+msgstr "已选择 %d 张专辑"
 
 #: coverart_browser_source.py:941
 msgid " with 1 track"
@@ -745,19 +747,19 @@ msgstr "按评分排序"
 
 #: coverart_controllers.py:432
 msgid "Download all covers"
-msgstr ""
+msgstr "下载所有封面"
 
 #: coverart_controllers.py:433
 msgid "Play random album"
-msgstr ""
+msgstr "随机播放专辑"
 
 #: coverart_controllers.py:434
 msgid "Play favourite random album"
-msgstr ""
+msgstr "随机播放喜爱的专辑"
 
 #: coverart_controllers.py:436
 msgid "Quick artist filter"
-msgstr ""
+msgstr "快速艺人过滤器"
 
 #: coverart_controllers.py:438 coverart_browser_prefs.py:245
 msgid "Browser Preferences"
@@ -865,7 +867,7 @@ msgstr ""
 #: coverart_coverflowview.py:197
 #, python-format
 msgid "Number of covers limited to %d"
-msgstr ""
+msgstr "封面数量限制为 %d"
 
 #. define .plugin text strings used for translation
 #: coverart_browser.py:159

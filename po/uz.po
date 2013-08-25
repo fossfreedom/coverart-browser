@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-18 15:41+0100\n"
-"PO-Revision-Date: 2013-04-18 19:01+0000\n"
-"Last-Translator: Launchpad Translations Administrators <Unknown>\n"
+"PO-Revision-Date: 2013-08-25 05:44+0000\n"
+"Last-Translator: Akmal Xushvaqov <akmalxster@gmail.com>\n"
 "Language-Team: Uzbek <uz@li.org>\n"
 "Language: uz\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-08-22 10:36+0000\n"
-"X-Generator: Launchpad (build 16737)\n"
+"X-Launchpad-Export-Date: 2013-08-25 08:41+0000\n"
+"X-Generator: Launchpad (build 16738)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -25,6 +25,8 @@ msgstr "Қидириш параметрлари"
 #: tmpl/albumartsearch-tmpl.html:187
 msgid "Tip: doubleclick or drag a cover to use it as the album cover"
 msgstr ""
+"Маслаҳат: икки марта босинг ёки альбом қопламаси қилиш учун уни олиб келиб "
+"ташланг"
 
 #: tmpl/albumartsearch-tmpl.html:189
 msgid "Search Mode"
@@ -80,27 +82,27 @@ msgstr "Кўпроқ натижаларни кўрсатиш"
 
 #: tmp/coverart_browser.ui.h:1
 msgid "Tracks & Covers"
-msgstr ""
+msgstr "Қўшиқ ва қопламалар"
 
 #: tmp/coverart_browser.ui.h:2
 msgid "Track Artist"
-msgstr ""
+msgstr "Қўшиқчи"
 
 #: tmp/coverart_browser.ui.h:3
 msgid "Stop coverart fetch."
-msgstr ""
+msgstr "Қоплама олишни тўхтатинг."
 
 #. initial genre
 #: tmp/coverart_topbar.ui.h:1 tmp/coverart_sidebar.ui.h:2
 #: coverart_controllers.py:215 coverart_controllers.py:267
 #: coverart_controllers.py:366
 msgid "All Genres"
-msgstr ""
+msgstr "Барча жанрлар"
 
 #: tmp/coverart_topbar.ui.h:2 tmp/coverart_sidebar.ui.h:3
 #: coverart_controllers.py:485
 msgid "All Decades"
-msgstr ""
+msgstr "Барча ўнликлар"
 
 #. . TRANSLATORS: This is the icon-grid view that the user sees
 #. . TRANSLATORS: Please try to keep the translation to less than 8 characters

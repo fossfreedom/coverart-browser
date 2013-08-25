@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-18 15:41+0100\n"
-"PO-Revision-Date: 2013-08-22 08:44+0000\n"
+"PO-Revision-Date: 2013-08-24 18:40+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitoschido@gmail.com>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-08-22 10:36+0000\n"
-"X-Generator: Launchpad (build 16737)\n"
+"X-Launchpad-Export-Date: 2013-08-25 08:41+0000\n"
+"X-Generator: Launchpad (build 16738)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -378,7 +378,7 @@ msgstr "Tamaño (en píxeles):"
 
 #: tmp/coverart_browser_prefs.ui.h:36
 msgid "Tracks Pane"
-msgstr ""
+msgstr "Panel de pistas"
 
 #: tmp/coverart_browser_prefs.ui.h:37
 msgid "open or close on click of cover"
@@ -390,15 +390,15 @@ msgstr "Opciones avanzadas"
 
 #: tmp/coverart_browser_prefs.ui.h:39
 msgid "Padding (space) around the cover and its highlight"
-msgstr ""
+msgstr "Separación alrededor de la carátula y su realce"
 
 #: tmp/coverart_browser_prefs.ui.h:40
 msgid "Spacing between columns and rows"
-msgstr ""
+msgstr "Espacio entre las columnas y filas"
 
 #: tmp/coverart_browser_prefs.ui.h:41
 msgid "Padding"
-msgstr ""
+msgstr "Separación"
 
 #: tmp/coverart_browser_prefs.ui.h:42
 msgid "Spacing"
@@ -758,11 +758,11 @@ msgstr "Buscar por puntuación"
 
 #: coverart_controllers.py:432
 msgid "Download all covers"
-msgstr ""
+msgstr "Descargar todas las carátulas"
 
 #: coverart_controllers.py:433
 msgid "Play random album"
-msgstr ""
+msgstr "Reproducir un álbum al azar"
 
 #: coverart_controllers.py:434
 msgid "Play favourite random album"
