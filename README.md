@@ -91,7 +91,7 @@ Note 3 - Due to an upstream Rhythmbox bug affecting RB V2.98 & V2.99 only - any 
 are not reflected back into the plugin.  This can lead to inconsistencies.  Please restart rhythmbox for these details
 to be correctly cached.  This bug is fixed in RB3.0 and does not affect RB2.96 & RB2.97 users
 
-*For Ubuntu 12.04 & 12.10:*
+*For Ubuntu 12.04, 12.10, 13.04 & 13.10:*
 
 V0.9 is now available in my rhythmbox PPA - installation instructions in this AskUbuntu Q&A:
 
