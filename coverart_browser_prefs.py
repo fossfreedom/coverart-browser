@@ -248,8 +248,8 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
             content_area = self._dialog.get_content_area()
             content_area.pack_start(self._create_display_contents(plugin), True, True, 0)
             
-        helpbutton = self._dialog.add_button(Gtk.STOCK_HELP, Gtk.ResponseType.HELP)
-        helpbutton.connect('clicked', self._display_help)
+            helpbutton = self._dialog.add_button(Gtk.STOCK_HELP, Gtk.ResponseType.HELP)
+            helpbutton.connect('clicked', self._display_help)
             
         self._dialog.show_all()
         
