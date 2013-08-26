@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-18 15:41+0100\n"
-"PO-Revision-Date: 2013-08-22 07:32+0000\n"
+"PO-Revision-Date: 2013-08-26 07:09+0000\n"
 "Last-Translator: Rashid Aliyev <Unknown>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-08-25 22:48+0000\n"
+"X-Launchpad-Export-Date: 2013-08-26 09:52+0000\n"
 "X-Generator: Launchpad (build 16738)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
@@ -245,7 +245,7 @@ msgstr "Üst Sağ"
 
 #: tmp/coverart_browser_prefs.ui.h:7
 msgid "Above Cover View"
-msgstr ""
+msgstr "Üzlük görüntüsünün yuxarısında"
 
 #: tmp/coverart_browser_prefs.ui.h:8
 msgid "Left Sidebar"
@@ -265,7 +265,7 @@ msgstr "Rhythmbox başlatıldığında otomatik olarak coverart browser'a geçi�
 
 #: tmp/coverart_browser_prefs.ui.h:12
 msgid "Use source's custom statusbar"
-msgstr ""
+msgstr "Mənbəənin xüsusi status sətirini istifadə et"
 
 #: tmp/coverart_browser_prefs.ui.h:13
 msgid ""
@@ -275,7 +275,7 @@ msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:14
 msgid "Display tracks and covers pane"
-msgstr ""
+msgstr "Mahnıları və üzlük panelini göstər"
 
 #: tmp/coverart_browser_prefs.ui.h:15
 msgid ""
@@ -323,7 +323,7 @@ msgstr "Yazıtipi Boyutu:"
 
 #: tmp/coverart_browser_prefs.ui.h:26
 msgid "Ellipsize albums names"
-msgstr ""
+msgstr "Albomların adlarını qısald"
 
 #: tmp/coverart_browser_prefs.ui.h:27
 msgid ""
@@ -365,7 +365,7 @@ msgstr "Boyut (piksel olarak):"
 
 #: tmp/coverart_browser_prefs.ui.h:36
 msgid "Tracks Pane"
-msgstr ""
+msgstr "Mahnılar paneli"
 
 #: tmp/coverart_browser_prefs.ui.h:37
 msgid "open or close on click of cover"
@@ -373,7 +373,7 @@ msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:38
 msgid "Advanced Options"
-msgstr ""
+msgstr "Daha geniş Seçənəklər"
 
 #: tmp/coverart_browser_prefs.ui.h:39
 msgid "Padding (space) around the cover and its highlight"
@@ -381,7 +381,7 @@ msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:40
 msgid "Spacing between columns and rows"
-msgstr ""
+msgstr "Sətr və sütunlar arasındakı aralıq"
 
 #: tmp/coverart_browser_prefs.ui.h:41
 msgid "Padding"
