@@ -10,11 +10,13 @@ var classcoverart__widgets_1_1_paned_collapsible =
     [ "do_pack2", "classcoverart__widgets_1_1_paned_collapsible.html#a52bd708d67d432366c0bd0555007671c", null ],
     [ "do_remove", "classcoverart__widgets_1_1_paned_collapsible.html#acaf6297ee50efae6cc2d49b9462bae82", null ],
     [ "expand", "classcoverart__widgets_1_1_paned_collapsible.html#ae3e6c75dde2ee00ccd388872cd8c519d", null ],
+    [ "get_expansion_status", "classcoverart__widgets_1_1_paned_collapsible.html#af28f75df9d509a51b53ba05a83e16a5e", null ],
     [ "collapsible1", "classcoverart__widgets_1_1_paned_collapsible.html#ad290327b4c1e213bbf0830e300eed599", null ],
     [ "collapsible1", "classcoverart__widgets_1_1_paned_collapsible.html#ae3250f71fe5201e81dec488c274182b1", null ],
     [ "collapsible2", "classcoverart__widgets_1_1_paned_collapsible.html#ae436ed22c3c01f200a14907a846cf25f", null ],
     [ "collapsible2", "classcoverart__widgets_1_1_paned_collapsible.html#aed092d22653cbda6a946c9db434bc587", null ],
     [ "collapsible_label", "classcoverart__widgets_1_1_paned_collapsible.html#ae4df335e4c99a275da722bac4dde546d", null ],
     [ "collapsible_y", "classcoverart__widgets_1_1_paned_collapsible.html#abcffac81b3cdbbe02310a21fa7e65472", null ],
-    [ "collapsible_y", "classcoverart__widgets_1_1_paned_collapsible.html#aebba5923ba7f90f7e63895c044c3a8f6", null ]
+    [ "collapsible_y", "classcoverart__widgets_1_1_paned_collapsible.html#aebba5923ba7f90f7e63895c044c3a8f6", null ],
+    [ "Paned", "classcoverart__widgets_1_1_paned_collapsible.html#a5eb922f1ecd2c92c304b952d5d371bae", null ]
 ];

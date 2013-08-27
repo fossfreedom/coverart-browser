@@ -1,14 +1,13 @@
 var searchData=
 [
   ['searchentry',['SearchEntry',['../classcoverart__widgets_1_1_search_entry.html',1,'coverart_widgets']]],
-  ['sendfirst',['SendFirst',['../classcoverart__external__plugins_1_1_send_first.html',1,'coverart_external_plugins']]],
-  ['sendto',['SendTo',['../classcoverart__external__plugins_1_1_send_to.html',1,'coverart_external_plugins']]],
   ['shadow',['Shadow',['../classcoverart__album_1_1_shadow.html',1,'coverart_album']]],
   ['shadowedcover',['ShadowedCover',['../classcoverart__album_1_1_shadowed_cover.html',1,'coverart_album']]],
   ['shapestar',['ShapeStar',['../classstars_1_1_shape_star.html',1,'stars']]],
   ['sortedcollection',['SortedCollection',['../classcoverart__utils_1_1_sorted_collection.html',1,'coverart_utils']]],
   ['sortordertogglecontroller',['SortOrderToggleController',['../classcoverart__controllers_1_1_sort_order_toggle_controller.html',1,'coverart_controllers']]],
   ['sortpopupcontroller',['SortPopupController',['../classcoverart__controllers_1_1_sort_popup_controller.html',1,'coverart_controllers']]],
+  ['sourcestatusbar',['SourceStatusBar',['../classcoverart__browser__source_1_1_source_status_bar.html',1,'coverart_browser_source']]],
   ['spritesheet',['SpriteSheet',['../classcoverart__utils_1_1_sprite_sheet.html',1,'coverart_utils']]],
   ['star',['Star',['../classstars_1_1_star.html',1,'stars']]],
   ['starfillstate',['StarFillState',['../classstars_1_1_star_fill_state.html',1,'stars']]],
@@ -16,5 +15,6 @@ var searchData=
   ['starrenderer',['StarRenderer',['../classstars_1_1_star_renderer.html',1,'stars']]],
   ['starrenderhints',['StarRenderHints',['../classstars_1_1_star_render_hints.html',1,'stars']]],
   ['starsize',['StarSize',['../classstars_1_1_star_size.html',1,'stars']]],
+  ['statusbar',['Statusbar',['../classcoverart__browser__source_1_1_statusbar.html',1,'coverart_browser_source']]],
   ['stockems',['StockEms',['../classem_1_1_stock_ems.html',1,'em']]]
 ];

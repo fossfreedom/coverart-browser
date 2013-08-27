@@ -33,7 +33,7 @@
   
   <td style="padding-left: 0.5em;">
    <div id="projectname">Coverart Browser
-   &#160;<span id="projectnumber">v0.8</span>
+   &#160;<span id="projectnumber">v0.9</span>
    </div>
    <div id="projectbrief">Browse your cover-art albums in Rhythmbox</div>
   </td>
@@ -52,7 +52,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -111,7 +110,8 @@ Inheritance diagram for coverart_widgets.PixbufButton:</div>
   <map id="coverart_widgets.PixbufButton_map" name="coverart_widgets.PixbufButton_map">
 <area href="classcoverart__widgets_1_1_image_toggle_button.html" alt="coverart_widgets.ImageToggleButton" shape="rect" coords="0,56,219,80"/>
 <area href="classcoverart__widgets_1_1_list_view_button.html" alt="coverart_widgets.ListViewButton" shape="rect" coords="229,56,448,80"/>
-<area href="classcoverart__widgets_1_1_popup_button.html" alt="coverart_widgets.PopupButton" shape="rect" coords="458,56,677,80"/>
+<area href="classcoverart__widgets_1_1_menu_button.html" alt="coverart_widgets.MenuButton" shape="rect" coords="458,56,677,80"/>
+<area href="classcoverart__widgets_1_1_popup_button.html" alt="coverart_widgets.PopupButton" shape="rect" coords="687,56,906,80"/>
 </map>
  </div></div>
 
@@ -119,130 +119,21 @@ Inheritance diagram for coverart_widgets.PixbufButton:</div>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__widgets_1_1_pixbuf_button.html#af038c72a9bd16fd4c6d7dcf01af5fd2b">__init__</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__widgets_1_1_pixbuf_button.html#af00a8daa82993e88260daaced4fbb827">set_image</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__widgets_1_1_pixbuf_button.html#acb7f645938e0e017369e1dc7c62c15ab">on_notify_button_relief</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af038c72a9bd16fd4c6d7dcf01af5fd2b"></a><!-- doxytag: member="coverart_widgets::PixbufButton::__init__" ref="af038c72a9bd16fd4c6d7dcf01af5fd2b" args="" -->
+def&#160;</td><td class="memItemRight" valign="bottom"><b>__init__</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af00a8daa82993e88260daaced4fbb827"></a><!-- doxytag: member="coverart_widgets::PixbufButton::set_image" ref="af00a8daa82993e88260daaced4fbb827" args="" -->
+def&#160;</td><td class="memItemRight" valign="bottom"><b>set_image</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acb7f645938e0e017369e1dc7c62c15ab"></a><!-- doxytag: member="coverart_widgets::PixbufButton::on_notify_button_relief" ref="acb7f645938e0e017369e1dc7c62c15ab" args="" -->
+def&#160;</td><td class="memItemRight" valign="bottom"><b>on_notify_button_relief</b></td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__widgets_1_1_pixbuf_button.html#ab2b9c0e84221b28c8b537936e539c9a3">button_relief</a> = GObject.property(type=bool, default=False)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab2b9c0e84221b28c8b537936e539c9a3"></a><!-- doxytag: member="coverart_widgets::PixbufButton::button_relief" ref="ab2b9c0e84221b28c8b537936e539c9a3" args="" -->
+tuple&#160;</td><td class="memItemRight" valign="bottom"><b>button_relief</b> = GObject.property(type=bool, default=False)</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock">
-<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l00160">160</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
-</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="af038c72a9bd16fd4c6d7dcf01af5fd2b"></a><!-- doxytag: member="coverart_widgets::PixbufButton::__init__" ref="af038c72a9bd16fd4c6d7dcf01af5fd2b" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def <a class="el" href="classcoverart__widgets_1_1_pixbuf_button.html#af038c72a9bd16fd4c6d7dcf01af5fd2b">coverart_widgets.PixbufButton.__init__</a> </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>args</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>kwargs</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Reimplemented in <a class="el" href="classcoverart__widgets_1_1_list_view_button.html#adada2e81246854ca6c8b05a0d18df0e4">coverart_widgets.ListViewButton</a>, <a class="el" href="classcoverart__widgets_1_1_image_toggle_button.html#accd0f84e5852a54913bf546186257adb">coverart_widgets.ImageToggleButton</a>, and <a class="el" href="classcoverart__widgets_1_1_popup_button.html#aa219785885f317290118d599c7e1995a">coverart_widgets.PopupButton</a>.</p>
-
-<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l00164">164</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
-
-</div>
-</div>
-<hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="acb7f645938e0e017369e1dc7c62c15ab"></a><!-- doxytag: member="coverart_widgets::PixbufButton::on_notify_button_relief" ref="acb7f645938e0e017369e1dc7c62c15ab" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def <a class="el" href="classcoverart__widgets_1_1_pixbuf_button.html#acb7f645938e0e017369e1dc7c62c15ab">coverart_widgets.PixbufButton.on_notify_button_relief</a> </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>arg</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l00186">186</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="af00a8daa82993e88260daaced4fbb827"></a><!-- doxytag: member="coverart_widgets::PixbufButton::set_image" ref="af00a8daa82993e88260daaced4fbb827" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def <a class="el" href="classcoverart__widgets_1_1_pixbuf_button.html#af00a8daa82993e88260daaced4fbb827">coverart_widgets.PixbufButton.set_image</a> </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>pixbuf</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l00175">175</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
-
-</div>
-</div>
-<hr/><h2>Member Data Documentation</h2>
-<a class="anchor" id="ab2b9c0e84221b28c8b537936e539c9a3"></a><!-- doxytag: member="coverart_widgets::PixbufButton::button_relief" ref="ab2b9c0e84221b28c8b537936e539c9a3" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tuple <a class="el" href="classcoverart__widgets_1_1_pixbuf_button.html#ab2b9c0e84221b28c8b537936e539c9a3">coverart_widgets.PixbufButton::button_relief</a> = GObject.property(type=bool, default=False)<code> [static]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
 <p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l00162">162</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
+</div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>/home/home/dad/Downloads/coverart-browser/<a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a></li>
 </ul>
 </div><!-- contents -->
@@ -252,7 +143,7 @@ Static Public Attributes</h2></td></tr>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Properties</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -263,10 +154,10 @@ Static Public Attributes</h2></td></tr>
 
   <div id="nav-path" class="navpath">
     <ul>
-      <li class="navelem"><a class="el" href="namespacecoverart__widgets.html">coverart_widgets</a>      </li>
+      <li class="navelem"><b>coverart_widgets</b>      </li>
       <li class="navelem"><a class="el" href="classcoverart__widgets_1_1_pixbuf_button.html">PixbufButton</a>      </li>
 
-    <li class="footer">Generated on Wed Apr 17 2013 22:48:21 for Coverart Browser by
+    <li class="footer">Generated on Tue Aug 27 2013 23:46:20 for Coverart Browser by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
    </ul>

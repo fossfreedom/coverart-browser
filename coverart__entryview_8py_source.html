@@ -33,7 +33,7 @@
   
   <td style="padding-left: 0.5em;">
    <div id="projectname">Coverart Browser
-   &#160;<span id="projectnumber">v0.8</span>
+   &#160;<span id="projectnumber">v0.9</span>
    </div>
    <div id="projectbrief">Browse your cover-art albums in Rhythmbox</div>
   </td>
@@ -52,7 +52,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -97,7 +96,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">/home/home/dad/Downloads/coverart-browser/coverart_entryview.py</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="coverart__entryview_8py.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a><a class="code" href="namespacecoverart__entryview.html">00001</a> <span class="comment"># -*- Mode: python; coding: utf-8; tab-width: 4; indent-tabs-mode: nil; -*-</span>
+<div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment"># -*- Mode: python; coding: utf-8; tab-width: 4; indent-tabs-mode: nil; -*-</span>
 <a name="l00002"></a>00002 <span class="comment">#</span>
 <a name="l00003"></a>00003 <span class="comment"># Copyright (C) 2012 - fossfreedom</span>
 <a name="l00004"></a>00004 <span class="comment"># Copyright (C) 2012 - Agustin Carrasco</span>
@@ -119,259 +118,272 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00020"></a>00020 <span class="keyword">from</span> gi.repository <span class="keyword">import</span> RB
 <a name="l00021"></a>00021 <span class="keyword">from</span> gi.repository <span class="keyword">import</span> Gtk
 <a name="l00022"></a>00022 <span class="keyword">from</span> gi.repository <span class="keyword">import</span> GObject
-<a name="l00023"></a>00023 
-<a name="l00024"></a>00024 <span class="keyword">import</span> rb
+<a name="l00023"></a>00023 <span class="keyword">from</span> coverart_rb3compat <span class="keyword">import</span> Menu
+<a name="l00024"></a>00024 <span class="keyword">from</span> coverart_rb3compat <span class="keyword">import</span> ActionGroup
 <a name="l00025"></a>00025 
-<a name="l00026"></a>00026 <span class="keyword">from</span> coverart_browser_prefs <span class="keyword">import</span> GSetting
-<a name="l00027"></a>00027 <span class="keyword">from</span> coverart_browser_prefs <span class="keyword">import</span> CoverLocale
-<a name="l00028"></a>00028 <span class="keyword">from</span> coverart_external_plugins <span class="keyword">import</span> CreateExternalPluginMenu
-<a name="l00029"></a>00029 
-<a name="l00030"></a><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html">00030</a> <span class="keyword">class </span><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html">CoverArtEntryView</a>(RB.EntryView):
+<a name="l00026"></a>00026 <span class="keyword">import</span> rb
+<a name="l00027"></a>00027 
+<a name="l00028"></a>00028 <span class="keyword">from</span> coverart_browser_prefs <span class="keyword">import</span> GSetting
+<a name="l00029"></a>00029 <span class="keyword">from</span> coverart_browser_prefs <span class="keyword">import</span> CoverLocale
+<a name="l00030"></a>00030 <span class="keyword">from</span> coverart_external_plugins <span class="keyword">import</span> CreateExternalPluginMenu
 <a name="l00031"></a>00031 
-<a name="l00032"></a><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#aa41ddf95918cf8e316546b1604334ac1">00032</a>     <span class="keyword">def </span><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#aa41ddf95918cf8e316546b1604334ac1">__init__</a>(self, shell, source):
-<a name="l00033"></a>00033         <span class="stringliteral">&#39;&#39;&#39;</span>
-<a name="l00034"></a><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a66b8aa252e9a2bb3793dce144b848fd1">00034</a> <span class="stringliteral">        Initializes the entryview.</span>
-<a name="l00035"></a>00035 <span class="stringliteral">        &#39;&#39;&#39;</span>
-<a name="l00036"></a>00036         self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a392309657cf261ba0c43dcda70cc1725">shell</a> = shell
-<a name="l00037"></a>00037         self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a66b8aa252e9a2bb3793dce144b848fd1">source</a> = source
-<a name="l00038"></a>00038         self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a0dc0ca88cfd65205df8a24f23c9044a5">plugin</a> = self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a66b8aa252e9a2bb3793dce144b848fd1">source</a>.props.plugin
-<a name="l00039"></a>00039 
-<a name="l00040"></a>00040         super(RB.EntryView, self).<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#aa41ddf95918cf8e316546b1604334ac1">__init__</a>(db=shell.props.db,
-<a name="l00041"></a>00041             shell_player=shell.props.shell_player, is_drag_source=<span class="keyword">True</span>,
-<a name="l00042"></a>00042             visible_columns=[])
-<a name="l00043"></a>00043 
-<a name="l00044"></a>00044         cl = <a class="code" href="classcoverart__browser__prefs_1_1_cover_locale.html">CoverLocale</a>()
-<a name="l00045"></a>00045         cl.switch_locale(cl.Locale.RB)
-<a name="l00046"></a>00046 
-<a name="l00047"></a>00047         self.append_column(RB.EntryViewColumn.TRACK_NUMBER, <span class="keyword">False</span>)
-<a name="l00048"></a>00048         self.append_column(RB.EntryViewColumn.TITLE, <span class="keyword">True</span>)  <span class="comment"># always shown</span>
-<a name="l00049"></a>00049         self.append_column(RB.EntryViewColumn.GENRE, <span class="keyword">False</span>)
-<a name="l00050"></a>00050         self.append_column(RB.EntryViewColumn.ARTIST, <span class="keyword">False</span>)
-<a name="l00051"></a>00051         self.append_column(RB.EntryViewColumn.ALBUM, <span class="keyword">False</span>)
-<a name="l00052"></a>00052         self.append_column(RB.EntryViewColumn.DURATION, <span class="keyword">False</span>)
-<a name="l00053"></a>00053         self.append_column(RB.EntryViewColumn.COMMENT, <span class="keyword">False</span>)
-<a name="l00054"></a>00054         self.append_column(RB.EntryViewColumn.RATING, <span class="keyword">False</span>)
-<a name="l00055"></a>00055         self.append_column(RB.EntryViewColumn.QUALITY, <span class="keyword">False</span>)
-<a name="l00056"></a>00056         self.append_column(RB.EntryViewColumn.PLAY_COUNT, <span class="keyword">False</span>)
-<a name="l00057"></a>00057         self.append_column(RB.EntryViewColumn.LAST_PLAYED, <span class="keyword">False</span>)
-<a name="l00058"></a>00058         self.append_column(RB.EntryViewColumn.YEAR, <span class="keyword">False</span>)
-<a name="l00059"></a>00059         self.append_column(RB.EntryViewColumn.FIRST_SEEN, <span class="keyword">False</span>)
-<a name="l00060"></a>00060         self.append_column(RB.EntryViewColumn.LOCATION, <span class="keyword">False</span>)
-<a name="l00061"></a>00061         self.append_column(RB.EntryViewColumn.BPM, <span class="keyword">False</span>)
-<a name="l00062"></a>00062 
-<a name="l00063"></a>00063         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
-<a name="l00064"></a>00064 
-<a name="l00065"></a>00065         <span class="comment"># UI elements need to be imported.</span>
-<a name="l00066"></a>00066         ui = Gtk.Builder()
-<a name="l00067"></a>00067         ui.set_translation_domain(cl.Locale.LOCALE_DOMAIN)
-<a name="l00068"></a>00068         ui.add_from_file(rb.find_plugin_file(self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a0dc0ca88cfd65205df8a24f23c9044a5">plugin</a>,
-<a name="l00069"></a>00069             <span class="stringliteral">&#39;ui/coverart_entryview.ui&#39;</span>))
-<a name="l00070"></a>00070         ui.connect_signals(self)
+<a name="l00032"></a><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html">00032</a> <span class="keyword">class </span><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html">CoverArtEntryView</a>(RB.EntryView):
+<a name="l00033"></a>00033 
+<a name="l00034"></a><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#aa41ddf95918cf8e316546b1604334ac1">00034</a>     <span class="keyword">def </span><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#aa41ddf95918cf8e316546b1604334ac1">__init__</a>(self, shell, source):
+<a name="l00035"></a>00035         <span class="stringliteral">&#39;&#39;&#39;</span>
+<a name="l00036"></a>00036 <span class="stringliteral">        Initializes the entryview.</span>
+<a name="l00037"></a>00037 <span class="stringliteral">        &#39;&#39;&#39;</span>
+<a name="l00038"></a>00038         self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a392309657cf261ba0c43dcda70cc1725">shell</a> = shell
+<a name="l00039"></a>00039         self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a66b8aa252e9a2bb3793dce144b848fd1">source</a> = source
+<a name="l00040"></a>00040         self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a0dc0ca88cfd65205df8a24f23c9044a5">plugin</a> = self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a66b8aa252e9a2bb3793dce144b848fd1">source</a>.props.plugin
+<a name="l00041"></a>00041 
+<a name="l00042"></a>00042         super(RB.EntryView, self).<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#aa41ddf95918cf8e316546b1604334ac1">__init__</a>(db=shell.props.db,
+<a name="l00043"></a>00043             shell_player=shell.props.shell_player, is_drag_source=<span class="keyword">True</span>,
+<a name="l00044"></a>00044             visible_columns=[])
+<a name="l00045"></a>00045 
+<a name="l00046"></a>00046         cl = <a class="code" href="classcoverart__browser__prefs_1_1_cover_locale.html">CoverLocale</a>()
+<a name="l00047"></a>00047         cl.switch_locale(cl.Locale.RB)
+<a name="l00048"></a>00048 
+<a name="l00049"></a>00049         self.append_column(RB.EntryViewColumn.TITLE, <span class="keyword">True</span>)  <span class="comment"># always shown</span>
+<a name="l00050"></a>00050         
+<a name="l00051"></a>00051         self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a8c5dbb86cfa03ad3891b4c722b81d5c5">col_map</a> = {<span class="stringliteral">&#39;artist&#39;</span> : RB.EntryViewColumn.ARTIST,
+<a name="l00052"></a>00052                         <span class="stringliteral">&#39;duration&#39;</span>: RB.EntryViewColumn.DURATION,
+<a name="l00053"></a>00053                         <span class="stringliteral">&#39;genre&#39;</span>: RB.EntryViewColumn.GENRE,
+<a name="l00054"></a>00054                         <span class="stringliteral">&#39;track-number&#39;</span>: RB.EntryViewColumn.TRACK_NUMBER,
+<a name="l00055"></a>00055                         <span class="stringliteral">&#39;album&#39;</span>: RB.EntryViewColumn.ALBUM,
+<a name="l00056"></a>00056                         <span class="stringliteral">&#39;bitrate&#39;</span>: RB.EntryViewColumn.QUALITY,
+<a name="l00057"></a>00057                         <span class="stringliteral">&#39;location&#39;</span>: RB.EntryViewColumn.LOCATION,
+<a name="l00058"></a>00058                         <span class="stringliteral">&#39;rating&#39;</span>: RB.EntryViewColumn.RATING,
+<a name="l00059"></a>00059                         <span class="stringliteral">&#39;first-seen&#39;</span>: RB.EntryViewColumn.FIRST_SEEN,
+<a name="l00060"></a>00060                         <span class="stringliteral">&#39;play-count&#39;</span>: RB.EntryViewColumn.PLAY_COUNT,
+<a name="l00061"></a>00061                         <span class="stringliteral">&#39;comment&#39;</span>: RB.EntryViewColumn.COMMENT,
+<a name="l00062"></a>00062                         <span class="stringliteral">&#39;date&#39;</span>: RB.EntryViewColumn.YEAR,
+<a name="l00063"></a>00063                         <span class="stringliteral">&#39;last-played&#39;</span>: RB.EntryViewColumn.LAST_PLAYED}
+<a name="l00064"></a>00064                         
+<a name="l00065"></a>00065         <span class="comment"># &#39;beats-per-minute&#39;: RB.EntryViewColumn.BPM - RB crashes with this - issue#188</span>
+<a name="l00066"></a>00066         
+<a name="l00067"></a>00067         <span class="keywordflow">for</span> entry <span class="keywordflow">in</span> self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a8c5dbb86cfa03ad3891b4c722b81d5c5">col_map</a>:
+<a name="l00068"></a>00068             self.append_column(self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a8c5dbb86cfa03ad3891b4c722b81d5c5">col_map</a>[entry], <span class="keyword">False</span>)
+<a name="l00069"></a>00069                 
+<a name="l00070"></a>00070         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
 <a name="l00071"></a>00071 
-<a name="l00072"></a>00072         self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a5badfd822dc7331ac3c19d3bf270241b">popup_menu</a> = ui.get_object(<span class="stringliteral">&#39;entryview_popup_menu&#39;</span>)
-<a name="l00073"></a>00073 
-<a name="l00074"></a>00074         <span class="comment"># connect signals to the shell to know when the playing state changes</span>
-<a name="l00075"></a>00075         self.shell.props.shell_player.connect(<span class="stringliteral">&#39;playing-song-changed&#39;</span>,
-<a name="l00076"></a>00076             self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a5f883330ec96f7d0f74fede48effa47f">playing_song_changed</a>)
-<a name="l00077"></a>00077         self.shell.props.shell_player.connect(<span class="stringliteral">&#39;playing-changed&#39;</span>,
-<a name="l00078"></a>00078             self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#ab18055641ce3cde76669de256c09c387">playing_changed</a>)
-<a name="l00079"></a>00079 
-<a name="l00080"></a>00080         self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#acb4a876515d4de7bd6756f8ad31646c1">playlist_sub_menu_item</a> = ui.get_object(<span class="stringliteral">&#39;playlist_sub_menu_item&#39;</span>)
-<a name="l00081"></a>00081         self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a20da3b3cfd53d77713283aec9959186d">actiongroup</a> = Gtk.ActionGroup(<span class="stringliteral">&#39;coverentryplaylist_submenu&#39;</span>)
-<a name="l00082"></a>00082         uim = self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a392309657cf261ba0c43dcda70cc1725">shell</a>.props.ui_manager
-<a name="l00083"></a>00083         uim.insert_action_group(self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a20da3b3cfd53d77713283aec9959186d">actiongroup</a>)
+<a name="l00072"></a>00072         popup = <a class="code" href="classcoverart__rb3compat_1_1_menu.html">Menu</a>(self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a0dc0ca88cfd65205df8a24f23c9044a5">plugin</a>, self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a392309657cf261ba0c43dcda70cc1725">shell</a>)
+<a name="l00073"></a>00073         popup.load_from_file(<span class="stringliteral">&#39;ui/coverart_entryview_pop_rb2.ui&#39;</span>,
+<a name="l00074"></a>00074                              <span class="stringliteral">&#39;ui/coverart_entryview_pop_rb3.ui&#39;</span>)
+<a name="l00075"></a>00075         signals = {
+<a name="l00076"></a>00076             <span class="stringliteral">&#39;ev_play_track_menu_item&#39;</span>: self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a41c21004ca098288ae463f4265869436">play_track_menu_item_callback</a>,
+<a name="l00077"></a>00077             <span class="stringliteral">&#39;ev_queue_track_menu_item&#39;</span>: self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a4a653deed2922bc61a3166a4a50ce27f">queue_track_menu_item_callback</a>,
+<a name="l00078"></a>00078             <span class="stringliteral">&#39;ev_playlist_menu_item&#39;</span>: self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#afd63b73df92eeca377a7e7dcc31bce0e">playlist_menu_item_callback</a>,
+<a name="l00079"></a>00079             <span class="stringliteral">&#39;ev_new_playlist&#39;</span>: self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a7bc84d2f2ff087ebcfa606c53d5d4b81">add_playlist_menu_item_callback</a>,
+<a name="l00080"></a>00080             <span class="stringliteral">&#39;ev_show_properties_menu_item&#39;</span>: self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#ae9b90682d0c3e2c8607ca9121038f22c">show_properties_menu_item_callback</a> }
+<a name="l00081"></a>00081             
+<a name="l00082"></a>00082         popup.connect_signals(signals)
+<a name="l00083"></a>00083         self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a57ed87cbf7ea5c82bfeb34ae7dddf489">popup</a> = popup
 <a name="l00084"></a>00084 
-<a name="l00085"></a>00085         self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a29f65154eeca9f18ac92ddd1b95f1173">external_plugins</a> = \
-<a name="l00086"></a>00086             <a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html">CreateExternalPluginMenu</a>(<span class="stringliteral">&quot;ca_entryview&quot;</span>, self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a392309657cf261ba0c43dcda70cc1725">shell</a>)
-<a name="l00087"></a>00087 
-<a name="l00088"></a>00088         <span class="comment"># connect the visible-columns global setting to update our entryview</span>
-<a name="l00089"></a>00089         gs = <a class="code" href="classcoverart__browser__prefs_1_1_g_setting.html">GSetting</a>()
-<a name="l00090"></a>00090         rhythm_settings = gs.get_setting(gs.Path.RBSOURCE)
-<a name="l00091"></a>00091         rhythm_settings.connect(<span class="stringliteral">&#39;changed::visible-columns&#39;</span>,
-<a name="l00092"></a>00092             self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a10175222d00cd19e0c2cb517066cda70">on_visible_columns_changed</a>)
-<a name="l00093"></a>00093         self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a10175222d00cd19e0c2cb517066cda70">on_visible_columns_changed</a>(rhythm_settings, <span class="stringliteral">&#39;visible-columns&#39;</span>)
+<a name="l00085"></a>00085         <span class="comment"># connect signals to the shell to know when the playing state changes</span>
+<a name="l00086"></a>00086         self.shell.props.shell_player.connect(<span class="stringliteral">&#39;playing-song-changed&#39;</span>,
+<a name="l00087"></a>00087             self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a5f883330ec96f7d0f74fede48effa47f">playing_song_changed</a>)
+<a name="l00088"></a>00088         self.shell.props.shell_player.connect(<span class="stringliteral">&#39;playing-changed&#39;</span>,
+<a name="l00089"></a>00089             self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#ab18055641ce3cde76669de256c09c387">playing_changed</a>)
+<a name="l00090"></a>00090 
+<a name="l00091"></a>00091         self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a20da3b3cfd53d77713283aec9959186d">actiongroup</a> = <a class="code" href="classcoverart__rb3compat_1_1_action_group.html">ActionGroup</a>(self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a392309657cf261ba0c43dcda70cc1725">shell</a>, <span class="stringliteral">&#39;coverentryplaylist_submenu&#39;</span>)
+<a name="l00092"></a>00092         
+<a name="l00093"></a>00093         self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a29f65154eeca9f18ac92ddd1b95f1173">external_plugins</a> = <span class="keywordtype">None</span>
 <a name="l00094"></a>00094 
-<a name="l00095"></a>00095         self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a31ebc056853cc312bea4e58a89c27c58">qm</a> = RB.RhythmDBQueryModel.new_empty(self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a392309657cf261ba0c43dcda70cc1725">shell</a>.props.db)
-<a name="l00096"></a>00096         self.set_model(self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a31ebc056853cc312bea4e58a89c27c58">qm</a>)
-<a name="l00097"></a>00097 
-<a name="l00098"></a>00098         <span class="comment"># connect the sort-order to the library source sort</span>
-<a name="l00099"></a>00099         library_view = self.shell.props.library_source.get_entry_view()
-<a name="l00100"></a>00100         library_view.connect(<span class="stringliteral">&#39;notify::sort-order&#39;</span>,
-<a name="l00101"></a>00101             self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a924ebc672405f1af07f782754ddc24ca">_on_library_sorting_changed</a>)
-<a name="l00102"></a>00102         self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a924ebc672405f1af07f782754ddc24ca">_on_library_sorting_changed</a>(library_view,
-<a name="l00103"></a>00103             library_view.props.sort_order)
+<a name="l00095"></a>00095         <span class="comment"># connect the visible-columns global setting to update our entryview</span>
+<a name="l00096"></a>00096         gs = <a class="code" href="classcoverart__browser__prefs_1_1_g_setting.html">GSetting</a>()
+<a name="l00097"></a>00097         rhythm_settings = gs.get_setting(gs.Path.RBSOURCE)
+<a name="l00098"></a>00098         rhythm_settings.connect(<span class="stringliteral">&#39;changed::visible-columns&#39;</span>,
+<a name="l00099"></a>00099             self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a10175222d00cd19e0c2cb517066cda70">on_visible_columns_changed</a>)
+<a name="l00100"></a>00100         self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a10175222d00cd19e0c2cb517066cda70">on_visible_columns_changed</a>(rhythm_settings, <span class="stringliteral">&#39;visible-columns&#39;</span>)
+<a name="l00101"></a>00101 
+<a name="l00102"></a>00102         self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a31ebc056853cc312bea4e58a89c27c58">qm</a> = RB.RhythmDBQueryModel.new_empty(self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a392309657cf261ba0c43dcda70cc1725">shell</a>.props.db)
+<a name="l00103"></a>00103         self.set_model(self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a31ebc056853cc312bea4e58a89c27c58">qm</a>)
 <a name="l00104"></a>00104 
-<a name="l00105"></a>00105          <span class="comment"># connect to the sort-order property</span>
-<a name="l00106"></a>00106         self.connect(<span class="stringliteral">&#39;notify::sort-order&#39;</span>, self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a959a8862ae6ece1b0ef965ab6778e041">_notify_sort_order</a>,
-<a name="l00107"></a>00107             library_view)
-<a name="l00108"></a>00108 
-<a name="l00109"></a><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#acd6e67211fe28a8a734266c7f2abdac6">00109</a>     <span class="keyword">def </span><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#acd6e67211fe28a8a734266c7f2abdac6">__del__</a>(self):
-<a name="l00110"></a>00110         uim = self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a392309657cf261ba0c43dcda70cc1725">shell</a>.props.ui_manager
+<a name="l00105"></a>00105         <span class="comment"># connect the sort-order to the library source sort</span>
+<a name="l00106"></a>00106         library_view = self.shell.props.library_source.get_entry_view()
+<a name="l00107"></a>00107         library_view.connect(<span class="stringliteral">&#39;notify::sort-order&#39;</span>,
+<a name="l00108"></a>00108             self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a924ebc672405f1af07f782754ddc24ca">_on_library_sorting_changed</a>)
+<a name="l00109"></a>00109         self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a924ebc672405f1af07f782754ddc24ca">_on_library_sorting_changed</a>(library_view,
+<a name="l00110"></a>00110             library_view.props.sort_order)
 <a name="l00111"></a>00111 
-<a name="l00112"></a>00112         uim.remove_action_group(self.action_group)
-<a name="l00113"></a>00113         uim.remove_ui(self.ui_id)
-<a name="l00114"></a>00114         uim.ensure_update()
+<a name="l00112"></a>00112          <span class="comment"># connect to the sort-order property</span>
+<a name="l00113"></a>00113         self.connect(<span class="stringliteral">&#39;notify::sort-order&#39;</span>, self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a959a8862ae6ece1b0ef965ab6778e041">_notify_sort_order</a>,
+<a name="l00114"></a>00114             library_view)
 <a name="l00115"></a>00115 
-<a name="l00116"></a>00116         del self.action_group
-<a name="l00117"></a>00117         del self.play_action
-<a name="l00118"></a>00118         del self.queue_action
-<a name="l00119"></a>00119 
-<a name="l00120"></a><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a10175222d00cd19e0c2cb517066cda70">00120</a>     <span class="keyword">def </span><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a10175222d00cd19e0c2cb517066cda70">on_visible_columns_changed</a>(self, settings, key):
-<a name="l00121"></a>00121         <span class="keywordflow">print</span> <span class="stringliteral">&quot;CoverArtBrowser DEBUG - on_visible_columns_changed()&quot;</span>
-<a name="l00122"></a>00122         <span class="comment"># reset current columns</span>
-<a name="l00123"></a>00123         self.props.visible_columns = settings[key]
-<a name="l00124"></a>00124         <span class="keywordflow">print</span> <span class="stringliteral">&quot;CoverArtBrowser DEBUG - end on_visible_columns_changed()&quot;</span>
-<a name="l00125"></a>00125 
-<a name="l00126"></a><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#acc4c036f53776e5dd3b1b9b3ef24b008">00126</a>     <span class="keyword">def </span><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#acc4c036f53776e5dd3b1b9b3ef24b008">add_album</a>(self, album):
-<a name="l00127"></a>00127         <span class="keywordflow">print</span> <span class="stringliteral">&quot;CoverArtBrowser DEBUG - add_album()&quot;</span>
-<a name="l00128"></a>00128         tracks = album.get_tracks()
-<a name="l00129"></a>00129 
-<a name="l00130"></a>00130         <span class="keywordflow">for</span> track <span class="keywordflow">in</span> tracks:
-<a name="l00131"></a>00131             self.qm.add_entry(track.entry, -1)
-<a name="l00132"></a>00132 
-<a name="l00133"></a>00133         (_, playing) = self.shell.props.shell_player.get_playing()
-<a name="l00134"></a>00134         self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#ab18055641ce3cde76669de256c09c387">playing_changed</a>(self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a392309657cf261ba0c43dcda70cc1725">shell</a>.props.shell_player, playing)
-<a name="l00135"></a>00135         <span class="keywordflow">print</span> <span class="stringliteral">&quot;CoverArtBrowser DEBUG - add_album()&quot;</span>
-<a name="l00136"></a>00136 
-<a name="l00137"></a><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#ace4d69fa155c78e1fffe38fea6e177bb">00137</a>     <span class="keyword">def </span><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#ace4d69fa155c78e1fffe38fea6e177bb">clear</a>(self):
-<a name="l00138"></a>00138         <span class="keywordflow">print</span> <span class="stringliteral">&quot;CoverArtBrowser DEBUG - clear()&quot;</span>
-<a name="l00139"></a>00139         <span class="comment"># self.set_model(RB.RhythmDBQueryModel.new_empty(self.shell.props.db))</span>
-<a name="l00140"></a>00140         <span class="keywordflow">for</span> row <span class="keywordflow">in</span> self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a31ebc056853cc312bea4e58a89c27c58">qm</a>:
-<a name="l00141"></a>00141             self.qm.remove_entry(row[0])
-<a name="l00142"></a>00142 
-<a name="l00143"></a>00143         <span class="keywordflow">print</span> <span class="stringliteral">&quot;CoverArtBrowser DEBUG - clear()&quot;</span>
+<a name="l00116"></a>00116     <span class="keyword">def </span>__del__(self):
+<a name="l00117"></a>00117         del self.action_group
+<a name="l00118"></a>00118         del self.play_action
+<a name="l00119"></a>00119         del self.queue_action
+<a name="l00120"></a>00120 
+<a name="l00121"></a>00121     <span class="keyword">def </span>on_visible_columns_changed(self, settings, key):
+<a name="l00122"></a>00122         print(<span class="stringliteral">&quot;CoverArtBrowser DEBUG - on_visible_columns_changed()&quot;</span>)
+<a name="l00123"></a>00123         <span class="comment"># reset current columns</span>
+<a name="l00124"></a>00124         print(<span class="stringliteral">&quot;CoverArtBrowser DEBUG - end on_visible_columns_changed()&quot;</span>)
+<a name="l00125"></a>00125         <span class="keywordflow">for</span> entry <span class="keywordflow">in</span> self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a8c5dbb86cfa03ad3891b4c722b81d5c5">col_map</a>:
+<a name="l00126"></a>00126             col = self.get_column(self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a8c5dbb86cfa03ad3891b4c722b81d5c5">col_map</a>[entry])
+<a name="l00127"></a>00127             <span class="keywordflow">if</span> entry <span class="keywordflow">in</span> settings[key]:
+<a name="l00128"></a>00128                 col.set_visible(<span class="keyword">True</span>)
+<a name="l00129"></a>00129             <span class="keywordflow">else</span>:
+<a name="l00130"></a>00130                 col.set_visible(<span class="keyword">False</span>)
+<a name="l00131"></a>00131             
+<a name="l00132"></a>00132         <span class="keywordflow">print</span> (<span class="stringliteral">&quot;CoverArtBrowser DEBUG - end on_visible_columns_changed()&quot;</span>)
+<a name="l00133"></a>00133 
+<a name="l00134"></a>00134     <span class="keyword">def </span>add_album(self, album):
+<a name="l00135"></a>00135         print(<span class="stringliteral">&quot;CoverArtBrowser DEBUG - add_album()&quot;</span>)
+<a name="l00136"></a>00136         tracks = album.get_tracks()
+<a name="l00137"></a>00137 
+<a name="l00138"></a>00138         <span class="keywordflow">for</span> track <span class="keywordflow">in</span> tracks:
+<a name="l00139"></a>00139             self.qm.add_entry(track.entry, -1)
+<a name="l00140"></a>00140 
+<a name="l00141"></a>00141         (_, playing) = self.shell.props.shell_player.get_playing()
+<a name="l00142"></a>00142         self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#ab18055641ce3cde76669de256c09c387">playing_changed</a>(self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a392309657cf261ba0c43dcda70cc1725">shell</a>.props.shell_player, playing)
+<a name="l00143"></a>00143         print(<span class="stringliteral">&quot;CoverArtBrowser DEBUG - add_album()&quot;</span>)
 <a name="l00144"></a>00144 
-<a name="l00145"></a><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a8344d2c58b555bef05febd172fca8780">00145</a>     <span class="keyword">def </span><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a8344d2c58b555bef05febd172fca8780">do_entry_activated</a>(self, entry):
-<a name="l00146"></a>00146         <span class="keywordflow">print</span> <span class="stringliteral">&quot;CoverArtBrowser DEBUG - do_entry_activated()&quot;</span>
-<a name="l00147"></a>00147         self.select_entry(entry)
-<a name="l00148"></a>00148         self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a41c21004ca098288ae463f4265869436">play_track_menu_item_callback</a>(entry)
-<a name="l00149"></a>00149         <span class="keywordflow">print</span> <span class="stringliteral">&quot;CoverArtBrowser DEBUG - do_entry_activated()&quot;</span>
-<a name="l00150"></a>00150         <span class="keywordflow">return</span> <span class="keyword">True</span>
-<a name="l00151"></a>00151 
-<a name="l00152"></a><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#aa2ed15278ff21133d4254a7d91a53d56">00152</a>     <span class="keyword">def </span><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#aa2ed15278ff21133d4254a7d91a53d56">do_show_popup</a>(self, over_entry):
-<a name="l00153"></a>00153         <span class="keywordflow">if</span> over_entry:
-<a name="l00154"></a>00154             <span class="keywordflow">print</span> <span class="stringliteral">&quot;CoverArtBrowser DEBUG - do_show_popup()&quot;</span>
-<a name="l00155"></a>00155             self.external_plugins.create_menu(self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a5badfd822dc7331ac3c19d3bf270241b">popup_menu</a>, 3)
-<a name="l00156"></a>00156             self.popup_menu.popup(<span class="keywordtype">None</span>, <span class="keywordtype">None</span>, <span class="keywordtype">None</span>, <span class="keywordtype">None</span>, 0,
-<a name="l00157"></a>00157                 Gtk.get_current_event_time())
-<a name="l00158"></a>00158 
-<a name="l00159"></a>00159         <span class="keywordflow">return</span> over_entry
-<a name="l00160"></a>00160 
-<a name="l00161"></a><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a41c21004ca098288ae463f4265869436">00161</a>     <span class="keyword">def </span><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a41c21004ca098288ae463f4265869436">play_track_menu_item_callback</a>(self, _):
-<a name="l00162"></a>00162         <span class="keywordflow">print</span> <span class="stringliteral">&quot;CoverArtBrowser DEBUG - play_track_menu_item_callback()&quot;</span>
-<a name="l00163"></a>00163         
-<a name="l00164"></a>00164         query_model = RB.RhythmDBQueryModel.new_empty(self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a392309657cf261ba0c43dcda70cc1725">shell</a>.props.db)
-<a name="l00165"></a>00165 
-<a name="l00166"></a>00166         selected = self.get_selected_entries()
-<a name="l00167"></a>00167         entry = selected[0]
-<a name="l00168"></a>00168         
-<a name="l00169"></a>00169         <span class="keywordflow">if</span> len(selected) == 1:
-<a name="l00170"></a>00170             query_model.copy_contents(self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a31ebc056853cc312bea4e58a89c27c58">qm</a>)
-<a name="l00171"></a>00171         <span class="keywordflow">else</span>:
-<a name="l00172"></a>00172             self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a60b45c1bd53c5cbacb266f7cbeb28761">add_tracks_to_source</a>(query_model)
-<a name="l00173"></a>00173             
-<a name="l00174"></a>00174         self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a66b8aa252e9a2bb3793dce144b848fd1">source</a>.props.query_model = query_model
-<a name="l00175"></a>00175 
-<a name="l00176"></a>00176         <span class="comment"># Start the music</span>
-<a name="l00177"></a>00177         player = self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a392309657cf261ba0c43dcda70cc1725">shell</a>.props.shell_player
-<a name="l00178"></a>00178         player.play_entry(entry, self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a66b8aa252e9a2bb3793dce144b848fd1">source</a>)
-<a name="l00179"></a>00179 
-<a name="l00180"></a>00180         <span class="keywordflow">print</span> <span class="stringliteral">&quot;CoverArtBrowser DEBUG - play_track_menu_item_callback()&quot;</span>
-<a name="l00181"></a>00181 
-<a name="l00182"></a><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a4a653deed2922bc61a3166a4a50ce27f">00182</a>     <span class="keyword">def </span><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a4a653deed2922bc61a3166a4a50ce27f">queue_track_menu_item_callback</a>(self, entry):
-<a name="l00183"></a>00183         <span class="keywordflow">print</span> <span class="stringliteral">&quot;CoverArtBrowser DEBUG - queue_track_menu_item_callback()&quot;</span>
-<a name="l00184"></a>00184 
-<a name="l00185"></a>00185         self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a60b45c1bd53c5cbacb266f7cbeb28761">add_tracks_to_source</a>(self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a392309657cf261ba0c43dcda70cc1725">shell</a>.props.queue_source)
-<a name="l00186"></a>00186 
-<a name="l00187"></a><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a60b45c1bd53c5cbacb266f7cbeb28761">00187</a>     <span class="keyword">def </span><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a60b45c1bd53c5cbacb266f7cbeb28761">add_tracks_to_source</a>(self, source):
-<a name="l00188"></a>00188         selected = self.get_selected_entries()
-<a name="l00189"></a>00189         selected.reverse()
-<a name="l00190"></a>00190 
-<a name="l00191"></a>00191         selected = sorted(selected,
-<a name="l00192"></a>00192             key=<span class="keyword">lambda</span> song: song.get_ulong(RB.RhythmDBPropType.TRACK_NUMBER))
+<a name="l00145"></a>00145     <span class="keyword">def </span>clear(self):
+<a name="l00146"></a>00146         print(<span class="stringliteral">&quot;CoverArtBrowser DEBUG - clear()&quot;</span>)
+<a name="l00147"></a>00147         <span class="comment"># self.set_model(RB.RhythmDBQueryModel.new_empty(self.shell.props.db))</span>
+<a name="l00148"></a>00148         <span class="keywordflow">for</span> row <span class="keywordflow">in</span> self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a31ebc056853cc312bea4e58a89c27c58">qm</a>:
+<a name="l00149"></a>00149             self.qm.remove_entry(row[0])
+<a name="l00150"></a>00150 
+<a name="l00151"></a>00151         print(<span class="stringliteral">&quot;CoverArtBrowser DEBUG - clear()&quot;</span>)
+<a name="l00152"></a>00152 
+<a name="l00153"></a>00153     <span class="keyword">def </span>do_entry_activated(self, entry):
+<a name="l00154"></a>00154         print(<span class="stringliteral">&quot;CoverArtBrowser DEBUG - do_entry_activated()&quot;</span>)
+<a name="l00155"></a>00155         self.select_entry(entry)
+<a name="l00156"></a>00156         self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a41c21004ca098288ae463f4265869436">play_track_menu_item_callback</a>(entry)
+<a name="l00157"></a>00157         print(<span class="stringliteral">&quot;CoverArtBrowser DEBUG - do_entry_activated()&quot;</span>)
+<a name="l00158"></a>00158         <span class="keywordflow">return</span> <span class="keyword">True</span>
+<a name="l00159"></a>00159 
+<a name="l00160"></a>00160     <span class="keyword">def </span>do_show_popup(self, over_entry):
+<a name="l00161"></a>00161         <span class="keywordflow">if</span> over_entry:
+<a name="l00162"></a>00162             print(<span class="stringliteral">&quot;CoverArtBrowser DEBUG - do_show_popup()&quot;</span>)
+<a name="l00163"></a>00163             <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a29f65154eeca9f18ac92ddd1b95f1173">external_plugins</a>:
+<a name="l00164"></a>00164                 self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a29f65154eeca9f18ac92ddd1b95f1173">external_plugins</a> = \
+<a name="l00165"></a>00165                     <a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html">CreateExternalPluginMenu</a>(<span class="stringliteral">&quot;ev_entryview&quot;</span>, 3, self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a57ed87cbf7ea5c82bfeb34ae7dddf489">popup</a>)
+<a name="l00166"></a>00166             self.external_plugins.create_menu(<span class="stringliteral">&#39;entryview_popup_menu&#39;</span>)
+<a name="l00167"></a>00167             self.popup.get_gtkmenu(self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a66b8aa252e9a2bb3793dce144b848fd1">source</a>,
+<a name="l00168"></a>00168                 <span class="stringliteral">&#39;entryview_popup_menu&#39;</span>).popup(<span class="keywordtype">None</span>, <span class="keywordtype">None</span>, <span class="keywordtype">None</span>, <span class="keywordtype">None</span>, 0,
+<a name="l00169"></a>00169                 Gtk.get_current_event_time())
+<a name="l00170"></a>00170 
+<a name="l00171"></a>00171         <span class="keywordflow">return</span> over_entry
+<a name="l00172"></a>00172 
+<a name="l00173"></a>00173     <span class="keyword">def </span>play_track_menu_item_callback(self, *args):
+<a name="l00174"></a>00174         print(<span class="stringliteral">&quot;CoverArtBrowser DEBUG - play_track_menu_item_callback()&quot;</span>)
+<a name="l00175"></a>00175         
+<a name="l00176"></a>00176         query_model = RB.RhythmDBQueryModel.new_empty(self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a392309657cf261ba0c43dcda70cc1725">shell</a>.props.db)
+<a name="l00177"></a>00177 
+<a name="l00178"></a>00178         selected = self.get_selected_entries()
+<a name="l00179"></a>00179         entry = selected[0]
+<a name="l00180"></a>00180         
+<a name="l00181"></a>00181         <span class="keywordflow">if</span> len(selected) == 1:
+<a name="l00182"></a>00182             query_model.copy_contents(self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a31ebc056853cc312bea4e58a89c27c58">qm</a>)
+<a name="l00183"></a>00183         <span class="keywordflow">else</span>:
+<a name="l00184"></a>00184             self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a60b45c1bd53c5cbacb266f7cbeb28761">add_tracks_to_source</a>(query_model)
+<a name="l00185"></a>00185             
+<a name="l00186"></a>00186         self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a66b8aa252e9a2bb3793dce144b848fd1">source</a>.props.query_model = query_model
+<a name="l00187"></a>00187 
+<a name="l00188"></a>00188         <span class="comment"># Start the music</span>
+<a name="l00189"></a>00189         player = self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a392309657cf261ba0c43dcda70cc1725">shell</a>.props.shell_player
+<a name="l00190"></a>00190         player.play_entry(entry, self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a66b8aa252e9a2bb3793dce144b848fd1">source</a>)
+<a name="l00191"></a>00191 
+<a name="l00192"></a>00192         print(<span class="stringliteral">&quot;CoverArtBrowser DEBUG - play_track_menu_item_callback()&quot;</span>)
 <a name="l00193"></a>00193 
-<a name="l00194"></a>00194         <span class="keywordflow">for</span> entry <span class="keywordflow">in</span> selected:
-<a name="l00195"></a>00195             source.add_entry(entry, -1)
+<a name="l00194"></a>00194     <span class="keyword">def </span>queue_track_menu_item_callback(self, *args):
+<a name="l00195"></a>00195         print(<span class="stringliteral">&quot;CoverArtBrowser DEBUG - queue_track_menu_item_callback()&quot;</span>)
 <a name="l00196"></a>00196 
-<a name="l00197"></a>00197         <span class="keywordflow">print</span> <span class="stringliteral">&quot;CoverArtBrowser DEBUG - queue_track_menu_item_callback()&quot;</span>
+<a name="l00197"></a>00197         self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a60b45c1bd53c5cbacb266f7cbeb28761">add_tracks_to_source</a>(self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a392309657cf261ba0c43dcda70cc1725">shell</a>.props.queue_source)
 <a name="l00198"></a>00198 
-<a name="l00199"></a><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#ad4231ea8ec6a171e7620698af0251338">00199</a>     <span class="keyword">def </span><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#ad4231ea8ec6a171e7620698af0251338">love_track</a>(self, rating):
-<a name="l00200"></a>00200         <span class="stringliteral">&#39;&#39;&#39;</span>
-<a name="l00201"></a>00201 <span class="stringliteral">        utility function to set the rating for selected tracks</span>
-<a name="l00202"></a>00202 <span class="stringliteral">        &#39;&#39;&#39;</span>
-<a name="l00203"></a>00203         selected = self.get_selected_entries()
-<a name="l00204"></a>00204 
-<a name="l00205"></a>00205         <span class="keywordflow">for</span> entry <span class="keywordflow">in</span> selected:
-<a name="l00206"></a>00206             self.shell.props.db.entry_set(entry, RB.RhythmDBPropType.RATING,
-<a name="l00207"></a>00207                 rating)
+<a name="l00199"></a>00199     <span class="keyword">def </span>add_tracks_to_source(self, source):
+<a name="l00200"></a>00200         selected = self.get_selected_entries()
+<a name="l00201"></a>00201         selected.reverse()
+<a name="l00202"></a>00202 
+<a name="l00203"></a>00203         selected = sorted(selected,
+<a name="l00204"></a>00204             key=<span class="keyword">lambda</span> song: song.get_ulong(RB.RhythmDBPropType.TRACK_NUMBER))
+<a name="l00205"></a>00205 
+<a name="l00206"></a>00206         <span class="keywordflow">for</span> entry <span class="keywordflow">in</span> selected:
+<a name="l00207"></a>00207             source.add_entry(entry, -1)
 <a name="l00208"></a>00208 
-<a name="l00209"></a>00209         self.shell.props.db.commit()
+<a name="l00209"></a>00209         print(<span class="stringliteral">&quot;CoverArtBrowser DEBUG - queue_track_menu_item_callback()&quot;</span>)
 <a name="l00210"></a>00210 
-<a name="l00211"></a><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#ae9b90682d0c3e2c8607ca9121038f22c">00211</a>     <span class="keyword">def </span><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#ae9b90682d0c3e2c8607ca9121038f22c">show_properties_menu_item_callback</a>(self, entry):
-<a name="l00212"></a>00212         <span class="keywordflow">print</span> <span class="stringliteral">&quot;CoverArtBrowser DEBUG - show_properties_menu_item_callback()&quot;</span>
-<a name="l00213"></a>00213 
-<a name="l00214"></a>00214         info_dialog = RB.SongInfo(source=self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a66b8aa252e9a2bb3793dce144b848fd1">source</a>, entry_view=self)
-<a name="l00215"></a>00215 
-<a name="l00216"></a>00216         info_dialog.show_all()
-<a name="l00217"></a>00217 
-<a name="l00218"></a>00218         <span class="keywordflow">print</span> <span class="stringliteral">&quot;CoverArtBrowser DEBUG - show_properties_menu_item_callback()&quot;</span>
-<a name="l00219"></a>00219 
-<a name="l00220"></a><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a5f883330ec96f7d0f74fede48effa47f">00220</a>     <span class="keyword">def </span><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a5f883330ec96f7d0f74fede48effa47f">playing_song_changed</a>(self, shell_player, entry):
-<a name="l00221"></a>00221         <span class="keywordflow">print</span> <span class="stringliteral">&quot;CoverArtBrowser DEBUG - playing_song_changed()&quot;</span>
+<a name="l00211"></a><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#ad4231ea8ec6a171e7620698af0251338">00211</a>     <span class="keyword">def </span><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#ad4231ea8ec6a171e7620698af0251338">love_track</a>(self, rating):
+<a name="l00212"></a>00212         <span class="stringliteral">&#39;&#39;&#39;</span>
+<a name="l00213"></a>00213 <span class="stringliteral">        utility function to set the rating for selected tracks</span>
+<a name="l00214"></a>00214 <span class="stringliteral">        &#39;&#39;&#39;</span>
+<a name="l00215"></a>00215         selected = self.get_selected_entries()
+<a name="l00216"></a>00216 
+<a name="l00217"></a>00217         <span class="keywordflow">for</span> entry <span class="keywordflow">in</span> selected:
+<a name="l00218"></a>00218             self.shell.props.db.entry_set(entry, RB.RhythmDBPropType.RATING,
+<a name="l00219"></a>00219                 rating)
+<a name="l00220"></a>00220 
+<a name="l00221"></a>00221         self.shell.props.db.commit()
 <a name="l00222"></a>00222 
-<a name="l00223"></a>00223         <span class="keywordflow">if</span> entry <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> self.get_entry_contained(entry):
-<a name="l00224"></a>00224             self.set_state(RB.EntryViewState.PLAYING)
-<a name="l00225"></a>00225         <span class="keywordflow">else</span>:
-<a name="l00226"></a>00226             self.set_state(RB.EntryViewState.NOT_PLAYING)
+<a name="l00223"></a>00223     <span class="keyword">def </span>show_properties_menu_item_callback(self, *args):
+<a name="l00224"></a>00224         print(<span class="stringliteral">&quot;CoverArtBrowser DEBUG - show_properties_menu_item_callback()&quot;</span>)
+<a name="l00225"></a>00225 
+<a name="l00226"></a>00226         info_dialog = RB.SongInfo(source=self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a66b8aa252e9a2bb3793dce144b848fd1">source</a>, entry_view=self)
 <a name="l00227"></a>00227 
-<a name="l00228"></a>00228         <span class="keywordflow">print</span> <span class="stringliteral">&quot;CoverArtBrowser DEBUG - playing_song_changed()&quot;</span>
+<a name="l00228"></a>00228         info_dialog.show_all()
 <a name="l00229"></a>00229 
-<a name="l00230"></a><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#ab18055641ce3cde76669de256c09c387">00230</a>     <span class="keyword">def </span><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#ab18055641ce3cde76669de256c09c387">playing_changed</a>(self, shell_player, playing):
-<a name="l00231"></a>00231         <span class="keywordflow">print</span> <span class="stringliteral">&quot;CoverArtBrowser DEBUG - playing_changed()&quot;</span>
-<a name="l00232"></a>00232         entry = shell_player.get_playing_entry()
-<a name="l00233"></a>00233 
-<a name="l00234"></a>00234         <span class="keywordflow">if</span> entry <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> self.get_entry_contained(entry):
-<a name="l00235"></a>00235             <span class="keywordflow">if</span> playing:
-<a name="l00236"></a>00236                 self.set_state(RB.EntryViewState.PLAYING)
-<a name="l00237"></a>00237             <span class="keywordflow">else</span>:
-<a name="l00238"></a>00238                 self.set_state(RB.EntryViewState.PAUSED)
-<a name="l00239"></a>00239         <span class="keywordflow">else</span>:
-<a name="l00240"></a>00240             self.set_state(RB.EntryViewState.NOT_PLAYING)
+<a name="l00230"></a>00230         print(<span class="stringliteral">&quot;CoverArtBrowser DEBUG - show_properties_menu_item_callback()&quot;</span>)
+<a name="l00231"></a>00231 
+<a name="l00232"></a>00232     <span class="keyword">def </span>playing_song_changed(self, shell_player, entry):
+<a name="l00233"></a>00233         print(<span class="stringliteral">&quot;CoverArtBrowser DEBUG - playing_song_changed()&quot;</span>)
+<a name="l00234"></a>00234 
+<a name="l00235"></a>00235         <span class="keywordflow">if</span> entry <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> self.get_entry_contained(entry):
+<a name="l00236"></a>00236             self.set_state(RB.EntryViewState.PLAYING)
+<a name="l00237"></a>00237         <span class="keywordflow">else</span>:
+<a name="l00238"></a>00238             self.set_state(RB.EntryViewState.NOT_PLAYING)
+<a name="l00239"></a>00239 
+<a name="l00240"></a>00240         print(<span class="stringliteral">&quot;CoverArtBrowser DEBUG - playing_song_changed()&quot;</span>)
 <a name="l00241"></a>00241 
-<a name="l00242"></a>00242         <span class="keywordflow">print</span> <span class="stringliteral">&quot;CoverArtBrowser DEBUG - playing_changed()&quot;</span>
-<a name="l00243"></a>00243 
-<a name="l00244"></a><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a7bc84d2f2ff087ebcfa606c53d5d4b81">00244</a>     <span class="keyword">def </span><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a7bc84d2f2ff087ebcfa606c53d5d4b81">add_playlist_menu_item_callback</a>(self, menu_item):
-<a name="l00245"></a>00245         <span class="keywordflow">print</span> <span class="stringliteral">&quot;CoverArtBrowser DEBUG - add_playlist_menu_item_callback&quot;</span>
-<a name="l00246"></a>00246         playlist_manager = self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a392309657cf261ba0c43dcda70cc1725">shell</a>.props.playlist_manager
-<a name="l00247"></a>00247         playlist = playlist_manager.new_playlist(<span class="stringliteral">&#39;&#39;</span>, <span class="keyword">False</span>)
-<a name="l00248"></a>00248 
-<a name="l00249"></a>00249         self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a60b45c1bd53c5cbacb266f7cbeb28761">add_tracks_to_source</a>(playlist)
-<a name="l00250"></a>00250 
-<a name="l00251"></a><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#afd63b73df92eeca377a7e7dcc31bce0e">00251</a>     <span class="keyword">def </span><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#afd63b73df92eeca377a7e7dcc31bce0e">playlist_menu_item_callback</a>(self, menu_item):
-<a name="l00252"></a>00252         <span class="keywordflow">print</span> <span class="stringliteral">&quot;CoverArtBrowser DEBUG - playlist_menu_item_callback&quot;</span>
+<a name="l00242"></a>00242     <span class="keyword">def </span>playing_changed(self, shell_player, playing):
+<a name="l00243"></a>00243         print(<span class="stringliteral">&quot;CoverArtBrowser DEBUG - playing_changed()&quot;</span>)
+<a name="l00244"></a>00244         entry = shell_player.get_playing_entry()
+<a name="l00245"></a>00245 
+<a name="l00246"></a>00246         <span class="keywordflow">if</span> entry <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> self.get_entry_contained(entry):
+<a name="l00247"></a>00247             <span class="keywordflow">if</span> playing:
+<a name="l00248"></a>00248                 self.set_state(RB.EntryViewState.PLAYING)
+<a name="l00249"></a>00249             <span class="keywordflow">else</span>:
+<a name="l00250"></a>00250                 self.set_state(RB.EntryViewState.PAUSED)
+<a name="l00251"></a>00251         <span class="keywordflow">else</span>:
+<a name="l00252"></a>00252             self.set_state(RB.EntryViewState.NOT_PLAYING)
 <a name="l00253"></a>00253 
-<a name="l00254"></a>00254         self.source.playlist_fillmenu(self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#acb4a876515d4de7bd6756f8ad31646c1">playlist_sub_menu_item</a>,
-<a name="l00255"></a>00255             self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a20da3b3cfd53d77713283aec9959186d">actiongroup</a>, self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a67db9effd605f403d1a7d83716ae8f6b">add_to_static_playlist_menu_item_callback</a>)
-<a name="l00256"></a>00256 
-<a name="l00257"></a><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a67db9effd605f403d1a7d83716ae8f6b">00257</a>     <span class="keyword">def </span><a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a67db9effd605f403d1a7d83716ae8f6b">add_to_static_playlist_menu_item_callback</a>(self, action, playlist,
-<a name="l00258"></a>00258         favourite):
-<a name="l00259"></a>00259         <span class="keywordflow">print</span> <span class="stringliteral">&quot;CoverArtBrowser DEBUG - &quot;</span> + \
-<a name="l00260"></a>00260             <span class="stringliteral">&quot;add_to_static_playlist_menu_item_callback&quot;</span>
+<a name="l00254"></a>00254         print(<span class="stringliteral">&quot;CoverArtBrowser DEBUG - playing_changed()&quot;</span>)
+<a name="l00255"></a>00255 
+<a name="l00256"></a>00256     <span class="keyword">def </span>add_playlist_menu_item_callback(self, *args):
+<a name="l00257"></a>00257         print(<span class="stringliteral">&quot;CoverArtBrowser DEBUG - add_playlist_menu_item_callback&quot;</span>)
+<a name="l00258"></a>00258         playlist_manager = self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a392309657cf261ba0c43dcda70cc1725">shell</a>.props.playlist_manager
+<a name="l00259"></a>00259         playlist = playlist_manager.new_playlist(<span class="stringliteral">&#39;&#39;</span>, <span class="keyword">False</span>)
+<a name="l00260"></a>00260 
 <a name="l00261"></a>00261         self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a60b45c1bd53c5cbacb266f7cbeb28761">add_tracks_to_source</a>(playlist)
 <a name="l00262"></a>00262 
-<a name="l00263"></a>00263     <span class="keyword">def </span>_on_library_sorting_changed(self, view, _):
-<a name="l00264"></a>00264         self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a15fdb3c2835cfccf2c92bd05ca081e68">_old_sort_order</a> = self.props.sort_order
+<a name="l00263"></a>00263     <span class="keyword">def </span>playlist_menu_item_callback(self, *args):
+<a name="l00264"></a>00264         print(<span class="stringliteral">&quot;CoverArtBrowser DEBUG - playlist_menu_item_callback&quot;</span>)
 <a name="l00265"></a>00265 
-<a name="l00266"></a>00266         self.set_sorting_type(view.props.sort_order)
-<a name="l00267"></a>00267 
-<a name="l00268"></a>00268     <span class="keyword">def </span>_notify_sort_order(self, view, _, library_view):
-<a name="l00269"></a>00269         <span class="keywordflow">if</span> self.props.sort_order != self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a15fdb3c2835cfccf2c92bd05ca081e68">_old_sort_order</a>:
-<a name="l00270"></a>00270             self.resort_model()
-<a name="l00271"></a>00271 
-<a name="l00272"></a>00272             <span class="comment"># update library source&#39;s view direction</span>
-<a name="l00273"></a>00273             library_view.set_sorting_type(self.props.sort_order)
-<a name="l00274"></a>00274 
-<a name="l00275"></a>00275 GObject.type_register(CoverArtEntryView)
+<a name="l00266"></a>00266         self.source.playlist_fillmenu(self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a57ed87cbf7ea5c82bfeb34ae7dddf489">popup</a>, <span class="stringliteral">&#39;ev_playlist_sub_menu_item&#39;</span>, <span class="stringliteral">&#39;ev_playlist_section&#39;</span>,
+<a name="l00267"></a>00267             self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a20da3b3cfd53d77713283aec9959186d">actiongroup</a>, self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a67db9effd605f403d1a7d83716ae8f6b">add_to_static_playlist_menu_item_callback</a>)
+<a name="l00268"></a>00268 
+<a name="l00269"></a>00269     <span class="keyword">def </span>add_to_static_playlist_menu_item_callback(self, action, param, args):
+<a name="l00270"></a>00270         print(<span class="stringliteral">&quot;CoverArtBrowser DEBUG - &quot;</span> + \
+<a name="l00271"></a>00271             <span class="stringliteral">&quot;add_to_static_playlist_menu_item_callback&quot;</span>)
+<a name="l00272"></a>00272         
+<a name="l00273"></a>00273         playlist = args[<span class="stringliteral">&#39;playlist&#39;</span>]
+<a name="l00274"></a>00274         self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a60b45c1bd53c5cbacb266f7cbeb28761">add_tracks_to_source</a>(playlist)
+<a name="l00275"></a>00275 
+<a name="l00276"></a>00276     <span class="keyword">def </span>_on_library_sorting_changed(self, view, _):
+<a name="l00277"></a>00277         self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a15fdb3c2835cfccf2c92bd05ca081e68">_old_sort_order</a> = self.props.sort_order
+<a name="l00278"></a>00278 
+<a name="l00279"></a>00279         self.set_sorting_type(view.props.sort_order)
+<a name="l00280"></a>00280 
+<a name="l00281"></a>00281     <span class="keyword">def </span>_notify_sort_order(self, view, _, library_view):
+<a name="l00282"></a>00282         <span class="keywordflow">if</span> self.props.sort_order != self.<a class="code" href="classcoverart__entryview_1_1_cover_art_entry_view.html#a15fdb3c2835cfccf2c92bd05ca081e68">_old_sort_order</a>:
+<a name="l00283"></a>00283             self.resort_model()
+<a name="l00284"></a>00284 
+<a name="l00285"></a>00285             <span class="comment"># update library source&#39;s view direction</span>
+<a name="l00286"></a>00286             library_view.set_sorting_type(self.props.sort_order)
+<a name="l00287"></a>00287 
+<a name="l00288"></a>00288 GObject.type_register(CoverArtEntryView)
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -379,7 +391,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Properties</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -390,9 +402,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
   <div id="nav-path" class="navpath">
     <ul>
-      <li class="navelem"><a class="el" href="coverart__entryview_8py.html">coverart_entryview.py</a>      </li>
+      <li class="navelem"><b>coverart_entryview.py</b>      </li>
 
-    <li class="footer">Generated on Wed Apr 17 2013 22:48:21 for Coverart Browser by
+    <li class="footer">Generated on Tue Aug 27 2013 23:46:20 for Coverart Browser by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
    </ul>

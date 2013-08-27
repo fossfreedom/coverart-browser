@@ -18,10 +18,10 @@ var classcoverart__entryview_1_1_cover_art_entry_view =
     [ "queue_track_menu_item_callback", "classcoverart__entryview_1_1_cover_art_entry_view.html#a4a653deed2922bc61a3166a4a50ce27f", null ],
     [ "show_properties_menu_item_callback", "classcoverart__entryview_1_1_cover_art_entry_view.html#ae9b90682d0c3e2c8607ca9121038f22c", null ],
     [ "actiongroup", "classcoverart__entryview_1_1_cover_art_entry_view.html#a20da3b3cfd53d77713283aec9959186d", null ],
+    [ "col_map", "classcoverart__entryview_1_1_cover_art_entry_view.html#a8c5dbb86cfa03ad3891b4c722b81d5c5", null ],
     [ "external_plugins", "classcoverart__entryview_1_1_cover_art_entry_view.html#a29f65154eeca9f18ac92ddd1b95f1173", null ],
-    [ "playlist_sub_menu_item", "classcoverart__entryview_1_1_cover_art_entry_view.html#acb4a876515d4de7bd6756f8ad31646c1", null ],
     [ "plugin", "classcoverart__entryview_1_1_cover_art_entry_view.html#a0dc0ca88cfd65205df8a24f23c9044a5", null ],
-    [ "popup_menu", "classcoverart__entryview_1_1_cover_art_entry_view.html#a5badfd822dc7331ac3c19d3bf270241b", null ],
+    [ "popup", "classcoverart__entryview_1_1_cover_art_entry_view.html#a57ed87cbf7ea5c82bfeb34ae7dddf489", null ],
     [ "qm", "classcoverart__entryview_1_1_cover_art_entry_view.html#a31ebc056853cc312bea4e58a89c27c58", null ],
     [ "shell", "classcoverart__entryview_1_1_cover_art_entry_view.html#a392309657cf261ba0c43dcda70cc1725", null ],
     [ "source", "classcoverart__entryview_1_1_cover_art_entry_view.html#a66b8aa252e9a2bb3793dce144b848fd1", null ]

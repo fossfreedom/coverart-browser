@@ -9,6 +9,7 @@ var classcoverart__album_1_1_cover_manager =
     [ "update_item_width", "classcoverart__album_1_1_cover_manager.html#aa89ad60d892406f5abb60d6b9ad50821", null ],
     [ "add_shadow", "classcoverart__album_1_1_cover_manager.html#a3da674c1f5d04a767ae3b020276fded3", null ],
     [ "cover_size", "classcoverart__album_1_1_cover_manager.html#a86cab2242d125ca8d64d9b3575afe622", null ],
+    [ "has_finished_loading", "classcoverart__album_1_1_cover_manager.html#a359fc7e9448f65ab4962453eb4692850", null ],
     [ "req_id", "classcoverart__album_1_1_cover_manager.html#adff8d8aeaad7b44518c61eb6b72618d9", null ],
     [ "shadow_image", "classcoverart__album_1_1_cover_manager.html#adb1a33a5d6a09b9508263c722114ea5f", null ],
     [ "unknown_cover", "classcoverart__album_1_1_cover_manager.html#a1b4b10e0f8109d0bdde2384a436e3152", null ]

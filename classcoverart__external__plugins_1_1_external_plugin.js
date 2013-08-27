@@ -1,6 +1,7 @@
 var classcoverart__external__plugins_1_1_external_plugin =
 [
     [ "__init__", "classcoverart__external__plugins_1_1_external_plugin.html#a0b9cef109b21f6475a136f31d9d20805", null ],
+    [ "appendattribute", "classcoverart__external__plugins_1_1_external_plugin.html#a37a088d6bfe8a0cbf625be9f43863f57", null ],
     [ "create_menu_item", "classcoverart__external__plugins_1_1_external_plugin.html#a1cf26762d2f84004846ccd2ef7f30810", null ],
     [ "do_deactivate", "classcoverart__external__plugins_1_1_external_plugin.html#a173ffaa8d280608cbad2d97393ca4bb2", null ],
     [ "is_activated", "classcoverart__external__plugins_1_1_external_plugin.html#a0954e31f5d3452869fe1b20d3284cf5a", null ],

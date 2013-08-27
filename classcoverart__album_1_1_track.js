@@ -11,6 +11,7 @@ var classcoverart__album_1_1_track =
     [ "disc_number", "classcoverart__album_1_1_track.html#a78106b24c874bddfefedf51d8cdda765", null ],
     [ "duration", "classcoverart__album_1_1_track.html#abe896dd7d80b3133bdc45bf3ab3e5728", null ],
     [ "genre", "classcoverart__album_1_1_track.html#a10d397fa6b3fcb12cdd0b996d66d0152", null ],
+    [ "is_saveable", "classcoverart__album_1_1_track.html#a9a6ac164974c6c1480624e6d5c7fb021", null ],
     [ "location", "classcoverart__album_1_1_track.html#a4aa562f5660cb31f3b2fb1fee4175da2", null ],
     [ "rating", "classcoverart__album_1_1_track.html#a081c341f5adf3341a58c6d25a45e52a7", null ],
     [ "rating", "classcoverart__album_1_1_track.html#a081c341f5adf3341a58c6d25a45e52a7", null ],

@@ -33,7 +33,7 @@
   
   <td style="padding-left: 0.5em;">
    <div id="projectname">Coverart Browser
-   &#160;<span id="projectnumber">v0.8</span>
+   &#160;<span id="projectnumber">v0.9</span>
    </div>
    <div id="projectbrief">Browse your cover-art albums in Rhythmbox</div>
   </td>
@@ -52,7 +52,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -108,13 +107,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__album_1_1_text_manager.html#aac06bc62edc48ea764060e991bbe1dba">__init__</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aac06bc62edc48ea764060e991bbe1dba"></a><!-- doxytag: member="coverart_album::TextManager::__init__" ref="aac06bc62edc48ea764060e991bbe1dba" args="" -->
+def&#160;</td><td class="memItemRight" valign="bottom"><b>__init__</b></td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__album_1_1_text_manager.html#acf7e06ca05e4235557b6e26a79eba0ae">display_text_ellipsize_enabled</a> = GObject.property(type=bool, default=False)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__album_1_1_text_manager.html#af0dc418b728779be92748cf4aa5ca5df">display_text_ellipsize_length</a> = GObject.property(type=int, default=0)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__album_1_1_text_manager.html#ad4175c00dd7c04bda470dff64f1bdf11">display_font_size</a> = GObject.property(type=int, default=0)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__album_1_1_text_manager.html#a71e792e0eb4d4e08cece9c970834ab7a">display_text_enabled</a> = GObject.property(type=bool, default=False)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acf7e06ca05e4235557b6e26a79eba0ae"></a><!-- doxytag: member="coverart_album::TextManager::display_text_ellipsize_enabled" ref="acf7e06ca05e4235557b6e26a79eba0ae" args="" -->
+tuple&#160;</td><td class="memItemRight" valign="bottom"><b>display_text_ellipsize_enabled</b> = GObject.property(type=bool, default=False)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af0dc418b728779be92748cf4aa5ca5df"></a><!-- doxytag: member="coverart_album::TextManager::display_text_ellipsize_length" ref="af0dc418b728779be92748cf4aa5ca5df" args="" -->
+tuple&#160;</td><td class="memItemRight" valign="bottom"><b>display_text_ellipsize_length</b> = GObject.property(type=int, default=0)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad4175c00dd7c04bda470dff64f1bdf11"></a><!-- doxytag: member="coverart_album::TextManager::display_font_size" ref="ad4175c00dd7c04bda470dff64f1bdf11" args="" -->
+tuple&#160;</td><td class="memItemRight" valign="bottom"><b>display_font_size</b> = GObject.property(type=int, default=0)</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><div class="fragment"><pre class="fragment">
@@ -123,99 +125,8 @@ It takes care of creating the text for the model when requested to do it.
 
 :param album_manager: `AlbumManager` responsible for this manager.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l01497">1497</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
-</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="aac06bc62edc48ea764060e991bbe1dba"></a><!-- doxytag: member="coverart_album::TextManager::__init__" ref="aac06bc62edc48ea764060e991bbe1dba" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def <a class="el" href="classcoverart__album_1_1_text_manager.html#aac06bc62edc48ea764060e991bbe1dba">coverart_album.TextManager.__init__</a> </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>album_manager</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l01510">1510</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
-
-</div>
-</div>
-<hr/><h2>Member Data Documentation</h2>
-<a class="anchor" id="ad4175c00dd7c04bda470dff64f1bdf11"></a><!-- doxytag: member="coverart_album::TextManager::display_font_size" ref="ad4175c00dd7c04bda470dff64f1bdf11" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tuple <a class="el" href="classcoverart__album_1_1_text_manager.html#ad4175c00dd7c04bda470dff64f1bdf11">coverart_album.TextManager::display_font_size</a> = GObject.property(type=int, default=0)<code> [static]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l01507">1507</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="acf7e06ca05e4235557b6e26a79eba0ae"></a><!-- doxytag: member="coverart_album::TextManager::display_text_ellipsize_enabled" ref="acf7e06ca05e4235557b6e26a79eba0ae" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tuple <a class="el" href="classcoverart__album_1_1_text_manager.html#acf7e06ca05e4235557b6e26a79eba0ae">coverart_album.TextManager::display_text_ellipsize_enabled</a> = GObject.property(type=bool, default=False)<code> [static]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l01505">1505</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="af0dc418b728779be92748cf4aa5ca5df"></a><!-- doxytag: member="coverart_album::TextManager::display_text_ellipsize_length" ref="af0dc418b728779be92748cf4aa5ca5df" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tuple <a class="el" href="classcoverart__album_1_1_text_manager.html#af0dc418b728779be92748cf4aa5ca5df">coverart_album.TextManager::display_text_ellipsize_length</a> = GObject.property(type=int, default=0)<code> [static]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l01506">1506</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a71e792e0eb4d4e08cece9c970834ab7a"></a><!-- doxytag: member="coverart_album::TextManager::display_text_enabled" ref="a71e792e0eb4d4e08cece9c970834ab7a" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tuple <a class="el" href="classcoverart__album_1_1_text_manager.html#a71e792e0eb4d4e08cece9c970834ab7a">coverart_album.TextManager::display_text_enabled</a> = GObject.property(type=bool, default=False)<code> [static]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l01508">1508</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l01538">1538</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+</div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>/home/home/dad/Downloads/coverart-browser/<a class="el" href="coverart__album_8py_source.html">coverart_album.py</a></li>
 </ul>
 </div><!-- contents -->
@@ -225,7 +136,7 @@ It takes care of creating the text for the model when requested to do it.
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Properties</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -236,10 +147,10 @@ It takes care of creating the text for the model when requested to do it.
 
   <div id="nav-path" class="navpath">
     <ul>
-      <li class="navelem"><a class="el" href="namespacecoverart__album.html">coverart_album</a>      </li>
+      <li class="navelem"><b>coverart_album</b>      </li>
       <li class="navelem"><a class="el" href="classcoverart__album_1_1_text_manager.html">TextManager</a>      </li>
 
-    <li class="footer">Generated on Wed Apr 17 2013 22:48:21 for Coverart Browser by
+    <li class="footer">Generated on Tue Aug 27 2013 23:46:20 for Coverart Browser by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
    </ul>
