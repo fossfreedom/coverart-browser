@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-18 15:41+0100\n"
-"PO-Revision-Date: 2013-08-17 20:46+0000\n"
+"PO-Revision-Date: 2013-08-27 04:35+0000\n"
 "Last-Translator: Radu Rădeanu <radu.radeanu@gmail.com>\n"
 "Language-Team: Romanian <ro@li.org>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-08-25 22:48+0000\n"
+"X-Launchpad-Export-Date: 2013-08-27 11:44+0000\n"
 "X-Generator: Launchpad (build 16738)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
@@ -86,7 +86,7 @@ msgstr "Melodii și coperte"
 
 #: tmp/coverart_browser.ui.h:2
 msgid "Track Artist"
-msgstr ""
+msgstr "Artist piesă"
 
 #: tmp/coverart_browser.ui.h:3
 msgid "Stop coverart fetch."
@@ -109,14 +109,14 @@ msgstr "Toate deceniile"
 #: tmp/coverart_topbar.ui.h:3 tmp/coverart_browser_prefs.ui.h:43
 #: tmp/coverart_sidebar.ui.h:4 coverart_browser.py:164
 msgid "Tiles"
-msgstr ""
+msgstr "Dale"
 
 #. . TRANSLATORS: This is the cover-flow view the user sees - they can swipe album covers from side-to-side
 #. . TRANSLATORS: Please try to keep the translation to less than 8 characters
 #: tmp/coverart_topbar.ui.h:4 tmp/coverart_browser_prefs.ui.h:53
 #: tmp/coverart_sidebar.ui.h:5 coverart_browser.py:168
 msgid "Flow"
-msgstr ""
+msgstr "Flux"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:1
 msgid "Play this album"
@@ -219,7 +219,7 @@ msgstr "Arată proprietăți piesă"
 #: tmp/coverart_browser_pop_rb3.ui.h:10 tmp/coverart_entryview_pop_rb3.ui.h:5
 #: coverart_controllers.py:467
 msgid "Properties"
-msgstr ""
+msgstr "Proprietăți"
 
 #: tmp/coverart_browser_prefs.ui.h:1
 msgid "Select a picture"
@@ -268,7 +268,7 @@ msgstr "Când Rhythmbox pornește, trece automat la navigatorul copertei."
 
 #: tmp/coverart_browser_prefs.ui.h:12
 msgid "Use source's custom statusbar"
-msgstr ""
+msgstr "Utilizați bara de stare personalizată a sursei"
 
 #: tmp/coverart_browser_prefs.ui.h:13
 msgid ""
@@ -295,6 +295,8 @@ msgid ""
 "Number of random\n"
 "albums to play"
 msgstr ""
+"Număr aleator al\n"
+"albumelor de redare"
 
 #: tmp/coverart_browser_prefs.ui.h:18
 msgid "Level above which is regarded as being a favourite track or album"
@@ -377,65 +379,65 @@ msgstr "Dimensiune (în pixeli):"
 
 #: tmp/coverart_browser_prefs.ui.h:36
 msgid "Tracks Pane"
-msgstr ""
+msgstr "Panou melodii"
 
 #: tmp/coverart_browser_prefs.ui.h:37
 msgid "open or close on click of cover"
-msgstr ""
+msgstr "deschide sau închide la clic de copertă"
 
 #: tmp/coverart_browser_prefs.ui.h:38
 msgid "Advanced Options"
-msgstr ""
+msgstr "Optiuni avansate"
 
 #: tmp/coverart_browser_prefs.ui.h:39
 msgid "Padding (space) around the cover and its highlight"
-msgstr ""
+msgstr "Umplutură (spațiu) în jurul copertei și evidențierea acesteia"
 
 #: tmp/coverart_browser_prefs.ui.h:40
 msgid "Spacing between columns and rows"
-msgstr ""
+msgstr "Distanța între coloane și rânduri"
 
 #: tmp/coverart_browser_prefs.ui.h:41
 msgid "Padding"
-msgstr ""
+msgstr "Umplere"
 
 #: tmp/coverart_browser_prefs.ui.h:42
 msgid "Spacing"
-msgstr ""
+msgstr "Spațiere"
 
 #: tmp/coverart_browser_prefs.ui.h:44
 msgid "Flow Appearance"
-msgstr ""
+msgstr "Aspectul fluxului"
 
 #: tmp/coverart_browser_prefs.ui.h:45
 msgid "Width (px):"
-msgstr ""
+msgstr "Lățime (px):"
 
 #. . TRANSLATORS: percentage size that the image will be expanded
 #: tmp/coverart_browser_prefs.ui.h:47 coverart_browser.py:171
 #, no-c-format
 msgid "Scale by %:"
-msgstr ""
+msgstr "Scala de %"
 
 #: tmp/coverart_browser_prefs.ui.h:48
 msgid "Hide Caption"
-msgstr ""
+msgstr "Ascunde legenda"
 
 #: tmp/coverart_browser_prefs.ui.h:49
 msgid "Maximum covers to display:"
-msgstr ""
+msgstr "Maxim co coperți afișate:"
 
 #: tmp/coverart_browser_prefs.ui.h:50
 msgid "Background Colour"
-msgstr ""
+msgstr "Culoare fundal"
 
 #: tmp/coverart_browser_prefs.ui.h:51
 msgid "White"
-msgstr ""
+msgstr "Alb"
 
 #: tmp/coverart_browser_prefs.ui.h:52
 msgid "Black"
-msgstr ""
+msgstr "Negru"
 
 #: tmp/coverart_browser_prefs.ui.h:54
 msgid "Where the toolbar should be positioned"
@@ -698,11 +700,12 @@ msgstr "Coperți"
 #. . TRANSLATORS - "All" is used in the context of "All artist names"
 #: coverart_browser_source.py:347
 msgid "All"
-msgstr ""
+msgstr "Toți"
 
 #: coverart_browser_source.py:621
 msgid "The number of albums to randomly play is less than that displayed."
 msgstr ""
+"Numărul de albume pentru redare la întâmplare este mai mic decât cel afișat."
 
 #: coverart_browser_source.py:701
 #, python-format
@@ -714,12 +717,14 @@ msgid ""
 "Please install and activate the latest version of the Coverart Search "
 "Providers plugin"
 msgstr ""
+"Vă rugăm să instalați și să activați cea mai recentă versiune a modulului "
+"Coverart Search Providers"
 
 #. . TRANSLATORS - the number of albums that have been selected/highlighted
 #: coverart_browser_source.py:937
 #, python-format
 msgid "%d selected albums"
-msgstr ""
+msgstr "%d albume selectate"
 
 #: coverart_browser_source.py:941
 msgid " with 1 track"
@@ -757,27 +762,27 @@ msgstr "Sortare după rată"
 
 #: coverart_controllers.py:432
 msgid "Download all covers"
-msgstr ""
+msgstr "Descarcă toate coperțile"
 
 #: coverart_controllers.py:433
 msgid "Play random album"
-msgstr ""
+msgstr "Redă un album aleator"
 
 #: coverart_controllers.py:434
 msgid "Play favourite random album"
-msgstr ""
+msgstr "Redă un album aleator favorit"
 
 #: coverart_controllers.py:436
 msgid "Quick artist filter"
-msgstr ""
+msgstr "Filtru rapid pentru artist"
 
 #: coverart_controllers.py:438 coverart_browser_prefs.py:245
 msgid "Browser Preferences"
-msgstr ""
+msgstr "Preferințe navigator"
 
 #: coverart_controllers.py:439
 msgid "Search Preferences"
-msgstr ""
+msgstr "Preferințe căutare"
 
 #. '20s' as in the decade 2010
 #: coverart_controllers.py:487 coverart_controllers.py:513
@@ -874,7 +879,7 @@ msgstr ""
 #: coverart_coverflowview.py:197
 #, python-format
 msgid "Number of covers limited to %d"
-msgstr ""
+msgstr "Număr de coprți limitat la %d"
 
 #. define .plugin text strings used for translation
 #: coverart_browser.py:159
