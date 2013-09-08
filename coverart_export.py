@@ -22,6 +22,15 @@ from gi.repository import Gtk
 from gi.repository import GLib
 from gi.repository import RB
 from gi.repository import Gdk
+from coverart_rb3compat import is_rb3
+
+import gi
+if is_rb3():
+    gi.require_version('Gst', '1.0')
+else:
+    gi.require_version('Gst', '0.10')
+from gi.repository import Gst
+
 from coverart_album import Album
 import rb
 import shutil
@@ -36,13 +45,17 @@ class CoverArtExport(GObject.Object):
     This class provides for various export routines
     
     '''
+    TARGET_BITRATE = 128
+    
     def __init__(self, plugin, shell, album_manager):
         self.plugin = plugin
         self.shell = shell
         self.album_manager = album_manager
         
+        self._gstreamer_has_initialised = False
+        
     def is_search_plugin_enabled(self):
-        # very dirty hack - lets tidy this correctly for v0.9
+        # very dirty hack
         
         try:
             from coverart_search_tracks import CoverArtTracks
@@ -56,10 +69,12 @@ class CoverArtExport(GObject.Object):
         method to create the menu items for all supported plugins
 
         :selected_albums: `Album` - array of albums
-        
         '''
+        
+        self._initialise_gstreamer()
+        
         # temporarily move this import to here for v0.8
-        # need to separate the two plugins correctly for v0.9
+        # need to separate the two plugins correctly
         from coverart_search_tracks import CoverArtTracks
         
         search_tracks = CoverArtTracks()
@@ -74,6 +89,10 @@ class CoverArtExport(GObject.Object):
         folderchooserbutton  = ui.get_object('folderchooserbutton')
         use_album_name_checkbutton = ui.get_object('use_album_name_checkbutton')
         open_filemanager_checkbutton = ui.get_object('open_filemanager_checkbutton')
+        convert_checkbutton = ui.get_object('convert_checkbutton')
+        bitrate_spinbutton = ui.get_object('bitrate_spinbutton')
+        resize_spinbutton = ui.get_object('resize_spinbutton')
+        bitrate_spinbutton.set_value(self.TARGET_BITRATE)
         
         downloads_dir = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DOWNLOAD)
         folderchooserbutton.set_current_folder(downloads_dir)
@@ -88,6 +107,8 @@ class CoverArtExport(GObject.Object):
         final_folder_store = folderchooserbutton.get_current_folder()
         use_album_name = use_album_name_checkbutton.get_active()
         open_filemanager = open_filemanager_checkbutton.get_active()
+        convert = convert_checkbutton.get_active()
+        bitrate = bitrate_spinbutton.get_value()
         
         embeddialog.destroy()
 
@@ -170,7 +191,11 @@ class CoverArtExport(GObject.Object):
             try:
                 if not os.path.exists(folder_store):
                     os.makedirs(folder_store)
-                shutil.copy(finalPath, folder_store)
+                
+                if convert:
+                    self.convert_to_mp3(finalPath, folder_store, bitrate)
+                else:
+                    shutil.copy(finalPath, folder_store)
             except IOError as err:
                 print(err.args[0])
                 return False
@@ -183,4 +208,109 @@ class CoverArtExport(GObject.Object):
         data = None
         
         Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE, idle_call, data)
+
+    def _initialise_gstreamer(self):
         
+        if self._gstreamer_has_initialised:
+            return
+        
+        self._gstreamer_has_initialised = True
+        Gst.init(None)
+        
+        def on_new_decoded_pad(dbin, pad):
+            decode = pad.get_parent()
+            pipeline = decode.get_parent()
+            convert = pipeline.get_by_name('convert')
+            decode.link(convert)
+            
+        #we are going to mimic the following
+        #gst-launch-1.0 filesrc location="02 - ABBA - Knowing Me, Knowing You.ogg" ! 
+        #decodebin ! audioconvert ! audioresample ! lamemp3enc target=bitrate bitrate=128 ! 
+        #id3v2mux ! filesink location=mytrack.mp3
+
+        converter = Gst.Pipeline.new('converter')
+
+        source = Gst.ElementFactory.make('filesrc', None)
+
+        decoder = Gst.ElementFactory.make('decodebin', 'decoder')
+        convert = Gst.ElementFactory.make('audioconvert', 'convert')
+        sample = Gst.ElementFactory.make('audioresample', 'sample')
+        encoder = Gst.ElementFactory.make('lamemp3enc', 'encoder')
+        encoder.set_property('target', 'bitrate') 
+        encoder.set_property('bitrate', self.TARGET_BITRATE)
+
+        mux = Gst.ElementFactory.make('id3v2mux', 'mux')
+        if not mux:
+            # use id3mux where not available
+            mux = Gst.ElementFactory.make('id3mux', 'mux')
+            
+        sink = Gst.ElementFactory.make('filesink', 'sink')
+
+        converter.add(source)
+        converter.add(decoder)
+        converter.add(convert)
+        converter.add(sample)
+        converter.add(encoder)
+        converter.add(mux)
+        converter.add(sink)
+
+        Gst.Element.link(source, decoder)
+        #note - a decodebin cannot be linked at compile since
+        #it doesnt have source-pads (http://stackoverflow.com/questions/2993777/gstreamer-of-pythons-gst-linkerror-problem)
+
+        decoder.connect("pad-added", on_new_decoded_pad)
+            
+        Gst.Element.link(convert, sample)
+        Gst.Element.link(sample, encoder)
+        Gst.Element.link(encoder, mux)
+        Gst.Element.link(mux, sink)
+            
+        self.converter=converter
+        self.source=source
+        self.sink=sink
+        self.encoder=encoder
+
+    def convert_to_mp3(self, filename, save_folder, bitrate):
+                
+        self.source.set_property('location', filename)
+
+        finalname = os.path.basename(filename)
+        finalname = finalname.rsplit('.')[0] + ".mp3"
+        self.sink.set_property('location', save_folder + "/" + finalname )
+        print (bitrate)
+        if bitrate < 32:
+            bitrate = self.TARGET_BITRATE
+            
+        self.encoder.set_property('bitrate', bitrate)
+
+        # Start playing
+        ret = self.converter.set_state(Gst.State.PLAYING)
+
+        if ret == Gst.StateChangeReturn.FAILURE:
+            print("Unable to set the pipeline to the playing state.", sys.stderr)
+            exit(-1)
+
+        # Wait until error or EOS
+        bus = self.converter.get_bus()
+        try:
+            msg = bus.timed_pop_filtered(
+                Gst.CLOCK_TIME_NONE, Gst.MessageType.ERROR | Gst.MessageType.EOS)
+        except:
+            # for some reason in ubuntu 12.04 Gst.CLOCK_TIME_NONE fails
+            msg = bus.timed_pop_filtered(
+                18446744073709551615, Gst.MessageType.ERROR | Gst.MessageType.EOS)
+        
+        # Parse message
+        if (msg):
+            if msg.type == Gst.MessageType.ERROR:
+                err, debug = msg.parse_error()
+                print("Error received from element %s: %s" % (
+                    msg.src.get_name(), err), sys.stderr)
+                print("Debugging information: %s" % debug, sys.stderr)
+            elif msg.type == Gst.MessageType.EOS:
+                print("End-Of-Stream reached.")
+            else:
+                print("Unexpected message received.", sys.stderr)
+
+        # Free resources
+        self.converter.set_state(Gst.State.NULL)
