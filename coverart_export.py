@@ -22,6 +22,7 @@ from gi.repository import Gtk
 from gi.repository import GLib
 from gi.repository import RB
 from gi.repository import Gdk
+from gi.repository import Peas
 from coverart_rb3compat import is_rb3
 
 import gi
@@ -39,6 +40,8 @@ import os.path
 import os
 import sys
 import subprocess
+from coverart_utils import NaturalString
+
 
 class CoverArtExport(GObject.Object):
     '''
@@ -55,14 +58,18 @@ class CoverArtExport(GObject.Object):
         self._gstreamer_has_initialised = False
         
     def is_search_plugin_enabled(self):
-        # very dirty hack
+        peas = Peas.Engine.get_default()
+        loaded_plugins = peas.get_loaded_plugins()
         
-        try:
-            from coverart_search_tracks import CoverArtTracks
-        except:
-            return False
-        
-        return True
+        result = False
+        if 'coverart_search_providers' in loaded_plugins:
+            info = peas.get_plugin_info('coverart_search_providers')
+            version = info.get_version()
+            
+            if NaturalString(version) >= "0.9":
+                result = True
+                
+        return result
         
     def embed_albums(self, selected_albums):
         '''
@@ -73,8 +80,6 @@ class CoverArtExport(GObject.Object):
         
         self._initialise_gstreamer()
         
-        # temporarily move this import to here for v0.8
-        # need to separate the two plugins correctly
         from coverart_search_tracks import CoverArtTracks
         
         search_tracks = CoverArtTracks()
