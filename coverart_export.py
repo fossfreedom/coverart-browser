@@ -91,8 +91,10 @@ class CoverArtExport(GObject.Object):
         open_filemanager_checkbutton = ui.get_object('open_filemanager_checkbutton')
         convert_checkbutton = ui.get_object('convert_checkbutton')
         bitrate_spinbutton = ui.get_object('bitrate_spinbutton')
+        resize_checkbutton = ui.get_object('resize_checkbutton')
         resize_spinbutton = ui.get_object('resize_spinbutton')
         bitrate_spinbutton.set_value(self.TARGET_BITRATE)
+        resize_spinbutton.set_value(128)
         
         downloads_dir = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DOWNLOAD)
         folderchooserbutton.set_current_folder(downloads_dir)
@@ -109,6 +111,11 @@ class CoverArtExport(GObject.Object):
         open_filemanager = open_filemanager_checkbutton.get_active()
         convert = convert_checkbutton.get_active()
         bitrate = bitrate_spinbutton.get_value()
+        toresize = resize_checkbutton.get_active()
+        if toresize:
+            resize = int(resize_spinbutton.get_value())
+        else:
+            resize = -1
         
         embeddialog.destroy()
 
@@ -194,6 +201,8 @@ class CoverArtExport(GObject.Object):
                 
                 if convert:
                     self.convert_to_mp3(finalPath, folder_store, bitrate)
+                    finalPath = self._calc_mp3_filename(finalPath, folder_store)
+                    print(finalPath)
                 else:
                     shutil.copy(finalPath, folder_store)
             except IOError as err:
@@ -203,7 +212,7 @@ class CoverArtExport(GObject.Object):
             dest = os.path.join(folder_store, os.path.basename(finalPath))
             desturi = 'file://' + rb3compat.pathname2url(dest)
             
-            return search_tracks.embed(desturi, key)
+            return search_tracks.embed(desturi, key, resize)
 
         data = None
         
@@ -269,14 +278,16 @@ class CoverArtExport(GObject.Object):
         self.source=source
         self.sink=sink
         self.encoder=encoder
+        
+    def _calc_mp3_filename(self, filename, save_folder):
+        finalname = os.path.basename(filename)
+        finalname = finalname.rsplit('.')[0] + ".mp3"
+        return save_folder + "/" + finalname 
 
     def convert_to_mp3(self, filename, save_folder, bitrate):
                 
         self.source.set_property('location', filename)
-
-        finalname = os.path.basename(filename)
-        finalname = finalname.rsplit('.')[0] + ".mp3"
-        self.sink.set_property('location', save_folder + "/" + finalname )
+        self.sink.set_property('location', self._calc_mp3_filename(filename, save_folder))
         print (bitrate)
         if bitrate < 32:
             bitrate = self.TARGET_BITRATE
