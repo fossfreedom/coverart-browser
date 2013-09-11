@@ -1,7 +1,7 @@
-#coverart-browser v0.9
+#coverart-browser v1.0
 ================
 
-Browse your coverart albums in Rhythmbox v2.96 - Rhythmbox v3.0
+Browse your coverart albums in Rhythmbox v2.96 and later
 
 ![Imgur](http://i.imgur.com/yXYmcOt.png)
 
@@ -20,16 +20,7 @@ Browse your coverart albums in Rhythmbox v2.96 - Rhythmbox v3.0
 
 ##Summary: whats new in this release
 
- - New views as described below: https://github.com/fossfreedom/coverart-browser/wiki/Screenshots
- - Advance options to control the icon-view spacing and selection padding - this can give a very different look to the plugin
- - Added support for compatibility for RB2.99
- - Added support for python3 for the upcoming RB3.0
- - New Coverflow view together with options to display new view in three different ways
- - Toggle buttons to switch view as well as new Properties button
- - Access preferences for both Search and Browswer plugins via Properties button
- - Play random albums from your current playlist & search filters
- - Quick filter track artists via Properties button
- - Track view can be toggled automatically on click as well as configured to manually open
+ - 
  - Translated into 21 languages and locales
  - for developers - doxygen documentation: http://fossfreedom.github.io/coverart-browser/classes.html
 
@@ -91,9 +82,9 @@ Note 3 - Due to an upstream Rhythmbox bug affecting RB V2.98 & V2.99 only - any 
 are not reflected back into the plugin.  This can lead to inconsistencies.  Please restart rhythmbox for these details
 to be correctly cached.  This bug is fixed in RB3.0 and does not affect RB2.96 & RB2.97 users
 
-*For Ubuntu 12.04, 12.10, 13.04 & 13.10:*
+*For Ubuntu 12.04, 12.10, 13.04, 13.10 & 14.04:* - only applicable when master branch is released
 
-V0.9 is now available in my rhythmbox PPA - installation instructions in this AskUbuntu Q&A:
+V1.0 is now available in my rhythmbox PPA - installation instructions in this AskUbuntu Q&A:
 
 http://askubuntu.com/questions/147942/how-do-i-install-third-party-rhythmbox-plugins
 
