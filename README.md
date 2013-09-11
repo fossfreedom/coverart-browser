@@ -1,4 +1,4 @@
-#coverart-browser v0.9
+#coverart-browser v0.9.1
 ================
 
 Browse your coverart albums in Rhythmbox v2.96 - Rhythmbox v3.0
@@ -32,7 +32,7 @@ Browse your coverart albums in Rhythmbox v2.96 - Rhythmbox v3.0
  - Track view can be toggled automatically on click as well as configured to manually open
  - Translated into 21 languages and locales
  - for developers - doxygen documentation: http://fossfreedom.github.io/coverart-browser/classes.html
- - v0.9.1 bug fix #212 - non display of album-info on restart of rhythmbox
+ - v0.9.1 bug fix #214 - non display of album-info on restart of rhythmbox
  - v0.9.1 - latest translations from launchpad
 
 *How it works:*
