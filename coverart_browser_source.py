@@ -829,6 +829,8 @@ class CoverArtBrowserSource(RB.Source):
             self.play_random_album_menu_item_callback()
         elif choice == 'random favourite':
             self.play_random_album_menu_item_callback(True)
+        elif choice == 'favourite':
+            return
         elif choice == 'quick artist':
             self.display_quick_artist_filter_callback()
         elif choice == 'browser prefs':

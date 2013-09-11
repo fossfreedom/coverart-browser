@@ -246,6 +246,7 @@ class MenuButton(PixbufButton, OptionsPopupWidget):
         OptionsPopupWidget.__init__(self, *args, **kwargs)
 
         self._popup_menu = Gtk.Menu()
+        self._states = {}
 
     def add_menuitem(self, label):
         '''
@@ -256,19 +257,40 @@ class MenuButton(PixbufButton, OptionsPopupWidget):
         elif 'check::' in label:
             label = label.split('check::')[1]
             new_menu_item = Gtk.CheckMenuItem(label=label)
+            if label in self._states:
+                new_menu_item.set_active(self._states[label])
             new_menu_item.connect('toggled', self._fire_item_clicked)
+        elif 'visible=true::' in label:
+            label = label.split('visible=true::')[1]
+            new_menu_item = Gtk.MenuItem(label=label)
+            new_menu_item.connect('activate', self._fire_item_clicked)
+        elif 'visible=false::' in label:
+            return
         else:
             new_menu_item = Gtk.MenuItem(label=label)
             new_menu_item.connect('activate', self._fire_item_clicked)
 
         new_menu_item.show()
         self._popup_menu.append(new_menu_item)
+        
+    def clear_popupmenu(self):
+        '''
+        reinitialises/clears the current popup menu and associated actions
+        '''
+        for menu_item in self._popup_menu:
+            if isinstance(menu_item, Gtk.CheckMenuItem):
+                self._states[menu_item.get_label()] = menu_item.get_active()
+            self._popup_menu.remove(menu_item)
+
+        self._first_menu_item = None
 
     def update_options(self):
         self.clear_popupmenu()
 
         for key in self._controller.options:
             self.add_menuitem(key)
+            
+        self._states = {}
 
     def _fire_item_clicked(self, menu_item):
         '''
