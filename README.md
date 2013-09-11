@@ -18,7 +18,7 @@ Browse your coverart albums in Rhythmbox v2.96 - Rhythmbox v3.0
 [![Flattr Button](http://api.flattr.com/button/button-compact-static-100x17.png "Flattr This!")](http://flattr.com/thing/1811704/ "fossfreedom")  [![paypaldonate](https://www.paypalobjects.com/en_GB/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KBV682WJ3BDGL)
 -----------
 
-##Summary: whats new in this release
+##Summary: whats new in this release (v0.9)
 
  - New views as described below: https://github.com/fossfreedom/coverart-browser/wiki/Screenshots
  - Advance options to control the icon-view spacing and selection padding - this can give a very different look to the plugin
@@ -32,6 +32,8 @@ Browse your coverart albums in Rhythmbox v2.96 - Rhythmbox v3.0
  - Track view can be toggled automatically on click as well as configured to manually open
  - Translated into 21 languages and locales
  - for developers - doxygen documentation: http://fossfreedom.github.io/coverart-browser/classes.html
+ - v0.9.1 bug fix #212 - non display of album-info on restart of rhythmbox
+ - v0.9.1 - latest translations from launchpad
 
 *How it works:*
 
