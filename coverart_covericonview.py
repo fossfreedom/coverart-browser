@@ -152,6 +152,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
         self._connect_properties()
         self._connect_signals()
 
+        self._activate_markup()
         self.on_notify_icon_padding()
         self.on_notify_icon_spacing()
 
