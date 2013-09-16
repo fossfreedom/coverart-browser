@@ -4,7 +4,7 @@
     <rb2> <!-- section for RB versions below 2.99 -->
         <plugin name="opencontainingfolder">
             <menu label="">
-                <attribute name="action_group_name">OpenContainingFolderActions</attribute>
+                <attribute name="action_group_name">OpenContainingFolderActionGroup</attribute>
                 <attribute name="action_name">OpenContainingFolder</attribute>
                 <attribute name="is_album_menu">yes</attribute>
             </menu>

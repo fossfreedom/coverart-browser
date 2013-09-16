@@ -27,6 +27,7 @@ from coverart_rb3compat import ActionGroup
 from coverart_rb3compat import Action
 from coverart_rb3compat import ApplicationShell
 from coverart_rb3compat import Menu
+from coverart_utils import CaseInsensitiveDict
 
 class ExternalPlugin(GObject.Object):
     '''
@@ -65,7 +66,7 @@ class ExternalPlugin(GObject.Object):
         peas = Peas.Engine.get_default()
         loaded_plugins = peas.get_loaded_plugins()
 
-        if self.attributes['plugin_name'] in loaded_plugins:
+        if self.attributes['plugin_name'] in CaseInsensitiveDict(loaded_plugins):
             print ("found %s" % self.attributes['plugin_name'])
             return True
 
@@ -89,7 +90,6 @@ class ExternalPlugin(GObject.Object):
         :param for_album: `bool` create the menu for the album - if not given
           then its assumed the menu item is appropriate just for tracks
         '''
-
         if for_album and not self.attributes['is_album_menu']:
             return False
             
@@ -116,7 +116,6 @@ class ExternalPlugin(GObject.Object):
         
         new_menu_item = save_menu.insert_menu_item(menubar, section_name,
             at_position, action)
-
         return new_menu_item
         
     def do_deactivate(self):
