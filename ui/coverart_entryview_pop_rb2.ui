@@ -9,7 +9,6 @@
         <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="tooltip_text" translatable="yes">Play this track</property>
         <property name="label" translatable="yes">Play Track</property>
         <property name="use_underline">True</property>
       </object>
@@ -19,7 +18,6 @@
         <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="tooltip_text" translatable="yes">Add this track to your playing queue</property>
         <property name="label" translatable="yes">Queue Track</property>
         <property name="use_underline">True</property>
       </object>
@@ -29,7 +27,6 @@
         <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="tooltip_text" translatable="yes">Add this album to a playlist</property>
         <property name="label" translatable="yes">Add to Playlist</property>
         <property name="use_underline">True</property>
         <child type="submenu">
@@ -41,7 +38,6 @@
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="tooltip_text" translatable="yes">Add this album to a new playlist</property>
                         <property name="label" translatable="yes">New Playlist</property>
                         <property name="use_underline">True</property>
                     </object>
@@ -67,7 +63,6 @@
     <child>
       <object class="GtkImageMenuItem" id="ev_show_properties_menu_item">
         <property name="label">gtk-properties</property>
-        <property name="tooltip_text" translatable="yes">Show track properties</property>
         <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>

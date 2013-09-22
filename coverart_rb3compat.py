@@ -146,6 +146,7 @@ class Menu(object):
         self._unique_num = 0
         
         self._rbmenu_items = {}
+        self._rbmenu_objects = {}
         
     def add_menu_item(self, menubar, section_name, action):
         '''
@@ -209,7 +210,24 @@ class Menu(object):
             bar.show_all()
             uim = self.shell.props.ui_manager
             uim.ensure_update()
+            
+    def change_label(self, menu_name_or_link, to_label):
+        '''
+        utility function to change the label of a menu
+        :param menu_name_or_link: `str` is the name of the section of the menu or section link
+        :param to_label: `str` is the label to change to
+        '''
 
+        if is_rb3(self.shell):
+            menu_item = self.get_menu_object(menu_name_or_link)
+            menu_item.set_label(to_label)
+        else:
+            uim = self.shell.props.ui_manager
+            menu_item = self.get_menu_object(menu_name_or_link)
+            menu_item.set_label(to_label)
+            #bar.show_all()
+            uim.ensure_update()
+            
     def remove_menu_items(self, menubar, section_name):
         '''
         utility function to remove all menuitems associated with the menu section
@@ -239,8 +257,6 @@ class Menu(object):
             for menu_item in self._rbmenu_items:
                 bar.remove(self._rbmenu_items[menu_item])
 
-            #del self._rbmenu_items[:]
-            
             bar.show_all()
             uim.ensure_update()
         
@@ -281,7 +297,7 @@ class Menu(object):
         
     def _connect_rb2_signals(self, signals):
         def _menu_connect(menu_item_name, func):
-            menu_item = self.builder.get_object(menu_item_name)
+            menu_item = self.get_menu_object(menu_item_name)
             menu_item.connect('activate', func)
             
         for key,value in signals.items():
@@ -303,6 +319,8 @@ class Menu(object):
         utility function to obtain the GtkMenu from the menu UI file
         :param popup_name: `str` is the name menu-id in the UI file
         '''
+        if popup_name in self._rbmenu_objects:
+            return self._rbmenu_objects[popup_name]
         item = self.builder.get_object(popup_name)
         
         if is_rb3(self.shell):
@@ -313,6 +331,8 @@ class Menu(object):
         else:
             popup_menu = item
         
+        self._rbmenu_objects[popup_name] = popup_menu
+        
         return popup_menu
             
     def get_menu_object(self, menu_name_or_link):
@@ -320,8 +340,10 @@ class Menu(object):
         utility function returns the GtkMenuItem/Gio.MenuItem
         :param menu_name_or_link: `str` to search for in the UI file
         '''
+        if menu_name_or_link in self._rbmenu_objects:
+            return self._rbmenu_objects[menu_name_or_link]
         item = self.builder.get_object(menu_name_or_link)
-
+        print menu_name_or_link
         if is_rb3(self.shell):
             if item:
                 popup_menu = item
@@ -331,6 +353,8 @@ class Menu(object):
         else:
             popup_menu = item
             
+        self._rbmenu_objects[menu_name_or_link] = popup_menu
+        
         return popup_menu
 
     def set_sensitive(self, menu_or_action_item, enable):
@@ -345,7 +369,7 @@ class Menu(object):
             item = self.shell.props.window.lookup_action(menu_or_action_item)
             item.set_enabled(enable)
         else:
-            item = self.builder.get_object(menu_or_action_item)
+            item = self.get_menu_object(menu_or_action_item)
             item.set_sensitive(enable)
             
 class ActionGroup(object):

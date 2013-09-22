@@ -9,7 +9,6 @@
         <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="tooltip_text" translatable="yes">Play this album</property>
         <property name="label" translatable="yes">Play Album</property>
         <property name="use_underline">True</property>
       </object>
@@ -19,7 +18,6 @@
         <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="tooltip_text" translatable="yes">Add this album to your playing queue</property>
         <property name="label" translatable="yes">Queue Album</property>
         <property name="use_underline">True</property>
       </object>
@@ -29,7 +27,6 @@
         <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="tooltip_text" translatable="yes">Add this album to a playlist</property>
         <property name="label" translatable="yes">Add to Playlist</property>
         <property name="use_underline">True</property>
         <child type="submenu">
@@ -41,72 +38,12 @@
                 <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="tooltip_text" translatable="yes">Add this album to a new playlist</property>
                 <property name="label" translatable="yes">New Playlist</property>
                 <property name="use_underline">True</property>
               </object>
             </child>
             <child>
               <object class="GtkSeparatorMenuItem" id="popup_separator_playlist">
-                <property name="use_action_appearance">False</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-              </object>
-            </child>
-          </object>
-        </child>
-      </object>
-    </child>
-    <child>
-      <object class="GtkSeparatorMenuItem" id="popup_separator_favourites">
-        <property name="use_action_appearance">False</property>
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkMenuItem" id="play_favourites_album_menu_item">
-        <property name="use_action_appearance">False</property>
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="tooltip_text" translatable="yes">Play favourites tracks from this album</property>
-        <property name="label" translatable="yes">Play Favourites</property>
-        <property name="use_underline">True</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkMenuItem" id="queue_favourites_album_menu_item">
-        <property name="use_action_appearance">False</property>
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="tooltip_text" translatable="yes">Add favourite tracks from this album to your playing queue</property>
-        <property name="label" translatable="yes">Queue Favourites</property>
-        <property name="use_underline">True</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkMenuItem" id="favourite_playlist_menu_item">
-        <property name="use_action_appearance">False</property>
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="tooltip_text" translatable="yes">Add favourite tracks from this album to a playlist</property>
-        <property name="label" translatable="yes">Add favourites to Playlist</property>
-        <property name="use_underline">True</property>
-        <child type="submenu">
-          <object class="GtkMenu" id="favourite_playlist_submenu">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <child>
-              <object class="GtkMenuItem" id="favourite_new_playlist">
-                <property name="use_action_appearance">False</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">New Playlist</property>
-                <property name="use_underline">True</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkSeparatorMenuItem" id="favourite_popup_separator_playlist">
                 <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
@@ -128,7 +65,6 @@
         <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="tooltip_text" translatable="yes">Search for this album cover</property>
         <property name="label" translatable="yes">Search for covers</property>
         <property name="use_underline">True</property>
       </object>
@@ -138,7 +74,6 @@
         <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="tooltip_text" translatable="yes">Export album tracks and embed coverart in track files</property>
         <property name="label" translatable="yes">Export and embed coverart</property>
         <property name="use_underline">True</property>
       </object>
@@ -156,7 +91,6 @@
         <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="tooltip_text" translatable="yes">Show album properties</property>
         <property name="use_underline">True</property>
         <property name="use_stock">True</property>
       </object>

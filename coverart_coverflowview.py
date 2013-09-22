@@ -228,7 +228,7 @@ class CoverFlowView(AbstractView):
         self.source = source
         self.plugin = source.plugin
         self.album_manager = source.album_manager
-        self.ext_menu_pos = 10
+        self.ext_menu_pos = 6
         
         self._connect_properties()
         self._connect_signals(source)
@@ -272,14 +272,14 @@ class CoverFlowView(AbstractView):
             self._external_plugins.create_menu('popup_menu', True)
             
         self.last_album = album
-        
+        self.source.update_popup_favourites_label(self.popup)
         self.popup.get_gtkmenu(self.source, 'popup_menu').popup(None,
                         None, 
                         None,
                         None,
                         3,
                         Gtk.get_current_event_time())
-            
+
     def item_clicked_callback(self, album):
         '''
         Callback called when the user clicks somewhere on the flow_view.

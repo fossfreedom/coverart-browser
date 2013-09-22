@@ -121,7 +121,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
         self.plugin = source.plugin
         self.shell = source.shell
         self.album_manager = source.album_manager
-        self.ext_menu_pos = 10
+        self.ext_menu_pos = 6
 
         # setup iconview drag&drop support
         # first drag and drop on the coverart view to receive coverart
@@ -189,7 +189,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
     def get_view_icon_name(self):
         return "iconview.png"
 
-    def resize_icon(self, cover_size):
+    def resize_icon(self, cover_size): 
         '''
         Callback called when to resize the icon
         [common to all views]
@@ -203,6 +203,8 @@ class CoverIconView(EnhancedIconView, AbstractView):
             CreateExternalPluginMenu("ca_covers_view",
                 self.ext_menu_pos, self.popup)
             self._external_plugins.create_menu('popup_menu', True)
+            
+        self.source.update_popup_favourites_label(self.popup)
             
     def on_drag_drop(self, widget, context, x, y, time):
         '''

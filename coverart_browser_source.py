@@ -83,6 +83,7 @@ class CoverArtBrowserSource(RB.Source):
         self.last_width = 0
         self.last_selected_album = None
         self.click_count = 0
+        self.favourites = False
         
     def _connect_properties(self):
         '''
@@ -146,15 +147,9 @@ class CoverArtBrowserSource(RB.Source):
         self.status = ''
         self.search_text = ''
         self.actiongroup = ActionGroup(self.shell, 'coverplaylist_submenu')
-        self.favourite_actiongroup = ActionGroup(self.shell,
-            'favourite_coverplaylist_submenu')
         self._browser_preferences = None
         self._search_preferences = None
         
-        # connect properties signals
-        self.connect('notify::rating-threshold',
-            self.on_notify_rating_threshold)
-
         # indicate that the source was activated before
         self.hasActivated = True
 
@@ -198,16 +193,11 @@ class CoverArtBrowserSource(RB.Source):
         self.popup_menu = Menu(self.plugin, self.shell)
         self.popup_menu.load_from_file('ui/coverart_browser_pop_rb2.ui',
             'ui/coverart_browser_pop_rb3.ui')
-            
         signals = \
             { 'play_album_menu_item': self.play_album_menu_item_callback,
-              'queue_album_menu_item': self.queue_favourites_album_menu_item_callback,
+              'queue_album_menu_item': self.queue_album_menu_item_callback,
               'playlist_menu_item': self.playlist_menu_item_callback,
-              'play_favourites_album_menu_item': self.play_favourites_album_menu_item_callback,
-              'queue_favourites_album_menu_item':  self.queue_favourites_album_menu_item_callback,
-              'favourite_playlist_menu_item':  self.favourite_playlist_menu_item_callback,
               'new_playlist': self.add_playlist_menu_item_callback,
-              'favourite_new_playlist': self.favourite_add_playlist_menu_item_callback,
               'cover_search_menu_item': self.cover_search_menu_item_callback,
               'export_embed_menu_item': self.export_embed_menu_item_callback,
               'show_properties_menu_item': self.show_properties_menu_item_callback}
@@ -233,7 +223,7 @@ class CoverArtBrowserSource(RB.Source):
         by the user. It also creates and configure some custom widgets.
         '''
         print("CoverArtBrowser DEBUG - _setup_source")
-
+ 
         # setup iconview popup
         self.viewmgr.current_view.set_popup_menu(self.popup_menu)
         
@@ -295,7 +285,7 @@ class CoverArtBrowserSource(RB.Source):
         self.popup_menu.set_sensitive('export_embed_menu_item', 
             CoverArtExport(self.plugin,
                 self.shell, self.album_manager).is_search_plugin_enabled())
-
+        
         # setup the statusbar component
         self.statusbar = Statusbar(self)
 
@@ -321,7 +311,6 @@ class CoverArtBrowserSource(RB.Source):
         Callback when the artist paned handle is released from its mouse click.
         '''
         self.artist_paned_pos = self.artist_paned.get_position()
-
 
     def display_quick_artist_filter_callback(self):
         if self.artist_treeview.get_visible():
@@ -364,9 +353,6 @@ class CoverArtBrowserSource(RB.Source):
         self.notify_prog_id = self.album_manager.connect(
             'notify::progress', lambda *args: self.notify_status_changed())
 
-        # enable some ui if necesary
-        self.on_notify_rating_threshold(_)
-
         print("CoverArtBrowser DEBUG - end _apply_settings")
 
     def load_finished_callback(self, _):
@@ -389,26 +375,6 @@ class CoverArtBrowserSource(RB.Source):
 
     def get_entry_view(self):
         return self.entry_view
-
-    def on_notify_rating_threshold(self, *args):
-        '''
-        Callback called when the option rating threshold is changed
-        on the plugin's preferences dialog
-        If the threshold is zero then the rating menu options in the
-        coverview should not be enabled
-        '''
-        print("CoverArtBrowser DEBUG - on_notify_rating_threshold")
-
-        if self.rating_threshold > 0:
-            enable_menus = True
-        else:
-            enable_menus = False
-
-        self.popup_menu.set_sensitive('play_favourites_album_menu_item', enable_menus)
-        self.popup_menu.set_sensitive('queue_favourites_album_menu_item', enable_menus)
-        self.popup_menu.set_sensitive('favourite_playlist_menu_item', enable_menus)
-
-        print("CoverArtBrowser DEBUG - end on_notify_rating_threshold")
 
     def on_album_updated(self, model, path, tree_iter):
         '''
@@ -474,7 +440,7 @@ class CoverArtBrowserSource(RB.Source):
 
         selected_albums = self.viewmgr.current_view.get_selected_objects()
         threshold = self.rating_threshold if favourites else 0
-
+        
         for album in selected_albums:
             # Retrieve and sort the entries of the album
             tracks = album.get_tracks(threshold)
@@ -492,7 +458,7 @@ class CoverArtBrowserSource(RB.Source):
         '''
         print("CoverArtBrowser DEBUG - play_album_menu_item_callback")
 
-        self.play_selected_album()
+        self.play_selected_album(self.favourites)
 
         print("CoverArtBrowser DEBUG - end play_album_menu_item_callback")
 
@@ -502,54 +468,17 @@ class CoverArtBrowserSource(RB.Source):
         selected. It queues the selected album at the end of the play queue.
         '''
         print("CoverArtBrowser DEBUG - queue_album_menu_item_callback()")
-
-        self.queue_selected_album(self.shell.props.queue_source)
+        self.queue_selected_album(self.shell.props.queue_source, self.favourites)
 
         print("CoverArtBrowser DEBUG - end queue_album_menu_item_callback()")
-
-    def queue_favourites_album_menu_item_callback(self, *args):
-        '''
-        Callback called when the queue-favourites album item from the cover
-        view popup is selected. It queues the selected album at the end of the
-        play queue.
-        '''
-        print('''CoverArtBrowser DEBUG -
-            queue_favourites_album_menu_item_callback()''')
-
-        self.queue_selected_album(self.shell.props.queue_source, True)
-
-        print('''CoverArtBrowser DEBUG -
-            end queue_favourites_album_menu_item_callback()''')
-
-    def play_favourites_album_menu_item_callback(self, *args):
-        '''
-        Callback called when the play favourites album item from the cover view
-        popup is selected. It queues the selected album at the end of the play
-        queue.
-        '''
-        print('''CoverArtBrowser DEBUG -
-            play_favourites_album_menu_item_callback()''')
-
-        self.play_selected_album(True)
-
-        print('''CoverArtBrowser DEBUG -
-            end play_favourites_album_menu_item_callback()''')
 
     def playlist_menu_item_callback(self, *args):
         print("CoverArtBrowser DEBUG - playlist_menu_item_callback")
 
         self.playlist_fillmenu(self.popup_menu, 'playlist_submenu', 'playlist_section',
                                self.actiongroup,
-                               self.add_to_static_playlist_menu_item_callback)
-
-    def favourite_playlist_menu_item_callback(self, *args):
-        print("CoverArtBrowser DEBUG - favourite_playlist_menu_item_callback")
-
-        self.playlist_fillmenu(self.popup_menu, 'favourite_playlist_submenu',
-                               'favourite_playlist_section',
-                               self.favourite_actiongroup,
                                self.add_to_static_playlist_menu_item_callback,
-                               True)
+                               self.favourites)
 
     def playlist_fillmenu(self, popup_menu, menubar, section_name,
         actiongroup, func, favourite=False):
@@ -590,15 +519,7 @@ class CoverArtBrowserSource(RB.Source):
         playlist_manager = self.shell.props.playlist_manager
         playlist = playlist_manager.new_playlist('', False)
 
-        self.queue_selected_album(playlist, False)
-
-    def favourite_add_playlist_menu_item_callback(self, *args):
-        print('''CoverArtBrowser DEBUG -
-         favourite_add_playlist_menu_item_callback''')
-        playlist_manager = self.shell.props.playlist_manager
-        playlist = playlist_manager.new_playlist('', False)
-
-        self.queue_selected_album(playlist, True)
+        self.queue_selected_album(playlist, self.favourites)
 
     def play_random_album_menu_item_callback(self, favourites=False):
         print('''CoverArtBrowser DEBUG - play_random_album_menu_item_callback''')
@@ -702,7 +623,6 @@ class CoverArtBrowserSource(RB.Source):
                 album.artist), 'UTF-8'))
         else:
             self.request_status_box.hide()
-            #self.popup_menu.set_sensitive('source_menu_search_all_item', True)
             self.popup_menu.set_sensitive('cover_search_menu_item', True)
             self.request_cancel_button.set_sensitive(True)
         print("CoverArtBrowser DEBUG - end update_request_status_bar")
@@ -830,7 +750,8 @@ class CoverArtBrowserSource(RB.Source):
         elif choice == 'random favourite':
             self.play_random_album_menu_item_callback(True)
         elif choice == 'favourite':
-            return
+            self.favourites = not self.favourites
+            self.viewmgr.current_view.set_popup_menu(self.popup_menu)
         elif choice == 'quick artist':
             self.display_quick_artist_filter_callback()
         elif choice == 'browser prefs':
@@ -872,6 +793,23 @@ class CoverArtBrowserSource(RB.Source):
             cls.instance = CoverArtBrowserSource(**kwargs)
 
         return cls.instance
+        
+    def update_popup_favourites_label(self, popup_menu):
+        if self.favourites:
+            popup_menu.change_label('play_album_menu_item',
+                _("Play Favourites"))
+            popup_menu.change_label('queue_album_menu_item',
+                _("Queue Favourites"))
+            popup_menu.change_label('playlist_menu_item',
+                _("Add favourites to Playlist"))
+        else:
+            popup_menu.change_label('play_album_menu_item',
+                _("Play Album"))
+            popup_menu.change_label('queue_album_menu_item',
+                _("Queue Album"))
+            popup_menu.change_label('playlist_menu_item',
+                _("Add to Playlist"))
+
 
 class Statusbar(GObject.Object):
     # signals
@@ -955,7 +893,7 @@ class Statusbar(GObject.Object):
         albums = current_view.get_selected_objects()
         self._generate_status(albums)
         self.current_statusbar.update(self.status)
-
+        
 class SourceStatusBar(object):
     def __init__(self, source):
         self._source = source
