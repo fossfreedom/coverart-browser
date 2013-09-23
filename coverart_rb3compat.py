@@ -210,24 +210,7 @@ class Menu(object):
             bar.show_all()
             uim = self.shell.props.ui_manager
             uim.ensure_update()
-            
-    def change_label(self, menu_name_or_link, to_label):
-        '''
-        utility function to change the label of a menu
-        :param menu_name_or_link: `str` is the name of the section of the menu or section link
-        :param to_label: `str` is the label to change to
-        '''
 
-        if is_rb3(self.shell):
-            menu_item = self.get_menu_object(menu_name_or_link)
-            menu_item.set_label(to_label)
-        else:
-            uim = self.shell.props.ui_manager
-            menu_item = self.get_menu_object(menu_name_or_link)
-            menu_item.set_label(to_label)
-            #bar.show_all()
-            uim.ensure_update()
-            
     def remove_menu_items(self, menubar, section_name):
         '''
         utility function to remove all menuitems associated with the menu section
@@ -343,7 +326,6 @@ class Menu(object):
         if menu_name_or_link in self._rbmenu_objects:
             return self._rbmenu_objects[menu_name_or_link]
         item = self.builder.get_object(menu_name_or_link)
-        print menu_name_or_link
         if is_rb3(self.shell):
             if item:
                 popup_menu = item
@@ -352,7 +334,7 @@ class Menu(object):
                 popup_menu = app.get_plugin_menu(menu_name_or_link)
         else:
             popup_menu = item
-            
+        print (menu_name_or_link)
         self._rbmenu_objects[menu_name_or_link] = popup_menu
         
         return popup_menu

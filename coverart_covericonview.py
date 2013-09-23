@@ -203,9 +203,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
             CreateExternalPluginMenu("ca_covers_view",
                 self.ext_menu_pos, self.popup)
             self._external_plugins.create_menu('popup_menu', True)
-            
-        self.source.update_popup_favourites_label(self.popup)
-            
+
     def on_drag_drop(self, widget, context, x, y, time):
         '''
         Callback called when a drag operation finishes over the cover view

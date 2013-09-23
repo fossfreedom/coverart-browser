@@ -23,16 +23,10 @@ from gi.repository import GLib
 from gi.repository import RB
 from gi.repository import Gdk
 from gi.repository import Peas
-from coverart_rb3compat import is_rb3
-
-import gi
-if is_rb3():
-    gi.require_version('Gst', '1.0')
-else:
-    gi.require_version('Gst', '0.10')
 from gi.repository import Gst
 
 from coverart_album import Album
+from coverart_utils import NaturalString
 import rb
 import shutil
 import coverart_rb3compat as rb3compat
@@ -40,8 +34,6 @@ import os.path
 import os
 import sys
 import subprocess
-from coverart_utils import NaturalString
-
 
 class CoverArtExport(GObject.Object):
     '''

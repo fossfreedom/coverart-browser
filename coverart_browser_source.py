@@ -793,23 +793,6 @@ class CoverArtBrowserSource(RB.Source):
             cls.instance = CoverArtBrowserSource(**kwargs)
 
         return cls.instance
-        
-    def update_popup_favourites_label(self, popup_menu):
-        if self.favourites:
-            popup_menu.change_label('play_album_menu_item',
-                _("Play Favourites"))
-            popup_menu.change_label('queue_album_menu_item',
-                _("Queue Favourites"))
-            popup_menu.change_label('playlist_menu_item',
-                _("Add favourites to Playlist"))
-        else:
-            popup_menu.change_label('play_album_menu_item',
-                _("Play Album"))
-            popup_menu.change_label('queue_album_menu_item',
-                _("Queue Album"))
-            popup_menu.change_label('playlist_menu_item',
-                _("Add to Playlist"))
-
 
 class Statusbar(GObject.Object):
     # signals

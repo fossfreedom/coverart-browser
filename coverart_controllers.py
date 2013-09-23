@@ -430,11 +430,10 @@ class PropertiesMenuController(OptionsController):
         # options
         self.values = OrderedDict()
         self.values[_('Download all covers')] = 'download'
-        self.values['visible=true::' + _('Play random album')] = 'random'
-        self.values['visible=false::' + _('Play favourite random album')] = 'random favourite' 
+        self.values[_('Play random album')] = 'random'
         self.values['separator1'] = ''
         self.values['check::' + _('Quick artist filter')] = 'quick artist'
-        self.values['check::' + _('Use favourites')] = 'favourite'
+        self.values['check::' + _('Queue and Play favourites')] = 'favourite'
         self.values['separator2'] = ''
         self.values[_('Browser Preferences')] = 'browser prefs'
         self.values[_('Search Preferences')] = 'search prefs'
@@ -462,24 +461,6 @@ class PropertiesMenuController(OptionsController):
             if self.current_key not in self.values.keys():
                 #for the scenario where this is the label from a check menuitem
                 self.current_key = 'check::' + self.current_key
-                
-            if self.values[self.current_key] == 'favourite':
-                if ('visible=true::' + _('Play random album')) in self.values:
-                    self._change_key( self.values,
-                        'visible=true::' + _('Play random album'),
-                        'visible=false::' + _('Play random album'))
-                    self._change_key( self.values,
-                        'visible=false::' + _('Play favourite random album'),
-                        'visible=true::' + _('Play favourite random album'))
-                else:
-                    self._change_key( self.values,
-                        'visible=false::' + _('Play random album'),
-                        'visible=true::' + _('Play random album'))
-                    self._change_key( self.values,
-                        'visible=true::' + _('Play favourite random album'),
-                        'visible=false::' + _('Play favourite random album'))
-                        
-                self.options = list(self.values.keys())
                 
             self._source.propertiesbutton_callback(self.values[self.current_key])
             self.current_key = None

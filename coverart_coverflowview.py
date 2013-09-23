@@ -272,7 +272,6 @@ class CoverFlowView(AbstractView):
             self._external_plugins.create_menu('popup_menu', True)
             
         self.last_album = album
-        self.source.update_popup_favourites_label(self.popup)
         self.popup.get_gtkmenu(self.source, 'popup_menu').popup(None,
                         None, 
                         None,
