@@ -248,24 +248,21 @@ class MenuButton(PixbufButton, OptionsPopupWidget):
         self._popup_menu = Gtk.Menu()
         self._states = {}
 
-    def add_menuitem(self, label):
+    def add_menuitem(self, key):
         '''
         add a new menu item to the popup
         '''
-        if 'separator' in label:
+        
+        label = key.label
+        menutype = key.menutype
+        typevalue = key.typevalue
+        
+        if menutype and menutype == 'separator':
             new_menu_item = Gtk.SeparatorMenuItem().new()
-        elif 'check::' in label:
-            label = label.split('check::')[1]
+        elif menutype and menutype == 'check':
             new_menu_item = Gtk.CheckMenuItem(label=label)
-            if label in self._states:
-                new_menu_item.set_active(self._states[label])
+            new_menu_item.set_active(typevalue)
             new_menu_item.connect('toggled', self._fire_item_clicked)
-        elif 'visible=true::' in label:
-            label = label.split('visible=true::')[1]
-            new_menu_item = Gtk.MenuItem(label=label)
-            new_menu_item.connect('activate', self._fire_item_clicked)
-        elif 'visible=false::' in label:
-            return
         else:
             new_menu_item = Gtk.MenuItem(label=label)
             new_menu_item.connect('activate', self._fire_item_clicked)

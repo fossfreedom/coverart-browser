@@ -34,6 +34,12 @@ from collections import OrderedDict
 import rb
 import coverart_rb3compat as rb3compat
 
+from collections import namedtuple
+        
+MenuNodeT = namedtuple('MenuNode', 'label menutype typevalue')
+        
+def MenuNode(label, menutype=None, typevalue=None):
+    return MenuNodeT(label, menutype, typevalue)
 
 class OptionsController(GObject.Object):
 
@@ -418,32 +424,57 @@ class SortPopupController(OptionsController):
         return self._spritesheet[sort]
 
 class PropertiesMenuController(OptionsController):
-
+    artist_paned_display = GObject.property(type=bool, default=False)
+    favourites = GObject.property(type=bool, default=False)
+    
     def __init__(self, plugin, source):
         super(PropertiesMenuController, self).__init__()
 
         self._source = source
         self.plugin = plugin
+        self._connect_properties()
         # sorts dictionary
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
         # options
         self.values = OrderedDict()
-        self.values[_('Download all covers')] = 'download'
-        self.values[_('Play random album')] = 'random'
-        self.values['separator1'] = ''
-        self.values['check::' + _('Quick artist filter')] = 'quick artist'
-        self.values['check::' + _('Queue and Play favourites')] = 'favourite'
-        self.values['separator2'] = ''
-        self.values[_('Browser Preferences')] = 'browser prefs'
-        self.values[_('Search Preferences')] = 'search prefs'
+        self.values[MenuNode(_('Download all covers'))] = 'download'
+        self.values[MenuNode(_('Play random album'))] = 'random'
+        self.values[MenuNode('separator1', 'separator')] = ''
+        self.values[MenuNode(_('Quick artist filter'), 'check', 
+            (True if self.artist_paned_display else False))] = 'quick artist'
+        self.values[MenuNode(_('Queue and Play favourites'), 'check',
+            (True if self.favourites else False))] = 'favourite'
+        self.values[MenuNode('separator2', 'separator')] = ''
+        self.values[MenuNode(_('Browser Preferences'))] = 'browser prefs'
+        self.values[MenuNode(_('Search Preferences'))] = 'search prefs'
         
         self.options = list(self.values.keys())
 
         self.update_images(False)
+        if self.artist_paned_display:
+            self._source.propertiesbutton_callback('quick artist')
+            
+        if self.favourites:
+            self._source.propertiesbutton_callback('favourite')
         
         self.current_key = None
-        
+    
+    def _connect_properties(self):
+        gs = GSetting()
+        setting = gs.get_setting(gs.Path.PLUGIN)
+        setting.bind(
+            gs.PluginKey.ARTIST_PANED_DISPLAY,
+            self,
+            'artist-paned-display',
+            Gio.SettingsBindFlags.DEFAULT)
+
+        setting.bind(
+            gs.PluginKey.USE_FAVOURITES,
+            self,
+            'favourites',
+            Gio.SettingsBindFlags.DEFAULT)
+                
     def _change_key(self, dict, old, new):
         for i in range(len(dict)):
             k,v = dict.popitem(False)
@@ -458,11 +489,16 @@ class PropertiesMenuController(OptionsController):
             
     def do_action(self):
         if self.current_key:
-            if self.current_key not in self.values.keys():
-                #for the scenario where this is the label from a check menuitem
-                self.current_key = 'check::' + self.current_key
+            key = [node for node in self.values if node.label == self.current_key]
+            
+            if self.current_key == _('Quick artist filter'):
+                self.artist_paned_display = not self.artist_paned_display
                 
-            self._source.propertiesbutton_callback(self.values[self.current_key])
+            
+            if self.current_key == _('Queue and Play favourites'):
+                self.favourites = not self.favourites
+                        
+            self._source.propertiesbutton_callback(self.values[key[0]])
             self.current_key = None
 
     def get_current_image(self):

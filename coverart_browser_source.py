@@ -323,7 +323,6 @@ class CoverArtBrowserSource(RB.Source):
             self.artist_treeview.set_visible(True)
             
             self.artist_paned.set_position(self.artist_paned_pos)
-
         
     def on_artist_treeview_selection_changed(self, view):
         model, artist_iter = view.get_selected()
@@ -339,6 +338,7 @@ class CoverArtBrowserSource(RB.Source):
                 self.album_manager.model.replace_filter('quick_artist', artist)
 
             cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+            
     def _apply_settings(self):
         '''
         Applies all the settings related to the source and connects those that

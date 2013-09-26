@@ -186,5 +186,15 @@
             <summary>Position of the artist paned.</summary>
             <description>Position of the artist paned.</description>
         </key>
+        <key type="b" name="artist-paned-display">
+            <default>false</default>
+            <summary>Display the artist filter pane</summary>
+            <description>Display the artist filter pane</description>
+        </key>
+        <key type="b" name="use-favourites">
+            <default>false</default>
+            <summary>Use favourites</summary>
+            <description>Play or Queue albums using rating favourites</description>
+        </key>
     </schema>
 </schemalist>

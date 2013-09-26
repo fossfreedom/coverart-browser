@@ -159,7 +159,9 @@ class GSetting:
                 FLOW_WIDTH='flow-width',
                 FLOW_MAX='flow-max-albums',
                 WEBKIT='webkit-support',
-                ARTIST_PANED_POSITION='artist-paned-pos')
+                ARTIST_PANED_POSITION='artist-paned-pos',
+                ARTIST_PANED_DISPLAY='artist-paned-display',
+                USE_FAVOURITES='use-favourites')
 
             self.setting = {}
 
