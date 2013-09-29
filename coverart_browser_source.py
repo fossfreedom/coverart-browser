@@ -84,6 +84,7 @@ class CoverArtBrowserSource(RB.Source):
         self.last_selected_album = None
         self.click_count = 0
         self.favourites = False
+        self.task_progress = None
         
     def _connect_properties(self):
         '''
@@ -106,14 +107,39 @@ class CoverArtBrowserSource(RB.Source):
         statusbar.
         If the custom statusbar is disabled, the source will
         show the selected album info.
-        Also, it makes sure to show the progress on the album loading.s
+        Also, it makes sure to show the progress on the album loading
         '''
+        
+        try:
+            # this will only work for RB3.0 and later
+            if not self.task_progress:
+                self.task_progress = RB.TaskProgressSimple.new()
+        except:
+            pass
+            
         try:
             progress = self.album_manager.progress
             progress_text = _('Loading...') if progress < 1 else ''
+            try:
+                # this will only work for RB3.0 and later
+                if progress < 1:
+                    if self.task_progress.props.task_outcome != RB.TaskOutcome.COMPLETE:
+                        self.props.shell.props.task_list.add_task(self.task_progress)
+            
+                    self.task_progress.props.task_progress = progress
+                    self.task_progress.props.task_label=progress_text
+                else:
+                    self.task_progress.props.task_outcome = RB.TaskOutcome.COMPLETE
+            except:
+                pass
         except:
             progress = 1
             progress_text = ''
+            try:
+                # this will only work for RB3.0 and later
+                self.task_progress.props.task_outcome = RB.TaskOutcome.COMPLETE
+            except:
+                pass
 
         return (self.status, progress_text, progress)
 
@@ -304,6 +330,7 @@ class CoverArtBrowserSource(RB.Source):
 
         self.artist_paned.connect('button-release-event', 
             self.artist_paned_button_release_callback)
+
         print("CoverArtBrowser DEBUG - end _setup_source")
         
     def artist_paned_button_release_callback(self, *args):
@@ -350,6 +377,7 @@ class CoverArtBrowserSource(RB.Source):
         # connect some signals to the loader to keep the source informed
         self.album_mod_id = self.album_manager.model.connect('album-updated',
             self.on_album_updated)
+        
         self.notify_prog_id = self.album_manager.connect(
             'notify::progress', lambda *args: self.notify_status_changed())
 
