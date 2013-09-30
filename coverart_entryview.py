@@ -28,6 +28,7 @@ import rb
 from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import CoverLocale
 from coverart_external_plugins import CreateExternalPluginMenu
+from collections import OrderedDict
 
 class CoverArtEntryView(RB.EntryView):
 
@@ -46,26 +47,39 @@ class CoverArtEntryView(RB.EntryView):
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.RB)
 
-        self.append_column(RB.EntryViewColumn.TITLE, True)  # always shown
+        #self.append_column(RB.EntryViewColumn.TITLE, True)  # always shown
         
-        self.col_map = {'artist' : RB.EntryViewColumn.ARTIST,
-                        'duration': RB.EntryViewColumn.DURATION,
-                        'genre': RB.EntryViewColumn.GENRE,
-                        'track-number': RB.EntryViewColumn.TRACK_NUMBER,
-                        'album': RB.EntryViewColumn.ALBUM,
-                        'bitrate': RB.EntryViewColumn.QUALITY,
-                        'location': RB.EntryViewColumn.LOCATION,
-                        'rating': RB.EntryViewColumn.RATING,
-                        'first-seen': RB.EntryViewColumn.FIRST_SEEN,
-                        'play-count': RB.EntryViewColumn.PLAY_COUNT,
-                        'comment': RB.EntryViewColumn.COMMENT,
-                        'date': RB.EntryViewColumn.YEAR,
-                        'last-played': RB.EntryViewColumn.LAST_PLAYED}
+        self.col_map = OrderedDict([
+                        ('track-number', RB.EntryViewColumn.TRACK_NUMBER),
+                        ('title', RB.EntryViewColumn.TITLE),
+                        ('genre', RB.EntryViewColumn.GENRE),
+                        ('artist', RB.EntryViewColumn.ARTIST),
+                        ('album', RB.EntryViewColumn.ALBUM),
+                        ('composer', None),
+                        ('date', RB.EntryViewColumn.YEAR),
+                        ('duration', RB.EntryViewColumn.DURATION),
+                        ('bitrate', RB.EntryViewColumn.QUALITY),
+                        ('play-count', RB.EntryViewColumn.PLAY_COUNT),
+                        ('beats-per-minute', RB.EntryViewColumn.BPM),
+                        ('comment', RB.EntryViewColumn.COMMENT),
+                        ('location', RB.EntryViewColumn.LOCATION),
+                        ('rating', RB.EntryViewColumn.RATING),
+                        ('last-played', RB.EntryViewColumn.LAST_PLAYED),
+                        ('first-seen', RB.EntryViewColumn.FIRST_SEEN)
+                        ])
                         
-        # 'beats-per-minute': RB.EntryViewColumn.BPM - RB crashes with this - issue#188
+        # now remove some columns that are only applicable from RB3.0 onwards
+        # N.B. 'beats-per-minute': RB.EntryViewColumn.BPM - RB crashes with this - issue#188
+        try:
+            self.col_map['composer'] = RB.EntryViewColumn.COMPOSER
+            # i.e. composer only exists in RB3.0
+        except:
+            del self.col_map['composer']
+            del self.col_map['beats-per-minute']
         
         for entry in self.col_map:
-            self.append_column(self.col_map[entry], False)
+            visible = True if entry == 'title' else False
+            self.append_column(self.col_map[entry], visible)
                 
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
 
@@ -127,7 +141,8 @@ class CoverArtEntryView(RB.EntryView):
             if entry in settings[key]:
                 col.set_visible(True)
             else:
-                col.set_visible(False)
+                if entry != 'title': 
+                    col.set_visible(False)
             
         print ("CoverArtBrowser DEBUG - end on_visible_columns_changed()")
 
