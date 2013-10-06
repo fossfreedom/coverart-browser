@@ -962,5 +962,36 @@
                 <start-position y="32" x="32"/>
             </spritesheet>        
         </theme>
+	<theme folder_name="lighter">
+            <spritesheet name="genre">
+                <image>genre_sprites.png</image>
+                <icon width="75" height="75"/>
+                <dimension down="7" across="5"/>
+                <spacing y="48" x="68"/>
+                <start-position y="50" x="50"/>
+                <alpha>255 255 255</alpha>
+            </spritesheet>
+            <spritesheet name="sort">
+                <image>sort_sprites.png</image>
+                <icon width="128" height="128"/>
+                <dimension down="1" across="4"/>
+                <spacing y="32" x="32"/>
+                <start-position y="32" x="32"/>
+            </spritesheet>
+            <spritesheet name="playlist">
+                <image>playlist_sprites.png</image>
+                <icon width="128" height="128"/>
+                <dimension down="1" across="4"/>
+                <spacing y="32" x="32"/>
+                <start-position y="32" x="32"/>
+            </spritesheet>
+            <spritesheet name="decade">
+                <image>decade_sprites.png</image>
+                <icon width="128" height="128"/>
+                <dimension down="3" across="4"/>
+                <spacing y="32" x="32"/>
+                <start-position y="32" x="32"/>
+            </spritesheet>        
+        </theme>
     </theme>
 </root>
