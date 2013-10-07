@@ -819,7 +819,7 @@
             <alt genre="gospel">christian</alt>
             <alt genre="electronic">techno</alt>
             <alt genre="spoken">acapella</alt>
-	    <alt genre="spoken">documentary</alt>
+            <alt genre="spoken">documentary</alt>
             <alt genre="electronic">ambiance</alt>
         </alt>
         
@@ -831,7 +831,7 @@
             <alt genre="pop">pop française</alt>
             <alt genre="holiday">musique de noël</alt>
             <alt genre="spoken">livres et histoires</alt>
-	    <alt genre="spoken">documentaire</alt>
+            <alt genre="spoken">documentaire</alt>
             <alt genre="folk">folklore</alt>
             <alt genre="anime">dessins animés</alt>
             <alt genre="anime">j-pop</alt>
@@ -964,7 +964,7 @@
                 <start-position y="32" x="32"/>
             </spritesheet>        
         </theme>
-	<theme folder_name="lighter">
+        <theme folder_name="lighter">
             <spritesheet name="genre">
                 <image>genre_sprites.png</image>
                 <icon width="75" height="75"/>
