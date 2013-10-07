@@ -20,8 +20,11 @@ Browse your coverart albums in Rhythmbox v2.96 and later
 
 ##Summary: whats new in this release
 
- - 
- - Translated into 21 languages and locales
+ - new lighter icon-theme from the brilliant designer - jrbastien
+ - Optional export and embed coverart from most file-formats to MP3.
+ - Remember quick artist filter between rhythmbox sessions
+ - Rework Album & Playlist favourite supports - this declutters menus and now can be optionally enabled through properties button
+ - Translated into 22 languages and locales
  - for developers - doxygen documentation: http://fossfreedom.github.io/coverart-browser/classes.html
 
 *How it works:*
@@ -30,7 +33,7 @@ Browse your coverart albums in Rhythmbox v2.96 and later
  - Albums are displayed as clickable buttons containing their album cover
  - Right click menu option to play, queue & search for coverart for an album.
  
- - https://github.com/fossfreedom/coverart-browser/wiki/how-to-for-version-0.9
+ - https://github.com/fossfreedom/coverart-browser/wiki/how-to-for-version-0.9  **UPDATE FOR RELEASE**
 
 *How to install:*
 
