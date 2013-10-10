@@ -8,7 +8,6 @@
     <property name="hexpand">True</property>
     <property name="selection_mode">multiple</property>
     <property name="tooltip_column">0</property>
-    <property name="pixbuf_column">1</property>
     <property name="object_column">2</property>
   </object>
 </interface>

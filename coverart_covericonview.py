@@ -17,19 +17,159 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
-from coverart_widgets import EnhancedIconView
-from coverart_external_plugins import CreateExternalPluginMenu
 from gi.repository import Gdk
 from gi.repository import Gtk
 from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import Gio
-from coverart_browser_prefs import GSetting
 from gi.repository import Pango
+from gi.repository import PangoCairo
+from gi.repository import GdkPixbuf
+from gi.repository.GdkPixbuf import Pixbuf
+from coverart_widgets import EnhancedIconView
+from coverart_external_plugins import CreateExternalPluginMenu
+from coverart_browser_prefs import GSetting
 from coverart_album import AlbumsModel
 from coverart_widgets import AbstractView
 import coverart_rb3compat as rb3compat 
 import rb
+
+ICON_LARGE_PIXELSIZE = 180
+
+class CellRendererThumb(Gtk.CellRendererPixbuf):
+    markup=GObject.property(type=str, default="")
+    extra_info=GObject.property(type=str, default="")
+    show_text=GObject.property(type=bool, default=False)
+    
+    def __init__(self, font_description, cell_area_source):
+        super(CellRendererThumb, self).__init__()
+        self.font_description = font_description
+        #self.set_fixed_size(ICON_LARGE_PIXELSIZE, ICON_LARGE_PIXELSIZE)
+        #self.set_fixed_size(self.props.width, self.props.height)
+        self.cell_area_source = cell_area_source
+        ypad = 0
+        self.cell_area_source.cover_size
+        
+    def do_render(self, cr, widget,  
+                background_area,
+                cell_area,
+                flags):
+        
+        x_offset = cell_area.x  + 1
+        y_offset = cell_area.y  + 1
+        wi = 0
+        he = 0
+        #IMAGE
+        Gdk.cairo_set_source_pixbuf(cr, self.props.pixbuf, x_offset, y_offset)
+        cr.paint()
+        
+        #PANGO LAYOUT
+        layout_width  = cell_area.width - 2
+        pango_layout = PangoCairo.create_layout(cr)
+        pango_layout.set_markup(self.markup , -1)
+        pango_layout.set_alignment(Pango.Alignment.CENTER)
+        pango_layout.set_font_description(self.font_description)
+        pango_layout.set_width( int(layout_width  * Pango.SCALE))
+        pango_layout.set_wrap(Pango.WrapMode.WORD_CHAR)
+        wi,he = pango_layout.get_pixel_size()
+        
+        rect_offset = y_offset + (int((2.0 * self.cell_area_source.cover_size) / 3.0))
+        rect_height = int(self.cell_area_source.cover_size / 3.0)
+        was_to_large = False;
+        if(he > rect_height):
+            was_to_large = True
+            pango_layout.set_ellipsize(Pango.EllipsizeMode.END)
+            pango_layout.set_height( int((self.cell_area_source.cover_size / 3.0) * Pango.SCALE))
+            wi, he = pango_layout.get_pixel_size()
+        
+        #RECTANGLE
+        alpha = 0.65
+        
+        if((flags & Gtk.CellRendererState.PRELIT) == Gtk.CellRendererState.PRELIT):
+            alpha -= 0.15
+        
+        if((flags & Gtk.CellRendererState.SELECTED) == Gtk.CellRendererState.SELECTED or \
+           (flags & Gtk.CellRendererState.FOCUSED) == Gtk.CellRendererState.FOCUSED):
+            alpha -= 0.15
+        
+        cr.set_source_rgba(0.0, 0.0, 0.0, alpha)
+        cr.set_line_width(0)
+        cr.rectangle(x_offset, 
+                     rect_offset,
+                     cell_area.width - 1,
+                     rect_height - 1)
+        cr.fill()
+        
+        #DRAW FONT
+        cr.set_source_rgba(1.0, 1.0, 1.0, 1.0)
+        cr.move_to(x_offset,
+                   y_offset 
+                    + 2.0 * self.cell_area_source.cover_size / 3.0 
+                    + (((self.cell_area_source.cover_size/3.0) -  he) / 2.0)
+                    )
+        PangoCairo.show_layout(cr, pango_layout)
+        
+        if(self.extra_info != ""):
+            #PANGO LAYOUT
+            info_width  = int(cell_area.width * 2.0 / 3.0)
+            info_layout = PangoCairo.create_layout(cr)
+            info_layout.set_text(self.extra_info, -1)
+            info_layout.set_alignment(Pango.Alignment.LEFT)
+            info_layout.set_font_description(self.font_description)
+            info_layout.set_width( int(info_width  * Pango.SCALE))
+            info_layout.set_ellipsize(Pango.EllipsizeMode.END)
+            wi, he = info_layout.get_pixel_size()
+            info_layout.set_height(-1) #one line
+            
+            #RECTANGLE
+            cr.set_source_rgba(0.0, 0.0, 0.0, alpha)
+            cr.set_line_width(0)
+            cr.rectangle(cell_area.x + 1, 
+                         cell_area.y + 1,
+                         wi + 2,
+                         he + 2)
+            cr.fill()
+            
+            #DRAW FONT
+            cr.set_source_rgba(1.0, 1.0, 1.0, 1.0)
+            cr.move_to(cell_area.x + 2, cell_area.y + 2)
+            PangoCairo.show_layout(cr, info_layout)
+            
+            
+class AlbumArtCellArea(Gtk.CellAreaBox):
+    
+    font_family = GObject.property(type=str, default="Sans")
+    font_size = GObject.property(type=int, default=10)
+    cover_size = GObject.property(type=int, default=0)
+    
+    def __init__(self, ):
+        super(AlbumArtCellArea, self).__init__()
+    
+        self.font_description = Pango.FontDescription.new()
+        self.font_description.set_family(self.font_family)
+        self.font_description.set_size(int(self.font_size * Pango.SCALE))
+        
+        self._connect_properties()
+        
+        #Add own cellrenderer
+        renderer_thumb = CellRendererThumb(self.font_description, self)
+        
+        self.pack_start(renderer_thumb, False, False, False)
+        self.attribute_connect(renderer_thumb, "pixbuf", AlbumsModel.columns['pixbuf'])  
+        self.attribute_connect(renderer_thumb, "markup", AlbumsModel.columns['markup'])
+        #self.attribute_connect(renderer_thumb, "extra-info", 2)
+        
+    def _connect_properties(self):
+        gs = GSetting()
+        setting = gs.get_setting(gs.Path.PLUGIN)
+
+        setting.bind(gs.PluginKey.COVER_SIZE, self, 'cover_size',
+            Gio.SettingsBindFlags.GET)
+        
+    #def get_preferred_width(self, context,
+    #                              widget):
+    #    retval =  ICON_LARGE_PIXELSIZE + 1                                    
+    #    return retval, retval
 
 class AlbumShowingPolicy(GObject.Object):
     '''
@@ -109,6 +249,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
         self.show_policy = AlbumShowingPolicy(self)
         self.view = self
         self._has_initialised = False
+        self.props.cell_area = AlbumArtCellArea()
         
     def initialise(self, source):
         if self._has_initialised:
@@ -334,6 +475,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
         self.set_column_spacing(self.icon_spacing)
 
     def _create_and_configure_renderer(self):
+        #Add own cellrenderer
         self._text_renderer = Gtk.CellRendererText()
 
         self._text_renderer.props.alignment = Pango.Alignment.CENTER
@@ -359,7 +501,6 @@ class CoverIconView(EnhancedIconView, AbstractView):
             self.pack_end(self._text_renderer, False)
             self.add_attribute(self._text_renderer,
                 'markup', AlbumsModel.columns['markup']) 
-
         elif self._text_renderer:
             # remove the cell renderer
             self.props.cell_area.remove(self._text_renderer)
