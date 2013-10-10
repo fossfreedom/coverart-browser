@@ -28,8 +28,13 @@
         </key>
         <key type="b" name="display-text">
             <default>false</default>
-            <summary>Display album's info under cover</summary>
-            <description>Show the album's basic information under the cover image.</description>
+            <summary>Display album's information</summary>
+            <description>Show the album's basic information</description>
+        </key>
+        <key type="b" name="display-text-pos">
+            <default>true</default>
+            <summary>Display album's info position</summary>
+            <description>True is under the cover, False is within the cover.</description>
         </key>
         <key type="b" name="display-text-ellipsize">
             <default>false</default>

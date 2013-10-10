@@ -239,7 +239,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
     name = 'coverview'
 
     def __init__(self, *args, **kwargs):
-        super(CoverIconView, self).__init__(*args, **kwargs)
+        super(CoverIconView, self).__init__(cell_area=AlbumArtCellArea(), *args, **kwargs)
         
         self.ext_menu_pos = 0
         self._external_plugins = None
@@ -249,7 +249,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
         self.show_policy = AlbumShowingPolicy(self)
         self.view = self
         self._has_initialised = False
-        self.props.cell_area = AlbumArtCellArea()
+        #self.props.cell_area = AlbumArtCellArea # this works in Saucy but not in 12.04 - define in the super above
         
     def initialise(self, source):
         if self._has_initialised:

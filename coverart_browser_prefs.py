@@ -130,6 +130,7 @@ class GSetting:
                 CUSTOM_STATUSBAR='custom-statusbar',
                 DISPLAY_BOTTOM='display-bottom',
                 DISPLAY_TEXT='display-text',
+                DISPLAY_TEXT_POS='display-text-pos',
                 RANDOM='random-queue',
                 DISPLAY_TEXT_LOADING='display-text-loading',
                 DISPLAY_TEXT_ELLIPSIZE='display-text-ellipsize',
@@ -307,6 +308,16 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         box_text = builder.get_object('display_text_box')
         self.settings.bind(gs.PluginKey.DISPLAY_TEXT, box_text, 'sensitive',
             Gio.SettingsBindFlags.GET)
+            
+        self.display_text_pos = self.settings[gs.PluginKey.DISPLAY_TEXT_POS]
+        self.display_text_under_radiobutton = builder.get_object('display_text_under_radiobutton')
+        self.display_text_within_radiobutton = builder.get_object('display_text_within_radiobutton')
+
+        if self.display_text_pos:
+            self.display_text_under_radiobutton.set_active(True)
+        else:
+            self.display_text_within_radiobutton.set_active(True)
+
 
         random_scale = builder.get_object('random_adjustment')
         self.settings.bind(gs.PluginKey.RANDOM, random_scale, 'value',
@@ -501,6 +512,14 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
                 self.settings[gs.PluginKey.FLOW_BACKGROUND_COLOUR] = 'W'
             else:
                 self.settings[gs.PluginKey.FLOW_BACKGROUND_COLOUR] = 'B'
+                
+    def on_display_text_pos_radio_toggled(self, button):
+        if button.get_active():
+            gs = GSetting()
+            if button == self.display_text_under_radiobutton:
+                self.settings[gs.PluginKey.DISPLAY_TEXT_POS] = True
+            else:
+                self.settings[gs.PluginKey.DISPLAY_TEXT_POS] = False
 
     def rating_changed_callback(self, stars):
         print("rating_changed_callback")

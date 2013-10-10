@@ -51,6 +51,7 @@ from stars import ReactiveStar
 from coverart_rb3compat import Menu
 from coverart_rb3compat import ActionGroup
 from coverart_covericonview import CoverIconView
+from coverart_covericonview import CoverIconView
 from coverart_coverflowview import CoverFlowView
 from coverart_artistview import ArtistView
 from coverart_browser_prefs import webkit_support
