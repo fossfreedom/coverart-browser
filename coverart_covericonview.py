@@ -38,22 +38,18 @@ ICON_LARGE_PIXELSIZE = 180
 
 class CellRendererThumb(Gtk.CellRendererPixbuf):
     markup=GObject.property(type=str, default="")
-    extra_info=GObject.property(type=str, default="")
-    show_text=GObject.property(type=bool, default=False)
     
     def __init__(self, font_description, cell_area_source):
         super(CellRendererThumb, self).__init__()
         self.font_description = font_description
-        #self.set_fixed_size(ICON_LARGE_PIXELSIZE, ICON_LARGE_PIXELSIZE)
-        #self.set_fixed_size(self.props.width, self.props.height)
         self.cell_area_source = cell_area_source
         ypad = 0
-        self.cell_area_source.cover_size
         
     def do_render(self, cr, widget,  
                 background_area,
                 cell_area,
                 flags):
+        
         
         x_offset = cell_area.x  + 1
         y_offset = cell_area.y  + 1
@@ -62,6 +58,9 @@ class CellRendererThumb(Gtk.CellRendererPixbuf):
         #IMAGE
         Gdk.cairo_set_source_pixbuf(cr, self.props.pixbuf, x_offset, y_offset)
         cr.paint()
+        
+        if not(self.cell_area_source.display_text and self.cell_area_source.display_text_pos==False):
+            return
         
         #PANGO LAYOUT
         layout_width  = cell_area.width - 2
@@ -108,39 +107,14 @@ class CellRendererThumb(Gtk.CellRendererPixbuf):
                     + (((self.cell_area_source.cover_size/3.0) -  he) / 2.0)
                     )
         PangoCairo.show_layout(cr, pango_layout)
-        
-        if(self.extra_info != ""):
-            #PANGO LAYOUT
-            info_width  = int(cell_area.width * 2.0 / 3.0)
-            info_layout = PangoCairo.create_layout(cr)
-            info_layout.set_text(self.extra_info, -1)
-            info_layout.set_alignment(Pango.Alignment.LEFT)
-            info_layout.set_font_description(self.font_description)
-            info_layout.set_width( int(info_width  * Pango.SCALE))
-            info_layout.set_ellipsize(Pango.EllipsizeMode.END)
-            wi, he = info_layout.get_pixel_size()
-            info_layout.set_height(-1) #one line
-            
-            #RECTANGLE
-            cr.set_source_rgba(0.0, 0.0, 0.0, alpha)
-            cr.set_line_width(0)
-            cr.rectangle(cell_area.x + 1, 
-                         cell_area.y + 1,
-                         wi + 2,
-                         he + 2)
-            cr.fill()
-            
-            #DRAW FONT
-            cr.set_source_rgba(1.0, 1.0, 1.0, 1.0)
-            cr.move_to(cell_area.x + 2, cell_area.y + 2)
-            PangoCairo.show_layout(cr, info_layout)
-            
-            
+
 class AlbumArtCellArea(Gtk.CellAreaBox):
     
     font_family = GObject.property(type=str, default="Sans")
     font_size = GObject.property(type=int, default=10)
     cover_size = GObject.property(type=int, default=0)
+    display_text_pos = GObject.property(type=bool, default=False)
+    display_text = GObject.property(type=bool, default=False)
     
     def __init__(self, ):
         super(AlbumArtCellArea, self).__init__()
@@ -157,14 +131,20 @@ class AlbumArtCellArea(Gtk.CellAreaBox):
         self.pack_start(renderer_thumb, False, False, False)
         self.attribute_connect(renderer_thumb, "pixbuf", AlbumsModel.columns['pixbuf'])  
         self.attribute_connect(renderer_thumb, "markup", AlbumsModel.columns['markup'])
-        #self.attribute_connect(renderer_thumb, "extra-info", 2)
         
     def _connect_properties(self):
         gs = GSetting()
         setting = gs.get_setting(gs.Path.PLUGIN)
 
-        setting.bind(gs.PluginKey.COVER_SIZE, self, 'cover_size',
+        setting.bind(gs.PluginKey.COVER_SIZE, self, 'cover-size',
             Gio.SettingsBindFlags.GET)
+            
+        setting.bind(gs.PluginKey.DISPLAY_TEXT_POS, self, 'display-text-pos',
+            Gio.SettingsBindFlags.GET)
+            
+        setting.bind(gs.PluginKey.DISPLAY_TEXT, self, 'display-text',
+            Gio.SettingsBindFlags.GET)
+            
         
     #def get_preferred_width(self, context,
     #                              widget):
@@ -236,6 +216,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
     icon_automatic = GObject.property(type=bool, default=True)
 
     display_text_enabled = GObject.property(type=bool, default=False)
+    display_text_pos = GObject.property(type=bool, default=False)
     name = 'coverview'
 
     def __init__(self, *args, **kwargs):
@@ -249,7 +230,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
         self.show_policy = AlbumShowingPolicy(self)
         self.view = self
         self._has_initialised = False
-        #self.props.cell_area = AlbumArtCellArea # this works in Saucy but not in 12.04 - define in the super above
+        #self.props.cell_area = AlbumArtCellArea() # this works in Saucy but not in 12.04 - define in the super above
         
     def initialise(self, source):
         if self._has_initialised:
@@ -315,6 +296,9 @@ class CoverIconView(EnhancedIconView, AbstractView):
 
         setting.bind(self.gs.PluginKey.ICON_AUTOMATIC, self,
             'icon_automatic', Gio.SettingsBindFlags.GET)
+            
+        setting.bind(self.gs.PluginKey.DISPLAY_TEXT_POS, self, 
+            'display-text-pos', Gio.SettingsBindFlags.GET)
 
     def _connect_signals(self):
         self.connect("item-clicked", self.item_clicked_callback)
@@ -325,6 +309,8 @@ class CoverIconView(EnhancedIconView, AbstractView):
         self.connect('notify::icon-padding',
             self.on_notify_icon_padding)
         self.connect('notify::display-text-enabled',
+            self._activate_markup)
+        self.connect('notify::display-text-pos',
             self._activate_markup)
 
     def get_view_icon_name(self):
@@ -492,7 +478,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
         Utility method to activate/deactivate the markup text on the
         cover view.
         '''
-        if self.display_text_enabled:
+        if self.display_text_enabled and self.display_text_pos:
             if not self._text_renderer:
                 # create and configure the custom cell renderer
                 self._create_and_configure_renderer()
