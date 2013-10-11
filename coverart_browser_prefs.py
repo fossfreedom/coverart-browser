@@ -520,6 +520,13 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
                 self.settings[gs.PluginKey.DISPLAY_TEXT_POS] = True
             else:
                 self.settings[gs.PluginKey.DISPLAY_TEXT_POS] = False
+                self.settings[gs.PluginKey.ADD_SHADOW] = False
+                
+    def on_add_shadow_checkbox_toggled(self, button):
+        if button.get_active():
+            #gs = GSetting()
+            #self.settings[gs.PluginKey.DISPLAY_TEXT_POS] = True
+            self.display_text_under_radiobutton.set_active(True)
 
     def rating_changed_callback(self, stars):
         print("rating_changed_callback")
