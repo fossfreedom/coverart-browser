@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-18 15:41+0100\n"
-"PO-Revision-Date: 2013-08-26 10:27+0000\n"
+"PO-Revision-Date: 2013-10-12 19:28+0000\n"
 "Last-Translator: Rashid Aliyev <Unknown>\n"
 "Language-Team: Azerbaijani <az@li.org>\n"
-"Language: az\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-08-26 15:32+0000\n"
-"X-Generator: Launchpad (build 16738)\n"
+"X-Launchpad-Export-Date: 2013-10-13 18:40+0000\n"
+"X-Generator: Launchpad (build 16799)\n"
+"Language: az\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 msgid "Search Options"
@@ -339,6 +339,8 @@ msgid ""
 "Ellipsizes the albums names to a fixed length when the display text option "
 "is enabled."
 msgstr ""
+"Mətni göstərmə seçənəyi aktiv olduqda albomların adlarını təyin olunmuş "
+"uzunluqda qısald."
 
 #: tmp/coverart_browser_prefs.ui.h:28
 msgid "Maximum allowed length for an album's name before being ellipsized."
@@ -699,7 +701,7 @@ msgstr "Hamısı"
 
 #: coverart_browser_source.py:621
 msgid "The number of albums to randomly play is less than that displayed."
-msgstr ""
+msgstr "Qraışıq oxunacaq albomların sayı göstərildiyindən azdır."
 
 #: coverart_browser_source.py:701
 #, python-format
@@ -711,6 +713,8 @@ msgid ""
 "Please install and activate the latest version of the Coverart Search "
 "Providers plugin"
 msgstr ""
+"Coverart Axtarış Təmsilçisi qoşmasının yeni versiyasını yenidən yaz və "
+"aktivləşdir."
 
 #. . TRANSLATORS - the number of albums that have been selected/highlighted
 #: coverart_browser_source.py:937
