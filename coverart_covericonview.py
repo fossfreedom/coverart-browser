@@ -82,7 +82,7 @@ class CellRendererThumb(Gtk.CellRendererPixbuf):
             wi, he = pango_layout.get_pixel_size()
         
         #RECTANGLE
-        alpha = 0.65
+        alpha = 0.40
         
         if((flags & Gtk.CellRendererState.PRELIT) == Gtk.CellRendererState.PRELIT):
             alpha -= 0.15
