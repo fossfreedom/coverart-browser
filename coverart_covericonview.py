@@ -25,6 +25,7 @@ from gi.repository import Gio
 from gi.repository import Pango
 from gi.repository import PangoCairo
 from gi.repository import GdkPixbuf
+from gi.repository import RB
 from gi.repository.GdkPixbuf import Pixbuf
 from coverart_widgets import EnhancedIconView
 from coverart_external_plugins import CreateExternalPluginMenu
@@ -34,7 +35,8 @@ from coverart_widgets import AbstractView
 import coverart_rb3compat as rb3compat 
 import rb
 
-ICON_LARGE_PIXELSIZE = 180
+PLAY_SIZE_X = 30
+PLAY_SIZE_Y = 30
 
 class CellRendererThumb(Gtk.CellRendererPixbuf):
     markup=GObject.property(type=str, default="")
@@ -44,6 +46,9 @@ class CellRendererThumb(Gtk.CellRendererPixbuf):
         self.font_description = font_description
         self.cell_area_source = cell_area_source
         ypad = 0
+        filename = RB.find_user_data_file('plugins/coverart_browser/img/button_play.png')
+        self.play_pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(filename, 
+            PLAY_SIZE_X, PLAY_SIZE_Y)
         
     def do_render(self, cr, widget,  
                 background_area,
@@ -58,6 +63,21 @@ class CellRendererThumb(Gtk.CellRendererPixbuf):
         #IMAGE
         Gdk.cairo_set_source_pixbuf(cr, self.props.pixbuf, x_offset, y_offset)
         cr.paint()
+        
+        alpha = 0.40
+        
+        if((flags & Gtk.CellRendererState.PRELIT) == Gtk.CellRendererState.PRELIT):
+            alpha -= 0.15
+            
+            if hasattr(Gtk.IconView, "get_cell_rect"):
+                # this only works on Gtk+3.4 and later
+                Gdk.cairo_set_source_pixbuf(cr, self.play_pixbuf, x_offset, y_offset)
+                cr.paint()
+        
+        #if((flags & Gtk.CellRendererState.SELECTED) == Gtk.CellRendererState.SELECTED or \
+        #   (flags & Gtk.CellRendererState.FOCUSED) == Gtk.CellRendererState.FOCUSED):
+        #    alpha -= 0.15
+        
         
         if not(self.cell_area_source.display_text and self.cell_area_source.display_text_pos==False):
             return
@@ -82,15 +102,6 @@ class CellRendererThumb(Gtk.CellRendererPixbuf):
             wi, he = pango_layout.get_pixel_size()
         
         #RECTANGLE
-        alpha = 0.40
-        
-        if((flags & Gtk.CellRendererState.PRELIT) == Gtk.CellRendererState.PRELIT):
-            alpha -= 0.15
-        
-        if((flags & Gtk.CellRendererState.SELECTED) == Gtk.CellRendererState.SELECTED or \
-           (flags & Gtk.CellRendererState.FOCUSED) == Gtk.CellRendererState.FOCUSED):
-            alpha -= 0.15
-        
         cr.set_source_rgba(0.0, 0.0, 0.0, alpha)
         cr.set_line_width(0)
         cr.rectangle(x_offset, 
@@ -145,12 +156,6 @@ class AlbumArtCellArea(Gtk.CellAreaBox):
         setting.bind(gs.PluginKey.DISPLAY_TEXT, self, 'display-text',
             Gio.SettingsBindFlags.GET)
             
-        
-    #def get_preferred_width(self, context,
-    #                              widget):
-    #    retval =  ICON_LARGE_PIXELSIZE + 1                                    
-    #    return retval, retval
-
 class AlbumShowingPolicy(GObject.Object):
     '''
     Policy that mostly takes care of how and when things should be showed on
@@ -312,7 +317,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
             self._activate_markup)
         self.connect('notify::display-text-pos',
             self._activate_markup)
-
+                
     def get_view_icon_name(self):
         return "iconview.png"
 
@@ -418,6 +423,27 @@ class CoverIconView(EnhancedIconView, AbstractView):
             widget.stop_emission_by_name('drag-begin')
         else:
             widget.stop_emission('drag-begin')
+            
+    def _cover_play_click(self, cursor_x, cursor_y, path):
+        if path and hasattr(self, "get_cell_rect"):
+            valid, rect = self.get_cell_rect(path, None)
+            
+            c_x = cursor_x - rect.x
+            c_y = cursor_y - rect.y
+            
+            if  c_x < PLAY_SIZE_X and \
+                c_y < PLAY_SIZE_Y and \
+                c_x > (self.icon_padding + self.icon_spacing) and \
+                c_y > (self.icon_padding + self.icon_spacing):
+                
+                # play selected album ... just need a short interval
+                # for the selection event to kick in first
+                Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
+                    self.source.play_selected_album, None)
+                
+                return True
+                
+        return False
 
     def item_clicked_callback(self, iconview, event, path):
         '''
@@ -425,6 +451,11 @@ class CoverIconView(EnhancedIconView, AbstractView):
         Along with source "show_hide_pane", takes care of showing/hiding the bottom
         pane after a second click on a selected album.
         '''
+        
+        # first test if we've clicked on the cover-play icon
+        if self._cover_play_click(event.x, event.y, path):
+            return
+            
         # to expand the entry view
         ctrl = event.state & Gdk.ModifierType.CONTROL_MASK
         shift = event.state & Gdk.ModifierType.SHIFT_MASK
