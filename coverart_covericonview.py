@@ -70,7 +70,7 @@ class CellRendererThumb(Gtk.CellRendererPixbuf):
             alpha -= 0.15
             
             if hasattr(Gtk.IconView, "get_cell_rect"):
-                # this only works on Gtk+3.4 and later
+                # this only works on Gtk+3.6 and later
                 Gdk.cairo_set_source_pixbuf(cr, self.play_pixbuf, x_offset, y_offset)
                 cr.paint()
         
@@ -426,6 +426,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
             
     def _cover_play_click(self, cursor_x, cursor_y, path):
         if path and hasattr(self, "get_cell_rect"):
+            # get_cell_rect only exists in Gtk+3.6 and later
             valid, rect = self.get_cell_rect(path, None)
             
             c_x = cursor_x - rect.x

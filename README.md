@@ -20,6 +20,7 @@ Browse your coverart albums in Rhythmbox v2.96 and later
 
 ##Summary: whats new in this release
 
+ - single click play for O/S's using GTK+3.6 or later
  - new lighter icon-theme from the brilliant designer - jrbastien
  - Optional export and embed coverart from most file-formats to MP3.
  - Remember quick artist filter between rhythmbox sessions
