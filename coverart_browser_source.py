@@ -124,7 +124,7 @@ class CoverArtBrowserSource(RB.Source):
             try:
                 # this will only work for RB3.0 and later
                 if progress < 1:
-                    if self.task_progress.props.task_outcome != RB.TaskOutcome.COMPLETE:
+                    if self.props.shell.props.task_list.get_model().n_items() == 0:
                         self.props.shell.props.task_list.add_task(self.task_progress)
             
                     self.task_progress.props.task_progress = progress
