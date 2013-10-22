@@ -94,8 +94,7 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         # lets assume that python3 versions of RB only has the new icon attribute in the source
         if rb3compat.PYVER >=3:
                 iconfile = Gio.File.new_for_path(
-                    rb.find_plugin_file(self, 'img/' + Theme(self).current\
-                    + '/covermgr.png'))
+                    rb.find_plugin_file(self, 'img/covermgr.png'))
                     
                 self.source = CoverArtBrowserSource(
                         shell=self.shell,
@@ -107,8 +106,7 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         else:
                 what, width, height = Gtk.icon_size_lookup(Gtk.IconSize.LARGE_TOOLBAR)
                 pxbf = GdkPixbuf.Pixbuf.new_from_file_at_size(
-                    rb.find_plugin_file(self, 'img/' + Theme(self).current\
-                    + '/covermgr.png'), width, height)
+                    rb.find_plugin_file(self, 'img/covermgr.png'), width, height)
 
                 self.source = CoverArtBrowserSource(
                         shell=self.shell,
