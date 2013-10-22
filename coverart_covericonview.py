@@ -49,6 +49,9 @@ class CellRendererThumb(Gtk.CellRendererPixbuf):
         filename = RB.find_user_data_file('plugins/coverart_browser/img/button_play.png')
         self.play_pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(filename, 
             PLAY_SIZE_X, PLAY_SIZE_Y)
+        filename = RB.find_user_data_file('plugins/coverart_browser/img/button_play_hover.png')
+        self.play_pixbuf_hover = GdkPixbuf.Pixbuf.new_from_file_at_size(filename, 
+            PLAY_SIZE_X, PLAY_SIZE_Y)
         
     def do_render(self, cr, widget,  
                 background_area,
@@ -71,7 +74,11 @@ class CellRendererThumb(Gtk.CellRendererPixbuf):
             
             if hasattr(Gtk.IconView, "get_cell_rect"):
                 # this only works on Gtk+3.6 and later
-                Gdk.cairo_set_source_pixbuf(cr, self.play_pixbuf, x_offset, y_offset)
+                if self.cell_area_source.is_hover:
+                    pixbuf = self.play_pixbuf_hover
+                else:
+                    pixbuf = self.play_pixbuf
+                Gdk.cairo_set_source_pixbuf(cr, pixbuf, x_offset, y_offset)
                 cr.paint()
         
         #if((flags & Gtk.CellRendererState.SELECTED) == Gtk.CellRendererState.SELECTED or \
@@ -126,6 +133,8 @@ class AlbumArtCellArea(Gtk.CellAreaBox):
     cover_size = GObject.property(type=int, default=0)
     display_text_pos = GObject.property(type=bool, default=False)
     display_text = GObject.property(type=bool, default=False)
+    is_hover = GObject.property(type=bool, default=False)
+    
     
     def __init__(self, ):
         super(AlbumArtCellArea, self).__init__()
@@ -275,6 +284,9 @@ class CoverIconView(EnhancedIconView, AbstractView):
 
         # set the model to the view
         self.set_model(self.album_manager.model.store)
+        
+        # setup view to monitor mouse movements
+        self.add_events(Gdk.EventMask.POINTER_MOTION_MASK)
 
         self._connect_properties()
         self._connect_signals()
@@ -317,6 +329,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
             self._activate_markup)
         self.connect('notify::display-text-pos',
             self._activate_markup)
+        self.connect("motion-notify-event", self.on_pointer_motion)
                 
     def get_view_icon_name(self):
         return "iconview.png"
@@ -424,7 +437,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
         else:
             widget.stop_emission('drag-begin')
             
-    def _cover_play_click(self, cursor_x, cursor_y, path):
+    def _cover_play_hotspot(self, cursor_x, cursor_y, path):
         if path and hasattr(self, "get_cell_rect"):
             # get_cell_rect only exists in Gtk+3.6 and later
             valid, rect = self.get_cell_rect(path, None)
@@ -437,15 +450,18 @@ class CoverIconView(EnhancedIconView, AbstractView):
                 c_x > (self.icon_padding + self.icon_spacing) and \
                 c_y > (self.icon_padding + self.icon_spacing):
                 
-                # play selected album ... just need a short interval
-                # for the selection event to kick in first
-                Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
-                    self.source.play_selected_album, None)
-                
                 return True
                 
         return False
-
+        
+    def on_pointer_motion(self, widget, event):
+        path = self.get_path_at_pos(event.x, event.y)
+        hover = False
+        if self._cover_play_hotspot(event.x, event.y, path):
+            hover = True
+            
+        self.props.cell_area.is_hover = hover
+        
     def item_clicked_callback(self, iconview, event, path):
         '''
         Callback called when the user clicks somewhere on the cover_view.
@@ -454,7 +470,11 @@ class CoverIconView(EnhancedIconView, AbstractView):
         '''
         
         # first test if we've clicked on the cover-play icon
-        if self._cover_play_click(event.x, event.y, path):
+        if self._cover_play_hotspot(event.x, event.y, path):
+            # play selected album ... just need a short interval
+            # for the selection event to kick in first
+            Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
+                self.source.play_selected_album, None)
             return
             
         # to expand the entry view
