@@ -234,6 +234,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
         self.show_policy = AlbumShowingPolicy(self)
         self.view = self
         self._has_initialised = False
+        self._last_play_path = None
         #self.props.cell_area = AlbumArtCellArea() # this works in Saucy but not in 12.04 - define in the super above
         
     def initialise(self, source):
@@ -280,7 +281,9 @@ class CoverIconView(EnhancedIconView, AbstractView):
         
         self.hover_pixbufs = {
             'button_play':None, 
-            'button_play_hover':None }
+            'button_play_hover':None,
+            'button_playpause':None,
+            'button_playpause_hover':None }
             
         for pixbuf_type in self.hover_pixbufs:
             filename = 'img/' + pixbuf_type + '.png'
@@ -456,9 +459,22 @@ class CoverIconView(EnhancedIconView, AbstractView):
         
     def on_pointer_motion(self, widget, event):
         path = self.get_path_at_pos(event.x, event.y)
-        hover = self.hover_pixbufs['button_play']
+        (_, playing) = self.shell.props.shell_player.get_playing()
+        
+        if playing and not self._last_play_path:
+            entry = self.shell.props.shell_player.get_playing_entry()
+            album = self.album_manager.model.get_from_dbentry(entry)
+            self._last_play_path = self.album_manager.model.get_path(album)
+            
+        if playing and self._last_play_path == path:
+            icon = 'button_playpause'
+        else:
+            icon = 'button_play'
+            
         if self._cover_play_hotspot(event.x, event.y, path):
-            hover = self.hover_pixbufs['button_play_hover']
+            icon = icon + '_hover'
+            
+        hover = self.hover_pixbufs[icon]
             
         self.props.cell_area.hover_pixbuf = hover
         
@@ -471,10 +487,44 @@ class CoverIconView(EnhancedIconView, AbstractView):
         
         # first test if we've clicked on the cover-play icon
         if self._cover_play_hotspot(event.x, event.y, path):
+            (_, playing) = self.shell.props.shell_player.get_playing()
+            
+            # first see if anything is playing...
+            if playing:
+                entry = self.shell.props.shell_player.get_playing_entry()
+                album = self.album_manager.model.get_from_dbentry(entry)
+            
+                # if the current playing entry corresponds to the album
+                # we are hovering over then we are requesting to pause
+                if self.album_manager.model.get_from_path(path) == album:
+                    self._last_play_path = path
+                    self.shell.props.shell_player.pause()
+                    self.on_pointer_motion(self, event)
+                    return
+            
+            # if we are not playing and the last thing played is what
+            # we are still hovering over then we must be requesting to play
+            
+            if self._last_play_path and self._last_play_path == path:
+                self.shell.props.shell_player.play()
+                self.on_pointer_motion(self, event)
+                return
+                
+            # otherwise, this must be a new album so we are asking just
+            # to play this new album
+            
+            self._last_play_path = path
+                    
             # play selected album ... just need a short interval
             # for the selection event to kick in first
+            def delay(*args):
+                self.source.play_selected_album()
+                self.props.cell_area.hover_pixbuf= \
+                        self.hover_pixbufs['button_play_hover']
+                
             Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
-                self.source.play_selected_album, None)
+                delay, None)
+            
             return
             
         # to expand the entry view

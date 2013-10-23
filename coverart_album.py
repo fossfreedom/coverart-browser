@@ -809,6 +809,19 @@ class AlbumsModel(GObject.Object):
         :param album_name: `str` name of the album.
         '''
         return self._iters[album_name][album_artist]['album']
+        
+    def get_from_dbentry(self, entry):
+        '''
+        Returns the album containing the track corresponding to rhythmdbentry
+        
+        :param entry: `RhythmDBEntry`
+        '''
+        
+        album_artist = entry.get_string(RB.RhythmDBPropType.ALBUM_ARTIST)
+        album_artist = album_artist if album_artist else entry.get_string(RB.RhythmDBPropType.ARTIST)
+        album_name = entry.get_string(RB.RhythmDBPropType.ALBUM)
+        
+        return self._iters[album_name][album_artist]['album']
 
     def get_all(self):
         '''
