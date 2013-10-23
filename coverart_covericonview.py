@@ -46,12 +46,6 @@ class CellRendererThumb(Gtk.CellRendererPixbuf):
         self.font_description = font_description
         self.cell_area_source = cell_area_source
         ypad = 0
-        filename = RB.find_user_data_file('plugins/coverart_browser/img/button_play.png')
-        self.play_pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(filename, 
-            PLAY_SIZE_X, PLAY_SIZE_Y)
-        filename = RB.find_user_data_file('plugins/coverart_browser/img/button_play_hover.png')
-        self.play_pixbuf_hover = GdkPixbuf.Pixbuf.new_from_file_at_size(filename, 
-            PLAY_SIZE_X, PLAY_SIZE_Y)
         
     def do_render(self, cr, widget,  
                 background_area,
@@ -72,13 +66,10 @@ class CellRendererThumb(Gtk.CellRendererPixbuf):
         if((flags & Gtk.CellRendererState.PRELIT) == Gtk.CellRendererState.PRELIT):
             alpha -= 0.15
             
-            if hasattr(Gtk.IconView, "get_cell_rect"):
+            if hasattr(Gtk.IconView, "get_cell_rect") and self.cell_area_source.hover_pixbuf:
                 # this only works on Gtk+3.6 and later
-                if self.cell_area_source.is_hover:
-                    pixbuf = self.play_pixbuf_hover
-                else:
-                    pixbuf = self.play_pixbuf
-                Gdk.cairo_set_source_pixbuf(cr, pixbuf, x_offset, y_offset)
+                Gdk.cairo_set_source_pixbuf(cr, 
+                    self.cell_area_source.hover_pixbuf, x_offset, y_offset)
                 cr.paint()
         
         #if((flags & Gtk.CellRendererState.SELECTED) == Gtk.CellRendererState.SELECTED or \
@@ -133,8 +124,7 @@ class AlbumArtCellArea(Gtk.CellAreaBox):
     cover_size = GObject.property(type=int, default=0)
     display_text_pos = GObject.property(type=bool, default=False)
     display_text = GObject.property(type=bool, default=False)
-    is_hover = GObject.property(type=bool, default=False)
-    
+    hover_pixbuf = GObject.property(type=object, default=None)
     
     def __init__(self, ):
         super(AlbumArtCellArea, self).__init__()
@@ -287,7 +277,17 @@ class CoverIconView(EnhancedIconView, AbstractView):
         
         # setup view to monitor mouse movements
         self.add_events(Gdk.EventMask.POINTER_MOTION_MASK)
-
+        
+        self.hover_pixbufs = {
+            'button_play':None, 
+            'button_play_hover':None }
+            
+        for pixbuf_type in self.hover_pixbufs:
+            filename = 'img/' + pixbuf_type + '.png'
+            filename = rb.find_plugin_file(self.plugin, filename)
+            self.hover_pixbufs[pixbuf_type] = GdkPixbuf.Pixbuf.new_from_file_at_size(filename, 
+                PLAY_SIZE_X, PLAY_SIZE_Y)
+        
         self._connect_properties()
         self._connect_signals()
 
@@ -456,11 +456,11 @@ class CoverIconView(EnhancedIconView, AbstractView):
         
     def on_pointer_motion(self, widget, event):
         path = self.get_path_at_pos(event.x, event.y)
-        hover = False
+        hover = self.hover_pixbufs['button_play']
         if self._cover_play_hotspot(event.x, event.y, path):
-            hover = True
+            hover = self.hover_pixbufs['button_play_hover']
             
-        self.props.cell_area.is_hover = hover
+        self.props.cell_area.hover_pixbuf = hover
         
     def item_clicked_callback(self, iconview, event, path):
         '''
