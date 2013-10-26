@@ -235,6 +235,8 @@ class CoverIconView(EnhancedIconView, AbstractView):
         self.view = self
         self._has_initialised = False
         self._last_play_path = None
+        self._recheck_in_progress = False
+        self._current_hover_path = None
         #self.props.cell_area = AlbumArtCellArea() # this works in Saucy but not in 12.04 - define in the super above
         
     def initialise(self, source):
@@ -440,19 +442,22 @@ class CoverIconView(EnhancedIconView, AbstractView):
         else:
             widget.stop_emission('drag-begin')
             
-    def _cover_play_hotspot(self, cursor_x, cursor_y, path):
+    def _cover_play_hotspot(self, cursor_x, cursor_y, path, in_vacinity=False):
         if path and hasattr(self, "get_cell_rect"):
             # get_cell_rect only exists in Gtk+3.6 and later
             valid, rect = self.get_cell_rect(path, None)
             
             c_x = cursor_x - rect.x
             c_y = cursor_y - rect.y
-            
-            if  c_x < PLAY_SIZE_X and \
-                c_y < PLAY_SIZE_Y and \
+
+            sizing = (rect.width / 2) if in_vacinity else 0
+            if  c_x < (PLAY_SIZE_X + sizing) and \
+                c_y < (PLAY_SIZE_Y + sizing) and \
                 c_x > (self.icon_padding + self.icon_spacing) and \
                 c_y > (self.icon_padding + self.icon_spacing):
-                
+
+                print c_x
+                print c_y
                 return True
                 
         return False
@@ -471,13 +476,35 @@ class CoverIconView(EnhancedIconView, AbstractView):
         else:
             icon = 'button_play'
             
-        if self._cover_play_hotspot(event.x, event.y, path):
-            icon = icon + '_hover'
-            
-        hover = self.hover_pixbufs[icon]
-            
-        self.props.cell_area.hover_pixbuf = hover
+        def recheck_hotspot(path):        
+            if self._cover_play_hotspot(event.x, event.y, path, in_vacinity=True):
+                current_path = self.get_path_at_pos(event.x, event.y)
+                if current_path == path:
+                    self._current_hover_path = path
+                    
+            else:
+                self._current_hover_path = None
+                
+            self._recheck_in_progress = False
         
+        if self._cover_play_hotspot(event.x, event.y, path, in_vacinity=True):
+            if path == self._current_hover_path:
+                if self._cover_play_hotspot(event.x, event.y, path):
+                    icon = icon + '_hover'
+                        
+                hover = self.hover_pixbufs[icon]
+            else:
+                hover = None
+                if not self._recheck_in_progress:
+                    self._recheck_in_progress = True
+                    Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 500,
+                                recheck_hotspot, path)
+        else:
+            hover = None
+                    
+        self.props.cell_area.hover_pixbuf = hover
+    
+            
     def item_clicked_callback(self, iconview, event, path):
         '''
         Callback called when the user clicks somewhere on the cover_view.
