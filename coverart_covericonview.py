@@ -613,10 +613,15 @@ class CoverIconView(EnhancedIconView, AbstractView):
             # set the renderer
             self.pack_end(self._text_renderer, False)
             self.add_attribute(self._text_renderer,
-                'markup', AlbumsModel.columns['markup']) 
+                'markup', AlbumsModel.columns['markup'])
         elif self._text_renderer:
             # remove the cell renderer
             self.props.cell_area.remove(self._text_renderer)
+            
+        if self.display_text_enabled:
+            self.set_tooltip_column(-1) # turnoff tooltips
+        else:
+            self.set_tooltip_column(AlbumsModel.columns['tooltip'])
             
     def bottom_expander_expanded_callback(self, paned, expand):
         '''
