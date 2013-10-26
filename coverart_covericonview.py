@@ -456,8 +456,6 @@ class CoverIconView(EnhancedIconView, AbstractView):
                 c_x > (self.icon_padding + self.icon_spacing) and \
                 c_y > (self.icon_padding + self.icon_spacing):
 
-                print c_x
-                print c_y
                 return True
                 
         return False
@@ -497,7 +495,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
                 hover = None
                 if not self._recheck_in_progress:
                     self._recheck_in_progress = True
-                    Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 500,
+                    Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 450,
                                 recheck_hotspot, path)
         else:
             hover = None
