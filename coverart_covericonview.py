@@ -486,10 +486,10 @@ class CoverIconView(EnhancedIconView, AbstractView):
             self._recheck_in_progress = False
         
         if self._cover_play_hotspot(event.x, event.y, path, in_vacinity=True):
-            if path == self._current_hover_path:
-                if self._cover_play_hotspot(event.x, event.y, path):
-                    icon = icon + '_hover'
-                        
+            if self._cover_play_hotspot(event.x, event.y, path):
+                icon = icon + '_hover'
+                hover = self.hover_pixbufs[icon]
+            elif path == self._current_hover_path:
                 hover = self.hover_pixbufs[icon]
             else:
                 hover = None
