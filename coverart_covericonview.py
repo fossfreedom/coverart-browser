@@ -443,6 +443,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
             widget.stop_emission('drag-begin')
             
     def _cover_play_hotspot(self, cursor_x, cursor_y, path, in_vacinity=False):
+        return False # all of this doesnt work when the view is scrolled
         if path and hasattr(self, "get_cell_rect"):
             # get_cell_rect only exists in Gtk+3.6 and later
             valid, rect = self.get_cell_rect(path, None)
@@ -515,7 +516,6 @@ class CoverIconView(EnhancedIconView, AbstractView):
             hover = None
                     
         self.props.cell_area.hover_pixbuf = hover
-    
             
     def item_clicked_callback(self, iconview, event, path):
         '''
