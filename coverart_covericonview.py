@@ -442,15 +442,16 @@ class CoverIconView(EnhancedIconView, AbstractView):
         else:
             widget.stop_emission('drag-begin')
             
-    def _cover_play_hotspot(self, cursor_x, cursor_y, path, in_vacinity=False):
-        return False # all of this doesnt work when the view is scrolled
+    def _cover_play_hotspot(self, path, in_vacinity=False):
+        
         if path and hasattr(self, "get_cell_rect"):
             # get_cell_rect only exists in Gtk+3.6 and later
-            valid, rect = self.get_cell_rect(path, None)
+            valid, rect = self.get_cell_rect(path, None) # rect of widget coords
             
+            cursor_x, cursor_y = self.get_pointer() # returns widget coords
             c_x = cursor_x - rect.x
             c_y = cursor_y - rect.y
-
+            
             sizing = (rect.width / 2) if in_vacinity else 0
             if  c_x < (PLAY_SIZE_X + sizing) and \
                 c_y < (PLAY_SIZE_Y + sizing) and \
@@ -482,7 +483,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
             path = args[0]
             in_vacinity = args[1]
                     
-            if self._cover_play_hotspot(event.x, event.y, path, in_vacinity):
+            if self._cover_play_hotspot(path, in_vacinity):
                 current_path = self.get_path_at_pos(event.x, event.y)
                 if current_path == path:
                     self._current_hover_path = path
@@ -494,8 +495,8 @@ class CoverIconView(EnhancedIconView, AbstractView):
             self._calculate_hotspot(event)
             self.queue_draw()
         
-        if self._cover_play_hotspot(event.x, event.y, path, in_vacinity=True):
-            exact_hotspot = self._cover_play_hotspot(event.x, event.y, path)
+        if self._cover_play_hotspot(path, in_vacinity=True):
+            exact_hotspot = self._cover_play_hotspot(path)
             if path == self._current_hover_path:
                 if exact_hotspot:
                     icon = icon + '_hover'
@@ -525,7 +526,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
         '''
         
         # first test if we've clicked on the cover-play icon
-        if self._cover_play_hotspot(event.x, event.y, path):
+        if self._cover_play_hotspot(path):
             (_, playing) = self.shell.props.shell_player.get_playing()
             
             # first see if anything is playing...
