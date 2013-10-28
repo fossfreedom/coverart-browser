@@ -461,6 +461,9 @@ class CoverIconView(EnhancedIconView, AbstractView):
         return False
         
     def on_pointer_motion(self, widget, event):
+        self._calculate_hotspot(event)
+    
+    def _calculate_hotspot(self, event):
         path = self.get_path_at_pos(event.x, event.y)
         (_, playing) = self.shell.props.shell_player.get_playing()
         
@@ -474,8 +477,11 @@ class CoverIconView(EnhancedIconView, AbstractView):
         else:
             icon = 'button_play'
             
-        def recheck_hotspot(path):        
-            if self._cover_play_hotspot(event.x, event.y, path, in_vacinity=True):
+        def recheck_hotspot(args):
+            path = args[0]
+            in_vacinity = args[1]
+                    
+            if self._cover_play_hotspot(event.x, event.y, path, in_vacinity):
                 current_path = self.get_path_at_pos(event.x, event.y)
                 if current_path == path:
                     self._current_hover_path = path
@@ -484,19 +490,27 @@ class CoverIconView(EnhancedIconView, AbstractView):
                 self._current_hover_path = None
                 
             self._recheck_in_progress = False
+            self._calculate_hotspot(event)
+            self.queue_draw()
         
         if self._cover_play_hotspot(event.x, event.y, path, in_vacinity=True):
-            if self._cover_play_hotspot(event.x, event.y, path):
-                icon = icon + '_hover'
+            exact_hotspot = self._cover_play_hotspot(event.x, event.y, path)
+            if path == self._current_hover_path:
+                if exact_hotspot:
+                    icon = icon + '_hover'
                 hover = self.hover_pixbufs[icon]
-            elif path == self._current_hover_path:
-                hover = self.hover_pixbufs[icon]
+            elif exact_hotspot:
+                if not self._recheck_in_progress:
+                    self._recheck_in_progress = True
+                    Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 150,
+                                    recheck_hotspot, (path, False))
+                hover = None 
             else:
                 hover = None
                 if not self._recheck_in_progress:
                     self._recheck_in_progress = True
                     Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 450,
-                                recheck_hotspot, path)
+                                recheck_hotspot, (path, True))
         else:
             hover = None
                     
