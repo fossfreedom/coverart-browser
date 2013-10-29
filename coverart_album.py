@@ -390,8 +390,8 @@ class Album(GObject.Object):
         :param rating_threshold: `float` threshold over which the rating of the
             track should be to be returned.
         '''
-        if not rating_threshold or not self.rating:
-            # if no song has rating, or no threshold is set, return all
+        if not rating_threshold:
+            # if no threshold is set, return all
             tracks = self._tracks
         else:
             # otherwise, only return the entries over the threshold

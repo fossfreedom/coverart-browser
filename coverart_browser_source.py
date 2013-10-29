@@ -449,14 +449,15 @@ class CoverArtBrowserSource(RB.Source):
         print("CoverArtBrowser DEBUG - play_selected_album")
 
         query_model = RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
-        self.queue_selected_album(query_model)
+        self.queue_selected_album(query_model, favourites)
 
-        self.props.query_model = query_model
+        if len(query_model) > 0:
+            self.props.query_model = query_model
 
-        # Start the music
-        player = self.shell.props.shell_player
+            # Start the music
+            player = self.shell.props.shell_player
 
-        player.play_entry(query_model[0][0], self)
+            player.play_entry(query_model[0][0], self)
 
         print("CoverArtBrowser DEBUG - end play_selected_album")
 
@@ -469,15 +470,25 @@ class CoverArtBrowserSource(RB.Source):
 
         selected_albums = self.viewmgr.current_view.get_selected_objects()
         threshold = self.rating_threshold if favourites else 0
-        
+
+        total = 0        
         for album in selected_albums:
             # Retrieve and sort the entries of the album
             tracks = album.get_tracks(threshold)
-
+            total = total + len(tracks)
             # Add the songs to the play queue
             for track in tracks:
                 source.add_entry(track.entry, -1)
 
+        if total == 0 and threshold:
+            dialog = Gtk.MessageDialog(None,
+                Gtk.DialogFlags.MODAL,
+                Gtk.MessageType.INFO,
+                Gtk.ButtonsType.OK,
+                _("No tracks have been added because no tracks meet the favourite rating threshold"))
+
+            dialog.run()
+            dialog.destroy()
         print("CoverArtBrowser DEBUG - end queue_select_album")
 
     def play_album_menu_item_callback(self, *args):
@@ -591,14 +602,25 @@ class CoverArtBrowserSource(RB.Source):
 
         threshold = self.rating_threshold if favourites else 0
 
+        total = 0
         for album in selected_albums:
             # Retrieve and sort the entries of the album
             tracks = album.get_tracks(threshold)
-
+            total = total + len(tracks)
             # Add the songs to the play queue
             for track in tracks:
                 query_model.add_entry(track.entry, -1)
 
+        if total == 0 and threshold:
+            dialog = Gtk.MessageDialog(None,
+                Gtk.DialogFlags.MODAL,
+                Gtk.MessageType.INFO,
+                Gtk.ButtonsType.OK,
+                _("No tracks have been added because no tracks meet the favourite rating threshold"))
+
+            dialog.run()
+            dialog.destroy()
+            
         self.props.query_model = query_model
 
         # Start the music

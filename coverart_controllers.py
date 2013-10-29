@@ -443,7 +443,7 @@ class PropertiesMenuController(OptionsController):
         self.values[MenuNode('separator1', 'separator')] = ''
         self.values[MenuNode(_('Quick artist filter'), 'check', 
             (True if self.artist_paned_display else False))] = 'quick artist'
-        self.values[MenuNode(_('Queue and Play favourites'), 'check',
+        self.values[MenuNode(_('Use favourites only'), 'check',
             (True if self.favourites else False))] = 'favourite'
         self.values[MenuNode('separator2', 'separator')] = ''
         self.values[MenuNode(_('Browser Preferences'))] = 'browser prefs'
@@ -495,7 +495,7 @@ class PropertiesMenuController(OptionsController):
                 self.artist_paned_display = not self.artist_paned_display
                 
             
-            if self.current_key == _('Queue and Play favourites'):
+            if self.current_key == _('Use favourites only'):
                 self.favourites = not self.favourites
                         
             self._source.propertiesbutton_callback(self.values[key[0]])
