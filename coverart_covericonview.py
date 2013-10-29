@@ -558,7 +558,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
             # play selected album ... just need a short interval
             # for the selection event to kick in first
             def delay(*args):
-                self.source.play_selected_album()
+                self.source.play_selected_album(self.source.favourites)
                 self.props.cell_area.hover_pixbuf= \
                         self.hover_pixbufs['button_play_hover']
                 
@@ -585,7 +585,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
         Callback called when the cover view is double clicked or space-bar
         is pressed. It plays the selected album
         '''
-        self.source.play_selected_album()
+        self.source.play_selected_album(self.source.favourites)
 
         return True
 
