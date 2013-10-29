@@ -271,7 +271,7 @@ class CoverArtEntryView(RB.EntryView):
     def add_playlist_menu_item_callback(self, *args):
         print("CoverArtBrowser DEBUG - add_playlist_menu_item_callback")
         playlist_manager = self.shell.props.playlist_manager
-        playlist = playlist_manager.new_playlist('', False)
+        playlist = playlist_manager.new_playlist(_('New Playlist'), False)
 
         self.add_tracks_to_source(playlist)
 
