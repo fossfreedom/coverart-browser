@@ -32,6 +32,9 @@
     <glade-widget-class title="CoverIconView" name="CoverIconView" 
                         generic-name="CoverIconView" parent="GtkIconView"
                         icon-name="widget-gtk-iconview"/>
+    <glade-widget-class title="ArtistView" name="ArtistView" 
+                        generic-name="ArtistView" parent="GtkTreeView"
+                        icon-name="widget-gtk-treeview"/>
     <glade-widget-class title="PanedCollapsible" name="PanedCollapsible"
                         generic-name="PanedCollapsible" parent="GtkPaned"
                         icon-name="widget-gtk-paned"/>
@@ -49,5 +52,4 @@
      <glade-widget-class-ref name="EnhancedIconView"/>
      <glade-widget-class-ref name="PanedCollapsible"/>
    </glade-widget-group>
-
 </glade-catalog>

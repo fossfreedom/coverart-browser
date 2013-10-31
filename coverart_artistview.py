@@ -52,7 +52,7 @@ class ArtistShowingPolicy(GObject.Object):
         self._album_manager = album_manager
         self._model = album_manager.model
         
-class ArtistView(AbstractView):
+class ArtistView(Gtk.TreeView, AbstractView):
     __gtype_name__ = "ArtistView"
 
     name = 'artistview'
@@ -64,9 +64,31 @@ class ArtistView(AbstractView):
         self._external_plugins = None
         self.gs = GSetting()
         self.show_policy = ArtistShowingPolicy(self)
+        self.view = self
+        self._has_initialised = False
         
             
     def initialise(self, source):
+        if self._has_initialised:
+            return
+            
+        self._has_initialised = True
+
+        self.view_name = "artist_view"
+        self.source = source
+        self.plugin = source.plugin
+        self.shell = source.shell
+        self.album_manager = source.album_manager
+        self.ext_menu_pos = 6
+        
+        self._connect_properties()
+        self._connect_signals()
+        
+    def _connect_properties(self):
+        setting = self.gs.get_setting(self.gs.Path.PLUGIN)
+        pass
+        
+    def _connect_signals(self):
         pass
 
     def get_view_icon_name(self):

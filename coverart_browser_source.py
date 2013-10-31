@@ -979,8 +979,6 @@ class Toolbar(GObject.Object):
                 builder.get_object(button).controller = controller
 
         if not webkit_support():
-            button = builder.get_object('iconview_button')
-            button.set_visible(False)
             button = builder.get_object('flowview_button')
             button.set_visible(False)
             separator = builder.get_object('properties_separator')
@@ -1103,7 +1101,7 @@ class ToolbarManager(GObject.Object):
         
         controllers['iconview_button'] = viewmgr.controller
         controllers['flowview_button'] = viewmgr.controller
-        #controllers['artistview_button'] = viewmgr.controller
+        controllers['artistview_button'] = viewmgr.controller
 
         return controllers
 
@@ -1138,7 +1136,9 @@ class ViewManager(GObject.Object):
             'ui/coverart_iconview.ui'))
         self._views[CoverIconView.name] = ui.get_object('covers_view')
         self._views[CoverFlowView.name] = CoverFlowView()
-        self._views[ArtistView.name] = ArtistView()
+        ui.add_from_file(rb.find_plugin_file(source.plugin,
+            'ui/coverart_artistview.ui'))
+        self._views[ArtistView.name] = ui.get_object('artist_view')
         self._lastview = None
 
         self.controller = ViewController(source.plugin, self)
