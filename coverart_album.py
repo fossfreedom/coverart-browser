@@ -661,7 +661,7 @@ class AlbumsModel(GObject.Object):
 
         # create the filtered store that's used with the view
         self._filtered_store = self._tree_store.filter_new()
-        self._filtered_store.set_visible_column(4)
+        self._filtered_store.set_visible_column(AlbumsModel.columns['show'])
 
     @property
     def store(self):
