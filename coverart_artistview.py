@@ -172,14 +172,14 @@ class ArtistsModel(GObject.Object):
             
     def _generate_artist_values(self, artist):
         tooltip = artist.name
-        pixbuf = artist.cover.pixbuf
+        pixbuf = artist.cover.pixbuf.scale_simple(48,48,GdkPixbuf.InterpType.BILINEAR)
         hidden = self._artist_filter(artist)
 
         return tooltip, pixbuf, artist, hidden
     
     def _generate_album_values(self, album):
         tooltip = album.name
-        pixbuf = album.cover.pixbuf
+        pixbuf = album.cover.pixbuf.scale_simple(48,48,GdkPixbuf.InterpType.BILINEAR)
         hidden = True
 
         return tooltip, pixbuf, album, hidden
@@ -278,7 +278,22 @@ class ArtistsModel(GObject.Object):
 
             return True
 
+class ArtistCellRenderer(Gtk.CellRendererPixbuf):
+    
+    def __init__(self):
+        super(ArtistCellRenderer, self).__init__()
         
+    def do_render(self, cr, widget,  
+                background_area,
+                cell_area,
+                flags):
+        
+        newpix = self.props.pixbuf #.copy()
+        #newpix = newpix.scale_simple(48,48,GdkPixbuf.InterpType.BILINEAR)
+        
+        Gdk.cairo_set_source_pixbuf(cr, newpix, 0, 0)
+        cr.paint()
+    
 class ArtistLoader(GObject.Object):
     '''
     Loads Artists - updating the model accordingly.
@@ -300,7 +315,7 @@ class ArtistLoader(GObject.Object):
         self.cover_size = 128
         
         self.unknown_cover = Cover(self.cover_size, 
-            rb.find_plugin_file(artistmanager.plugin, 'img/rhythmbox-missing-artwork.svg'))
+            rb.find_plugin_file(artistmanager.plugin, 'img/microphone.png'))
         self.model = artistmanager.model
     
         artist_pview = None
@@ -409,15 +424,26 @@ class ArtistView(Gtk.TreeView, AbstractView):
         self._connect_signals()
         
         self.set_enable_tree_lines(True)
-        self.set_grid_lines(Gtk.TreeViewGridLines.BOTH)
+        #self.set_grid_lines(Gtk.TreeViewGridLines.BOTH)
+
+        pixbuf = Gtk.CellRendererPixbuf()
+        #pixbuf.set_fixed_size(48,48)
+        col = Gtk.TreeViewColumn('', pixbuf, pixbuf=1)
+        #col.set_cell_data_func(pixbuf, self._pixbuf_func, None)
+
+        self.append_column(col)
         
         col = Gtk.TreeViewColumn(_('Track Artist'), Gtk.CellRendererText(), text=0)
         col.set_expand(True)
-        
         self.append_column(col)
         
         self.artistmanager = ArtistManager(self.plugin, self, self.shell)
         self.set_model(self.artistmanager.model.store)
+        
+    def _pixbuf_func(self, col, cell, tree_model, tree_iter, data):
+        #new_pix = cell.props.pixbuf.copy()
+        #cell.props.pixbuf = new_pix.scale_simple(48,48,GdkPixbuf.InterpType.BILINEAR)
+        cell.props.pixbuf = tree_model.get_value(tree_iter, 1).scale_simple(48,48,GdkPixbuf.InterpType.BILINEAR)
         
     def _connect_properties(self):
         setting = self.gs.get_setting(self.gs.Path.PLUGIN)
