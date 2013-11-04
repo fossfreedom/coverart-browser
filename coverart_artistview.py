@@ -24,6 +24,7 @@ from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import Gio
 from gi.repository import GdkPixbuf
+from gi.repository import RB
 
 from coverart_browser_prefs import GSetting
 from coverart_album import Cover
@@ -87,19 +88,17 @@ class ArtistsModel(GObject.Object):
     '''
     # signals
     __gsignals__ = {
-        'generate-tooltip': (GObject.SIGNAL_RUN_LAST, str, (object,)),
-        'generate-markup': (GObject.SIGNAL_RUN_LAST, str, (object,)),
-        'album-updated': ((GObject.SIGNAL_RUN_LAST, None, (object, object))),
-        'visual-updated': ((GObject.SIGNAL_RUN_LAST, None, (object, object))),
-        'filter-changed': ((GObject.SIGNAL_RUN_FIRST, None, ()))
+        'update-path': (GObject.SIGNAL_RUN_LAST, None, (object,))
         }
 
     # list of columns names and positions on the TreeModel
     columns = {'tooltip': 0, 'pixbuf': 1, 'artist': 2, 'show': 3}
 
-    def __init__(self):
+    def __init__(self, album_manager):
         super(ArtistsModel, self).__init__()
 
+        self._connect_signals()
+        self.album_manager = album_manager
         self._iters = {}
         self._artists = SortedCollection(
             key=lambda artist: getattr(artist, 'name'))
@@ -117,6 +116,9 @@ class ArtistsModel(GObject.Object):
         self._filtered_store = self._tree_store.filter_new()
         self._filtered_store.set_visible_column(ArtistsModel.columns['show'])
 
+    def _connect_signals(self):
+        self.connect('update-path', self._on_update_path)
+        
     @property
     def store(self):
         return self._filtered_store
@@ -128,26 +130,59 @@ class ArtistsModel(GObject.Object):
         :param artist: `Artist` to be added to the model.
         '''
         # generate necessary values
-        values = self._generate_values(artist)
+        values = self._generate_artist_values(artist)
         # insert the values
-        x = values
-        print x
-        y = self._artists.insert(artist)
-        print y
-        
-        tree_iter = self._tree_store.insert(None,self._artists.insert(artist), values)
+        pos = self._artists.insert(artist)
+        tree_iter = self._tree_store.insert(None,pos, values)
+        child_iter = self._tree_store.insert(tree_iter, pos, values) # dummy child row so that the expand is available
         if not artist.name in self._iters:
             self._iters[artist.name] = {}
         self._iters[artist.name] = {'artist': artist,
-            'iter': tree_iter}
+            'iter': tree_iter, 'dummy_iter': child_iter}
         return tree_iter
+        
+    def _on_update_path(self, widget, treepath):
+        '''
+        Add an album to the artist in the model.
 
-    def _generate_values(self, artist):
+        :param artist: `Artist` for the album to be added to (i.e. the parent)
+        :param album: `Album` is the child of the Artist
+        
+        '''
+        artist = self.get_from_path(treepath)
+        albums = self.album_manager.model.get_all()
+        # get the artist iter
+        artist_iter = self._iters[artist.name]['iter']
+        
+        # now remove the dummy_iter - if this fails, we've removed this 
+        # before and have no need to add albums
+        
+        if 'dummy_iter' in self._iters[artist.name]:
+            self._iters[artist.name]['album'] = []
+            for album in albums:
+                if RB.search_fold(artist.name) in RB.search_fold(album.artists):
+                    # generate necessary values
+                    values = self._generate_album_values(album)
+                    # insert the values
+                    tree_iter = self._tree_store.append(artist_iter, values)
+                    self._iters[artist.name]['album'].append(tree_iter)
+                    
+            self._tree_store.remove(self._iters[artist.name]['dummy_iter'])
+            del self._iters[artist.name]['dummy_iter']
+            
+    def _generate_artist_values(self, artist):
         tooltip = artist.name
         pixbuf = artist.cover.pixbuf
         hidden = self._artist_filter(artist)
 
         return tooltip, pixbuf, artist, hidden
+    
+    def _generate_album_values(self, album):
+        tooltip = album.name
+        pixbuf = album.cover.pixbuf
+        hidden = True
+
+        return tooltip, pixbuf, album, hidden
 
     def remove(self, artist):
         '''
@@ -182,7 +217,7 @@ class ArtistsModel(GObject.Object):
 
         :param path: `Gtk.TreePath` referencing the artist.
         '''
-        return self._filtered_store[path][self.columns['album']]
+        return self._filtered_store[path][self.columns['artist']]
 
     def get_path(self, artist):
         return self._filtered_store.convert_child_path_to_path(
@@ -277,7 +312,8 @@ class ArtistLoader(GObject.Object):
         assert artist_pview, "cannot find artist property view"
 
         for row in artist_pview.get_model():
-            self.model.add(Artist(row[0], self.unknown_cover))
+            if row[0] != _('All'):
+                self.model.add(Artist(row[0], self.unknown_cover))
         
     def _connect_signals(self):
         # connect signals for updating the albums
@@ -307,7 +343,7 @@ class ArtistManager(GObject.Object):
         self.shell = shell
         self.plugin = plugin
 
-        self.model = ArtistsModel()
+        self.model = ArtistsModel(current_view.album_manager)
         self._loader = ArtistLoader(self)
         # connect signals
         self._connect_signals()
@@ -364,6 +400,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
 
         self.view_name = "artist_view"
         self.source = source
+        self.album_manager = source.album_manager
         self.plugin = source.plugin
         self.shell = source.shell
         self.ext_menu_pos = 6
@@ -386,7 +423,11 @@ class ArtistView(Gtk.TreeView, AbstractView):
         setting = self.gs.get_setting(self.gs.Path.PLUGIN)
         
     def _connect_signals(self):
-        pass
+        self.connect('row-activated', self._row_activated)
+        self.connect('row-expanded', self._row_activated)
+        
+    def _row_activated(self, treeview, treepath, treeviewcolumn):
+        self.artistmanager.model.emit('update-path', treepath)
 
     def get_view_icon_name(self):
         return "artistview.png"

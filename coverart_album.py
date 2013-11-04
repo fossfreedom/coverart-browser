@@ -865,7 +865,7 @@ class AlbumsModel(GObject.Object):
         return self._filtered_store.convert_child_path_to_path(
             self._tree_store.get_path(
                 self._iters[album.name][album.artist]['iter']))
-
+                
     def find_first_visible(self, filter_key, filter_arg, start=None,
             backwards=False):
         album_filter = AlbumFilters.keys[filter_key](filter_arg)
