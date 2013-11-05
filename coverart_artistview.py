@@ -28,6 +28,7 @@ from gi.repository import RB
 
 from coverart_browser_prefs import GSetting
 from coverart_album import Cover
+from coverart_album import Album
 from coverart_widgets import AbstractView
 from coverart_utils import SortedCollection
 import rb
@@ -213,7 +214,7 @@ class ArtistsModel(GObject.Object):
         
     def get_from_path(self, path):
         '''
-        Returns an artist referenced by a `Gtk.TreeModel` path.
+        Returns the Artist or Album referenced by a `Gtk.TreeModel` path.
 
         :param path: `Gtk.TreePath` referencing the artist.
         '''
@@ -419,6 +420,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
         self.plugin = source.plugin
         self.shell = source.shell
         self.ext_menu_pos = 6
+        self._lastalbum = None
         
         self._connect_properties()
         self._connect_signals()
@@ -450,10 +452,52 @@ class ArtistView(Gtk.TreeView, AbstractView):
         
     def _connect_signals(self):
         self.connect('row-activated', self._row_activated)
-        self.connect('row-expanded', self._row_activated)
+        self.connect('row-expanded', self._row_expanded)
+        self.connect('button-press-event', self._row_click)
+        
+    def _row_expanded(self, treeview, treeiter, treepath):
+        '''
+        event called when clicking the expand icon on the treeview
+        '''
+        self._row_activated(treeview, treepath, _)
         
     def _row_activated(self, treeview, treepath, treeviewcolumn):
-        self.artistmanager.model.emit('update-path', treepath)
-
+        '''
+        event called when double clicking on the tree-view or by keyboard ENTER
+        '''
+        active_object = self.artistmanager.model.get_from_path(treepath)
+        if isinstance(active_object, Artist):
+            self.artistmanager.model.emit('update-path', treepath)
+            self.expand_row(treepath, False)
+        else:
+            #we need to play this album
+            self._lastalbum = active_object
+            self.source.play_selected_album(self.source.favourites)
+            
+    def _row_click(self, widget, event):
+        '''
+        event called when clicking on a row
+        '''
+        
+        print event.button
+        treepath, treecolumn, cellx, celly = self.get_path_at_pos(event.x, event.y)
+        
+        if event.button == 1:
+            # on click
+            active_object = self.artistmanager.model.get_from_path(treepath)
+            if isinstance(active_object, Album):
+                self._lastalbum = active_object
+                self.source.update_with_selection()
+                Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
+                    self.source.show_hide_pane, active_object)
+        
     def get_view_icon_name(self):
         return "artistview.png"
+
+    def get_selected_objects(self):
+        '''
+        finds what has been selected
+
+        returns an array of `Album`
+        '''
+        return [self._lastalbum]
