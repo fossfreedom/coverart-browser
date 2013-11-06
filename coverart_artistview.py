@@ -31,6 +31,7 @@ from coverart_album import Cover
 from coverart_album import Album
 from coverart_widgets import AbstractView
 from coverart_utils import SortedCollection
+from coverart_widgets import PanedCollapsible
 import rb
 
 from collections import namedtuple
@@ -350,7 +351,7 @@ class ArtistManager(GObject.Object):
 
     # properties
     progress = GObject.property(type=float, default=0)
-
+    
     def __init__(self, plugin, current_view, shell):
         super(ArtistManager, self).__init__()
 
@@ -397,7 +398,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
 
     name = 'artistview'
     icon_automatic = GObject.property(type=bool, default=True)
-
+    panedposition = PanedCollapsible.Paned.COLLAPSE
 
     def __init__(self, *args, **kwargs):
         super(ArtistView, self).__init__(*args, **kwargs)
@@ -519,4 +520,11 @@ class ArtistView(Gtk.TreeView, AbstractView):
             if isinstance(active_object, Album):
                 return [active_object]
         
-        return None
+        return []
+        
+    def switch_to_view(self, source, album):
+        self.initialise(source)
+        self.show_policy.initialise(source.album_manager)
+        #if album:
+        #    path = source.album_manager.model.get_path(album)
+        #    self.select_and_scroll_to_path(path)

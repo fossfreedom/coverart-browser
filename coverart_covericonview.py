@@ -32,6 +32,7 @@ from coverart_external_plugins import CreateExternalPluginMenu
 from coverart_browser_prefs import GSetting
 from coverart_album import AlbumsModel
 from coverart_widgets import AbstractView
+from coverart_widgets import PanedCollapsible
 import coverart_rb3compat as rb3compat 
 import rb
 
@@ -222,6 +223,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
     display_text_enabled = GObject.property(type=bool, default=False)
     display_text_pos = GObject.property(type=bool, default=False)
     name = 'coverview'
+    panedposition = PanedCollapsible.Paned.COLLAPSE
 
     def __init__(self, *args, **kwargs):
         super(CoverIconView, self).__init__(cell_area=AlbumArtCellArea(), *args, **kwargs)
