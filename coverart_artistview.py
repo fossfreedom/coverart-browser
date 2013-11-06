@@ -84,7 +84,7 @@ class ArtistsModel(GObject.Object):
     The `Gtk.TreeModel` haves the following structure:
     column 0 -> string containing the artist name
     column 1 -> pixbuf of the artist's cover.
-    column 2 -> instance of the artist itself.
+    column 2 -> instance of the artist or album itself.
     column 3 -> boolean that indicates if the row should be shown
     '''
     # signals
@@ -93,7 +93,7 @@ class ArtistsModel(GObject.Object):
         }
 
     # list of columns names and positions on the TreeModel
-    columns = {'tooltip': 0, 'pixbuf': 1, 'artist': 2, 'show': 3}
+    columns = {'tooltip': 0, 'pixbuf': 1, 'artist_album': 2, 'show': 3}
 
     def __init__(self, album_manager):
         super(ArtistsModel, self).__init__()
@@ -138,7 +138,7 @@ class ArtistsModel(GObject.Object):
         child_iter = self._tree_store.insert(tree_iter, pos, values) # dummy child row so that the expand is available
         if not artist.name in self._iters:
             self._iters[artist.name] = {}
-        self._iters[artist.name] = {'artist': artist,
+        self._iters[artist.name] = {'artist_album': artist,
             'iter': tree_iter, 'dummy_iter': child_iter}
         return tree_iter
         
@@ -210,7 +210,7 @@ class ArtistsModel(GObject.Object):
 
         :param artist_name: `str` name of the artist.
         '''
-        return self._iters[artist]['artist']
+        return self._iters[artist]['artist_album']
         
     def get_from_path(self, path):
         '''
@@ -218,7 +218,7 @@ class ArtistsModel(GObject.Object):
 
         :param path: `Gtk.TreePath` referencing the artist.
         '''
-        return self._filtered_store[path][self.columns['artist']]
+        return self._filtered_store[path][self.columns['artist_album']]
 
     def get_path(self, artist):
         return self._filtered_store.convert_child_path_to_path(
@@ -396,6 +396,8 @@ class ArtistView(Gtk.TreeView, AbstractView):
     __gtype_name__ = "ArtistView"
 
     name = 'artistview'
+    icon_automatic = GObject.property(type=bool, default=True)
+
 
     def __init__(self, *args, **kwargs):
         super(ArtistView, self).__init__(*args, **kwargs)
@@ -420,10 +422,6 @@ class ArtistView(Gtk.TreeView, AbstractView):
         self.plugin = source.plugin
         self.shell = source.shell
         self.ext_menu_pos = 6
-        self._lastalbum = None
-        
-        self._connect_properties()
-        self._connect_signals()
         
         self.set_enable_tree_lines(True)
         #self.set_grid_lines(Gtk.TreeViewGridLines.BOTH)
@@ -442,6 +440,9 @@ class ArtistView(Gtk.TreeView, AbstractView):
         self.artistmanager = ArtistManager(self.plugin, self, self.shell)
         self.set_model(self.artistmanager.model.store)
         
+        self._connect_properties()
+        self._connect_signals()
+        
     def _pixbuf_func(self, col, cell, tree_model, tree_iter, data):
         #new_pix = cell.props.pixbuf.copy()
         #cell.props.pixbuf = new_pix.scale_simple(48,48,GdkPixbuf.InterpType.BILINEAR)
@@ -449,11 +450,14 @@ class ArtistView(Gtk.TreeView, AbstractView):
         
     def _connect_properties(self):
         setting = self.gs.get_setting(self.gs.Path.PLUGIN)
+        setting.bind(self.gs.PluginKey.ICON_AUTOMATIC, self,
+            'icon_automatic', Gio.SettingsBindFlags.GET)
         
     def _connect_signals(self):
         self.connect('row-activated', self._row_activated)
         self.connect('row-expanded', self._row_expanded)
         self.connect('button-press-event', self._row_click)
+        self.get_selection().connect('changed', self._selection_changed)
         
     def _row_expanded(self, treeview, treeiter, treepath):
         '''
@@ -471,7 +475,6 @@ class ArtistView(Gtk.TreeView, AbstractView):
             self.expand_row(treepath, False)
         else:
             #we need to play this album
-            self._lastalbum = active_object
             self.source.play_selected_album(self.source.favourites)
             
     def _row_click(self, widget, event):
@@ -481,18 +484,27 @@ class ArtistView(Gtk.TreeView, AbstractView):
         
         print event.button
         treepath, treecolumn, cellx, celly = self.get_path_at_pos(event.x, event.y)
-        
-        if event.button == 1:
+        active_object = self.artistmanager.model.get_from_path(treepath)
+            
+        if event.button == 1 and isinstance(active_object, Album):
             # on click
-            active_object = self.artistmanager.model.get_from_path(treepath)
-            if isinstance(active_object, Album):
-                self._lastalbum = active_object
-                self.source.update_with_selection()
+                    
+            # to expand the entry view
+            ctrl = event.state & Gdk.ModifierType.CONTROL_MASK
+            shift = event.state & Gdk.ModifierType.SHIFT_MASK
+
+            if self.icon_automatic:
+                self.source.click_count += 1 if not ctrl and not shift else 0
+
+            if self.source.click_count == 1:
                 Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
                     self.source.show_hide_pane, active_object)
-        
+            
     def get_view_icon_name(self):
         return "artistview.png"
+        
+    def _selection_changed(self, *args):
+        self.source.update_with_selection()
 
     def get_selected_objects(self):
         '''
@@ -500,4 +512,11 @@ class ArtistView(Gtk.TreeView, AbstractView):
 
         returns an array of `Album`
         '''
-        return [self._lastalbum]
+        selection = self.get_selection()
+        model, treeiter = selection.get_selected()
+        if treeiter:
+            active_object = model.get_value(treeiter,ArtistsModel.columns['artist_album'])
+            if isinstance(active_object, Album):
+                return [active_object]
+        
+        return None
