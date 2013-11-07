@@ -1,0 +1,882 @@
+# Korean translation for coverartbrowser
+# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# This file is distributed under the same license as the coverartbrowser package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: coverartbrowser\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-08-18 15:41+0100\n"
+"PO-Revision-Date: 2013-11-07 11:54+0000\n"
+"Last-Translator: Kim Boram <boramism@gmail.com>\n"
+"Language-Team: Korean <ko@li.org>\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2013-11-07 18:36+0000\n"
+"X-Generator: Launchpad (build 16820)\n"
+
+#: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
+msgid "Search Options"
+msgstr "검색 옵션"
+
+#: tmpl/albumartsearch-tmpl.html:187
+msgid "Tip: doubleclick or drag a cover to use it as the album cover"
+msgstr "팁: 앨범 표지로 사용할 이미지를 더블 클릭하거나 끌어 오십시오."
+
+#: tmpl/albumartsearch-tmpl.html:189
+msgid "Search Mode"
+msgstr "검색 모드"
+
+#: tmpl/albumartsearch-tmpl.html:191 coverart_browser_source.py:305
+msgid "Artist"
+msgstr "음악가"
+
+#: tmpl/albumartsearch-tmpl.html:192
+msgid "Album"
+msgstr "앨범"
+
+#: tmpl/albumartsearch-tmpl.html:193
+msgid "Artist and album"
+msgstr "음악가와 앨범"
+
+#: tmpl/albumartsearch-tmpl.html:196
+msgid "Search text"
+msgstr "텍스트 검색"
+
+#: tmpl/albumartsearch-tmpl.html:199
+msgid "Search"
+msgstr "검색"
+
+#: tmpl/albumartsearch-tmpl.html:201
+msgid "Image Size"
+msgstr "이미지 크기"
+
+#: tmpl/albumartsearch-tmpl.html:203
+msgid "Small"
+msgstr "작음"
+
+#: tmpl/albumartsearch-tmpl.html:204
+msgid "Medium"
+msgstr "보통"
+
+#: tmpl/albumartsearch-tmpl.html:205
+msgid "Large"
+msgstr "큼"
+
+#: tmpl/albumartsearch-tmpl.html:206
+msgid "Extra Large"
+msgstr "매우 큼"
+
+#: tmpl/albumartsearch-tmpl.html:211 coverart_browser_source.py:112
+msgid "Loading..."
+msgstr "불러오는 중..."
+
+#: tmpl/albumartsearch-tmpl.html:213
+msgid "Show more results"
+msgstr "더 많은 결과 보이기"
+
+#: tmp/coverart_browser.ui.h:1
+msgid "Tracks & Covers"
+msgstr "트랙과 표지"
+
+#: tmp/coverart_browser.ui.h:2
+msgid "Track Artist"
+msgstr "트랙 음악가"
+
+#: tmp/coverart_browser.ui.h:3
+msgid "Stop coverart fetch."
+msgstr "앨범 표지 가져오기 정지"
+
+#. initial genre
+#: tmp/coverart_topbar.ui.h:1 tmp/coverart_sidebar.ui.h:2
+#: coverart_controllers.py:215 coverart_controllers.py:267
+#: coverart_controllers.py:366
+msgid "All Genres"
+msgstr "모든 장르"
+
+#: tmp/coverart_topbar.ui.h:2 tmp/coverart_sidebar.ui.h:3
+#: coverart_controllers.py:485
+msgid "All Decades"
+msgstr "모든 기간"
+
+#. . TRANSLATORS: This is the icon-grid view that the user sees
+#. . TRANSLATORS: Please try to keep the translation to less than 8 characters
+#: tmp/coverart_topbar.ui.h:3 tmp/coverart_browser_prefs.ui.h:43
+#: tmp/coverart_sidebar.ui.h:4 coverart_browser.py:164
+msgid "Tiles"
+msgstr "타일"
+
+#. . TRANSLATORS: This is the cover-flow view the user sees - they can swipe album covers from side-to-side
+#. . TRANSLATORS: Please try to keep the translation to less than 8 characters
+#: tmp/coverart_topbar.ui.h:4 tmp/coverart_browser_prefs.ui.h:53
+#: tmp/coverart_sidebar.ui.h:5 coverart_browser.py:168
+msgid "Flow"
+msgstr "흐름"
+
+#: tmp/coverart_browser_pop_rb2.ui.h:1
+msgid "Play this album"
+msgstr "이 앨범 연주"
+
+#: tmp/coverart_browser_pop_rb2.ui.h:2 tmp/coverart_browser_pop_rb3.ui.h:1
+msgid "Play Album"
+msgstr "앨범 연주"
+
+#: tmp/coverart_browser_pop_rb2.ui.h:3
+msgid "Add this album to your playing queue"
+msgstr "연주 대기열에 이 앨범 추가"
+
+#: tmp/coverart_browser_pop_rb2.ui.h:4 tmp/coverart_browser_pop_rb3.ui.h:2
+msgid "Queue Album"
+msgstr "앨범 대기열에 추가"
+
+#: tmp/coverart_browser_pop_rb2.ui.h:5 tmp/coverart_entryview_pop_rb2.ui.h:5
+msgid "Add this album to a playlist"
+msgstr "연주 목록에 이 앨범 추가"
+
+#: tmp/coverart_browser_pop_rb2.ui.h:6 tmp/coverart_entryview_pop_rb2.ui.h:6
+#: tmp/coverart_browser_pop_rb3.ui.h:3 tmp/coverart_entryview_pop_rb3.ui.h:3
+msgid "Add to Playlist"
+msgstr "연주 목록에 추가"
+
+#: tmp/coverart_browser_pop_rb2.ui.h:7 tmp/coverart_entryview_pop_rb2.ui.h:7
+msgid "Add this album to a new playlist"
+msgstr "새 연주 목록에 이 앨범 추가"
+
+#: tmp/coverart_browser_pop_rb2.ui.h:8 tmp/coverart_entryview_pop_rb2.ui.h:8
+#: tmp/coverart_browser_pop_rb3.ui.h:4 tmp/coverart_entryview_pop_rb3.ui.h:4
+msgid "New Playlist"
+msgstr "새 연주 목록"
+
+#: tmp/coverart_browser_pop_rb2.ui.h:9
+msgid "Play favourites tracks from this album"
+msgstr "이 앨범에서 좋아하는 트랙 연주"
+
+#: tmp/coverart_browser_pop_rb2.ui.h:10 tmp/coverart_browser_pop_rb3.ui.h:5
+msgid "Play Favourites"
+msgstr "좋아하는 트랙 연주"
+
+#: tmp/coverart_browser_pop_rb2.ui.h:11
+msgid "Add favourite tracks from this album to your playing queue"
+msgstr "연주 대기열에 이 앨범에서 좋아하는 트랙 추가"
+
+#: tmp/coverart_browser_pop_rb2.ui.h:12 tmp/coverart_browser_pop_rb3.ui.h:6
+msgid "Queue Favourites"
+msgstr "좋아하는 트랙 대기열에 추가"
+
+#: tmp/coverart_browser_pop_rb2.ui.h:13
+msgid "Add favourite tracks from this album to a playlist"
+msgstr "연주 목록에 이 앨범에서 좋아하는 트랙 추가"
+
+#: tmp/coverart_browser_pop_rb2.ui.h:14 tmp/coverart_browser_pop_rb3.ui.h:7
+msgid "Add favourites to Playlist"
+msgstr "좋아하는 트랙 연주 목록에 추가"
+
+#: tmp/coverart_browser_pop_rb2.ui.h:15
+msgid "Search for this album cover"
+msgstr "이 앨범의 표지 검색"
+
+#: tmp/coverart_browser_pop_rb2.ui.h:16 tmp/coverart_browser_pop_rb3.ui.h:8
+msgid "Search for covers"
+msgstr "앨범 표지 검색"
+
+#: tmp/coverart_browser_pop_rb2.ui.h:17
+msgid "Export album tracks and embed coverart in track files"
+msgstr "앨범 트랙을 내보내고 트랙 파일에 앨범 표지 넣기"
+
+#: tmp/coverart_browser_pop_rb2.ui.h:18 tmp/coverart_browser_pop_rb3.ui.h:9
+msgid "Export and embed coverart"
+msgstr "트랙 내보낸 후 앨범 표지 넣기"
+
+#: tmp/coverart_browser_pop_rb2.ui.h:19
+msgid "Show album properties"
+msgstr "앨범 속성 보이기"
+
+#: tmp/coverart_entryview_pop_rb2.ui.h:1
+msgid "Play this track"
+msgstr "이 트랙 연주"
+
+#: tmp/coverart_entryview_pop_rb2.ui.h:2 tmp/coverart_entryview_pop_rb3.ui.h:1
+msgid "Play Track"
+msgstr "트랙 연주"
+
+#: tmp/coverart_entryview_pop_rb2.ui.h:3
+msgid "Add this track to your playing queue"
+msgstr "연주 대기열에 이 트랙 추가"
+
+#: tmp/coverart_entryview_pop_rb2.ui.h:4 tmp/coverart_entryview_pop_rb3.ui.h:2
+msgid "Queue Track"
+msgstr "트랙을 연주 대기열에 추가"
+
+#: tmp/coverart_entryview_pop_rb2.ui.h:9
+msgid "Show track properties"
+msgstr "트랙 속성 보이기"
+
+#: tmp/coverart_browser_pop_rb3.ui.h:10 tmp/coverart_entryview_pop_rb3.ui.h:5
+#: coverart_controllers.py:467
+msgid "Properties"
+msgstr "속성"
+
+#: tmp/coverart_browser_prefs.ui.h:1
+msgid "Select a picture"
+msgstr "그림 선택"
+
+#: tmp/coverart_browser_prefs.ui.h:2
+msgid "Select picture to add to Edit Genre icon drop-down list"
+msgstr "장르 편집 아이콘의 드록 다운 목록에 추가할 그림 선택"
+
+#: tmp/coverart_browser_prefs.ui.h:3
+msgid "Above"
+msgstr "위"
+
+#: tmp/coverart_browser_prefs.ui.h:4
+msgid "Top Left"
+msgstr "왼쪽 위"
+
+#: tmp/coverart_browser_prefs.ui.h:5
+msgid "Top Center"
+msgstr "위쪽 가운데"
+
+#: tmp/coverart_browser_prefs.ui.h:6
+msgid "Top Right"
+msgstr "오른쪽 위"
+
+#: tmp/coverart_browser_prefs.ui.h:7
+msgid "Above Cover View"
+msgstr "위쪽 표지 보기"
+
+#: tmp/coverart_browser_prefs.ui.h:8
+msgid "Left Sidebar"
+msgstr "왼쪽 가장자리 막대"
+
+#: tmp/coverart_browser_prefs.ui.h:9
+msgid "Right Sidebar"
+msgstr "왼쪽 가장자리 막대"
+
+#: tmp/coverart_browser_prefs.ui.h:10
+msgid "Automatically Start"
+msgstr "자동으로 시작"
+
+#: tmp/coverart_browser_prefs.ui.h:11
+msgid "When rhythmbox starts, switch automatically to the coverart browser."
+msgstr "리듬박스를 시작하면 자동으로 표지 찾아보기로 바꿉니다."
+
+#: tmp/coverart_browser_prefs.ui.h:12
+msgid "Use source's custom statusbar"
+msgstr "표지 찾아보기의 사용자 설정 상태 막대 사용"
+
+#: tmp/coverart_browser_prefs.ui.h:13
+msgid ""
+"Use the source's custom statusbar to show the current selected album's "
+"related information instead of the global Rhythmbox's statusbar."
+msgstr ""
+"리듬박스의 기본 상태 막대 대신 이 프로그램의 사용자 설정 상태 막대 사용하여 "
+"현재 선택한 앨범과 관련있는 정보를 표시합니다."
+
+#: tmp/coverart_browser_prefs.ui.h:14
+msgid "Display tracks and covers pane"
+msgstr "트랙과 표지 창 표시"
+
+#: tmp/coverart_browser_prefs.ui.h:15
+msgid ""
+"Add a toggle-option to the coverart view to display the tracks and covers "
+"for the chosen album"
+msgstr ""
+"표지 보기에 선택한 앨범의 트랙과 표지를 표시하고 끌 수 있는 옵션을 추가합니"
+"다."
+
+#: tmp/coverart_browser_prefs.ui.h:16
+msgid ""
+"Number of random\n"
+"albums to play"
+msgstr ""
+"임의로 연주할\n"
+"앨범의 숫자."
+
+#: tmp/coverart_browser_prefs.ui.h:18
+msgid "Level above which is regarded as being a favourite track or album"
+msgstr "이 단계 이상은 좋아하는 트랙이나 앨범으로 여깁니다."
+
+#: tmp/coverart_browser_prefs.ui.h:19
+msgid "Favourite Threshold"
+msgstr "좋아하는 항목의 최소 기준"
+
+#: tmp/coverart_browser_prefs.ui.h:20
+msgid "General"
+msgstr "일반"
+
+#: tmp/coverart_browser_prefs.ui.h:21
+msgid "Album Information"
+msgstr "앨범 정보"
+
+#: tmp/coverart_browser_prefs.ui.h:22
+msgid "Display album's info under cover"
+msgstr "표지 아래에 앨범 정보 표시"
+
+#: tmp/coverart_browser_prefs.ui.h:23
+msgid "Show the album's basic information under the cover image."
+msgstr "표지 이미지 아래에 앨범의 기본 정보 보이기"
+
+#: tmp/coverart_browser_prefs.ui.h:24
+msgid "Font size for the text below the cover-art."
+msgstr "앨범 표지 아래의 텍스트에 사용할 글꼴 크기."
+
+#: tmp/coverart_browser_prefs.ui.h:25
+msgid "Font Size:"
+msgstr "글꼴 크기:"
+
+#: tmp/coverart_browser_prefs.ui.h:26
+msgid "Ellipsize albums names"
+msgstr "앨범 이름 생략"
+
+#: tmp/coverart_browser_prefs.ui.h:27
+msgid ""
+"Ellipsizes the albums names to a fixed length when the display text option "
+"is enabled."
+msgstr "앨범 이름을 생략해 텍스트 옵션을 사용할 때 길이를 고정합니다."
+
+#: tmp/coverart_browser_prefs.ui.h:28
+msgid "Maximum allowed length for an album's name before being ellipsized."
+msgstr "생략하지 않을 앨범 이름의 최대 길이를 설정합니다."
+
+#: tmp/coverart_browser_prefs.ui.h:29
+msgid "Maximum length:"
+msgstr "최대 길이:"
+
+#: tmp/coverart_browser_prefs.ui.h:30
+msgid "Cover Appearance"
+msgstr "표지 모양"
+
+#: tmp/coverart_browser_prefs.ui.h:31
+msgid "Drop shadow"
+msgstr "그림자 넣기"
+
+#: tmp/coverart_browser_prefs.ui.h:32
+msgid "Indicates if the albums should drop a shadow on the cover view"
+msgstr "표지 보기를 사용할 때 표지에 그림자를 넣을지 설정합니다."
+
+#: tmp/coverart_browser_prefs.ui.h:33
+msgid "Light Source: "
+msgstr "빛 방향: "
+
+#: tmp/coverart_browser_prefs.ui.h:34
+msgid "Defines the size for the covers showed on the source."
+msgstr "원본에 보일 표지의 크기를 설정합니다."
+
+#: tmp/coverart_browser_prefs.ui.h:35
+msgid "Size (in pixels):"
+msgstr "크기(단위: 픽셀):"
+
+#: tmp/coverart_browser_prefs.ui.h:36
+msgid "Tracks Pane"
+msgstr "트랙 창"
+
+#: tmp/coverart_browser_prefs.ui.h:37
+msgid "open or close on click of cover"
+msgstr "표지를 클릭해 열거나 닫기"
+
+#: tmp/coverart_browser_prefs.ui.h:38
+msgid "Advanced Options"
+msgstr "고급 옵션"
+
+#: tmp/coverart_browser_prefs.ui.h:39
+msgid "Padding (space) around the cover and its highlight"
+msgstr "표지와 표지 강조 효과 주변에 추가할 여백"
+
+#: tmp/coverart_browser_prefs.ui.h:40
+msgid "Spacing between columns and rows"
+msgstr "열과 세로 줄 사이에 간격 두기"
+
+#: tmp/coverart_browser_prefs.ui.h:41
+msgid "Padding"
+msgstr "여백"
+
+#: tmp/coverart_browser_prefs.ui.h:42
+msgid "Spacing"
+msgstr "간격"
+
+#: tmp/coverart_browser_prefs.ui.h:44
+msgid "Flow Appearance"
+msgstr "흐름 모양"
+
+#: tmp/coverart_browser_prefs.ui.h:45
+msgid "Width (px):"
+msgstr "너비(단위: 픽셀):"
+
+#. . TRANSLATORS: percentage size that the image will be expanded
+#: tmp/coverart_browser_prefs.ui.h:47 coverart_browser.py:171
+#, no-c-format
+msgid "Scale by %:"
+msgstr "백분율로 크기 조정:"
+
+#: tmp/coverart_browser_prefs.ui.h:48
+msgid "Hide Caption"
+msgstr "설명 숨기기"
+
+#: tmp/coverart_browser_prefs.ui.h:49
+msgid "Maximum covers to display:"
+msgstr "표시할 표지의 수:"
+
+#: tmp/coverart_browser_prefs.ui.h:50
+msgid "Background Colour"
+msgstr "배경 색"
+
+#: tmp/coverart_browser_prefs.ui.h:51
+msgid "White"
+msgstr "흰색"
+
+#: tmp/coverart_browser_prefs.ui.h:52
+msgid "Black"
+msgstr "검정색"
+
+#: tmp/coverart_browser_prefs.ui.h:54
+msgid "Where the toolbar should be positioned"
+msgstr "도구 모음의 위치"
+
+#: tmp/coverart_browser_prefs.ui.h:55
+msgid "Position"
+msgstr "위치"
+
+#: tmp/coverart_browser_prefs.ui.h:56
+msgid "Show toolbar: "
+msgstr "도구 모음 보이기: "
+
+#: tmp/coverart_browser_prefs.ui.h:57
+msgid "Look & Feel"
+msgstr "모양"
+
+#: tmp/coverart_browser_prefs.ui.h:58
+msgid "Flat-button style"
+msgstr "평평한 단추 형식"
+
+#: tmp/coverart_browser_prefs.ui.h:59
+msgid "Icon Theme: "
+msgstr "아이콘 테마: "
+
+#: tmp/coverart_browser_prefs.ui.h:60
+msgid "Alternative Genres:"
+msgstr "대안 장르:"
+
+#: tmp/coverart_browser_prefs.ui.h:61
+msgid "Load New Icon: "
+msgstr "새 아이콘 불러오기: "
+
+#: tmp/coverart_browser_prefs.ui.h:62
+msgid "Select a new genre icon"
+msgstr "새 장르 아이콘 선택"
+
+#: tmp/coverart_browser_prefs.ui.h:63
+msgid "Edit Genre Details:"
+msgstr "장르의 자세한 내용 편집:"
+
+#: tmp/coverart_browser_prefs.ui.h:64
+msgid "Save changes"
+msgstr "내뀐 내용 저장"
+
+#: tmp/coverart_browser_prefs.ui.h:65
+msgid "Name:"
+msgstr "이름 :"
+
+#: tmp/coverart_browser_prefs.ui.h:66
+msgid "Icon:"
+msgstr "아이콘:"
+
+#: tmp/coverart_browser_prefs.ui.h:67
+msgid "Current user-defined Genres:"
+msgstr "현재 사용하는 사용자 지정 장르:"
+
+#: tmp/coverart_browser_prefs.ui.h:68
+msgid "Alternate Name"
+msgstr "대안 이름"
+
+#: tmp/coverart_browser_prefs.ui.h:69
+msgid "Icon"
+msgstr "아이콘"
+
+#: tmp/coverart_browser_prefs.ui.h:70
+msgid "Add a new alternative genre"
+msgstr "새 대안 장르 추가"
+
+#: tmp/coverart_browser_prefs.ui.h:71
+msgid "Delete an alternative genre"
+msgstr "대안 장르 삭제"
+
+#: tmp/coverart_browser_prefs.ui.h:72
+msgid "Toolbar"
+msgstr "도구 모음"
+
+#: tmp/coverart_exportembed.ui.h:1
+msgid "Choose folder to save tracks:"
+msgstr "트랙을 저장할 폴더 선택:"
+
+#: tmp/coverart_exportembed.ui.h:2
+msgid "Select a Folder to export to"
+msgstr "트랙을 내보낼 폴더 선택:"
+
+#: tmp/coverart_exportembed.ui.h:3
+msgid "Save tracks within folder using album name"
+msgstr "앨범 이름을 사용하는 폴더에 트랙 저장"
+
+#: tmp/coverart_exportembed.ui.h:4
+msgid "Open embedded track folder in file-manager"
+msgstr "내보낸 트랙을 파일 관리자로 열기"
+
+#: tmp/coverart_exportembed.ui.h:5
+msgid ""
+"Tip: Drag and Drop exported tracks from file-manager to a playlist or "
+"telephone/other device"
+msgstr ""
+"팁: 파일 관리자에서 내보낼 트랙을 연주 목록이나 스마트폰 등의 장치에 끌어 놓"
+"으십시오."
+
+#: tmp/coverart_sidebar.ui.h:1 coverart_browser.py:102 coverart_browser.py:115
+msgid "CoverArt"
+msgstr "앨범 표지"
+
+#: tmp/popups.xml.in.h:1
+msgid "rock"
+msgstr "락"
+
+#: tmp/popups.xml.in.h:2
+msgid "country"
+msgstr "컨츄리"
+
+#: tmp/popups.xml.in.h:3
+msgid "pop"
+msgstr "팝"
+
+#: tmp/popups.xml.in.h:4
+msgid "classical"
+msgstr "클래식"
+
+#: tmp/popups.xml.in.h:5
+msgid "world"
+msgstr "월드 뮤직"
+
+#: tmp/popups.xml.in.h:6
+msgid "bluegrass"
+msgstr "블루그래스"
+
+#: tmp/popups.xml.in.h:7
+msgid "oldies"
+msgstr "고전"
+
+#: tmp/popups.xml.in.h:8
+msgid "holiday"
+msgstr "홀리데이"
+
+#: tmp/popups.xml.in.h:9
+msgid "comedy"
+msgstr "코미디"
+
+#: tmp/popups.xml.in.h:10
+msgid "spoken"
+msgstr "이야기"
+
+#: tmp/popups.xml.in.h:11
+msgid "jazz"
+msgstr "재즈"
+
+#: tmp/popups.xml.in.h:12
+msgid "blues"
+msgstr "블루스"
+
+#: tmp/popups.xml.in.h:13
+msgid "metal"
+msgstr "메탈"
+
+#: tmp/popups.xml.in.h:14
+msgid "karaoke"
+msgstr "가라오케"
+
+#: tmp/popups.xml.in.h:15
+msgid "rap"
+msgstr "랩"
+
+#: tmp/popups.xml.in.h:16
+msgid "ragtime"
+msgstr "래그타임"
+
+#: tmp/popups.xml.in.h:17
+msgid "musical"
+msgstr "뮤지컬"
+
+#: tmp/popups.xml.in.h:18
+msgid "dance"
+msgstr "댄스"
+
+#: tmp/popups.xml.in.h:19
+msgid "reggae"
+msgstr "레게"
+
+#: tmp/popups.xml.in.h:20
+msgid "electronic"
+msgstr "일렉트로닉"
+
+#: tmp/popups.xml.in.h:21
+msgid "soundtrack"
+msgstr "사운드트랙"
+
+#: tmp/popups.xml.in.h:22
+msgid "latin"
+msgstr "라틴"
+
+#: tmp/popups.xml.in.h:23
+msgid "alternative"
+msgstr "얼터너티브"
+
+#: tmp/popups.xml.in.h:24
+msgid "disco"
+msgstr "디스코"
+
+#: tmp/popups.xml.in.h:25
+msgid "folk"
+msgstr "포크"
+
+#: tmp/popups.xml.in.h:26
+msgid "gospel"
+msgstr "가스펠"
+
+#: tmp/popups.xml.in.h:27
+msgid "experimental"
+msgstr "실험 음악"
+
+#: tmp/popups.xml.in.h:28
+msgid "new age"
+msgstr "뉴에이지"
+
+#: tmp/popups.xml.in.h:29
+msgid "opera"
+msgstr "오페라"
+
+#: tmp/popups.xml.in.h:30
+msgid "anime"
+msgstr "애니메이션 음악"
+
+#: tmp/popups.xml.in.h:31
+msgid "soul"
+msgstr "소울"
+
+#: tmp/popups.xml.in.h:32
+msgid "workout"
+msgstr "운동"
+
+#: tmp/popups.xml.in.h:33
+msgid "easy listening"
+msgstr "이지 리스닝"
+
+#: tmp/popups.xml.in.h:34
+msgid "hip-hop"
+msgstr "힙합"
+
+#: tmp/popups.xml.in.h:35
+msgid "children"
+msgstr "아동"
+
+#. . TRANSLATORS - for example "abba's greatest hits by ABBA"
+#: coverart_album.py:1604 coverart_browser_source.py:933
+#, python-format
+msgid "%s by %s"
+msgstr "%s / %s"
+
+#: coverart_browser_source.py:265
+msgid "Tracks"
+msgstr "트랙"
+
+#: coverart_browser_source.py:276
+msgid "Covers"
+msgstr "표지"
+
+#. . TRANSLATORS - "All" is used in the context of "All artist names"
+#: coverart_browser_source.py:347
+msgid "All"
+msgstr "모두"
+
+#: coverart_browser_source.py:621
+msgid "The number of albums to randomly play is less than that displayed."
+msgstr "임의로 연주할 앨범의 수는 표시한 것보다 적습니다."
+
+#: coverart_browser_source.py:701
+#, python-format
+msgid "Requesting cover for %s - %s..."
+msgstr "%s  - %s 표지 요청 중.."
+
+#: coverart_browser_source.py:857
+msgid ""
+"Please install and activate the latest version of the Coverart Search "
+"Providers plugin"
+msgstr ""
+"최신 버전의 앨범 표지 검색 제공처 플러그인을 설치한 후 사용하도록 설정해주십"
+"시오."
+
+#. . TRANSLATORS - the number of albums that have been selected/highlighted
+#: coverart_browser_source.py:937
+#, python-format
+msgid "%d selected albums"
+msgstr "선택한 앨범 %d개"
+
+#: coverart_browser_source.py:941
+msgid " with 1 track"
+msgstr " 트랙 %1개"
+
+#: coverart_browser_source.py:943
+#, python-format
+msgid " with %d tracks"
+msgstr " 트랙 %d개"
+
+#: coverart_browser_source.py:947
+msgid " and a duration of 1 minute"
+msgstr " 연주 시간 1분"
+
+#: coverart_browser_source.py:949
+#, python-format
+msgid " and a duration of %d minutes"
+msgstr " 연주 시간 %d분"
+
+#: coverart_controllers.py:382
+msgid "Sort by album name"
+msgstr "앨범 이름으로 정렬"
+
+#: coverart_controllers.py:383
+msgid "Sort by album artist"
+msgstr "앨범 음악가로 정렬"
+
+#: coverart_controllers.py:384
+msgid "Sort by year"
+msgstr "발매 연도로 정렬"
+
+#: coverart_controllers.py:385
+msgid "Sort by rating"
+msgstr "평점으로 정렬"
+
+#: coverart_controllers.py:432
+msgid "Download all covers"
+msgstr "표지를 모두 다운로드"
+
+#: coverart_controllers.py:433
+msgid "Play random album"
+msgstr "임의의 앨범 연주"
+
+#: coverart_controllers.py:434
+msgid "Play favourite random album"
+msgstr "임의의 앨범에서 좋아하는 곡 연주"
+
+#: coverart_controllers.py:436
+msgid "Quick artist filter"
+msgstr "빠른 음악가 검색"
+
+#: coverart_controllers.py:438 coverart_browser_prefs.py:245
+msgid "Browser Preferences"
+msgstr "찾아보기 기본 설정"
+
+#: coverart_controllers.py:439
+msgid "Search Preferences"
+msgstr "검색 기본 설정"
+
+#. '20s' as in the decade 2010
+#: coverart_controllers.py:487 coverart_controllers.py:513
+msgid "20s"
+msgstr "2010년대"
+
+#. '10s' as in the decade 2010
+#: coverart_controllers.py:489
+msgid "10s"
+msgstr "2010년대"
+
+#. '00s' as in the decade 2000
+#: coverart_controllers.py:491
+msgid "00s"
+msgstr "2000년대"
+
+#. '90s' as in the decade 1990
+#: coverart_controllers.py:493
+msgid "90s"
+msgstr "1990년대"
+
+#. '80s' as in the decade 1980
+#: coverart_controllers.py:495
+msgid "80s"
+msgstr "1980년대"
+
+#. '70s' as in the decade 1970
+#: coverart_controllers.py:497
+msgid "70s"
+msgstr "1970년대"
+
+#. '60s' as in the decade 1960
+#: coverart_controllers.py:499
+msgid "60s"
+msgstr "1960년대"
+
+#. '50s' as in the decade 1950
+#: coverart_controllers.py:501
+msgid "50s"
+msgstr "1950년대"
+
+#. '40s' as in the decade 1940
+#: coverart_controllers.py:503
+msgid "40s"
+msgstr "1940년대"
+
+#. '30s' as in the decade 1930
+#: coverart_controllers.py:505
+msgid "30s"
+msgstr "1930년대"
+
+#. 'Older' as in 'older than the year 1930'
+#: coverart_controllers.py:507
+msgid "Older"
+msgstr "기타"
+
+#. options
+#: coverart_controllers.py:552
+msgid "Sort in descending order"
+msgstr "내림차순으로 정렬"
+
+#: coverart_controllers.py:553
+msgid "Sort in ascending order"
+msgstr "오름차순으로 정렬"
+
+#: coverart_controllers.py:605
+msgid "Search all fields"
+msgstr "모든 항목에서 검색"
+
+#: coverart_controllers.py:606
+msgid "Search album artists"
+msgstr "앨범 음악가 검색"
+
+#: coverart_controllers.py:607
+msgid "Search track artists"
+msgstr "트랙 음악가 검색"
+
+#: coverart_controllers.py:608
+msgid "Search albums"
+msgstr "앨범 검색"
+
+#: coverart_controllers.py:609
+msgid "Search tracks"
+msgstr "트랙 검색"
+
+#. . TRANSLATORS: Do not translate this string.
+#: coverart_browser_prefs.py:284
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  Kim Boram https://launchpad.net/~boramism"
+
+#. TRANSLATORS: for example 'Number of covers limited to 150'
+#: coverart_coverflowview.py:197
+#, python-format
+msgid "Number of covers limited to %d"
+msgstr "표지의 수는 %d개로 제한되어있습니다."
+
+#. define .plugin text strings used for translation
+#: coverart_browser.py:159
+msgid "CoverArt Browser"
+msgstr "앨범 표지 찾아보기"
+
+#: coverart_browser.py:160
+msgid "Browse and play your albums through their covers"
+msgstr "앨범을 표지로 찾아보고 연주합니다."
