@@ -47,6 +47,7 @@ class OptionsController(GObject.Object):
     options = GObject.property(type=object, default=None)
     current_key = GObject.property(type=str, default=None)
     update_image = GObject.property(type=bool, default=False)
+    visible = GObject.property(type=bool, default=True)
 
     def __init__(self):
         super(OptionsController, self).__init__()

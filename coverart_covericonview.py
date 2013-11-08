@@ -663,6 +663,8 @@ class CoverIconView(EnhancedIconView, AbstractView):
     def switch_to_view(self, source, album):
         self.initialise(source)
         self.show_policy.initialise(source.album_manager)
+        source.toolbar_manager.set_visible(True)
+        
         if album:
             path = source.album_manager.model.get_path(album)
             self.select_and_scroll_to_path(path)

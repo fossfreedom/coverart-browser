@@ -32,6 +32,7 @@ from coverart_album import Album
 from coverart_widgets import AbstractView
 from coverart_utils import SortedCollection
 from coverart_widgets import PanedCollapsible
+from coverart_toolbar import ToolbarObject
 import rb
 
 from collections import namedtuple
@@ -469,7 +470,6 @@ class ArtistView(Gtk.TreeView, AbstractView):
         event called when clicking on a row
         '''
         
-        print event.button
         treepath, treecolumn, cellx, celly = self.get_path_at_pos(event.x, event.y)
         active_object = self.artistmanager.model.get_from_path(treepath)
             
@@ -511,6 +511,10 @@ class ArtistView(Gtk.TreeView, AbstractView):
     def switch_to_view(self, source, album):
         self.initialise(source)
         self.show_policy.initialise(source.album_manager)
+        
+        source.toolbar_manager.set_visible(False, ToolbarObject.SORT_BY)
+        source.toolbar_manager.set_visible(False, ToolbarObject.SORT_ORDER)
+        
         #if album:
         #    path = source.album_manager.model.get_path(album)
         #    self.select_and_scroll_to_path(path)

@@ -327,6 +327,7 @@ class CoverFlowView(AbstractView):
     def switch_to_view(self, source, album):
         self.initialise(source)
         self.show_policy.initialise(source.album_manager)
+        source.toolbar_manager.set_visible(True)
         
         self.last_album = album
         self.scroll_to_album()

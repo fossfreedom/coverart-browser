@@ -56,10 +56,15 @@ class OptionsWidget(Gtk.Widget):
             'notify::current-key', self._update_current_key)
         self._update_image_changed_id = self._controller.connect(
             'notify::update-image', self._update_image)
+        self._visible_changed_id = self._controller.connect(
+            'notify::visible', self._update_visibility)
 
         # update the menu and current key
         self.update_options()
         self.update_current_key()
+
+    def _update_visibility(self, *args):
+        self.set_visible(self._controller.visible)
 
     def _update_options(self, *args):
         self.update_options()
