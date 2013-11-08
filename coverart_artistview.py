@@ -94,7 +94,7 @@ class ArtistsModel(GObject.Object):
         }
 
     # list of columns names and positions on the TreeModel
-    columns = {'tooltip': 0, 'pixbuf': 1, 'artist_album': 2, 'show': 3}
+    columns = {'tooltip': 0, 'pixbuf': 1, 'artist_album': 2, 'show': 3, 'empty': 4}
 
     def __init__(self, album_manager):
         super(ArtistsModel, self).__init__()
@@ -106,7 +106,7 @@ class ArtistsModel(GObject.Object):
             key=lambda artist: getattr(artist, 'name'))
 
         self._tree_store = Gtk.TreeStore(str, GdkPixbuf.Pixbuf, object, 
-            bool)
+            bool,  str)
             
         # filters
         self._filters = {}
@@ -125,16 +125,11 @@ class ArtistsModel(GObject.Object):
         self.connect('update-path', self._on_update_path)
         
     def _compare(self, model, row1, row2, user_data):
-        #sort_column, _ = model.get_sort_column_id()
-        print model
-        
         sort_column = 0
         
         #if sort_column:
-        value1 = model.get_value(row1, sort_column)
-        value2 = model.get_value(row2, sort_column)
-        print value1
-        print value2
+        value1 = RB.search_fold(model.get_value(row1, sort_column))
+        value2 = RB.search_fold(model.get_value(row2, sort_column))
         if value1 < value2:
             return -1
         elif value1 == value2:
@@ -199,14 +194,14 @@ class ArtistsModel(GObject.Object):
         pixbuf = artist.cover.pixbuf.scale_simple(48,48,GdkPixbuf.InterpType.BILINEAR)
         hidden = self._artist_filter(artist)
 
-        return tooltip, pixbuf, artist, hidden
+        return tooltip, pixbuf, artist, hidden, ''
     
     def _generate_album_values(self, album):
         tooltip = album.name
         pixbuf = album.cover.pixbuf.scale_simple(48,48,GdkPixbuf.InterpType.BILINEAR)
         hidden = True
 
-        return tooltip, pixbuf, album, hidden
+        return tooltip, pixbuf, album, hidden, ''
 
     def remove(self, artist):
         '''
@@ -262,39 +257,6 @@ class ArtistsModel(GObject.Object):
         if self._tree_store.iter_is_valid(artist_iter):
             self._tree_store.set_value(artist_iter, self.columns['show'], show)
 
-    def sort(self, key=None, reverse=False):
-        '''
-        Changes the sorting strategy for the model.
-
-        :param key: `str`attribute of the `Artist` class by which the sort
-            should be performed.
-        :param reverse: `bool` indicating whether the sort order should be
-            reversed from the current one.
-        '''
-        if key:
-            props = sort_keys[key]
-
-            def key_function(artist):
-                keys = [getattr(artist, prop) for prop in props]
-                return keys
-
-            self._artists.key = key_function
-
-        if reverse:
-            self._artists = reversed(self._artists)
-
-        self._tree_store.clear()
-
-        # add the nay filter
-        self.replace_filter('nay', refilter=False)
-
-        if self._sort_process:
-            # stop the previous sort process if there's one
-            self._sort_process.stop()
-
-        # load the albums back to the model
-        self._sort_process = self._sort(iter(self._artists))
-        
     def _artist_filter(self, artist):
             for f in list(self._filters.values()):
                 if not f(artist):
@@ -459,7 +421,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
         col.set_sort_column_id(0)
         col.set_sort_indicator(True)
         self.append_column(col)
-        col = Gtk.TreeViewColumn('', Gtk.CellRendererText(), text=1)
+        col = Gtk.TreeViewColumn('', Gtk.CellRendererText(), text=4)
         self.append_column(col) # dummy column to expand horizontally
         
         self.artistmanager = ArtistManager(self.plugin, self, self.shell)
