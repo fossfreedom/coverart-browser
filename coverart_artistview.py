@@ -120,9 +120,7 @@ class ArtistsModel(GObject.Object):
         
         self._tree_sort = Gtk.TreeModelSort(model=self._filtered_store)            
         self._tree_sort.set_sort_func(0, self._compare, None)
-        
 
-        
     def _connect_signals(self):
         self.connect('update-path', self._on_update_path)
         
@@ -432,8 +430,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
         self.gs = GSetting()
         self.show_policy = ArtistShowingPolicy(self)
         self.view = self
-        self._has_initialised = False
-        
+        self._has_initialised = False        
             
     def initialise(self, source):
         if self._has_initialised:
@@ -459,10 +456,11 @@ class ArtistView(Gtk.TreeView, AbstractView):
         self.append_column(col)
         
         col = Gtk.TreeViewColumn(_('Track Artist'), Gtk.CellRendererText(), text=0)
-        col.set_expand(True)
         col.set_sort_column_id(0)
         col.set_sort_indicator(True)
         self.append_column(col)
+        col = Gtk.TreeViewColumn('', Gtk.CellRendererText(), text=1)
+        self.append_column(col) # dummy column to expand horizontally
         
         self.artistmanager = ArtistManager(self.plugin, self, self.shell)
         self.set_model(self.artistmanager.model.store)
