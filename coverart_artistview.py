@@ -107,7 +107,7 @@ class ArtistsModel(GObject.Object):
 
         self._tree_store = Gtk.TreeStore(str, GdkPixbuf.Pixbuf, object, 
             bool)
-
+            
         # filters
         self._filters = {}
 
@@ -117,13 +117,37 @@ class ArtistsModel(GObject.Object):
         # create the filtered store that's used with the view
         self._filtered_store = self._tree_store.filter_new()
         self._filtered_store.set_visible_column(ArtistsModel.columns['show'])
+        
+        self._tree_sort = Gtk.TreeModelSort(model=self._filtered_store)            
+        self._tree_sort.set_sort_func(0, self._compare, None)
+        
 
+        
     def _connect_signals(self):
         self.connect('update-path', self._on_update_path)
         
+    def _compare(self, model, row1, row2, user_data):
+        #sort_column, _ = model.get_sort_column_id()
+        print model
+        
+        sort_column = 0
+        
+        #if sort_column:
+        value1 = model.get_value(row1, sort_column)
+        value2 = model.get_value(row2, sort_column)
+        print value1
+        print value2
+        if value1 < value2:
+            return -1
+        elif value1 == value2:
+            return 0
+        else:
+            return 1
+        
     @property
     def store(self):
-        return self._filtered_store
+        #return self._filtered_store
+        return self._tree_sort
 
     def add(self, artist):
         '''
@@ -436,6 +460,8 @@ class ArtistView(Gtk.TreeView, AbstractView):
         
         col = Gtk.TreeViewColumn(_('Track Artist'), Gtk.CellRendererText(), text=0)
         col.set_expand(True)
+        col.set_sort_column_id(0)
+        col.set_sort_indicator(True)
         self.append_column(col)
         
         self.artistmanager = ArtistManager(self.plugin, self, self.shell)
