@@ -1,4 +1,4 @@
-#coverart-browser v0.9.1
+#coverart-browser v0.9.2
 ================
 
 Browse your coverart albums in Rhythmbox v2.96 - Rhythmbox v3.0
@@ -34,6 +34,7 @@ Browse your coverart albums in Rhythmbox v2.96 - Rhythmbox v3.0
  - for developers - doxygen documentation: http://fossfreedom.github.io/coverart-browser/classes.html
  - v0.9.1 bug fix #214 - non display of album-info on restart of rhythmbox
  - v0.9.1 - latest translations from launchpad
+ - v0.9.2 - latest translations from launchpad
 
 *How it works:*
 
