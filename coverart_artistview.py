@@ -384,6 +384,11 @@ class ArtistView(Gtk.TreeView, AbstractView):
     name = 'artistview'
     icon_automatic = GObject.property(type=bool, default=True)
     panedposition = PanedCollapsible.Paned.COLLAPSE
+    
+    __gsignals__ = {
+        'update-toolbar': (GObject.SIGNAL_RUN_LAST, None, ())
+        }
+    
 
     def __init__(self, *args, **kwargs):
         super(ArtistView, self).__init__(*args, **kwargs)
@@ -402,9 +407,10 @@ class ArtistView(Gtk.TreeView, AbstractView):
         self._has_initialised = True
 
         self.view_name = "artist_view"
-        self.source = source
+        super(ArtistView, self).initialise(source)
+        #self.source = source
         self.album_manager = source.album_manager
-        self.plugin = source.plugin
+        #self.plugin = source.plugin
         self.shell = source.shell
         self.ext_menu_pos = 6
         
@@ -512,9 +518,12 @@ class ArtistView(Gtk.TreeView, AbstractView):
         self.initialise(source)
         self.show_policy.initialise(source.album_manager)
         
-        source.toolbar_manager.set_visible(False, ToolbarObject.SORT_BY)
-        source.toolbar_manager.set_visible(False, ToolbarObject.SORT_ORDER)
         
         #if album:
         #    path = source.album_manager.model.get_path(album)
         #    self.select_and_scroll_to_path(path)
+        
+    def do_update_toolbar(self, *args):
+        self.source.toolbar_manager.set_visible(False, ToolbarObject.SORT_BY)
+        self.source.toolbar_manager.set_visible(False, ToolbarObject.SORT_ORDER)
+        

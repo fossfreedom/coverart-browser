@@ -70,7 +70,7 @@ class CoverFlowView(AbstractView):
     flow_appearance = GObject.property(type=str, default='coverflow')
     flow_max = GObject.property(type=int, default=100)
     panedposition = PanedCollapsible.Paned.EXPAND
-
+    
     def __init__(self):
         super(CoverFlowView, self).__init__()
         
@@ -225,8 +225,8 @@ class CoverFlowView(AbstractView):
             
         self._has_initialised = True
 
-        self.source = source
-        self.plugin = source.plugin
+        super(CoverFlowView,self).initialise(source)
+        
         self.album_manager = source.album_manager
         self.ext_menu_pos = 6
         
@@ -327,7 +327,6 @@ class CoverFlowView(AbstractView):
     def switch_to_view(self, source, album):
         self.initialise(source)
         self.show_policy.initialise(source.album_manager)
-        source.toolbar_manager.set_visible(True)
         
         self.last_album = album
         self.scroll_to_album()

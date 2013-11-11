@@ -272,13 +272,7 @@ class CoverArtBrowserSource(RB.Source):
 
         # create an album manager
         self.album_manager = AlbumManager(self.plugin, self.viewmgr.current_view)
-            
-        # initialise the toolbar manager
-        self.toolbar_manager = ToolbarManager(self.plugin, self.page,
-            self.album_manager.model, self.viewmgr)
-            
         self.viewmgr.current_view.initialise(self)
-        self.viewmgr.current_view.emit('update-toolbar')
         # setup cover search pane
         colour = self.viewmgr.get_selection_colour()
 
@@ -293,6 +287,10 @@ class CoverArtBrowserSource(RB.Source):
 
         # prompt the loader to load the albums
         self.album_manager.loader.load_albums(self.props.base_query_model)
+
+        # initialise the toolbar manager
+        self.toolbar_manager = ToolbarManager(self.plugin, self.page,
+            self.album_manager.model, self.viewmgr)
 
         # initialise the variables of the quick search
         self.quick_search_controller = AlbumQuickSearchController(
@@ -1013,7 +1011,6 @@ class ViewManager(GObject.Object):
             
             self._views[self._lastview].panedposition = self.source.paned.get_expansion_status()
             self._views[self.view_name].switch_to_view(self.source, current_album)
-            self._views[self.view_name].emit('update-toolbar')
             self.source.paned.expand(self._views[self.view_name].panedposition)
             
             self._lastview = self.view_name

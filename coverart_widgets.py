@@ -1115,8 +1115,13 @@ class AbstractView(GObject.Object):
     coverflow view is added with lessons learned
     '''
     view = None
-    
     panedposition = PanedCollapsible.Paned.DEFAULT
+    # signals - note - pygobject doesnt appear to support signal declaration
+    # in multiple inheritance - so these signals need to be defined in all view classes
+    # where abstractview is part of multiple inheritance
+    __gsignals__ = {
+        'update-toolbar': (GObject.SIGNAL_RUN_LAST, None, ())
+        }
     
     def __init__(self):
         super(AbstractView, self).__init__()
@@ -1124,7 +1129,16 @@ class AbstractView(GObject.Object):
     def initialise(self, source):
         self.source = source
         self.plugin = source.plugin
-
+        
+        self.connect('update-toolbar', self.do_update_toolbar)
+        
+    def do_update_toolbar(self, *args):
+        '''
+            called when update-toolbar signal is emitted
+            by default the toolbar objects are made visible
+        '''
+        self.source.toolbar_manager.set_visible(True)
+        
     def resize_icon(self, cover_size):
         '''
         resize the view main picture icon

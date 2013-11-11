@@ -224,6 +224,11 @@ class CoverIconView(EnhancedIconView, AbstractView):
     display_text_pos = GObject.property(type=bool, default=False)
     name = 'coverview'
     panedposition = PanedCollapsible.Paned.COLLAPSE
+    
+    __gsignals__ = {
+        'update-toolbar': (GObject.SIGNAL_RUN_LAST, None, ())
+        }
+    
 
     def __init__(self, *args, **kwargs):
         super(CoverIconView, self).__init__(cell_area=AlbumArtCellArea(), *args, **kwargs)
@@ -248,8 +253,8 @@ class CoverIconView(EnhancedIconView, AbstractView):
         self._has_initialised = True
 
         self.view_name = "covers_view"
-        self.source = source
-        self.plugin = source.plugin
+        super(CoverIconView,self).initialise(source)
+        
         self.shell = source.shell
         self.album_manager = source.album_manager
         self.ext_menu_pos = 6
@@ -663,7 +668,6 @@ class CoverIconView(EnhancedIconView, AbstractView):
     def switch_to_view(self, source, album):
         self.initialise(source)
         self.show_policy.initialise(source.album_manager)
-        source.toolbar_manager.set_visible(True)
         
         if album:
             path = source.album_manager.model.get_path(album)
