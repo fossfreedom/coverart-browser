@@ -524,6 +524,6 @@ class ArtistView(Gtk.TreeView, AbstractView):
         #    self.select_and_scroll_to_path(path)
         
     def do_update_toolbar(self, *args):
-        self.source.toolbar_manager.set_visible(False, ToolbarObject.SORT_BY)
-        self.source.toolbar_manager.set_visible(False, ToolbarObject.SORT_ORDER)
+        self.source.toolbar_manager.set_enabled(False, ToolbarObject.SORT_BY)
+        self.source.toolbar_manager.set_enabled(False, ToolbarObject.SORT_ORDER)
         

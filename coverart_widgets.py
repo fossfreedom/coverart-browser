@@ -23,6 +23,8 @@ from gi.repository import Gdk
 from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import Gio
+import cairo
+
 from coverart_browser_prefs import GSetting
 
 import rb
@@ -56,15 +58,16 @@ class OptionsWidget(Gtk.Widget):
             'notify::current-key', self._update_current_key)
         self._update_image_changed_id = self._controller.connect(
             'notify::update-image', self._update_image)
-        self._visible_changed_id = self._controller.connect(
-            'notify::visible', self._update_visibility)
+        self._sensitive_changed_id = self._controller.connect(
+            'notify::enabled', self._update_sensitivity)
 
         # update the menu and current key
         self.update_options()
         self.update_current_key()
 
-    def _update_visibility(self, *args):
-        self.set_visible(self._controller.visible)
+    def _update_sensitivity(self, *args):
+        self.set_sensitive(self._controller.enabled)
+        self._update_image()
 
     def _update_options(self, *args):
         self.update_options()
@@ -186,6 +189,9 @@ class PixbufButton(Gtk.Button):
             image = Gtk.Image()
             super(PixbufButton, self).set_image(image)
 
+        if not self.controller.enabled:
+            pixbuf = self._getBlendedPixbuf(pixbuf)
+        
         self.get_image().set_from_pixbuf(pixbuf)
 
         self.on_notify_button_relief()
@@ -195,6 +201,32 @@ class PixbufButton(Gtk.Button):
             self.set_relief(Gtk.ReliefStyle.NONE)
         else:
             self.set_relief(Gtk.ReliefStyle.HALF)
+            
+    def _getBlendedPixbuf(self, pixbuf):
+        """Turn a pixbuf into a blended version of the pixbuf by drawing a
+        transparent alpha blend on it."""
+        pixbuf = pixbuf.copy()
+        
+        w,h = pixbuf.get_width(), pixbuf.get_height()
+        surface = cairo.ImageSurface(
+            cairo.FORMAT_ARGB32, pixbuf.get_width(), pixbuf.get_height())
+        context = cairo.Context(surface)
+        
+        Gdk.cairo_set_source_pixbuf(context, pixbuf, 0, 0)
+        context.paint()
+
+        context.set_source_rgba(32, 32, 32, 0.4)
+        context.set_line_width(0)
+        context.rectangle(0, 
+                     0,
+                     w,
+                     h)
+        context.fill()
+
+        pixbuf = Gdk.pixbuf_get_from_surface(surface, 0, 0, w, h)
+
+        return pixbuf
+
 
 
 class PopupButton(PixbufButton, OptionsPopupWidget):
@@ -1137,7 +1169,7 @@ class AbstractView(GObject.Object):
             called when update-toolbar signal is emitted
             by default the toolbar objects are made visible
         '''
-        self.source.toolbar_manager.set_visible(True)
+        self.source.toolbar_manager.set_enabled(True)
         
     def resize_icon(self, cover_size):
         '''

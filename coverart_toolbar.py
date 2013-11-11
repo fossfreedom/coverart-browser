@@ -173,22 +173,21 @@ class ToolbarManager(GObject.Object):
         
         self._controllers = controllers
         
-    def set_visible(self, visibility, toolbar_object=None):
+    def set_enabled(self, enabled, toolbar_object=None):
         '''
-        set the visibility of the toolbar object
+        enable or disable the toolbar object.
         
-        :param visibility: `bool` value corresponding to Gtk visible value.
-        :param toolbar_object: `ToolbarObject` to set the visibility or
-           None if visibility is to apply to all objects in the toolbar
+        :param enabled: `bool` value.
+        :param toolbar_object: `ToolbarObject` 
+           None if enabled is to apply to all objects in the toolbar
         
         '''
-        
         if toolbar_object:
-            self._controllers[toolbar_object].visible = visibility
+            self._controllers[toolbar_object].enabled = enabled
         else:
             for controller in self._controllers:
-                self._controllers[controller].visible = visibility
-
+                self._controllers[controller].enabled = enabled
+                
     def _connect_signals(self):
         self.connect('notify::toolbar-pos', self._on_notify_toolbar_pos)
 
