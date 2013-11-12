@@ -33,9 +33,14 @@ from coverart_widgets import AbstractView
 from coverart_utils import SortedCollection
 from coverart_widgets import PanedCollapsible
 from coverart_toolbar import ToolbarObject
+from coverart_utils import idle_iterator
+from coverart_utils import dumpstack
+
 import rb
 
 from collections import namedtuple
+
+ARTIST_LOAD_CHUNK = 50
 
 class Artist(GObject.Object):
     '''
@@ -289,39 +294,84 @@ class ArtistLoader(GObject.Object):
     '''
     # signals
     __gsignals__ = {
-        'albums-load-finished': (GObject.SIGNAL_RUN_LAST, None, (object,)),
+        'artists-load-finished': (GObject.SIGNAL_RUN_LAST, None, (object,)),
         'model-load-finished': (GObject.SIGNAL_RUN_LAST, None, ())
         }
 
-    def __init__(self, artistmanager):
+    def __init__(self, artistmanager, album_manager):
         super(ArtistLoader, self).__init__()
 
         self.shell = artistmanager.shell
         self._connect_signals()
-        
+        self._album_manager = album_manager
+        self._artist_manager = artistmanager
         self.cover_size = 128
         
         self.unknown_cover = Cover(self.cover_size, 
             rb.find_plugin_file(artistmanager.plugin, 'img/microphone.png'))
         self.model = artistmanager.model
     
-        artist_pview = None
-        for view in self.shell.props.library_source.get_property_views():
-            if view.props.title == _("Artist"):
-                artist_pview = view
-                break
+    def load_artists(self, model):
+        self._load_artists(iter(model), artists={}, model=model, 
+            total=len(model), progress=0.)
+            
+    @idle_iterator
+    def _load_artists(self):
+        def process(row, data):
+            name = data['model'][row.path][0]
 
-        assert artist_pview, "cannot find artist property view"
+            # allocate the artist
+            artist = Artist(name, self.unknown_cover)
+                
+            data['artists'][name] = artist
+            
+        def after(data):
+            # update the progress
+            data['progress'] += ARTIST_LOAD_CHUNK
 
-        for row in artist_pview.get_model():
-            if row[0] != _('All'):
-                self.model.add(Artist(row[0], self.unknown_cover))
+            self._album_manager.progress = data['progress'] / data['total']
+
+        def error(exception):
+            print('Error processing entries: ' + str(exception))
+
+        def finish(data):
+            self._album_manager.progress = 1
+            self.emit('artists-load-finished', data['artists'])
+
+        return ARTIST_LOAD_CHUNK, process, after, error, finish
+
+    @idle_iterator
+    def _load_model(self):
+        def process(artist, data):
+            # add  the artists to the model
+            self._artist_manager.model.add(artist)
+            
+        def after(data):
+            data['progress'] += ARTIST_LOAD_CHUNK
+
+            # update the progress
+            self._album_manager.progress = 1 - data['progress'] / data['total']
+            
+        def error(exception):
+            dumpstack("Something awful happened!")
+            print('Error(2) while adding artists to the model: ' + str(exception))
+
+        def finish(data):
+            self._album_manager.progress = 1
+            self.emit('model-load-finished')
+            #return False
+
+        return ARTIST_LOAD_CHUNK, process, after, error, finish
         
     def _connect_signals(self):
         # connect signals for updating the albums
         #self.entry_changed_id = self._album_manager.db.connect('entry-changed',
         #    self._entry_changed_callback)
         pass
+        
+    def do_artists_load_finished(self, artists):
+        self._load_model(iter(list(artists.values())), total=len(artists), progress=0.)
+    
         
 class ArtistManager(GObject.Object):
     '''
@@ -346,7 +396,20 @@ class ArtistManager(GObject.Object):
         self.plugin = plugin
 
         self.model = ArtistsModel(current_view.album_manager)
-        self._loader = ArtistLoader(self)
+        self._loader = ArtistLoader(self, current_view.album_manager)
+        
+        artist_pview = None
+        for view in self.shell.props.library_source.get_property_views():
+            if view.props.title == _("Artist"):
+                artist_pview = view
+                break
+
+        assert artist_pview, "cannot find artist property view"
+
+        #for row in artist_pview.get_model():
+        #    if row[0] != _('All'):
+        #        self.model.add(Artist(row[0], self.unknown_cover))
+        self._loader.load_artists(artist_pview.get_model())
         # connect signals
         self._connect_signals()
 
@@ -355,7 +418,10 @@ class ArtistManager(GObject.Object):
         Connects the manager to all the needed signals for it to work.
         '''
         # connect signal to the loader so it shows the albums when it finishes
-        pass
+        self._loader.connect('model-load-finished', self._reconnect_model_to_view)
+        
+    def _reconnect_model_to_view(self, *args):
+        self.current_view.set_model(self.model.store)
 
 class ArtistShowingPolicy(GObject.Object):
     '''
@@ -432,7 +498,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
         self.append_column(col) # dummy column to expand horizontally
         
         self.artistmanager = ArtistManager(self.plugin, self, self.shell)
-        self.set_model(self.artistmanager.model.store)
+        #self.set_model(self.artistmanager.model.store)
         
         self._connect_properties()
         self._connect_signals()
