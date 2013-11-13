@@ -185,7 +185,7 @@ class ArtistsModel(GObject.Object):
         if 'dummy_iter' in self._iters[artist.name]:
             self._iters[artist.name]['album'] = []
             for album in albums:
-                if RB.search_fold(artist.name) in RB.search_fold(album.artists):
+                if artist.name == album.artist:
                     # generate necessary values
                     values = self._generate_album_values(album)
                     # insert the values
@@ -318,12 +318,10 @@ class ArtistLoader(GObject.Object):
     @idle_iterator
     def _load_artists(self):
         def process(row, data):
-            name = data['model'][row.path][0]
-
             # allocate the artist
-            artist = Artist(name, self.unknown_cover)
+            artist = Artist(row, self.unknown_cover)
                 
-            data['artists'][name] = artist
+            data['artists'][row] = artist
             
         def after(data):
             # update the progress
@@ -396,20 +394,10 @@ class ArtistManager(GObject.Object):
         self.plugin = plugin
 
         self.model = ArtistsModel(current_view.album_manager)
-        self._loader = ArtistLoader(self, current_view.album_manager)
+        self.loader = ArtistLoader(self, current_view.album_manager)
         
-        artist_pview = None
-        for view in self.shell.props.library_source.get_property_views():
-            if view.props.title == _("Artist"):
-                artist_pview = view
-                break
-
-        assert artist_pview, "cannot find artist property view"
-
-        #for row in artist_pview.get_model():
-        #    if row[0] != _('All'):
-        #        self.model.add(Artist(row[0], self.unknown_cover))
-        self._loader.load_artists(artist_pview.get_model())
+        
+        #self._loader.load_artists(artist_pview.get_model())
         # connect signals
         self._connect_signals()
 
@@ -418,7 +406,7 @@ class ArtistManager(GObject.Object):
         Connects the manager to all the needed signals for it to work.
         '''
         # connect signal to the loader so it shows the albums when it finishes
-        self._loader.connect('model-load-finished', self._reconnect_model_to_view)
+        self.loader.connect('model-load-finished', self._reconnect_model_to_view)
         
     def _reconnect_model_to_view(self, *args):
         self.current_view.set_model(self.model.store)
@@ -518,6 +506,13 @@ class ArtistView(Gtk.TreeView, AbstractView):
         self.connect('row-expanded', self._row_expanded)
         self.connect('button-press-event', self._row_click)
         self.get_selection().connect('changed', self._selection_changed)
+        self.album_manager.loader.connect('model-load-finished',
+            self._load_finished_callback)
+            
+    def _load_finished_callback(self, *args):
+        albums = self.album_manager.model.get_all()
+        x = list(set(album.artist for album in albums))
+        self.artistmanager.loader.load_artists(x)
         
     def _row_expanded(self, treeview, treeiter, treepath):
         '''
