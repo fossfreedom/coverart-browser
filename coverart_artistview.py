@@ -105,7 +105,6 @@ class ArtistsModel(GObject.Object):
     def __init__(self, album_manager):
         super(ArtistsModel, self).__init__()
 
-        self._connect_signals()
         self.album_manager = album_manager
         self._iters = {}
         self._artists = SortedCollection(
@@ -114,9 +113,6 @@ class ArtistsModel(GObject.Object):
         self._tree_store = Gtk.TreeStore(str, GdkPixbuf.Pixbuf, object, 
             bool,  str)
             
-        # filters
-        self._filters = {}
-
         # sorting idle call
         self._sort_process = None
 
@@ -126,9 +122,16 @@ class ArtistsModel(GObject.Object):
         
         self._tree_sort = Gtk.TreeModelSort(model=self._filtered_store)            
         self._tree_sort.set_sort_func(0, self._compare, None)
-
+        
+        self._connect_signals()
+        
     def _connect_signals(self):
         self.connect('update-path', self._on_update_path)
+        self.album_manager.model.connect('filter-changed', self._on_album_filter_changed)
+        
+    def _on_album_filter_changed(self, *args):
+        print "filter changed"
+        #print args[1]
         
     def _compare(self, model, row1, row2, user_data):
         sort_column = 0
@@ -198,16 +201,16 @@ class ArtistsModel(GObject.Object):
     def _generate_artist_values(self, artist):
         tooltip = artist.name
         pixbuf = artist.cover.pixbuf.scale_simple(48,48,GdkPixbuf.InterpType.BILINEAR)
-        hidden = self._artist_filter(artist)
+        show = True#self._artist_filter(artist)
 
-        return tooltip, pixbuf, artist, hidden, ''
+        return tooltip, pixbuf, artist, show, ''
     
     def _generate_album_values(self, album):
         tooltip = album.name
         pixbuf = album.cover.pixbuf.scale_simple(48,48,GdkPixbuf.InterpType.BILINEAR)
-        hidden = True
+        show = True
 
-        return tooltip, pixbuf, album, hidden, ''
+        return tooltip, pixbuf, album, show, ''
 
     def remove(self, artist):
         '''
@@ -256,19 +259,12 @@ class ArtistsModel(GObject.Object):
 
         :param artist: `Artist` to show or hide.
         :param show: `bool` indcating whether to show(True) or hide(False) the
-            album.
+            artist.
         '''
         artist_iter = self._iters[artist.name]['iter']
 
         if self._tree_store.iter_is_valid(artist_iter):
             self._tree_store.set_value(artist_iter, self.columns['show'], show)
-
-    def _artist_filter(self, artist):
-            for f in list(self._filters.values()):
-                if not f(artist):
-                    return False
-
-            return True
 
 class ArtistCellRenderer(Gtk.CellRendererPixbuf):
     
