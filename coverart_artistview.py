@@ -29,6 +29,7 @@ from gi.repository import RB
 from coverart_browser_prefs import GSetting
 from coverart_album import Cover
 from coverart_album import Album
+from coverart_album import AlbumsModel
 from coverart_widgets import AbstractView
 from coverart_utils import SortedCollection
 from coverart_widgets import PanedCollapsible
@@ -130,8 +131,13 @@ class ArtistsModel(GObject.Object):
         self.album_manager.model.connect('filter-changed', self._on_album_filter_changed)
         
     def _on_album_filter_changed(self, *args):
-        print "filter changed"
-        #print args[1]
+        if len(self._iters) == 0:
+            return
+            
+        artists = list(set(row[AlbumsModel.columns['album']].artist for row in self.album_manager.model.store))
+
+        for artist in self._iters:
+            self.show(artist, artist in artists)
         
     def _compare(self, model, row1, row2, user_data):
         sort_column = 0
@@ -252,7 +258,7 @@ class ArtistsModel(GObject.Object):
             self._tree_store.get_path(
                 self._iters[artist.name]['iter']))
 
-    def show(self, artist, show):
+    def show(self, artist_name, show):
         '''
         Unfilters an artist, making it visible to the publicly available model's
         `Gtk.TreeModel`
@@ -261,7 +267,7 @@ class ArtistsModel(GObject.Object):
         :param show: `bool` indcating whether to show(True) or hide(False) the
             artist.
         '''
-        artist_iter = self._iters[artist.name]['iter']
+        artist_iter = self._iters[artist_name]['iter']
 
         if self._tree_store.iter_is_valid(artist_iter):
             self._tree_store.set_value(artist_iter, self.columns['show'], show)
