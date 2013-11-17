@@ -36,6 +36,7 @@ from coverart_widgets import PanedCollapsible
 from coverart_toolbar import ToolbarObject
 from coverart_utils import idle_iterator
 from coverart_utils import dumpstack
+from coverart_external_plugins import CreateExternalPluginMenu
 
 import rb
 
@@ -542,9 +543,11 @@ class ArtistView(Gtk.TreeView, AbstractView):
         treepath, treecolumn, cellx, celly = self.get_path_at_pos(event.x, event.y)
         active_object = self.artistmanager.model.get_from_path(treepath)
             
-        if event.button == 1 and isinstance(active_object, Album):
+        if not isinstance(active_object, Album):
+            return
+            
+        if event.button == 1:
             # on click
-                    
             # to expand the entry view
             ctrl = event.state & Gdk.ModifierType.CONTROL_MASK
             shift = event.state & Gdk.ModifierType.SHIFT_MASK
@@ -555,6 +558,24 @@ class ArtistView(Gtk.TreeView, AbstractView):
             if self.source.click_count == 1:
                 Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
                     self.source.show_hide_pane, active_object)
+            
+        elif event.button ==3:
+            # on right click
+            # display popup
+
+            if not self._external_plugins:
+                # initialise external plugin menu support
+                self._external_plugins = \
+                CreateExternalPluginMenu("ca_covers_view",
+                    self.ext_menu_pos, self.popup)
+                self._external_plugins.create_menu('popup_menu', True)
+            
+            self.popup.get_gtkmenu(self.source, 'popup_menu').popup(None,
+                            None, 
+                            None,
+                            None,
+                            3,
+                            Gtk.get_current_event_time())
             
     def get_view_icon_name(self):
         return "artistview.png"
@@ -589,4 +610,4 @@ class ArtistView(Gtk.TreeView, AbstractView):
     def do_update_toolbar(self, *args):
         self.source.toolbar_manager.set_enabled(False, ToolbarObject.SORT_BY)
         self.source.toolbar_manager.set_enabled(False, ToolbarObject.SORT_ORDER)
-        
+
