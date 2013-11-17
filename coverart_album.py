@@ -1671,6 +1671,8 @@ class AlbumManager(GObject.Object):
         # initialize managers
         self.loader = AlbumLoader(self)
         self.cover_man = CoverManager(plugin, self)
+        from coverart_artistview import ArtistManager
+        self.artist_man = ArtistManager(plugin, self, plugin.shell)
         self.text_man = TextManager(self)
         self._show_policy = current_view.show_policy.initialise(self)
 
@@ -1686,4 +1688,5 @@ class AlbumManager(GObject.Object):
             self._load_finished_callback)
 
     def _load_finished_callback(self, *args):
+        self.artist_man.loader.load_artists()
         self.cover_man.load_covers()

@@ -314,7 +314,10 @@ class ArtistLoader(GObject.Object):
             rb.find_plugin_file(artistmanager.plugin, 'img/microphone.png'))
         self.model = artistmanager.model
     
-    def load_artists(self, model):
+    def load_artists(self):
+        albums = self._album_manager.model.get_all()
+        model = list(set(album.artist for album in albums))
+        
         self._load_artists(iter(model), artists={}, model=model, 
             total=len(model), progress=0.)
             
@@ -388,31 +391,15 @@ class ArtistManager(GObject.Object):
     # properties
     progress = GObject.property(type=float, default=0)
     
-    def __init__(self, plugin, current_view, shell):
+    def __init__(self, plugin, album_manager, shell):
         super(ArtistManager, self).__init__()
 
-        self.current_view = current_view
         self.db = plugin.shell.props.db
         self.shell = shell
         self.plugin = plugin
 
-        self.model = ArtistsModel(current_view.album_manager)
-        self.loader = ArtistLoader(self, current_view.album_manager)
-        
-        
-        #self._loader.load_artists(artist_pview.get_model())
-        # connect signals
-        self._connect_signals()
-
-    def _connect_signals(self):
-        '''
-        Connects the manager to all the needed signals for it to work.
-        '''
-        # connect signal to the loader so it shows the albums when it finishes
-        self.loader.connect('model-load-finished', self._reconnect_model_to_view)
-        
-    def _reconnect_model_to_view(self, *args):
-        self.current_view.set_model(self.model.store)
+        self.model = ArtistsModel(album_manager)
+        self.loader = ArtistLoader(self, album_manager)
 
 class ArtistShowingPolicy(GObject.Object):
     '''
@@ -488,8 +475,8 @@ class ArtistView(Gtk.TreeView, AbstractView):
         col = Gtk.TreeViewColumn('', Gtk.CellRendererText(), text=4)
         self.append_column(col) # dummy column to expand horizontally
         
-        self.artistmanager = ArtistManager(self.plugin, self, self.shell)
-        #self.set_model(self.artistmanager.model.store)
+        self.artistmanager = self.album_manager.artist_man
+        self.set_model(self.artistmanager.model.store)
         
         self._connect_properties()
         self._connect_signals()
@@ -509,14 +496,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
         self.connect('row-expanded', self._row_expanded)
         self.connect('button-press-event', self._row_click)
         self.get_selection().connect('changed', self._selection_changed)
-        self.album_manager.loader.connect('model-load-finished',
-            self._load_finished_callback)
             
-    def _load_finished_callback(self, *args):
-        albums = self.album_manager.model.get_all()
-        x = list(set(album.artist for album in albums))
-        self.artistmanager.loader.load_artists(x)
-        
     def _row_expanded(self, treeview, treeiter, treepath):
         '''
         event called when clicking the expand icon on the treeview
