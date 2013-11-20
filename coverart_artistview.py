@@ -127,6 +127,7 @@ class ArtistsModel(GObject.Object):
 
         self.album_manager = album_manager
         self._iters = {}
+        self._albumiters = {}
         self._artists = SortedCollection(
             key=lambda artist: getattr(artist, 'name'))
 
@@ -256,10 +257,17 @@ class ArtistsModel(GObject.Object):
                     values = self._generate_album_values(album)
                     # insert the values
                     tree_iter = self._tree_store.append(artist_iter, values)
-                    self._iters[artist.name]['album'].append(tree_iter)
+                    self._albumiters[album] = {}
+                    self._albumiters[album]['iter'] = tree_iter
+                    self._albumiters[album]['update-id'] = \
+                        album.connect('cover-updated', self._album_coverupdate)
                     
             self._tree_store.remove(self._iters[artist.name]['dummy_iter'])
             del self._iters[artist.name]['dummy_iter']
+            
+    def _album_coverupdate(self, album):
+        tooltip, pixbuf, album, show, blank = self._generate_album_values(album)
+        self._tree_store.set_value(self._albumiters[album]['iter'], self.columns['pixbuf'], pixbuf)
             
     def _generate_artist_values(self, artist):
         tooltip = artist.name
@@ -782,16 +790,21 @@ class ArtistView(Gtk.TreeView, AbstractView):
 
         # get the artist and the info and ask the loader to update the cover
         path, position = self.get_dest_row_at_pos(x, y)
-        artist = widget.get_model()[path][2]
+        artist_album = widget.get_model()[path][2]
 
         pixbuf = data.get_pixbuf()     
 
+        if isinstance(artist_album, Album):
+            manager = self.album_manager
+        else:
+            manager = self.artistmanager
+            
         if pixbuf:
-            self.artistmanager.cover_man.update_cover(artist, pixbuf)
+            manager.cover_man.update_cover(artist_album, pixbuf)
         else:
             uri = data.get_text()
             
-            self.artistmanager.cover_man.update_cover(artist, uri=uri)
+            manager.cover_man.update_cover(artist_album, uri=uri)
 
         # call the context drag_finished to inform the source about it
         drag_context.finish(True, False, time)
