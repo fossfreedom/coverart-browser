@@ -1253,7 +1253,7 @@ class CoverRequester(GObject.Object):
         '''
         Activelly requests an Album's cover to the cover_db, calling
         the callback given once the process finishes (since it generally is
-        asyncrhonous).
+        asynchronous).
         For more information on the callback arguments, check
         `RB.ExtDB.request` documentation.
 
@@ -1280,8 +1280,7 @@ class CoverRequester(GObject.Object):
     def stop(self):
         ''' Clears the queue, forcing the requester to stop. '''
         del self._queue[:]
-
-
+            
 class CoverManager(GObject.Object):
     '''
     Manager that takes care of cover loading and updating.
@@ -1297,56 +1296,34 @@ class CoverManager(GObject.Object):
         }
 
     # properties
-    cover_size = GObject.property(type=int, default=0)
-    add_shadow = GObject.property(type=bool, default=False)
-    shadow_image = GObject.property(type=str, default="album-shadow-all.png")
     has_finished_loading = False
+    cover_size = GObject.property(type=int, default=0)
 
-    def __init__(self, plugin, album_manager):
+    def __init__(self, plugin, manager, database_name):
         super(CoverManager, self).__init__()
 
-        self._cover_db = RB.ExtDB(name='album-art')
-        self._album_manager = album_manager
-        self._requester = CoverRequester(self._cover_db)
+        self.cover_db = RB.ExtDB(name=database_name)
+        self._manager = manager
+        self._requester = CoverRequester(self.cover_db)
 
-        self._connect_properties()
-        self._connect_signals(plugin)
-
-        # create unknown cover and shadow for covers
-        self._create_unknown_and_shadow(plugin)
-
-    def _connect_signals(self, plugin):
-        self.connect('notify::cover-size', self._on_cover_size_changed)
-        self.connect('notify::add-shadow', self._on_add_shadow_changed, plugin)
-        self.connect('notify::shadow-image', self._on_add_shadow_changed,
-            plugin)
+        self.unknown_cover = None #to be defined by inherited class
+        self.album_manager = None #to be defined by inherited class
 
         # connect the signal to update cover arts when added
-        self.req_id = self._cover_db.connect('added',
-            self._albumart_added_callback)
+        self.req_id = self.cover_db.connect('added',
+            self._coverart_added_callback)
         self.connect('load-finished', self._on_load_finished)
-
-    def _connect_properties(self):
-        gs = GSetting()
-        setting = gs.get_setting(gs.Path.PLUGIN)
-
-        setting.bind(gs.PluginKey.COVER_SIZE, self, 'cover_size',
-            Gio.SettingsBindFlags.GET)
-        setting.bind(gs.PluginKey.ADD_SHADOW, self, 'add_shadow',
-            Gio.SettingsBindFlags.GET)
-        setting.bind(gs.PluginKey.SHADOW_IMAGE, self, 'shadow_image',
-            Gio.SettingsBindFlags.GET)
 
     def _on_load_finished(self, *args):
         self.has_finished_loading = True
 
     @idle_iterator
     def _load_covers(self):
-        def process(album, data):
-            self.load_cover(album)
+        def process(coverobject, data):
+            self.load_cover(coverobject)
 
         def finish(data):
-            self._album_manager.progress = 1
+            self.album_manager.progress = 1
             gc.collect()
             self.emit('load-finished')
 
@@ -1357,87 +1334,30 @@ class CoverManager(GObject.Object):
             data['progress'] += COVER_LOAD_CHUNK
 
             # update the progress
-            self._album_manager.progress = data['progress'] / data['total']
+            self.album_manager.progress = data['progress'] / data['total']
 
         return COVER_LOAD_CHUNK, process, after, error, finish
 
-    @idle_iterator
-    def _resize_covers(self):
-        def process(album, data):
-            album.cover.resize(self.cover_size)
-
-        def finish(data):
-            self._album_manager.progress = 1
-            self.emit('load-finished')
-
-        def error(exception):
-            print("Error while resizing covers: " + str(exception))
-
-        def after(data):
-            data['progress'] += COVER_LOAD_CHUNK
-
-            # update the progress
-            self._album_manager.progress = data['progress'] / data['total']
-
-        return COVER_LOAD_CHUNK, process, after, error, finish
-
-    def _create_unknown_and_shadow(self, plugin):
-        # create the unknown cover
-        self._shadow = Shadow(self.cover_size,
-            rb.find_plugin_file(plugin, 'img/album-shadow-%s.png' %
-                self.shadow_image))
-        self.unknown_cover = self._create_cover(
-            rb.find_plugin_file(plugin, 'img/rhythmbox-missing-artwork.svg'))
-
+    def create_unknown_cover(self, plugin):
         # set the unknown cover to the requester to make comparisons
         self._requester.unknown_cover = self.unknown_cover
 
-    def _create_cover(self, image):
-        if self.add_shadow:
-            cover = ShadowedCover(self._shadow, image)
-        else:
-            cover = Cover(self.cover_size, image)
+    def create_cover(self, image):
+        return Cover(self.cover_size, image)
 
-        return cover
-
-    def _on_add_shadow_changed(self, obj, prop, plugin):
-        # update the unknown_cover
-        self._create_unknown_and_shadow(plugin)
-
-        # recreate all the covers
-        self.load_covers()
-
-    def _on_cover_size_changed(self, *args):
-        '''
-        Updates the showing albums cover size.
-        '''
-        # update the shadow
-        self._shadow.resize(self.cover_size)
-
-        # update coverview item width
-        self.update_item_width()
-
-        # update the album's covers
-        albums = self._album_manager.model.get_all()
-
-        self._resize_covers(iter(albums), total=len(albums), progress=0.)
-
-    def _albumart_added_callback(self, ext_db, key, path, pixbuf):
+    def _coverart_added_callback(self, ext_db, key, path, pixbuf):
         print("CoverArtBrowser DEBUG - albumart_added_callback")
 
         # use the name to get the album and update it's cover
         if pixbuf:
-            album = self._album_manager.model.get_from_ext_db_key(key)
+            coverobject = self._manager.model.get_from_ext_db_key(key)
 
-            if album:
-                album.cover = self._create_cover(path)
+            if coverobject:
+                coverobject.cover = self.create_cover(path)
 
         print("CoverArtBrowser DEBUG - end albumart_added_callback")
 
-    def update_item_width(self):
-        self._album_manager.current_view.resize_icon(self.cover_size)
-
-    def load_cover(self, album):
+    def load_cover(self, coverobject):
         '''
         Tries to load an Album's cover. If no cover is found upon lookup,
         the unknown cover is used.
@@ -1447,25 +1367,25 @@ class CoverManager(GObject.Object):
         :param album: `Album` for which load the cover.
         '''
         # create a key and look for the art location
-        key = album.create_ext_db_key()
-        art_location = self._cover_db.lookup(key)
-
+        key = coverobject.create_ext_db_key()
+        art_location = self.cover_db.lookup(key)
+        
         # try to create a cover
         try:
-            album.cover = self._create_cover(art_location)
+            coverobject.cover = self.create_cover(art_location)
         except:
-            album.cover = self.unknown_cover
+            coverobject.cover = self.unknown_cover
 
     def load_covers(self):
         '''
         Loads all the covers for the model's albums.
         '''
-        # get all the albums
-        albums = self._album_manager.model.get_all()
+        # get all the coverobjects
+        coverobjects = self._manager.model.get_all()
 
-        self._load_covers(iter(albums), total=len(albums), progress=0.)
+        self._load_covers(iter(coverobjects), total=len(coverobjects), progress=0.)
 
-    def search_covers(self, albums=None, callback=lambda *_: None):
+    def search_covers(self, coverobjects=None, callback=lambda *_: None):
         '''
         Request all the albums' covers, one by one, periodically calling a
         callback to inform the status of the process.
@@ -1477,19 +1397,101 @@ class CoverManager(GObject.Object):
         :param callback: `callable` to periodically inform when an album's
             cover is being searched.
         '''
-        if albums is None:
+        if coverobjects is None:
             self._requester.replace_queue(
-                list(self._album_manager.model.get_all()), callback)
+                list(self._manager.model.get_all()), callback)
         else:
-            self._requester.add_to_queue(albums, callback)
+            self._requester.add_to_queue(coverobjects, callback)
 
     def cancel_cover_request(self):
         '''
         Cancel the current cover request, if there is one running.
         '''
         self._requester.stop()
+        
+    def update_cover_pixbuf(self, pixbuf):
+        pass
 
-    def update_cover(self, album, pixbuf=None, uri=None):
+    def update_cover(self, coverobject, pixbuf=None, uri=None):
+        pass
+        
+        
+class AlbumCoverManager(CoverManager):
+    # properties
+    add_shadow = GObject.property(type=bool, default=False)
+    shadow_image = GObject.property(type=str, default="above")
+    
+    def __init__(self, plugin, album_manager):
+        super(AlbumCoverManager, self).__init__(plugin, album_manager, 'album-art')
+        
+        self.album_manager = album_manager
+        self._connect_properties()
+        self._connect_signals(plugin)
+
+        # create unknown cover and shadow for covers
+        self.create_unknown_cover(plugin)
+
+    def _connect_signals(self, plugin):
+        self.connect('notify::cover-size', self._on_cover_size_changed)
+        self.connect('notify::add-shadow', self._on_add_shadow_changed, plugin)
+        self.connect('notify::shadow-image', self._on_add_shadow_changed,
+            plugin)
+
+    def _connect_properties(self):
+        gs = GSetting()
+        setting = gs.get_setting(gs.Path.PLUGIN)
+
+        setting.bind(gs.PluginKey.COVER_SIZE, self, 'cover_size',
+            Gio.SettingsBindFlags.GET)
+        setting.bind(gs.PluginKey.ADD_SHADOW, self, 'add_shadow',
+            Gio.SettingsBindFlags.GET)
+        setting.bind(gs.PluginKey.SHADOW_IMAGE, self, 'shadow_image',
+            Gio.SettingsBindFlags.GET)
+            
+    def create_unknown_cover(self, plugin):
+        # create the unknown cover
+        self._shadow = Shadow(self.cover_size,
+            rb.find_plugin_file(plugin, 'img/album-shadow-%s.png' %
+                self.shadow_image))
+        self.unknown_cover = self.create_cover(
+            rb.find_plugin_file(plugin, 'img/rhythmbox-missing-artwork.svg'))
+
+        super(AlbumCoverManager,self).create_unknown_cover(plugin)
+        
+    def create_cover(self, image):
+        if self.add_shadow:
+            cover = ShadowedCover(self._shadow, image)
+        else:
+            cover = Cover(self.cover_size, image)
+
+        return cover
+        
+    def _on_add_shadow_changed(self, obj, prop, plugin):
+        # update the unknown_cover
+        self.create_unknown_cover(plugin)
+
+        # recreate all the covers
+        self.load_covers()
+        
+    def _on_cover_size_changed(self, *args):
+        '''
+        Updates the showing albums cover size.
+        '''
+        # update the shadow
+        self._shadow.resize(self.cover_size)
+
+        # update coverview item width
+        self.update_item_width()
+
+        # update the album's covers
+        albums = self.album_manager.model.get_all()
+
+        self._resize_covers(iter(albums), total=len(albums), progress=0.)
+
+    def update_item_width(self):
+        self.album_manager.current_view.resize_icon(self.cover_size)
+        
+    def update_cover(self, coverobject, pixbuf=None, uri=None):
         '''
         Updates the cover database, inserting the pixbuf as the cover art for
         all the entries on the album.
@@ -1503,19 +1505,19 @@ class CoverManager(GObject.Object):
         '''
         if pixbuf:
             # if it's a pixbuf, assign it to all the artist for the album
-            key = RB.ExtDBKey.create_storage('album', album.name)
-            key.add_field('artist', album.artist)
+            key = RB.ExtDBKey.create_storage('album', coverobject.name)
+            key.add_field('artist', coverobject.artist)
 
-            self._cover_db.store(key, RB.ExtDBSourceType.USER_EXPLICIT,
+            self.cover_db.store(key, RB.ExtDBSourceType.USER_EXPLICIT,
                 pixbuf)
 
-            for artist in album.artists.split(', '):
-                key = RB.ExtDBKey.create_storage('album', album.name)
+            for artist in coverobject.artists.split(', '):
+                key = RB.ExtDBKey.create_storage('album', coverobject.name)
                 key.add_field('artist', artist)
 
-                self._cover_db.store(key, RB.ExtDBSourceType.USER_EXPLICIT,
+                self.cover_db.store(key, RB.ExtDBSourceType.USER_EXPLICIT,
                 pixbuf)
-
+            
         elif uri:
             parsed = rb3compat.urlparse(uri)
 
@@ -1525,12 +1527,13 @@ class CoverManager(GObject.Object):
 
                 if os.path.exists(path):
                     cover = GdkPixbuf.Pixbuf.new_from_file(path)
+                    print (path)
 
-                    self.update_cover(album, cover)
+                    self.update_cover(coverobject, cover)
 
             else:
                 # assume is a remote uri and we have to retrieve the data
-                def cover_update(data, album):
+                def cover_update(data, coverobject):
                     # save the cover on a temp file and open it as a pixbuf
                     with tempfile.NamedTemporaryFile(mode='w') as tmp:
                         try:
@@ -1539,13 +1542,34 @@ class CoverManager(GObject.Object):
                             cover = GdkPixbuf.Pixbuf.new_from_file(tmp.name)
 
                             # set the new cover
-                            self.update_cover(album, cover)
+                            self.update_cover(coverobject, cover)
                         except:
                             print("The URI doesn't point to an image or " + \
                                 "the image couldn't be opened.")
 
                 async = rb.Loader()
-                async.get_url(uri, cover_update, album)
+                async.get_url(uri, cover_update, coverobject)
+
+            
+    @idle_iterator
+    def _resize_covers(self):
+        def process(coverobject, data):
+            coverobject.cover.resize(self.cover_size)
+
+        def finish(data):
+            self.album_manager.progress = 1
+            self.emit('load-finished')
+
+        def error(exception):
+            print("Error while resizing covers: " + str(exception))
+
+        def after(data):
+            data['progress'] += COVER_LOAD_CHUNK
+
+            # update the progress
+            self.album_manager.progress = data['progress'] / data['total']
+
+        return COVER_LOAD_CHUNK, process, after, error, finish
 
 
 class TextManager(GObject.Object):
@@ -1670,7 +1694,7 @@ class AlbumManager(GObject.Object):
 
         # initialize managers
         self.loader = AlbumLoader(self)
-        self.cover_man = CoverManager(plugin, self)
+        self.cover_man = AlbumCoverManager(plugin, self)
         from coverart_artistview import ArtistManager
         self.artist_man = ArtistManager(plugin, self, plugin.shell)
         self.text_man = TextManager(self)

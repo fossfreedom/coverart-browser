@@ -30,6 +30,7 @@ from coverart_browser_prefs import GSetting
 from coverart_album import Cover
 from coverart_album import Album
 from coverart_album import AlbumsModel
+from coverart_album import CoverManager
 from coverart_widgets import AbstractView
 from coverart_utils import SortedCollection
 from coverart_widgets import PanedCollapsible
@@ -37,10 +38,20 @@ from coverart_toolbar import ToolbarObject
 from coverart_utils import idle_iterator
 from coverart_utils import dumpstack
 from coverart_external_plugins import CreateExternalPluginMenu
+import coverart_rb3compat as rb3compat 
 
 import rb
+import os
 
 from collections import namedtuple
+
+import tempfile, shutil
+def create_temporary_copy(path):
+    temp_dir = tempfile.gettempdir()
+    filename = tempfile.mktemp()
+    temp_path = os.path.join(temp_dir, filename)
+    shutil.copy2(path, temp_path)
+    return temp_path
 
 ARTIST_LOAD_CHUNK = 50
 
@@ -76,14 +87,20 @@ class Artist(GObject.Object):
 
     @cover.setter
     def cover(self, new_cover):
-        if self._cover:
-            self._cover.disconnect(self._cover_resized_id)
+        #if self._cover:
+        #    self._cover.disconnect(self._cover_resized_id)
 
         self._cover = new_cover
-        self._cover_resized_id = self._cover.connect('resized',
-            lambda *args: self.emit('cover-updated'))
+        #self._cover_resized_id = self._cover.connect('resized',
+        #    lambda *args: self.emit('cover-updated'))
 
         self.emit('cover-updated')
+    def create_ext_db_key(self):
+        '''
+        Returns an `RB.ExtDBKey` 
+        '''
+        return RB.ExtDBKey.create_lookup('artist', self.name)
+
 
 class ArtistsModel(GObject.Object):
     '''
@@ -98,7 +115,8 @@ class ArtistsModel(GObject.Object):
     '''
     # signals
     __gsignals__ = {
-        'update-path': (GObject.SIGNAL_RUN_LAST, None, (object,))
+        'update-path': (GObject.SIGNAL_RUN_LAST, None, (object,)),
+        'visual-updated': ((GObject.SIGNAL_RUN_LAST, None, (object, object)))
         }
 
     # list of columns names and positions on the TreeModel
@@ -170,11 +188,49 @@ class ArtistsModel(GObject.Object):
         pos = self._artists.insert(artist)
         tree_iter = self._tree_store.insert(None,pos, values)
         child_iter = self._tree_store.insert(tree_iter, pos, values) # dummy child row so that the expand is available
+        # connect signals
+        ids = (artist.connect('modified', self._artist_modified),
+            artist.connect('cover-updated', self._cover_updated),
+            artist.connect('emptied', self.remove))
+        
         if not artist.name in self._iters:
             self._iters[artist.name] = {}
         self._iters[artist.name] = {'artist_album': artist,
             'iter': tree_iter, 'dummy_iter': child_iter}
         return tree_iter
+    
+    def _emit_signal(self, tree_iter, signal):
+        # we get the filtered path and iter since that's what the outside world
+        # interacts with
+        tree_path = self._filtered_store.convert_child_path_to_path(
+            self._tree_store.get_path(tree_iter))
+
+        if tree_path:
+            # if there's no path, the album doesn't show on the filtered model
+            # so no one needs to know
+            tree_iter = self._filtered_store.get_iter(tree_path)
+
+            self.emit(signal, tree_path, tree_iter)
+            
+    def remove(self, *args):
+        print ("artist remove")
+        
+    def _cover_updated(self, artist):
+        print ("artist cover updated")
+        tree_iter = self._iters[artist.name]['iter']
+
+        if self._tree_store.iter_is_valid(tree_iter):
+            # only update if the iter is valid
+            pixbuf = artist.cover.pixbuf
+
+            self._tree_store.set_value(tree_iter, self.columns['pixbuf'],
+                pixbuf)
+
+            self._emit_signal(tree_iter, 'visual-updated')
+            
+    def _artist_modified(self, *args):
+        print ("artist modified")
+        
         
     def _on_update_path(self, widget, treepath):
         '''
@@ -244,7 +300,13 @@ class ArtistsModel(GObject.Object):
 
         :param artist_name: `str` name of the artist.
         '''
-        return self._iters[artist]['artist_album']
+        return self._iters[artist_name]['artist_album']
+        
+    def get_all(self):
+        '''
+        Returns a collection of all the artists in this model.
+        '''
+        return self._artists
         
     def get_from_path(self, path):
         '''
@@ -258,6 +320,22 @@ class ArtistsModel(GObject.Object):
         return self._filtered_store.convert_child_path_to_path(
             self._tree_store.get_path(
                 self._iters[artist.name]['iter']))
+                
+    def get_from_ext_db_key(self, key):
+        '''
+        Returns the requested artist.
+
+        :param key: ext_db_key
+        '''
+        # get the album name and artist
+        name = key.get_field('artist')
+        
+        # first check if there's a direct match
+        artist = self.get(name) if self.contains(name) else None
+
+        print (artist)
+        
+        return artist
 
     def show(self, artist_name, show):
         '''
@@ -308,10 +386,7 @@ class ArtistLoader(GObject.Object):
         self._connect_signals()
         self._album_manager = album_manager
         self._artist_manager = artistmanager
-        self.cover_size = 128
         
-        self.unknown_cover = Cover(self.cover_size, 
-            rb.find_plugin_file(artistmanager.plugin, 'img/microphone.png'))
         self.model = artistmanager.model
     
     def load_artists(self):
@@ -325,7 +400,7 @@ class ArtistLoader(GObject.Object):
     def _load_artists(self):
         def process(row, data):
             # allocate the artist
-            artist = Artist(row, self.unknown_cover)
+            artist = Artist(row, self._artist_manager.cover_man.unknown_cover)
                 
             data['artists'][row] = artist
             
@@ -375,8 +450,68 @@ class ArtistLoader(GObject.Object):
         
     def do_artists_load_finished(self, artists):
         self._load_model(iter(list(artists.values())), total=len(artists), progress=0.)
-    
         
+class ArtistCoverManager(CoverManager):
+    
+    def __init__(self, plugin, artist_manager):
+        super(ArtistCoverManager, self).__init__(plugin, artist_manager, 'artist-art')
+
+        self.cover_size = 48
+
+        # create unknown cover and shadow for covers
+        self.create_unknown_cover(plugin)
+            
+    def create_unknown_cover(self, plugin):
+        # create the unknown cover
+        self.unknown_cover = self.create_cover(
+            rb.find_plugin_file(plugin, 'img/microphone.png'))
+
+        super(ArtistCoverManager,self).create_unknown_cover(plugin)
+        
+    def update_cover(self, coverobject, update=False, uri=None):
+        '''
+        Updates the cover database, inserting the uri as the cover art for
+        all the entries on the album.
+        
+        :param coverobject: `Artist` for which the cover is.
+        :param update: bool to say if to update cover with the given uri.
+        :param uri: `str` from where we should try to retrieve an image.
+        '''
+        if update:
+            # if it's a pixbuf, assign it to all the artist for the album
+            key = RB.ExtDBKey.create_storage('artist', coverobject.name)                    
+            self.cover_db.store_uri(key, RB.ExtDBSourceType.USER,uri)
+
+        elif uri:
+            parsed = rb3compat.urlparse(uri)
+            
+            if parsed.scheme == 'file':
+                # local file - assign it
+                path = rb3compat.url2pathname(uri.strip()).replace('file://', '')
+
+                if os.path.exists(path):
+                    new_temp_file = create_temporary_copy(path)
+                    self.update_cover(coverobject, True, "file://" + new_temp_file)
+                    #os.remove(new_temp_file)  WE NEED TO CLEANUP TEMPORARY FILES
+
+            else:
+                # assume is a remote uri and we have to retrieve the data
+                def cover_update(data, coverobject):
+                    # save the cover on a temp file and open it as a pixbuf
+                    with tempfile.NamedTemporaryFile(mode='w') as tmp:
+                        try:
+                            tmp.write(data)
+                            tmp.flush()
+                            # set the new cover
+                            new_temp_file = create_temporary_copy(tmp.name) #WE NEED TO CLEANUP TEMPORARY FILES
+                            self.update_cover(coverobject, True, "file://"+new_temp_file)
+                        except:
+                            print("The URI doesn't point to an image or " + \
+                                "the image couldn't be opened.")
+
+                async = rb.Loader()
+                async.get_url(uri, cover_update, coverobject)
+
 class ArtistManager(GObject.Object):
     '''
     Main construction that glues together the different managers, the loader
@@ -398,9 +533,24 @@ class ArtistManager(GObject.Object):
         self.shell = shell
         self.plugin = plugin
 
+        self.cover_man = ArtistCoverManager(plugin, self)
+        self.cover_man.album_manager = album_manager
+
         self.model = ArtistsModel(album_manager)
         self.loader = ArtistLoader(self, album_manager)
+ 
+        # connect signals
+        self._connect_signals()
 
+    def _connect_signals(self):
+        '''
+        Connects the manager to all the needed signals for it to work.
+        '''
+        self.loader.connect('model-load-finished', self._load_finished_callback)
+        
+    def _load_finished_callback(self, *args):
+        self.cover_man.load_covers()
+        
 class ArtistShowingPolicy(GObject.Object):
     '''
     Policy that mostly takes care of how and when things should be showed on
@@ -452,20 +602,15 @@ class ArtistView(Gtk.TreeView, AbstractView):
 
         self.view_name = "artist_view"
         super(ArtistView, self).initialise(source)
-        #self.source = source
         self.album_manager = source.album_manager
-        #self.plugin = source.plugin
         self.shell = source.shell
         self.ext_menu_pos = 6
         
         self.set_enable_tree_lines(True)
-        #self.set_grid_lines(Gtk.TreeViewGridLines.BOTH)
-
+        
         pixbuf = Gtk.CellRendererPixbuf()
-        #pixbuf.set_fixed_size(48,48)
         col = Gtk.TreeViewColumn('', pixbuf, pixbuf=1)
-        #col.set_cell_data_func(pixbuf, self._pixbuf_func, None)
-
+        
         self.append_column(col)
         
         col = Gtk.TreeViewColumn(_('Track Artist'), Gtk.CellRendererText(), text=0)
@@ -478,13 +623,17 @@ class ArtistView(Gtk.TreeView, AbstractView):
         self.artistmanager = self.album_manager.artist_man
         self.set_model(self.artistmanager.model.store)
         
+        # setup iconview drag&drop support
+        # first drag and drop on the coverart view to receive coverart
+        self.enable_model_drag_dest([], Gdk.DragAction.COPY)
+        self.drag_dest_add_image_targets()
+        self.drag_dest_add_text_targets()
+        self.connect('drag-drop', self.on_drag_drop)
+        self.connect('drag-data-received',
+            self.on_drag_data_received)
+        
         self._connect_properties()
         self._connect_signals()
-        
-    def _pixbuf_func(self, col, cell, tree_model, tree_iter, data):
-        #new_pix = cell.props.pixbuf.copy()
-        #cell.props.pixbuf = new_pix.scale_simple(48,48,GdkPixbuf.InterpType.BILINEAR)
-        cell.props.pixbuf = tree_model.get_value(tree_iter, 1).scale_simple(48,48,GdkPixbuf.InterpType.BILINEAR)
         
     def _connect_properties(self):
         setting = self.gs.get_setting(self.gs.Path.PLUGIN)
@@ -522,7 +671,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
         
         treepath, treecolumn, cellx, celly = self.get_path_at_pos(event.x, event.y)
         active_object = self.artistmanager.model.get_from_path(treepath)
-            
+        
         if not isinstance(active_object, Album):
             return
             
@@ -590,4 +739,59 @@ class ArtistView(Gtk.TreeView, AbstractView):
     def do_update_toolbar(self, *args):
         self.source.toolbar_manager.set_enabled(False, ToolbarObject.SORT_BY)
         self.source.toolbar_manager.set_enabled(False, ToolbarObject.SORT_ORDER)
+        
+    def on_drag_drop(self, widget, context, x, y, time):
+        '''
+        Callback called when a drag operation finishes over the view
+        of the source. It decides if the dropped item can be processed as
+        an image to use as a cover.
+        '''
 
+        # stop the propagation of the signal (deactivates superclass callback)
+        if rb3compat.is_rb3(self.shell):
+            widget.stop_emission_by_name('drag-drop')
+        else:
+            widget.stop_emission('drag-drop')
+
+        # obtain the path of the icon over which the drag operation finished
+        drop_info = self.get_dest_row_at_pos(x, y)
+        path = None
+        if drop_info:
+            path, position = drop_info
+            
+        result = path is not None
+
+        if result:
+            target = self.drag_dest_find_target(context, None)
+            widget.drag_get_data(context, target, time)
+
+        return result
+
+    def on_drag_data_received(self, widget, drag_context, x, y, data, info,
+        time):
+        '''
+        Callback called when the drag source has prepared the data (pixbuf)
+        for us to use.
+        '''
+
+        # stop the propagation of the signal (deactivates superclass callback)
+        if rb3compat.is_rb3(self.shell):
+            widget.stop_emission_by_name('drag-data-received')
+        else:
+            widget.stop_emission('drag-data-received')
+
+        # get the artist and the info and ask the loader to update the cover
+        path, position = self.get_dest_row_at_pos(x, y)
+        artist = widget.get_model()[path][2]
+
+        pixbuf = data.get_pixbuf()     
+
+        if pixbuf:
+            self.artistmanager.cover_man.update_cover(artist, pixbuf)
+        else:
+            uri = data.get_text()
+            
+            self.artistmanager.cover_man.update_cover(artist, uri=uri)
+
+        # call the context drag_finished to inform the source about it
+        drag_context.finish(True, False, time)
