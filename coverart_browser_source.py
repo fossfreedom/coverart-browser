@@ -651,7 +651,7 @@ class CoverArtBrowserSource(RB.Source):
 
         print("CoverArtBrowser DEBUG - export_embed_menu_item_callback()")
 
-    def update_request_status_bar(self, album):
+    def update_request_status_bar(self, coverobject):
         '''
         Callback called by the album loader starts performing a new cover
         request. It prompts the source to change the content of the request
@@ -659,10 +659,9 @@ class CoverArtBrowserSource(RB.Source):
         '''
         print("CoverArtBrowser DEBUG - update_request_status_bar")
 
-        if album:
+        if coverobject:
             self.request_statusbar.set_text(
-                rb3compat.unicodedecode(_('Requesting cover for %s - %s...') % (album.name,
-                album.artist), 'UTF-8'))
+                rb3compat.unicodedecode(_('Requesting cover for %s...') % (coverobject.name), 'UTF-8'))
         else:
             self.request_status_box.hide()
             self.popup_menu.set_sensitive('cover_search_menu_item', True)
@@ -785,7 +784,8 @@ class CoverArtBrowserSource(RB.Source):
         
         if choice == 'download':
             self.request_status_box.show_all()
-            self.album_manager.cover_man.search_covers(
+            manager = self.viewmgr.current_view.get_default_manager()
+            manager.cover_man.search_covers(
                 callback=self.update_request_status_bar)
         elif choice == 'random':
             self.play_random_album_menu_item_callback()

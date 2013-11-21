@@ -1196,16 +1196,16 @@ class CoverRequester(GObject.Object):
         self._running = False
         self._stop = False
 
-    def add_to_queue(self, albums, callback):
-        ''' Adds albums to the queue if they're not already there. '''
+    def add_to_queue(self, coverobjects, callback):
+        ''' Adds coverobjects to the queue if they're not already there. '''
         self._queue.extend(
-            [album for album in albums if album not in self._queue])
+            [coverobject for coverobject in coverobjects if coverobject not in self._queue])
 
         self._start_process(callback)
 
-    def replace_queue(self, albums, callback):
+    def replace_queue(self, coverobjects, callback):
         ''' Completely replace the current queue. '''
-        self._queue = albums
+        self._queue = coverobjects
 
         self._start_process(callback)
 
@@ -1218,7 +1218,7 @@ class CoverRequester(GObject.Object):
 
     def _process_queue(self):
         '''
-        Main method that process the albums queue.
+        Main method that process the queue.
         First, it tries to adquire a lock on the queue, and if it can, pops
         the next element of the queue and process it.
         The lock makes sure that only one request is done at a time, and
@@ -1226,20 +1226,20 @@ class CoverRequester(GObject.Object):
         '''
         # process the next element in the queue
         while self._queue:
-            album = self._queue.pop(0)
+            coverobject = self._queue.pop(0)
 
-            if album.cover is self.unknown_cover:
+            if coverobject.cover is self.unknown_cover:
                 break
         else:
-            album = None
+            coverobject = None
 
-        if album:
-            # inform the current album being searched
-            self._callback(album)
+        if coverobject:
+            # inform the current coverobject being searched
+            self._callback(coverobject)
 
             # start the request
             self._queue_id += 1
-            self._search_cover_for_album(album, self._queue_id)
+            self._search_for_cover(coverobject, self._queue_id)
 
             # add a timeout to the request
             Gdk.threads_add_timeout_seconds(GLib.PRIORITY_DEFAULT_IDLE, 40,
@@ -1249,18 +1249,18 @@ class CoverRequester(GObject.Object):
             self._running = False
             self._callback(None)
 
-    def _search_cover_for_album(self, album, search_id):
+    def _search_for_cover(self, coverobject, search_id):
         '''
-        Activelly requests an Album's cover to the cover_db, calling
+        Activelly requests a cover to the cover_db, calling
         the callback given once the process finishes (since it generally is
         asynchronous).
         For more information on the callback arguments, check
         `RB.ExtDB.request` documentation.
 
-        :param album: `Album` for which search the cover.
+        :param coverobject: covertype for which search the cover.
         '''
         # create a key and request the cover
-        key = album.create_ext_db_key()
+        key = coverobject.create_ext_db_key()
         provides = self._cover_db.request(key, self._next, search_id)
 
         if not provides:
@@ -1280,6 +1280,7 @@ class CoverRequester(GObject.Object):
     def stop(self):
         ''' Clears the queue, forcing the requester to stop. '''
         del self._queue[:]
+        
             
 class CoverManager(GObject.Object):
     '''

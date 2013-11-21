@@ -1224,3 +1224,12 @@ class AbstractView(GObject.Object):
         since we'll probably just have text buttons for the view
         '''
         return ""
+        
+    def get_default_manager(self):
+        '''
+        every view should have a default manager
+        for example an AlbumManager or ArtistManager
+        by default - use the AlbumManager from the source
+        '''
+        
+        return self.source.album_manager

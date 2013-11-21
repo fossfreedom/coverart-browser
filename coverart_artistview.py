@@ -808,3 +808,9 @@ class ArtistView(Gtk.TreeView, AbstractView):
 
         # call the context drag_finished to inform the source about it
         drag_context.finish(True, False, time)
+        
+    def get_default_manager(self):
+        '''
+        the default manager for this view is the ArtistManager
+        '''
+        return self.artistmanager
