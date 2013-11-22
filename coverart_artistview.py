@@ -477,7 +477,7 @@ class ArtistCoverManager(CoverManager):
 
         super(ArtistCoverManager,self).create_unknown_cover(plugin)
         
-    def update_cover(self, coverobject, update=False, uri=None):
+    def update_cover(self, coverobject, pixbuf=None, uri=None, update=None):
         '''
         Updates the cover database, inserting the uri as the cover art for
         all the entries on the album.
@@ -486,11 +486,20 @@ class ArtistCoverManager(CoverManager):
         :param update: bool to say if to update cover with the given uri.
         :param uri: `str` from where we should try to retrieve an image.
         '''
+
         if update:
             # if it's a pixbuf, assign it to all the artist for the album
             key = RB.ExtDBKey.create_storage('artist', coverobject.name)                    
             self.cover_db.store_uri(key, RB.ExtDBSourceType.USER,uri)
-
+        elif pixbuf:
+            # if it's a pixbuf
+            
+            temp_dir = tempfile.gettempdir()
+            filename = tempfile.mktemp()
+            temp_path = os.path.join(temp_dir, filename)
+            pixbuf.savev(temp_path, 'png', [], []) # WE NEED TO CLEANUP TEMPORARY FILES
+            self.update_cover(coverobject, update=True, uri="file://" + temp_path)
+            
         elif uri:
             parsed = rb3compat.urlparse(uri)
             
@@ -500,20 +509,20 @@ class ArtistCoverManager(CoverManager):
 
                 if os.path.exists(path):
                     new_temp_file = create_temporary_copy(path)
-                    self.update_cover(coverobject, True, "file://" + new_temp_file)
+                    self.update_cover(coverobject, update=True, uri="file://" + new_temp_file)
                     #os.remove(new_temp_file)  WE NEED TO CLEANUP TEMPORARY FILES
 
             else:
                 # assume is a remote uri and we have to retrieve the data
                 def cover_update(data, coverobject):
-                    # save the cover on a temp file and open it as a pixbuf
+                    # save the cover on a temp file 
                     with tempfile.NamedTemporaryFile(mode='w') as tmp:
                         try:
                             tmp.write(data)
                             tmp.flush()
                             # set the new cover
                             new_temp_file = create_temporary_copy(tmp.name) #WE NEED TO CLEANUP TEMPORARY FILES
-                            self.update_cover(coverobject, True, "file://"+new_temp_file)
+                            self.update_cover(coverobject, update=True, uri="file://"+new_temp_file)
                         except:
                             print("The URI doesn't point to an image or " + \
                                 "the image couldn't be opened.")
@@ -658,21 +667,25 @@ class ArtistView(Gtk.TreeView, AbstractView):
         
     def _query_tooltip( self, widget, x, y, key, tooltip ):
         
-        winx, winy = self.convert_widget_to_bin_window_coords(x, y)
-        treepath, treecolumn, cellx, celly = self.get_path_at_pos(winx, winy)
-        active_object = self.artistmanager.model.get_from_path(treepath)
-        
-        if isinstance(active_object, Artist) and \
-            treecolumn.get_title() == "" and \
-            active_object.cover.original != self.artistmanager.cover_man.unknown_cover.original:
-            # we display the tooltip if the row is an artist and the column
-            # is actually the artist cover itself
-            pixbuf = create_pixbuf_from_file_at_size(
-                active_object.cover.original, 256, 256)
-            tooltip.set_icon( pixbuf )
-            return True
-        else:
-            return False
+        try:
+            winx, winy = self.convert_widget_to_bin_window_coords(x, y)
+            treepath, treecolumn, cellx, celly = self.get_path_at_pos(winx, winy)
+            active_object = self.artistmanager.model.get_from_path(treepath)
+            
+            if isinstance(active_object, Artist) and \
+                treecolumn.get_title() == "" and \
+                active_object.cover.original != self.artistmanager.cover_man.unknown_cover.original:
+                # we display the tooltip if the row is an artist and the column
+                # is actually the artist cover itself
+                pixbuf = create_pixbuf_from_file_at_size(
+                    active_object.cover.original, 256, 256)
+                tooltip.set_icon( pixbuf )
+                return True
+            else:
+                return False
+
+        except:
+            pass
             
     def _row_expanded(self, treeview, treeiter, treepath):
         '''
@@ -701,6 +714,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
         active_object = self.artistmanager.model.get_from_path(treepath)
         
         if not isinstance(active_object, Album):
+            self.expand_row(treepath, False)
             return
             
         if event.button == 1:
