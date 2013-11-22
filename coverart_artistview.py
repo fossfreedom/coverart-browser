@@ -37,6 +37,7 @@ from coverart_widgets import PanedCollapsible
 from coverart_toolbar import ToolbarObject
 from coverart_utils import idle_iterator
 from coverart_utils import dumpstack
+from coverart_utils import create_pixbuf_from_file_at_size
 from coverart_external_plugins import CreateExternalPluginMenu
 import coverart_rb3compat as rb3compat 
 
@@ -271,7 +272,7 @@ class ArtistsModel(GObject.Object):
             
     def _generate_artist_values(self, artist):
         tooltip = artist.name
-        pixbuf = artist.cover.pixbuf.scale_simple(48,48,GdkPixbuf.InterpType.BILINEAR)
+        pixbuf = artist.cover.pixbuf #.scale_simple(48,48,GdkPixbuf.InterpType.BILINEAR)
         show = True#self._artist_filter(artist)
 
         return tooltip, pixbuf, artist, show, ''
@@ -464,7 +465,7 @@ class ArtistCoverManager(CoverManager):
     def __init__(self, plugin, artist_manager):
         super(ArtistCoverManager, self).__init__(plugin, artist_manager, 'artist-art')
 
-        self.cover_size = 48
+        self.cover_size = 72
 
         # create unknown cover and shadow for covers
         self.create_unknown_cover(plugin)
@@ -639,7 +640,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
         self.connect('drag-drop', self.on_drag_drop)
         self.connect('drag-data-received',
             self.on_drag_data_received)
-        
+        self.props.has_tooltip = True
         self._connect_properties()
         self._connect_signals()
         
@@ -653,6 +654,25 @@ class ArtistView(Gtk.TreeView, AbstractView):
         self.connect('row-expanded', self._row_expanded)
         self.connect('button-press-event', self._row_click)
         self.get_selection().connect('changed', self._selection_changed)
+        self.connect('query-tooltip', self._query_tooltip)
+        
+    def _query_tooltip( self, widget, x, y, key, tooltip ):
+        
+        winx, winy = self.convert_widget_to_bin_window_coords(x, y)
+        treepath, treecolumn, cellx, celly = self.get_path_at_pos(winx, winy)
+        active_object = self.artistmanager.model.get_from_path(treepath)
+        
+        if isinstance(active_object, Artist) and \
+            treecolumn.get_title() == "" and \
+            active_object.cover.original != self.artistmanager.cover_man.unknown_cover.original:
+            # we display the tooltip if the row is an artist and the column
+            # is actually the artist cover itself
+            pixbuf = create_pixbuf_from_file_at_size(
+                active_object.cover.original, 256, 256)
+            tooltip.set_icon( pixbuf )
+            return True
+        else:
+            return False
             
     def _row_expanded(self, treeview, treeiter, treepath):
         '''
