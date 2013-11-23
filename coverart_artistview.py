@@ -700,7 +700,6 @@ class ArtistView(Gtk.TreeView, AbstractView):
         active_object = self.artistmanager.model.get_from_path(treepath)
         if isinstance(active_object, Artist):
             self.artistmanager.model.emit('update-path', treepath)
-            self.expand_row(treepath, False)
         else:
             #we need to play this album
             self.source.play_selected_album(self.source.favourites)
@@ -714,7 +713,11 @@ class ArtistView(Gtk.TreeView, AbstractView):
         active_object = self.artistmanager.model.get_from_path(treepath)
         
         if not isinstance(active_object, Album):
-            self.expand_row(treepath, False)
+            if treecolumn != self.get_expander_column():
+                if self.row_expanded(treepath):
+                    self.collapse_row(treepath)
+                else:
+                    self.expand_row(treepath, False)
             return
             
         if event.button == 1:
