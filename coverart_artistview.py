@@ -341,8 +341,6 @@ class ArtistsModel(GObject.Object):
         
         # first check if there's a direct match
         artist = self.get(name) if self.contains(name) else None
-
-        print (artist)
         
         return artist
 
@@ -380,7 +378,7 @@ class ArtistLoader(GObject.Object):
     '''
     Loads Artists - updating the model accordingly.
 
-    :param artistmanager: `ArtistManager` responsible for this loader.
+    :param artist_manager: `artist_manager` responsible for this loader.
     '''
     # signals
     __gsignals__ = {
@@ -388,15 +386,15 @@ class ArtistLoader(GObject.Object):
         'model-load-finished': (GObject.SIGNAL_RUN_LAST, None, ())
         }
 
-    def __init__(self, artistmanager, album_manager):
+    def __init__(self, artist_manager, album_manager):
         super(ArtistLoader, self).__init__()
 
-        self.shell = artistmanager.shell
+        self.shell = artist_manager.shell
         self._connect_signals()
         self._album_manager = album_manager
-        self._artist_manager = artistmanager
+        self._artist_manager = artist_manager
         
-        self.model = artistmanager.model
+        self.model = artist_manager.model
     
     def load_artists(self):
         albums = self._album_manager.model.get_all()
@@ -638,8 +636,8 @@ class ArtistView(Gtk.TreeView, AbstractView):
         col = Gtk.TreeViewColumn('', Gtk.CellRendererText(), text=4)
         self.append_column(col) # dummy column to expand horizontally
         
-        self.artistmanager = self.album_manager.artist_man
-        self.set_model(self.artistmanager.model.store)
+        self.artist_manager = self.album_manager.artist_man
+        self.set_model(self.artist_manager.model.store)
         
         # setup iconview drag&drop support
         # first drag and drop on the coverart view to receive coverart
@@ -670,11 +668,11 @@ class ArtistView(Gtk.TreeView, AbstractView):
         try:
             winx, winy = self.convert_widget_to_bin_window_coords(x, y)
             treepath, treecolumn, cellx, celly = self.get_path_at_pos(winx, winy)
-            active_object = self.artistmanager.model.get_from_path(treepath)
+            active_object = self.artist_manager.model.get_from_path(treepath)
             
             if isinstance(active_object, Artist) and \
                 treecolumn.get_title() == "" and \
-                active_object.cover.original != self.artistmanager.cover_man.unknown_cover.original:
+                active_object.cover.original != self.artist_manager.cover_man.unknown_cover.original:
                 # we display the tooltip if the row is an artist and the column
                 # is actually the artist cover itself
                 pixbuf = create_pixbuf_from_file_at_size(
@@ -697,9 +695,9 @@ class ArtistView(Gtk.TreeView, AbstractView):
         '''
         event called when double clicking on the tree-view or by keyboard ENTER
         '''
-        active_object = self.artistmanager.model.get_from_path(treepath)
+        active_object = self.artist_manager.model.get_from_path(treepath)
         if isinstance(active_object, Artist):
-            self.artistmanager.model.emit('update-path', treepath)
+            self.artist_manager.model.emit('update-path', treepath)
         else:
             #we need to play this album
             self.source.play_selected_album(self.source.favourites)
@@ -709,8 +707,12 @@ class ArtistView(Gtk.TreeView, AbstractView):
         event called when clicking on a row
         '''
         
-        treepath, treecolumn, cellx, celly = self.get_path_at_pos(event.x, event.y)
-        active_object = self.artistmanager.model.get_from_path(treepath)
+        try:
+            treepath, treecolumn, cellx, celly = self.get_path_at_pos(event.x, event.y)
+        except:
+            return
+            
+        active_object = self.artist_manager.model.get_from_path(treepath)
         
         if not isinstance(active_object, Album):
             if treecolumn != self.get_expander_column():
@@ -755,7 +757,30 @@ class ArtistView(Gtk.TreeView, AbstractView):
         return "artistview.png"
         
     def _selection_changed(self, *args):
-        self.source.update_with_selection()
+        selected = self.get_selected_objects()
+
+        if isinstance(selected[0], Artist):
+        
+            # clear the entry view
+            self.source.entry_view.clear()
+
+            cover_search_pane_visible = self.source.notebook.get_current_page() == \
+                self.source.notebook.page_num(self.source.cover_search_pane)
+                
+            if not selected:
+                # clean cover tab if selected
+                if cover_search_pane_visible:
+                    self.source.cover_search_pane.clear()
+
+                return
+            
+            # update the cover search pane with the first selected artist
+            if cover_search_pane_visible:
+                self.source.cover_search_pane.do_search(selected[0],
+                    self.artist_manager.cover_man.update_cover)
+            
+        else:
+            self.source.update_with_selection()
 
     def get_selected_objects(self):
         '''
@@ -767,8 +792,8 @@ class ArtistView(Gtk.TreeView, AbstractView):
         model, treeiter = selection.get_selected()
         if treeiter:
             active_object = model.get_value(treeiter,ArtistsModel.columns['artist_album'])
-            if isinstance(active_object, Album):
-                return [active_object]
+            #if isinstance(active_object, Album):
+            return [active_object]
         
         return []
         
@@ -834,7 +859,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
         if isinstance(artist_album, Album):
             manager = self.album_manager
         else:
-            manager = self.artistmanager
+            manager = self.artist_manager
             
         if pixbuf:
             manager.cover_man.update_cover(artist_album, pixbuf)
@@ -848,6 +873,6 @@ class ArtistView(Gtk.TreeView, AbstractView):
         
     def get_default_manager(self):
         '''
-        the default manager for this view is the ArtistManager
+        the default manager for this view is the artist_manager
         '''
-        return self.artistmanager
+        return self.artist_manager

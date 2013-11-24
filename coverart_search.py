@@ -22,23 +22,22 @@ import rb
 from gi.repository import Gtk
 from mako.template import Template
 import coverart_rb3compat as rb3compat
-from coverart_album import AlbumManager
+from coverart_album import Album
 from coverart_browser_prefs import webkit_support
 
 class CoverSearchPane(Gtk.Box):
     '''
-    This UI represents a pane where different album's covers can be presented
-    given an album to look for. It also allows to make custom image searchs,
+    This UI represents a pane where different covers can be presented
+    given an album or artist to look for. It also allows to make custom image searchs,
     customize the default search and select covers from the pane and use them
-    as the album covers (either with a double click or draging them).
+    as the covers (either with a double click or dragging them).
     '''
-    def __init__(self, plugin, album_manager, selection_color):
+    def __init__(self, plugin, selection_color):
         '''
         Initializes the pane, loading it's html templates and it's ui.
         '''
         super(CoverSearchPane, self).__init__()
         self.set_orientation(Gtk.Orientation.VERTICAL)
-        self.album_manager = album_manager
         self.selection_color = selection_color
 
         self.file = ""
@@ -63,14 +62,18 @@ class CoverSearchPane(Gtk.Box):
             default_filters=['decode.utf8'],
             module_directory='/tmp/',
             encoding_errors='replace')
-        #output_encoding='utf-8',
         path = rb.find_plugin_file(plugin,
             'tmpl/albumartsearchempty-tmpl.html')
         self.empty_template = Template(filename=path,
             default_filters=['decode.utf8'],
             module_directory='/tmp/',
             encoding_errors='replace')
-        #output_encoding='utf-8',
+        path = rb.find_plugin_file(plugin,
+            'tmpl/artistartsearch-tmpl.html')
+        self.artist_template = Template(filename=path,
+            default_filters=['decode.utf8'],
+            module_directory='/tmp/',
+            encoding_errors='replace')
         self.styles = rb.find_plugin_file(plugin, 'tmpl/main.css')
 
     def init_gui(self):
@@ -91,33 +94,47 @@ class CoverSearchPane(Gtk.Box):
         self.show_all()
 
         # connect the title changed signal
-        #self.webview.connect('title-changed', self.set_cover)
         self.webview.connect('notify::title', self.set_cover)
 
-    def do_search(self, album):
+    def do_search(self, coverobject, callback):
         '''
         When this method is called, the webview gets refreshed with the info
-        of the album passed.
+        of the album or artist passed.
+        
         '''
-        if album is self.current_album:
+        print ("coverart-search do_search")
+        if coverobject is self.current_searchobject:
             return
 
-        self.current_album = album
+        self.current_searchobject = coverobject
+        self.callback = callback
+        
+        if isinstance(coverobject, Album):
+            artist = coverobject.artist
+            album_name = coverobject.name
 
-        artist = album.artist
-        album_name = album.name
+            if album_name.upper() == "UNKNOWN":
+                album_name = ""
 
-        if album_name.upper() == "UNKNOWN":
-            album_name = ""
+            if artist.upper() == "UNKNOWN":
+                artist = ""
 
-        if artist.upper() == "UNKNOWN":
-            artist = ""
+            if not(album_name == "" and artist == ""):
+                artist = rb3compat.unicodestr(artist.replace('&', '&amp;'),
+                    'utf-8')
+                album_name = rb3compat.unicodestr(album_name.replace('&', '&amp;'), 'utf-8')
+                self.render_album_art_search(artist, album_name)
+        else:
+            artist_name = coverobject.name
 
-        if not(album_name == "" and artist == ""):
-            artist = rb3compat.unicodestr(artist.replace('&', '&amp;'),
-                'utf-8')
-            album_name = rb3compat.unicodestr(album_name.replace('&', '&amp;'), 'utf-8')
-            self.render_album_art_search(artist, album_name)
+            if artist_name.upper() == "UNKNOWN":
+                artist_name = ""
+
+            if not(artist_name == ""):
+                artist = rb3compat.unicodestr(artist_name.replace('&', '&amp;'),
+                    'utf-8')
+                self.render_artist_art_search(artist)
+
 
     def render_album_art_search(self, artist, album_name):
         '''
@@ -129,11 +146,21 @@ class CoverSearchPane(Gtk.Box):
         self.webview.load_string(temp_file, 'text/html', 'utf-8',
             self.basepath)
 
+    def render_artist_art_search(self, artist):
+        '''
+        Renders the template on the webview.
+        '''
+        temp_file = self.artist_template.render(artist=artist,
+            stylesheet=self.styles, selection_color=self.selection_color)
+
+        self.webview.load_string(temp_file, 'text/html', 'utf-8',
+            self.basepath)
+            
     def clear(self):
         '''
-        Clears the webview of any album's specific info/covers.
+        Clears the webview of any specific info/covers.
         '''
-        self.current_album = None
+        self.current_searchobject = None
         temp_file = self.empty_template.render(stylesheet=self.styles)
 
         self.webview.load_string(temp_file, 'text/html', 'utf-8',
@@ -142,7 +169,7 @@ class CoverSearchPane(Gtk.Box):
     def set_cover(self, webview, arg):
         '''
         Callback called when a image in the pane is double-clicked. It takes
-        care of asking the AlbumLoader to update the album's cover.
+        care of updating the searched object cover.
         Some titles have spurious characters beginning with % - remove these
         '''
         # update the cover
@@ -150,5 +177,6 @@ class CoverSearchPane(Gtk.Box):
 
         print(title)
         if title:
-            self.album_manager.cover_man.update_cover(self.current_album,
-                uri=title)
+            #self.album_manager.cover_man.update_cover(self.current_searchobject,
+            #    uri=title)
+            self.callback(self.current_searchobject, uri=title)

@@ -282,8 +282,7 @@ class CoverArtBrowserSource(RB.Source):
         # setup cover search pane
         colour = self.viewmgr.get_selection_colour()
 
-        self.cover_search_pane = CoverSearchPane(self.plugin,
-            self.album_manager, colour)
+        self.cover_search_pane = CoverSearchPane(self.plugin, colour)
         self.notebook.append_page(self.cover_search_pane, Gtk.Label(
             _("Covers")))
 
@@ -413,7 +412,8 @@ class CoverArtBrowserSource(RB.Source):
                 self.notebook.page_num(self.cover_search_pane):
                 # also, if it's the first, update the cover search pane
                 self.cover_search_pane.clear()
-                self.cover_search_pane.do_search(album)
+                self.cover_search_pane.do_search(album, 
+                    self.album_manager.cover_man.update_cover)
 
     def show_properties_menu_item_callback(self, *args):
         '''
@@ -689,10 +689,12 @@ class CoverArtBrowserSource(RB.Source):
         print("CoverArtBrowser DEBUG - notebook_switch_page_callback")
 
         if page_num == 1:
-            selected_albums = self.viewmgr.current_view.get_selected_objects()
+            selected = self.viewmgr.current_view.get_selected_objects()
 
-            if selected_albums:
-                self.cover_search_pane.do_search(selected_albums[0])
+            if selected:
+                manager = self.viewmgr.current_view.get_default_manager()
+                self.cover_search_pane.do_search(selected[0],
+                    manager.cover_man.update_cover)
 
         print("CoverArtBrowser DEBUG - end notebook_switch_page_callback")
 
@@ -776,7 +778,8 @@ class CoverArtBrowserSource(RB.Source):
 
         # update the cover search pane with the first selected album
         if cover_search_pane_visible:
-            self.cover_search_pane.do_search(selected[0])
+            self.cover_search_pane.do_search(selected[0],
+                self.album_manager.cover_man.update_cover)
 
         self.statusbar.emit('display-status', self.viewmgr.current_view)
 
