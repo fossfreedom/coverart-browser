@@ -87,12 +87,12 @@ class Cover(GObject.Object):
             self.emit('resized')
 
     def _create_pixbuf(self, size):
-        try:
-            self.pixbuf = create_pixbuf_from_file_at_size(
-                self.original, size, size)
-        except:
-            self.pixbuf = self.original.scale_simple(
-                size, size, GdkPixbuf.InterpType.BILINEAR)
+        #try:
+        self.pixbuf = create_pixbuf_from_file_at_size(
+            self.original, size, size)
+        #except:
+        #    self.pixbuf = self.original.scale_simple(
+        #        size, size, GdkPixbuf.InterpType.BILINEAR)
 
         self.size = size
 
@@ -1261,6 +1261,7 @@ class CoverRequester(GObject.Object):
         '''
         # create a key and request the cover
         key = coverobject.create_ext_db_key()
+        print (search_id)
         provides = self._cover_db.request(key, self._next, search_id)
 
         if not provides:
@@ -1268,10 +1269,9 @@ class CoverRequester(GObject.Object):
             self._next(search_id)
 
     def _next(self, *args):
-        ''' Advances to the next album to process. '''
+        ''' Advances to the next coverobject to process. '''
         # get the id of the search
         search_id = args[-1]
-
         if search_id == self._queue_id:
             # only process the next element if the search_id is the same as
             # the current id. Otherwise, this is a invalid call
@@ -1300,10 +1300,9 @@ class CoverManager(GObject.Object):
     has_finished_loading = False
     cover_size = GObject.property(type=int, default=0)
 
-    def __init__(self, plugin, manager, database_name):
+    def __init__(self, plugin, manager):
         super(CoverManager, self).__init__()
-
-        self.cover_db = RB.ExtDB(name=database_name)
+        #self.cover_db = None to be defined by inherited class
         self._manager = manager
         self._requester = CoverRequester(self.cover_db)
 
@@ -1312,7 +1311,7 @@ class CoverManager(GObject.Object):
 
         # connect the signal to update cover arts when added
         self.req_id = self.cover_db.connect('added',
-            self._coverart_added_callback)
+            self.coverart_added_callback)
         self.connect('load-finished', self._on_load_finished)
 
     def _on_load_finished(self, *args):
@@ -1346,17 +1345,18 @@ class CoverManager(GObject.Object):
     def create_cover(self, image):
         return Cover(self.cover_size, image)
 
-    def _coverart_added_callback(self, ext_db, key, path, pixbuf):
-        print("CoverArtBrowser DEBUG - albumart_added_callback")
-
+    def coverart_added_callback(self, ext_db, key, path, pixbuf):
         # use the name to get the album and update it's cover
+        print (pixbuf)
+        print (key)
+        print (path)
         if pixbuf:
             coverobject = self._manager.model.get_from_ext_db_key(key)
 
             if coverobject:
+                print (coverobject)
+                print (path)
                 coverobject.cover = self.create_cover(path)
-
-        print("CoverArtBrowser DEBUG - end albumart_added_callback")
 
     def load_cover(self, coverobject):
         '''
@@ -1410,11 +1410,55 @@ class CoverManager(GObject.Object):
         '''
         self._requester.stop()
         
-    def update_cover_pixbuf(self, pixbuf):
+    def update_pixbuf_cover(self, coverobject, pixbuf):
         pass
-
+        
     def update_cover(self, coverobject, pixbuf=None, uri=None):
-        pass
+        '''
+        Updates the cover database, inserting the pixbuf as the cover art for
+        all the entries on the album.
+        In the case a uri is given instead of the pixbuf, it will first try to
+        retrieve an image from the uri, then recall this method with the
+        obtained pixbuf.
+
+        :param album: `Album` for which the cover is.
+        :param pixbuf: `GkdPixbuf.Pixbuf` to use as a cover.
+        :param uri: `str` from where we should try to retrieve an image.
+        '''
+        if pixbuf:
+            self.update_pixbuf_cover(coverobject, pixbuf)
+        elif uri:
+            parsed = rb3compat.urlparse(uri)
+
+            if parsed.scheme == 'file':
+                # local file, load it on a pixbuf and assign it
+                path = rb3compat.url2pathname(uri.strip()).replace('file://', '')
+
+                if os.path.exists(path):
+                    cover = GdkPixbuf.Pixbuf.new_from_file(path)
+                    print (path)
+
+                    self.update_cover(coverobject, cover)
+
+            else:
+                # assume is a remote uri and we have to retrieve the data
+                def cover_update(data, coverobject):
+                    # save the cover on a temp file and open it as a pixbuf
+                    with tempfile.NamedTemporaryFile(mode='wb') as tmp:
+                        try:
+                            tmp.write(data)
+                            tmp.flush()
+                            cover = GdkPixbuf.Pixbuf.new_from_file(tmp.name)
+
+                            # set the new cover
+                            self.update_cover(coverobject, cover)
+                        except:
+                            print("The URI doesn't point to an image or " + \
+                                "the image couldn't be opened.")
+
+                async = rb.Loader()
+                async.get_url(uri, cover_update, coverobject)
+
         
         
 class AlbumCoverManager(CoverManager):
@@ -1423,7 +1467,8 @@ class AlbumCoverManager(CoverManager):
     shadow_image = GObject.property(type=str, default="above")
     
     def __init__(self, plugin, album_manager):
-        super(AlbumCoverManager, self).__init__(plugin, album_manager, 'album-art')
+        self.cover_db = RB.ExtDB(name='album-art')
+        super(AlbumCoverManager, self).__init__(plugin, album_manager)
         
         self.album_manager = album_manager
         self._connect_properties()
@@ -1492,20 +1537,8 @@ class AlbumCoverManager(CoverManager):
     def update_item_width(self):
         self.album_manager.current_view.resize_icon(self.cover_size)
         
-    def update_cover(self, coverobject, pixbuf=None, uri=None):
-        '''
-        Updates the cover database, inserting the pixbuf as the cover art for
-        all the entries on the album.
-        In the case a uri is given instead of the pixbuf, it will first try to
-        retrieve an image from the uri, then recall this method with the
-        obtained pixbuf.
-
-        :param album: `Album` for which the cover is.
-        :param pixbuf: `GkdPixbuf.Pixbuf` to use as a cover.
-        :param uri: `str` from where we should try to retrieve an image.
-        '''
-        if pixbuf:
-            # if it's a pixbuf, assign it to all the artist for the album
+    def update_pixbuf_cover(self, coverobject, pixbuf):
+        # if it's a pixbuf, assign it to all the artist for the album
             key = RB.ExtDBKey.create_storage('album', coverobject.name)
             key.add_field('artist', coverobject.artist)
 
@@ -1518,39 +1551,6 @@ class AlbumCoverManager(CoverManager):
 
                 self.cover_db.store(key, RB.ExtDBSourceType.USER_EXPLICIT,
                 pixbuf)
-            
-        elif uri:
-            parsed = rb3compat.urlparse(uri)
-
-            if parsed.scheme == 'file':
-                # local file, load it on a pixbuf and assign it
-                path = rb3compat.url2pathname(uri.strip()).replace('file://', '')
-
-                if os.path.exists(path):
-                    cover = GdkPixbuf.Pixbuf.new_from_file(path)
-                    print (path)
-
-                    self.update_cover(coverobject, cover)
-
-            else:
-                # assume is a remote uri and we have to retrieve the data
-                def cover_update(data, coverobject):
-                    # save the cover on a temp file and open it as a pixbuf
-                    with tempfile.NamedTemporaryFile(mode='w') as tmp:
-                        try:
-                            tmp.write(data)
-                            tmp.flush()
-                            cover = GdkPixbuf.Pixbuf.new_from_file(tmp.name)
-
-                            # set the new cover
-                            self.update_cover(coverobject, cover)
-                        except:
-                            print("The URI doesn't point to an image or " + \
-                                "the image couldn't be opened.")
-
-                async = rb.Loader()
-                async.get_url(uri, cover_update, coverobject)
-
             
     @idle_iterator
     def _resize_covers(self):

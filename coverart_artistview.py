@@ -39,6 +39,7 @@ from coverart_utils import idle_iterator
 from coverart_utils import dumpstack
 from coverart_utils import create_pixbuf_from_file_at_size
 from coverart_external_plugins import CreateExternalPluginMenu
+from coverart_extdb import CoverArtExtDB
 import coverart_rb3compat as rb3compat 
 
 import rb
@@ -100,7 +101,8 @@ class Artist(GObject.Object):
         '''
         Returns an `RB.ExtDBKey` 
         '''
-        return RB.ExtDBKey.create_lookup('artist', self.name)
+        key = RB.ExtDBKey.create_lookup('artist', self.name)
+        return key
 
 
 class ArtistsModel(GObject.Object):
@@ -218,7 +220,6 @@ class ArtistsModel(GObject.Object):
         print ("artist remove")
         
     def _cover_updated(self, artist):
-        print ("artist cover updated")
         tree_iter = self._iters[artist.name]['iter']
 
         if self._tree_store.iter_is_valid(tree_iter):
@@ -338,10 +339,11 @@ class ArtistsModel(GObject.Object):
         '''
         # get the album name and artist
         name = key.get_field('artist')
+        print (name)
         
         # first check if there's a direct match
         artist = self.get(name) if self.contains(name) else None
-        
+        print (artist)
         return artist
 
     def show(self, artist_name, show):
@@ -461,7 +463,9 @@ class ArtistLoader(GObject.Object):
 class ArtistCoverManager(CoverManager):
     
     def __init__(self, plugin, artist_manager):
-        super(ArtistCoverManager, self).__init__(plugin, artist_manager, 'artist-art')
+        self.cover_db = CoverArtExtDB(name='artist-art')
+        
+        super(ArtistCoverManager, self).__init__(plugin, artist_manager)
 
         self.cover_size = 72
 
@@ -475,58 +479,12 @@ class ArtistCoverManager(CoverManager):
 
         super(ArtistCoverManager,self).create_unknown_cover(plugin)
         
-    def update_cover(self, coverobject, pixbuf=None, uri=None, update=None):
-        '''
-        Updates the cover database, inserting the uri as the cover art for
-        all the entries on the album.
-        
-        :param coverobject: `Artist` for which the cover is.
-        :param update: bool to say if to update cover with the given uri.
-        :param uri: `str` from where we should try to retrieve an image.
-        '''
-
-        if update:
-            # if it's a pixbuf, assign it to all the artist for the album
-            key = RB.ExtDBKey.create_storage('artist', coverobject.name)                    
-            self.cover_db.store_uri(key, RB.ExtDBSourceType.USER,uri)
-        elif pixbuf:
-            # if it's a pixbuf
+    def update_pixbuf_cover(self, coverobject, pixbuf):
+        # if it's a pixbuf, assign it to all the artist for the artist
+            key = RB.ExtDBKey.create_storage('artist', coverobject.name)
             
-            temp_dir = tempfile.gettempdir()
-            filename = tempfile.mktemp()
-            temp_path = os.path.join(temp_dir, filename)
-            pixbuf.savev(temp_path, 'png', [], []) # WE NEED TO CLEANUP TEMPORARY FILES
-            self.update_cover(coverobject, update=True, uri="file://" + temp_path)
-            
-        elif uri:
-            parsed = rb3compat.urlparse(uri)
-            
-            if parsed.scheme == 'file':
-                # local file - assign it
-                path = rb3compat.url2pathname(uri.strip()).replace('file://', '')
-
-                if os.path.exists(path):
-                    new_temp_file = create_temporary_copy(path)
-                    self.update_cover(coverobject, update=True, uri="file://" + new_temp_file)
-                    #os.remove(new_temp_file)  WE NEED TO CLEANUP TEMPORARY FILES
-
-            else:
-                # assume is a remote uri and we have to retrieve the data
-                def cover_update(data, coverobject):
-                    # save the cover on a temp file 
-                    with tempfile.NamedTemporaryFile(mode='w') as tmp:
-                        try:
-                            tmp.write(data)
-                            tmp.flush()
-                            # set the new cover
-                            new_temp_file = create_temporary_copy(tmp.name) #WE NEED TO CLEANUP TEMPORARY FILES
-                            self.update_cover(coverobject, update=True, uri="file://"+new_temp_file)
-                        except:
-                            print("The URI doesn't point to an image or " + \
-                                "the image couldn't be opened.")
-
-                async = rb.Loader()
-                async.get_url(uri, cover_update, coverobject)
+            self.cover_db.store(key, RB.ExtDBSourceType.USER_EXPLICIT,
+                pixbuf)
 
 class ArtistManager(GObject.Object):
     '''
@@ -854,7 +812,8 @@ class ArtistView(Gtk.TreeView, AbstractView):
         path, position = self.get_dest_row_at_pos(x, y)
         artist_album = widget.get_model()[path][2]
 
-        pixbuf = data.get_pixbuf()     
+        pixbuf = data.get_pixbuf()  
+        print (pixbuf)   
 
         if isinstance(artist_album, Album):
             manager = self.album_manager
@@ -865,7 +824,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
             manager.cover_man.update_cover(artist_album, pixbuf)
         else:
             uri = data.get_text()
-            
+            print (uri)
             manager.cover_man.update_cover(artist_album, uri=uri)
 
         # call the context drag_finished to inform the source about it
