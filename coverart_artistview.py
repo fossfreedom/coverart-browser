@@ -339,11 +339,9 @@ class ArtistsModel(GObject.Object):
         '''
         # get the album name and artist
         name = key.get_field('artist')
-        print (name)
         
         # first check if there's a direct match
         artist = self.get(name) if self.contains(name) else None
-        print (artist)
         return artist
 
     def show(self, artist_name, show):
@@ -813,7 +811,6 @@ class ArtistView(Gtk.TreeView, AbstractView):
         artist_album = widget.get_model()[path][2]
 
         pixbuf = data.get_pixbuf()  
-        print (pixbuf)   
 
         if isinstance(artist_album, Album):
             manager = self.album_manager
@@ -824,7 +821,6 @@ class ArtistView(Gtk.TreeView, AbstractView):
             manager.cover_man.update_cover(artist_album, pixbuf)
         else:
             uri = data.get_text()
-            print (uri)
             manager.cover_man.update_cover(artist_album, uri=uri)
 
         # call the context drag_finished to inform the source about it

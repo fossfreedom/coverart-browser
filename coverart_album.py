@@ -87,13 +87,9 @@ class Cover(GObject.Object):
             self.emit('resized')
 
     def _create_pixbuf(self, size):
-        #try:
         self.pixbuf = create_pixbuf_from_file_at_size(
             self.original, size, size)
-        #except:
-        #    self.pixbuf = self.original.scale_simple(
-        #        size, size, GdkPixbuf.InterpType.BILINEAR)
-
+        
         self.size = size
 
 
@@ -1261,7 +1257,6 @@ class CoverRequester(GObject.Object):
         '''
         # create a key and request the cover
         key = coverobject.create_ext_db_key()
-        print (search_id)
         provides = self._cover_db.request(key, self._next, search_id)
 
         if not provides:
@@ -1347,15 +1342,10 @@ class CoverManager(GObject.Object):
 
     def coverart_added_callback(self, ext_db, key, path, pixbuf):
         # use the name to get the album and update it's cover
-        print (pixbuf)
-        print (key)
-        print (path)
         if pixbuf:
             coverobject = self._manager.model.get_from_ext_db_key(key)
 
             if coverobject:
-                print (coverobject)
-                print (path)
                 coverobject.cover = self.create_cover(path)
 
     def load_cover(self, coverobject):
@@ -1372,9 +1362,9 @@ class CoverManager(GObject.Object):
         art_location = self.cover_db.lookup(key)
         
         # try to create a cover
-        try:
+        if art_location:
             coverobject.cover = self.create_cover(art_location)
-        except:
+        else:
             coverobject.cover = self.unknown_cover
 
     def load_covers(self):
@@ -1436,10 +1426,7 @@ class CoverManager(GObject.Object):
 
                 if os.path.exists(path):
                     cover = GdkPixbuf.Pixbuf.new_from_file(path)
-                    print (path)
-
                     self.update_cover(coverobject, cover)
-
             else:
                 # assume is a remote uri and we have to retrieve the data
                 def cover_update(data, coverobject):
