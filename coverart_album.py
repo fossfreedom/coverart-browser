@@ -48,10 +48,10 @@ import rb
 import gc
 
 
-# default chunk of entries to procces when loading albums
+# default chunk of entries to process when loading albums
 ALBUM_LOAD_CHUNK = 50
 
-# default chunk of albums to procces when loading covers
+# default chunk of albums to process when loading covers
 COVER_LOAD_CHUNK = 5
 
 class Cover(GObject.Object):

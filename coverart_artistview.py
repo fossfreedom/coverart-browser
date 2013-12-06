@@ -479,10 +479,10 @@ class ArtistCoverManager(CoverManager):
         
     def update_pixbuf_cover(self, coverobject, pixbuf):
         # if it's a pixbuf, assign it to all the artist for the artist
-            key = RB.ExtDBKey.create_storage('artist', coverobject.name)
-            
-            self.cover_db.store(key, RB.ExtDBSourceType.USER_EXPLICIT,
-                pixbuf)
+        key = RB.ExtDBKey.create_storage('artist', coverobject.name)
+        
+        self.cover_db.store(key, RB.ExtDBSourceType.USER_EXPLICIT,
+            pixbuf)
 
 class ArtistManager(GObject.Object):
     '''
