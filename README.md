@@ -20,11 +20,21 @@ Browse your coverart albums in Rhythmbox v2.96 and later
 
 ##Summary: whats new in this release
 
- - single click play for O/S's using GTK+3.6 or later
+ - single click play for O/S's using GTK+3.6 or later for Tile-view
+ - new artists view: displays album-artists in a tree-view
+ - artists view: clicking on an album-artist displays the albums for that artist
+ - artists view: Download all artist covers using the covers properties menu option
+ - artists view: ... or drag and drop covers from cover view or from nautilus/firefox
+ - artists view: drag and drop of albums to playlists
+ - artists view: Filter buttons or filter search/quick track filter correctly filters view to show only the artists that have those filtered albums
+ - artists view: hovering the mouse pointer over the artist cover displays a tooltip of a larger version of the cover
+ - artists view: supports sorting of album-artist via clicking on its column header - ascending/descending/unsorted.
+ - artists view: right click of albums displays the same right click menu as in tile view or coverflow view
  - new lighter icon-theme from the brilliant designer - jrbastien
  - new Rhythmbox 3 coverart source icon - again from jrbastien
  - Optional export and embed coverart from most file-formats to MP3.
  - Remember quick artist filter between rhythmbox sessions
+ - support drag-and-drop of albums onto playlists or external devices for RB2.99 and later
  - Rework Album & Playlist favourite supports - this declutters menus and now can be optionally enabled through properties button
  - Translated into 22 languages and locales
  - for developers - doxygen documentation: http://fossfreedom.github.io/coverart-browser/classes.html
