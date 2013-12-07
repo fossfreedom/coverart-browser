@@ -273,10 +273,11 @@ class CoverIconView(EnhancedIconView, AbstractView):
         self.connect('drag-begin', self.on_drag_begin)
         self.enable_model_drag_source(Gdk.ModifierType.BUTTON1_MASK,
             [], Gdk.DragAction.COPY)
-        targets = Gtk.TargetList.new([Gtk.TargetEntry.new("application/x-rhythmbox-entry", 0, 0),
-            Gtk.TargetEntry.new("text/uri-list", 0, 1) ])
+        #targets = Gtk.TargetList.new([Gtk.TargetEntry.new("application/x-rhythmbox-entry", 0, 0),
+        #    Gtk.TargetEntry.new("text/uri-list", 0, 1) ])
+        targets = Gtk.TargetList.new([Gtk.TargetEntry.new("text/uri-list", 0, 0) ])
         # N.B. values taken from rhythmbox v2.97 widgets/rb_entry_view.c
-        targets.add_uri_targets(2)
+        targets.add_uri_targets(1)
         
         self.drag_source_set_target_list(targets)
         self.connect("drag-data-get", self.on_drag_data_get)
@@ -423,7 +424,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
             for track in album.get_tracks():
                 uris.append(track.location)
 
-        data.set_uris(uris)
+        sel = data.set_uris(uris)
         # stop the propagation of the signal (deactivates superclass callback)
         if rb3compat.is_rb3(self.shell):
             widget.stop_emission_by_name('drag-data-get')

@@ -610,11 +610,10 @@ class ArtistView(Gtk.TreeView, AbstractView):
         # n.b. enabling of drag-source is controlled by the selection-changed to ensure
         # we dont allow drag from artists
         self.connect('drag-begin', self.on_drag_begin)
-        self._targets = Gtk.TargetList.new([Gtk.TargetEntry.new("application/x-rhythmbox-entry", 0, 0),
-            Gtk.TargetEntry.new("text/uri-list", 0, 1) ])
+        self._targets = Gtk.TargetList.new([Gtk.TargetEntry.new("text/uri-list", 0, 0) ])
     
         # N.B. values taken from rhythmbox v2.97 widgets/rb_entry_view.c
-        self._targets.add_uri_targets(2)
+        self._targets.add_uri_targets(1)
         self.connect("drag-data-get", self.on_drag_data_get)
             
         # connect properties and signals
