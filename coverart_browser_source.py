@@ -677,7 +677,7 @@ class CoverArtBrowserSource(RB.Source):
         print("CoverArtBrowser DEBUG - cancel_request_callback")
 
         self.request_cancel_button.set_sensitive(False)
-        self.album_manager.cover_man.cancel_cover_request()
+        self._cover_search_manager.cover_man.cancel_cover_request()
 
         print("CoverArtBrowser DEBUG - end cancel_request_callback")
 
@@ -787,8 +787,8 @@ class CoverArtBrowserSource(RB.Source):
         
         if choice == 'download':
             self.request_status_box.show_all()
-            manager = self.viewmgr.current_view.get_default_manager()
-            manager.cover_man.search_covers(
+            self._cover_search_manager = self.viewmgr.current_view.get_default_manager()
+            self._cover_search_manager.cover_man.search_covers(
                 callback=self.update_request_status_bar)
         elif choice == 'random':
             self.play_random_album_menu_item_callback()
