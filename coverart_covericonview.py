@@ -267,13 +267,12 @@ class CoverIconView(EnhancedIconView, AbstractView):
         self.connect('drag-drop', self.on_drag_drop)
         self.connect('drag-data-received',
             self.on_drag_data_received)
-        self.connect('drag-begin', self.on_drag_begin)
         self.source.paned.connect("expanded", self.bottom_expander_expanded_callback)
-        
-        self.enable_model_drag_source(Gdk.ModifierType.BUTTON1_MASK,
-            [], Gdk.DragAction.COPY)
 
         # lastly support drag-drop from coverart to devices/nautilus etc
+        self.connect('drag-begin', self.on_drag_begin)
+        self.enable_model_drag_source(Gdk.ModifierType.BUTTON1_MASK,
+            [], Gdk.DragAction.COPY)
         targets = Gtk.TargetList.new([Gtk.TargetEntry.new("application/x-rhythmbox-entry", 0, 0),
             Gtk.TargetEntry.new("text/uri-list", 0, 1) ])
         # N.B. values taken from rhythmbox v2.97 widgets/rb_entry_view.c

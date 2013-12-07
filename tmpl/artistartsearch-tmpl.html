@@ -155,7 +155,7 @@
                 //    google.search.ImageSearch.FILETYPE_JPG);
                 imageSearch.setRestriction(
                     google.search.ImageSearch.RESTRICT_IMAGESIZE,
-                    google.search.ImageSearch.IMAGESIZE_LARGE);
+                    google.search.ImageSearch.IMAGESIZE_EXTRA_LARGE);
 
                 // Here we set a callback so that anytime a search is executed,
                 // it will call the searchComplete function and pass it our
@@ -188,8 +188,8 @@
                 <select id="imagesize" onchange="onOptionChange(this);">
                     <option value="small">${_("Small")}</option>
                     <option value="medium">${_("Medium")}</option>
-                    <option value="large" selected>${_("Large")}</option>
-                    <option value="x-large">${_("Extra Large")}</option>
+                    <option value="large">${_("Large")}</option>
+                    <option value="x-large" selected>${_("Extra Large")}</option>
                 </select>
             </div>
         </div>

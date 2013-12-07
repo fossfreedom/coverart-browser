@@ -1,4 +1,5 @@
 # -*- Mode: python; coding: utf-8; tab-width: 4; indent-tabs-mode: nil; -*-
+# -*- Mode: python; coding: utf-8; tab-width: 4; indent-tabs-mode: nil; -*-
 #
 # Copyright (C) 2012 - fossfreedom
 # Copyright (C) 2012 - Agustin Carrasco
@@ -577,11 +578,12 @@ class ArtistView(Gtk.TreeView, AbstractView):
         self.album_manager = source.album_manager
         self.shell = source.shell
         self.ext_menu_pos = 6
+        self.props.has_tooltip = True
         
         self.set_enable_tree_lines(True)
         
         pixbuf = Gtk.CellRendererPixbuf()
-        col = Gtk.TreeViewColumn('', pixbuf, pixbuf=1)
+        col = Gtk.TreeViewColumn(_('Covers'), pixbuf, pixbuf=1)
         
         self.append_column(col)
         
@@ -603,7 +605,19 @@ class ArtistView(Gtk.TreeView, AbstractView):
         self.connect('drag-drop', self.on_drag_drop)
         self.connect('drag-data-received',
             self.on_drag_data_received)
-        self.props.has_tooltip = True
+            
+        # lastly support drag-drop from coverart to devices/nautilus etc
+        # n.b. enabling of drag-source is controlled by the selection-changed to ensure
+        # we dont allow drag from artists
+        self.connect('drag-begin', self.on_drag_begin)
+        self._targets = Gtk.TargetList.new([Gtk.TargetEntry.new("application/x-rhythmbox-entry", 0, 0),
+            Gtk.TargetEntry.new("text/uri-list", 0, 1) ])
+    
+        # N.B. values taken from rhythmbox v2.97 widgets/rb_entry_view.c
+        self._targets.add_uri_targets(2)
+        self.connect("drag-data-get", self.on_drag_data_get)
+            
+        # connect properties and signals
         self._connect_properties()
         self._connect_signals()
         
@@ -627,7 +641,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
             active_object = self.artist_manager.model.get_from_path(treepath)
             
             if isinstance(active_object, Artist) and \
-                treecolumn.get_title() == "" and \
+                treecolumn.get_title() == _('Covers') and \
                 active_object.cover.original != self.artist_manager.cover_man.unknown_cover.original:
                 # we display the tooltip if the row is an artist and the column
                 # is actually the artist cover itself
@@ -716,7 +730,8 @@ class ArtistView(Gtk.TreeView, AbstractView):
         selected = self.get_selected_objects()
 
         if isinstance(selected[0], Artist):
-        
+            self.unset_rows_drag_source() # turn off drag-drop for artists
+                
             # clear the entry view
             self.source.entry_view.clear()
 
@@ -737,6 +752,10 @@ class ArtistView(Gtk.TreeView, AbstractView):
             
         else:
             self.source.update_with_selection()
+            # now turnon drag-drop for album.
+            self.enable_model_drag_source(Gdk.ModifierType.BUTTON1_MASK,
+                [], Gdk.DragAction.COPY)
+            self.drag_source_set_target_list(self._targets)
 
     def get_selected_objects(self):
         '''
@@ -825,6 +844,43 @@ class ArtistView(Gtk.TreeView, AbstractView):
 
         # call the context drag_finished to inform the source about it
         drag_context.finish(True, False, time)
+        
+    def on_drag_data_get(self, widget, drag_context, data, info, time):
+        '''
+        Callback called when the drag destination (playlist) has
+        requested what album (icon) has been dragged
+        '''
+
+        uris = []
+        for album in widget.get_selected_objects():
+            for track in album.get_tracks():
+                uris.append(track.location)
+
+        data.set_uris(uris)
+        # stop the propagation of the signal (deactivates superclass callback)
+        if rb3compat.is_rb3(self.shell):
+            widget.stop_emission_by_name('drag-data-get')
+        else:
+            widget.stop_emission('drag-data-get')
+
+    def on_drag_begin(self, widget, context):
+        '''
+        Callback called when the drag-drop from coverview has started
+        Changes the drag icon as appropriate
+        '''
+        album_number = len(widget.get_selected_objects())
+
+        if album_number == 1:
+            item = Gtk.STOCK_DND
+        else:
+            item = Gtk.STOCK_DND_MULTIPLE
+
+        widget.drag_source_set_icon_stock(item)
+        if rb3compat.is_rb3(self.shell):
+            widget.stop_emission_by_name('drag-begin')
+        else:
+            widget.stop_emission('drag-begin')
+    
         
     def get_default_manager(self):
         '''
