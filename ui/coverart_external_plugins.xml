@@ -101,5 +101,13 @@
                 <attribute name="is_album_menu">yes</attribute>
             </menu>
         </plugin>
+        <plugin name="repeat-one-song">
+            <menu label="Repeat One Song">
+                <attribute name="action_type">app</attribute>
+                <attribute name="action_name">repeatone</attribute>
+                <attribute name="new_menu_name">Repeat One Song</attribute>
+                <attribute name="is_album_menu">no</attribute>
+            </menu>
+        </plugin>
     </rb3>
 </root>
