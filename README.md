@@ -36,6 +36,7 @@ Browse your coverart albums in Rhythmbox v2.96 and later
  - Remember quick artist filter between rhythmbox sessions
  - support drag-and-drop of albums onto playlists or external devices for RB2.99 and later
  - Rework Album & Playlist favourite supports - this declutters menus and now can be optionally enabled through properties button
+ - Right click support for the external plugin Repeat One Song
  - Translated into 22 languages and locales
  - for developers - doxygen documentation: http://fossfreedom.github.io/coverart-browser/classes.html
 
