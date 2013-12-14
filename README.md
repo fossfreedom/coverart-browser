@@ -30,13 +30,17 @@ Browse your coverart albums in Rhythmbox v2.96 and later
  - artists view: hovering the mouse pointer over the artist cover displays a tooltip of a larger version of the cover
  - artists view: supports sorting of album-artist via clicking on its column header - ascending/descending/unsorted.
  - artists view: right click of albums displays the same right click menu as in tile view or coverflow view
+ - new look (optional) to display album information within (on top of) the cover rather than below (beneath) the cover
  - new lighter icon-theme from the brilliant designer - jrbastien
  - new Rhythmbox 3 coverart source icon - again from jrbastien
  - Optional export and embed coverart from most file-formats to MP3.
  - Remember quick artist filter between rhythmbox sessions
  - support drag-and-drop of albums onto playlists or external devices for RB2.99 and later
  - Rework Album & Playlist favourite supports - this declutters menus and now can be optionally enabled through properties button
- - Translated into 22 languages and locales
+ - Right click support for the external plugin Repeat One Song
+ - Use new Rhythmbox 3 progress bars for loading
+ - Tooltip support to display cover name and artist only if album information is not already displayed
+ - Translated into 26 languages and locales
  - for developers - doxygen documentation: http://fossfreedom.github.io/coverart-browser/classes.html
 
 *How it works:*
