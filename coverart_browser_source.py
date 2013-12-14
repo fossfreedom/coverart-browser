@@ -40,7 +40,6 @@ from stars import ReactiveStar
 from coverart_rb3compat import Menu
 from coverart_rb3compat import ActionGroup
 from coverart_covericonview import CoverIconView
-from coverart_covericonview import CoverIconView
 from coverart_coverflowview import CoverFlowView
 from coverart_artistview import ArtistView
 from coverart_toolbar import ToolbarManager
@@ -977,10 +976,10 @@ class ViewManager(GObject.Object):
         self._views[ArtistView.name] = ui.get_object('artist_view')
         self._lastview = None
 
-        self.controller = ViewController(source.plugin, self)
-        self.controller.add_key_pair(CoverFlowView.name, 'flowview_button')
-        self.controller.add_key_pair(CoverIconView.name, 'iconview_button')
-        self.controller.add_key_pair(ArtistView.name, 'artistview_button')
+        self.controller = ViewController(source.shell, self)
+        #self.controller.add_key_pair(CoverFlowView.name, 'flowview_button')
+        #self.controller.add_key_pair(CoverIconView.name, 'iconview_button')
+        #self.controller.add_key_pair(ArtistView.name, 'artistview_button')
 
         # connect signal and properties
         self._connect_signals()

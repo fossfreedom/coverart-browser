@@ -86,7 +86,42 @@ class OptionsWidget(Gtk.Widget):
 
     def update_image(self):
         pass
+        
+    def calc_popup_position(self, widget):
+        # this calculates the popup positioning - algorithm taken
+        # from Gtk3.8 gtk/gtkmenubutton.c
+        
+        toplevel = self.get_toplevel()
+        toplevel.set_type_hint(Gdk.WindowTypeHint.DROPDOWN_MENU)
+        
+        menu_req, pref_req = widget.get_preferred_size()
+        align = widget.get_halign()
+        direction = self.get_direction()
+        window = self.get_window()
 
+        screen = widget.get_screen()
+        monitor_num = screen.get_monitor_at_window(window)
+        if (monitor_num < 0):
+            monitor_num = 0
+        monitor = screen.get_monitor_workarea(monitor_num)
+
+        allocation = self.get_allocation()
+
+        ret, x,y = window.get_origin()
+        x += allocation.x
+        y += allocation.y
+
+        if allocation.width - menu_req.width > 0:
+            x += allocation.width - menu_req.width
+
+        if ((y + allocation.height + menu_req.height) <= monitor.y + monitor.height):
+            y += allocation.height
+        elif ((y - menu_req.height) >= monitor.y):
+            y -= menu_req.height
+        else:
+            y -= menu_req.height
+        
+        return x, y
 
 class OptionsPopupWidget(OptionsWidget):
 
@@ -154,25 +189,35 @@ class OptionsPopupWidget(OptionsWidget):
         if self._controller:
             # inform the controller
             self._controller.option_selected(key)
-
-    def show_popup(self):
+        
+    def _popup_callback(self, *args):
+        x, y = self.calc_popup_position(self._popup_menu)
+        
+        return x, y, False, None
+        
+    def show_popup(self, align=True):
         '''
         show the current popup menu
         '''
-        self._popup_menu.popup(None, None, None, None, 0,
+        
+        if align:
+            self._popup_menu.popup(None, None, self._popup_callback, self, 0,
                 Gtk.get_current_event_time())
-
+        else:
+            self._popup_menu.popup(None, None, None, None, 0,
+                Gtk.get_current_event_time())
+    
     def do_delete_thyself(self):
         self.clear_popupmenu()
         del self._popupmenu
 
 
-class PixbufButton(Gtk.Button):
+class EnhancedButton(Gtk.ToggleButton):
 
     button_relief = GObject.property(type=bool, default=False)
 
     def __init__(self, *args, **kwargs):
-        super(PixbufButton, self).__init__(*args, **kwargs)
+        super(EnhancedButton, self).__init__(*args, **kwargs)
 
         gs = GSetting()
         setting = gs.get_setting(gs.Path.PLUGIN)
@@ -181,6 +226,20 @@ class PixbufButton(Gtk.Button):
 
         self.connect('notify::button-relief',
             self.on_notify_button_relief)
+
+    def on_notify_button_relief(self, *arg):
+        if self.button_relief:
+            self.set_relief(Gtk.ReliefStyle.NONE)
+        else:
+            self.set_relief(Gtk.ReliefStyle.HALF)
+
+
+class PixbufButton(EnhancedButton):
+
+    button_relief = GObject.property(type=bool, default=False)
+
+    def __init__(self, *args, **kwargs):
+        super(PixbufButton, self).__init__(*args, **kwargs)
 
     def set_image(self, pixbuf):
         image = self.get_image()
@@ -196,12 +255,6 @@ class PixbufButton(Gtk.Button):
 
         self.on_notify_button_relief()
 
-    def on_notify_button_relief(self, *arg):
-        if self.button_relief:
-            self.set_relief(Gtk.ReliefStyle.NONE)
-        else:
-            self.set_relief(Gtk.ReliefStyle.HALF)
-            
     def _getBlendedPixbuf(self, pixbuf):
         """Turn a pixbuf into a blended version of the pixbuf by drawing a
         transparent alpha blend on it."""
@@ -217,16 +270,12 @@ class PixbufButton(Gtk.Button):
 
         context.set_source_rgba(32, 32, 32, 0.4)
         context.set_line_width(0)
-        context.rectangle(0, 
-                     0,
-                     w,
-                     h)
+        context.rectangle(0, 0, w, h)
         context.fill()
 
         pixbuf = Gdk.pixbuf_get_from_surface(surface, 0, 0, w, h)
 
         return pixbuf
-
 
 
 class PopupButton(PixbufButton, OptionsPopupWidget):
@@ -243,11 +292,15 @@ class PopupButton(PixbufButton, OptionsPopupWidget):
         '''
         PixbufButton.__init__(self, *args, **kwargs)
         OptionsPopupWidget.__init__(self, *args, **kwargs)
-
-        self._popup_menu = Gtk.Menu()
+        
+        self._popup_menu.attach_to_widget(self, None) #critical to ensure theming works
+        self._popup_menu.connect('deactivate', self.popup_deactivate)
 
         # initialise some variables
         self._first_menu_item = None
+        
+    def popup_deactivate(self, *args):
+        self.set_active(False)
 
     def update_image(self):
         super(PopupButton, self).update_image()
@@ -260,12 +313,48 @@ class PopupButton(PixbufButton, OptionsPopupWidget):
         self.set_image(self._controller.get_current_image())
         self.set_tooltip_text(self._controller.get_current_description())
 
-    def do_clicked(self):
+    def do_button_press_event(self, event):
         '''
         when button is clicked, update the popup with the sorting options
         before displaying the popup
         '''
-        self.show_popup()
+        if (event.button == Gdk.BUTTON_PRIMARY):
+            self.show_popup()
+            self.set_active(True)
+            
+class TextPopupButton(EnhancedButton, OptionsPopupWidget):
+    __gtype_name__ = "TextPopupButton"
+
+    # signals
+    __gsignals__ = {
+        'item-clicked': (GObject.SIGNAL_RUN_LAST, None, (str,))
+        }
+
+    def __init__(self, *args, **kwargs):
+        '''
+        Initializes the button.
+        '''
+        EnhancedButton.__init__(self, *args, **kwargs)
+        OptionsPopupWidget.__init__(self, *args, **kwargs)
+        
+        self._popup_menu.attach_to_widget(self, None) #critical to ensure theming works
+        self._popup_menu.connect('deactivate', self.popup_deactivate)
+
+        # initialise some variables
+        self._first_menu_item = None
+
+    def popup_deactivate(self, *args):
+        self.set_active(False)
+
+    def do_button_press_event(self, event):
+        '''
+        when button is clicked, update the popup with the sorting options
+        before displaying the popup
+        '''
+        if (event.button == Gdk.BUTTON_PRIMARY):
+            self.show_popup()
+            self.set_active(True)
+
 
 class MenuButton(PixbufButton, OptionsPopupWidget):
     __gtype_name__ = "MenuButton"
@@ -281,9 +370,13 @@ class MenuButton(PixbufButton, OptionsPopupWidget):
         '''
         PixbufButton.__init__(self, *args, **kwargs)
         OptionsPopupWidget.__init__(self, *args, **kwargs)
-
-        self._popup_menu = Gtk.Menu()
+        
+        self._popup_menu.attach_to_widget(self, None) #critical to ensure theming works
+        self._popup_menu.connect('deactivate', self.popup_deactivate)
         self._states = {}
+        
+    def popup_deactivate(self, *args):
+        self.set_active(False)
 
     def add_menuitem(self, key):
         '''
@@ -346,12 +439,14 @@ class MenuButton(PixbufButton, OptionsPopupWidget):
         self.set_image(self._controller.get_current_image())
         self.set_tooltip_text(self._controller.get_current_description())
 
-    def do_clicked(self):
+    def do_button_press_event(self, event):
         '''
         when button is clicked, update the popup with the sorting options
         before displaying the popup
         '''
-        self.show_popup()
+        if (event.button == Gdk.BUTTON_PRIMARY):
+            self.show_popup()
+            self.set_active(True)
 
 
 class ImageToggleButton(PixbufButton, OptionsWidget):
@@ -387,7 +482,11 @@ class ImageToggleButton(PixbufButton, OptionsWidget):
             self._controller.option_selected(
                 self._controller.options[index])
 
+
 class ImageRadioButton(Gtk.RadioButton, OptionsWidget):
+# this is legacy code that will not as yet work with
+# the new toolbar - consider removing this later
+
     __gtype_name__ = "ImageRadioButton"
 
     button_relief = GObject.property(type=bool, default=False)
@@ -488,7 +587,7 @@ class SearchEntry(RB.SearchEntry, OptionsPopupWidget):
     def __init__(self, *args, **kwargs):
         RB.SearchEntry.__init__(self, *args, **kwargs)
         OptionsPopupWidget.__init__(self)
-
+        
     @OptionsPopupWidget.controller.setter
     def controller(self, controller):
         if self._controller:
@@ -511,13 +610,13 @@ class SearchEntry(RB.SearchEntry, OptionsPopupWidget):
         super(SearchEntry, self).update_current_key()
 
         self.set_placeholder(self._controller.get_current_description())
-
+        
     def do_show_popup(self):
         '''
         Callback called by the search entry when the magnifier is clicked.
         It prompts the user through a popup to select a filter type.
         '''
-        self.show_popup()
+        self.show_popup(False)
 
     def do_search(self, text):
         '''
@@ -659,11 +758,13 @@ class OptionsListViewWidget(OptionsWidget):
 
     # signals
     __gsignals__ = {
-        'item-clicked': (GObject.SIGNAL_RUN_LAST, None, (str,))
+        'item-clicked': (GObject.SIGNAL_RUN_LAST, None, (str,)),
+        'deactivate': (GObject.SIGNAL_RUN_LAST, None, ())
         }
 
     def __init__(self, *args, **kwargs):
         OptionsWidget.__init__(self, *args, **kwargs)
+        self._popup = self
 
     @OptionsWidget.controller.setter
     def controller(self, controller):
@@ -693,28 +794,14 @@ class OptionsListViewWidget(OptionsWidget):
             # inform the controller
             self._controller.option_selected(key)
 
-    def show_popup(self, x, y):
+    def show_popup(self):
         '''
         show the listview window either above or below the controlling
         widget depending upon where the cursor position is relative to the
         screen
         params - x & y is the cursor position
         '''
-        screen = self.get_window().get_screen()
-        scr_height = screen.get_height()
-        scr_width = screen.get_width()
-
-        list_width, list_height = self._listwindow.get_size()
-
-        if x + list_width > scr_width:
-            pos_x = x - list_width
-        else:
-            pos_x = x
-
-        if y + list_height > scr_height:
-            pos_y = y - list_height
-        else:
-            pos_y = y
+        pos_x, pos_y = self.calc_popup_position(self._listwindow)
 
         self._listwindow.move(pos_x, pos_y)
         self._listwindow.show_all()
@@ -740,6 +827,7 @@ class OptionsListViewWidget(OptionsWidget):
 
         self._treeview.set_hover_selection(False)
         self._listwindow.hide()
+        self.emit('deactivate')
 
     def on_scroll_button_enter(self, button):
 
@@ -778,6 +866,7 @@ class OptionsListViewWidget(OptionsWidget):
 
     def on_cancel(self, *args):
         self._listwindow.hide()
+        self.emit('deactivate')
         return True
 
     def do_delete_thyself(self):
@@ -790,7 +879,8 @@ class ListViewButton(PixbufButton, OptionsListViewWidget):
 
     # signals
     __gsignals__ = {
-        'item-clicked': (GObject.SIGNAL_RUN_LAST, None, (str,))
+        'item-clicked': (GObject.SIGNAL_RUN_LAST, None, (str,)),
+        'deactivate': (GObject.SIGNAL_RUN_LAST, None, ())
         }
 
     def __init__(self, *args, **kwargs):
@@ -799,7 +889,19 @@ class ListViewButton(PixbufButton, OptionsListViewWidget):
         '''
         PixbufButton.__init__(self, *args, **kwargs)
         OptionsListViewWidget.__init__(self, *args, **kwargs)
-
+        
+        self._popup.connect('deactivate', self.popup_deactivate)
+        
+    def popup_deactivate(self, *args):
+        # add a slight delay to allow the click of button to occur
+        # before the deactivation of the button - this will allow
+        # us to toggle the popup via the button correctly
+        
+        def deactivate(*args):
+            self.set_active(False)
+    
+        Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 50, deactivate, None)
+        
     def update_image(self):
         super(ListViewButton, self).update_image()
         self.set_image(self._controller.get_current_image())
@@ -816,7 +918,11 @@ class ListViewButton(PixbufButton, OptionsListViewWidget):
         when button is clicked, update the popup with the sorting options
         before displaying the popup
         '''
-        self.show_popup(int(event.x_root), int(event.y_root))
+        if (event.button == Gdk.BUTTON_PRIMARY and not self.get_active()):
+            self.show_popup()
+            self.set_active(True)
+        else:
+            self.set_active(False)
 
 
 class EnhancedIconView(Gtk.IconView):

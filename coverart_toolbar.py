@@ -59,8 +59,8 @@ class Toolbar(GObject.Object):
                 builder.get_object(button).controller = controller
 
         if not webkit_support():
-            button = builder.get_object('flowview_button')
-            button.set_visible(False)
+            #button = builder.get_object('flowview_button')
+            #button.set_visible(False)
             separator = builder.get_object('properties_separator')
             if separator:
                 separator.set_visible(False)
@@ -81,7 +81,11 @@ class Toolbar(GObject.Object):
         Theme(self.plugin).connect('theme_changed', self._theme_changed,
             controllers)
 
-        self.builder = builder.get_object('main_box')
+        self.builder = builder.get_object('toolbar')
+        
+        #now theme the toolbar including child objects such as the button popups
+        style_context = self.builder.get_style_context()
+        style_context.add_class(Gtk.STYLE_CLASS_TOOLBAR)
 
     def _theme_changed(self, toolbar, controllers):
         for controller in list(controllers.values()):
@@ -102,7 +106,7 @@ class TopToolbar(Toolbar):
 
 
 class LeftToolbar(Toolbar):
-    ui = 'ui/coverart_sidebar.ui'
+    ui = 'ui/coverart_leftsidebar.ui'
     name = 'left'
 
     def hide(self):
@@ -118,7 +122,7 @@ class LeftToolbar(Toolbar):
 
 
 class RightToolbar(Toolbar):
-    ui = 'ui/coverart_sidebar.ui'
+    ui = 'ui/coverart_rightsidebar.ui'
     name = 'right'
 
     def hide(self):
@@ -142,9 +146,10 @@ class ToolbarObject(object):
     PLAYLIST='playlist_button'
     DECADE='decade_button'
     SEARCH='search'
-    ICONVIEW='iconview_button'
-    FLOWVIEW='flowview_button'
-    ARTISTVIEW='artistview_button'
+    #ICONVIEW='iconview_button'
+    #FLOWVIEW='flowview_button'
+    #ARTISTVIEW='artistview_button'
+    VIEW='view_button'
     
 
 class ToolbarManager(GObject.Object):
@@ -215,9 +220,10 @@ class ToolbarManager(GObject.Object):
         controllers[ToolbarObject.SEARCH] = \
             AlbumSearchEntryController(album_model)
         
-        controllers[ToolbarObject.ICONVIEW] = viewmgr.controller
-        controllers[ToolbarObject.FLOWVIEW] = viewmgr.controller
-        controllers[ToolbarObject.ARTISTVIEW] = viewmgr.controller
+        #controllers[ToolbarObject.ICONVIEW] = viewmgr.controller
+        #controllers[ToolbarObject.FLOWVIEW] = viewmgr.controller
+        #controllers[ToolbarObject.ARTISTVIEW] = viewmgr.controller
+        controllers[ToolbarObject.VIEW] = viewmgr.controller
 
         return controllers
 

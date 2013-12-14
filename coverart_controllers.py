@@ -711,50 +711,34 @@ class AlbumQuickSearchController(object):
 
 class ViewController(OptionsController):
 
-    def __init__(self, plugin, viewmgr):
+    def __init__(self, shell, viewmgr):
         super(ViewController, self).__init__()
 
         self._viewmgr = viewmgr
-        self._plugin = plugin
-        self._keys = {}
+        
+        from coverart_covericonview import CoverIconView
+        from coverart_coverflowview import CoverFlowView
+        from coverart_artistview import ArtistView
+
+        library_name = shell.props.library_source.props.name
+        
+        self.values = OrderedDict()
+
+        self.values[_('Tiles')] = CoverIconView.name
+        self.values[_('Flow')] = CoverFlowView.name
+        self.values[_('Artist')] = ArtistView.name
+        self.values[library_name] = 'List'
+        
+        self.options = list(self.values.keys())
+        
         viewmgr.connect('new-view', self.on_notify_view_name)
-        
-    def add_key_pair(self, view_name, button_name):
-        self._keys[view_name] = button_name
-        
-    def on_notify_view_name(self, *args):
-        self.current_key = self._keys[self._viewmgr.view_name]
-        
-    def update_images(self, *args):
-        # reinitialize images
-        self.update_image = True
-            
-    def do_action(self):
-        # now search keys list by value to find the key name (which is the viewname)
-        controller_current_view = None
-        
-        for key in self._keys:
-            if self._keys[key] == self.current_key:
-                controller_current_view = key
-        #self._keys.keys()[self._keys.values().index(self.current_key)]
-
-        if controller_current_view != self._viewmgr.view_name:
-            self._viewmgr.view_name = controller_current_view 
                 
-    def get_current_image(self, button_name):
-        row = None
-        for row in self._keys:
-            if self._keys[row] == button_name:
-                break
+    def on_notify_view_name(self, *args):
+        for key in self.options:
+            if self.values[key] == self._viewmgr.view_name:
+                self.current_key = key
 
-        assert row!=None, ("unknown button %s", button_name)
-            
-        icon_name = self._viewmgr.get_view_icon_name(row)
-        path = 'img/' + Theme(self._plugin).current + '/'
-        
-        width, height = get_stock_size()
-        image = create_pixbuf_from_file_at_size(
-            rb.find_plugin_file(self._plugin, path + icon_name),
-            width*2, height)
-        
-        return image
+    def do_action(self):
+        if self._viewmgr.view_name != self.values[self.current_key]:
+            self._viewmgr.view_name = self.values[self.current_key] 
+        #pass
