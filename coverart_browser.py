@@ -119,46 +119,47 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         self.shell.append_display_page(self.source, group)
 
         self.source.props.query_model.connect('complete', self.load_complete)
-        
-        app = Gio.Application.get_default()
-        self.app_id = 'coverart-browser'
-        self.library_name = self.shell.props.library_source.props.name
-        self.view_names = [_('Tiles'), _('Flow'), _('Artist'), self.library_name]
-        self.target_values = {
-            self.library_name: GLib.Variant.new_string('coverart-browser-list'),
-            _('Flow'): GLib.Variant.new_string('coverart-browser-coverflow'),
-            _('Artist'): GLib.Variant.new_string('coverart-browser-artist'),
-            _('Tiles'): GLib.Variant.new_string('coverart-browser-tile')
-            }
-        self.locations = ['library-toolbar']
-        action_name = 'coverart-browser-views'
-        self.action = Gio.SimpleAction.new_stateful(
-            action_name, GLib.VariantType.new('s'),
-            self.target_values[self.library_name]
-            )
-        self.action.connect("activate", self.view_change_cb)
-        app.add_action(self.action)
-        
-        menu_item = Gio.MenuItem()
-        section = Gio.Menu()
-        menu = Gio.Menu()
-        toolbar_item = Gio.MenuItem()
-        for view_name in self.view_names:
-            menu_item.set_label(view_name)
-            menu_item.set_action_and_target_value(
-                'app.' + action_name, self.target_values[view_name]
+        if rb3compat.PYVER >=3:
+            # this is temporary - need to simplify and combine with viewmanager somehow
+            app = Gio.Application.get_default()
+            self.app_id = 'coverart-browser'
+            self.library_name = self.shell.props.library_source.props.name
+            self.view_names = [_('Tiles'), _('Flow'), _('Artist'), self.library_name]
+            self.target_values = {
+                self.library_name: GLib.Variant.new_string('coverart-browser-list'),
+                _('Flow'): GLib.Variant.new_string('coverart-browser-coverflow'),
+                _('Artist'): GLib.Variant.new_string('coverart-browser-artist'),
+                _('Tiles'): GLib.Variant.new_string('coverart-browser-tile')
+                }
+            self.locations = ['library-toolbar']
+            action_name = 'coverart-browser-views'
+            self.action = Gio.SimpleAction.new_stateful(
+                action_name, GLib.VariantType.new('s'),
+                self.target_values[self.library_name]
                 )
-            section.append_item(menu_item)
-        
-        menu.append_section(None, section)
-        toolbar_item.set_label('Views')
-        toolbar_item.set_submenu(menu)
-        for location in self.locations:
-            app.add_plugin_menu_item(location, self.app_id, toolbar_item)
+            self.action.connect("activate", self.view_change_cb)
+            app.add_action(self.action)
             
-        self.shell.props.display_page_tree.connect(
-            "selected", self.on_page_change
-            )
+            menu_item = Gio.MenuItem()
+            section = Gio.Menu()
+            menu = Gio.Menu()
+            toolbar_item = Gio.MenuItem()
+            for view_name in self.view_names:
+                menu_item.set_label(view_name)
+                menu_item.set_action_and_target_value(
+                    'app.' + action_name, self.target_values[view_name]
+                    )
+                section.append_item(menu_item)
+            
+            menu.append_section(None, section)
+            toolbar_item.set_label('Views')
+            toolbar_item.set_submenu(menu)
+            for location in self.locations:
+                app.add_plugin_menu_item(location, self.app_id, toolbar_item)
+                
+            self.shell.props.display_page_tree.connect(
+                "selected", self.on_page_change
+                )
 
         
         print("CoverArtBrowser DEBUG - end do_activate")
