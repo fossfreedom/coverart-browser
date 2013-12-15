@@ -1,5 +1,4 @@
 # -*- Mode: python; coding: utf-8; tab-width: 4; indent-tabs-mode: nil; -*-
-# -*- Mode: python; coding: utf-8; tab-width: 4; indent-tabs-mode: nil; -*-
 #
 # Copyright (C) 2012 - fossfreedom
 # Copyright (C) 2012 - Agustin Carrasco

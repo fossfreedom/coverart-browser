@@ -719,6 +719,7 @@ class ViewController(OptionsController):
         from coverart_covericonview import CoverIconView
         from coverart_coverflowview import CoverFlowView
         from coverart_artistview import ArtistView
+        from coverart_listview import ListView
 
         library_name = shell.props.library_source.props.name
         
@@ -727,7 +728,7 @@ class ViewController(OptionsController):
         self.values[_('Tiles')] = CoverIconView.name
         self.values[_('Flow')] = CoverFlowView.name
         self.values[_('Artist')] = ArtistView.name
-        self.values[library_name] = 'List'
+        self.values[library_name] = ListView.name
         
         self.options = list(self.values.keys())
         

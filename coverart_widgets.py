@@ -1254,6 +1254,7 @@ class AbstractView(GObject.Object):
     '''
     view = None
     panedposition = PanedCollapsible.Paned.DEFAULT
+    use_plugin_window = True
     # signals - note - pygobject doesnt appear to support signal declaration
     # in multiple inheritance - so these signals need to be defined in all view classes
     # where abstractview is part of multiple inheritance

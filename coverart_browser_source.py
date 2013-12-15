@@ -42,6 +42,7 @@ from coverart_rb3compat import ActionGroup
 from coverart_covericonview import CoverIconView
 from coverart_coverflowview import CoverFlowView
 from coverart_artistview import ArtistView
+from coverart_listview import ListView
 from coverart_toolbar import ToolbarManager
 
 import coverart_rb3compat as rb3compat
@@ -971,6 +972,7 @@ class ViewManager(GObject.Object):
             'ui/coverart_iconview.ui'))
         self._views[CoverIconView.name] = ui.get_object('covers_view')
         self._views[CoverFlowView.name] = CoverFlowView()
+        self._views[ListView.name] = ListView()
         ui.add_from_file(rb.find_plugin_file(source.plugin,
             'ui/coverart_artistview.ui'))
         self._views[ArtistView.name] = ui.get_object('artist_view')
@@ -985,8 +987,9 @@ class ViewManager(GObject.Object):
         self._connect_signals()
         self._connect_properties()
         self._lastview = self.view_name
-        window.add(self.current_view.view)
-        window.show_all()
+        if self.current_view.use_plugin_window:
+            window.add(self.current_view.view)
+            window.show_all()
         
     @property
     def current_view(self):
@@ -1008,23 +1011,30 @@ class ViewManager(GObject.Object):
             if len(selected) > 0:
                 current_album = self._views[self._lastview].get_selected_objects()[0]
                 
-            self.window.remove(self._views[self._lastview].view)
-            self.window.add(self._views[self.view_name].view)
-            self.window.show_all()
-            self.click_count = 0
+            if self._views[self.view_name].use_plugin_window:
+                if self._views[self._lastview].use_plugin_window:
+                    self.window.remove(self._views[self._lastview].view)
+                self.window.add(self._views[self.view_name].view)
+                self.window.show_all()
+                self.click_count = 0
             
-            self._views[self._lastview].panedposition = self.source.paned.get_expansion_status()
+                self._views[self._lastview].panedposition = self.source.paned.get_expansion_status()
+            
             self._views[self.view_name].switch_to_view(self.source, current_album)
             self._views[self.view_name].emit('update-toolbar')
-            self.source.paned.expand(self._views[self.view_name].panedposition)
+            
+            if self._views[self.view_name].use_plugin_window:
+                self.source.paned.expand(self._views[self.view_name].panedposition)
             
             self._lastview = self.view_name
             self.current_view.set_popup_menu(self.source.popup_menu)
             self.source.album_manager.current_view = self.current_view
             
-            gs = GSetting()
-            setting = gs.get_setting(gs.Path.PLUGIN)
-            setting[gs.PluginKey.VIEW_NAME] = self.view_name
+            if self._views[self.view_name].use_plugin_window:
+                # we only ever save plugin views not external views
+                gs = GSetting()
+                setting = gs.get_setting(gs.Path.PLUGIN)
+                setting[gs.PluginKey.VIEW_NAME] = self.view_name
             
         self.emit('new-view')
             
