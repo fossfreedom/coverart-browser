@@ -35,6 +35,9 @@ from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import CoverLocale
 from coverart_browser_source import CoverArtBrowserSource
 from coverart_utils import Theme
+from coverart_listview import ListView
+from coverart_toolbar import TopToolbar
+
 import coverart_rb3compat as rb3compat
 
 class CoverArtBrowserEntryType(RB.RhythmDBEntryType):
@@ -120,48 +123,10 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
 
         self.source.props.query_model.connect('complete', self.load_complete)
         if rb3compat.PYVER >=3:
-            # this is temporary - need to simplify and combine with viewmanager somehow
-            app = Gio.Application.get_default()
-            self.app_id = 'coverart-browser'
-            self.library_name = self.shell.props.library_source.props.name
-            self.view_names = [_('Tiles'), _('Flow'), _('Artist'), self.library_name]
-            self.target_values = {
-                self.library_name: GLib.Variant.new_string('coverart-browser-list'),
-                _('Flow'): GLib.Variant.new_string('coverart-browser-coverflow'),
-                _('Artist'): GLib.Variant.new_string('coverart-browser-artist'),
-                _('Tiles'): GLib.Variant.new_string('coverart-browser-tile')
-                }
-            self.locations = ['library-toolbar']
-            action_name = 'coverart-browser-views'
-            self.action = Gio.SimpleAction.new_stateful(
-                action_name, GLib.VariantType.new('s'),
-                self.target_values[self.library_name]
-                )
-            self.action.connect("activate", self.view_change_cb)
-            app.add_action(self.action)
-            
-            menu_item = Gio.MenuItem()
-            section = Gio.Menu()
-            menu = Gio.Menu()
-            toolbar_item = Gio.MenuItem()
-            for view_name in self.view_names:
-                menu_item.set_label(view_name)
-                menu_item.set_action_and_target_value(
-                    'app.' + action_name, self.target_values[view_name]
-                    )
-                section.append_item(menu_item)
-            
-            menu.append_section(None, section)
-            toolbar_item.set_label('Views')
-            toolbar_item.set_submenu(menu)
-            for location in self.locations:
-                app.add_plugin_menu_item(location, self.app_id, toolbar_item)
+            self._externalmenu = ExternalPluginMenu(self)
+        else:
+            self._externalmenu = None
                 
-            self.shell.props.display_page_tree.connect(
-                "selected", self.on_page_change
-                )
-
-        
         print("CoverArtBrowser DEBUG - end do_activate")
 
     def do_deactivate(self):
@@ -171,31 +136,14 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         '''
         print("CoverArtBrowser DEBUG - do_deactivate")
         self.source.delete_thyself()
+        if self._externalmenu:
+            self._externalmenu.cleanup()
         del self.shell
         del self.db
         del self.source
 
         print("CoverArtBrowser DEBUG - end do_deactivate")
         
-    def on_page_change(self, display_page_tree, page):
-        '''
-        Called when the display page changes. Grabs query models and sets the 
-        active view.
-        '''
-        #if (type(page) == RB.PlaylistSource or 
-        #    type(page) == RB.AutoPlaylistSource or 
-        #    page == shell.props.library_source):
-        if page == self.shell.props.library_source:
-            self.action.set_state(self.target_values[self.library_name])
-
-    def view_change_cb(self, action, current):
-        '''
-        Called when the view state on a page is changed. Sets the new 
-        state.
-        '''
-        action.set_state(current)
-
-
     def load_complete(self, *args, **kwargs):
         '''
         Called by Rhythmbox when it has completed loading all data
@@ -229,3 +177,102 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         
         #. TRANSLATORS: percentage size that the image will be expanded
         scale = _('Scale by %:')
+
+class ExternalPluginMenu(GObject.Object):
+
+    toolbar_pos = GObject.property(type=str, default=TopToolbar.name)
+    
+    def __init__(self, plugin):
+        super(ExternalPluginMenu, self).__init__()
+        
+        self.plugin = plugin
+        self.shell = plugin.shell
+        self.source = plugin.source
+        self.app_id = None
+        from coverart_browser_source import Views
+        self._views = Views(self.shell)
+        
+        self._connect_properties()
+        self._connect_signals()
+        
+        self._create_menu()
+
+    def _connect_signals(self):
+        self.connect('notify::toolbar-pos', self._on_notify_toolbar_pos)
+        self.shell.props.display_page_tree.connect(
+            "selected", self.on_page_change
+            )
+        
+    def _connect_properties(self):
+        gs = GSetting()
+        setting = gs.get_setting(gs.Path.PLUGIN)
+        setting.bind(gs.PluginKey.TOOLBAR_POS, self, 'toolbar_pos',
+            Gio.SettingsBindFlags.GET)
+            
+    def _on_notify_toolbar_pos(self, *args):
+        if self.toolbar_pos == TopToolbar.name:
+            self._create_menu()
+        else:
+            self.cleanup()
+        
+    def cleanup(self):
+        if self.app_id:
+            app = Gio.Application.get_default()
+            for location in self.locations:
+                app.remove_plugin_menu_item(location, self.app_id)
+            self.app_id = None
+
+    def _create_menu(self):
+        app = Gio.Application.get_default()
+        self.app_id = 'coverart-browser'
+        
+        self.locations = ['library-toolbar']
+        action_name = 'coverart-browser-views'
+        self.action = Gio.SimpleAction.new_stateful(
+            action_name, GLib.VariantType.new('s'),
+            self._views.get_action_name(ListView.name)
+            )
+        self.action.connect("activate", self.view_change_cb)
+        app.add_action(self.action)
+        
+        menu_item = Gio.MenuItem()
+        section = Gio.Menu()
+        menu = Gio.Menu()
+        toolbar_item = Gio.MenuItem()
+        
+        for view_name in self._views.get_view_names():
+            menu_item.set_label(self._views.get_menu_name(view_name))
+            menu_item.set_action_and_target_value(
+                'app.' + action_name, self._views.get_action_name(view_name)
+                )
+            section.append_item(menu_item)
+        
+        menu.append_section(None, section)
+        toolbar_item.set_label('Views')
+        toolbar_item.set_submenu(menu)
+        for location in self.locations:
+            app.add_plugin_menu_item(location, self.app_id, toolbar_item)
+            
+    def on_page_change(self, display_page_tree, page):
+        '''
+        Called when the display page changes. Grabs query models and sets the 
+        active view.
+        '''
+        
+        if page == self.shell.props.library_source:
+            self.action.set_state(self._views.get_action_name(ListView.name))
+
+    def view_change_cb(self, action, current):
+        '''
+        Called when the view state on a page is changed. Sets the new 
+        state.
+        '''
+        action.set_state(current)
+        view_name = self._views.get_view_name_for_action(current)
+        if view_name != ListView.name:
+            gs = GSetting()
+            setting = gs.get_setting(gs.Path.PLUGIN)
+            setting[gs.PluginKey.VIEW_NAME] = view_name
+            GObject.idle_add(self.shell.props.display_page_tree.select,
+                    self.source)
+    

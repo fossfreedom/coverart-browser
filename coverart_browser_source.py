@@ -47,6 +47,8 @@ from coverart_toolbar import ToolbarManager
 
 import coverart_rb3compat as rb3compat
 import random
+from collections import OrderedDict
+
 
 class CoverArtBrowserSource(RB.Source):
     '''
@@ -949,6 +951,73 @@ class CustomStatusBar(object):
 
     def update(self, status):
         self._label.set_text(status)
+        
+class Views:
+    '''
+    This class describes the different views available
+    '''
+    # storage for the instance reference
+    __instance = None
+
+    class _impl(GObject.Object):
+        """ Implementation of the singleton interface """
+
+        # below public variables and methods that can be called for Views
+        def __init__(self, shell):
+            '''
+            Initializes the singleton interface, assigning all the constants
+            used to access the plugin's settings.
+            '''
+            super(Views._impl, self).__init__()
+
+            from coverart_covericonview import CoverIconView
+            from coverart_coverflowview import CoverFlowView
+            from coverart_artistview import ArtistView
+            from coverart_listview import ListView
+
+            library_name = shell.props.library_source.props.name
+            
+            self._values = OrderedDict()
+            
+            self._values[CoverIconView.name] = [_('Tiles'), GLib.Variant.new_string('coverart-browser-tile')]
+            self._values[CoverFlowView.name] = [_('Flow'), GLib.Variant.new_string('coverart-browser-coverflow')]
+            self._values[ArtistView.name] = [_('Artist'), GLib.Variant.new_string('coverart-browser-artist')]
+            self._values[ListView.name] = [library_name, GLib.Variant.new_string('coverart-browser-list')]
+            
+        def get_view_names(self):
+            return list(self._values.keys())
+            
+        def get_view_name_for_action(self, action_name):
+            for view_name in self.get_view_names():
+                if self.get_action_name(view_name) == action_name:
+                    return view_name
+                    
+            return None
+            
+        def get_menu_name(self, view_name):
+            return self._values[view_name][0]
+                        
+        def get_action_name(self, view_name):
+            return self._values[view_name][1]
+            
+    def __init__(self, plugin):
+        """ Create singleton instance """
+        # Check whether we already have an instance
+        if Views.__instance is None:
+            # Create and remember instance
+            Views.__instance = Views._impl(plugin)
+
+        # Store instance reference as the only member in the handle
+        self.__dict__['_Views__instance'] = Views.__instance
+
+    def __getattr__(self, attr):
+        """ Delegate access to implementation """
+        return getattr(self.__instance, attr)
+
+    def __setattr__(self, attr, value):
+        """ Delegate access to implementation """
+        return setattr(self.__instance, attr, value)
+
 
 class ViewManager(GObject.Object):
     # signals
@@ -1012,8 +1081,10 @@ class ViewManager(GObject.Object):
                 current_album = self._views[self._lastview].get_selected_objects()[0]
                 
             if self._views[self.view_name].use_plugin_window:
-                if self._views[self._lastview].use_plugin_window:
-                    self.window.remove(self._views[self._lastview].view)
+                child = self.window.get_child()
+                
+                if child:
+                    self.window.remove(child)
                 self.window.add(self._views[self.view_name].view)
                 self.window.show_all()
                 self.click_count = 0
@@ -1026,15 +1097,20 @@ class ViewManager(GObject.Object):
             if self._views[self.view_name].use_plugin_window:
                 self.source.paned.expand(self._views[self.view_name].panedposition)
             
-            self._lastview = self.view_name
             self.current_view.set_popup_menu(self.source.popup_menu)
             self.source.album_manager.current_view = self.current_view
             
             if self._views[self.view_name].use_plugin_window:
                 # we only ever save plugin views not external views
-                gs = GSetting()
-                setting = gs.get_setting(gs.Path.PLUGIN)
-                setting[gs.PluginKey.VIEW_NAME] = self.view_name
+                saved_view = self.view_name
+            else:
+                saved_view = self._lastview
+            
+            self._lastview = self.view_name
+                
+            gs = GSetting()
+            setting = gs.get_setting(gs.Path.PLUGIN)
+            setting[gs.PluginKey.VIEW_NAME] = saved_view
             
         self.emit('new-view')
             

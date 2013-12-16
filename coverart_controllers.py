@@ -715,23 +715,16 @@ class ViewController(OptionsController):
         super(ViewController, self).__init__()
 
         self._viewmgr = viewmgr
-        
-        from coverart_covericonview import CoverIconView
-        from coverart_coverflowview import CoverFlowView
-        from coverart_artistview import ArtistView
-        from coverart_listview import ListView
 
-        library_name = shell.props.library_source.props.name
+        from coverart_browser_source import Views
+        views = Views(shell)
         
         self.values = OrderedDict()
-
-        self.values[_('Tiles')] = CoverIconView.name
-        self.values[_('Flow')] = CoverFlowView.name
-        self.values[_('Artist')] = ArtistView.name
-        self.values[library_name] = ListView.name
+        for view_name in views.get_view_names():
+            self.values[views.get_menu_name(view_name)] = view_name
+            print (view_name)
         
         self.options = list(self.values.keys())
-        
         viewmgr.connect('new-view', self.on_notify_view_name)
                 
     def on_notify_view_name(self, *args):
@@ -741,5 +734,4 @@ class ViewController(OptionsController):
 
     def do_action(self):
         if self._viewmgr.view_name != self.values[self.current_key]:
-            self._viewmgr.view_name = self.values[self.current_key] 
-        #pass
+            self._viewmgr.view_name = self.values[self.current_key]
