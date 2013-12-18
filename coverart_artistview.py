@@ -325,7 +325,7 @@ class ArtistsModel(GObject.Object):
             ' ' + rating + \
             '\n' + \
             '<small>' + \
-            detail + \
+            GLib.markup_escape_text(detail) + \
             '</small>'
              
 
