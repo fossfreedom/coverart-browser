@@ -322,11 +322,11 @@ class Album(GObject.Object):
     @property
     def year(self):
         if not self._year:
-            real_year_tracks = (track for track in self._tracks if track.year != 0)
+            real_years = [track.year for track in self._tracks if track.year != 0]
 
-            try:
-                self._year = min([track.year for track in real_year_tracks])
-            except:
+            if len(real_years) > 0:
+                self._year = min(real_years)
+            else:
                 self._year = 0
 
         return self._year
