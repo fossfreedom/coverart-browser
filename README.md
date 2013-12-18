@@ -33,6 +33,9 @@ Browse your coverart albums in Rhythmbox v2.96 and later
  - new look (optional) to display album information within (on top of) the cover rather than below (beneath) the cover
  - new lighter icon-theme from the brilliant designer - jrbastien
  - new Rhythmbox 3 coverart source icon - again from jrbastien
+ - Look & Feel integration: Rhythmbox 3 style toolbar and button popup menus
+ - Look & Feel integration: New toolbar menu-button to switch between views including RB's own library view
+ - Look & Feel integration: New toolbar menu-button in RB's library view to switch to plugin views (RB v3 and later)
  - Optional export and embed coverart from most file-formats to MP3.
  - Remember quick artist filter between rhythmbox sessions
  - support drag-and-drop of albums onto playlists or external devices for RB2.99 and later
