@@ -41,6 +41,7 @@ from coverart_utils import create_pixbuf_from_file_at_size
 from coverart_external_plugins import CreateExternalPluginMenu
 from coverart_extdb import CoverArtExtDB
 import coverart_rb3compat as rb3compat 
+from datetime import datetime, date
 
 import rb
 import os
@@ -115,6 +116,7 @@ class ArtistsModel(GObject.Object):
     column 1 -> pixbuf of the artist's cover.
     column 2 -> instance of the artist or album itself.
     column 3 -> boolean that indicates if the row should be shown
+    column 4 -> markup containing formatted text
     '''
     # signals
     __gsignals__ = {
@@ -123,7 +125,9 @@ class ArtistsModel(GObject.Object):
         }
 
     # list of columns names and positions on the TreeModel
-    columns = {'tooltip': 0, 'pixbuf': 1, 'artist_album': 2, 'show': 3, 'empty': 4}
+    columns = {'tooltip': 0, 'pixbuf': 1, 
+        'artist_album': 2, 'show': 3, 
+        'empty': 4, 'markup': 5}
 
     def __init__(self, album_manager):
         super(ArtistsModel, self).__init__()
@@ -135,7 +139,7 @@ class ArtistsModel(GObject.Object):
             key=lambda artist: getattr(artist, 'name'))
 
         self._tree_store = Gtk.TreeStore(str, GdkPixbuf.Pixbuf, object, 
-            bool,  str)
+            bool,  str, str)
             
         # sorting idle call
         self._sort_process = None
@@ -268,22 +272,64 @@ class ArtistsModel(GObject.Object):
             del self._iters[artist.name]['dummy_iter']
             
     def _album_coverupdate(self, album):
-        tooltip, pixbuf, album, show, blank = self._generate_album_values(album)
-        self._tree_store.set_value(self._albumiters[album]['iter'], self.columns['pixbuf'], pixbuf)
+        tooltip, pixbuf, album, show, blank, markup = self._generate_album_values(album)
+        self._tree_store.set_value(self._albumiters[album]['iter'], 
+            self.columns['pixbuf'], pixbuf)
             
     def _generate_artist_values(self, artist):
         tooltip = artist.name
-        pixbuf = artist.cover.pixbuf #.scale_simple(48,48,GdkPixbuf.InterpType.BILINEAR)
-        show = True#self._artist_filter(artist)
+        pixbuf = artist.cover.pixbuf
+        show = True
 
-        return tooltip, pixbuf, artist, show, ''
+        return tooltip, pixbuf, artist, show, '', \
+            GLib.markup_escape_text(tooltip)
     
     def _generate_album_values(self, album):
         tooltip = album.name
         pixbuf = album.cover.pixbuf.scale_simple(48,48,GdkPixbuf.InterpType.BILINEAR)
         show = True
+        
+        rating = album.rating
+        if int(rating) > 0:
+            rating = u'\u2605' * int(rating)
+        else:
+            rating = ''
+        
+        year = album.year
+        if album.year == 0:
+            year = date.today().year
+        else:
+            year = datetime.fromordinal(album.year).year
 
-        return tooltip, pixbuf, album, show, ''
+        year = ' (' + str(year) +')'
+            
+        track_count = album.track_count
+        if track_count == 1:
+            detail = rb3compat.unicodedecode(_(' with 1 track'), 'UTF-8')
+        else:
+            detail = rb3compat.unicodedecode(_(' with %d tracks') % 
+                        track_count, 'UTF-8')
+                        
+        duration = album.duration / 60
+        
+        if duration == 1:
+            detail += rb3compat.unicodedecode(_(' and a duration of 1 minute'), 'UTF-8')
+        else:
+            detail += rb3compat.unicodedecode(_(' and a duration of %d minutes') % 
+                        duration, 'UTF-8')
+            
+        formatted = '<b><i>' + \
+            GLib.markup_escape_text(tooltip) + \
+            '</i></b>' + \
+            year + \
+            ' ' + rating + \
+            '\n' + \
+            '<small>' + \
+            detail + \
+            '</small>'
+             
+
+        return tooltip, pixbuf, album, show, '', formatted
 
     def remove(self, artist):
         '''
@@ -586,7 +632,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
         
         self.append_column(col)
         
-        col = Gtk.TreeViewColumn(_('Track Artist'), Gtk.CellRendererText(), text=0)
+        col = Gtk.TreeViewColumn(_('Track Artist'), Gtk.CellRendererText(), markup=5)
         col.set_sort_column_id(0)
         col.set_sort_indicator(True)
         self.append_column(col)
