@@ -116,7 +116,8 @@ class ArtistsModel(GObject.Object):
     column 1 -> pixbuf of the artist's cover.
     column 2 -> instance of the artist or album itself.
     column 3 -> boolean that indicates if the row should be shown
-    column 4 -> markup containing formatted text
+    column 4 -> blank text column to pad the view correctly
+    column 5 -> markup containing formatted text
     '''
     # signals
     __gsignals__ = {
@@ -156,6 +157,7 @@ class ArtistsModel(GObject.Object):
     def _connect_signals(self):
         self.connect('update-path', self._on_update_path)
         self.album_manager.model.connect('filter-changed', self._on_album_filter_changed)
+        self.album_manager.model.connect('album-added', self._on_album_added)
         
     def _on_album_filter_changed(self, *args):
         if len(self._iters) == 0:
@@ -204,7 +206,7 @@ class ArtistsModel(GObject.Object):
         if not artist.name in self._iters:
             self._iters[artist.name] = {}
         self._iters[artist.name] = {'artist_album': artist,
-            'iter': tree_iter, 'dummy_iter': child_iter}
+            'iter': tree_iter, 'dummy_iter': child_iter, 'ids': ids}
         return tree_iter
     
     def _emit_signal(self, tree_iter, signal):
@@ -237,9 +239,25 @@ class ArtistsModel(GObject.Object):
             
     def _artist_modified(self, *args):
         print ("artist modified")
-        
-        
+
+    def _on_album_added(self, album_model, album):
+        '''
+          called when album-manager album-added signal is invoked
+        '''
+        if self.contains(album.artist):
+            
+            artist = self.get(album.artist)
+            self._add_album_to_artist(artist, [album])
+
     def _on_update_path(self, widget, treepath):
+        '''
+           called when update-path signal is called
+        '''
+        artist = self.get_from_path(treepath)
+        albums = self.album_manager.model.get_all()
+        self._add_album_to_artist(artist, albums)
+        
+    def _add_album_to_artist(self, artist, albums):
         '''
         Add an album to the artist in the model.
 
@@ -247,29 +265,88 @@ class ArtistsModel(GObject.Object):
         :param album: `Album` is the child of the Artist
         
         '''
-        artist = self.get_from_path(treepath)
-        albums = self.album_manager.model.get_all()
         # get the artist iter
         artist_iter = self._iters[artist.name]['iter']
         
         # now remove the dummy_iter - if this fails, we've removed this 
         # before and have no need to add albums
-        
+
         if 'dummy_iter' in self._iters[artist.name]:
             self._iters[artist.name]['album'] = []
-            for album in albums:
-                if artist.name == album.artist:
-                    # generate necessary values
-                    values = self._generate_album_values(album)
-                    # insert the values
-                    tree_iter = self._tree_store.append(artist_iter, values)
-                    self._albumiters[album] = {}
-                    self._albumiters[album]['iter'] = tree_iter
-                    self._albumiters[album]['update-id'] = \
-                        album.connect('cover-updated', self._album_coverupdate)
+
+        for album in albums:
+            if artist.name == album.artist and not (album in self._albumiters):
+                print ("adding to artist model")
+                print (album)
+
+                # generate necessary values
+                values = self._generate_album_values(album)
+                # insert the values
+                tree_iter = self._tree_store.append(artist_iter, values)
+                self._albumiters[album] = {}
+                self._albumiters[album]['iter'] = tree_iter
                     
+                # connect signals
+                ids = (album.connect('modified', self._album_modified),
+                    album.connect('cover-updated', self._album_coverupdate),
+                    album.connect('emptied', self._album_emptied))
+                    
+                self._albumiters[album]['ids'] = ids 
+
+        if 'dummy_iter' in self._iters[artist.name]:
             self._tree_store.remove(self._iters[artist.name]['dummy_iter'])
             del self._iters[artist.name]['dummy_iter']
+
+    def _album_modified(self, album):
+        print ("album modified")
+        print (album)
+        if not (album in self._albumiters):
+            print ("not found in albumiters")
+            return
+            
+        tree_iter = self._albumiters[album]['iter']
+
+        if self._tree_store.iter_is_valid(tree_iter):
+            # only update if the iter is valid
+            # generate and update values
+            tooltip, pixbuf, album, show, blank, markup = \
+                self._generate_album_values(album)
+
+            self._tree_store.set(tree_iter, self.columns['tooltip'], tooltip,
+                self.columns['markup'], markup, self.columns['show'], show)
+
+            # reorder the album
+            #new_pos = self._albums.reorder(album)
+
+            #if new_pos != -1:
+            #    old_album = self._albums[new_pos + 1]
+            #    old_iter = \
+            #        self._iters[old_album.name][old_album.artist]['iter']
+
+            #    self._tree_store.move_before(tree_iter, old_iter)
+
+            # inform that the album is updated
+            #self._emit_signal(tree_iter, 'album-updated')
+        
+    def _album_emptied(self, album):
+        '''
+        Removes this album from the model.
+
+        :param album: `Album` to be removed from the model.
+        '''
+        print ('album emptied')
+        print (album)
+        if not (album in self._albumiters):
+            print ("not found in albumiters")
+            return
+            
+        self._tree_store.remove(self._albumiters[album]['iter'])
+
+        # disconnect signals
+        for sig_id in self._albumiters[album]['ids']:
+            album.disconnect(sig_id)
+
+        del self._albumiters[album]
             
     def _album_coverupdate(self, album):
         tooltip, pixbuf, album, show, blank, markup = self._generate_album_values(album)

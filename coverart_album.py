@@ -355,6 +355,7 @@ class Album(GObject.Object):
         for track in self._tracks:
             track.rating = new_rating
         self._rating = None
+        self.emit('modified')
         
     @property
     def track_count(self):
@@ -638,7 +639,8 @@ class AlbumsModel(GObject.Object):
         'generate-markup': (GObject.SIGNAL_RUN_LAST, str, (object,)),
         'album-updated': ((GObject.SIGNAL_RUN_LAST, None, (object, object))),
         'visual-updated': ((GObject.SIGNAL_RUN_LAST, None, (object, object))),
-        'filter-changed': ((GObject.SIGNAL_RUN_FIRST, None, ()))
+        'filter-changed': ((GObject.SIGNAL_RUN_FIRST, None, ())),
+        'album-added': ((GObject.SIGNAL_RUN_LAST, None, (object,)))
         }
 
     # list of columns names and positions on the TreeModel
@@ -724,6 +726,8 @@ class AlbumsModel(GObject.Object):
                 self._tree_store.move_before(tree_iter, old_iter)
 
             # inform that the album is updated
+            print ("album modified")
+            print (album)
             self._emit_signal(tree_iter, 'album-updated')
 
     def _cover_updated(self, album):
@@ -757,6 +761,7 @@ class AlbumsModel(GObject.Object):
 
         :param album: `Album` to be added to the model.
         '''
+
         # generate necessary values
         values = self._generate_values(album)
         # insert the values
@@ -769,6 +774,7 @@ class AlbumsModel(GObject.Object):
             self._iters[album.name] = {}
         self._iters[album.name][album.artist] = {'album': album,
             'iter': tree_iter, 'ids': ids}
+        self.emit('album-added', album)
         return tree_iter
 
     def _generate_values(self, album):
@@ -785,6 +791,8 @@ class AlbumsModel(GObject.Object):
 
         :param album: `Album` to be removed from the model.
         '''
+        print ("album model remove")
+        print (album)
         self._albums.remove(album)
         self._tree_store.remove(self._iters[album.name][album.artist]['iter'])
 
@@ -1089,38 +1097,54 @@ class AlbumLoader(GObject.Object):
         # changes are a GArray in 2.98 and 2.99.  Currently
         # this will silently fail - thus changes are never reflected
         # in the plugin until RB is restarted.
-        # note for RB3.00 a GPtrArray is used thus this now works correctly
+        # note for RB3.00 an array of rhythmdbentrychange is used thus 
+        # this now works correctly
 
-        # look at all the changes and update the albums acordingly
+        def analyse_change(change):
+            if change.prop is RB.RhythmDBPropType.ALBUM \
+                or change.prop is RB.RhythmDBPropType.ALBUM_ARTIST \
+                or change.prop is RB.RhythmDBPropType.ARTIST:
+                # called when the album of a entry is modified
+                track.emit('deleted')
+                track.emit('modified')
+                print ("change prop album or artist")
+                self._allocate_track(track)
+                
+            elif change.prop is RB.RhythmDBPropType.HIDDEN:
+                # called when an entry gets hidden (e.g.:the sound file is
+                # removed.
+                if changes.new:
+                    print ("change prop new")
+                    track.emit('deleted')
+                else:
+                    print ("change prop dunno")
+                    self._allocate_track(track)
+        
+        # look at all the changes and update the albums accordingly
         try:
             track = self._tracks[Track(entry).location]
-
-            while changes.n_values != 0:
-                change = changes.values
-
-                if change.prop is RB.RhythmDBPropType.ALBUM \
-                    or change.prop is RB.RhythmDBPropType.ALBUM_ARTIST \
-                    or change.prop is RB.RhythmDBPropType.ARTIST:
-                    # called when the album of a entry is modified
-                    track.emit('deleted')
-                    track.emit('modified')
-                    self._allocate_track(track)
+            
+            if rb3compat.is_rb3():
+                 #RB3 has a simple rhythmdbentrychange array to deal with so we 
+                 #just need to loop each element of the array
+           
+                for change in changes:
+                    analyse_change(change)
+            else:
+                #RB2.96 and RB2.97 use a GValueArray structure so need
+                #to grab each rhythmdbentrychange from the structure
+                while changes.n_values != 0:
+                    change = changes.values
+                    analyse_change(change)
                     
-                elif change.prop is RB.RhythmDBPropType.HIDDEN:
-                    # called when an entry gets hidden (e.g.:the sound file is
-                    # removed.
-                    if changes.new:
-                        track.emit('deleted')
-                    else:
-                        self._allocate_track(track)
-                    
-                # removes the last change from the GValueArray
-                changes.remove(0)
+                    # removes the last change from the GValueArray
+                    changes.remove(0)
         except:
             # we have a problem houston ... RB2.98 and 2.99 cant cope
             # lets just assume something has just changed
             
             track = self._tracks[Track(entry).location]
+            print ("except")
             track.emit('modified')
 
         print("CoverArtBrowser DEBUG - end entry_changed_callback")
@@ -1154,11 +1178,15 @@ class AlbumLoader(GObject.Object):
             album_artist = album_artist if album_artist else track.artist
 
             if self._album_manager.model.contains(album_name, album_artist):
+                print ("allocate track - contains")
                 album = self._album_manager.model.get(album_name, album_artist)
+                print (album)
                 album.add_track(track)
             else:
+                print ("allocate track - does not contain")
                 album = Album(album_name, album_artist,
                     self._album_manager.cover_man.unknown_cover)
+                print (album)
                 album.add_track(track)
                 self._album_manager.cover_man.load_cover(album)
                 self._album_manager.model.add(album)
