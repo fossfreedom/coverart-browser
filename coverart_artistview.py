@@ -710,6 +710,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
         self.append_column(col)
         
         col = Gtk.TreeViewColumn(_('Track Artist'), Gtk.CellRendererText(), markup=5)
+        self._artist_col = col
         col.set_sort_column_id(0)
         col.set_sort_indicator(True)
         self.append_column(col)
@@ -897,11 +898,13 @@ class ArtistView(Gtk.TreeView, AbstractView):
         self.initialise(source)
         self.show_policy.initialise(source.album_manager)
         
-        
-        #if album:
-        #    path = source.album_manager.model.get_path(album)
-        #    self.select_and_scroll_to_path(path)
-        
+        if album:
+            artist = self.artist_manager.model.get(album.artist)
+            path = self.artist_manager.model.get_path(artist)
+            self.scroll_to_cell(path, self._artist_col)
+            self.expand_row(path, False)
+            self.set_cursor(path)
+            
     def do_update_toolbar(self, *args):
         self.source.toolbar_manager.set_enabled(False, ToolbarObject.SORT_BY)
         self.source.toolbar_manager.set_enabled(False, ToolbarObject.SORT_ORDER)
