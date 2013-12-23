@@ -5,21 +5,19 @@
 # Section 1: Developers Only
 #+++++++++++++++++++++++++++
 #for each ui file run the following to create translation .h files
-intltool-extract --local --type=gettext/glade ui/coverart_browser.ui
-intltool-extract --local --type=gettext/glade ui/coverart_topbar.ui
-#xgettext --language=Glade --output=coverart_topbar.ui.h --output-dir=tmp --omit-header ui/coverart_topbar.ui
+intltool-extract --local --type=gettext/glade ui/coverart_artistview.ui
 intltool-extract --local --type=gettext/glade ui/coverart_browser_pop_rb2.ui
-intltool-extract --local --type=gettext/glade ui/coverart_entryview_pop_rb2.ui
-intltool-extract --local --type=gettext/glade ui/coverart_iconview.ui
 intltool-extract --local --type=gettext/glade ui/coverart_browser_pop_rb3.ui
-intltool-extract --local --type=gettext/glade ui/coverart_entryview_pop_rb3.ui
-intltool-extract --local --type=gettext/glade ui/coverart_listwindow.ui
 intltool-extract --local --type=gettext/glade ui/coverart_browser_prefs.ui
-#xgettext --language=Glade --output=coverart_browser_prefs.ui.h --output-dir=tmp --omit-header ui/coverart_browser_prefs.ui
-#intltool-extract --local --type=gettext/glade ui/coverart_browser_prefs.ui
+intltool-extract --local --type=gettext/glade ui/coverart_browser.ui
+intltool-extract --local --type=gettext/glade ui/coverart_entryview_pop_rb2.ui
+intltool-extract --local --type=gettext/glade ui/coverart_entryview_pop_rb3.ui
 intltool-extract --local --type=gettext/glade ui/coverart_exportembed.ui
-intltool-extract --local --type=gettext/glade ui/coverart_sidebar.ui
-#xgettext --language=Glade --output=coverart_sidebar.ui.h --output-dir=tmp --omit-header ui/coverart_sidebar.ui
+intltool-extract --local --type=gettext/glade ui/coverart_iconview.ui
+intltool-extract --local --type=gettext/glade ui/coverart_leftsidebar.ui
+intltool-extract --local --type=gettext/glade ui/coverart_listwindow.ui
+intltool-extract --local --type=gettext/glade ui/coverart_rightsidebar.ui
+intltool-extract --local --type=gettext/glade ui/coverart_topbar.ui
 intltool-extract --local --type=gettext/xml img/popups.xml.in
 
 #create a new template file called po/package.pot by running below

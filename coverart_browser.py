@@ -248,7 +248,7 @@ class ExternalPluginMenu(GObject.Object):
             section.append_item(menu_item)
         
         menu.append_section(None, section)
-        toolbar_item.set_label('Views')
+        toolbar_item.set_label(_('Views'))
         toolbar_item.set_submenu(menu)
         for location in self.locations:
             app.add_plugin_menu_item(location, self.app_id, toolbar_item)
