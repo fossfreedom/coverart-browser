@@ -22,6 +22,8 @@ install:
 	install -m 644 img/dark/*.png $(DESTDIR)$(DATADIR)img/dark
 	install -d $(DESTDIR)$(DATADIR)img/light
 	install -m 644 img/light/*.png $(DESTDIR)$(DATADIR)img/light
+	install -d $(DESTDIR)$(DATADIR)img/lighter
+	install -m 644 img/lighter/*.png $(DESTDIR)$(DATADIR)img/lighter
 	install -d $(DESTDIR)$(DATADIR)img/standard
 	install -m 644 img/standard/*.png $(DESTDIR)$(DATADIR)img/standard
 	install -d $(DESTDIR)$(DATADIR)template
