@@ -11,9 +11,9 @@ new ContentFlowAddOn ('carousel', {
     conf: {
         shownItems: 3,
         showCaption: true,
-        width: 100,
-        height: 100,
-        space:0.4
+        width: 75,
+        height: 75,
+        space:0.0
     },
     
 
