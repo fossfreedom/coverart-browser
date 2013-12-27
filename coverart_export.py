@@ -230,9 +230,9 @@ class CoverArtExport(GObject.Object):
             decode.link(convert)
             
         #we are going to mimic the following
-        #gst-launch-1.0 filesrc location="02 - ABBA - Knowing Me, Knowing You.ogg" ! 
-        #decodebin ! audioconvert ! audioresample ! lamemp3enc target=bitrate bitrate=128 ! 
-        #id3v2mux ! filesink location=mytrack.mp3
+        # gst-launch-1.0 filesrc location="02 - ABBA - Knowing Me, Knowing You.ogg" ! 
+        # decodebin ! audioconvert ! audioresample ! lamemp3enc target=bitrate bitrate=128 ! 
+        # xingmux ! id3v2mux ! filesink location="mytrack.mp3"
 
         converter = Gst.Pipeline.new('converter')
 
@@ -245,6 +245,7 @@ class CoverArtExport(GObject.Object):
         encoder.set_property('target', 'bitrate') 
         encoder.set_property('bitrate', self.TARGET_BITRATE)
 
+        xing = Gst.ElementFactory.make('xingmux', 'xing') # needed to make bitrate more accurate
         mux = Gst.ElementFactory.make('id3v2mux', 'mux')
         if not mux:
             # use id3mux where not available
@@ -257,6 +258,7 @@ class CoverArtExport(GObject.Object):
         converter.add(convert)
         converter.add(sample)
         converter.add(encoder)
+        converter.add(xing)
         converter.add(mux)
         converter.add(sink)
 
@@ -268,7 +270,8 @@ class CoverArtExport(GObject.Object):
             
         Gst.Element.link(convert, sample)
         Gst.Element.link(sample, encoder)
-        Gst.Element.link(encoder, mux)
+        Gst.Element.link(encoder, xing)
+        Gst.Element.link(xing, mux)
         Gst.Element.link(mux, sink)
             
         self.converter=converter
@@ -289,7 +292,8 @@ class CoverArtExport(GObject.Object):
         if bitrate < 32:
             bitrate = self.TARGET_BITRATE
             
-        self.encoder.set_property('bitrate', bitrate)
+        self.encoder.set_property('bitrate', int(bitrate))
+        print (bitrate)
 
         # Start playing
         ret = self.converter.set_state(Gst.State.PLAYING)
