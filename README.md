@@ -54,21 +54,25 @@ Browse your coverart albums in Rhythmbox v2.96 and later
  
  - https://github.com/fossfreedom/coverart-browser/wiki/how-to-for-version-0.9  **UPDATE FOR RELEASE**
 
-*How to install:*
+*How to install - Rhythmbox 2.96 to 2.99.1:*
 
 for debian & debian-based distros such as Ubuntu & Mint:
 
-    sudo apt-get install git gettext python-mako python-lxml
+    sudo apt-get install git gettext python-mako python-lxml gstreamer0.10-plugins-ugly gstreamer0.10-plugins-good gstreamer0.10-plugins-bad
 
 for fedora and similar:
 
     yum install git gettext python-mako python-lxml
     
+what is the fedora equivalent of gstreamer0.10-plugins-ugly/gstreamer0.10-plugins-good/gstreamer0.10-plugins-bad ?
+    
 for opensuse
 
     sudo zypper in git gettext-runtime python-mako python-lxml typelib-1_0-WebKit-3_0
+    
+what is the opensuse equivalent of gstreamer0.10-plugins-ugly/gstreamer0.10-plugins-good/gstreamer0.10-plugins-bad? 
 
-Then install the plugin for rhythmbox version 2.96 to 2.99:
+Then install the plugin:
 
 <pre>
 rm -rf ~/.local/share/rhythmbox/plugins/coverart_browser
@@ -77,7 +81,15 @@ cd coverart-browser
 ./install.sh
 </pre>
 
-To install the plugin for rhythmbox version 3.0 and later:
+*How to install - Rhythmbox 3.0 and later:*
+
+for debian & debian-based distros such as Ubuntu & Mint:
+
+    sudo apt-get install git gettext python3-mako python3-lxml gstreamer1.0-plugins-ugly gstreamer1.0-plugins-good gstreamer1.0-plugins-bad
+
+python3 based package instructions for OpenSuse and Fedora not known
+
+To install the plugin:
 
 <pre>
 rm -rf ~/.local/share/rhythmbox/plugins/coverart_browser
@@ -90,13 +102,11 @@ Note 1 - the CoverArt Browser plugin also requires installing the following plug
 
  - https://github.com/fossfreedom/coverart-search-providers
 
-Note 2 - IMPORTANT NOTE - for some distros that do not have rhythmbox webkit support, DO NOT install your
+Note 2 - IMPORTANT NOTE - for some distros (e.g. OpenSuse 12.3) that do not have rhythmbox webkit support, DO NOT install your
 webkit library.  For these distros, it is highly likely that installing webkit v3 will
 crash rhythmbox if this plugin is also installed and activated.
 
-For example, opensuse 12.3 please do NOT install `typelib-1_0-WebKit-3_0`.
-
-You also need to make the following change to enable the plugin to work:
+If your distro crashes with the webkit elements of the application (CoverFlow or CoverArt) use the following workaround:
 
     gsettings set org.gnome.rhythmbox.plugins.coverart_browser webkit-support false
 
