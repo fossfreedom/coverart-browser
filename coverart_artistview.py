@@ -41,6 +41,7 @@ from coverart_utils import create_pixbuf_from_file_at_size
 from coverart_external_plugins import CreateExternalPluginMenu
 from coverart_extdb import CoverArtExtDB
 import coverart_rb3compat as rb3compat 
+from coverart_rb3compat import Menu
 from datetime import datetime, date
 
 import rb
@@ -285,6 +286,7 @@ class ArtistsModel(GObject.Object):
                 tree_iter = self._tree_store.append(artist_iter, values)
                 self._albumiters[album] = {}
                 self._albumiters[album]['iter'] = tree_iter
+                self._iters[artist.name]['album'].append(tree_iter)
                     
                 # connect signals
                 ids = (album.connect('modified', self._album_modified),
@@ -434,6 +436,23 @@ class ArtistsModel(GObject.Object):
         :param artist_name: `str` name of the artist.
         '''
         return self._iters[artist_name]['artist_album']
+        
+    def get_albums(self, artist_name):
+        '''
+        Returns the albums for the requested artist
+
+        :param artist_name: `str` name of the artist.
+        '''
+        
+        albums = []
+        
+        if 'album' in self._iters[artist_name]:
+            for album_iter in self._iters[artist_name]['album']:
+                tree_path = self._filtered_store.convert_child_path_to_path(
+                    self._tree_store.get_path(album_iter))
+                albums.append(self.get_from_path(tree_path))
+            
+        return albums
         
     def get_all(self):
         '''
@@ -738,6 +757,21 @@ class ArtistView(Gtk.TreeView, AbstractView):
         # N.B. values taken from rhythmbox v2.97 widgets/rb_entry_view.c
         self._targets.add_uri_targets(1)
         self.connect("drag-data-get", self.on_drag_data_get)
+        
+        # define artist specific popup menu
+        self.artist_popup_menu = Menu(self.plugin, self.shell)
+        self.artist_popup_menu.load_from_file('ui/coverart_artist_pop_rb2.ui',
+            'ui/coverart_artist_pop_rb3.ui')
+        signals = \
+            { 'play_album_menu_item': self.source.play_album_menu_item_callback,
+              'queue_album_menu_item': self.source.queue_album_menu_item_callback,
+              'playlist_menu_item': self.source.playlist_menu_item_callback,
+              'new_playlist': self.source.add_playlist_menu_item_callback,
+              'cover_search_menu_item': self.source.cover_search_menu_item_callback,
+              'export_embed_menu_item': self.source.export_embed_menu_item_callback
+            }
+              
+        self.artist_popup_menu.connect_signals(signals)
             
         # connect properties and signals
         self._connect_properties()
@@ -808,10 +842,21 @@ class ArtistView(Gtk.TreeView, AbstractView):
         
         if not isinstance(active_object, Album):
             if treecolumn != self.get_expander_column():
-                if self.row_expanded(treepath):
+                if self.row_expanded(treepath) and event.button == 1:
                     self.collapse_row(treepath)
                 else:
                     self.expand_row(treepath, False)
+                    
+                if event.button ==3:
+                    # on right click
+                    # display popup
+                    
+                    self.artist_popup_menu.get_gtkmenu(self.source, 'popup_menu').popup(None,
+                                    None, 
+                                    None,
+                                    None,
+                                    3,
+                                    Gtk.get_current_event_time())
             return
             
         if event.button == 1:
@@ -889,9 +934,12 @@ class ArtistView(Gtk.TreeView, AbstractView):
         model, treeiter = selection.get_selected()
         if treeiter:
             active_object = model.get_value(treeiter,ArtistsModel.columns['artist_album'])
-            #if isinstance(active_object, Album):
-            return [active_object]
-        
+            if isinstance(active_object, Album):
+                # have chosen an album then just return that album
+                return [active_object]
+            else:
+                # must have chosen an artist - return all albums for the artist
+                return self.artist_manager.model.get_albums(active_object.name)
         return []
         
     def switch_to_view(self, source, album):

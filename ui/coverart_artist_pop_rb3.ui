@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- RB 2.99 and later -->
+  <menu id="popup_menu">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Play All</attribute>
+        <attribute name="action">win.play_album_menu_item</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Queue All</attribute>
+        <attribute name="action">win.queue_album_menu_item</attribute>
+      </item>
+      <submenu>
+          <attribute name="label" translatable="yes">Add to Playlist</attribute>
+          <attribute name="action">win.playlist_menu_item</attribute>
+        <section>
+          <item>
+            <attribute name="label" translatable="yes">New Playlist</attribute>
+            <attribute name="action">win.new_playlist</attribute>
+          </item>
+        </section>
+        <section>
+            <attribute name="rb-plugin-menu-link">playlist_section</attribute>
+        </section>         
+      </submenu>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Search for covers</attribute>
+        <attribute name="action">win.cover_search_menu_item</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Export and embed coverart</attribute>
+        <attribute name="action">win.export_embed_menu_item</attribute>
+      </item>
+    </section>
+        <section>
+        <attribute name="rb-plugin-menu-link">ca_covers_view</attribute>
+    </section>   
+  </menu>
+</interface>
