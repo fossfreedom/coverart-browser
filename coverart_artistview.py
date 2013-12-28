@@ -119,6 +119,7 @@ class ArtistsModel(GObject.Object):
     column 3 -> boolean that indicates if the row should be shown
     column 4 -> blank text column to pad the view correctly
     column 5 -> markup containing formatted text
+    column 6 -> blank text for the expander column
     '''
     # signals
     __gsignals__ = {
@@ -129,7 +130,7 @@ class ArtistsModel(GObject.Object):
     # list of columns names and positions on the TreeModel
     columns = {'tooltip': 0, 'pixbuf': 1, 
         'artist_album': 2, 'show': 3, 
-        'empty': 4, 'markup': 5}
+        'empty': 4, 'markup': 5, 'expander': 6}
 
     def __init__(self, album_manager):
         super(ArtistsModel, self).__init__()
@@ -141,7 +142,7 @@ class ArtistsModel(GObject.Object):
             key=lambda artist: getattr(artist, 'name'))
 
         self._tree_store = Gtk.TreeStore(str, GdkPixbuf.Pixbuf, object, 
-            bool,  str, str)
+            bool,  str, str, str)
             
         # sorting idle call
         self._sort_process = None
@@ -311,7 +312,7 @@ class ArtistsModel(GObject.Object):
         if self._tree_store.iter_is_valid(tree_iter):
             # only update if the iter is valid
             # generate and update values
-            tooltip, pixbuf, album, show, blank, markup = \
+            tooltip, pixbuf, album, show, markup = \
                 self._generate_album_values(album)
 
             self._tree_store.set(tree_iter, self.columns['tooltip'], tooltip,
@@ -351,7 +352,7 @@ class ArtistsModel(GObject.Object):
         del self._albumiters[album]
             
     def _album_coverupdate(self, album):
-        tooltip, pixbuf, album, show, blank, markup = self._generate_album_values(album)
+        tooltip, pixbuf, album, show, blank, markup, empty = self._generate_album_values(album)
         self._tree_store.set_value(self._albumiters[album]['iter'], 
             self.columns['pixbuf'], pixbuf)
             
@@ -361,7 +362,7 @@ class ArtistsModel(GObject.Object):
         show = True
 
         return tooltip, pixbuf, artist, show, '', \
-            GLib.markup_escape_text(tooltip)
+            GLib.markup_escape_text(tooltip), ''
     
     def _generate_album_values(self, album):
         tooltip = album.name
@@ -408,7 +409,7 @@ class ArtistsModel(GObject.Object):
             '</small>'
              
 
-        return tooltip, pixbuf, album, show, '', formatted
+        return tooltip, pixbuf, album, show, '', formatted, ''
 
     def remove(self, artist):
         '''
@@ -723,6 +724,9 @@ class ArtistView(Gtk.TreeView, AbstractView):
         
         self.set_enable_tree_lines(True)
         
+        col = Gtk.TreeViewColumn('', Gtk.CellRendererText(), text=6)
+        self.append_column(col)
+        
         pixbuf = Gtk.CellRendererPixbuf()
         col = Gtk.TreeViewColumn(_('Covers'), pixbuf, pixbuf=1)
         
@@ -899,6 +903,9 @@ class ArtistView(Gtk.TreeView, AbstractView):
     def _selection_changed(self, *args):
         selected = self.get_selected_objects()
 
+        if len(selected) == 0:
+            return
+            
         if isinstance(selected[0], Artist):
             self.unset_rows_drag_source() # turn off drag-drop for artists
                 
