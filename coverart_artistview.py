@@ -333,24 +333,23 @@ class ArtistsModel(GObject.Object):
         if not (album in self._albumiters):
             print ("not found in albumiters")
             return
-            
-        if len(self.get_albums(album.artist)) == 1:
-            no_more_albums = True
-        else:
-            no_more_albums = False
-        self._tree_store.remove(self._albumiters[album]['iter'])
+
+        artist = self.get(album.artist)
+        album_iter = self._albumiters[album]['iter']
+
+        self._iters[album.artist]['album'].remove(album_iter)
+        self._tree_store.remove(album_iter)
 
         # disconnect signals
         for sig_id in self._albumiters[album]['ids']:
             album.disconnect(sig_id)
 
         del self._albumiters[album]
-        
-        # lastly, check if the artist the album was associated with has any
-        # more albums - if not remove the artist
-        
-        if no_more_albums:
-            self.remove(self.get(album.artist))
+
+        # test if there are any more albums for this artist otherwise just cleanup
+        if len(self._iters[album.artist]['album']) == 0:
+            self.remove(artist)
+            self._on_album_filter_changed(_)
             
     def _album_coverupdate(self, album):
         tooltip, pixbuf, album, show, blank, markup, empty = self._generate_album_values(album)
@@ -432,7 +431,7 @@ class ArtistsModel(GObject.Object):
 
     def get(self, artist_name):
         '''
-        Returns the requested artist.
+        Returns the requested Artist.
 
         :param artist_name: `str` name of the artist.
         '''
@@ -440,7 +439,7 @@ class ArtistsModel(GObject.Object):
         
     def get_albums(self, artist_name):
         '''
-        Returns the albums for the requested artist
+        Returns the filtered albums for the requested artist
 
         :param artist_name: `str` name of the artist.
         '''
@@ -463,7 +462,7 @@ class ArtistsModel(GObject.Object):
         
     def get_from_path(self, path):
         '''
-        Returns the Artist or Album referenced by a `Gtk.TreeModel` path.
+        Returns the filtered Artist or Album referenced by a `Gtk.TreeModel` path.
 
         :param path: `Gtk.TreePath` referencing the artist.
         '''
@@ -489,10 +488,10 @@ class ArtistsModel(GObject.Object):
 
     def show(self, artist_name, show):
         '''
-        Unfilters an artist, making it visible to the publicly available model's
+        filters/unfilters an artist, making it visible to the publicly available model's
         `Gtk.TreeModel`
 
-        :param artist: `Artist` to show or hide.
+        :param artist: str containing the name of the artist to show or hide.
         :param show: `bool` indcating whether to show(True) or hide(False) the
             artist.
         '''
