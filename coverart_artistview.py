@@ -312,7 +312,7 @@ class ArtistsModel(GObject.Object):
         if self._tree_store.iter_is_valid(tree_iter):
             # only update if the iter is valid
             # generate and update values
-            tooltip, pixbuf, album, show, markup = \
+            tooltip, pixbuf, album, show, blank, markup, empty = \
                 self._generate_album_values(album)
 
             self._tree_store.set(tree_iter, self.columns['tooltip'], tooltip,
