@@ -159,7 +159,6 @@ class ArtistsModel(GObject.Object):
     def _connect_signals(self):
         self.connect('update-path', self._on_update_path)
         self.album_manager.model.connect('filter-changed', self._on_album_filter_changed)
-        self.album_manager.model.connect('album-added', self._on_album_added)
         
     def _on_album_filter_changed(self, *args):
         if len(self._iters) == 0:
@@ -242,29 +241,20 @@ class ArtistsModel(GObject.Object):
     def _artist_modified(self, *args):
         print ("artist modified")
 
-    def _on_album_added(self, album_model, album):
-        '''
-          called when album-manager album-added signal is invoked
-        '''
-        if self.contains(album.artist):
-            
-            artist = self.get(album.artist)
-            self._add_album_to_artist(artist, [album])
-
     def _on_update_path(self, widget, treepath):
         '''
            called when update-path signal is called
         '''
         artist = self.get_from_path(treepath)
         albums = self.album_manager.model.get_all()
-        self._add_album_to_artist(artist, albums)
+        self.add_album_to_artist(artist, albums)
         
-    def _add_album_to_artist(self, artist, albums):
+    def add_album_to_artist(self, artist, albums):
         '''
         Add an album to the artist in the model.
 
         :param artist: `Artist` for the album to be added to (i.e. the parent)
-        :param album: `Album` is the child of the Artist
+        :param album: array of `Album` which are the children of the Artist
         
         '''
         # get the artist iter
@@ -339,10 +329,15 @@ class ArtistsModel(GObject.Object):
         '''
         print ('album emptied')
         print (album)
+        print (album.artist)
         if not (album in self._albumiters):
             print ("not found in albumiters")
             return
             
+        if len(self.get_albums(album.artist)) == 1:
+            no_more_albums = True
+        else:
+            no_more_albums = False
         self._tree_store.remove(self._albumiters[album]['iter'])
 
         # disconnect signals
@@ -350,6 +345,12 @@ class ArtistsModel(GObject.Object):
             album.disconnect(sig_id)
 
         del self._albumiters[album]
+        
+        # lastly, check if the artist the album was associated with has any
+        # more albums - if not remove the artist
+        
+        if no_more_albums:
+            self.remove(self.get(album.artist))
             
     def _album_coverupdate(self, album):
         tooltip, pixbuf, album, show, blank, markup, empty = self._generate_album_values(album)
@@ -407,13 +408,12 @@ class ArtistsModel(GObject.Object):
             '<small>' + \
             GLib.markup_escape_text(detail) + \
             '</small>'
-             
 
         return tooltip, pixbuf, album, show, '', formatted, ''
 
     def remove(self, artist):
         '''
-        Removes this album from the model.
+        Removes this artist from the model.
 
         :param artist: `Artist` to be removed from the model.
         '''
@@ -600,7 +600,22 @@ class ArtistLoader(GObject.Object):
         
     def do_artists_load_finished(self, artists):
         self._load_model(iter(list(artists.values())), total=len(artists), progress=0.)
+        self._album_manager.model.connect('album-added', self._on_album_added)
         
+    def _on_album_added(self, album_model, album):
+        '''
+          called when album-manager album-added signal is invoked
+        '''
+        print (album.artist)
+        if self._artist_manager.model.contains(album.artist):
+            print ("contains artist")
+            artist = self._artist_manager.model.get(album.artist)
+            self._artist_manager.model.add_album_to_artist(artist, [album])
+        else:
+            print ("new artist")
+            artist = Artist(album.artist, self._artist_manager.cover_man.unknown_cover)
+            self._artist_manager.model.add(artist)
+
 class ArtistCoverManager(CoverManager):
     
     def __init__(self, plugin, artist_manager):
