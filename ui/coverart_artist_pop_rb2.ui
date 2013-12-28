@@ -61,20 +61,11 @@
       </object>
     </child>
     <child>
-      <object class="GtkMenuItem" id="cover_search_menu_item">
+      <object class="GtkMenuItem" id="artist_cover_search_menu_item">
         <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="label" translatable="yes">Search for covers</property>
-        <property name="use_underline">True</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkMenuItem" id="export_embed_menu_item">
-        <property name="use_action_appearance">False</property>
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="label" translatable="yes">Export and embed coverart</property>
         <property name="use_underline">True</property>
       </object>
     </child>

@@ -767,8 +767,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
               'queue_album_menu_item': self.source.queue_album_menu_item_callback,
               'playlist_menu_item': self.source.playlist_menu_item_callback,
               'new_playlist': self.source.add_playlist_menu_item_callback,
-              'cover_search_menu_item': self.source.cover_search_menu_item_callback,
-              'export_embed_menu_item': self.source.export_embed_menu_item_callback
+              'artist_cover_search_menu_item': self.cover_search_menu_item_callback
             }
               
         self.artist_popup_menu.connect_signals(signals)
@@ -788,6 +787,10 @@ class ArtistView(Gtk.TreeView, AbstractView):
         self.connect('button-press-event', self._row_click)
         self.get_selection().connect('changed', self._selection_changed)
         self.connect('query-tooltip', self._query_tooltip)
+        
+    def cover_search_menu_item_callback(self, *args):
+        self.artist_manager.cover_man.search_covers(self.get_selected_objects(just_artist=True),
+            callback=self.source.update_request_status_bar)
         
     def _query_tooltip( self, widget, x, y, key, tooltip ):
         
@@ -924,7 +927,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
                 [], Gdk.DragAction.COPY)
             self.drag_source_set_target_list(self._targets)
 
-    def get_selected_objects(self):
+    def get_selected_objects(self, just_artist=False):
         '''
         finds what has been selected
 
@@ -938,8 +941,12 @@ class ArtistView(Gtk.TreeView, AbstractView):
                 # have chosen an album then just return that album
                 return [active_object]
             else:
-                # must have chosen an artist - return all albums for the artist
-                return self.artist_manager.model.get_albums(active_object.name)
+                # must have chosen an artist - return all albums for the artist by default
+                # or just the artist itself
+                if not just_artist:
+                    return self.artist_manager.model.get_albums(active_object.name)
+                else:
+                    return [active_object]
         return []
         
     def switch_to_view(self, source, album):

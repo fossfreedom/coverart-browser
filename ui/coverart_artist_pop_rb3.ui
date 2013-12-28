@@ -28,11 +28,7 @@
     <section>
       <item>
         <attribute name="label" translatable="yes">Search for covers</attribute>
-        <attribute name="action">win.cover_search_menu_item</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">Export and embed coverart</attribute>
-        <attribute name="action">win.export_embed_menu_item</attribute>
+        <attribute name="action">win.artist_cover_search_menu_item</attribute>
       </item>
     </section>
         <section>
