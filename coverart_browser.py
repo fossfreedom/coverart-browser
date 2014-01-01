@@ -98,7 +98,7 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         # lets assume that python3 versions of RB only has the new icon attribute in the source
         if rb3compat.PYVER >=3:
                 iconfile = Gio.File.new_for_path(
-                    rb.find_plugin_file(self, 'img/covermgr.png'))
+                    rb.find_plugin_file(self, 'img/covermgr_rb3.png'))
                     
                 self.source = CoverArtBrowserSource(
                         shell=self.shell,

@@ -66,7 +66,6 @@ cp -r "${SCRIPT_PATH}"* "$PLUGIN_PATH"
 if [[ $RB == false ]]
 then
     mv "$PLUGIN_PATH"coverart_browser.plugin3 "$PLUGIN_PATH"coverart_browser.plugin
-    mv "$PLUGIN_PATH"img/covermgr_rb3.png "$PLUGIN_PATH"img/covermgr.png
 fi
 
 #remove the install script from the dir (not needed)
