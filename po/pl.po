@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-23 00:13+0000\n"
+"POT-Creation-Date: 2014-01-01 15:26+0000\n"
 "PO-Revision-Date: 2013-08-26 10:32+0000\n"
 "Last-Translator: Rashid Aliyev <Unknown>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -34,6 +34,7 @@ msgstr "Tryb wyszukiwania"
 
 #: tmpl/albumartsearch-tmpl.html:191 coverart_browser_source.py:305
 #: coverart_browser_source.py:314 coverart_browser_source.py:984
+#: coverart_browser_source.py:987
 msgid "Artist"
 msgstr "Wykonawca"
 
@@ -87,6 +88,7 @@ msgid "Tracks & Covers"
 msgstr "Ścieżki i okładki"
 
 #: tmp/coverart_browser.ui.h:2 coverart_artistview.py:712
+#: coverart_artistview.py:749
 msgid "Track Artist"
 msgstr "Wykonawca ścieżki"
 
@@ -114,7 +116,7 @@ msgstr "Wszystkie dekady"
 #: tmp/coverart_topbar.ui.h:3 tmp/coverart_browser_prefs.ui.h:43
 #: tmp/coverart_sidebar.ui.h:4 coverart_browser.py:164
 #: coverart_browser_source.py:982 coverart_browser.py:172
-#: tmp/coverart_browser_prefs.ui.h:44
+#: tmp/coverart_browser_prefs.ui.h:44 coverart_browser_source.py:984
 msgid "Tiles"
 msgstr "Płytki"
 
@@ -123,7 +125,7 @@ msgstr "Płytki"
 #: tmp/coverart_topbar.ui.h:4 tmp/coverart_browser_prefs.ui.h:53
 #: tmp/coverart_sidebar.ui.h:5 coverart_browser.py:168
 #: coverart_browser_source.py:983 coverart_browser.py:176
-#: tmp/coverart_browser_prefs.ui.h:54
+#: tmp/coverart_browser_prefs.ui.h:54 coverart_browser_source.py:986
 msgid "Flow"
 msgstr "Strumień"
 
@@ -152,6 +154,7 @@ msgstr "Dodaj ten album do listy odtwarzania"
 #: tmp/coverart_browser_pop_rb2.ui.h:6 tmp/coverart_entryview_pop_rb2.ui.h:6
 #: tmp/coverart_browser_pop_rb3.ui.h:3 tmp/coverart_entryview_pop_rb3.ui.h:3
 #: tmp/coverart_browser_pop_rb2.ui.h:3 tmp/coverart_entryview_pop_rb2.ui.h:3
+#: tmp/coverart_artist_pop_rb2.ui.h:3 tmp/coverart_artist_pop_rb3.ui.h:3
 msgid "Add to Playlist"
 msgstr "Dodaj do listy odtwarzania"
 
@@ -163,6 +166,7 @@ msgstr "Dodaj ten album do nowej listy odtwarzania"
 #: tmp/coverart_browser_pop_rb3.ui.h:4 tmp/coverart_entryview_pop_rb3.ui.h:4
 #: coverart_browser_source.py:553 coverart_entryview.py:274
 #: tmp/coverart_browser_pop_rb2.ui.h:4 tmp/coverart_entryview_pop_rb2.ui.h:4
+#: tmp/coverart_artist_pop_rb2.ui.h:4 tmp/coverart_artist_pop_rb3.ui.h:4
 msgid "New Playlist"
 msgstr "Nowa lista odtwarzania"
 
@@ -196,6 +200,7 @@ msgstr "Szukaj tej okładki albumu"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:16 tmp/coverart_browser_pop_rb3.ui.h:8
 #: tmp/coverart_browser_pop_rb2.ui.h:5 tmp/coverart_browser_pop_rb3.ui.h:5
+#: tmp/coverart_artist_pop_rb2.ui.h:5 tmp/coverart_artist_pop_rb3.ui.h:5
 msgid "Search for covers"
 msgstr "Szukaj okładek"
 
@@ -716,6 +721,7 @@ msgstr "Utwory"
 
 #: coverart_browser_source.py:276 coverart_browser_source.py:289
 #: coverart_artistview.py:708 coverart_artistview.py:766
+#: coverart_artistview.py:745 coverart_artistview.py:821
 msgid "Covers"
 msgstr "Okładki"
 
@@ -747,23 +753,23 @@ msgid "%d selected albums"
 msgstr "%d zaznaczonych albumów"
 
 #: coverart_browser_source.py:941 coverart_browser_source.py:911
-#: coverart_artistview.py:385
+#: coverart_artistview.py:385 coverart_artistview.py:388
 msgid " with 1 track"
 msgstr " z jednym utworem"
 
 #: coverart_browser_source.py:943 coverart_browser_source.py:913
-#: coverart_artistview.py:387
+#: coverart_artistview.py:387 coverart_artistview.py:390
 #, python-format
 msgid " with %d tracks"
 msgstr " z %d utworami"
 
 #: coverart_browser_source.py:947 coverart_browser_source.py:917
-#: coverart_artistview.py:393
+#: coverart_artistview.py:393 coverart_artistview.py:396
 msgid " and a duration of 1 minute"
 msgstr " i z czasem trwania równym jednej minucie"
 
 #: coverart_browser_source.py:949 coverart_browser_source.py:919
-#: coverart_artistview.py:395
+#: coverart_artistview.py:395 coverart_artistview.py:398
 #, python-format
 msgid " and a duration of %d minutes"
 msgstr " i z czasem trwania równym %d minutom"
@@ -977,3 +983,13 @@ msgstr ""
 #: tmp/coverart_exportembed.ui.h:10
 msgid "bitrate (kbit/s)"
 msgstr ""
+
+#: tmp/coverart_artist_pop_rb2.ui.h:1 tmp/coverart_artist_pop_rb3.ui.h:1
+#, fuzzy
+msgid "Play All"
+msgstr "Odtwórz album"
+
+#: tmp/coverart_artist_pop_rb2.ui.h:2 tmp/coverart_artist_pop_rb3.ui.h:2
+#, fuzzy
+msgid "Queue All"
+msgstr "Kolejkuj album"
