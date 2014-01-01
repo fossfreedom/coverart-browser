@@ -38,7 +38,7 @@ install:
 	install -m 644 coverflow/*.html $(DESTDIR)$(DATADIR)coverflow/
 	install -m 644 coverflow/LICENSE $(DESTDIR)$(DATADIR)coverflow/
 	install -m 644 coverflow/img/* $(DESTDIR)$(DATADIR)coverflow/img/
-	install -m 644 coverart_browser.plugin $(DESTDIR)$(SUBDIR)
+	install -m 644 coverart_browser.plugin* $(DESTDIR)$(SUBDIR)
 	install -d $(DESTDIR)$(DATADIR)tmpl
 	install -m 644 tmpl/* $(DESTDIR)$(DATADIR)tmpl/
 	install -d $(DESTDIR)$(GLIB_DIR)
