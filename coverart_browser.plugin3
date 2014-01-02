@@ -50,5 +50,5 @@ Description[zh_CN]=浏览封面并播放专辑
 Authors=fossfreedom <foss.freedom@gmail.com>, Agustín Carrasco <asermax@gmail.com>
 Copyright=© 2012 fossfreedom, Agustín Carrasco  © 2007 Alexandre Rosenfeld 
 Website=http://github.com/fossfreedom/coverart-browser
-Help=https://github.com/fossfreedom/coverart-browser/blob/release-0.9/README.md
-Version=0.9
+Help=https://github.com/fossfreedom/coverart-browser/blob/release-1.0/README.md
+Version=1.0
