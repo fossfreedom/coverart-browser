@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-03 04:27+0000\n"
-"PO-Revision-Date: 2014-01-03 00:17+0000\n"
+"PO-Revision-Date: 2014-01-03 22:53+0000\n"
 "Last-Translator: Lucio <luciomartinez@openmailbox.org>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-01-03 20:28+0000\n"
+"X-Launchpad-Export-Date: 2014-01-03 23:00+0000\n"
 "X-Generator: Launchpad (build 16877)\n"
 "Language: es\n"
 
@@ -86,6 +86,8 @@ msgstr "Mostrar más resultados"
 #: tmpl/artistartsearch-tmpl.html:180
 msgid "Tip: doubleclick or drag a cover to use it as the artist cover"
 msgstr ""
+"Consejo: haz doble click o arrastra una imagen para usarla como la carátula "
+"del artista"
 
 #: tmp/coverart_artist_pop_rb2.ui.h:1 tmp/coverart_artist_pop_rb3.ui.h:1
 msgid "Play All"
@@ -477,7 +479,7 @@ msgstr "Abrir carpeta pista incrustado en el archivo-encargado"
 #. This is a label describing the different options to save the picture artwork in the music file i.e. embed - to insert picture artwork into a music file
 #: tmp/coverart_exportembed.ui.h:5
 msgid "Embed:"
-msgstr ""
+msgstr "Insertar:"
 
 #: tmp/coverart_exportembed.ui.h:6
 msgid ""
@@ -498,7 +500,7 @@ msgstr "velocidad (kbit/s)"
 #. This is a label describing the size of the picture that will be inserted into the music file e.g. change the size from 800x800 pixels to 128x128 pixels
 #: tmp/coverart_exportembed.ui.h:10
 msgid "resize art"
-msgstr ""
+msgstr "redimensionar la carátula"
 
 #: tmp/coverart_exportembed.ui.h:11
 msgid "size in pixels"
