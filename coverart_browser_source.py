@@ -662,6 +662,8 @@ class CoverArtBrowserSource(RB.Source):
         print("CoverArtBrowser DEBUG - update_request_status_bar")
 
         if coverobject:
+            # for example "Requesting the picture cover for the music artist Michael Jackson"
+            tranlation_string = _('Requesting cover for %s...')
             self.request_statusbar.set_text(
                 rb3compat.unicodedecode(_('Requesting cover for %s...') % (coverobject.name), 'UTF-8'))
         else:

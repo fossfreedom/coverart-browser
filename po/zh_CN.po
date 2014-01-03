@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-01 15:26+0000\n"
+"POT-Creation-Date: 2014-01-03 04:27+0000\n"
 "PO-Revision-Date: 2013-08-28 10:55+0000\n"
 "Last-Translator: Xiaoxing Ye <Unknown>\n"
 "Language-Team: Chinese (Simplified) <zh_CN@li.org>\n"
@@ -19,6 +19,7 @@ msgstr ""
 "X-Generator: Launchpad (build 16761)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
+#: tmpl/artistartsearch-tmpl.html:135
 msgid "Search Options"
 msgstr "搜索选项"
 
@@ -30,9 +31,8 @@ msgstr "提示：双击或拖动封面可将其用作专辑封面"
 msgid "Search Mode"
 msgstr "搜索模式"
 
-#: tmpl/albumartsearch-tmpl.html:191 coverart_browser_source.py:305
-#: coverart_browser_source.py:314 coverart_browser_source.py:984
-#: coverart_browser_source.py:987
+#: tmpl/albumartsearch-tmpl.html:191 coverart_browser_source.py:314
+#: coverart_browser_source.py:989
 msgid "Artist"
 msgstr "艺术家"
 
@@ -44,202 +44,90 @@ msgstr "专辑"
 msgid "Artist and album"
 msgstr "艺术家与专辑"
 
-#: tmpl/albumartsearch-tmpl.html:196
+#: tmpl/albumartsearch-tmpl.html:196 tmpl/artistartsearch-tmpl.html:182
 msgid "Search text"
 msgstr "搜索文本"
 
-#: tmpl/albumartsearch-tmpl.html:199
+#: tmpl/albumartsearch-tmpl.html:199 tmpl/artistartsearch-tmpl.html:185
 msgid "Search"
 msgstr "搜索"
 
-#: tmpl/albumartsearch-tmpl.html:201
+#: tmpl/albumartsearch-tmpl.html:201 tmpl/artistartsearch-tmpl.html:187
 msgid "Image Size"
 msgstr "图像大小"
 
-#: tmpl/albumartsearch-tmpl.html:203
+#: tmpl/albumartsearch-tmpl.html:203 tmpl/artistartsearch-tmpl.html:189
 msgid "Small"
 msgstr "小"
 
-#: tmpl/albumartsearch-tmpl.html:204
+#: tmpl/albumartsearch-tmpl.html:204 tmpl/artistartsearch-tmpl.html:190
 msgid "Medium"
 msgstr "中"
 
-#: tmpl/albumartsearch-tmpl.html:205
+#: tmpl/albumartsearch-tmpl.html:205 tmpl/artistartsearch-tmpl.html:191
 msgid "Large"
 msgstr "大"
 
-#: tmpl/albumartsearch-tmpl.html:206
+#: tmpl/albumartsearch-tmpl.html:206 tmpl/artistartsearch-tmpl.html:192
 msgid "Extra Large"
 msgstr "超大"
 
-#: tmpl/albumartsearch-tmpl.html:211 coverart_browser_source.py:112
+#: tmpl/albumartsearch-tmpl.html:211 tmpl/artistartsearch-tmpl.html:197
 #: coverart_browser_source.py:114
 msgid "Loading..."
 msgstr "正在加载..."
 
-#: tmpl/albumartsearch-tmpl.html:213
+#: tmpl/albumartsearch-tmpl.html:213 tmpl/artistartsearch-tmpl.html:199
 msgid "Show more results"
 msgstr "显示更多结果"
 
-#: tmp/coverart_browser.ui.h:1
-msgid "Tracks & Covers"
-msgstr "歌曲及封面"
+#: tmpl/artistartsearch-tmpl.html:180
+#, fuzzy
+msgid "Tip: doubleclick or drag a cover to use it as the artist cover"
+msgstr "提示：双击或拖动封面可将其用作专辑封面"
 
-#: tmp/coverart_browser.ui.h:2 coverart_artistview.py:712
-#: coverart_artistview.py:749
-msgid "Track Artist"
-msgstr "曲目艺人"
-
-#: tmp/coverart_browser.ui.h:3
-msgid "Stop coverart fetch."
-msgstr "停止封面抓取。"
-
-#. initial genre
-#: tmp/coverart_topbar.ui.h:1 tmp/coverart_sidebar.ui.h:2
-#: coverart_controllers.py:215 coverart_controllers.py:267
-#: coverart_controllers.py:366 coverart_controllers.py:222
-#: coverart_controllers.py:274 coverart_controllers.py:373
-#: tmp/coverart_leftsidebar.ui.h:2 tmp/coverart_rightsidebar.ui.h:2
-msgid "All Genres"
-msgstr "所有流派"
-
-#: tmp/coverart_topbar.ui.h:2 tmp/coverart_sidebar.ui.h:3
-#: coverart_controllers.py:485 coverart_controllers.py:527
-#: tmp/coverart_leftsidebar.ui.h:3 tmp/coverart_rightsidebar.ui.h:3
-msgid "All Decades"
-msgstr "全部年代"
-
-#. . TRANSLATORS: This is the icon-grid view that the user sees
-#. . TRANSLATORS: Please try to keep the translation to less than 8 characters
-#: tmp/coverart_topbar.ui.h:3 tmp/coverart_browser_prefs.ui.h:43
-#: tmp/coverart_sidebar.ui.h:4 coverart_browser.py:164
-#: coverart_browser_source.py:982 coverart_browser.py:172
-#: tmp/coverart_browser_prefs.ui.h:44 coverart_browser_source.py:984
-msgid "Tiles"
-msgstr "拼贴"
-
-#. . TRANSLATORS: This is the cover-flow view the user sees - they can swipe album covers from side-to-side
-#. . TRANSLATORS: Please try to keep the translation to less than 8 characters
-#: tmp/coverart_topbar.ui.h:4 tmp/coverart_browser_prefs.ui.h:53
-#: tmp/coverart_sidebar.ui.h:5 coverart_browser.py:168
-#: coverart_browser_source.py:983 coverart_browser.py:176
-#: tmp/coverart_browser_prefs.ui.h:54 coverart_browser_source.py:986
-msgid "Flow"
-msgstr "专辑流"
-
-#: tmp/coverart_browser_pop_rb2.ui.h:1
-msgid "Play this album"
-msgstr "播放该专辑"
-
-#: tmp/coverart_browser_pop_rb2.ui.h:2 tmp/coverart_browser_pop_rb3.ui.h:1
-#: tmp/coverart_browser_pop_rb2.ui.h:1
-msgid "Play Album"
+#: tmp/coverart_artist_pop_rb2.ui.h:1 tmp/coverart_artist_pop_rb3.ui.h:1
+#, fuzzy
+msgid "Play All"
 msgstr "播放专辑"
 
-#: tmp/coverart_browser_pop_rb2.ui.h:3
-msgid "Add this album to your playing queue"
-msgstr "将该专辑添加到当前播放队列"
-
-#: tmp/coverart_browser_pop_rb2.ui.h:4 tmp/coverart_browser_pop_rb3.ui.h:2
-#: tmp/coverart_browser_pop_rb2.ui.h:2
-msgid "Queue Album"
+#: tmp/coverart_artist_pop_rb2.ui.h:2 tmp/coverart_artist_pop_rb3.ui.h:2
+#, fuzzy
+msgid "Queue All"
 msgstr "队列专辑"
 
-#: tmp/coverart_browser_pop_rb2.ui.h:5 tmp/coverart_entryview_pop_rb2.ui.h:5
-msgid "Add this album to a playlist"
-msgstr "将该专辑添加到播放列表"
-
-#: tmp/coverart_browser_pop_rb2.ui.h:6 tmp/coverart_entryview_pop_rb2.ui.h:6
-#: tmp/coverart_browser_pop_rb3.ui.h:3 tmp/coverart_entryview_pop_rb3.ui.h:3
-#: tmp/coverart_browser_pop_rb2.ui.h:3 tmp/coverart_entryview_pop_rb2.ui.h:3
 #: tmp/coverart_artist_pop_rb2.ui.h:3 tmp/coverart_artist_pop_rb3.ui.h:3
+#: tmp/coverart_browser_pop_rb2.ui.h:3 tmp/coverart_browser_pop_rb3.ui.h:3
+#: tmp/coverart_entryview_pop_rb2.ui.h:3 tmp/coverart_entryview_pop_rb3.ui.h:3
 msgid "Add to Playlist"
 msgstr "添加到播放列表"
 
-#: tmp/coverart_browser_pop_rb2.ui.h:7 tmp/coverart_entryview_pop_rb2.ui.h:7
-msgid "Add this album to a new playlist"
-msgstr "将该专辑添加到一个新的播放列表"
-
-#: tmp/coverart_browser_pop_rb2.ui.h:8 tmp/coverart_entryview_pop_rb2.ui.h:8
-#: tmp/coverart_browser_pop_rb3.ui.h:4 tmp/coverart_entryview_pop_rb3.ui.h:4
-#: coverart_browser_source.py:553 coverart_entryview.py:274
-#: tmp/coverart_browser_pop_rb2.ui.h:4 tmp/coverart_entryview_pop_rb2.ui.h:4
 #: tmp/coverart_artist_pop_rb2.ui.h:4 tmp/coverart_artist_pop_rb3.ui.h:4
+#: tmp/coverart_browser_pop_rb2.ui.h:4 tmp/coverart_browser_pop_rb3.ui.h:4
+#: tmp/coverart_entryview_pop_rb2.ui.h:4 tmp/coverart_entryview_pop_rb3.ui.h:4
+#: coverart_browser_source.py:553 coverart_entryview.py:274
 msgid "New Playlist"
 msgstr "新建播放列表"
 
-#: tmp/coverart_browser_pop_rb2.ui.h:9
-msgid "Play favourites tracks from this album"
-msgstr "播放该专辑中的收藏歌曲"
-
-#: tmp/coverart_browser_pop_rb2.ui.h:10 tmp/coverart_browser_pop_rb3.ui.h:5
-msgid "Play Favourites"
-msgstr "播放收藏歌曲"
-
-#: tmp/coverart_browser_pop_rb2.ui.h:11
-msgid "Add favourite tracks from this album to your playing queue"
-msgstr "将该专辑中收藏的歌曲添加到播放队列"
-
-#: tmp/coverart_browser_pop_rb2.ui.h:12 tmp/coverart_browser_pop_rb3.ui.h:6
-msgid "Queue Favourites"
-msgstr "队列收藏歌曲"
-
-#: tmp/coverart_browser_pop_rb2.ui.h:13
-msgid "Add favourite tracks from this album to a playlist"
-msgstr "将该专辑中的收藏歌曲添加到播放列表"
-
-#: tmp/coverart_browser_pop_rb2.ui.h:14 tmp/coverart_browser_pop_rb3.ui.h:7
-msgid "Add favourites to Playlist"
-msgstr "将收藏歌曲添加到播放列表"
-
-#: tmp/coverart_browser_pop_rb2.ui.h:15
-msgid "Search for this album cover"
-msgstr "搜索该专辑封面"
-
-#: tmp/coverart_browser_pop_rb2.ui.h:16 tmp/coverart_browser_pop_rb3.ui.h:8
-#: tmp/coverart_browser_pop_rb2.ui.h:5 tmp/coverart_browser_pop_rb3.ui.h:5
 #: tmp/coverart_artist_pop_rb2.ui.h:5 tmp/coverart_artist_pop_rb3.ui.h:5
+#: tmp/coverart_browser_pop_rb2.ui.h:5 tmp/coverart_browser_pop_rb3.ui.h:5
 msgid "Search for covers"
 msgstr "搜索封面"
 
-#: tmp/coverart_browser_pop_rb2.ui.h:17
-msgid "Export album tracks and embed coverart in track files"
-msgstr "导出专辑歌曲，并在歌曲文件中嵌入封面"
+#: tmp/coverart_browser_pop_rb2.ui.h:1 tmp/coverart_browser_pop_rb3.ui.h:1
+msgid "Play Album"
+msgstr "播放专辑"
 
-#: tmp/coverart_browser_pop_rb2.ui.h:18 tmp/coverart_browser_pop_rb3.ui.h:9
+#: tmp/coverart_browser_pop_rb2.ui.h:2 tmp/coverart_browser_pop_rb3.ui.h:2
+msgid "Queue Album"
+msgstr "队列专辑"
+
 #: tmp/coverart_browser_pop_rb2.ui.h:6 tmp/coverart_browser_pop_rb3.ui.h:6
 msgid "Export and embed coverart"
 msgstr "导出并嵌入封面"
 
-#: tmp/coverart_browser_pop_rb2.ui.h:19
-msgid "Show album properties"
-msgstr "显示专辑属性"
-
-#: tmp/coverart_entryview_pop_rb2.ui.h:1
-msgid "Play this track"
-msgstr "播放该歌曲"
-
-#: tmp/coverart_entryview_pop_rb2.ui.h:2 tmp/coverart_entryview_pop_rb3.ui.h:1
-#: tmp/coverart_entryview_pop_rb2.ui.h:1
-msgid "Play Track"
-msgstr "播放歌曲"
-
-#: tmp/coverart_entryview_pop_rb2.ui.h:3
-msgid "Add this track to your playing queue"
-msgstr "将该歌曲添加到播放队列"
-
-#: tmp/coverart_entryview_pop_rb2.ui.h:4 tmp/coverart_entryview_pop_rb3.ui.h:2
-#: tmp/coverart_entryview_pop_rb2.ui.h:2
-msgid "Queue Track"
-msgstr "队列歌曲"
-
-#: tmp/coverart_entryview_pop_rb2.ui.h:9
-msgid "Show track properties"
-msgstr "显示歌曲属性"
-
-#: tmp/coverart_browser_pop_rb3.ui.h:10 tmp/coverart_entryview_pop_rb3.ui.h:5
-#: coverart_controllers.py:467 coverart_controllers.py:509
-#: tmp/coverart_browser_pop_rb3.ui.h:7
+#: tmp/coverart_browser_pop_rb3.ui.h:7 tmp/coverart_entryview_pop_rb3.ui.h:5
+#: coverart_controllers.py:509
 msgid "Properties"
 msgstr "属性"
 
@@ -333,230 +221,313 @@ msgstr "常规"
 msgid "Album Information"
 msgstr "专辑信息"
 
-#: tmp/coverart_browser_prefs.ui.h:22 tmp/coverart_browser_prefs.ui.h:29
-msgid "Display album's info under cover"
-msgstr "封面下方显示专辑信息"
+#: tmp/coverart_browser_prefs.ui.h:22
+#, fuzzy
+msgid "Display album information"
+msgstr "专辑信息"
 
 #: tmp/coverart_browser_prefs.ui.h:23
-msgid "Show the album's basic information under the cover image."
-msgstr "在封面图片下方显示专辑基本信息。"
-
-#: tmp/coverart_browser_prefs.ui.h:24 tmp/coverart_browser_prefs.ui.h:23
 msgid "Font size for the text below the cover-art."
 msgstr "封面下方的文本字体大小。"
 
-#: tmp/coverart_browser_prefs.ui.h:25 tmp/coverart_browser_prefs.ui.h:24
+#: tmp/coverart_browser_prefs.ui.h:24
 msgid "Font Size:"
 msgstr "字体大小："
 
-#: tmp/coverart_browser_prefs.ui.h:26 tmp/coverart_browser_prefs.ui.h:25
+#: tmp/coverart_browser_prefs.ui.h:25
 msgid "Ellipsize albums names"
 msgstr "截短专辑名"
 
-#: tmp/coverart_browser_prefs.ui.h:27 tmp/coverart_browser_prefs.ui.h:26
+#: tmp/coverart_browser_prefs.ui.h:26
 msgid ""
 "Ellipsizes the albums names to a fixed length when the display text option "
 "is enabled."
 msgstr "开启显示文字选项后，截短专辑名至一特定长度。"
 
-#: tmp/coverart_browser_prefs.ui.h:28 tmp/coverart_browser_prefs.ui.h:27
+#: tmp/coverart_browser_prefs.ui.h:27
 msgid "Maximum allowed length for an album's name before being ellipsized."
 msgstr "使专辑名不致截短的最长长度。"
 
-#: tmp/coverart_browser_prefs.ui.h:29 tmp/coverart_browser_prefs.ui.h:28
+#: tmp/coverart_browser_prefs.ui.h:28
 msgid "Maximum length:"
 msgstr "最大长度："
 
-#: tmp/coverart_browser_prefs.ui.h:30 tmp/coverart_browser_prefs.ui.h:31
+#: tmp/coverart_browser_prefs.ui.h:29
+msgid "Display album's info under cover"
+msgstr "封面下方显示专辑信息"
+
+#: tmp/coverart_browser_prefs.ui.h:30
+#, fuzzy
+msgid "Display album's info within cover"
+msgstr "封面下方显示专辑信息"
+
+#: tmp/coverart_browser_prefs.ui.h:31
 msgid "Cover Appearance"
 msgstr "封面外观"
 
-#: tmp/coverart_browser_prefs.ui.h:31 tmp/coverart_browser_prefs.ui.h:32
+#: tmp/coverart_browser_prefs.ui.h:32
 msgid "Drop shadow"
 msgstr "阴影"
 
-#: tmp/coverart_browser_prefs.ui.h:32 tmp/coverart_browser_prefs.ui.h:33
+#: tmp/coverart_browser_prefs.ui.h:33
 msgid "Indicates if the albums should drop a shadow on the cover view"
 msgstr "标明封面视图中专辑是否应该显示阴影"
 
-#: tmp/coverart_browser_prefs.ui.h:33 tmp/coverart_browser_prefs.ui.h:34
+#: tmp/coverart_browser_prefs.ui.h:34
 msgid "Light Source: "
 msgstr "光线来源： "
 
-#: tmp/coverart_browser_prefs.ui.h:34 tmp/coverart_browser_prefs.ui.h:35
+#: tmp/coverart_browser_prefs.ui.h:35
 msgid "Defines the size for the covers showed on the source."
 msgstr "定义来源处显示的封面大小。"
 
-#: tmp/coverart_browser_prefs.ui.h:35 tmp/coverart_browser_prefs.ui.h:36
+#: tmp/coverart_browser_prefs.ui.h:36
 msgid "Size (in pixels):"
 msgstr "大小(像素)："
 
-#: tmp/coverart_browser_prefs.ui.h:36 tmp/coverart_browser_prefs.ui.h:37
+#: tmp/coverart_browser_prefs.ui.h:37
 msgid "Tracks Pane"
 msgstr "曲目窗格"
 
-#: tmp/coverart_browser_prefs.ui.h:37 tmp/coverart_browser_prefs.ui.h:38
+#: tmp/coverart_browser_prefs.ui.h:38
 msgid "open or close on click of cover"
 msgstr "点击封面时打开或关闭"
 
-#: tmp/coverart_browser_prefs.ui.h:38 tmp/coverart_browser_prefs.ui.h:39
+#: tmp/coverart_browser_prefs.ui.h:39
 msgid "Advanced Options"
 msgstr "高级选项"
 
-#: tmp/coverart_browser_prefs.ui.h:39 tmp/coverart_browser_prefs.ui.h:40
+#: tmp/coverart_browser_prefs.ui.h:40
 msgid "Padding (space) around the cover and its highlight"
 msgstr "封面周围的留空及其颜色"
 
-#: tmp/coverart_browser_prefs.ui.h:40 tmp/coverart_browser_prefs.ui.h:41
+#: tmp/coverart_browser_prefs.ui.h:41
 msgid "Spacing between columns and rows"
 msgstr "行与列之间的间距"
 
-#: tmp/coverart_browser_prefs.ui.h:41 tmp/coverart_browser_prefs.ui.h:42
+#: tmp/coverart_browser_prefs.ui.h:42
 msgid "Padding"
 msgstr "留空"
 
-#: tmp/coverart_browser_prefs.ui.h:42 tmp/coverart_browser_prefs.ui.h:43
+#: tmp/coverart_browser_prefs.ui.h:43
 msgid "Spacing"
 msgstr "间距"
 
-#: tmp/coverart_browser_prefs.ui.h:44 tmp/coverart_browser_prefs.ui.h:45
+#. . TRANSLATORS: This is the icon-grid view that the user sees
+#. . TRANSLATORS: Please try to keep the translation to less than 8 characters
+#: tmp/coverart_browser_prefs.ui.h:44 coverart_browser.py:172
+#: coverart_browser_source.py:986
+msgid "Tiles"
+msgstr "拼贴"
+
+#: tmp/coverart_browser_prefs.ui.h:45
 msgid "Flow Appearance"
 msgstr "专辑流外观"
 
-#: tmp/coverart_browser_prefs.ui.h:45 tmp/coverart_browser_prefs.ui.h:46
+#: tmp/coverart_browser_prefs.ui.h:46
 msgid "Width (px):"
 msgstr "宽度(像素)："
 
 #. . TRANSLATORS: percentage size that the image will be expanded
-#: tmp/coverart_browser_prefs.ui.h:47 coverart_browser.py:171
-#: coverart_browser.py:179 tmp/coverart_browser_prefs.ui.h:48
+#: tmp/coverart_browser_prefs.ui.h:48 coverart_browser.py:179
 #, no-c-format
 msgid "Scale by %:"
 msgstr "缩放比例（百分比）："
 
-#: tmp/coverart_browser_prefs.ui.h:48 tmp/coverart_browser_prefs.ui.h:49
+#: tmp/coverart_browser_prefs.ui.h:49
 msgid "Hide Caption"
 msgstr "隐藏标题"
 
-#: tmp/coverart_browser_prefs.ui.h:49 tmp/coverart_browser_prefs.ui.h:50
+#: tmp/coverart_browser_prefs.ui.h:50
 msgid "Maximum covers to display:"
 msgstr "最多显示的封面："
 
-#: tmp/coverart_browser_prefs.ui.h:50 tmp/coverart_browser_prefs.ui.h:51
+#: tmp/coverart_browser_prefs.ui.h:51
 msgid "Background Colour"
 msgstr "背景颜色"
 
-#: tmp/coverart_browser_prefs.ui.h:51 tmp/coverart_browser_prefs.ui.h:52
+#: tmp/coverart_browser_prefs.ui.h:52
 msgid "White"
 msgstr "白色"
 
-#: tmp/coverart_browser_prefs.ui.h:52 tmp/coverart_browser_prefs.ui.h:53
+#: tmp/coverart_browser_prefs.ui.h:53
 msgid "Black"
 msgstr "黑色"
 
-#: tmp/coverart_browser_prefs.ui.h:54 tmp/coverart_browser_prefs.ui.h:55
+#. . TRANSLATORS: This is the cover-flow view the user sees - they can swipe album covers from side-to-side
+#. . TRANSLATORS: Please try to keep the translation to less than 8 characters
+#: tmp/coverart_browser_prefs.ui.h:54 coverart_browser.py:176
+#: coverart_browser_source.py:988
+msgid "Flow"
+msgstr "专辑流"
+
+#: tmp/coverart_browser_prefs.ui.h:55
 msgid "Where the toolbar should be positioned"
 msgstr "工具栏的摆放位置"
 
-#: tmp/coverart_browser_prefs.ui.h:55 tmp/coverart_browser_prefs.ui.h:56
+#: tmp/coverart_browser_prefs.ui.h:56
 msgid "Position"
 msgstr "位置"
 
-#: tmp/coverart_browser_prefs.ui.h:56 tmp/coverart_browser_prefs.ui.h:57
+#: tmp/coverart_browser_prefs.ui.h:57
 msgid "Show toolbar: "
 msgstr "显示工具栏： "
 
-#: tmp/coverart_browser_prefs.ui.h:57 tmp/coverart_browser_prefs.ui.h:58
+#: tmp/coverart_browser_prefs.ui.h:58
 msgid "Look & Feel"
 msgstr "外观"
 
-#: tmp/coverart_browser_prefs.ui.h:58 tmp/coverart_browser_prefs.ui.h:59
+#: tmp/coverart_browser_prefs.ui.h:59
 msgid "Flat-button style"
 msgstr "平按钮风格"
 
-#: tmp/coverart_browser_prefs.ui.h:59 tmp/coverart_browser_prefs.ui.h:60
+#: tmp/coverart_browser_prefs.ui.h:60
 msgid "Icon Theme: "
 msgstr "图标主题: "
 
-#: tmp/coverart_browser_prefs.ui.h:60 tmp/coverart_browser_prefs.ui.h:61
+#: tmp/coverart_browser_prefs.ui.h:61
 msgid "Alternative Genres:"
 msgstr "备选流派："
 
-#: tmp/coverart_browser_prefs.ui.h:61 tmp/coverart_browser_prefs.ui.h:62
+#: tmp/coverart_browser_prefs.ui.h:62
 msgid "Load New Icon: "
 msgstr "加载新图标: "
 
-#: tmp/coverart_browser_prefs.ui.h:62 tmp/coverart_browser_prefs.ui.h:63
+#: tmp/coverart_browser_prefs.ui.h:63
 msgid "Select a new genre icon"
 msgstr "选择新的流派图标"
 
-#: tmp/coverart_browser_prefs.ui.h:63 tmp/coverart_browser_prefs.ui.h:64
+#: tmp/coverart_browser_prefs.ui.h:64
 msgid "Edit Genre Details:"
 msgstr "编辑流派细节:"
 
-#: tmp/coverart_browser_prefs.ui.h:64 tmp/coverart_browser_prefs.ui.h:65
+#: tmp/coverart_browser_prefs.ui.h:65
 msgid "Save changes"
 msgstr "保存改动"
 
-#: tmp/coverart_browser_prefs.ui.h:65 tmp/coverart_browser_prefs.ui.h:66
+#: tmp/coverart_browser_prefs.ui.h:66
 msgid "Name:"
 msgstr "名称："
 
-#: tmp/coverart_browser_prefs.ui.h:66 tmp/coverart_browser_prefs.ui.h:67
+#: tmp/coverart_browser_prefs.ui.h:67
 msgid "Icon:"
 msgstr "图标:"
 
-#: tmp/coverart_browser_prefs.ui.h:67 tmp/coverart_browser_prefs.ui.h:68
+#: tmp/coverart_browser_prefs.ui.h:68
 msgid "Current user-defined Genres:"
 msgstr "目前用户定义的流派:"
 
-#: tmp/coverart_browser_prefs.ui.h:68 tmp/coverart_browser_prefs.ui.h:69
+#: tmp/coverart_browser_prefs.ui.h:69
 msgid "Alternate Name"
 msgstr "别名"
 
-#: tmp/coverart_browser_prefs.ui.h:69 tmp/coverart_browser_prefs.ui.h:70
+#: tmp/coverart_browser_prefs.ui.h:70
 msgid "Icon"
 msgstr "图标"
 
-#: tmp/coverart_browser_prefs.ui.h:70 tmp/coverart_browser_prefs.ui.h:71
+#: tmp/coverart_browser_prefs.ui.h:71
 msgid "Add a new alternative genre"
 msgstr "添加一个新的备选流派"
 
-#: tmp/coverart_browser_prefs.ui.h:71 tmp/coverart_browser_prefs.ui.h:72
+#: tmp/coverart_browser_prefs.ui.h:72
 msgid "Delete an alternative genre"
 msgstr "删除一个新的备选流派"
 
-#: tmp/coverart_browser_prefs.ui.h:72 tmp/coverart_browser_prefs.ui.h:73
+#: tmp/coverart_browser_prefs.ui.h:73
 msgid "Toolbar"
 msgstr "工具栏"
+
+#: tmp/coverart_browser.ui.h:1
+msgid "Tracks & Covers"
+msgstr "歌曲及封面"
+
+#: tmp/coverart_browser.ui.h:2 coverart_artistview.py:749
+msgid "Track Artist"
+msgstr "曲目艺人"
+
+#: tmp/coverart_browser.ui.h:3
+msgid "Stop coverart fetch."
+msgstr "停止封面抓取。"
+
+#: tmp/coverart_entryview_pop_rb2.ui.h:1 tmp/coverart_entryview_pop_rb3.ui.h:1
+msgid "Play Track"
+msgstr "播放歌曲"
+
+#: tmp/coverart_entryview_pop_rb2.ui.h:2 tmp/coverart_entryview_pop_rb3.ui.h:2
+msgid "Queue Track"
+msgstr "队列歌曲"
 
 #: tmp/coverart_exportembed.ui.h:1
 msgid "Choose folder to save tracks:"
 msgstr "选择要保存歌曲的目录："
 
 #: tmp/coverart_exportembed.ui.h:2
-msgid "Select a Folder to export to"
-msgstr "选择导出到的目录"
-
-#: tmp/coverart_exportembed.ui.h:3
 msgid "Save tracks within folder using album name"
 msgstr "在专辑名称文件夹内保存曲目"
 
-#: tmp/coverart_exportembed.ui.h:4
+#: tmp/coverart_exportembed.ui.h:3
 msgid "Open embedded track folder in file-manager"
 msgstr "在文件管理器中打开嵌入的曲目文件夹"
 
+#. This is a label describing the different options to save the picture artwork in the music file i.e. embed - to insert picture artwork into a music file
 #: tmp/coverart_exportembed.ui.h:5
+msgid "Embed:"
+msgstr ""
+
+#: tmp/coverart_exportembed.ui.h:6
 msgid ""
 "Tip: Drag and Drop exported tracks from file-manager to a playlist or "
 "telephone/other device"
 msgstr "提示：您可以从文件管理器拖曳已导出的音轨到播放列表或者您的设备中"
 
-#: tmp/coverart_sidebar.ui.h:1 coverart_browser.py:102 coverart_browser.py:115
-#: coverart_browser.py:105 coverart_browser.py:117
+#: tmp/coverart_exportembed.ui.h:7
+msgid "convert to mp3"
+msgstr ""
+
+#: tmp/coverart_exportembed.ui.h:8
+msgid "bitrate (kbit/s)"
+msgstr ""
+
+#. This is a label describing the size of the picture that will be inserted into the music file e.g. change the size from 800x800 pixels to 128x128 pixels
+#: tmp/coverart_exportembed.ui.h:10
+msgid "resize art"
+msgstr ""
+
+#: tmp/coverart_exportembed.ui.h:11
+#, fuzzy
+msgid "size in pixels"
+msgstr "大小(像素)："
+
+#: tmp/coverart_exportembed.ui.h:11
+msgid "(px)"
+msgstr ""
+
+#: tmp/coverart_exportembed.ui.h:12
+msgid "Select a Folder to export to"
+msgstr "选择导出到的目录"
+
 #: tmp/coverart_leftsidebar.ui.h:1 tmp/coverart_rightsidebar.ui.h:1
+#: coverart_browser.py:105 coverart_browser.py:117
 msgid "CoverArt"
 msgstr "封面"
+
+#. initial genre
+#: tmp/coverart_leftsidebar.ui.h:2 tmp/coverart_rightsidebar.ui.h:2
+#: tmp/coverart_topbar.ui.h:1 coverart_controllers.py:222
+#: coverart_controllers.py:274 coverart_controllers.py:373
+msgid "All Genres"
+msgstr "所有流派"
+
+#: tmp/coverart_leftsidebar.ui.h:3 tmp/coverart_rightsidebar.ui.h:3
+#: tmp/coverart_topbar.ui.h:2 coverart_controllers.py:527
+msgid "All Decades"
+msgstr "全部年代"
+
+#. This is the different view modes e.g. Music Library, CoverFlow, Tiles or Album Artist
+#: tmp/coverart_leftsidebar.ui.h:4 tmp/coverart_rightsidebar.ui.h:4
+#: tmp/coverart_topbar.ui.h:4 coverart_browser.py:251
+msgid "Views"
+msgstr ""
 
 #: tmp/popups.xml.in.h:1
 msgid "rock"
@@ -699,199 +670,40 @@ msgid "children"
 msgstr "儿童"
 
 #. . TRANSLATORS - for example "abba's greatest hits by ABBA"
-#: coverart_album.py:1604 coverart_browser_source.py:933
-#: coverart_album.py:1662 coverart_browser_source.py:903
+#: coverart_album.py:1662 coverart_browser_source.py:905
 #, python-format
 msgid "%s by %s"
 msgstr "%s 作者 %s"
 
-#: coverart_browser_source.py:265 coverart_browser_source.py:273
-msgid "Tracks"
-msgstr "歌曲"
-
-#: coverart_browser_source.py:276 coverart_browser_source.py:289
-#: coverart_artistview.py:708 coverart_artistview.py:766
-#: coverart_artistview.py:745 coverart_artistview.py:821
-msgid "Covers"
-msgstr "封面"
-
-#. . TRANSLATORS - "All" is used in the context of "All artist names"
-#: coverart_browser_source.py:347 coverart_browser_source.py:355
-msgid "All"
-msgstr "所有"
-
-#: coverart_browser_source.py:621 coverart_browser_source.py:575
-msgid "The number of albums to randomly play is less than that displayed."
-msgstr "随机播放的音乐数目将少于显示的。"
-
-#: coverart_browser_source.py:701
-#, python-format
-msgid "Requesting cover for %s - %s..."
-msgstr "正在请求  %s - %s 封面..."
-
-#: coverart_browser_source.py:857 coverart_browser_source.py:827
-msgid ""
-"Please install and activate the latest version of the Coverart Search "
-"Providers plugin"
-msgstr "请安装并激活最新版本的封面搜索提供商插件"
-
-#. . TRANSLATORS - the number of albums that have been selected/highlighted
-#: coverart_browser_source.py:937 coverart_browser_source.py:907
-#, python-format
-msgid "%d selected albums"
-msgstr "已选择 %d 张专辑"
-
-#: coverart_browser_source.py:941 coverart_browser_source.py:911
-#: coverart_artistview.py:385 coverart_artistview.py:388
+#: coverart_artistview.py:388 coverart_browser_source.py:913
 msgid " with 1 track"
 msgstr " 共有 1 首歌曲"
 
-#: coverart_browser_source.py:943 coverart_browser_source.py:913
-#: coverart_artistview.py:387 coverart_artistview.py:390
+#: coverart_artistview.py:390 coverart_browser_source.py:915
 #, python-format
 msgid " with %d tracks"
 msgstr " 共有 %d 首歌曲"
 
-#: coverart_browser_source.py:947 coverart_browser_source.py:917
-#: coverart_artistview.py:393 coverart_artistview.py:396
+#: coverart_artistview.py:396 coverart_browser_source.py:919
 msgid " and a duration of 1 minute"
 msgstr " 且计 1 分钟时长"
 
-#: coverart_browser_source.py:949 coverart_browser_source.py:919
-#: coverart_artistview.py:395 coverart_artistview.py:398
+#: coverart_artistview.py:398 coverart_browser_source.py:921
 #, python-format
 msgid " and a duration of %d minutes"
 msgstr " 且计 %d 分钟时长"
 
-#: coverart_controllers.py:382 coverart_controllers.py:389
-msgid "Sort by album name"
-msgstr "按专辑名称排序"
+#: coverart_artistview.py:745 coverart_artistview.py:821
+#: coverart_browser_source.py:289
+msgid "Covers"
+msgstr "封面"
 
-#: coverart_controllers.py:383 coverart_controllers.py:390
-msgid "Sort by album artist"
-msgstr "按专辑艺术家排名"
-
-#: coverart_controllers.py:384 coverart_controllers.py:391
-msgid "Sort by year"
-msgstr "按年份排名"
-
-#: coverart_controllers.py:385 coverart_controllers.py:392
-msgid "Sort by rating"
-msgstr "按评分排序"
-
-#: coverart_controllers.py:432 coverart_controllers.py:442
-msgid "Download all covers"
-msgstr "下载所有封面"
-
-#: coverart_controllers.py:433 coverart_controllers.py:443
-msgid "Play random album"
-msgstr "随机播放专辑"
-
-#: coverart_controllers.py:434
-msgid "Play favourite random album"
-msgstr "随机播放喜爱的专辑"
-
-#: coverart_controllers.py:436 coverart_controllers.py:445
-#: coverart_controllers.py:495
-msgid "Quick artist filter"
-msgstr "快速艺人过滤器"
-
-#: coverart_controllers.py:438 coverart_browser_prefs.py:245
-#: coverart_controllers.py:450 coverart_browser_prefs.py:248
+#: coverart_browser_prefs.py:248 coverart_controllers.py:450
 msgid "Browser Preferences"
 msgstr "浏览偏好"
 
-#: coverart_controllers.py:439 coverart_controllers.py:451
-msgid "Search Preferences"
-msgstr "搜寻偏好"
-
-#. '20s' as in the decade 2010
-#: coverart_controllers.py:487 coverart_controllers.py:513
-#: coverart_controllers.py:529 coverart_controllers.py:555
-msgid "20s"
-msgstr "20年代"
-
-#. '10s' as in the decade 2010
-#: coverart_controllers.py:489 coverart_controllers.py:531
-msgid "10s"
-msgstr "新10年代"
-
-#. '00s' as in the decade 2000
-#: coverart_controllers.py:491 coverart_controllers.py:533
-msgid "00s"
-msgstr "新千年"
-
-#. '90s' as in the decade 1990
-#: coverart_controllers.py:493 coverart_controllers.py:535
-msgid "90s"
-msgstr "90年代"
-
-#. '80s' as in the decade 1980
-#: coverart_controllers.py:495 coverart_controllers.py:537
-msgid "80s"
-msgstr "80年代"
-
-#. '70s' as in the decade 1970
-#: coverart_controllers.py:497 coverart_controllers.py:539
-msgid "70s"
-msgstr "70年代"
-
-#. '60s' as in the decade 1960
-#: coverart_controllers.py:499 coverart_controllers.py:541
-msgid "60s"
-msgstr "60年代"
-
-#. '50s' as in the decade 1950
-#: coverart_controllers.py:501 coverart_controllers.py:543
-msgid "50s"
-msgstr "50年代"
-
-#. '40s' as in the decade 1940
-#: coverart_controllers.py:503 coverart_controllers.py:545
-msgid "40s"
-msgstr "40年代"
-
-#. '30s' as in the decade 1930
-#: coverart_controllers.py:505 coverart_controllers.py:547
-msgid "30s"
-msgstr "30年代"
-
-#. 'Older' as in 'older than the year 1930'
-#: coverart_controllers.py:507 coverart_controllers.py:549
-msgid "Older"
-msgstr "旧音乐"
-
-#. options
-#: coverart_controllers.py:552 coverart_controllers.py:594
-msgid "Sort in descending order"
-msgstr "降序排序"
-
-#: coverart_controllers.py:553 coverart_controllers.py:595
-msgid "Sort in ascending order"
-msgstr "升序排序"
-
-#: coverart_controllers.py:605 coverart_controllers.py:647
-msgid "Search all fields"
-msgstr "搜索全部字段"
-
-#: coverart_controllers.py:606 coverart_controllers.py:648
-msgid "Search album artists"
-msgstr "搜索专辑艺术家"
-
-#: coverart_controllers.py:607 coverart_controllers.py:649
-msgid "Search track artists"
-msgstr "搜过歌曲艺术家"
-
-#: coverart_controllers.py:608 coverart_controllers.py:650
-msgid "Search albums"
-msgstr "搜索专辑"
-
-#: coverart_controllers.py:609 coverart_controllers.py:651
-msgid "Search tracks"
-msgstr "搜索音轨"
-
 #. . TRANSLATORS: Do not translate this string.
-#: coverart_browser_prefs.py:284 coverart_browser_prefs.py:287
+#: coverart_browser_prefs.py:287
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -900,20 +712,23 @@ msgstr ""
 "  ZhangCheng https://launchpad.net/~xxzc\n"
 "  fossfreedom https://launchpad.net/~fossfreedom"
 
-#. TRANSLATORS: for example 'Number of covers limited to 150'
-#: coverart_coverflowview.py:197
-#, python-format
-msgid "Number of covers limited to %d"
-msgstr "封面数量限制为 %d"
-
 #. define .plugin text strings used for translation
-#: coverart_browser.py:159 coverart_browser.py:167
+#: coverart_browser.py:167
 msgid "CoverArt Browser"
 msgstr "封面浏览器"
 
-#: coverart_browser.py:160 coverart_browser.py:168
+#: coverart_browser.py:168
 msgid "Browse and play your albums through their covers"
 msgstr "浏览封面并播放专辑"
+
+#: coverart_browser_source.py:273
+msgid "Tracks"
+msgstr "歌曲"
+
+#. . TRANSLATORS - "All" is used in the context of "All artist names"
+#: coverart_browser_source.py:355
+msgid "All"
+msgstr "所有"
 
 #: coverart_browser_source.py:481 coverart_browser_source.py:612
 msgid ""
@@ -921,62 +736,208 @@ msgid ""
 "threshold"
 msgstr ""
 
-#: coverart_browser_source.py:666
+#: coverart_browser_source.py:575
+msgid "The number of albums to randomly play is less than that displayed."
+msgstr "随机播放的音乐数目将少于显示的。"
+
+#. for example "Requesting the picture cover for the music artist Michael Jackson"
+#: coverart_browser_source.py:666 coverart_browser_source.py:668
 #, fuzzy, python-format
 msgid "Requesting cover for %s..."
 msgstr "正在请求  %s - %s 封面..."
+
+#: coverart_browser_source.py:829
+msgid ""
+"Please install and activate the latest version of the Coverart Search "
+"Providers plugin"
+msgstr "请安装并激活最新版本的封面搜索提供商插件"
+
+#. . TRANSLATORS - the number of albums that have been selected/highlighted
+#: coverart_browser_source.py:909
+#, python-format
+msgid "%d selected albums"
+msgstr "已选择 %d 张专辑"
+
+#: coverart_controllers.py:389
+msgid "Sort by album name"
+msgstr "按专辑名称排序"
+
+#: coverart_controllers.py:390
+msgid "Sort by album artist"
+msgstr "按专辑艺术家排名"
+
+#: coverart_controllers.py:391
+msgid "Sort by year"
+msgstr "按年份排名"
+
+#: coverart_controllers.py:392
+msgid "Sort by rating"
+msgstr "按评分排序"
+
+#: coverart_controllers.py:442
+msgid "Download all covers"
+msgstr "下载所有封面"
+
+#: coverart_controllers.py:443
+msgid "Play random album"
+msgstr "随机播放专辑"
+
+#: coverart_controllers.py:445 coverart_controllers.py:495
+msgid "Quick artist filter"
+msgstr "快速艺人过滤器"
 
 #: coverart_controllers.py:447 coverart_controllers.py:499
 #, fuzzy
 msgid "Use favourites only"
 msgstr "将收藏歌曲添加到播放列表"
 
-#: coverart_browser.py:251 tmp/coverart_leftsidebar.ui.h:4
-#: tmp/coverart_rightsidebar.ui.h:4 tmp/coverart_topbar.ui.h:3
-msgid "Views"
-msgstr ""
+#: coverart_controllers.py:451
+msgid "Search Preferences"
+msgstr "搜寻偏好"
 
-#: tmp/coverart_browser_prefs.ui.h:22
-#, fuzzy
-msgid "Display album information"
-msgstr "专辑信息"
+#. '20s' as in the decade 2010
+#: coverart_controllers.py:529 coverart_controllers.py:555
+msgid "20s"
+msgstr "20年代"
 
-#: tmp/coverart_browser_prefs.ui.h:30
-#, fuzzy
-msgid "Display album's info within cover"
-msgstr "封面下方显示专辑信息"
+#. '10s' as in the decade 2010
+#: coverart_controllers.py:531
+msgid "10s"
+msgstr "新10年代"
 
-#: tmp/coverart_exportembed.ui.h:6
-msgid "Embed:"
-msgstr ""
+#. '00s' as in the decade 2000
+#: coverart_controllers.py:533
+msgid "00s"
+msgstr "新千年"
 
-#: tmp/coverart_exportembed.ui.h:7
-msgid "resize art"
-msgstr ""
+#. '90s' as in the decade 1990
+#: coverart_controllers.py:535
+msgid "90s"
+msgstr "90年代"
 
-#: tmp/coverart_exportembed.ui.h:8
-#, fuzzy
-msgid "size in pixels"
-msgstr "大小(像素)："
+#. '80s' as in the decade 1980
+#: coverart_controllers.py:537
+msgid "80s"
+msgstr "80年代"
 
-#: tmp/coverart_exportembed.ui.h:8
-msgid "(px)"
-msgstr ""
+#. '70s' as in the decade 1970
+#: coverart_controllers.py:539
+msgid "70s"
+msgstr "70年代"
 
-#: tmp/coverart_exportembed.ui.h:9
-msgid "convert to mp3"
-msgstr ""
+#. '60s' as in the decade 1960
+#: coverart_controllers.py:541
+msgid "60s"
+msgstr "60年代"
 
-#: tmp/coverart_exportembed.ui.h:10
-msgid "bitrate (kbit/s)"
-msgstr ""
+#. '50s' as in the decade 1950
+#: coverart_controllers.py:543
+msgid "50s"
+msgstr "50年代"
 
-#: tmp/coverart_artist_pop_rb2.ui.h:1 tmp/coverart_artist_pop_rb3.ui.h:1
-#, fuzzy
-msgid "Play All"
-msgstr "播放专辑"
+#. '40s' as in the decade 1940
+#: coverart_controllers.py:545
+msgid "40s"
+msgstr "40年代"
 
-#: tmp/coverart_artist_pop_rb2.ui.h:2 tmp/coverart_artist_pop_rb3.ui.h:2
-#, fuzzy
-msgid "Queue All"
-msgstr "队列专辑"
+#. '30s' as in the decade 1930
+#: coverart_controllers.py:547
+msgid "30s"
+msgstr "30年代"
+
+#. 'Older' as in 'older than the year 1930'
+#: coverart_controllers.py:549
+msgid "Older"
+msgstr "旧音乐"
+
+#. options
+#: coverart_controllers.py:594
+msgid "Sort in descending order"
+msgstr "降序排序"
+
+#: coverart_controllers.py:595
+msgid "Sort in ascending order"
+msgstr "升序排序"
+
+#: coverart_controllers.py:647
+msgid "Search all fields"
+msgstr "搜索全部字段"
+
+#: coverart_controllers.py:648
+msgid "Search album artists"
+msgstr "搜索专辑艺术家"
+
+#: coverart_controllers.py:649
+msgid "Search track artists"
+msgstr "搜过歌曲艺术家"
+
+#: coverart_controllers.py:650
+msgid "Search albums"
+msgstr "搜索专辑"
+
+#: coverart_controllers.py:651
+msgid "Search tracks"
+msgstr "搜索音轨"
+
+#. TRANSLATORS: for example 'Number of covers limited to 150'
+#: coverart_coverflowview.py:197
+#, python-format
+msgid "Number of covers limited to %d"
+msgstr "封面数量限制为 %d"
+
+#~ msgid "Play this album"
+#~ msgstr "播放该专辑"
+
+#~ msgid "Add this album to your playing queue"
+#~ msgstr "将该专辑添加到当前播放队列"
+
+#~ msgid "Add this album to a playlist"
+#~ msgstr "将该专辑添加到播放列表"
+
+#~ msgid "Add this album to a new playlist"
+#~ msgstr "将该专辑添加到一个新的播放列表"
+
+#~ msgid "Play favourites tracks from this album"
+#~ msgstr "播放该专辑中的收藏歌曲"
+
+#~ msgid "Play Favourites"
+#~ msgstr "播放收藏歌曲"
+
+#~ msgid "Add favourite tracks from this album to your playing queue"
+#~ msgstr "将该专辑中收藏的歌曲添加到播放队列"
+
+#~ msgid "Queue Favourites"
+#~ msgstr "队列收藏歌曲"
+
+#~ msgid "Add favourite tracks from this album to a playlist"
+#~ msgstr "将该专辑中的收藏歌曲添加到播放列表"
+
+#~ msgid "Add favourites to Playlist"
+#~ msgstr "将收藏歌曲添加到播放列表"
+
+#~ msgid "Search for this album cover"
+#~ msgstr "搜索该专辑封面"
+
+#~ msgid "Export album tracks and embed coverart in track files"
+#~ msgstr "导出专辑歌曲，并在歌曲文件中嵌入封面"
+
+#~ msgid "Show album properties"
+#~ msgstr "显示专辑属性"
+
+#~ msgid "Play this track"
+#~ msgstr "播放该歌曲"
+
+#~ msgid "Add this track to your playing queue"
+#~ msgstr "将该歌曲添加到播放队列"
+
+#~ msgid "Show track properties"
+#~ msgstr "显示歌曲属性"
+
+#~ msgid "Show the album's basic information under the cover image."
+#~ msgstr "在封面图片下方显示专辑基本信息。"
+
+#~ msgid "Requesting cover for %s - %s..."
+#~ msgstr "正在请求  %s - %s 封面..."
+
+#~ msgid "Play favourite random album"
+#~ msgstr "随机播放喜爱的专辑"

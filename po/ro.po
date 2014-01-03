@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-01 15:26+0000\n"
+"POT-Creation-Date: 2014-01-03 04:27+0000\n"
 "PO-Revision-Date: 2013-08-27 04:35+0000\n"
 "Last-Translator: Radu Rădeanu <radu.radeanu@gmail.com>\n"
 "Language-Team: Romanian <ro@li.org>\n"
@@ -19,6 +19,7 @@ msgstr ""
 "X-Generator: Launchpad (build 16738)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
+#: tmpl/artistartsearch-tmpl.html:135
 msgid "Search Options"
 msgstr "Opțiuni căutare"
 
@@ -32,9 +33,8 @@ msgstr ""
 msgid "Search Mode"
 msgstr "Modul de căutare"
 
-#: tmpl/albumartsearch-tmpl.html:191 coverart_browser_source.py:305
-#: coverart_browser_source.py:314 coverart_browser_source.py:984
-#: coverart_browser_source.py:987
+#: tmpl/albumartsearch-tmpl.html:191 coverart_browser_source.py:314
+#: coverart_browser_source.py:989
 msgid "Artist"
 msgstr "Artist"
 
@@ -46,202 +46,92 @@ msgstr "Album"
 msgid "Artist and album"
 msgstr "Artist și album"
 
-#: tmpl/albumartsearch-tmpl.html:196
+#: tmpl/albumartsearch-tmpl.html:196 tmpl/artistartsearch-tmpl.html:182
 msgid "Search text"
 msgstr "Textul de căutat"
 
-#: tmpl/albumartsearch-tmpl.html:199
+#: tmpl/albumartsearch-tmpl.html:199 tmpl/artistartsearch-tmpl.html:185
 msgid "Search"
 msgstr "Căutare"
 
-#: tmpl/albumartsearch-tmpl.html:201
+#: tmpl/albumartsearch-tmpl.html:201 tmpl/artistartsearch-tmpl.html:187
 msgid "Image Size"
 msgstr "Mărime imagine"
 
-#: tmpl/albumartsearch-tmpl.html:203
+#: tmpl/albumartsearch-tmpl.html:203 tmpl/artistartsearch-tmpl.html:189
 msgid "Small"
 msgstr "Mică"
 
-#: tmpl/albumartsearch-tmpl.html:204
+#: tmpl/albumartsearch-tmpl.html:204 tmpl/artistartsearch-tmpl.html:190
 msgid "Medium"
 msgstr "Mediu"
 
-#: tmpl/albumartsearch-tmpl.html:205
+#: tmpl/albumartsearch-tmpl.html:205 tmpl/artistartsearch-tmpl.html:191
 msgid "Large"
 msgstr "Mare"
 
-#: tmpl/albumartsearch-tmpl.html:206
+#: tmpl/albumartsearch-tmpl.html:206 tmpl/artistartsearch-tmpl.html:192
 msgid "Extra Large"
 msgstr "Foarte mare"
 
-#: tmpl/albumartsearch-tmpl.html:211 coverart_browser_source.py:112
+#: tmpl/albumartsearch-tmpl.html:211 tmpl/artistartsearch-tmpl.html:197
 #: coverart_browser_source.py:114
 msgid "Loading..."
 msgstr "Se încarcă..."
 
-#: tmpl/albumartsearch-tmpl.html:213
+#: tmpl/albumartsearch-tmpl.html:213 tmpl/artistartsearch-tmpl.html:199
 msgid "Show more results"
 msgstr "Arată mai multe rezultate"
 
-#: tmp/coverart_browser.ui.h:1
-msgid "Tracks & Covers"
-msgstr "Melodii și coperte"
+#: tmpl/artistartsearch-tmpl.html:180
+#, fuzzy
+msgid "Tip: doubleclick or drag a cover to use it as the artist cover"
+msgstr ""
+"Sfat: dublu clic sau trageți o copertă să fie folosită ca și coperta "
+"albumului"
 
-#: tmp/coverart_browser.ui.h:2 coverart_artistview.py:712
-#: coverart_artistview.py:749
-msgid "Track Artist"
-msgstr "Artist piesă"
-
-#: tmp/coverart_browser.ui.h:3
-msgid "Stop coverart fetch."
-msgstr "Oprește aducerea copertei"
-
-#. initial genre
-#: tmp/coverart_topbar.ui.h:1 tmp/coverart_sidebar.ui.h:2
-#: coverart_controllers.py:215 coverart_controllers.py:267
-#: coverart_controllers.py:366 coverart_controllers.py:222
-#: coverart_controllers.py:274 coverart_controllers.py:373
-#: tmp/coverart_leftsidebar.ui.h:2 tmp/coverart_rightsidebar.ui.h:2
-msgid "All Genres"
-msgstr "Toate genurile"
-
-#: tmp/coverart_topbar.ui.h:2 tmp/coverart_sidebar.ui.h:3
-#: coverart_controllers.py:485 coverart_controllers.py:527
-#: tmp/coverart_leftsidebar.ui.h:3 tmp/coverart_rightsidebar.ui.h:3
-msgid "All Decades"
-msgstr "Toate deceniile"
-
-#. . TRANSLATORS: This is the icon-grid view that the user sees
-#. . TRANSLATORS: Please try to keep the translation to less than 8 characters
-#: tmp/coverart_topbar.ui.h:3 tmp/coverart_browser_prefs.ui.h:43
-#: tmp/coverart_sidebar.ui.h:4 coverart_browser.py:164
-#: coverart_browser_source.py:982 coverart_browser.py:172
-#: tmp/coverart_browser_prefs.ui.h:44 coverart_browser_source.py:984
-msgid "Tiles"
-msgstr "Dale"
-
-#. . TRANSLATORS: This is the cover-flow view the user sees - they can swipe album covers from side-to-side
-#. . TRANSLATORS: Please try to keep the translation to less than 8 characters
-#: tmp/coverart_topbar.ui.h:4 tmp/coverart_browser_prefs.ui.h:53
-#: tmp/coverart_sidebar.ui.h:5 coverart_browser.py:168
-#: coverart_browser_source.py:983 coverart_browser.py:176
-#: tmp/coverart_browser_prefs.ui.h:54 coverart_browser_source.py:986
-msgid "Flow"
-msgstr "Flux"
-
-#: tmp/coverart_browser_pop_rb2.ui.h:1
-msgid "Play this album"
-msgstr "Redă acest album"
-
-#: tmp/coverart_browser_pop_rb2.ui.h:2 tmp/coverart_browser_pop_rb3.ui.h:1
-#: tmp/coverart_browser_pop_rb2.ui.h:1
-msgid "Play Album"
+#: tmp/coverart_artist_pop_rb2.ui.h:1 tmp/coverart_artist_pop_rb3.ui.h:1
+#, fuzzy
+msgid "Play All"
 msgstr "Redă album"
 
-#: tmp/coverart_browser_pop_rb2.ui.h:3
-msgid "Add this album to your playing queue"
-msgstr "Adaugă acest album in coada de redare"
-
-#: tmp/coverart_browser_pop_rb2.ui.h:4 tmp/coverart_browser_pop_rb3.ui.h:2
-#: tmp/coverart_browser_pop_rb2.ui.h:2
-msgid "Queue Album"
+#: tmp/coverart_artist_pop_rb2.ui.h:2 tmp/coverart_artist_pop_rb3.ui.h:2
+#, fuzzy
+msgid "Queue All"
 msgstr "Coada de redare"
 
-#: tmp/coverart_browser_pop_rb2.ui.h:5 tmp/coverart_entryview_pop_rb2.ui.h:5
-msgid "Add this album to a playlist"
-msgstr "Adaugă acest album la o listă de redare"
-
-#: tmp/coverart_browser_pop_rb2.ui.h:6 tmp/coverart_entryview_pop_rb2.ui.h:6
-#: tmp/coverart_browser_pop_rb3.ui.h:3 tmp/coverart_entryview_pop_rb3.ui.h:3
-#: tmp/coverart_browser_pop_rb2.ui.h:3 tmp/coverart_entryview_pop_rb2.ui.h:3
 #: tmp/coverart_artist_pop_rb2.ui.h:3 tmp/coverart_artist_pop_rb3.ui.h:3
+#: tmp/coverart_browser_pop_rb2.ui.h:3 tmp/coverart_browser_pop_rb3.ui.h:3
+#: tmp/coverart_entryview_pop_rb2.ui.h:3 tmp/coverart_entryview_pop_rb3.ui.h:3
 msgid "Add to Playlist"
 msgstr "Adaugă la lista de redare"
 
-#: tmp/coverart_browser_pop_rb2.ui.h:7 tmp/coverart_entryview_pop_rb2.ui.h:7
-msgid "Add this album to a new playlist"
-msgstr "Adaugă acest album la o listă de redare nouă"
-
-#: tmp/coverart_browser_pop_rb2.ui.h:8 tmp/coverart_entryview_pop_rb2.ui.h:8
-#: tmp/coverart_browser_pop_rb3.ui.h:4 tmp/coverart_entryview_pop_rb3.ui.h:4
-#: coverart_browser_source.py:553 coverart_entryview.py:274
-#: tmp/coverart_browser_pop_rb2.ui.h:4 tmp/coverart_entryview_pop_rb2.ui.h:4
 #: tmp/coverart_artist_pop_rb2.ui.h:4 tmp/coverart_artist_pop_rb3.ui.h:4
+#: tmp/coverart_browser_pop_rb2.ui.h:4 tmp/coverart_browser_pop_rb3.ui.h:4
+#: tmp/coverart_entryview_pop_rb2.ui.h:4 tmp/coverart_entryview_pop_rb3.ui.h:4
+#: coverart_browser_source.py:553 coverart_entryview.py:274
 msgid "New Playlist"
 msgstr "Listă de redare nouă"
 
-#: tmp/coverart_browser_pop_rb2.ui.h:9
-msgid "Play favourites tracks from this album"
-msgstr "Redă piese favorite din acest album"
-
-#: tmp/coverart_browser_pop_rb2.ui.h:10 tmp/coverart_browser_pop_rb3.ui.h:5
-msgid "Play Favourites"
-msgstr "Redă piese favorite"
-
-#: tmp/coverart_browser_pop_rb2.ui.h:11
-msgid "Add favourite tracks from this album to your playing queue"
-msgstr "Adaugă piese favorite din acest album în coada listei de redare"
-
-#: tmp/coverart_browser_pop_rb2.ui.h:12 tmp/coverart_browser_pop_rb3.ui.h:6
-msgid "Queue Favourites"
-msgstr "Adaugă in coadă piesele favorite"
-
-#: tmp/coverart_browser_pop_rb2.ui.h:13
-msgid "Add favourite tracks from this album to a playlist"
-msgstr "Adaugă piese favorite din acest album într-o listă de redare"
-
-#: tmp/coverart_browser_pop_rb2.ui.h:14 tmp/coverart_browser_pop_rb3.ui.h:7
-msgid "Add favourites to Playlist"
-msgstr "Adaugă piese favorite la lista de redare"
-
-#: tmp/coverart_browser_pop_rb2.ui.h:15
-msgid "Search for this album cover"
-msgstr "Caută coperta acestui album"
-
-#: tmp/coverart_browser_pop_rb2.ui.h:16 tmp/coverart_browser_pop_rb3.ui.h:8
-#: tmp/coverart_browser_pop_rb2.ui.h:5 tmp/coverart_browser_pop_rb3.ui.h:5
 #: tmp/coverart_artist_pop_rb2.ui.h:5 tmp/coverart_artist_pop_rb3.ui.h:5
+#: tmp/coverart_browser_pop_rb2.ui.h:5 tmp/coverart_browser_pop_rb3.ui.h:5
 msgid "Search for covers"
 msgstr "Caută coperți"
 
-#: tmp/coverart_browser_pop_rb2.ui.h:17
-msgid "Export album tracks and embed coverart in track files"
-msgstr "Exportă piese album și încorporează coperta în fișiere"
+#: tmp/coverart_browser_pop_rb2.ui.h:1 tmp/coverart_browser_pop_rb3.ui.h:1
+msgid "Play Album"
+msgstr "Redă album"
 
-#: tmp/coverart_browser_pop_rb2.ui.h:18 tmp/coverart_browser_pop_rb3.ui.h:9
+#: tmp/coverart_browser_pop_rb2.ui.h:2 tmp/coverart_browser_pop_rb3.ui.h:2
+msgid "Queue Album"
+msgstr "Coada de redare"
+
 #: tmp/coverart_browser_pop_rb2.ui.h:6 tmp/coverart_browser_pop_rb3.ui.h:6
 msgid "Export and embed coverart"
 msgstr "Exportă și încorporează coperta"
 
-#: tmp/coverart_browser_pop_rb2.ui.h:19
-msgid "Show album properties"
-msgstr "Arată proprietăți album"
-
-#: tmp/coverart_entryview_pop_rb2.ui.h:1
-msgid "Play this track"
-msgstr "Redă această piesă"
-
-#: tmp/coverart_entryview_pop_rb2.ui.h:2 tmp/coverart_entryview_pop_rb3.ui.h:1
-#: tmp/coverart_entryview_pop_rb2.ui.h:1
-msgid "Play Track"
-msgstr "Redă piesă"
-
-#: tmp/coverart_entryview_pop_rb2.ui.h:3
-msgid "Add this track to your playing queue"
-msgstr "Adaugă această piesă în coada de redare"
-
-#: tmp/coverart_entryview_pop_rb2.ui.h:4 tmp/coverart_entryview_pop_rb3.ui.h:2
-#: tmp/coverart_entryview_pop_rb2.ui.h:2
-msgid "Queue Track"
-msgstr "Pune în coadă"
-
-#: tmp/coverart_entryview_pop_rb2.ui.h:9
-msgid "Show track properties"
-msgstr "Arată proprietăți piesă"
-
-#: tmp/coverart_browser_pop_rb3.ui.h:10 tmp/coverart_entryview_pop_rb3.ui.h:5
-#: coverart_controllers.py:467 coverart_controllers.py:509
-#: tmp/coverart_browser_pop_rb3.ui.h:7
+#: tmp/coverart_browser_pop_rb3.ui.h:7 tmp/coverart_entryview_pop_rb3.ui.h:5
+#: coverart_controllers.py:509
 msgid "Properties"
 msgstr "Proprietăți"
 
@@ -338,27 +228,24 @@ msgstr "General"
 msgid "Album Information"
 msgstr "Informații album"
 
-#: tmp/coverart_browser_prefs.ui.h:22 tmp/coverart_browser_prefs.ui.h:29
-msgid "Display album's info under cover"
-msgstr "Afișare info album sub copertă"
+#: tmp/coverart_browser_prefs.ui.h:22
+#, fuzzy
+msgid "Display album information"
+msgstr "Informații album"
 
 #: tmp/coverart_browser_prefs.ui.h:23
-msgid "Show the album's basic information under the cover image."
-msgstr "Afișare informații de bază ale albumului sub imaginea copertă."
-
-#: tmp/coverart_browser_prefs.ui.h:24 tmp/coverart_browser_prefs.ui.h:23
 msgid "Font size for the text below the cover-art."
 msgstr "Dimensiunea fontului pentru textul de mai jos de copertă."
 
-#: tmp/coverart_browser_prefs.ui.h:25 tmp/coverart_browser_prefs.ui.h:24
+#: tmp/coverart_browser_prefs.ui.h:24
 msgid "Font Size:"
 msgstr "Dimensiune font"
 
-#: tmp/coverart_browser_prefs.ui.h:26 tmp/coverart_browser_prefs.ui.h:25
+#: tmp/coverart_browser_prefs.ui.h:25
 msgid "Ellipsize albums names"
 msgstr "Dimensiune eliptică nume albume"
 
-#: tmp/coverart_browser_prefs.ui.h:27 tmp/coverart_browser_prefs.ui.h:26
+#: tmp/coverart_browser_prefs.ui.h:26
 msgid ""
 "Ellipsizes the albums names to a fixed length when the display text option "
 "is enabled."
@@ -366,197 +253,240 @@ msgstr ""
 "Dimensiunile eliptice ale numelor de albume la o lungime fixă atunci când "
 "opțiunea textul afișat pe ecran este activată."
 
-#: tmp/coverart_browser_prefs.ui.h:28 tmp/coverart_browser_prefs.ui.h:27
+#: tmp/coverart_browser_prefs.ui.h:27
 msgid "Maximum allowed length for an album's name before being ellipsized."
 msgstr ""
 "Lungimea maximă permisă pentru un nume de album înainte de a fi dimensionat "
 "eliptic."
 
-#: tmp/coverart_browser_prefs.ui.h:29 tmp/coverart_browser_prefs.ui.h:28
+#: tmp/coverart_browser_prefs.ui.h:28
 msgid "Maximum length:"
 msgstr "Lungime maximă:"
 
-#: tmp/coverart_browser_prefs.ui.h:30 tmp/coverart_browser_prefs.ui.h:31
+#: tmp/coverart_browser_prefs.ui.h:29
+msgid "Display album's info under cover"
+msgstr "Afișare info album sub copertă"
+
+#: tmp/coverart_browser_prefs.ui.h:30
+#, fuzzy
+msgid "Display album's info within cover"
+msgstr "Afișare info album sub copertă"
+
+#: tmp/coverart_browser_prefs.ui.h:31
 msgid "Cover Appearance"
 msgstr "Aspect coertă"
 
-#: tmp/coverart_browser_prefs.ui.h:31 tmp/coverart_browser_prefs.ui.h:32
+#: tmp/coverart_browser_prefs.ui.h:32
 msgid "Drop shadow"
 msgstr "Umbră"
 
-#: tmp/coverart_browser_prefs.ui.h:32 tmp/coverart_browser_prefs.ui.h:33
+#: tmp/coverart_browser_prefs.ui.h:33
 msgid "Indicates if the albums should drop a shadow on the cover view"
 msgstr ""
 "Indică dacă albumele ar trebui să lase o umbră de pe vizualizare copertă"
 
-#: tmp/coverart_browser_prefs.ui.h:33 tmp/coverart_browser_prefs.ui.h:34
+#: tmp/coverart_browser_prefs.ui.h:34
 msgid "Light Source: "
 msgstr "Sursa de lumină: "
 
-#: tmp/coverart_browser_prefs.ui.h:34 tmp/coverart_browser_prefs.ui.h:35
+#: tmp/coverart_browser_prefs.ui.h:35
 msgid "Defines the size for the covers showed on the source."
 msgstr "Definește dimensiunea pentru coperți arătată pe sursa."
 
-#: tmp/coverart_browser_prefs.ui.h:35 tmp/coverart_browser_prefs.ui.h:36
+#: tmp/coverart_browser_prefs.ui.h:36
 msgid "Size (in pixels):"
 msgstr "Dimensiune (în pixeli):"
 
-#: tmp/coverart_browser_prefs.ui.h:36 tmp/coverart_browser_prefs.ui.h:37
+#: tmp/coverart_browser_prefs.ui.h:37
 msgid "Tracks Pane"
 msgstr "Panou melodii"
 
-#: tmp/coverart_browser_prefs.ui.h:37 tmp/coverart_browser_prefs.ui.h:38
+#: tmp/coverart_browser_prefs.ui.h:38
 msgid "open or close on click of cover"
 msgstr "deschide sau închide la clic de copertă"
 
-#: tmp/coverart_browser_prefs.ui.h:38 tmp/coverart_browser_prefs.ui.h:39
+#: tmp/coverart_browser_prefs.ui.h:39
 msgid "Advanced Options"
 msgstr "Optiuni avansate"
 
-#: tmp/coverart_browser_prefs.ui.h:39 tmp/coverart_browser_prefs.ui.h:40
+#: tmp/coverart_browser_prefs.ui.h:40
 msgid "Padding (space) around the cover and its highlight"
 msgstr "Umplutură (spațiu) în jurul copertei și evidențierea acesteia"
 
-#: tmp/coverart_browser_prefs.ui.h:40 tmp/coverart_browser_prefs.ui.h:41
+#: tmp/coverart_browser_prefs.ui.h:41
 msgid "Spacing between columns and rows"
 msgstr "Distanța între coloane și rânduri"
 
-#: tmp/coverart_browser_prefs.ui.h:41 tmp/coverart_browser_prefs.ui.h:42
+#: tmp/coverart_browser_prefs.ui.h:42
 msgid "Padding"
 msgstr "Umplere"
 
-#: tmp/coverart_browser_prefs.ui.h:42 tmp/coverart_browser_prefs.ui.h:43
+#: tmp/coverart_browser_prefs.ui.h:43
 msgid "Spacing"
 msgstr "Spațiere"
 
-#: tmp/coverart_browser_prefs.ui.h:44 tmp/coverart_browser_prefs.ui.h:45
+#. . TRANSLATORS: This is the icon-grid view that the user sees
+#. . TRANSLATORS: Please try to keep the translation to less than 8 characters
+#: tmp/coverart_browser_prefs.ui.h:44 coverart_browser.py:172
+#: coverart_browser_source.py:986
+msgid "Tiles"
+msgstr "Dale"
+
+#: tmp/coverart_browser_prefs.ui.h:45
 msgid "Flow Appearance"
 msgstr "Aspectul fluxului"
 
-#: tmp/coverart_browser_prefs.ui.h:45 tmp/coverart_browser_prefs.ui.h:46
+#: tmp/coverart_browser_prefs.ui.h:46
 msgid "Width (px):"
 msgstr "Lățime (px):"
 
 #. . TRANSLATORS: percentage size that the image will be expanded
-#: tmp/coverart_browser_prefs.ui.h:47 coverart_browser.py:171
-#: coverart_browser.py:179 tmp/coverart_browser_prefs.ui.h:48
+#: tmp/coverart_browser_prefs.ui.h:48 coverart_browser.py:179
 #, no-c-format
 msgid "Scale by %:"
 msgstr "Scala de %"
 
-#: tmp/coverart_browser_prefs.ui.h:48 tmp/coverart_browser_prefs.ui.h:49
+#: tmp/coverart_browser_prefs.ui.h:49
 msgid "Hide Caption"
 msgstr "Ascunde legenda"
 
-#: tmp/coverart_browser_prefs.ui.h:49 tmp/coverart_browser_prefs.ui.h:50
+#: tmp/coverart_browser_prefs.ui.h:50
 msgid "Maximum covers to display:"
 msgstr "Maxim co coperți afișate:"
 
-#: tmp/coverart_browser_prefs.ui.h:50 tmp/coverart_browser_prefs.ui.h:51
+#: tmp/coverart_browser_prefs.ui.h:51
 msgid "Background Colour"
 msgstr "Culoare fundal"
 
-#: tmp/coverart_browser_prefs.ui.h:51 tmp/coverart_browser_prefs.ui.h:52
+#: tmp/coverart_browser_prefs.ui.h:52
 msgid "White"
 msgstr "Alb"
 
-#: tmp/coverart_browser_prefs.ui.h:52 tmp/coverart_browser_prefs.ui.h:53
+#: tmp/coverart_browser_prefs.ui.h:53
 msgid "Black"
 msgstr "Negru"
 
-#: tmp/coverart_browser_prefs.ui.h:54 tmp/coverart_browser_prefs.ui.h:55
+#. . TRANSLATORS: This is the cover-flow view the user sees - they can swipe album covers from side-to-side
+#. . TRANSLATORS: Please try to keep the translation to less than 8 characters
+#: tmp/coverart_browser_prefs.ui.h:54 coverart_browser.py:176
+#: coverart_browser_source.py:988
+msgid "Flow"
+msgstr "Flux"
+
+#: tmp/coverart_browser_prefs.ui.h:55
 msgid "Where the toolbar should be positioned"
 msgstr "Unde ar trebui poziționată bara de instrumente"
 
-#: tmp/coverart_browser_prefs.ui.h:55 tmp/coverart_browser_prefs.ui.h:56
+#: tmp/coverart_browser_prefs.ui.h:56
 msgid "Position"
 msgstr "Poziție"
 
-#: tmp/coverart_browser_prefs.ui.h:56 tmp/coverart_browser_prefs.ui.h:57
+#: tmp/coverart_browser_prefs.ui.h:57
 msgid "Show toolbar: "
 msgstr "Afișare bară de instrumente: "
 
-#: tmp/coverart_browser_prefs.ui.h:57 tmp/coverart_browser_prefs.ui.h:58
+#: tmp/coverart_browser_prefs.ui.h:58
 msgid "Look & Feel"
 msgstr "Aspect și comportament"
 
-#: tmp/coverart_browser_prefs.ui.h:58 tmp/coverart_browser_prefs.ui.h:59
+#: tmp/coverart_browser_prefs.ui.h:59
 msgid "Flat-button style"
 msgstr "Stil de buton plat"
 
-#: tmp/coverart_browser_prefs.ui.h:59 tmp/coverart_browser_prefs.ui.h:60
+#: tmp/coverart_browser_prefs.ui.h:60
 msgid "Icon Theme: "
 msgstr "Temă iconiță: "
 
-#: tmp/coverart_browser_prefs.ui.h:60 tmp/coverart_browser_prefs.ui.h:61
+#: tmp/coverart_browser_prefs.ui.h:61
 msgid "Alternative Genres:"
 msgstr "Genuri alternetive:"
 
-#: tmp/coverart_browser_prefs.ui.h:61 tmp/coverart_browser_prefs.ui.h:62
+#: tmp/coverart_browser_prefs.ui.h:62
 msgid "Load New Icon: "
 msgstr "Încarcă iconița nouă: "
 
-#: tmp/coverart_browser_prefs.ui.h:62 tmp/coverart_browser_prefs.ui.h:63
+#: tmp/coverart_browser_prefs.ui.h:63
 msgid "Select a new genre icon"
 msgstr "Selectați o iconiță gen nou"
 
-#: tmp/coverart_browser_prefs.ui.h:63 tmp/coverart_browser_prefs.ui.h:64
+#: tmp/coverart_browser_prefs.ui.h:64
 msgid "Edit Genre Details:"
 msgstr "Editați detaliile de gen:"
 
-#: tmp/coverart_browser_prefs.ui.h:64 tmp/coverart_browser_prefs.ui.h:65
+#: tmp/coverart_browser_prefs.ui.h:65
 msgid "Save changes"
 msgstr "Salvează modificările"
 
-#: tmp/coverart_browser_prefs.ui.h:65 tmp/coverart_browser_prefs.ui.h:66
+#: tmp/coverart_browser_prefs.ui.h:66
 msgid "Name:"
 msgstr "Nume:"
 
-#: tmp/coverart_browser_prefs.ui.h:66 tmp/coverart_browser_prefs.ui.h:67
+#: tmp/coverart_browser_prefs.ui.h:67
 msgid "Icon:"
 msgstr "Iconiță:"
 
-#: tmp/coverart_browser_prefs.ui.h:67 tmp/coverart_browser_prefs.ui.h:68
+#: tmp/coverart_browser_prefs.ui.h:68
 msgid "Current user-defined Genres:"
 msgstr "Genuri definite pentru utilizatorul curent:"
 
-#: tmp/coverart_browser_prefs.ui.h:68 tmp/coverart_browser_prefs.ui.h:69
+#: tmp/coverart_browser_prefs.ui.h:69
 msgid "Alternate Name"
 msgstr "Nume alternativ"
 
-#: tmp/coverart_browser_prefs.ui.h:69 tmp/coverart_browser_prefs.ui.h:70
+#: tmp/coverart_browser_prefs.ui.h:70
 msgid "Icon"
 msgstr "Iconiță"
 
-#: tmp/coverart_browser_prefs.ui.h:70 tmp/coverart_browser_prefs.ui.h:71
+#: tmp/coverart_browser_prefs.ui.h:71
 msgid "Add a new alternative genre"
 msgstr "Adăugare un gen nou alternativ"
 
-#: tmp/coverart_browser_prefs.ui.h:71 tmp/coverart_browser_prefs.ui.h:72
+#: tmp/coverart_browser_prefs.ui.h:72
 msgid "Delete an alternative genre"
 msgstr "Ștergere un gen alternativ"
 
-#: tmp/coverart_browser_prefs.ui.h:72 tmp/coverart_browser_prefs.ui.h:73
+#: tmp/coverart_browser_prefs.ui.h:73
 msgid "Toolbar"
 msgstr "Bară de unelte"
+
+#: tmp/coverart_browser.ui.h:1
+msgid "Tracks & Covers"
+msgstr "Melodii și coperte"
+
+#: tmp/coverart_browser.ui.h:2 coverart_artistview.py:749
+msgid "Track Artist"
+msgstr "Artist piesă"
+
+#: tmp/coverart_browser.ui.h:3
+msgid "Stop coverart fetch."
+msgstr "Oprește aducerea copertei"
+
+#: tmp/coverart_entryview_pop_rb2.ui.h:1 tmp/coverart_entryview_pop_rb3.ui.h:1
+msgid "Play Track"
+msgstr "Redă piesă"
+
+#: tmp/coverart_entryview_pop_rb2.ui.h:2 tmp/coverart_entryview_pop_rb3.ui.h:2
+msgid "Queue Track"
+msgstr "Pune în coadă"
 
 #: tmp/coverart_exportembed.ui.h:1
 msgid "Choose folder to save tracks:"
 msgstr "Alege dosar pentru salvare piesă"
 
 #: tmp/coverart_exportembed.ui.h:2
-msgid "Select a Folder to export to"
-msgstr "Alege dosar pentru exportare"
-
-#: tmp/coverart_exportembed.ui.h:3
 msgid "Save tracks within folder using album name"
 msgstr "Salvează iesă în dosar utilizând numele albumului"
 
-#: tmp/coverart_exportembed.ui.h:4
+#: tmp/coverart_exportembed.ui.h:3
 msgid "Open embedded track folder in file-manager"
 msgstr "Deschideți dosarul cu piesa încorporată în managerul de fișiere"
 
+#. This is a label describing the different options to save the picture artwork in the music file i.e. embed - to insert picture artwork into a music file
 #: tmp/coverart_exportembed.ui.h:5
+msgid "Embed:"
+msgstr ""
+
+#: tmp/coverart_exportembed.ui.h:6
 msgid ""
 "Tip: Drag and Drop exported tracks from file-manager to a playlist or "
 "telephone/other device"
@@ -564,11 +494,54 @@ msgstr ""
 "Sfat: trageți și plasați piesele exportate din managerul de fișiere la o "
 "listă de redare sau telefon / alt dispozitiv"
 
-#: tmp/coverart_sidebar.ui.h:1 coverart_browser.py:102 coverart_browser.py:115
-#: coverart_browser.py:105 coverart_browser.py:117
+#: tmp/coverart_exportembed.ui.h:7
+msgid "convert to mp3"
+msgstr ""
+
+#: tmp/coverart_exportembed.ui.h:8
+msgid "bitrate (kbit/s)"
+msgstr ""
+
+#. This is a label describing the size of the picture that will be inserted into the music file e.g. change the size from 800x800 pixels to 128x128 pixels
+#: tmp/coverart_exportembed.ui.h:10
+msgid "resize art"
+msgstr ""
+
+#: tmp/coverart_exportembed.ui.h:11
+#, fuzzy
+msgid "size in pixels"
+msgstr "Dimensiune (în pixeli):"
+
+#: tmp/coverart_exportembed.ui.h:11
+msgid "(px)"
+msgstr ""
+
+#: tmp/coverart_exportembed.ui.h:12
+msgid "Select a Folder to export to"
+msgstr "Alege dosar pentru exportare"
+
 #: tmp/coverart_leftsidebar.ui.h:1 tmp/coverart_rightsidebar.ui.h:1
+#: coverart_browser.py:105 coverart_browser.py:117
 msgid "CoverArt"
 msgstr "CoverArt"
+
+#. initial genre
+#: tmp/coverart_leftsidebar.ui.h:2 tmp/coverart_rightsidebar.ui.h:2
+#: tmp/coverart_topbar.ui.h:1 coverart_controllers.py:222
+#: coverart_controllers.py:274 coverart_controllers.py:373
+msgid "All Genres"
+msgstr "Toate genurile"
+
+#: tmp/coverart_leftsidebar.ui.h:3 tmp/coverart_rightsidebar.ui.h:3
+#: tmp/coverart_topbar.ui.h:2 coverart_controllers.py:527
+msgid "All Decades"
+msgstr "Toate deceniile"
+
+#. This is the different view modes e.g. Music Library, CoverFlow, Tiles or Album Artist
+#: tmp/coverart_leftsidebar.ui.h:4 tmp/coverart_rightsidebar.ui.h:4
+#: tmp/coverart_topbar.ui.h:4 coverart_browser.py:251
+msgid "Views"
+msgstr ""
 
 #: tmp/popups.xml.in.h:1
 msgid "rock"
@@ -711,38 +684,81 @@ msgid "children"
 msgstr "children"
 
 #. . TRANSLATORS - for example "abba's greatest hits by ABBA"
-#: coverart_album.py:1604 coverart_browser_source.py:933
-#: coverart_album.py:1662 coverart_browser_source.py:903
+#: coverart_album.py:1662 coverart_browser_source.py:905
 #, python-format
 msgid "%s by %s"
 msgstr "%s de %s"
 
-#: coverart_browser_source.py:265 coverart_browser_source.py:273
-msgid "Tracks"
-msgstr "Piese"
+#: coverart_artistview.py:388 coverart_browser_source.py:913
+msgid " with 1 track"
+msgstr " cu o piesă"
 
-#: coverart_browser_source.py:276 coverart_browser_source.py:289
-#: coverart_artistview.py:708 coverart_artistview.py:766
+#: coverart_artistview.py:390 coverart_browser_source.py:915
+#, python-format
+msgid " with %d tracks"
+msgstr " cu %d piese"
+
+#: coverart_artistview.py:396 coverart_browser_source.py:919
+msgid " and a duration of 1 minute"
+msgstr " și o durată de un minut"
+
+#: coverart_artistview.py:398 coverart_browser_source.py:921
+#, python-format
+msgid " and a duration of %d minutes"
+msgstr " și o durată de %d minute"
+
 #: coverart_artistview.py:745 coverart_artistview.py:821
+#: coverart_browser_source.py:289
 msgid "Covers"
 msgstr "Coperți"
 
+#: coverart_browser_prefs.py:248 coverart_controllers.py:450
+msgid "Browser Preferences"
+msgstr "Preferințe navigator"
+
+#. . TRANSLATORS: Do not translate this string.
+#: coverart_browser_prefs.py:287
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  Radu Rădeanu https://launchpad.net/~radu-radeanu"
+
+#. define .plugin text strings used for translation
+#: coverart_browser.py:167
+msgid "CoverArt Browser"
+msgstr "Navigator CoverArt"
+
+#: coverart_browser.py:168
+msgid "Browse and play your albums through their covers"
+msgstr "Parcurge și redă albumele prin intermediul coperților lor"
+
+#: coverart_browser_source.py:273
+msgid "Tracks"
+msgstr "Piese"
+
 #. . TRANSLATORS - "All" is used in the context of "All artist names"
-#: coverart_browser_source.py:347 coverart_browser_source.py:355
+#: coverart_browser_source.py:355
 msgid "All"
 msgstr "Toți"
 
-#: coverart_browser_source.py:621 coverart_browser_source.py:575
+#: coverart_browser_source.py:481 coverart_browser_source.py:612
+msgid ""
+"No tracks have been added because no tracks meet the favourite rating "
+"threshold"
+msgstr ""
+
+#: coverart_browser_source.py:575
 msgid "The number of albums to randomly play is less than that displayed."
 msgstr ""
 "Numărul de albume pentru redare la întâmplare este mai mic decât cel afișat."
 
-#: coverart_browser_source.py:701
-#, python-format
-msgid "Requesting cover for %s - %s..."
+#. for example "Requesting the picture cover for the music artist Michael Jackson"
+#: coverart_browser_source.py:666 coverart_browser_source.py:668
+#, fuzzy, python-format
+msgid "Requesting cover for %s..."
 msgstr "Solicitare copertă pentru %s - %s..."
 
-#: coverart_browser_source.py:857 coverart_browser_source.py:827
+#: coverart_browser_source.py:829
 msgid ""
 "Please install and activate the latest version of the Coverart Search "
 "Providers plugin"
@@ -751,166 +767,131 @@ msgstr ""
 "Coverart Search Providers"
 
 #. . TRANSLATORS - the number of albums that have been selected/highlighted
-#: coverart_browser_source.py:937 coverart_browser_source.py:907
+#: coverart_browser_source.py:909
 #, python-format
 msgid "%d selected albums"
 msgstr "%d albume selectate"
 
-#: coverart_browser_source.py:941 coverart_browser_source.py:911
-#: coverart_artistview.py:385 coverart_artistview.py:388
-msgid " with 1 track"
-msgstr " cu o piesă"
-
-#: coverart_browser_source.py:943 coverart_browser_source.py:913
-#: coverart_artistview.py:387 coverart_artistview.py:390
-#, python-format
-msgid " with %d tracks"
-msgstr " cu %d piese"
-
-#: coverart_browser_source.py:947 coverart_browser_source.py:917
-#: coverart_artistview.py:393 coverart_artistview.py:396
-msgid " and a duration of 1 minute"
-msgstr " și o durată de un minut"
-
-#: coverart_browser_source.py:949 coverart_browser_source.py:919
-#: coverart_artistview.py:395 coverart_artistview.py:398
-#, python-format
-msgid " and a duration of %d minutes"
-msgstr " și o durată de %d minute"
-
-#: coverart_controllers.py:382 coverart_controllers.py:389
+#: coverart_controllers.py:389
 msgid "Sort by album name"
 msgstr "Sortare după nume album"
 
-#: coverart_controllers.py:383 coverart_controllers.py:390
+#: coverart_controllers.py:390
 msgid "Sort by album artist"
 msgstr "Sortare după artistul albumului"
 
-#: coverart_controllers.py:384 coverart_controllers.py:391
+#: coverart_controllers.py:391
 msgid "Sort by year"
 msgstr "Sortare după an"
 
-#: coverart_controllers.py:385 coverart_controllers.py:392
+#: coverart_controllers.py:392
 msgid "Sort by rating"
 msgstr "Sortare după rată"
 
-#: coverart_controllers.py:432 coverart_controllers.py:442
+#: coverart_controllers.py:442
 msgid "Download all covers"
 msgstr "Descarcă toate coperțile"
 
-#: coverart_controllers.py:433 coverart_controllers.py:443
+#: coverart_controllers.py:443
 msgid "Play random album"
 msgstr "Redă un album aleator"
 
-#: coverart_controllers.py:434
-msgid "Play favourite random album"
-msgstr "Redă un album aleator favorit"
-
-#: coverart_controllers.py:436 coverart_controllers.py:445
-#: coverart_controllers.py:495
+#: coverart_controllers.py:445 coverart_controllers.py:495
 msgid "Quick artist filter"
 msgstr "Filtru rapid pentru artist"
 
-#: coverart_controllers.py:438 coverart_browser_prefs.py:245
-#: coverart_controllers.py:450 coverart_browser_prefs.py:248
-msgid "Browser Preferences"
-msgstr "Preferințe navigator"
+#: coverart_controllers.py:447 coverart_controllers.py:499
+#, fuzzy
+msgid "Use favourites only"
+msgstr "Adaugă piese favorite la lista de redare"
 
-#: coverart_controllers.py:439 coverart_controllers.py:451
+#: coverart_controllers.py:451
 msgid "Search Preferences"
 msgstr "Preferințe căutare"
 
 #. '20s' as in the decade 2010
-#: coverart_controllers.py:487 coverart_controllers.py:513
 #: coverart_controllers.py:529 coverart_controllers.py:555
 msgid "20s"
 msgstr "Anii 2020"
 
 #. '10s' as in the decade 2010
-#: coverart_controllers.py:489 coverart_controllers.py:531
+#: coverart_controllers.py:531
 msgid "10s"
 msgstr "Anii 2010"
 
 #. '00s' as in the decade 2000
-#: coverart_controllers.py:491 coverart_controllers.py:533
+#: coverart_controllers.py:533
 msgid "00s"
 msgstr "Anii 2000"
 
 #. '90s' as in the decade 1990
-#: coverart_controllers.py:493 coverart_controllers.py:535
+#: coverart_controllers.py:535
 msgid "90s"
 msgstr "Anii '90"
 
 #. '80s' as in the decade 1980
-#: coverart_controllers.py:495 coverart_controllers.py:537
+#: coverart_controllers.py:537
 msgid "80s"
 msgstr "Anii '80"
 
 #. '70s' as in the decade 1970
-#: coverart_controllers.py:497 coverart_controllers.py:539
+#: coverart_controllers.py:539
 msgid "70s"
 msgstr "Anii '70"
 
 #. '60s' as in the decade 1960
-#: coverart_controllers.py:499 coverart_controllers.py:541
+#: coverart_controllers.py:541
 msgid "60s"
 msgstr "Anii '60"
 
 #. '50s' as in the decade 1950
-#: coverart_controllers.py:501 coverart_controllers.py:543
+#: coverart_controllers.py:543
 msgid "50s"
 msgstr "Anii '50"
 
 #. '40s' as in the decade 1940
-#: coverart_controllers.py:503 coverart_controllers.py:545
+#: coverart_controllers.py:545
 msgid "40s"
 msgstr "Anii '40"
 
 #. '30s' as in the decade 1930
-#: coverart_controllers.py:505 coverart_controllers.py:547
+#: coverart_controllers.py:547
 msgid "30s"
 msgstr "Anii '30"
 
 #. 'Older' as in 'older than the year 1930'
-#: coverart_controllers.py:507 coverart_controllers.py:549
+#: coverart_controllers.py:549
 msgid "Older"
 msgstr "Mai vechi de anii '30"
 
 #. options
-#: coverart_controllers.py:552 coverart_controllers.py:594
+#: coverart_controllers.py:594
 msgid "Sort in descending order"
 msgstr "Sortare în ordine descrescătoare"
 
-#: coverart_controllers.py:553 coverart_controllers.py:595
+#: coverart_controllers.py:595
 msgid "Sort in ascending order"
 msgstr "Sortare în ordine crescătoare"
 
-#: coverart_controllers.py:605 coverart_controllers.py:647
+#: coverart_controllers.py:647
 msgid "Search all fields"
 msgstr "Caută toate câmpurile"
 
-#: coverart_controllers.py:606 coverart_controllers.py:648
+#: coverart_controllers.py:648
 msgid "Search album artists"
 msgstr "Caută artiști album"
 
-#: coverart_controllers.py:607 coverart_controllers.py:649
+#: coverart_controllers.py:649
 msgid "Search track artists"
 msgstr "Caută artiști piesă"
 
-#: coverart_controllers.py:608 coverart_controllers.py:650
+#: coverart_controllers.py:650
 msgid "Search albums"
 msgstr "Caută albume"
 
-#: coverart_controllers.py:609 coverart_controllers.py:651
+#: coverart_controllers.py:651
 msgid "Search tracks"
 msgstr "Caută piese"
-
-#. . TRANSLATORS: Do not translate this string.
-#: coverart_browser_prefs.py:284 coverart_browser_prefs.py:287
-msgid "translator-credits"
-msgstr ""
-"Launchpad Contributions:\n"
-"  Radu Rădeanu https://launchpad.net/~radu-radeanu"
 
 #. TRANSLATORS: for example 'Number of covers limited to 150'
 #: coverart_coverflowview.py:197
@@ -918,77 +899,59 @@ msgstr ""
 msgid "Number of covers limited to %d"
 msgstr "Număr de coprți limitat la %d"
 
-#. define .plugin text strings used for translation
-#: coverart_browser.py:159 coverart_browser.py:167
-msgid "CoverArt Browser"
-msgstr "Navigator CoverArt"
+#~ msgid "Play this album"
+#~ msgstr "Redă acest album"
 
-#: coverart_browser.py:160 coverart_browser.py:168
-msgid "Browse and play your albums through their covers"
-msgstr "Parcurge și redă albumele prin intermediul coperților lor"
+#~ msgid "Add this album to your playing queue"
+#~ msgstr "Adaugă acest album in coada de redare"
 
-#: coverart_browser_source.py:481 coverart_browser_source.py:612
-msgid ""
-"No tracks have been added because no tracks meet the favourite rating "
-"threshold"
-msgstr ""
+#~ msgid "Add this album to a playlist"
+#~ msgstr "Adaugă acest album la o listă de redare"
 
-#: coverart_browser_source.py:666
-#, fuzzy, python-format
-msgid "Requesting cover for %s..."
-msgstr "Solicitare copertă pentru %s - %s..."
+#~ msgid "Add this album to a new playlist"
+#~ msgstr "Adaugă acest album la o listă de redare nouă"
 
-#: coverart_controllers.py:447 coverart_controllers.py:499
-#, fuzzy
-msgid "Use favourites only"
-msgstr "Adaugă piese favorite la lista de redare"
+#~ msgid "Play favourites tracks from this album"
+#~ msgstr "Redă piese favorite din acest album"
 
-#: coverart_browser.py:251 tmp/coverart_leftsidebar.ui.h:4
-#: tmp/coverart_rightsidebar.ui.h:4 tmp/coverart_topbar.ui.h:3
-msgid "Views"
-msgstr ""
+#~ msgid "Play Favourites"
+#~ msgstr "Redă piese favorite"
 
-#: tmp/coverart_browser_prefs.ui.h:22
-#, fuzzy
-msgid "Display album information"
-msgstr "Informații album"
+#~ msgid "Add favourite tracks from this album to your playing queue"
+#~ msgstr "Adaugă piese favorite din acest album în coada listei de redare"
 
-#: tmp/coverart_browser_prefs.ui.h:30
-#, fuzzy
-msgid "Display album's info within cover"
-msgstr "Afișare info album sub copertă"
+#~ msgid "Queue Favourites"
+#~ msgstr "Adaugă in coadă piesele favorite"
 
-#: tmp/coverart_exportembed.ui.h:6
-msgid "Embed:"
-msgstr ""
+#~ msgid "Add favourite tracks from this album to a playlist"
+#~ msgstr "Adaugă piese favorite din acest album într-o listă de redare"
 
-#: tmp/coverart_exportembed.ui.h:7
-msgid "resize art"
-msgstr ""
+#~ msgid "Add favourites to Playlist"
+#~ msgstr "Adaugă piese favorite la lista de redare"
 
-#: tmp/coverart_exportembed.ui.h:8
-#, fuzzy
-msgid "size in pixels"
-msgstr "Dimensiune (în pixeli):"
+#~ msgid "Search for this album cover"
+#~ msgstr "Caută coperta acestui album"
 
-#: tmp/coverart_exportembed.ui.h:8
-msgid "(px)"
-msgstr ""
+#~ msgid "Export album tracks and embed coverart in track files"
+#~ msgstr "Exportă piese album și încorporează coperta în fișiere"
 
-#: tmp/coverart_exportembed.ui.h:9
-msgid "convert to mp3"
-msgstr ""
+#~ msgid "Show album properties"
+#~ msgstr "Arată proprietăți album"
 
-#: tmp/coverart_exportembed.ui.h:10
-msgid "bitrate (kbit/s)"
-msgstr ""
+#~ msgid "Play this track"
+#~ msgstr "Redă această piesă"
 
-#: tmp/coverart_artist_pop_rb2.ui.h:1 tmp/coverart_artist_pop_rb3.ui.h:1
-#, fuzzy
-msgid "Play All"
-msgstr "Redă album"
+#~ msgid "Add this track to your playing queue"
+#~ msgstr "Adaugă această piesă în coada de redare"
 
-#: tmp/coverart_artist_pop_rb2.ui.h:2 tmp/coverart_artist_pop_rb3.ui.h:2
-#, fuzzy
-msgid "Queue All"
-msgstr "Coada de redare"
+#~ msgid "Show track properties"
+#~ msgstr "Arată proprietăți piesă"
+
+#~ msgid "Show the album's basic information under the cover image."
+#~ msgstr "Afișare informații de bază ale albumului sub imaginea copertă."
+
+#~ msgid "Requesting cover for %s - %s..."
+#~ msgstr "Solicitare copertă pentru %s - %s..."
+
+#~ msgid "Play favourite random album"
+#~ msgstr "Redă un album aleator favorit"
