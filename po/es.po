@@ -8,20 +8,20 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-03 04:27+0000\n"
-"PO-Revision-Date: 2013-10-20 21:37+0000\n"
+"PO-Revision-Date: 2014-01-03 00:17+0000\n"
 "Last-Translator: Lucio <luciomartinez@openmailbox.org>\n"
 "Language-Team: none\n"
-"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-10-21 12:20+0000\n"
-"X-Generator: Launchpad (build 16807)\n"
+"X-Launchpad-Export-Date: 2014-01-03 20:28+0000\n"
+"X-Generator: Launchpad (build 16877)\n"
+"Language: es\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 #: tmpl/artistartsearch-tmpl.html:135
 msgid "Search Options"
-msgstr "Opciones de búsqueda"
+msgstr "Opciones de Búsqueda"
 
 #: tmpl/albumartsearch-tmpl.html:187
 msgid "Tip: doubleclick or drag a cover to use it as the album cover"
@@ -84,21 +84,16 @@ msgid "Show more results"
 msgstr "Mostrar más resultados"
 
 #: tmpl/artistartsearch-tmpl.html:180
-#, fuzzy
 msgid "Tip: doubleclick or drag a cover to use it as the artist cover"
 msgstr ""
-"Consejo: pulse dos veces o arrastre una imagen para usarla como la carátula "
-"del álbum"
 
 #: tmp/coverart_artist_pop_rb2.ui.h:1 tmp/coverart_artist_pop_rb3.ui.h:1
-#, fuzzy
 msgid "Play All"
-msgstr "Reproducir el álbum"
+msgstr "Reproducir todo"
 
 #: tmp/coverart_artist_pop_rb2.ui.h:2 tmp/coverart_artist_pop_rb3.ui.h:2
-#, fuzzy
 msgid "Queue All"
-msgstr "Encolar el álbum"
+msgstr "Poner todo en cola"
 
 #: tmp/coverart_artist_pop_rb2.ui.h:3 tmp/coverart_artist_pop_rb3.ui.h:3
 #: tmp/coverart_browser_pop_rb2.ui.h:3 tmp/coverart_browser_pop_rb3.ui.h:3
@@ -215,7 +210,8 @@ msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:18
 msgid "Level above which is regarded as being a favourite track or album"
-msgstr "Nivel a partir del cual se considera a una pista o álbum como favorito"
+msgstr ""
+"Nivel a partir del cual se considera a una pista o álbum como favorito"
 
 #: tmp/coverart_browser_prefs.ui.h:19
 msgid "Favourite Threshold"
@@ -230,9 +226,8 @@ msgid "Album Information"
 msgstr "Información del álbum"
 
 #: tmp/coverart_browser_prefs.ui.h:22
-#, fuzzy
 msgid "Display album information"
-msgstr "Información del álbum"
+msgstr "Mostrar información del álbum"
 
 #: tmp/coverart_browser_prefs.ui.h:23
 msgid "Font size for the text below the cover-art."
@@ -256,7 +251,8 @@ msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:27
 msgid "Maximum allowed length for an album's name before being ellipsized."
-msgstr "Lago máximo permitido para el nombre del álbum antes de ser acortado."
+msgstr ""
+"Lago máximo permitido para el nombre del álbum antes de ser acortado."
 
 #: tmp/coverart_browser_prefs.ui.h:28
 msgid "Maximum length:"
@@ -267,9 +263,8 @@ msgid "Display album's info under cover"
 msgstr "Mostrar información del álbum bajo su carátula"
 
 #: tmp/coverart_browser_prefs.ui.h:30
-#, fuzzy
 msgid "Display album's info within cover"
-msgstr "Mostrar información del álbum bajo su carátula"
+msgstr "Mostrar información del álbum dentro de la carátula"
 
 #: tmp/coverart_browser_prefs.ui.h:31
 msgid "Cover Appearance"
@@ -494,11 +489,11 @@ msgstr ""
 
 #: tmp/coverart_exportembed.ui.h:7
 msgid "convert to mp3"
-msgstr ""
+msgstr "convertir a mp3"
 
 #: tmp/coverart_exportembed.ui.h:8
 msgid "bitrate (kbit/s)"
-msgstr ""
+msgstr "velocidad (kbit/s)"
 
 #. This is a label describing the size of the picture that will be inserted into the music file e.g. change the size from 800x800 pixels to 128x128 pixels
 #: tmp/coverart_exportembed.ui.h:10
@@ -506,13 +501,12 @@ msgid "resize art"
 msgstr ""
 
 #: tmp/coverart_exportembed.ui.h:11
-#, fuzzy
 msgid "size in pixels"
-msgstr "Tamaño (en píxeles):"
+msgstr "tamaño en píxeles"
 
 #: tmp/coverart_exportembed.ui.h:11
 msgid "(px)"
-msgstr ""
+msgstr "(px)"
 
 #: tmp/coverart_exportembed.ui.h:12
 msgid "Select a Folder to export to"
@@ -539,7 +533,7 @@ msgstr "Todas las décadas"
 #: tmp/coverart_leftsidebar.ui.h:4 tmp/coverart_rightsidebar.ui.h:4
 #: tmp/coverart_topbar.ui.h:4 coverart_browser.py:251
 msgid "Views"
-msgstr ""
+msgstr "Vistas"
 
 #: tmp/popups.xml.in.h:1
 msgid "rock"
@@ -720,7 +714,7 @@ msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Aaron Farias https://launchpad.net/~timido\n"
-"  Adolfo Jayme Barrientos https://launchpad.net/~fitoschido\n"
+"  Adolfo Jayme https://launchpad.net/~fitoschido\n"
 "  Agustin Carrasco https://launchpad.net/~asermax\n"
 "  Alfredo Hernández https://launchpad.net/~aldomann\n"
 "  Eduardo Battaglia https://launchpad.net/~eduardo-battaglia\n"
@@ -751,6 +745,8 @@ msgid ""
 "No tracks have been added because no tracks meet the favourite rating "
 "threshold"
 msgstr ""
+"Cero pistas han sido añadidas porque ninguna de las pistas coincidió con el "
+"umbral de calificación favorita"
 
 #: coverart_browser_source.py:575
 msgid "The number of albums to randomly play is less than that displayed."
@@ -759,9 +755,9 @@ msgstr ""
 
 #. for example "Requesting the picture cover for the music artist Michael Jackson"
 #: coverart_browser_source.py:666 coverart_browser_source.py:668
-#, fuzzy, python-format
+#, python-format
 msgid "Requesting cover for %s..."
-msgstr "Solicitando la carátula para %s – %s…"
+msgstr "Cargando car'atula para %s..."
 
 #: coverart_browser_source.py:829
 msgid ""
@@ -806,9 +802,8 @@ msgid "Quick artist filter"
 msgstr "Filtro de artista"
 
 #: coverart_controllers.py:447 coverart_controllers.py:499
-#, fuzzy
 msgid "Use favourites only"
-msgstr "Agregar favoritos a una lista de reproducción"
+msgstr "Usar únicamente favoritos"
 
 #: coverart_controllers.py:451
 msgid "Search Preferences"
@@ -904,18 +899,6 @@ msgstr "Buscar canciones"
 msgid "Number of covers limited to %d"
 msgstr "Número de carátulas limitadas a %d"
 
-#~ msgid "Play this album"
-#~ msgstr "Reproducir este álbum"
-
-#~ msgid "Add this album to your playing queue"
-#~ msgstr "Añadir este álbum a su cola de reproducción"
-
-#~ msgid "Add this album to a playlist"
-#~ msgstr "Añadir este álbum a una lista de reproducción"
-
-#~ msgid "Add this album to a new playlist"
-#~ msgstr "Añadir este álbum a una lista de reproducción nueva"
-
 #~ msgid "Play favourites tracks from this album"
 #~ msgstr "Reproduce las canciones favoritas de este álbum"
 
@@ -936,14 +919,11 @@ msgstr "Número de carátulas limitadas a %d"
 #~ msgid "Add favourites to Playlist"
 #~ msgstr "Agregar favoritos a una lista de reproducción"
 
-#~ msgid "Search for this album cover"
-#~ msgstr "Buscar la carátula de este álbum"
-
-#~ msgid "Export album tracks and embed coverart in track files"
-#~ msgstr "Exportar las pistas del álbum e incrustar la carátula en ellas"
-
 #~ msgid "Show album properties"
 #~ msgstr "Mostrar propiedades del álbum"
+
+#~ msgid "Show the album's basic information under the cover image."
+#~ msgstr "Muestra información básica del album debajo de su imagen de portada."
 
 #~ msgid "Play this track"
 #~ msgstr "Reproduce esta canción"
@@ -954,12 +934,27 @@ msgstr "Número de carátulas limitadas a %d"
 #~ msgid "Show track properties"
 #~ msgstr "Mostrar propiedades de la pista"
 
-#~ msgid "Show the album's basic information under the cover image."
-#~ msgstr ""
-#~ "Muestra información básica del album debajo de su imagen de portada."
+#~ msgid "Play this album"
+#~ msgstr "Reproducir este álbum"
 
+#~ msgid "Add this album to your playing queue"
+#~ msgstr "Añadir este álbum a su cola de reproducción"
+
+#~ msgid "Add this album to a playlist"
+#~ msgstr "Añadir este álbum a una lista de reproducción"
+
+#, python-format
 #~ msgid "Requesting cover for %s - %s..."
 #~ msgstr "Solicitando la carátula para %s – %s…"
+
+#~ msgid "Add this album to a new playlist"
+#~ msgstr "Añadir este álbum a una lista de reproducción nueva"
+
+#~ msgid "Search for this album cover"
+#~ msgstr "Buscar la carátula de este álbum"
+
+#~ msgid "Export album tracks and embed coverart in track files"
+#~ msgstr "Exportar las pistas del álbum e incrustar la carátula en ellas"
 
 #~ msgid "Play favourite random album"
 #~ msgstr "Reproducir álbum favorito aleatoriamente"

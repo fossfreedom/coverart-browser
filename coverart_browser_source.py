@@ -978,16 +978,20 @@ class Views:
             from coverart_listview import ListView
             from coverart_browser_prefs import webkit_support
 
-
             library_name = shell.props.library_source.props.name
             
             self._values = OrderedDict()
             
+            cl = CoverLocale()
+            cl.switch_locale(cl.Locale.LOCALE_DOMAIN)        
+
             self._values[CoverIconView.name] = [_('Tiles'), GLib.Variant.new_string('coverart-browser-tile')]
             if webkit_support():
                 self._values[CoverFlowView.name] = [_('Flow'), GLib.Variant.new_string('coverart-browser-coverflow')]
             self._values[ArtistView.name] = [_('Artist'), GLib.Variant.new_string('coverart-browser-artist')]
             self._values[ListView.name] = [library_name, GLib.Variant.new_string('coverart-browser-list')]
+            cl.switch_locale(cl.Locale.RB)   
+            print (self._values)     
             
         def get_view_names(self):
             return list(self._values.keys())

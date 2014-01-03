@@ -127,6 +127,7 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         else:
             self._externalmenu = None
                 
+        cl.switch_locale(cl.Locale.RB)
         print("CoverArtBrowser DEBUG - end do_activate")
 
     def do_deactivate(self):
@@ -168,11 +169,9 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         desc = _('Browse and play your albums through their covers')
         
         #. TRANSLATORS: This is the icon-grid view that the user sees
-        #. TRANSLATORS: Please try to keep the translation to less than 8 characters
         tile = _('Tiles')
         
         #. TRANSLATORS: This is the cover-flow view the user sees - they can swipe album covers from side-to-side
-        #. TRANSLATORS: Please try to keep the translation to less than 8 characters
         artist = _('Flow')
         
         #. TRANSLATORS: percentage size that the image will be expanded
@@ -248,11 +247,17 @@ class ExternalPluginMenu(GObject.Object):
             section.append_item(menu_item)
         
         menu.append_section(None, section)
+
+        cl = CoverLocale()
+        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)        
         toolbar_item.set_label(_('Views'))
+        cl.switch_locale(cl.Locale.RB)
+
         toolbar_item.set_submenu(menu)
         for location in self.locations:
             app.add_plugin_menu_item(location, self.app_id, toolbar_item)
             
+        
     def on_page_change(self, display_page_tree, page):
         '''
         Called when the display page changes. Grabs query models and sets the 
