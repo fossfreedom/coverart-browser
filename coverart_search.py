@@ -143,6 +143,7 @@ class CoverSearchPane(Gtk.Box):
         temp_file = self.template.render(artist=artist, album=album_name,
             stylesheet=self.styles, selection_color=self.selection_color)
 
+        print ("here")
         self.webview.load_string(temp_file, 'text/html', 'utf-8',
             self.basepath)
 
@@ -153,6 +154,7 @@ class CoverSearchPane(Gtk.Box):
         temp_file = self.artist_template.render(artist=artist,
             stylesheet=self.styles, selection_color=self.selection_color)
 
+        print ("here")
         self.webview.load_string(temp_file, 'text/html', 'utf-8',
             self.basepath)
             

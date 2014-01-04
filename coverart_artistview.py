@@ -722,6 +722,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
         self.show_policy = ArtistShowingPolicy(self)
         self.view = self
         self._has_initialised = False        
+        self._last_row_was_artist = False
             
     def initialise(self, source):
         if self._has_initialised:
@@ -862,12 +863,18 @@ class ArtistView(Gtk.TreeView, AbstractView):
         active_object = self.artist_manager.model.get_from_path(treepath)
         
         if not isinstance(active_object, Album):
+            if self.icon_automatic:
+                # reset counter so that we get correct double click action for albums
+                self.source.click_count = 0 
+                
             if treecolumn != self.get_expander_column():
-                if self.row_expanded(treepath) and event.button == 1:
+                if self.row_expanded(treepath) and event.button == 1 and self._last_row_was_artist:
                     self.collapse_row(treepath)
                 else:
                     self.expand_row(treepath, False)
-                    
+        
+                self._last_row_was_artist = True
+                
                 if event.button ==3:
                     # on right click
                     # display popup
@@ -886,17 +893,17 @@ class ArtistView(Gtk.TreeView, AbstractView):
             ctrl = event.state & Gdk.ModifierType.CONTROL_MASK
             shift = event.state & Gdk.ModifierType.SHIFT_MASK
 
-            if self.icon_automatic:
+            if self.icon_automatic and not self._last_row_was_artist:
                 self.source.click_count += 1 if not ctrl and not shift else 0
 
             if self.source.click_count == 1:
                 Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
                     self.source.show_hide_pane, active_object)
-            
+                    
         elif event.button ==3:
             # on right click
             # display popup
-
+            
             if not self._external_plugins:
                 # initialise external plugin menu support
                 self._external_plugins = \
@@ -910,17 +917,22 @@ class ArtistView(Gtk.TreeView, AbstractView):
                             None,
                             3,
                             Gtk.get_current_event_time())
+                            
+        self._last_row_was_artist = False
             
     def get_view_icon_name(self):
         return "artistview.png"
         
     def _selection_changed(self, *args):
-        selected = self.get_selected_objects()
+        selected = self.get_selected_objects(just_artist=True)
 
+        print (selected)
         if len(selected) == 0:
+            self.source.entry_view.clear()
             return
             
         if isinstance(selected[0], Artist):
+            print ("selected artist")
             self.unset_rows_drag_source() # turn off drag-drop for artists
                 
             # clear the entry view
@@ -928,25 +940,35 @@ class ArtistView(Gtk.TreeView, AbstractView):
 
             cover_search_pane_visible = self.source.notebook.get_current_page() == \
                 self.source.notebook.page_num(self.source.cover_search_pane)
-                
-            if not selected:
-                # clean cover tab if selected
-                if cover_search_pane_visible:
-                    self.source.cover_search_pane.clear()
-
-                return
-            
+                            
             # update the cover search pane with the first selected artist
             if cover_search_pane_visible:
+                print ("update coversearch for artist")
+                print (selected[0])
                 self.source.cover_search_pane.do_search(selected[0],
                     self.artist_manager.cover_man.update_cover)
             
         else:
+            print ("selected album")
             self.source.update_with_selection()
             # now turnon drag-drop for album.
             self.enable_model_drag_source(Gdk.ModifierType.BUTTON1_MASK,
                 [], Gdk.DragAction.COPY)
             self.drag_source_set_target_list(self._targets)
+    
+    def switch_to_coverpane(self, cover_search_pane):
+        '''
+        called from the source to update the coverpane when
+        it is switched from the track pane
+        This overrides the base method
+        '''
+        
+        selected = self.get_selected_objects(just_artist=True)
+
+        if selected:
+            manager = self.get_default_manager()
+            cover_search_pane.do_search(selected[0],
+                manager.cover_man.update_cover)
 
     def get_selected_objects(self, just_artist=False):
         '''

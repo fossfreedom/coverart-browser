@@ -693,13 +693,8 @@ class CoverArtBrowserSource(RB.Source):
         print("CoverArtBrowser DEBUG - notebook_switch_page_callback")
 
         if page_num == 1:
-            selected = self.viewmgr.current_view.get_selected_objects()
-
-            if selected:
-                manager = self.viewmgr.current_view.get_default_manager()
-                self.cover_search_pane.do_search(selected[0],
-                    manager.cover_man.update_cover)
-
+            self.viewmgr.current_view.switch_to_coverpane(self.cover_search_pane)
+            
         print("CoverArtBrowser DEBUG - end notebook_switch_page_callback")
 
     def rating_changed_callback(self, widget):

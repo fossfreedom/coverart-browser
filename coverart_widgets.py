@@ -1340,3 +1340,17 @@ class AbstractView(GObject.Object):
         '''
         
         return self.source.album_manager
+        
+    def switch_to_coverpane(self, cover_search_pane):
+        '''
+        called from the source to update the coverpane when
+        it is switched from the track pane
+        '''
+        
+        selected = self.get_selected_objects()
+
+        if selected:
+            manager = self.get_default_manager()
+            cover_search_pane.do_search(selected[0],
+                manager.cover_man.update_cover)
+
