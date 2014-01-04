@@ -405,7 +405,7 @@ class ArtistsModel(GObject.Object):
             ' ' + rating + \
             '\n' + \
             '<small>' + \
-            GLib.markup_escape_text(detail) + \
+            GLib.markup_escape_text(detail.encode('UTF-8')) + \
             '</small>'
 
         return tooltip, pixbuf, album, show, '', formatted, ''
