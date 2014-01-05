@@ -67,8 +67,8 @@ class OptionsWidget(Gtk.Widget):
 
     def _update_sensitivity(self, *args):
         self.set_sensitive(self._controller.enabled)
-        self._update_image()
-
+        #self._update_image()
+        
     def _update_options(self, *args):
         self.update_options()
 
