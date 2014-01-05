@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-03 04:27+0000\n"
+"POT-Creation-Date: 2014-01-05 16:04+0000\n"
 "PO-Revision-Date: 2013-08-22 09:39+0000\n"
 "Last-Translator: Marcos Lans <Unknown>\n"
 "Language-Team: Galician <gl@li.org>\n"
@@ -34,7 +34,7 @@ msgid "Search Mode"
 msgstr "Modo de busca"
 
 #: tmpl/albumartsearch-tmpl.html:191 coverart_browser_source.py:314
-#: coverart_browser_source.py:989
+#: coverart_browser_source.py:989 coverart_browser_source.py:986
 msgid "Artist"
 msgstr "Intérprete"
 
@@ -327,8 +327,9 @@ msgstr "Espazado"
 
 #. . TRANSLATORS: This is the icon-grid view that the user sees
 #. . TRANSLATORS: Please try to keep the translation to less than 8 characters
+#. . TRANSLATORS: This is the icon-grid view that the user sees
 #: tmp/coverart_browser_prefs.ui.h:44 coverart_browser.py:172
-#: coverart_browser_source.py:986
+#: coverart_browser_source.py:986 coverart_browser_source.py:983
 msgid "Tiles"
 msgstr "Mosaicos"
 
@@ -342,6 +343,7 @@ msgstr "Largura (px):"
 
 #. . TRANSLATORS: percentage size that the image will be expanded
 #: tmp/coverart_browser_prefs.ui.h:48 coverart_browser.py:179
+#: coverart_browser.py:178
 #, no-c-format
 msgid "Scale by %:"
 msgstr "Escalar %:"
@@ -368,8 +370,10 @@ msgstr "Negro"
 
 #. . TRANSLATORS: This is the cover-flow view the user sees - they can swipe album covers from side-to-side
 #. . TRANSLATORS: Please try to keep the translation to less than 8 characters
+#. . TRANSLATORS: This is the cover-flow view the user sees - they can swipe album covers from side-to-side
 #: tmp/coverart_browser_prefs.ui.h:54 coverart_browser.py:176
-#: coverart_browser_source.py:988
+#: coverart_browser_source.py:988 coverart_browser.py:175
+#: coverart_browser_source.py:985
 msgid "Flow"
 msgstr "Fluxo"
 
@@ -454,6 +458,7 @@ msgid "Tracks & Covers"
 msgstr "Pistas e cubertas"
 
 #: tmp/coverart_browser.ui.h:2 coverart_artistview.py:749
+#: coverart_artistview.py:753
 msgid "Track Artist"
 msgstr "Intérprete da pista"
 
@@ -473,20 +478,20 @@ msgstr "Pór a pista en espera"
 msgid "Choose folder to save tracks:"
 msgstr "Escolla o cartafol no que gardar as pistas:"
 
-#: tmp/coverart_exportembed.ui.h:2
+#: tmp/coverart_exportembed.ui.h:2 tmp/coverart_exportembed.ui.h:3
 msgid "Save tracks within folder using album name"
 msgstr "Gardar as pistas nun cartafol co nome do álbum"
 
-#: tmp/coverart_exportembed.ui.h:3
+#: tmp/coverart_exportembed.ui.h:3 tmp/coverart_exportembed.ui.h:4
 msgid "Open embedded track folder in file-manager"
 msgstr "Abrir o cartafol coas pistas incrustadas no xestor de ficheiros"
 
 #. This is a label describing the different options to save the picture artwork in the music file i.e. embed - to insert picture artwork into a music file
-#: tmp/coverart_exportembed.ui.h:5
+#: tmp/coverart_exportembed.ui.h:5 tmp/coverart_exportembed.ui.h:6
 msgid "Embed:"
 msgstr ""
 
-#: tmp/coverart_exportembed.ui.h:6
+#: tmp/coverart_exportembed.ui.h:6 tmp/coverart_exportembed.ui.h:7
 msgid ""
 "Tip: Drag and Drop exported tracks from file-manager to a playlist or "
 "telephone/other device"
@@ -494,29 +499,29 @@ msgstr ""
 "Consello: arrastrar e soltar as pistas exportadas desde o xestor de "
 "ficheiros a unha lista de reprodución ou teléfono/outro dispositivo"
 
-#: tmp/coverart_exportembed.ui.h:7
+#: tmp/coverart_exportembed.ui.h:7 tmp/coverart_exportembed.ui.h:8
 msgid "convert to mp3"
 msgstr ""
 
-#: tmp/coverart_exportembed.ui.h:8
+#: tmp/coverart_exportembed.ui.h:8 tmp/coverart_exportembed.ui.h:9
 msgid "bitrate (kbit/s)"
 msgstr ""
 
 #. This is a label describing the size of the picture that will be inserted into the music file e.g. change the size from 800x800 pixels to 128x128 pixels
-#: tmp/coverart_exportembed.ui.h:10
+#: tmp/coverart_exportembed.ui.h:10 tmp/coverart_exportembed.ui.h:11
 msgid "resize art"
 msgstr ""
 
-#: tmp/coverart_exportembed.ui.h:11
+#: tmp/coverart_exportembed.ui.h:11 tmp/coverart_exportembed.ui.h:12
 #, fuzzy
 msgid "size in pixels"
 msgstr "Tamaño (en píxeles):"
 
-#: tmp/coverart_exportembed.ui.h:11
+#: tmp/coverart_exportembed.ui.h:11 tmp/coverart_exportembed.ui.h:12
 msgid "(px)"
 msgstr ""
 
-#: tmp/coverart_exportembed.ui.h:12
+#: tmp/coverart_exportembed.ui.h:12 tmp/coverart_exportembed.ui.h:2
 msgid "Select a Folder to export to"
 msgstr "Seleccione un cartafol para exportar a"
 
@@ -539,7 +544,7 @@ msgstr "Todas as décadas"
 
 #. This is the different view modes e.g. Music Library, CoverFlow, Tiles or Album Artist
 #: tmp/coverart_leftsidebar.ui.h:4 tmp/coverart_rightsidebar.ui.h:4
-#: tmp/coverart_topbar.ui.h:4 coverart_browser.py:251
+#: tmp/coverart_topbar.ui.h:4 coverart_browser.py:251 coverart_browser.py:253
 msgid "Views"
 msgstr ""
 
@@ -685,30 +690,36 @@ msgstr "infantil"
 
 #. . TRANSLATORS - for example "abba's greatest hits by ABBA"
 #: coverart_album.py:1662 coverart_browser_source.py:905
+#: coverart_album.py:1699 coverart_browser_source.py:900
 #, python-format
 msgid "%s by %s"
 msgstr "%s por %s"
 
 #: coverart_artistview.py:388 coverart_browser_source.py:913
+#: coverart_artistview.py:391 coverart_browser_source.py:908
 msgid " with 1 track"
 msgstr " con 1 pista"
 
 #: coverart_artistview.py:390 coverart_browser_source.py:915
+#: coverart_artistview.py:393 coverart_browser_source.py:910
 #, python-format
 msgid " with %d tracks"
 msgstr " con %d  pistas"
 
 #: coverart_artistview.py:396 coverart_browser_source.py:919
+#: coverart_artistview.py:399 coverart_browser_source.py:914
 msgid " and a duration of 1 minute"
 msgstr " e unha duración dun minuto"
 
 #: coverart_artistview.py:398 coverart_browser_source.py:921
+#: coverart_artistview.py:401 coverart_browser_source.py:916
 #, python-format
 msgid " and a duration of %d minutes"
 msgstr " e unha duración de %d minutos"
 
 #: coverart_artistview.py:745 coverart_artistview.py:821
-#: coverart_browser_source.py:289
+#: coverart_browser_source.py:289 coverart_artistview.py:749
+#: coverart_artistview.py:825
 msgid "Covers"
 msgstr "Cubertas"
 
@@ -726,11 +737,11 @@ msgstr ""
 "  fossfreedom https://launchpad.net/~fossfreedom"
 
 #. define .plugin text strings used for translation
-#: coverart_browser.py:167
+#: coverart_browser.py:167 coverart_browser.py:168
 msgid "CoverArt Browser"
 msgstr "Navegador de cubertas"
 
-#: coverart_browser.py:168
+#: coverart_browser.py:168 coverart_browser.py:169
 msgid "Browse and play your albums through their covers"
 msgstr "Examinar e reproducir os seus álbums a través das súas cubertas"
 
@@ -760,7 +771,7 @@ msgstr ""
 msgid "Requesting cover for %s..."
 msgstr "Solicitando a cuberta para %s - %s..."
 
-#: coverart_browser_source.py:829
+#: coverart_browser_source.py:829 coverart_browser_source.py:824
 msgid ""
 "Please install and activate the latest version of the Coverart Search "
 "Providers plugin"
@@ -769,7 +780,7 @@ msgstr ""
 "Coverart"
 
 #. . TRANSLATORS - the number of albums that have been selected/highlighted
-#: coverart_browser_source.py:909
+#: coverart_browser_source.py:909 coverart_browser_source.py:904
 #, python-format
 msgid "%d selected albums"
 msgstr "%d álbums seleccionados"
@@ -900,6 +911,10 @@ msgstr "Buscar pistas"
 #, python-format
 msgid "Number of covers limited to %d"
 msgstr "Número de cubertas limitado a %d"
+
+#: coverart_album.py:1454
+msgid "Enable LastFM plugin and log in first"
+msgstr ""
 
 #~ msgid "Play this album"
 #~ msgstr "Reproducir este álbum"
