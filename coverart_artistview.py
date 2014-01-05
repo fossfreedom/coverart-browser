@@ -131,6 +131,8 @@ class ArtistsModel(GObject.Object):
         'artist_album': 2, 'show': 3, 
         'empty': 4, 'markup': 5, 'expander': 6}
 
+    force_lastfm_check = True
+    
     def __init__(self, album_manager):
         super(ArtistsModel, self).__init__()
 

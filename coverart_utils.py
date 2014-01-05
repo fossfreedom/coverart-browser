@@ -31,7 +31,8 @@ import re
 import coverart_rb3compat as rb3compat
 import logging
 import sys
-
+from coverart_search_providers import lastfm_connected
+from coverart_search_providers import get_search_providers
 from collections import namedtuple
 
 class FauxTb(object):
@@ -763,3 +764,21 @@ class CaseInsensitiveDict(collections.Mapping):
         return self._d[self._s[RB.search_fold(k)]]
     def actual_key_case(self, k):
         return self._s.get(RB.search_fold(k))
+        
+def check_lastfm(force_check=False):
+    '''
+    check validity of lastfm connection
+    
+    returns True if connected with an account 
+    
+    Also returns True if lastFM is not in the list of search providers
+    '''
+    
+    providers = get_search_providers()
+    
+    if force_check or 'lastfm-search' in providers:
+        return lastfm_connected()
+    elif not 'lastfm-search' in providers:
+        return True
+    else:
+        return False

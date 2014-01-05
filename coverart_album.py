@@ -39,6 +39,7 @@ from coverart_utils import NaturalString
 import coverart_rb3compat as rb3compat
 from coverart_utils import uniquify_and_sort
 from coverart_utils import dumpstack
+from coverart_utils import check_lastfm
 from datetime import datetime, date
 
 import os
@@ -1348,6 +1349,7 @@ class CoverManager(GObject.Object):
 
     # properties
     has_finished_loading = False
+    force_lastfm_check = False
     cover_size = GObject.property(type=int, default=0)
 
     def __init__(self, plugin, manager):
@@ -1443,6 +1445,19 @@ class CoverManager(GObject.Object):
         :param callback: `callable` to periodically inform when an album's
             cover is being searched.
         '''
+        if not check_lastfm(self.force_lastfm_check):
+            # display error message and quit
+            dialog = Gtk.MessageDialog(None,
+                Gtk.DialogFlags.MODAL,
+                Gtk.MessageType.INFO,
+                Gtk.ButtonsType.OK,
+                _("Enable LastFM plugin and log in first"))
+
+            dialog.run()
+            dialog.destroy()
+        
+            return
+            
         if coverobjects is None:
             self._requester.replace_queue(
                 list(self._manager.model.get_all()), callback)
