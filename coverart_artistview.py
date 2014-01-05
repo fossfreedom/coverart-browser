@@ -42,7 +42,6 @@ from coverart_external_plugins import CreateExternalPluginMenu
 from coverart_extdb import CoverArtExtDB
 import coverart_rb3compat as rb3compat 
 from coverart_rb3compat import Menu
-from datetime import datetime, date
 
 import rb
 import os
@@ -265,9 +264,17 @@ class ArtistsModel(GObject.Object):
 
         if 'dummy_iter' in self._iters[artist.name]:
             self._iters[artist.name]['album'] = []
-
+        
+        # lets remember albums - sorted by year_sort
+        _albums = SortedCollection(
+            key=lambda album: getattr(album, 'calc_year_sort'))
+            
         for album in albums:
             if artist.name == album.artist and not (album in self._albumiters):
+                _albums.insert(album)
+                
+        # now for all matching albums that were found lets add to the model
+        for album in _albums:
                 print ("adding to artist model")
                 print (album)
 
@@ -375,13 +382,7 @@ class ArtistsModel(GObject.Object):
         else:
             rating = ''
         
-        year = album.year
-        if album.year == 0:
-            year = date.today().year
-        else:
-            year = datetime.fromordinal(album.year).year
-
-        year = ' (' + str(year) +')'
+        year = ' (' + str(album.real_year) +')'
             
         track_count = album.track_count
         if track_count == 1:

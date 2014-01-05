@@ -330,6 +330,28 @@ class Album(GObject.Object):
                 self._year = 0
 
         return self._year
+        
+    @property
+    def real_year(self):
+        ''' 
+        return the calculated year e.g. 1989
+        '''
+        calc_year = self.year
+
+        if calc_year == 0:
+            calc_year = date.today().year
+        else:
+            calc_year = datetime.fromordinal(calc_year).year        
+        
+        return calc_year
+        
+    @property
+    def calc_year_sort(self):
+        ''' 
+        returns a str combinationi of real_year + album name
+        '''
+        
+        return str(self.real_year) + self.name
 
     @property
     def genres(self):
