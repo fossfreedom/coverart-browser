@@ -752,6 +752,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
         
         col = Gtk.TreeViewColumn(_('Track Artist'), Gtk.CellRendererText(), markup=5)
         self._artist_col = col
+        col.set_clickable(True)
         col.set_sort_column_id(0)
         col.set_sort_indicator(True)
         self.append_column(col)
@@ -759,6 +760,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
         self.append_column(col) # dummy column to expand horizontally
         
         self.artist_manager = self.album_manager.artist_man
+        self.artist_manager.model.store.set_sort_column_id(0, Gtk.SortType.ASCENDING)
         self.set_model(self.artist_manager.model.store)
         
         # setup iconview drag&drop support
