@@ -171,9 +171,12 @@ class ArtistsModel(GObject.Object):
             self.show(artist, artist in artists)
         
     def _compare(self, model, row1, row2, user_data):
-        sort_column = 0
         
-        #if sort_column:
+        if not model.iter_has_child(row1) or \
+            not model.iter_has_child(row2):
+                return 0
+                
+        sort_column = 0
         value1 = RB.search_fold(model.get_value(row1, sort_column))
         value2 = RB.search_fold(model.get_value(row2, sort_column))
         if value1 < value2:
@@ -465,16 +468,18 @@ class ArtistsModel(GObject.Object):
         
     def get_from_path(self, path):
         '''
-        Returns the filtered Artist or Album referenced by a `Gtk.TreeModel` path.
+        Returns the Artist or Album referenced by a `Gtk.TreeModelSort` path.
 
         :param path: `Gtk.TreePath` referencing the artist.
         '''
-        return self._filtered_store[path][self.columns['artist_album']]
+        return self.store[path][self.columns['artist_album']]
 
     def get_path(self, artist):
-        return self._filtered_store.convert_child_path_to_path(
-            self._tree_store.get_path(
-                self._iters[artist.name]['iter']))
+        #return self._filtered_store.convert_child_path_to_path(
+        #    self._tree_store.get_path(
+        #        self._iters[artist.name]['iter']))
+        return self.store.get_path(
+                self._iters[artist.name]['iter'])
                 
     def get_from_ext_db_key(self, key):
         '''
@@ -823,6 +828,8 @@ class ArtistView(Gtk.TreeView, AbstractView):
             treepath, treecolumn, cellx, celly = self.get_path_at_pos(winx, winy)
             active_object = self.artist_manager.model.get_from_path(treepath)
             
+            #active_object=self.artist_manager.model.store[treepath][self.artist_manager.model.columns['artist_album']]
+            
             if isinstance(active_object, Artist) and \
                 treecolumn.get_title() == _('Covers') and \
                 active_object.cover.original != self.artist_manager.cover_man.unknown_cover.original:
@@ -836,7 +843,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
                 return False
 
         except:
-            pass
+                pass
             
     def _row_expanded(self, treeview, treeiter, treepath):
         '''
