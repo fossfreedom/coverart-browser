@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-05 16:04+0000\n"
-"PO-Revision-Date: 2014-01-05 19:53+0000\n"
+"PO-Revision-Date: 2014-01-06 02:43+0000\n"
 "Last-Translator: Jean-Rene Bastien <Unknown>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-01-05 23:40+0000\n"
-"X-Generator: Launchpad (build 16877)\n"
+"X-Launchpad-Export-Date: 2014-01-08 14:52+0000\n"
+"X-Generator: Launchpad (build 16884)\n"
 "Language: fr_CA\n"
 "Generated-By: pygettext.py 1.5\n"
 
@@ -486,7 +486,7 @@ msgstr ""
 #. This is a label describing the different options to save the picture artwork in the music file i.e. embed - to insert picture artwork into a music file
 #: tmp/coverart_exportembed.ui.h:5 tmp/coverart_exportembed.ui.h:6
 msgid "Embed:"
-msgstr "Imbrication"
+msgstr "Imbrication:"
 
 #: tmp/coverart_exportembed.ui.h:6 tmp/coverart_exportembed.ui.h:7
 msgid ""
@@ -498,16 +498,16 @@ msgstr ""
 
 #: tmp/coverart_exportembed.ui.h:7 tmp/coverart_exportembed.ui.h:8
 msgid "convert to mp3"
-msgstr "Convertir en mp3"
+msgstr "Convertir en mp3 au débit de"
 
 #: tmp/coverart_exportembed.ui.h:8 tmp/coverart_exportembed.ui.h:9
 msgid "bitrate (kbit/s)"
-msgstr "débit (kbit/s)"
+msgstr "(kbit/s)"
 
 #. This is a label describing the size of the picture that will be inserted into the music file e.g. change the size from 800x800 pixels to 128x128 pixels
 #: tmp/coverart_exportembed.ui.h:10 tmp/coverart_exportembed.ui.h:11
 msgid "resize art"
-msgstr "redimensionner l'image"
+msgstr "Redimensionner l'image à"
 
 #: tmp/coverart_exportembed.ui.h:11 tmp/coverart_exportembed.ui.h:12
 msgid "size in pixels"
