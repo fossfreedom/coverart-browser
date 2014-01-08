@@ -507,6 +507,10 @@ class ArtistsModel(GObject.Object):
 
         if self._tree_store.iter_is_valid(artist_iter):
             self._tree_store.set_value(artist_iter, self.columns['show'], show)
+            
+            
+    def sort(self, reverse=False):
+        pass
 
 class ArtistCellRenderer(Gtk.CellRendererPixbuf):
     
@@ -663,6 +667,11 @@ class ArtistManager(GObject.Object):
     # properties
     progress = GObject.property(type=float, default=0)
     
+    # signals
+    __gsignals__ = {
+        'sort': (GObject.SIGNAL_RUN_LAST, None, (object,))
+        }
+    
     def __init__(self, plugin, album_manager, shell):
         super(ArtistManager, self).__init__()
 
@@ -684,6 +693,10 @@ class ArtistManager(GObject.Object):
         Connects the manager to all the needed signals for it to work.
         '''
         self.loader.connect('model-load-finished', self._load_finished_callback)
+        self.connect('sort', self._sort_artist)
+        
+    def _sort_artist(self, widget, direction):
+        self.model.sort(reverse=direction)
         
     def _load_finished_callback(self, *args):
         self.cover_man.load_covers()
@@ -1018,6 +1031,8 @@ class ArtistView(Gtk.TreeView, AbstractView):
     def do_update_toolbar(self, *args):
         self.source.toolbar_manager.set_enabled(False, ToolbarObject.SORT_BY)
         self.source.toolbar_manager.set_enabled(False, ToolbarObject.SORT_ORDER)
+        self.source.toolbar_manager.set_enabled(True, ToolbarObject.SORT_BY_ARTIST)
+        self.source.toolbar_manager.set_enabled(True, ToolbarObject.SORT_ORDER_ARTIST)
         
     def on_drag_drop(self, widget, context, x, y, time):
         '''

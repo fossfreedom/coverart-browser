@@ -377,10 +377,10 @@ class GenrePopupController(OptionsController):
 
 class SortPopupController(OptionsController):
 
-    def __init__(self, plugin, album_model):
+    def __init__(self, plugin, viewmgr):
         super(SortPopupController, self).__init__()
 
-        self._album_model = album_model
+        self._viewmgr=viewmgr
         self.plugin = plugin
         # sorts dictionary
         cl = CoverLocale()
@@ -418,11 +418,60 @@ class SortPopupController(OptionsController):
         settings = gs.get_setting(gs.Path.PLUGIN)
         settings[gs.PluginKey.SORT_BY] = sort
 
-        self._album_model.sort(sort)
+        self._viewmgr.current_view.get_default_manager().emit('sort', False)
 
     def get_current_image(self):
         sort = self.values[self.current_key]
         return self._spritesheet[sort]
+        
+class ArtistSortPopupController(OptionsController):
+
+    def __init__(self, plugin, viewmgr):
+        super(ArtistSortPopupController, self).__init__()
+
+        self._viewmgr = viewmgr
+        self.plugin = plugin
+        # sorts dictionary
+        cl = CoverLocale()
+        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+
+        self.values = OrderedDict([(_('Sort by album name'), 'name'),
+            (_('Sort by year'), 'year'),
+            (_('Sort by rating'), 'rating')])
+
+        self.options = list(self.values.keys())
+        
+        # get the current sort key and initialise the superclass
+        gs = GSetting()
+        source_settings = gs.get_setting(gs.Path.PLUGIN)
+        value = source_settings[gs.PluginKey.SORT_BY_ARTIST]
+
+        self._spritesheet = None
+        self.update_images(False)
+        
+        self.current_key = list(self.values.keys())[
+            list(self.values.values()).index(value)]
+
+    def update_images(self, *args):
+        self._spritesheet = self.create_spritesheet( self.plugin,
+            self._spritesheet, 'sort') # need the "artist_sort_sprite" file
+        
+        if args[-1]:
+            self.update_image = True
+            
+    def do_action(self):
+        sort = self.values[self.current_key]
+
+        gs = GSetting()
+        settings = gs.get_setting(gs.Path.PLUGIN)
+        settings[gs.PluginKey.SORT_BY_ARTIST] = sort
+
+        self._viewmgr.current_view.get_default_manager().emit('sort', False)
+
+    def get_current_image(self):
+        sort = self.values[self.current_key]
+        return self._spritesheet[sort]
+
 
 class PropertiesMenuController(OptionsController):
     artist_paned_display = GObject.property(type=bool, default=False)
@@ -584,12 +633,12 @@ class DecadePopupController(OptionsController):
 
 class SortOrderToggleController(OptionsController):
 
-    def __init__(self, plugin, album_model):
+    def __init__(self, plugin, viewmgr):
         super(SortOrderToggleController, self).__init__()
 
-        self._album_model = album_model
+        self._viewmgr = viewmgr
         self.plugin = plugin
-
+        
         # options
         self.values = OrderedDict([(_('Sort in descending order'), False),
             (_('Sort in ascending order'), True)])
@@ -600,10 +649,14 @@ class SortOrderToggleController(OptionsController):
         # set the current key
         self.gs = GSetting()
         self.settings = self.gs.get_setting(self.gs.Path.PLUGIN)
-        sort_order = self.settings[self.gs.PluginKey.SORT_ORDER]
+        self.key = self.get_key()
+        sort_order = self.settings[self.key]
         self.current_key = list(self.values.keys())[
             list(self.values.values()).index(sort_order)]
         self.update_images(False)
+        
+    def get_key(self):
+        return self.gs.PluginKey.SORT_ORDER
         
     def update_images(self, *args):
         # initialize images
@@ -622,13 +675,21 @@ class SortOrderToggleController(OptionsController):
         sort_order = self.values[self.current_key]
 
         if not sort_order or\
-            sort_order != self.settings[self.gs.PluginKey.SORT_ORDER]:
-            self._album_model.sort(reverse=True)
+            sort_order != self.settings[self.key]:
+            self._viewmgr.current_view.get_default_manager().emit('sort', True) #(reverse=True)
 
-        self.settings[self.gs.PluginKey.SORT_ORDER] = sort_order
+        self.settings[self.key] = sort_order
 
     def get_current_image(self):
         return self._images[self.get_current_key_index()]
+        
+class ArtistSortOrderToggleController(SortOrderToggleController):
+
+    def __init__(self, plugin, model):
+        super(ArtistSortOrderToggleController, self).__init__(plugin, model)
+        
+    def get_key(self):
+        return self.gs.PluginKey.SORT_ORDER_ARTIST
 
 
 class AlbumSearchEntryController(OptionsController):

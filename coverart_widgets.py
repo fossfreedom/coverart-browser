@@ -23,6 +23,7 @@ from gi.repository import Gdk
 from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import Gio
+
 import cairo
 
 from coverart_browser_prefs import GSetting
@@ -58,16 +59,15 @@ class OptionsWidget(Gtk.Widget):
             'notify::current-key', self._update_current_key)
         self._update_image_changed_id = self._controller.connect(
             'notify::update-image', self._update_image)
-        self._sensitive_changed_id = self._controller.connect(
-            'notify::enabled', self._update_sensitivity)
+        self._visible_changed_id = self._controller.connect(
+            'notify::enabled', self._update_visibility)
 
         # update the menu and current key
         self.update_options()
         self.update_current_key()
 
-    def _update_sensitivity(self, *args):
-        self.set_sensitive(self._controller.enabled)
-        #self._update_image()
+    def _update_visibility(self, *args):
+        self.set_visible(self._controller.enabled)
         
     def _update_options(self, *args):
         self.update_options()
@@ -1276,7 +1276,11 @@ class AbstractView(GObject.Object):
             called when update-toolbar signal is emitted
             by default the toolbar objects are made visible
         '''
-        self.source.toolbar_manager.set_enabled(True)
+        from coverart_toolbar import ToolbarObject
+        self.source.toolbar_manager.set_enabled(True, ToolbarObject.SORT_BY)
+        self.source.toolbar_manager.set_enabled(True, ToolbarObject.SORT_ORDER)
+        self.source.toolbar_manager.set_enabled(False, ToolbarObject.SORT_BY_ARTIST)
+        self.source.toolbar_manager.set_enabled(False, ToolbarObject.SORT_ORDER_ARTIST)
         
     def resize_icon(self, cover_size):
         '''

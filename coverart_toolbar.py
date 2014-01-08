@@ -28,9 +28,11 @@ from coverart_utils import Theme
 from coverart_controllers import PlaylistPopupController
 from coverart_controllers import GenrePopupController
 from coverart_controllers import SortPopupController
+from coverart_controllers import ArtistSortPopupController
 from coverart_controllers import PropertiesMenuController
 from coverart_controllers import DecadePopupController
 from coverart_controllers import SortOrderToggleController
+from coverart_controllers import ArtistSortOrderToggleController
 from coverart_controllers import AlbumSearchEntryController
 from coverart_widgets import SearchEntry
 from coverart_browser_prefs import webkit_support
@@ -142,13 +144,12 @@ class ToolbarObject(object):
     PROPERTIES='properties_button'
     SORT_BY='sort_by'
     SORT_ORDER='sort_order'
+    SORT_BY_ARTIST='sort_by_artist'
+    SORT_ORDER_ARTIST='sort_order_artist'
     GENRE='genre_button'
     PLAYLIST='playlist_button'
     DECADE='decade_button'
     SEARCH='search'
-    #ICONVIEW='iconview_button'
-    #FLOWVIEW='flowview_button'
-    #ARTISTVIEW='artistview_button'
     VIEW='view_button'
     
 
@@ -156,11 +157,11 @@ class ToolbarManager(GObject.Object):
     # properties
     toolbar_pos = GObject.property(type=str, default=TopToolbar.name)
     
-    def __init__(self, plugin, main_box, album_model, viewmgr):
+    def __init__(self, plugin, main_box, viewmgr):
         super(ToolbarManager, self).__init__()
         self.plugin = plugin
         # create the buttons controllers
-        controllers = self._create_controllers(plugin, album_model, viewmgr)
+        controllers = self._create_controllers(plugin, viewmgr)
 
         # initialize toolbars
         self._bars = {}
@@ -202,15 +203,20 @@ class ToolbarManager(GObject.Object):
         setting.bind(gs.PluginKey.TOOLBAR_POS, self, 'toolbar_pos',
             Gio.SettingsBindFlags.GET)
             
-    def _create_controllers(self, plugin, album_model, viewmgr):
+    def _create_controllers(self, plugin, viewmgr):
         controllers = {}
         
+        album_model=viewmgr.source.album_manager.model
         controllers[ToolbarObject.PROPERTIES] = \
             PropertiesMenuController(plugin, viewmgr.source)
         controllers[ToolbarObject.SORT_BY] = \
-            SortPopupController(plugin, album_model)
+            SortPopupController(plugin, viewmgr)
         controllers[ToolbarObject.SORT_ORDER] = \
-            SortOrderToggleController(plugin, album_model)
+            SortOrderToggleController(plugin, viewmgr)
+        controllers[ToolbarObject.SORT_BY_ARTIST] = \
+            ArtistSortPopupController(plugin, viewmgr)
+        controllers[ToolbarObject.SORT_ORDER_ARTIST] = \
+            ArtistSortOrderToggleController(plugin, viewmgr)
         controllers[ToolbarObject.GENRE] = \
             GenrePopupController(plugin, album_model)
         controllers[ToolbarObject.PLAYLIST] = \
@@ -220,9 +226,6 @@ class ToolbarManager(GObject.Object):
         controllers[ToolbarObject.SEARCH] = \
             AlbumSearchEntryController(album_model)
         
-        #controllers[ToolbarObject.ICONVIEW] = viewmgr.controller
-        #controllers[ToolbarObject.FLOWVIEW] = viewmgr.controller
-        #controllers[ToolbarObject.ARTISTVIEW] = viewmgr.controller
         controllers[ToolbarObject.VIEW] = viewmgr.controller
 
         return controllers

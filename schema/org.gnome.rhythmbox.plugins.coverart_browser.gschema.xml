@@ -58,13 +58,23 @@
         </key>
         <key type="s" name="sort-by">
           <default>'name'</default>
-            <summary>sort by</summary>
-            <description>Sort by criteria.</description>
+            <summary>sort by albums</summary>
+            <description>Sort by criteria for albums.</description>
         </key>
         <key type="b" name="sort-order">
             <default>true</default>
-            <summary>Sort in ascending/descending order.</summary>
+            <summary>Sort in ascending/descending order for albums.</summary>
             <description>Using the chosen sort type, sort the coverview in either ascending or descending order.</description>
+        </key>
+        <key type="s" name="sort-by-artist">
+          <default>'name'</default>
+            <summary>sort by artist albums</summary>
+            <description>Sort by criteria for artist albums.</description>
+        </key>
+        <key type="b" name="sort-order-artist">
+            <default>true</default>
+            <summary>Sort in ascending/descending order for artist albums.</summary>
+            <description>Using the chosen sort type, sort the artistview albums in either ascending or descending order.</description>
         </key>
         <key type="d" name="rating-threshold">
             <default>0</default>

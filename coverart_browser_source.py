@@ -275,12 +275,7 @@ class CoverArtBrowserSource(RB.Source):
         # create an album manager
         self.album_manager = AlbumManager(self.plugin, self.viewmgr.current_view)
             
-        # initialise the toolbar manager
-        self.toolbar_manager = ToolbarManager(self.plugin, self.page,
-            self.album_manager.model, self.viewmgr)
-            
         self.viewmgr.current_view.initialise(self)
-        self.viewmgr.current_view.emit('update-toolbar')
         # setup cover search pane
         colour = self.viewmgr.get_selection_colour()
 
@@ -323,6 +318,11 @@ class CoverArtBrowserSource(RB.Source):
 
         self.artist_paned.connect('button-release-event', 
             self.artist_paned_button_release_callback)
+            
+        # initialise the toolbar manager
+        self.toolbar_manager = ToolbarManager(self.plugin, self.page,
+            self.viewmgr)
+        self.viewmgr.current_view.emit('update-toolbar')
 
         print("CoverArtBrowser DEBUG - end _setup_source")
         
@@ -980,11 +980,15 @@ class Views:
             cl = CoverLocale()
             cl.switch_locale(cl.Locale.LOCALE_DOMAIN)        
 
-            self._values[CoverIconView.name] = [_('Tiles'), GLib.Variant.new_string('coverart-browser-tile')]
+            self._values[CoverIconView.name] = [_('Tiles'), 
+                GLib.Variant.new_string('coverart-browser-tile')]
             if webkit_support():
-                self._values[CoverFlowView.name] = [_('Flow'), GLib.Variant.new_string('coverart-browser-coverflow')]
-            self._values[ArtistView.name] = [_('Artist'), GLib.Variant.new_string('coverart-browser-artist')]
-            self._values[ListView.name] = [library_name, GLib.Variant.new_string('coverart-browser-list')]
+                self._values[CoverFlowView.name] = [_('Flow'), 
+                GLib.Variant.new_string('coverart-browser-coverflow')]
+            self._values[ArtistView.name] = [_('Artist'), 
+                GLib.Variant.new_string('coverart-browser-artist')]
+            self._values[ListView.name] = [library_name, 
+                GLib.Variant.new_string('coverart-browser-list')]
             cl.switch_locale(cl.Locale.RB)   
             print (self._values)     
             
@@ -1052,10 +1056,7 @@ class ViewManager(GObject.Object):
         self._lastview = None
 
         self.controller = ViewController(source.shell, self)
-        #self.controller.add_key_pair(CoverFlowView.name, 'flowview_button')
-        #self.controller.add_key_pair(CoverIconView.name, 'iconview_button')
-        #self.controller.add_key_pair(ArtistView.name, 'artistview_button')
-
+        
         # connect signal and properties
         self._connect_signals()
         self._connect_properties()
