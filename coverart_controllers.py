@@ -454,7 +454,7 @@ class ArtistSortPopupController(OptionsController):
 
     def update_images(self, *args):
         self._spritesheet = self.create_spritesheet( self.plugin,
-            self._spritesheet, 'sort') # need the "artist_sort_sprite" file
+            self._spritesheet, 'sort_artist')
         
         if args[-1]:
             self.update_image = True

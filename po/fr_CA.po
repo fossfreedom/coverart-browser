@@ -10,12 +10,12 @@ msgstr ""
 "PO-Revision-Date: 2014-01-05 19:53+0000\n"
 "Last-Translator: Jean-Rene Bastien <Unknown>\n"
 "Language-Team: none\n"
+"Language: fr_CA\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2014-01-05 23:40+0000\n"
 "X-Generator: Launchpad (build 16877)\n"
-"Language: fr_CA\n"
 "Generated-By: pygettext.py 1.5\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
@@ -474,8 +474,7 @@ msgstr "Choisir dans quel dossier enregistrer les pistes:"
 
 #: tmp/coverart_exportembed.ui.h:2 tmp/coverart_exportembed.ui.h:3
 msgid "Save tracks within folder using album name"
-msgstr ""
-"Enregistrer les pistes dans le dossier en utilisant le nom de l'album"
+msgstr "Enregistrer les pistes dans le dossier en utilisant le nom de l'album"
 
 #: tmp/coverart_exportembed.ui.h:3 tmp/coverart_exportembed.ui.h:4
 msgid "Open embedded track folder in file-manager"

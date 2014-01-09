@@ -86,6 +86,11 @@
         <sort name="year" spritesheet="sort">year</sort>
         <sort name="rating" spritesheet="sort">rating</sort>
     </sort>
+    <sort_artist>
+        <sort_artist name="name" spritesheet="sort_artist">name</sort_artist>
+        <sort_artist name="year" spritesheet="sort_artist">year</sort_artist>
+        <sort_artist name="rating" spritesheet="sort_artist">rating</sort_artist>
+    </sort_artist>
     <playlist>
         <playlist name="music" spritesheet="playlist">music</playlist>
         <playlist name="playlist" spritesheet="playlist">playlist</playlist>
@@ -123,6 +128,13 @@
                 <spacing y="32" x="32"/>
                 <start-position y="32" x="32"/>
             </spritesheet>
+            <spritesheet name="sort_artist">
+                <image>sort_artist_sprites.png</image>
+                <icon width="128" height="128"/>
+                <dimension down="1" across="3"/>
+                <spacing y="32" x="32"/>
+                <start-position y="32" x="32"/>
+            </spritesheet>
             <spritesheet name="playlist">
                 <image>playlist_sprites.png</image>
                 <icon width="140" height="134"/>
@@ -151,6 +163,13 @@
                 <image>sort_sprites.png</image>
                 <icon width="128" height="128"/>
                 <dimension down="1" across="4"/>
+                <spacing y="32" x="32"/>
+                <start-position y="32" x="32"/>
+            </spritesheet>
+            <spritesheet name="sort_artist">
+                <image>sort_artist_sprites.png</image>
+                <icon width="128" height="128"/>
+                <dimension down="1" across="3"/>
                 <spacing y="32" x="32"/>
                 <start-position y="32" x="32"/>
             </spritesheet>
@@ -185,6 +204,13 @@
                 <spacing y="32" x="32"/>
                 <start-position y="32" x="32"/>
             </spritesheet>
+            <spritesheet name="sort_artist">
+                <image>sort_artist_sprites.png</image>
+                <icon width="128" height="128"/>
+                <dimension down="1" across="3"/>
+                <spacing y="32" x="32"/>
+                <start-position y="32" x="32"/>
+            </spritesheet>
             <spritesheet name="playlist">
                 <image>playlist_sprites.png</image>
                 <icon width="128" height="128"/>
@@ -213,6 +239,13 @@
                 <image>sort_sprites.png</image>
                 <icon width="128" height="128"/>
                 <dimension down="1" across="4"/>
+                <spacing y="32" x="32"/>
+                <start-position y="32" x="32"/>
+            </spritesheet>
+            <spritesheet name="sort_artist">
+                <image>sort_artist_sprites.png</image>
+                <icon width="128" height="128"/>
+                <dimension down="1" across="3"/>
                 <spacing y="32" x="32"/>
                 <start-position y="32" x="32"/>
             </spritesheet>
