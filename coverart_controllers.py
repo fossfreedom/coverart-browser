@@ -676,7 +676,7 @@ class SortOrderToggleController(OptionsController):
 
         if not sort_order or\
             sort_order != self.settings[self.key]:
-            self._viewmgr.current_view.get_default_manager().emit('sort', (None, True)) #(reverse=True)
+            self._viewmgr.current_view.get_default_manager().emit('sort', (None, sort_order)) #(reverse=True)
 
         self.settings[self.key] = sort_order
 

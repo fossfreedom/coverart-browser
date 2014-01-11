@@ -133,8 +133,8 @@ class ArtistsModel(GObject.Object):
         
         
     sort_keys = {
-            'name': ('album_sort', 'album_artist_sort'),
-            'year': ('year', 'album_sort'),
+            'name': ('album_sort', 'album_sort'),
+            'year': ('real_year', 'calc_year_sort'),
             'rating': ('rating', 'album_sort')
             }
 
@@ -145,7 +145,7 @@ class ArtistsModel(GObject.Object):
 
         self.album_manager = album_manager
         self._iters = {}
-        self._key = 'name'
+        self._sortkey = {'type':'name', 'order':False}
         self._albumiters = {}
         self._artists = SortedCollection(
             key=lambda artist: getattr(artist, 'name'))
@@ -278,19 +278,10 @@ class ArtistsModel(GObject.Object):
 
         if 'dummy_iter' in self._iters[artist.name]:
             self._iters[artist.name]['album'] = []
-        
-        # lets remember albums - sorted by year_sort
-        _albums = SortedCollection(
-            key=lambda album: getattr(album, 'calc_year_sort'))
-            
+                    
         for album in albums:
             if artist.name == album.artist and not (album in self._albumiters):
-                _albums.insert(album)
-                
-        # now for all matching albums that were found lets add to the model
-        for album in _albums:
-                print ("adding to artist model")
-                print (album)
+                # now for all matching albums that were found lets add to the model
 
                 # generate necessary values
                 values = self._generate_album_values(album)
@@ -310,6 +301,8 @@ class ArtistsModel(GObject.Object):
         if 'dummy_iter' in self._iters[artist.name]:
             self._tree_store.remove(self._iters[artist.name]['dummy_iter'])
             del self._iters[artist.name]['dummy_iter']
+            
+        self.sort() # ensure the added albums are sorted correctly
 
     def _album_modified(self, album):
         print ("album modified")
@@ -328,20 +321,7 @@ class ArtistsModel(GObject.Object):
 
             self._tree_store.set(tree_iter, self.columns['tooltip'], tooltip,
                 self.columns['markup'], markup, self.columns['show'], show)
-
-            # reorder the album
-            #new_pos = self._albums.reorder(album)
-
-            #if new_pos != -1:
-            #    old_album = self._albums[new_pos + 1]
-            #    old_iter = \
-            #        self._iters[old_album.name][old_album.artist]['iter']
-
-            #    self._tree_store.move_before(tree_iter, old_iter)
-
-            # inform that the album is updated
-            #self._emit_signal(tree_iter, 'album-updated')
-        
+       
     def _album_emptied(self, album):
         '''
         Removes this album from the model.
@@ -454,21 +434,29 @@ class ArtistsModel(GObject.Object):
         
     def get_albums(self, artist_name):
         '''
-        Returns the filtered albums for the requested artist
+        Returns the displayed albums for the requested artist
 
         :param artist_name: `str` name of the artist.
         '''
         
         albums = []
         
-        if 'album' in self._iters[artist_name]:
-            for album_iter in self._iters[artist_name]['album']:
-                tree_path = self._filtered_store.convert_child_path_to_path(
-                    self._tree_store.get_path(album_iter))
-                albums.append(self.get_from_path(tree_path))
+        artist_iter = self._iters[artist_name]['iter']
+        next_iter = self._tree_store.iter_children(artist_iter)
+        
+        while next_iter != None:
+            albums.append(self._tree_store[next_iter][self.columns['artist_album']])
+            next_iter = self._tree_store.iter_next(next_iter)
+        #if 'album' in self._iters[artist_name]:
+        #    for album_iter in self._iters[artist_name]['album']:
+        #        path = self._tree_store.get_path(album_iter)
+        #        if path:
+        #        tree_path = self._filtered_store.convert_child_path_to_path(
+        #            )
+        #        albums.append(self.get_from_path(tree_path))
             
         return albums
-        
+
     def get_all(self):
         '''
         Returns a collection of all the artists in this model.
@@ -484,9 +472,6 @@ class ArtistsModel(GObject.Object):
         return self.store[path][self.columns['artist_album']]
 
     def get_path(self, artist):
-        #return self._filtered_store.convert_child_path_to_path(
-        #    self._tree_store.get_path(
-        #        self._iters[artist.name]['iter']))
         return self.store.get_path(
                 self._iters[artist.name]['iter'])
                 
@@ -526,11 +511,19 @@ class ArtistsModel(GObject.Object):
         albums = SortedCollection(key=lambda album: getattr(album, 'name'))
         
         if not key:
-            key = self._key
+            key = self._sortkey['type']
         else:
-            self._key = key
+            self._sortkey['type'] = key
             
+        if reverse==None:
+            reverse=self._sortkey['order']
+        
+        self._sortkey['order'] = reverse
+            
+        print (key)
+        
         props = self.sort_keys[key]
+        print (props)
 
         def key_function(album):
             keys = [getattr(album, prop) for prop in props]
@@ -548,33 +541,28 @@ class ArtistsModel(GObject.Object):
             
             if 'album' in self._iters[artist] and len(self._iters[artist]['album']) > 1:
                 print ("sorting")
-                print (artist)
+                #print (artist)
                 # we only need to sort an artists albums if there is more than one album
                 
                 # sort all the artists albums
                 for album_iter in self._iters[artist]['album']:
-                    print ("count")
                     albums.insert(self._tree_store[album_iter][self.columns['artist_album']])
 
-                if reverse:
+                if not reverse:
                     albums = reversed(albums)
         
                 # now we iterate through the sorted artist albums.  Look and swap iters
                 # according to where they are in the tree store
-                #print (self.store.iter_children(artist_iter))
-                #path = self.get_path(artist)
-                #print (self._tree_store[artist_iter][self.columns['artist_album']].name)
-                #next_iter = self._tree_store.iter_next(artist_iter)
             
                 artist_iter = self._iters[artist]['iter']
                 next_iter = self._tree_store.iter_children(artist_iter)
                 
                 print ("begin sort")
                 for album in albums:
-                    print (album)
+                    #print (album)
                     #print (self._tree_store[next_iter][self.columns['artist_album']].name)
                     if self._tree_store[next_iter][self.columns['artist_album']] != album:
-                        print ("swap")
+                        #print ("swap")
                         self._tree_store.swap(next_iter, self._albumiters[album]['iter'])
                         next_iter = self._albumiters[album]['iter']
                     next_iter = self._tree_store.iter_next(next_iter)
@@ -1097,9 +1085,10 @@ class ArtistView(Gtk.TreeView, AbstractView):
         if album:
             artist = self.artist_manager.model.get(album.artist)
             path = self.artist_manager.model.get_path(artist)
-            self.scroll_to_cell(path, self._artist_col)
-            self.expand_row(path, False)
-            self.set_cursor(path)
+            if path:
+                self.scroll_to_cell(path, self._artist_col)
+                self.expand_row(path, False)
+                self.set_cursor(path)
             
     def do_update_toolbar(self, *args):
         self.source.toolbar_manager.set_enabled(False, ToolbarObject.SORT_BY)
