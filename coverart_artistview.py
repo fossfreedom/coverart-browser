@@ -130,6 +130,13 @@ class ArtistsModel(GObject.Object):
     columns = {'tooltip': 0, 'pixbuf': 1, 
         'artist_album': 2, 'show': 3, 
         'empty': 4, 'markup': 5, 'expander': 6}
+        
+        
+    sort_keys = {
+            'name': ('album_sort', 'album_artist_sort'),
+            'year': ('year', 'album_sort'),
+            'rating': ('rating', 'album_sort')
+            }
 
     force_lastfm_check = True
     
@@ -138,6 +145,7 @@ class ArtistsModel(GObject.Object):
 
         self.album_manager = album_manager
         self._iters = {}
+        self._key = 'name'
         self._albumiters = {}
         self._artists = SortedCollection(
             key=lambda artist: getattr(artist, 'name'))
@@ -152,7 +160,8 @@ class ArtistsModel(GObject.Object):
         self._filtered_store = self._tree_store.filter_new()
         self._filtered_store.set_visible_column(ArtistsModel.columns['show'])
         
-        self._tree_sort = Gtk.TreeModelSort(model=self._filtered_store)            
+        self._tree_sort = Gtk.TreeModelSort(model=self._filtered_store)     
+        #self._tree_sort.set_default_sort_func(lambda *unused: 0)       
         self._tree_sort.set_sort_func(0, self._compare, None)
         
         self._connect_signals()
@@ -509,9 +518,72 @@ class ArtistsModel(GObject.Object):
             self._tree_store.set_value(artist_iter, self.columns['show'], show)
             
             
-    def sort(self, reverse=False):
-        pass
+    def sort(self, key=None, reverse=False):
+        
+        print (key)
+        print (reverse)
 
+        albums = SortedCollection(key=lambda album: getattr(album, 'name'))
+        
+        if not key:
+            key = self._key
+        else:
+            self._key = key
+            
+        props = self.sort_keys[key]
+
+        def key_function(album):
+            keys = [getattr(album, prop) for prop in props]
+            return keys
+            
+        # remember the current sort then remove the sort order
+        # because sorting will only work in unsorted lists
+        sortSettings = self.store.get_sort_column_id()
+        #model.set_default_sort_func(lambda *unused: 0)
+        self.store.set_sort_column_id(-1, Gtk.SortType.ASCENDING)
+        
+        for artist in self._iters:
+            albums.clear()
+            albums.key = key_function
+            
+            if 'album' in self._iters[artist] and len(self._iters[artist]['album']) > 1:
+                print ("sorting")
+                print (artist)
+                # we only need to sort an artists albums if there is more than one album
+                
+                # sort all the artists albums
+                for album_iter in self._iters[artist]['album']:
+                    print ("count")
+                    albums.insert(self._tree_store[album_iter][self.columns['artist_album']])
+
+                if reverse:
+                    albums = reversed(albums)
+        
+                # now we iterate through the sorted artist albums.  Look and swap iters
+                # according to where they are in the tree store
+                #print (self.store.iter_children(artist_iter))
+                #path = self.get_path(artist)
+                #print (self._tree_store[artist_iter][self.columns['artist_album']].name)
+                #next_iter = self._tree_store.iter_next(artist_iter)
+            
+                artist_iter = self._iters[artist]['iter']
+                next_iter = self._tree_store.iter_children(artist_iter)
+                
+                print ("begin sort")
+                for album in albums:
+                    print (album)
+                    #print (self._tree_store[next_iter][self.columns['artist_album']].name)
+                    if self._tree_store[next_iter][self.columns['artist_album']] != album:
+                        print ("swap")
+                        self._tree_store.swap(next_iter, self._albumiters[album]['iter'])
+                        next_iter = self._albumiters[album]['iter']
+                    next_iter = self._tree_store.iter_next(next_iter)
+                    #print (self._tree_store[next_iter][self.columns['artist_album']].name)
+                print ("end sort")
+        
+        # now we have finished sorting, reapply the sort
+        self.store.set_sort_column_id(*sortSettings)
+        
 class ArtistCellRenderer(Gtk.CellRendererPixbuf):
     
     def __init__(self):
@@ -695,9 +767,10 @@ class ArtistManager(GObject.Object):
         self.loader.connect('model-load-finished', self._load_finished_callback)
         self.connect('sort', self._sort_artist)
         
-    def _sort_artist(self, widget, direction):
-        self.model.sort(reverse=direction)
-        
+    def _sort_artist(self, widget, param):
+        key, reverse = param
+        self.model.sort(key=key, reverse=reverse)
+    
     def _load_finished_callback(self, *args):
         self.cover_man.load_covers()
         

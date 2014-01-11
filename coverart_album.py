@@ -1776,8 +1776,9 @@ class AlbumManager(GObject.Object):
             self._load_finished_callback)
         self.connect('sort', self._sort_album)
         
-    def _sort_album(self, widget, direction):
-        self.model.sort(reverse=direction)
+    def _sort_album(self, widget, param):
+        key, reverse = param
+        self.model.sort(key=key, reverse=reverse)
 
     def _load_finished_callback(self, *args):
         self.artist_man.loader.load_artists()

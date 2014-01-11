@@ -418,7 +418,7 @@ class SortPopupController(OptionsController):
         settings = gs.get_setting(gs.Path.PLUGIN)
         settings[gs.PluginKey.SORT_BY] = sort
 
-        self._viewmgr.current_view.get_default_manager().emit('sort', False)
+        self._viewmgr.current_view.get_default_manager().emit('sort', (sort, None))
 
     def get_current_image(self):
         sort = self.values[self.current_key]
@@ -466,7 +466,7 @@ class ArtistSortPopupController(OptionsController):
         settings = gs.get_setting(gs.Path.PLUGIN)
         settings[gs.PluginKey.SORT_BY_ARTIST] = sort
 
-        self._viewmgr.current_view.get_default_manager().emit('sort', False)
+        self._viewmgr.current_view.get_default_manager().emit('sort', (sort, None))
 
     def get_current_image(self):
         sort = self.values[self.current_key]
@@ -676,7 +676,7 @@ class SortOrderToggleController(OptionsController):
 
         if not sort_order or\
             sort_order != self.settings[self.key]:
-            self._viewmgr.current_view.get_default_manager().emit('sort', True) #(reverse=True)
+            self._viewmgr.current_view.get_default_manager().emit('sort', (None, True)) #(reverse=True)
 
         self.settings[self.key] = sort_order
 
