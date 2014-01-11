@@ -7,6 +7,7 @@
         <genre xml:lang="bg" spritesheet="genre" name="rock">рок</genre>
         <genre xml:lang="bs" spritesheet="genre" name="rock">rock</genre>
         <genre xml:lang="ca" spritesheet="genre" name="rock">rock</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="rock">rock</genre>
         <genre xml:lang="de" spritesheet="genre" name="rock">Rock</genre>
         <genre xml:lang="el" spritesheet="genre" name="rock">ροκ</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="rock">rock</genre>
@@ -33,6 +34,7 @@
         <genre xml:lang="bg" spritesheet="genre" name="country">кънтри</genre>
         <genre xml:lang="bs" spritesheet="genre" name="country">country</genre>
         <genre xml:lang="ca" spritesheet="genre" name="country">country</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="country">country</genre>
         <genre xml:lang="de" spritesheet="genre" name="country">Land</genre>
         <genre xml:lang="el" spritesheet="genre" name="country">κάντρι</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="country">country</genre>
@@ -57,6 +59,7 @@
         <genre xml:lang="bg" spritesheet="genre" name="pop">поп</genre>
         <genre xml:lang="bs" spritesheet="genre" name="pop">pop</genre>
         <genre xml:lang="ca" spritesheet="genre" name="pop">pop</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="pop">pop</genre>
         <genre xml:lang="de" spritesheet="genre" name="pop">Pop</genre>
         <genre xml:lang="el" spritesheet="genre" name="pop">ποπ</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="pop">pop</genre>
@@ -82,6 +85,7 @@
         <genre xml:lang="bg" spritesheet="genre" name="classical">класическа</genre>
         <genre xml:lang="bs" spritesheet="genre" name="classical">classical</genre>
         <genre xml:lang="ca" spritesheet="genre" name="classical">Clàssica</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="classical">classical</genre>
         <genre xml:lang="de" spritesheet="genre" name="classical">Klassik</genre>
         <genre xml:lang="el" spritesheet="genre" name="classical">κλασική</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="classical">classical</genre>
@@ -106,6 +110,7 @@
         <genre xml:lang="bg" spritesheet="genre" name="world">световна</genre>
         <genre xml:lang="bs" spritesheet="genre" name="world">world</genre>
         <genre xml:lang="ca" spritesheet="genre" name="world">món</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="world">world</genre>
         <genre xml:lang="de" spritesheet="genre" name="world">Welt</genre>
         <genre xml:lang="el" spritesheet="genre" name="world">διεθνής</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="world">world</genre>
@@ -129,6 +134,7 @@
         <genre xml:lang="az" spritesheet="genre" name="bluegrass">bluegrass</genre>
         <genre xml:lang="bs" spritesheet="genre" name="bluegrass">bluegrass</genre>
         <genre xml:lang="ca" spritesheet="genre" name="bluegrass">bluegrass</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="bluegrass">bluegrass</genre>
         <genre xml:lang="de" spritesheet="genre" name="bluegrass">Bluegrass</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="bluegrass">bluegrass</genre>
         <genre xml:lang="en_US" spritesheet="genre" name="bluegrass">bluegrass</genre>
@@ -151,6 +157,7 @@
         <genre xml:lang="bg" spritesheet="genre" name="oldies">ретро</genre>
         <genre xml:lang="bs" spritesheet="genre" name="oldies">oldies</genre>
         <genre xml:lang="ca" spritesheet="genre" name="oldies">antigues</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="oldies">oldies</genre>
         <genre xml:lang="de" spritesheet="genre" name="oldies">Oldies</genre>
         <genre xml:lang="el" spritesheet="genre" name="oldies">παλιά</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="oldies">oldies</genre>
@@ -175,6 +182,7 @@
         <genre xml:lang="bg" spritesheet="genre" name="holiday">празнична</genre>
         <genre xml:lang="bs" spritesheet="genre" name="holiday">holiday</genre>
         <genre xml:lang="ca" spritesheet="genre" name="holiday">festa</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="holiday">prázdniny</genre>
         <genre xml:lang="de" spritesheet="genre" name="holiday">Ferien</genre>
         <genre xml:lang="el" spritesheet="genre" name="holiday">διακοπών</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="holiday">holiday</genre>
@@ -199,6 +207,7 @@
         <genre xml:lang="bg" spritesheet="genre" name="comedy">комедийна</genre>
         <genre xml:lang="bs" spritesheet="genre" name="comedy">komedija</genre>
         <genre xml:lang="ca" spritesheet="genre" name="comedy">comèdia</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="comedy">komedie</genre>
         <genre xml:lang="de" spritesheet="genre" name="comedy">Comedy</genre>
         <genre xml:lang="el" spritesheet="genre" name="comedy">κωμικά</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="comedy">comedy</genre>
@@ -222,6 +231,7 @@
         <genre xml:lang="az" spritesheet="genre" name="spoken">danışıq</genre>
         <genre xml:lang="bs" spritesheet="genre" name="spoken">govor</genre>
         <genre xml:lang="ca" spritesheet="genre" name="spoken">parlat</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="spoken">mluvené slovo</genre>
         <genre xml:lang="de" spritesheet="genre" name="spoken">gesprochen</genre>
         <genre xml:lang="el" spritesheet="genre" name="spoken">ομιλίες</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="spoken">spoken</genre>
@@ -246,6 +256,7 @@
         <genre xml:lang="bg" spritesheet="genre" name="jazz">джаз</genre>
         <genre xml:lang="bs" spritesheet="genre" name="jazz">jazz</genre>
         <genre xml:lang="ca" spritesheet="genre" name="jazz">jazz</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="jazz">jazz</genre>
         <genre xml:lang="de" spritesheet="genre" name="jazz">Jazz</genre>
         <genre xml:lang="el" spritesheet="genre" name="jazz">τζαζ</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="jazz">jazz</genre>
@@ -271,6 +282,7 @@
         <genre xml:lang="bg" spritesheet="genre" name="blues">блус</genre>
         <genre xml:lang="bs" spritesheet="genre" name="blues">blues</genre>
         <genre xml:lang="ca" spritesheet="genre" name="blues">blues</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="blues">blues</genre>
         <genre xml:lang="de" spritesheet="genre" name="blues">Blues</genre>
         <genre xml:lang="el" spritesheet="genre" name="blues">μπλουζ</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="blues">blues</genre>
@@ -296,6 +308,7 @@
         <genre xml:lang="bg" spritesheet="genre" name="metal">метал</genre>
         <genre xml:lang="bs" spritesheet="genre" name="metal">metal</genre>
         <genre xml:lang="ca" spritesheet="genre" name="metal">metal</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="metal">metal</genre>
         <genre xml:lang="de" spritesheet="genre" name="metal">Metall</genre>
         <genre xml:lang="el" spritesheet="genre" name="metal">μέταλ</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="metal">metal</genre>
@@ -320,6 +333,7 @@
         <genre xml:lang="bg" spritesheet="genre" name="karaoke">метал</genre>
         <genre xml:lang="bs" spritesheet="genre" name="karaoke">karaoke</genre>
         <genre xml:lang="ca" spritesheet="genre" name="karaoke">karaoke</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="karaoke">karaoke</genre>
         <genre xml:lang="de" spritesheet="genre" name="karaoke">Karaoke</genre>
         <genre xml:lang="el" spritesheet="genre" name="karaoke">καραόκι</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="karaoke">karaoke</genre>
@@ -345,6 +359,7 @@
         <genre xml:lang="bg" spritesheet="genre" name="rap">рап</genre>
         <genre xml:lang="bs" spritesheet="genre" name="rap">rap</genre>
         <genre xml:lang="ca" spritesheet="genre" name="rap">rap</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="rap">rap</genre>
         <genre xml:lang="de" spritesheet="genre" name="rap">Rap</genre>
         <genre xml:lang="el" spritesheet="genre" name="rap">ραπ</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="rap">rap</genre>
@@ -369,6 +384,7 @@
         <genre xml:lang="az" spritesheet="genre" name="ragtime">ragtime</genre>
         <genre xml:lang="bs" spritesheet="genre" name="ragtime">ragtime</genre>
         <genre xml:lang="ca" spritesheet="genre" name="ragtime">ragtime</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="ragtime">ragtime</genre>
         <genre xml:lang="de" spritesheet="genre" name="ragtime">Ragtime</genre>
         <genre xml:lang="el" spritesheet="genre" name="ragtime">ραγκτάιμ</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="ragtime">ragtime</genre>
@@ -391,6 +407,7 @@
         <genre xml:lang="az" spritesheet="genre" name="musical">nyuzikl</genre>
         <genre xml:lang="bs" spritesheet="genre" name="musical">musical</genre>
         <genre xml:lang="ca" spritesheet="genre" name="musical">musical</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="musical">muzikál</genre>
         <genre xml:lang="de" spritesheet="genre" name="musical">Musical</genre>
         <genre xml:lang="el" spritesheet="genre" name="musical">μιούζικαλ</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="musical">musical</genre>
@@ -415,6 +432,7 @@
         <genre xml:lang="bg" spritesheet="genre" name="dance">денс</genre>
         <genre xml:lang="bs" spritesheet="genre" name="dance">dance</genre>
         <genre xml:lang="ca" spritesheet="genre" name="dance">dance</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="dance">taneční</genre>
         <genre xml:lang="de" spritesheet="genre" name="dance">Dance</genre>
         <genre xml:lang="el" spritesheet="genre" name="dance">χορειτικά</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="dance">dance</genre>
@@ -439,6 +457,7 @@
         <genre xml:lang="bg" spritesheet="genre" name="reggae">реге</genre>
         <genre xml:lang="bs" spritesheet="genre" name="reggae">reggae</genre>
         <genre xml:lang="ca" spritesheet="genre" name="reggae">reggae</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="reggae">reggae</genre>
         <genre xml:lang="de" spritesheet="genre" name="reggae">Reggae</genre>
         <genre xml:lang="el" spritesheet="genre" name="reggae">ρέγγε</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="reggae">reggae</genre>
@@ -488,6 +507,7 @@
         <genre xml:lang="bg" spritesheet="genre" name="soundtrack">саундтрак</genre>
         <genre xml:lang="bs" spritesheet="genre" name="soundtrack">muzika iz filma</genre>
         <genre xml:lang="ca" spritesheet="genre" name="soundtrack">banda sonora</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="soundtrack">soundtrack</genre>
         <genre xml:lang="de" spritesheet="genre" name="soundtrack">Soundtrack</genre>
         <genre xml:lang="el" spritesheet="genre" name="soundtrack">soundtrack</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="soundtrack">soundtrack</genre>
@@ -513,6 +533,7 @@
         <genre xml:lang="bg" spritesheet="genre" name="latin">латино</genre>
         <genre xml:lang="bs" spritesheet="genre" name="latin">latin</genre>
         <genre xml:lang="ca" spritesheet="genre" name="latin">latin</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="latin">latin</genre>
         <genre xml:lang="de" spritesheet="genre" name="latin">Latin</genre>
         <genre xml:lang="el" spritesheet="genre" name="latin">λατιν</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="latin">latin</genre>
@@ -536,6 +557,7 @@
         <genre xml:lang="az" spritesheet="genre" name="alternative">alternativ</genre>
         <genre xml:lang="bs" spritesheet="genre" name="alternative">alternative</genre>
         <genre xml:lang="ca" spritesheet="genre" name="alternative">alternative</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="alternative">alternativní</genre>
         <genre xml:lang="de" spritesheet="genre" name="alternative">Alternative</genre>
         <genre xml:lang="el" spritesheet="genre" name="alternative">εναλλακτική</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="alternative">alternative</genre>
@@ -560,6 +582,7 @@
         <genre xml:lang="bg" spritesheet="genre" name="disco">диско</genre>
         <genre xml:lang="bs" spritesheet="genre" name="disco">disco</genre>
         <genre xml:lang="ca" spritesheet="genre" name="disco">disco</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="disco">disco</genre>
         <genre xml:lang="de" spritesheet="genre" name="disco">Disco</genre>
         <genre xml:lang="el" spritesheet="genre" name="disco">ντίσκο</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="disco">disco</genre>
@@ -585,6 +608,7 @@
         <genre xml:lang="bg" spritesheet="genre" name="folk">фолк</genre>
         <genre xml:lang="bs" spritesheet="genre" name="folk">folk</genre>
         <genre xml:lang="ca" spritesheet="genre" name="folk">folk</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="folk">folk</genre>
         <genre xml:lang="de" spritesheet="genre" name="folk">Folk</genre>
         <genre xml:lang="el" spritesheet="genre" name="folk">δημοτικά</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="folk">folk</genre>
@@ -608,6 +632,7 @@
         <genre xml:lang="az" spritesheet="genre" name="gospel">gospel</genre>
         <genre xml:lang="bs" spritesheet="genre" name="gospel">gospel</genre>
         <genre xml:lang="ca" spritesheet="genre" name="gospel">gospel</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="gospel">gospel</genre>
         <genre xml:lang="de" spritesheet="genre" name="gospel">Gospel</genre>
         <genre xml:lang="el" spritesheet="genre" name="gospel">γκόσπελ</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="gospel">gospel</genre>
@@ -633,6 +658,7 @@
         <genre xml:lang="bg" spritesheet="genre" name="experimental">експериментална</genre>
         <genre xml:lang="bs" spritesheet="genre" name="experimental">experimental</genre>
         <genre xml:lang="ca" spritesheet="genre" name="experimental">experimental</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="experimental">experimentální</genre>
         <genre xml:lang="de" spritesheet="genre" name="experimental">Experimentell</genre>
         <genre xml:lang="el" spritesheet="genre" name="experimental">πειραματική</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="experimental">experimental</genre>
@@ -656,6 +682,7 @@
         <genre xml:lang="az" spritesheet="genre" name="new age">yeni əsr</genre>
         <genre xml:lang="bs" spritesheet="genre" name="new age">new age</genre>
         <genre xml:lang="ca" spritesheet="genre" name="new age">new age</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="new age">new age</genre>
         <genre xml:lang="de" spritesheet="genre" name="new age">New Age</genre>
         <genre xml:lang="el" spritesheet="genre" name="new age">νέας γενιάς</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="new age">new age</genre>
@@ -680,6 +707,7 @@
         <genre xml:lang="bg" spritesheet="genre" name="opera">опера</genre>
         <genre xml:lang="bs" spritesheet="genre" name="opera">opera</genre>
         <genre xml:lang="ca" spritesheet="genre" name="opera">òpera</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="opera">opera</genre>
         <genre xml:lang="de" spritesheet="genre" name="opera">Oper</genre>
         <genre xml:lang="el" spritesheet="genre" name="opera">όπερα</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="opera">opera</genre>
@@ -705,6 +733,7 @@
         <genre xml:lang="bg" spritesheet="genre" name="anime">аниме</genre>
         <genre xml:lang="bs" spritesheet="genre" name="anime">anime</genre>
         <genre xml:lang="ca" spritesheet="genre" name="anime">anime</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="anime">anime</genre>
         <genre xml:lang="de" spritesheet="genre" name="anime">Anime</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="anime">anime</genre>
         <genre xml:lang="en_US" spritesheet="genre" name="anime">anime</genre>
@@ -728,6 +757,7 @@
         <genre xml:lang="az" spritesheet="genre" name="soul">könül</genre>
         <genre xml:lang="bs" spritesheet="genre" name="soul">soul</genre>
         <genre xml:lang="ca" spritesheet="genre" name="soul">soul</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="soul">soul</genre>
         <genre xml:lang="de" spritesheet="genre" name="soul">Soul</genre>
         <genre xml:lang="el" spritesheet="genre" name="soul">soul</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="soul">soul</genre>
@@ -752,6 +782,7 @@
         <genre xml:lang="az" spritesheet="genre" name="workout">iş gedir</genre>
         <genre xml:lang="bs" spritesheet="genre" name="workout">vježbanje</genre>
         <genre xml:lang="ca" spritesheet="genre" name="workout">workout</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="workout">workout</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="workout">workout</genre>
         <genre xml:lang="en_US" spritesheet="genre" name="workout">workout</genre>
         <genre xml:lang="es" spritesheet="genre" name="workout">ejercicio</genre>
@@ -795,6 +826,7 @@
         <genre xml:lang="bg" spritesheet="genre" name="hip-hop">хип-хоп</genre>
         <genre xml:lang="bs" spritesheet="genre" name="hip-hop">hip-hop</genre>
         <genre xml:lang="ca" spritesheet="genre" name="hip-hop">hip-hop</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="hip-hop">hip-hop</genre>
         <genre xml:lang="de" spritesheet="genre" name="hip-hop">Hip-Hop</genre>
         <genre xml:lang="el" spritesheet="genre" name="hip-hop">χιπ-χοπ</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="hip-hop">hip-hop</genre>
@@ -820,6 +852,7 @@
         <genre xml:lang="bg" spritesheet="genre" name="children">детска</genre>
         <genre xml:lang="bs" spritesheet="genre" name="children">dječije</genre>
         <genre xml:lang="ca" spritesheet="genre" name="children">xiquets</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="children">pro děti</genre>
         <genre xml:lang="de" spritesheet="genre" name="children">Kinder</genre>
         <genre xml:lang="el" spritesheet="genre" name="children">παιδική</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="children">children</genre>
