@@ -637,8 +637,8 @@ AlbumFilters.keys = {
 
 
 sort_keys = {
-    'name': ('album_sort', 'album_artist_sort'),
-    'artist': ('album_artist_sort', 'album_sort'),
+    'name': ('album_sort', 'album_sort'),
+    'artist': ('album_artist_sort', 'album_artist_sort'),
     'year': ('year', 'album_sort'),
     'rating': ('rating', 'album_sort'),
 }
