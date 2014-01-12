@@ -483,6 +483,7 @@
         <genre xml:lang="bg" spritesheet="genre" name="electronic">електронна</genre>
         <genre xml:lang="bs" spritesheet="genre" name="electronic">electronic</genre>
         <genre xml:lang="ca" spritesheet="genre" name="electronic">electrònica</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="electronic">elektronická</genre>
         <genre xml:lang="de" spritesheet="genre" name="electronic">Electronic</genre>
         <genre xml:lang="el" spritesheet="genre" name="electronic">ηλεκτρονική</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="electronic">electronic</genre>
@@ -804,6 +805,7 @@
         <genre xml:lang="bg" spritesheet="genre" name="easy listening">лека музика</genre>
         <genre xml:lang="bs" spritesheet="genre" name="easy listening">odmor</genre>
         <genre xml:lang="ca" spritesheet="genre" name="easy listening">easy listening</genre>
+        <genre xml:lang="cs" spritesheet="genre" name="easy listening">nenáročný poslech</genre>
         <genre xml:lang="de" spritesheet="genre" name="easy listening">Easy-Listening</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="easy listening">easy listening</genre>
         <genre xml:lang="en_US" spritesheet="genre" name="easy listening">easy listening</genre>

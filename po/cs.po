@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-05 16:04+0000\n"
-"PO-Revision-Date: 2014-01-11 16:22+0000\n"
+"PO-Revision-Date: 2014-01-12 12:17+0000\n"
 "Last-Translator: Tadeáš Pařík <tadeas.parik@gmail.com>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-01-11 23:16+0000\n"
+"X-Launchpad-Export-Date: 2014-01-12 12:32+0000\n"
 "X-Generator: Launchpad (build 16890)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
@@ -198,6 +198,8 @@ msgid ""
 "Number of random\n"
 "albums to play"
 msgstr ""
+"Počet náhodných\n"
+"alb k přehrání"
 
 #: tmp/coverart_browser_prefs.ui.h:18
 msgid "Level above which is regarded as being a favourite track or album"
@@ -209,7 +211,7 @@ msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:20
 msgid "General"
-msgstr ""
+msgstr "Obecné"
 
 #: tmp/coverart_browser_prefs.ui.h:21
 msgid "Album Information"
@@ -229,7 +231,7 @@ msgstr "Velikost fontu:"
 
 #: tmp/coverart_browser_prefs.ui.h:25
 msgid "Ellipsize albums names"
-msgstr ""
+msgstr "Eliptický název alba"
 
 #: tmp/coverart_browser_prefs.ui.h:26
 msgid ""
@@ -255,7 +257,7 @@ msgstr "Zobrazit informace o albu na přebalu"
 
 #: tmp/coverart_browser_prefs.ui.h:31
 msgid "Cover Appearance"
-msgstr ""
+msgstr "Vzhled přebalu"
 
 #: tmp/coverart_browser_prefs.ui.h:32
 msgid "Drop shadow"
@@ -295,15 +297,15 @@ msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:41
 msgid "Spacing between columns and rows"
-msgstr ""
+msgstr "Mezery mezi sloupci a řádky"
 
 #: tmp/coverart_browser_prefs.ui.h:42
 msgid "Padding"
-msgstr ""
+msgstr "Odsazení"
 
 #: tmp/coverart_browser_prefs.ui.h:43
 msgid "Spacing"
-msgstr ""
+msgstr "Mezery"
 
 #. . TRANSLATORS: This is the icon-grid view that the user sees
 #. . TRANSLATORS: Please try to keep the translation to less than 8 characters
@@ -326,19 +328,19 @@ msgstr "Šířka (px):"
 #: coverart_browser.py:178
 #, no-c-format
 msgid "Scale by %:"
-msgstr ""
+msgstr "Měřítko %:"
 
 #: tmp/coverart_browser_prefs.ui.h:49
 msgid "Hide Caption"
-msgstr ""
+msgstr "Skrýt titulek"
 
 #: tmp/coverart_browser_prefs.ui.h:50
 msgid "Maximum covers to display:"
-msgstr ""
+msgstr "Maximální počet přebalů k zobrazení:"
 
 #: tmp/coverart_browser_prefs.ui.h:51
 msgid "Background Colour"
-msgstr ""
+msgstr "Barva pozadí"
 
 #: tmp/coverart_browser_prefs.ui.h:52
 msgid "White"
@@ -359,7 +361,7 @@ msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:55
 msgid "Where the toolbar should be positioned"
-msgstr ""
+msgstr "Kde má být umístěn panel nástrojů"
 
 #: tmp/coverart_browser_prefs.ui.h:56
 msgid "Position"
@@ -456,11 +458,11 @@ msgstr "Zařadit skladbu do fronty"
 
 #: tmp/coverart_exportembed.ui.h:1
 msgid "Choose folder to save tracks:"
-msgstr ""
+msgstr "Vybrat adresář pro uložení stop:"
 
 #: tmp/coverart_exportembed.ui.h:2 tmp/coverart_exportembed.ui.h:3
 msgid "Save tracks within folder using album name"
-msgstr ""
+msgstr "Uložit stopy do adresáře se jménem alba"
 
 #: tmp/coverart_exportembed.ui.h:3 tmp/coverart_exportembed.ui.h:4
 msgid "Open embedded track folder in file-manager"
@@ -517,7 +519,7 @@ msgstr "Všechny žánry"
 #: tmp/coverart_leftsidebar.ui.h:3 tmp/coverart_rightsidebar.ui.h:3
 #: tmp/coverart_topbar.ui.h:2 coverart_controllers.py:527
 msgid "All Decades"
-msgstr ""
+msgstr "Všechny dekády"
 
 #. This is the different view modes e.g. Music Library, CoverFlow, Tiles or Album Artist
 #: tmp/coverart_leftsidebar.ui.h:4 tmp/coverart_rightsidebar.ui.h:4
@@ -603,7 +605,7 @@ msgstr "reggae"
 
 #: tmp/popups.xml.in.h:20
 msgid "electronic"
-msgstr ""
+msgstr "elektronická"
 
 #: tmp/popups.xml.in.h:21
 msgid "soundtrack"
@@ -655,7 +657,7 @@ msgstr "workout"
 
 #: tmp/popups.xml.in.h:33
 msgid "easy listening"
-msgstr ""
+msgstr "nenáročný poslech"
 
 #: tmp/popups.xml.in.h:34
 msgid "hip-hop"
@@ -714,7 +716,7 @@ msgstr ""
 #. define .plugin text strings used for translation
 #: coverart_browser.py:167 coverart_browser.py:168
 msgid "CoverArt Browser"
-msgstr ""
+msgstr "Prohlížeč CoverArt"
 
 #: coverart_browser.py:168 coverart_browser.py:169
 msgid "Browse and play your albums through their covers"
@@ -750,6 +752,8 @@ msgid ""
 "Please install and activate the latest version of the Coverart Search "
 "Providers plugin"
 msgstr ""
+"Nainstalujte a aktivujte poslední verzi zásuvného modulu CoverArt "
+"vyhledávání poskytovatelů"
 
 #. . TRANSLATORS - the number of albums that have been selected/highlighted
 #: coverart_browser_source.py:909 coverart_browser_source.py:904
@@ -863,26 +867,26 @@ msgstr "Hledat ve všech polích"
 
 #: coverart_controllers.py:648
 msgid "Search album artists"
-msgstr ""
+msgstr "Vyhledat alba umělců"
 
 #: coverart_controllers.py:649
 msgid "Search track artists"
-msgstr ""
+msgstr "Vyhledat stopy umělců"
 
 #: coverart_controllers.py:650
 msgid "Search albums"
-msgstr ""
+msgstr "Hledat alba"
 
 #: coverart_controllers.py:651
 msgid "Search tracks"
-msgstr ""
+msgstr "Hledat stopy"
 
 #. TRANSLATORS: for example 'Number of covers limited to 150'
 #: coverart_coverflowview.py:197
 #, python-format
 msgid "Number of covers limited to %d"
-msgstr ""
+msgstr "Počet přebalů omezen na %d"
 
 #: coverart_album.py:1454
 msgid "Enable LastFM plugin and log in first"
-msgstr ""
+msgstr "Povolit zásuvný modul LastFM a přihlásit se"
