@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-05 16:04+0000\n"
+"POT-Creation-Date: 2014-01-13 21:47+0000\n"
 "PO-Revision-Date: 2013-08-29 14:50+0000\n"
 "Last-Translator: Michal Lelek <kozodoj@azet.sk>\n"
 "Language-Team: Slovak <sk@li.org>\n"
@@ -33,6 +33,7 @@ msgstr "Mód hľadania"
 
 #: tmpl/albumartsearch-tmpl.html:191 coverart_browser_source.py:314
 #: coverart_browser_source.py:989 coverart_browser_source.py:986
+#: coverart_browser_source.py:309 coverart_browser_source.py:988
 msgid "Artist"
 msgstr "Interpret"
 
@@ -126,7 +127,7 @@ msgid "Export and embed coverart"
 msgstr ""
 
 #: tmp/coverart_browser_pop_rb3.ui.h:7 tmp/coverart_entryview_pop_rb3.ui.h:5
-#: coverart_controllers.py:509
+#: coverart_controllers.py:509 coverart_controllers.py:564
 msgid "Properties"
 msgstr "Vlastnosti"
 
@@ -356,7 +357,7 @@ msgstr "Čierna"
 #. . TRANSLATORS: This is the cover-flow view the user sees - they can swipe album covers from side-to-side
 #: tmp/coverart_browser_prefs.ui.h:54 coverart_browser.py:176
 #: coverart_browser_source.py:988 coverart_browser.py:175
-#: coverart_browser_source.py:985
+#: coverart_browser_source.py:985 coverart_browser_source.py:986
 msgid "Flow"
 msgstr ""
 
@@ -441,7 +442,7 @@ msgid "Tracks & Covers"
 msgstr ""
 
 #: tmp/coverart_browser.ui.h:2 coverart_artistview.py:749
-#: coverart_artistview.py:753
+#: coverart_artistview.py:753 coverart_artistview.py:824
 msgid "Track Artist"
 msgstr "Interpret skladby"
 
@@ -498,7 +499,9 @@ msgstr ""
 msgid "size in pixels"
 msgstr "Veľkosť v pixeloch"
 
+#. size in pixels
 #: tmp/coverart_exportembed.ui.h:11 tmp/coverart_exportembed.ui.h:12
+#: tmp/coverart_exportembed.ui.h:13
 msgid "(px)"
 msgstr ""
 
@@ -520,6 +523,7 @@ msgstr "Všetky žánre"
 
 #: tmp/coverart_leftsidebar.ui.h:3 tmp/coverart_rightsidebar.ui.h:3
 #: tmp/coverart_topbar.ui.h:2 coverart_controllers.py:527
+#: coverart_controllers.py:582
 msgid "All Decades"
 msgstr ""
 
@@ -678,38 +682,45 @@ msgstr "%s a %s"
 
 #: coverart_artistview.py:388 coverart_browser_source.py:913
 #: coverart_artistview.py:391 coverart_browser_source.py:908
+#: coverart_artistview.py:383
 msgid " with 1 track"
 msgstr ""
 
 #: coverart_artistview.py:390 coverart_browser_source.py:915
 #: coverart_artistview.py:393 coverart_browser_source.py:910
+#: coverart_artistview.py:385
 #, python-format
 msgid " with %d tracks"
 msgstr ""
 
 #: coverart_artistview.py:396 coverart_browser_source.py:919
 #: coverart_artistview.py:399 coverart_browser_source.py:914
+#: coverart_artistview.py:391
 msgid " and a duration of 1 minute"
 msgstr ""
 
 #: coverart_artistview.py:398 coverart_browser_source.py:921
 #: coverart_artistview.py:401 coverart_browser_source.py:916
+#: coverart_artistview.py:393
 #, python-format
 msgid " and a duration of %d minutes"
 msgstr ""
 
+#. active_object=self.artist_manager.model.store[treepath][self.artist_manager.model.columns['artist_album']]
 #: coverart_artistview.py:745 coverart_artistview.py:821
 #: coverart_browser_source.py:289 coverart_artistview.py:749
-#: coverart_artistview.py:825
+#: coverart_artistview.py:825 coverart_artistview.py:820
+#: coverart_artistview.py:910 coverart_browser_source.py:284
 msgid "Covers"
 msgstr "Obaly albumov"
 
 #: coverart_browser_prefs.py:248 coverart_controllers.py:450
+#: coverart_browser_prefs.py:250 coverart_controllers.py:505
 msgid "Browser Preferences"
 msgstr "Predvoľby prehliadania"
 
 #. . TRANSLATORS: Do not translate this string.
-#: coverart_browser_prefs.py:287
+#: coverart_browser_prefs.py:287 coverart_browser_prefs.py:289
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -761,7 +772,7 @@ msgstr ""
 msgid "%d selected albums"
 msgstr "%d vybratých albumov"
 
-#: coverart_controllers.py:389
+#: coverart_controllers.py:389 coverart_controllers.py:438
 msgid "Sort by album name"
 msgstr "Zoradiť podľa názvu albumu"
 
@@ -769,116 +780,119 @@ msgstr "Zoradiť podľa názvu albumu"
 msgid "Sort by album artist"
 msgstr "Zoradiť podlľa interpretov"
 
-#: coverart_controllers.py:391
+#: coverart_controllers.py:391 coverart_controllers.py:439
 msgid "Sort by year"
 msgstr "Zoradiť podľa roku"
 
-#: coverart_controllers.py:392
+#: coverart_controllers.py:392 coverart_controllers.py:440
 msgid "Sort by rating"
 msgstr "Zoradiť podľa hodnotenia"
 
-#: coverart_controllers.py:442
+#: coverart_controllers.py:442 coverart_controllers.py:497
 msgid "Download all covers"
 msgstr "Stiahni všetky obaly albumov"
 
-#: coverart_controllers.py:443
+#: coverart_controllers.py:443 coverart_controllers.py:498
 msgid "Play random album"
 msgstr ""
 
 #: coverart_controllers.py:445 coverart_controllers.py:495
+#: coverart_controllers.py:500 coverart_controllers.py:550
 msgid "Quick artist filter"
 msgstr "Rýchly filter interpretov"
 
 #: coverart_controllers.py:447 coverart_controllers.py:499
+#: coverart_controllers.py:502 coverart_controllers.py:554
 #, fuzzy
 msgid "Use favourites only"
 msgstr "Pridaj obľúbené do playlistu"
 
-#: coverart_controllers.py:451
+#: coverart_controllers.py:451 coverart_controllers.py:506
 msgid "Search Preferences"
 msgstr "Predvoľby vyhľadávania"
 
 #. '20s' as in the decade 2010
 #: coverart_controllers.py:529 coverart_controllers.py:555
+#: coverart_controllers.py:584 coverart_controllers.py:610
 msgid "20s"
 msgstr "20s"
 
 #. '10s' as in the decade 2010
-#: coverart_controllers.py:531
+#: coverart_controllers.py:531 coverart_controllers.py:586
 msgid "10s"
 msgstr "10s"
 
 #. '00s' as in the decade 2000
-#: coverart_controllers.py:533
+#: coverart_controllers.py:533 coverart_controllers.py:588
 msgid "00s"
 msgstr "00s"
 
 #. '90s' as in the decade 1990
-#: coverart_controllers.py:535
+#: coverart_controllers.py:535 coverart_controllers.py:590
 msgid "90s"
 msgstr "90s"
 
 #. '80s' as in the decade 1980
-#: coverart_controllers.py:537
+#: coverart_controllers.py:537 coverart_controllers.py:592
 msgid "80s"
 msgstr "80s"
 
 #. '70s' as in the decade 1970
-#: coverart_controllers.py:539
+#: coverart_controllers.py:539 coverart_controllers.py:594
 msgid "70s"
 msgstr "70s"
 
 #. '60s' as in the decade 1960
-#: coverart_controllers.py:541
+#: coverart_controllers.py:541 coverart_controllers.py:596
 msgid "60s"
 msgstr "60s"
 
 #. '50s' as in the decade 1950
-#: coverart_controllers.py:543
+#: coverart_controllers.py:543 coverart_controllers.py:598
 msgid "50s"
 msgstr "50s"
 
 #. '40s' as in the decade 1940
-#: coverart_controllers.py:545
+#: coverart_controllers.py:545 coverart_controllers.py:600
 msgid "40s"
 msgstr "40s"
 
 #. '30s' as in the decade 1930
-#: coverart_controllers.py:547
+#: coverart_controllers.py:547 coverart_controllers.py:602
 msgid "30s"
 msgstr "30s"
 
 #. 'Older' as in 'older than the year 1930'
-#: coverart_controllers.py:549
+#: coverart_controllers.py:549 coverart_controllers.py:604
 msgid "Older"
 msgstr "Older"
 
 #. options
-#: coverart_controllers.py:594
+#: coverart_controllers.py:594 coverart_controllers.py:649
 msgid "Sort in descending order"
 msgstr "Triediť v zostupnom poradí"
 
-#: coverart_controllers.py:595
+#: coverart_controllers.py:595 coverart_controllers.py:650
 msgid "Sort in ascending order"
 msgstr "Triediť vo vzostupnom poradí"
 
-#: coverart_controllers.py:647
+#: coverart_controllers.py:647 coverart_controllers.py:714
 msgid "Search all fields"
 msgstr "Hľadať vo všetkých poliach"
 
-#: coverart_controllers.py:648
+#: coverart_controllers.py:648 coverart_controllers.py:715
 msgid "Search album artists"
 msgstr ""
 
-#: coverart_controllers.py:649
+#: coverart_controllers.py:649 coverart_controllers.py:716
 msgid "Search track artists"
 msgstr ""
 
-#: coverart_controllers.py:650
+#: coverart_controllers.py:650 coverart_controllers.py:717
 msgid "Search albums"
 msgstr "Hľadať v albumoch"
 
-#: coverart_controllers.py:651
+#: coverart_controllers.py:651 coverart_controllers.py:718
 msgid "Search tracks"
 msgstr "Hľadať v skladbách"
 

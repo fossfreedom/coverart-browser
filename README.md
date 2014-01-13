@@ -30,6 +30,7 @@ Browse your coverart albums in Rhythmbox v2.96 and later
  - artists view: hovering the mouse pointer over the artist cover displays a tooltip of a larger version of the cover
  - artists view: supports sorting of album-artist via clicking on its column header - ascending/descending/unsorted.
  - artists view: right click of albums displays the same right click menu as in tile view or coverflow view
+ - artists view: independent sort toolbar buttons - for example show albums for an artist by ascending year whilst in the tile view show albums by name
  - new look (optional) to display album information within (on top of) the cover rather than below (beneath) the cover
  - new lighter icon-theme from the brilliant designer - jrbastien
  - new Rhythmbox 3 coverart source icon - again from jrbastien
