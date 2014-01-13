@@ -1741,6 +1741,12 @@ class AlbumManager(GObject.Object):
 
     # properties
     progress = GObject.property(type=float, default=0)
+    
+    # signals
+    __gsignals__ = {
+        'sort': (GObject.SIGNAL_RUN_LAST, None, (object,))
+        }
+    
 
     def __init__(self, plugin, current_view):
         super(AlbumManager, self).__init__()
@@ -1768,6 +1774,11 @@ class AlbumManager(GObject.Object):
         # connect signal to the loader so it shows the albums when it finishes
         self._load_finished_id = self.loader.connect('model-load-finished',
             self._load_finished_callback)
+        self.connect('sort', self._sort_album)
+        
+    def _sort_album(self, widget, param):
+        key, reverse = param
+        self.model.sort(key=key, reverse=reverse)
 
     def _load_finished_callback(self, *args):
         self.artist_man.loader.load_artists()

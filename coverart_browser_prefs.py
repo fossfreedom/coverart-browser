@@ -142,6 +142,8 @@ class GSetting:
                 PANED_POSITION='paned-position',
                 SORT_BY='sort-by',
                 SORT_ORDER='sort-order',
+                SORT_BY_ARTIST='sort-by-artist',
+                SORT_ORDER_ARTIST='sort-order-artist',
                 RATING='rating-threshold',
                 AUTOSTART='autostart',
                 TOOLBAR_POS='toolbar-pos',
