@@ -67,7 +67,7 @@
             <description>Using the chosen sort type, sort the coverview in either ascending or descending order.</description>
         </key>
         <key type="s" name="sort-by-artist">
-          <default>'name'</default>
+          <default>'name_artist'</default>
             <summary>sort by artist albums</summary>
             <description>Sort by criteria for artist albums.</description>
         </key>

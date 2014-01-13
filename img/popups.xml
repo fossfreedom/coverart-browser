@@ -888,9 +888,9 @@
         <sort spritesheet="sort" name="rating">rating</sort>
     </sort>
     <sort_artist>
-        <sort_artist spritesheet="sort_artist" name="name">name</sort_artist>
-        <sort_artist spritesheet="sort_artist" name="year">year</sort_artist>
-        <sort_artist spritesheet="sort_artist" name="rating">rating</sort_artist>
+        <sort_artist spritesheet="sort_artist" name="name_artist">name_artist</sort_artist>
+        <sort_artist spritesheet="sort_artist" name="year_artist">year_artist</sort_artist>
+        <sort_artist spritesheet="sort_artist" name="rating_artist">rating_artist</sort_artist>
     </sort_artist>
     <playlist>
         <playlist spritesheet="playlist" name="music">music</playlist>

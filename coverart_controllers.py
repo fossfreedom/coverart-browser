@@ -435,9 +435,9 @@ class ArtistSortPopupController(OptionsController):
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
 
-        self.values = OrderedDict([(_('Sort by album name'), 'name'),
-            (_('Sort by year'), 'year'),
-            (_('Sort by rating'), 'rating')])
+        self.values = OrderedDict([(_('Sort by album name'), 'name_artist'),
+            (_('Sort by year'), 'year_artist'),
+            (_('Sort by rating'), 'rating_artist')])
 
         self.options = list(self.values.keys())
         
@@ -445,12 +445,18 @@ class ArtistSortPopupController(OptionsController):
         gs = GSetting()
         source_settings = gs.get_setting(gs.Path.PLUGIN)
         value = source_settings[gs.PluginKey.SORT_BY_ARTIST]
+        
+        if value not in list(self.values.values()):
+            print ("here")
+            value = 'name_artist'
+            source_settings[gs.PluginKey.SORT_BY_ARTIST]=value
 
         self._spritesheet = None
         self.update_images(False)
         
         self.current_key = list(self.values.keys())[
             list(self.values.values()).index(value)]
+        print (self.current_key)
 
     def update_images(self, *args):
         self._spritesheet = self.create_spritesheet( self.plugin,

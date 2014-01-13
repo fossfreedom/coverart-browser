@@ -87,9 +87,9 @@
         <sort name="rating" spritesheet="sort">rating</sort>
     </sort>
     <sort_artist>
-        <sort_artist name="name" spritesheet="sort_artist">name</sort_artist>
-        <sort_artist name="year" spritesheet="sort_artist">year</sort_artist>
-        <sort_artist name="rating" spritesheet="sort_artist">rating</sort_artist>
+        <sort_artist name="name_artist" spritesheet="sort_artist">name_artist</sort_artist>
+        <sort_artist name="year_artist" spritesheet="sort_artist">year_artist</sort_artist>
+        <sort_artist name="rating_artist" spritesheet="sort_artist">rating_artist</sort_artist>
     </sort_artist>
     <playlist>
         <playlist name="music" spritesheet="playlist">music</playlist>
