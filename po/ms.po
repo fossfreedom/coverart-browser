@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-13 21:47+0000\n"
-"PO-Revision-Date: 2013-08-21 15:58+0000\n"
+"PO-Revision-Date: 2014-01-14 10:16+0000\n"
 "Last-Translator: abuyop <Unknown>\n"
 "Language-Team: Malay <ms@li.org>\n"
 "Language: ms\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-08-25 22:48+0000\n"
-"X-Generator: Launchpad (build 16738)\n"
+"X-Launchpad-Export-Date: 2014-01-14 21:16+0000\n"
+"X-Generator: Launchpad (build 16890)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 #: tmpl/artistartsearch-tmpl.html:135
@@ -83,19 +83,17 @@ msgid "Show more results"
 msgstr "Papar lagi keputusan"
 
 #: tmpl/artistartsearch-tmpl.html:180
-#, fuzzy
 msgid "Tip: doubleclick or drag a cover to use it as the artist cover"
-msgstr "Petua: dwiklik atau seret ia untuk digunakan sebagai kulit album"
+msgstr ""
+"Tip: dwi-klik atau seret kulit album untuk gunakannya sebagai kulit artis"
 
 #: tmp/coverart_artist_pop_rb2.ui.h:1 tmp/coverart_artist_pop_rb3.ui.h:1
-#, fuzzy
 msgid "Play All"
-msgstr "Main Album"
+msgstr "Main Semua"
 
 #: tmp/coverart_artist_pop_rb2.ui.h:2 tmp/coverart_artist_pop_rb3.ui.h:2
-#, fuzzy
 msgid "Queue All"
-msgstr "Baris Gilir Album"
+msgstr "Baris Gilir Semua"
 
 #: tmp/coverart_artist_pop_rb2.ui.h:3 tmp/coverart_artist_pop_rb3.ui.h:3
 #: tmp/coverart_browser_pop_rb2.ui.h:3 tmp/coverart_browser_pop_rb3.ui.h:3
@@ -225,9 +223,8 @@ msgid "Album Information"
 msgstr "Maklumat Album"
 
 #: tmp/coverart_browser_prefs.ui.h:22
-#, fuzzy
 msgid "Display album information"
-msgstr "Maklumat Album"
+msgstr "Papar maklumat album"
 
 #: tmp/coverart_browser_prefs.ui.h:23
 msgid "Font size for the text below the cover-art."
@@ -263,9 +260,8 @@ msgid "Display album's info under cover"
 msgstr "Papar maklumat album dibawah kulit"
 
 #: tmp/coverart_browser_prefs.ui.h:30
-#, fuzzy
 msgid "Display album's info within cover"
-msgstr "Papar maklumat album dibawah kulit"
+msgstr "Papar maklumat album di dalam kulit album"
 
 #: tmp/coverart_browser_prefs.ui.h:31
 msgid "Cover Appearance"
@@ -483,7 +479,7 @@ msgstr "Buka folder trek terbenam di dalam pengurus-fail"
 #. This is a label describing the different options to save the picture artwork in the music file i.e. embed - to insert picture artwork into a music file
 #: tmp/coverart_exportembed.ui.h:5 tmp/coverart_exportembed.ui.h:6
 msgid "Embed:"
-msgstr ""
+msgstr "Terbenam:"
 
 #: tmp/coverart_exportembed.ui.h:6 tmp/coverart_exportembed.ui.h:7
 msgid ""
@@ -495,27 +491,26 @@ msgstr ""
 
 #: tmp/coverart_exportembed.ui.h:7 tmp/coverart_exportembed.ui.h:8
 msgid "convert to mp3"
-msgstr ""
+msgstr "tukar ke mp3"
 
 #: tmp/coverart_exportembed.ui.h:8 tmp/coverart_exportembed.ui.h:9
 msgid "bitrate (kbit/s)"
-msgstr ""
+msgstr "kadar bit (kbit/s)"
 
 #. This is a label describing the size of the picture that will be inserted into the music file e.g. change the size from 800x800 pixels to 128x128 pixels
 #: tmp/coverart_exportembed.ui.h:10 tmp/coverart_exportembed.ui.h:11
 msgid "resize art"
-msgstr ""
+msgstr "saiz semula seni"
 
 #: tmp/coverart_exportembed.ui.h:11 tmp/coverart_exportembed.ui.h:12
-#, fuzzy
 msgid "size in pixels"
-msgstr "Saiz (dalam piksel):"
+msgstr "saiz dalam piksel"
 
 #. size in pixels
 #: tmp/coverart_exportembed.ui.h:11 tmp/coverart_exportembed.ui.h:12
 #: tmp/coverart_exportembed.ui.h:13
 msgid "(px)"
-msgstr ""
+msgstr "(px)"
 
 #: tmp/coverart_exportembed.ui.h:12 tmp/coverart_exportembed.ui.h:2
 msgid "Select a Folder to export to"
@@ -543,7 +538,7 @@ msgstr "Semua Dekad"
 #: tmp/coverart_leftsidebar.ui.h:4 tmp/coverart_rightsidebar.ui.h:4
 #: tmp/coverart_topbar.ui.h:4 coverart_browser.py:251 coverart_browser.py:253
 msgid "Views"
-msgstr ""
+msgstr "Lihat"
 
 #: tmp/popups.xml.in.h:1
 msgid "rock"
@@ -762,6 +757,7 @@ msgid ""
 "No tracks have been added because no tracks meet the favourite rating "
 "threshold"
 msgstr ""
+"Tiada trek ditambah kerana tiada trek yg memenuhi ambang penarafan kegemaran"
 
 #: coverart_browser_source.py:575
 msgid "The number of albums to randomly play is less than that displayed."
@@ -770,9 +766,9 @@ msgstr ""
 
 #. for example "Requesting the picture cover for the music artist Michael Jackson"
 #: coverart_browser_source.py:666 coverart_browser_source.py:668
-#, fuzzy, python-format
+#, python-format
 msgid "Requesting cover for %s..."
-msgstr "Meminta kulit untuk %s - %s..."
+msgstr "Meminta kulit album untuk %s..."
 
 #: coverart_browser_source.py:829 coverart_browser_source.py:824
 msgid ""
@@ -818,9 +814,8 @@ msgstr "Penapis artis pantas"
 
 #: coverart_controllers.py:447 coverart_controllers.py:499
 #: coverart_controllers.py:502 coverart_controllers.py:554
-#, fuzzy
 msgid "Use favourites only"
-msgstr "Tambah kegemaran ke Senarai Main"
+msgstr "Guna kegemaran sahaja"
 
 #: coverart_controllers.py:451 coverart_controllers.py:506
 msgid "Search Preferences"
@@ -919,61 +914,4 @@ msgstr "Bilangan kulit album dihadkan ke %d"
 
 #: coverart_album.py:1454
 msgid "Enable LastFM plugin and log in first"
-msgstr ""
-
-#~ msgid "Play this album"
-#~ msgstr "Mainkan album ini"
-
-#~ msgid "Add this album to your playing queue"
-#~ msgstr "Tambah album ini ke baris gilir main anda"
-
-#~ msgid "Add this album to a playlist"
-#~ msgstr "Tambah album ini ke senarai main"
-
-#~ msgid "Add this album to a new playlist"
-#~ msgstr "Tambah album ini ke senarai main baru"
-
-#~ msgid "Play favourites tracks from this album"
-#~ msgstr "Main trek kegemaean daripada album ini"
-
-#~ msgid "Play Favourites"
-#~ msgstr "Main Kegemaran"
-
-#~ msgid "Add favourite tracks from this album to your playing queue"
-#~ msgstr "Tambah trek kegemaran dari album ini ke baris gilir main anda"
-
-#~ msgid "Queue Favourites"
-#~ msgstr "Baris Gilir Kegemaran"
-
-#~ msgid "Add favourite tracks from this album to a playlist"
-#~ msgstr "Tambah trek kegemaran dari album ini ke senarai main"
-
-#~ msgid "Add favourites to Playlist"
-#~ msgstr "Tambah kegemaran ke Senarai Main"
-
-#~ msgid "Search for this album cover"
-#~ msgstr "Gelintar untuk kulit album ini"
-
-#~ msgid "Export album tracks and embed coverart in track files"
-#~ msgstr "Eksport trek album dan seni kulit album terbenam dalam fail trek"
-
-#~ msgid "Show album properties"
-#~ msgstr "Papar sifat album"
-
-#~ msgid "Play this track"
-#~ msgstr "Main trek ini"
-
-#~ msgid "Add this track to your playing queue"
-#~ msgstr "Tambah trek ini ke baris gilir main anda"
-
-#~ msgid "Show track properties"
-#~ msgstr "Papar sifat trek"
-
-#~ msgid "Show the album's basic information under the cover image."
-#~ msgstr "Papar maklumat asas album dibawah imej kulit."
-
-#~ msgid "Requesting cover for %s - %s..."
-#~ msgstr "Meminta kulit untuk %s - %s..."
-
-#~ msgid "Play favourite random album"
-#~ msgstr "Main album rawak kegemaran"
+msgstr "Benarkan pemalam LastFM dan daftar masuk dahulu"

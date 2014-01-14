@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-13 21:47+0000\n"
-"PO-Revision-Date: 2013-08-25 11:40+0000\n"
-"Last-Translator: ivarela <ivarela@ubuntu.com>\n"
+"PO-Revision-Date: 2014-01-13 23:51+0000\n"
+"Last-Translator: Xuacu Saturio <xuacusk8@gmail.com>\n"
 "Language-Team: Asturian <ast@li.org>\n"
 "Language: ast\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-08-25 22:48+0000\n"
-"X-Generator: Launchpad (build 16738)\n"
+"X-Launchpad-Export-Date: 2014-01-14 21:16+0000\n"
+"X-Generator: Launchpad (build 16890)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 #: tmpl/artistartsearch-tmpl.html:135
@@ -85,21 +85,17 @@ msgid "Show more results"
 msgstr "Ver más resultaos"
 
 #: tmpl/artistartsearch-tmpl.html:180
-#, fuzzy
 msgid "Tip: doubleclick or drag a cover to use it as the artist cover"
 msgstr ""
-"Conseyu: pue facer doble click o arrastrar una portada pa usala como portada "
-"del álbum"
+"Gabitu: fai doble clic o abasna una portada pa usala como portada del artista"
 
 #: tmp/coverart_artist_pop_rb2.ui.h:1 tmp/coverart_artist_pop_rb3.ui.h:1
-#, fuzzy
 msgid "Play All"
-msgstr "Reproducir álbum"
+msgstr "Reproducir too"
 
 #: tmp/coverart_artist_pop_rb2.ui.h:2 tmp/coverart_artist_pop_rb3.ui.h:2
-#, fuzzy
 msgid "Queue All"
-msgstr "Encolar l'álbum"
+msgstr "Poner too na cola"
 
 #: tmp/coverart_artist_pop_rb2.ui.h:3 tmp/coverart_artist_pop_rb3.ui.h:3
 #: tmp/coverart_browser_pop_rb2.ui.h:3 tmp/coverart_browser_pop_rb3.ui.h:3
@@ -232,9 +228,8 @@ msgid "Album Information"
 msgstr "Información del álbum"
 
 #: tmp/coverart_browser_prefs.ui.h:22
-#, fuzzy
 msgid "Display album information"
-msgstr "Información del álbum"
+msgstr "Ver la información del álbum"
 
 #: tmp/coverart_browser_prefs.ui.h:23
 msgid "Font size for the text below the cover-art."
@@ -269,9 +264,8 @@ msgid "Display album's info under cover"
 msgstr "Ver la información del álbum baxo la portada"
 
 #: tmp/coverart_browser_prefs.ui.h:30
-#, fuzzy
 msgid "Display album's info within cover"
-msgstr "Ver la información del álbum baxo la portada"
+msgstr "Ver la información del álbum dientro de la portada"
 
 #: tmp/coverart_browser_prefs.ui.h:31
 msgid "Cover Appearance"
@@ -489,7 +483,7 @@ msgstr "Abrir la carpeta de pistes incrustaes col xestor de ficheros"
 #. This is a label describing the different options to save the picture artwork in the music file i.e. embed - to insert picture artwork into a music file
 #: tmp/coverart_exportembed.ui.h:5 tmp/coverart_exportembed.ui.h:6
 msgid "Embed:"
-msgstr ""
+msgstr "Incrustar:"
 
 #: tmp/coverart_exportembed.ui.h:6 tmp/coverart_exportembed.ui.h:7
 msgid ""
@@ -501,27 +495,26 @@ msgstr ""
 
 #: tmp/coverart_exportembed.ui.h:7 tmp/coverart_exportembed.ui.h:8
 msgid "convert to mp3"
-msgstr ""
+msgstr "convertir a mp3"
 
 #: tmp/coverart_exportembed.ui.h:8 tmp/coverart_exportembed.ui.h:9
 msgid "bitrate (kbit/s)"
-msgstr ""
+msgstr "tasa de bits (kbit/s)"
 
 #. This is a label describing the size of the picture that will be inserted into the music file e.g. change the size from 800x800 pixels to 128x128 pixels
 #: tmp/coverart_exportembed.ui.h:10 tmp/coverart_exportembed.ui.h:11
 msgid "resize art"
-msgstr ""
+msgstr "escalar la portada"
 
 #: tmp/coverart_exportembed.ui.h:11 tmp/coverart_exportembed.ui.h:12
-#, fuzzy
 msgid "size in pixels"
-msgstr "Tamañu (en pixels):"
+msgstr "tamañu en pixels"
 
 #. size in pixels
 #: tmp/coverart_exportembed.ui.h:11 tmp/coverart_exportembed.ui.h:12
 #: tmp/coverart_exportembed.ui.h:13
 msgid "(px)"
-msgstr ""
+msgstr "(px)"
 
 #: tmp/coverart_exportembed.ui.h:12 tmp/coverart_exportembed.ui.h:2
 msgid "Select a Folder to export to"
@@ -549,7 +542,7 @@ msgstr "Toles décaes"
 #: tmp/coverart_leftsidebar.ui.h:4 tmp/coverart_rightsidebar.ui.h:4
 #: tmp/coverart_topbar.ui.h:4 coverart_browser.py:251 coverart_browser.py:253
 msgid "Views"
-msgstr ""
+msgstr "Vistes"
 
 #: tmp/popups.xml.in.h:1
 msgid "rock"
@@ -768,6 +761,8 @@ msgid ""
 "No tracks have been added because no tracks meet the favourite rating "
 "threshold"
 msgstr ""
+"Nun s'amestaron pistes porque nenguna d'elles algamó la llende de "
+"calificación favorita"
 
 #: coverart_browser_source.py:575
 msgid "The number of albums to randomly play is less than that displayed."
@@ -776,9 +771,9 @@ msgstr ""
 
 #. for example "Requesting the picture cover for the music artist Michael Jackson"
 #: coverart_browser_source.py:666 coverart_browser_source.py:668
-#, fuzzy, python-format
+#, python-format
 msgid "Requesting cover for %s..."
-msgstr "Solicitando la portada de %s - %s..."
+msgstr "Pidiendo la portada pa %s..."
 
 #: coverart_browser_source.py:829 coverart_browser_source.py:824
 msgid ""
@@ -825,9 +820,8 @@ msgstr "Filtru rápidu d'artista"
 
 #: coverart_controllers.py:447 coverart_controllers.py:499
 #: coverart_controllers.py:502 coverart_controllers.py:554
-#, fuzzy
 msgid "Use favourites only"
-msgstr "Amestar les favorites a llista de reproducción"
+msgstr "Usar namái favoritos"
 
 #: coverart_controllers.py:451 coverart_controllers.py:506
 msgid "Search Preferences"
@@ -926,65 +920,4 @@ msgstr "La cantidá de colores ta llendada a %d"
 
 #: coverart_album.py:1454
 msgid "Enable LastFM plugin and log in first"
-msgstr ""
-
-#~ msgid "Play this album"
-#~ msgstr "Reproducir esti álbum"
-
-#~ msgid "Add this album to your playing queue"
-#~ msgstr "Amestar esti álbum a la cola de reproducción"
-
-#~ msgid "Add this album to a playlist"
-#~ msgstr "Amestar esti álbum a una llista de reproducción"
-
-#~ msgid "Add this album to a new playlist"
-#~ msgstr "Amestar esti álbum a una llista de reproducción nueva"
-
-#~ msgid "Play favourites tracks from this album"
-#~ msgstr "Reproducir les canciones favorites d'esti álbum"
-
-#~ msgid "Play Favourites"
-#~ msgstr "Reproducir favorites"
-
-#~ msgid "Add favourite tracks from this album to your playing queue"
-#~ msgstr ""
-#~ "Amestar les canciones favorites d'esti álbum a la cola de reproducción"
-
-#~ msgid "Queue Favourites"
-#~ msgstr "Encolar les favorites"
-
-#~ msgid "Add favourite tracks from this album to a playlist"
-#~ msgstr ""
-#~ "Amestar les canciones favorites d'esti álbum a una llista de reproducción"
-
-#~ msgid "Add favourites to Playlist"
-#~ msgstr "Amestar les favorites a llista de reproducción"
-
-#~ msgid "Search for this album cover"
-#~ msgstr "Buscar la portada d'esti álbum"
-
-#~ msgid "Export album tracks and embed coverart in track files"
-#~ msgstr ""
-#~ "Esportar les pistes del álbum ya incrustar la portada nos ficheros de les "
-#~ "pistes"
-
-#~ msgid "Show album properties"
-#~ msgstr "Ver les propiedaes del álbum"
-
-#~ msgid "Play this track"
-#~ msgstr "Reproducir esta pista"
-
-#~ msgid "Add this track to your playing queue"
-#~ msgstr "Amestar esta pista a la cola de reproducción"
-
-#~ msgid "Show track properties"
-#~ msgstr "Ver les propiedaes de la pista"
-
-#~ msgid "Show the album's basic information under the cover image."
-#~ msgstr "Ver la información básica del álbum baxo la imaxe de portada."
-
-#~ msgid "Requesting cover for %s - %s..."
-#~ msgstr "Solicitando la portada de %s - %s..."
-
-#~ msgid "Play favourite random album"
-#~ msgstr "Executar un álbum favoritu aleatoriu"
+msgstr "Activar el complementu LastFM y aniciar sesión primero"
