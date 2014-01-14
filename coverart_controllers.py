@@ -418,7 +418,7 @@ class SortPopupController(OptionsController):
         settings = gs.get_setting(gs.Path.PLUGIN)
         settings[gs.PluginKey.SORT_BY] = sort
 
-        self._viewmgr.current_view.get_default_manager().emit('sort', (sort, None))
+        self._viewmgr.current_view.get_default_manager().emit('sort', ("album",sort, None))
 
     def get_current_image(self):
         sort = self.values[self.current_key]
@@ -472,7 +472,7 @@ class ArtistSortPopupController(OptionsController):
         settings = gs.get_setting(gs.Path.PLUGIN)
         settings[gs.PluginKey.SORT_BY_ARTIST] = sort
 
-        self._viewmgr.current_view.get_default_manager().emit('sort', (sort, None))
+        self._viewmgr.current_view.get_default_manager().emit('sort', ("artist", sort, None))
 
     def get_current_image(self):
         sort = self.values[self.current_key]
@@ -639,6 +639,8 @@ class DecadePopupController(OptionsController):
 
 class SortOrderToggleController(OptionsController):
 
+    toolbar_type = "album"
+    
     def __init__(self, plugin, viewmgr):
         super(SortOrderToggleController, self).__init__()
 
@@ -682,7 +684,7 @@ class SortOrderToggleController(OptionsController):
 
         if not sort_order or\
             sort_order != self.settings[self.key]:
-            self._viewmgr.current_view.get_default_manager().emit('sort', (None, sort_order)) #(reverse=True)
+            self._viewmgr.current_view.get_default_manager().emit('sort', (self.toolbar_type,None, True)) #(reverse=True)
 
         self.settings[self.key] = sort_order
 
@@ -690,7 +692,9 @@ class SortOrderToggleController(OptionsController):
         return self._images[self.get_current_key_index()]
         
 class ArtistSortOrderToggleController(SortOrderToggleController):
-
+    
+    toolbar_type = "artist"
+    
     def __init__(self, plugin, model):
         super(ArtistSortOrderToggleController, self).__init__(plugin, model)
         

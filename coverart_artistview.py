@@ -131,13 +131,6 @@ class ArtistsModel(GObject.Object):
         'artist_album': 2, 'show': 3, 
         'empty': 4, 'markup': 5, 'expander': 6}
         
-        
-    sort_keys = {
-            'name_artist': ('album_sort', 'album_sort'),
-            'year_artist': ('real_year', 'calc_year_sort'),
-            'rating_artist': ('rating', 'album_sort')
-            }
-
     force_lastfm_check = True
     
     def __init__(self, album_manager):
@@ -145,7 +138,6 @@ class ArtistsModel(GObject.Object):
 
         self.album_manager = album_manager
         self._iters = {}
-        self._sortkey = {'type':'name_artist', 'order':True}
         self._albumiters = {}
         self._artists = SortedCollection(
             key=lambda artist: getattr(artist, 'name'))
@@ -302,7 +294,7 @@ class ArtistsModel(GObject.Object):
             self._tree_store.remove(self._iters[artist.name]['dummy_iter'])
             del self._iters[artist.name]['dummy_iter']
             
-        self.sort(None, None) # ensure the added albums are sorted correctly
+        self.sort() # ensure the added albums are sorted correctly
 
     def _album_modified(self, album):
         print ("album modified")
@@ -503,27 +495,22 @@ class ArtistsModel(GObject.Object):
             self._tree_store.set_value(artist_iter, self.columns['show'], show)
             
             
-    def sort(self, key=None, reverse=False):
+    def sort(self):
         
         albums = SortedCollection(key=lambda album: getattr(album, 'name'))
         
-        if not key:
-            key = self._sortkey['type']
+        gs = GSetting()
+        source_settings = gs.get_setting(gs.Path.PLUGIN)
+        key = source_settings[gs.PluginKey.SORT_BY_ARTIST]
+        order = source_settings[gs.PluginKey.SORT_ORDER_ARTIST]
         
-        if key in self.sort_keys:
-            props = self.sort_keys[key]
-        else:
-            return
-        
-        self._sortkey['type'] = key
-            
-        if reverse==None:
-            print ("reverse none")
-            reverse=self._sortkey['order']
-        
-        print ("reverse")
-        self._sortkey['order'] = reverse
-        print (reverse)
+        sort_keys = {
+            'name_artist': ('album_sort', 'album_sort'),
+            'year_artist': ('real_year', 'calc_year_sort'),
+            'rating_artist': ('rating', 'album_sort')
+            }
+
+        props = sort_keys[key]
         
         def key_function(album):
             keys = [getattr(album, prop) for prop in props]
@@ -546,7 +533,7 @@ class ArtistsModel(GObject.Object):
                 for album_iter in self._iters[artist]['album']:
                     albums.insert(self._tree_store[album_iter][self.columns['artist_album']])
 
-                if not reverse:
+                if not order:
                     albums = reversed(albums)
         
                 # now we iterate through the sorted artist albums.  Look and swap iters
@@ -748,8 +735,11 @@ class ArtistManager(GObject.Object):
         self.connect('sort', self._sort_artist)
         
     def _sort_artist(self, widget, param):
-        key, reverse = param
-        self.model.sort(key=key, reverse=reverse)
+        
+        toolbar_type, key, reverse = param
+
+        if toolbar_type == "artist":
+            self.model.sort()
     
     def _load_finished_callback(self, *args):
         self.cover_man.load_covers()

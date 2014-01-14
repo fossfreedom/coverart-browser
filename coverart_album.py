@@ -675,7 +675,8 @@ class AlbumsModel(GObject.Object):
         self._iters = {}
         self._albums = SortedCollection(
             key=lambda album: getattr(album, 'name'))
-
+        self._sortkey = {'type':'name', 'order':True}
+        
         self._tree_store = Gtk.ListStore(str, GdkPixbuf.Pixbuf, object, str,
             bool)
 
@@ -692,23 +693,6 @@ class AlbumsModel(GObject.Object):
     @property
     def store(self):
         return self._filtered_store
-
-    @idle_iterator
-    def _sort(self):
-        def process(album, data):
-            values = self._generate_values(album)
-
-            tree_iter = self._tree_store.append(values)
-            self._iters[album.name][album.artist]['iter'] = tree_iter
-
-        def error(exception):
-            print('Error(1) while adding albums to the model: ' + str(exception))
-
-        def finish(data):
-            self._sort_process = None
-            self.remove_filter('nay')
-
-        return ALBUM_LOAD_CHUNK, process, None, error, finish
 
     @idle_iterator
     def _recreate_text(self):
@@ -927,6 +911,23 @@ class AlbumsModel(GObject.Object):
         if self._tree_store.iter_is_valid(album_iter):
             self._tree_store.set_value(album_iter, self.columns['show'], show)
 
+    @idle_iterator
+    def _sort(self):
+        def process(album, data):
+            values = self._generate_values(album)
+
+            tree_iter = self._tree_store.append(values)
+            self._iters[album.name][album.artist]['iter'] = tree_iter
+
+        def error(exception):
+            print('Error(1) while adding albums to the model: ' + str(exception))
+
+        def finish(data):
+            self._sort_process = None
+            self.remove_filter('nay')
+
+        return ALBUM_LOAD_CHUNK, process, None, error, finish
+
     def sort(self, key=None, reverse=False):
         '''
         Changes the sorting strategy for the model.
@@ -936,15 +937,15 @@ class AlbumsModel(GObject.Object):
         :param reverse: `bool` indicating whether the sort order should be
             reversed from the current one.
         '''
+    
+        def key_function(album):
+            keys = [getattr(album, prop) for prop in props]
+            return keys
+            
         if key:
             props = sort_keys[key]
-
-            def key_function(album):
-                keys = [getattr(album, prop) for prop in props]
-                return keys
-
             self._albums.key = key_function
-
+    
         if reverse:
             self._albums = reversed(self._albums)
 
@@ -1018,7 +1019,6 @@ class AlbumsModel(GObject.Object):
         Forces the recreation and update of the markup text for each album.
         '''
         self._recreate_text(iter(self._albums))
-
 
 class AlbumLoader(GObject.Object):
     '''
@@ -1777,8 +1777,14 @@ class AlbumManager(GObject.Object):
         self.connect('sort', self._sort_album)
         
     def _sort_album(self, widget, param):
-        key, reverse = param
-        self.model.sort(key=key, reverse=reverse)
+        
+        toolbar_type, key, reverse = param
+
+        if toolbar_type == "album":
+            if reverse == None:
+                self.model.sort(key=key)
+            else:
+                self.model.sort(reverse=reverse)
 
     def _load_finished_callback(self, *args):
         self.artist_man.loader.load_artists()
