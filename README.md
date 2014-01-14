@@ -1,4 +1,4 @@
-#coverart-browser v1.0 beta 1
+#coverart-browser v1.0 beta 2
 ================
 
 Browse your coverart albums in Rhythmbox v2.96 and later
@@ -44,7 +44,7 @@ Browse your coverart albums in Rhythmbox v2.96 and later
  - Right click support for the external plugin Repeat One Song
  - Use new Rhythmbox 3 progress bars for loading
  - Tooltip support to display cover name and artist only if album information is not already displayed
- - Translated into 26 languages and locales
+ - Translated into 25 languages and locales
  - for developers - doxygen documentation: http://fossfreedom.github.io/coverart-browser/classes.html
 
 *How it works:*
