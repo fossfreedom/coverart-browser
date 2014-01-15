@@ -231,8 +231,13 @@ class CoverIconView(EnhancedIconView, AbstractView):
     
 
     def __init__(self, *args, **kwargs):
-        super(CoverIconView, self).__init__(cell_area=AlbumArtCellArea(), *args, **kwargs)
-        
+        if not rb3compat.compare_pygobject_version("3.9"):
+            super(CoverIconView, self).__init__(cell_area=AlbumArtCellArea(), *args, **kwargs)
+        else:
+            # this works in trusty but not in earlier versions - define in the super above
+            super(CoverIconView, self).__init__(*args, **kwargs)
+            self.props.cell_area = AlbumArtCellArea() 
+            
         self.ext_menu_pos = 0
         self._external_plugins = None
         self.gs = GSetting()
@@ -244,7 +249,6 @@ class CoverIconView(EnhancedIconView, AbstractView):
         self._last_play_path = None
         self._recheck_in_progress = False
         self._current_hover_path = None
-        #self.props.cell_area = AlbumArtCellArea() # this works in Saucy but not in 12.04 - define in the super above
         
     def initialise(self, source):
         if self._has_initialised:
@@ -283,7 +287,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
         self.connect("drag-data-get", self.on_drag_data_get)
 
         # set the model to the view
-        self.set_pixbuf_column(AlbumsModel.columns['pixbuf'])
+        #self.set_pixbuf_column(AlbumsModel.columns['pixbuf'])
         self.set_model(self.album_manager.model.store)
         
         # setup view to monitor mouse movements
