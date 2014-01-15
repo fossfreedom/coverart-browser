@@ -54,12 +54,14 @@ class CellRendererThumb(Gtk.CellRendererPixbuf):
                 flags):
         
         
-        x_offset = cell_area.x  + 1
-        y_offset = cell_area.y  + 1
+        x_offset = cell_area.x + 1
+        y_offset = cell_area.y + 1
         wi = 0
         he = 0
         #IMAGE
-        Gdk.cairo_set_source_pixbuf(cr, self.props.pixbuf, x_offset, y_offset)
+        pixbuf = self.props.pixbuf.scale_simple(cell_area.width-2, cell_area.height-2,
+            GdkPixbuf.InterpType.NEAREST)
+        Gdk.cairo_set_source_pixbuf(cr, pixbuf, x_offset, y_offset)
         cr.paint()
         
         alpha = 0.40
@@ -142,6 +144,7 @@ class AlbumArtCellArea(Gtk.CellAreaBox):
         self.pack_start(renderer_thumb, False, False, False)
         self.attribute_connect(renderer_thumb, "pixbuf", AlbumsModel.columns['pixbuf'])  
         self.attribute_connect(renderer_thumb, "markup", AlbumsModel.columns['markup'])
+        self.props.spacing = 2
         
     def _connect_properties(self):
         gs = GSetting()
