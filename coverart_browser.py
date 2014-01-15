@@ -155,7 +155,7 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         setting = gs.get_setting(gs.Path.PLUGIN)
 
         if setting[gs.PluginKey.AUTOSTART]:
-            GObject.idle_add(self.shell.props.display_page_tree.select,
+            GLib.idle_add(self.shell.props.display_page_tree.select,
                 self.source)
                 
     def _translation_helper(self):
@@ -278,6 +278,6 @@ class ExternalPluginMenu(GObject.Object):
             gs = GSetting()
             setting = gs.get_setting(gs.Path.PLUGIN)
             setting[gs.PluginKey.VIEW_NAME] = view_name
-            GObject.idle_add(self.shell.props.display_page_tree.select,
+            GLib.idle_add(self.shell.props.display_page_tree.select,
                     self.source)
     

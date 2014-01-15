@@ -19,6 +19,7 @@
 
 from coverart_widgets import AbstractView
 from gi.repository import GObject
+from gi.repository import GLib
 
 class ListShowingPolicy(GObject.Object):
     '''
@@ -65,7 +66,7 @@ class ListView(AbstractView):
     def switch_to_view(self, source, album):
         self.initialise(source)
         
-        GObject.idle_add(self.shell.props.display_page_tree.select,
+        GLib.idle_add(self.shell.props.display_page_tree.select,
                 self.shell.props.library_source)
                 
     def get_selected_objects(self):
