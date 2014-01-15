@@ -41,7 +41,27 @@ def pygobject_version():
     str_version = to_number(GObject.pygobject_version)
     
     return float(str_version.rsplit('.',1)[0])
-
+    
+def compare_pygobject_version(version):
+    '''
+    return True if version is less than pygobject_version
+    i.e. 3.9 < 3.11
+    '''
+    to_number = lambda t: ".".join(str(v) for v in t)
+    
+    str_version = to_number(GObject.pygobject_version)
+  
+    split = str_version.rsplit('.',2)
+    split_compare = version.rsplit('.',2)
+    
+    if int(split_compare[0])<int(split[0]):
+        return True
+        
+    if int(split_compare[1])<int(split[1]):
+        return True
+        
+    return False
+        
 PYVER = sys.version_info[0]
 
 if PYVER >= 3:

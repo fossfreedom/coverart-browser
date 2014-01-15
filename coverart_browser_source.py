@@ -270,7 +270,7 @@ class CoverArtBrowserSource(RB.Source):
         vbox.pack_start(self.entry_view, True, True, 0)
         vbox.pack_start(a, False, False, 1)
         vbox.show_all()
-        self.notebook.append_page(vbox, Gtk.Label(_("Tracks")))
+        self.notebook.append_page(vbox, Gtk.Label.new_with_mnemonic(_("Tracks")))
 
         # create an album manager
         self.album_manager = AlbumManager(self.plugin, self.viewmgr.current_view)
@@ -280,7 +280,7 @@ class CoverArtBrowserSource(RB.Source):
         colour = self.viewmgr.get_selection_colour()
 
         self.cover_search_pane = CoverSearchPane(self.plugin, colour)
-        self.notebook.append_page(self.cover_search_pane, Gtk.Label(
+        self.notebook.append_page(self.cover_search_pane, Gtk.Label.new_with_mnemonic(
             _("Covers")))
 
         # connect a signal to when the info of albums is ready
