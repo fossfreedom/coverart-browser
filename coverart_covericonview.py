@@ -283,6 +283,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
         self.connect("drag-data-get", self.on_drag_data_get)
 
         # set the model to the view
+        self.set_pixbuf_column(AlbumsModel.columns['pixbuf'])
         self.set_model(self.album_manager.model.store)
         
         # setup view to monitor mouse movements
