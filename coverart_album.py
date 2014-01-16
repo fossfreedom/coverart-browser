@@ -1124,9 +1124,12 @@ class AlbumLoader(GObject.Object):
         # this now works correctly
 
         def analyse_change(change):
+            print (change.prop)
             if change.prop is RB.RhythmDBPropType.ALBUM \
                 or change.prop is RB.RhythmDBPropType.ALBUM_ARTIST \
-                or change.prop is RB.RhythmDBPropType.ARTIST:
+                or change.prop is RB.RhythmDBPropType.ARTIST \
+                or change.prop is RhythmDBPropType.ALBUM_SORTNAME \
+                or change.prop is RhythmDBPropType.ALBUM_ARTIST_SORTNAME:
                 # called when the album of a entry is modified
                 track.emit('deleted')
                 track.emit('modified')
