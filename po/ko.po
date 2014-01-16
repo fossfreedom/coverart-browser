@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-11-07 18:36+0000\n"
-"X-Generator: Launchpad (build 16820)\n"
+"X-Launchpad-Export-Date: 2014-01-16 21:56+0000\n"
+"X-Generator: Launchpad (build 16901)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 #: tmpl/artistartsearch-tmpl.html:135
@@ -83,19 +83,16 @@ msgid "Show more results"
 msgstr "더 많은 결과 보이기"
 
 #: tmpl/artistartsearch-tmpl.html:180
-#, fuzzy
 msgid "Tip: doubleclick or drag a cover to use it as the artist cover"
-msgstr "팁: 앨범 표지로 사용할 이미지를 더블 클릭하거나 끌어 오십시오."
+msgstr ""
 
 #: tmp/coverart_artist_pop_rb2.ui.h:1 tmp/coverart_artist_pop_rb3.ui.h:1
-#, fuzzy
 msgid "Play All"
-msgstr "앨범 연주"
+msgstr ""
 
 #: tmp/coverart_artist_pop_rb2.ui.h:2 tmp/coverart_artist_pop_rb3.ui.h:2
-#, fuzzy
 msgid "Queue All"
-msgstr "앨범 대기열에 추가"
+msgstr ""
 
 #: tmp/coverart_artist_pop_rb2.ui.h:3 tmp/coverart_artist_pop_rb3.ui.h:3
 #: tmp/coverart_browser_pop_rb2.ui.h:3 tmp/coverart_browser_pop_rb3.ui.h:3
@@ -225,9 +222,8 @@ msgid "Album Information"
 msgstr "앨범 정보"
 
 #: tmp/coverart_browser_prefs.ui.h:22
-#, fuzzy
 msgid "Display album information"
-msgstr "앨범 정보"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:23
 msgid "Font size for the text below the cover-art."
@@ -260,9 +256,8 @@ msgid "Display album's info under cover"
 msgstr "표지 아래에 앨범 정보 표시"
 
 #: tmp/coverart_browser_prefs.ui.h:30
-#, fuzzy
 msgid "Display album's info within cover"
-msgstr "표지 아래에 앨범 정보 표시"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:31
 msgid "Cover Appearance"
@@ -504,9 +499,8 @@ msgid "resize art"
 msgstr ""
 
 #: tmp/coverart_exportembed.ui.h:11 tmp/coverart_exportembed.ui.h:12
-#, fuzzy
 msgid "size in pixels"
-msgstr "크기(단위: 픽셀):"
+msgstr ""
 
 #. size in pixels
 #: tmp/coverart_exportembed.ui.h:11 tmp/coverart_exportembed.ui.h:12
@@ -765,9 +759,9 @@ msgstr "임의로 연주할 앨범의 수는 표시한 것보다 적습니다."
 
 #. for example "Requesting the picture cover for the music artist Michael Jackson"
 #: coverart_browser_source.py:666 coverart_browser_source.py:668
-#, fuzzy, python-format
+#, python-format
 msgid "Requesting cover for %s..."
-msgstr "%s  - %s 표지 요청 중.."
+msgstr ""
 
 #: coverart_browser_source.py:829 coverart_browser_source.py:824
 msgid ""
@@ -814,9 +808,8 @@ msgstr "빠른 음악가 검색"
 
 #: coverart_controllers.py:447 coverart_controllers.py:499
 #: coverart_controllers.py:502 coverart_controllers.py:554
-#, fuzzy
 msgid "Use favourites only"
-msgstr "좋아하는 트랙 연주 목록에 추가"
+msgstr ""
 
 #: coverart_controllers.py:451 coverart_controllers.py:506
 msgid "Search Preferences"
@@ -916,60 +909,3 @@ msgstr "표지의 수는 %d개로 제한되어있습니다."
 #: coverart_album.py:1454
 msgid "Enable LastFM plugin and log in first"
 msgstr ""
-
-#~ msgid "Play this album"
-#~ msgstr "이 앨범 연주"
-
-#~ msgid "Add this album to your playing queue"
-#~ msgstr "연주 대기열에 이 앨범 추가"
-
-#~ msgid "Add this album to a playlist"
-#~ msgstr "연주 목록에 이 앨범 추가"
-
-#~ msgid "Add this album to a new playlist"
-#~ msgstr "새 연주 목록에 이 앨범 추가"
-
-#~ msgid "Play favourites tracks from this album"
-#~ msgstr "이 앨범에서 좋아하는 트랙 연주"
-
-#~ msgid "Play Favourites"
-#~ msgstr "좋아하는 트랙 연주"
-
-#~ msgid "Add favourite tracks from this album to your playing queue"
-#~ msgstr "연주 대기열에 이 앨범에서 좋아하는 트랙 추가"
-
-#~ msgid "Queue Favourites"
-#~ msgstr "좋아하는 트랙 대기열에 추가"
-
-#~ msgid "Add favourite tracks from this album to a playlist"
-#~ msgstr "연주 목록에 이 앨범에서 좋아하는 트랙 추가"
-
-#~ msgid "Add favourites to Playlist"
-#~ msgstr "좋아하는 트랙 연주 목록에 추가"
-
-#~ msgid "Search for this album cover"
-#~ msgstr "이 앨범의 표지 검색"
-
-#~ msgid "Export album tracks and embed coverart in track files"
-#~ msgstr "앨범 트랙을 내보내고 트랙 파일에 앨범 표지 넣기"
-
-#~ msgid "Show album properties"
-#~ msgstr "앨범 속성 보이기"
-
-#~ msgid "Play this track"
-#~ msgstr "이 트랙 연주"
-
-#~ msgid "Add this track to your playing queue"
-#~ msgstr "연주 대기열에 이 트랙 추가"
-
-#~ msgid "Show track properties"
-#~ msgstr "트랙 속성 보이기"
-
-#~ msgid "Show the album's basic information under the cover image."
-#~ msgstr "표지 이미지 아래에 앨범의 기본 정보 보이기"
-
-#~ msgid "Requesting cover for %s - %s..."
-#~ msgstr "%s  - %s 표지 요청 중.."
-
-#~ msgid "Play favourite random album"
-#~ msgstr "임의의 앨범에서 좋아하는 곡 연주"

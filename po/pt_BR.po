@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-13 21:47+0000\n"
-"PO-Revision-Date: 2013-08-24 19:38+0000\n"
+"PO-Revision-Date: 2014-01-16 21:45+0000\n"
 "Last-Translator: mateus ml <Unknown>\n"
 "Language-Team: none\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-08-25 22:48+0000\n"
-"X-Generator: Launchpad (build 16738)\n"
+"X-Launchpad-Export-Date: 2014-01-16 21:56+0000\n"
+"X-Generator: Launchpad (build 16901)\n"
 "Generated-By: pygettext.py 1.5\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
@@ -83,19 +83,16 @@ msgid "Show more results"
 msgstr "Exibir mais resultados"
 
 #: tmpl/artistartsearch-tmpl.html:180
-#, fuzzy
 msgid "Tip: doubleclick or drag a cover to use it as the artist cover"
-msgstr "Dica: clique duplo ou arraste uma capa para usar como capa do álbum"
+msgstr "clique duplo ou arraste uma capa para usá-la como capa do artista"
 
 #: tmp/coverart_artist_pop_rb2.ui.h:1 tmp/coverart_artist_pop_rb3.ui.h:1
-#, fuzzy
 msgid "Play All"
-msgstr "Reproduzir Álbum"
+msgstr "Tocar tudo"
 
 #: tmp/coverart_artist_pop_rb2.ui.h:2 tmp/coverart_artist_pop_rb3.ui.h:2
-#, fuzzy
 msgid "Queue All"
-msgstr "Enfileirar Álbum"
+msgstr "Enfileirar tudo"
 
 #: tmp/coverart_artist_pop_rb2.ui.h:3 tmp/coverart_artist_pop_rb3.ui.h:3
 #: tmp/coverart_browser_pop_rb2.ui.h:3 tmp/coverart_browser_pop_rb3.ui.h:3
@@ -227,9 +224,8 @@ msgid "Album Information"
 msgstr "Informações do álbum"
 
 #: tmp/coverart_browser_prefs.ui.h:22
-#, fuzzy
 msgid "Display album information"
-msgstr "Informações do álbum"
+msgstr "Exibir informações do álbum"
 
 #: tmp/coverart_browser_prefs.ui.h:23
 msgid "Font size for the text below the cover-art."
@@ -266,9 +262,8 @@ msgid "Display album's info under cover"
 msgstr "Exibir informações do álbum abaixo da capa"
 
 #: tmp/coverart_browser_prefs.ui.h:30
-#, fuzzy
 msgid "Display album's info within cover"
-msgstr "Exibir informações do álbum abaixo da capa"
+msgstr "Exibir informações do álbum dentro da capa"
 
 #: tmp/coverart_browser_prefs.ui.h:31
 msgid "Cover Appearance"
@@ -486,7 +481,7 @@ msgstr "Abrir pasta de faixa incorporada no gerenciador de arquivos"
 #. This is a label describing the different options to save the picture artwork in the music file i.e. embed - to insert picture artwork into a music file
 #: tmp/coverart_exportembed.ui.h:5 tmp/coverart_exportembed.ui.h:6
 msgid "Embed:"
-msgstr ""
+msgstr "Embutida"
 
 #: tmp/coverart_exportembed.ui.h:6 tmp/coverart_exportembed.ui.h:7
 msgid ""
@@ -498,27 +493,26 @@ msgstr ""
 
 #: tmp/coverart_exportembed.ui.h:7 tmp/coverart_exportembed.ui.h:8
 msgid "convert to mp3"
-msgstr ""
+msgstr "converter para mp3"
 
 #: tmp/coverart_exportembed.ui.h:8 tmp/coverart_exportembed.ui.h:9
 msgid "bitrate (kbit/s)"
-msgstr ""
+msgstr "taxa de bts (kbits/s)"
 
 #. This is a label describing the size of the picture that will be inserted into the music file e.g. change the size from 800x800 pixels to 128x128 pixels
 #: tmp/coverart_exportembed.ui.h:10 tmp/coverart_exportembed.ui.h:11
 msgid "resize art"
-msgstr ""
+msgstr "redimensionar arte"
 
 #: tmp/coverart_exportembed.ui.h:11 tmp/coverart_exportembed.ui.h:12
-#, fuzzy
 msgid "size in pixels"
-msgstr "Tamanho (em pixels):"
+msgstr "tamanho em pixels"
 
 #. size in pixels
 #: tmp/coverart_exportembed.ui.h:11 tmp/coverart_exportembed.ui.h:12
 #: tmp/coverart_exportembed.ui.h:13
 msgid "(px)"
-msgstr ""
+msgstr "px"
 
 #: tmp/coverart_exportembed.ui.h:12 tmp/coverart_exportembed.ui.h:2
 msgid "Select a Folder to export to"
@@ -546,7 +540,7 @@ msgstr "Todas as décadas"
 #: tmp/coverart_leftsidebar.ui.h:4 tmp/coverart_rightsidebar.ui.h:4
 #: tmp/coverart_topbar.ui.h:4 coverart_browser.py:251 coverart_browser.py:253
 msgid "Views"
-msgstr ""
+msgstr "Visualizações"
 
 #: tmp/popups.xml.in.h:1
 msgid "rock"
@@ -767,6 +761,8 @@ msgid ""
 "No tracks have been added because no tracks meet the favourite rating "
 "threshold"
 msgstr ""
+"Nenhuma faixa foi adicionada porque nenhuma corresponde ao limite de "
+"pontuação de favoritos"
 
 #: coverart_browser_source.py:575
 msgid "The number of albums to randomly play is less than that displayed."
@@ -776,9 +772,9 @@ msgstr ""
 
 #. for example "Requesting the picture cover for the music artist Michael Jackson"
 #: coverart_browser_source.py:666 coverart_browser_source.py:668
-#, fuzzy, python-format
+#, python-format
 msgid "Requesting cover for %s..."
-msgstr "Requisitando capa para %s - %s..."
+msgstr "Requisitando capa para %s..."
 
 #: coverart_browser_source.py:829 coverart_browser_source.py:824
 msgid ""
@@ -824,9 +820,8 @@ msgstr "Filtro de artista rápido"
 
 #: coverart_controllers.py:447 coverart_controllers.py:499
 #: coverart_controllers.py:502 coverart_controllers.py:554
-#, fuzzy
 msgid "Use favourites only"
-msgstr "Adicionar favoritas à fila de reprodução"
+msgstr "Usar somente favoritos"
 
 #: coverart_controllers.py:451 coverart_controllers.py:506
 msgid "Search Preferences"
@@ -925,61 +920,4 @@ msgstr "Número de capas limitado para %d"
 
 #: coverart_album.py:1454
 msgid "Enable LastFM plugin and log in first"
-msgstr ""
-
-#~ msgid "Play this album"
-#~ msgstr "Reproduzir este Álbum"
-
-#~ msgid "Add this album to your playing queue"
-#~ msgstr "Adicionar este álbum à sua fila de reprodução"
-
-#~ msgid "Add this album to a playlist"
-#~ msgstr "Adicionar este álbum à sua fila de reprodução"
-
-#~ msgid "Add this album to a new playlist"
-#~ msgstr "Adicionar este álbum à uma nova fila de reprodução"
-
-#~ msgid "Play favourites tracks from this album"
-#~ msgstr "Tocar faixas favoritas deste álbum"
-
-#~ msgid "Play Favourites"
-#~ msgstr "Tocar Favoritas"
-
-#~ msgid "Add favourite tracks from this album to your playing queue"
-#~ msgstr "Adicionar faixas favoritas deste álbum à sua fila de reprodução"
-
-#~ msgid "Queue Favourites"
-#~ msgstr "Enfileirar Favoritas"
-
-#~ msgid "Add favourite tracks from this album to a playlist"
-#~ msgstr "Adicionar faixas favoritas deste álbum à sua fila de reprodução"
-
-#~ msgid "Add favourites to Playlist"
-#~ msgstr "Adicionar favoritas à fila de reprodução"
-
-#~ msgid "Search for this album cover"
-#~ msgstr "Procurar por capas para este álbum"
-
-#~ msgid "Export album tracks and embed coverart in track files"
-#~ msgstr "Exportar faixas de álbum e incorporar capa nos arquivos de faixa"
-
-#~ msgid "Show album properties"
-#~ msgstr "Mostrar propriedades do álbum"
-
-#~ msgid "Play this track"
-#~ msgstr "Reproduzir esta faixa"
-
-#~ msgid "Add this track to your playing queue"
-#~ msgstr "Adicionar esta faixa à sua fila de reprodução"
-
-#~ msgid "Show track properties"
-#~ msgstr "Exibir propriedades da faixa"
-
-#~ msgid "Show the album's basic information under the cover image."
-#~ msgstr "Mostra informações básicas do álbum abaixo da imagem da capa."
-
-#~ msgid "Requesting cover for %s - %s..."
-#~ msgstr "Requisitando capa para %s - %s..."
-
-#~ msgid "Play favourite random album"
-#~ msgstr "Reproduzir álbuns favoritos aleatórios"
+msgstr "Habilitar plugin LastFM e logar primeiro"

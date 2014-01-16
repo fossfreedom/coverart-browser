@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-08-26 15:32+0000\n"
-"X-Generator: Launchpad (build 16738)\n"
+"X-Launchpad-Export-Date: 2014-01-16 21:56+0000\n"
+"X-Generator: Launchpad (build 16901)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 #: tmpl/artistartsearch-tmpl.html:135
@@ -85,21 +85,16 @@ msgid "Show more results"
 msgstr "Pokaż więcej wyników"
 
 #: tmpl/artistartsearch-tmpl.html:180
-#, fuzzy
 msgid "Tip: doubleclick or drag a cover to use it as the artist cover"
 msgstr ""
-"Wskazówka: kliknij podwójnie lub przeciągnij okładkę by użyć jej jako "
-"okładki albumu"
 
 #: tmp/coverart_artist_pop_rb2.ui.h:1 tmp/coverart_artist_pop_rb3.ui.h:1
-#, fuzzy
 msgid "Play All"
-msgstr "Odtwórz album"
+msgstr ""
 
 #: tmp/coverart_artist_pop_rb2.ui.h:2 tmp/coverart_artist_pop_rb3.ui.h:2
-#, fuzzy
 msgid "Queue All"
-msgstr "Kolejkuj album"
+msgstr ""
 
 #: tmp/coverart_artist_pop_rb2.ui.h:3 tmp/coverart_artist_pop_rb3.ui.h:3
 #: tmp/coverart_browser_pop_rb2.ui.h:3 tmp/coverart_browser_pop_rb3.ui.h:3
@@ -230,9 +225,8 @@ msgid "Album Information"
 msgstr "Informacje o Albumie"
 
 #: tmp/coverart_browser_prefs.ui.h:22
-#, fuzzy
 msgid "Display album information"
-msgstr "Informacje o Albumie"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:23
 msgid "Font size for the text below the cover-art."
@@ -268,9 +262,8 @@ msgid "Display album's info under cover"
 msgstr "Wyświetl informacje o albumie pod okładką"
 
 #: tmp/coverart_browser_prefs.ui.h:30
-#, fuzzy
 msgid "Display album's info within cover"
-msgstr "Wyświetl informacje o albumie pod okładką"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:31
 msgid "Cover Appearance"
@@ -512,9 +505,8 @@ msgid "resize art"
 msgstr ""
 
 #: tmp/coverart_exportembed.ui.h:11 tmp/coverart_exportembed.ui.h:12
-#, fuzzy
 msgid "size in pixels"
-msgstr "Wielkość (w pikselach):"
+msgstr ""
 
 #. size in pixels
 #: tmp/coverart_exportembed.ui.h:11 tmp/coverart_exportembed.ui.h:12
@@ -779,9 +771,9 @@ msgstr ""
 
 #. for example "Requesting the picture cover for the music artist Michael Jackson"
 #: coverart_browser_source.py:666 coverart_browser_source.py:668
-#, fuzzy, python-format
+#, python-format
 msgid "Requesting cover for %s..."
-msgstr "Żadanie okładki dla %s - %s..."
+msgstr ""
 
 #: coverart_browser_source.py:829 coverart_browser_source.py:824
 msgid ""
@@ -826,9 +818,8 @@ msgstr "Szybki filtr artystów"
 
 #: coverart_controllers.py:447 coverart_controllers.py:499
 #: coverart_controllers.py:502 coverart_controllers.py:554
-#, fuzzy
 msgid "Use favourites only"
-msgstr "Dodaj ulubione do listy odtwarzania"
+msgstr ""
 
 #: coverart_controllers.py:451 coverart_controllers.py:506
 msgid "Search Preferences"
@@ -928,60 +919,3 @@ msgstr "Liczba okładek ograniczona do %d"
 #: coverart_album.py:1454
 msgid "Enable LastFM plugin and log in first"
 msgstr ""
-
-#~ msgid "Play this album"
-#~ msgstr "Odtwarzaj ten album"
-
-#~ msgid "Add this album to your playing queue"
-#~ msgstr "Dodaj ten album do Twojej kolejki odtwarzania"
-
-#~ msgid "Add this album to a playlist"
-#~ msgstr "Dodaj ten album do listy odtwarzania"
-
-#~ msgid "Add this album to a new playlist"
-#~ msgstr "Dodaj ten album do nowej listy odtwarzania"
-
-#~ msgid "Play favourites tracks from this album"
-#~ msgstr "Odtwórz ulubione utwory z tego albumu"
-
-#~ msgid "Play Favourites"
-#~ msgstr "Odtwórz ulubione"
-
-#~ msgid "Add favourite tracks from this album to your playing queue"
-#~ msgstr "Dodaj ulubione utwory z tego albumu do kolejki odtwarzania"
-
-#~ msgid "Queue Favourites"
-#~ msgstr "Kolejkuj ulubione"
-
-#~ msgid "Add favourite tracks from this album to a playlist"
-#~ msgstr "Dodaj ulubione utwory z tego albumu do listy odtwarzania"
-
-#~ msgid "Add favourites to Playlist"
-#~ msgstr "Dodaj ulubione do listy odtwarzania"
-
-#~ msgid "Search for this album cover"
-#~ msgstr "Szukaj tej okładki albumu"
-
-#~ msgid "Export album tracks and embed coverart in track files"
-#~ msgstr "Eksportuj ścieżki albumu zapisując okładkę w plikach ścieżek"
-
-#~ msgid "Show album properties"
-#~ msgstr "Szukaj właściwości albumu"
-
-#~ msgid "Play this track"
-#~ msgstr "Odtwórz ten utwór"
-
-#~ msgid "Add this track to your playing queue"
-#~ msgstr "Dodaj ten utwór do Twojej kolejki odtwarzania"
-
-#~ msgid "Show track properties"
-#~ msgstr "Pokaż właściwości utworu"
-
-#~ msgid "Show the album's basic information under the cover image."
-#~ msgstr "Pokaż podstawowe informacje o albumie pod obrazkiem okładki."
-
-#~ msgid "Requesting cover for %s - %s..."
-#~ msgstr "Żadanie okładki dla %s - %s..."
-
-#~ msgid "Play favourite random album"
-#~ msgstr "Odtwórz ulubiony losowy album"

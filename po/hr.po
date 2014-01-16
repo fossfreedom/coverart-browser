@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-08-25 22:48+0000\n"
-"X-Generator: Launchpad (build 16738)\n"
+"X-Launchpad-Export-Date: 2014-01-16 21:56+0000\n"
+"X-Generator: Launchpad (build 16901)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 #: tmpl/artistartsearch-tmpl.html:135
@@ -83,19 +83,16 @@ msgid "Show more results"
 msgstr "Prikaži više rezultata"
 
 #: tmpl/artistartsearch-tmpl.html:180
-#, fuzzy
 msgid "Tip: doubleclick or drag a cover to use it as the artist cover"
-msgstr "Savjet: dvoklik ili dovuci omot koji će se koristiti kao omot albuma"
+msgstr ""
 
 #: tmp/coverart_artist_pop_rb2.ui.h:1 tmp/coverart_artist_pop_rb3.ui.h:1
-#, fuzzy
 msgid "Play All"
-msgstr "Reproduciraj album"
+msgstr ""
 
 #: tmp/coverart_artist_pop_rb2.ui.h:2 tmp/coverart_artist_pop_rb3.ui.h:2
-#, fuzzy
 msgid "Queue All"
-msgstr "Dodaj album na listu za reprodukciju"
+msgstr ""
 
 #: tmp/coverart_artist_pop_rb2.ui.h:3 tmp/coverart_artist_pop_rb3.ui.h:3
 #: tmp/coverart_browser_pop_rb2.ui.h:3 tmp/coverart_browser_pop_rb3.ui.h:3
@@ -224,9 +221,8 @@ msgid "Album Information"
 msgstr "Informacije albuma"
 
 #: tmp/coverart_browser_prefs.ui.h:22
-#, fuzzy
 msgid "Display album information"
-msgstr "Informacije albuma"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:23
 msgid "Font size for the text below the cover-art."
@@ -259,9 +255,8 @@ msgid "Display album's info under cover"
 msgstr "Prikaži informacije albuma ispod omota"
 
 #: tmp/coverart_browser_prefs.ui.h:30
-#, fuzzy
 msgid "Display album's info within cover"
-msgstr "Prikaži informacije albuma ispod omota"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:31
 msgid "Cover Appearance"
@@ -503,9 +498,8 @@ msgid "resize art"
 msgstr ""
 
 #: tmp/coverart_exportembed.ui.h:11 tmp/coverart_exportembed.ui.h:12
-#, fuzzy
 msgid "size in pixels"
-msgstr "Veličina (u pikselima):"
+msgstr ""
 
 #. size in pixels
 #: tmp/coverart_exportembed.ui.h:11 tmp/coverart_exportembed.ui.h:12
@@ -764,9 +758,9 @@ msgstr "Broj albuma za nasumično izvođenje je manja nego prikazano."
 
 #. for example "Requesting the picture cover for the music artist Michael Jackson"
 #: coverart_browser_source.py:666 coverart_browser_source.py:668
-#, fuzzy, python-format
+#, python-format
 msgid "Requesting cover for %s..."
-msgstr "Tražim omot za  %s - %s..."
+msgstr ""
 
 #: coverart_browser_source.py:829 coverart_browser_source.py:824
 msgid ""
@@ -813,9 +807,8 @@ msgstr "Brzi filter izvođača"
 
 #: coverart_controllers.py:447 coverart_controllers.py:499
 #: coverart_controllers.py:502 coverart_controllers.py:554
-#, fuzzy
 msgid "Use favourites only"
-msgstr "Dodaj favorite na popis za izvođenje"
+msgstr ""
 
 #: coverart_controllers.py:451 coverart_controllers.py:506
 msgid "Search Preferences"
@@ -915,60 +908,3 @@ msgstr "Broj omota ograničen na %d"
 #: coverart_album.py:1454
 msgid "Enable LastFM plugin and log in first"
 msgstr ""
-
-#~ msgid "Play this album"
-#~ msgstr "Reproduciraj ovaj album"
-
-#~ msgid "Add this album to your playing queue"
-#~ msgstr "Dodaj album u red za sviranje"
-
-#~ msgid "Add this album to a playlist"
-#~ msgstr "Dodaj album na popis izvođenja"
-
-#~ msgid "Add this album to a new playlist"
-#~ msgstr "Dodaj album na novi popis izvođenja"
-
-#~ msgid "Play favourites tracks from this album"
-#~ msgstr "Sviraj omiljenu glazbu s ovog albuma"
-
-#~ msgid "Play Favourites"
-#~ msgstr "Sviraj favorite"
-
-#~ msgid "Add favourite tracks from this album to your playing queue"
-#~ msgstr "Dodaj omiljene zapise s albuma na red za sviranje"
-
-#~ msgid "Queue Favourites"
-#~ msgstr "Dodaj favorite na listu za reprodukciju"
-
-#~ msgid "Add favourite tracks from this album to a playlist"
-#~ msgstr "Dodaj omiljene zapise s albuma"
-
-#~ msgid "Add favourites to Playlist"
-#~ msgstr "Dodaj favorite na popis za izvođenje"
-
-#~ msgid "Search for this album cover"
-#~ msgstr "Pretraži omot albuma"
-
-#~ msgid "Export album tracks and embed coverart in track files"
-#~ msgstr "Izvezi zapise albuma i omote u datoteke zapisa"
-
-#~ msgid "Show album properties"
-#~ msgstr "Pokaži svojstva albuma"
-
-#~ msgid "Play this track"
-#~ msgstr "Sviraj ovaj zapis"
-
-#~ msgid "Add this track to your playing queue"
-#~ msgstr "Dodaj zapis na popis za čekanje"
-
-#~ msgid "Show track properties"
-#~ msgstr "Prikaži svojstva zapisa"
-
-#~ msgid "Show the album's basic information under the cover image."
-#~ msgstr "Prikaži osnovne informacije albuma ispod omota."
-
-#~ msgid "Requesting cover for %s - %s..."
-#~ msgstr "Tražim omot za  %s - %s..."
-
-#~ msgid "Play favourite random album"
-#~ msgstr "Sviraj omiljeni nasumični album"

@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-13 21:47+0000\n"
-"PO-Revision-Date: 2013-10-02 16:12+0000\n"
+"PO-Revision-Date: 2014-01-16 08:45+0000\n"
 "Last-Translator: Jiri Grönroos <Unknown>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-10-05 22:00+0000\n"
-"X-Generator: Launchpad (build 16791)\n"
+"X-Launchpad-Export-Date: 2014-01-16 21:56+0000\n"
+"X-Generator: Launchpad (build 16901)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 #: tmpl/artistartsearch-tmpl.html:135
@@ -84,20 +84,16 @@ msgid "Show more results"
 msgstr "Näytä lisää tuloksia"
 
 #: tmpl/artistartsearch-tmpl.html:180
-#, fuzzy
 msgid "Tip: doubleclick or drag a cover to use it as the artist cover"
 msgstr ""
-"Vinkki: kaksoisnapsauta tai raahaa kansikuva käyttääksesi sitä levyn kantena"
 
 #: tmp/coverart_artist_pop_rb2.ui.h:1 tmp/coverart_artist_pop_rb3.ui.h:1
-#, fuzzy
 msgid "Play All"
-msgstr "Toista levy"
+msgstr "Toista kaikki"
 
 #: tmp/coverart_artist_pop_rb2.ui.h:2 tmp/coverart_artist_pop_rb3.ui.h:2
-#, fuzzy
 msgid "Queue All"
-msgstr "Lisää kappale jonoon"
+msgstr "Aseta kaikki jonoon"
 
 #: tmp/coverart_artist_pop_rb2.ui.h:3 tmp/coverart_artist_pop_rb3.ui.h:3
 #: tmp/coverart_browser_pop_rb2.ui.h:3 tmp/coverart_browser_pop_rb3.ui.h:3
@@ -221,9 +217,8 @@ msgid "Album Information"
 msgstr "Levyn tiedot"
 
 #: tmp/coverart_browser_prefs.ui.h:22
-#, fuzzy
 msgid "Display album information"
-msgstr "Levyn tiedot"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:23
 msgid "Font size for the text below the cover-art."
@@ -256,9 +251,8 @@ msgid "Display album's info under cover"
 msgstr "Näytä levyn tiedot kansikuvan alla"
 
 #: tmp/coverart_browser_prefs.ui.h:30
-#, fuzzy
 msgid "Display album's info within cover"
-msgstr "Näytä levyn tiedot kansikuvan alla"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:31
 msgid "Cover Appearance"
@@ -498,9 +492,8 @@ msgid "resize art"
 msgstr ""
 
 #: tmp/coverart_exportembed.ui.h:11 tmp/coverart_exportembed.ui.h:12
-#, fuzzy
 msgid "size in pixels"
-msgstr "Koko (pikseleissä):"
+msgstr ""
 
 #. size in pixels
 #: tmp/coverart_exportembed.ui.h:11 tmp/coverart_exportembed.ui.h:12
@@ -720,7 +713,7 @@ msgstr "Kansikuvat"
 #: coverart_browser_prefs.py:248 coverart_controllers.py:450
 #: coverart_browser_prefs.py:250 coverart_controllers.py:505
 msgid "Browser Preferences"
-msgstr ""
+msgstr "Selaimen asetukset"
 
 #. . TRANSLATORS: Do not translate this string.
 #: coverart_browser_prefs.py:287 coverart_browser_prefs.py:289
@@ -760,9 +753,9 @@ msgstr ""
 
 #. for example "Requesting the picture cover for the music artist Michael Jackson"
 #: coverart_browser_source.py:666 coverart_browser_source.py:668
-#, fuzzy, python-format
+#, python-format
 msgid "Requesting cover for %s..."
-msgstr "Etsitään kansikuvaa - %s - %s..."
+msgstr ""
 
 #: coverart_browser_source.py:829 coverart_browser_source.py:824
 msgid ""
@@ -794,7 +787,7 @@ msgstr ""
 
 #: coverart_controllers.py:442 coverart_controllers.py:497
 msgid "Download all covers"
-msgstr ""
+msgstr "Lataa kaikki kannet"
 
 #: coverart_controllers.py:443 coverart_controllers.py:498
 msgid "Play random album"
@@ -807,9 +800,8 @@ msgstr ""
 
 #: coverart_controllers.py:447 coverart_controllers.py:499
 #: coverart_controllers.py:502 coverart_controllers.py:554
-#, fuzzy
 msgid "Use favourites only"
-msgstr "Lisää suosikit soittolistaan"
+msgstr ""
 
 #: coverart_controllers.py:451 coverart_controllers.py:506
 msgid "Search Preferences"
@@ -909,57 +901,3 @@ msgstr "Kansien määrä rajattu - %d"
 #: coverart_album.py:1454
 msgid "Enable LastFM plugin and log in first"
 msgstr ""
-
-#~ msgid "Play this album"
-#~ msgstr "Toista tämä levy"
-
-#~ msgid "Add this album to your playing queue"
-#~ msgstr "Lisää tämä levy soittojonoosi"
-
-#~ msgid "Add this album to a playlist"
-#~ msgstr "Lisää levy soittolistaan"
-
-#~ msgid "Add this album to a new playlist"
-#~ msgstr "Lisää levy uuteen soittolistaan"
-
-#~ msgid "Play favourites tracks from this album"
-#~ msgstr "Toista tämän levyn suosikkikappaleet"
-
-#~ msgid "Play Favourites"
-#~ msgstr "Toista suosikit"
-
-#~ msgid "Add favourite tracks from this album to your playing queue"
-#~ msgstr "Lisää tämän levyn suosikkikappaleesi soittojonoon"
-
-#~ msgid "Queue Favourites"
-#~ msgstr "Aseta suosikit jonoon"
-
-#~ msgid "Add favourite tracks from this album to a playlist"
-#~ msgstr "Lisää tämän levyn suosikkikappaleet soittolistalle"
-
-#~ msgid "Add favourites to Playlist"
-#~ msgstr "Lisää suosikit soittolistaan"
-
-#~ msgid "Search for this album cover"
-#~ msgstr "Etsi tämän levyn kansikuvaa"
-
-#~ msgid "Export album tracks and embed coverart in track files"
-#~ msgstr "Vie levyn kappaleet ja upota kansikuvitus kappaletiedostoihin"
-
-#~ msgid "Show album properties"
-#~ msgstr "Näytä levyn ominaisuudet"
-
-#~ msgid "Play this track"
-#~ msgstr "Toista tämä kappale"
-
-#~ msgid "Add this track to your playing queue"
-#~ msgstr "Lisää tämä kappale soittojonoosi"
-
-#~ msgid "Show track properties"
-#~ msgstr "Näytä kappaleen ominaisuudet"
-
-#~ msgid "Show the album's basic information under the cover image."
-#~ msgstr "Näytä levyn perustiedot kansikuvan alla."
-
-#~ msgid "Requesting cover for %s - %s..."
-#~ msgstr "Etsitään kansikuvaa - %s - %s..."

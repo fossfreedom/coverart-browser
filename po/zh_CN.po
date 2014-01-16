@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-09-11 14:48+0000\n"
-"X-Generator: Launchpad (build 16761)\n"
+"X-Launchpad-Export-Date: 2014-01-16 21:56+0000\n"
+"X-Generator: Launchpad (build 16901)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 #: tmpl/artistartsearch-tmpl.html:135
@@ -83,19 +83,16 @@ msgid "Show more results"
 msgstr "显示更多结果"
 
 #: tmpl/artistartsearch-tmpl.html:180
-#, fuzzy
 msgid "Tip: doubleclick or drag a cover to use it as the artist cover"
-msgstr "提示：双击或拖动封面可将其用作专辑封面"
+msgstr ""
 
 #: tmp/coverart_artist_pop_rb2.ui.h:1 tmp/coverart_artist_pop_rb3.ui.h:1
-#, fuzzy
 msgid "Play All"
-msgstr "播放专辑"
+msgstr ""
 
 #: tmp/coverart_artist_pop_rb2.ui.h:2 tmp/coverart_artist_pop_rb3.ui.h:2
-#, fuzzy
 msgid "Queue All"
-msgstr "队列专辑"
+msgstr ""
 
 #: tmp/coverart_artist_pop_rb2.ui.h:3 tmp/coverart_artist_pop_rb3.ui.h:3
 #: tmp/coverart_browser_pop_rb2.ui.h:3 tmp/coverart_browser_pop_rb3.ui.h:3
@@ -223,9 +220,8 @@ msgid "Album Information"
 msgstr "专辑信息"
 
 #: tmp/coverart_browser_prefs.ui.h:22
-#, fuzzy
 msgid "Display album information"
-msgstr "专辑信息"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:23
 msgid "Font size for the text below the cover-art."
@@ -258,9 +254,8 @@ msgid "Display album's info under cover"
 msgstr "封面下方显示专辑信息"
 
 #: tmp/coverart_browser_prefs.ui.h:30
-#, fuzzy
 msgid "Display album's info within cover"
-msgstr "封面下方显示专辑信息"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:31
 msgid "Cover Appearance"
@@ -500,9 +495,8 @@ msgid "resize art"
 msgstr ""
 
 #: tmp/coverart_exportembed.ui.h:11 tmp/coverart_exportembed.ui.h:12
-#, fuzzy
 msgid "size in pixels"
-msgstr "大小(像素)："
+msgstr ""
 
 #. size in pixels
 #: tmp/coverart_exportembed.ui.h:11 tmp/coverart_exportembed.ui.h:12
@@ -764,9 +758,9 @@ msgstr "随机播放的音乐数目将少于显示的。"
 
 #. for example "Requesting the picture cover for the music artist Michael Jackson"
 #: coverart_browser_source.py:666 coverart_browser_source.py:668
-#, fuzzy, python-format
+#, python-format
 msgid "Requesting cover for %s..."
-msgstr "正在请求  %s - %s 封面..."
+msgstr ""
 
 #: coverart_browser_source.py:829 coverart_browser_source.py:824
 msgid ""
@@ -811,9 +805,8 @@ msgstr "快速艺人过滤器"
 
 #: coverart_controllers.py:447 coverart_controllers.py:499
 #: coverart_controllers.py:502 coverart_controllers.py:554
-#, fuzzy
 msgid "Use favourites only"
-msgstr "将收藏歌曲添加到播放列表"
+msgstr ""
 
 #: coverart_controllers.py:451 coverart_controllers.py:506
 msgid "Search Preferences"
@@ -913,60 +906,3 @@ msgstr "封面数量限制为 %d"
 #: coverart_album.py:1454
 msgid "Enable LastFM plugin and log in first"
 msgstr ""
-
-#~ msgid "Play this album"
-#~ msgstr "播放该专辑"
-
-#~ msgid "Add this album to your playing queue"
-#~ msgstr "将该专辑添加到当前播放队列"
-
-#~ msgid "Add this album to a playlist"
-#~ msgstr "将该专辑添加到播放列表"
-
-#~ msgid "Add this album to a new playlist"
-#~ msgstr "将该专辑添加到一个新的播放列表"
-
-#~ msgid "Play favourites tracks from this album"
-#~ msgstr "播放该专辑中的收藏歌曲"
-
-#~ msgid "Play Favourites"
-#~ msgstr "播放收藏歌曲"
-
-#~ msgid "Add favourite tracks from this album to your playing queue"
-#~ msgstr "将该专辑中收藏的歌曲添加到播放队列"
-
-#~ msgid "Queue Favourites"
-#~ msgstr "队列收藏歌曲"
-
-#~ msgid "Add favourite tracks from this album to a playlist"
-#~ msgstr "将该专辑中的收藏歌曲添加到播放列表"
-
-#~ msgid "Add favourites to Playlist"
-#~ msgstr "将收藏歌曲添加到播放列表"
-
-#~ msgid "Search for this album cover"
-#~ msgstr "搜索该专辑封面"
-
-#~ msgid "Export album tracks and embed coverart in track files"
-#~ msgstr "导出专辑歌曲，并在歌曲文件中嵌入封面"
-
-#~ msgid "Show album properties"
-#~ msgstr "显示专辑属性"
-
-#~ msgid "Play this track"
-#~ msgstr "播放该歌曲"
-
-#~ msgid "Add this track to your playing queue"
-#~ msgstr "将该歌曲添加到播放队列"
-
-#~ msgid "Show track properties"
-#~ msgstr "显示歌曲属性"
-
-#~ msgid "Show the album's basic information under the cover image."
-#~ msgstr "在封面图片下方显示专辑基本信息。"
-
-#~ msgid "Requesting cover for %s - %s..."
-#~ msgstr "正在请求  %s - %s 封面..."
-
-#~ msgid "Play favourite random album"
-#~ msgstr "随机播放喜爱的专辑"

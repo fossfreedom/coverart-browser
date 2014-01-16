@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-13 21:47+0000\n"
-"PO-Revision-Date: 2014-01-14 05:48+0000\n"
-"Last-Translator: fossfreedom <Unknown>\n"
+"PO-Revision-Date: 2014-01-14 22:54+0000\n"
+"Last-Translator: Rashid Aliyev <Unknown>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-01-14 21:16+0000\n"
-"X-Generator: Launchpad (build 16890)\n"
+"X-Launchpad-Export-Date: 2014-01-16 21:56+0000\n"
+"X-Generator: Launchpad (build 16901)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 #: tmpl/artistartsearch-tmpl.html:135
@@ -741,6 +741,7 @@ msgstr ""
 "  Alfredo Hernández https://launchpad.net/~aldomann\n"
 "  Eduardo Battaglia https://launchpad.net/~eduardo-battaglia\n"
 "  Lucio https://launchpad.net/~lucio-martinez\n"
+"  Rashid Aliyev https://launchpad.net/~rashid\n"
 "  fossfreedom https://launchpad.net/~fossfreedom\n"
 "  hhlp https://launchpad.net/~hhlp-deactivatedaccount"
 
@@ -926,4 +927,4 @@ msgstr "Número de carátulas limitadas a %d"
 
 #: coverart_album.py:1454
 msgid "Enable LastFM plugin and log in first"
-msgstr ""
+msgstr "Virkja LastFM tappi og skráðu þig inn fyrst"

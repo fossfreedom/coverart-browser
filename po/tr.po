@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-09-11 14:48+0000\n"
-"X-Generator: Launchpad (build 16761)\n"
+"X-Launchpad-Export-Date: 2014-01-16 21:56+0000\n"
+"X-Generator: Launchpad (build 16901)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 #: tmpl/artistartsearch-tmpl.html:135
@@ -85,21 +85,16 @@ msgid "Show more results"
 msgstr "Daha fazla sonuç göster"
 
 #: tmpl/artistartsearch-tmpl.html:180
-#, fuzzy
 msgid "Tip: doubleclick or drag a cover to use it as the artist cover"
 msgstr ""
-"İpucu: Çift tıklayarak ta da sürükleyerek bir görüntüyü albüm kapağı "
-"yapabilirsiniz"
 
 #: tmp/coverart_artist_pop_rb2.ui.h:1 tmp/coverart_artist_pop_rb3.ui.h:1
-#, fuzzy
 msgid "Play All"
-msgstr "Albümü Çal"
+msgstr ""
 
 #: tmp/coverart_artist_pop_rb2.ui.h:2 tmp/coverart_artist_pop_rb3.ui.h:2
-#, fuzzy
 msgid "Queue All"
-msgstr "Albüm Kuyruğu"
+msgstr ""
 
 #: tmp/coverart_artist_pop_rb2.ui.h:3 tmp/coverart_artist_pop_rb3.ui.h:3
 #: tmp/coverart_browser_pop_rb2.ui.h:3 tmp/coverart_browser_pop_rb3.ui.h:3
@@ -223,9 +218,8 @@ msgid "Album Information"
 msgstr "Albüm Bilgisi"
 
 #: tmp/coverart_browser_prefs.ui.h:22
-#, fuzzy
 msgid "Display album information"
-msgstr "Albüm Bilgisi"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:23
 msgid "Font size for the text below the cover-art."
@@ -258,9 +252,8 @@ msgid "Display album's info under cover"
 msgstr "Albüm bilgisini kapağın altında göster"
 
 #: tmp/coverart_browser_prefs.ui.h:30
-#, fuzzy
 msgid "Display album's info within cover"
-msgstr "Albüm bilgisini kapağın altında göster"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:31
 msgid "Cover Appearance"
@@ -500,9 +493,8 @@ msgid "resize art"
 msgstr ""
 
 #: tmp/coverart_exportembed.ui.h:11 tmp/coverart_exportembed.ui.h:12
-#, fuzzy
 msgid "size in pixels"
-msgstr "Boyut (piksel olarak):"
+msgstr ""
 
 #. size in pixels
 #: tmp/coverart_exportembed.ui.h:11 tmp/coverart_exportembed.ui.h:12
@@ -811,9 +803,8 @@ msgstr ""
 
 #: coverart_controllers.py:447 coverart_controllers.py:499
 #: coverart_controllers.py:502 coverart_controllers.py:554
-#, fuzzy
 msgid "Use favourites only"
-msgstr "Beğenilenleri Çalma Listesine Ekle"
+msgstr ""
 
 #: coverart_controllers.py:451 coverart_controllers.py:506
 msgid "Search Preferences"
@@ -913,48 +904,3 @@ msgstr ""
 #: coverart_album.py:1454
 msgid "Enable LastFM plugin and log in first"
 msgstr ""
-
-#~ msgid "Play this album"
-#~ msgstr "Bu albümü çal"
-
-#~ msgid "Add this album to your playing queue"
-#~ msgstr "Bu albümü çalma kuyruğuna ekle"
-
-#~ msgid "Add this album to a playlist"
-#~ msgstr "Bu albümü çalma listesine ekle"
-
-#~ msgid "Add this album to a new playlist"
-#~ msgstr "Bu albümü yeni çalma listesine ekle"
-
-#~ msgid "Play favourites tracks from this album"
-#~ msgstr "Bu albümdeki beğenilen parçaları çal"
-
-#~ msgid "Play Favourites"
-#~ msgstr "Beğenilenleri çal"
-
-#~ msgid "Queue Favourites"
-#~ msgstr "Beğenilenler Kuyruğu"
-
-#~ msgid "Add favourite tracks from this album to a playlist"
-#~ msgstr "Bu albümdeki beğenilen parçaları çalma listesine ekle"
-
-#~ msgid "Add favourites to Playlist"
-#~ msgstr "Beğenilenleri Çalma Listesine Ekle"
-
-#~ msgid "Search for this album cover"
-#~ msgstr "Bu albümün kapağını ara"
-
-#~ msgid "Show album properties"
-#~ msgstr "Albüm özelliklerini göster"
-
-#~ msgid "Play this track"
-#~ msgstr "Bu parçayı çal"
-
-#~ msgid "Add this track to your playing queue"
-#~ msgstr "Bu parçayı çalma kuyruğuna ekle"
-
-#~ msgid "Show track properties"
-#~ msgstr "Parça özelliklerini göster"
-
-#~ msgid "Show the album's basic information under the cover image."
-#~ msgstr "Albümün basit bilgilerini albüm kapağının altında göster."

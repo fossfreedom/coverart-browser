@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-12-03 13:16+0000\n"
-"X-Generator: Launchpad (build 16861)\n"
+"X-Launchpad-Export-Date: 2014-01-16 21:56+0000\n"
+"X-Generator: Launchpad (build 16901)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 #: tmpl/artistartsearch-tmpl.html:135
@@ -85,21 +85,16 @@ msgid "Show more results"
 msgstr "Weitere Treffer anzeigen"
 
 #: tmpl/artistartsearch-tmpl.html:180
-#, fuzzy
 msgid "Tip: doubleclick or drag a cover to use it as the artist cover"
 msgstr ""
-"Tipp: Sie können ein Cover mit einem Doppelklick oder per Drag-and-Drop als "
-"Albumcover einrichten"
 
 #: tmp/coverart_artist_pop_rb2.ui.h:1 tmp/coverart_artist_pop_rb3.ui.h:1
-#, fuzzy
 msgid "Play All"
-msgstr "Album wiedergeben"
+msgstr ""
 
 #: tmp/coverart_artist_pop_rb2.ui.h:2 tmp/coverart_artist_pop_rb3.ui.h:2
-#, fuzzy
 msgid "Queue All"
-msgstr "Album-Warteschlange"
+msgstr ""
 
 #: tmp/coverart_artist_pop_rb2.ui.h:3 tmp/coverart_artist_pop_rb3.ui.h:3
 #: tmp/coverart_browser_pop_rb2.ui.h:3 tmp/coverart_browser_pop_rb3.ui.h:3
@@ -223,9 +218,8 @@ msgid "Album Information"
 msgstr "Albuminformationen"
 
 #: tmp/coverart_browser_prefs.ui.h:22
-#, fuzzy
 msgid "Display album information"
-msgstr "Albuminformationen"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:23
 msgid "Font size for the text below the cover-art."
@@ -258,9 +252,8 @@ msgid "Display album's info under cover"
 msgstr "Album-Informationen unter dem Cover anzeigen"
 
 #: tmp/coverart_browser_prefs.ui.h:30
-#, fuzzy
 msgid "Display album's info within cover"
-msgstr "Album-Informationen unter dem Cover anzeigen"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:31
 msgid "Cover Appearance"
@@ -500,9 +493,8 @@ msgid "resize art"
 msgstr ""
 
 #: tmp/coverart_exportembed.ui.h:11 tmp/coverart_exportembed.ui.h:12
-#, fuzzy
 msgid "size in pixels"
-msgstr "Größe (in Pixeln):"
+msgstr ""
 
 #. size in pixels
 #: tmp/coverart_exportembed.ui.h:11 tmp/coverart_exportembed.ui.h:12
@@ -815,9 +807,8 @@ msgstr ""
 
 #: coverart_controllers.py:447 coverart_controllers.py:499
 #: coverart_controllers.py:502 coverart_controllers.py:554
-#, fuzzy
 msgid "Use favourites only"
-msgstr "Favoriten zur Wiedergabeliste hinzufügen"
+msgstr ""
 
 #: coverart_controllers.py:451 coverart_controllers.py:506
 msgid "Search Preferences"
@@ -917,36 +908,3 @@ msgstr ""
 #: coverart_album.py:1454
 msgid "Enable LastFM plugin and log in first"
 msgstr ""
-
-#~ msgid "Play this album"
-#~ msgstr "Spiele dieses Album"
-
-#~ msgid "Add this album to a playlist"
-#~ msgstr "Dieses Album zu einer Playlist hinzufügen"
-
-#~ msgid "Add this album to a new playlist"
-#~ msgstr "Dieses Album zu einer neuen Playlist hinzufügen"
-
-#~ msgid "Play Favourites"
-#~ msgstr "Spiele Favoriten"
-
-#~ msgid "Add favourites to Playlist"
-#~ msgstr "Favoriten zur Wiedergabeliste hinzufügen"
-
-#~ msgid "Search for this album cover"
-#~ msgstr "Suche nach diesem Album-Cover"
-
-#~ msgid "Show album properties"
-#~ msgstr "Album-Eigenschaften anzeigen"
-
-#~ msgid "Play this track"
-#~ msgstr "Diesen Titel wiedergeben"
-
-#~ msgid "Add this track to your playing queue"
-#~ msgstr "Diesen Musiktitel zur Wiedergabeliste hinzufügen"
-
-#~ msgid "Show track properties"
-#~ msgstr "Titel-Eigenschaften anzeigen"
-
-#~ msgid "Show the album's basic information under the cover image."
-#~ msgstr "Album-Basisinformationen unter dem Cover anzeigen"
