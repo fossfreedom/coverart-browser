@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-13 21:47+0000\n"
-"PO-Revision-Date: 2013-08-26 10:32+0000\n"
-"Last-Translator: Rashid Aliyev <Unknown>\n"
+"PO-Revision-Date: 2014-01-17 14:29+0000\n"
+"Last-Translator: Szymon Nieznański <s.nez@openmailbox.org>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-01-16 21:56+0000\n"
+"X-Launchpad-Export-Date: 2014-01-18 13:56+0000\n"
 "X-Generator: Launchpad (build 16901)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
@@ -90,11 +90,11 @@ msgstr ""
 
 #: tmp/coverart_artist_pop_rb2.ui.h:1 tmp/coverart_artist_pop_rb3.ui.h:1
 msgid "Play All"
-msgstr ""
+msgstr "Odtwórz wszystkie"
 
 #: tmp/coverart_artist_pop_rb2.ui.h:2 tmp/coverart_artist_pop_rb3.ui.h:2
 msgid "Queue All"
-msgstr ""
+msgstr "Dodaj wszystkie do kolejki"
 
 #: tmp/coverart_artist_pop_rb2.ui.h:3 tmp/coverart_artist_pop_rb3.ui.h:3
 #: tmp/coverart_browser_pop_rb2.ui.h:3 tmp/coverart_browser_pop_rb3.ui.h:3
@@ -226,7 +226,7 @@ msgstr "Informacje o Albumie"
 
 #: tmp/coverart_browser_prefs.ui.h:22
 msgid "Display album information"
-msgstr ""
+msgstr "Pokazuj informacje o albumie"
 
 #: tmp/coverart_browser_prefs.ui.h:23
 msgid "Font size for the text below the cover-art."
@@ -263,7 +263,7 @@ msgstr "Wyświetl informacje o albumie pod okładką"
 
 #: tmp/coverart_browser_prefs.ui.h:30
 msgid "Display album's info within cover"
-msgstr ""
+msgstr "Pokazuj informacje o albumie wewnątrz okładki"
 
 #: tmp/coverart_browser_prefs.ui.h:31
 msgid "Cover Appearance"
@@ -506,7 +506,7 @@ msgstr ""
 
 #: tmp/coverart_exportembed.ui.h:11 tmp/coverart_exportembed.ui.h:12
 msgid "size in pixels"
-msgstr ""
+msgstr "rozmiar w pikselach"
 
 #. size in pixels
 #: tmp/coverart_exportembed.ui.h:11 tmp/coverart_exportembed.ui.h:12
@@ -819,7 +819,7 @@ msgstr "Szybki filtr artystów"
 #: coverart_controllers.py:447 coverart_controllers.py:499
 #: coverart_controllers.py:502 coverart_controllers.py:554
 msgid "Use favourites only"
-msgstr ""
+msgstr "Użyj tylko ulubionych"
 
 #: coverart_controllers.py:451 coverart_controllers.py:506
 msgid "Search Preferences"

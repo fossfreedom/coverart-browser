@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-13 21:47+0000\n"
-"PO-Revision-Date: 2013-11-12 12:08+0000\n"
-"Last-Translator: Atanas Kovachki <Unknown>\n"
+"PO-Revision-Date: 2014-01-17 15:02+0000\n"
+"Last-Translator: Blagovest Petrov <blagovest@petrovs.info>\n"
 "Language-Team: Bulgarian <bg@li.org>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-01-16 21:56+0000\n"
+"X-Launchpad-Export-Date: 2014-01-18 13:56+0000\n"
 "X-Generator: Launchpad (build 16901)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
@@ -26,6 +26,8 @@ msgstr "Параметри за търсенето"
 #: tmpl/albumartsearch-tmpl.html:187
 msgid "Tip: doubleclick or drag a cover to use it as the album cover"
 msgstr ""
+"Съвет: кликнете два пъти или завлачете обложка, за да я използвате като "
+"картинка на албум"
 
 #: tmpl/albumartsearch-tmpl.html:189
 msgid "Search Mode"
@@ -85,14 +87,16 @@ msgstr "Покажи още резултати"
 #: tmpl/artistartsearch-tmpl.html:180
 msgid "Tip: doubleclick or drag a cover to use it as the artist cover"
 msgstr ""
+"Съвет: кликнете два пъти или завлачете обложка, за да я използвате като "
+"картинка на изпълнител"
 
 #: tmp/coverart_artist_pop_rb2.ui.h:1 tmp/coverart_artist_pop_rb3.ui.h:1
 msgid "Play All"
-msgstr ""
+msgstr "Възпроизвеждане на всички"
 
 #: tmp/coverart_artist_pop_rb2.ui.h:2 tmp/coverart_artist_pop_rb3.ui.h:2
 msgid "Queue All"
-msgstr ""
+msgstr "Всички на опашката"
 
 #: tmp/coverart_artist_pop_rb2.ui.h:3 tmp/coverart_artist_pop_rb3.ui.h:3
 #: tmp/coverart_browser_pop_rb2.ui.h:3 tmp/coverart_browser_pop_rb3.ui.h:3
@@ -110,7 +114,7 @@ msgstr "Нова плейлиста"
 #: tmp/coverart_artist_pop_rb2.ui.h:5 tmp/coverart_artist_pop_rb3.ui.h:5
 #: tmp/coverart_browser_pop_rb2.ui.h:5 tmp/coverart_browser_pop_rb3.ui.h:5
 msgid "Search for covers"
-msgstr ""
+msgstr "Търсене на корици"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:1 tmp/coverart_browser_pop_rb3.ui.h:1
 msgid "Play Album"
@@ -118,11 +122,11 @@ msgstr "Пусни албума"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:2 tmp/coverart_browser_pop_rb3.ui.h:2
 msgid "Queue Album"
-msgstr ""
+msgstr "Албум на опашката"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:6 tmp/coverart_browser_pop_rb3.ui.h:6
 msgid "Export and embed coverart"
-msgstr ""
+msgstr "Извличане и вграждане на корици"
 
 #: tmp/coverart_browser_pop_rb3.ui.h:7 tmp/coverart_entryview_pop_rb3.ui.h:5
 #: coverart_controllers.py:509 coverart_controllers.py:564
@@ -171,7 +175,7 @@ msgstr "Автоматично стартиране"
 
 #: tmp/coverart_browser_prefs.ui.h:11
 msgid "When rhythmbox starts, switch automatically to the coverart browser."
-msgstr ""
+msgstr "Когато rhythmbox стартира, превключете автоматично в браузър на корици"
 
 #: tmp/coverart_browser_prefs.ui.h:12
 msgid "Use source's custom statusbar"
@@ -719,7 +723,8 @@ msgstr ""
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  Atanas Kovachki https://launchpad.net/~zdar"
+"  Atanas Kovachki https://launchpad.net/~zdar\n"
+"  Blagovest Petrov https://launchpad.net/~eniac-bg"
 
 #. define .plugin text strings used for translation
 #: coverart_browser.py:167 coverart_browser.py:168
