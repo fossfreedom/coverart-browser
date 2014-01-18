@@ -906,7 +906,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
                 src_width = pixbuf.get_width()
                 src_height = pixbuf.get_height()
                 
-                factor = min(float(256  / src_width), float(256 / src_height))
+                factor = min(float(256)  / float(src_width), float(256) / float(src_height))
                 print (factor)
                 new_width  = int(src_width * factor + 0.5)
                 new_height = int(src_height * factor + 0.5)
