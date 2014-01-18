@@ -1,9 +1,9 @@
-#coverart-browser v1.0 beta 2
+#coverart-browser v1.0 beta 3
 ================
 
 Browse your coverart albums in Rhythmbox v2.96 and later
 
-![Imgur](http://i.imgur.com/yXYmcOt.png)
+![Imgur](http://i.imgur.com/YoEQ8fc.png)
 
 -----------
 
@@ -30,6 +30,7 @@ Browse your coverart albums in Rhythmbox v2.96 and later
  - artists view: hovering the mouse pointer over the artist cover displays a tooltip of a larger version of the cover
  - artists view: supports sorting of album-artist via clicking on its column header - ascending/descending/unsorted.
  - artists view: right click of albums displays the same right click menu as in tile view or coverflow view
+ - artists view: right click of artists to play or queue all albums for that artist
  - artists view: independent sort toolbar buttons - for example show albums for an artist by ascending year whilst in the tile view show albums by name
  - new look (optional) to display album information within (on top of) the cover rather than below (beneath) the cover
  - new lighter icon-theme from the brilliant designer - jrbastien
@@ -42,6 +43,7 @@ Browse your coverart albums in Rhythmbox v2.96 and later
  - support drag-and-drop of albums onto playlists or external devices for RB2.99 and later
  - Rework Album & Playlist favourite supports - this declutters menus and now can be optionally enabled through properties button
  - Right click support for the external plugin Repeat One Song
+ - Optionally use sort fields for album artists or album artists (right click - properties - sort tab)
  - Use new Rhythmbox 3 progress bars for loading
  - Tooltip support to display cover name and artist only if album information is not already displayed
  - Translated into 25 languages and locales
@@ -52,8 +54,10 @@ Browse your coverart albums in Rhythmbox v2.96 and later
  - Click the new CoverArt source button (left hand side of screen)
  - Albums are displayed as clickable buttons containing their album cover
  - Right click menu option to play, queue & search for coverart for an album.
+ - Download Album & artist artwork via the properties toolbar button
  
- - https://github.com/fossfreedom/coverart-browser/wiki/how-to-for-version-0.9  **UPDATE FOR RELEASE**
+ - https://github.com/fossfreedom/coverart-browser/wiki/how-to-for-version-1.0
+ - https://github.com/fossfreedom/coverart-browser/wiki/Screenshots
 
 *How to install - Rhythmbox 2.96 to 2.99.1:*
 
@@ -115,7 +119,7 @@ Note 3 - Due to an upstream Rhythmbox bug affecting RB V2.98 & V2.99 only - any 
 are not reflected back into the plugin.  This can lead to inconsistencies.  Please restart rhythmbox for these details
 to be correctly cached.  This bug is fixed in RB3.0 and does not affect RB2.96 & RB2.97 users
 
-*For Ubuntu 12.04, 12.10, 13.04, 13.10 & 14.04:* - only applicable when master branch is released
+*For Ubuntu 12.04, 12.10, 13.04, 13.10 & 14.04:*
 
 V1.0 is now available in my rhythmbox PPA - installation instructions in this AskUbuntu Q&A:
 
@@ -140,7 +144,7 @@ Credits:
  - thanks to Luqman Aden <laden@uwaterloo.ca> for the coverart-search plugin which our cover-search pane is based upon
  - thanks to Canonical for the Star widget which the ratings capabilities use
  - our Translators: Launchpad Translation team - individual credits for each locale is shown in the plugin preferences dialog
- - Button Icons - jrbastien for the three toolbar icon-sets (standard, light & dark)
+ - Button Icons - jrbastien for the four toolbar icon-sets (standard, light, lighter & dark)
  - Flow view is based upon [Contentflow](http://jacksasylum.eu/ContentFlow)
  - Chief Tester and all-round good egg - jrbastien!
 
