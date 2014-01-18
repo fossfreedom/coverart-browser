@@ -901,8 +901,24 @@ class ArtistView(Gtk.TreeView, AbstractView):
                 active_object.cover.original != self.artist_manager.cover_man.unknown_cover.original:
                 # we display the tooltip if the row is an artist and the column
                 # is actually the artist cover itself
+                pixbuf = GdkPixbuf.Pixbuf.new_from_file(active_object.cover.original)
+                    
+                src_width = pixbuf.get_width()
+                src_height = pixbuf.get_height()
+                
+                factor = min(float(256  / src_width), float(256 / src_height))
+                print (factor)
+                new_width  = int(src_width * factor + 0.5)
+                new_height = int(src_height * factor + 0.5)
+                
+                print (new_width)
+                print (new_height)
+                print (src_width)
+                print (src_height)
+                
                 pixbuf = create_pixbuf_from_file_at_size(
-                    active_object.cover.original, 256, 256)
+                    active_object.cover.original, new_width, new_height)
+                
                 tooltip.set_icon( pixbuf )
                 return True
             else:
