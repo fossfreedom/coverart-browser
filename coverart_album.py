@@ -928,20 +928,44 @@ class AlbumsModel(GObject.Object):
 
         return ALBUM_LOAD_CHUNK, process, None, error, finish
 
-    def sort(self, key=None, reverse=False):
+    def sort(self):
         '''
         Changes the sorting strategy for the model.
-
-        :param key: `str`attribute of the `Album` class by which the sort
-            should be performed.
-        :param reverse: `bool` indicating whether the sort order should be
-            reversed from the current one.
         '''
-    
+        
+        gs = GSetting()
+        source_settings = gs.get_setting(gs.Path.PLUGIN)
+        key = source_settings[gs.PluginKey.SORT_BY]
+        order = source_settings[gs.PluginKey.SORT_ORDER]
+        
+        print ("current")
+        print (self._sortkey)
+        
+        print ("registry")
+        print (key)
+        print (order)
+        
+        if key == self._sortkey['type']:
+            key = None
+        else:
+            self._sortkey['type'] = key
+            
+        if order != self._sortkey['order']:
+            reverse = True
+            self._sortkey['order'] = order
+        else:
+            reverse = False
+
         def key_function(album):
             keys = [getattr(album, prop) for prop in props]
             return keys
             
+        if not key and not reverse:
+            print ("nothing to sort")
+            return
+            
+        print (key)
+        print (reverse)
         if key:
             props = sort_keys[key]
             self._albums.key = key_function
@@ -1519,8 +1543,7 @@ class CoverManager(GObject.Object):
                 async = rb.Loader()
                 async.get_url(uri, cover_update, coverobject)
 
-        
-        
+
 class AlbumCoverManager(CoverManager):
     # properties
     add_shadow = GObject.property(type=bool, default=False)
@@ -1781,13 +1804,10 @@ class AlbumManager(GObject.Object):
         
     def _sort_album(self, widget, param):
         
-        toolbar_type, key, reverse = param
+        toolbar_type = param
 
-        if toolbar_type == "album":
-            if reverse == None:
-                self.model.sort(key=key)
-            else:
-                self.model.sort(reverse=reverse)
+        if not toolbar_type or toolbar_type == "album":
+            self.model.sort()
 
     def _load_finished_callback(self, *args):
         self.artist_man.loader.load_artists()

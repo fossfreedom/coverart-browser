@@ -1068,6 +1068,9 @@ class ViewManager(GObject.Object):
     @property
     def current_view(self):
         return self._views[self.view_name]
+        
+    def get_view(self, view_name):
+        return self._views[view_name]
 
     def _connect_signals(self):
         self.connect('notify::view-name', self.on_notify_view_name)
@@ -1098,6 +1101,7 @@ class ViewManager(GObject.Object):
             
             self._views[self.view_name].switch_to_view(self.source, current_album)
             self._views[self.view_name].emit('update-toolbar')
+            self._views[self.view_name].get_default_manager().emit('sort', None)
             
             if self._views[self.view_name].use_plugin_window:
                 self.source.paned.expand(self._views[self.view_name].panedposition)

@@ -464,7 +464,9 @@ class ArtistsModel(GObject.Object):
         return self.store[path][self.columns['artist_album']]
 
     def get_path(self, artist):
-        return self.store.get_path(
+        print (artist.name)
+        print (self._iters[artist.name]['iter'])
+        return self._tree_store.get_path(
                 self._iters[artist.name]['iter'])
                 
     def get_from_ext_db_key(self, key):
@@ -736,9 +738,9 @@ class ArtistManager(GObject.Object):
         
     def _sort_artist(self, widget, param):
         
-        toolbar_type, key, reverse = param
+        toolbar_type = param
 
-        if toolbar_type == "artist":
+        if not toolbar_type or toolbar_type == "artist":
             self.model.sort()
     
     def _load_finished_callback(self, *args):
@@ -907,15 +909,9 @@ class ArtistView(Gtk.TreeView, AbstractView):
                 src_height = pixbuf.get_height()
                 
                 factor = min(float(256)  / float(src_width), float(256) / float(src_height))
-                print (factor)
                 new_width  = int(src_width * factor + 0.5)
                 new_height = int(src_height * factor + 0.5)
-                
-                print (new_width)
-                print (new_height)
-                print (src_width)
-                print (src_height)
-                
+    
                 pixbuf = create_pixbuf_from_file_at_size(
                     active_object.cover.original, new_width, new_height)
                 
@@ -1091,8 +1087,14 @@ class ArtistView(Gtk.TreeView, AbstractView):
         self.show_policy.initialise(source.album_manager)
         
         if album:
+            print ("switch to artist view")
+            print (album)
             artist = self.artist_manager.model.get(album.artist)
             path = self.artist_manager.model.get_path(artist)
+            print (artist)
+            print (path)
+            path = self.artist_manager.model.store.convert_child_path_to_path(path)
+            print (path)
             if path:
                 self.scroll_to_cell(path, self._artist_col)
                 self.expand_row(path, False)
