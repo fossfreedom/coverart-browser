@@ -726,11 +726,16 @@ class AlbumsModel(GObject.Object):
             new_pos = self._albums.reorder(album)
 
             if new_pos != -1:
-                old_album = self._albums[new_pos + 1]
-                old_iter = \
-                    self._iters[old_album.name][old_album.artist]['iter']
-
-                self._tree_store.move_before(tree_iter, old_iter)
+				if (new_pos + 1) >= len(self._albums):
+					old_album = self._albums[new_pos - 1]
+					old_iter = \
+						self._iters[old_album.name][old_album.artist]['iter']
+					self._tree_store.move_after(tree_iter, old_iter)
+				else:
+					old_album = self._albums[new_pos + 1]
+					old_iter = \
+						self._iters[old_album.name][old_album.artist]['iter']
+					self._tree_store.move_before(tree_iter, old_iter)
 
             # inform that the album is updated
             print ("album modified")
