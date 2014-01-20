@@ -313,6 +313,8 @@ class ArtistsModel(GObject.Object):
 
             self._tree_store.set(tree_iter, self.columns['tooltip'], tooltip,
                 self.columns['markup'], markup, self.columns['show'], show)
+                
+            self.sort() # ensure the added albums are sorted correctly
        
     def _album_emptied(self, album):
         '''
