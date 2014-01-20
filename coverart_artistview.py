@@ -186,7 +186,7 @@ class ArtistsModel(GObject.Object):
             return 0
         else:
             return 1
-        
+ 
     @property
     def store(self):
         #return self._filtered_store
