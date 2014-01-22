@@ -387,14 +387,17 @@ class ArtistsModel(GObject.Object):
             detail += rb3compat.unicodedecode(_(' and a duration of %d minutes') % 
                         duration, 'UTF-8')
             
+        tooltip = rb3compat.unicodestr(tooltip, 'utf-8')
+        tooltip = rb3compat.unicodeencode(tooltip, 'utf-8')
+        import cgi
+        
         formatted = '<b><i>' + \
-            GLib.markup_escape_text(tooltip) + \
+            cgi.escape(tooltip.decode('utf-8')) + \
             '</i></b>' + \
             year + \
             ' ' + rating + \
-            '\n' + \
-            '<small>' + \
-            GLib.markup_escape_text(detail.encode('UTF-8')) + \
+            '\n<small>' + \
+            GLib.markup_escape_text(detail) + \
             '</small>'
 
         return tooltip, pixbuf, album, show, '', formatted, ''
