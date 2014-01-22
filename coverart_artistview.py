@@ -392,7 +392,7 @@ class ArtistsModel(GObject.Object):
         import cgi
         
         formatted = '<b><i>' + \
-            cgi.escape(tooltip.decode('utf-8')) + \
+            cgi.escape(rb3compat.unicodedecode(tooltip, 'utf-8')) + \
             '</i></b>' + \
             year + \
             ' ' + rating + \
