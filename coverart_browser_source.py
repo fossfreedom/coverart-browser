@@ -540,7 +540,9 @@ class CoverArtBrowserSource(RB.Source):
                     
                     # take the name of the playlist, strip out non-english characters and reduce the string
                     # to just a-to-z characters i.e. this will make the action_name valid in RB3
-                    ascii_name = unicodedata.normalize('NFKD', playlist.props.name).encode('ascii','ignore')
+                    
+                    ascii_name = unicodedata.normalize('NFKD', \
+                        rb3compat.unicodestr(playlist.props.name, 'utf-8')).encode('ascii','ignore')
                     ascii_name = ascii_name.decode(encoding='UTF-8')
                     ascii_name = re.sub(r'[^a-zA-Z]', '', ascii_name)
                     action = actiongroup.add_action(func=func,
