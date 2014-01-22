@@ -241,6 +241,9 @@ class CoverArtBrowserSource(RB.Source):
         by the user. It also creates and configure some custom widgets.
         '''
         print("CoverArtBrowser DEBUG - _setup_source")
+        
+        cl = CoverLocale()
+        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
  
         # setup iconview popup
         self.viewmgr.current_view.set_popup_menu(self.popup_menu)
@@ -303,9 +306,17 @@ class CoverArtBrowserSource(RB.Source):
         # setup the statusbar component
         self.statusbar = Statusbar(self)
 
+        # initialise the toolbar manager
+        self.toolbar_manager = ToolbarManager(self.plugin, self.page,
+            self.viewmgr)
+        self.viewmgr.current_view.emit('update-toolbar')
+
+        cl.switch_locale(cl.Locale.RB)
         # setup the artist paned
         artist_pview = None
         for view in self.shell.props.library_source.get_property_views():
+            print (view.props.title)
+            print (_("Artist"))
             if view.props.title == _("Artist"):
                 artist_pview = view
                 break
@@ -319,11 +330,6 @@ class CoverArtBrowserSource(RB.Source):
         self.artist_paned.connect('button-release-event', 
             self.artist_paned_button_release_callback)
             
-        # initialise the toolbar manager
-        self.toolbar_manager = ToolbarManager(self.plugin, self.page,
-            self.viewmgr)
-        self.viewmgr.current_view.emit('update-toolbar')
-
         print("CoverArtBrowser DEBUG - end _setup_source")
         
     def artist_paned_button_release_callback(self, *args):
