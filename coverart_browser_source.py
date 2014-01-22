@@ -48,6 +48,7 @@ from coverart_toolbar import ToolbarManager
 import coverart_rb3compat as rb3compat
 import random
 from collections import OrderedDict
+import unicodedata, re
 
 
 class CoverArtBrowserSource(RB.Source):
@@ -536,8 +537,14 @@ class CoverArtBrowserSource(RB.Source):
                     isinstance(playlist, RB.StaticPlaylistSource):
 
                     args=(playlist, favourite)
+                    
+                    # take the name of the playlist, strip out non-english characters and reduce the string
+                    # to just a-to-z characters i.e. this will make the action_name valid in RB3
+                    ascii_name = unicodedata.normalize('NFKD', playlist.props.name).encode('ascii','ignore')
+                    ascii_name = ascii_name.decode(encoding='UTF-8')
+                    ascii_name = re.sub(r'[^a-zA-Z]', '', ascii_name)
                     action = actiongroup.add_action(func=func,
-                        action_name=playlist.props.name,
+                        action_name=ascii_name,
                         playlist=playlist,favourite=favourite,
                         label=playlist.props.name)
                         
