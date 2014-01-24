@@ -1,4 +1,4 @@
-#coverart-browser v1.0 beta 3
+#coverart-browser v1.0
 ================
 
 Browse your coverart albums in Rhythmbox v2.96 and later
