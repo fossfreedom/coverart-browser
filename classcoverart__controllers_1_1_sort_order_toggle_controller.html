@@ -33,7 +33,7 @@
   
   <td style="padding-left: 0.5em;">
    <div id="projectname">Coverart Browser
-   &#160;<span id="projectnumber">v0.9</span>
+   &#160;<span id="projectnumber">v1.0</span>
    </div>
    <div id="projectbrief">Browse your cover-art albums in Rhythmbox</div>
   </td>
@@ -97,7 +97,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a>  </div>
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a>  </div>
   <div class="headertitle">
 <div class="title">coverart_controllers.SortOrderToggleController Class Reference</div>  </div>
 </div><!--header-->
@@ -108,7 +109,8 @@ Inheritance diagram for coverart_controllers.SortOrderToggleController:</div>
  <div class="center">
   <img src="classcoverart__controllers_1_1_sort_order_toggle_controller.png" usemap="#coverart_controllers.SortOrderToggleController_map" alt=""/>
   <map id="coverart_controllers.SortOrderToggleController_map" name="coverart_controllers.SortOrderToggleController_map">
-<area href="classcoverart__controllers_1_1_options_controller.html" alt="coverart_controllers.OptionsController" shape="rect" coords="0,0,282,24"/>
+<area href="classcoverart__controllers_1_1_options_controller.html" alt="coverart_controllers.OptionsController" shape="rect" coords="0,0,311,24"/>
+<area href="classcoverart__controllers_1_1_artist_sort_order_toggle_controller.html" alt="coverart_controllers.ArtistSortOrderToggleController" shape="rect" coords="0,112,311,136"/>
 </map>
  </div></div>
 
@@ -118,6 +120,8 @@ Inheritance diagram for coverart_controllers.SortOrderToggleController:</div>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa94c1361119e57d0ecb4dbad304771a6"></a><!-- doxytag: member="coverart_controllers::SortOrderToggleController::__init__" ref="aa94c1361119e57d0ecb4dbad304771a6" args="" -->
 def&#160;</td><td class="memItemRight" valign="bottom"><b>__init__</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ada4524eedb8e25409ffb748a60f0bea2"></a><!-- doxytag: member="coverart_controllers::SortOrderToggleController::get_key" ref="ada4524eedb8e25409ffb748a60f0bea2" args="" -->
+def&#160;</td><td class="memItemRight" valign="bottom"><b>get_key</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2363013e73742e7ff7d6918e74434c6d"></a><!-- doxytag: member="coverart_controllers::SortOrderToggleController::update_images" ref="a2363013e73742e7ff7d6918e74434c6d" args="" -->
 def&#160;</td><td class="memItemRight" valign="bottom"><b>update_images</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a559278be56e3211373d3ffc1b632f003"></a><!-- doxytag: member="coverart_controllers::SortOrderToggleController::do_action" ref="a559278be56e3211373d3ffc1b632f003" args="" -->
@@ -136,16 +140,22 @@ Public Attributes</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>gs</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3418fbe79a2d9999d63b6745efa3925e"></a><!-- doxytag: member="coverart_controllers::SortOrderToggleController::settings" ref="a3418fbe79a2d9999d63b6745efa3925e" args="" -->
 &#160;</td><td class="memItemRight" valign="bottom"><b>settings</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7a3694ed3c412b8b8139122c45dc7108"></a><!-- doxytag: member="coverart_controllers::SortOrderToggleController::key" ref="a7a3694ed3c412b8b8139122c45dc7108" args="" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>key</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3613113a019e33ce204208fd6a797065"></a><!-- doxytag: member="coverart_controllers::SortOrderToggleController::current_key" ref="a3613113a019e33ce204208fd6a797065" args="" -->
 &#160;</td><td class="memItemRight" valign="bottom"><b>current_key</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a09f3eed8f772530c8d7793dc53a50119"></a><!-- doxytag: member="coverart_controllers::SortOrderToggleController::update_image" ref="a09f3eed8f772530c8d7793dc53a50119" args="" -->
 &#160;</td><td class="memItemRight" valign="bottom"><b>update_image</b></td></tr>
+<tr><td colspan="2"><h2><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae345796e10f42fa790493aac4b52d794"></a><!-- doxytag: member="coverart_controllers::SortOrderToggleController::toolbar_type" ref="ae345796e10f42fa790493aac4b52d794" args="" -->
+string&#160;</td><td class="memItemRight" valign="bottom"><b>toolbar_type</b> = &quot;album&quot;</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock">
-<p>Definition at line <a class="el" href="coverart__controllers_8py_source.html#l00543">543</a> of file <a class="el" href="coverart__controllers_8py_source.html">coverart_controllers.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__controllers_8py_source.html#l00640">640</a> of file <a class="el" href="coverart__controllers_8py_source.html">coverart_controllers.py</a>.</p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/home/dad/Downloads/coverart-browser/<a class="el" href="coverart__controllers_8py_source.html">coverart_controllers.py</a></li>
+<li>/home/foss/Downloads/coverart-browser/<a class="el" href="coverart__controllers_8py_source.html">coverart_controllers.py</a></li>
 </ul>
 </div><!-- contents -->
 </div>
@@ -168,7 +178,7 @@ Public Attributes</h2></td></tr>
       <li class="navelem"><b>coverart_controllers</b>      </li>
       <li class="navelem"><a class="el" href="classcoverart__controllers_1_1_sort_order_toggle_controller.html">SortOrderToggleController</a>      </li>
 
-    <li class="footer">Generated on Tue Aug 27 2013 23:46:20 for Coverart Browser by
+    <li class="footer">Generated on Fri Jan 24 2014 21:22:27 for Coverart Browser by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
    </ul>

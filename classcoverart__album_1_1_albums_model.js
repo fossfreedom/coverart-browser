@@ -8,6 +8,7 @@ var classcoverart__album_1_1_albums_model =
     [ "find_first_visible", "classcoverart__album_1_1_albums_model.html#a49a637873e27f1ea8c7f6ff45fa5d12e", null ],
     [ "get", "classcoverart__album_1_1_albums_model.html#a5e40ea9d83b393b2189157888fb9dbb8", null ],
     [ "get_all", "classcoverart__album_1_1_albums_model.html#a99c872921528db376daa01c8bb32f038", null ],
+    [ "get_from_dbentry", "classcoverart__album_1_1_albums_model.html#ad516291883deffea149d254bb150b34a", null ],
     [ "get_from_ext_db_key", "classcoverart__album_1_1_albums_model.html#af1780c55232fb2e91affb1de3392342d", null ],
     [ "get_from_path", "classcoverart__album_1_1_albums_model.html#ad4d7209e1a9101a739289fd86019ed6d", null ],
     [ "get_path", "classcoverart__album_1_1_albums_model.html#a6d0d1b15379d440f08fc612a00f9b9c4", null ],

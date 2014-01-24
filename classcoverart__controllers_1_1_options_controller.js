@@ -11,6 +11,7 @@ var classcoverart__controllers_1_1_options_controller =
     [ "update_images", "classcoverart__controllers_1_1_options_controller.html#ad84dfb2a011ea5810d4cd064416fc0da", null ],
     [ "current_key", "classcoverart__controllers_1_1_options_controller.html#a45ac3c57a67cbc069cb06cb0de9452b4", null ],
     [ "current_key", "classcoverart__controllers_1_1_options_controller.html#ae16b756e975cf610f101bcfedbfe21e8", null ],
+    [ "enabled", "classcoverart__controllers_1_1_options_controller.html#a5df3040828087f71228e6365884216ea", null ],
     [ "options", "classcoverart__controllers_1_1_options_controller.html#abb3c4ea2f9963ec29b13eb9a717a7251", null ],
     [ "update_image", "classcoverart__controllers_1_1_options_controller.html#a9d9e9600f02c33c9316d20348ede9072", null ]
 ];

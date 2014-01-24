@@ -1,6 +1,7 @@
 var classcoverart__album_1_1_album_manager =
 [
     [ "__init__", "classcoverart__album_1_1_album_manager.html#a61e6dd039b5912427406a82813fba34c", null ],
+    [ "artist_man", "classcoverart__album_1_1_album_manager.html#a2f8ca77e14369c4352d8f1395a5dac97", null ],
     [ "cover_man", "classcoverart__album_1_1_album_manager.html#a7e595cdfdc24441c73689374f65f95af", null ],
     [ "current_view", "classcoverart__album_1_1_album_manager.html#aaee248ef77d5579cbf0a00b53105d668", null ],
     [ "db", "classcoverart__album_1_1_album_manager.html#a194e238cca9843a9d840f8c9c95ebcea", null ],

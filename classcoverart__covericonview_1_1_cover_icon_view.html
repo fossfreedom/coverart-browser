@@ -33,7 +33,7 @@
   
   <td style="padding-left: 0.5em;">
    <div id="projectname">Coverart Browser
-   &#160;<span id="projectnumber">v0.9</span>
+   &#160;<span id="projectnumber">v1.0</span>
    </div>
    <div id="projectbrief">Browse your cover-art albums in Rhythmbox</div>
   </td>
@@ -129,6 +129,8 @@ def&#160;</td><td class="memItemRight" valign="bottom"><b>initialise</b></td></t
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__covericonview_1_1_cover_icon_view.html#afc6aadf94ae2b0c85fd0df0cb8318a7f">on_drag_data_received</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__covericonview_1_1_cover_icon_view.html#ac72314d969d385ead9a33504cccac0e8">on_drag_data_get</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__covericonview_1_1_cover_icon_view.html#a61ebbee551d785d2caa1785acb798be1">on_drag_begin</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9868bea363485463c5631af5ad606872"></a><!-- doxytag: member="coverart_covericonview::CoverIconView::on_pointer_motion" ref="a9868bea363485463c5631af5ad606872" args="" -->
+def&#160;</td><td class="memItemRight" valign="bottom"><b>on_pointer_motion</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__covericonview_1_1_cover_icon_view.html#a1db8b87588392e47e9d539e798038c0b">item_clicked_callback</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__covericonview_1_1_cover_icon_view.html#a2692bf0de98496f9ee446f1f0a9628e1">item_activated_callback</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__covericonview_1_1_cover_icon_view.html#a3fa128b2ff65dd59d8b2e5e94a6e945e">on_notify_icon_padding</a></td></tr>
@@ -148,14 +150,12 @@ Public Attributes</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>view</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8dbeaba33d9680eb6d660fdeb8b83315"></a><!-- doxytag: member="coverart_covericonview::CoverIconView::view_name" ref="a8dbeaba33d9680eb6d660fdeb8b83315" args="" -->
 &#160;</td><td class="memItemRight" valign="bottom"><b>view_name</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1eb9034ee85d28afcb3c9ac912f50811"></a><!-- doxytag: member="coverart_covericonview::CoverIconView::source" ref="a1eb9034ee85d28afcb3c9ac912f50811" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>source</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a767d40fe5d36f7140c995b2b4c50b7fe"></a><!-- doxytag: member="coverart_covericonview::CoverIconView::plugin" ref="a767d40fe5d36f7140c995b2b4c50b7fe" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>plugin</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aafc0b2fc80ff640b56a1ab887071e059"></a><!-- doxytag: member="coverart_covericonview::CoverIconView::shell" ref="aafc0b2fc80ff640b56a1ab887071e059" args="" -->
 &#160;</td><td class="memItemRight" valign="bottom"><b>shell</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5e059c1379ffdbbc2f1a449f9377e4b9"></a><!-- doxytag: member="coverart_covericonview::CoverIconView::album_manager" ref="a5e059c1379ffdbbc2f1a449f9377e4b9" args="" -->
 &#160;</td><td class="memItemRight" valign="bottom"><b>album_manager</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a35ca59d3b8cef24948748486ef3606c6"></a><!-- doxytag: member="coverart_covericonview::CoverIconView::hover_pixbufs" ref="a35ca59d3b8cef24948748486ef3606c6" args="" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>hover_pixbufs</b></td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ace226f029968b7ce74c933184b571956"></a><!-- doxytag: member="coverart_covericonview::CoverIconView::icon_spacing" ref="ace226f029968b7ce74c933184b571956" args="" -->
@@ -166,12 +166,16 @@ tuple&#160;</td><td class="memItemRight" valign="bottom"><b>icon_padding</b> = G
 tuple&#160;</td><td class="memItemRight" valign="bottom"><b>icon_automatic</b> = GObject.property(type=bool, default=True)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aea8eed5c2a626ef8c22d3bc94b5468b6"></a><!-- doxytag: member="coverart_covericonview::CoverIconView::display_text_enabled" ref="aea8eed5c2a626ef8c22d3bc94b5468b6" args="" -->
 tuple&#160;</td><td class="memItemRight" valign="bottom"><b>display_text_enabled</b> = GObject.property(type=bool, default=False)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="add33bbed3cdf3580ae074d0a081414a0"></a><!-- doxytag: member="coverart_covericonview::CoverIconView::display_text_pos" ref="add33bbed3cdf3580ae074d0a081414a0" args="" -->
+tuple&#160;</td><td class="memItemRight" valign="bottom"><b>display_text_pos</b> = GObject.property(type=bool, default=False)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a65979faf9d1a5a2917628b7bbd773050"></a><!-- doxytag: member="coverart_covericonview::CoverIconView::name" ref="a65979faf9d1a5a2917628b7bbd773050" args="" -->
 string&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> = 'coverview'</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aca793daff21bdc637ae692873c180100"></a><!-- doxytag: member="coverart_covericonview::CoverIconView::panedposition" ref="aca793daff21bdc637ae692873c180100" args="" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>panedposition</b> = PanedCollapsible.Paned.COLLAPSE</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock">
-<p>Definition at line <a class="el" href="coverart__covericonview_8py_source.html#l00091">91</a> of file <a class="el" href="coverart__covericonview_8py_source.html">coverart_covericonview.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__covericonview_8py_source.html#l00219">219</a> of file <a class="el" href="coverart__covericonview_8py_source.html">coverart_covericonview.py</a>.</p>
 </div><hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="ad5e92e9f3fe3158d0499ec03eb3d5f20"></a><!-- doxytag: member="coverart_covericonview::CoverIconView::bottom_expander_expanded_callback" ref="ad5e92e9f3fe3158d0499ec03eb3d5f20" args="" -->
 <div class="memitem">
@@ -206,7 +210,7 @@ string&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> = 'covervi
 <div class="fragment"><pre class="fragment">
 Callback connected to expanded signal of the paned GtkExpander
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__covericonview_8py_source.html#l00366">366</a> of file <a class="el" href="coverart__covericonview_8py_source.html">coverart_covericonview.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__covericonview_8py_source.html#l00656">656</a> of file <a class="el" href="coverart__covericonview_8py_source.html">coverart_covericonview.py</a>.</p>
 
 </div>
 </div>
@@ -230,7 +234,7 @@ since we'll probably just have text buttons for the view
 </pre></div> 
 <p>Reimplemented from <a class="el" href="classcoverart__widgets_1_1_abstract_view.html#a39b7a614696d1175bd797eed8aed01c7">coverart_widgets.AbstractView</a>.</p>
 
-<p>Definition at line <a class="el" href="coverart__covericonview_8py_source.html#l00188">188</a> of file <a class="el" href="coverart__covericonview_8py_source.html">coverart_covericonview.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__covericonview_8py_source.html#l00354">354</a> of file <a class="el" href="coverart__covericonview_8py_source.html">coverart_covericonview.py</a>.</p>
 
 </div>
 </div>
@@ -253,7 +257,7 @@ ensures main view object retains the focus
 </pre></div> 
 <p>Reimplemented from <a class="el" href="classcoverart__widgets_1_1_abstract_view.html#ae5e76bc0b9cbd19366c9f5b6790487d3">coverart_widgets.AbstractView</a>.</p>
 
-<p>Definition at line <a class="el" href="coverart__covericonview_8py_source.html#l00393">393</a> of file <a class="el" href="coverart__covericonview_8py_source.html">coverart_covericonview.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__covericonview_8py_source.html#l00684">684</a> of file <a class="el" href="coverart__covericonview_8py_source.html">coverart_covericonview.py</a>.</p>
 
 </div>
 </div>
@@ -291,7 +295,7 @@ ensures main view object retains the focus
 Callback called when the cover view is double clicked or space-bar
 is pressed. It plays the selected album
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__covericonview_8py_source.html#l00313">313</a> of file <a class="el" href="coverart__covericonview_8py_source.html">coverart_covericonview.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__covericonview_8py_source.html#l00598">598</a> of file <a class="el" href="coverart__covericonview_8py_source.html">coverart_covericonview.py</a>.</p>
 
 </div>
 </div>
@@ -336,7 +340,7 @@ Callback called when the user clicks somewhere on the cover_view.
 Along with source "show_hide_pane", takes care of showing/hiding the bottom
 pane after a second click on a selected album.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__covericonview_8py_source.html#l00294">294</a> of file <a class="el" href="coverart__covericonview_8py_source.html">coverart_covericonview.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__covericonview_8py_source.html#l00536">536</a> of file <a class="el" href="coverart__covericonview_8py_source.html">coverart_covericonview.py</a>.</p>
 
 </div>
 </div>
@@ -374,7 +378,7 @@ pane after a second click on a selected album.
 Callback called when the drag-drop from coverview has started
 Changes the drag icon as appropriate
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__covericonview_8py_source.html#l00276">276</a> of file <a class="el" href="coverart__covericonview_8py_source.html">coverart_covericonview.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__covericonview_8py_source.html#l00442">442</a> of file <a class="el" href="coverart__covericonview_8py_source.html">coverart_covericonview.py</a>.</p>
 
 </div>
 </div>
@@ -430,7 +434,7 @@ Changes the drag icon as appropriate
 Callback called when the drag destination (playlist) has
 requested what album (icon) has been dragged
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__covericonview_8py_source.html#l00258">258</a> of file <a class="el" href="coverart__covericonview_8py_source.html">coverart_covericonview.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__covericonview_8py_source.html#l00424">424</a> of file <a class="el" href="coverart__covericonview_8py_source.html">coverart_covericonview.py</a>.</p>
 
 </div>
 </div>
@@ -498,7 +502,7 @@ requested what album (icon) has been dragged
 Callback called when the drag source has prepared the data (pixbuf)
 for us to use.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__covericonview_8py_source.html#l00229">229</a> of file <a class="el" href="coverart__covericonview_8py_source.html">coverart_covericonview.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__covericonview_8py_source.html#l00395">395</a> of file <a class="el" href="coverart__covericonview_8py_source.html">coverart_covericonview.py</a>.</p>
 
 </div>
 </div>
@@ -555,7 +559,7 @@ Callback called when a drag operation finishes over the cover view
 of the source. It decides if the dropped item can be processed as
 an image to use as a cover.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__covericonview_8py_source.html#l00206">206</a> of file <a class="el" href="coverart__covericonview_8py_source.html">coverart_covericonview.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__covericonview_8py_source.html#l00372">372</a> of file <a class="el" href="coverart__covericonview_8py_source.html">coverart_covericonview.py</a>.</p>
 
 </div>
 </div>
@@ -586,7 +590,7 @@ an image to use as a cover.
 <div class="fragment"><pre class="fragment">
 Callback called when the icon-padding gsetting value is changed
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__covericonview_8py_source.html#l00322">322</a> of file <a class="el" href="coverart__covericonview_8py_source.html">coverart_covericonview.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__covericonview_8py_source.html#l00607">607</a> of file <a class="el" href="coverart__covericonview_8py_source.html">coverart_covericonview.py</a>.</p>
 
 </div>
 </div>
@@ -617,7 +621,7 @@ Callback called when the icon-padding gsetting value is changed
 <div class="fragment"><pre class="fragment">
 Callback called when the icon-spacing gsetting value is changed
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__covericonview_8py_source.html#l00328">328</a> of file <a class="el" href="coverart__covericonview_8py_source.html">coverart_covericonview.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__covericonview_8py_source.html#l00613">613</a> of file <a class="el" href="coverart__covericonview_8py_source.html">coverart_covericonview.py</a>.</p>
 
 </div>
 </div>
@@ -640,7 +644,7 @@ called just before popup is displayed
 </pre></div> 
 <p>Reimplemented from <a class="el" href="classcoverart__widgets_1_1_enhanced_icon_view.html#ac656b80a246e9b59cadc72c7146e1f3d">coverart_widgets.EnhancedIconView</a>.</p>
 
-<p>Definition at line <a class="el" href="coverart__covericonview_8py_source.html#l00198">198</a> of file <a class="el" href="coverart__covericonview_8py_source.html">coverart_covericonview.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__covericonview_8py_source.html#l00364">364</a> of file <a class="el" href="coverart__covericonview_8py_source.html">coverart_covericonview.py</a>.</p>
 
 </div>
 </div>
@@ -674,7 +678,7 @@ Callback called when to resize the icon
 </pre></div> 
 <p>Reimplemented from <a class="el" href="classcoverart__widgets_1_1_abstract_view.html#a487c42956fb05ec76fc50fede8fe0294">coverart_widgets.AbstractView</a>.</p>
 
-<p>Definition at line <a class="el" href="coverart__covericonview_8py_source.html#l00191">191</a> of file <a class="el" href="coverart__covericonview_8py_source.html">coverart_covericonview.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__covericonview_8py_source.html#l00357">357</a> of file <a class="el" href="coverart__covericonview_8py_source.html">coverart_covericonview.py</a>.</p>
 
 </div>
 </div>
@@ -714,12 +718,12 @@ consistent
 </pre></div> 
 <p>Reimplemented from <a class="el" href="classcoverart__widgets_1_1_abstract_view.html#a821d8d78725782956aff40eba35dc628">coverart_widgets.AbstractView</a>.</p>
 
-<p>Definition at line <a class="el" href="coverart__covericonview_8py_source.html#l00386">386</a> of file <a class="el" href="coverart__covericonview_8py_source.html">coverart_covericonview.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__covericonview_8py_source.html#l00676">676</a> of file <a class="el" href="coverart__covericonview_8py_source.html">coverart_covericonview.py</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/home/dad/Downloads/coverart-browser/<a class="el" href="coverart__covericonview_8py_source.html">coverart_covericonview.py</a></li>
+<li>/home/foss/Downloads/coverart-browser/<a class="el" href="coverart__covericonview_8py_source.html">coverart_covericonview.py</a></li>
 </ul>
 </div><!-- contents -->
 </div>
@@ -742,7 +746,7 @@ consistent
       <li class="navelem"><b>coverart_covericonview</b>      </li>
       <li class="navelem"><a class="el" href="classcoverart__covericonview_1_1_cover_icon_view.html">CoverIconView</a>      </li>
 
-    <li class="footer">Generated on Tue Aug 27 2013 23:46:20 for Coverart Browser by
+    <li class="footer">Generated on Fri Jan 24 2014 21:22:28 for Coverart Browser by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
    </ul>

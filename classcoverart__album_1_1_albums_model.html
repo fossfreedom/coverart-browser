@@ -33,7 +33,7 @@
   
   <td style="padding-left: 0.5em;">
    <div id="projectname">Coverart Browser
-   &#160;<span id="projectnumber">v0.9</span>
+   &#160;<span id="projectnumber">v1.0</span>
    </div>
    <div id="projectbrief">Browse your cover-art albums in Rhythmbox</div>
   </td>
@@ -115,6 +115,7 @@ def&#160;</td><td class="memItemRight" valign="bottom"><b>store</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__album_1_1_albums_model.html#a1f475795177b44e3c3f11e52f1d2e0fb">remove</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__album_1_1_albums_model.html#a07d599fd2b94a01c1a4f21fea8e5e333">contains</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__album_1_1_albums_model.html#a5e40ea9d83b393b2189157888fb9dbb8">get</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__album_1_1_albums_model.html#ad516291883deffea149d254bb150b34a">get_from_dbentry</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__album_1_1_albums_model.html#a99c872921528db376daa01c8bb32f038">get_all</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__album_1_1_albums_model.html#ad4d7209e1a9101a739289fd86019ed6d">get_from_path</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__album_1_1_albums_model.html#af1780c55232fb2e91affb1de3392342d">get_from_ext_db_key</a></td></tr>
@@ -147,7 +148,7 @@ column 2 -&gt; instance of the album itself.
 column 3 -&gt; markup text showed under the cover.
 column 4 -&gt; boolean that indicates if the row should be shown
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00622">622</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00647">647</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
 </div><hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="ac6146d843a94d617d2828ccc088f409c"></a><!-- doxytag: member="coverart_album::AlbumsModel::add" ref="ac6146d843a94d617d2828ccc088f409c" args="" -->
 <div class="memitem">
@@ -178,7 +179,7 @@ Add an album to the model.
 
 :param album: `Album` to be added to the model.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00753">753</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00770">770</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
 
 </div>
 </div>
@@ -199,7 +200,7 @@ Add an album to the model.
 <div class="fragment"><pre class="fragment">
 Clears all filters on the model.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00949">949</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l01024">1024</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
 
 </div>
 </div>
@@ -238,7 +239,7 @@ Indicates if the model contains a specific album.
 
 :param album_name: `str` name of the album.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00796">796</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00817">817</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
 
 </div>
 </div>
@@ -277,7 +278,7 @@ Returns the requested album.
 
 :param album_name: `str` name of the album.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00805">805</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00826">826</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
 
 </div>
 </div>
@@ -298,7 +299,40 @@ Returns the requested album.
 <div class="fragment"><pre class="fragment">
 Returns a collection of all the albums in this model.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00813">813</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00847">847</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad516291883deffea149d254bb150b34a"></a><!-- doxytag: member="coverart_album::AlbumsModel::get_from_dbentry" ref="ad516291883deffea149d254bb150b34a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__album_1_1_albums_model.html#ad516291883deffea149d254bb150b34a">coverart_album.AlbumsModel.get_from_dbentry</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>entry</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">
+Returns the album containing the track corresponding to rhythmdbentry
+
+:param entry: `RhythmDBEntry`
+</pre></div> 
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00834">834</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
 
 </div>
 </div>
@@ -331,7 +365,7 @@ Returns the requested album.
 
 :param key: ext_db_key
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00827">827</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00861">861</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
 
 </div>
 </div>
@@ -364,7 +398,7 @@ Returns an album referenced by a `Gtk.TreeModel` path.
 
 :param path: `Gtk.TreePath` referencing the album.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00819">819</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00853">853</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
 
 </div>
 </div>
@@ -385,7 +419,7 @@ Returns an album referenced by a `Gtk.TreeModel` path.
 <div class="fragment"><pre class="fragment">
 Forces the recreation and update of the markup text for each album.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00971">971</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l01046">1046</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
 
 </div>
 </div>
@@ -418,7 +452,7 @@ Removes this album from the model.
 
 :param album: `Album` to be removed from the model.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00781">781</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00800">800</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
 
 </div>
 </div>
@@ -460,7 +494,7 @@ Removes a filter by it's filter_key
 :param refilter: `bool` indicating whether to force a refilter and
 emit the 'filter-changed' signal(True) or not(False).
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00934">934</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l01009">1009</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
 
 </div>
 </div>
@@ -510,7 +544,7 @@ Adds or replaces a filter by it's filter_key.
 :param refilter: `bool` indicating whether to force a refilter and
 emit the 'filter-changed' signal(True) or not(False).
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00918">918</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00993">993</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
 
 </div>
 </div>
@@ -552,7 +586,7 @@ Unfilters an album, making it visible to the publicly available model's
 :param show: `bool` indcating whether to show(True) or hide(False) the
     album.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00871">871</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00905">905</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
 
 </div>
 </div>
@@ -564,42 +598,21 @@ Unfilters an album, making it visible to the publicly available model's
           <td class="memname">def <a class="el" href="classcoverart__album_1_1_albums_model.html#a3ee11451839cff26cd2de0e56f4480c8">coverart_album.AlbumsModel.sort</a> </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>self</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>key</em> = <code>None</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>reverse</em> = <code>False</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <div class="fragment"><pre class="fragment">
 Changes the sorting strategy for the model.
-
-:param key: `str`attribute of the `Album` class by which the sort
-    should be performed.
-:param reverse: `bool` indicating whether the sort order should be
-    reversed from the current one.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00885">885</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__album_8py_source.html#l00936">936</a> of file <a class="el" href="coverart__album_8py_source.html">coverart_album.py</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/home/dad/Downloads/coverart-browser/<a class="el" href="coverart__album_8py_source.html">coverart_album.py</a></li>
+<li>/home/foss/Downloads/coverart-browser/<a class="el" href="coverart__album_8py_source.html">coverart_album.py</a></li>
 </ul>
 </div><!-- contents -->
 </div>
@@ -622,7 +635,7 @@ Changes the sorting strategy for the model.
       <li class="navelem"><b>coverart_album</b>      </li>
       <li class="navelem"><a class="el" href="classcoverart__album_1_1_albums_model.html">AlbumsModel</a>      </li>
 
-    <li class="footer">Generated on Tue Aug 27 2013 23:46:20 for Coverart Browser by
+    <li class="footer">Generated on Fri Jan 24 2014 21:22:27 for Coverart Browser by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
    </ul>

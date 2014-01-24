@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Coverart Browser: /home/home/dad/Downloads/coverart-browser/coverart_browser_prefs.py Source File</title>
+<title>Coverart Browser: /home/foss/Downloads/coverart-browser/coverart_browser_prefs.py Source File</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -33,7 +33,7 @@
   
   <td style="padding-left: 0.5em;">
    <div id="projectname">Coverart Browser
-   &#160;<span id="projectnumber">v0.9</span>
+   &#160;<span id="projectnumber">v1.0</span>
    </div>
    <div id="projectbrief">Browse your cover-art albums in Rhythmbox</div>
   </td>
@@ -93,7 +93,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div id="doc-content">
 <div class="header">
   <div class="headertitle">
-<div class="title">/home/home/dad/Downloads/coverart-browser/coverart_browser_prefs.py</div>  </div>
+<div class="title">/home/foss/Downloads/coverart-browser/coverart_browser_prefs.py</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment"># -*- Mode: python; coding: utf-8; tab-width: 4; indent-tabs-mode: nil; -*-</span>
@@ -228,527 +228,560 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00130"></a>00130                 CUSTOM_STATUSBAR=<span class="stringliteral">&#39;custom-statusbar&#39;</span>,
 <a name="l00131"></a>00131                 DISPLAY_BOTTOM=<span class="stringliteral">&#39;display-bottom&#39;</span>,
 <a name="l00132"></a>00132                 DISPLAY_TEXT=<span class="stringliteral">&#39;display-text&#39;</span>,
-<a name="l00133"></a>00133                 RANDOM=<span class="stringliteral">&#39;random-queue&#39;</span>,
-<a name="l00134"></a>00134                 DISPLAY_TEXT_LOADING=<span class="stringliteral">&#39;display-text-loading&#39;</span>,
-<a name="l00135"></a>00135                 DISPLAY_TEXT_ELLIPSIZE=<span class="stringliteral">&#39;display-text-ellipsize&#39;</span>,
-<a name="l00136"></a>00136                 DISPLAY_TEXT_ELLIPSIZE_LENGTH=<span class="stringliteral">&#39;display-text-ellipsize-length&#39;</span>,
-<a name="l00137"></a>00137                 DISPLAY_FONT_SIZE=<span class="stringliteral">&#39;display-font-size&#39;</span>,
-<a name="l00138"></a>00138                 COVER_SIZE=<span class="stringliteral">&#39;cover-size&#39;</span>,
-<a name="l00139"></a>00139                 ADD_SHADOW=<span class="stringliteral">&#39;add-shadow&#39;</span>,
-<a name="l00140"></a>00140                 SHADOW_IMAGE=<span class="stringliteral">&#39;shadow-image&#39;</span>,
-<a name="l00141"></a>00141                 PANED_POSITION=<span class="stringliteral">&#39;paned-position&#39;</span>,
-<a name="l00142"></a>00142                 SORT_BY=<span class="stringliteral">&#39;sort-by&#39;</span>,
-<a name="l00143"></a>00143                 SORT_ORDER=<span class="stringliteral">&#39;sort-order&#39;</span>,
-<a name="l00144"></a>00144                 RATING=<span class="stringliteral">&#39;rating-threshold&#39;</span>,
-<a name="l00145"></a>00145                 AUTOSTART=<span class="stringliteral">&#39;autostart&#39;</span>,
-<a name="l00146"></a>00146                 TOOLBAR_POS=<span class="stringliteral">&#39;toolbar-pos&#39;</span>,
-<a name="l00147"></a>00147                 BUTTON_RELIEF=<span class="stringliteral">&#39;button-relief&#39;</span>,
-<a name="l00148"></a>00148                 THEME=<span class="stringliteral">&#39;theme&#39;</span>,
-<a name="l00149"></a>00149                 NEW_GENRE_ICON=<span class="stringliteral">&#39;new-genre-icon&#39;</span>,
-<a name="l00150"></a>00150                 ICON_PADDING=<span class="stringliteral">&#39;icon-padding&#39;</span>,
-<a name="l00151"></a>00151                 ICON_SPACING=<span class="stringliteral">&#39;icon-spacing&#39;</span>,
-<a name="l00152"></a>00152                 ICON_AUTOMATIC=<span class="stringliteral">&#39;icon-automatic&#39;</span>,
-<a name="l00153"></a>00153                 VIEW_NAME=<span class="stringliteral">&#39;view-name&#39;</span>,
-<a name="l00154"></a>00154                 FLOW_APPEARANCE=<span class="stringliteral">&#39;flow-appearance&#39;</span>,
-<a name="l00155"></a>00155                 FLOW_HIDE_CAPTION=<span class="stringliteral">&#39;flow-hide-caption&#39;</span>,
-<a name="l00156"></a>00156                 FLOW_SCALE=<span class="stringliteral">&#39;flow-scale&#39;</span>,
-<a name="l00157"></a>00157                 FLOW_BACKGROUND_COLOUR=<span class="stringliteral">&#39;flow-background-colour&#39;</span>,
-<a name="l00158"></a>00158                 FLOW_AUTOMATIC=<span class="stringliteral">&#39;flow-automatic&#39;</span>,
-<a name="l00159"></a>00159                 FLOW_WIDTH=<span class="stringliteral">&#39;flow-width&#39;</span>,
-<a name="l00160"></a>00160                 FLOW_MAX=<span class="stringliteral">&#39;flow-max-albums&#39;</span>,
-<a name="l00161"></a>00161                 WEBKIT=<span class="stringliteral">&#39;webkit-support&#39;</span>,
-<a name="l00162"></a>00162                 ARTIST_PANED_POSITION=<span class="stringliteral">&#39;artist-paned-pos&#39;</span>)
-<a name="l00163"></a>00163 
-<a name="l00164"></a>00164             self.<a class="code" href="classcoverart__browser__prefs_1_1_g_setting_1_1____impl.html#ac93e3714db1521347a5a1cf7d78d2630">setting</a> = {}
-<a name="l00165"></a>00165 
-<a name="l00166"></a><a class="code" href="classcoverart__browser__prefs_1_1_g_setting_1_1____impl.html#a9ec6aa417c32d80cd89f8308bbfbdb43">00166</a>         <span class="keyword">def </span><a class="code" href="classcoverart__browser__prefs_1_1_g_setting_1_1____impl.html#a9ec6aa417c32d80cd89f8308bbfbdb43">get_setting</a>(self, path):
-<a name="l00167"></a>00167             <span class="stringliteral">&#39;&#39;&#39;</span>
-<a name="l00168"></a>00168 <span class="stringliteral">            Return an instance of Gio.Settings pointing at the selected path.</span>
-<a name="l00169"></a>00169 <span class="stringliteral">            &#39;&#39;&#39;</span>
-<a name="l00170"></a>00170             <span class="keywordflow">try</span>:
-<a name="l00171"></a>00171                 setting = self.<a class="code" href="classcoverart__browser__prefs_1_1_g_setting_1_1____impl.html#ac93e3714db1521347a5a1cf7d78d2630">setting</a>[path]
-<a name="l00172"></a>00172             <span class="keywordflow">except</span>:
-<a name="l00173"></a>00173                 self.<a class="code" href="classcoverart__browser__prefs_1_1_g_setting_1_1____impl.html#ac93e3714db1521347a5a1cf7d78d2630">setting</a>[path] = Gio.Settings(path)
-<a name="l00174"></a>00174                 setting = self.<a class="code" href="classcoverart__browser__prefs_1_1_g_setting_1_1____impl.html#ac93e3714db1521347a5a1cf7d78d2630">setting</a>[path]
-<a name="l00175"></a>00175 
-<a name="l00176"></a>00176             <span class="keywordflow">return</span> setting
-<a name="l00177"></a>00177 
-<a name="l00178"></a><a class="code" href="classcoverart__browser__prefs_1_1_g_setting_1_1____impl.html#ada0671110c72ab7ef9b81fe19e6acbc7">00178</a>         <span class="keyword">def </span><a class="code" href="classcoverart__browser__prefs_1_1_g_setting_1_1____impl.html#ada0671110c72ab7ef9b81fe19e6acbc7">get_value</a>(self, path, key):
-<a name="l00179"></a>00179             <span class="stringliteral">&#39;&#39;&#39;</span>
-<a name="l00180"></a>00180 <span class="stringliteral">            Return the value saved on key from the settings path.</span>
-<a name="l00181"></a>00181 <span class="stringliteral">            &#39;&#39;&#39;</span>
-<a name="l00182"></a>00182             <span class="keywordflow">return</span> self.<a class="code" href="classcoverart__browser__prefs_1_1_g_setting_1_1____impl.html#a9ec6aa417c32d80cd89f8308bbfbdb43">get_setting</a>(path)[key]
-<a name="l00183"></a>00183 
-<a name="l00184"></a><a class="code" href="classcoverart__browser__prefs_1_1_g_setting_1_1____impl.html#a72a1f0743db7f84ae68d809b0f3e81b6">00184</a>         <span class="keyword">def </span><a class="code" href="classcoverart__browser__prefs_1_1_g_setting_1_1____impl.html#a72a1f0743db7f84ae68d809b0f3e81b6">set_value</a>(self, path, key, value):
-<a name="l00185"></a>00185             <span class="stringliteral">&#39;&#39;&#39;</span>
-<a name="l00186"></a>00186 <span class="stringliteral">            Set the passed value to key in the settings path.</span>
-<a name="l00187"></a>00187 <span class="stringliteral">            &#39;&#39;&#39;</span>
-<a name="l00188"></a>00188             self.<a class="code" href="classcoverart__browser__prefs_1_1_g_setting_1_1____impl.html#a9ec6aa417c32d80cd89f8308bbfbdb43">get_setting</a>(path)[key] = value
-<a name="l00189"></a>00189 
-<a name="l00190"></a>00190         <span class="keyword">def </span>_enum(self, **enums):
-<a name="l00191"></a>00191             <span class="stringliteral">&#39;&#39;&#39;</span>
-<a name="l00192"></a>00192 <span class="stringliteral">            Create an enumn.</span>
-<a name="l00193"></a>00193 <span class="stringliteral">            &#39;&#39;&#39;</span>
-<a name="l00194"></a>00194             <span class="keywordflow">return</span> type(<span class="stringliteral">&#39;Enum&#39;</span>, (), enums)
-<a name="l00195"></a>00195 
-<a name="l00196"></a><a class="code" href="classcoverart__browser__prefs_1_1_g_setting.html#a2facc913f18011fdbe9e23b87571cf13">00196</a>     <span class="keyword">def </span><a class="code" href="classcoverart__browser__prefs_1_1_g_setting.html#a2facc913f18011fdbe9e23b87571cf13">__init__</a>(self):
-<a name="l00197"></a>00197         <span class="stringliteral">&quot;&quot;&quot; Create singleton instance &quot;&quot;&quot;</span>
-<a name="l00198"></a>00198         <span class="comment"># Check whether we already have an instance</span>
-<a name="l00199"></a>00199         <span class="keywordflow">if</span> GSetting.__instance <span class="keywordflow">is</span> <span class="keywordtype">None</span>:
-<a name="l00200"></a>00200             <span class="comment"># Create and remember instance</span>
-<a name="l00201"></a>00201             GSetting.__instance = GSetting.__impl()
-<a name="l00202"></a>00202 
-<a name="l00203"></a>00203         <span class="comment"># Store instance reference as the only member in the handle</span>
-<a name="l00204"></a>00204         self.__dict__[<span class="stringliteral">&#39;_GSetting__instance&#39;</span>] = GSetting.__instance
-<a name="l00205"></a>00205 
-<a name="l00206"></a><a class="code" href="classcoverart__browser__prefs_1_1_g_setting.html#af6912e1fb1aa861e1786bade99d583bb">00206</a>     <span class="keyword">def </span><a class="code" href="classcoverart__browser__prefs_1_1_g_setting.html#af6912e1fb1aa861e1786bade99d583bb">__getattr__</a>(self, attr):
-<a name="l00207"></a>00207         <span class="stringliteral">&quot;&quot;&quot; Delegate access to implementation &quot;&quot;&quot;</span>
-<a name="l00208"></a>00208         <span class="keywordflow">return</span> getattr(self.<a class="code" href="classcoverart__browser__prefs_1_1_g_setting.html#a1d6089782c7c7b0dc504e3677678917c">__instance</a>, attr)
-<a name="l00209"></a>00209 
-<a name="l00210"></a><a class="code" href="classcoverart__browser__prefs_1_1_g_setting.html#a2c1a7bd006616078198ae878dc906da6">00210</a>     <span class="keyword">def </span><a class="code" href="classcoverart__browser__prefs_1_1_g_setting.html#a2c1a7bd006616078198ae878dc906da6">__setattr__</a>(self, attr, value):
-<a name="l00211"></a>00211         <span class="stringliteral">&quot;&quot;&quot; Delegate access to implementation &quot;&quot;&quot;</span>
-<a name="l00212"></a>00212         <span class="keywordflow">return</span> setattr(self.<a class="code" href="classcoverart__browser__prefs_1_1_g_setting.html#a1d6089782c7c7b0dc504e3677678917c">__instance</a>, attr, value)
-<a name="l00213"></a>00213 
+<a name="l00133"></a>00133                 DISPLAY_TEXT_POS=<span class="stringliteral">&#39;display-text-pos&#39;</span>,
+<a name="l00134"></a>00134                 RANDOM=<span class="stringliteral">&#39;random-queue&#39;</span>,
+<a name="l00135"></a>00135                 DISPLAY_TEXT_LOADING=<span class="stringliteral">&#39;display-text-loading&#39;</span>,
+<a name="l00136"></a>00136                 DISPLAY_TEXT_ELLIPSIZE=<span class="stringliteral">&#39;display-text-ellipsize&#39;</span>,
+<a name="l00137"></a>00137                 DISPLAY_TEXT_ELLIPSIZE_LENGTH=<span class="stringliteral">&#39;display-text-ellipsize-length&#39;</span>,
+<a name="l00138"></a>00138                 DISPLAY_FONT_SIZE=<span class="stringliteral">&#39;display-font-size&#39;</span>,
+<a name="l00139"></a>00139                 COVER_SIZE=<span class="stringliteral">&#39;cover-size&#39;</span>,
+<a name="l00140"></a>00140                 ADD_SHADOW=<span class="stringliteral">&#39;add-shadow&#39;</span>,
+<a name="l00141"></a>00141                 SHADOW_IMAGE=<span class="stringliteral">&#39;shadow-image&#39;</span>,
+<a name="l00142"></a>00142                 PANED_POSITION=<span class="stringliteral">&#39;paned-position&#39;</span>,
+<a name="l00143"></a>00143                 SORT_BY=<span class="stringliteral">&#39;sort-by&#39;</span>,
+<a name="l00144"></a>00144                 SORT_ORDER=<span class="stringliteral">&#39;sort-order&#39;</span>,
+<a name="l00145"></a>00145                 SORT_BY_ARTIST=<span class="stringliteral">&#39;sort-by-artist&#39;</span>,
+<a name="l00146"></a>00146                 SORT_ORDER_ARTIST=<span class="stringliteral">&#39;sort-order-artist&#39;</span>,
+<a name="l00147"></a>00147                 RATING=<span class="stringliteral">&#39;rating-threshold&#39;</span>,
+<a name="l00148"></a>00148                 AUTOSTART=<span class="stringliteral">&#39;autostart&#39;</span>,
+<a name="l00149"></a>00149                 TOOLBAR_POS=<span class="stringliteral">&#39;toolbar-pos&#39;</span>,
+<a name="l00150"></a>00150                 BUTTON_RELIEF=<span class="stringliteral">&#39;button-relief&#39;</span>,
+<a name="l00151"></a>00151                 THEME=<span class="stringliteral">&#39;theme&#39;</span>,
+<a name="l00152"></a>00152                 NEW_GENRE_ICON=<span class="stringliteral">&#39;new-genre-icon&#39;</span>,
+<a name="l00153"></a>00153                 ICON_PADDING=<span class="stringliteral">&#39;icon-padding&#39;</span>,
+<a name="l00154"></a>00154                 ICON_SPACING=<span class="stringliteral">&#39;icon-spacing&#39;</span>,
+<a name="l00155"></a>00155                 ICON_AUTOMATIC=<span class="stringliteral">&#39;icon-automatic&#39;</span>,
+<a name="l00156"></a>00156                 VIEW_NAME=<span class="stringliteral">&#39;view-name&#39;</span>,
+<a name="l00157"></a>00157                 FLOW_APPEARANCE=<span class="stringliteral">&#39;flow-appearance&#39;</span>,
+<a name="l00158"></a>00158                 FLOW_HIDE_CAPTION=<span class="stringliteral">&#39;flow-hide-caption&#39;</span>,
+<a name="l00159"></a>00159                 FLOW_SCALE=<span class="stringliteral">&#39;flow-scale&#39;</span>,
+<a name="l00160"></a>00160                 FLOW_BACKGROUND_COLOUR=<span class="stringliteral">&#39;flow-background-colour&#39;</span>,
+<a name="l00161"></a>00161                 FLOW_AUTOMATIC=<span class="stringliteral">&#39;flow-automatic&#39;</span>,
+<a name="l00162"></a>00162                 FLOW_WIDTH=<span class="stringliteral">&#39;flow-width&#39;</span>,
+<a name="l00163"></a>00163                 FLOW_MAX=<span class="stringliteral">&#39;flow-max-albums&#39;</span>,
+<a name="l00164"></a>00164                 WEBKIT=<span class="stringliteral">&#39;webkit-support&#39;</span>,
+<a name="l00165"></a>00165                 ARTIST_PANED_POSITION=<span class="stringliteral">&#39;artist-paned-pos&#39;</span>,
+<a name="l00166"></a>00166                 ARTIST_PANED_DISPLAY=<span class="stringliteral">&#39;artist-paned-display&#39;</span>,
+<a name="l00167"></a>00167                 USE_FAVOURITES=<span class="stringliteral">&#39;use-favourites&#39;</span>)
+<a name="l00168"></a>00168 
+<a name="l00169"></a>00169             self.<a class="code" href="classcoverart__browser__prefs_1_1_g_setting_1_1____impl.html#ac93e3714db1521347a5a1cf7d78d2630">setting</a> = {}
+<a name="l00170"></a>00170 
+<a name="l00171"></a><a class="code" href="classcoverart__browser__prefs_1_1_g_setting_1_1____impl.html#a9ec6aa417c32d80cd89f8308bbfbdb43">00171</a>         <span class="keyword">def </span><a class="code" href="classcoverart__browser__prefs_1_1_g_setting_1_1____impl.html#a9ec6aa417c32d80cd89f8308bbfbdb43">get_setting</a>(self, path):
+<a name="l00172"></a>00172             <span class="stringliteral">&#39;&#39;&#39;</span>
+<a name="l00173"></a>00173 <span class="stringliteral">            Return an instance of Gio.Settings pointing at the selected path.</span>
+<a name="l00174"></a>00174 <span class="stringliteral">            &#39;&#39;&#39;</span>
+<a name="l00175"></a>00175             <span class="keywordflow">try</span>:
+<a name="l00176"></a>00176                 setting = self.<a class="code" href="classcoverart__browser__prefs_1_1_g_setting_1_1____impl.html#ac93e3714db1521347a5a1cf7d78d2630">setting</a>[path]
+<a name="l00177"></a>00177             <span class="keywordflow">except</span>:
+<a name="l00178"></a>00178                 self.<a class="code" href="classcoverart__browser__prefs_1_1_g_setting_1_1____impl.html#ac93e3714db1521347a5a1cf7d78d2630">setting</a>[path] = Gio.Settings.new(path)
+<a name="l00179"></a>00179                 setting = self.<a class="code" href="classcoverart__browser__prefs_1_1_g_setting_1_1____impl.html#ac93e3714db1521347a5a1cf7d78d2630">setting</a>[path]
+<a name="l00180"></a>00180 
+<a name="l00181"></a>00181             <span class="keywordflow">return</span> setting
+<a name="l00182"></a>00182 
+<a name="l00183"></a><a class="code" href="classcoverart__browser__prefs_1_1_g_setting_1_1____impl.html#ada0671110c72ab7ef9b81fe19e6acbc7">00183</a>         <span class="keyword">def </span><a class="code" href="classcoverart__browser__prefs_1_1_g_setting_1_1____impl.html#ada0671110c72ab7ef9b81fe19e6acbc7">get_value</a>(self, path, key):
+<a name="l00184"></a>00184             <span class="stringliteral">&#39;&#39;&#39;</span>
+<a name="l00185"></a>00185 <span class="stringliteral">            Return the value saved on key from the settings path.</span>
+<a name="l00186"></a>00186 <span class="stringliteral">            &#39;&#39;&#39;</span>
+<a name="l00187"></a>00187             <span class="keywordflow">return</span> self.<a class="code" href="classcoverart__browser__prefs_1_1_g_setting_1_1____impl.html#a9ec6aa417c32d80cd89f8308bbfbdb43">get_setting</a>(path)[key]
+<a name="l00188"></a>00188 
+<a name="l00189"></a><a class="code" href="classcoverart__browser__prefs_1_1_g_setting_1_1____impl.html#a72a1f0743db7f84ae68d809b0f3e81b6">00189</a>         <span class="keyword">def </span><a class="code" href="classcoverart__browser__prefs_1_1_g_setting_1_1____impl.html#a72a1f0743db7f84ae68d809b0f3e81b6">set_value</a>(self, path, key, value):
+<a name="l00190"></a>00190             <span class="stringliteral">&#39;&#39;&#39;</span>
+<a name="l00191"></a>00191 <span class="stringliteral">            Set the passed value to key in the settings path.</span>
+<a name="l00192"></a>00192 <span class="stringliteral">            &#39;&#39;&#39;</span>
+<a name="l00193"></a>00193             self.<a class="code" href="classcoverart__browser__prefs_1_1_g_setting_1_1____impl.html#a9ec6aa417c32d80cd89f8308bbfbdb43">get_setting</a>(path)[key] = value
+<a name="l00194"></a>00194 
+<a name="l00195"></a>00195         <span class="keyword">def </span>_enum(self, **enums):
+<a name="l00196"></a>00196             <span class="stringliteral">&#39;&#39;&#39;</span>
+<a name="l00197"></a>00197 <span class="stringliteral">            Create an enumn.</span>
+<a name="l00198"></a>00198 <span class="stringliteral">            &#39;&#39;&#39;</span>
+<a name="l00199"></a>00199             <span class="keywordflow">return</span> type(<span class="stringliteral">&#39;Enum&#39;</span>, (), enums)
+<a name="l00200"></a>00200 
+<a name="l00201"></a><a class="code" href="classcoverart__browser__prefs_1_1_g_setting.html#a2facc913f18011fdbe9e23b87571cf13">00201</a>     <span class="keyword">def </span><a class="code" href="classcoverart__browser__prefs_1_1_g_setting.html#a2facc913f18011fdbe9e23b87571cf13">__init__</a>(self):
+<a name="l00202"></a>00202         <span class="stringliteral">&quot;&quot;&quot; Create singleton instance &quot;&quot;&quot;</span>
+<a name="l00203"></a>00203         <span class="comment"># Check whether we already have an instance</span>
+<a name="l00204"></a>00204         <span class="keywordflow">if</span> GSetting.__instance <span class="keywordflow">is</span> <span class="keywordtype">None</span>:
+<a name="l00205"></a>00205             <span class="comment"># Create and remember instance</span>
+<a name="l00206"></a>00206             GSetting.__instance = GSetting.__impl()
+<a name="l00207"></a>00207 
+<a name="l00208"></a>00208         <span class="comment"># Store instance reference as the only member in the handle</span>
+<a name="l00209"></a>00209         self.__dict__[<span class="stringliteral">&#39;_GSetting__instance&#39;</span>] = GSetting.__instance
+<a name="l00210"></a>00210 
+<a name="l00211"></a><a class="code" href="classcoverart__browser__prefs_1_1_g_setting.html#af6912e1fb1aa861e1786bade99d583bb">00211</a>     <span class="keyword">def </span><a class="code" href="classcoverart__browser__prefs_1_1_g_setting.html#af6912e1fb1aa861e1786bade99d583bb">__getattr__</a>(self, attr):
+<a name="l00212"></a>00212         <span class="stringliteral">&quot;&quot;&quot; Delegate access to implementation &quot;&quot;&quot;</span>
+<a name="l00213"></a>00213         <span class="keywordflow">return</span> getattr(self.<a class="code" href="classcoverart__browser__prefs_1_1_g_setting.html#a1d6089782c7c7b0dc504e3677678917c">__instance</a>, attr)
 <a name="l00214"></a>00214 
-<a name="l00215"></a><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html">00215</a> <span class="keyword">class </span><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html">Preferences</a>(GObject.Object, PeasGtk.Configurable):
-<a name="l00216"></a>00216     <span class="stringliteral">&#39;&#39;&#39;</span>
-<a name="l00217"></a>00217 <span class="stringliteral">    Preferences for the CoverArt Browser Plugins. It holds the settings for</span>
-<a name="l00218"></a>00218 <span class="stringliteral">    the plugin and also is the responsible of creating the preferences dialog.</span>
-<a name="l00219"></a>00219 <span class="stringliteral">    &#39;&#39;&#39;</span>
-<a name="l00220"></a>00220     __gtype_name__ = <span class="stringliteral">&#39;CoverArtBrowserPreferences&#39;</span>
-<a name="l00221"></a>00221     object = GObject.property(type=GObject.Object)
-<a name="l00222"></a>00222     GENRE_POPUP = 1
-<a name="l00223"></a>00223     GENRE_LIST = 2
-<a name="l00224"></a>00224 
-<a name="l00225"></a><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a0a75c7fe4178aea037ea9fa536585889">00225</a>     <span class="keyword">def </span><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a0a75c7fe4178aea037ea9fa536585889">__init__</a>(self):
-<a name="l00226"></a>00226         <span class="stringliteral">&#39;&#39;&#39;</span>
-<a name="l00227"></a>00227 <span class="stringliteral">        Initialises the preferences, getting an instance of the settings saved</span>
-<a name="l00228"></a>00228 <span class="stringliteral">        by Gio.</span>
-<a name="l00229"></a>00229 <span class="stringliteral">        &#39;&#39;&#39;</span>
-<a name="l00230"></a>00230         GObject.Object.__init__(self)
-<a name="l00231"></a>00231         gs = <a class="code" href="classcoverart__browser__prefs_1_1_g_setting.html">GSetting</a>()
-<a name="l00232"></a>00232         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aee837e2535a870252793e96a8e3e5192">settings</a> = gs.get_setting(gs.Path.PLUGIN)
-<a name="l00233"></a>00233         
-<a name="l00234"></a>00234         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a4e96458f3454a0b381550b3849e7d79c">_first_run</a> = <span class="keyword">True</span>
-<a name="l00235"></a>00235 
-<a name="l00236"></a><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a15f74152d53e2dad215fdc0f41b24742">00236</a>     <span class="keyword">def </span><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a15f74152d53e2dad215fdc0f41b24742">do_create_configure_widget</a>(self):
-<a name="l00237"></a>00237         <span class="stringliteral">&#39;&#39;&#39;</span>
-<a name="l00238"></a>00238 <span class="stringliteral">        Creates the plugin&#39;s preferences dialog</span>
-<a name="l00239"></a>00239 <span class="stringliteral">        &#39;&#39;&#39;</span>
-<a name="l00240"></a>00240         <span class="keywordflow">return</span> self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a9761727c11af009a8d14c2963de1e1b1">_create_display_contents</a>(self)
-<a name="l00241"></a>00241         
-<a name="l00242"></a>00242     <span class="keyword">def </span>display_preferences_dialog(self, plugin):
-<a name="l00243"></a>00243         <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a4e96458f3454a0b381550b3849e7d79c">_first_run</a>:
-<a name="l00244"></a>00244             self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a4e96458f3454a0b381550b3849e7d79c">_first_run</a> = <span class="keyword">False</span>
-<a name="l00245"></a>00245             self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#af064968f85bcbb8b2e71f301113e1749">_dialog</a> = Gtk.Dialog(_(<span class="stringliteral">&#39;Browser Preferences&#39;</span>), <span class="keywordtype">None</span>,
-<a name="l00246"></a>00246                 Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT, (Gtk.STOCK_OK, Gtk.ResponseType.OK))
-<a name="l00247"></a>00247                 
-<a name="l00248"></a>00248             content_area = self._dialog.get_content_area()
-<a name="l00249"></a>00249             content_area.pack_start(self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a9761727c11af009a8d14c2963de1e1b1">_create_display_contents</a>(plugin), <span class="keyword">True</span>, <span class="keyword">True</span>, 0)
-<a name="l00250"></a>00250             
-<a name="l00251"></a>00251             helpbutton = self._dialog.add_button(Gtk.STOCK_HELP, Gtk.ResponseType.HELP)
-<a name="l00252"></a>00252             helpbutton.connect(<span class="stringliteral">&#39;clicked&#39;</span>, self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a116528493cc0b37531210beb70543b03">_display_help</a>)
-<a name="l00253"></a>00253             
-<a name="l00254"></a>00254         self._dialog.show_all()
-<a name="l00255"></a>00255         
-<a name="l00256"></a>00256         <span class="keywordflow">while</span> <span class="keyword">True</span>:
-<a name="l00257"></a>00257             response = self._dialog.run()
+<a name="l00215"></a><a class="code" href="classcoverart__browser__prefs_1_1_g_setting.html#a2c1a7bd006616078198ae878dc906da6">00215</a>     <span class="keyword">def </span><a class="code" href="classcoverart__browser__prefs_1_1_g_setting.html#a2c1a7bd006616078198ae878dc906da6">__setattr__</a>(self, attr, value):
+<a name="l00216"></a>00216         <span class="stringliteral">&quot;&quot;&quot; Delegate access to implementation &quot;&quot;&quot;</span>
+<a name="l00217"></a>00217         <span class="keywordflow">return</span> setattr(self.<a class="code" href="classcoverart__browser__prefs_1_1_g_setting.html#a1d6089782c7c7b0dc504e3677678917c">__instance</a>, attr, value)
+<a name="l00218"></a>00218 
+<a name="l00219"></a>00219 
+<a name="l00220"></a><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html">00220</a> <span class="keyword">class </span><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html">Preferences</a>(GObject.Object, PeasGtk.Configurable):
+<a name="l00221"></a>00221     <span class="stringliteral">&#39;&#39;&#39;</span>
+<a name="l00222"></a>00222 <span class="stringliteral">    Preferences for the CoverArt Browser Plugins. It holds the settings for</span>
+<a name="l00223"></a>00223 <span class="stringliteral">    the plugin and also is the responsible of creating the preferences dialog.</span>
+<a name="l00224"></a>00224 <span class="stringliteral">    &#39;&#39;&#39;</span>
+<a name="l00225"></a>00225     __gtype_name__ = <span class="stringliteral">&#39;CoverArtBrowserPreferences&#39;</span>
+<a name="l00226"></a>00226     object = GObject.property(type=GObject.Object)
+<a name="l00227"></a>00227     GENRE_POPUP = 1
+<a name="l00228"></a>00228     GENRE_LIST = 2
+<a name="l00229"></a>00229 
+<a name="l00230"></a><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a0a75c7fe4178aea037ea9fa536585889">00230</a>     <span class="keyword">def </span><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a0a75c7fe4178aea037ea9fa536585889">__init__</a>(self):
+<a name="l00231"></a>00231         <span class="stringliteral">&#39;&#39;&#39;</span>
+<a name="l00232"></a>00232 <span class="stringliteral">        Initialises the preferences, getting an instance of the settings saved</span>
+<a name="l00233"></a>00233 <span class="stringliteral">        by Gio.</span>
+<a name="l00234"></a>00234 <span class="stringliteral">        &#39;&#39;&#39;</span>
+<a name="l00235"></a>00235         GObject.Object.__init__(self)
+<a name="l00236"></a>00236         gs = <a class="code" href="classcoverart__browser__prefs_1_1_g_setting.html">GSetting</a>()
+<a name="l00237"></a>00237         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aee837e2535a870252793e96a8e3e5192">settings</a> = gs.get_setting(gs.Path.PLUGIN)
+<a name="l00238"></a>00238         
+<a name="l00239"></a>00239         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a4e96458f3454a0b381550b3849e7d79c">_first_run</a> = <span class="keyword">True</span>
+<a name="l00240"></a>00240 
+<a name="l00241"></a><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a15f74152d53e2dad215fdc0f41b24742">00241</a>     <span class="keyword">def </span><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a15f74152d53e2dad215fdc0f41b24742">do_create_configure_widget</a>(self):
+<a name="l00242"></a>00242         <span class="stringliteral">&#39;&#39;&#39;</span>
+<a name="l00243"></a>00243 <span class="stringliteral">        Creates the plugin&#39;s preferences dialog</span>
+<a name="l00244"></a>00244 <span class="stringliteral">        &#39;&#39;&#39;</span>
+<a name="l00245"></a>00245         <span class="keywordflow">return</span> self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a9761727c11af009a8d14c2963de1e1b1">_create_display_contents</a>(self)
+<a name="l00246"></a>00246         
+<a name="l00247"></a>00247     <span class="keyword">def </span>display_preferences_dialog(self, plugin):
+<a name="l00248"></a>00248         <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a4e96458f3454a0b381550b3849e7d79c">_first_run</a>:
+<a name="l00249"></a>00249             self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a4e96458f3454a0b381550b3849e7d79c">_first_run</a> = <span class="keyword">False</span>
+<a name="l00250"></a>00250             <span class="comment">#self._dialog = Gtk.Dialog(_(&#39;Browser Preferences&#39;), None, </span>
+<a name="l00251"></a>00251             <span class="comment">#    Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT, (Gtk.STOCK_OK, Gtk.ResponseType.OK))</span>
+<a name="l00252"></a>00252              
+<a name="l00253"></a>00253             self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#af064968f85bcbb8b2e71f301113e1749">_dialog</a> = Gtk.Dialog(modal=<span class="keyword">True</span>, destroy_with_parent=<span class="keyword">True</span>)
+<a name="l00254"></a>00254             self._dialog.add_button(Gtk.STOCK_OK, Gtk.ResponseType.OK)
+<a name="l00255"></a>00255             self._dialog.set_title(_(<span class="stringliteral">&#39;Browser Preferences&#39;</span>)) 
+<a name="l00256"></a>00256             content_area = self._dialog.get_content_area()
+<a name="l00257"></a>00257             content_area.pack_start(self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a9761727c11af009a8d14c2963de1e1b1">_create_display_contents</a>(plugin), <span class="keyword">True</span>, <span class="keyword">True</span>, 0)
 <a name="l00258"></a>00258             
-<a name="l00259"></a>00259             <span class="keywordflow">if</span> response != Gtk.ResponseType.HELP:
-<a name="l00260"></a>00260                 <span class="keywordflow">break</span>
-<a name="l00261"></a>00261         
-<a name="l00262"></a>00262         self._dialog.hide()
+<a name="l00259"></a>00259             helpbutton = self._dialog.add_button(Gtk.STOCK_HELP, Gtk.ResponseType.HELP)
+<a name="l00260"></a>00260             helpbutton.connect(<span class="stringliteral">&#39;clicked&#39;</span>, self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a116528493cc0b37531210beb70543b03">_display_help</a>)
+<a name="l00261"></a>00261             
+<a name="l00262"></a>00262         self._dialog.show_all()
 <a name="l00263"></a>00263         
-<a name="l00264"></a>00264     <span class="keyword">def </span>_display_help(self, *args):
-<a name="l00265"></a>00265         peas = Peas.Engine.get_default()
-<a name="l00266"></a>00266         uri = peas.get_plugin_info(<span class="stringliteral">&#39;coverart_browser&#39;</span>).get_help_uri()
-<a name="l00267"></a>00267         
-<a name="l00268"></a>00268         webbrowser.open(uri)
+<a name="l00264"></a>00264         <span class="keywordflow">while</span> <span class="keyword">True</span>:
+<a name="l00265"></a>00265             response = self._dialog.run()
+<a name="l00266"></a>00266             
+<a name="l00267"></a>00267             <span class="keywordflow">if</span> response != Gtk.ResponseType.HELP:
+<a name="l00268"></a>00268                 <span class="keywordflow">break</span>
 <a name="l00269"></a>00269         
-<a name="l00270"></a>00270     <span class="keyword">def </span>_create_display_contents(self, plugin):
-<a name="l00271"></a>00271         <span class="comment"># create the ui</span>
-<a name="l00272"></a>00272         cl = <a class="code" href="classcoverart__browser__prefs_1_1_cover_locale.html">CoverLocale</a>()
-<a name="l00273"></a>00273         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
-<a name="l00274"></a>00274         builder = Gtk.Builder()
-<a name="l00275"></a>00275         builder.set_translation_domain(cl.Locale.LOCALE_DOMAIN)
-<a name="l00276"></a>00276         builder.add_from_file(rb.find_plugin_file(plugin,
-<a name="l00277"></a>00277             <span class="stringliteral">&#39;ui/coverart_browser_prefs.ui&#39;</span>))
-<a name="l00278"></a>00278         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a569f689260f4b3d44ce22baf39e121dc">launchpad_button</a> = builder.get_object(<span class="stringliteral">&#39;show_launchpad&#39;</span>)
-<a name="l00279"></a>00279         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a09aa0c723575b551943b092b24f98a59">launchpad_label</a> = builder.get_object(<span class="stringliteral">&#39;launchpad_label&#39;</span>)
-<a name="l00280"></a>00280         
-<a name="l00281"></a>00281         builder.connect_signals(self)
-<a name="l00282"></a>00282 
-<a name="l00283"></a>00283         <span class="comment">#. TRANSLATORS: Do not translate this string.  </span>
-<a name="l00284"></a>00284         translators = _(<span class="stringliteral">&#39;translator-credits&#39;</span>)
-<a name="l00285"></a>00285 
-<a name="l00286"></a>00286         <span class="keywordflow">if</span> translators != <span class="stringliteral">&quot;translator-credits&quot;</span>:
-<a name="l00287"></a>00287             self.launchpad_label.set_text(translators)
-<a name="l00288"></a>00288         <span class="keywordflow">else</span>:
-<a name="l00289"></a>00289             self.launchpad_button.set_visible(<span class="keyword">False</span>)
-<a name="l00290"></a>00290         
-<a name="l00291"></a>00291         gs = <a class="code" href="classcoverart__browser__prefs_1_1_g_setting.html">GSetting</a>()
-<a name="l00292"></a>00292         <span class="comment"># bind the toggles to the settings</span>
-<a name="l00293"></a>00293         toggle_statusbar = builder.get_object(<span class="stringliteral">&#39;custom_statusbar_checkbox&#39;</span>)
-<a name="l00294"></a>00294         self.settings.bind(gs.PluginKey.CUSTOM_STATUSBAR,
-<a name="l00295"></a>00295             toggle_statusbar, <span class="stringliteral">&#39;active&#39;</span>, Gio.SettingsBindFlags.DEFAULT)
-<a name="l00296"></a>00296 
-<a name="l00297"></a>00297         toggle_bottom = builder.get_object(<span class="stringliteral">&#39;display_bottom_checkbox&#39;</span>)
-<a name="l00298"></a>00298         self.settings.bind(gs.PluginKey.DISPLAY_BOTTOM, toggle_bottom,
-<a name="l00299"></a>00299         <span class="stringliteral">&#39;active&#39;</span>, Gio.SettingsBindFlags.DEFAULT)
-<a name="l00300"></a>00300 
-<a name="l00301"></a>00301         toggle_text = builder.get_object(<span class="stringliteral">&#39;display_text_checkbox&#39;</span>)
-<a name="l00302"></a>00302         self.settings.bind(gs.PluginKey.DISPLAY_TEXT, toggle_text, <span class="stringliteral">&#39;active&#39;</span>,
-<a name="l00303"></a>00303             Gio.SettingsBindFlags.DEFAULT)
+<a name="l00270"></a>00270         self._dialog.hide()
+<a name="l00271"></a>00271         
+<a name="l00272"></a>00272     <span class="keyword">def </span>_display_help(self, *args):
+<a name="l00273"></a>00273         peas = Peas.Engine.get_default()
+<a name="l00274"></a>00274         uri = peas.get_plugin_info(<span class="stringliteral">&#39;coverart_browser&#39;</span>).get_help_uri()
+<a name="l00275"></a>00275         
+<a name="l00276"></a>00276         webbrowser.open(uri)
+<a name="l00277"></a>00277         
+<a name="l00278"></a>00278     <span class="keyword">def </span>_create_display_contents(self, plugin):
+<a name="l00279"></a>00279         <span class="comment"># create the ui</span>
+<a name="l00280"></a>00280         cl = <a class="code" href="classcoverart__browser__prefs_1_1_cover_locale.html">CoverLocale</a>()
+<a name="l00281"></a>00281         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+<a name="l00282"></a>00282         builder = Gtk.Builder()
+<a name="l00283"></a>00283         builder.set_translation_domain(cl.Locale.LOCALE_DOMAIN)
+<a name="l00284"></a>00284         builder.add_from_file(rb.find_plugin_file(plugin,
+<a name="l00285"></a>00285             <span class="stringliteral">&#39;ui/coverart_browser_prefs.ui&#39;</span>))
+<a name="l00286"></a>00286         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a569f689260f4b3d44ce22baf39e121dc">launchpad_button</a> = builder.get_object(<span class="stringliteral">&#39;show_launchpad&#39;</span>)
+<a name="l00287"></a>00287         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a09aa0c723575b551943b092b24f98a59">launchpad_label</a> = builder.get_object(<span class="stringliteral">&#39;launchpad_label&#39;</span>)
+<a name="l00288"></a>00288         
+<a name="l00289"></a>00289         builder.connect_signals(self)
+<a name="l00290"></a>00290 
+<a name="l00291"></a>00291         <span class="comment">#. TRANSLATORS: Do not translate this string.  </span>
+<a name="l00292"></a>00292         translators = _(<span class="stringliteral">&#39;translator-credits&#39;</span>)
+<a name="l00293"></a>00293 
+<a name="l00294"></a>00294         <span class="keywordflow">if</span> translators != <span class="stringliteral">&quot;translator-credits&quot;</span>:
+<a name="l00295"></a>00295             self.launchpad_label.set_text(translators)
+<a name="l00296"></a>00296         <span class="keywordflow">else</span>:
+<a name="l00297"></a>00297             self.launchpad_button.set_visible(<span class="keyword">False</span>)
+<a name="l00298"></a>00298         
+<a name="l00299"></a>00299         gs = <a class="code" href="classcoverart__browser__prefs_1_1_g_setting.html">GSetting</a>()
+<a name="l00300"></a>00300         <span class="comment"># bind the toggles to the settings</span>
+<a name="l00301"></a>00301         toggle_statusbar = builder.get_object(<span class="stringliteral">&#39;custom_statusbar_checkbox&#39;</span>)
+<a name="l00302"></a>00302         self.settings.bind(gs.PluginKey.CUSTOM_STATUSBAR,
+<a name="l00303"></a>00303             toggle_statusbar, <span class="stringliteral">&#39;active&#39;</span>, Gio.SettingsBindFlags.DEFAULT)
 <a name="l00304"></a>00304 
-<a name="l00305"></a>00305         box_text = builder.get_object(<span class="stringliteral">&#39;display_text_box&#39;</span>)
-<a name="l00306"></a>00306         self.settings.bind(gs.PluginKey.DISPLAY_TEXT, box_text, <span class="stringliteral">&#39;sensitive&#39;</span>,
-<a name="l00307"></a>00307             Gio.SettingsBindFlags.GET)
+<a name="l00305"></a>00305         toggle_bottom = builder.get_object(<span class="stringliteral">&#39;display_bottom_checkbox&#39;</span>)
+<a name="l00306"></a>00306         self.settings.bind(gs.PluginKey.DISPLAY_BOTTOM, toggle_bottom,
+<a name="l00307"></a>00307         <span class="stringliteral">&#39;active&#39;</span>, Gio.SettingsBindFlags.DEFAULT)
 <a name="l00308"></a>00308 
-<a name="l00309"></a>00309         random_scale = builder.get_object(<span class="stringliteral">&#39;random_adjustment&#39;</span>)
-<a name="l00310"></a>00310         self.settings.bind(gs.PluginKey.RANDOM, random_scale, <span class="stringliteral">&#39;value&#39;</span>,
+<a name="l00309"></a>00309         toggle_text = builder.get_object(<span class="stringliteral">&#39;display_text_checkbox&#39;</span>)
+<a name="l00310"></a>00310         self.settings.bind(gs.PluginKey.DISPLAY_TEXT, toggle_text, <span class="stringliteral">&#39;active&#39;</span>,
 <a name="l00311"></a>00311             Gio.SettingsBindFlags.DEFAULT)
 <a name="l00312"></a>00312 
-<a name="l00313"></a>00313         toggle_text_ellipsize = builder.get_object(
-<a name="l00314"></a>00314             <span class="stringliteral">&#39;display_text_ellipsize_checkbox&#39;</span>)
-<a name="l00315"></a>00315         self.settings.bind(gs.PluginKey.DISPLAY_TEXT_ELLIPSIZE,
-<a name="l00316"></a>00316             toggle_text_ellipsize, <span class="stringliteral">&#39;active&#39;</span>, Gio.SettingsBindFlags.DEFAULT)
-<a name="l00317"></a>00317 
-<a name="l00318"></a>00318         box_text_ellipsize_length = builder.get_object(
-<a name="l00319"></a>00319             <span class="stringliteral">&#39;display_text_ellipsize_length_box&#39;</span>)
-<a name="l00320"></a>00320         self.settings.bind(gs.PluginKey.DISPLAY_TEXT_ELLIPSIZE,
-<a name="l00321"></a>00321             box_text_ellipsize_length, <span class="stringliteral">&#39;sensitive&#39;</span>, Gio.SettingsBindFlags.GET)
-<a name="l00322"></a>00322 
-<a name="l00323"></a>00323         spinner_text_ellipsize_length = builder.get_object(
-<a name="l00324"></a>00324             <span class="stringliteral">&#39;display_text_ellipsize_length_spin&#39;</span>)
-<a name="l00325"></a>00325         self.settings.bind(gs.PluginKey.DISPLAY_TEXT_ELLIPSIZE_LENGTH,
-<a name="l00326"></a>00326             spinner_text_ellipsize_length, <span class="stringliteral">&#39;value&#39;</span>,
-<a name="l00327"></a>00327             Gio.SettingsBindFlags.DEFAULT)
-<a name="l00328"></a>00328 
-<a name="l00329"></a>00329         spinner_font_size = builder.get_object(
-<a name="l00330"></a>00330             <span class="stringliteral">&#39;display_font_spin&#39;</span>)
-<a name="l00331"></a>00331         self.settings.bind(gs.PluginKey.DISPLAY_FONT_SIZE,
-<a name="l00332"></a>00332             spinner_font_size, <span class="stringliteral">&#39;value&#39;</span>,
-<a name="l00333"></a>00333             Gio.SettingsBindFlags.DEFAULT)
-<a name="l00334"></a>00334 
-<a name="l00335"></a>00335         cover_size_scale = builder.get_object(<span class="stringliteral">&#39;cover_size_adjustment&#39;</span>)
-<a name="l00336"></a>00336         self.settings.bind(gs.PluginKey.COVER_SIZE, cover_size_scale, <span class="stringliteral">&#39;value&#39;</span>,
-<a name="l00337"></a>00337             Gio.SettingsBindFlags.DEFAULT)
-<a name="l00338"></a>00338 
-<a name="l00339"></a>00339         add_shadow = builder.get_object(<span class="stringliteral">&#39;add_shadow_checkbox&#39;</span>)
-<a name="l00340"></a>00340         self.settings.bind(gs.PluginKey.ADD_SHADOW, add_shadow, <span class="stringliteral">&#39;active&#39;</span>,
-<a name="l00341"></a>00341             Gio.SettingsBindFlags.DEFAULT)
-<a name="l00342"></a>00342 
-<a name="l00343"></a>00343         rated_box = builder.get_object(<span class="stringliteral">&#39;rated_box&#39;</span>)
-<a name="l00344"></a>00344         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#af9e19a8a0855d712f0bb2eb93ea2bb23">stars</a> = <a class="code" href="classstars_1_1_reactive_star.html">ReactiveStar</a>(size=StarSize.BIG)
-<a name="l00345"></a>00345 
-<a name="l00346"></a>00346         self.stars.connect(<span class="stringliteral">&#39;changed&#39;</span>, self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a046cf8c434295cbab3650ea212a5d5c8">rating_changed_callback</a>)
-<a name="l00347"></a>00347 
-<a name="l00348"></a>00348         align = Gtk.Alignment.new(0.5, 0, 0, 0.1)
-<a name="l00349"></a>00349         align.add(self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#af9e19a8a0855d712f0bb2eb93ea2bb23">stars</a>)
-<a name="l00350"></a>00350         rated_box.add(align)
-<a name="l00351"></a>00351 
-<a name="l00352"></a>00352         self.stars.set_rating(self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aee837e2535a870252793e96a8e3e5192">settings</a>[gs.PluginKey.RATING])
-<a name="l00353"></a>00353 
-<a name="l00354"></a>00354         autostart = builder.get_object(<span class="stringliteral">&#39;autostart_checkbox&#39;</span>)
-<a name="l00355"></a>00355         self.settings.bind(gs.PluginKey.AUTOSTART,
-<a name="l00356"></a>00356             autostart, <span class="stringliteral">&#39;active&#39;</span>, Gio.SettingsBindFlags.DEFAULT)
-<a name="l00357"></a>00357 
-<a name="l00358"></a>00358         toolbar_pos_combo = builder.get_object(<span class="stringliteral">&#39;show_in_combobox&#39;</span>)
-<a name="l00359"></a>00359         renderer = Gtk.CellRendererText()
-<a name="l00360"></a>00360         toolbar_pos_combo.pack_start(renderer, <span class="keyword">True</span>)
-<a name="l00361"></a>00361         toolbar_pos_combo.add_attribute(renderer, <span class="stringliteral">&#39;text&#39;</span>, 1)
-<a name="l00362"></a>00362         self.settings.bind(gs.PluginKey.TOOLBAR_POS, toolbar_pos_combo,
-<a name="l00363"></a>00363             <span class="stringliteral">&#39;active-id&#39;</span>, Gio.SettingsBindFlags.DEFAULT)
-<a name="l00364"></a>00364 
-<a name="l00365"></a>00365         light_source_combo = builder.get_object(<span class="stringliteral">&#39;light_source_combobox&#39;</span>)
-<a name="l00366"></a>00366         renderer = Gtk.CellRendererText()
-<a name="l00367"></a>00367         light_source_combo.pack_start(renderer, <span class="keyword">True</span>)
-<a name="l00368"></a>00368         light_source_combo.add_attribute(renderer, <span class="stringliteral">&#39;text&#39;</span>, 1)
-<a name="l00369"></a>00369         self.settings.bind(gs.PluginKey.SHADOW_IMAGE, light_source_combo,
-<a name="l00370"></a>00370             <span class="stringliteral">&#39;active-id&#39;</span>, Gio.SettingsBindFlags.DEFAULT)
+<a name="l00313"></a>00313         box_text = builder.get_object(<span class="stringliteral">&#39;display_text_box&#39;</span>)
+<a name="l00314"></a>00314         self.settings.bind(gs.PluginKey.DISPLAY_TEXT, box_text, <span class="stringliteral">&#39;sensitive&#39;</span>,
+<a name="l00315"></a>00315             Gio.SettingsBindFlags.GET)
+<a name="l00316"></a>00316             
+<a name="l00317"></a>00317         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa901d6fd4d432172af184ae3c6ea9251">display_text_pos</a> = self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aee837e2535a870252793e96a8e3e5192">settings</a>[gs.PluginKey.DISPLAY_TEXT_POS]
+<a name="l00318"></a>00318         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#acab8239f447e4bfe83201a4458f4762f">display_text_under_radiobutton</a> = builder.get_object(<span class="stringliteral">&#39;display_text_under_radiobutton&#39;</span>)
+<a name="l00319"></a>00319         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a59a803d6b635be1eebcfc69355f0c151">display_text_within_radiobutton</a> = builder.get_object(<span class="stringliteral">&#39;display_text_within_radiobutton&#39;</span>)
+<a name="l00320"></a>00320 
+<a name="l00321"></a>00321         <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa901d6fd4d432172af184ae3c6ea9251">display_text_pos</a>:
+<a name="l00322"></a>00322             self.display_text_under_radiobutton.set_active(<span class="keyword">True</span>)
+<a name="l00323"></a>00323         <span class="keywordflow">else</span>:
+<a name="l00324"></a>00324             self.display_text_within_radiobutton.set_active(<span class="keyword">True</span>)
+<a name="l00325"></a>00325 
+<a name="l00326"></a>00326 
+<a name="l00327"></a>00327         random_scale = builder.get_object(<span class="stringliteral">&#39;random_adjustment&#39;</span>)
+<a name="l00328"></a>00328         self.settings.bind(gs.PluginKey.RANDOM, random_scale, <span class="stringliteral">&#39;value&#39;</span>,
+<a name="l00329"></a>00329             Gio.SettingsBindFlags.DEFAULT)
+<a name="l00330"></a>00330 
+<a name="l00331"></a>00331         toggle_text_ellipsize = builder.get_object(
+<a name="l00332"></a>00332             <span class="stringliteral">&#39;display_text_ellipsize_checkbox&#39;</span>)
+<a name="l00333"></a>00333         self.settings.bind(gs.PluginKey.DISPLAY_TEXT_ELLIPSIZE,
+<a name="l00334"></a>00334             toggle_text_ellipsize, <span class="stringliteral">&#39;active&#39;</span>, Gio.SettingsBindFlags.DEFAULT)
+<a name="l00335"></a>00335 
+<a name="l00336"></a>00336         box_text_ellipsize_length = builder.get_object(
+<a name="l00337"></a>00337             <span class="stringliteral">&#39;display_text_ellipsize_length_box&#39;</span>)
+<a name="l00338"></a>00338         self.settings.bind(gs.PluginKey.DISPLAY_TEXT_ELLIPSIZE,
+<a name="l00339"></a>00339             box_text_ellipsize_length, <span class="stringliteral">&#39;sensitive&#39;</span>, Gio.SettingsBindFlags.GET)
+<a name="l00340"></a>00340 
+<a name="l00341"></a>00341         spinner_text_ellipsize_length = builder.get_object(
+<a name="l00342"></a>00342             <span class="stringliteral">&#39;display_text_ellipsize_length_spin&#39;</span>)
+<a name="l00343"></a>00343         self.settings.bind(gs.PluginKey.DISPLAY_TEXT_ELLIPSIZE_LENGTH,
+<a name="l00344"></a>00344             spinner_text_ellipsize_length, <span class="stringliteral">&#39;value&#39;</span>,
+<a name="l00345"></a>00345             Gio.SettingsBindFlags.DEFAULT)
+<a name="l00346"></a>00346 
+<a name="l00347"></a>00347         spinner_font_size = builder.get_object(
+<a name="l00348"></a>00348             <span class="stringliteral">&#39;display_font_spin&#39;</span>)
+<a name="l00349"></a>00349         self.settings.bind(gs.PluginKey.DISPLAY_FONT_SIZE,
+<a name="l00350"></a>00350             spinner_font_size, <span class="stringliteral">&#39;value&#39;</span>,
+<a name="l00351"></a>00351             Gio.SettingsBindFlags.DEFAULT)
+<a name="l00352"></a>00352 
+<a name="l00353"></a>00353         cover_size_scale = builder.get_object(<span class="stringliteral">&#39;cover_size_adjustment&#39;</span>)
+<a name="l00354"></a>00354         self.settings.bind(gs.PluginKey.COVER_SIZE, cover_size_scale, <span class="stringliteral">&#39;value&#39;</span>,
+<a name="l00355"></a>00355             Gio.SettingsBindFlags.DEFAULT)
+<a name="l00356"></a>00356 
+<a name="l00357"></a>00357         add_shadow = builder.get_object(<span class="stringliteral">&#39;add_shadow_checkbox&#39;</span>)
+<a name="l00358"></a>00358         self.settings.bind(gs.PluginKey.ADD_SHADOW, add_shadow, <span class="stringliteral">&#39;active&#39;</span>,
+<a name="l00359"></a>00359             Gio.SettingsBindFlags.DEFAULT)
+<a name="l00360"></a>00360 
+<a name="l00361"></a>00361         rated_box = builder.get_object(<span class="stringliteral">&#39;rated_box&#39;</span>)
+<a name="l00362"></a>00362         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#af9e19a8a0855d712f0bb2eb93ea2bb23">stars</a> = <a class="code" href="classstars_1_1_reactive_star.html">ReactiveStar</a>(size=StarSize.BIG)
+<a name="l00363"></a>00363 
+<a name="l00364"></a>00364         self.stars.connect(<span class="stringliteral">&#39;changed&#39;</span>, self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a046cf8c434295cbab3650ea212a5d5c8">rating_changed_callback</a>)
+<a name="l00365"></a>00365 
+<a name="l00366"></a>00366         align = Gtk.Alignment.new(0.5, 0, 0, 0.1)
+<a name="l00367"></a>00367         align.add(self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#af9e19a8a0855d712f0bb2eb93ea2bb23">stars</a>)
+<a name="l00368"></a>00368         rated_box.add(align)
+<a name="l00369"></a>00369 
+<a name="l00370"></a>00370         self.stars.set_rating(self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aee837e2535a870252793e96a8e3e5192">settings</a>[gs.PluginKey.RATING])
 <a name="l00371"></a>00371 
-<a name="l00372"></a>00372         combo_liststore = builder.get_object(<span class="stringliteral">&#39;combo_liststore&#39;</span>)
-<a name="l00373"></a>00373 
-<a name="l00374"></a>00374         <span class="keyword">from</span> coverart_utils <span class="keyword">import</span> Theme
-<a name="l00375"></a>00375         
-<a name="l00376"></a>00376         <span class="keywordflow">for</span> theme <span class="keywordflow">in</span> Theme(self).themes:
-<a name="l00377"></a>00377             combo_liststore.append([theme, theme])
-<a name="l00378"></a>00378              
-<a name="l00379"></a>00379         theme_combo = builder.get_object(<span class="stringliteral">&#39;theme_combobox&#39;</span>)
-<a name="l00380"></a>00380         renderer = Gtk.CellRendererText()
-<a name="l00381"></a>00381         theme_combo.pack_start(renderer, <span class="keyword">True</span>)
-<a name="l00382"></a>00382         theme_combo.add_attribute(renderer, <span class="stringliteral">&#39;text&#39;</span>, 1)
-<a name="l00383"></a>00383         self.settings.bind(gs.PluginKey.THEME, theme_combo,
-<a name="l00384"></a>00384             <span class="stringliteral">&#39;active-id&#39;</span>, Gio.SettingsBindFlags.DEFAULT)
-<a name="l00385"></a>00385 
-<a name="l00386"></a>00386         button_relief = builder.get_object(<span class="stringliteral">&#39;button_relief_checkbox&#39;</span>)
-<a name="l00387"></a>00387         self.settings.bind(gs.PluginKey.BUTTON_RELIEF, button_relief, <span class="stringliteral">&#39;active&#39;</span>,
-<a name="l00388"></a>00388             Gio.SettingsBindFlags.DEFAULT)
+<a name="l00372"></a>00372         autostart = builder.get_object(<span class="stringliteral">&#39;autostart_checkbox&#39;</span>)
+<a name="l00373"></a>00373         self.settings.bind(gs.PluginKey.AUTOSTART,
+<a name="l00374"></a>00374             autostart, <span class="stringliteral">&#39;active&#39;</span>, Gio.SettingsBindFlags.DEFAULT)
+<a name="l00375"></a>00375 
+<a name="l00376"></a>00376         toolbar_pos_combo = builder.get_object(<span class="stringliteral">&#39;show_in_combobox&#39;</span>)
+<a name="l00377"></a>00377         renderer = Gtk.CellRendererText()
+<a name="l00378"></a>00378         toolbar_pos_combo.pack_start(renderer, <span class="keyword">True</span>)
+<a name="l00379"></a>00379         toolbar_pos_combo.add_attribute(renderer, <span class="stringliteral">&#39;text&#39;</span>, 1)
+<a name="l00380"></a>00380         self.settings.bind(gs.PluginKey.TOOLBAR_POS, toolbar_pos_combo,
+<a name="l00381"></a>00381             <span class="stringliteral">&#39;active-id&#39;</span>, Gio.SettingsBindFlags.DEFAULT)
+<a name="l00382"></a>00382 
+<a name="l00383"></a>00383         light_source_combo = builder.get_object(<span class="stringliteral">&#39;light_source_combobox&#39;</span>)
+<a name="l00384"></a>00384         renderer = Gtk.CellRendererText()
+<a name="l00385"></a>00385         light_source_combo.pack_start(renderer, <span class="keyword">True</span>)
+<a name="l00386"></a>00386         light_source_combo.add_attribute(renderer, <span class="stringliteral">&#39;text&#39;</span>, 1)
+<a name="l00387"></a>00387         self.settings.bind(gs.PluginKey.SHADOW_IMAGE, light_source_combo,
+<a name="l00388"></a>00388             <span class="stringliteral">&#39;active-id&#39;</span>, Gio.SettingsBindFlags.DEFAULT)
 <a name="l00389"></a>00389 
-<a name="l00390"></a>00390         <span class="comment"># create user data files</span>
-<a name="l00391"></a>00391         popup = RB.find_user_data_file(<span class="stringliteral">&#39;plugins/coverart_browser/img/usericons/popups.xml&#39;</span>)
-<a name="l00392"></a>00392         
-<a name="l00393"></a>00393         <span class="keywordflow">if</span> <span class="keywordflow">not</span> os.path.isfile(popup):
-<a name="l00394"></a>00394             template = rb.find_plugin_file(plugin, <span class="stringliteral">&#39;template/popups.xml&#39;</span>)
-<a name="l00395"></a>00395             folder = os.path.split(popup)[0]
-<a name="l00396"></a>00396             <span class="keywordflow">if</span> <span class="keywordflow">not</span> os.path.exists(folder):
-<a name="l00397"></a>00397                 os.makedirs(folder)
-<a name="l00398"></a>00398             shutil.copyfile(template, popup)
-<a name="l00399"></a>00399 
-<a name="l00400"></a>00400         <span class="comment"># now prepare the genre tab</span>
-<a name="l00401"></a>00401         <span class="keyword">from</span> coverart_utils <span class="keyword">import</span> GenreConfiguredSpriteSheet
-<a name="l00402"></a>00402         <span class="keyword">from</span> coverart_utils <span class="keyword">import</span> get_stock_size
-<a name="l00403"></a>00403         <span class="keyword">from</span> coverart_utils <span class="keyword">import</span> GenreType
-<a name="l00404"></a>00404 
-<a name="l00405"></a>00405         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a5b42e140824263c7178b869778188ee3">_sheet</a> = GenreConfiguredSpriteSheet(plugin, <span class="stringliteral">&quot;genre&quot;</span>, get_stock_size())
-<a name="l00406"></a>00406 
-<a name="l00407"></a>00407         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a6f2f4cc5e3b02d6a05aae46ea867246f">alt_liststore</a> = builder.get_object(<span class="stringliteral">&#39;alt_liststore&#39;</span>)
-<a name="l00408"></a>00408         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#abf47ee91c2936e380fde797bbacc2afe">alt_user_liststore</a> = builder.get_object(<span class="stringliteral">&#39;alt_user_liststore&#39;</span>)
-<a name="l00409"></a>00409         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a121be30be881da3bdf2164784b1c947d">_iters</a> = {}
-<a name="l00410"></a>00410         <span class="keywordflow">for</span> key <span class="keywordflow">in</span> list(self._sheet.keys()):
-<a name="l00411"></a>00411             store_iter = self.alt_liststore.append([key, self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a5b42e140824263c7178b869778188ee3">_sheet</a>[key]])
-<a name="l00412"></a>00412             self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a121be30be881da3bdf2164784b1c947d">_iters</a>[(key,self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a16e9dded17f3985ba78036c14ecb7903">GENRE_POPUP</a>)] = store_iter
-<a name="l00413"></a>00413 
-<a name="l00414"></a>00414         <span class="keywordflow">for</span> key, value <span class="keywordflow">in</span> self._sheet.genre_alternate.items():
-<a name="l00415"></a>00415             <span class="keywordflow">if</span> key.genre_type == GenreConfiguredSpriteSheet.GENRE_USER:
-<a name="l00416"></a>00416                 store_iter = self.alt_user_liststore.append([key.name,
-<a name="l00417"></a>00417                     self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a5b42e140824263c7178b869778188ee3">_sheet</a>[self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a5b42e140824263c7178b869778188ee3">_sheet</a>.genre_alternate[key]],
-<a name="l00418"></a>00418                     self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a5b42e140824263c7178b869778188ee3">_sheet</a>.genre_alternate[key]])
-<a name="l00419"></a>00419                 self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a121be30be881da3bdf2164784b1c947d">_iters</a>[(key.name, self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa001c0610313385023a5f237145af937">GENRE_LIST</a>)] = store_iter
-<a name="l00420"></a>00420 
-<a name="l00421"></a>00421         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a06cbab602b8657d306342c95591e23bf">amend_mode</a> = <span class="keyword">False</span>
-<a name="l00422"></a>00422         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa9c6d2e65caf70cef4602bfc90ef5d40">blank_iter</a> = <span class="keywordtype">None</span>
-<a name="l00423"></a>00423         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a93135670774de8707974e7b2826158a6">genre_combobox</a> = builder.get_object(<span class="stringliteral">&#39;genre_combobox&#39;</span>)
-<a name="l00424"></a>00424         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa44451eefae50bae09720d450cd61b6d">genre_entry</a> = builder.get_object(<span class="stringliteral">&#39;genre_entry&#39;</span>)
-<a name="l00425"></a>00425         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a13c350993e95020495e3ea507a3f7cd0">genre_view</a> = builder.get_object(<span class="stringliteral">&#39;genre_view&#39;</span>)
-<a name="l00426"></a>00426         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a2edcbbf7b57289fb93d006a310289e66">save_button</a> = builder.get_object(<span class="stringliteral">&#39;save_button&#39;</span>)
-<a name="l00427"></a>00427         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a8fe70923d0d8dae9a3ebf34e8f584958">filechooserdialog</a> = builder.get_object(<span class="stringliteral">&#39;filechooserdialog&#39;</span>)
-<a name="l00428"></a>00428 
-<a name="l00429"></a>00429         padding_scale = builder.get_object(<span class="stringliteral">&#39;padding_adjustment&#39;</span>)
-<a name="l00430"></a>00430         self.settings.bind(gs.PluginKey.ICON_PADDING, padding_scale, <span class="stringliteral">&#39;value&#39;</span>,
-<a name="l00431"></a>00431             Gio.SettingsBindFlags.DEFAULT)
-<a name="l00432"></a>00432 
-<a name="l00433"></a>00433         spacing_scale = builder.get_object(<span class="stringliteral">&#39;spacing_adjustment&#39;</span>)
-<a name="l00434"></a>00434         self.settings.bind(gs.PluginKey.ICON_SPACING, spacing_scale, <span class="stringliteral">&#39;value&#39;</span>,
-<a name="l00435"></a>00435             Gio.SettingsBindFlags.DEFAULT)
-<a name="l00436"></a>00436 
-<a name="l00437"></a>00437         icon_automatic = builder.get_object(<span class="stringliteral">&#39;icon_automatic_checkbox&#39;</span>)
-<a name="l00438"></a>00438         self.settings.bind(gs.PluginKey.ICON_AUTOMATIC,
-<a name="l00439"></a>00439             icon_automatic, <span class="stringliteral">&#39;active&#39;</span>, Gio.SettingsBindFlags.DEFAULT)
-<a name="l00440"></a>00440 
-<a name="l00441"></a>00441         <span class="comment">#flow tab</span>
-<a name="l00442"></a>00442         flow_combo = builder.get_object(<span class="stringliteral">&#39;flow_combobox&#39;</span>)
-<a name="l00443"></a>00443         renderer = Gtk.CellRendererText()
-<a name="l00444"></a>00444         flow_combo.pack_start(renderer, <span class="keyword">True</span>)
-<a name="l00445"></a>00445         flow_combo.add_attribute(renderer, <span class="stringliteral">&#39;text&#39;</span>, 1)
-<a name="l00446"></a>00446         self.settings.bind(gs.PluginKey.FLOW_APPEARANCE, flow_combo,
-<a name="l00447"></a>00447             <span class="stringliteral">&#39;active-id&#39;</span>, Gio.SettingsBindFlags.DEFAULT)
-<a name="l00448"></a>00448 
-<a name="l00449"></a>00449         flow_hide = builder.get_object(<span class="stringliteral">&#39;hide_caption_checkbox&#39;</span>)
-<a name="l00450"></a>00450         self.settings.bind(gs.PluginKey.FLOW_HIDE_CAPTION,
-<a name="l00451"></a>00451             flow_hide, <span class="stringliteral">&#39;active&#39;</span>, Gio.SettingsBindFlags.DEFAULT)
-<a name="l00452"></a>00452 
-<a name="l00453"></a>00453         flow_scale = builder.get_object(<span class="stringliteral">&#39;cover_scale_adjustment&#39;</span>)
-<a name="l00454"></a>00454         self.settings.bind(gs.PluginKey.FLOW_SCALE, flow_scale, <span class="stringliteral">&#39;value&#39;</span>,
-<a name="l00455"></a>00455             Gio.SettingsBindFlags.DEFAULT)
-<a name="l00456"></a>00456 
-<a name="l00457"></a>00457         flow_width = builder.get_object(<span class="stringliteral">&#39;cover_width_adjustment&#39;</span>)
-<a name="l00458"></a>00458         self.settings.bind(gs.PluginKey.FLOW_WIDTH, flow_width, <span class="stringliteral">&#39;value&#39;</span>,
-<a name="l00459"></a>00459             Gio.SettingsBindFlags.DEFAULT)
-<a name="l00460"></a>00460 
-<a name="l00461"></a>00461         flow_max = builder.get_object(<span class="stringliteral">&#39;flow_max_adjustment&#39;</span>)
-<a name="l00462"></a>00462         self.settings.bind(gs.PluginKey.FLOW_MAX, flow_max, <span class="stringliteral">&#39;value&#39;</span>,
-<a name="l00463"></a>00463             Gio.SettingsBindFlags.DEFAULT)
-<a name="l00464"></a>00464 
-<a name="l00465"></a>00465         flow_automatic = builder.get_object(<span class="stringliteral">&#39;automatic_checkbox&#39;</span>)
-<a name="l00466"></a>00466         self.settings.bind(gs.PluginKey.FLOW_AUTOMATIC,
-<a name="l00467"></a>00467             flow_automatic, <span class="stringliteral">&#39;active&#39;</span>, Gio.SettingsBindFlags.DEFAULT)
-<a name="l00468"></a>00468 
-<a name="l00469"></a>00469         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#ae77f0c84dadfe53e6eca737f271bb855">background_colour</a> = self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aee837e2535a870252793e96a8e3e5192">settings</a>[gs.PluginKey.FLOW_BACKGROUND_COLOUR]
-<a name="l00470"></a>00470         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aab8d683dbc54f31380d200dc4ab371ea">white_radiobutton</a> = builder.get_object(<span class="stringliteral">&#39;white_radiobutton&#39;</span>)
-<a name="l00471"></a>00471         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a7538d92d3f225c5fc20a8d421c11e241">black_radiobutton</a> = builder.get_object(<span class="stringliteral">&#39;black_radiobutton&#39;</span>)
-<a name="l00472"></a>00472 
-<a name="l00473"></a>00473         <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#ae77f0c84dadfe53e6eca737f271bb855">background_colour</a> == <span class="stringliteral">&#39;W&#39;</span>:
-<a name="l00474"></a>00474             self.white_radiobutton.set_active(<span class="keyword">True</span>)
-<a name="l00475"></a>00475         <span class="keywordflow">else</span>:
-<a name="l00476"></a>00476             self.black_radiobutton.set_active(<span class="keyword">True</span>)
-<a name="l00477"></a>00477             
-<a name="l00478"></a>00478         <span class="comment"># return the dialog</span>
-<a name="l00479"></a>00479         <span class="keywordflow">return</span> builder.get_object(<span class="stringliteral">&#39;main_notebook&#39;</span>)
-<a name="l00480"></a>00480 
-<a name="l00481"></a>00481     <span class="keyword">def </span>on_flow_combobox_changed(self, combobox):
-<a name="l00482"></a>00482         current_val = combobox.get_model()[combobox.get_active()][0]
-<a name="l00483"></a>00483         gs=<a class="code" href="classcoverart__browser__prefs_1_1_g_setting.html">GSetting</a>()
-<a name="l00484"></a>00484         <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aee837e2535a870252793e96a8e3e5192">settings</a>[gs.PluginKey.FLOW_APPEARANCE] != current_val:
-<a name="l00485"></a>00485             <span class="keywordflow">if</span> current_val == <span class="stringliteral">&#39;flow-vert&#39;</span>:
-<a name="l00486"></a>00486                 default_size = 150
-<a name="l00487"></a>00487             <span class="keywordflow">else</span>:
-<a name="l00488"></a>00488                 default_size = 600
-<a name="l00489"></a>00489 
-<a name="l00490"></a>00490             self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aee837e2535a870252793e96a8e3e5192">settings</a>[gs.PluginKey.FLOW_WIDTH] = default_size
-<a name="l00491"></a>00491             
-<a name="l00492"></a>00492             <span class="keywordflow">if</span> current_val == <span class="stringliteral">&#39;carousel&#39;</span>:
-<a name="l00493"></a>00493                 self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aee837e2535a870252793e96a8e3e5192">settings</a>[gs.PluginKey.FLOW_HIDE_CAPTION] = <span class="keyword">True</span>
-<a name="l00494"></a>00494                 
-<a name="l00495"></a>00495     <span class="keyword">def </span>on_background_radio_toggled(self, button):
-<a name="l00496"></a>00496         <span class="keywordflow">if</span> button.get_active():
-<a name="l00497"></a>00497             gs = <a class="code" href="classcoverart__browser__prefs_1_1_g_setting.html">GSetting</a>()
-<a name="l00498"></a>00498             <span class="keywordflow">if</span> button == self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aab8d683dbc54f31380d200dc4ab371ea">white_radiobutton</a>:
-<a name="l00499"></a>00499                 self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aee837e2535a870252793e96a8e3e5192">settings</a>[gs.PluginKey.FLOW_BACKGROUND_COLOUR] = <span class="stringliteral">&#39;W&#39;</span>
-<a name="l00500"></a>00500             <span class="keywordflow">else</span>:
-<a name="l00501"></a>00501                 self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aee837e2535a870252793e96a8e3e5192">settings</a>[gs.PluginKey.FLOW_BACKGROUND_COLOUR] = <span class="stringliteral">&#39;B&#39;</span>
-<a name="l00502"></a>00502 
-<a name="l00503"></a>00503     <span class="keyword">def </span>rating_changed_callback(self, stars):
-<a name="l00504"></a>00504         print(<span class="stringliteral">&quot;rating_changed_callback&quot;</span>)
-<a name="l00505"></a>00505         gs = <a class="code" href="classcoverart__browser__prefs_1_1_g_setting.html">GSetting</a>()
-<a name="l00506"></a>00506         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aee837e2535a870252793e96a8e3e5192">settings</a>[gs.PluginKey.RATING] = self.stars.get_rating()
+<a name="l00390"></a>00390         combo_liststore = builder.get_object(<span class="stringliteral">&#39;combo_liststore&#39;</span>)
+<a name="l00391"></a>00391 
+<a name="l00392"></a>00392         <span class="keyword">from</span> coverart_utils <span class="keyword">import</span> Theme
+<a name="l00393"></a>00393         
+<a name="l00394"></a>00394         <span class="keywordflow">for</span> theme <span class="keywordflow">in</span> Theme(self).themes:
+<a name="l00395"></a>00395             combo_liststore.append([theme, theme])
+<a name="l00396"></a>00396              
+<a name="l00397"></a>00397         theme_combo = builder.get_object(<span class="stringliteral">&#39;theme_combobox&#39;</span>)
+<a name="l00398"></a>00398         renderer = Gtk.CellRendererText()
+<a name="l00399"></a>00399         theme_combo.pack_start(renderer, <span class="keyword">True</span>)
+<a name="l00400"></a>00400         theme_combo.add_attribute(renderer, <span class="stringliteral">&#39;text&#39;</span>, 1)
+<a name="l00401"></a>00401         self.settings.bind(gs.PluginKey.THEME, theme_combo,
+<a name="l00402"></a>00402             <span class="stringliteral">&#39;active-id&#39;</span>, Gio.SettingsBindFlags.DEFAULT)
+<a name="l00403"></a>00403 
+<a name="l00404"></a>00404         button_relief = builder.get_object(<span class="stringliteral">&#39;button_relief_checkbox&#39;</span>)
+<a name="l00405"></a>00405         self.settings.bind(gs.PluginKey.BUTTON_RELIEF, button_relief, <span class="stringliteral">&#39;active&#39;</span>,
+<a name="l00406"></a>00406             Gio.SettingsBindFlags.DEFAULT)
+<a name="l00407"></a>00407 
+<a name="l00408"></a>00408         <span class="comment"># create user data files</span>
+<a name="l00409"></a>00409         popup = RB.find_user_data_file(<span class="stringliteral">&#39;plugins/coverart_browser/img/usericons/popups.xml&#39;</span>)
+<a name="l00410"></a>00410         
+<a name="l00411"></a>00411         <span class="keywordflow">if</span> <span class="keywordflow">not</span> os.path.isfile(popup):
+<a name="l00412"></a>00412             template = rb.find_plugin_file(plugin, <span class="stringliteral">&#39;template/popups.xml&#39;</span>)
+<a name="l00413"></a>00413             folder = os.path.split(popup)[0]
+<a name="l00414"></a>00414             <span class="keywordflow">if</span> <span class="keywordflow">not</span> os.path.exists(folder):
+<a name="l00415"></a>00415                 os.makedirs(folder)
+<a name="l00416"></a>00416             shutil.copyfile(template, popup)
+<a name="l00417"></a>00417 
+<a name="l00418"></a>00418         <span class="comment"># now prepare the genre tab</span>
+<a name="l00419"></a>00419         <span class="keyword">from</span> coverart_utils <span class="keyword">import</span> GenreConfiguredSpriteSheet
+<a name="l00420"></a>00420         <span class="keyword">from</span> coverart_utils <span class="keyword">import</span> get_stock_size
+<a name="l00421"></a>00421         <span class="keyword">from</span> coverart_utils <span class="keyword">import</span> GenreType
+<a name="l00422"></a>00422 
+<a name="l00423"></a>00423         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a5b42e140824263c7178b869778188ee3">_sheet</a> = GenreConfiguredSpriteSheet(plugin, <span class="stringliteral">&quot;genre&quot;</span>, get_stock_size())
+<a name="l00424"></a>00424 
+<a name="l00425"></a>00425         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a6f2f4cc5e3b02d6a05aae46ea867246f">alt_liststore</a> = builder.get_object(<span class="stringliteral">&#39;alt_liststore&#39;</span>)
+<a name="l00426"></a>00426         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#abf47ee91c2936e380fde797bbacc2afe">alt_user_liststore</a> = builder.get_object(<span class="stringliteral">&#39;alt_user_liststore&#39;</span>)
+<a name="l00427"></a>00427         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a121be30be881da3bdf2164784b1c947d">_iters</a> = {}
+<a name="l00428"></a>00428         <span class="keywordflow">for</span> key <span class="keywordflow">in</span> list(self._sheet.keys()):
+<a name="l00429"></a>00429             store_iter = self.alt_liststore.append([key, self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a5b42e140824263c7178b869778188ee3">_sheet</a>[key]])
+<a name="l00430"></a>00430             self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a121be30be881da3bdf2164784b1c947d">_iters</a>[(key,self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a16e9dded17f3985ba78036c14ecb7903">GENRE_POPUP</a>)] = store_iter
+<a name="l00431"></a>00431 
+<a name="l00432"></a>00432         <span class="keywordflow">for</span> key, value <span class="keywordflow">in</span> self._sheet.genre_alternate.items():
+<a name="l00433"></a>00433             <span class="keywordflow">if</span> key.genre_type == GenreConfiguredSpriteSheet.GENRE_USER:
+<a name="l00434"></a>00434                 store_iter = self.alt_user_liststore.append([key.name,
+<a name="l00435"></a>00435                     self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a5b42e140824263c7178b869778188ee3">_sheet</a>[self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a5b42e140824263c7178b869778188ee3">_sheet</a>.genre_alternate[key]],
+<a name="l00436"></a>00436                     self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a5b42e140824263c7178b869778188ee3">_sheet</a>.genre_alternate[key]])
+<a name="l00437"></a>00437                 self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a121be30be881da3bdf2164784b1c947d">_iters</a>[(key.name, self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa001c0610313385023a5f237145af937">GENRE_LIST</a>)] = store_iter
+<a name="l00438"></a>00438 
+<a name="l00439"></a>00439         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a06cbab602b8657d306342c95591e23bf">amend_mode</a> = <span class="keyword">False</span>
+<a name="l00440"></a>00440         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa9c6d2e65caf70cef4602bfc90ef5d40">blank_iter</a> = <span class="keywordtype">None</span>
+<a name="l00441"></a>00441         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a93135670774de8707974e7b2826158a6">genre_combobox</a> = builder.get_object(<span class="stringliteral">&#39;genre_combobox&#39;</span>)
+<a name="l00442"></a>00442         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa44451eefae50bae09720d450cd61b6d">genre_entry</a> = builder.get_object(<span class="stringliteral">&#39;genre_entry&#39;</span>)
+<a name="l00443"></a>00443         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a13c350993e95020495e3ea507a3f7cd0">genre_view</a> = builder.get_object(<span class="stringliteral">&#39;genre_view&#39;</span>)
+<a name="l00444"></a>00444         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a2edcbbf7b57289fb93d006a310289e66">save_button</a> = builder.get_object(<span class="stringliteral">&#39;save_button&#39;</span>)
+<a name="l00445"></a>00445         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a8fe70923d0d8dae9a3ebf34e8f584958">filechooserdialog</a> = builder.get_object(<span class="stringliteral">&#39;filechooserdialog&#39;</span>)
+<a name="l00446"></a>00446 
+<a name="l00447"></a>00447         padding_scale = builder.get_object(<span class="stringliteral">&#39;padding_adjustment&#39;</span>)
+<a name="l00448"></a>00448         self.settings.bind(gs.PluginKey.ICON_PADDING, padding_scale, <span class="stringliteral">&#39;value&#39;</span>,
+<a name="l00449"></a>00449             Gio.SettingsBindFlags.DEFAULT)
+<a name="l00450"></a>00450 
+<a name="l00451"></a>00451         spacing_scale = builder.get_object(<span class="stringliteral">&#39;spacing_adjustment&#39;</span>)
+<a name="l00452"></a>00452         self.settings.bind(gs.PluginKey.ICON_SPACING, spacing_scale, <span class="stringliteral">&#39;value&#39;</span>,
+<a name="l00453"></a>00453             Gio.SettingsBindFlags.DEFAULT)
+<a name="l00454"></a>00454 
+<a name="l00455"></a>00455         icon_automatic = builder.get_object(<span class="stringliteral">&#39;icon_automatic_checkbox&#39;</span>)
+<a name="l00456"></a>00456         self.settings.bind(gs.PluginKey.ICON_AUTOMATIC,
+<a name="l00457"></a>00457             icon_automatic, <span class="stringliteral">&#39;active&#39;</span>, Gio.SettingsBindFlags.DEFAULT)
+<a name="l00458"></a>00458 
+<a name="l00459"></a>00459         <span class="comment">#flow tab</span>
+<a name="l00460"></a>00460         flow_combo = builder.get_object(<span class="stringliteral">&#39;flow_combobox&#39;</span>)
+<a name="l00461"></a>00461         renderer = Gtk.CellRendererText()
+<a name="l00462"></a>00462         flow_combo.pack_start(renderer, <span class="keyword">True</span>)
+<a name="l00463"></a>00463         flow_combo.add_attribute(renderer, <span class="stringliteral">&#39;text&#39;</span>, 1)
+<a name="l00464"></a>00464         self.settings.bind(gs.PluginKey.FLOW_APPEARANCE, flow_combo,
+<a name="l00465"></a>00465             <span class="stringliteral">&#39;active-id&#39;</span>, Gio.SettingsBindFlags.DEFAULT)
+<a name="l00466"></a>00466 
+<a name="l00467"></a>00467         flow_hide = builder.get_object(<span class="stringliteral">&#39;hide_caption_checkbox&#39;</span>)
+<a name="l00468"></a>00468         self.settings.bind(gs.PluginKey.FLOW_HIDE_CAPTION,
+<a name="l00469"></a>00469             flow_hide, <span class="stringliteral">&#39;active&#39;</span>, Gio.SettingsBindFlags.DEFAULT)
+<a name="l00470"></a>00470 
+<a name="l00471"></a>00471         flow_scale = builder.get_object(<span class="stringliteral">&#39;cover_scale_adjustment&#39;</span>)
+<a name="l00472"></a>00472         self.settings.bind(gs.PluginKey.FLOW_SCALE, flow_scale, <span class="stringliteral">&#39;value&#39;</span>,
+<a name="l00473"></a>00473             Gio.SettingsBindFlags.DEFAULT)
+<a name="l00474"></a>00474 
+<a name="l00475"></a>00475         flow_width = builder.get_object(<span class="stringliteral">&#39;cover_width_adjustment&#39;</span>)
+<a name="l00476"></a>00476         self.settings.bind(gs.PluginKey.FLOW_WIDTH, flow_width, <span class="stringliteral">&#39;value&#39;</span>,
+<a name="l00477"></a>00477             Gio.SettingsBindFlags.DEFAULT)
+<a name="l00478"></a>00478 
+<a name="l00479"></a>00479         flow_max = builder.get_object(<span class="stringliteral">&#39;flow_max_adjustment&#39;</span>)
+<a name="l00480"></a>00480         self.settings.bind(gs.PluginKey.FLOW_MAX, flow_max, <span class="stringliteral">&#39;value&#39;</span>,
+<a name="l00481"></a>00481             Gio.SettingsBindFlags.DEFAULT)
+<a name="l00482"></a>00482 
+<a name="l00483"></a>00483         flow_automatic = builder.get_object(<span class="stringliteral">&#39;automatic_checkbox&#39;</span>)
+<a name="l00484"></a>00484         self.settings.bind(gs.PluginKey.FLOW_AUTOMATIC,
+<a name="l00485"></a>00485             flow_automatic, <span class="stringliteral">&#39;active&#39;</span>, Gio.SettingsBindFlags.DEFAULT)
+<a name="l00486"></a>00486 
+<a name="l00487"></a>00487         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#ae77f0c84dadfe53e6eca737f271bb855">background_colour</a> = self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aee837e2535a870252793e96a8e3e5192">settings</a>[gs.PluginKey.FLOW_BACKGROUND_COLOUR]
+<a name="l00488"></a>00488         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aab8d683dbc54f31380d200dc4ab371ea">white_radiobutton</a> = builder.get_object(<span class="stringliteral">&#39;white_radiobutton&#39;</span>)
+<a name="l00489"></a>00489         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a7538d92d3f225c5fc20a8d421c11e241">black_radiobutton</a> = builder.get_object(<span class="stringliteral">&#39;black_radiobutton&#39;</span>)
+<a name="l00490"></a>00490 
+<a name="l00491"></a>00491         <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#ae77f0c84dadfe53e6eca737f271bb855">background_colour</a> == <span class="stringliteral">&#39;W&#39;</span>:
+<a name="l00492"></a>00492             self.white_radiobutton.set_active(<span class="keyword">True</span>)
+<a name="l00493"></a>00493         <span class="keywordflow">else</span>:
+<a name="l00494"></a>00494             self.black_radiobutton.set_active(<span class="keyword">True</span>)
+<a name="l00495"></a>00495             
+<a name="l00496"></a>00496         <span class="comment"># return the dialog</span>
+<a name="l00497"></a>00497         <span class="keywordflow">return</span> builder.get_object(<span class="stringliteral">&#39;main_notebook&#39;</span>)
+<a name="l00498"></a>00498 
+<a name="l00499"></a>00499     <span class="keyword">def </span>on_flow_combobox_changed(self, combobox):
+<a name="l00500"></a>00500         current_val = combobox.get_model()[combobox.get_active()][0]
+<a name="l00501"></a>00501         gs=<a class="code" href="classcoverart__browser__prefs_1_1_g_setting.html">GSetting</a>()
+<a name="l00502"></a>00502         <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aee837e2535a870252793e96a8e3e5192">settings</a>[gs.PluginKey.FLOW_APPEARANCE] != current_val:
+<a name="l00503"></a>00503             <span class="keywordflow">if</span> current_val == <span class="stringliteral">&#39;flow-vert&#39;</span>:
+<a name="l00504"></a>00504                 default_size = 150
+<a name="l00505"></a>00505             <span class="keywordflow">else</span>:
+<a name="l00506"></a>00506                 default_size = 600
 <a name="l00507"></a>00507 
-<a name="l00508"></a><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa35207f5417592aa1b7cc6128f0d9529">00508</a>     <span class="keyword">def </span><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa35207f5417592aa1b7cc6128f0d9529">on_save_button_clicked</a>(self, button):
-<a name="l00509"></a>00509         <span class="stringliteral">&#39;&#39;&#39;</span>
-<a name="l00510"></a>00510 <span class="stringliteral">        action when genre edit area is saved</span>
-<a name="l00511"></a>00511 <span class="stringliteral">        &#39;&#39;&#39;</span>
-<a name="l00512"></a>00512         entry_value = self.genre_entry.get_text()        
-<a name="l00513"></a>00513         treeiter = self.genre_combobox.get_active_iter()
-<a name="l00514"></a>00514         icon_value = self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a6f2f4cc5e3b02d6a05aae46ea867246f">alt_liststore</a>[treeiter][0]
-<a name="l00515"></a>00515         <span class="comment"># model 0 is the icon name, model 1 is the pixbuf</span>
-<a name="l00516"></a>00516         
-<a name="l00517"></a>00517         <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a06cbab602b8657d306342c95591e23bf">amend_mode</a>:
-<a name="l00518"></a>00518             key = self._sheet.amend_genre_info(self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a24e403467f6dd90e8bd51d7d4bfb23b7">current_genre</a>,
-<a name="l00519"></a>00519             entry_value, icon_value)
-<a name="l00520"></a>00520 
-<a name="l00521"></a>00521             self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#abf47ee91c2936e380fde797bbacc2afe">alt_user_liststore</a>[self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a121be30be881da3bdf2164784b1c947d">_iters</a>[(self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a24e403467f6dd90e8bd51d7d4bfb23b7">current_genre</a>,
-<a name="l00522"></a>00522                 self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa001c0610313385023a5f237145af937">GENRE_LIST</a>)]][1]=self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a5b42e140824263c7178b869778188ee3">_sheet</a>[self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a5b42e140824263c7178b869778188ee3">_sheet</a>.genre_alternate[key]]
-<a name="l00523"></a>00523             self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#abf47ee91c2936e380fde797bbacc2afe">alt_user_liststore</a>[self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a121be30be881da3bdf2164784b1c947d">_iters</a>[(self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a24e403467f6dd90e8bd51d7d4bfb23b7">current_genre</a>,
-<a name="l00524"></a>00524                 self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa001c0610313385023a5f237145af937">GENRE_LIST</a>)]][0]=key.name
-<a name="l00525"></a>00525             store_iter = self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a121be30be881da3bdf2164784b1c947d">_iters</a>[(self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a24e403467f6dd90e8bd51d7d4bfb23b7">current_genre</a>, self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa001c0610313385023a5f237145af937">GENRE_LIST</a>)]
-<a name="l00526"></a>00526             del self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a121be30be881da3bdf2164784b1c947d">_iters</a>[(self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a24e403467f6dd90e8bd51d7d4bfb23b7">current_genre</a>, self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa001c0610313385023a5f237145af937">GENRE_LIST</a>)]
-<a name="l00527"></a>00527             self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a121be30be881da3bdf2164784b1c947d">_iters</a>[(key.name, self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa001c0610313385023a5f237145af937">GENRE_LIST</a>)] = store_iter
-<a name="l00528"></a>00528             
-<a name="l00529"></a>00529         <span class="keywordflow">else</span>:
-<a name="l00530"></a>00530             self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a06cbab602b8657d306342c95591e23bf">amend_mode</a> = <span class="keyword">True</span>
-<a name="l00531"></a>00531             key = self._sheet.amend_genre_info(<span class="stringliteral">&#39;&#39;</span>,
-<a name="l00532"></a>00532             entry_value, icon_value)
-<a name="l00533"></a>00533             self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a24e403467f6dd90e8bd51d7d4bfb23b7">current_genre</a> = key.name
-<a name="l00534"></a>00534 
-<a name="l00535"></a>00535             store_iter = self.alt_user_liststore.append([key.name,
-<a name="l00536"></a>00536                             self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a5b42e140824263c7178b869778188ee3">_sheet</a>[self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a5b42e140824263c7178b869778188ee3">_sheet</a>.genre_alternate[key]],
-<a name="l00537"></a>00537                             self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a5b42e140824263c7178b869778188ee3">_sheet</a>.genre_alternate[key]])
-<a name="l00538"></a>00538             self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a121be30be881da3bdf2164784b1c947d">_iters</a>[(key.name, self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa001c0610313385023a5f237145af937">GENRE_LIST</a>)] = store_iter
-<a name="l00539"></a>00539             selection = self.genre_view.get_selection()
-<a name="l00540"></a>00540             selection.select_iter(store_iter)
-<a name="l00541"></a>00541 
-<a name="l00542"></a>00542         self.save_button.set_sensitive(<span class="keyword">False</span>)
-<a name="l00543"></a>00543         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a1d0f49557c2abc2fbe77cee0c79e8fc5">_toggle_new_genre_state</a>()
-<a name="l00544"></a>00544 
-<a name="l00545"></a>00545         
-<a name="l00546"></a><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a3614ab236ec4e4b6a4db6c8844088381">00546</a>     <span class="keyword">def </span><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a3614ab236ec4e4b6a4db6c8844088381">on_genre_filechooserbutton_file_set</a>(self, filechooser):
-<a name="l00547"></a>00547         <span class="stringliteral">&#39;&#39;&#39;</span>
-<a name="l00548"></a>00548 <span class="stringliteral">        action when genre new icon button is pressed</span>
-<a name="l00549"></a>00549 <span class="stringliteral">        &#39;&#39;&#39;</span>
-<a name="l00550"></a>00550         key = self._sheet.add_genre_icon( self.filechooserdialog.get_filename() )
-<a name="l00551"></a>00551         store_iter = self.alt_liststore.append([key.name, self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a5b42e140824263c7178b869778188ee3">_sheet</a>[key.name]])
-<a name="l00552"></a>00552         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a121be30be881da3bdf2164784b1c947d">_iters</a>[(key.name,self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a16e9dded17f3985ba78036c14ecb7903">GENRE_POPUP</a>)] = store_iter
-<a name="l00553"></a>00553         
-<a name="l00554"></a><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a641b69a7a28a0e1c2f4e2602efc323bf">00554</a>     <span class="keyword">def </span><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a641b69a7a28a0e1c2f4e2602efc323bf">on_genre_view_selection_changed</a>(self, view):
-<a name="l00555"></a>00555         <span class="stringliteral">&#39;&#39;&#39;</span>
-<a name="l00556"></a>00556 <span class="stringliteral">        action when user selects a row in the list of genres</span>
-<a name="l00557"></a>00557 <span class="stringliteral">        &#39;&#39;&#39;</span>
-<a name="l00558"></a>00558         model, genre_iter = view.get_selected()
-<a name="l00559"></a>00559         <span class="keywordflow">if</span> genre_iter:
-<a name="l00560"></a>00560             self.genre_entry.set_text(model[genre_iter][0])
-<a name="l00561"></a>00561             index = model[genre_iter][2]
-<a name="l00562"></a>00562             <span class="keywordflow">if</span> index != <span class="stringliteral">&#39;&#39;</span>:
-<a name="l00563"></a>00563                 self.genre_combobox.set_active_iter(self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a121be30be881da3bdf2164784b1c947d">_iters</a>[(index, self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a16e9dded17f3985ba78036c14ecb7903">GENRE_POPUP</a>)])
-<a name="l00564"></a>00564                 self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a06cbab602b8657d306342c95591e23bf">amend_mode</a> = <span class="keyword">True</span>
-<a name="l00565"></a>00565                 self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a24e403467f6dd90e8bd51d7d4bfb23b7">current_genre</a>=rb3compat.unicodestr(model[genre_iter][0], <span class="stringliteral">&#39;utf-8&#39;</span>)
-<a name="l00566"></a>00566         <span class="keywordflow">else</span>:
-<a name="l00567"></a>00567             self.genre_entry.set_text(<span class="stringliteral">&#39;&#39;</span>)
-<a name="l00568"></a>00568             self.genre_combobox.set_active_iter(<span class="keywordtype">None</span>)
-<a name="l00569"></a>00569             self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a06cbab602b8657d306342c95591e23bf">amend_mode</a> = <span class="keyword">False</span>
-<a name="l00570"></a>00570 
-<a name="l00571"></a>00571         <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa9c6d2e65caf70cef4602bfc90ef5d40">blank_iter</a> <span class="keywordflow">and</span> self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a06cbab602b8657d306342c95591e23bf">amend_mode</a>:
-<a name="l00572"></a>00572             <span class="keywordflow">try</span>:
-<a name="l00573"></a>00573                 index = model[self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa9c6d2e65caf70cef4602bfc90ef5d40">blank_iter</a>][0]
-<a name="l00574"></a>00574                 <span class="keywordflow">if</span> index == <span class="stringliteral">&#39;&#39;</span>:
-<a name="l00575"></a>00575                     model.remove(self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa9c6d2e65caf70cef4602bfc90ef5d40">blank_iter</a>)
-<a name="l00576"></a>00576                     self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa9c6d2e65caf70cef4602bfc90ef5d40">blank_iter</a> = <span class="keywordtype">None</span>
-<a name="l00577"></a>00577             <span class="keywordflow">except</span>:
-<a name="l00578"></a>00578                 self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa9c6d2e65caf70cef4602bfc90ef5d40">blank_iter</a> = <span class="keywordtype">None</span>
-<a name="l00579"></a>00579             
-<a name="l00580"></a><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a6f77506e6f7645d3085f6835706ecfa0">00580</a>     <span class="keyword">def </span><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a6f77506e6f7645d3085f6835706ecfa0">on_add_button_clicked</a>(self, button):
-<a name="l00581"></a>00581         <span class="stringliteral">&#39;&#39;&#39;</span>
-<a name="l00582"></a>00582 <span class="stringliteral">        action when a new genre is added to the table</span>
-<a name="l00583"></a>00583 <span class="stringliteral">        &#39;&#39;&#39;</span>
-<a name="l00584"></a>00584         self.genre_entry.set_text(<span class="stringliteral">&#39;&#39;</span>)
-<a name="l00585"></a>00585         self.genre_combobox.set_active(-1)
-<a name="l00586"></a>00586         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a06cbab602b8657d306342c95591e23bf">amend_mode</a> = <span class="keyword">False</span>
-<a name="l00587"></a>00587         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa9c6d2e65caf70cef4602bfc90ef5d40">blank_iter</a> = self.alt_user_liststore.append([<span class="stringliteral">&#39;&#39;</span>, <span class="keywordtype">None</span>, <span class="stringliteral">&#39;&#39;</span>])
-<a name="l00588"></a>00588         selection = self.genre_view.get_selection()
-<a name="l00589"></a>00589         selection.select_iter(self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa9c6d2e65caf70cef4602bfc90ef5d40">blank_iter</a>)
-<a name="l00590"></a>00590         
-<a name="l00591"></a>00591         
-<a name="l00592"></a><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa9491094f86d699f1813af632fc51d46">00592</a>     <span class="keyword">def </span><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa9491094f86d699f1813af632fc51d46">on_delete_button_clicked</a>(self, button):
-<a name="l00593"></a>00593         <span class="stringliteral">&#39;&#39;&#39;</span>
-<a name="l00594"></a>00594 <span class="stringliteral">        action when a genre is to be deleted</span>
-<a name="l00595"></a>00595 <span class="stringliteral">        &#39;&#39;&#39;</span>
-<a name="l00596"></a>00596         selection = self.genre_view.get_selection()
-<a name="l00597"></a>00597 
-<a name="l00598"></a>00598         model, genre_iter = selection.get_selected()
-<a name="l00599"></a>00599         <span class="keywordflow">if</span> genre_iter:
-<a name="l00600"></a>00600             index = rb3compat.unicodestr(model[genre_iter][0],<span class="stringliteral">&#39;utf-8&#39;</span>)
-<a name="l00601"></a>00601             model.remove(genre_iter)
-<a name="l00602"></a>00602 
-<a name="l00603"></a>00603             <span class="keywordflow">if</span> index:
-<a name="l00604"></a>00604                 del self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a121be30be881da3bdf2164784b1c947d">_iters</a>[(index, self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa001c0610313385023a5f237145af937">GENRE_LIST</a>)]
-<a name="l00605"></a>00605                 self._sheet.delete_genre(index)
-<a name="l00606"></a>00606 
-<a name="l00607"></a>00607                 self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a1d0f49557c2abc2fbe77cee0c79e8fc5">_toggle_new_genre_state</a>()
-<a name="l00608"></a>00608             
-<a name="l00609"></a><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a571f3e0e7b081c39f1501955a51bc594">00609</a>     <span class="keyword">def </span><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a571f3e0e7b081c39f1501955a51bc594">set_save_sensitivity</a>(self, _):
-<a name="l00610"></a>00610         <span class="stringliteral">&#39;&#39;&#39;</span>
-<a name="l00611"></a>00611 <span class="stringliteral">        action to toggle the state of the save button depending</span>
-<a name="l00612"></a>00612 <span class="stringliteral">        upon the values entered in the genre edit fields</span>
-<a name="l00613"></a>00613 <span class="stringliteral">        &#39;&#39;&#39;</span>
-<a name="l00614"></a>00614         entry_value = self.genre_entry.get_text()
-<a name="l00615"></a>00615         treeiter = self.genre_combobox.get_active_iter()
-<a name="l00616"></a>00616 
-<a name="l00617"></a>00617         entry_value = rb3compat.unicodestr(entry_value, <span class="stringliteral">&#39;utf-8&#39;</span>)
-<a name="l00618"></a>00618         enable = <span class="keyword">False</span>
-<a name="l00619"></a>00619         <span class="keywordflow">try</span>:
-<a name="l00620"></a>00620             test = self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a121be30be881da3bdf2164784b1c947d">_iters</a>[(entry_value, self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa001c0610313385023a5f237145af937">GENRE_LIST</a>)]
-<a name="l00621"></a>00621             <span class="keywordflow">if</span> RB.search_fold(self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a24e403467f6dd90e8bd51d7d4bfb23b7">current_genre</a>) == RB.search_fold(entry_value):
-<a name="l00622"></a>00622                 <span class="comment">#if the current entry is the same then could save</span>
-<a name="l00623"></a>00623                 enable = <span class="keyword">True</span>
-<a name="l00624"></a>00624         <span class="keywordflow">except</span>:
-<a name="l00625"></a>00625             <span class="comment"># reach here if this is a brand new entry</span>
-<a name="l00626"></a>00626             enable = <span class="keyword">True</span>
-<a name="l00627"></a>00627 
-<a name="l00628"></a>00628         <span class="keywordflow">if</span> treeiter == <span class="keywordtype">None</span> <span class="keywordflow">or</span> entry_value == <span class="keywordtype">None</span> <span class="keywordflow">or</span> entry_value == <span class="stringliteral">&quot;&quot;</span>:
-<a name="l00629"></a>00629             <span class="comment"># no icon chosen, or no entry value then nothing to save</span>
-<a name="l00630"></a>00630             enable = <span class="keyword">False</span>
-<a name="l00631"></a>00631 
-<a name="l00632"></a>00632         self.save_button.set_sensitive(enable)
-<a name="l00633"></a>00633 
-<a name="l00634"></a>00634     <span class="keyword">def </span>_toggle_new_genre_state(self):
-<a name="l00635"></a>00635         <span class="stringliteral">&#39;&#39;&#39;</span>
-<a name="l00636"></a>00636 <span class="stringliteral">        fire an event - uses gsettings and an object such as a</span>
-<a name="l00637"></a>00637 <span class="stringliteral">        controller connects to receive the signal that a new or amended</span>
-<a name="l00638"></a>00638 <span class="stringliteral">        genre has been made</span>
-<a name="l00639"></a>00639 <span class="stringliteral">        &#39;&#39;&#39;</span>
-<a name="l00640"></a>00640         gs = <a class="code" href="classcoverart__browser__prefs_1_1_g_setting.html">GSetting</a>()
-<a name="l00641"></a>00641         test = self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aee837e2535a870252793e96a8e3e5192">settings</a>[gs.PluginKey.NEW_GENRE_ICON]
-<a name="l00642"></a>00642 
-<a name="l00643"></a>00643         <span class="keywordflow">if</span> test:
-<a name="l00644"></a>00644             test = <span class="keyword">False</span>
-<a name="l00645"></a>00645         <span class="keywordflow">else</span>:
-<a name="l00646"></a>00646             test = <span class="keyword">True</span>
-<a name="l00647"></a>00647 
-<a name="l00648"></a>00648         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aee837e2535a870252793e96a8e3e5192">settings</a>[gs.PluginKey.NEW_GENRE_ICON]=test
-<a name="l00649"></a>00649             
-<a name="l00650"></a>00650     <span class="keyword">def </span>on_show_launchpad_toggled(self, button):
-<a name="l00651"></a>00651         self.launchpad_label.set_visible(button.get_active())
-<a name="l00652"></a>00652 
-<a name="l00653"></a>00653     
+<a name="l00508"></a>00508             self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aee837e2535a870252793e96a8e3e5192">settings</a>[gs.PluginKey.FLOW_WIDTH] = default_size
+<a name="l00509"></a>00509             
+<a name="l00510"></a>00510             <span class="keywordflow">if</span> current_val == <span class="stringliteral">&#39;carousel&#39;</span>:
+<a name="l00511"></a>00511                 self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aee837e2535a870252793e96a8e3e5192">settings</a>[gs.PluginKey.FLOW_HIDE_CAPTION] = <span class="keyword">True</span>
+<a name="l00512"></a>00512                 
+<a name="l00513"></a>00513     <span class="keyword">def </span>on_background_radio_toggled(self, button):
+<a name="l00514"></a>00514         <span class="keywordflow">if</span> button.get_active():
+<a name="l00515"></a>00515             gs = <a class="code" href="classcoverart__browser__prefs_1_1_g_setting.html">GSetting</a>()
+<a name="l00516"></a>00516             <span class="keywordflow">if</span> button == self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aab8d683dbc54f31380d200dc4ab371ea">white_radiobutton</a>:
+<a name="l00517"></a>00517                 self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aee837e2535a870252793e96a8e3e5192">settings</a>[gs.PluginKey.FLOW_BACKGROUND_COLOUR] = <span class="stringliteral">&#39;W&#39;</span>
+<a name="l00518"></a>00518             <span class="keywordflow">else</span>:
+<a name="l00519"></a>00519                 self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aee837e2535a870252793e96a8e3e5192">settings</a>[gs.PluginKey.FLOW_BACKGROUND_COLOUR] = <span class="stringliteral">&#39;B&#39;</span>
+<a name="l00520"></a>00520                 
+<a name="l00521"></a>00521     <span class="keyword">def </span>on_display_text_pos_radio_toggled(self, button):
+<a name="l00522"></a>00522         <span class="keywordflow">if</span> button.get_active():
+<a name="l00523"></a>00523             gs = <a class="code" href="classcoverart__browser__prefs_1_1_g_setting.html">GSetting</a>()
+<a name="l00524"></a>00524             <span class="keywordflow">if</span> button == self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#acab8239f447e4bfe83201a4458f4762f">display_text_under_radiobutton</a>:
+<a name="l00525"></a>00525                 self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aee837e2535a870252793e96a8e3e5192">settings</a>[gs.PluginKey.DISPLAY_TEXT_POS] = <span class="keyword">True</span>
+<a name="l00526"></a>00526             <span class="keywordflow">else</span>:
+<a name="l00527"></a>00527                 self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aee837e2535a870252793e96a8e3e5192">settings</a>[gs.PluginKey.DISPLAY_TEXT_POS] = <span class="keyword">False</span>
+<a name="l00528"></a>00528                 self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aee837e2535a870252793e96a8e3e5192">settings</a>[gs.PluginKey.ADD_SHADOW] = <span class="keyword">False</span>
+<a name="l00529"></a>00529                 
+<a name="l00530"></a>00530     <span class="keyword">def </span>on_add_shadow_checkbox_toggled(self, button):
+<a name="l00531"></a>00531         <span class="keywordflow">if</span> button.get_active():
+<a name="l00532"></a>00532             <span class="comment">#gs = GSetting()</span>
+<a name="l00533"></a>00533             <span class="comment">#self.settings[gs.PluginKey.DISPLAY_TEXT_POS] = True</span>
+<a name="l00534"></a>00534             self.display_text_under_radiobutton.set_active(<span class="keyword">True</span>)
+<a name="l00535"></a>00535 
+<a name="l00536"></a>00536     <span class="keyword">def </span>rating_changed_callback(self, stars):
+<a name="l00537"></a>00537         print(<span class="stringliteral">&quot;rating_changed_callback&quot;</span>)
+<a name="l00538"></a>00538         gs = <a class="code" href="classcoverart__browser__prefs_1_1_g_setting.html">GSetting</a>()
+<a name="l00539"></a>00539         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aee837e2535a870252793e96a8e3e5192">settings</a>[gs.PluginKey.RATING] = self.stars.get_rating()
+<a name="l00540"></a>00540 
+<a name="l00541"></a><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa35207f5417592aa1b7cc6128f0d9529">00541</a>     <span class="keyword">def </span><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa35207f5417592aa1b7cc6128f0d9529">on_save_button_clicked</a>(self, button):
+<a name="l00542"></a>00542         <span class="stringliteral">&#39;&#39;&#39;</span>
+<a name="l00543"></a>00543 <span class="stringliteral">        action when genre edit area is saved</span>
+<a name="l00544"></a>00544 <span class="stringliteral">        &#39;&#39;&#39;</span>
+<a name="l00545"></a>00545         entry_value = self.genre_entry.get_text()        
+<a name="l00546"></a>00546         treeiter = self.genre_combobox.get_active_iter()
+<a name="l00547"></a>00547         icon_value = self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a6f2f4cc5e3b02d6a05aae46ea867246f">alt_liststore</a>[treeiter][0]
+<a name="l00548"></a>00548         <span class="comment"># model 0 is the icon name, model 1 is the pixbuf</span>
+<a name="l00549"></a>00549         
+<a name="l00550"></a>00550         <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a06cbab602b8657d306342c95591e23bf">amend_mode</a>:
+<a name="l00551"></a>00551             key = self._sheet.amend_genre_info(self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a24e403467f6dd90e8bd51d7d4bfb23b7">current_genre</a>,
+<a name="l00552"></a>00552             entry_value, icon_value)
+<a name="l00553"></a>00553 
+<a name="l00554"></a>00554             self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#abf47ee91c2936e380fde797bbacc2afe">alt_user_liststore</a>[self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a121be30be881da3bdf2164784b1c947d">_iters</a>[(self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a24e403467f6dd90e8bd51d7d4bfb23b7">current_genre</a>,
+<a name="l00555"></a>00555                 self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa001c0610313385023a5f237145af937">GENRE_LIST</a>)]][1]=self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a5b42e140824263c7178b869778188ee3">_sheet</a>[self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a5b42e140824263c7178b869778188ee3">_sheet</a>.genre_alternate[key]]
+<a name="l00556"></a>00556             self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#abf47ee91c2936e380fde797bbacc2afe">alt_user_liststore</a>[self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a121be30be881da3bdf2164784b1c947d">_iters</a>[(self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a24e403467f6dd90e8bd51d7d4bfb23b7">current_genre</a>,
+<a name="l00557"></a>00557                 self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa001c0610313385023a5f237145af937">GENRE_LIST</a>)]][0]=key.name
+<a name="l00558"></a>00558             store_iter = self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a121be30be881da3bdf2164784b1c947d">_iters</a>[(self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a24e403467f6dd90e8bd51d7d4bfb23b7">current_genre</a>, self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa001c0610313385023a5f237145af937">GENRE_LIST</a>)]
+<a name="l00559"></a>00559             del self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a121be30be881da3bdf2164784b1c947d">_iters</a>[(self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a24e403467f6dd90e8bd51d7d4bfb23b7">current_genre</a>, self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa001c0610313385023a5f237145af937">GENRE_LIST</a>)]
+<a name="l00560"></a>00560             self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a121be30be881da3bdf2164784b1c947d">_iters</a>[(key.name, self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa001c0610313385023a5f237145af937">GENRE_LIST</a>)] = store_iter
+<a name="l00561"></a>00561             
+<a name="l00562"></a>00562         <span class="keywordflow">else</span>:
+<a name="l00563"></a>00563             self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a06cbab602b8657d306342c95591e23bf">amend_mode</a> = <span class="keyword">True</span>
+<a name="l00564"></a>00564             key = self._sheet.amend_genre_info(<span class="stringliteral">&#39;&#39;</span>,
+<a name="l00565"></a>00565             entry_value, icon_value)
+<a name="l00566"></a>00566             self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a24e403467f6dd90e8bd51d7d4bfb23b7">current_genre</a> = key.name
+<a name="l00567"></a>00567 
+<a name="l00568"></a>00568             store_iter = self.alt_user_liststore.append([key.name,
+<a name="l00569"></a>00569                             self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a5b42e140824263c7178b869778188ee3">_sheet</a>[self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a5b42e140824263c7178b869778188ee3">_sheet</a>.genre_alternate[key]],
+<a name="l00570"></a>00570                             self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a5b42e140824263c7178b869778188ee3">_sheet</a>.genre_alternate[key]])
+<a name="l00571"></a>00571             self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a121be30be881da3bdf2164784b1c947d">_iters</a>[(key.name, self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa001c0610313385023a5f237145af937">GENRE_LIST</a>)] = store_iter
+<a name="l00572"></a>00572             selection = self.genre_view.get_selection()
+<a name="l00573"></a>00573             selection.select_iter(store_iter)
+<a name="l00574"></a>00574 
+<a name="l00575"></a>00575         self.save_button.set_sensitive(<span class="keyword">False</span>)
+<a name="l00576"></a>00576         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a1d0f49557c2abc2fbe77cee0c79e8fc5">_toggle_new_genre_state</a>()
+<a name="l00577"></a>00577 
+<a name="l00578"></a>00578         
+<a name="l00579"></a><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a3614ab236ec4e4b6a4db6c8844088381">00579</a>     <span class="keyword">def </span><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a3614ab236ec4e4b6a4db6c8844088381">on_genre_filechooserbutton_file_set</a>(self, filechooser):
+<a name="l00580"></a>00580         <span class="stringliteral">&#39;&#39;&#39;</span>
+<a name="l00581"></a>00581 <span class="stringliteral">        action when genre new icon button is pressed</span>
+<a name="l00582"></a>00582 <span class="stringliteral">        &#39;&#39;&#39;</span>
+<a name="l00583"></a>00583         key = self._sheet.add_genre_icon( self.filechooserdialog.get_filename() )
+<a name="l00584"></a>00584         store_iter = self.alt_liststore.append([key.name, self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a5b42e140824263c7178b869778188ee3">_sheet</a>[key.name]])
+<a name="l00585"></a>00585         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a121be30be881da3bdf2164784b1c947d">_iters</a>[(key.name,self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a16e9dded17f3985ba78036c14ecb7903">GENRE_POPUP</a>)] = store_iter
+<a name="l00586"></a>00586         
+<a name="l00587"></a><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a641b69a7a28a0e1c2f4e2602efc323bf">00587</a>     <span class="keyword">def </span><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a641b69a7a28a0e1c2f4e2602efc323bf">on_genre_view_selection_changed</a>(self, view):
+<a name="l00588"></a>00588         <span class="stringliteral">&#39;&#39;&#39;</span>
+<a name="l00589"></a>00589 <span class="stringliteral">        action when user selects a row in the list of genres</span>
+<a name="l00590"></a>00590 <span class="stringliteral">        &#39;&#39;&#39;</span>
+<a name="l00591"></a>00591         model, genre_iter = view.get_selected()
+<a name="l00592"></a>00592         <span class="keywordflow">if</span> genre_iter:
+<a name="l00593"></a>00593             self.genre_entry.set_text(model[genre_iter][0])
+<a name="l00594"></a>00594             index = model[genre_iter][2]
+<a name="l00595"></a>00595             <span class="keywordflow">if</span> index != <span class="stringliteral">&#39;&#39;</span>:
+<a name="l00596"></a>00596                 self.genre_combobox.set_active_iter(self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a121be30be881da3bdf2164784b1c947d">_iters</a>[(index, self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a16e9dded17f3985ba78036c14ecb7903">GENRE_POPUP</a>)])
+<a name="l00597"></a>00597                 self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a06cbab602b8657d306342c95591e23bf">amend_mode</a> = <span class="keyword">True</span>
+<a name="l00598"></a>00598                 self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a24e403467f6dd90e8bd51d7d4bfb23b7">current_genre</a>=rb3compat.unicodestr(model[genre_iter][0], <span class="stringliteral">&#39;utf-8&#39;</span>)
+<a name="l00599"></a>00599         <span class="keywordflow">else</span>:
+<a name="l00600"></a>00600             self.genre_entry.set_text(<span class="stringliteral">&#39;&#39;</span>)
+<a name="l00601"></a>00601             self.genre_combobox.set_active_iter(<span class="keywordtype">None</span>)
+<a name="l00602"></a>00602             self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a06cbab602b8657d306342c95591e23bf">amend_mode</a> = <span class="keyword">False</span>
+<a name="l00603"></a>00603 
+<a name="l00604"></a>00604         <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa9c6d2e65caf70cef4602bfc90ef5d40">blank_iter</a> <span class="keywordflow">and</span> self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a06cbab602b8657d306342c95591e23bf">amend_mode</a>:
+<a name="l00605"></a>00605             <span class="keywordflow">try</span>:
+<a name="l00606"></a>00606                 index = model[self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa9c6d2e65caf70cef4602bfc90ef5d40">blank_iter</a>][0]
+<a name="l00607"></a>00607                 <span class="keywordflow">if</span> index == <span class="stringliteral">&#39;&#39;</span>:
+<a name="l00608"></a>00608                     model.remove(self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa9c6d2e65caf70cef4602bfc90ef5d40">blank_iter</a>)
+<a name="l00609"></a>00609                     self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa9c6d2e65caf70cef4602bfc90ef5d40">blank_iter</a> = <span class="keywordtype">None</span>
+<a name="l00610"></a>00610             <span class="keywordflow">except</span>:
+<a name="l00611"></a>00611                 self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa9c6d2e65caf70cef4602bfc90ef5d40">blank_iter</a> = <span class="keywordtype">None</span>
+<a name="l00612"></a>00612             
+<a name="l00613"></a><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a6f77506e6f7645d3085f6835706ecfa0">00613</a>     <span class="keyword">def </span><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a6f77506e6f7645d3085f6835706ecfa0">on_add_button_clicked</a>(self, button):
+<a name="l00614"></a>00614         <span class="stringliteral">&#39;&#39;&#39;</span>
+<a name="l00615"></a>00615 <span class="stringliteral">        action when a new genre is added to the table</span>
+<a name="l00616"></a>00616 <span class="stringliteral">        &#39;&#39;&#39;</span>
+<a name="l00617"></a>00617         self.genre_entry.set_text(<span class="stringliteral">&#39;&#39;</span>)
+<a name="l00618"></a>00618         self.genre_combobox.set_active(-1)
+<a name="l00619"></a>00619         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a06cbab602b8657d306342c95591e23bf">amend_mode</a> = <span class="keyword">False</span>
+<a name="l00620"></a>00620         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa9c6d2e65caf70cef4602bfc90ef5d40">blank_iter</a> = self.alt_user_liststore.append([<span class="stringliteral">&#39;&#39;</span>, <span class="keywordtype">None</span>, <span class="stringliteral">&#39;&#39;</span>])
+<a name="l00621"></a>00621         selection = self.genre_view.get_selection()
+<a name="l00622"></a>00622         selection.select_iter(self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa9c6d2e65caf70cef4602bfc90ef5d40">blank_iter</a>)
+<a name="l00623"></a>00623         
+<a name="l00624"></a>00624         
+<a name="l00625"></a><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa9491094f86d699f1813af632fc51d46">00625</a>     <span class="keyword">def </span><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa9491094f86d699f1813af632fc51d46">on_delete_button_clicked</a>(self, button):
+<a name="l00626"></a>00626         <span class="stringliteral">&#39;&#39;&#39;</span>
+<a name="l00627"></a>00627 <span class="stringliteral">        action when a genre is to be deleted</span>
+<a name="l00628"></a>00628 <span class="stringliteral">        &#39;&#39;&#39;</span>
+<a name="l00629"></a>00629         selection = self.genre_view.get_selection()
+<a name="l00630"></a>00630 
+<a name="l00631"></a>00631         model, genre_iter = selection.get_selected()
+<a name="l00632"></a>00632         <span class="keywordflow">if</span> genre_iter:
+<a name="l00633"></a>00633             index = rb3compat.unicodestr(model[genre_iter][0],<span class="stringliteral">&#39;utf-8&#39;</span>)
+<a name="l00634"></a>00634             model.remove(genre_iter)
+<a name="l00635"></a>00635 
+<a name="l00636"></a>00636             <span class="keywordflow">if</span> index:
+<a name="l00637"></a>00637                 del self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a121be30be881da3bdf2164784b1c947d">_iters</a>[(index, self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa001c0610313385023a5f237145af937">GENRE_LIST</a>)]
+<a name="l00638"></a>00638                 self._sheet.delete_genre(index)
+<a name="l00639"></a>00639 
+<a name="l00640"></a>00640                 self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a1d0f49557c2abc2fbe77cee0c79e8fc5">_toggle_new_genre_state</a>()
+<a name="l00641"></a>00641             
+<a name="l00642"></a><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a571f3e0e7b081c39f1501955a51bc594">00642</a>     <span class="keyword">def </span><a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a571f3e0e7b081c39f1501955a51bc594">set_save_sensitivity</a>(self, _):
+<a name="l00643"></a>00643         <span class="stringliteral">&#39;&#39;&#39;</span>
+<a name="l00644"></a>00644 <span class="stringliteral">        action to toggle the state of the save button depending</span>
+<a name="l00645"></a>00645 <span class="stringliteral">        upon the values entered in the genre edit fields</span>
+<a name="l00646"></a>00646 <span class="stringliteral">        &#39;&#39;&#39;</span>
+<a name="l00647"></a>00647         entry_value = self.genre_entry.get_text()
+<a name="l00648"></a>00648         treeiter = self.genre_combobox.get_active_iter()
+<a name="l00649"></a>00649 
+<a name="l00650"></a>00650         entry_value = rb3compat.unicodestr(entry_value, <span class="stringliteral">&#39;utf-8&#39;</span>)
+<a name="l00651"></a>00651         enable = <span class="keyword">False</span>
+<a name="l00652"></a>00652         <span class="keywordflow">try</span>:
+<a name="l00653"></a>00653             test = self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a121be30be881da3bdf2164784b1c947d">_iters</a>[(entry_value, self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aa001c0610313385023a5f237145af937">GENRE_LIST</a>)]
+<a name="l00654"></a>00654             <span class="keywordflow">if</span> RB.search_fold(self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#a24e403467f6dd90e8bd51d7d4bfb23b7">current_genre</a>) == RB.search_fold(entry_value):
+<a name="l00655"></a>00655                 <span class="comment">#if the current entry is the same then could save</span>
+<a name="l00656"></a>00656                 enable = <span class="keyword">True</span>
+<a name="l00657"></a>00657         <span class="keywordflow">except</span>:
+<a name="l00658"></a>00658             <span class="comment"># reach here if this is a brand new entry</span>
+<a name="l00659"></a>00659             enable = <span class="keyword">True</span>
+<a name="l00660"></a>00660 
+<a name="l00661"></a>00661         <span class="keywordflow">if</span> treeiter == <span class="keywordtype">None</span> <span class="keywordflow">or</span> entry_value == <span class="keywordtype">None</span> <span class="keywordflow">or</span> entry_value == <span class="stringliteral">&quot;&quot;</span>:
+<a name="l00662"></a>00662             <span class="comment"># no icon chosen, or no entry value then nothing to save</span>
+<a name="l00663"></a>00663             enable = <span class="keyword">False</span>
+<a name="l00664"></a>00664 
+<a name="l00665"></a>00665         self.save_button.set_sensitive(enable)
+<a name="l00666"></a>00666 
+<a name="l00667"></a>00667     <span class="keyword">def </span>_toggle_new_genre_state(self):
+<a name="l00668"></a>00668         <span class="stringliteral">&#39;&#39;&#39;</span>
+<a name="l00669"></a>00669 <span class="stringliteral">        fire an event - uses gsettings and an object such as a</span>
+<a name="l00670"></a>00670 <span class="stringliteral">        controller connects to receive the signal that a new or amended</span>
+<a name="l00671"></a>00671 <span class="stringliteral">        genre has been made</span>
+<a name="l00672"></a>00672 <span class="stringliteral">        &#39;&#39;&#39;</span>
+<a name="l00673"></a>00673         gs = <a class="code" href="classcoverart__browser__prefs_1_1_g_setting.html">GSetting</a>()
+<a name="l00674"></a>00674         test = self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aee837e2535a870252793e96a8e3e5192">settings</a>[gs.PluginKey.NEW_GENRE_ICON]
+<a name="l00675"></a>00675 
+<a name="l00676"></a>00676         <span class="keywordflow">if</span> test:
+<a name="l00677"></a>00677             test = <span class="keyword">False</span>
+<a name="l00678"></a>00678         <span class="keywordflow">else</span>:
+<a name="l00679"></a>00679             test = <span class="keyword">True</span>
+<a name="l00680"></a>00680 
+<a name="l00681"></a>00681         self.<a class="code" href="classcoverart__browser__prefs_1_1_preferences.html#aee837e2535a870252793e96a8e3e5192">settings</a>[gs.PluginKey.NEW_GENRE_ICON]=test
+<a name="l00682"></a>00682             
+<a name="l00683"></a>00683     <span class="keyword">def </span>on_show_launchpad_toggled(self, button):
+<a name="l00684"></a>00684         self.launchpad_label.set_visible(button.get_active())
+<a name="l00685"></a>00685 
+<a name="l00686"></a>00686     
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -769,7 +802,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>coverart_browser_prefs.py</b>      </li>
 
-    <li class="footer">Generated on Tue Aug 27 2013 23:46:20 for Coverart Browser by
+    <li class="footer">Generated on Fri Jan 24 2014 21:22:27 for Coverart Browser by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
    </ul>

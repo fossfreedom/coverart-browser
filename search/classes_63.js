@@ -1,6 +1,7 @@
 var searchData=
 [
   ['caseinsensitivedict',['CaseInsensitiveDict',['../classcoverart__utils_1_1_case_insensitive_dict.html',1,'coverart_utils']]],
+  ['cellrendererthumb',['CellRendererThumb',['../classcoverart__covericonview_1_1_cell_renderer_thumb.html',1,'coverart_covericonview']]],
   ['configuredspritesheet',['ConfiguredSpriteSheet',['../classcoverart__utils_1_1_configured_sprite_sheet.html',1,'coverart_utils']]],
   ['cover',['Cover',['../classcoverart__album_1_1_cover.html',1,'coverart_album']]],
   ['coverartbrowserentrytype',['CoverArtBrowserEntryType',['../classcoverart__browser_1_1_cover_art_browser_entry_type.html',1,'coverart_browser']]],

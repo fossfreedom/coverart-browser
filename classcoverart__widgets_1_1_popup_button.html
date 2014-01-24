@@ -33,7 +33,7 @@
   
   <td style="padding-left: 0.5em;">
    <div id="projectname">Coverart Browser
-   &#160;<span id="projectnumber">v0.9</span>
+   &#160;<span id="projectnumber">v1.0</span>
    </div>
    <div id="projectbrief">Browse your cover-art albums in Rhythmbox</div>
   </td>
@@ -109,6 +109,7 @@ Inheritance diagram for coverart_widgets.PopupButton:</div>
   <map id="coverart_widgets.PopupButton_map" name="coverart_widgets.PopupButton_map">
 <area href="classcoverart__widgets_1_1_pixbuf_button.html" alt="coverart_widgets.PixbufButton" shape="rect" coords="0,56,230,80"/>
 <area href="classcoverart__widgets_1_1_options_popup_widget.html" alt="coverart_widgets.OptionsPopupWidget" shape="rect" coords="240,56,470,80"/>
+<area href="classcoverart__widgets_1_1_enhanced_button.html" alt="coverart_widgets.EnhancedButton" shape="rect" coords="0,0,230,24"/>
 <area href="classcoverart__widgets_1_1_options_widget.html" alt="coverart_widgets.OptionsWidget" shape="rect" coords="240,0,470,24"/>
 </map>
  </div></div>
@@ -118,15 +119,17 @@ Inheritance diagram for coverart_widgets.PopupButton:</div>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__widgets_1_1_popup_button.html#aa219785885f317290118d599c7e1995a">__init__</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a76f8f88faeeee1bdf55dbf4782f4a90b"></a><!-- doxytag: member="coverart_widgets::PopupButton::popup_deactivate" ref="a76f8f88faeeee1bdf55dbf4782f4a90b" args="" -->
+def&#160;</td><td class="memItemRight" valign="bottom"><b>popup_deactivate</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a314173ffc328228a323d906c8ce82526"></a><!-- doxytag: member="coverart_widgets::PopupButton::update_image" ref="a314173ffc328228a323d906c8ce82526" args="" -->
 def&#160;</td><td class="memItemRight" valign="bottom"><b>update_image</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abacd000ebc52d973d0e932a7d014705c"></a><!-- doxytag: member="coverart_widgets::PopupButton::update_current_key" ref="abacd000ebc52d973d0e932a7d014705c" args="" -->
 def&#160;</td><td class="memItemRight" valign="bottom"><b>update_current_key</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__widgets_1_1_popup_button.html#ae38bb81cacf7b72d9c6686d282fb859d">do_clicked</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__widgets_1_1_popup_button.html#a8a3a1e8937604e83560ff15ab7049b7e">do_button_press_event</a></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock">
-<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l00195">195</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l00281">281</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aa219785885f317290118d599c7e1995a"></a><!-- doxytag: member="coverart_widgets::PopupButton::__init__" ref="aa219785885f317290118d599c7e1995a" args="" -->
 <div class="memitem">
@@ -163,21 +166,31 @@ Initializes the button.
 </pre></div> 
 <p>Reimplemented from <a class="el" href="classcoverart__widgets_1_1_options_popup_widget.html">coverart_widgets.OptionsPopupWidget</a>.</p>
 
-<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l00203">203</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l00289">289</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
 
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="ae38bb81cacf7b72d9c6686d282fb859d"></a><!-- doxytag: member="coverart_widgets::PopupButton::do_clicked" ref="ae38bb81cacf7b72d9c6686d282fb859d" args="" -->
+<a class="anchor" id="a8a3a1e8937604e83560ff15ab7049b7e"></a><!-- doxytag: member="coverart_widgets::PopupButton::do_button_press_event" ref="a8a3a1e8937604e83560ff15ab7049b7e" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def <a class="el" href="classcoverart__widgets_1_1_popup_button.html#ae38bb81cacf7b72d9c6686d282fb859d">coverart_widgets.PopupButton.do_clicked</a> </td>
+          <td class="memname">def <a class="el" href="classcoverart__widgets_1_1_popup_button.html#a8a3a1e8937604e83560ff15ab7049b7e">coverart_widgets.PopupButton.do_button_press_event</a> </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em></td><td>)</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>event</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div>
@@ -186,12 +199,12 @@ Initializes the button.
 when button is clicked, update the popup with the sorting options
 before displaying the popup
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l00226">226</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l00316">316</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/home/dad/Downloads/coverart-browser/<a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a></li>
+<li>/home/foss/Downloads/coverart-browser/<a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a></li>
 </ul>
 </div><!-- contents -->
 </div>
@@ -214,7 +227,7 @@ before displaying the popup
       <li class="navelem"><b>coverart_widgets</b>      </li>
       <li class="navelem"><a class="el" href="classcoverart__widgets_1_1_popup_button.html">PopupButton</a>      </li>
 
-    <li class="footer">Generated on Tue Aug 27 2013 23:46:20 for Coverart Browser by
+    <li class="footer">Generated on Fri Jan 24 2014 21:22:28 for Coverart Browser by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
    </ul>

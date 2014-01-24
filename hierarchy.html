@@ -33,7 +33,7 @@
   
   <td style="padding-left: 0.5em;">
    <div id="projectname">Coverart Browser
-   &#160;<span id="projectnumber">v0.9</span>
+   &#160;<span id="projectnumber">v1.0</span>
    </div>
    <div id="projectbrief">Browse your cover-art albums in Rhythmbox</div>
   </td>
@@ -101,18 +101,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 <div class="textblock">This inheritance list is sorted roughly, but not completely, alphabetically:</div><ul>
 <li><a class="el" href="classcoverart__browser__prefs_1_1_cover_locale_1_1____impl.html">coverart_browser_prefs.CoverLocale.__impl</a></li>
-<li><a class="el" href="classcoverart__browser__prefs_1_1_g_setting_1_1____impl.html">coverart_browser_prefs.GSetting.__impl</a></li>
 <li><a class="el" href="classcoverart__rb3compat_1_1_application_shell_1_1____impl.html">coverart_rb3compat.ApplicationShell.__impl</a></li>
+<li><a class="el" href="classcoverart__browser__prefs_1_1_g_setting_1_1____impl.html">coverart_browser_prefs.GSetting.__impl</a></li>
+<li><a class="el" href="classcoverart__browser__source_1_1_views_1_1__impl.html">coverart_browser_source.Views._impl</a></li>
 <li><a class="el" href="classcoverart__utils_1_1_theme_1_1__impl.html">coverart_utils.Theme._impl</a></li>
 <li><a class="el" href="classcoverart__widgets_1_1_abstract_view.html">coverart_widgets.AbstractView</a><ul>
 <li><a class="el" href="classcoverart__artistview_1_1_artist_view.html">coverart_artistview.ArtistView</a></li>
 <li><a class="el" href="classcoverart__coverflowview_1_1_cover_flow_view.html">coverart_coverflowview.CoverFlowView</a></li>
 <li><a class="el" href="classcoverart__covericonview_1_1_cover_icon_view.html">coverart_covericonview.CoverIconView</a></li>
+<li><a class="el" href="classcoverart__listview_1_1_list_view.html">coverart_listview.ListView</a></li>
 </ul>
 </li>
 <li><a class="el" href="classcoverart__rb3compat_1_1_action.html">coverart_rb3compat.Action</a></li>
 <li><a class="el" href="classcoverart__rb3compat_1_1_action_group.html">coverart_rb3compat.ActionGroup</a></li>
 <li><a class="el" href="classcoverart__album_1_1_album.html">coverart_album.Album</a></li>
+<li><a class="el" href="classcoverart__covericonview_1_1_album_art_cell_area.html">coverart_covericonview.AlbumArtCellArea</a></li>
 <li><a class="el" href="classcoverart__album_1_1_album_filters.html">coverart_album.AlbumFilters</a></li>
 <li><a class="el" href="classcoverart__album_1_1_album_loader.html">coverart_album.AlbumLoader</a></li>
 <li><a class="el" href="classcoverart__album_1_1_album_manager.html">coverart_album.AlbumManager</a></li>
@@ -120,8 +123,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li><a class="el" href="classcoverart__covericonview_1_1_album_showing_policy.html">coverart_covericonview.AlbumShowingPolicy</a></li>
 <li><a class="el" href="classcoverart__album_1_1_albums_model.html">coverart_album.AlbumsModel</a></li>
 <li><a class="el" href="classcoverart__rb3compat_1_1_application_shell.html">coverart_rb3compat.ApplicationShell</a></li>
+<li><a class="el" href="classcoverart__artistview_1_1_artist.html">coverart_artistview.Artist</a></li>
+<li><a class="el" href="classcoverart__artistview_1_1_artist_cell_renderer.html">coverart_artistview.ArtistCellRenderer</a></li>
+<li><a class="el" href="classcoverart__artistview_1_1_artist_loader.html">coverart_artistview.ArtistLoader</a></li>
+<li><a class="el" href="classcoverart__artistview_1_1_artist_manager.html">coverart_artistview.ArtistManager</a></li>
 <li><a class="el" href="classcoverart__artistview_1_1_artist_showing_policy.html">coverart_artistview.ArtistShowingPolicy</a></li>
+<li><a class="el" href="classcoverart__artistview_1_1_artists_model.html">coverart_artistview.ArtistsModel</a></li>
 <li><a class="el" href="classcoverart__utils_1_1_case_insensitive_dict.html">coverart_utils.CaseInsensitiveDict</a></li>
+<li><a class="el" href="classcoverart__covericonview_1_1_cell_renderer_thumb.html">coverart_covericonview.CellRendererThumb</a></li>
 <li><a class="el" href="classcoverart__utils_1_1_configured_sprite_sheet.html">coverart_utils.ConfiguredSpriteSheet</a><ul>
 <li><a class="el" href="classcoverart__utils_1_1_genre_configured_sprite_sheet.html">coverart_utils.GenreConfiguredSpriteSheet</a></li>
 </ul>
@@ -137,30 +146,51 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li><a class="el" href="classcoverart__entryview_1_1_cover_art_entry_view.html">coverart_entryview.CoverArtEntryView</a></li>
 <li><a class="el" href="classcoverart__export_1_1_cover_art_export.html">coverart_export.CoverArtExport</a></li>
 <li><a class="el" href="classcoverart__browser__prefs_1_1_cover_locale.html">coverart_browser_prefs.CoverLocale</a></li>
-<li><a class="el" href="classcoverart__album_1_1_cover_manager.html">coverart_album.CoverManager</a></li>
+<li><a class="el" href="classcoverart__album_1_1_cover_manager.html">coverart_album.CoverManager</a><ul>
+<li><a class="el" href="classcoverart__album_1_1_album_cover_manager.html">coverart_album.AlbumCoverManager</a></li>
+<li><a class="el" href="classcoverart__artistview_1_1_artist_cover_manager.html">coverart_artistview.ArtistCoverManager</a></li>
+</ul>
+</li>
 <li><a class="el" href="classcoverart__album_1_1_cover_requester.html">coverart_album.CoverRequester</a></li>
 <li><a class="el" href="classcoverart__search_1_1_cover_search_pane.html">coverart_search.CoverSearchPane</a></li>
 <li><a class="el" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html">coverart_external_plugins.CreateExternalPluginMenu</a></li>
 <li><a class="el" href="classcoverart__browser__source_1_1_custom_status_bar.html">coverart_browser_source.CustomStatusBar</a></li>
+<li><a class="el" href="classcoverart__widgets_1_1_enhanced_button.html">coverart_widgets.EnhancedButton</a><ul>
+<li><a class="el" href="classcoverart__widgets_1_1_pixbuf_button.html">coverart_widgets.PixbufButton</a><ul>
+<li><a class="el" href="classcoverart__widgets_1_1_image_toggle_button.html">coverart_widgets.ImageToggleButton</a></li>
+<li><a class="el" href="classcoverart__widgets_1_1_list_view_button.html">coverart_widgets.ListViewButton</a></li>
+<li><a class="el" href="classcoverart__widgets_1_1_menu_button.html">coverart_widgets.MenuButton</a></li>
+<li><a class="el" href="classcoverart__widgets_1_1_popup_button.html">coverart_widgets.PopupButton</a></li>
+</ul>
+</li>
+<li><a class="el" href="classcoverart__widgets_1_1_text_popup_button.html">coverart_widgets.TextPopupButton</a></li>
+</ul>
+</li>
 <li><a class="el" href="classcoverart__widgets_1_1_enhanced_icon_view.html">coverart_widgets.EnhancedIconView</a><ul>
 <li><a class="el" href="classcoverart__covericonview_1_1_cover_icon_view.html">coverart_covericonview.CoverIconView</a></li>
 </ul>
 </li>
 <li><a class="el" href="classcoverart__external__plugins_1_1_external_plugin.html">coverart_external_plugins.ExternalPlugin</a></li>
+<li><a class="el" href="classcoverart__browser_1_1_external_plugin_menu.html">coverart_browser.ExternalPluginMenu</a></li>
 <li><a class="el" href="classcoverart__utils_1_1_faux_tb.html">coverart_utils.FauxTb</a></li>
 <li><a class="el" href="classcoverart__coverflowview_1_1_flow_control.html">coverart_coverflowview.FlowControl</a></li>
 <li><a class="el" href="classcoverart__coverflowview_1_1_flow_showing_policy.html">coverart_coverflowview.FlowShowingPolicy</a></li>
 <li><a class="el" href="classcoverart__browser__prefs_1_1_g_setting.html">coverart_browser_prefs.GSetting</a></li>
 <li><a class="el" href="classcoverart__utils_1_1_idle_call_iterator.html">coverart_utils.IdleCallIterator</a></li>
+<li><a class="el" href="classcoverart__listview_1_1_list_showing_policy.html">coverart_listview.ListShowingPolicy</a></li>
 <li><a class="el" href="classcoverart__rb3compat_1_1_menu.html">coverart_rb3compat.Menu</a></li>
 <li><a class="el" href="classcoverart__utils_1_1_natural_string.html">coverart_utils.NaturalString</a></li>
 <li><a class="el" href="classcoverart__controllers_1_1_options_controller.html">coverart_controllers.OptionsController</a><ul>
 <li><a class="el" href="classcoverart__controllers_1_1_album_search_entry_controller.html">coverart_controllers.AlbumSearchEntryController</a></li>
+<li><a class="el" href="classcoverart__controllers_1_1_artist_sort_popup_controller.html">coverart_controllers.ArtistSortPopupController</a></li>
 <li><a class="el" href="classcoverart__controllers_1_1_decade_popup_controller.html">coverart_controllers.DecadePopupController</a></li>
 <li><a class="el" href="classcoverart__controllers_1_1_genre_popup_controller.html">coverart_controllers.GenrePopupController</a></li>
 <li><a class="el" href="classcoverart__controllers_1_1_playlist_popup_controller.html">coverart_controllers.PlaylistPopupController</a></li>
 <li><a class="el" href="classcoverart__controllers_1_1_properties_menu_controller.html">coverart_controllers.PropertiesMenuController</a></li>
-<li><a class="el" href="classcoverart__controllers_1_1_sort_order_toggle_controller.html">coverart_controllers.SortOrderToggleController</a></li>
+<li><a class="el" href="classcoverart__controllers_1_1_sort_order_toggle_controller.html">coverart_controllers.SortOrderToggleController</a><ul>
+<li><a class="el" href="classcoverart__controllers_1_1_artist_sort_order_toggle_controller.html">coverart_controllers.ArtistSortOrderToggleController</a></li>
+</ul>
+</li>
 <li><a class="el" href="classcoverart__controllers_1_1_sort_popup_controller.html">coverart_controllers.SortPopupController</a></li>
 <li><a class="el" href="classcoverart__controllers_1_1_view_controller.html">coverart_controllers.ViewController</a></li>
 </ul>
@@ -176,18 +206,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li><a class="el" href="classcoverart__widgets_1_1_menu_button.html">coverart_widgets.MenuButton</a></li>
 <li><a class="el" href="classcoverart__widgets_1_1_popup_button.html">coverart_widgets.PopupButton</a></li>
 <li><a class="el" href="classcoverart__widgets_1_1_search_entry.html">coverart_widgets.SearchEntry</a></li>
+<li><a class="el" href="classcoverart__widgets_1_1_text_popup_button.html">coverart_widgets.TextPopupButton</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li><a class="el" href="classcoverart__widgets_1_1_paned_collapsible.html">coverart_widgets.PanedCollapsible</a></li>
-<li><a class="el" href="classcoverart__widgets_1_1_pixbuf_button.html">coverart_widgets.PixbufButton</a><ul>
-<li><a class="el" href="classcoverart__widgets_1_1_image_toggle_button.html">coverart_widgets.ImageToggleButton</a></li>
-<li><a class="el" href="classcoverart__widgets_1_1_list_view_button.html">coverart_widgets.ListViewButton</a></li>
-<li><a class="el" href="classcoverart__widgets_1_1_menu_button.html">coverart_widgets.MenuButton</a></li>
-<li><a class="el" href="classcoverart__widgets_1_1_popup_button.html">coverart_widgets.PopupButton</a></li>
-</ul>
-</li>
 <li><a class="el" href="classcoverart__browser__prefs_1_1_preferences.html">coverart_browser_prefs.Preferences</a></li>
 <li><a class="el" href="classcoverart__widgets_1_1_proxy_popup_button.html">coverart_widgets.ProxyPopupButton</a></li>
 <li><a class="el" href="classcoverart__widgets_1_1_quick_search_entry.html">coverart_widgets.QuickSearchEntry</a></li>
@@ -213,15 +237,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li><a class="el" href="classem_1_1_stock_ems.html">em.StockEms</a></li>
 <li><a class="el" href="classcoverart__album_1_1_text_manager.html">coverart_album.TextManager</a></li>
 <li><a class="el" href="classcoverart__utils_1_1_theme.html">coverart_utils.Theme</a></li>
-<li><a class="el" href="classcoverart__browser__source_1_1_toolbar.html">coverart_browser_source.Toolbar</a><ul>
-<li><a class="el" href="classcoverart__browser__source_1_1_left_toolbar.html">coverart_browser_source.LeftToolbar</a></li>
-<li><a class="el" href="classcoverart__browser__source_1_1_right_toolbar.html">coverart_browser_source.RightToolbar</a></li>
-<li><a class="el" href="classcoverart__browser__source_1_1_top_toolbar.html">coverart_browser_source.TopToolbar</a></li>
+<li><a class="el" href="classcoverart__toolbar_1_1_toolbar.html">coverart_toolbar.Toolbar</a><ul>
+<li><a class="el" href="classcoverart__toolbar_1_1_left_toolbar.html">coverart_toolbar.LeftToolbar</a></li>
+<li><a class="el" href="classcoverart__toolbar_1_1_right_toolbar.html">coverart_toolbar.RightToolbar</a></li>
+<li><a class="el" href="classcoverart__toolbar_1_1_top_toolbar.html">coverart_toolbar.TopToolbar</a></li>
 </ul>
 </li>
-<li><a class="el" href="classcoverart__browser__source_1_1_toolbar_manager.html">coverart_browser_source.ToolbarManager</a></li>
+<li><a class="el" href="classcoverart__toolbar_1_1_toolbar_manager.html">coverart_toolbar.ToolbarManager</a></li>
+<li><a class="el" href="classcoverart__toolbar_1_1_toolbar_object.html">coverart_toolbar.ToolbarObject</a></li>
 <li><a class="el" href="classcoverart__album_1_1_track.html">coverart_album.Track</a></li>
 <li><a class="el" href="classcoverart__browser__source_1_1_view_manager.html">coverart_browser_source.ViewManager</a></li>
+<li><a class="el" href="classcoverart__browser__source_1_1_views.html">coverart_browser_source.Views</a></li>
 </ul>
 </div><!-- contents -->
 <!-- window showing the filter options -->
@@ -242,7 +268,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="nav-path" class="navpath">
     <ul>
 
-    <li class="footer">Generated on Tue Aug 27 2013 23:46:21 for Coverart Browser by
+    <li class="footer">Generated on Fri Jan 24 2014 21:22:28 for Coverart Browser by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
    </ul>

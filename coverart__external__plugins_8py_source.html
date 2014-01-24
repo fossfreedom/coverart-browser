@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Coverart Browser: /home/home/dad/Downloads/coverart-browser/coverart_external_plugins.py Source File</title>
+<title>Coverart Browser: /home/foss/Downloads/coverart-browser/coverart_external_plugins.py Source File</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -33,7 +33,7 @@
   
   <td style="padding-left: 0.5em;">
    <div id="projectname">Coverart Browser
-   &#160;<span id="projectnumber">v0.9</span>
+   &#160;<span id="projectnumber">v1.0</span>
    </div>
    <div id="projectbrief">Browse your cover-art albums in Rhythmbox</div>
   </td>
@@ -93,7 +93,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div id="doc-content">
 <div class="header">
   <div class="headertitle">
-<div class="title">/home/home/dad/Downloads/coverart-browser/coverart_external_plugins.py</div>  </div>
+<div class="title">/home/foss/Downloads/coverart-browser/coverart_external_plugins.py</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment"># -*- Mode: python; coding: utf-8; tab-width: 4; indent-tabs-mode: nil; -*-</span>
@@ -125,69 +125,69 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00027"></a>00027 <span class="keyword">from</span> coverart_rb3compat <span class="keyword">import</span> Action
 <a name="l00028"></a>00028 <span class="keyword">from</span> coverart_rb3compat <span class="keyword">import</span> ApplicationShell
 <a name="l00029"></a>00029 <span class="keyword">from</span> coverart_rb3compat <span class="keyword">import</span> Menu
-<a name="l00030"></a>00030 
-<a name="l00031"></a><a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html">00031</a> <span class="keyword">class </span><a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html">ExternalPlugin</a>(GObject.Object):
-<a name="l00032"></a>00032     <span class="stringliteral">&#39;&#39;&#39;</span>
-<a name="l00033"></a>00033 <span class="stringliteral">    class for all supported ExternalPlugins</span>
-<a name="l00034"></a>00034 <span class="stringliteral">    &#39;&#39;&#39;</span>
-<a name="l00035"></a>00035     <span class="keyword">def </span>__init__(self, **kargs):
-<a name="l00036"></a>00036         super(ExternalPlugin, self).__init__(**kargs)
-<a name="l00037"></a>00037 
-<a name="l00038"></a>00038         <span class="comment"># dict of attributes associated with the external plugin</span>
-<a name="l00039"></a>00039         self.<a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#ab3f914146a8d73bf409e9314bd2c4f90">attributes</a> = {}
-<a name="l00040"></a>00040         self.<a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#ab3f914146a8d73bf409e9314bd2c4f90">attributes</a>[<span class="stringliteral">&#39;is_album_menu&#39;</span>] = <span class="keyword">False</span>
-<a name="l00041"></a>00041         self.<a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#ab3f914146a8d73bf409e9314bd2c4f90">attributes</a>[<span class="stringliteral">&#39;new_menu_name&#39;</span>] = <span class="stringliteral">&#39;&#39;</span>
-<a name="l00042"></a>00042         self.<a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#ab3f914146a8d73bf409e9314bd2c4f90">attributes</a>[<span class="stringliteral">&#39;action_type&#39;</span>] = <span class="stringliteral">&#39;&#39;</span>
-<a name="l00043"></a>00043         self.<a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#ab3f914146a8d73bf409e9314bd2c4f90">attributes</a>[<span class="stringliteral">&#39;action_group_name&#39;</span>] = <span class="stringliteral">&#39;&#39;</span>
-<a name="l00044"></a>00044 
-<a name="l00045"></a><a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#a37a088d6bfe8a0cbf625be9f43863f57">00045</a>     <span class="keyword">def </span><a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#a37a088d6bfe8a0cbf625be9f43863f57">appendattribute</a>(self, key, val):
-<a name="l00046"></a>00046         <span class="stringliteral">&#39;&#39;&#39;</span>
-<a name="l00047"></a>00047 <span class="stringliteral">        append another attribute to the dict</span>
-<a name="l00048"></a>00048 <span class="stringliteral">        </span>
-<a name="l00049"></a>00049 <span class="stringliteral">        :param key: `str` name of attribute</span>
-<a name="l00050"></a>00050 <span class="stringliteral">        :param val: `str` value of attribute</span>
-<a name="l00051"></a>00051 <span class="stringliteral">        &#39;&#39;&#39;</span>
-<a name="l00052"></a>00052         
-<a name="l00053"></a>00053         <span class="keywordflow">if</span> key == <span class="stringliteral">&#39;is_album_menu&#39;</span>:
-<a name="l00054"></a>00054             <span class="keywordflow">if</span> val == <span class="stringliteral">&#39;yes&#39;</span>:
-<a name="l00055"></a>00055                 self.<a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#ab3f914146a8d73bf409e9314bd2c4f90">attributes</a>[key] = <span class="keyword">True</span>
-<a name="l00056"></a>00056             <span class="keywordflow">else</span>:
-<a name="l00057"></a>00057                 self.<a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#ab3f914146a8d73bf409e9314bd2c4f90">attributes</a>[key] = <span class="keyword">False</span>
-<a name="l00058"></a>00058         <span class="keywordflow">else</span>:
-<a name="l00059"></a>00059             self.<a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#ab3f914146a8d73bf409e9314bd2c4f90">attributes</a>[key] = val
-<a name="l00060"></a>00060 
-<a name="l00061"></a><a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#a0954e31f5d3452869fe1b20d3284cf5a">00061</a>     <span class="keyword">def </span><a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#a0954e31f5d3452869fe1b20d3284cf5a">is_activated</a>(self):
-<a name="l00062"></a>00062         <span class="stringliteral">&#39;&#39;&#39;</span>
-<a name="l00063"></a>00063 <span class="stringliteral">        method to test whether the plugin is actually loaded. Returns a bool</span>
-<a name="l00064"></a>00064 <span class="stringliteral">        &#39;&#39;&#39;</span>
-<a name="l00065"></a>00065         peas = Peas.Engine.get_default()
-<a name="l00066"></a>00066         loaded_plugins = peas.get_loaded_plugins()
-<a name="l00067"></a>00067 
-<a name="l00068"></a>00068         <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#ab3f914146a8d73bf409e9314bd2c4f90">attributes</a>[<span class="stringliteral">&#39;plugin_name&#39;</span>] <span class="keywordflow">in</span> loaded_plugins:
-<a name="l00069"></a>00069             <span class="keywordflow">print</span> (<span class="stringliteral">&quot;found %s&quot;</span> % self.<a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#ab3f914146a8d73bf409e9314bd2c4f90">attributes</a>[<span class="stringliteral">&#39;plugin_name&#39;</span>])
-<a name="l00070"></a>00070             <span class="keywordflow">return</span> <span class="keyword">True</span>
-<a name="l00071"></a>00071 
-<a name="l00072"></a>00072         <span class="keywordflow">print</span> (<span class="stringliteral">&quot;search for %s&quot;</span> % self.<a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#ab3f914146a8d73bf409e9314bd2c4f90">attributes</a>[<span class="stringliteral">&#39;plugin_name&#39;</span>])
-<a name="l00073"></a>00073         <span class="keywordflow">print</span> (loaded_plugins)
-<a name="l00074"></a>00074         
-<a name="l00075"></a>00075         <span class="keywordflow">return</span> <span class="keyword">False</span>
-<a name="l00076"></a>00076 
-<a name="l00077"></a><a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#a1cf26762d2f84004846ccd2ef7f30810">00077</a>     <span class="keyword">def </span><a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#a1cf26762d2f84004846ccd2ef7f30810">create_menu_item</a>(self, menubar, section_name, at_position,
-<a name="l00078"></a>00078         save_actiongroup, save_menu, for_album = <span class="keyword">False</span>):
-<a name="l00079"></a>00079         <span class="stringliteral">&#39;&#39;&#39;</span>
-<a name="l00080"></a>00080 <span class="stringliteral">        method to create the menu item appropriate to the plugin.</span>
-<a name="l00081"></a>00081 <span class="stringliteral">        A plugin can have many menu items - all menuitems are enclosed</span>
-<a name="l00082"></a>00082 <span class="stringliteral">        in a section.</span>
-<a name="l00083"></a>00083 <span class="stringliteral">        </span>
-<a name="l00084"></a>00084 <span class="stringliteral">        :param menubar: `str` name for the GtkMenu - ignored for RB2.99</span>
-<a name="l00085"></a>00085 <span class="stringliteral">        :param section_name: `str` unique name of the section holding the menu items</span>
-<a name="l00086"></a>00086 <span class="stringliteral">        :param at_position: `int` position within the GtkMenu to create menu - ignored for RB2.99</span>
-<a name="l00087"></a>00087 <span class="stringliteral">        :param save_actiongroup: `ActionGroup` container for all menu-item Actions</span>
-<a name="l00088"></a>00088 <span class="stringliteral">        :param save_menu: `Menu` whole popupmenu including sub-menus</span>
-<a name="l00089"></a>00089 <span class="stringliteral">        :param for_album: `bool` create the menu for the album - if not given</span>
-<a name="l00090"></a>00090 <span class="stringliteral">          then its assumed the menu item is appropriate just for tracks</span>
-<a name="l00091"></a>00091 <span class="stringliteral">        &#39;&#39;&#39;</span>
-<a name="l00092"></a>00092 
+<a name="l00030"></a>00030 <span class="keyword">from</span> coverart_utils <span class="keyword">import</span> CaseInsensitiveDict
+<a name="l00031"></a>00031 
+<a name="l00032"></a><a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html">00032</a> <span class="keyword">class </span><a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html">ExternalPlugin</a>(GObject.Object):
+<a name="l00033"></a>00033     <span class="stringliteral">&#39;&#39;&#39;</span>
+<a name="l00034"></a>00034 <span class="stringliteral">    class for all supported ExternalPlugins</span>
+<a name="l00035"></a>00035 <span class="stringliteral">    &#39;&#39;&#39;</span>
+<a name="l00036"></a>00036     <span class="keyword">def </span>__init__(self, **kargs):
+<a name="l00037"></a>00037         super(ExternalPlugin, self).__init__(**kargs)
+<a name="l00038"></a>00038 
+<a name="l00039"></a>00039         <span class="comment"># dict of attributes associated with the external plugin</span>
+<a name="l00040"></a>00040         self.<a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#ab3f914146a8d73bf409e9314bd2c4f90">attributes</a> = {}
+<a name="l00041"></a>00041         self.<a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#ab3f914146a8d73bf409e9314bd2c4f90">attributes</a>[<span class="stringliteral">&#39;is_album_menu&#39;</span>] = <span class="keyword">False</span>
+<a name="l00042"></a>00042         self.<a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#ab3f914146a8d73bf409e9314bd2c4f90">attributes</a>[<span class="stringliteral">&#39;new_menu_name&#39;</span>] = <span class="stringliteral">&#39;&#39;</span>
+<a name="l00043"></a>00043         self.<a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#ab3f914146a8d73bf409e9314bd2c4f90">attributes</a>[<span class="stringliteral">&#39;action_type&#39;</span>] = <span class="stringliteral">&#39;&#39;</span>
+<a name="l00044"></a>00044         self.<a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#ab3f914146a8d73bf409e9314bd2c4f90">attributes</a>[<span class="stringliteral">&#39;action_group_name&#39;</span>] = <span class="stringliteral">&#39;&#39;</span>
+<a name="l00045"></a>00045 
+<a name="l00046"></a><a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#a37a088d6bfe8a0cbf625be9f43863f57">00046</a>     <span class="keyword">def </span><a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#a37a088d6bfe8a0cbf625be9f43863f57">appendattribute</a>(self, key, val):
+<a name="l00047"></a>00047         <span class="stringliteral">&#39;&#39;&#39;</span>
+<a name="l00048"></a>00048 <span class="stringliteral">        append another attribute to the dict</span>
+<a name="l00049"></a>00049 <span class="stringliteral">        </span>
+<a name="l00050"></a>00050 <span class="stringliteral">        :param key: `str` name of attribute</span>
+<a name="l00051"></a>00051 <span class="stringliteral">        :param val: `str` value of attribute</span>
+<a name="l00052"></a>00052 <span class="stringliteral">        &#39;&#39;&#39;</span>
+<a name="l00053"></a>00053         
+<a name="l00054"></a>00054         <span class="keywordflow">if</span> key == <span class="stringliteral">&#39;is_album_menu&#39;</span>:
+<a name="l00055"></a>00055             <span class="keywordflow">if</span> val == <span class="stringliteral">&#39;yes&#39;</span>:
+<a name="l00056"></a>00056                 self.<a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#ab3f914146a8d73bf409e9314bd2c4f90">attributes</a>[key] = <span class="keyword">True</span>
+<a name="l00057"></a>00057             <span class="keywordflow">else</span>:
+<a name="l00058"></a>00058                 self.<a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#ab3f914146a8d73bf409e9314bd2c4f90">attributes</a>[key] = <span class="keyword">False</span>
+<a name="l00059"></a>00059         <span class="keywordflow">else</span>:
+<a name="l00060"></a>00060             self.<a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#ab3f914146a8d73bf409e9314bd2c4f90">attributes</a>[key] = val
+<a name="l00061"></a>00061 
+<a name="l00062"></a><a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#a0954e31f5d3452869fe1b20d3284cf5a">00062</a>     <span class="keyword">def </span><a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#a0954e31f5d3452869fe1b20d3284cf5a">is_activated</a>(self):
+<a name="l00063"></a>00063         <span class="stringliteral">&#39;&#39;&#39;</span>
+<a name="l00064"></a>00064 <span class="stringliteral">        method to test whether the plugin is actually loaded. Returns a bool</span>
+<a name="l00065"></a>00065 <span class="stringliteral">        &#39;&#39;&#39;</span>
+<a name="l00066"></a>00066         peas = Peas.Engine.get_default()
+<a name="l00067"></a>00067         loaded_plugins = peas.get_loaded_plugins()
+<a name="l00068"></a>00068 
+<a name="l00069"></a>00069         <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#ab3f914146a8d73bf409e9314bd2c4f90">attributes</a>[<span class="stringliteral">&#39;plugin_name&#39;</span>] <span class="keywordflow">in</span> <a class="code" href="classcoverart__utils_1_1_case_insensitive_dict.html">CaseInsensitiveDict</a>(loaded_plugins):
+<a name="l00070"></a>00070             <span class="keywordflow">print</span> (<span class="stringliteral">&quot;found %s&quot;</span> % self.<a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#ab3f914146a8d73bf409e9314bd2c4f90">attributes</a>[<span class="stringliteral">&#39;plugin_name&#39;</span>])
+<a name="l00071"></a>00071             <span class="keywordflow">return</span> <span class="keyword">True</span>
+<a name="l00072"></a>00072 
+<a name="l00073"></a>00073         <span class="keywordflow">print</span> (<span class="stringliteral">&quot;search for %s&quot;</span> % self.<a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#ab3f914146a8d73bf409e9314bd2c4f90">attributes</a>[<span class="stringliteral">&#39;plugin_name&#39;</span>])
+<a name="l00074"></a>00074         <span class="keywordflow">print</span> (loaded_plugins)
+<a name="l00075"></a>00075         
+<a name="l00076"></a>00076         <span class="keywordflow">return</span> <span class="keyword">False</span>
+<a name="l00077"></a>00077 
+<a name="l00078"></a><a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#a1cf26762d2f84004846ccd2ef7f30810">00078</a>     <span class="keyword">def </span><a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#a1cf26762d2f84004846ccd2ef7f30810">create_menu_item</a>(self, menubar, section_name, at_position,
+<a name="l00079"></a>00079         save_actiongroup, save_menu, for_album = <span class="keyword">False</span>):
+<a name="l00080"></a>00080         <span class="stringliteral">&#39;&#39;&#39;</span>
+<a name="l00081"></a>00081 <span class="stringliteral">        method to create the menu item appropriate to the plugin.</span>
+<a name="l00082"></a>00082 <span class="stringliteral">        A plugin can have many menu items - all menuitems are enclosed</span>
+<a name="l00083"></a>00083 <span class="stringliteral">        in a section.</span>
+<a name="l00084"></a>00084 <span class="stringliteral">        </span>
+<a name="l00085"></a>00085 <span class="stringliteral">        :param menubar: `str` name for the GtkMenu - ignored for RB2.99</span>
+<a name="l00086"></a>00086 <span class="stringliteral">        :param section_name: `str` unique name of the section holding the menu items</span>
+<a name="l00087"></a>00087 <span class="stringliteral">        :param at_position: `int` position within the GtkMenu to create menu - ignored for RB2.99</span>
+<a name="l00088"></a>00088 <span class="stringliteral">        :param save_actiongroup: `ActionGroup` container for all menu-item Actions</span>
+<a name="l00089"></a>00089 <span class="stringliteral">        :param save_menu: `Menu` whole popupmenu including sub-menus</span>
+<a name="l00090"></a>00090 <span class="stringliteral">        :param for_album: `bool` create the menu for the album - if not given</span>
+<a name="l00091"></a>00091 <span class="stringliteral">          then its assumed the menu item is appropriate just for tracks</span>
+<a name="l00092"></a>00092 <span class="stringliteral">        &#39;&#39;&#39;</span>
 <a name="l00093"></a>00093         <span class="keywordflow">if</span> for_album <span class="keywordflow">and</span> <span class="keywordflow">not</span> self.<a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#ab3f914146a8d73bf409e9314bd2c4f90">attributes</a>[<span class="stringliteral">&#39;is_album_menu&#39;</span>]:
 <a name="l00094"></a>00094             <span class="keywordflow">return</span> <span class="keyword">False</span>
 <a name="l00095"></a>00095             
@@ -214,121 +214,120 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00116"></a>00116         
 <a name="l00117"></a>00117         new_menu_item = save_menu.insert_menu_item(menubar, section_name,
 <a name="l00118"></a>00118             at_position, action)
-<a name="l00119"></a>00119 
-<a name="l00120"></a>00120         <span class="keywordflow">return</span> new_menu_item
-<a name="l00121"></a>00121         
-<a name="l00122"></a>00122     <span class="keyword">def </span>do_deactivate(self):
-<a name="l00123"></a>00123         <span class="keywordflow">pass</span>
-<a name="l00124"></a>00124 
-<a name="l00125"></a><a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#a4eb30a857779f10b4a9d4ba6d9ca5beb">00125</a>     <span class="keyword">def </span><a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#a4eb30a857779f10b4a9d4ba6d9ca5beb">set_entry_view_selected_entries</a>(self, shell):
-<a name="l00126"></a>00126         <span class="stringliteral">&#39;&#39;&#39;</span>
-<a name="l00127"></a>00127 <span class="stringliteral">        method called just before the external plugin action is activated</span>
-<a name="l00128"></a>00128 <span class="stringliteral"></span>
-<a name="l00129"></a>00129 <span class="stringliteral">        Normally only called for album menus to mimic selecting all the</span>
-<a name="l00130"></a>00130 <span class="stringliteral">        EntryView rows</span>
-<a name="l00131"></a>00131 <span class="stringliteral">        &#39;&#39;&#39;</span>
-<a name="l00132"></a>00132         page = shell.props.selected_page
-<a name="l00133"></a>00133         <span class="keywordflow">if</span> <span class="keywordflow">not</span> hasattr(page, <span class="stringliteral">&quot;get_entry_view&quot;</span>):
-<a name="l00134"></a>00134             <span class="keywordflow">return</span>
-<a name="l00135"></a>00135 
-<a name="l00136"></a>00136         page.get_entry_view().select_all()
-<a name="l00137"></a>00137 
-<a name="l00138"></a><a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#a0ed6a9d290551b29b52b1e69b2032e67">00138</a>     <span class="keyword">def </span><a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#a0ed6a9d290551b29b52b1e69b2032e67">menuitem_callback</a>(self, action, param, args):
-<a name="l00139"></a>00139         <span class="stringliteral">&#39;&#39;&#39;</span>
-<a name="l00140"></a>00140 <span class="stringliteral">        method called when a menu-item is clicked.  Basically, an Action</span>
-<a name="l00141"></a>00141 <span class="stringliteral">        is activated by the user</span>
-<a name="l00142"></a>00142 <span class="stringliteral">        </span>
-<a name="l00143"></a>00143 <span class="stringliteral">        :param action: `Gio.SimpleAction` or `Gtk.Action`</span>
-<a name="l00144"></a>00144 <span class="stringliteral">        :param param: Not used</span>
-<a name="l00145"></a>00145 <span class="stringliteral">        :param args: dict associated with the action</span>
-<a name="l00146"></a>00146 <span class="stringliteral">        &#39;&#39;&#39;</span>
-<a name="l00147"></a>00147         for_album = args[<span class="stringliteral">&#39;album&#39;</span>]
-<a name="l00148"></a>00148         shell = args[<span class="stringliteral">&#39;shell&#39;</span>]
-<a name="l00149"></a>00149         <span class="keywordflow">if</span> for_album:
-<a name="l00150"></a>00150             self.<a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#a4eb30a857779f10b4a9d4ba6d9ca5beb">set_entry_view_selected_entries</a>(shell)
-<a name="l00151"></a>00151             
-<a name="l00152"></a>00152         self.<a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#ab3f914146a8d73bf409e9314bd2c4f90">attributes</a>[<span class="stringliteral">&#39;action&#39;</span>].activate()
-<a name="l00153"></a>00153 
-<a name="l00154"></a><a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html">00154</a> <span class="keyword">class </span><a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html">CreateExternalPluginMenu</a>(GObject.Object):
-<a name="l00155"></a>00155     <span class="stringliteral">&#39;&#39;&#39;</span>
-<a name="l00156"></a>00156 <span class="stringliteral">    This is the key class called to initialise all supported plugins</span>
-<a name="l00157"></a>00157 <span class="stringliteral">    </span>
-<a name="l00158"></a>00158 <span class="stringliteral">    :param section_name: `str` unique name of the section holding the menu items</span>
-<a name="l00159"></a>00159 <span class="stringliteral">    :param at_position: `int` position within the GtkMenu to create menu - ignored for RB2.99</span>
-<a name="l00160"></a>00160 <span class="stringliteral">    :param popup: `Menu` whole popupmenu including sub-menus</span>
-<a name="l00161"></a>00161 <span class="stringliteral">    &#39;&#39;&#39;</span>
-<a name="l00162"></a>00162     <span class="keyword">def </span>__init__(self, section_name, at_position, popup, **kargs):
-<a name="l00163"></a>00163         super(CreateExternalPluginMenu, self).__init__(**kargs)
-<a name="l00164"></a>00164 
-<a name="l00165"></a>00165         self.<a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#aeea9c040ddc79ca43d47f00482f53450">menu</a> = popup
-<a name="l00166"></a>00166         self.<a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#a1e76209b31aaba1bd5c428a902e08391">section_name</a> = section_name
-<a name="l00167"></a>00167         self.<a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#a676e158b3e0f711705ba9e768b062d75">at_position</a> = at_position
-<a name="l00168"></a>00168         
-<a name="l00169"></a>00169         self.<a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#a99e028c26c3f9b8c50d5e997ef030f08">_actiongroup</a> = <a class="code" href="classcoverart__rb3compat_1_1_action_group.html">ActionGroup</a>(popup.shell, section_name + <span class="stringliteral">&#39;_externalplugins&#39;</span>)
-<a name="l00170"></a>00170         
-<a name="l00171"></a>00171         <span class="comment"># all supported plugins will be defined in the following array by parsing</span>
-<a name="l00172"></a>00172         <span class="comment"># the plugins XML file for the definition.  Supported plugins are split between</span>
-<a name="l00173"></a>00173         <span class="comment"># rb2.99 and later and rb2.98 and earlier due to the likelihood that earlier</span>
-<a name="l00174"></a>00174         <span class="comment"># plugins may never be updated by their authors</span>
-<a name="l00175"></a>00175         
-<a name="l00176"></a>00176         self.<a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#a7a3bb884baf417b64be99b86df140283">supported_plugins</a> = []
-<a name="l00177"></a>00177         
-<a name="l00178"></a>00178         extplugins = rb.find_plugin_file(popup.plugin, <span class="stringliteral">&#39;ui/coverart_external_plugins.xml&#39;</span>)
-<a name="l00179"></a>00179         root = ET.parse(open(extplugins)).getroot()
-<a name="l00180"></a>00180 
-<a name="l00181"></a>00181         <span class="keywordflow">if</span> rb3compat.is_rb3(popup.shell):
-<a name="l00182"></a>00182             base = <span class="stringliteral">&#39;rb3/plugin&#39;</span>
-<a name="l00183"></a>00183         <span class="keywordflow">else</span>:
-<a name="l00184"></a>00184             base = <span class="stringliteral">&#39;rb2/plugin&#39;</span>
-<a name="l00185"></a>00185 
-<a name="l00186"></a>00186         <span class="keywordflow">for</span> elem <span class="keywordflow">in</span> root.xpath(base):
-<a name="l00187"></a>00187             pluginname = elem.attrib[<span class="stringliteral">&#39;name&#39;</span>]
-<a name="l00188"></a>00188 
-<a name="l00189"></a>00189             basemenu = base + <span class="stringliteral">&quot;[@name=&#39;&quot;</span> + pluginname + <span class="stringliteral">&quot;&#39;]/menu&quot;</span>
-<a name="l00190"></a>00190             
-<a name="l00191"></a>00191             <span class="keywordflow">for</span> menuelem <span class="keywordflow">in</span> root.xpath(basemenu):
-<a name="l00192"></a>00192                 ext = <a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html">ExternalPlugin</a>()
-<a name="l00193"></a>00193                 ext.appendattribute(<span class="stringliteral">&#39;plugin_name&#39;</span>, pluginname)
-<a name="l00194"></a>00194 
-<a name="l00195"></a>00195                 label = menuelem.attrib[<span class="stringliteral">&#39;label&#39;</span>]
-<a name="l00196"></a>00196                 <span class="keywordflow">if</span> label != <span class="stringliteral">&quot;&quot;</span>:
-<a name="l00197"></a>00197                     ext.appendattribute(<span class="stringliteral">&#39;new_menu_name&#39;</span>, label)
-<a name="l00198"></a>00198                     baseattrib = basemenu + <span class="stringliteral">&quot;[@label=&#39;&quot;</span> + label + <span class="stringliteral">&quot;&#39;]/attribute&quot;</span>
-<a name="l00199"></a>00199                 <span class="keywordflow">else</span>:
-<a name="l00200"></a>00200                     baseattrib = basemenu + <span class="stringliteral">&quot;/attribute&quot;</span>
-<a name="l00201"></a>00201 
-<a name="l00202"></a>00202                 <span class="keywordflow">for</span> attribelem <span class="keywordflow">in</span> root.xpath(baseattrib):
-<a name="l00203"></a>00203                     key = attribelem.attrib[<span class="stringliteral">&#39;name&#39;</span>]
-<a name="l00204"></a>00204                     val = attribelem.text
-<a name="l00205"></a>00205                     ext.appendattribute(key, val)
-<a name="l00206"></a>00206 
-<a name="l00207"></a>00207                 self.supported_plugins.append(ext)
-<a name="l00208"></a>00208         
-<a name="l00209"></a><a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#ad781dc0b2cc31d29d0e7f6581fd467a5">00209</a>     <span class="keyword">def </span><a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#ad781dc0b2cc31d29d0e7f6581fd467a5">create_menu</a>(self, menu_name, for_album = False):
-<a name="l00210"></a>00210         <span class="stringliteral">&#39;&#39;&#39;</span>
-<a name="l00211"></a>00211 <span class="stringliteral">        method to create the menu items for all supported plugins</span>
-<a name="l00212"></a>00212 <span class="stringliteral"></span>
-<a name="l00213"></a>00213 <span class="stringliteral">        :param menu_name: `str` unique name (GtkMenu) id for the menu to create</span>
-<a name="l00214"></a>00214 <span class="stringliteral">        :for_album: `bool` - create a menu applicable for Albums</span>
-<a name="l00215"></a>00215 <span class="stringliteral">          by default a menu is assumed to be applicable to a track in an</span>
-<a name="l00216"></a>00216 <span class="stringliteral">          EntryView</span>
-<a name="l00217"></a>00217 <span class="stringliteral">        &#39;&#39;&#39;</span>
-<a name="l00218"></a>00218         self.<a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#a5da4787fc5b1303f4b1f51a75e739956">menu_name</a> = menu_name
-<a name="l00219"></a>00219         
-<a name="l00220"></a>00220         self._actiongroup.remove_actions()        
-<a name="l00221"></a>00221         self.menu.remove_menu_items(self.<a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#a5da4787fc5b1303f4b1f51a75e739956">menu_name</a>, self.<a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#a1e76209b31aaba1bd5c428a902e08391">section_name</a>)
-<a name="l00222"></a>00222         
-<a name="l00223"></a>00223         items_added = <span class="keyword">False</span>
-<a name="l00224"></a>00224 
-<a name="l00225"></a>00225         <span class="keywordflow">for</span> plugin <span class="keywordflow">in</span> self.<a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#a7a3bb884baf417b64be99b86df140283">supported_plugins</a>:
-<a name="l00226"></a>00226             new_menu_item = plugin.create_menu_item(self.<a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#a5da4787fc5b1303f4b1f51a75e739956">menu_name</a>, self.<a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#a1e76209b31aaba1bd5c428a902e08391">section_name</a>,
-<a name="l00227"></a>00227                 self.<a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#a676e158b3e0f711705ba9e768b062d75">at_position</a>, self.<a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#a99e028c26c3f9b8c50d5e997ef030f08">_actiongroup</a>, self.<a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#aeea9c040ddc79ca43d47f00482f53450">menu</a>, for_album)
-<a name="l00228"></a>00228 
-<a name="l00229"></a>00229             <span class="keywordflow">if</span> (<span class="keywordflow">not</span> items_added) <span class="keywordflow">and</span> new_menu_item:
-<a name="l00230"></a>00230                 items_added = <span class="keyword">True</span> 
-<a name="l00231"></a>00231 
-<a name="l00232"></a>00232         <span class="keywordflow">if</span> items_added:
-<a name="l00233"></a>00233             self.menu.insert_separator(self.<a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#a5da4787fc5b1303f4b1f51a75e739956">menu_name</a>, self.<a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#a676e158b3e0f711705ba9e768b062d75">at_position</a>)
+<a name="l00119"></a>00119         <span class="keywordflow">return</span> new_menu_item
+<a name="l00120"></a>00120         
+<a name="l00121"></a>00121     <span class="keyword">def </span>do_deactivate(self):
+<a name="l00122"></a>00122         <span class="keywordflow">pass</span>
+<a name="l00123"></a>00123 
+<a name="l00124"></a><a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#a4eb30a857779f10b4a9d4ba6d9ca5beb">00124</a>     <span class="keyword">def </span><a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#a4eb30a857779f10b4a9d4ba6d9ca5beb">set_entry_view_selected_entries</a>(self, shell):
+<a name="l00125"></a>00125         <span class="stringliteral">&#39;&#39;&#39;</span>
+<a name="l00126"></a>00126 <span class="stringliteral">        method called just before the external plugin action is activated</span>
+<a name="l00127"></a>00127 <span class="stringliteral"></span>
+<a name="l00128"></a>00128 <span class="stringliteral">        Normally only called for album menus to mimic selecting all the</span>
+<a name="l00129"></a>00129 <span class="stringliteral">        EntryView rows</span>
+<a name="l00130"></a>00130 <span class="stringliteral">        &#39;&#39;&#39;</span>
+<a name="l00131"></a>00131         page = shell.props.selected_page
+<a name="l00132"></a>00132         <span class="keywordflow">if</span> <span class="keywordflow">not</span> hasattr(page, <span class="stringliteral">&quot;get_entry_view&quot;</span>):
+<a name="l00133"></a>00133             <span class="keywordflow">return</span>
+<a name="l00134"></a>00134 
+<a name="l00135"></a>00135         page.get_entry_view().select_all()
+<a name="l00136"></a>00136 
+<a name="l00137"></a><a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#a0ed6a9d290551b29b52b1e69b2032e67">00137</a>     <span class="keyword">def </span><a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#a0ed6a9d290551b29b52b1e69b2032e67">menuitem_callback</a>(self, action, param, args):
+<a name="l00138"></a>00138         <span class="stringliteral">&#39;&#39;&#39;</span>
+<a name="l00139"></a>00139 <span class="stringliteral">        method called when a menu-item is clicked.  Basically, an Action</span>
+<a name="l00140"></a>00140 <span class="stringliteral">        is activated by the user</span>
+<a name="l00141"></a>00141 <span class="stringliteral">        </span>
+<a name="l00142"></a>00142 <span class="stringliteral">        :param action: `Gio.SimpleAction` or `Gtk.Action`</span>
+<a name="l00143"></a>00143 <span class="stringliteral">        :param param: Not used</span>
+<a name="l00144"></a>00144 <span class="stringliteral">        :param args: dict associated with the action</span>
+<a name="l00145"></a>00145 <span class="stringliteral">        &#39;&#39;&#39;</span>
+<a name="l00146"></a>00146         for_album = args[<span class="stringliteral">&#39;album&#39;</span>]
+<a name="l00147"></a>00147         shell = args[<span class="stringliteral">&#39;shell&#39;</span>]
+<a name="l00148"></a>00148         <span class="keywordflow">if</span> for_album:
+<a name="l00149"></a>00149             self.<a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#a4eb30a857779f10b4a9d4ba6d9ca5beb">set_entry_view_selected_entries</a>(shell)
+<a name="l00150"></a>00150             
+<a name="l00151"></a>00151         self.<a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html#ab3f914146a8d73bf409e9314bd2c4f90">attributes</a>[<span class="stringliteral">&#39;action&#39;</span>].activate()
+<a name="l00152"></a>00152 
+<a name="l00153"></a><a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html">00153</a> <span class="keyword">class </span><a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html">CreateExternalPluginMenu</a>(GObject.Object):
+<a name="l00154"></a>00154     <span class="stringliteral">&#39;&#39;&#39;</span>
+<a name="l00155"></a>00155 <span class="stringliteral">    This is the key class called to initialise all supported plugins</span>
+<a name="l00156"></a>00156 <span class="stringliteral">    </span>
+<a name="l00157"></a>00157 <span class="stringliteral">    :param section_name: `str` unique name of the section holding the menu items</span>
+<a name="l00158"></a>00158 <span class="stringliteral">    :param at_position: `int` position within the GtkMenu to create menu - ignored for RB2.99</span>
+<a name="l00159"></a>00159 <span class="stringliteral">    :param popup: `Menu` whole popupmenu including sub-menus</span>
+<a name="l00160"></a>00160 <span class="stringliteral">    &#39;&#39;&#39;</span>
+<a name="l00161"></a>00161     <span class="keyword">def </span>__init__(self, section_name, at_position, popup, **kargs):
+<a name="l00162"></a>00162         super(CreateExternalPluginMenu, self).__init__(**kargs)
+<a name="l00163"></a>00163 
+<a name="l00164"></a>00164         self.<a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#aeea9c040ddc79ca43d47f00482f53450">menu</a> = popup
+<a name="l00165"></a>00165         self.<a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#a1e76209b31aaba1bd5c428a902e08391">section_name</a> = section_name
+<a name="l00166"></a>00166         self.<a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#a676e158b3e0f711705ba9e768b062d75">at_position</a> = at_position
+<a name="l00167"></a>00167         
+<a name="l00168"></a>00168         self.<a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#a99e028c26c3f9b8c50d5e997ef030f08">_actiongroup</a> = <a class="code" href="classcoverart__rb3compat_1_1_action_group.html">ActionGroup</a>(popup.shell, section_name + <span class="stringliteral">&#39;_externalplugins&#39;</span>)
+<a name="l00169"></a>00169         
+<a name="l00170"></a>00170         <span class="comment"># all supported plugins will be defined in the following array by parsing</span>
+<a name="l00171"></a>00171         <span class="comment"># the plugins XML file for the definition.  Supported plugins are split between</span>
+<a name="l00172"></a>00172         <span class="comment"># rb2.99 and later and rb2.98 and earlier due to the likelihood that earlier</span>
+<a name="l00173"></a>00173         <span class="comment"># plugins may never be updated by their authors</span>
+<a name="l00174"></a>00174         
+<a name="l00175"></a>00175         self.<a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#a7a3bb884baf417b64be99b86df140283">supported_plugins</a> = []
+<a name="l00176"></a>00176         
+<a name="l00177"></a>00177         extplugins = rb.find_plugin_file(popup.plugin, <span class="stringliteral">&#39;ui/coverart_external_plugins.xml&#39;</span>)
+<a name="l00178"></a>00178         root = ET.parse(open(extplugins)).getroot()
+<a name="l00179"></a>00179 
+<a name="l00180"></a>00180         <span class="keywordflow">if</span> rb3compat.is_rb3(popup.shell):
+<a name="l00181"></a>00181             base = <span class="stringliteral">&#39;rb3/plugin&#39;</span>
+<a name="l00182"></a>00182         <span class="keywordflow">else</span>:
+<a name="l00183"></a>00183             base = <span class="stringliteral">&#39;rb2/plugin&#39;</span>
+<a name="l00184"></a>00184 
+<a name="l00185"></a>00185         <span class="keywordflow">for</span> elem <span class="keywordflow">in</span> root.xpath(base):
+<a name="l00186"></a>00186             pluginname = elem.attrib[<span class="stringliteral">&#39;name&#39;</span>]
+<a name="l00187"></a>00187 
+<a name="l00188"></a>00188             basemenu = base + <span class="stringliteral">&quot;[@name=&#39;&quot;</span> + pluginname + <span class="stringliteral">&quot;&#39;]/menu&quot;</span>
+<a name="l00189"></a>00189             
+<a name="l00190"></a>00190             <span class="keywordflow">for</span> menuelem <span class="keywordflow">in</span> root.xpath(basemenu):
+<a name="l00191"></a>00191                 ext = <a class="code" href="classcoverart__external__plugins_1_1_external_plugin.html">ExternalPlugin</a>()
+<a name="l00192"></a>00192                 ext.appendattribute(<span class="stringliteral">&#39;plugin_name&#39;</span>, pluginname)
+<a name="l00193"></a>00193 
+<a name="l00194"></a>00194                 label = menuelem.attrib[<span class="stringliteral">&#39;label&#39;</span>]
+<a name="l00195"></a>00195                 <span class="keywordflow">if</span> label != <span class="stringliteral">&quot;&quot;</span>:
+<a name="l00196"></a>00196                     ext.appendattribute(<span class="stringliteral">&#39;new_menu_name&#39;</span>, label)
+<a name="l00197"></a>00197                     baseattrib = basemenu + <span class="stringliteral">&quot;[@label=&#39;&quot;</span> + label + <span class="stringliteral">&quot;&#39;]/attribute&quot;</span>
+<a name="l00198"></a>00198                 <span class="keywordflow">else</span>:
+<a name="l00199"></a>00199                     baseattrib = basemenu + <span class="stringliteral">&quot;/attribute&quot;</span>
+<a name="l00200"></a>00200 
+<a name="l00201"></a>00201                 <span class="keywordflow">for</span> attribelem <span class="keywordflow">in</span> root.xpath(baseattrib):
+<a name="l00202"></a>00202                     key = attribelem.attrib[<span class="stringliteral">&#39;name&#39;</span>]
+<a name="l00203"></a>00203                     val = attribelem.text
+<a name="l00204"></a>00204                     ext.appendattribute(key, val)
+<a name="l00205"></a>00205 
+<a name="l00206"></a>00206                 self.supported_plugins.append(ext)
+<a name="l00207"></a>00207         
+<a name="l00208"></a><a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#ad781dc0b2cc31d29d0e7f6581fd467a5">00208</a>     <span class="keyword">def </span><a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#ad781dc0b2cc31d29d0e7f6581fd467a5">create_menu</a>(self, menu_name, for_album = False):
+<a name="l00209"></a>00209         <span class="stringliteral">&#39;&#39;&#39;</span>
+<a name="l00210"></a>00210 <span class="stringliteral">        method to create the menu items for all supported plugins</span>
+<a name="l00211"></a>00211 <span class="stringliteral"></span>
+<a name="l00212"></a>00212 <span class="stringliteral">        :param menu_name: `str` unique name (GtkMenu) id for the menu to create</span>
+<a name="l00213"></a>00213 <span class="stringliteral">        :for_album: `bool` - create a menu applicable for Albums</span>
+<a name="l00214"></a>00214 <span class="stringliteral">          by default a menu is assumed to be applicable to a track in an</span>
+<a name="l00215"></a>00215 <span class="stringliteral">          EntryView</span>
+<a name="l00216"></a>00216 <span class="stringliteral">        &#39;&#39;&#39;</span>
+<a name="l00217"></a>00217         self.<a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#a5da4787fc5b1303f4b1f51a75e739956">menu_name</a> = menu_name
+<a name="l00218"></a>00218         
+<a name="l00219"></a>00219         self._actiongroup.remove_actions()        
+<a name="l00220"></a>00220         self.menu.remove_menu_items(self.<a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#a5da4787fc5b1303f4b1f51a75e739956">menu_name</a>, self.<a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#a1e76209b31aaba1bd5c428a902e08391">section_name</a>)
+<a name="l00221"></a>00221         
+<a name="l00222"></a>00222         items_added = <span class="keyword">False</span>
+<a name="l00223"></a>00223 
+<a name="l00224"></a>00224         <span class="keywordflow">for</span> plugin <span class="keywordflow">in</span> self.<a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#a7a3bb884baf417b64be99b86df140283">supported_plugins</a>:
+<a name="l00225"></a>00225             new_menu_item = plugin.create_menu_item(self.<a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#a5da4787fc5b1303f4b1f51a75e739956">menu_name</a>, self.<a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#a1e76209b31aaba1bd5c428a902e08391">section_name</a>,
+<a name="l00226"></a>00226                 self.<a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#a676e158b3e0f711705ba9e768b062d75">at_position</a>, self.<a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#a99e028c26c3f9b8c50d5e997ef030f08">_actiongroup</a>, self.<a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#aeea9c040ddc79ca43d47f00482f53450">menu</a>, for_album)
+<a name="l00227"></a>00227 
+<a name="l00228"></a>00228             <span class="keywordflow">if</span> (<span class="keywordflow">not</span> items_added) <span class="keywordflow">and</span> new_menu_item:
+<a name="l00229"></a>00229                 items_added = <span class="keyword">True</span> 
+<a name="l00230"></a>00230 
+<a name="l00231"></a>00231         <span class="keywordflow">if</span> items_added:
+<a name="l00232"></a>00232             self.menu.insert_separator(self.<a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#a5da4787fc5b1303f4b1f51a75e739956">menu_name</a>, self.<a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html#a676e158b3e0f711705ba9e768b062d75">at_position</a>)
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -349,7 +348,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>coverart_external_plugins.py</b>      </li>
 
-    <li class="footer">Generated on Tue Aug 27 2013 23:46:20 for Coverart Browser by
+    <li class="footer">Generated on Fri Jan 24 2014 21:22:27 for Coverart Browser by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
    </ul>

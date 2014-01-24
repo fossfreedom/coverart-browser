@@ -33,7 +33,7 @@
   
   <td style="padding-left: 0.5em;">
    <div id="projectname">Coverart Browser
-   &#160;<span id="projectnumber">v0.9</span>
+   &#160;<span id="projectnumber">v1.0</span>
    </div>
    <div id="projectbrief">Browse your cover-art albums in Rhythmbox</div>
   </td>
@@ -112,12 +112,11 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__search_1_1_cover_search_pane.html#ab0434a5f9f4ab161dcf436a32d676365">init_gui</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__search_1_1_cover_search_pane.html#a69d8bebd26b48a2dccd716cdc28aed7c">do_search</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__search_1_1_cover_search_pane.html#abf109b9c13d4086ca9d5b6cbd29f8a61">render_album_art_search</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__search_1_1_cover_search_pane.html#aec5b2799bb0395420dd3b3c816475573">render_artist_art_search</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__search_1_1_cover_search_pane.html#a0a57f51993e59b4f7455e74944bfeef6">clear</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__search_1_1_cover_search_pane.html#a9a6f7a6a69e4979e218e5cf2cd5c62c1">set_cover</a></td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0a63c6d910a2284845d0d17c87f97f4e"></a><!-- doxytag: member="coverart_search::CoverSearchPane::album_manager" ref="a0a63c6d910a2284845d0d17c87f97f4e" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>album_manager</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac965301c968ba9d6588f492994717ad8"></a><!-- doxytag: member="coverart_search::CoverSearchPane::selection_color" ref="ac965301c968ba9d6588f492994717ad8" args="" -->
 &#160;</td><td class="memItemRight" valign="bottom"><b>selection_color</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac5dbc25f1f2fe85cbe726e7d6621bcd5"></a><!-- doxytag: member="coverart_search::CoverSearchPane::file" ref="ac5dbc25f1f2fe85cbe726e7d6621bcd5" args="" -->
@@ -128,19 +127,23 @@ Public Attributes</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>template</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad145b75c22ee2ef53fd356a3e16aa4cc"></a><!-- doxytag: member="coverart_search::CoverSearchPane::empty_template" ref="ad145b75c22ee2ef53fd356a3e16aa4cc" args="" -->
 &#160;</td><td class="memItemRight" valign="bottom"><b>empty_template</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac54d281cd42c31e05d29b9302d17f23e"></a><!-- doxytag: member="coverart_search::CoverSearchPane::artist_template" ref="ac54d281cd42c31e05d29b9302d17f23e" args="" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>artist_template</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2fdbf8e26e00cdd20b3dc9e8d12454dc"></a><!-- doxytag: member="coverart_search::CoverSearchPane::styles" ref="a2fdbf8e26e00cdd20b3dc9e8d12454dc" args="" -->
 &#160;</td><td class="memItemRight" valign="bottom"><b>styles</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a32843faf8b149a30a885b173650620df"></a><!-- doxytag: member="coverart_search::CoverSearchPane::webview" ref="a32843faf8b149a30a885b173650620df" args="" -->
 &#160;</td><td class="memItemRight" valign="bottom"><b>webview</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abcf12da56afbe2a08cf5600eb2837735"></a><!-- doxytag: member="coverart_search::CoverSearchPane::current_album" ref="abcf12da56afbe2a08cf5600eb2837735" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>current_album</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac4832af343efccc53b0f1b4909ae721c"></a><!-- doxytag: member="coverart_search::CoverSearchPane::current_searchobject" ref="ac4832af343efccc53b0f1b4909ae721c" args="" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>current_searchobject</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a58683984fc6532b90d15ac44f41ff59c"></a><!-- doxytag: member="coverart_search::CoverSearchPane::callback" ref="a58683984fc6532b90d15ac44f41ff59c" args="" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>callback</b></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><div class="fragment"><pre class="fragment">
-This UI represents a pane where different album's covers can be presented
-given an album to look for. It also allows to make custom image searchs,
+This UI represents a pane where different covers can be presented
+given an album or artist to look for. It also allows to make custom image searchs,
 customize the default search and select covers from the pane and use them
-as the album covers (either with a double click or draging them).
+as the covers (either with a double click or dragging them).
 </pre></div> 
 <p>Definition at line <a class="el" href="coverart__search_8py_source.html#l00028">28</a> of file <a class="el" href="coverart__search_8py_source.html">coverart_search.py</a>.</p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
@@ -159,12 +162,6 @@ as the album covers (either with a double click or draging them).
           <td></td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>plugin</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>album_manager</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -203,9 +200,9 @@ Initializes the pane, loading it's html templates and it's ui.
 </div>
 <div class="memdoc">
 <div class="fragment"><pre class="fragment">
-Clears the webview of any album's specific info/covers.
+Clears the webview of any specific info/covers.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__search_8py_source.html#l00132">132</a> of file <a class="el" href="coverart__search_8py_source.html">coverart_search.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__search_8py_source.html#l00161">161</a> of file <a class="el" href="coverart__search_8py_source.html">coverart_search.py</a>.</p>
 
 </div>
 </div>
@@ -223,7 +220,13 @@ Clears the webview of any album's specific info/covers.
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>album</em>&#160;</td>
+          <td class="paramname"><em>coverobject</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>callback</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -235,9 +238,10 @@ Clears the webview of any album's specific info/covers.
 <div class="memdoc">
 <div class="fragment"><pre class="fragment">
 When this method is called, the webview gets refreshed with the info
-of the album passed.
+of the album or artist passed.
+
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__search_8py_source.html#l00097">97</a> of file <a class="el" href="coverart__search_8py_source.html">coverart_search.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__search_8py_source.html#l00099">99</a> of file <a class="el" href="coverart__search_8py_source.html">coverart_search.py</a>.</p>
 
 </div>
 </div>
@@ -258,7 +262,7 @@ of the album passed.
 <div class="fragment"><pre class="fragment">
 Initializes the pane ui.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__search_8py_source.html#l00076">76</a> of file <a class="el" href="coverart__search_8py_source.html">coverart_search.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__search_8py_source.html#l00079">79</a> of file <a class="el" href="coverart__search_8py_source.html">coverart_search.py</a>.</p>
 
 </div>
 </div>
@@ -289,7 +293,7 @@ Initializes the pane ui.
 <div class="fragment"><pre class="fragment">
 Loads the templates and stylesheets to be used by the pane.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__search_8py_source.html#l00054">54</a> of file <a class="el" href="coverart__search_8py_source.html">coverart_search.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__search_8py_source.html#l00053">53</a> of file <a class="el" href="coverart__search_8py_source.html">coverart_search.py</a>.</p>
 
 </div>
 </div>
@@ -326,7 +330,38 @@ Loads the templates and stylesheets to be used by the pane.
 <div class="fragment"><pre class="fragment">
 Renders the template on the webview.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__search_8py_source.html#l00122">122</a> of file <a class="el" href="coverart__search_8py_source.html">coverart_search.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__search_8py_source.html#l00139">139</a> of file <a class="el" href="coverart__search_8py_source.html">coverart_search.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aec5b2799bb0395420dd3b3c816475573"></a><!-- doxytag: member="coverart_search::CoverSearchPane::render_artist_art_search" ref="aec5b2799bb0395420dd3b3c816475573" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__search_1_1_cover_search_pane.html#aec5b2799bb0395420dd3b3c816475573">coverart_search.CoverSearchPane.render_artist_art_search</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>artist</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">
+Renders the template on the webview.
+</pre></div> 
+<p>Definition at line <a class="el" href="coverart__search_8py_source.html#l00150">150</a> of file <a class="el" href="coverart__search_8py_source.html">coverart_search.py</a>.</p>
 
 </div>
 </div>
@@ -362,15 +397,15 @@ Renders the template on the webview.
 <div class="memdoc">
 <div class="fragment"><pre class="fragment">
 Callback called when a image in the pane is double-clicked. It takes
-care of asking the AlbumLoader to update the album's cover.
+care of updating the searched object cover.
 Some titles have spurious characters beginning with % - remove these
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__search_8py_source.html#l00142">142</a> of file <a class="el" href="coverart__search_8py_source.html">coverart_search.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__search_8py_source.html#l00171">171</a> of file <a class="el" href="coverart__search_8py_source.html">coverart_search.py</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/home/dad/Downloads/coverart-browser/<a class="el" href="coverart__search_8py_source.html">coverart_search.py</a></li>
+<li>/home/foss/Downloads/coverart-browser/<a class="el" href="coverart__search_8py_source.html">coverart_search.py</a></li>
 </ul>
 </div><!-- contents -->
 </div>
@@ -393,7 +428,7 @@ Some titles have spurious characters beginning with % - remove these
       <li class="navelem"><b>coverart_search</b>      </li>
       <li class="navelem"><a class="el" href="classcoverart__search_1_1_cover_search_pane.html">CoverSearchPane</a>      </li>
 
-    <li class="footer">Generated on Tue Aug 27 2013 23:46:20 for Coverart Browser by
+    <li class="footer">Generated on Fri Jan 24 2014 21:22:28 for Coverart Browser by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
    </ul>

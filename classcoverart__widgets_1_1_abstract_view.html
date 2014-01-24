@@ -33,7 +33,7 @@
   
   <td style="padding-left: 0.5em;">
    <div id="projectname">Coverart Browser
-   &#160;<span id="projectnumber">v0.9</span>
+   &#160;<span id="projectnumber">v1.0</span>
    </div>
    <div id="projectbrief">Browse your cover-art albums in Rhythmbox</div>
   </td>
@@ -112,6 +112,7 @@ Inheritance diagram for coverart_widgets.AbstractView:</div>
 <area href="classcoverart__artistview_1_1_artist_view.html" alt="coverart_artistview.ArtistView" shape="rect" coords="0,56,243,80"/>
 <area href="classcoverart__coverflowview_1_1_cover_flow_view.html" alt="coverart_coverflowview.CoverFlowView" shape="rect" coords="253,56,496,80"/>
 <area href="classcoverart__covericonview_1_1_cover_icon_view.html" alt="coverart_covericonview.CoverIconView" shape="rect" coords="506,56,749,80"/>
+<area href="classcoverart__listview_1_1_list_view.html" alt="coverart_listview.ListView" shape="rect" coords="759,56,1002,80"/>
 </map>
  </div></div>
 
@@ -123,6 +124,7 @@ Public Member Functions</h2></td></tr>
 def&#160;</td><td class="memItemRight" valign="bottom"><b>__init__</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa0573489b21bdfdc8c7db6935852ca86"></a><!-- doxytag: member="coverart_widgets::AbstractView::initialise" ref="aa0573489b21bdfdc8c7db6935852ca86" args="" -->
 def&#160;</td><td class="memItemRight" valign="bottom"><b>initialise</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__widgets_1_1_abstract_view.html#a395556b0268831e60bda873d934f21aa">do_update_toolbar</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__widgets_1_1_abstract_view.html#a487c42956fb05ec76fc50fede8fe0294">resize_icon</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__widgets_1_1_abstract_view.html#abca646d9c20107e90cb64dd9f73f07e8">get_selected_objects</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__widgets_1_1_abstract_view.html#a9807036c59b969e6a1ae8877c6c9a8bf">selectionchanged_callback</a></td></tr>
@@ -131,6 +133,8 @@ def&#160;</td><td class="memItemRight" valign="bottom"><b>initialise</b></td></t
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__widgets_1_1_abstract_view.html#ae5e76bc0b9cbd19366c9f5b6790487d3">grab_focus</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__widgets_1_1_abstract_view.html#a821d8d78725782956aff40eba35dc628">switch_to_view</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__widgets_1_1_abstract_view.html#a39b7a614696d1175bd797eed8aed01c7">get_view_icon_name</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__widgets_1_1_abstract_view.html#a8d85cbcb1dcd1bc65b4c8f24286a2550">get_default_manager</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__widgets_1_1_abstract_view.html#ae591ccccfd9b6733bd9ce45dce30f758">switch_to_coverpane</a></td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aba99e99165f81061e563aeb0577b5e91"></a><!-- doxytag: member="coverart_widgets::AbstractView::source" ref="aba99e99165f81061e563aeb0577b5e91" args="" -->
@@ -145,6 +149,8 @@ Static Public Attributes</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>view</b> = None</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a553a3e08772b763931de582b4fe38f6e"></a><!-- doxytag: member="coverart_widgets::AbstractView::panedposition" ref="a553a3e08772b763931de582b4fe38f6e" args="" -->
 &#160;</td><td class="memItemRight" valign="bottom"><b>panedposition</b> = PanedCollapsible.Paned.DEFAULT</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaaaf97ecc1a17cba571665a08150558f"></a><!-- doxytag: member="coverart_widgets::AbstractView::use_plugin_window" ref="aaaaf97ecc1a17cba571665a08150558f" args="" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>use_plugin_window</b> = True</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><div class="fragment"><pre class="fragment">
@@ -152,8 +158,67 @@ intention is to document 'the must have' methods all views should define
 N.B. this is preliminary and will change as and when
 coverflow view is added with lessons learned
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l01087">1087</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l01249">1249</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
 </div><hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a395556b0268831e60bda873d934f21aa"></a><!-- doxytag: member="coverart_widgets::AbstractView::do_update_toolbar" ref="a395556b0268831e60bda873d934f21aa" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__widgets_1_1_abstract_view.html#a395556b0268831e60bda873d934f21aa">coverart_widgets.AbstractView.do_update_toolbar</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">
+    called when update-toolbar signal is emitted
+    by default the toolbar objects are made visible
+</pre></div> 
+<p>Reimplemented in <a class="el" href="classcoverart__artistview_1_1_artist_view.html#abb82e4ddd4ef238a498b0fa70f350cad">coverart_artistview.ArtistView</a>.</p>
+
+<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l01274">1274</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8d85cbcb1dcd1bc65b4c8f24286a2550"></a><!-- doxytag: member="coverart_widgets::AbstractView::get_default_manager" ref="a8d85cbcb1dcd1bc65b4c8f24286a2550" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__widgets_1_1_abstract_view.html#a8d85cbcb1dcd1bc65b4c8f24286a2550">coverart_widgets.AbstractView.get_default_manager</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">
+every view should have a default manager
+for example an AlbumManager or ArtistManager
+by default - use the AlbumManager from the source
+</pre></div> 
+<p>Reimplemented in <a class="el" href="classcoverart__artistview_1_1_artist_view.html#afb3c668d5a80e41d2edfc96205418a61">coverart_artistview.ArtistView</a>.</p>
+
+<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l01339">1339</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="abca646d9c20107e90cb64dd9f73f07e8"></a><!-- doxytag: member="coverart_widgets::AbstractView::get_selected_objects" ref="abca646d9c20107e90cb64dd9f73f07e8" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -173,9 +238,9 @@ finds what has been selected
 
 returns an array of `Album`
 </pre></div> 
-<p>Reimplemented in <a class="el" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a805eedfe0ff7f49e4bf7578a040217e7">coverart_coverflowview.CoverFlowView</a>.</p>
+<p>Reimplemented in <a class="el" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a805eedfe0ff7f49e4bf7578a040217e7">coverart_coverflowview.CoverFlowView</a>, and <a class="el" href="classcoverart__listview_1_1_list_view.html#a14df1f7177c6c3e0d860ad484178d223">coverart_listview.ListView</a>.</p>
 
-<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l01112">1112</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l01293">1293</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
 
 </div>
 </div>
@@ -197,9 +262,9 @@ returns an array of `Album`
 every view should have an icon - subject to removal
 since we'll probably just have text buttons for the view
 </pre></div> 
-<p>Reimplemented in <a class="el" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a7e7db5eee3175cf8a24d089b59ed9289">coverart_coverflowview.CoverFlowView</a>, <a class="el" href="classcoverart__covericonview_1_1_cover_icon_view.html#aebf4f8f988afbdc0dfaf197c25470bdd">coverart_covericonview.CoverIconView</a>, and <a class="el" href="classcoverart__artistview_1_1_artist_view.html#aba893fe2a5ff0eb83b863a87f4f34611">coverart_artistview.ArtistView</a>.</p>
+<p>Reimplemented in <a class="el" href="classcoverart__artistview_1_1_artist_view.html#aba893fe2a5ff0eb83b863a87f4f34611">coverart_artistview.ArtistView</a>, <a class="el" href="classcoverart__covericonview_1_1_cover_icon_view.html#aebf4f8f988afbdc0dfaf197c25470bdd">coverart_covericonview.CoverIconView</a>, and <a class="el" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a7e7db5eee3175cf8a24d089b59ed9289">coverart_coverflowview.CoverFlowView</a>.</p>
 
-<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l01151">1151</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l01332">1332</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
 
 </div>
 </div>
@@ -222,7 +287,7 @@ ensures main view object retains the focus
 </pre></div> 
 <p>Reimplemented in <a class="el" href="classcoverart__covericonview_1_1_cover_icon_view.html#a13423e56779dd67e94e1766855be40f3">coverart_covericonview.CoverIconView</a>, and <a class="el" href="classcoverart__coverflowview_1_1_cover_flow_view.html#ac655040c6aabcd43a860f6d8c072b9bf">coverart_coverflowview.CoverFlowView</a>.</p>
 
-<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l01138">1138</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l01319">1319</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
 
 </div>
 </div>
@@ -257,7 +322,7 @@ resize the view main picture icon
 </pre></div> 
 <p>Reimplemented in <a class="el" href="classcoverart__covericonview_1_1_cover_icon_view.html#a103bcbd15d533f0404beff7ca4283b6a">coverart_covericonview.CoverIconView</a>.</p>
 
-<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l01104">1104</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l01285">1285</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
 
 </div>
 </div>
@@ -290,7 +355,7 @@ find a path and highlight (select) that object
 </pre></div> 
 <p>Reimplemented in <a class="el" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a4a1990543789c93f80aeb703dca65b6d">coverart_coverflowview.CoverFlowView</a>.</p>
 
-<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l01126">1126</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l01307">1307</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
 
 </div>
 </div>
@@ -321,7 +386,7 @@ find a path and highlight (select) that object
 <div class="fragment"><pre class="fragment">
 callback when a selection has changed
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l01120">1120</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l01301">1301</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
 
 </div>
 </div>
@@ -352,7 +417,41 @@ callback when a selection has changed
 <div class="fragment"><pre class="fragment">
 define the popup menu (right click) used for the view
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l01132">1132</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l01313">1313</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae591ccccfd9b6733bd9ce45dce30f758"></a><!-- doxytag: member="coverart_widgets::AbstractView::switch_to_coverpane" ref="ae591ccccfd9b6733bd9ce45dce30f758" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__widgets_1_1_abstract_view.html#ae591ccccfd9b6733bd9ce45dce30f758">coverart_widgets.AbstractView.switch_to_coverpane</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>cover_search_pane</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">
+called from the source to update the coverpane when
+it is switched from the track pane
+</pre></div> 
+<p>Reimplemented in <a class="el" href="classcoverart__artistview_1_1_artist_view.html#a16aa63092791aff7616decafb9be91f8">coverart_artistview.ArtistView</a>.</p>
+
+<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l01348">1348</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
 
 </div>
 </div>
@@ -390,14 +489,14 @@ define the popup menu (right click) used for the view
 ensures that when the user toggles to a view stuff remains
 consistent
 </pre></div> 
-<p>Reimplemented in <a class="el" href="classcoverart__covericonview_1_1_cover_icon_view.html#a9faa9ae2f7496207d8a9b57d3234a79a">coverart_covericonview.CoverIconView</a>, and <a class="el" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a349c59525447d91339440fcdf86c2629">coverart_coverflowview.CoverFlowView</a>.</p>
+<p>Reimplemented in <a class="el" href="classcoverart__artistview_1_1_artist_view.html#ac868fe4d14e7238c32a99cae79668ce6">coverart_artistview.ArtistView</a>, <a class="el" href="classcoverart__covericonview_1_1_cover_icon_view.html#a9faa9ae2f7496207d8a9b57d3234a79a">coverart_covericonview.CoverIconView</a>, <a class="el" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a349c59525447d91339440fcdf86c2629">coverart_coverflowview.CoverFlowView</a>, and <a class="el" href="classcoverart__listview_1_1_list_view.html#ab0bc072b7fffee423cfd71a2afa11f32">coverart_listview.ListView</a>.</p>
 
-<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l01144">1144</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l01325">1325</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/home/dad/Downloads/coverart-browser/<a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a></li>
+<li>/home/foss/Downloads/coverart-browser/<a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a></li>
 </ul>
 </div><!-- contents -->
 </div>
@@ -420,7 +519,7 @@ consistent
       <li class="navelem"><b>coverart_widgets</b>      </li>
       <li class="navelem"><a class="el" href="classcoverart__widgets_1_1_abstract_view.html">AbstractView</a>      </li>
 
-    <li class="footer">Generated on Tue Aug 27 2013 23:46:21 for Coverart Browser by
+    <li class="footer">Generated on Fri Jan 24 2014 21:22:28 for Coverart Browser by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
    </ul>

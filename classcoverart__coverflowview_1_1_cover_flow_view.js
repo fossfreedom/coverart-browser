@@ -30,8 +30,6 @@ var classcoverart__coverflowview_1_1_cover_flow_view =
     [ "last_album", "classcoverart__coverflowview_1_1_cover_flow_view.html#ab1ac206bf6c18d54d90a03614e6e6f7d", null ],
     [ "name", "classcoverart__coverflowview_1_1_cover_flow_view.html#afaec966e34ee8b187011286093242dfb", null ],
     [ "panedposition", "classcoverart__coverflowview_1_1_cover_flow_view.html#a160bf1853b8cdb0c47e60c3b27af5528", null ],
-    [ "plugin", "classcoverart__coverflowview_1_1_cover_flow_view.html#a27c58a2e1c96fca3d15e13bd5abccdaa", null ],
     [ "show_policy", "classcoverart__coverflowview_1_1_cover_flow_view.html#a066ea41258b7e2ec4c297c32a1f2aa78", null ],
-    [ "source", "classcoverart__coverflowview_1_1_cover_flow_view.html#a1f2bae47800ec82d3f8c06fe0c9193b9", null ],
     [ "view", "classcoverart__coverflowview_1_1_cover_flow_view.html#a4ef1f8a2b0aae9352abd29092263b397", null ]
 ];

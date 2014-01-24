@@ -33,7 +33,7 @@
   
   <td style="padding-left: 0.5em;">
    <div id="projectname">Coverart Browser
-   &#160;<span id="projectnumber">v0.9</span>
+   &#160;<span id="projectnumber">v1.0</span>
    </div>
    <div id="projectbrief">Browse your cover-art albums in Rhythmbox</div>
   </td>
@@ -97,7 +97,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a>  </div>
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a>  </div>
   <div class="headertitle">
 <div class="title">coverart_export.CoverArtExport Class Reference</div>  </div>
 </div><!--header-->
@@ -112,6 +113,8 @@ def&#160;</td><td class="memItemRight" valign="bottom"><b>__init__</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1816420975d52e30846b7358cd5c1a25"></a><!-- doxytag: member="coverart_export::CoverArtExport::is_search_plugin_enabled" ref="a1816420975d52e30846b7358cd5c1a25" args="" -->
 def&#160;</td><td class="memItemRight" valign="bottom"><b>is_search_plugin_enabled</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__export_1_1_cover_art_export.html#aeecff926880c8376aa1b25f6c69fdef1">embed_albums</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a22a12d931bc23390d36bac1a413f69c7"></a><!-- doxytag: member="coverart_export::CoverArtExport::convert_to_mp3" ref="a22a12d931bc23390d36bac1a413f69c7" args="" -->
+def&#160;</td><td class="memItemRight" valign="bottom"><b>convert_to_mp3</b></td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a70939e57e873ea4bfb78c713e465751f"></a><!-- doxytag: member="coverart_export::CoverArtExport::plugin" ref="a70939e57e873ea4bfb78c713e465751f" args="" -->
@@ -120,13 +123,25 @@ Public Attributes</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>shell</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abcb2fdead57cfc6b4f760d9c0adaeb81"></a><!-- doxytag: member="coverart_export::CoverArtExport::album_manager" ref="abcb2fdead57cfc6b4f760d9c0adaeb81" args="" -->
 &#160;</td><td class="memItemRight" valign="bottom"><b>album_manager</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2f6a274b15763d540a06f79157e5d23d"></a><!-- doxytag: member="coverart_export::CoverArtExport::converter" ref="a2f6a274b15763d540a06f79157e5d23d" args="" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>converter</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2964048e7715dc5d4fc1005fee04d043"></a><!-- doxytag: member="coverart_export::CoverArtExport::source" ref="a2964048e7715dc5d4fc1005fee04d043" args="" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>source</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="accee69007de974c5a30275bfaee0f206"></a><!-- doxytag: member="coverart_export::CoverArtExport::sink" ref="accee69007de974c5a30275bfaee0f206" args="" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>sink</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a16e37fbba2bb198ebb0138f270510bce"></a><!-- doxytag: member="coverart_export::CoverArtExport::encoder" ref="a16e37fbba2bb198ebb0138f270510bce" args="" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>encoder</b></td></tr>
+<tr><td colspan="2"><h2><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a617578c8c2027b55b643916f8713416d"></a><!-- doxytag: member="coverart_export::CoverArtExport::TARGET_BITRATE" ref="a617578c8c2027b55b643916f8713416d" args="" -->
+int&#160;</td><td class="memItemRight" valign="bottom"><b>TARGET_BITRATE</b> = 128</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><div class="fragment"><pre class="fragment">
 This class provides for various export routines
 
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__export_8py_source.html#l00034">34</a> of file <a class="el" href="coverart__export_8py_source.html">coverart_export.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__export_8py_source.html#l00038">38</a> of file <a class="el" href="coverart__export_8py_source.html">coverart_export.py</a>.</p>
 </div><hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="aeecff926880c8376aa1b25f6c69fdef1"></a><!-- doxytag: member="coverart_export::CoverArtExport::embed_albums" ref="aeecff926880c8376aa1b25f6c69fdef1" args="" -->
 <div class="memitem">
@@ -156,14 +171,13 @@ This class provides for various export routines
 method to create the menu items for all supported plugins
 
 :selected_albums: `Album` - array of albums
-
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__export_8py_source.html#l00054">54</a> of file <a class="el" href="coverart__export_8py_source.html">coverart_export.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__export_8py_source.html#l00066">66</a> of file <a class="el" href="coverart__export_8py_source.html">coverart_export.py</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/home/dad/Downloads/coverart-browser/<a class="el" href="coverart__export_8py_source.html">coverart_export.py</a></li>
+<li>/home/foss/Downloads/coverart-browser/<a class="el" href="coverart__export_8py_source.html">coverart_export.py</a></li>
 </ul>
 </div><!-- contents -->
 </div>
@@ -186,7 +200,7 @@ method to create the menu items for all supported plugins
       <li class="navelem"><b>coverart_export</b>      </li>
       <li class="navelem"><a class="el" href="classcoverart__export_1_1_cover_art_export.html">CoverArtExport</a>      </li>
 
-    <li class="footer">Generated on Tue Aug 27 2013 23:46:20 for Coverart Browser by
+    <li class="footer">Generated on Fri Jan 24 2014 21:22:28 for Coverart Browser by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
    </ul>
