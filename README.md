@@ -119,6 +119,14 @@ Note 3 - Due to an upstream Rhythmbox bug affecting RB V2.98 & V2.99 only - any 
 are not reflected back into the plugin.  This can lead to inconsistencies.  Please restart rhythmbox for these details
 to be correctly cached.  This bug is fixed in RB3.0 and does not affect RB2.96 & RB2.97 users
 
+Note 3 - For ubuntu and Gnome-Shell users
+
+If you have install Gnome-Shell and you see ugly black areas in the track-cover area when expanded, this is a known Ubuntu bug due to overlay scrollbars.
+
+One suggested workaround is to turn off overlay scrollbars:
+
+    gsettings set com.canonical.desktop.interface scrollbar-mode normal
+
 *For Ubuntu 12.04, 12.10, 13.04, 13.10 & 14.04:*
 
 V1.0 is now available in my rhythmbox PPA - installation instructions in this AskUbuntu Q&A:
