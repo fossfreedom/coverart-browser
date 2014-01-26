@@ -1,7 +1,7 @@
-#coverart-browser v1.0 beta 3
+#coverart-browser v2.0
 ================
 
-Browse your coverart albums in Rhythmbox v2.96 and later
+Browse your coverart albums in Rhythmbox v3 and later
 
 ![Imgur](http://i.imgur.com/YoEQ8fc.png)
 
@@ -20,32 +20,7 @@ Browse your coverart albums in Rhythmbox v2.96 and later
 
 ##Summary: whats new in this release
 
- - single click play for O/S's using GTK+3.6 or later for Tile-view
- - new artists view: displays album-artists in a tree-view
- - artists view: clicking on an album-artist displays the albums for that artist
- - artists view: Download all artist covers using the covers properties menu option
- - artists view: ... or drag and drop covers from cover view or from nautilus/firefox
- - artists view: drag and drop of albums to playlists
- - artists view: Filter buttons or filter search/quick track filter correctly filters view to show only the artists that have those filtered albums
- - artists view: hovering the mouse pointer over the artist cover displays a tooltip of a larger version of the cover
- - artists view: supports sorting of album-artist via clicking on its column header - ascending/descending/unsorted.
- - artists view: right click of albums displays the same right click menu as in tile view or coverflow view
- - artists view: right click of artists to play or queue all albums for that artist
- - artists view: independent sort toolbar buttons - for example show albums for an artist by ascending year whilst in the tile view show albums by name
- - new look (optional) to display album information within (on top of) the cover rather than below (beneath) the cover
- - new lighter icon-theme from the brilliant designer - jrbastien
- - new Rhythmbox 3 coverart source icon - again from jrbastien
- - Look & Feel integration: Rhythmbox 3 style toolbar and button popup menus
- - Look & Feel integration: New toolbar menu-button to switch between views including RB's own library view
- - Look & Feel integration: New toolbar menu-button in RB's library view to switch to plugin views (RB v3 and later)
- - Optional export and embed coverart from most file-formats to MP3.
- - Remember quick artist filter between rhythmbox sessions
- - support drag-and-drop of albums onto playlists or external devices for RB2.99 and later
- - Rework Album & Playlist favourite supports - this declutters menus and now can be optionally enabled through properties button
- - Right click support for the external plugin Repeat One Song
- - Optionally use sort fields for album artists or album artists (right click - properties - sort tab)
- - Use new Rhythmbox 3 progress bars for loading
- - Tooltip support to display cover name and artist only if album information is not already displayed
+ - TBC
  - Translated into 25 languages and locales
  - for developers - doxygen documentation: http://fossfreedom.github.io/coverart-browser/classes.html
 
@@ -58,33 +33,6 @@ Browse your coverart albums in Rhythmbox v2.96 and later
  
  - https://github.com/fossfreedom/coverart-browser/wiki/how-to-for-version-1.0
  - https://github.com/fossfreedom/coverart-browser/wiki/Screenshots
-
-*How to install - Rhythmbox 2.96 to 2.99.1:*
-
-for debian & debian-based distros such as Ubuntu & Mint:
-
-    sudo apt-get install git gettext python-mako python-lxml gstreamer0.10-plugins-ugly gstreamer0.10-plugins-good gstreamer0.10-plugins-bad
-
-for fedora and similar:
-
-    yum install git gettext python-mako python-lxml
-    
-what is the fedora equivalent of gstreamer0.10-plugins-ugly/gstreamer0.10-plugins-good/gstreamer0.10-plugins-bad ?
-    
-for opensuse
-
-    sudo zypper in git gettext-runtime python-mako python-lxml typelib-1_0-WebKit-3_0
-    
-what is the opensuse equivalent of gstreamer0.10-plugins-ugly/gstreamer0.10-plugins-good/gstreamer0.10-plugins-bad? 
-
-Then install the plugin:
-
-<pre>
-rm -rf ~/.local/share/rhythmbox/plugins/coverart_browser
-git clone https://github.com/fossfreedom/coverart-browser.git
-cd coverart-browser
-./install.sh
-</pre>
 
 *How to install - Rhythmbox 3.0 and later:*
 
@@ -100,28 +48,16 @@ To install the plugin:
 rm -rf ~/.local/share/rhythmbox/plugins/coverart_browser
 git clone https://github.com/fossfreedom/coverart-browser.git
 cd coverart-browser
-./install.sh --rb3
+./install.sh
 </pre>
 
 Note 1 - the CoverArt Browser plugin also requires installing the following plugin:
 
  - https://github.com/fossfreedom/coverart-search-providers
 
-Note 2 - IMPORTANT NOTE - for some distros (e.g. OpenSuse 12.3) that do not have rhythmbox webkit support, DO NOT install your
-webkit library.  For these distros, it is highly likely that installing webkit v3 will
-crash rhythmbox if this plugin is also installed and activated.
+*For Ubuntu 14.04:*
 
-If your distro crashes with the webkit elements of the application (CoverFlow or CoverArt) use the following workaround:
-
-    gsettings set org.gnome.rhythmbox.plugins.coverart_browser webkit-support false
-
-Note 3 - Due to an upstream Rhythmbox bug affecting RB V2.98 & V2.99 only - any changes made to the details of a track 
-are not reflected back into the plugin.  This can lead to inconsistencies.  Please restart rhythmbox for these details
-to be correctly cached.  This bug is fixed in RB3.0 and does not affect RB2.96 & RB2.97 users
-
-*For Ubuntu 12.04, 12.10, 13.04, 13.10 & 14.04:*
-
-V1.0 is now available in my rhythmbox PPA - installation instructions in this AskUbuntu Q&A:
+V2.0 is now available in my rhythmbox PPA - installation instructions in this AskUbuntu Q&A:
 
 http://askubuntu.com/questions/147942/how-do-i-install-third-party-rhythmbox-plugins
 
