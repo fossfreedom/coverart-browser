@@ -72,6 +72,8 @@ class ArtistInfoPane(GObject.GObject):
     
     artist_info_paned_pos = GObject.property(type=str)
     
+    min_paned_pos = 100
+    
     def __init__(self, button_box, scroll_window, info_paned, source):
         GObject.GObject.__init__ (self)
         self.tab = {}
@@ -174,12 +176,16 @@ class ArtistInfoPane(GObject.GObject):
         self.info_paned.set_position(calc_pos)
         self.info_paned.set_visible(True)
         
+    def _get_child_width(self):
+        child = self.info_paned.get_child2()
+        return child.get_allocated_width()
+        
     def artist_info_paned_button_release_callback(self, *args):
         '''
         Callback when the artist paned handle is released from its mouse click.
         '''
-        child = self.info_paned.get_child2()
-        child_width = child.get_allocated_width()
+
+        child_width = self._get_child_width()
         
         paned_positions = eval(self.artist_info_paned_pos)
         
@@ -193,12 +199,20 @@ class ArtistInfoPane(GObject.GObject):
             return
             
         paned_positions.remove(found)
+        if child_width <= self.min_paned_pos:
+            child_width = 0
+            self.info_paned.set_position(self.source.page.get_allocated_width())
+            
         paned_positions.append(self.source.viewmgr.view_name + ":" + str(child_width))
         
         self.artist_info_paned_pos = repr(paned_positions)
                 
     def select_artist(self, widget, artist, album_title):
-        self.tab[self.current].reload(artist, album_title)
+        if self._get_child_width() > self.min_paned_pos:
+            self.tab[self.current].reload(artist, album_title)
+        else:
+            self.tab[self.current].view.blank_view()
+            
         self.current_album_title = album_title
         self.current_artist = artist
             
@@ -206,7 +220,11 @@ class ArtistInfoPane(GObject.GObject):
         print("swapping tab from %s to %s" % (self.current, newtab))
         if (self.current != newtab):
             self.tab[self.current].deactivate()
-            self.tab[newtab].activate(self.current_artist, self.current_album_title)
+            if self._get_child_width() > self.min_paned_pos:
+                self.tab[newtab].activate(self.current_artist, self.current_album_title)
+            else:
+                self.tab[newtab].view.blank_view()
+                
             self.current = newtab
             
     def navigation_request_cb(self, view, frame, request):
