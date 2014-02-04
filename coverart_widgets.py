@@ -248,7 +248,7 @@ class PixbufButton(EnhancedButton):
             image = Gtk.Image()
             super(PixbufButton, self).set_image(image)
 
-        if not self.controller.enabled:
+        if hasattr(self, "controller.enabled") and not self.controller.enabled:
             pixbuf = self._getBlendedPixbuf(pixbuf)
         
         self.get_image().set_from_pixbuf(pixbuf)

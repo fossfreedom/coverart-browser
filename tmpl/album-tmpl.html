@@ -1,0 +1,118 @@
+<%page args="error, albums, artist, stylesheet, datasource" />
+<html> <head> <meta http-equiv="content-type" content="text-html; charset=utf-8">
+<%!
+    import re
+    import cgi
+    import email.utils
+    from gettext import ngettext
+
+    def cleanup(text):
+        return re.sub(r'\([^\)]*\)', '', text)
+
+    def sec2hms(time):
+        hr = int(time / 3600)
+        if hr > 0:
+            time %= 3600
+        mn = time / 60
+        sec = time % 60
+        if hr > 0:
+            return _("%d:%02d:%02d") % (hr,mn,sec)
+        else:
+            return _("%d:%02d") %(mn,sec)
+
+    def format_year(date):
+        try:
+            parsed = email.utils.parsedate(date)
+        except Exception as e:
+            return ""
+        if parsed is None:
+            return ""
+        else:
+            return '[' + str(parsed[0]) + ']'
+
+%>  
+<link rel="stylesheet" href="${stylesheet}" type="text/css" />
+<script language="javascript">
+    function swapClass (element, klass1, klass2) {
+        elt = document.getElementById(element);
+        elt.className = (elt.className == klass1) ? klass2 : klass1;
+    }
+    function swapText (element, text1, text2) {
+        elt = document.getElementById(element);
+        elt.innerHTML = (elt.innerHTML == text1) ? text2 : text1;
+    }
+    function toggle_vis (element) { 
+        swapClass(element, 'hidden', 'shown');
+        hide = ${ '"' + _("Hide all tracks") + '"' };
+        show = ${ '"' + _("Show all tracks") + '"' };
+        swapText('btn_'+element, hide, show);
+    }
+    
+</script>
+<style type="text/css">
+.wiki
+{    font-size: 10pt;
+    font-family: sans-serif;
+}
+
+</style>
+</head>
+<body>
+%if error is None:
+<%  
+    num_albums = len(albums)
+%>
+    <h1>${ _("Top albums by %s") % ("<em>" + cgi.escape(artist, True) + "</em>") }</h1>
+%for i, entry in enumerate(albums) :
+    <%
+    if 'tracklist' not in entry or len(entry['tracklist']) == 0:
+        continue
+    %>
+    <div id="album${entry['id'] | h}" class="album">
+    <img width="64" src="${entry['images'][1] | h}" alt="${entry['images'] | h}"/>
+    <h2>${entry['title'] | h}
+    %if 'releasedate' in entry:
+    ${ format_year(entry['releasedate']) }
+    %endif
+    </h2>
+    %if 'duration' in entry:
+    <% 
+        album_time = sec2hms(entry['duration'])
+	tracks = len(entry['tracklist'])
+	s = ngettext("%s (%d track)", "%s (%d tracks)", tracks)
+    %>
+    <p class="duration">${ s % (album_time, tracks) }</p>
+    %endif
+    %if 'tracklist' in entry:
+    <button id="btn_${entry['id'] | h}" onclick="toggle_vis(${entry['id'] | h})">
+    ${ _("Show all tracks") }
+    </button>
+    <table class="hidden" id="${entry['id'] | h}">
+        %for num, title, time in entry['tracklist'] :
+            <% 
+                time = sec2hms(time)
+                title = cleanup(title)
+                num = num+1
+            %>
+            <tr><td>${num}</td><td>${title | h}</td><td>${time}</td></tr>
+        %endfor
+    </table>
+    %else:
+    <p>${ _("Track list not available") }</p>
+    %endif
+    
+    <div class="wiki">
+    %if 'wiki-summary' in entry:
+    ${entry['wiki-summary']}
+    %endif
+    </div>
+    
+    </div>
+%endfor
+    <p>${datasource}</p>
+%else:
+    <h1>${ _("Unable to retrieve album information:") }</h1>
+    <p class="error">${error | h}</p>
+%endif
+</body>
+</html>

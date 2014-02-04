@@ -958,6 +958,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
         active_object = self.artist_manager.model.get_from_path(treepath)
         
         if not isinstance(active_object, Album):
+            self.source.artist_info.emit('selected', active_object.name, None)
             if self.icon_automatic:
                 # reset counter so that we get correct double click action for albums
                 self.source.click_count = 0 

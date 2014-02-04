@@ -206,6 +206,11 @@
             <summary>Display the artist filter pane</summary>
             <description>Display the artist filter pane</description>
         </key>
+        <key type="s" name="artist-info-paned-pos">
+            <default>"['coverview:0','artistview:250','coverflowview:0']"</default>
+            <summary>Position of the artist info paned.</summary>
+            <description>Position of the artist info paned.</description>
+        </key>
         <key type="b" name="use-favourites">
             <default>false</default>
             <summary>Use favourites</summary>

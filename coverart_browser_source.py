@@ -25,6 +25,7 @@ from gi.repository import Gio
 from gi.repository import Gdk
 from gi.repository import Gtk
 from gi.repository import RB
+from gi.repository import WebKit
 
 from coverart_album import AlbumManager
 from coverart_entryview import CoverArtEntryView as EV
@@ -44,6 +45,7 @@ from coverart_coverflowview import CoverFlowView
 from coverart_artistview import ArtistView
 from coverart_listview import ListView
 from coverart_toolbar import ToolbarManager
+from coverart_artistinfo import ArtistInfoPane
 
 import coverart_rb3compat as rb3compat
 import random
@@ -230,6 +232,16 @@ class CoverArtBrowserSource(RB.Source):
         self.request_cancel_button = ui.get_object('request_cancel_button')
         self.paned = ui.get_object('paned')
         self.notebook = ui.get_object('bottom_notebook')
+        
+        #---- set up info pane -----#
+        info_scrolled_window = ui.get_object('info_scrolled_window')
+        info_button_box = ui.get_object('info_button_box')
+        artist_info_paned = ui.get_object('vertical_info_paned')
+        
+        self.artist_info = ArtistInfoPane(info_button_box,
+            info_scrolled_window,
+            artist_info_paned,
+            self)
 
         # quick search
         self.quick_search = ui.get_object('quick_search_entry')
@@ -338,7 +350,7 @@ class CoverArtBrowserSource(RB.Source):
         Callback when the artist paned handle is released from its mouse click.
         '''
         self.artist_paned_pos = self.artist_paned.get_position()
-
+        
     def display_quick_artist_filter_callback(self):
         if self.artist_treeview.get_visible():
             self.artist_treeview.set_visible(False)
@@ -786,6 +798,9 @@ class CoverArtBrowserSource(RB.Source):
         else:
             self.stars.set_rating(0)
 
+        if len(selected) == 1:
+            self.artist_info.emit('selected', selected[0].artist, selected[0].name)
+            
         for album in selected:
             # add the album to the entry_view
             self.entry_view.add_album(album)
@@ -1045,7 +1060,7 @@ class Views:
 class ViewManager(GObject.Object):
     # signals
     __gsignals__ = {
-        'new-view': (GObject.SIGNAL_RUN_LAST, None, ())
+        'new-view': (GObject.SIGNAL_RUN_LAST, None, (str,))
         }
     
     # properties
@@ -1136,7 +1151,7 @@ class ViewManager(GObject.Object):
             setting = gs.get_setting(gs.Path.PLUGIN)
             setting[gs.PluginKey.VIEW_NAME] = saved_view
             
-        self.emit('new-view')
+        self.emit('new-view', self.view_name)
             
     def get_view_icon_name(self, view_name):
         return self._views[view_name].get_view_icon_name()
