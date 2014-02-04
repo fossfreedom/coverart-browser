@@ -20,7 +20,8 @@ Browse your coverart albums in Rhythmbox v3 and later
 
 ##Summary: whats new in this release
 
- - TBC
+ - new darker toolbar icons which complements the numix theme
+ - artist information pane
  - Translated into 25 languages and locales
  - for developers - doxygen documentation: http://fossfreedom.github.io/coverart-browser/classes.html
 
