@@ -63,7 +63,7 @@ Browse your coverart albums in Rhythmbox v2.96 and later
 
 for debian & debian-based distros such as Ubuntu & Mint:
 
-    sudo apt-get install git gettext python-mako python-lxml gstreamer0.10-plugins-ugly gstreamer0.10-plugins-good gstreamer0.10-plugins-bad
+    sudo apt-get install git gettext python-mako python-lxml python-gi-cairo python-cairo gstreamer0.10-plugins-ugly gstreamer0.10-plugins-good gstreamer0.10-plugins-bad
 
 for fedora and similar:
 
@@ -90,7 +90,7 @@ cd coverart-browser
 
 for debian & debian-based distros such as Ubuntu & Mint:
 
-    sudo apt-get install git gettext python3-mako python3-lxml gstreamer1.0-plugins-ugly gstreamer1.0-plugins-good gstreamer1.0-plugins-bad
+    sudo apt-get install git gettext python3-mako python3-lxml python3-gi-cairo python3-cairo gstreamer1.0-plugins-ugly gstreamer1.0-plugins-good gstreamer1.0-plugins-bad
 
 python3 based package instructions for OpenSuse and Fedora not known
 
