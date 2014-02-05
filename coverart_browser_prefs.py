@@ -163,7 +163,6 @@ class GSetting:
                 FLOW_MAX='flow-max-albums',
                 WEBKIT='webkit-support',
                 ARTIST_PANED_POSITION='artist-paned-pos',
-                ARTIST_PANED_DISPLAY='artist-paned-display',
                 USE_FAVOURITES='use-favourites',
                 ARTIST_INFO_PANED_POSITION='artist-info-paned-pos')
 

@@ -58,7 +58,8 @@ class CoverArtBrowserSource(RB.Source):
     Source utilized by the plugin to show all it's ui.
     '''
     rating_threshold = GObject.property(type=float, default=0)
-    artist_paned_pos = GObject.property(type=int, default=150)
+    artist_paned_pos = GObject.property(type=str)
+    min_paned_pos = 40
     
     # unique instance of the source
     instance = None
@@ -199,18 +200,20 @@ class CoverArtBrowserSource(RB.Source):
         self.page = ui.get_object('main_box')
         self.pack_start(self.page, True, True, 0)
 
-        # get widgets for the artist paned
-        self.artist_paned = ui.get_object('vertical_paned')
-        self.artist_treeview = ui.get_object('artist_treeview')
-        self.artist_scrolledwindow = ui.get_object('artist_scrolledwindow')
-
         # get widgets for main icon-view
         self.status_label = ui.get_object('status_label')
-
         window = ui.get_object('scrolled_window')
         
         self.viewmgr = ViewManager(self, window)
                 
+        # get widgets for the artist paned
+        self.artist_paned = ui.get_object('vertical_paned')
+        Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 50, self._change_artist_paned_pos, self.viewmgr.view_name)
+        self.viewmgr.connect('new-view', self.on_view_changed)
+        self.artist_treeview = ui.get_object('artist_treeview')
+        self.artist_scrolledwindow = ui.get_object('artist_scrolledwindow')
+
+        # define menu's
         self.popup_menu = Menu(self.plugin, self.shell)
         self.popup_menu.load_from_file('ui/coverart_browser_pop_rb2.ui',
             'ui/coverart_browser_pop_rb3.ui')
@@ -349,19 +352,51 @@ class CoverArtBrowserSource(RB.Source):
         '''
         Callback when the artist paned handle is released from its mouse click.
         '''
-        self.artist_paned_pos = self.artist_paned.get_position()
+        child_width = self._get_child_width()
         
-    def display_quick_artist_filter_callback(self):
-        if self.artist_treeview.get_visible():
-            self.artist_treeview.set_visible(False)
-            self.artist_scrolledwindow.set_visible(False)
-            self.artist_treeview.get_selection().unselect_all()
-            self.album_manager.model.remove_filter('quick_artist')
-        else:
-            self.artist_scrolledwindow.set_visible(True)
-            self.artist_treeview.set_visible(True)
+        paned_positions = eval(self.artist_paned_pos)
+        
+        found = None
+        for viewpos in paned_positions:
+            if self.viewmgr.view_name in viewpos:
+                found = viewpos
+                break
+                
+        if not found:
+            return
             
-            self.artist_paned.set_position(self.artist_paned_pos)
+        paned_positions.remove(found)
+        if child_width <= self.min_paned_pos:
+            child_width = 0
+            self.artist_paned.set_position(child_width)
+            
+        paned_positions.append(self.viewmgr.view_name + ":" + str(child_width))
+        
+        self.artist_paned_pos = repr(paned_positions)
+        
+    def on_view_changed(self, widget, view_name):
+        self._change_artist_paned_pos(view_name)
+        
+    def _change_artist_paned_pos(self, view_name):
+        paned_positions = eval(self.artist_paned_pos)
+        print (paned_positions)
+        found = None
+        for viewpos in paned_positions:
+            if view_name in viewpos:
+                found = viewpos
+                break
+        print (found)
+        if not found:
+            return
+            
+        child_width = int(found.split(":")[1])
+        print (child_width)
+        self.artist_paned.set_position(child_width)
+        self.artist_paned.set_visible(True)
+        
+    def _get_child_width(self):
+        child = self.artist_paned.get_child1()
+        return child.get_allocated_width()
         
     def on_artist_treeview_selection_changed(self, view):
         model, artist_iter = view.get_selected()
@@ -826,8 +861,6 @@ class CoverArtBrowserSource(RB.Source):
         elif choice == 'favourite':
             self.favourites = not self.favourites
             self.viewmgr.current_view.set_popup_menu(self.popup_menu)
-        elif choice == 'quick artist':
-            self.display_quick_artist_filter_callback()
         elif choice == 'browser prefs':
             if not self._browser_preferences:
                 self._browser_preferences = Preferences()

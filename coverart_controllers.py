@@ -480,7 +480,6 @@ class ArtistSortPopupController(OptionsController):
 
 
 class PropertiesMenuController(OptionsController):
-    artist_paned_display = GObject.property(type=bool, default=False)
     favourites = GObject.property(type=bool, default=False)
     
     def __init__(self, plugin, source):
@@ -497,8 +496,6 @@ class PropertiesMenuController(OptionsController):
         self.values[MenuNode(_('Download all covers'))] = 'download'
         self.values[MenuNode(_('Play random album'))] = 'random'
         self.values[MenuNode('separator1', 'separator')] = ''
-        self.values[MenuNode(_('Quick artist filter'), 'check', 
-            (True if self.artist_paned_display else False))] = 'quick artist'
         self.values[MenuNode(_('Use favourites only'), 'check',
             (True if self.favourites else False))] = 'favourite'
         self.values[MenuNode('separator2', 'separator')] = ''
@@ -508,8 +505,6 @@ class PropertiesMenuController(OptionsController):
         self.options = list(self.values.keys())
 
         self.update_images(False)
-        if self.artist_paned_display:
-            self._source.propertiesbutton_callback('quick artist')
             
         if self.favourites:
             self._source.propertiesbutton_callback('favourite')
@@ -519,12 +514,6 @@ class PropertiesMenuController(OptionsController):
     def _connect_properties(self):
         gs = GSetting()
         setting = gs.get_setting(gs.Path.PLUGIN)
-        setting.bind(
-            gs.PluginKey.ARTIST_PANED_DISPLAY,
-            self,
-            'artist-paned-display',
-            Gio.SettingsBindFlags.DEFAULT)
-
         setting.bind(
             gs.PluginKey.USE_FAVOURITES,
             self,
@@ -546,10 +535,6 @@ class PropertiesMenuController(OptionsController):
     def do_action(self):
         if self.current_key:
             key = [node for node in self.values if node.label == self.current_key]
-            
-            if self.current_key == _('Quick artist filter'):
-                self.artist_paned_display = not self.artist_paned_display
-                
             
             if self.current_key == _('Use favourites only'):
                 self.favourites = not self.favourites
