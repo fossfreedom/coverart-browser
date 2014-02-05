@@ -27,7 +27,7 @@
             <description>Add a toggle-option to the coverart view to display a tracks and covers pane where you can see these for the chosen album</description>
         </key>
         <key type="b" name="display-text">
-            <default>false</default>
+            <default>true</default>
             <summary>Display album's information</summary>
             <description>Show the album's basic information</description>
         </key>
@@ -37,7 +37,7 @@
             <description>True is under the cover, False is within the cover.</description>
         </key>
         <key type="b" name="display-text-ellipsize">
-            <default>false</default>
+            <default>true</default>
             <summary>Ellipsize albums names</summary>
             <description>Ellipsizes the albums names to a fixed length when the display text option is enabled.</description>
         </key>
@@ -117,12 +117,12 @@
             <description>Determines if the genre filter should be visible.</description>
         </key>
         <key type="b" name="button-relief">
-            <default>false</default>
+            <default>true</default>
             <summary>Button Style</summary>
             <description>True for a flat button style.</description>
         </key>
         <key type="s" name="theme">
-            <default>'standard'</default>
+            <default>'lighter'</default>
             <summary>Icon Theme</summary>
             <description>Name of the chosen theme.</description>
         </key>
@@ -132,12 +132,12 @@
             <description>Plugin toggles this to indicate a new genre - it has no real meaning other than to fire a signal when the state is changed.</description>
         </key>
         <key type="i" name="icon-padding">
-            <default>6</default>
+            <default>3</default>
             <summary>icon view item-padding</summary>
             <description>icon view item-padding</description>
         </key>
         <key type="i" name="icon-spacing">
-            <default>6</default>
+            <default>3</default>
             <summary>icon view spacing (rows and columns)</summary>
             <description>icon view (rows and columns)</description>
         </key>
