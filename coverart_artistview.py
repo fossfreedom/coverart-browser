@@ -17,7 +17,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
-from coverart_external_plugins import CreateExternalPluginMenu
 from gi.repository import Gdk
 from gi.repository import Gtk
 from gi.repository import GLib
@@ -38,7 +37,6 @@ from coverart_toolbar import ToolbarObject
 from coverart_utils import idle_iterator
 from coverart_utils import dumpstack
 from coverart_utils import create_pixbuf_from_file_at_size
-from coverart_external_plugins import CreateExternalPluginMenu
 from coverart_extdb import CoverArtExtDB
 import coverart_rb3compat as rb3compat 
 from coverart_rb3compat import Menu
@@ -787,7 +785,6 @@ class ArtistView(Gtk.TreeView, AbstractView):
     def __init__(self, *args, **kwargs):
         super(ArtistView, self).__init__(*args, **kwargs)
         
-        self.ext_menu_pos = 0
         self._external_plugins = None
         self.gs = GSetting()
         self.show_policy = ArtistShowingPolicy(self)
@@ -805,7 +802,6 @@ class ArtistView(Gtk.TreeView, AbstractView):
         super(ArtistView, self).initialise(source)
         self.album_manager = source.album_manager
         self.shell = source.shell
-        self.ext_menu_pos = 6
         self.props.has_tooltip = True
         
         self.set_enable_tree_lines(True)
@@ -858,12 +854,12 @@ class ArtistView(Gtk.TreeView, AbstractView):
         signals = \
             { 'play_album_menu_item': self.source.play_album_menu_item_callback,
               'queue_album_menu_item': self.source.queue_album_menu_item_callback,
-              'playlist_menu_item': self.source.playlist_menu_item_callback,
               'new_playlist': self.source.add_playlist_menu_item_callback,
               'artist_cover_search_menu_item': self.cover_search_menu_item_callback
             }
               
         self.artist_popup_menu.connect_signals(signals)
+        self.artist_popup_menu.connect('pre-popup', self.add_external_menu)
             
         # connect properties and signals
         self._connect_properties()
@@ -945,6 +941,13 @@ class ArtistView(Gtk.TreeView, AbstractView):
             #we need to play this album
             self.source.play_selected_album(self.source.favourites)
             
+    def add_external_menu(self, *args):
+        '''
+          callback when artist popup menu is about to be displayed
+        '''
+        
+        self.source.playlist_menu_item_callback()
+            
     def _row_click(self, widget, event):
         '''
         event called when clicking on a row
@@ -975,11 +978,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
                     # on right click
                     # display popup
                     
-                    self.artist_popup_menu.get_gtkmenu(self.source, 'popup_menu').popup(None,
-                                    None, 
-                                    None,
-                                    None,
-                                    3,
+                    self.artist_popup_menu.popup(self.source, 'popup_menu', 3,
                                     Gtk.get_current_event_time())
             return
             
@@ -1000,18 +999,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
             # on right click
             # display popup
             
-            if not self._external_plugins:
-                # initialise external plugin menu support
-                self._external_plugins = \
-                CreateExternalPluginMenu("ca_covers_view",
-                    self.ext_menu_pos, self.popup)
-                self._external_plugins.create_menu('popup_menu', True)
-            
-            self.popup.get_gtkmenu(self.source, 'popup_menu').popup(None,
-                            None, 
-                            None,
-                            None,
-                            3,
+            self.popup.popup(self.source, 'popup_menu', 3,
                             Gtk.get_current_event_time())
                             
         self._last_row_was_artist = False

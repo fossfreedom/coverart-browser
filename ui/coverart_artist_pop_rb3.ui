@@ -31,8 +31,5 @@
         <attribute name="action">win.artist_cover_search_menu_item</attribute>
       </item>
     </section>
-        <section>
-        <attribute name="rb-plugin-menu-link">ca_covers_view</attribute>
-    </section>   
   </menu>
 </interface>

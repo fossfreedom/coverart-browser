@@ -965,12 +965,6 @@ class EnhancedIconView(Gtk.IconView):
             self.set_columns(0)
             self.set_columns(-1)
 
-    def pre_display_popup(self):
-        '''
-        called just before popup is displayed
-        '''
-        pass 
-
     def do_button_press_event(self, event):
         '''
         Other than the default behavior, adds an event firing when the mouse
@@ -993,9 +987,7 @@ class EnhancedIconView(Gtk.IconView):
                 self.set_cursor(current_path, None, False)
 
                 if self.popup:
-                    self.pre_display_popup()    
-                    self.popup.get_gtkmenu(self.source, 'popup_menu').popup(None,
-                        None, None, None, event.button, event.time)
+                    self.popup.popup(self.source, 'popup_menu', event.button, event.time)
             else:
                 self.emit('item-clicked', event, current_path)
 

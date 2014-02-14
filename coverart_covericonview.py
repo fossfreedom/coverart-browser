@@ -28,7 +28,6 @@ from gi.repository import GdkPixbuf
 from gi.repository import RB
 from gi.repository.GdkPixbuf import Pixbuf
 from coverart_widgets import EnhancedIconView
-from coverart_external_plugins import CreateExternalPluginMenu
 from coverart_browser_prefs import GSetting
 from coverart_album import AlbumsModel
 from coverart_widgets import AbstractView
@@ -241,8 +240,6 @@ class CoverIconView(EnhancedIconView, AbstractView):
             super(CoverIconView, self).__init__(*args, **kwargs)
             self.props.cell_area = AlbumArtCellArea() 
             
-        self.ext_menu_pos = 0
-        self._external_plugins = None
         self.gs = GSetting()
         # custom text renderer
         self._text_renderer = None
@@ -264,8 +261,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
         
         self.shell = source.shell
         self.album_manager = source.album_manager
-        self.ext_menu_pos = 6
-
+        
         # setup iconview drag&drop support
         # first drag and drop on the coverart view to receive coverart
         self.enable_model_drag_dest([], Gdk.DragAction.COPY)
@@ -360,14 +356,6 @@ class CoverIconView(EnhancedIconView, AbstractView):
         [common to all views]
         '''
         self.set_item_width(cover_size)
-
-    def pre_display_popup(self):
-        if not self._external_plugins:
-            # initialise external plugin menu support
-            self._external_plugins = \
-            CreateExternalPluginMenu("ca_covers_view",
-                self.ext_menu_pos, self.popup)
-            self._external_plugins.create_menu('popup_menu', True)
 
     def on_drag_drop(self, widget, context, x, y, time):
         '''

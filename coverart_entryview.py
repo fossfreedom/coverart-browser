@@ -89,11 +89,11 @@ class CoverArtEntryView(RB.EntryView):
         signals = {
             'ev_play_track_menu_item': self.play_track_menu_item_callback,
             'ev_queue_track_menu_item': self.queue_track_menu_item_callback,
-            'ev_playlist_menu_item': self.playlist_menu_item_callback,
             'ev_new_playlist': self.add_playlist_menu_item_callback,
             'ev_show_properties_menu_item': self.show_properties_menu_item_callback }
             
         popup.connect_signals(signals)
+        popup.connect('pre-popup', self.add_external_menu)
         self.popup = popup
 
         # connect signals to the shell to know when the playing state changes
@@ -171,17 +171,24 @@ class CoverArtEntryView(RB.EntryView):
         self.play_track_menu_item_callback(entry)
         print("CoverArtBrowser DEBUG - do_entry_activated()")
         return True
+        
+    def add_external_menu(self, *args):
+        '''
+        Callback when the popup menu is about to be displayed
+        '''
+        if not self.external_plugins:
+            self.external_plugins = \
+                    CreateExternalPluginMenu("ev_entryview", 3, self.popup)
+            self.external_plugins.create_menu('entryview_popup_menu')
+            
+        self.playlist_menu_item_callback()
 
     def do_show_popup(self, over_entry):
         if over_entry:
             print("CoverArtBrowser DEBUG - do_show_popup()")
-            if not self.external_plugins:
-                self.external_plugins = \
-                    CreateExternalPluginMenu("ev_entryview", 3, self.popup)
-            self.external_plugins.create_menu('entryview_popup_menu')
-            self.popup.get_gtkmenu(self.source,
-                'entryview_popup_menu').popup(None, None, None, None, 0,
-                Gtk.get_current_event_time())
+            
+            self.popup.popup(self.source,
+                'entryview_popup_menu', 0, Gtk.get_current_event_time())
 
         return over_entry
 
