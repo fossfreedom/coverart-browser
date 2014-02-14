@@ -153,14 +153,19 @@ def is_rb3(*args):
     else:
         return True 
         
-class Menu(object):
+class Menu(GObject.Object):
     '''
     Menu object used to create window popup menus
     '''
+    __gsignals__ = {
+        'pre-popup': (GObject.SIGNAL_RUN_LAST, None, ())
+        }
+        
     def __init__(self, plugin, shell):
         '''
         Initializes the menu.
         '''
+        super(Menu, self).__init__()
         self.plugin = plugin
         self.shell = shell
         self._unique_num = 0
@@ -290,7 +295,7 @@ class Menu(object):
 
     def _connect_rb3_signals(self, signals):
         def _menu_connect(action_name, func):
-            action = Gio.SimpleAction(name=action_name)
+            action = Gio.SimpleAction.new(name=action_name)
             action.connect('activate', func)
             action.set_enabled(True)
             self.shell.props.window.add_action(action)
@@ -373,6 +378,14 @@ class Menu(object):
         else:
             item = self.get_menu_object(menu_or_action_item)
             item.set_sensitive(enable)
+            
+    def popup(self, source, menu_name, button, time):
+        '''
+        utility function to show the popup menu
+        '''
+        self.emit('pre-popup')
+        menu = self.get_gtkmenu(source, menu_name)
+        menu.popup(None, None, None, None, button, time)
             
 class ActionGroup(object):
     '''

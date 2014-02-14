@@ -44,6 +44,7 @@ from coverart_coverflowview import CoverFlowView
 from coverart_artistview import ArtistView
 from coverart_listview import ListView
 from coverart_toolbar import ToolbarManager
+from coverart_external_plugins import CreateExternalPluginMenu
 
 import coverart_rb3compat as rb3compat
 import random
@@ -212,16 +213,18 @@ class CoverArtBrowserSource(RB.Source):
         self.popup_menu = Menu(self.plugin, self.shell)
         self.popup_menu.load_from_file('ui/coverart_browser_pop_rb2.ui',
             'ui/coverart_browser_pop_rb3.ui')
+        self._external_plugins = None
+        
         signals = \
             { 'play_album_menu_item': self.play_album_menu_item_callback,
               'queue_album_menu_item': self.queue_album_menu_item_callback,
-              'playlist_menu_item': self.playlist_menu_item_callback,
               'new_playlist': self.add_playlist_menu_item_callback,
               'cover_search_menu_item': self.cover_search_menu_item_callback,
               'export_embed_menu_item': self.export_embed_menu_item_callback,
               'show_properties_menu_item': self.show_properties_menu_item_callback}
               
         self.popup_menu.connect_signals(signals)
+        self.popup_menu.connect('pre-popup', self.add_external_menu)
         
         self.status_label = ui.get_object('status_label')
         self.request_status_box = ui.get_object('request_status_box')
@@ -333,6 +336,20 @@ class CoverArtBrowserSource(RB.Source):
             
         print("CoverArtBrowser DEBUG - end _setup_source")
         
+    def add_external_menu(self, *args):
+        '''
+        Callback when the popup menu is about to be displayed
+        '''
+
+        if not self._external_plugins:
+            # initialise external plugin menu support
+            self._external_plugins = \
+            CreateExternalPluginMenu("ca_covers_view",
+                6, self.popup_menu)
+            self._external_plugins.create_menu('popup_menu', True)
+
+        self.playlist_menu_item_callback()
+
     def artist_paned_button_release_callback(self, *args):
         '''
         Callback when the artist paned handle is released from its mouse click.

@@ -86,8 +86,8 @@
         </plugin>
         <plugin name="opencontainingfolder">
             <menu label="Open Containing Folder">
-                <attribute name="action_type">win</attribute>
-                <attribute name="action_name">OpenContainingFolder</attribute>
+                <attribute name="action_type">app</attribute>
+                <attribute name="action_name">open-containing-folder</attribute>
                 <attribute name="new_menu_name">Open Containing Folder</attribute>
                 <attribute name="is_album_menu">yes</attribute>
             </menu>

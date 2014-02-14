@@ -17,7 +17,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
-from coverart_external_plugins import CreateExternalPluginMenu
 from gi.repository import Gdk
 from gi.repository import Gtk
 from gi.repository import GLib
@@ -74,8 +73,6 @@ class CoverFlowView(AbstractView):
     def __init__(self):
         super(CoverFlowView, self).__init__()
         
-        self.ext_menu_pos = 0
-        self._external_plugins = None
         self.show_policy = FlowShowingPolicy(self)
         if webkit_support():
             from gi.repository import WebKit
@@ -264,20 +261,8 @@ class CoverFlowView(AbstractView):
             self.selectionchanged_callback()
 
     def item_rightclicked_callback(self, album):
-        if not self._external_plugins:
-            # initialise external plugin menu support
-            self._external_plugins = \
-            CreateExternalPluginMenu("ca_covers_view",
-                self.ext_menu_pos, self.popup)
-            self._external_plugins.create_menu('popup_menu', True)
-            
         self.last_album = album
-        self.popup.get_gtkmenu(self.source, 'popup_menu').popup(None,
-                        None, 
-                        None,
-                        None,
-                        3,
-                        Gtk.get_current_event_time())
+        self.popup.popup(self.source, 'popup_menu', 3, Gtk.get_current_event_time())
 
     def item_clicked_callback(self, album):
         '''

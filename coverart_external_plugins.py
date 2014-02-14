@@ -108,6 +108,8 @@ class ExternalPlugin(GObject.Object):
                 self.attributes['label']=action.label
             #self.attributes['sensitive']=action.get_sensitive()
         else:
+            print ("action not found")
+            print (self.attributes)
             return False
 
         action = save_actiongroup.add_action(func=self.menuitem_callback,
