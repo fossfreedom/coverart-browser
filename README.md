@@ -22,6 +22,7 @@ Browse your coverart albums in Rhythmbox v2.96 and later
  - fix for right-click playlist support for Ubuntu 14.04
  - check if lastfm plugin is activated correctly implemented for artist-view
  - fix for "shudder" in artist-view for RB2.99
+ - lastest translations from Launchpad
 
 ##Summary: whats new in this release 1.0
 
@@ -68,19 +69,19 @@ Browse your coverart albums in Rhythmbox v2.96 and later
 
 for debian & debian-based distros such as Ubuntu & Mint:
 
-    sudo apt-get install git gettext python-mako python-lxml python-gi-cairo python-cairo gstreamer0.10-plugins-ugly gstreamer0.10-plugins-good gstreamer0.10-plugins-bad
+    sudo apt-get install git gettext python-mako python-lxml python-gi-cairo python-cairo gstreamer0.10-plugins-ugly gstreamer0.10-plugins-good gstreamer0.10-plugins-bad rhythmbox-plugins
 
 for fedora and similar:
 
     yum install git gettext python-mako python-lxml
     
-what is the fedora equivalent of gstreamer0.10-plugins-ugly/gstreamer0.10-plugins-good/gstreamer0.10-plugins-bad ?
+what is the fedora equivalent of gstreamer0.10-plugins-ugly/gstreamer0.10-plugins-good/gstreamer0.10-plugins-bad/rhythmbox-plugins ?
     
 for opensuse
 
     sudo zypper in git gettext-runtime python-mako python-lxml typelib-1_0-WebKit-3_0
     
-what is the opensuse equivalent of gstreamer0.10-plugins-ugly/gstreamer0.10-plugins-good/gstreamer0.10-plugins-bad? 
+what is the opensuse equivalent of gstreamer0.10-plugins-ugly/gstreamer0.10-plugins-good/gstreamer0.10-plugins-bad/rhythmbox-plugins? 
 
 Then install the plugin:
 
@@ -95,7 +96,7 @@ cd coverart-browser
 
 for debian & debian-based distros such as Ubuntu & Mint:
 
-    sudo apt-get install git gettext python3-mako python3-lxml python3-gi-cairo python3-cairo gstreamer1.0-plugins-ugly gstreamer1.0-plugins-good gstreamer1.0-plugins-bad
+    sudo apt-get install git gettext python3-mako python3-lxml python3-gi-cairo python3-cairo gstreamer1.0-plugins-ugly gstreamer1.0-plugins-good gstreamer1.0-plugins-bad rhythmbox-plugins
 
 python3 based package instructions for OpenSuse and Fedora not known
 
