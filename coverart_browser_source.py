@@ -408,8 +408,14 @@ class CoverArtBrowserSource(RB.Source):
             
         child_width = int(found.split(":")[1])
         print (child_width)
-        self.artist_paned.set_position(child_width)
+        
+        # odd case - if the pane is not visible but the position is zero
+        # then the paned position on visible=true is some large arbitary value
+        # hence - set it to be 1 px larger than the real value, then set it back
+        # to its expected value
+        self.artist_paned.set_position(child_width + 1)
         self.artist_paned.set_visible(True)
+        self.artist_paned.set_position(child_width)
         
     def _get_child_width(self):
         child = self.artist_paned.get_child1()
