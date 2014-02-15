@@ -775,10 +775,16 @@ def check_lastfm(force_check=False):
     '''
     
     providers = get_search_providers()
+    print (providers)
+    print (force_check)
     
     if force_check or 'lastfm-search' in providers:
-        return lastfm_connected()
+        connected = lastfm_connected()
+        print (connected)
+        return connected
     elif not 'lastfm-search' in providers:
+        print ("not lastm-search")
         return True
     else:
+        print ("returning default")
         return False

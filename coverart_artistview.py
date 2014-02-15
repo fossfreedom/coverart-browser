@@ -131,8 +131,6 @@ class ArtistsModel(GObject.Object):
         'artist_album': 2, 'show': 3, 
         'empty': 4, 'markup': 5, 'expander': 6}
         
-    force_lastfm_check = True
-    
     def __init__(self, album_manager):
         super(ArtistsModel, self).__init__()
 
@@ -674,6 +672,8 @@ class ArtistLoader(GObject.Object):
             self._artist_manager.model.add(artist)
 
 class ArtistCoverManager(CoverManager):
+    
+    force_lastfm_check = True
     
     def __init__(self, plugin, artist_manager):
         self.cover_db = CoverArtExtDB(name='artist-art')
