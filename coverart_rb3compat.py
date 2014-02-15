@@ -295,7 +295,7 @@ class Menu(GObject.Object):
 
     def _connect_rb3_signals(self, signals):
         def _menu_connect(action_name, func):
-            action = Gio.SimpleAction.new(name=action_name)
+            action = Gio.SimpleAction(name=action_name)
             action.connect('activate', func)
             action.set_enabled(True)
             self.shell.props.window.add_action(action)

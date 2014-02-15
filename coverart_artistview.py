@@ -806,7 +806,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
         
         self.set_enable_tree_lines(True)
         
-        col = Gtk.TreeViewColumn('     ', Gtk.CellRendererText(), text=6)
+        col = Gtk.TreeViewColumn('       ', Gtk.CellRendererText(), text=6)
         self.append_column(col)
         
         pixbuf = Gtk.CellRendererPixbuf()
