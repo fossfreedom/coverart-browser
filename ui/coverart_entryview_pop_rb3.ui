@@ -12,7 +12,6 @@
       </item>
       <submenu>
         <attribute name="label" translatable="yes">Add to Playlist</attribute>
-        <attribute name="action">win.ev_playlist_menu_item</attribute>
         <section>
             <item>
                 <attribute name="label" translatable="yes">New Playlist</attribute>
