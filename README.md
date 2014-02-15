@@ -1,4 +1,4 @@
-#coverart-browser v1.0
+#coverart-browser v1.1 beta
 ================
 
 Browse your coverart albums in Rhythmbox v2.96 and later
@@ -17,8 +17,13 @@ Browse your coverart albums in Rhythmbox v2.96 and later
 
 [![Flattr Button](http://api.flattr.com/button/button-compact-static-100x17.png "Flattr This!")](http://flattr.com/thing/1811704/ "fossfreedom")  [![paypaldonate](https://www.paypalobjects.com/en_GB/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KBV682WJ3BDGL)
 -----------
+##Summary: whats new in this release 1.1
+ - This is primarily a bug-fix release
+ - fix for right-click playlist support for Ubuntu 14.04
+ - check if lastfm plugin is activated correctly implemented for artist-view
+ - fix for "shudder" in artist-view for RB2.99
 
-##Summary: whats new in this release
+##Summary: whats new in this release 1.0
 
  - single click play for O/S's using GTK+3.6 or later for Tile-view
  - new artists view: displays album-artists in a tree-view
