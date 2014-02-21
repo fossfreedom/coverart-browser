@@ -8,30 +8,30 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-13 21:47+0000\n"
-"PO-Revision-Date: 2014-01-19 12:28+0000\n"
+"PO-Revision-Date: 2014-02-21 13:09+0000\n"
 "Last-Translator: Atanas Kovachki <Unknown>\n"
 "Language-Team: Bulgarian <bg@li.org>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-01-19 20:20+0000\n"
-"X-Generator: Launchpad (build 16901)\n"
+"X-Launchpad-Export-Date: 2014-02-21 14:36+0000\n"
+"X-Generator: Launchpad (build 16926)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 #: tmpl/artistartsearch-tmpl.html:135
 msgid "Search Options"
-msgstr "Параметри за търсенето"
+msgstr "Настройки за търсенето"
 
 #: tmpl/albumartsearch-tmpl.html:187
 msgid "Tip: doubleclick or drag a cover to use it as the album cover"
 msgstr ""
-"Съвет: кликнете два пъти или завлачете обложка, за да я използвате като "
-"картинка на албум"
+"Съвет: кликнете два пъти или преместете обложката, за да я използвате като "
+"обложка за албума"
 
 #: tmpl/albumartsearch-tmpl.html:189
 msgid "Search Mode"
-msgstr "Режим на търсенето"
+msgstr "Режим за търсенето"
 
 #: tmpl/albumartsearch-tmpl.html:191 coverart_browser_source.py:314
 #: coverart_browser_source.py:989 coverart_browser_source.py:986
@@ -49,15 +49,15 @@ msgstr "Изпълнител и албум"
 
 #: tmpl/albumartsearch-tmpl.html:196 tmpl/artistartsearch-tmpl.html:182
 msgid "Search text"
-msgstr "Търсене на текст"
+msgstr "Търси текст"
 
 #: tmpl/albumartsearch-tmpl.html:199 tmpl/artistartsearch-tmpl.html:185
 msgid "Search"
-msgstr "Търси"
+msgstr "Търсене"
 
 #: tmpl/albumartsearch-tmpl.html:201 tmpl/artistartsearch-tmpl.html:187
 msgid "Image Size"
-msgstr "Размер на изображенията"
+msgstr "Размер за изображението"
 
 #: tmpl/albumartsearch-tmpl.html:203 tmpl/artistartsearch-tmpl.html:189
 msgid "Small"
@@ -78,7 +78,7 @@ msgstr "Много голям"
 #: tmpl/albumartsearch-tmpl.html:211 tmpl/artistartsearch-tmpl.html:197
 #: coverart_browser_source.py:114
 msgid "Loading..."
-msgstr "Зарежда се..."
+msgstr "Зареждане..."
 
 #: tmpl/albumartsearch-tmpl.html:213 tmpl/artistartsearch-tmpl.html:199
 msgid "Show more results"
@@ -87,16 +87,16 @@ msgstr "Покажи още резултати"
 #: tmpl/artistartsearch-tmpl.html:180
 msgid "Tip: doubleclick or drag a cover to use it as the artist cover"
 msgstr ""
-"Съвет: кликнете два пъти или завлачете обложка, за да я използвате като "
-"картинка на изпълнител"
+"Съвет: кликнете два пъти или преместете обложката, за да я използвате като "
+"обложка за артиста"
 
 #: tmp/coverart_artist_pop_rb2.ui.h:1 tmp/coverart_artist_pop_rb3.ui.h:1
 msgid "Play All"
-msgstr "Възпроизвеждане на всички"
+msgstr "Възпроизвеждай всички"
 
 #: tmp/coverart_artist_pop_rb2.ui.h:2 tmp/coverart_artist_pop_rb3.ui.h:2
 msgid "Queue All"
-msgstr "Всички на опашката"
+msgstr "Добави всички към опашката за слушане"
 
 #: tmp/coverart_artist_pop_rb2.ui.h:3 tmp/coverart_artist_pop_rb3.ui.h:3
 #: tmp/coverart_browser_pop_rb2.ui.h:3 tmp/coverart_browser_pop_rb3.ui.h:3
@@ -109,37 +109,39 @@ msgstr "Добави към плейлист"
 #: tmp/coverart_entryview_pop_rb2.ui.h:4 tmp/coverart_entryview_pop_rb3.ui.h:4
 #: coverart_browser_source.py:553 coverart_entryview.py:274
 msgid "New Playlist"
-msgstr "Нова плейлиста"
+msgstr "Нов плейлист"
 
 #: tmp/coverart_artist_pop_rb2.ui.h:5 tmp/coverart_artist_pop_rb3.ui.h:5
 #: tmp/coverart_browser_pop_rb2.ui.h:5 tmp/coverart_browser_pop_rb3.ui.h:5
 msgid "Search for covers"
-msgstr "Търсене на корици"
+msgstr "Търси обложки"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:1 tmp/coverart_browser_pop_rb3.ui.h:1
 msgid "Play Album"
-msgstr "Пусни албума"
+msgstr "Възпроизведи албума"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:2 tmp/coverart_browser_pop_rb3.ui.h:2
 msgid "Queue Album"
-msgstr "Албум на опашката"
+msgstr "Добави албума към опашката за слушане"
 
 #: tmp/coverart_browser_pop_rb2.ui.h:6 tmp/coverart_browser_pop_rb3.ui.h:6
 msgid "Export and embed coverart"
-msgstr "Извличане и вграждане на корици"
+msgstr "Експортиране и вграждане на обложки"
 
 #: tmp/coverart_browser_pop_rb3.ui.h:7 tmp/coverart_entryview_pop_rb3.ui.h:5
 #: coverart_controllers.py:509 coverart_controllers.py:564
 msgid "Properties"
-msgstr "Характеристика"
+msgstr "Характеристики"
 
 #: tmp/coverart_browser_prefs.ui.h:1
 msgid "Select a picture"
-msgstr "Изборете на изображение"
+msgstr "Изберете изображение"
 
 #: tmp/coverart_browser_prefs.ui.h:2
 msgid "Select picture to add to Edit Genre icon drop-down list"
 msgstr ""
+"Изберете изображение, за да добавите икона в падащия списък «Редактирай "
+"жанра»"
 
 #: tmp/coverart_browser_prefs.ui.h:3
 msgid "Above"
@@ -159,7 +161,7 @@ msgstr "Горе вдясно"
 
 #: tmp/coverart_browser_prefs.ui.h:7
 msgid "Above Cover View"
-msgstr ""
+msgstr "Над обложката за преглед"
 
 #: tmp/coverart_browser_prefs.ui.h:8
 msgid "Left Sidebar"
@@ -175,7 +177,9 @@ msgstr "Автоматично стартиране"
 
 #: tmp/coverart_browser_prefs.ui.h:11
 msgid "When rhythmbox starts, switch automatically to the coverart browser."
-msgstr "Когато rhythmbox стартира, превключете автоматично в браузър на корици"
+msgstr ""
+"Когато «rhythmbox» стартира, автоматично да се превключва в «coverart "
+"browser»."
 
 #: tmp/coverart_browser_prefs.ui.h:12
 msgid "Use source's custom statusbar"
@@ -189,19 +193,23 @@ msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:14
 msgid "Display tracks and covers pane"
-msgstr ""
+msgstr "Показвай траковете и панела за обложките"
 
 #: tmp/coverart_browser_prefs.ui.h:15
 msgid ""
 "Add a toggle-option to the coverart view to display the tracks and covers "
 "for the chosen album"
 msgstr ""
+"Добави опция за превключване към режима за преглед на обложката, за да се "
+"покажат траковете и обложките на избраният албум"
 
 #: tmp/coverart_browser_prefs.ui.h:16
 msgid ""
 "Number of random\n"
 "albums to play"
 msgstr ""
+"Количество на случайните\n"
+"албуми за възпройзвеждане"
 
 #: tmp/coverart_browser_prefs.ui.h:18
 msgid "Level above which is regarded as being a favourite track or album"
@@ -209,7 +217,7 @@ msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:19
 msgid "Favourite Threshold"
-msgstr ""
+msgstr "Ограничение на любимите"
 
 #: tmp/coverart_browser_prefs.ui.h:20
 msgid "General"
@@ -221,11 +229,11 @@ msgstr "Информация за албума"
 
 #: tmp/coverart_browser_prefs.ui.h:22
 msgid "Display album information"
-msgstr "Покажи информацията за албума"
+msgstr "Показвай информацията за албума"
 
 #: tmp/coverart_browser_prefs.ui.h:23
 msgid "Font size for the text below the cover-art."
-msgstr ""
+msgstr "Размер на шрифта за текста под обложките"
 
 #: tmp/coverart_browser_prefs.ui.h:24
 msgid "Font Size:"
@@ -233,17 +241,21 @@ msgstr "Размер на шрифта:"
 
 #: tmp/coverart_browser_prefs.ui.h:25
 msgid "Ellipsize albums names"
-msgstr "Отрязване на имената на албумите"
+msgstr "Изрязвай имената на албумите"
 
 #: tmp/coverart_browser_prefs.ui.h:26
 msgid ""
 "Ellipsizes the albums names to a fixed length when the display text option "
 "is enabled."
 msgstr ""
+"Изрязва имената на албумите до фиксирана дължина, когато опцията за "
+"показване на текст е активирана."
 
 #: tmp/coverart_browser_prefs.ui.h:27
 msgid "Maximum allowed length for an album's name before being ellipsized."
 msgstr ""
+"Максимално допустимата дължина за имената на албумите, преди те да бъдат "
+"изрязани."
 
 #: tmp/coverart_browser_prefs.ui.h:28
 msgid "Maximum length:"
@@ -251,19 +263,19 @@ msgstr "Максимална дължина:"
 
 #: tmp/coverart_browser_prefs.ui.h:29
 msgid "Display album's info under cover"
-msgstr "Покажи информацията за албума под обложката"
+msgstr "Показвай информацията за албума под обложката"
 
 #: tmp/coverart_browser_prefs.ui.h:30
 msgid "Display album's info within cover"
-msgstr ""
+msgstr "Показвай информацията за албума в рамките на обложката"
 
 #: tmp/coverart_browser_prefs.ui.h:31
 msgid "Cover Appearance"
-msgstr "Вид обложките"
+msgstr "Външен вид за обложките"
 
 #: tmp/coverart_browser_prefs.ui.h:32
 msgid "Drop shadow"
-msgstr "Със сянка"
+msgstr "Падаща сянка"
 
 #: tmp/coverart_browser_prefs.ui.h:33
 msgid "Indicates if the albums should drop a shadow on the cover view"
@@ -279,15 +291,15 @@ msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:36
 msgid "Size (in pixels):"
-msgstr "Размер ( в пиксели):"
+msgstr "Размер (в пиксели):"
 
 #: tmp/coverart_browser_prefs.ui.h:37
 msgid "Tracks Pane"
-msgstr ""
+msgstr "Трак панел"
 
 #: tmp/coverart_browser_prefs.ui.h:38
 msgid "open or close on click of cover"
-msgstr ""
+msgstr "отваря или затваря при кликане върху обложката"
 
 #: tmp/coverart_browser_prefs.ui.h:39
 msgid "Advanced Options"
@@ -315,11 +327,11 @@ msgstr "Отстояние"
 #: tmp/coverart_browser_prefs.ui.h:44 coverart_browser.py:172
 #: coverart_browser_source.py:986 coverart_browser_source.py:983
 msgid "Tiles"
-msgstr ""
+msgstr "Плочки"
 
 #: tmp/coverart_browser_prefs.ui.h:45
 msgid "Flow Appearance"
-msgstr ""
+msgstr "Външен вид на потока"
 
 #: tmp/coverart_browser_prefs.ui.h:46
 msgid "Width (px):"
@@ -334,15 +346,15 @@ msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:49
 msgid "Hide Caption"
-msgstr ""
+msgstr "Скрий надписа"
 
 #: tmp/coverart_browser_prefs.ui.h:50
 msgid "Maximum covers to display:"
-msgstr ""
+msgstr "Максимум обложки за показване:"
 
 #: tmp/coverart_browser_prefs.ui.h:51
 msgid "Background Colour"
-msgstr "Фон"
+msgstr "Цвят за фона"
 
 #: tmp/coverart_browser_prefs.ui.h:52
 msgid "White"
@@ -375,7 +387,7 @@ msgstr "Покажи лентата с инструменти: "
 
 #: tmp/coverart_browser_prefs.ui.h:58
 msgid "Look & Feel"
-msgstr "Гледай и Чувствай"
+msgstr "Гледай и чувствай"
 
 #: tmp/coverart_browser_prefs.ui.h:59
 msgid "Flat-button style"
@@ -391,7 +403,7 @@ msgstr "Алтернативни жанрове:"
 
 #: tmp/coverart_browser_prefs.ui.h:62
 msgid "Load New Icon: "
-msgstr "Качване на нова иконка: "
+msgstr "Зареди нова иконка: "
 
 #: tmp/coverart_browser_prefs.ui.h:63
 msgid "Select a new genre icon"
@@ -399,7 +411,7 @@ msgstr "Избери нова иконка за жанра"
 
 #: tmp/coverart_browser_prefs.ui.h:64
 msgid "Edit Genre Details:"
-msgstr ""
+msgstr "Редактирай детайлите за жанра:"
 
 #: tmp/coverart_browser_prefs.ui.h:65
 msgid "Save changes"
@@ -415,11 +427,11 @@ msgstr "Икона:"
 
 #: tmp/coverart_browser_prefs.ui.h:68
 msgid "Current user-defined Genres:"
-msgstr ""
+msgstr "Текущи дефинирани от потребителя жанрове:"
 
 #: tmp/coverart_browser_prefs.ui.h:69
 msgid "Alternate Name"
-msgstr "Алтернативно Име"
+msgstr "Алтернативно име"
 
 #: tmp/coverart_browser_prefs.ui.h:70
 msgid "Icon"
@@ -431,7 +443,7 @@ msgstr "Нов алтернативен жанр"
 
 #: tmp/coverart_browser_prefs.ui.h:72
 msgid "Delete an alternative genre"
-msgstr "Изтрий алтернативният жанр"
+msgstr "Изтрий алтернативния жанр"
 
 #: tmp/coverart_browser_prefs.ui.h:73
 msgid "Toolbar"
@@ -439,12 +451,12 @@ msgstr "Лента с инструменти"
 
 #: tmp/coverart_browser.ui.h:1
 msgid "Tracks & Covers"
-msgstr "Песни и Обложки"
+msgstr "Тракове и обложки"
 
 #: tmp/coverart_browser.ui.h:2 coverart_artistview.py:749
 #: coverart_artistview.py:753 coverart_artistview.py:824
 msgid "Track Artist"
-msgstr "Изпълнител на песента"
+msgstr "Изпълнител на трака"
 
 #: tmp/coverart_browser.ui.h:3
 msgid "Stop coverart fetch."
@@ -452,28 +464,28 @@ msgstr "Спри получаването на обложките."
 
 #: tmp/coverart_entryview_pop_rb2.ui.h:1 tmp/coverart_entryview_pop_rb3.ui.h:1
 msgid "Play Track"
-msgstr "Пусни песента"
+msgstr "Пусни трака"
 
 #: tmp/coverart_entryview_pop_rb2.ui.h:2 tmp/coverart_entryview_pop_rb3.ui.h:2
 msgid "Queue Track"
-msgstr ""
+msgstr "Добави трака към опашката за слушане"
 
 #: tmp/coverart_exportembed.ui.h:1
 msgid "Choose folder to save tracks:"
-msgstr ""
+msgstr "Изберете папка за съхраняване на траковете:"
 
 #: tmp/coverart_exportembed.ui.h:2 tmp/coverart_exportembed.ui.h:3
 msgid "Save tracks within folder using album name"
-msgstr ""
+msgstr "Съхранявай траковете в папката използвайки името на албума"
 
 #: tmp/coverart_exportembed.ui.h:3 tmp/coverart_exportembed.ui.h:4
 msgid "Open embedded track folder in file-manager"
-msgstr ""
+msgstr "Отвори вградените тракове в папката във файловия мениджър"
 
 #. This is a label describing the different options to save the picture artwork in the music file i.e. embed - to insert picture artwork into a music file
 #: tmp/coverart_exportembed.ui.h:5 tmp/coverart_exportembed.ui.h:6
 msgid "Embed:"
-msgstr ""
+msgstr "Вграждане:"
 
 #: tmp/coverart_exportembed.ui.h:6 tmp/coverart_exportembed.ui.h:7
 msgid ""
@@ -487,12 +499,12 @@ msgstr "конвертирай в mp3"
 
 #: tmp/coverart_exportembed.ui.h:8 tmp/coverart_exportembed.ui.h:9
 msgid "bitrate (kbit/s)"
-msgstr ""
+msgstr "битрейт (кбита/сек)"
 
 #. This is a label describing the size of the picture that will be inserted into the music file e.g. change the size from 800x800 pixels to 128x128 pixels
 #: tmp/coverart_exportembed.ui.h:10 tmp/coverart_exportembed.ui.h:11
 msgid "resize art"
-msgstr ""
+msgstr "преоразмеряване на обложките"
 
 #: tmp/coverart_exportembed.ui.h:11 tmp/coverart_exportembed.ui.h:12
 msgid "size in pixels"
@@ -502,11 +514,11 @@ msgstr "размер в пиксели"
 #: tmp/coverart_exportembed.ui.h:11 tmp/coverart_exportembed.ui.h:12
 #: tmp/coverart_exportembed.ui.h:13
 msgid "(px)"
-msgstr ""
+msgstr "(пкс)"
 
 #: tmp/coverart_exportembed.ui.h:12 tmp/coverart_exportembed.ui.h:2
 msgid "Select a Folder to export to"
-msgstr ""
+msgstr "Изберете папка за експортиране"
 
 #: tmp/coverart_leftsidebar.ui.h:1 tmp/coverart_rightsidebar.ui.h:1
 #: coverart_browser.py:105 coverart_browser.py:117
@@ -530,7 +542,7 @@ msgstr "Всички десетилетия"
 #: tmp/coverart_leftsidebar.ui.h:4 tmp/coverart_rightsidebar.ui.h:4
 #: tmp/coverart_topbar.ui.h:4 coverart_browser.py:251 coverart_browser.py:253
 msgid "Views"
-msgstr ""
+msgstr "Преглед"
 
 #: tmp/popups.xml.in.h:1
 msgid "rock"
@@ -546,7 +558,7 @@ msgstr "поп"
 
 #: tmp/popups.xml.in.h:4
 msgid "classical"
-msgstr "класическа"
+msgstr "класика"
 
 #: tmp/popups.xml.in.h:5
 msgid "world"
@@ -582,11 +594,11 @@ msgstr "блус"
 
 #: tmp/popups.xml.in.h:13
 msgid "metal"
-msgstr "метал"
+msgstr "метъл"
 
 #: tmp/popups.xml.in.h:14
 msgid "karaoke"
-msgstr "метал"
+msgstr "караоке"
 
 #: tmp/popups.xml.in.h:15
 msgid "rap"
@@ -594,7 +606,7 @@ msgstr "рап"
 
 #: tmp/popups.xml.in.h:16
 msgid "ragtime"
-msgstr ""
+msgstr "рагтайм"
 
 #: tmp/popups.xml.in.h:17
 msgid "musical"
@@ -622,7 +634,7 @@ msgstr "латино"
 
 #: tmp/popups.xml.in.h:23
 msgid "alternative"
-msgstr ""
+msgstr "алтернативна"
 
 #: tmp/popups.xml.in.h:24
 msgid "disco"
@@ -654,7 +666,7 @@ msgstr "аниме"
 
 #: tmp/popups.xml.in.h:31
 msgid "soul"
-msgstr ""
+msgstr "соул"
 
 #: tmp/popups.xml.in.h:32
 msgid "workout"
@@ -677,33 +689,33 @@ msgstr "детска"
 #: coverart_album.py:1699 coverart_browser_source.py:900
 #, python-format
 msgid "%s by %s"
-msgstr "%s, автор %s"
+msgstr "%s, на %s"
 
 #: coverart_artistview.py:388 coverart_browser_source.py:913
 #: coverart_artistview.py:391 coverart_browser_source.py:908
 #: coverart_artistview.py:383
 msgid " with 1 track"
-msgstr " с една песен"
+msgstr " с един трак"
 
 #: coverart_artistview.py:390 coverart_browser_source.py:915
 #: coverart_artistview.py:393 coverart_browser_source.py:910
 #: coverart_artistview.py:385
 #, python-format
 msgid " with %d tracks"
-msgstr " с %d песни"
+msgstr " с %d трака"
 
 #: coverart_artistview.py:396 coverart_browser_source.py:919
 #: coverart_artistview.py:399 coverart_browser_source.py:914
 #: coverart_artistview.py:391
 msgid " and a duration of 1 minute"
-msgstr ""
+msgstr " и продължителност от 1 минута"
 
 #: coverart_artistview.py:398 coverart_browser_source.py:921
 #: coverart_artistview.py:401 coverart_browser_source.py:916
 #: coverart_artistview.py:393
 #, python-format
 msgid " and a duration of %d minutes"
-msgstr ""
+msgstr " и продължителност от %d минути"
 
 #. active_object=self.artist_manager.model.store[treepath][self.artist_manager.model.columns['artist_album']]
 #: coverart_artistview.py:745 coverart_artistview.py:821
@@ -716,7 +728,7 @@ msgstr "Обложки"
 #: coverart_browser_prefs.py:248 coverart_controllers.py:450
 #: coverart_browser_prefs.py:250 coverart_controllers.py:505
 msgid "Browser Preferences"
-msgstr ""
+msgstr "Предпочитания на браузъра"
 
 #. . TRANSLATORS: Do not translate this string.
 #: coverart_browser_prefs.py:287 coverart_browser_prefs.py:289
@@ -729,15 +741,15 @@ msgstr ""
 #. define .plugin text strings used for translation
 #: coverart_browser.py:167 coverart_browser.py:168
 msgid "CoverArt Browser"
-msgstr "CoverArt Браузър"
+msgstr "CoverArt Browser"
 
 #: coverart_browser.py:168 coverart_browser.py:169
 msgid "Browse and play your albums through their covers"
-msgstr ""
+msgstr "Търсете и слушайте албумите си посредством обложките им"
 
 #: coverart_browser_source.py:273
 msgid "Tracks"
-msgstr "Песни"
+msgstr "Тракове"
 
 #. . TRANSLATORS - "All" is used in the context of "All artist names"
 #: coverart_browser_source.py:355
@@ -778,15 +790,15 @@ msgstr "Сортирай по име на албума"
 
 #: coverart_controllers.py:390
 msgid "Sort by album artist"
-msgstr "Сортиране по изпълнител на албума"
+msgstr "Сортирай по изпълнител на албума"
 
 #: coverart_controllers.py:391 coverart_controllers.py:439
 msgid "Sort by year"
-msgstr "Сортиране по година"
+msgstr "Сортирай по година"
 
 #: coverart_controllers.py:392 coverart_controllers.py:440
 msgid "Sort by rating"
-msgstr "Сортиране по рейтинг"
+msgstr "Сортирай по рейтинг"
 
 #: coverart_controllers.py:442 coverart_controllers.py:497
 msgid "Download all covers"
@@ -794,17 +806,17 @@ msgstr "Свали всички обложки"
 
 #: coverart_controllers.py:443 coverart_controllers.py:498
 msgid "Play random album"
-msgstr ""
+msgstr "Пусни случаен албум"
 
 #: coverart_controllers.py:445 coverart_controllers.py:495
 #: coverart_controllers.py:500 coverart_controllers.py:550
 msgid "Quick artist filter"
-msgstr ""
+msgstr "Бърз филтър за изпълнител"
 
 #: coverart_controllers.py:447 coverart_controllers.py:499
 #: coverart_controllers.py:502 coverart_controllers.py:554
 msgid "Use favourites only"
-msgstr ""
+msgstr "Използвай само любимите"
 
 #: coverart_controllers.py:451 coverart_controllers.py:506
 msgid "Search Preferences"
@@ -819,12 +831,12 @@ msgstr "20-те"
 #. '10s' as in the decade 2010
 #: coverart_controllers.py:531 coverart_controllers.py:586
 msgid "10s"
-msgstr "10-те"
+msgstr "10-та"
 
 #. '00s' as in the decade 2000
 #: coverart_controllers.py:533 coverart_controllers.py:588
 msgid "00s"
-msgstr "00"
+msgstr "00-та"
 
 #. '90s' as in the decade 1990
 #: coverart_controllers.py:535 coverart_controllers.py:590
@@ -877,30 +889,30 @@ msgstr "Сортирай по възходящ ред"
 
 #: coverart_controllers.py:647 coverart_controllers.py:714
 msgid "Search all fields"
-msgstr "Търсене във всички полета"
+msgstr "Търси по всички полета"
 
 #: coverart_controllers.py:648 coverart_controllers.py:715
 msgid "Search album artists"
-msgstr ""
+msgstr "Търси албуми на изпънители"
 
 #: coverart_controllers.py:649 coverart_controllers.py:716
 msgid "Search track artists"
-msgstr ""
+msgstr "Търси тракове на изпънители"
 
 #: coverart_controllers.py:650 coverart_controllers.py:717
 msgid "Search albums"
-msgstr "Търсене на албуми"
+msgstr "Търси по албуми"
 
 #: coverart_controllers.py:651 coverart_controllers.py:718
 msgid "Search tracks"
-msgstr "Търсене на песни"
+msgstr "Търси тракове"
 
 #. TRANSLATORS: for example 'Number of covers limited to 150'
 #: coverart_coverflowview.py:197
 #, python-format
 msgid "Number of covers limited to %d"
-msgstr ""
+msgstr "Брой на обложките са ограничени до %d"
 
 #: coverart_album.py:1454
 msgid "Enable LastFM plugin and log in first"
-msgstr ""
+msgstr "Активирайте LastFM плъгина и влезте първи"
