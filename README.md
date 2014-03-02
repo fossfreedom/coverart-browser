@@ -73,10 +73,11 @@ for debian & debian-based distros such as Ubuntu & Mint:
 
 for fedora and similar:
 
-    yum install git gettext python-mako python-lxml
+    yum install git gettext python-mako python-lxml python-cairo
     
-what is the fedora equivalent of gstreamer0.10-plugins-ugly/gstreamer0.10-plugins-good/gstreamer0.10-plugins-bad/rhythmbox-plugins ?
-    
+NOTE: it is assumed that you have separately installed the patent encumbered codecs found in the good/bad & ugly packages
+
+ 
 for opensuse
 
     sudo zypper in git gettext-runtime python-mako python-lxml typelib-1_0-WebKit-3_0
