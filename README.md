@@ -22,7 +22,7 @@ Browse your coverart albums in Rhythmbox v2.96 and later
  - fix for right-click playlist support for Ubuntu 14.04
  - check if lastfm plugin is activated correctly implemented for artist-view
  - fix for "shudder" in artist-view for RB2.99
- - lastest translations from Launchpad
+ - latest translations from Launchpad
 
 ##Summary: whats new in this release 1.0
 
@@ -98,7 +98,7 @@ for debian & debian-based distros such as Ubuntu & Mint:
 
     sudo apt-get install git gettext python3-mako python3-lxml python3-gi-cairo python3-cairo gstreamer1.0-plugins-ugly gstreamer1.0-plugins-good gstreamer1.0-plugins-bad rhythmbox-plugins
 
-python3 based package instructions for OpenSuse and Fedora not known
+python3 based package instructions for OpenSuse and Fedora not known - please let me know what the installation instructions are for these distros.
 
 To install the plugin:
 
