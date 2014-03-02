@@ -97,8 +97,15 @@ cd coverart-browser
 for debian & debian-based distros such as Ubuntu & Mint:
 
     sudo apt-get install git gettext python3-mako python3-lxml python3-gi-cairo python3-cairo gstreamer1.0-plugins-ugly gstreamer1.0-plugins-good gstreamer1.0-plugins-bad rhythmbox-plugins
+    
+for fedora and similar:
 
-python3 based package instructions for OpenSuse and Fedora not known - please let me know what the installation instructions are for these distros.
+    sudo yum install git gettext python3-mako python3-lxml python3-cairo
+    
+NOTE: it is assumed that you have separately installed the patent encumbered codecs found in the good/bad & ugly packages
+
+
+python3 based package instructions for OpenSuse is not known - please let me know what the installation instructions are.
 
 To install the plugin:
 
