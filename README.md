@@ -23,6 +23,7 @@ Browse your coverart albums in Rhythmbox v2.96 and later
  - check if lastfm plugin is activated correctly implemented for artist-view
  - fix for "shudder" in artist-view for RB2.99
  - latest translations from Launchpad
+ - corrected wrong column header for ArtistView
 
 ##Summary: whats new in this release 1.0
 
