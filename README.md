@@ -25,7 +25,7 @@ Browse your coverart albums in Rhythmbox v2.96 and later
  - latest translations from Launchpad
  - corrected wrong column header for ArtistView
 
-##Summary: whats new in this release 1.0
+##Summary: whats new in release 1.0
 
  - single click play for O/S's using GTK+3.6 or later for Tile-view
  - new artists view: displays album-artists in a tree-view
@@ -79,12 +79,6 @@ for fedora and similar:
 NOTE: it is assumed that you have separately installed the patent encumbered codecs found in the good/bad & ugly packages
 
  
-for opensuse
-
-    sudo zypper in git gettext-runtime python-mako python-lxml typelib-1_0-WebKit-3_0
-    
-what is the opensuse equivalent of gstreamer0.10-plugins-ugly/gstreamer0.10-plugins-good/gstreamer0.10-plugins-bad/rhythmbox-plugins? 
-
 Then install the plugin:
 
 <pre>
@@ -106,8 +100,6 @@ for fedora and similar:
     
 NOTE: it is assumed that you have separately installed the patent encumbered codecs found in the good/bad & ugly packages
 
-
-python3 based package instructions for OpenSuse is not known - please let me know what the installation instructions are.
 
 To install the plugin:
 
