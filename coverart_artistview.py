@@ -814,7 +814,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
         
         self.append_column(col)
         
-        col = Gtk.TreeViewColumn(_('Track Artist'), Gtk.CellRendererText(), markup=5)
+        col = Gtk.TreeViewColumn(_('Artist'), Gtk.CellRendererText(), markup=5)
         self._artist_col = col
         col.set_clickable(True)
         col.set_sort_column_id(0)
