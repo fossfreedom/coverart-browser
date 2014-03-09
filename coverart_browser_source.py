@@ -349,6 +349,12 @@ class CoverArtBrowserSource(RB.Source):
         self.artist_paned.connect('button-release-event', 
             self.artist_paned_button_release_callback)
             
+        # intercept JumpToPlaying Song action so that we can scroll to the playing album
+        
+        appshell = rb3compat.ApplicationShell(self.shell)
+        action = appshell.lookup_action("", "jump-to-playing", "win")
+        action.action.connect("activate", self.jump_to_playing, None)
+            
         print("CoverArtBrowser DEBUG - end _setup_source")
         
     def add_external_menu(self, *args):
@@ -364,6 +370,22 @@ class CoverArtBrowserSource(RB.Source):
             self._external_plugins.create_menu('popup_menu', True)
 
         self.playlist_menu_item_callback()
+        
+    def jump_to_playing(self, *args):
+        '''
+        Callback when the JumpToPlaying action is invoked
+        This will scroll the view to the playing song
+        '''
+        album = None
+        
+        entry = self.shell.props.shell_player.get_playing_entry()
+        
+        if entry:
+            album = self.album_manager.model.get_from_dbentry(entry)
+        
+        if album:
+            path = self.album_manager.model.get_path(album)
+            self.viewmgr.current_view.select_and_scroll_to_path(path)
 
     def artist_paned_button_release_callback(self, *args):
         '''

@@ -22,6 +22,7 @@ Browse your coverart albums in Rhythmbox v3 and later
 
  - new darker toolbar icons which complements the numix theme
  - artist information pane
+ - Support Jump To Playing CTRL+J to scroll to the playing album
  - Translated into 25 languages and locales
  - for developers - doxygen documentation: http://fossfreedom.github.io/coverart-browser/classes.html
 

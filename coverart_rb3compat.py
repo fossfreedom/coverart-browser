@@ -718,6 +718,9 @@ class Action(object):
     class that wraps around either a Gio.Action or a Gtk.Action
     '''
     
+    def __init__(self):
+        assert 1==2, "invalid action creation"
+    
     def __init__(self, shell, action):
         '''
         constructor.
@@ -749,7 +752,7 @@ class Action(object):
         if self._do_update_state:
             self._current_state = not self._current_state
             self.set_state(self._current_state)
-        
+            
         self._connect_func(action, None, self._connect_args)
         
     @property
