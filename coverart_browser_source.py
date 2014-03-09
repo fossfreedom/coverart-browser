@@ -376,6 +376,12 @@ class CoverArtBrowserSource(RB.Source):
         Callback when the JumpToPlaying action is invoked
         This will scroll the view to the playing song
         '''
+
+        if not self.shell.props.selected_page.props.name == self.props.name:
+            # if the source page that was played from is not the plugin then
+            # nothing to do
+            return
+            
         album = None
         
         entry = self.shell.props.shell_player.get_playing_entry()
@@ -385,7 +391,8 @@ class CoverArtBrowserSource(RB.Source):
         
         if album:
             path = self.album_manager.model.get_path(album)
-            self.viewmgr.current_view.select_and_scroll_to_path(path)
+            if path:
+                self.viewmgr.current_view.select_and_scroll_to_path(path)
 
     def artist_paned_button_release_callback(self, *args):
         '''
