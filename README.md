@@ -20,10 +20,10 @@ Browse your coverart albums in Rhythmbox v3 and later
 
 ##Summary: whats new in this release
 
- - new darker toolbar icons which complements the numix theme
+ - new darker toolbar icons
  - artist information pane
  - Support Jump To Playing CTRL+J to scroll to the playing album
- - Translated into 25 languages and locales
+ - Translated into 26 languages and locales
  - for developers - doxygen documentation: http://fossfreedom.github.io/coverart-browser/classes.html
 
 *How it works:*
@@ -38,12 +38,17 @@ Browse your coverart albums in Rhythmbox v3 and later
 
 *How to install - Rhythmbox 3.0 and later:*
 
+N.B. for earlier Rhythmbox versions use version 1.1
+
 for debian & debian-based distros such as Ubuntu & Mint:
 
-    sudo apt-get install git gettext python3-mako python3-lxml gstreamer1.0-plugins-ugly gstreamer1.0-plugins-good gstreamer1.0-plugins-bad
+    sudo apt-get install git gettext python3-mako python3-lxml python3-gi-cairo python3-cairo gstreamer1.0-plugins-ugly gstreamer1.0-plugins-good gstreamer1.0-plugins-bad rhythmbox-plugins
 
-python3 based package instructions for OpenSuse and Fedora not known
+for fedora and similar:
 
+    sudo yum install git gettext python3-mako python3-lxml python3-cairo
+
+NOTE: it is assumed that you have separately installed the patent encumbered codecs found in the good/bad & ugly packages
 To install the plugin:
 
 <pre>
@@ -57,7 +62,7 @@ Note 1 - the CoverArt Browser plugin also requires installing the following plug
 
  - https://github.com/fossfreedom/coverart-search-providers
 
-*For Ubuntu 14.04:*
+*For Ubuntu 14.04 and later:*
 
 V2.0 is now available in my rhythmbox PPA - installation instructions in this AskUbuntu Q&A:
 
