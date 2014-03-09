@@ -665,10 +665,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
         self.initialise(source)
         self.show_policy.initialise(source.album_manager)
         
-        if album:
-            path = source.album_manager.model.get_path(album)
-            self.select_and_scroll_to_path(path)
+        self.scroll_to_album(album)
 
     def grab_focus(self):
         super(EnhancedIconView, self).grab_focus()
-

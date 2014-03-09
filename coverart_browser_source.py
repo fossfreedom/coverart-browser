@@ -389,10 +389,7 @@ class CoverArtBrowserSource(RB.Source):
         if entry:
             album = self.album_manager.model.get_from_dbentry(entry)
         
-        if album:
-            path = self.album_manager.model.get_path(album)
-            if path:
-                self.viewmgr.current_view.select_and_scroll_to_path(path)
+        self.viewmgr.current_view.scroll_to_album(album)
 
     def artist_paned_button_release_callback(self, *args):
         '''

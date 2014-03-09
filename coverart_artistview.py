@@ -1080,6 +1080,9 @@ class ArtistView(Gtk.TreeView, AbstractView):
         self.initialise(source)
         self.show_policy.initialise(source.album_manager)
         
+        self.scroll_to_album(album)
+                
+    def scroll_to_album(self, album):
         if album:
             print ("switch to artist view")
             print (album)
@@ -1093,7 +1096,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
                 self.scroll_to_cell(path, self._artist_col)
                 self.expand_row(path, False)
                 self.set_cursor(path)
-            
+        
     def do_update_toolbar(self, *args):
         self.source.toolbar_manager.set_enabled(False, ToolbarObject.SORT_BY)
         self.source.toolbar_manager.set_enabled(False, ToolbarObject.SORT_ORDER)

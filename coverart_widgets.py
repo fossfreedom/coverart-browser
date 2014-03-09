@@ -1301,6 +1301,15 @@ class AbstractView(GObject.Object):
         find a path and highlight (select) that object
         '''
         pass
+        
+    def scroll_to_album(self, album):
+        '''
+        scroll to the album in the view
+        '''
+        if album:
+            path = self.source.album_manager.model.get_path(album)
+            if path:
+                self.select_and_scroll_to_path(path)
 
     def set_popup_menu(self, popup):
         '''

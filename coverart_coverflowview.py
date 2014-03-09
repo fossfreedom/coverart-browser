@@ -212,9 +212,6 @@ class CoverFlowView(AbstractView):
 
     def get_view_icon_name(self):
         return "flowview.png"
-
-    def scroll_to_album(self):
-        self.flow.scroll_to_album(self.last_album, self.view)
         
     def initialise(self, source):
         if self._has_initialised:
@@ -314,10 +311,13 @@ class CoverFlowView(AbstractView):
         self.show_policy.initialise(source.album_manager)
         
         self.last_album = album
-        self.scroll_to_album()
+        self.scroll_to_album(self.last_album)
         
     def grab_focus(self):
         self.view.grab_focus()
+        
+    def scroll_to_album(self, album):
+        self.flow.scroll_to_album(album, self.view)
 
 class FlowControl(object):
     
