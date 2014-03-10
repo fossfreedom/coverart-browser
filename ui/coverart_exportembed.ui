@@ -69,12 +69,16 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="orientation">vertical</property>
+            <property name="margin_left">10</property>
             <child>
               <object class="GtkLabel" id="label1">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="xalign">0</property>
                 <property name="label" translatable="yes">Choose folder to save tracks:</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -86,7 +90,7 @@
               <object class="GtkFileChooserButton" id="folderchooserbutton">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="margin_left">5</property>
+                <property name="margin_left">20</property>
                 <property name="orientation">vertical</property>
                 <property name="action">select-folder</property>
                 <property name="dialog">folderchooserdialog</property>
@@ -105,7 +109,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="margin_left">5</property>
+                <property name="margin_left">20</property>
                 <property name="use_action_appearance">False</property>
                 <property name="xalign">0</property>
                 <property name="draw_indicator">True</property>
@@ -123,7 +127,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="margin_left">5</property>
+                <property name="margin_left">20</property>
                 <property name="use_action_appearance">False</property>
                 <property name="xalign">0</property>
                 <property name="active">True</property>
@@ -141,21 +145,9 @@
                 <property name="can_focus">False</property>
                 <property name="xalign">0</property>
                 <property name="label" translatable="yes" comments="This is a label describing the different options to save the picture artwork in the music file i.e. embed - to insert picture artwork into a music file">Embed:</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">5</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label2">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="margin_top">5</property>
-                <property name="label" translatable="yes">Tip: Drag and Drop exported tracks from file-manager to a playlist or telephone/other device</property>
-                <property name="wrap">True</property>
-                <property name="max_width_chars">13</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>   
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -167,6 +159,7 @@
               <object class="GtkBox" id="box3">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="margin_left">20</property>
                 <child>
                   <object class="GtkCheckButton" id="convert_checkbutton">
                     <property name="label" translatable="yes">convert to mp3</property>
@@ -226,6 +219,7 @@
               <object class="GtkBox" id="box2">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="margin_left">20</property>
                 <child>
                   <object class="GtkCheckButton" id="resize_checkbutton">
                     <property name="label" translatable="yes" comments="This is a label describing the size of the picture that will be inserted into the music file e.g. change the size from 800x800 pixels to 128x128 pixels">resize art</property>
@@ -284,7 +278,7 @@
           </object>
           <packing>
             <property name="expand">False</property>
-            <property name="fill">True</property>
+            <property name="fill">False</property>
             <property name="position">1</property>
           </packing>
         </child>
