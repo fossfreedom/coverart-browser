@@ -15,13 +15,48 @@
 <head>
 <meta http-equiv="content-type" content="text-html; charset=utf-8">
 <link rel="stylesheet" href="${stylesheet}" type="text/css" />
+
+<script language="javascript">
+    function swapText (element, text1, text2) {
+        elt = document.getElementById(element);
+        var retval = (elt.innerHTML == text1)
+        elt.innerHTML = (elt.innerHTML == text1) ? text2 : text1;
+        return (retval==false)
+    }
+    function toggle_filter(id, filterval) {
+        // first toggle the chosen button label
+        hide = ${ '"' + _("Unfilter") + '"' };
+        show = ${ '"' + _("Filter") + '"' };
+        var toggle = swapText('btn_'+id, hide, show);
+        
+        // next ensure all buttons except for the chosen button is correctly labelled
+        var menus = document.getElementsByTagName("button");
+        var x = parseInt(id, 10);
+        for (var i = menus.length - 1; i >= 0; i--)
+        {
+            if (i != x) {
+                elt = document.getElementById('btn_'+i);
+                elt.innerHTML = show;
+            }
+        }
+         
+        // lastly send back the value of the button i.e. the artist name
+        var obj = { }
+        obj['artist'] = filterval;
+        obj['toggle'] = toggle;
+        document.title = JSON.stringify(obj);
+    };
+</script>
+
 <style type="text/css">
 
 .shown p,
 .similar td,
 .links a
-{    font-size: 10pt;
+{    
+    font-size: 10pt;
     font-family: sans-serif;
+    vertical-align: middle;
 }
 
 .links img 
@@ -59,12 +94,27 @@
 </div>
 
 <div class="similar">
-<h1>Similar Artists</h1>
+<h1>${ _("Similar Artists") }</h1>
 
 <table id="similar">
     
 %for i, entry in enumerate(similar) :
-    <tr><td><img width="64" src="${entry['image_url'] | h}" alt="${entry['image_url'] | h}"/></td><td>${entry['name']} ${entry['similarity']}% similar</td></tr>
+    <% artist = entry['name'] %>
+    <tr>
+        <td rowspan="2">
+            <img style="float: right;" width="64" src="${entry['image_url'] | h}" alt="${entry['image_url'] | h}"/>
+        </td>
+        <td>
+            ${entry['name']} ${entry['similarity']}% ${ _("similar") }
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <button id="btn_${i | h}" onclick="toggle_filter('${i | h}', '${artist | h}')">
+                ${ _("Filter") }
+            </button>
+        </td>
+    </tr>
 %endfor
 </table>
 </div>

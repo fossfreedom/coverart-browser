@@ -91,6 +91,7 @@ class ArtistInfoPane(GObject.GObject):
         
         self.webview = WebKit.WebView()
         self.webview.connect("navigation-requested", self.navigation_request_cb)
+        self.webview.connect("notify::title", self.view_title_change)
         self.info_scrolled_window.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         self.info_scrolled_window.add (self.webview)
         self.info_scrolled_window.show_all()
@@ -154,6 +155,19 @@ class ArtistInfoPane(GObject.GObject):
             
         # lets also listen for changes to the view to set the paned position
         self.source.viewmgr.connect('new-view', self.on_view_changed)
+        
+    def view_title_change(self, webview, param):
+        title = webview.get_title()
+        if title:
+            args = json.loads(title)
+            artist = args['artist']
+            
+            if args['toggle']:
+                self.source.album_manager.model.replace_filter('similar_artist', artist)
+            else:
+                self.source.album_manager.model.remove_filter('similar_artist')
+        else:
+            self.source.album_manager.model.remove_filter('similar_artist')
         
     def on_view_changed(self, widget, view_name):
         self._change_paned_pos(view_name)

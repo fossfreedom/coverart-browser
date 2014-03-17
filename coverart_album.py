@@ -545,7 +545,35 @@ class AlbumFilters(object):
             return RB.search_fold(searchtext) in RB.search_fold(album.artists)
 
         return filt
+        
+    @classmethod
+    def similar_artist_filter(cls, searchtext=None):
+        def filt(album):
+            # this filter is more complicated: for each word in the search
+            # text, it tries to find at least one match on the params of
+            # the album. If no match is given, then the album doesn't match
+            if not searchtext:
+                return True
 
+            words = RB.search_fold(searchtext).split()
+            params = list(map(RB.search_fold, [album.artist,
+                album.artists]))
+            matches = []
+
+            for word in words:
+                match = False
+
+                for param in params:
+                    if word in param:
+                        match = True
+                        break
+
+                matches.append(match)
+
+            return False not in matches
+
+        return filt
+    
     @classmethod
     def album_name_filter(cls, searchtext=None):
         def filt(album):
@@ -628,6 +656,7 @@ AlbumFilters.keys = {
     'album_artist': AlbumFilters.album_artist_filter,
     'artist': AlbumFilters.artist_filter,
     'quick_artist': AlbumFilters.artist_filter,
+    'similar_artist': AlbumFilters.similar_artist_filter,
     'album_name': AlbumFilters.album_name_filter,
     'track': AlbumFilters.track_title_filter,
     'genre': AlbumFilters.genre_filter,
