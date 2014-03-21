@@ -113,17 +113,52 @@ class ArtistInfoPane(GObject.GObject):
         self.ranking_cache.clean()
 
         self.ds['link']     = LinksDataSource ()
-        self.ds['artist']   = ArtistDataSource (self.info_cache, self.ranking_cache)
-        self.view['artist'] = ArtistInfoView (self.shell, self.plugin, self.webview, self.ds['artist'], self.ds['link'])
-        self.tab['artist']  = ArtistInfoTab (self.plugin, self.shell, self.buttons, self.ds['artist'], self.view['artist'])
-        self.ds['album']    = AlbumDataSource(self.info_cache, self.ranking_cache)
-        self.view['album']  = AlbumInfoView(self.shell, self.plugin, self.webview, self.ds['album'])
-        self.tab['album']   = AlbumInfoTab(self.plugin, self.shell, self.buttons, self.ds['album'], self.view['album'])
-        
+        self.ds['artist']   = ArtistDataSource (self.info_cache, 
+                                                self.ranking_cache)
+        self.view['artist'] = ArtistInfoView (  self.shell, 
+                                                self.plugin, 
+                                                self.webview, 
+                                                self.ds['artist'], 
+                                                self.ds['link'])
+        self.tab['artist']  = ArtistInfoTab (   self.plugin, 
+                                                self.shell, 
+                                                self.buttons, 
+                                                self.ds['artist'], 
+                                                self.view['artist'])
+        self.ds['album']    = AlbumDataSource(  self.info_cache, 
+                                                self.ranking_cache)
+        self.view['album']  = AlbumInfoView(    self.shell, 
+                                                self.plugin, 
+                                                self.webview, 
+                                                self.ds['album'])
+        self.tab['album']   = AlbumInfoTab(     self.plugin, 
+                                                self.shell, 
+                                                self.buttons, 
+                                                self.ds['album'], 
+                                                self.view['album'])
+        self.ds['echoartist']   = EchoArtistDataSource (
+                                                self.info_cache, 
+                                                self.ranking_cache)
+        self.view['echoartist'] = EchoArtistInfoView (
+                                                self.shell, 
+                                                self.plugin, 
+                                                self.webview, 
+                                                self.ds['echoartist'], 
+                                                self.ds['link'])
+        self.tab['echoartist']  = EchoArtistInfoTab (
+                                                self.plugin, 
+                                                self.shell, 
+                                                self.buttons, 
+                                                self.ds['echoartist'], 
+                                                self.view['echoartist'])
+                                                
         self.gs = GSetting()
         self.connect_properties()
         self.connect_signals()
-        Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 50, self._change_paned_pos, self.source.viewmgr.view_name)
+        Gdk.threads_add_timeout(    GLib.PRIORITY_DEFAULT_IDLE, 
+                                    50, 
+                                    self._change_paned_pos, 
+                                    self.source.viewmgr.view_name)
         self.current = 'artist'
         self.tab[self.current].activate ()
         
@@ -144,7 +179,10 @@ class ArtistInfoPane(GObject.GObject):
 
         # Listen for switch-tab signal from each tab
         for key, value in self.tab.items():
-            self.tab_cb_ids.append((key, self.tab[key].connect ('switch-tab', self.change_tab)))
+            self.tab_cb_ids.append(( key, 
+                                    self.tab[key].connect ('switch-tab', 
+                                                            self.change_tab)
+                                    ))
             
         # Listen for selected signal from the views
         self.connect('selected', self.select_artist)
@@ -257,6 +295,9 @@ class ArtistInfoTab (GObject.GObject):
         'switch-tab' : (GObject.SIGNAL_RUN_LAST, GObject.TYPE_NONE,
                                 (GObject.TYPE_STRING,))
     }
+    
+    button_image = "microphone.png"
+    button_name  = "artist"
 
     def __init__ (self, plugin, shell, buttons, ds, view):
         GObject.GObject.__init__ (self)
@@ -265,9 +306,9 @@ class ArtistInfoTab (GObject.GObject):
         self.db         = shell.props.db
         self.buttons    = buttons
 
-        self.button     = PixbufButton()#Gtk.ToggleButton (label=_("Artist"))
-        self.button.set_image(create_button_image(plugin, "microphone.png"))
-        self.datasource = ds
+        self.button     = PixbufButton()
+        self.button.set_image(create_button_image(plugin, self.button_image))
+        self.ds = ds
         self.view       = view
         self.album_title= None
         self.artist     = None
@@ -277,7 +318,7 @@ class ArtistInfoTab (GObject.GObject):
         self.button.set_relief (Gtk.ReliefStyle.NONE)
         self.button.set_focus_on_click(False)
         self.button.connect ('clicked', 
-            lambda button : self.emit('switch-tab', 'artist'))
+            lambda button : self.emit('switch-tab', self.button_name))
         buttons.pack_start (self.button, False, True, 0)
 
     def activate (self, artist=None, album_title=None):
@@ -306,7 +347,7 @@ class ArtistInfoTab (GObject.GObject):
             print ("now loading")
             self.view.loading (artist, album_title)
             print ("active")
-            self.datasource.fetch_artist_data (artist)
+            self.ds.fetch_artist_data (artist)
         else:
             print ("load_view")
             self.view.load_view()
@@ -573,6 +614,9 @@ class LinksDataSource (GObject.GObject):
                 "Allmusic" : "http://www.allmusic.com/search/artist/%s" % artist
             }
             return artist_links
+        print ("no links returned")
+        print (artist)
+        
         return None
 
     def get_album_links (self):
@@ -599,45 +643,14 @@ class LinksDataSource (GObject.GObject):
         if self.get_artist() is "":
             return _("No artist specified.")
 
-class AlbumInfoTab (GObject.GObject):
-
-    __gsignals__ = {
-        'switch-tab' : (GObject.SIGNAL_RUN_LAST, GObject.TYPE_NONE,
-                                (GObject.TYPE_STRING,))
-    }
+class AlbumInfoTab (ArtistInfoTab):
+    
+    button_image = "covermgr.png"
+    button_name  = "album"
     
     def __init__ (self, plugin, shell, buttons, ds, view):
-        GObject.GObject.__init__ (self)
-        self.shell      = shell
-        self.sp         = shell.props.shell_player
-        self.db         = shell.props.db
-        self.buttons    = buttons
-
-        #self.button     = Gtk.ToggleButton (label=_("Albums"))
-        self.button     = PixbufButton()
-        self.button.set_image(create_button_image(plugin, "covermgr.png"))
-        self.ds         = ds
-        self.view       = view
-        self.album_title= None
-        self.artist     = None
-        self.active     = False
+        ArtistInfoTab.__init__ (self, plugin, shell, buttons, ds, view)
         
-        self.button.show()
-        self.button.set_relief (Gtk.ReliefStyle.NONE)
-        self.button.set_focus_on_click(False)
-        self.button.connect ('clicked', 
-            lambda button: self.emit ('switch-tab', 'album'))
-        buttons.pack_start (self.button, False, True, 0)
-
-    def activate (self, artist, album_title):
-        self.button.set_active(True)
-        self.active = True
-        self.reload (artist, album_title)
-
-    def deactivate (self):
-        self.button.set_active(False)
-        self.active = False
-
     def reload (self, artist, album_title):
         if not artist:
             return
@@ -823,3 +836,160 @@ class AlbumDataSource (GObject.GObject):
 
         return rv
 
+class EchoArtistInfoTab (ArtistInfoTab):
+    
+    button_image = "echonest_minilogo.gif"
+    button_name  = "echoartist"
+     
+    def __init__ (self, plugin, shell, buttons, ds, view):
+        ArtistInfoTab.__init__ (self, plugin, shell, buttons, ds, view)
+        
+class EchoArtistInfoView (ArtistInfoView):
+
+    def __init__ (self, shell, plugin, webview, ds, link_ds):
+        ArtistInfoView.__init__ (self, shell, plugin, webview, ds, link_ds)
+
+    def load_tmpl (self):
+        path = rb.find_plugin_file(self.plugin, 'tmpl/echoartist-tmpl.html')
+        empty_path = rb.find_plugin_file(self.plugin, 'tmpl/artist_empty-tmpl.html')
+        loading_path = rb.find_plugin_file (self.plugin, 'tmpl/loading.html')
+        self.template = Template (filename = path)
+        self.loading_template = Template (filename = loading_path)
+        self.empty_template = Template (filename = empty_path)
+        self.styles = self.basepath + '/tmpl/artistmain.css'
+        print (lastfm_datasource_link (self.basepath))
+
+    def artist_info_ready (self, ds):
+        # Can only be called after the artist-info-ready signal has fired.
+        # If called any other time, the behavior is undefined
+        #try:
+        link_album = self.link_ds.get_album()
+        if not link_album:
+            link_album = ""
+            
+        links = self.link_ds.get_album_links()
+        if not links:
+            links = {}
+        
+        print ("#############")
+        print (ds.get_current_artist ())
+        print (self.ds.get_artist_bio())
+        print (self.styles)
+        print (self.link_ds.get_artist_links ())
+        print (links)
+        print (self.link_images)
+        print (lastfm_datasource_link (self.basepath))
+        print ("##############")
+        self.file = self.template.render (artist     = ds.get_current_artist (),
+                                          error      = ds.get_error (),
+                                          bio        = self.ds.get_artist_bio(),
+                                          stylesheet = self.styles,
+                                          album      = link_album,
+                                          art_links  = self.link_ds.get_artist_links (),
+                                          alb_links  = links,
+                                          link_images= self.link_images,
+                                          datasource = ds.get_attribution() )
+        self.load_view ()
+        #except Exception as e:
+        #    print("Problem in info ready: %s" % e)
+    
+
+class EchoArtistDataSource (GObject.GObject):
+    
+    __gsignals__ = {
+        'artist-info-ready'       : (GObject.SIGNAL_RUN_LAST, GObject.TYPE_NONE, ())
+    }
+
+    def __init__ (self, info_cache, ranking_cache):
+        GObject.GObject.__init__ (self)
+
+        self.current_artist = None
+        self.error = None
+        self.artist = {
+            'info' : {
+                'data'      : None, 
+                'cache'     : info_cache,
+                'signal'    : 'artist-info-ready',
+                'parsed'    : False
+            }
+        }
+        
+    def fetch_artist_data (self, artist): 
+        """
+        Initiate the fetching of all artist data. Fetches artist info, similar
+        artists, artist top albums and top tracks. Downloads XML files from last.fm
+        and saves as parsed DOM documents in self.artist dictionary. Must be called
+        before any of the get_* methods.
+        """
+        self.current_artist = artist
+        
+        self.error = None
+        artist = urllib.parse.quote_plus(artist)
+        self.fetched = 0
+        for key, value in self.artist.items():        
+            print ("search")
+            cachekey = "echonest:artist:json:%s" % (artist)
+            api_url = "http://developer.echonest.com/api/v4/"
+            api_key = "N685TONJGZSHBDZMP"
+            url = '%sartist/biographies?api_key=%s&name=%s&format=json&results=1&start=0' % (api_url,
+                api_key, artist)
+                
+            #http://developer.echonest.com/api/v4/artist/biographies?api_key=N685TONJGZSHBDZMP&name=queen&format=json&results=1&start=0
+            #http://developer.echonest.com/api/v4/artist/biographies?api_key=N685TONJGZSHBDZMP?name=ABBA&format=json&results=1&start=0
+            print("fetching %s" % url)
+            value['cache'].fetch(cachekey, url, self.fetch_artist_data_cb, value)
+
+    def fetch_artist_data_cb (self, data, category):
+        if data is None:
+            print("no data fetched for artist")
+            return
+
+        print (category)
+        try:
+            category['data'] = json.loads(data.decode('utf-8'))
+            category['parsed'] = False
+            self.fetched += 1
+            if self.fetched == len(self.artist):
+                self.emit (category['signal'])
+                
+        except Exception as e:
+            print("Error parsing artist")
+            return False
+
+    def get_current_artist (self):
+        return self.current_artist
+
+    def get_error (self):
+        return self.error
+        
+    def get_attribution (self):
+        data = self.artist['info']['data']
+        if data is None:
+            return None
+
+        content = ""
+        
+        if not self.artist['info']['parsed']:
+            print (data)
+            url = data['response']['biographies'][0]['url']
+            site = data['response']['biographies'][0]['site']
+            print(url)
+            print(site)
+            return "<a href='%s'>%s</a>" % (url, site)
+
+        return content
+
+    def get_artist_bio (self):
+        """
+        Returns tuple of summary and full bio
+        """
+        data = self.artist['info']['data']
+        if data is None:
+            return None
+
+        if not self.artist['info']['parsed']:
+            print (data)
+            content = data['response']['biographies'][0]['text']
+            return content
+
+        return self.artist['info']['data']['response']['biographies'][0]['text']

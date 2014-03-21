@@ -1,0 +1,75 @@
+<%page args="artist, error, bio, stylesheet, datasource, album, art_links, alb_links, link_images" />
+
+<%!
+    import re
+    import cgi
+    remove_links = re.compile ('</?a[^>]*> ',re.VERBOSE)
+    
+    def cleanup(text):
+        if text is None:
+            return _("No information available")
+        text = remove_links.sub ('', text)
+        text = text.replace('\n', '</p><p>')
+        return text
+%>
+<html>
+<head>
+<meta http-equiv="content-type" content="text-html; charset=utf-8">
+<link rel="stylesheet" href="${stylesheet}" type="text/css" />
+
+<style type="text/css">
+
+.shown p,
+.similar td,
+.links a
+{    
+    font-size: 10pt;
+    font-family: sans-serif;
+    vertical-align: middle;
+}
+
+.links img 
+{ padding: 0 5px 0 5px }
+
+.links ul 
+{ list-style-type: none }
+
+</style>
+</head>
+<body class="artist">
+%if error is None:
+<h1>${artist | h}</h1>
+
+<div id="bio" class="shown">
+    <% bio = cleanup(bio) %>
+    <p>${bio}</p>
+</div>
+
+<div class="links">
+    <h1>${ _("Links for %s:") % ("<em>" + artist + "</em>")}</h1>
+    <ul>
+        %for k, v in art_links.items() :
+            <li><img src="${link_images}${k}16x16.png" /><a href="${v}">${k}</a></li>
+        %endfor
+    </ul>
+    %if len(alb_links) > 0:
+        <h1>${ _("Links for %s:") % ("<em>" + album + "</em>")}</h1>
+    %endif
+    <ul>
+        %for k, v in alb_links.items() :
+            <li><img src="${link_images}${k}16x16.png" /><a href="${v}">${k}</a></li>
+        %endfor
+</ul>
+</div>
+
+<div id="attribution" class="shown">
+<p>${ _("Biography provided by: ")}${datasource}</p>
+</div>
+%else:
+<h1>${ _("Unable to retrieve artist information:") }</h1>
+<p class="error">${error | h}</p>
+%endif
+
+
+</body>
+</html>
