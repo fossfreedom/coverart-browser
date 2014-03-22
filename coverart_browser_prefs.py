@@ -406,7 +406,17 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
             Gio.SettingsBindFlags.DEFAULT)
 
         # create user data files
-        popup = RB.find_user_data_file('plugins/coverart_browser/img/usericons/popups.xml')
+        cachedir = RB.user_cache_dir() + "/coverart_browser/usericons"
+        if not os.path.exists(cachedir):
+            os.makedirs(cachedir)
+            
+        popup = cachedir + "/popups.xml"
+        
+        temp = RB.find_user_data_file('plugins/coverart_browser/img/usericons/popups.xml')
+        
+        # lets see if there is a legacy file - if necessary copy it to the cache dir
+        if os.path.isfile(temp) and not os.path.isfile(popup):
+            shutil.copyfile(temp, popup)
         
         if not os.path.isfile(popup):
             template = rb.find_plugin_file(plugin, 'template/popups.xml')

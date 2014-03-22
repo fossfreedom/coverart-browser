@@ -613,7 +613,8 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
         self._parse_popups(plugin, root, self.GENRE_SYSTEM)
 
         try:
-            self._user_popups = RB.find_user_data_file('plugins/coverart_browser/img/usericons/popups.xml')
+            #self._user_popups = RB.find_user_data_file('plugins/coverart_browser/img/usericons/popups.xml')
+            self._user_popups = RB.user_cache_dir() + "/coverart_browser/usericons/popups.xml"
             root = ET.parse(open(self._user_popups)).getroot()
             self._parse_popups(plugin, root, self.GENRE_USER)
             elem = root.xpath(self._sprite_name + '/index')
