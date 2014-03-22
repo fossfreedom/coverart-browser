@@ -24,6 +24,7 @@ Browse your coverart albums in Rhythmbox v3 and later
  - Artist & Album information pane with LastFM & EchoNest data
  - Track Artist Filter and Artist & Album Information panes individually displayed per view
  - Support Jump To Playing CTRL+J to scroll to the playing album
+ - Custom Genres are now saved in an alternative folder location to survive reinstallation of the plugin
  - Translated into 26 languages and locales
  - for developers - doxygen documentation: http://fossfreedom.github.io/coverart-browser/classes.html
 
