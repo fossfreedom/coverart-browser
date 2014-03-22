@@ -211,5 +211,10 @@
             <summary>Use favourites</summary>
             <description>Play or Queue albums using rating favourites</description>
         </key>
+        <key type="s" name="last-genre-folder">
+            <default>""</default>
+            <summary>The folder name last used from the genre file chooser</summary>
+            <description>The folder name last used from the genre file chooser</description>
+        </key>
     </schema>
 </schemalist>

@@ -660,7 +660,7 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
     def add_genre_icon(self, filename):
         root = ET.parse(open(self._user_popups)).getroot()
         elem = root.xpath(self._sprite_name + '/index')
-        next_index = long(elem[0].text)
+        next_index = int(elem[0].text)
         elem[0].text = str(next_index + 1)
         tree = ET.ElementTree(root)
         tree.write(self._user_popups, pretty_print=True, xml_declaration=True)

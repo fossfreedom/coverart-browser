@@ -164,7 +164,8 @@ class GSetting:
                 WEBKIT='webkit-support',
                 ARTIST_PANED_POSITION='artist-paned-pos',
                 USE_FAVOURITES='use-favourites',
-                ARTIST_INFO_PANED_POSITION='artist-info-paned-pos')
+                ARTIST_INFO_PANED_POSITION='artist-info-paned-pos',
+                LAST_GENRE_FOLDER='last-genre-folder')
 
             self.setting = {}
 
@@ -453,6 +454,9 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         self.genre_view = builder.get_object('genre_view')
         self.save_button = builder.get_object('save_button')
         self.filechooserdialog = builder.get_object('filechooserdialog')
+        last_genre_folder = self.settings[gs.PluginKey.LAST_GENRE_FOLDER]
+        if last_genre_folder != "":
+            self.filechooserdialog.set_current_folder(last_genre_folder)
 
         padding_scale = builder.get_object('padding_adjustment')
         self.settings.bind(gs.PluginKey.ICON_PADDING, padding_scale, 'value',
@@ -593,6 +597,14 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         key = self._sheet.add_genre_icon( self.filechooserdialog.get_filename() )
         store_iter = self.alt_liststore.append([key.name, self._sheet[key.name]])
         self._iters[(key.name,self.GENRE_POPUP)] = store_iter
+        
+        gs = GSetting()
+        last_genre_folder = self.filechooserdialog.get_current_folder()
+        
+        print (last_genre_folder)
+        print (self.filechooserdialog.get_filename())
+        if last_genre_folder:
+            self.settings[gs.PluginKey.LAST_GENRE_FOLDER] = last_genre_folder
         
     def on_genre_view_selection_changed(self, view):
         '''
