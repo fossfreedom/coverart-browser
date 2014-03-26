@@ -29,7 +29,7 @@ from gi.repository import GObject
 from gi.repository import RB
 import sys
 import rb
-import lxml.etree as ET
+import xml.etree.ElementTree as ET
 
 def pygobject_version():
     ''' 
