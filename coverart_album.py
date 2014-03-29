@@ -214,6 +214,10 @@ class Track(GObject.Object):
     @property
     def location(self):
         return self.entry.get_string(RB.RhythmDBPropType.LOCATION)
+        
+    @property
+    def composer(self):
+        return self.entry.get_string(RB.RhythmDBPropType.COMPOSER)
 
     @property
     def track_number(self):
@@ -278,6 +282,7 @@ class Album(GObject.Object):
         self._album_sort = None
         self._artists = None
         self._titles = None
+        self._composers = None
         self._genres = None
         self._tracks = []
         self._cover = None
@@ -319,6 +324,15 @@ class Album(GObject.Object):
                 [track.title for track in self._tracks]))
 
         return self._titles
+        
+    @property
+    def composers(self):
+        if not self._composers:
+            composers = [track.composer for track in self._tracks if track.composer]
+            if composers: 
+                self._composers = ' '.join(set(composers))
+
+        return self._composers
 
     @property
     def year(self):
@@ -360,7 +374,7 @@ class Album(GObject.Object):
             self._genres = set([track.genre for track in self._tracks])
 
         return self._genres
-
+        
     @property
     def rating(self):
         if not self._rating:
@@ -476,6 +490,7 @@ class Album(GObject.Object):
         self._year = None
         self._rating = None
         self._duration = None
+        self._composers = None
 
     def __str__(self):
         return self.artist + self.name
@@ -509,7 +524,7 @@ class AlbumFilters(object):
 
             words = RB.search_fold(searchtext).split()
             params = list(map(RB.search_fold, [album.name, album.artist,
-                album.artists, album.track_titles]))
+                album.artists, album.track_titles, album.composers]))
             matches = []
 
             for word in words:
@@ -594,6 +609,17 @@ class AlbumFilters(object):
                 album.track_titles)
 
         return filt
+        
+    @classmethod
+    def composer_filter(cls, searchtext=None):
+        def filt(album):
+            if not searchtext:
+                return True
+
+            return  RB.search_fold(searchtext) in RB.search_fold(
+                album.composers)
+
+        return filt
 
     @classmethod
     def genre_filter(cls, searchtext=None):
@@ -656,6 +682,7 @@ AlbumFilters.keys = {
     'album_artist': AlbumFilters.album_artist_filter,
     'artist': AlbumFilters.artist_filter,
     'quick_artist': AlbumFilters.artist_filter,
+    'composers': AlbumFilters.composer_filter,
     'similar_artist': AlbumFilters.similar_artist_filter,
     'album_name': AlbumFilters.album_name_filter,
     'track': AlbumFilters.track_title_filter,

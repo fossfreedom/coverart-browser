@@ -699,8 +699,9 @@ class AlbumSearchEntryController(OptionsController):
         self.values[_('Search all fields')] = 'all'
         self.values[_('Search album artists')] = 'album_artist'
         self.values[_('Search track artists')] = 'artist'
+        self.values[_('Search composers')] = 'composers'
         self.values[_('Search albums')] = 'album_name'
-        self.values[_('Search tracks')] = 'track'
+        self.values[_('Search titles')] = 'track'
 
         self.options = list(self.values.keys())
         self.current_key = list(self.values.keys())[0]
