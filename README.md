@@ -56,7 +56,7 @@ To install the plugin:
 
 <pre>
 rm -rf ~/.local/share/rhythmbox/plugins/coverart_browser
-git clone https://github.com/fossfreedom/coverart-browser.git
+git clone https://github.com/fossfreedom/coverart-browser.git -b master
 cd coverart-browser
 ./install.sh
 </pre>
