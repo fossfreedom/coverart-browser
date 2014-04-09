@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-03-06 18:17+0000\n"
-"PO-Revision-Date: 2013-08-27 04:35+0000\n"
+"PO-Revision-Date: 2014-04-09 12:12+0000\n"
 "Last-Translator: Radu Rădeanu <radu.radeanu@gmail.com>\n"
 "Language-Team: Romanian <ro@li.org>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-01-16 21:56+0000\n"
-"X-Generator: Launchpad (build 16901)\n"
+"X-Launchpad-Export-Date: 2014-04-09 18:40+0000\n"
+"X-Generator: Launchpad (build 16976)\n"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 #: tmpl/artistartsearch-tmpl.html:135
@@ -87,14 +87,16 @@ msgstr "Arată mai multe rezultate"
 #: tmpl/artistartsearch-tmpl.html:180
 msgid "Tip: doubleclick or drag a cover to use it as the artist cover"
 msgstr ""
+"Sfat: dați dublu clic sau trageți o copertă pentru a o folosi ca și copertă "
+"de artist"
 
 #: tmp/coverart_artist_pop_rb2.ui.h:1 tmp/coverart_artist_pop_rb3.ui.h:1
 msgid "Play All"
-msgstr ""
+msgstr "Redă toate"
 
 #: tmp/coverart_artist_pop_rb2.ui.h:2 tmp/coverart_artist_pop_rb3.ui.h:2
 msgid "Queue All"
-msgstr ""
+msgstr "Pune toate în coadă"
 
 #: tmp/coverart_artist_pop_rb2.ui.h:3 tmp/coverart_artist_pop_rb3.ui.h:3
 #: tmp/coverart_browser_pop_rb2.ui.h:3 tmp/coverart_browser_pop_rb3.ui.h:3
@@ -226,7 +228,7 @@ msgstr "Informații album"
 
 #: tmp/coverart_browser_prefs.ui.h:22
 msgid "Display album information"
-msgstr ""
+msgstr "Arată informații album"
 
 #: tmp/coverart_browser_prefs.ui.h:23
 msgid "Font size for the text below the cover-art."
@@ -264,7 +266,7 @@ msgstr "Afișare info album sub copertă"
 
 #: tmp/coverart_browser_prefs.ui.h:30
 msgid "Display album's info within cover"
-msgstr ""
+msgstr "Arată informațiile albumului pe copertă"
 
 #: tmp/coverart_browser_prefs.ui.h:31
 msgid "Cover Appearance"
@@ -480,7 +482,7 @@ msgstr "Deschideți dosarul cu piesa încorporată în managerul de fișiere"
 #. This is a label describing the different options to save the picture artwork in the music file i.e. embed - to insert picture artwork into a music file
 #: tmp/coverart_exportembed.ui.h:6
 msgid "Embed:"
-msgstr ""
+msgstr "Încorporat"
 
 #: tmp/coverart_exportembed.ui.h:7
 msgid ""
@@ -492,21 +494,21 @@ msgstr ""
 
 #: tmp/coverart_exportembed.ui.h:8
 msgid "convert to mp3"
-msgstr ""
+msgstr "convertește în mp3"
 
 #: tmp/coverart_exportembed.ui.h:9
 msgid "bitrate (kbit/s)"
-msgstr ""
+msgstr "rată biți (kbit/s)"
 
 #. This is a label describing the size of the picture that will be inserted into the music file e.g. change the size from 800x800 pixels to 128x128 pixels
 #: tmp/coverart_exportembed.ui.h:11
 msgid "resize art"
-msgstr ""
+msgstr "redimensionează copertă"
 
 #. size in pixels
 #: tmp/coverart_exportembed.ui.h:13
 msgid "(px)"
-msgstr ""
+msgstr "(px)"
 
 #: tmp/coverart_leftsidebar.ui.h:1 tmp/coverart_rightsidebar.ui.h:1
 #: coverart_browser.py:105 coverart_browser.py:117
@@ -529,7 +531,7 @@ msgstr "Toate deceniile"
 #: tmp/coverart_leftsidebar.ui.h:4 tmp/coverart_rightsidebar.ui.h:4
 #: tmp/coverart_topbar.ui.h:4 coverart_browser.py:253
 msgid "Views"
-msgstr ""
+msgstr "Vizualizări"
 
 #: tmp/popups.xml.in.h:1
 msgid "rock"
@@ -673,7 +675,7 @@ msgstr "children"
 
 #: coverart_album.py:1486
 msgid "Enable LastFM plugin and log in first"
-msgstr ""
+msgstr "Activează modulul LastFM și autentifică-te întâi"
 
 #. . TRANSLATORS - for example "abba's greatest hits by ABBA"
 #: coverart_album.py:1730 coverart_browser_source.py:932
@@ -739,6 +741,8 @@ msgid ""
 "No tracks have been added because no tracks meet the favourite rating "
 "threshold"
 msgstr ""
+"Nu sunt piese adăugate pentru că nu s-au găsit piese care să respecte pragul "
+"preferat de rating"
 
 #: coverart_browser_source.py:607
 msgid "The number of albums to randomly play is less than that displayed."
@@ -749,7 +753,7 @@ msgstr ""
 #: coverart_browser_source.py:698 coverart_browser_source.py:700
 #, python-format
 msgid "Requesting cover for %s..."
-msgstr ""
+msgstr "Solicită copertă pentru %s..."
 
 #: coverart_browser_source.py:856
 msgid ""
@@ -795,7 +799,7 @@ msgstr "Filtru rapid pentru artist"
 
 #: coverart_controllers.py:502 coverart_controllers.py:554
 msgid "Use favourites only"
-msgstr ""
+msgstr "Utilizează doar favorite"
 
 #: coverart_controllers.py:506
 msgid "Search Preferences"
@@ -890,3 +894,6 @@ msgstr "Caută piese"
 #, python-format
 msgid "Number of covers limited to %d"
 msgstr "Număr de coprți limitat la %d"
+
+#~ msgid "size in pixels"
+#~ msgstr "mărime în pixeli"
