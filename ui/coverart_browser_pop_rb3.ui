@@ -11,6 +11,10 @@
         <attribute name="label" translatable="yes">Queue Album</attribute>
         <attribute name="action">win.queue_album_menu_item</attribute>
       </item>
+      <item>
+        <attribute name="label" translatable="yes">Play Similar Artist</attribute>
+        <attribute name="action">win.play_similar_artist_menu_item</attribute>
+      </item>
       <submenu>
           <attribute name="label" translatable="yes">Add to Playlist</attribute>
         <section>

@@ -20,6 +20,8 @@ Browse your coverart albums in Rhythmbox v3 and later
 
 ##Summary: whats new in this release
 
+ - Play Similar Artists as recommended by EchoNest
+ - Play Similar Tracks as recommended by LastFM
  - new darker toolbar icons
  - Artist & Album information pane with LastFM & EchoNest data
  - Track Artist Filter and Artist & Album Information panes individually displayed per view

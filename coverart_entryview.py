@@ -29,6 +29,8 @@ from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import CoverLocale
 from coverart_external_plugins import CreateExternalPluginMenu
 from collections import OrderedDict
+from coverart_playlists import LastFMTrackPlaylist
+from coverart_playlists import EchoNestPlaylist
 
 class CoverArtEntryView(RB.EntryView):
 
@@ -90,7 +92,9 @@ class CoverArtEntryView(RB.EntryView):
             'ev_play_track_menu_item': self.play_track_menu_item_callback,
             'ev_queue_track_menu_item': self.queue_track_menu_item_callback,
             'ev_new_playlist': self.add_playlist_menu_item_callback,
-            'ev_show_properties_menu_item': self.show_properties_menu_item_callback }
+            'ev_show_properties_menu_item': self.show_properties_menu_item_callback,
+            'ev_similar_track_menu_item': self.play_similar_track_menu_item_callback,
+            'ev_similar_artist_menu_item': self.play_similar_artist_menu_item_callback }
             
         popup.connect_signals(signals)
         popup.connect('pre-popup', self.add_external_menu)
@@ -126,6 +130,9 @@ class CoverArtEntryView(RB.EntryView):
          # connect to the sort-order property
         self.connect('notify::sort-order', self._notify_sort_order,
             library_view)
+            
+        self.echonest_similar_playlist = None
+        self.lastfm_similar_playlist = None
 
     def __del__(self):
         del self.action_group
@@ -178,7 +185,7 @@ class CoverArtEntryView(RB.EntryView):
         '''
         if not self.external_plugins:
             self.external_plugins = \
-                    CreateExternalPluginMenu("ev_entryview", 3, self.popup)
+                    CreateExternalPluginMenu("ev_entryview", 4, self.popup)
             self.external_plugins.create_menu('entryview_popup_menu')
             
         self.playlist_menu_item_callback()
@@ -191,6 +198,27 @@ class CoverArtEntryView(RB.EntryView):
                 'entryview_popup_menu', 0, Gtk.get_current_event_time())
 
         return over_entry
+        
+    def play_similar_artist_menu_item_callback(self, *args):
+        if not self.echonest_similar_playlist:
+            self.echonest_similar_playlist = \
+                EchoNestPlaylist(   self.shell,
+                                    self.shell.props.queue_source)
+                                    
+        selected = self.get_selected_entries()
+        entry = selected[0]
+        self.echonest_similar_playlist.start(entry, reinitialise=True)
+                                    
+    def play_similar_track_menu_item_callback(self, *args):
+        if not self.lastfm_similar_playlist:
+            self.lastfm_similar_playlist = \
+                LastFMTrackPlaylist(    self.shell,
+                                        self.shell.props.queue_source)
+                                    
+        selected = self.get_selected_entries()
+        entry = selected[0]
+        self.lastfm_similar_playlist.start(entry, reinitialise=True)
+    
 
     def play_track_menu_item_callback(self, *args):
         print("CoverArtBrowser DEBUG - play_track_menu_item_callback()")

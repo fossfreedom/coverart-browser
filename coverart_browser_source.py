@@ -47,6 +47,7 @@ from coverart_listview import ListView
 from coverart_toolbar import ToolbarManager
 from coverart_artistinfo import ArtistInfoPane
 from coverart_external_plugins import CreateExternalPluginMenu
+from coverart_playlists import EchoNestPlaylist
 
 import coverart_rb3compat as rb3compat
 import random
@@ -226,7 +227,8 @@ class CoverArtBrowserSource(RB.Source):
               'new_playlist': self.add_playlist_menu_item_callback,
               'cover_search_menu_item': self.cover_search_menu_item_callback,
               'export_embed_menu_item': self.export_embed_menu_item_callback,
-              'show_properties_menu_item': self.show_properties_menu_item_callback}
+              'show_properties_menu_item': self.show_properties_menu_item_callback,
+              'play_similar_artist_menu_item': self.play_similar_artist_menu_item_callback}
               
         self.popup_menu.connect_signals(signals)
         self.popup_menu.connect('pre-popup', self.add_external_menu)
@@ -354,6 +356,8 @@ class CoverArtBrowserSource(RB.Source):
         appshell = rb3compat.ApplicationShell(self.shell)
         action = appshell.lookup_action("", "jump-to-playing", "win")
         action.action.connect("activate", self.jump_to_playing, None)
+        
+        self.echonest_similar_playlist = None
             
         print("CoverArtBrowser DEBUG - end _setup_source")
         
@@ -366,7 +370,7 @@ class CoverArtBrowserSource(RB.Source):
             # initialise external plugin menu support
             self._external_plugins = \
             CreateExternalPluginMenu("ca_covers_view",
-                6, self.popup_menu)
+                7, self.popup_menu)
             self._external_plugins.create_menu('popup_menu', True)
 
         self.playlist_menu_item_callback()
@@ -520,6 +524,24 @@ class CoverArtBrowserSource(RB.Source):
                 self.cover_search_pane.do_search(album, 
                     self.album_manager.cover_man.update_cover)
 
+    def play_similar_artist_menu_item_callback(self, *args):
+        '''
+        Callback called when the play similar artist option is selected from
+        the cover view popup. It plays similar artists music.
+        '''
+    def play_similar_artist_menu_item_callback(self, *args):
+        if not self.echonest_similar_playlist:
+            self.echonest_similar_playlist = \
+                EchoNestPlaylist(   self.shell,
+                                    self.shell.props.queue_source)
+                                    
+        selected_albums = self.viewmgr.current_view.get_selected_objects()
+        album = selected_albums[0]
+        tracks = album.get_tracks()
+        
+        entry = tracks[0].entry
+        self.echonest_similar_playlist.start(entry, reinitialise=True)
+        
     def show_properties_menu_item_callback(self, *args):
         '''
         Callback called when the show album properties option is selected from
