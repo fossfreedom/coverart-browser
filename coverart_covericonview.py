@@ -524,6 +524,10 @@ class CoverIconView(EnhancedIconView, AbstractView):
             hover = None
                     
         self.props.cell_area.hover_pixbuf = hover
+        if hover and path:
+            valid, rect = self.get_cell_rect(path, None)
+            self.props.window.invalidate_rect(rect, True)
+            self.queue_draw()
             
     def item_clicked_callback(self, iconview, event, path):
         '''
