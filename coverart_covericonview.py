@@ -296,7 +296,9 @@ class CoverIconView(EnhancedIconView, AbstractView):
             'button_play':None, 
             'button_play_hover':None,
             'button_playpause':None,
-            'button_playpause_hover':None }
+            'button_playpause_hover':None,
+            'button_queue':None,
+            'button_queue_hover':None }
             
         for pixbuf_type in self.hover_pixbufs:
             filename = 'img/' + pixbuf_type + '.png'
@@ -479,6 +481,8 @@ class CoverIconView(EnhancedIconView, AbstractView):
             
         if playing and self._last_play_path == path:
             icon = 'button_playpause'
+        elif playing:
+            icon = 'button_queue'
         else:
             icon = 'button_play'
             
@@ -554,14 +558,15 @@ class CoverIconView(EnhancedIconView, AbstractView):
                 return
                 
             # otherwise, this must be a new album so we are asking just
-            # to play this new album
-            
-            self._last_play_path = path
-                    
-            # play selected album ... just need a short interval
+            # to play this new album ... just need a short interval
             # for the selection event to kick in first
             def delay(*args):
-                self.source.play_selected_album(self.source.favourites)
+                if playing: # if we are playing then queue up the next album
+                    self.source.queue_selected_album(self.shell.props.queue_source, self.source.favourites)
+                else: # otherwise just play it
+                    self._last_play_path = path
+                    self.source.play_selected_album(self.source.favourites)
+                    
                 self.props.cell_area.hover_pixbuf= \
                         self.hover_pixbufs['button_play_hover']
                 
