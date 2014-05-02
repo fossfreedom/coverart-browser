@@ -1044,8 +1044,7 @@ class PanedCollapsible(Gtk.Paned):
 
     # signals
     __gsignals__ = {
-        'expanded': (GObject.SIGNAL_RUN_LAST, None, (bool,)),
-        'paned_changed': (GObject.SIGNAL_RUN_LAST, None, ())
+        'expanded': (GObject.SIGNAL_RUN_LAST, None, (bool,))
         }
 
     def __init__(self, *args, **kwargs):
@@ -1108,7 +1107,6 @@ class PanedCollapsible(Gtk.Paned):
                 self.collapsible_y = new_y
 
             self.set_position(self.collapsible_y)
-            self.emit('paned_changed')
 
         self.emit('expanded', expand)
 
@@ -1127,7 +1125,6 @@ class PanedCollapsible(Gtk.Paned):
         if not self._expander or self._expander.get_expanded():
             Gtk.Paned.do_button_release_event(self, *args)
             self.collapsible_y = self.get_position()
-            self.emit('paned_changed')
 
     def do_remove(self, widget):
         '''
@@ -1217,7 +1214,6 @@ class PanedCollapsible(Gtk.Paned):
             self._expander.get_label_widget().get_allocated_height()
 
         self.set_position(new_y)
-        self.emit('paned_changed')
 
     def expand(self, force):
         '''

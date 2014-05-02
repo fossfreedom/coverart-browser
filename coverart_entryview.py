@@ -73,6 +73,7 @@ class ResultsGrid(Gtk.Grid):
             self.frame.set_shadow_type(Gtk.ShadowType.NONE)
         else:
             self.pixbuf = None
+            print ("here")
             self.frame.set_shadow_type(Gtk.ShadowType.ETCHED_OUT)
             
         self.image.queue_draw()

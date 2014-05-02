@@ -913,6 +913,7 @@ class CoverArtBrowserSource(RB.Source):
         '''
         Update the source view when an item gets selected.
         '''
+        print ("DEBUG - update_with_selection")
         selected = self.viewmgr.current_view.get_selected_objects()
 
         # clear the entry view
@@ -925,6 +926,8 @@ class CoverArtBrowserSource(RB.Source):
             # clean cover tab if selected
             if cover_search_pane_visible:
                 self.cover_search_pane.clear()
+            
+            self.entry_view_results.emit('update-cover', self, None)
 
             return
         elif len(selected) == 1:
