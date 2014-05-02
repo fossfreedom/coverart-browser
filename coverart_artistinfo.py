@@ -39,6 +39,7 @@ from coverart_utils import create_pixbuf_from_file_at_size
 from coverart_utils import get_stock_size
 from coverart_widgets import PixbufButton
 from coverart_browser_prefs import GSetting
+from coverart_utils import create_button_image
 
 import gettext
 gettext.install('rhythmbox', RB.locale_dir())
@@ -56,13 +57,6 @@ def lastfm_datasource_link(path):
     return "<a href='http://last.fm/'><img src='%s/img/lastfm.png'></a>" % path
 
 LASTFM_NO_ACCOUNT_ERROR = _("This information is only available to Last.fm users. Ensure the Last.fm plugin is enabled, select Last.fm in the side pane, and log in.")
-
-def create_button_image(plugin, icon_name):
-    path = 'img/'
-        
-    return create_pixbuf_from_file_at_size(
-            rb.find_plugin_file(plugin, path + icon_name),
-            *get_stock_size())
 
 class ArtistInfoPane(GObject.GObject):
     __gsignals__ = {

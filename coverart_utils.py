@@ -789,3 +789,10 @@ def check_lastfm(force_check=False):
     else:
         print ("returning default")
         return False
+        
+def create_button_image(plugin, icon_name):
+    path = 'img/'
+        
+    return create_pixbuf_from_file_at_size(
+            rb.find_plugin_file(plugin, path + icon_name),
+            *get_stock_size())

@@ -29,11 +29,15 @@ from gi.repository import WebKit
 
 from coverart_album import AlbumManager
 from coverart_entryview import CoverArtEntryView as EV
+from coverart_entryview import CoverArtCompactEntryView as CEV
+from coverart_entryview import ResultsGrid
+
 from coverart_search import CoverSearchPane
 from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import CoverLocale
 from coverart_browser_prefs import Preferences
 from coverart_widgets import PanedCollapsible
+from coverart_widgets import PixbufButton
 from coverart_controllers import AlbumQuickSearchController
 from coverart_controllers import ViewController
 from coverart_export import CoverArtExport
@@ -48,6 +52,7 @@ from coverart_toolbar import ToolbarManager
 from coverart_artistinfo import ArtistInfoPane
 from coverart_external_plugins import CreateExternalPluginMenu
 from coverart_playlists import EchoNestPlaylist
+from coverart_utils import create_button_image
 
 import coverart_rb3compat as rb3compat
 import random
@@ -277,21 +282,38 @@ class CoverArtBrowserSource(RB.Source):
             self.paned.get_child2(), 'visible', Gio.SettingsBindFlags.DEFAULT)
 
         # create entry view. Don't allow to reorder until the load is finished
-        self.entry_view = EV(self.shell, self)
-        self.entry_view.set_columns_clickable(False)
+        self.entry_view_compact = CEV(self.shell, self)
+        self.entry_view_full = EV(self.shell, self)
+        self.entry_view = self.entry_view_compact
         self.shell.props.library_source.get_entry_view().set_columns_clickable(
             False)
 
         self.stars = ReactiveStar()
         self.stars.set_rating(0)
         a = Gtk.Alignment.new(0.5, 0.5, 0, 0)
-        a.add(self.stars)
+        a2 = Gtk.Alignment.new(0.5, 0.5, 0, 0)
+        a2.add(self.stars)
+        viewtoggle = PixbufButton() # should use ImageToggleButton with controller
+        viewtoggle.set_image(create_button_image(self.plugin, "entryview.png"))
+        viewtoggle.connect('toggled', self.entry_view_toggled)
+        
+        viewbox = Gtk.Box()
+        viewbox.pack_start(viewtoggle, False, False, 0)
+        viewbox.pack_start(a2, False, False, 1)
+        a.add(viewbox)
 
         self.stars.connect('changed', self.rating_changed_callback)
 
+        self.entry_view_box = Gtk.Box()
+        self.entry_view_results = ResultsGrid()
+        #self.entry_view_results.change_view(self.entry_view)
+        self.viewtoggle_id = None
+        self.entry_view_toggled(viewtoggle, True)
+        self.entry_view_box.pack_start(self.entry_view_results, True, True,0)
+
         vbox = Gtk.Box()
         vbox.set_orientation(Gtk.Orientation.VERTICAL)
-        vbox.pack_start(self.entry_view, True, True, 0)
+        vbox.pack_start(self.entry_view_box, True, True, 0)
         vbox.pack_start(a, False, False, 1)
         vbox.show_all()
         self.notebook.append_page(vbox, Gtk.Label.new_with_mnemonic(_("Tracks")))
@@ -361,6 +383,24 @@ class CoverArtBrowserSource(RB.Source):
             
         print("CoverArtBrowser DEBUG - end _setup_source")
         
+    def entry_view_toggled(self, widget, initialised = False):
+        print ("DEBUG - entry_view_toggled")
+        if widget.get_active():
+            next_view = self.entry_view_full
+            show_coverart = False
+            if self.viewtoggle_id:
+                self.shell.props.window.disconnect(self.viewtoggle_id)
+                self.viewtoggle_id = None
+        else:
+            next_view = self.entry_view_compact
+            show_coverart = True
+            self.viewtoggle_id = self.shell.props.window.connect('check_resize', self.entry_view_results.window_resize)
+        
+        self.entry_view_results.change_view(next_view, show_coverart)
+        self.entry_view = next_view
+        if not initialised:
+            self.update_with_selection()
+                         
     def add_external_menu(self, *args):
         '''
         Callback when the popup menu is about to be displayed
@@ -910,6 +950,9 @@ class CoverArtBrowserSource(RB.Source):
         for album in selected:
             # add the album to the entry_view
             self.entry_view.add_album(album)
+            
+        if len(selected) > 0:
+            self.entry_view_results.emit('update-cover', self, selected[0].get_tracks()[0].entry)
 
         # update the cover search pane with the first selected album
         if cover_search_pane_visible:

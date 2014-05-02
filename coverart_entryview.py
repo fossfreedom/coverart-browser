@@ -32,7 +32,115 @@ from collections import OrderedDict
 from coverart_playlists import LastFMTrackPlaylist
 from coverart_playlists import EchoNestPlaylist
 
-class CoverArtEntryView(RB.EntryView):
+from gi.repository import GdkPixbuf
+from gi.repository import Gdk
+from gi.repository import RB
+import cairo
+from math import pi
+    
+MIN_IMAGE_SIZE = 100
+
+class ResultsGrid(Gtk.Grid):
+        
+    # signals
+    __gsignals__ = {
+        'update-cover': (GObject.SIGNAL_RUN_LAST, None, (GObject.Object,RB.RhythmDBEntry))
+        }
+    image_width = 0
+    
+    def __init__(self, *args, **kwargs):
+        super(ResultsGrid, self).__init__(*args, **kwargs)
+        
+        self.pixbuf = None #GdkPixbuf.Pixbuf().new_from_file('empire.jpg')
+        
+        self.image = Gtk.Image()
+        self.image.props.hexpand = True
+        self.image.props.vexpand = True
+        self.image.connect('draw', self.draw_cover_event)
+        self.frame=Gtk.AspectFrame.new("", 0.5, 0.5, 1, False)
+        self.update_cover(None, None, None)
+        self.frame.add(self.image)
+        
+        #self.pack_end(self.frame, False, True, 1)
+        self.attach(self.frame,3,0,1,1)
+        self.connect('update-cover', self.update_cover)
+        
+    def update_cover(self, widget, source, entry):
+        
+        if entry:
+            album = source.album_manager.model.get_from_dbentry(entry)
+            self.pixbuf = album.cover.pixbuf
+            self.frame.set_shadow_type(Gtk.ShadowType.NONE)
+        else:
+            self.pixbuf = None
+            self.frame.set_shadow_type(Gtk.ShadowType.ETCHED_OUT)
+            
+        self.image.queue_draw()
+        
+    def window_resize(self, widget):
+        alloc = self.get_allocation()
+        if alloc.height < 10:
+            return
+        print (alloc.height)
+        print (alloc.width)
+        
+        
+        if (alloc.width / 3) < (MIN_IMAGE_SIZE+30) or \
+           (alloc.height) < (MIN_IMAGE_SIZE+30):
+            self.frame.props.visible = False
+        else:
+            self.frame.props.visible = True
+            
+    def change_view(self, entry_view, show_coverart):
+        print ("debug - change_view")
+        widget = self.get_child_at(0, 0)
+        if widget:
+            self.remove(widget)
+            
+        if not show_coverart:
+            widget = self.get_child_at(3, 0)
+            if widget:
+                self.remove(widget)
+            
+        entry_view.props.hexpand = True
+        entry_view.props.vexpand = True
+        self.attach(entry_view, 0, 0, 3, 1)
+        
+        if show_coverart:
+            self.attach(self.frame, 3, 0, 1, 1)
+            
+        self.show_all()
+        print (entry_view)
+        
+    def draw_rounded(self, cr, area, radius):
+        """ draws rectangles with rounded (circular arc) corners """
+        a,b,c,d=area
+        cr.arc(a + radius, c + radius, radius, 2*(pi/2), 3*(pi/2))
+        cr.arc(b - radius, c + radius, radius, 3*(pi/2), 4*(pi/2))
+        cr.arc(b - radius, d - radius, radius, 0*(pi/2), 1*(pi/2))
+        cr.arc(a + radius, d - radius, radius, 1*(pi/2), 2*(pi/2))
+        cr.close_path()
+        
+    def draw_cover_event(self, widget, ctx):
+        
+        if not self.pixbuf:
+            return
+            
+        alloc = self.image.get_allocation()
+        
+        p = self.pixbuf.scale_simple(alloc.width, alloc.height, GdkPixbuf.InterpType.BILINEAR) 
+        offset = 15
+        inside_area = (offset, alloc.width-offset, offset, alloc.height-offset)
+        
+        #Gdk.cairo_set_source_pixbuf(ctx, p, 15,15)
+        Gdk.cairo_set_source_pixbuf(ctx, p, 0,0)
+        #self.draw_rounded(ctx, inside_area, 10)
+        #ctx.clip()
+        ctx.paint()
+        return True
+
+        
+class BaseView(RB.EntryView):
 
     def __init__(self, shell, source):
         '''
@@ -49,39 +157,7 @@ class CoverArtEntryView(RB.EntryView):
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.RB)
 
-        #self.append_column(RB.EntryViewColumn.TITLE, True)  # always shown
-        
-        self.col_map = OrderedDict([
-                        ('track-number', RB.EntryViewColumn.TRACK_NUMBER),
-                        ('title', RB.EntryViewColumn.TITLE),
-                        ('genre', RB.EntryViewColumn.GENRE),
-                        ('artist', RB.EntryViewColumn.ARTIST),
-                        ('album', RB.EntryViewColumn.ALBUM),
-                        ('composer', None),
-                        ('date', RB.EntryViewColumn.YEAR),
-                        ('duration', RB.EntryViewColumn.DURATION),
-                        ('bitrate', RB.EntryViewColumn.QUALITY),
-                        ('play-count', RB.EntryViewColumn.PLAY_COUNT),
-                        ('beats-per-minute', RB.EntryViewColumn.BPM),
-                        ('comment', RB.EntryViewColumn.COMMENT),
-                        ('location', RB.EntryViewColumn.LOCATION),
-                        ('rating', RB.EntryViewColumn.RATING),
-                        ('last-played', RB.EntryViewColumn.LAST_PLAYED),
-                        ('first-seen', RB.EntryViewColumn.FIRST_SEEN)
-                        ])
-                        
-        # now remove some columns that are only applicable from RB3.0 onwards
-        # N.B. 'beats-per-minute': RB.EntryViewColumn.BPM - RB crashes with this - issue#188
-        try:
-            self.col_map['composer'] = RB.EntryViewColumn.COMPOSER
-            # i.e. composer only exists in RB3.0
-        except:
-            del self.col_map['composer']
-            del self.col_map['beats-per-minute']
-        
-        for entry in self.col_map:
-            visible = True if entry == 'title' else False
-            self.append_column(self.col_map[entry], visible)
+        self.display_columns()
                 
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
 
@@ -110,13 +186,6 @@ class CoverArtEntryView(RB.EntryView):
         
         self.external_plugins = None
 
-        # connect the visible-columns global setting to update our entryview
-        gs = GSetting()
-        rhythm_settings = gs.get_setting(gs.Path.RBSOURCE)
-        rhythm_settings.connect('changed::visible-columns',
-            self.on_visible_columns_changed)
-        self.on_visible_columns_changed(rhythm_settings, 'visible-columns')
-
         self.qm = RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
         self.set_model(self.qm)
 
@@ -133,25 +202,24 @@ class CoverArtEntryView(RB.EntryView):
             
         self.echonest_similar_playlist = None
         self.lastfm_similar_playlist = None
+        
+        self.set_columns_clickable(False)
+        
+        self.connect('selection-changed', self.selection_changed)
 
     def __del__(self):
         del self.action_group
         del self.play_action
         del self.queue_action
-
-    def on_visible_columns_changed(self, settings, key):
-        print("CoverArtBrowser DEBUG - on_visible_columns_changed()")
-        # reset current columns
-        print("CoverArtBrowser DEBUG - end on_visible_columns_changed()")
-        for entry in self.col_map:
-            col = self.get_column(self.col_map[entry])
-            if entry in settings[key]:
-                col.set_visible(True)
-            else:
-                if entry != 'title': 
-                    col.set_visible(False)
-            
-        print ("CoverArtBrowser DEBUG - end on_visible_columns_changed()")
+        
+    def display_columns(self):
+        pass
+        
+    def selection_changed(self, entry_view):
+        print ("XXXXXXXXXXXXXXXX")
+        entries = entry_view.get_selected_entries()
+        if entries and len(entries) > 0:
+            self.source.entry_view_results.emit('update-cover', self.source, entries[0])
 
     def add_album(self, album):
         print("CoverArtBrowser DEBUG - add_album()")
@@ -334,5 +402,79 @@ class CoverArtEntryView(RB.EntryView):
 
             # update library source's view direction
             library_view.set_sorting_type(self.props.sort_order)
+            
+class CoverArtCompactEntryView(BaseView):
+    def __init__(self, shell, source):
+        '''
+        Initializes the entryview.
+        '''
+        BaseView.__init__(self, shell, source)
+    
+    def display_columns(self):
+        
+        self.col_map = OrderedDict([
+                        ('track-number', RB.EntryViewColumn.TRACK_NUMBER),
+                        ('title', RB.EntryViewColumn.TITLE),
+                        ('artist', RB.EntryViewColumn.ARTIST),
+                        ('duration', RB.EntryViewColumn.DURATION),
+                        ])
+                        
+        for entry in self.col_map:
+            self.append_column(self.col_map[entry], True)
+    
+            
+class CoverArtEntryView(BaseView):
+    
+    def __init__(self, shell, source):
+        '''
+        Initializes the entryview.
+        '''
+        BaseView.__init__(self, shell, source)
+    
+    def display_columns(self):
+        
+        self.col_map = OrderedDict([
+                        ('track-number', RB.EntryViewColumn.TRACK_NUMBER),
+                        ('title', RB.EntryViewColumn.TITLE),
+                        ('genre', RB.EntryViewColumn.GENRE),
+                        ('artist', RB.EntryViewColumn.ARTIST),
+                        ('album', RB.EntryViewColumn.ALBUM),
+                        ('composer', RB.EntryViewColumn.COMPOSER),
+                        ('date', RB.EntryViewColumn.YEAR),
+                        ('duration', RB.EntryViewColumn.DURATION),
+                        ('bitrate', RB.EntryViewColumn.QUALITY),
+                        ('play-count', RB.EntryViewColumn.PLAY_COUNT),
+                        ('beats-per-minute', RB.EntryViewColumn.BPM),
+                        ('comment', RB.EntryViewColumn.COMMENT),
+                        ('location', RB.EntryViewColumn.LOCATION),
+                        ('rating', RB.EntryViewColumn.RATING),
+                        ('last-played', RB.EntryViewColumn.LAST_PLAYED),
+                        ('first-seen', RB.EntryViewColumn.FIRST_SEEN)
+                        ])
+                        
+        for entry in self.col_map:
+            visible = True if entry == 'title' else False
+            self.append_column(self.col_map[entry], visible)
+        
+        # connect the visible-columns global setting to update our entryview
+        gs = GSetting()
+        rhythm_settings = gs.get_setting(gs.Path.RBSOURCE)
+        rhythm_settings.connect('changed::visible-columns',
+            self.on_visible_columns_changed)
+        self.on_visible_columns_changed(rhythm_settings, 'visible-columns')
+        
+    def on_visible_columns_changed(self, settings, key):
+        print("CoverArtBrowser DEBUG - on_visible_columns_changed()")
+        # reset current columns
+        print("CoverArtBrowser DEBUG - end on_visible_columns_changed()")
+        for entry in self.col_map:
+            col = self.get_column(self.col_map[entry])
+            if entry in settings[key]:
+                col.set_visible(True)
+            else:
+                if entry != 'title': 
+                    col.set_visible(False)
+            
+        print ("CoverArtBrowser DEBUG - end on_visible_columns_changed()")
 
 GObject.type_register(CoverArtEntryView)
