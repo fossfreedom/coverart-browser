@@ -66,7 +66,7 @@ class ArtistInfoPane(GObject.GObject):
     
     artist_info_paned_pos = GObject.property(type=str)
     
-    min_paned_pos = 100
+    min_paned_pos = 110
     
     def __init__(self, button_box, scroll_window, info_paned, source):
         GObject.GObject.__init__ (self)
