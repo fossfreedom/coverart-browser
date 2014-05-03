@@ -35,6 +35,7 @@ from coverart_playlists import EchoNestPlaylist
 from gi.repository import GdkPixbuf
 from gi.repository import Gdk
 from gi.repository import RB
+
 import cairo
 from math import pi
     
@@ -61,7 +62,6 @@ class ResultsGrid(Gtk.Grid):
         self.update_cover(None, None, None)
         self.frame.add(self.image)
         
-        #self.pack_end(self.frame, False, True, 1)
         self.attach(self.frame,3,0,1,1)
         self.connect('update-cover', self.update_cover)
         
@@ -69,11 +69,10 @@ class ResultsGrid(Gtk.Grid):
         
         if entry:
             album = source.album_manager.model.get_from_dbentry(entry)
-            self.pixbuf = album.cover.pixbuf
+            self.pixbuf = GdkPixbuf.Pixbuf().new_from_file(album.cover.original)
             self.frame.set_shadow_type(Gtk.ShadowType.NONE)
         else:
             self.pixbuf = None
-            print ("here")
             self.frame.set_shadow_type(Gtk.ShadowType.ETCHED_OUT)
             
         self.image.queue_draw()
@@ -82,10 +81,7 @@ class ResultsGrid(Gtk.Grid):
         alloc = self.get_allocation()
         if alloc.height < 10:
             return
-        print (alloc.height)
-        print (alloc.width)
-        
-        
+                
         if (alloc.width / 3) < (MIN_IMAGE_SIZE+30) or \
            (alloc.height) < (MIN_IMAGE_SIZE+30):
             self.frame.props.visible = False
@@ -111,7 +107,6 @@ class ResultsGrid(Gtk.Grid):
             self.attach(self.frame, 3, 0, 1, 1)
             
         self.show_all()
-        print (entry_view)
         
     def draw_rounded(self, cr, area, radius):
         """ draws rectangles with rounded (circular arc) corners """
@@ -162,20 +157,7 @@ class BaseView(RB.EntryView):
                 
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
 
-        popup = Menu(self.plugin, self.shell)
-        popup.load_from_file('ui/coverart_entryview_pop_rb2.ui',
-                             'ui/coverart_entryview_pop_rb3.ui')
-        signals = {
-            'ev_play_track_menu_item': self.play_track_menu_item_callback,
-            'ev_queue_track_menu_item': self.queue_track_menu_item_callback,
-            'ev_new_playlist': self.add_playlist_menu_item_callback,
-            'ev_show_properties_menu_item': self.show_properties_menu_item_callback,
-            'ev_similar_track_menu_item': self.play_similar_track_menu_item_callback,
-            'ev_similar_artist_menu_item': self.play_similar_artist_menu_item_callback }
-            
-        popup.connect_signals(signals)
-        popup.connect('pre-popup', self.add_external_menu)
-        self.popup = popup
+        self.define_menu()
 
         # connect signals to the shell to know when the playing state changes
         self.shell.props.shell_player.connect('playing-song-changed',
@@ -207,17 +189,21 @@ class BaseView(RB.EntryView):
         self.set_columns_clickable(False)
         
         self.connect('selection-changed', self.selection_changed)
+        
+        self.artists = ""
 
     def __del__(self):
         del self.action_group
         del self.play_action
         del self.queue_action
         
+    def define_menu(self):
+        pass
+        
     def display_columns(self):
         pass
         
     def selection_changed(self, entry_view):
-        print ("XXXXXXXXXXXXXXXX")
         entries = entry_view.get_selected_entries()
         if entries and len(entries) > 0:
             self.source.entry_view_results.emit('update-cover', self.source, entries[0])
@@ -231,6 +217,13 @@ class BaseView(RB.EntryView):
 
         (_, playing) = self.shell.props.shell_player.get_playing()
         self.playing_changed(self.shell.props.shell_player, playing)
+        
+        artists = album.artists.split(', ')
+        if self.artists == "":
+            self.artists = artists
+        else:
+            self.artists = list(set(self.artists + artists))
+            
         print("CoverArtBrowser DEBUG - add_album()")
 
     def clear(self):
@@ -239,6 +232,8 @@ class BaseView(RB.EntryView):
         for row in self.qm:
             self.qm.remove_entry(row[0])
 
+        self.artists = ""
+        
         print("CoverArtBrowser DEBUG - clear()")
 
     def do_entry_activated(self, entry):
@@ -249,15 +244,7 @@ class BaseView(RB.EntryView):
         return True
         
     def add_external_menu(self, *args):
-        '''
-        Callback when the popup menu is about to be displayed
-        '''
-        if not self.external_plugins:
-            self.external_plugins = \
-                    CreateExternalPluginMenu("ev_entryview", 4, self.popup)
-            self.external_plugins.create_menu('entryview_popup_menu')
-            
-        self.playlist_menu_item_callback()
+        pass
 
     def do_show_popup(self, over_entry):
         if over_entry:
@@ -343,9 +330,8 @@ class BaseView(RB.EntryView):
         print("CoverArtBrowser DEBUG - show_properties_menu_item_callback()")
 
         info_dialog = RB.SongInfo(source=self.source, entry_view=self)
-
         info_dialog.show_all()
-
+        
         print("CoverArtBrowser DEBUG - show_properties_menu_item_callback()")
 
     def playing_song_changed(self, shell_player, entry):
@@ -380,10 +366,7 @@ class BaseView(RB.EntryView):
         self.add_tracks_to_source(playlist)
 
     def playlist_menu_item_callback(self, *args):
-        print("CoverArtBrowser DEBUG - playlist_menu_item_callback")
-
-        self.source.playlist_fillmenu(self.popup, 'ev_playlist_sub_menu_item', 'ev_playlist_section',
-            self.actiongroup, self.add_to_static_playlist_menu_item_callback)
+        pass
 
     def add_to_static_playlist_menu_item_callback(self, action, param, args):
         print("CoverArtBrowser DEBUG - " + \
@@ -405,32 +388,77 @@ class BaseView(RB.EntryView):
             library_view.set_sorting_type(self.props.sort_order)
             
 class CoverArtCompactEntryView(BaseView):
+    __hash__ = GObject.__hash__
+    
     def __init__(self, shell, source):
         '''
         Initializes the entryview.
         '''
-        BaseView.__init__(self, shell, source)
+        super(CoverArtCompactEntryView, self).__init__(shell, source)
     
     def display_columns(self):
         
         self.col_map = OrderedDict([
                         ('track-number', RB.EntryViewColumn.TRACK_NUMBER),
                         ('title', RB.EntryViewColumn.TITLE),
-                        ('artist', RB.EntryViewColumn.ARTIST),
-                        ('duration', RB.EntryViewColumn.DURATION),
+                        ('artist', RB.EntryViewColumn.ARTIST), 
+                        ('rating', RB.EntryViewColumn.RATING),
+                        ('duration', RB.EntryViewColumn.DURATION)
                         ])
-                        
+        
         for entry in self.col_map:
-            self.append_column(self.col_map[entry], True)
-    
+            visible = False if entry == 'artist' else True
+            self.append_column(self.col_map[entry], visible)
             
+    def add_album(self, album):
+        super(CoverArtCompactEntryView, self).add_album(album)
+        
+        if len(self.artists) > 1:
+            self.get_column(RB.EntryViewColumn.ARTIST).set_visible(True)
+        else:
+            self.get_column(RB.EntryViewColumn.ARTIST).set_visible(False)
+            
+    def define_menu(self):
+        popup = Menu(self.plugin, self.shell)
+        popup.load_from_file('N/A',
+                             'ui/coverart_entryview_compact_pop_rb3.ui')
+        signals = {
+            'ev_compact_play_track_menu_item': self.play_track_menu_item_callback,
+            'ev_compact_queue_track_menu_item': self.queue_track_menu_item_callback,
+            'ev_compact_new_playlist': self.add_playlist_menu_item_callback,
+            'ev_compact_show_properties_menu_item': self.show_properties_menu_item_callback,
+            'ev_compact_similar_track_menu_item': self.play_similar_track_menu_item_callback,
+            'ev_compact_similar_artist_menu_item': self.play_similar_artist_menu_item_callback }
+            
+        popup.connect_signals(signals)
+        popup.connect('pre-popup', self.add_external_menu)
+        self.popup = popup
+        
+    def playlist_menu_item_callback(self, *args):
+        print("CoverArtBrowser DEBUG - playlist_menu_item_callback")
+
+        self.source.playlist_fillmenu(self.popup, 'ev_compact_playlist_sub_menu_item', 'ev_compact_playlist_section',
+            self.actiongroup, self.add_to_static_playlist_menu_item_callback)
+
+    def add_external_menu(self, *args):
+        '''
+        Callback when the popup menu is about to be displayed
+        '''
+        if not self.external_plugins:
+            self.external_plugins = \
+                    CreateExternalPluginMenu("ev_compact_entryview", 4, self.popup)
+            self.external_plugins.create_menu('entryview_compact_popup_menu')
+            
+        self.playlist_menu_item_callback()
+    
 class CoverArtEntryView(BaseView):
+    __hash__ = GObject.__hash__
     
     def __init__(self, shell, source):
         '''
         Initializes the entryview.
         '''
-        BaseView.__init__(self, shell, source)
+        super(CoverArtEntryView, self).__init__(shell, source)
     
     def display_columns(self):
         
@@ -477,5 +505,40 @@ class CoverArtEntryView(BaseView):
                     col.set_visible(False)
             
         print ("CoverArtBrowser DEBUG - end on_visible_columns_changed()")
+        
+    def define_menu(self):
+        popup = Menu(self.plugin, self.shell)
+        popup.load_from_file('N/A',
+                             'ui/coverart_entryview_full_pop_rb3.ui')
+        signals = {
+            'ev_full_play_track_menu_item': self.play_track_menu_item_callback,
+            'ev_full_queue_track_menu_item': self.queue_track_menu_item_callback,
+            'ev_full_new_playlist': self.add_playlist_menu_item_callback,
+            'ev_full_show_properties_menu_item': self.show_properties_menu_item_callback,
+            'ev_full_similar_track_menu_item': self.play_similar_track_menu_item_callback,
+            'ev_full_similar_artist_menu_item': self.play_similar_artist_menu_item_callback }
+            
+        popup.connect_signals(signals)
+        popup.connect('pre-popup', self.add_external_menu)
+        self.popup = popup
+        
+    def playlist_menu_item_callback(self, *args):
+        print("CoverArtBrowser DEBUG - playlist_menu_item_callback")
+
+        self.source.playlist_fillmenu(self.popup, 'ev_full_playlist_sub_menu_item', 'ev_full_playlist_section',
+            self.actiongroup, self.add_to_static_playlist_menu_item_callback)
+            
+    def add_external_menu(self, *args):
+        '''
+        Callback when the popup menu is about to be displayed
+        '''
+        if not self.external_plugins:
+            self.external_plugins = \
+                    CreateExternalPluginMenu("ev_full_entryview", 4, self.popup)
+            self.external_plugins.create_menu('entryview_full_popup_menu')
+            
+        self.playlist_menu_item_callback()
 
 GObject.type_register(CoverArtEntryView)
+GObject.type_register(CoverArtCompactEntryView)
+

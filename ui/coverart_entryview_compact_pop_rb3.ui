@@ -4,22 +4,22 @@
     <section>
       <item>
         <attribute name="label" translatable="yes">Play Track</attribute>
-        <attribute name="action">win.ev_play_track_menu_item</attribute>
+        <attribute name="action">win.ev_compact_play_track_menu_item</attribute>
       </item>
       <item>
         <attribute name="label" translatable="yes">Queue Track</attribute>
-        <attribute name="action">win.ev_queue_track_menu_item</attribute>
+        <attribute name="action">win.ev_compact_queue_track_menu_item</attribute>
       </item>
       <submenu>
         <attribute name="label" translatable="yes">Play Similar</attribute>
         <section>
             <item>
                 <attribute name="label" translatable="yes">Track</attribute>
-                <attribute name="action">win.ev_similar_track_menu_item</attribute>
+                <attribute name="action">win.ev_compact_similar_track_menu_item</attribute>
             </item>
             <item>
                 <attribute name="label" translatable="yes">Artist</attribute>
-                <attribute name="action">win.ev_similar_artist_menu_item</attribute>
+                <attribute name="action">win.ev_compact_similar_artist_menu_item</attribute>
             </item>
         </section>
       </submenu>
@@ -28,21 +28,21 @@
         <section>
             <item>
                 <attribute name="label" translatable="yes">New Playlist</attribute>
-                <attribute name="action">win.ev_new_playlist</attribute>
+                <attribute name="action">win.ev_compact_new_playlist</attribute>
             </item>
         </section>
         <section>
-            <attribute name="rb-plugin-menu-link">ev_playlist_section</attribute>
+            <attribute name="rb-plugin-menu-link">ev_compact_playlist_section</attribute>
         </section> 
       </submenu>
      </section>
      <section>
-        <attribute name="rb-plugin-menu-link">ev_entryview</attribute>
+        <attribute name="rb-plugin-menu-link">ev_compact_entryview</attribute>
     </section>
 	 <section>
       <item>
         <attribute name="label" translatable="yes">Properties</attribute>
-        <attribute name="action">win.ev_show_properties_menu_item</attribute>
+        <attribute name="action">win.ev_compact_show_properties_menu_item</attribute>
       </item>
     </section>
    </menu>

@@ -295,7 +295,6 @@ class CoverArtBrowserSource(RB.Source):
         a2.add(self.stars)
         viewtoggle = PixbufButton() # should use ImageToggleButton with controller
         viewtoggle.set_image(create_button_image(self.plugin, "entryview.png"))
-        viewtoggle.connect('toggled', self.entry_view_toggled)
         
         viewbox = Gtk.Box()
         viewbox.pack_start(viewtoggle, False, False, 0)
@@ -306,9 +305,11 @@ class CoverArtBrowserSource(RB.Source):
 
         self.entry_view_box = Gtk.Box()
         self.entry_view_results = ResultsGrid()
-        #self.entry_view_results.change_view(self.entry_view)
         self.viewtoggle_id = None
+        viewtoggle.set_active(not setting[self.gs.PluginKey.ENTRY_VIEW_MODE])
         self.entry_view_toggled(viewtoggle, True)
+        viewtoggle.connect('toggled', self.entry_view_toggled)
+            
         self.entry_view_box.pack_start(self.entry_view_results, True, True,0)
 
         vbox = Gtk.Box()
@@ -395,6 +396,9 @@ class CoverArtBrowserSource(RB.Source):
             next_view = self.entry_view_compact
             show_coverart = True
             self.viewtoggle_id = self.shell.props.window.connect('check_resize', self.entry_view_results.window_resize)
+        
+        setting = self.gs.get_setting(self.gs.Path.PLUGIN)
+        setting[self.gs.PluginKey.ENTRY_VIEW_MODE] = not widget.get_active()
         
         self.entry_view_results.change_view(next_view, show_coverart)
         self.entry_view = next_view

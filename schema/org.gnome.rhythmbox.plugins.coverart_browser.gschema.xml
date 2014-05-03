@@ -216,5 +216,10 @@
             <summary>The folder name last used from the genre file chooser</summary>
             <description>The folder name last used from the genre file chooser</description>
         </key>
+        <key type="b" name="entry-view-mode">
+            <default>true</default>
+            <summary>Type of entry-view to display</summary>
+            <description>Type of entry-view to display - compact or full</description>
+        </key>
     </schema>
 </schemalist>
