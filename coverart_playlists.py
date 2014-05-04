@@ -247,7 +247,6 @@ class LastFMTrackPlaylist(WebPlaylist):
             
         if len(self.artist) == 0:
             print ("no artists returned")
-            self.display_error_message()
             self._clear_next()
             return
             
@@ -305,7 +304,6 @@ class EchoNestPlaylist(WebPlaylist):
             
         if len(self.artist) == 0:
             print ("no artists returned")
-            self.display_error_message()
             self._clear_next()
             return
             
@@ -363,7 +361,6 @@ class EchoNestGenrePlaylist(WebPlaylist):
             
         if len(self.artist) == 0:
             print ("no artists returned")
-            self.display_error_message()
             self._clear_next()
             return
             
