@@ -21,6 +21,10 @@
                 <attribute name="label" translatable="yes">Artist</attribute>
                 <attribute name="action">win.ev_compact_similar_artist_menu_item</attribute>
             </item>
+            <item>
+                <attribute name="label" translatable="yes">Genre</attribute>
+                <attribute name="action">win.ev_compact_similar_genre_menu_item</attribute>
+            </item>
         </section>
       </submenu>
       <submenu>

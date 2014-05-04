@@ -18,6 +18,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
 from gi.repository import RB
+from gi.repository import Gtk
 from coverart_utils import idle_iterator
 import rb
 import urllib.parse
@@ -152,6 +153,16 @@ class WebPlaylist(object):
 
         return LOAD_CHUNK, process, after, error, finish
         
+    def display_error_message(self):
+        dialog = Gtk.MessageDialog(None,
+                Gtk.DialogFlags.MODAL,
+                Gtk.MessageType.INFO,
+                Gtk.ButtonsType.OK,
+                _("No matching tracks have been found"))
+
+        dialog.run()
+        dialog.destroy()
+        
     def add_tracks_to_source(self):
         entries = []
         for artist in self.candidate_artist:
@@ -213,6 +224,7 @@ class LastFMTrackPlaylist(WebPlaylist):
                 
         if not data:
             print ("nothing to do")
+            self.display_error_message()
             self._clear_next()
             return
             
@@ -223,6 +235,7 @@ class LastFMTrackPlaylist(WebPlaylist):
         
         if 'similartracks' not in similar:
             print ("No matching data returned from LastFM")
+            self.display_error_message()
             self._clear_next()
             return
         for song in similar['similartracks']['track']:
@@ -234,6 +247,7 @@ class LastFMTrackPlaylist(WebPlaylist):
             
         if len(self.artist) == 0:
             print ("no artists returned")
+            self.display_error_message()
             self._clear_next()
             return
             
@@ -268,6 +282,7 @@ class EchoNestPlaylist(WebPlaylist):
                 
         if not data:
             print ("nothing to do")
+            self.display_error_message()
             self._clear_next()
             return
             
@@ -278,6 +293,7 @@ class EchoNestPlaylist(WebPlaylist):
         
         if 'songs' not in similar['response']:
             print ("No matching data returned from EchoNest")
+            self.display_error_message()
             self._clear_next()
             return
         for song in similar['response']['songs']:
@@ -289,6 +305,65 @@ class EchoNestPlaylist(WebPlaylist):
             
         if len(self.artist) == 0:
             print ("no artists returned")
+            self.display_error_message()
+            self._clear_next()
+            return
+            
+        # loop through every track - see if the track contains the artist & title
+        # if yes then this is a candidate similar track to remember
+        
+        query_model = self.shell.props.library_source.props.base_query_model
+        
+        self._load_albums(iter(query_model), albums={}, model=query_model,
+            total=len(query_model), progress=0.)
+
+class EchoNestGenrePlaylist(WebPlaylist):
+    
+    def __init__(self, shell, source):
+        WebPlaylist.__init__(self, shell, source, "echonest_genre_playlist")
+        
+    def search_website(self):
+        # unless already cached - directly fetch from echonest similar artist information
+        apikey = "N685TONJGZSHBDZMP"
+        url = "http://developer.echonest.com/api/v4/playlist/basic?api_key={0}&genre={1}&format=json&results=100&type=genre-radio&limited_interactivity=true"
+            
+        genre = self.search_entry.get_string(RB.RhythmDBPropType.GENRE).lower()
+        genre = urllib.parse.quote(genre.encode("utf8"))
+        formatted_url = url.format(urllib.parse.quote(apikey),
+                                   genre)
+
+        print (formatted_url)
+        cachekey = "genre:%s" % genre    
+        self.info_cache.fetch(cachekey, formatted_url, self.similar_info_cb, None)
+                            
+    def similar_info_cb(self, data, _):
+                
+        if not data:
+            print ("nothing to do")
+            self.display_error_message()
+            self._clear_next()
+            return
+            
+        similar = json.loads(data.decode('utf-8'))
+        
+        # loop through the response and find all titles for the artists returned
+        self.artist = {}
+        
+        if 'songs' not in similar['response']:
+            print ("No matching data returned from EchoNest")
+            self.display_error_message()
+            self._clear_next()
+            return
+        for song in similar['response']['songs']:
+            name = RB.search_fold(song['artist_name'])
+            if name not in self.artist:
+                self.artist[name] = []
+                
+            self.artist[name].append(RB.search_fold(song['title']))
+            
+        if len(self.artist) == 0:
+            print ("no artists returned")
+            self.display_error_message()
             self._clear_next()
             return
             

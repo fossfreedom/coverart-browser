@@ -31,6 +31,7 @@ from coverart_external_plugins import CreateExternalPluginMenu
 from collections import OrderedDict
 from coverart_playlists import LastFMTrackPlaylist
 from coverart_playlists import EchoNestPlaylist
+from coverart_playlists import EchoNestGenrePlaylist
 
 from gi.repository import GdkPixbuf
 from gi.repository import Gdk
@@ -184,6 +185,7 @@ class BaseView(RB.EntryView):
             library_view)
             
         self.echonest_similar_playlist = None
+        self.echonest_similar_genre_playlist = None
         self.lastfm_similar_playlist = None
         
         self.set_columns_clickable(False)
@@ -264,6 +266,16 @@ class BaseView(RB.EntryView):
         selected = self.get_selected_entries()
         entry = selected[0]
         self.echonest_similar_playlist.start(entry, reinitialise=True)
+        
+    def play_similar_genre_menu_item_callback(self, *args):
+        if not self.echonest_similar_genre_playlist:
+            self.echonest_similar_genre_playlist = \
+                EchoNestGenrePlaylist(   self.shell,
+                                    self.shell.props.queue_source)
+                                    
+        selected = self.get_selected_entries()
+        entry = selected[0]
+        self.echonest_similar_genre_playlist.start(entry, reinitialise=True)
                                     
     def play_similar_track_menu_item_callback(self, *args):
         if not self.lastfm_similar_playlist:
@@ -428,7 +440,8 @@ class CoverArtCompactEntryView(BaseView):
             'ev_compact_new_playlist': self.add_playlist_menu_item_callback,
             'ev_compact_show_properties_menu_item': self.show_properties_menu_item_callback,
             'ev_compact_similar_track_menu_item': self.play_similar_track_menu_item_callback,
-            'ev_compact_similar_artist_menu_item': self.play_similar_artist_menu_item_callback }
+            'ev_compact_similar_artist_menu_item': self.play_similar_artist_menu_item_callback,
+            'ev_compact_similar_genre_menu_item': self.play_similar_genre_menu_item_callback }
             
         popup.connect_signals(signals)
         popup.connect('pre-popup', self.add_external_menu)
@@ -516,7 +529,8 @@ class CoverArtEntryView(BaseView):
             'ev_full_new_playlist': self.add_playlist_menu_item_callback,
             'ev_full_show_properties_menu_item': self.show_properties_menu_item_callback,
             'ev_full_similar_track_menu_item': self.play_similar_track_menu_item_callback,
-            'ev_full_similar_artist_menu_item': self.play_similar_artist_menu_item_callback }
+            'ev_full_similar_artist_menu_item': self.play_similar_artist_menu_item_callback,
+            'ev_full_similar_genre_menu_item': self.play_similar_genre_menu_item_callback }
             
         popup.connect_signals(signals)
         popup.connect('pre-popup', self.add_external_menu)

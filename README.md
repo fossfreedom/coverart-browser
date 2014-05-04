@@ -20,7 +20,9 @@ Browse your coverart albums in Rhythmbox v3 and later
 
 ##Summary: whats new in this release
 
+ - Compact & Full track view
  - Play Similar Artists as recommended by EchoNest
+ - Play Similar Genres as recommended by EchoNest
  - Play Similar Tracks as recommended by LastFM
  - new darker toolbar icons
  - Artist & Album information pane with LastFM & EchoNest data
@@ -34,7 +36,7 @@ Browse your coverart albums in Rhythmbox v3 and later
 
 *How it works:*
 
- - Click the new CoverArt source button (left hand side of screen)
+ - Click the new CoverArt Browser source button (left hand side of screen)
  - Albums are displayed as clickable buttons containing their album cover
  - Right click menu option to play, queue & search for coverart for an album.
  - Download Album & artist artwork via the properties toolbar button
