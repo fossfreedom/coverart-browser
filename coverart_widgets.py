@@ -1028,7 +1028,7 @@ class PanedCollapsible(Gtk.Paned):
     # properties
     # this two properties indicate which one of the Paned childs is collapsible
     # only one can be True at a time, the widget takes care of keeping this
-    # restriction consitent.
+    # restriction consistent.
     collapsible1 = GObject.property(type=bool, default=False)
     collapsible2 = GObject.property(type=bool, default=False)
 
@@ -1100,7 +1100,7 @@ class PanedCollapsible(Gtk.Paned):
             # move the lower pane to the bottom since it's collapsed
             self._collapse()
         else:
-            # restitute the lower pane to it's expanded size
+            # reinstate the lower pane to it's expanded size
             if not self.collapsible_y:
                 # if there isn't a saved size, use half of the space
                 new_y = self.get_allocated_height() / 2
@@ -1146,7 +1146,7 @@ class PanedCollapsible(Gtk.Paned):
 
     def do_add(self, widget):
         '''
-        This method had to be overwrited to allow the add and packs method to
+        This method had to be overridden to allow the add and packs method to
         work with Glade.
         '''
         if not self.get_child1():

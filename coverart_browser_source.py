@@ -244,7 +244,8 @@ class CoverArtBrowserSource(RB.Source):
         self.request_statusbar = ui.get_object('request_statusbar')
         self.request_cancel_button = ui.get_object('request_cancel_button')
         self.paned = ui.get_object('paned')
-        self.notebook = ui.get_object('bottom_notebook')
+        #self.notebook = ui.get_object('bottom_notebook')
+        self.entry_view_grid = ui.get_object('bottom_grid')
         
         #---- set up info pane -----#
         info_scrolled_window = ui.get_object('info_scrolled_window')
@@ -275,49 +276,41 @@ class CoverArtBrowserSource(RB.Source):
         self.viewmgr.current_view.set_popup_menu(self.popup_menu)
         
         # setup entry-view objects and widgets
+        self.stack = Gtk.Stack()
+        self.stack.set_transition_type(Gtk.StackTransitionType.SLIDE_LEFT_RIGHT)
+        self.stack.set_transition_duration(750)
+
         setting = self.gs.get_setting(self.gs.Path.PLUGIN)
         setting.bind(self.gs.PluginKey.PANED_POSITION,
             self.paned, 'collapsible-y', Gio.SettingsBindFlags.DEFAULT)
         setting.bind(self.gs.PluginKey.DISPLAY_BOTTOM,
             self.paned.get_child2(), 'visible', Gio.SettingsBindFlags.DEFAULT)
 
-        # create entry view. Don't allow to reorder until the load is finished
+        # create entry views. Don't allow to reorder until the load is finished
         self.entry_view_compact = CEV(self.shell, self)
         self.entry_view_full = EV(self.shell, self)
         self.entry_view = self.entry_view_compact
         self.shell.props.library_source.get_entry_view().set_columns_clickable(
             False)
 
-        self.stars = ReactiveStar()
-        self.stars.set_rating(0)
-        a = Gtk.Alignment.new(0.5, 0.5, 0, 0)
-        a2 = Gtk.Alignment.new(0.5, 0.5, 0, 0)
-        a2.add(self.stars)
-        viewtoggle = PixbufButton() # should use ImageToggleButton with controller
-        viewtoggle.set_image(create_button_image(self.plugin, "entryview.png"))
-        
-        viewbox = Gtk.Box()
-        viewbox.pack_start(viewtoggle, False, False, 0)
-        viewbox.pack_start(a2, False, False, 1)
-        a.add(viewbox)
-
-        self.stars.connect('changed', self.rating_changed_callback)
-
-        self.entry_view_box = Gtk.Box()
+        #mainbox = Gtk.Box()
+        #mainbox.set_orientation(Gtk.Orientation.VERTICAL)
+        #self.entry_view_box = Gtk.Box()
         self.entry_view_results = ResultsGrid()
-        self.viewtoggle_id = None
-        viewtoggle.set_active(not setting[self.gs.PluginKey.ENTRY_VIEW_MODE])
-        self.entry_view_toggled(viewtoggle, True)
-        viewtoggle.connect('toggled', self.entry_view_toggled)
-            
-        self.entry_view_box.pack_start(self.entry_view_results, True, True,0)
+        self.entry_view_results.initialise()
 
-        vbox = Gtk.Box()
-        vbox.set_orientation(Gtk.Orientation.VERTICAL)
-        vbox.pack_start(self.entry_view_box, True, True, 0)
-        vbox.pack_start(a, False, False, 1)
-        vbox.show_all()
-        self.notebook.append_page(vbox, Gtk.Label.new_with_mnemonic(_("Tracks")))
+        #self.entry_view_box.pack_start(self.entry_view_results, True, True,0)
+
+        #vbox = Gtk.Box()
+        #vbox.set_orientation(Gtk.Orientation.VERTICAL)
+        #vbox.pack_start(self.entry_view_box, True, True, 0)
+        #vbox.show_all()
+
+        #vbox.pack_start(a, False, False, 1) ## this needs to be always shown
+        self.stack.add_titled(self.entry_view_results, "notebook_tracks", _("Tracks"))
+        self.entry_view_grid.attach(self.stack, 0, 0, 3, 1)
+
+        #self.notebook.append_page(vbox, Gtk.Label.new_with_mnemonic(_("Tracks")))
 
         # create an album manager
         self.album_manager = AlbumManager(self.plugin, self.viewmgr.current_view)
@@ -327,8 +320,41 @@ class CoverArtBrowserSource(RB.Source):
         colour = self.viewmgr.get_selection_colour()
 
         self.cover_search_pane = CoverSearchPane(self.plugin, colour)
-        self.notebook.append_page(self.cover_search_pane, Gtk.Label.new_with_mnemonic(
-            _("Covers")))
+        self.stack.add_titled(self.cover_search_pane, "notebook_covers", _("Covers"))
+        #self.notebook.append_page(self.cover_search_pane, Gtk.Label.new_with_mnemonic(
+        #    _("Covers")))
+
+        # define entry-view toolbar
+        self.stars = ReactiveStar()
+        self.stars.set_rating(0)
+        #self.stars.props.halign = Gtk.Align.CENTER
+        #a = Gtk.Alignment.new(0.5, 0.5, 0, 0)
+        #a2 = Gtk.Alignment.new(0.5, 0.5, 0, 0)
+        #a2.add(self.stars)
+        self.stars.connect('changed', self.rating_changed_callback)
+        self.entry_view_grid.attach(self.stars, 1, 1, 1, 1)
+        #viewbox = Gtk.Box()
+        #viewbox.pack_start(viewtoggle, False, False, 1)
+        #viewbox.pack_end(a2, False, False, 2)
+        #a.add(viewbox)
+        stack_switcher = Gtk.StackSwitcher()
+        stack_switcher.set_stack(self.stack)
+        #viewbox.pack_start(stack_switcher, False, False, 0)
+        #viewbox.show_all()
+        self.entry_view_grid.attach( stack_switcher, 0, 1, 1, 1)
+        viewtoggle = PixbufButton() # should use ImageToggleButton with controller
+        viewtoggle.set_image(create_button_image(self.plugin, "entryview.png"))
+        viewtoggle.props.halign = Gtk.Align.END
+        self.viewtoggle_id = None
+        viewtoggle.set_active(not setting[self.gs.PluginKey.ENTRY_VIEW_MODE])
+        self.entry_view_toggled(viewtoggle, True)
+        viewtoggle.connect('toggled', self.entry_view_toggled)
+
+        self.entry_view_grid.attach_next_to(viewtoggle, self.stars, Gtk.PositionType.RIGHT, 1, 1)
+        self.stack.set_visible_child(self.entry_view_results)
+        self.stack.connect('notify::visible-child-name', self.notebook_switch_page_callback)
+
+        self.entry_view_grid.show_all()
 
         # connect a signal to when the info of albums is ready
         self.load_fin_id = self.album_manager.loader.connect(
@@ -560,9 +586,11 @@ class CoverArtBrowserSource(RB.Source):
             # update the selection since it may have changed
             self.viewmgr.current_view.selectionchanged_callback()
 
+            #if album is selected[0] and \
+            #    self.notebook.get_current_page() == \
+            #    self.notebook.page_num(self.cover_search_pane):
             if album is selected[0] and \
-                self.notebook.get_current_page() == \
-                self.notebook.page_num(self.cover_search_pane):
+                self.stack.get_visible_child_name() == "notebook_covers":
                 # also, if it's the first, update the cover search pane
                 self.cover_search_pane.clear()
                 self.cover_search_pane.do_search(album, 
@@ -862,14 +890,14 @@ class CoverArtBrowserSource(RB.Source):
 
         print("CoverArtBrowser DEBUG - end cancel_request_callback")
 
-    def notebook_switch_page_callback(self, notebook, page, page_num):
+    def notebook_switch_page_callback(self, *args):
         '''
         Callback called when the notebook page gets switched. It initiates
         the cover search when the cover search pane's page is selected.
         '''
         print("CoverArtBrowser DEBUG - notebook_switch_page_callback")
 
-        if page_num == 1:
+        if self.stack.get_visible_child_name() == 'notebook_covers':
             self.viewmgr.current_view.switch_to_coverpane(self.cover_search_pane)
             
         print("CoverArtBrowser DEBUG - end notebook_switch_page_callback")
@@ -923,8 +951,9 @@ class CoverArtBrowserSource(RB.Source):
         # clear the entry view
         self.entry_view.clear()
 
-        cover_search_pane_visible = self.notebook.get_current_page() == \
-            self.notebook.page_num(self.cover_search_pane)
+        #cover_search_pane_visible = self.notebook.get_current_page() == \
+        #    self.notebook.page_num(self.cover_search_pane)
+        cover_search_pane_visible = self.stack.get_visible_child_name() == "notebook_covers"
 
         if not selected:
             # clean cover tab if selected
