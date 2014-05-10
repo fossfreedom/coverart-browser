@@ -54,28 +54,24 @@ class ResultsGrid(Gtk.Grid):
         super(ResultsGrid, self).__init__(*args, **kwargs)
 
     def initialise(self):
-        self.pixbuf = None #GdkPixbuf.Pixbuf().new_from_file('empire.jpg')
+        self.pixbuf = None
 
+        self.oldval = 0
         self.image = Gtk.Image()
         self.image.props.hexpand = True
         self.image.props.vexpand = True
         self.frame = Gtk.AspectFrame.new("", 0.5, 0.5, 1, False)
         self.update_cover(None, None, None)
-        self.frame.add(self.image)
+        scroll = Gtk.ScrolledWindow()
+        scroll.add_with_viewport(self.image)
+        scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER)
+        scroll.set_resize_mode(Gtk.ResizeMode.QUEUE)
+
+        self.frame.add(scroll)
         self._signal_connected = None
 
         self.attach(self.frame, 3, 0, 1, 1)
         self.connect('update-cover', self.update_cover)
-
-        #self.props.name="abc"
-        #cssProvider = Gtk.CssProvider()
-        #cssProvider.load_from_path('style.css')
-        #screen = Gdk.Screen.get_default()
-        #styleContext = Gtk.StyleContext()
-        #styleContext.add_provider_for_screen(screen, cssProvider,
-        #                                     Gtk.STYLE_PROVIDER_PRIORITY_USER)
-        #styleContext = self.get_style_context()
-        #styleContext.add_class(Gtk.STYLE_CLASS_TOOLBAR)
 
         #lets fix the situation where some-themes background colour is incorrectly defined
         #in these cases the background colour is black
@@ -83,21 +79,15 @@ class ResultsGrid(Gtk.Grid):
         bg_colour = context.get_background_color(Gtk.StateFlags.NORMAL)
         if bg_colour == Gdk.RGBA(0, 0, 0, 0):
             color = context.get_color(Gtk.StateFlags.NORMAL)
-            self.override_background_color(Gtk.StateType.NORMAL, color)#Gdk.RGBA(.5,.5,.5,.5))
-
-    def connect_signals(self):
-        print ("xXXXXXXXXXXXXXXXXXXXXXXXX")
-        self.image.connect('draw', self.draw_cover_event)
+            self.override_background_color(Gtk.StateType.NORMAL, color)
 
     def update_cover(self, widget, source, entry):
         
         if entry:
-            if not self._signal_connected:
-                self._signal_connected = True
-                self.connect_signals()
-
             album = source.album_manager.model.get_from_dbentry(entry)
             self.pixbuf = GdkPixbuf.Pixbuf().new_from_file(album.cover.original)
+            self.oldval = 0
+            self.window_resize(None)
             self.frame.set_shadow_type(Gtk.ShadowType.NONE)
         else:
             self.pixbuf = None
@@ -115,6 +105,13 @@ class ResultsGrid(Gtk.Grid):
             self.frame.props.visible = False
         else:
             self.frame.props.visible = True
+            framealloc = self.frame.get_allocation()
+            minval = min(framealloc.width-20, framealloc.height-20)
+            if self.oldval == minval:
+                return
+            self.oldval = minval
+            p = self.pixbuf.scale_simple(minval, minval, GdkPixbuf.InterpType.BILINEAR)
+            self.image.set_from_pixbuf(p)
             
     def change_view(self, entry_view, show_coverart):
         print ("debug - change_view")
@@ -135,33 +132,6 @@ class ResultsGrid(Gtk.Grid):
             self.attach(self.frame, 3, 0, 1, 1)
             
         self.show_all()
-        
-    def draw_rounded(self, cr, area, radius):
-        """ draws rectangles with rounded (circular arc) corners """
-        a,b,c,d=area
-        cr.arc(a + radius, c + radius, radius, 2*(pi/2), 3*(pi/2))
-        cr.arc(b - radius, c + radius, radius, 3*(pi/2), 4*(pi/2))
-        cr.arc(b - radius, d - radius, radius, 0*(pi/2), 1*(pi/2))
-        cr.arc(a + radius, d - radius, radius, 1*(pi/2), 2*(pi/2))
-        cr.close_path()
-        
-    def draw_cover_event(self, widget, ctx):
-        
-        if not self.pixbuf:
-            return
-            
-        alloc = self.image.get_allocation()
-        
-        p = self.pixbuf.scale_simple(alloc.width, alloc.height, GdkPixbuf.InterpType.BILINEAR) 
-        offset = 15
-        inside_area = (offset, alloc.width-offset, offset, alloc.height-offset)
-        
-        #Gdk.cairo_set_source_pixbuf(ctx, p, 15,15)
-        Gdk.cairo_set_source_pixbuf(ctx, p, 0,0)
-        #self.draw_rounded(ctx, inside_area, 10)
-        #ctx.clip()
-        ctx.paint()
-        return True
 
         
 class BaseView(RB.EntryView):

@@ -293,24 +293,11 @@ class CoverArtBrowserSource(RB.Source):
         self.shell.props.library_source.get_entry_view().set_columns_clickable(
             False)
 
-        #mainbox = Gtk.Box()
-        #mainbox.set_orientation(Gtk.Orientation.VERTICAL)
-        #self.entry_view_box = Gtk.Box()
         self.entry_view_results = ResultsGrid()
         self.entry_view_results.initialise()
 
-        #self.entry_view_box.pack_start(self.entry_view_results, True, True,0)
-
-        #vbox = Gtk.Box()
-        #vbox.set_orientation(Gtk.Orientation.VERTICAL)
-        #vbox.pack_start(self.entry_view_box, True, True, 0)
-        #vbox.show_all()
-
-        #vbox.pack_start(a, False, False, 1) ## this needs to be always shown
         self.stack.add_titled(self.entry_view_results, "notebook_tracks", _("Tracks"))
         self.entry_view_grid.attach(self.stack, 0, 0, 3, 1)
-
-        #self.notebook.append_page(vbox, Gtk.Label.new_with_mnemonic(_("Tracks")))
 
         # create an album manager
         self.album_manager = AlbumManager(self.plugin, self.viewmgr.current_view)
@@ -321,28 +308,16 @@ class CoverArtBrowserSource(RB.Source):
 
         self.cover_search_pane = CoverSearchPane(self.plugin, colour)
         self.stack.add_titled(self.cover_search_pane, "notebook_covers", _("Covers"))
-        #self.notebook.append_page(self.cover_search_pane, Gtk.Label.new_with_mnemonic(
-        #    _("Covers")))
 
         # define entry-view toolbar
         self.stars = ReactiveStar()
         self.stars.set_rating(0)
-        #self.stars.props.halign = Gtk.Align.CENTER
-        #a = Gtk.Alignment.new(0.5, 0.5, 0, 0)
-        #a2 = Gtk.Alignment.new(0.5, 0.5, 0, 0)
-        #a2.add(self.stars)
         self.stars.connect('changed', self.rating_changed_callback)
         self.entry_view_grid.attach(self.stars, 1, 1, 1, 1)
-        #viewbox = Gtk.Box()
-        #viewbox.pack_start(viewtoggle, False, False, 1)
-        #viewbox.pack_end(a2, False, False, 2)
-        #a.add(viewbox)
         stack_switcher = Gtk.StackSwitcher()
         stack_switcher.set_stack(self.stack)
-        #viewbox.pack_start(stack_switcher, False, False, 0)
-        #viewbox.show_all()
         self.entry_view_grid.attach( stack_switcher, 0, 1, 1, 1)
-        viewtoggle = PixbufButton() # should use ImageToggleButton with controller
+        viewtoggle = PixbufButton()
         viewtoggle.set_image(create_button_image(self.plugin, "entryview.png"))
         viewtoggle.props.halign = Gtk.Align.END
         self.viewtoggle_id = None
@@ -401,7 +376,6 @@ class CoverArtBrowserSource(RB.Source):
             self.artist_paned_button_release_callback)
             
         # intercept JumpToPlaying Song action so that we can scroll to the playing album
-        
         appshell = rb3compat.ApplicationShell(self.shell)
         action = appshell.lookup_action("", "jump-to-playing", "win")
         action.action.connect("activate", self.jump_to_playing, None)
@@ -586,9 +560,6 @@ class CoverArtBrowserSource(RB.Source):
             # update the selection since it may have changed
             self.viewmgr.current_view.selectionchanged_callback()
 
-            #if album is selected[0] and \
-            #    self.notebook.get_current_page() == \
-            #    self.notebook.page_num(self.cover_search_pane):
             if album is selected[0] and \
                 self.stack.get_visible_child_name() == "notebook_covers":
                 # also, if it's the first, update the cover search pane
@@ -899,6 +870,14 @@ class CoverArtBrowserSource(RB.Source):
 
         if self.stack.get_visible_child_name() == 'notebook_covers':
             self.viewmgr.current_view.switch_to_coverpane(self.cover_search_pane)
+        else:
+            entries = self.entry_view.get_selected_entries()
+            if entries and len(entries) > 0:
+                self.entry_view_results.emit('update-cover', self, entries[0])
+            else:
+                selected = self.viewmgr.current_view.get_selected_objects()
+                tracks = selected[0].get_tracks()
+                self.entry_view_results.emit('update-cover', self, tracks[0].entry)
             
         print("CoverArtBrowser DEBUG - end notebook_switch_page_callback")
 
