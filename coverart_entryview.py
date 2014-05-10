@@ -57,13 +57,24 @@ class ResultsGrid(Gtk.Grid):
         self.pixbuf = None
 
         self.oldval = 0
-        self.image = Gtk.Image()
-        self.image.props.hexpand = True
-        self.image.props.vexpand = True
+        self.stack = Gtk.Stack()
+        self.stack.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
+        self.stack.set_transition_duration(350)
+
+        self.image1 = Gtk.Image()
+        self.image1.props.hexpand = True
+        self.image1.props.vexpand = True
+        self.stack.add_named(self.image1, "image1")
+
+        self.image2 = Gtk.Image()
+        self.image2.props.hexpand = True
+        self.image2.props.vexpand = True
+        self.stack.add_named(self.image2, "image2")
+
         self.frame = Gtk.AspectFrame.new("", 0.5, 0.5, 1, False)
         self.update_cover(None, None, None)
         scroll = Gtk.ScrolledWindow()
-        scroll.add_with_viewport(self.image)
+        scroll.add_with_viewport(self.stack)
         scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER)
         scroll.set_resize_mode(Gtk.ResizeMode.QUEUE)
 
@@ -92,8 +103,11 @@ class ResultsGrid(Gtk.Grid):
         else:
             self.pixbuf = None
             self.frame.set_shadow_type(Gtk.ShadowType.ETCHED_OUT)
-            
-        self.image.queue_draw()
+
+        if self.stack.get_visible_child_name() == "image1":
+            self.image1.queue_draw()
+        else:
+            self.image2.queue_draw()
         
     def window_resize(self, widget):
         alloc = self.get_allocation()
@@ -111,7 +125,12 @@ class ResultsGrid(Gtk.Grid):
                 return
             self.oldval = minval
             p = self.pixbuf.scale_simple(minval, minval, GdkPixbuf.InterpType.BILINEAR)
-            self.image.set_from_pixbuf(p)
+            if self.stack.get_visible_child_name() == "image1":
+                self.image2.set_from_pixbuf(p)
+                self.stack.set_visible_child_name("image2")
+            else:
+                self.image1.set_from_pixbuf(p)
+                self.stack.set_visible_child_name("image1")
             
     def change_view(self, entry_view, show_coverart):
         print ("debug - change_view")
