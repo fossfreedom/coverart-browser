@@ -791,6 +791,7 @@ def check_lastfm(force_check=False):
         return False
         
 def create_button_image(plugin, icon_name):
+    'create a pixbuf for the given icon_name sized according to the stock icon size'
     path = 'img/'
         
     return create_pixbuf_from_file_at_size(

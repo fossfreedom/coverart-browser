@@ -248,12 +248,12 @@ class CoverArtBrowserSource(RB.Source):
         self.entry_view_grid = ui.get_object('bottom_grid')
         
         #---- set up info pane -----#
-        info_scrolled_window = ui.get_object('info_scrolled_window')
+        info_stack = ui.get_object('info_stack')
         info_button_box = ui.get_object('info_button_box')
         artist_info_paned = ui.get_object('vertical_info_paned')
         
         self.artist_info = ArtistInfoPane(info_button_box,
-            info_scrolled_window,
+            info_stack,
             artist_info_paned,
             self)
 

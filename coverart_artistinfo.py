@@ -18,8 +18,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
-import re, os
-import cgi
+import os
 import urllib.request, urllib.parse
 import json
 
@@ -35,7 +34,6 @@ from gi.repository import Gdk
 from gi.repository import GLib
 from gi.repository import RB
 from gi.repository import Gio
-from coverart_utils import create_pixbuf_from_file_at_size
 from coverart_utils import get_stock_size
 from coverart_widgets import PixbufButton
 from coverart_browser_prefs import GSetting
@@ -58,6 +56,41 @@ def lastfm_datasource_link(path):
 
 LASTFM_NO_ACCOUNT_ERROR = _("This information is only available to Last.fm users. Ensure the Last.fm plugin is enabled, select Last.fm in the side pane, and log in.")
 
+class ArtistInfoWebView(WebKit.WebView):
+    def __init(self, *args, **kwargs):
+        super(ArtistInfoWebView, self).__init__(*args, **kwargs)
+
+    def initialise(self, source, shell):
+        self.source = source
+        self.shell = shell
+
+        self.connect("navigation-requested", self.navigation_request_cb)
+        self.connect("notify::title", self.view_title_change)
+
+    def view_title_change(self, webview, param):
+        title = webview.get_title()
+        if title:
+            args = json.loads(title)
+            artist = args['artist']
+
+            if args['toggle']:
+                self.source.album_manager.model.replace_filter('similar_artist', artist)
+            else:
+                self.source.album_manager.model.remove_filter('similar_artist')
+        else:
+            self.source.album_manager.model.remove_filter('similar_artist')
+
+    def navigation_request_cb(self, view, frame, request):
+        # open HTTP URIs externally.  this isn't a web browser.
+        if request.get_uri().startswith('http'):
+            print("opening uri %s" % request.get_uri())
+            Gtk.show_uri(self.shell.props.window.get_screen(), request.get_uri(), Gdk.CURRENT_TIME)
+
+            return 1        # WEBKIT_NAVIGATION_RESPONSE_IGNORE
+        else:
+            return 0        # WEBKIT_NAVIGATION_RESPONSE_ACCEPT
+
+
 class ArtistInfoPane(GObject.GObject):
     __gsignals__ = {
         'selected' : (GObject.SIGNAL_RUN_LAST, None,
@@ -66,29 +99,30 @@ class ArtistInfoPane(GObject.GObject):
     
     artist_info_paned_pos = GObject.property(type=str)
     
-    min_paned_pos = 110
+    min_paned_pos = 100
     
-    def __init__(self, button_box, scroll_window, info_paned, source):
+    def __init__(self, button_box, stack, info_paned, source):
         GObject.GObject.__init__ (self)
-        self.tab = {}
+
         self.ds = {}
         self.view = {}
         
-        self.buttons = button_box
+        #self.buttons = button_box
         self.source = source
         self.plugin = source.plugin
         self.shell = source.shell
-        self.info_scrolled_window = scroll_window
         self.info_paned = info_paned
         self.current_artist = None
         self.current_album_title = None
-        
-        self.webview = WebKit.WebView()
-        self.webview.connect("navigation-requested", self.navigation_request_cb)
-        self.webview.connect("notify::title", self.view_title_change)
-        self.info_scrolled_window.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
-        self.info_scrolled_window.add (self.webview)
-        self.info_scrolled_window.show_all()
+        self.current = 'artist'
+
+        self.stack = stack
+        self.stack.set_transition_type(Gtk.StackTransitionType.SLIDE_LEFT_RIGHT)
+        stack_switcher = Gtk.StackSwitcher()
+        stack_switcher.set_stack(self.stack)
+        self.stack.connect('notify::visible-child-name', self.change_stack)
+        button_box.pack_start(stack_switcher, False, False, 0)
+        button_box.show_all()
         
         # cache for artist/album information: valid for a month, can be used indefinitely
         # if offline, discarded if unused for six months
@@ -109,43 +143,35 @@ class ArtistInfoPane(GObject.GObject):
         self.ds['link']     = LinksDataSource ()
         self.ds['artist']   = ArtistDataSource (self.info_cache, 
                                                 self.ranking_cache)
-        self.view['artist'] = ArtistInfoView (  self.shell, 
-                                                self.plugin, 
-                                                self.webview, 
-                                                self.ds['artist'], 
-                                                self.ds['link'])
-        self.tab['artist']  = ArtistInfoTab (   self.plugin, 
-                                                self.shell, 
-                                                self.buttons, 
-                                                self.ds['artist'], 
-                                                self.view['artist'])
-        self.ds['album']    = AlbumDataSource(  self.info_cache, 
+
+        self.view['artist'] = ArtistInfoView ()
+        self.view['artist'].initialise( self.source,
+                                        self.shell,
+                                        self.plugin,
+                                        self.stack,
+                                        self.ds['artist'],
+                                        self.ds['link'])
+
+        self.ds['album']    = AlbumDataSource(  self.info_cache,
                                                 self.ranking_cache)
-        self.view['album']  = AlbumInfoView(    self.shell, 
-                                                self.plugin, 
-                                                self.webview, 
-                                                self.ds['album'])
-        self.tab['album']   = AlbumInfoTab(     self.plugin, 
-                                                self.shell, 
-                                                self.buttons, 
-                                                self.ds['album'], 
-                                                self.view['album'])
+        self.view['album']  = AlbumInfoView()
+        self.view['album'].initialise(  self.source,
+                                        self.shell,
+                                        self.plugin,
+                                        self.stack,
+                                        self.ds['album'])
+
         self.ds['echoartist']   = EchoArtistDataSource (
                                                 self.info_cache, 
                                                 self.ranking_cache)
-        self.view['echoartist'] = EchoArtistInfoView (
-                                                self.shell, 
-                                                self.plugin, 
-                                                self.webview, 
-                                                self.ds['echoartist'], 
-                                                self.ds['link'])
-        self.tab['echoartist']  = EchoArtistInfoTab (
-                                                self.plugin, 
-                                                self.shell, 
-                                                self.buttons, 
-                                                self.ds['echoartist'], 
-                                                self.view['echoartist'])
-                                                
+        self.view['echoartist'] = EchoArtistInfoView ()
+        self.view['echoartist'].initialise( self.source,
+                                            self.shell,
+                                            self.plugin,
+                                            self.stack,
+                                            self.ds['echoartist'],
+                                            self.ds['link'])
+
         self.gs = GSetting()
         self.connect_properties()
         self.connect_signals()
@@ -153,8 +179,7 @@ class ArtistInfoPane(GObject.GObject):
                                     50, 
                                     self._change_paned_pos, 
                                     self.source.viewmgr.view_name)
-        self.current = 'artist'
-        self.tab[self.current].activate ()
+        self.view[self.current].activate ()
         
     def connect_properties(self):
         '''
@@ -172,12 +197,14 @@ class ArtistInfoPane(GObject.GObject):
         self.tab_cb_ids = []
 
         # Listen for switch-tab signal from each tab
+        '''
         for key, value in self.tab.items():
             self.tab_cb_ids.append(( key, 
                                     self.tab[key].connect ('switch-tab', 
                                                             self.change_tab)
                                     ))
-            
+        '''
+
         # Listen for selected signal from the views
         self.connect('selected', self.select_artist)
         
@@ -187,20 +214,7 @@ class ArtistInfoPane(GObject.GObject):
             
         # lets also listen for changes to the view to set the paned position
         self.source.viewmgr.connect('new-view', self.on_view_changed)
-        
-    def view_title_change(self, webview, param):
-        title = webview.get_title()
-        if title:
-            args = json.loads(title)
-            artist = args['artist']
-            
-            if args['toggle']:
-                self.source.album_manager.model.replace_filter('similar_artist', artist)
-            else:
-                self.source.album_manager.model.remove_filter('similar_artist')
-        else:
-            self.source.album_manager.model.remove_filter('similar_artist')
-        
+
     def on_view_changed(self, widget, view_name):
         self._change_paned_pos(view_name)
         
@@ -255,110 +269,60 @@ class ArtistInfoPane(GObject.GObject):
                 
     def select_artist(self, widget, artist, album_title):
         if self._get_child_width() > self.min_paned_pos:
-            self.tab[self.current].reload(artist, album_title)
+            self.view[self.current].reload(artist, album_title)
         else:
-            self.tab[self.current].view.blank_view()
+            self.view[self.current].blank_view()
             
         self.current_album_title = album_title
         self.current_artist = artist
-            
-    def change_tab (self, tab, newtab):
-        print("swapping tab from %s to %s" % (self.current, newtab))
-        if (self.current != newtab):
-            self.tab[self.current].deactivate()
+
+    def change_stack (self, widget, value):
+        child_name = self.stack.get_visible_child_name()
+        if child_name and self.current != child_name:
+            self.view[self.current].deactivate()
             if self._get_child_width() > self.min_paned_pos:
-                self.tab[newtab].activate(self.current_artist, self.current_album_title)
+                self.view[child_name].activate(self.current_artist, self.current_album_title)
             else:
-                self.tab[newtab].view.blank_view()
+                self.view[child_name].blank_view()
                 
-            self.current = newtab
-            
-    def navigation_request_cb(self, view, frame, request):
-        # open HTTP URIs externally.  this isn't a web browser.
-        if request.get_uri().startswith('http'):
-            print("opening uri %s" % request.get_uri())
-            Gtk.show_uri(self.shell.props.window.get_screen(), request.get_uri(), Gdk.CURRENT_TIME)
+            self.current = child_name
 
-            return 1        # WEBKIT_NAVIGATION_RESPONSE_IGNORE
-        else:
-            return 0        # WEBKIT_NAVIGATION_RESPONSE_ACCEPT
+class BaseInfoView(GObject.Object):
 
-class ArtistInfoTab (GObject.GObject):
-    
-    __gsignals__ = {
-        'switch-tab' : (GObject.SIGNAL_RUN_LAST, GObject.TYPE_NONE,
-                                (GObject.TYPE_STRING,))
-    }
-    
-    button_image = "microphone.png"
-    button_name  = "artist"
+    def __init__(self, *args, **kwargs):
+        super(BaseInfoView, self).__init__ ()
 
-    def __init__ (self, plugin, shell, buttons, ds, view):
-        GObject.GObject.__init__ (self)
-        self.shell      = shell
-        self.sp         = shell.props.shell_player
-        self.db         = shell.props.db
-        self.buttons    = buttons
+    def initialise(self, source, shell, plugin, stack, ds, view_name, view_image):
+        self.stack = stack
 
-        self.button     = PixbufButton()
-        self.button.set_image(create_button_image(plugin, self.button_image))
-        self.ds = ds
-        self.view       = view
-        self.album_title= None
-        self.artist     = None
-        self.active     = False
+        self.webview  = ArtistInfoWebView()
+        self.webview.initialise(source, shell)
 
-        self.button.show()
-        self.button.set_relief (Gtk.ReliefStyle.NONE)
-        self.button.set_focus_on_click(False)
-        self.button.connect ('clicked', 
-            lambda button : self.emit('switch-tab', self.button_name))
-        buttons.pack_start (self.button, False, True, 0)
+        self.info_scrolled_window=Gtk.ScrolledWindow()
+        self.info_scrolled_window.props.hexpand = True
+        self.info_scrolled_window.props.vexpand = True
+        self.info_scrolled_window.set_shadow_type(Gtk.ShadowType.IN)
+        self.info_scrolled_window.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+        self.info_scrolled_window.add (self.webview)
+        self.info_scrolled_window.show_all()
+        self.stack.add_named(self.info_scrolled_window, view_name)
 
-    def activate (self, artist=None, album_title=None):
-        print("activating Artist Tab")
-        self.button.set_active(True)
-        self.active = True
-        self.reload (artist, album_title)
+        theme = Gtk.IconTheme()
+        default = theme.get_default()
+        image_name = 'coverart_browser_' + view_name
+        width, height = get_stock_size()
+        pixbuf = create_button_image(plugin, view_image)
+        default.add_builtin_icon(image_name, width, pixbuf)
 
-    def deactivate (self):
-        print("deactivating Artist Tab")
-        self.button.set_active(False)
-        self.active = False
+        self.stack.child_set_property(self.info_scrolled_window, "icon-name", image_name)
 
-    def reload (self, artist, album_title):
-        if not artist:
-            return
-        
-        if self.active and artist_exceptions(artist):
-            print ("blank")
-            self.view.blank_view()
-            return
-            
-        if self.active and (   (not self.artist or self.artist != artist) 
-                            or (not self.album_title or self.album_title != album_title)
-                           ):
-            print ("now loading")
-            self.view.loading (artist, album_title)
-            print ("active")
-            self.ds.fetch_artist_data (artist)
-        else:
-            print ("load_view")
-            self.view.load_view()
-
-        self.album_title = album_title
-        self.artist = artist
-        
-class ArtistInfoView (GObject.GObject):
-
-    def __init__ (self, shell, plugin, webview, ds, link_ds):
-        GObject.GObject.__init__ (self)
-        self.webview  = webview
         self.ds       = ds
-        self.link_ds  = link_ds
         self.shell    = shell
         self.plugin   = plugin
         self.file     = ""
+        self.album_title= None
+        self.artist = None
+        self.active = False
 
         plugindir = plugin.plugin_info.get_data_dir()
         self.basepath = "file://" + urllib.request.pathname2url (plugindir)
@@ -367,12 +331,43 @@ class ArtistInfoView (GObject.GObject):
         self.load_tmpl ()
         self.connect_signals ()
 
+    def load_tmpl(self):
+        pass
+
+    def connect_signals(self):
+        pass
+
     def load_view (self):
         self.webview.load_string (self.file, 'text/html', 'utf-8', self.basepath)
-        
+
     def blank_view (self):
         render_file = self.empty_template.render( stylesheet = self.styles )
         self.webview.load_string (render_file, 'text/html', 'utf-8', self.basepath)
+
+    def loading(self, current_artist, current_album_title):
+        pass
+
+    def activate (self, artist=None, album_title=None):
+        print("activating Artist Tab")
+        #self.button.set_active(True)
+        self.active = True
+        self.reload (artist, album_title)
+
+    def deactivate (self):
+        print("deactivating Artist Tab")
+        #self.button.set_active(False)
+        self.active = False
+
+
+class ArtistInfoView (BaseInfoView):
+
+    def __init__ (self, *args, **kwargs):
+        super(ArtistInfoView, self).__init__(self, *args, **kwargs)
+
+    def initialise(self, source, shell, plugin, stack, ds, link_ds):
+        super(ArtistInfoView, self).initialise(source, shell, plugin, stack, ds, "artist", "microphone.png")
+
+        self.link_ds = link_ds
 
     def loading (self, current_artist, current_album_title):
         self.link_ds.set_artist (current_artist)
@@ -428,7 +423,32 @@ class ArtistInfoView (GObject.GObject):
             self.load_view ()
         except Exception as e:
             print("Problem in info ready: %s" % e)
-    
+
+
+    def reload (self, artist, album_title):
+        if not artist:
+            return
+
+        if self.active and artist_exceptions(artist):
+            print ("blank")
+            self.blank_view()
+            return
+
+        #self.stack.set_visible_child_name(self.view_name)
+        if self.active and (   (not self.artist or self.artist != artist)
+                            or (not self.album_title or self.album_title != album_title)
+                           ):
+            print ("now loading")
+            self.loading (artist, album_title)
+            print ("active")
+            self.ds.fetch_artist_data (artist)
+        else:
+            print ("load_view")
+            self.load_view()
+
+        self.album_title = album_title
+        self.artist = artist
+
 
 class ArtistDataSource (GObject.GObject):
     
@@ -637,54 +657,13 @@ class LinksDataSource (GObject.GObject):
         if self.get_artist() is "":
             return _("No artist specified.")
 
-class AlbumInfoTab (ArtistInfoTab):
-    
-    button_image = "covermgr.png"
-    button_name  = "album"
-    
-    def __init__ (self, plugin, shell, buttons, ds, view):
-        ArtistInfoTab.__init__ (self, plugin, shell, buttons, ds, view)
-        
-    def reload (self, artist, album_title):
-        if not artist:
-            return
-            
-        if self.active and artist_exceptions(artist):
-            print ("blank")
-            self.view.blank_view()
-            return
-            
-        if self.active and (not self.artist or artist != self.artist):
-            self.view.loading(artist, album_title)
-            self.ds.fetch_album_list (artist)
-        else:
-            self.view.load_view()
 
-        self.album_title = album_title
-        self.artist = artist
+class AlbumInfoView (BaseInfoView):
+    def __init__ (self, *args, **kwargs):
+        super(AlbumInfoView,self).__init__(self, *args, **kwargs)
 
-class AlbumInfoView (GObject.GObject):
-
-    def __init__ (self, shell, plugin, webview, ds):
-        GObject.GObject.__init__ (self)
-        self.webview = webview
-        self.ds      = ds
-        self.shell   = shell
-        self.plugin  = plugin
-        self.file    = ""
-
-        plugindir = plugin.plugin_info.get_data_dir()
-        self.basepath = "file://" + urllib.request.pathname2url (plugindir)
-
-        self.load_tmpl ()
-        self.connect_signals ()
-
-    def load_view (self):
-        self.webview.load_string(self.file, 'text/html', 'utf-8', self.basepath)
-        
-    def blank_view (self):
-        render_file = self.empty_template.render( stylesheet = self.styles )
-        self.webview.load_string (render_file, 'text/html', 'utf-8', self.basepath)
+    def initialise(self, source, shell, plugin, stack, ds):
+        super(AlbumInfoView, self).initialise(source, shell, plugin, stack, ds, "album", "covermgr.png")
 
     def connect_signals (self):
         self.ds.connect('albums-ready', self.album_list_ready)
@@ -715,6 +694,23 @@ class AlbumInfoView (GObject.GObject):
                                                 stylesheet = self.styles)
         self.load_view ()
 
+    def reload (self, artist, album_title):
+        if not artist:
+            return
+
+        if self.active and artist_exceptions(artist):
+            print ("blank")
+            self.blank_view()
+            return
+
+        if self.active and (not self.artist or artist != self.artist):
+            self.loading(artist, album_title)
+            self.ds.fetch_album_list (artist)
+        else:
+            self.load_view()
+
+        self.album_title = album_title
+        self.artist = artist
 
 class AlbumDataSource (GObject.GObject):
     
@@ -769,19 +765,27 @@ class AlbumDataSource (GObject.GObject):
             self.emit ('albums-ready')
             return False
 
-        albums = parsed['topalbums'].get('album', [])
+        try:
+            albums = parsed['topalbums'].get('album', [])[:self.max_albums_fetched]
+        except:
+            albums = []
+
         if len(albums) == 0:
             self.error = "No albums found for %s" % artist
             self.emit('albums-ready')
             return True
-        
+        print (albums)
         self.albums = []
-        albums = parsed['topalbums'].get('album', [])[:self.max_albums_fetched]
+        print (len(albums))
+        #albums = parsed['topalbums'].get('album', [])[:self.max_albums_fetched]
         self.fetching = len(albums)
         for i, a in enumerate(albums):
-            images = [img['#text'] for img in a.get('image', [])]
-            self.albums.append({'title': a.get('name'), 'images': images[:3]})
-            self.fetch_album_info(artist, a.get('name'), i)
+            try:
+                images = [img['#text'] for img in a.get('image', [])]
+                self.albums.append({'title': a.get('name'), 'images': images[:3]})
+                self.fetch_album_info(artist, a.get('name'), i)
+            except:
+                pass
 
         return True
 
@@ -830,18 +834,15 @@ class AlbumDataSource (GObject.GObject):
 
         return rv
 
-class EchoArtistInfoTab (ArtistInfoTab):
-    
-    button_image = "echonest_minilogo.gif"
-    button_name  = "echoartist"
-     
-    def __init__ (self, plugin, shell, buttons, ds, view):
-        ArtistInfoTab.__init__ (self, plugin, shell, buttons, ds, view)
-        
-class EchoArtistInfoView (ArtistInfoView):
+class EchoArtistInfoView (BaseInfoView):
 
-    def __init__ (self, shell, plugin, webview, ds, link_ds):
-        ArtistInfoView.__init__ (self, shell, plugin, webview, ds, link_ds)
+    def __init__ (self, *args, **kwargs):
+        super(EchoArtistInfoView, self).__init__ (self, *args, **kwargs)
+
+    def initialise(self, source, shell, plugin, stack, ds, link_ds):
+        super(EchoArtistInfoView, self).initialise(source, shell, plugin, stack, ds, "echoartist", "echonest_minilogo.gif")
+
+        self.link_ds = link_ds
 
     def load_tmpl (self):
         path = rb.find_plugin_file(self.plugin, 'tmpl/echoartist-tmpl.html')
@@ -852,6 +853,10 @@ class EchoArtistInfoView (ArtistInfoView):
         self.empty_template = Template (filename = empty_path)
         self.styles = self.basepath + '/tmpl/artistmain.css'
         print (lastfm_datasource_link (self.basepath))
+
+    def connect_signals (self):
+        self.air_id  = self.ds.connect ('artist-info-ready', self.artist_info_ready)
+
 
     def artist_info_ready (self, ds):
         # Can only be called after the artist-info-ready signal has fired.
@@ -886,6 +891,31 @@ class EchoArtistInfoView (ArtistInfoView):
         self.load_view ()
         #except Exception as e:
         #    print("Problem in info ready: %s" % e)
+
+    def reload (self, artist, album_title):
+        if not artist:
+            return
+
+        if self.active and artist_exceptions(artist):
+            print ("blank")
+            self.blank_view()
+            return
+
+        #self.stack.set_visible_child_name(self.view_name)
+        if self.active and (   (not self.artist or self.artist != artist)
+                            or (not self.album_title or self.album_title != album_title)
+                           ):
+            print ("now loading")
+            self.loading (artist, album_title)
+            print ("active")
+            self.ds.fetch_artist_data (artist)
+        else:
+            print ("load_view")
+            self.load_view()
+
+        self.album_title = album_title
+        self.artist = artist
+
     
 
 class EchoArtistDataSource (GObject.GObject):

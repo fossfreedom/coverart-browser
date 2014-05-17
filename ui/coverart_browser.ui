@@ -119,14 +119,11 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkScrolledWindow" id="info_scrolled_window">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="hexpand">True</property>
-                        <property name="vexpand">True</property>
-                        <property name="shadow_type">in</property>
-                        <child></child>
-                      </object>
+                        <object class="GtkStack" id="info_stack">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="transition-duration">750</property>                         
+                        </object>
                     </child>
                   </object>
                   <packing>
