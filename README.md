@@ -25,9 +25,11 @@ Browse your coverart albums in Rhythmbox v3 and later
  - Play Similar Genres as recommended by EchoNest
  - Play Similar Tracks as recommended by LastFM
  - new darker toolbar icons
+ - Introduce more modern look & feel through subtle animations
  - Artist & Album information pane with LastFM & EchoNest data
  - Track Artist Filter and Artist & Album Information panes individually displayed per view
  - Support Jump To Playing CTRL+J to scroll to the playing album
+ - Follow playing song option automatically selects playing album
  - Custom Genres are now saved in an alternative folder location to survive reinstallation of the plugin
  - Filter by Composer
  - Single click queue album if another album is already playing
@@ -41,12 +43,14 @@ Browse your coverart albums in Rhythmbox v3 and later
  - Right click menu option to play, queue & search for coverart for an album.
  - Download Album & artist artwork via the properties toolbar button
  
- - https://github.com/fossfreedom/coverart-browser/wiki/how-to-for-version-1.0
+ - https://github.com/fossfreedom/coverart-browser/wiki/how-to-for-version-2.0
  - https://github.com/fossfreedom/coverart-browser/wiki/Screenshots
 
 *How to install - Rhythmbox 3.0 and later:*
 
 N.B. for earlier Rhythmbox versions use version 1.1
+
+Prerequisite is to use a distribution supporting GTK 3.10 or later - for example, Ubuntu 14.04, Arch or Fedora 20
 
 for debian & debian-based distros such as Ubuntu & Mint:
 
