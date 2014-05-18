@@ -87,6 +87,7 @@ class CoverArtBrowserSource(RB.Source):
         self.last_selected_album = None
         self.click_count = 0
         self.favourites = False
+        self.follow_song = False
         self.task_progress = None
         
     def _connect_properties(self):
@@ -264,7 +265,7 @@ class CoverArtBrowserSource(RB.Source):
 
     def _setup_source(self):
         '''
-        Setups the differents parts of the source so they are ready to be used
+        Setup the different parts of the source so they are ready to be used
         by the user. It also creates and configure some custom widgets.
         '''
         print("CoverArtBrowser DEBUG - _setup_source")
@@ -379,10 +380,21 @@ class CoverArtBrowserSource(RB.Source):
         appshell = rb3compat.ApplicationShell(self.shell)
         action = appshell.lookup_action("", "jump-to-playing", "win")
         action.action.connect("activate", self.jump_to_playing, None)
+
+        # connect to the playing song event so that if we are following a song, the album
+        # should be automatically selected
+
+        self.shell.props.shell_player.connect('playing-song-changed', self.playing_song_callback)
         
         self.echonest_similar_playlist = None
             
         print("CoverArtBrowser DEBUG - end _setup_source")
+
+    def playing_song_callback(self, *args):
+        if not self.follow_song:
+            return
+
+        self.jump_to_playing()
         
     def entry_view_toggled(self, widget, initialised = False):
         print ("DEBUG - entry_view_toggled")
@@ -990,6 +1002,8 @@ class CoverArtBrowserSource(RB.Source):
         elif choice == 'favourite':
             self.favourites = not self.favourites
             self.viewmgr.current_view.set_popup_menu(self.popup_menu)
+        elif choice == 'follow':
+            self.follow_song = not self.follow_song
         elif choice == 'browser prefs':
             if not self._browser_preferences:
                 self._browser_preferences = Preferences()

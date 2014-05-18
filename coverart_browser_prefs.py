@@ -166,7 +166,8 @@ class GSetting:
                 USE_FAVOURITES='use-favourites',
                 ARTIST_INFO_PANED_POSITION='artist-info-paned-pos',
                 LAST_GENRE_FOLDER='last-genre-folder',
-                ENTRY_VIEW_MODE='entry-view-mode')
+                ENTRY_VIEW_MODE='entry-view-mode',
+                FOLLOWING='following')
 
             self.setting = {}
 

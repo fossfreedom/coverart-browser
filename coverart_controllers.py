@@ -481,7 +481,8 @@ class ArtistSortPopupController(OptionsController):
 
 class PropertiesMenuController(OptionsController):
     favourites = GObject.property(type=bool, default=False)
-    
+    follow = GObject.property(type=bool, default=False)
+
     def __init__(self, plugin, source):
         super(PropertiesMenuController, self).__init__()
 
@@ -495,6 +496,8 @@ class PropertiesMenuController(OptionsController):
         self.values = OrderedDict()
         self.values[MenuNode(_('Download all covers'))] = 'download'
         self.values[MenuNode(_('Play random album'))] = 'random'
+        self.values[MenuNode(_('Follow playing song'), 'check',
+            (True if self.follow else False))] = 'follow'
         self.values[MenuNode('separator1', 'separator')] = ''
         self.values[MenuNode(_('Use favourites only'), 'check',
             (True if self.favourites else False))] = 'favourite'
@@ -508,7 +511,10 @@ class PropertiesMenuController(OptionsController):
             
         if self.favourites:
             self._source.propertiesbutton_callback('favourite')
-        
+
+        if self.follow:
+            self._source.propertiesbutton_callback('follow')
+
         self.current_key = None
     
     def _connect_properties(self):
@@ -518,6 +524,11 @@ class PropertiesMenuController(OptionsController):
             gs.PluginKey.USE_FAVOURITES,
             self,
             'favourites',
+            Gio.SettingsBindFlags.DEFAULT)
+        setting.bind(
+            gs.PluginKey.FOLLOWING,
+            self,
+            'follow',
             Gio.SettingsBindFlags.DEFAULT)
                 
     def _change_key(self, dict, old, new):
@@ -538,7 +549,10 @@ class PropertiesMenuController(OptionsController):
             
             if self.current_key == _('Use favourites only'):
                 self.favourites = not self.favourites
-                        
+
+            if self.current_key == _('Follow playing song'):
+                self.follow = not self.follow
+
             self._source.propertiesbutton_callback(self.values[key[0]])
             self.current_key = None
 

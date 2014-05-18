@@ -221,5 +221,10 @@
             <summary>Type of entry-view to display</summary>
             <description>Type of entry-view to display - compact or full</description>
         </key>
+        <key type="b" name="following">
+            <default>false</default>
+            <summary>Album selection changes automatically when the playing song changes</summary>
+            <description>Album selection changes automatically when the playing song changes</description>
+        </key>
     </schema>
 </schemalist>
