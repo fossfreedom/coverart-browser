@@ -20,11 +20,11 @@
 from gi.repository import RB
 from gi.repository import Gtk
 from gi.repository import GObject
+from gi.repository import GdkPixbuf
+from gi.repository import Gdk
+
 from coverart_rb3compat import Menu
 from coverart_rb3compat import ActionGroup
-
-import rb
-
 from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import CoverLocale
 from coverart_external_plugins import CreateExternalPluginMenu
@@ -32,15 +32,215 @@ from collections import OrderedDict
 from coverart_playlists import LastFMTrackPlaylist
 from coverart_playlists import EchoNestPlaylist
 from coverart_playlists import EchoNestGenrePlaylist
+from coverart_utils import create_button_image
+from stars import ReactiveStar
+from coverart_search import CoverSearchPane
+from coverart_widgets import PixbufButton
 
-from gi.repository import GdkPixbuf
-from gi.repository import Gdk
-from gi.repository import RB
-
-import cairo
-from math import pi
-    
 MIN_IMAGE_SIZE = 100
+
+class EntryViewPane(object):
+    '''
+        encapulates all of the Track Pane objects
+    '''
+    def __init__(self, shell, plugin, source, entry_view_grid, viewmgr):
+        self.gs = GSetting()
+
+        self.entry_view_grid = entry_view_grid
+        self.shell = shell
+        self.viewmgr = viewmgr
+        self.plugin = plugin
+        self.source = source
+
+        # setup entry-view objects and widgets
+        self.stack = Gtk.Stack()
+        self.stack.set_transition_type(Gtk.StackTransitionType.SLIDE_LEFT_RIGHT)
+        self.stack.set_transition_duration(750)
+
+        # create entry views. Don't allow to reorder until the load is finished
+        self.entry_view_compact = CoverArtCompactEntryView(self.shell, self.source)
+        self.entry_view_full = CoverArtEntryView(self.shell, self.source)
+        self.entry_view = self.entry_view_compact
+        self.shell.props.library_source.get_entry_view().set_columns_clickable(
+            False)
+
+        self.entry_view_results = ResultsGrid()
+        self.entry_view_results.initialise()
+
+        self.stack.add_titled(self.entry_view_results, "notebook_tracks", _("Tracks"))
+        self.entry_view_grid.attach(self.stack, 0, 0, 3, 1)
+
+    def setup_source(self):
+
+        colour = self.viewmgr.get_selection_colour()
+        self.cover_search_pane = CoverSearchPane(self.plugin, colour)
+
+        self.stack.add_titled(self.cover_search_pane, "notebook_covers", _("Covers"))
+
+        # define entry-view toolbar
+        self.stars = ReactiveStar()
+        self.stars.set_rating(0)
+        self.stars.connect('changed', self.rating_changed_callback)
+        self.entry_view_grid.attach(self.stars, 1, 1, 1, 1)
+        stack_switcher = Gtk.StackSwitcher()
+        stack_switcher.set_stack(self.stack)
+        self.entry_view_grid.attach( stack_switcher, 0, 1, 1, 1)
+        viewtoggle = PixbufButton()
+        viewtoggle.set_image(create_button_image(self.plugin, "entryview.png"))
+        viewtoggle.props.halign = Gtk.Align.END
+        self.viewtoggle_id = None
+
+        setting = self.gs.get_setting(self.gs.Path.PLUGIN)
+        viewtoggle.set_active(not setting[self.gs.PluginKey.ENTRY_VIEW_MODE])
+        self.entry_view_toggled(viewtoggle, True)
+        viewtoggle.connect('toggled', self.entry_view_toggled)
+
+        self.entry_view_grid.attach_next_to(viewtoggle, self.stars, Gtk.PositionType.RIGHT, 1, 1)
+        self.stack.set_visible_child(self.entry_view_results)
+        self.stack.connect('notify::visible-child-name', self.notebook_switch_page_callback)
+
+        self.entry_view_grid.show_all()
+
+    def entry_view_toggled(self, widget, initialised = False):
+        print ("DEBUG - entry_view_toggled")
+        if widget.get_active():
+            next_view = self.entry_view_full
+            show_coverart = False
+            if self.viewtoggle_id:
+                self.shell.props.window.disconnect(self.viewtoggle_id)
+                self.viewtoggle_id = None
+        else:
+            next_view = self.entry_view_compact
+            show_coverart = True
+            self.viewtoggle_id = self.shell.props.window.connect('check_resize', self.entry_view_results.window_resize)
+
+        setting = self.gs.get_setting(self.gs.Path.PLUGIN)
+        setting[self.gs.PluginKey.ENTRY_VIEW_MODE] = not widget.get_active()
+
+        self.entry_view_results.change_view(next_view, show_coverart)
+        self.entry_view = next_view
+        if not initialised:
+            self.source.update_with_selection()
+
+    def notebook_switch_page_callback(self, *args):
+        '''
+        Callback called when the notebook page gets switched. It initiates
+        the cover search when the cover search pane's page is selected.
+        '''
+        print("CoverArtBrowser DEBUG - notebook_switch_page_callback")
+
+        if self.stack.get_visible_child_name() == 'notebook_covers':
+            self.viewmgr.current_view.switch_to_coverpane(self.cover_search_pane)
+        else:
+            entries = self.entry_view.get_selected_entries()
+            if entries and len(entries) > 0:
+                self.entry_view_results.emit('update-cover', self, entries[0])
+            else:
+                selected = self.viewmgr.current_view.get_selected_objects()
+                tracks = selected[0].get_tracks()
+                self.entry_view_results.emit('update-cover', self, tracks[0].entry)
+
+        print("CoverArtBrowser DEBUG - end notebook_switch_page_callback")
+
+    def rating_changed_callback(self, widget):
+        '''
+        Callback called when the Rating stars is changed
+        '''
+        print("CoverArtBrowser DEBUG - rating_changed_callback")
+
+        rating = widget.get_rating()
+
+        for album in self.viewmgr.current_view.get_selected_objects():
+            album.rating = rating
+
+        print("CoverArtBrowser DEBUG - end rating_changed_callback")
+
+    def get_entry_view(self):
+        return self.entry_view
+
+    def update_cover(self, album_artist, manager):
+        if not self.stack.get_visible_child_name() == "notebook_covers":
+            return
+
+        self.cover_search_pane.clear()
+        self.cover_search(album_artist, manager)
+
+    def cover_search(self, album_artist, manager):
+        self.cover_search_pane.do_search(album_artist,
+            manager.cover_man.update_cover)
+
+    '''
+    def update_artist_cover(self, artist, artist_manager):
+
+        if self.stack.get_visible_child_name() ==
+        cover_search_pane_visible = self.source.notebook.get_current_page() == \
+            self.source.notebook.page_num(self.source.cover_search_pane)
+
+        # update the cover search pane with the first selected artist
+        if cover_search_pane_visible:
+            print ("update coversearch for artist")
+            print (selected[0])
+            self.source.cover_search_pane.do_search(selected[0],
+                self.artist_manager.cover_man.update_cover)
+    '''
+
+    def update_selection(self, last_selected_album, click_count):
+        '''
+        Update the source view when an item gets selected.
+        '''
+        print ("DEBUG - update_with_selection")
+        selected = self.viewmgr.current_view.get_selected_objects()
+
+        # clear the entry view
+        self.entry_view.clear()
+
+        cover_search_pane_visible = self.stack.get_visible_child_name() == "notebook_covers"
+
+        if not selected:
+            # clean cover tab if selected
+            if cover_search_pane_visible:
+                self.cover_search_pane.clear()
+
+            self.entry_view_results.emit('update-cover', self, None)
+
+            return
+        elif len(selected) == 1:
+            self.stars.set_rating(selected[0].rating)
+
+            if selected[0] is not last_selected_album:
+                # when the selection changes we've to take into account two
+                # things
+                if not click_count:
+                    # we may be using the arrows, so if there is no mouse
+                    # involved, we should change the last selected
+                    last_selected_album = selected[0]
+                else:
+                    # we may've doing a fast change after a valid second click,
+                    # so it shouldn't be considered a double click
+                    click_count -= 1
+        else:
+            self.stars.set_rating(0)
+
+        if len(selected) == 1:
+            self.source.artist_info.emit('selected',
+                                         selected[0].artist,
+                                         selected[0].name)
+
+        for album in selected:
+            # add the album to the entry_view
+            self.entry_view.add_album(album)
+
+        if len(selected) > 0:
+            self.entry_view_results.emit('update-cover',
+                                         self.source,
+                                         selected[0].get_tracks()[0].entry)
+
+        # update the cover search pane with the first selected album
+        if cover_search_pane_visible:
+            self.cover_search_pane.do_search(selected[0],
+                self.source.album_manager.cover_man.update_cover)
+
+        return last_selected_album, click_count
 
 class ResultsGrid(Gtk.Grid):
         

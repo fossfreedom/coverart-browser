@@ -25,23 +25,16 @@ from gi.repository import Gio
 from gi.repository import Gdk
 from gi.repository import Gtk
 from gi.repository import RB
-from gi.repository import WebKit
 
 from coverart_album import AlbumManager
-from coverart_entryview import CoverArtEntryView as EV
-from coverart_entryview import CoverArtCompactEntryView as CEV
-from coverart_entryview import ResultsGrid
 
-from coverart_search import CoverSearchPane
 from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import CoverLocale
 from coverart_browser_prefs import Preferences
 from coverart_widgets import PanedCollapsible
-from coverart_widgets import PixbufButton
 from coverart_controllers import AlbumQuickSearchController
 from coverart_controllers import ViewController
 from coverart_export import CoverArtExport
-from stars import ReactiveStar
 from coverart_rb3compat import Menu
 from coverart_rb3compat import ActionGroup
 from coverart_covericonview import CoverIconView
@@ -52,7 +45,7 @@ from coverart_toolbar import ToolbarManager
 from coverart_artistinfo import ArtistInfoPane
 from coverart_external_plugins import CreateExternalPluginMenu
 from coverart_playlists import EchoNestPlaylist
-from coverart_utils import create_button_image
+from coverart_entryview import EntryViewPane
 
 import coverart_rb3compat as rb3compat
 import random
@@ -245,8 +238,19 @@ class CoverArtBrowserSource(RB.Source):
         self.request_statusbar = ui.get_object('request_statusbar')
         self.request_cancel_button = ui.get_object('request_cancel_button')
         self.paned = ui.get_object('paned')
-        #self.notebook = ui.get_object('bottom_notebook')
         self.entry_view_grid = ui.get_object('bottom_grid')
+
+        #setup Track Pane
+        setting = self.gs.get_setting(self.gs.Path.PLUGIN)
+        setting.bind(self.gs.PluginKey.PANED_POSITION,
+            self.paned, 'collapsible-y', Gio.SettingsBindFlags.DEFAULT)
+        setting.bind(self.gs.PluginKey.DISPLAY_BOTTOM,
+            self.paned.get_child2(), 'visible', Gio.SettingsBindFlags.DEFAULT)
+        self.entryviewpane = EntryViewPane(self.shell,
+                                           self.plugin,
+                                           self,
+                                           self.entry_view_grid,
+                                           self.viewmgr)
         
         #---- set up info pane -----#
         info_stack = ui.get_object('info_stack')
@@ -275,62 +279,14 @@ class CoverArtBrowserSource(RB.Source):
  
         # setup iconview popup
         self.viewmgr.current_view.set_popup_menu(self.popup_menu)
-        
-        # setup entry-view objects and widgets
-        self.stack = Gtk.Stack()
-        self.stack.set_transition_type(Gtk.StackTransitionType.SLIDE_LEFT_RIGHT)
-        self.stack.set_transition_duration(750)
-
-        setting = self.gs.get_setting(self.gs.Path.PLUGIN)
-        setting.bind(self.gs.PluginKey.PANED_POSITION,
-            self.paned, 'collapsible-y', Gio.SettingsBindFlags.DEFAULT)
-        setting.bind(self.gs.PluginKey.DISPLAY_BOTTOM,
-            self.paned.get_child2(), 'visible', Gio.SettingsBindFlags.DEFAULT)
-
-        # create entry views. Don't allow to reorder until the load is finished
-        self.entry_view_compact = CEV(self.shell, self)
-        self.entry_view_full = EV(self.shell, self)
-        self.entry_view = self.entry_view_compact
-        self.shell.props.library_source.get_entry_view().set_columns_clickable(
-            False)
-
-        self.entry_view_results = ResultsGrid()
-        self.entry_view_results.initialise()
-
-        self.stack.add_titled(self.entry_view_results, "notebook_tracks", _("Tracks"))
-        self.entry_view_grid.attach(self.stack, 0, 0, 3, 1)
 
         # create an album manager
         self.album_manager = AlbumManager(self.plugin, self.viewmgr.current_view)
             
         self.viewmgr.current_view.initialise(self)
         # setup cover search pane
-        colour = self.viewmgr.get_selection_colour()
-
-        self.cover_search_pane = CoverSearchPane(self.plugin, colour)
-        self.stack.add_titled(self.cover_search_pane, "notebook_covers", _("Covers"))
-
-        # define entry-view toolbar
-        self.stars = ReactiveStar()
-        self.stars.set_rating(0)
-        self.stars.connect('changed', self.rating_changed_callback)
-        self.entry_view_grid.attach(self.stars, 1, 1, 1, 1)
-        stack_switcher = Gtk.StackSwitcher()
-        stack_switcher.set_stack(self.stack)
-        self.entry_view_grid.attach( stack_switcher, 0, 1, 1, 1)
-        viewtoggle = PixbufButton()
-        viewtoggle.set_image(create_button_image(self.plugin, "entryview.png"))
-        viewtoggle.props.halign = Gtk.Align.END
-        self.viewtoggle_id = None
-        viewtoggle.set_active(not setting[self.gs.PluginKey.ENTRY_VIEW_MODE])
-        self.entry_view_toggled(viewtoggle, True)
-        viewtoggle.connect('toggled', self.entry_view_toggled)
-
-        self.entry_view_grid.attach_next_to(viewtoggle, self.stars, Gtk.PositionType.RIGHT, 1, 1)
-        self.stack.set_visible_child(self.entry_view_results)
-        self.stack.connect('notify::visible-child-name', self.notebook_switch_page_callback)
-
-        self.entry_view_grid.show_all()
+        self.entryviewpane.setup_source()
+        self.entry_view = self.entryviewpane.get_entry_view()
 
         # connect a signal to when the info of albums is ready
         self.load_fin_id = self.album_manager.loader.connect(
@@ -370,6 +326,7 @@ class CoverArtBrowserSource(RB.Source):
         assert artist_pview, "cannot find artist property view"
 
         self.artist_treeview.set_model(artist_pview.get_model())
+        setting = self.gs.get_setting(self.gs.Path.PLUGIN)
         setting.bind(self.gs.PluginKey.ARTIST_PANED_POSITION,
             self, 'artist-paned-pos', Gio.SettingsBindFlags.DEFAULT)
 
@@ -395,28 +352,7 @@ class CoverArtBrowserSource(RB.Source):
             return
 
         self.jump_to_playing()
-        
-    def entry_view_toggled(self, widget, initialised = False):
-        print ("DEBUG - entry_view_toggled")
-        if widget.get_active():
-            next_view = self.entry_view_full
-            show_coverart = False
-            if self.viewtoggle_id:
-                self.shell.props.window.disconnect(self.viewtoggle_id)
-                self.viewtoggle_id = None
-        else:
-            next_view = self.entry_view_compact
-            show_coverart = True
-            self.viewtoggle_id = self.shell.props.window.connect('check_resize', self.entry_view_results.window_resize)
-        
-        setting = self.gs.get_setting(self.gs.Path.PLUGIN)
-        setting[self.gs.PluginKey.ENTRY_VIEW_MODE] = not widget.get_active()
-        
-        self.entry_view_results.change_view(next_view, show_coverart)
-        self.entry_view = next_view
-        if not initialised:
-            self.update_with_selection()
-                         
+
     def add_external_menu(self, *args):
         '''
         Callback when the popup menu is about to be displayed
@@ -572,12 +508,9 @@ class CoverArtBrowserSource(RB.Source):
             # update the selection since it may have changed
             self.viewmgr.current_view.selectionchanged_callback()
 
-            if album is selected[0] and \
-                self.stack.get_visible_child_name() == "notebook_covers":
-                # also, if it's the first, update the cover search pane
-                self.cover_search_pane.clear()
-                self.cover_search_pane.do_search(album, 
-                    self.album_manager.cover_man.update_cover)
+            if album is selected[0]:
+                self.entryviewpane.update_cover(album,
+                                                self.album_manager)
 
     def play_similar_artist_menu_item_callback(self, *args):
         '''
@@ -873,39 +806,6 @@ class CoverArtBrowserSource(RB.Source):
 
         print("CoverArtBrowser DEBUG - end cancel_request_callback")
 
-    def notebook_switch_page_callback(self, *args):
-        '''
-        Callback called when the notebook page gets switched. It initiates
-        the cover search when the cover search pane's page is selected.
-        '''
-        print("CoverArtBrowser DEBUG - notebook_switch_page_callback")
-
-        if self.stack.get_visible_child_name() == 'notebook_covers':
-            self.viewmgr.current_view.switch_to_coverpane(self.cover_search_pane)
-        else:
-            entries = self.entry_view.get_selected_entries()
-            if entries and len(entries) > 0:
-                self.entry_view_results.emit('update-cover', self, entries[0])
-            else:
-                selected = self.viewmgr.current_view.get_selected_objects()
-                tracks = selected[0].get_tracks()
-                self.entry_view_results.emit('update-cover', self, tracks[0].entry)
-            
-        print("CoverArtBrowser DEBUG - end notebook_switch_page_callback")
-
-    def rating_changed_callback(self, widget):
-        '''
-        Callback called when the Rating stars is changed
-        '''
-        print("CoverArtBrowser DEBUG - rating_changed_callback")
-
-        rating = widget.get_rating()
-
-        for album in self.viewmgr.current_view.get_selected_objects():
-            album.rating = rating
-
-        print("CoverArtBrowser DEBUG - end rating_changed_callback")
-
     def show_hide_pane(self, params):
         '''
         helper function - if the entry is manually expanded
@@ -933,58 +833,10 @@ class CoverArtBrowserSource(RB.Source):
         self.click_count = 0
 
     def update_with_selection(self):
-        '''
-        Update the source view when an item gets selected.
-        '''
-        print ("DEBUG - update_with_selection")
-        selected = self.viewmgr.current_view.get_selected_objects()
 
-        # clear the entry view
-        self.entry_view.clear()
-
-        #cover_search_pane_visible = self.notebook.get_current_page() == \
-        #    self.notebook.page_num(self.cover_search_pane)
-        cover_search_pane_visible = self.stack.get_visible_child_name() == "notebook_covers"
-
-        if not selected:
-            # clean cover tab if selected
-            if cover_search_pane_visible:
-                self.cover_search_pane.clear()
-            
-            self.entry_view_results.emit('update-cover', self, None)
-
-            return
-        elif len(selected) == 1:
-            self.stars.set_rating(selected[0].rating)
-
-            if selected[0] is not self.last_selected_album:
-                # when the selection changes we've to take into account two
-                # things
-                if not self.click_count:
-                    # we may be using the arrows, so if there is no mouse
-                    # involved, we should change the last selected
-                    self.last_selected_album = selected[0]
-                else:
-                    # we may've doing a fast change after a valid second click,
-                    # so it shouldn't be considered a double click
-                    self.click_count -= 1
-        else:
-            self.stars.set_rating(0)
-
-        if len(selected) == 1:
-            self.artist_info.emit('selected', selected[0].artist, selected[0].name)
-            
-        for album in selected:
-            # add the album to the entry_view
-            self.entry_view.add_album(album)
-            
-        if len(selected) > 0:
-            self.entry_view_results.emit('update-cover', self, selected[0].get_tracks()[0].entry)
-
-        # update the cover search pane with the first selected album
-        if cover_search_pane_visible:
-            self.cover_search_pane.do_search(selected[0],
-                self.album_manager.cover_man.update_cover)
+        self.last_selected_album, self.click_count = \
+            self.entryviewpane.update_selection(self.last_selected_album,
+                                                self.click_count)
 
         self.statusbar.emit('display-status', self.viewmgr.current_view)
 

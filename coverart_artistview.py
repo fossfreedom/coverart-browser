@@ -1018,20 +1018,9 @@ class ArtistView(Gtk.TreeView, AbstractView):
         if isinstance(selected[0], Artist):
             print ("selected artist")
             self.unset_rows_drag_source() # turn off drag-drop for artists
-                
-            # clear the entry view
-            self.source.entry_view.clear()
 
-            cover_search_pane_visible = self.source.notebook.get_current_page() == \
-                self.source.notebook.page_num(self.source.cover_search_pane)
-                            
-            # update the cover search pane with the first selected artist
-            if cover_search_pane_visible:
-                print ("update coversearch for artist")
-                print (selected[0])
-                self.source.cover_search_pane.do_search(selected[0],
-                    self.artist_manager.cover_man.update_cover)
-            
+            self.source.entryviewpane.update_cover(selected[0],
+                                                   self.artist_manager)
         else:
             print ("selected album")
             self.source.update_with_selection()
@@ -1051,8 +1040,8 @@ class ArtistView(Gtk.TreeView, AbstractView):
 
         if selected:
             manager = self.get_default_manager()
-            cover_search_pane.do_search(selected[0],
-                manager.cover_man.update_cover)
+            self.source.entryviewpane.cover_search(selected[0],
+                                                   manager)
 
     def get_selected_objects(self, just_artist=False):
         '''
