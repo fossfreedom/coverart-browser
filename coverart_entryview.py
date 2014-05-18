@@ -114,23 +114,24 @@ class ResultsGrid(Gtk.Grid):
         if alloc.height < 10:
             return
                 
-        if (alloc.width / 3) < (MIN_IMAGE_SIZE+30) or \
-           (alloc.height) < (MIN_IMAGE_SIZE+30):
+        if (alloc.width / 3) <= (MIN_IMAGE_SIZE+30) or \
+           (alloc.height) <= (MIN_IMAGE_SIZE+30):
             self.frame.props.visible = False
         else:
             self.frame.props.visible = True
-            framealloc = self.frame.get_allocation()
-            minval = min(framealloc.width-20, framealloc.height-20)
-            if self.oldval == minval:
-                return
-            self.oldval = minval
-            p = self.pixbuf.scale_simple(minval, minval, GdkPixbuf.InterpType.BILINEAR)
-            if self.stack.get_visible_child_name() == "image1":
-                self.image2.set_from_pixbuf(p)
-                self.stack.set_visible_child_name("image2")
-            else:
-                self.image1.set_from_pixbuf(p)
-                self.stack.set_visible_child_name("image1")
+
+        framealloc = self.frame.get_allocation()
+        minval = min(framealloc.width-30, framealloc.height-30)
+        if self.oldval == minval:
+            return
+        self.oldval = minval
+        p = self.pixbuf.scale_simple(minval, minval, GdkPixbuf.InterpType.BILINEAR)
+        if self.stack.get_visible_child_name() == "image1":
+            self.image2.set_from_pixbuf(p)
+            self.stack.set_visible_child_name("image2")
+        else:
+            self.image1.set_from_pixbuf(p)
+            self.stack.set_visible_child_name("image1")
             
     def change_view(self, entry_view, show_coverart):
         print ("debug - change_view")
