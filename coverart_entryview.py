@@ -134,11 +134,11 @@ class EntryViewPane(object):
         else:
             entries = self.entry_view.get_selected_entries()
             if entries and len(entries) > 0:
-                self.entry_view_results.emit('update-cover', self, entries[0])
+                self.entry_view_results.emit('update-cover', self.source, entries[0])
             else:
                 selected = self.viewmgr.current_view.get_selected_objects()
                 tracks = selected[0].get_tracks()
-                self.entry_view_results.emit('update-cover', self, tracks[0].entry)
+                self.entry_view_results.emit('update-cover', self.source, tracks[0].entry)
 
         print("CoverArtBrowser DEBUG - end notebook_switch_page_callback")
 
@@ -169,21 +169,6 @@ class EntryViewPane(object):
         self.cover_search_pane.do_search(album_artist,
             manager.cover_man.update_cover)
 
-    '''
-    def update_artist_cover(self, artist, artist_manager):
-
-        if self.stack.get_visible_child_name() ==
-        cover_search_pane_visible = self.source.notebook.get_current_page() == \
-            self.source.notebook.page_num(self.source.cover_search_pane)
-
-        # update the cover search pane with the first selected artist
-        if cover_search_pane_visible:
-            print ("update coversearch for artist")
-            print (selected[0])
-            self.source.cover_search_pane.do_search(selected[0],
-                self.artist_manager.cover_man.update_cover)
-    '''
-
     def update_selection(self, last_selected_album, click_count):
         '''
         Update the source view when an item gets selected.
@@ -201,9 +186,9 @@ class EntryViewPane(object):
             if cover_search_pane_visible:
                 self.cover_search_pane.clear()
 
-            self.entry_view_results.emit('update-cover', self, None)
+            self.entry_view_results.emit('update-cover', self.source, None)
 
-            return
+            return last_selected_album, click_count
         elif len(selected) == 1:
             self.stars.set_rating(selected[0].rating)
 
@@ -322,8 +307,9 @@ class ResultsGrid(Gtk.Grid):
 
         framealloc = self.frame.get_allocation()
         minval = min(framealloc.width-30, framealloc.height-30)
-        if self.oldval == minval:
+        if self.oldval == minval or not self.pixbuf:
             return
+
         self.oldval = minval
         p = self.pixbuf.scale_simple(minval, minval, GdkPixbuf.InterpType.BILINEAR)
         if self.stack.get_visible_child_name() == "image1":
@@ -425,7 +411,7 @@ class BaseView(RB.EntryView):
     def selection_changed(self, entry_view):
         entries = entry_view.get_selected_entries()
         if entries and len(entries) > 0:
-            self.source.entry_view_results.emit('update-cover', self.source, entries[0])
+            self.source.entryviewpane.entry_view_results.emit('update-cover', self.source, entries[0])
 
     def add_album(self, album):
         print("CoverArtBrowser DEBUG - add_album()")
