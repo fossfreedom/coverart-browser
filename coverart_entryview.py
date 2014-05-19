@@ -278,11 +278,11 @@ class ResultsGrid(Gtk.Grid):
             self.override_background_color(Gtk.StateType.NORMAL, color)
 
     def update_cover(self, widget, source, entry):
-        
+
+        self.oldval = 0 # force a redraw
         if entry:
             album = source.album_manager.model.get_from_dbentry(entry)
             self.pixbuf = GdkPixbuf.Pixbuf().new_from_file(album.cover.original)
-            self.oldval = 0
             self.window_resize(None)
             self.frame.set_shadow_type(Gtk.ShadowType.NONE)
         else:
@@ -307,11 +307,15 @@ class ResultsGrid(Gtk.Grid):
 
         framealloc = self.frame.get_allocation()
         minval = min(framealloc.width-30, framealloc.height-30)
-        if self.oldval == minval or not self.pixbuf:
+        if self.oldval == minval:
             return
-
+        print ("resizing")
         self.oldval = minval
-        p = self.pixbuf.scale_simple(minval, minval, GdkPixbuf.InterpType.BILINEAR)
+        if self.pixbuf:
+            p = self.pixbuf.scale_simple(minval, minval, GdkPixbuf.InterpType.BILINEAR)
+        else:
+            p = None
+
         if self.stack.get_visible_child_name() == "image1":
             self.image2.set_from_pixbuf(p)
             self.stack.set_visible_child_name("image2")
