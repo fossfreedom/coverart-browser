@@ -266,7 +266,7 @@ class ResultsGrid(Gtk.Grid):
         self.frame.add(scroll)
         self._signal_connected = None
 
-        self.attach(self.frame, 3, 0, 1, 1)
+        self.attach(self.frame, 6, 0, 1, 1)
         self.connect('update-cover', self.update_cover)
 
         #lets fix the situation where some-themes background colour is incorrectly defined
@@ -330,7 +330,7 @@ class ResultsGrid(Gtk.Grid):
             self.remove(widget)
             
         if not show_coverart:
-            widget = self.get_child_at(3, 0)
+            widget = self.get_child_at(6, 0)
             if widget:
                 self.remove(widget)
             
@@ -339,7 +339,7 @@ class ResultsGrid(Gtk.Grid):
         self.attach(entry_view, 0, 0, 3, 1)
         
         if show_coverart:
-            self.attach(self.frame, 3, 0, 1, 1)
+            self.attach(self.frame, 6, 0, 1, 1)
             
         self.show_all()
 
