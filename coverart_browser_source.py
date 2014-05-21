@@ -41,6 +41,7 @@ from coverart_covericonview import CoverIconView
 from coverart_coverflowview import CoverFlowView
 from coverart_artistview import ArtistView
 from coverart_listview import ListView
+from coverart_queueview import QueueView
 from coverart_toolbar import ToolbarManager
 from coverart_artistinfo import ArtistInfoPane
 from coverart_external_plugins import CreateExternalPluginMenu
@@ -1029,10 +1030,12 @@ class Views:
             from coverart_coverflowview import CoverFlowView
             from coverart_artistview import ArtistView
             from coverart_listview import ListView
+            from coverart_queueview import QueueView
             from coverart_browser_prefs import webkit_support
 
             library_name = shell.props.library_source.props.name
-            
+            queue_name = shell.props.queue_source.props.name
+
             self._values = OrderedDict()
             
             cl = CoverLocale()
@@ -1047,6 +1050,8 @@ class Views:
                 GLib.Variant.new_string('coverart-browser-artist')]
             self._values[ListView.name] = [library_name, 
                 GLib.Variant.new_string('coverart-browser-list')]
+            self._values[QueueView.name] = [queue_name,
+                GLib.Variant.new_string('coverart-browser-queue')]
             cl.switch_locale(cl.Locale.RB)   
             print (self._values)     
             
@@ -1108,6 +1113,7 @@ class ViewManager(GObject.Object):
         self._views[CoverIconView.name] = ui.get_object('covers_view')
         self._views[CoverFlowView.name] = CoverFlowView()
         self._views[ListView.name] = ListView()
+        self._views[QueueView.name] = QueueView()
         ui.add_from_file(rb.find_plugin_file(source.plugin,
             'ui/coverart_artistview.ui'))
         self._views[ArtistView.name] = ui.get_object('artist_view')

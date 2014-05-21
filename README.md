@@ -26,8 +26,9 @@ Browse your coverart albums in Rhythmbox v3 and later
  - Play Similar Artists as recommended by EchoNest
  - Play Similar Genres as recommended by EchoNest
  - Play Similar Tracks as recommended by LastFM
- - New darker toolbar icons
+ - New optional theme: darker toolbar icons
  - Introduce more modern look & feel through subtle animations
+ - Views button now can navigate to Play Queue.  Allows navigation of key views without the side-bar (F9) being visible
  - Artist & Album information pane with LastFM & EchoNest data
  - Track Artist Filter and Artist & Album Information panes individually displayed per view
  - Support Jump To Playing CTRL+J to scroll to the playing album

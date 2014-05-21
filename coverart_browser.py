@@ -36,6 +36,7 @@ from coverart_browser_prefs import CoverLocale
 from coverart_browser_source import CoverArtBrowserSource
 from coverart_utils import Theme
 from coverart_listview import ListView
+from coverart_queueview import QueueView
 from coverart_toolbar import TopToolbar
 
 import coverart_rb3compat as rb3compat
@@ -225,7 +226,7 @@ class ExternalPluginMenu(GObject.Object):
         app = Gio.Application.get_default()
         self.app_id = 'coverart-browser'
         
-        self.locations = ['library-toolbar']
+        self.locations = ['library-toolbar', 'queue-toolbar']
         action_name = 'coverart-browser-views'
         self.action = Gio.SimpleAction.new_stateful(
             action_name, GLib.VariantType.new('s'),
@@ -266,6 +267,8 @@ class ExternalPluginMenu(GObject.Object):
         
         if page == self.shell.props.library_source:
             self.action.set_state(self._views.get_action_name(ListView.name))
+        elif page == self.shell.props.queue_source:
+            self.action.set_state(self._views.get_action_name(QueueView.name))
 
     def view_change_cb(self, action, current):
         '''
@@ -274,10 +277,16 @@ class ExternalPluginMenu(GObject.Object):
         '''
         action.set_state(current)
         view_name = self._views.get_view_name_for_action(current)
-        if view_name != ListView.name:
+        if view_name != ListView.name and view_name != QueueView.name:
             gs = GSetting()
             setting = gs.get_setting(gs.Path.PLUGIN)
             setting[gs.PluginKey.VIEW_NAME] = view_name
             GLib.idle_add(self.shell.props.display_page_tree.select,
                     self.source)
+        elif view_name == ListView.name:
+            GLib.idle_add(self.shell.props.display_page_tree.select,
+                    self.shell.props.library_source)
+        elif view_name == QueueView.name:
+            GLib.idle_add(self.shell.props.display_page_tree.select,
+                    self.shell.props.queue_source)
     
