@@ -587,6 +587,7 @@ class SearchEntry(RB.SearchEntry, OptionsPopupWidget):
     def __init__(self, *args, **kwargs):
         RB.SearchEntry.__init__(self, *args, **kwargs)
         OptionsPopupWidget.__init__(self)
+        #self.props.explicit_mode = True
         
     @OptionsPopupWidget.controller.setter
     def controller(self, controller):
@@ -604,6 +605,8 @@ class SearchEntry(RB.SearchEntry, OptionsPopupWidget):
         self._update_search_text()
 
     def _update_search_text(self, *args):
+        if not self.searching():
+            self.grab_focus()
         self.set_text(self._controller.search_text)
 
     def update_current_key(self):

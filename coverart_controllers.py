@@ -16,11 +16,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
-from gi.repository import GdkPixbuf
+
 from gi.repository import GObject
 from gi.repository import Gdk
 from gi.repository import RB
 from gi.repository import Gio
+from gi.repository import GLib
+
 from coverart_browser_prefs import CoverLocale
 from coverart_browser_prefs import GSetting
 from coverart_utils import create_pixbuf_from_file_at_size
@@ -720,16 +722,40 @@ class AlbumSearchEntryController(OptionsController):
         self.options = list(self.values.keys())
         self.current_key = list(self.values.keys())[0]
 
+        self._typing = False
+        self._typing_counter = 0
+        self._current_search_text = ""
+
     def do_action(self):
         # remove old filter
         self._album_model.remove_filter(self._filter_type, False)
 
-        # asign the new filter
+        # assign the new filter
         self._filter_type = self.values[self.current_key]
 
         self.do_search(self.search_text, True)
 
+    def _search_typing(self, *args):
+        self._typing_counter = self._typing_counter + 1
+
+        if self._typing_counter >= 4 and self._typing:
+            self._typing = False
+            self._change_filter(self._current_search_text, False)
+
+        return self._typing
+
+    def _change_filter(self, search_text, force):
+        #self.search_text = search_text
+        self._current_search_text = search_text
+
+        if search_text:
+            self._album_model.replace_filter(self._filter_type,
+                search_text)
+        elif not force:
+            self._album_model.remove_filter(self._filter_type)
+
     def do_search(self, search_text, force=False):
+        '''
         if self.search_text != search_text or force:
             self.search_text = search_text
 
@@ -738,6 +764,28 @@ class AlbumSearchEntryController(OptionsController):
                     search_text)
             elif not force:
                 self._album_model.remove_filter(self._filter_type)
+
+        '''
+        #self.search_text = search_text
+        if force:
+            self._typing_counter = 99
+            self._typing = False
+            self._change_filter(search_text, force)
+            return
+
+        if self._current_search_text != search_text:
+
+            #self.search_text = search_text
+            self._current_search_text = search_text
+            self._typing_counter = 0
+
+            if not self._typing:
+                self._typing = True
+
+                Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 100,
+                        self._search_typing)
+
+
 
 class AlbumQuickSearchController(object):
 
