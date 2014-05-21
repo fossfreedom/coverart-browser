@@ -20,18 +20,21 @@ Browse your coverart albums in Rhythmbox v3 and later
 
 ##Summary: whats new in this release
 
- - Compact & Full track view
+ - Compact & Full track view toggle option:
+    1. Compact: fixed track view showing the key album track fields & ratings together with an enlarged album cover
+    1. Full: Standard track view configurable via the preferences window
  - Play Similar Artists as recommended by EchoNest
  - Play Similar Genres as recommended by EchoNest
  - Play Similar Tracks as recommended by LastFM
- - new darker toolbar icons
+ - New darker toolbar icons
  - Introduce more modern look & feel through subtle animations
  - Artist & Album information pane with LastFM & EchoNest data
  - Track Artist Filter and Artist & Album Information panes individually displayed per view
  - Support Jump To Playing CTRL+J to scroll to the playing album
  - Follow playing song option automatically selects playing album
- - Custom Genres are now saved in an alternative folder location to survive reinstallation of the plugin
+ - Custom Genres are now saved in an alternative folder location to survive re-installation of the plugin
  - Filter by Composer
+ - Introduce type-ahead filtering to improve searching usability
  - Single click queue album if another album is already playing
  - Translated into 26 languages and locales
  - for developers - doxygen documentation: http://fossfreedom.github.io/coverart-browser/classes.html
