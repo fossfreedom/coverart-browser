@@ -566,7 +566,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
             # for the selection event to kick in first
             def delay(*args):
                 if playing: # if we are playing then queue up the next album
-                    self.source.queue_selected_album(self.shell.props.queue_source, self.source.favourites)
+                    self.source.queue_selected_album(None, self.source.favourites)
                 else: # otherwise just play it
                     self._last_play_path = path
                     self.source.play_selected_album(self.source.favourites)

@@ -277,6 +277,9 @@ class CoverArtBrowserSource(RB.Source):
         
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+
+        # define a query model that we'll use for playing
+        self.source_query_model = RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
  
         # setup iconview popup
         self.viewmgr.current_view.set_popup_menu(self.popup_menu)
@@ -555,16 +558,18 @@ class CoverArtBrowserSource(RB.Source):
         # callback when play an album
         print("CoverArtBrowser DEBUG - play_selected_album")
 
-        query_model = RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
-        self.queue_selected_album(query_model, favourites)
+        for row in self.source_query_model:
+            self.source_query_model.remove_entry(row[0])
 
-        if len(query_model) > 0:
-            self.props.query_model = query_model
+        self.queue_selected_album(self.source_query_model, favourites)
+
+        if len(self.source_query_model) > 0:
+            self.props.query_model = self.source_query_model
 
             # Start the music
             player = self.shell.props.shell_player
 
-            player.play_entry(query_model[0][0], self)
+            player.play_entry(self.source_query_model[0][0], self)
 
         print("CoverArtBrowser DEBUG - end play_selected_album")
 
@@ -574,6 +579,9 @@ class CoverArtBrowserSource(RB.Source):
         queue.
         '''
         print("CoverArtBrowser DEBUG - queue_selected_album")
+
+        if source == None:
+            source = self.source_query_model
 
         selected_albums = self.viewmgr.current_view.get_selected_objects()
         threshold = self.rating_threshold if favourites else 0
