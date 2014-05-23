@@ -852,14 +852,15 @@ class ArtistView(Gtk.TreeView, AbstractView):
         self.artist_popup_menu.load_from_file('ui/coverart_artist_pop_rb2.ui',
             'ui/coverart_artist_pop_rb3.ui')
         signals = \
-            { 'play_album_menu_item': self.source.play_album_menu_item_callback,
-              'queue_album_menu_item': self.source.queue_album_menu_item_callback,
-              'new_playlist': self.source.add_playlist_menu_item_callback,
-              'artist_cover_search_menu_item': self.cover_search_menu_item_callback
+            { 'play_album_menu_item' : self.source.play_album_menu_item_callback,
+              'queue_album_menu_item' : self.source.queue_album_menu_item_callback,
+              'add_to_playing_menu_item' : self.source.add_playlist_menu_item_callback,
+              'new_playlist' : self.source.add_playlist_menu_item_callback,
+              'artist_cover_search_menu_item' : self.cover_search_menu_item_callback
             }
               
         self.artist_popup_menu.connect_signals(signals)
-        self.artist_popup_menu.connect('pre-popup', self.add_external_menu)
+        self.artist_popup_menu.connect('pre-popup', self.pre_popup_menu_callback)
             
         # connect properties and signals
         self._connect_properties()
@@ -941,10 +942,17 @@ class ArtistView(Gtk.TreeView, AbstractView):
             #we need to play this album
             self.source.play_selected_album(self.source.favourites)
             
-    def add_external_menu(self, *args):
+    def pre_popup_menu_callback(self, *args):
         '''
           callback when artist popup menu is about to be displayed
         '''
+
+        state,sensitive = self.shell.props.shell_player.get_playing()
+        if not state:
+            sensitive = False
+
+        #self.popup_menu.get_menu_object('add_to_playing_menu_item')
+        self.artist_popup_menu.set_sensitive('add_to_playing_menu_item', sensitive)
         
         self.source.playlist_menu_item_callback()
             

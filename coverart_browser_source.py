@@ -222,16 +222,17 @@ class CoverArtBrowserSource(RB.Source):
         self._external_plugins = None
         
         signals = \
-            { 'play_album_menu_item': self.play_album_menu_item_callback,
-              'queue_album_menu_item': self.queue_album_menu_item_callback,
-              'new_playlist': self.add_playlist_menu_item_callback,
-              'cover_search_menu_item': self.cover_search_menu_item_callback,
-              'export_embed_menu_item': self.export_embed_menu_item_callback,
-              'show_properties_menu_item': self.show_properties_menu_item_callback,
-              'play_similar_artist_menu_item': self.play_similar_artist_menu_item_callback}
+            { 'play_album_menu_item' : self.play_album_menu_item_callback,
+              'queue_album_menu_item' : self.queue_album_menu_item_callback,
+              'add_to_playing_menu_item' : self.add_to_playing_menu_item_callback,
+              'new_playlist' : self.add_playlist_menu_item_callback,
+              'cover_search_menu_item' : self.cover_search_menu_item_callback,
+              'export_embed_menu_item' : self.export_embed_menu_item_callback,
+              'show_properties_menu_item' : self.show_properties_menu_item_callback,
+              'play_similar_artist_menu_item' : self.play_similar_artist_menu_item_callback}
               
         self.popup_menu.connect_signals(signals)
-        self.popup_menu.connect('pre-popup', self.add_external_menu)
+        self.popup_menu.connect('pre-popup', self.pre_popup_menu_callback)
         
         self.status_label = ui.get_object('status_label')
         self.request_status_box = ui.get_object('request_status_box')
@@ -357,16 +358,23 @@ class CoverArtBrowserSource(RB.Source):
 
         self.jump_to_playing()
 
-    def add_external_menu(self, *args):
+    def pre_popup_menu_callback(self, *args):
         '''
         Callback when the popup menu is about to be displayed
         '''
+
+        state,sensitive = self.shell.props.shell_player.get_playing()
+        if not state:
+            sensitive = False
+
+        #self.popup_menu.get_menu_object('add_to_playing_menu_item')
+        self.popup_menu.set_sensitive('add_to_playing_menu_item', sensitive)
 
         if not self._external_plugins:
             # initialise external plugin menu support
             self._external_plugins = \
             CreateExternalPluginMenu("ca_covers_view",
-                7, self.popup_menu)
+                8, self.popup_menu)
             self._external_plugins.create_menu('popup_menu', True)
 
         self.playlist_menu_item_callback()
@@ -616,6 +624,14 @@ class CoverArtBrowserSource(RB.Source):
         self.play_selected_album(self.favourites)
 
         print("CoverArtBrowser DEBUG - end play_album_menu_item_callback")
+
+    def add_to_playing_menu_item_callback(self, *args):
+        '''
+        Callback called when the add-to-playing item from the cover view popup is
+        selected. It adds the selected album at the end of the currently playing source.
+        '''
+
+        self.queue_selected_album(None, self.favourites)
 
     def queue_album_menu_item_callback(self, *args):
         '''
