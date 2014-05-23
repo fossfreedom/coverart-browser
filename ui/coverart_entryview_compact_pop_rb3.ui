@@ -10,6 +10,10 @@
         <attribute name="label" translatable="yes">Queue Track</attribute>
         <attribute name="action">win.ev_compact_queue_track_menu_item</attribute>
       </item>
+      <item>
+        <attribute name="label" translatable="yes">Add to playing</attribute>
+        <attribute name="action">win.ev_compact_add_to_playing_menu_item</attribute>
+      </item>
       <submenu>
         <attribute name="label" translatable="yes">Play Similar</attribute>
         <section>

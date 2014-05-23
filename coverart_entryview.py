@@ -377,6 +377,7 @@ class BaseView(RB.EntryView):
         
         self.external_plugins = None
 
+        self.source_query_model = self.source.source_query_model # RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
         self.qm = RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
         self.set_model(self.qm)
 
@@ -452,7 +453,7 @@ class BaseView(RB.EntryView):
         print("CoverArtBrowser DEBUG - do_entry_activated()")
         return True
         
-    def add_external_menu(self, *args):
+    def pre_popup_menu_callback(self, *args):
         pass
 
     def do_show_popup(self, over_entry):
@@ -497,18 +498,19 @@ class BaseView(RB.EntryView):
 
     def play_track_menu_item_callback(self, *args):
         print("CoverArtBrowser DEBUG - play_track_menu_item_callback()")
-        
-        query_model = RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
+
+        for row in self.source_query_model:
+            self.source_query_model.remove_entry(row[0])
 
         selected = self.get_selected_entries()
         entry = selected[0]
         
         if len(selected) == 1:
-            query_model.copy_contents(self.qm)
+            self.source_query_model.copy_contents(self.qm)
         else:
-            self.add_tracks_to_source(query_model)
+            self.add_tracks_to_source(self.source_query_model)
             
-        self.source.props.query_model = query_model
+        self.source.props.query_model = self.source_query_model
 
         # Start the music
         player = self.shell.props.shell_player
@@ -521,7 +523,15 @@ class BaseView(RB.EntryView):
 
         self.add_tracks_to_source(self.shell.props.queue_source)
 
+    def add_to_playing_menu_item_callback(self, *args):
+        print("CoverArtBrowser DEBUG - add_to_playing_menu_item_callback()")
+        self.add_tracks_to_source(None)
+
     def add_tracks_to_source(self, source):
+
+        if source == None:
+            source = self.source_query_model
+
         selected = self.get_selected_entries()
         selected.reverse()
 
@@ -642,16 +652,17 @@ class CoverArtCompactEntryView(BaseView):
         popup.load_from_file('N/A',
                              'ui/coverart_entryview_compact_pop_rb3.ui')
         signals = {
-            'ev_compact_play_track_menu_item': self.play_track_menu_item_callback,
-            'ev_compact_queue_track_menu_item': self.queue_track_menu_item_callback,
-            'ev_compact_new_playlist': self.add_playlist_menu_item_callback,
-            'ev_compact_show_properties_menu_item': self.show_properties_menu_item_callback,
-            'ev_compact_similar_track_menu_item': self.play_similar_track_menu_item_callback,
-            'ev_compact_similar_artist_menu_item': self.play_similar_artist_menu_item_callback,
-            'ev_compact_similar_genre_menu_item': self.play_similar_genre_menu_item_callback }
+            'ev_compact_play_track_menu_item' : self.play_track_menu_item_callback,
+            'ev_compact_queue_track_menu_item' : self.queue_track_menu_item_callback,
+            'ev_compact_add_to_playing_menu_item' : self.add_to_playing_menu_item_callback,
+            'ev_compact_new_playlist' : self.add_playlist_menu_item_callback,
+            'ev_compact_show_properties_menu_item' : self.show_properties_menu_item_callback,
+            'ev_compact_similar_track_menu_item' : self.play_similar_track_menu_item_callback,
+            'ev_compact_similar_artist_menu_item' : self.play_similar_artist_menu_item_callback,
+            'ev_compact_similar_genre_menu_item' : self.play_similar_genre_menu_item_callback }
             
         popup.connect_signals(signals)
-        popup.connect('pre-popup', self.add_external_menu)
+        popup.connect('pre-popup', self.pre_popup_menu_callback)
         self.popup = popup
         
     def playlist_menu_item_callback(self, *args):
@@ -660,13 +671,20 @@ class CoverArtCompactEntryView(BaseView):
         self.source.playlist_fillmenu(self.popup, 'ev_compact_playlist_sub_menu_item', 'ev_compact_playlist_section',
             self.actiongroup, self.add_to_static_playlist_menu_item_callback)
 
-    def add_external_menu(self, *args):
+    def pre_popup_menu_callback(self, *args):
         '''
         Callback when the popup menu is about to be displayed
         '''
+
+        state,sensitive = self.shell.props.shell_player.get_playing()
+        if not state:
+            sensitive = False
+
+        self.popup.set_sensitive('ev_compact_add_to_playing_menu_item', sensitive)
+
         if not self.external_plugins:
             self.external_plugins = \
-                    CreateExternalPluginMenu("ev_compact_entryview", 4, self.popup)
+                    CreateExternalPluginMenu("ev_compact_entryview", 5, self.popup)
             self.external_plugins.create_menu('entryview_compact_popup_menu')
             
         self.playlist_menu_item_callback()
@@ -733,6 +751,7 @@ class CoverArtEntryView(BaseView):
         signals = {
             'ev_full_play_track_menu_item': self.play_track_menu_item_callback,
             'ev_full_queue_track_menu_item': self.queue_track_menu_item_callback,
+            'ev_full_add_to_playing_menu_item' : self.add_to_playing_menu_item_callback,
             'ev_full_new_playlist': self.add_playlist_menu_item_callback,
             'ev_full_show_properties_menu_item': self.show_properties_menu_item_callback,
             'ev_full_similar_track_menu_item': self.play_similar_track_menu_item_callback,
@@ -740,7 +759,7 @@ class CoverArtEntryView(BaseView):
             'ev_full_similar_genre_menu_item': self.play_similar_genre_menu_item_callback }
             
         popup.connect_signals(signals)
-        popup.connect('pre-popup', self.add_external_menu)
+        popup.connect('pre-popup', self.pre_popup_menu_callback)
         self.popup = popup
         
     def playlist_menu_item_callback(self, *args):
@@ -749,13 +768,20 @@ class CoverArtEntryView(BaseView):
         self.source.playlist_fillmenu(self.popup, 'ev_full_playlist_sub_menu_item', 'ev_full_playlist_section',
             self.actiongroup, self.add_to_static_playlist_menu_item_callback)
             
-    def add_external_menu(self, *args):
+    def pre_popup_menu_callback(self, *args):
         '''
         Callback when the popup menu is about to be displayed
         '''
+
+        state,sensitive = self.shell.props.shell_player.get_playing()
+        if not state:
+            sensitive = False
+
+        self.popup.set_sensitive('ev_full_add_to_playing_menu_item', sensitive)
+
         if not self.external_plugins:
             self.external_plugins = \
-                    CreateExternalPluginMenu("ev_full_entryview", 4, self.popup)
+                    CreateExternalPluginMenu("ev_full_entryview", 5, self.popup)
             self.external_plugins.create_menu('entryview_full_popup_menu')
             
         self.playlist_menu_item_callback()

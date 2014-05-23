@@ -177,6 +177,9 @@ class CoverArtBrowserSource(RB.Source):
         # indicate that the source was activated before
         self.hasActivated = True
 
+        # define a query model that we'll use for playing
+        self.source_query_model = RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
+
         self._create_ui()
         self._setup_source()
         self._apply_settings()
@@ -279,9 +282,6 @@ class CoverArtBrowserSource(RB.Source):
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
 
-        # define a query model that we'll use for playing
-        self.source_query_model = RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
- 
         # setup iconview popup
         self.viewmgr.current_view.set_popup_menu(self.popup_menu)
 
