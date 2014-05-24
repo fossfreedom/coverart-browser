@@ -37,14 +37,15 @@ import rb
 import coverart_rb3compat as rb3compat
 
 from collections import namedtuple
-        
+
 MenuNodeT = namedtuple('MenuNode', 'label menutype typevalue')
-        
+
+
 def MenuNode(label, menutype=None, typevalue=None):
     return MenuNodeT(label, menutype, typevalue)
 
-class OptionsController(GObject.Object):
 
+class OptionsController(GObject.Object):
     # properties
     options = GObject.property(type=object, default=None)
     current_key = GObject.property(type=str, default=None)
@@ -86,10 +87,10 @@ class OptionsController(GObject.Object):
         '''
         if sheet:
             del sheet
-            
+
         return ConfiguredSpriteSheet(plugin, typestr, get_stock_size())
 
-    def create_button_image( self, plugin, image, icon_name):
+    def create_button_image(self, plugin, image, icon_name):
         '''
         helper function to create a button image
         '''
@@ -97,13 +98,13 @@ class OptionsController(GObject.Object):
             del image
 
         path = 'img/' + Theme(self.plugin).current + '/'
-        
+
         return create_pixbuf_from_file_at_size(
             rb.find_plugin_file(self.plugin, path + icon_name),
             *get_stock_size())
 
-class PlaylistPopupController(OptionsController):
 
+class PlaylistPopupController(OptionsController):
     def __init__(self, plugin, album_model):
         super(PlaylistPopupController, self).__init__()
 
@@ -123,7 +124,7 @@ class PlaylistPopupController(OptionsController):
 
         self._spritesheet = None
         self._update_options(shell)
-        
+
         # get the playlist model so we can monitor changes
         if rb3compat.is_rb3(shell):
             playlist_model = shell.props.display_page_model
@@ -137,8 +138,8 @@ class PlaylistPopupController(OptionsController):
         playlist_model.connect('row-changed', self._update_options, shell)
 
     def update_images(self, *args):
-        self._spritesheet = self.create_spritesheet( self.plugin,
-            self._spritesheet, 'playlist')
+        self._spritesheet = self.create_spritesheet(self.plugin,
+                                                    self._spritesheet, 'playlist')
 
         if args[-1]:
             self.update_image = True
@@ -146,10 +147,10 @@ class PlaylistPopupController(OptionsController):
     def _update_options(self, *args):
         shell = args[-1]
         self.update_images(False)
-            
+
         playlist_manager = shell.props.playlist_manager
-        still_exists = self.current_key == self._library_name or\
-            self.current_key == self._queue_name
+        still_exists = self.current_key == self._library_name or \
+                       self.current_key == self._queue_name
 
         # retrieve the options
         values = OrderedDict()
@@ -171,7 +172,7 @@ class PlaylistPopupController(OptionsController):
         self.values = values
         self.options = list(values.keys())
 
-        self.current_key = self.current_key if still_exists else\
+        self.current_key = self.current_key if still_exists else \
             self._library_name
 
     def do_action(self):
@@ -181,7 +182,7 @@ class PlaylistPopupController(OptionsController):
             self._album_model.remove_filter('model')
         else:
             self._album_model.replace_filter('model',
-                playlist.get_query_model())
+                                             playlist.get_query_model())
 
     def get_current_image(self):
         playlist = self.values[self.current_key]
@@ -215,7 +216,7 @@ class GenrePopupController(OptionsController):
 
         # create a new property model for the genres
         genres_model = RB.RhythmDBPropertyModel.new(shell.props.db,
-            RB.RhythmDBPropType.GENRE)
+                                                    RB.RhythmDBPropType.GENRE)
 
         query = shell.props.library_source.props.base_query_model
         genres_model.props.query_model = query
@@ -229,21 +230,21 @@ class GenrePopupController(OptionsController):
 
         self._connect_properties()
         self._connect_signals(query, genres_model)
-        
+
         # generate initial popup
         self._update_options(genres_model)
 
     def update_images(self, *args):
         if self._spritesheet:
             del self._spritesheet
-            
+
         self._spritesheet = GenreConfiguredSpriteSheet(self.plugin,
-            'genre', get_stock_size())
-        self._default_image = self.create_button_image( self.plugin,
-            self._default_image, 'default_genre.png')
-        self._unrecognised_image = self.create_button_image( self.plugin,
-            self._unrecognised_image, 'unrecognised_genre.png')
-        
+                                                       'genre', get_stock_size())
+        self._default_image = self.create_button_image(self.plugin,
+                                                       self._default_image, 'default_genre.png')
+        self._unrecognised_image = self.create_button_image(self.plugin,
+                                                            self._unrecognised_image, 'unrecognised_genre.png')
+
         if args[-1]:
             self.update_image = True
 
@@ -259,13 +260,13 @@ class GenrePopupController(OptionsController):
         setting = gs.get_setting(gs.Path.PLUGIN)
 
         setting.bind(gs.PluginKey.NEW_GENRE_ICON, self, 'new_genre_icon',
-            Gio.SettingsBindFlags.GET)
+                     Gio.SettingsBindFlags.GET)
 
     def _update_options(self, *args):
         genres_model = args[-1]
 
         self.update_images(False)
-        
+
         still_exists = False
 
         # retrieve the options
@@ -284,7 +285,7 @@ class GenrePopupController(OptionsController):
 
         self.options = options
 
-        self.current_key = self.current_key if still_exists else\
+        self.current_key = self.current_key if still_exists else \
             self._initial_genre
 
     def do_action(self):
@@ -306,7 +307,7 @@ class GenrePopupController(OptionsController):
             image = self._find_alternates(test_genre)
 
             if image == self._unrecognised_image and \
-                test_genre in self._spritesheet:
+                            test_genre in self._spritesheet:
                 image = self._spritesheet[test_genre]
 
         return image
@@ -326,15 +327,15 @@ class GenrePopupController(OptionsController):
         # in a mixture of cases, both unicode (normalized or not) and str
         # and as usual python cannot mix and match these types.
 
-        
+
         test_genre = RB.search_fold(test_genre)
-        
+
         ret, sprite = self._match_genres(test_genre, self._spritesheet.GENRE_USER)
         if ret:
             return sprite
-                
+
         for genre in sorted(self._spritesheet.locale_names,
-            key=lambda b: (-len(b), b)):
+                            key=lambda b: (-len(b), b)):
             if RB.search_fold(genre) in test_genre:
                 return self._spritesheet[self._spritesheet.locale_names[genre]]
 
@@ -346,23 +347,23 @@ class GenrePopupController(OptionsController):
         ret, sprite = self._match_genres(test_genre, self._spritesheet.GENRE_SYSTEM)
         if ret:
             return sprite
-        
+
         # check if any of the default genres are a substring
         # of test_genre - check in reverse order so that we
         # test largest strings first (prevents spurious matches with
         # short strings)
         for genre in sorted(self._spritesheet.names,
-            key=lambda b: (-len(b), b)):
+                            key=lambda b: (-len(b), b)):
             if RB.search_fold(genre) in test_genre:
                 return self._spritesheet[genre]
-                
+
         # if no matches then default to unrecognised image
         return self._unrecognised_image
 
     def _match_genres(self, test_genre, genre_type):
         case_search = CaseInsensitiveDict(
             dict((k.name, v) for k, v in self._spritesheet.genre_alternate.items()
-                if k.genre_type==genre_type))
+                 if k.genre_type == genre_type))
 
         if test_genre in case_search:
             return (True, self._spritesheet[case_search[test_genre]])
@@ -378,23 +379,22 @@ class GenrePopupController(OptionsController):
 
 
 class SortPopupController(OptionsController):
-
     def __init__(self, plugin, viewmgr):
         super(SortPopupController, self).__init__()
 
-        self._viewmgr=viewmgr
+        self._viewmgr = viewmgr
         self.plugin = plugin
         # sorts dictionary
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
 
         self.values = OrderedDict([(_('Sort by album name'), 'name'),
-            (_('Sort by album artist'), 'artist'),
-            (_('Sort by year'), 'year'),
-            (_('Sort by rating'), 'rating')])
+                                   (_('Sort by album artist'), 'artist'),
+                                   (_('Sort by year'), 'year'),
+                                   (_('Sort by rating'), 'rating')])
 
         self.options = list(self.values.keys())
-        
+
         # get the current sort key and initialise the superclass
         gs = GSetting()
         source_settings = gs.get_setting(gs.Path.PLUGIN)
@@ -402,17 +402,17 @@ class SortPopupController(OptionsController):
 
         self._spritesheet = None
         self.update_images(False)
-        
+
         self.current_key = list(self.values.keys())[
             list(self.values.values()).index(value)]
 
     def update_images(self, *args):
-        self._spritesheet = self.create_spritesheet( self.plugin,
-            self._spritesheet, 'sort')
-        
+        self._spritesheet = self.create_spritesheet(self.plugin,
+                                                    self._spritesheet, 'sort')
+
         if args[-1]:
             self.update_image = True
-            
+
     def do_action(self):
         sort = self.values[self.current_key]
 
@@ -425,9 +425,9 @@ class SortPopupController(OptionsController):
     def get_current_image(self):
         sort = self.values[self.current_key]
         return self._spritesheet[sort]
-        
-class ArtistSortPopupController(OptionsController):
 
+
+class ArtistSortPopupController(OptionsController):
     def __init__(self, plugin, viewmgr):
         super(ArtistSortPopupController, self).__init__()
 
@@ -438,35 +438,35 @@ class ArtistSortPopupController(OptionsController):
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
 
         self.values = OrderedDict([(_('Sort by album name'), 'name_artist'),
-            (_('Sort by year'), 'year_artist'),
-            (_('Sort by rating'), 'rating_artist')])
+                                   (_('Sort by year'), 'year_artist'),
+                                   (_('Sort by rating'), 'rating_artist')])
 
         self.options = list(self.values.keys())
-        
+
         # get the current sort key and initialise the superclass
         gs = GSetting()
         source_settings = gs.get_setting(gs.Path.PLUGIN)
         value = source_settings[gs.PluginKey.SORT_BY_ARTIST]
-        
+
         if value not in list(self.values.values()):
-            print ("here")
+            print("here")
             value = 'name_artist'
-            source_settings[gs.PluginKey.SORT_BY_ARTIST]=value
+            source_settings[gs.PluginKey.SORT_BY_ARTIST] = value
 
         self._spritesheet = None
         self.update_images(False)
-        
+
         self.current_key = list(self.values.keys())[
             list(self.values.values()).index(value)]
-        print (self.current_key)
+        print(self.current_key)
 
     def update_images(self, *args):
-        self._spritesheet = self.create_spritesheet( self.plugin,
-            self._spritesheet, 'sort_artist')
-        
+        self._spritesheet = self.create_spritesheet(self.plugin,
+                                                    self._spritesheet, 'sort_artist')
+
         if args[-1]:
             self.update_image = True
-            
+
     def do_action(self):
         sort = self.values[self.current_key]
 
@@ -499,18 +499,18 @@ class PropertiesMenuController(OptionsController):
         self.values[MenuNode(_('Download all covers'))] = 'download'
         self.values[MenuNode(_('Play random album'))] = 'random'
         self.values[MenuNode(_('Follow playing song'), 'check',
-            (True if self.follow else False))] = 'follow'
+                             (True if self.follow else False))] = 'follow'
         self.values[MenuNode('separator1', 'separator')] = ''
         self.values[MenuNode(_('Use favourites only'), 'check',
-            (True if self.favourites else False))] = 'favourite'
+                             (True if self.favourites else False))] = 'favourite'
         self.values[MenuNode('separator2', 'separator')] = ''
         self.values[MenuNode(_('Browser Preferences'))] = 'browser prefs'
         self.values[MenuNode(_('Search Preferences'))] = 'search prefs'
-        
+
         self.options = list(self.values.keys())
 
         self.update_images(False)
-            
+
         if self.favourites:
             self._source.propertiesbutton_callback('favourite')
 
@@ -518,7 +518,7 @@ class PropertiesMenuController(OptionsController):
             self._source.propertiesbutton_callback('follow')
 
         self.current_key = None
-    
+
     def _connect_properties(self):
         gs = GSetting()
         setting = gs.get_setting(gs.Path.PLUGIN)
@@ -532,23 +532,23 @@ class PropertiesMenuController(OptionsController):
             self,
             'follow',
             Gio.SettingsBindFlags.DEFAULT)
-                
+
     def _change_key(self, dict, old, new):
         for i in range(len(dict)):
-            k,v = dict.popitem(False)
+            k, v = dict.popitem(False)
             dict[new if old == k else k] = v
 
     def update_images(self, *args):
-        self._image = self.create_button_image( self.plugin,
-            None, 'properties.png')
-        
+        self._image = self.create_button_image(self.plugin,
+                                               None, 'properties.png')
+
         if args[-1]:
             self.update_image = True
-            
+
     def do_action(self):
         if self.current_key:
             key = [node for node in self.values if node.label == self.current_key]
-            
+
             if self.current_key == _('Use favourites only'):
                 self.favourites = not self.favourites
 
@@ -564,8 +564,8 @@ class PropertiesMenuController(OptionsController):
     def get_current_description(self):
         return _('Properties')
 
-class DecadePopupController(OptionsController):
 
+class DecadePopupController(OptionsController):
     def __init__(self, plugin, album_model):
         super(DecadePopupController, self).__init__()
 
@@ -573,7 +573,7 @@ class DecadePopupController(OptionsController):
         self.plugin = plugin
 
         self._spritesheet = None
-            
+
         # decade options
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
@@ -613,13 +613,13 @@ class DecadePopupController(OptionsController):
         # define a initial decade an set the initial key
         self._initial_decade = self.options[0]
         self.update_images(False)
-        
+
         self.current_key = self._initial_decade
 
     def update_images(self, *args):
-        self._spritesheet = self.create_spritesheet( self.plugin,
-            self._spritesheet, 'decade')
-        
+        self._spritesheet = self.create_spritesheet(self.plugin,
+                                                    self._spritesheet, 'decade')
+
         if args[-1]:
             self.update_image = True
 
@@ -628,7 +628,7 @@ class DecadePopupController(OptionsController):
             self._album_model.remove_filter('decade')
         else:
             self._album_model.replace_filter('decade',
-                self.values[self.current_key][0])
+                                             self.values[self.current_key][0])
 
     def get_current_image(self):
         decade = self.values[self.current_key][1]
@@ -639,22 +639,21 @@ class DecadePopupController(OptionsController):
 
 
 class SortOrderToggleController(OptionsController):
-
     toolbar_type = "album"
-    
+
     def __init__(self, plugin, viewmgr):
         super(SortOrderToggleController, self).__init__()
 
         self._viewmgr = viewmgr
         self.plugin = plugin
-        
+
         # options
         self.values = OrderedDict([(_('Sort in descending order'), False),
-            (_('Sort in ascending order'), True)])
+                                   (_('Sort in ascending order'), True)])
         self.options = list(self.values.keys())
 
         self._images = []
-        
+
         # set the current key
         self.gs = GSetting()
         self.settings = self.gs.get_setting(self.gs.Path.PLUGIN)
@@ -663,44 +662,43 @@ class SortOrderToggleController(OptionsController):
         self.current_key = list(self.values.keys())[
             list(self.values.values()).index(sort_order)]
         self.update_images(False)
-        
+
     def get_key(self):
         return self.gs.PluginKey.SORT_ORDER
-        
+
     def update_images(self, *args):
         # initialize images
         if len(self._images) > 0:
             del self._images[:]
-                        
-        self._images.append(self.create_button_image( self.plugin,
-            None, 'arrow_down.png'))
-        self._images.append(self.create_button_image( self.plugin,
-            None, 'arrow_up.png'))
+
+        self._images.append(self.create_button_image(self.plugin,
+                                                     None, 'arrow_down.png'))
+        self._images.append(self.create_button_image(self.plugin,
+                                                     None, 'arrow_up.png'))
 
         if args[-1]:
             self.update_image = True
-            
+
     def do_action(self):
         sort_order = self.values[self.current_key]
         self.settings[self.key] = sort_order
         self._viewmgr.current_view.get_default_manager().emit('sort', self.toolbar_type)
-        
+
     def get_current_image(self):
         return self._images[self.get_current_key_index()]
-        
+
+
 class ArtistSortOrderToggleController(SortOrderToggleController):
-    
     toolbar_type = "artist"
-    
+
     def __init__(self, plugin, model):
         super(ArtistSortOrderToggleController, self).__init__(plugin, model)
-        
+
     def get_key(self):
         return self.gs.PluginKey.SORT_ORDER_ARTIST
 
 
 class AlbumSearchEntryController(OptionsController):
-
     # properties
     search_text = GObject.property(type=str, default='')
 
@@ -750,7 +748,7 @@ class AlbumSearchEntryController(OptionsController):
 
         if search_text:
             self._album_model.replace_filter(self._filter_type,
-                search_text)
+                                             search_text)
         elif not force:
             self._album_model.remove_filter(self._filter_type)
 
@@ -783,12 +781,10 @@ class AlbumSearchEntryController(OptionsController):
                 self._typing = True
 
                 Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 100,
-                        self._search_typing)
-
+                                        self._search_typing)
 
 
 class AlbumQuickSearchController(object):
-
     def __init__(self, album_manager):
         self._album_manager = album_manager
 
@@ -799,7 +795,7 @@ class AlbumQuickSearchController(object):
 
     def _on_quick_search(self, quick_search, search_text, *args):
         album = self._album_manager.model.find_first_visible('album_name',
-            search_text)
+                                                             search_text)
 
         if album:
             path = self._album_manager.model.get_path(album)
@@ -824,24 +820,25 @@ class AlbumQuickSearchController(object):
     def _on_hide(self, quick_search, *args):
         self._album_manager.current_view.grab_focus()
 
-class ViewController(OptionsController):
 
+class ViewController(OptionsController):
     def __init__(self, shell, viewmgr):
         super(ViewController, self).__init__()
 
         self._viewmgr = viewmgr
 
         from coverart_browser_source import Views
+
         views = Views(shell)
-        
+
         self.values = OrderedDict()
         for view_name in views.get_view_names():
             self.values[views.get_menu_name(view_name)] = view_name
-            print (view_name)
-        
+            print(view_name)
+
         self.options = list(self.values.keys())
         viewmgr.connect('new-view', self.on_notify_view_name)
-                
+
     def on_notify_view_name(self, *args):
         for key in self.options:
             if self.values[key] == self._viewmgr.view_name:

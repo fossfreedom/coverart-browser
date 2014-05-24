@@ -39,10 +39,12 @@ from coverart_widgets import PixbufButton
 
 MIN_IMAGE_SIZE = 100
 
+
 class EntryViewPane(object):
     '''
         encapulates all of the Track Pane objects
     '''
+
     def __init__(self, shell, plugin, source, entry_view_grid, viewmgr):
         self.gs = GSetting()
 
@@ -84,7 +86,7 @@ class EntryViewPane(object):
         self.entry_view_grid.attach(self.stars, 1, 1, 1, 1)
         stack_switcher = Gtk.StackSwitcher()
         stack_switcher.set_stack(self.stack)
-        self.entry_view_grid.attach( stack_switcher, 0, 1, 1, 1)
+        self.entry_view_grid.attach(stack_switcher, 0, 1, 1, 1)
         viewtoggle = PixbufButton()
         viewtoggle.set_image(create_button_image(self.plugin, "entryview.png"))
         viewtoggle.props.halign = Gtk.Align.END
@@ -101,8 +103,8 @@ class EntryViewPane(object):
 
         self.entry_view_grid.show_all()
 
-    def entry_view_toggled(self, widget, initialised = False):
-        print ("DEBUG - entry_view_toggled")
+    def entry_view_toggled(self, widget, initialised=False):
+        print("DEBUG - entry_view_toggled")
         if widget.get_active():
             next_view = self.entry_view_full
             show_coverart = False
@@ -167,13 +169,13 @@ class EntryViewPane(object):
 
     def cover_search(self, album_artist, manager):
         self.cover_search_pane.do_search(album_artist,
-            manager.cover_man.update_cover)
+                                         manager.cover_man.update_cover)
 
     def update_selection(self, last_selected_album, click_count):
         '''
         Update the source view when an item gets selected.
         '''
-        print ("DEBUG - update_with_selection")
+        print("DEBUG - update_with_selection")
         selected = self.viewmgr.current_view.get_selected_objects()
 
         # clear the entry view
@@ -223,18 +225,18 @@ class EntryViewPane(object):
         # update the cover search pane with the first selected album
         if cover_search_pane_visible:
             self.cover_search_pane.do_search(selected[0],
-                self.source.album_manager.cover_man.update_cover)
+                                             self.source.album_manager.cover_man.update_cover)
 
         return last_selected_album, click_count
 
+
 class ResultsGrid(Gtk.Grid):
-        
     # signals
     __gsignals__ = {
-        'update-cover': (GObject.SIGNAL_RUN_LAST, None, (GObject.Object,RB.RhythmDBEntry))
-        }
+        'update-cover': (GObject.SIGNAL_RUN_LAST, None, (GObject.Object, RB.RhythmDBEntry))
+    }
     image_width = 0
-    
+
     def __init__(self, *args, **kwargs):
         super(ResultsGrid, self).__init__(*args, **kwargs)
 
@@ -279,7 +281,7 @@ class ResultsGrid(Gtk.Grid):
 
     def update_cover(self, widget, source, entry):
 
-        self.oldval = 0 # force a redraw
+        self.oldval = 0  # force a redraw
         if entry:
             album = source.album_manager.model.get_from_dbentry(entry)
             self.pixbuf = GdkPixbuf.Pixbuf().new_from_file(album.cover.original)
@@ -293,23 +295,23 @@ class ResultsGrid(Gtk.Grid):
             self.image1.queue_draw()
         else:
             self.image2.queue_draw()
-        
+
     def window_resize(self, widget):
         alloc = self.get_allocation()
         if alloc.height < 10:
             return
-                
-        if (alloc.width / 3) <= (MIN_IMAGE_SIZE+30) or \
-           (alloc.height) <= (MIN_IMAGE_SIZE+30):
+
+        if (alloc.width / 3) <= (MIN_IMAGE_SIZE + 30) or \
+                        (alloc.height) <= (MIN_IMAGE_SIZE + 30):
             self.frame.props.visible = False
         else:
             self.frame.props.visible = True
 
         framealloc = self.frame.get_allocation()
-        minval = min(framealloc.width-30, framealloc.height-30)
+        minval = min(framealloc.width - 30, framealloc.height - 30)
         if self.oldval == minval:
             return
-        print ("resizing")
+        print("resizing")
         self.oldval = minval
         if self.pixbuf:
             p = self.pixbuf.scale_simple(minval, minval, GdkPixbuf.InterpType.BILINEAR)
@@ -322,30 +324,29 @@ class ResultsGrid(Gtk.Grid):
         else:
             self.image1.set_from_pixbuf(p)
             self.stack.set_visible_child_name("image1")
-            
+
     def change_view(self, entry_view, show_coverart):
-        print ("debug - change_view")
+        print("debug - change_view")
         widget = self.get_child_at(0, 0)
         if widget:
             self.remove(widget)
-            
+
         if not show_coverart:
             widget = self.get_child_at(6, 0)
             if widget:
                 self.remove(widget)
-            
+
         entry_view.props.hexpand = True
         entry_view.props.vexpand = True
         self.attach(entry_view, 0, 0, 3, 1)
-        
+
         if show_coverart:
             self.attach(self.frame, 6, 0, 1, 1)
-            
+
         self.show_all()
 
-        
-class BaseView(RB.EntryView):
 
+class BaseView(RB.EntryView):
     def __init__(self, shell, source):
         '''
         Initializes the entryview.
@@ -355,64 +356,64 @@ class BaseView(RB.EntryView):
         self.plugin = self.source.props.plugin
 
         super(RB.EntryView, self).__init__(db=shell.props.db,
-            shell_player=shell.props.shell_player, is_drag_source=True,
-            visible_columns=[])
+                                           shell_player=shell.props.shell_player, is_drag_source=True,
+                                           visible_columns=[])
 
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.RB)
 
         self.display_columns()
-                
+
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
 
         self.define_menu()
 
         # connect signals to the shell to know when the playing state changes
         self.shell.props.shell_player.connect('playing-song-changed',
-            self.playing_song_changed)
+                                              self.playing_song_changed)
         self.shell.props.shell_player.connect('playing-changed',
-            self.playing_changed)
+                                              self.playing_changed)
 
         self.actiongroup = ActionGroup(self.shell, 'coverentryplaylist_submenu')
-        
+
         self.external_plugins = None
 
-        self.source_query_model = self.source.source_query_model # RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
+        self.source_query_model = self.source.source_query_model  # RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
         self.qm = RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
         self.set_model(self.qm)
 
         # connect the sort-order to the library source sort
         library_view = self.shell.props.library_source.get_entry_view()
         library_view.connect('notify::sort-order',
-            self._on_library_sorting_changed)
+                             self._on_library_sorting_changed)
         self._on_library_sorting_changed(library_view,
-            library_view.props.sort_order)
+                                         library_view.props.sort_order)
 
-         # connect to the sort-order property
+        # connect to the sort-order property
         self.connect('notify::sort-order', self._notify_sort_order,
-            library_view)
-            
+                     library_view)
+
         self.echonest_similar_playlist = None
         self.echonest_similar_genre_playlist = None
         self.lastfm_similar_playlist = None
-        
+
         self.set_columns_clickable(False)
-        
+
         self.connect('selection-changed', self.selection_changed)
-        
+
         self.artists = ""
 
     def __del__(self):
         del self.action_group
         del self.play_action
         del self.queue_action
-        
+
     def define_menu(self):
         pass
-        
+
     def display_columns(self):
         pass
-        
+
     def selection_changed(self, entry_view):
         entries = entry_view.get_selected_entries()
         if entries and len(entries) > 0:
@@ -427,13 +428,13 @@ class BaseView(RB.EntryView):
 
         (_, playing) = self.shell.props.shell_player.get_playing()
         self.playing_changed(self.shell.props.shell_player, playing)
-        
+
         artists = album.artists.split(', ')
         if self.artists == "":
             self.artists = artists
         else:
             self.artists = list(set(self.artists + artists))
-            
+
         print("CoverArtBrowser DEBUG - add_album()")
 
     def clear(self):
@@ -443,7 +444,7 @@ class BaseView(RB.EntryView):
             self.qm.remove_entry(row[0])
 
         self.artists = ""
-        
+
         print("CoverArtBrowser DEBUG - clear()")
 
     def do_entry_activated(self, entry):
@@ -452,49 +453,49 @@ class BaseView(RB.EntryView):
         self.play_track_menu_item_callback(entry)
         print("CoverArtBrowser DEBUG - do_entry_activated()")
         return True
-        
+
     def pre_popup_menu_callback(self, *args):
         pass
 
     def do_show_popup(self, over_entry):
         if over_entry:
             print("CoverArtBrowser DEBUG - do_show_popup()")
-            
+
             self.popup.popup(self.source,
-                'entryview_popup_menu', 0, Gtk.get_current_event_time())
+                             'entryview_popup_menu', 0, Gtk.get_current_event_time())
 
         return over_entry
-        
+
     def play_similar_artist_menu_item_callback(self, *args):
         if not self.echonest_similar_playlist:
             self.echonest_similar_playlist = \
-                EchoNestPlaylist(   self.shell,
-                                    self.shell.props.queue_source)
-                                    
+                EchoNestPlaylist(self.shell,
+                                 self.shell.props.queue_source)
+
         selected = self.get_selected_entries()
         entry = selected[0]
         self.echonest_similar_playlist.start(entry, reinitialise=True)
-        
+
     def play_similar_genre_menu_item_callback(self, *args):
         if not self.echonest_similar_genre_playlist:
             self.echonest_similar_genre_playlist = \
-                EchoNestGenrePlaylist(   self.shell,
-                                    self.shell.props.queue_source)
-                                    
+                EchoNestGenrePlaylist(self.shell,
+                                      self.shell.props.queue_source)
+
         selected = self.get_selected_entries()
         entry = selected[0]
         self.echonest_similar_genre_playlist.start(entry, reinitialise=True)
-                                    
+
     def play_similar_track_menu_item_callback(self, *args):
         if not self.lastfm_similar_playlist:
             self.lastfm_similar_playlist = \
-                LastFMTrackPlaylist(    self.shell,
-                                        self.shell.props.queue_source)
-                                    
+                LastFMTrackPlaylist(self.shell,
+                                    self.shell.props.queue_source)
+
         selected = self.get_selected_entries()
         entry = selected[0]
         self.lastfm_similar_playlist.start(entry, reinitialise=True)
-    
+
 
     def play_track_menu_item_callback(self, *args):
         print("CoverArtBrowser DEBUG - play_track_menu_item_callback()")
@@ -504,12 +505,12 @@ class BaseView(RB.EntryView):
 
         selected = self.get_selected_entries()
         entry = selected[0]
-        
+
         if len(selected) == 1:
             self.source_query_model.copy_contents(self.qm)
         else:
             self.add_tracks_to_source(self.source_query_model)
-            
+
         self.source.props.query_model = self.source_query_model
 
         # Start the music
@@ -536,7 +537,7 @@ class BaseView(RB.EntryView):
         selected.reverse()
 
         selected = sorted(selected,
-            key=lambda song: song.get_ulong(RB.RhythmDBPropType.TRACK_NUMBER))
+                          key=lambda song: song.get_ulong(RB.RhythmDBPropType.TRACK_NUMBER))
 
         for entry in selected:
             source.add_entry(entry, -1)
@@ -551,7 +552,7 @@ class BaseView(RB.EntryView):
 
         for entry in selected:
             self.shell.props.db.entry_set(entry, RB.RhythmDBPropType.RATING,
-                rating)
+                                          rating)
 
         self.shell.props.db.commit()
 
@@ -560,7 +561,7 @@ class BaseView(RB.EntryView):
 
         info_dialog = RB.SongInfo(source=self.source, entry_view=self)
         info_dialog.show_all()
-        
+
         print("CoverArtBrowser DEBUG - show_properties_menu_item_callback()")
 
     def playing_song_changed(self, shell_player, entry):
@@ -599,8 +600,8 @@ class BaseView(RB.EntryView):
 
     def add_to_static_playlist_menu_item_callback(self, action, param, args):
         print("CoverArtBrowser DEBUG - " + \
-            "add_to_static_playlist_menu_item_callback")
-        
+              "add_to_static_playlist_menu_item_callback")
+
         playlist = args['playlist']
         self.add_tracks_to_source(playlist)
 
@@ -615,68 +616,69 @@ class BaseView(RB.EntryView):
 
             # update library source's view direction
             library_view.set_sorting_type(self.props.sort_order)
-            
+
+
 class CoverArtCompactEntryView(BaseView):
     __hash__ = GObject.__hash__
-    
+
     def __init__(self, shell, source):
         '''
         Initializes the entryview.
         '''
         super(CoverArtCompactEntryView, self).__init__(shell, source)
-    
+
     def display_columns(self):
-        
+
         self.col_map = OrderedDict([
-                        ('track-number', RB.EntryViewColumn.TRACK_NUMBER),
-                        ('title', RB.EntryViewColumn.TITLE),
-                        ('artist', RB.EntryViewColumn.ARTIST), 
-                        ('rating', RB.EntryViewColumn.RATING),
-                        ('duration', RB.EntryViewColumn.DURATION)
-                        ])
-        
+            ('track-number', RB.EntryViewColumn.TRACK_NUMBER),
+            ('title', RB.EntryViewColumn.TITLE),
+            ('artist', RB.EntryViewColumn.ARTIST),
+            ('rating', RB.EntryViewColumn.RATING),
+            ('duration', RB.EntryViewColumn.DURATION)
+        ])
+
         for entry in self.col_map:
             visible = False if entry == 'artist' else True
             self.append_column(self.col_map[entry], visible)
-            
+
     def add_album(self, album):
         super(CoverArtCompactEntryView, self).add_album(album)
-        
+
         if len(self.artists) > 1:
             self.get_column(RB.EntryViewColumn.ARTIST).set_visible(True)
         else:
             self.get_column(RB.EntryViewColumn.ARTIST).set_visible(False)
-            
+
     def define_menu(self):
         popup = Menu(self.plugin, self.shell)
         popup.load_from_file('N/A',
                              'ui/coverart_entryview_compact_pop_rb3.ui')
         signals = {
-            'ev_compact_play_track_menu_item' : self.play_track_menu_item_callback,
-            'ev_compact_queue_track_menu_item' : self.queue_track_menu_item_callback,
-            'ev_compact_add_to_playing_menu_item' : self.add_to_playing_menu_item_callback,
-            'ev_compact_new_playlist' : self.add_playlist_menu_item_callback,
-            'ev_compact_show_properties_menu_item' : self.show_properties_menu_item_callback,
-            'ev_compact_similar_track_menu_item' : self.play_similar_track_menu_item_callback,
-            'ev_compact_similar_artist_menu_item' : self.play_similar_artist_menu_item_callback,
-            'ev_compact_similar_genre_menu_item' : self.play_similar_genre_menu_item_callback }
-            
+            'ev_compact_play_track_menu_item': self.play_track_menu_item_callback,
+            'ev_compact_queue_track_menu_item': self.queue_track_menu_item_callback,
+            'ev_compact_add_to_playing_menu_item': self.add_to_playing_menu_item_callback,
+            'ev_compact_new_playlist': self.add_playlist_menu_item_callback,
+            'ev_compact_show_properties_menu_item': self.show_properties_menu_item_callback,
+            'ev_compact_similar_track_menu_item': self.play_similar_track_menu_item_callback,
+            'ev_compact_similar_artist_menu_item': self.play_similar_artist_menu_item_callback,
+            'ev_compact_similar_genre_menu_item': self.play_similar_genre_menu_item_callback}
+
         popup.connect_signals(signals)
         popup.connect('pre-popup', self.pre_popup_menu_callback)
         self.popup = popup
-        
+
     def playlist_menu_item_callback(self, *args):
         print("CoverArtBrowser DEBUG - playlist_menu_item_callback")
 
         self.source.playlist_fillmenu(self.popup, 'ev_compact_playlist_sub_menu_item', 'ev_compact_playlist_section',
-            self.actiongroup, self.add_to_static_playlist_menu_item_callback)
+                                      self.actiongroup, self.add_to_static_playlist_menu_item_callback)
 
     def pre_popup_menu_callback(self, *args):
         '''
         Callback when the popup menu is about to be displayed
         '''
 
-        state,sensitive = self.shell.props.shell_player.get_playing()
+        state, sensitive = self.shell.props.shell_player.get_playing()
         if not state:
             sensitive = False
 
@@ -684,52 +686,53 @@ class CoverArtCompactEntryView(BaseView):
 
         if not self.external_plugins:
             self.external_plugins = \
-                    CreateExternalPluginMenu("ev_compact_entryview", 5, self.popup)
+                CreateExternalPluginMenu("ev_compact_entryview", 5, self.popup)
             self.external_plugins.create_menu('entryview_compact_popup_menu')
-            
+
         self.playlist_menu_item_callback()
-    
+
+
 class CoverArtEntryView(BaseView):
     __hash__ = GObject.__hash__
-    
+
     def __init__(self, shell, source):
         '''
         Initializes the entryview.
         '''
         super(CoverArtEntryView, self).__init__(shell, source)
-    
+
     def display_columns(self):
-        
+
         self.col_map = OrderedDict([
-                        ('track-number', RB.EntryViewColumn.TRACK_NUMBER),
-                        ('title', RB.EntryViewColumn.TITLE),
-                        ('genre', RB.EntryViewColumn.GENRE),
-                        ('artist', RB.EntryViewColumn.ARTIST),
-                        ('album', RB.EntryViewColumn.ALBUM),
-                        ('composer', RB.EntryViewColumn.COMPOSER),
-                        ('date', RB.EntryViewColumn.YEAR),
-                        ('duration', RB.EntryViewColumn.DURATION),
-                        ('bitrate', RB.EntryViewColumn.QUALITY),
-                        ('play-count', RB.EntryViewColumn.PLAY_COUNT),
-                        ('beats-per-minute', RB.EntryViewColumn.BPM),
-                        ('comment', RB.EntryViewColumn.COMMENT),
-                        ('location', RB.EntryViewColumn.LOCATION),
-                        ('rating', RB.EntryViewColumn.RATING),
-                        ('last-played', RB.EntryViewColumn.LAST_PLAYED),
-                        ('first-seen', RB.EntryViewColumn.FIRST_SEEN)
-                        ])
-                        
+            ('track-number', RB.EntryViewColumn.TRACK_NUMBER),
+            ('title', RB.EntryViewColumn.TITLE),
+            ('genre', RB.EntryViewColumn.GENRE),
+            ('artist', RB.EntryViewColumn.ARTIST),
+            ('album', RB.EntryViewColumn.ALBUM),
+            ('composer', RB.EntryViewColumn.COMPOSER),
+            ('date', RB.EntryViewColumn.YEAR),
+            ('duration', RB.EntryViewColumn.DURATION),
+            ('bitrate', RB.EntryViewColumn.QUALITY),
+            ('play-count', RB.EntryViewColumn.PLAY_COUNT),
+            ('beats-per-minute', RB.EntryViewColumn.BPM),
+            ('comment', RB.EntryViewColumn.COMMENT),
+            ('location', RB.EntryViewColumn.LOCATION),
+            ('rating', RB.EntryViewColumn.RATING),
+            ('last-played', RB.EntryViewColumn.LAST_PLAYED),
+            ('first-seen', RB.EntryViewColumn.FIRST_SEEN)
+        ])
+
         for entry in self.col_map:
             visible = True if entry == 'title' else False
             self.append_column(self.col_map[entry], visible)
-        
+
         # connect the visible-columns global setting to update our entryview
         gs = GSetting()
         rhythm_settings = gs.get_setting(gs.Path.RBSOURCE)
         rhythm_settings.connect('changed::visible-columns',
-            self.on_visible_columns_changed)
+                                self.on_visible_columns_changed)
         self.on_visible_columns_changed(rhythm_settings, 'visible-columns')
-        
+
     def on_visible_columns_changed(self, settings, key):
         print("CoverArtBrowser DEBUG - on_visible_columns_changed()")
         # reset current columns
@@ -739,11 +742,11 @@ class CoverArtEntryView(BaseView):
             if entry in settings[key]:
                 col.set_visible(True)
             else:
-                if entry != 'title': 
+                if entry != 'title':
                     col.set_visible(False)
-            
-        print ("CoverArtBrowser DEBUG - end on_visible_columns_changed()")
-        
+
+        print("CoverArtBrowser DEBUG - end on_visible_columns_changed()")
+
     def define_menu(self):
         popup = Menu(self.plugin, self.shell)
         popup.load_from_file('N/A',
@@ -751,29 +754,29 @@ class CoverArtEntryView(BaseView):
         signals = {
             'ev_full_play_track_menu_item': self.play_track_menu_item_callback,
             'ev_full_queue_track_menu_item': self.queue_track_menu_item_callback,
-            'ev_full_add_to_playing_menu_item' : self.add_to_playing_menu_item_callback,
+            'ev_full_add_to_playing_menu_item': self.add_to_playing_menu_item_callback,
             'ev_full_new_playlist': self.add_playlist_menu_item_callback,
             'ev_full_show_properties_menu_item': self.show_properties_menu_item_callback,
             'ev_full_similar_track_menu_item': self.play_similar_track_menu_item_callback,
             'ev_full_similar_artist_menu_item': self.play_similar_artist_menu_item_callback,
-            'ev_full_similar_genre_menu_item': self.play_similar_genre_menu_item_callback }
-            
+            'ev_full_similar_genre_menu_item': self.play_similar_genre_menu_item_callback}
+
         popup.connect_signals(signals)
         popup.connect('pre-popup', self.pre_popup_menu_callback)
         self.popup = popup
-        
+
     def playlist_menu_item_callback(self, *args):
         print("CoverArtBrowser DEBUG - playlist_menu_item_callback")
 
         self.source.playlist_fillmenu(self.popup, 'ev_full_playlist_sub_menu_item', 'ev_full_playlist_section',
-            self.actiongroup, self.add_to_static_playlist_menu_item_callback)
-            
+                                      self.actiongroup, self.add_to_static_playlist_menu_item_callback)
+
     def pre_popup_menu_callback(self, *args):
         '''
         Callback when the popup menu is about to be displayed
         '''
 
-        state,sensitive = self.shell.props.shell_player.get_playing()
+        state, sensitive = self.shell.props.shell_player.get_playing()
         if not state:
             sensitive = False
 
@@ -781,10 +784,11 @@ class CoverArtEntryView(BaseView):
 
         if not self.external_plugins:
             self.external_plugins = \
-                    CreateExternalPluginMenu("ev_full_entryview", 5, self.popup)
+                CreateExternalPluginMenu("ev_full_entryview", 5, self.popup)
             self.external_plugins.create_menu('entryview_full_popup_menu')
-            
+
         self.playlist_menu_item_callback()
+
 
 GObject.type_register(CoverArtEntryView)
 GObject.type_register(CoverArtCompactEntryView)

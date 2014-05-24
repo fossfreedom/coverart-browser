@@ -25,6 +25,7 @@ import coverart_rb3compat as rb3compat
 from coverart_album import Album
 from coverart_browser_prefs import webkit_support
 
+
 class CoverSearchPane(Gtk.Box):
     '''
     This UI represents a pane where different covers can be presented
@@ -32,6 +33,7 @@ class CoverSearchPane(Gtk.Box):
     customize the default search and select covers from the pane and use them
     as the covers (either with a double click or dragging them).
     '''
+
     def __init__(self, plugin, selection_color):
         '''
         Initializes the pane, loading it's html templates and it's ui.
@@ -54,26 +56,26 @@ class CoverSearchPane(Gtk.Box):
         '''
         Loads the templates and stylesheets to be used by the pane.
         '''
-#            input_encoding='utf-8',
+        #            input_encoding='utf-8',
 
         path = rb.find_plugin_file(plugin,
-            'tmpl/albumartsearch-tmpl.html')
+                                   'tmpl/albumartsearch-tmpl.html')
         self.template = Template(filename=path,
-            default_filters=['decode.utf8'],
-            module_directory='/tmp/',
-            encoding_errors='replace')
+                                 default_filters=['decode.utf8'],
+                                 module_directory='/tmp/',
+                                 encoding_errors='replace')
         path = rb.find_plugin_file(plugin,
-            'tmpl/albumartsearchempty-tmpl.html')
+                                   'tmpl/albumartsearchempty-tmpl.html')
         self.empty_template = Template(filename=path,
-            default_filters=['decode.utf8'],
-            module_directory='/tmp/',
-            encoding_errors='replace')
+                                       default_filters=['decode.utf8'],
+                                       module_directory='/tmp/',
+                                       encoding_errors='replace')
         path = rb.find_plugin_file(plugin,
-            'tmpl/artistartsearch-tmpl.html')
+                                   'tmpl/artistartsearch-tmpl.html')
         self.artist_template = Template(filename=path,
-            default_filters=['decode.utf8'],
-            module_directory='/tmp/',
-            encoding_errors='replace')
+                                        default_filters=['decode.utf8'],
+                                        module_directory='/tmp/',
+                                        encoding_errors='replace')
         self.styles = rb.find_plugin_file(plugin, 'tmpl/main.css')
 
     def init_gui(self):
@@ -82,6 +84,7 @@ class CoverSearchPane(Gtk.Box):
         '''
         #---- set up webkit pane -----#
         from gi.repository import WebKit
+
         self.webview = WebKit.WebView()
         settings = self.webview.get_settings()
         settings.set_property('enable-default-context-menu', False)
@@ -102,13 +105,13 @@ class CoverSearchPane(Gtk.Box):
         of the album or artist passed.
         
         '''
-        print ("coverart-search do_search")
+        print("coverart-search do_search")
         if coverobject is self.current_searchobject:
             return
 
         self.current_searchobject = coverobject
         self.callback = callback
-        
+
         if isinstance(coverobject, Album):
             artist = coverobject.artist
             album_name = coverobject.name
@@ -119,9 +122,9 @@ class CoverSearchPane(Gtk.Box):
             if artist.upper() == "UNKNOWN":
                 artist = ""
 
-            if not(album_name == "" and artist == ""):
+            if not (album_name == "" and artist == ""):
                 artist = rb3compat.unicodestr(artist.replace('&', '&amp;'),
-                    'utf-8')
+                                              'utf-8')
                 album_name = rb3compat.unicodestr(album_name.replace('&', '&amp;'), 'utf-8')
                 self.render_album_art_search(artist, album_name)
         else:
@@ -130,9 +133,9 @@ class CoverSearchPane(Gtk.Box):
             if artist_name.upper() == "UNKNOWN":
                 artist_name = ""
 
-            if not(artist_name == ""):
+            if not (artist_name == ""):
                 artist = rb3compat.unicodestr(artist_name.replace('&', '&amp;'),
-                    'utf-8')
+                                              'utf-8')
                 self.render_artist_art_search(artist)
 
 
@@ -141,23 +144,23 @@ class CoverSearchPane(Gtk.Box):
         Renders the template on the webview.
         '''
         temp_file = self.template.render(artist=artist, album=album_name,
-            stylesheet=self.styles, selection_color=self.selection_color)
+                                         stylesheet=self.styles, selection_color=self.selection_color)
 
-        print ("here")
+        print("here")
         self.webview.load_string(temp_file, 'text/html', 'utf-8',
-            self.basepath)
+                                 self.basepath)
 
     def render_artist_art_search(self, artist):
         '''
         Renders the template on the webview.
         '''
         temp_file = self.artist_template.render(artist=artist,
-            stylesheet=self.styles, selection_color=self.selection_color)
+                                                stylesheet=self.styles, selection_color=self.selection_color)
 
-        print ("here")
+        print("here")
         self.webview.load_string(temp_file, 'text/html', 'utf-8',
-            self.basepath)
-            
+                                 self.basepath)
+
     def clear(self):
         '''
         Clears the webview of any specific info/covers.
@@ -166,7 +169,7 @@ class CoverSearchPane(Gtk.Box):
         temp_file = self.empty_template.render(stylesheet=self.styles)
 
         self.webview.load_string(temp_file, 'text/html', 'utf-8',
-            self.basepath)
+                                 self.basepath)
 
     def set_cover(self, webview, arg):
         '''

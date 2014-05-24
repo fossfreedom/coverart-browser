@@ -34,6 +34,7 @@ from os.path import expanduser
 from xml.sax.saxutils import escape
 from collections import namedtuple
 
+
 class FlowShowingPolicy(GObject.Object):
     '''
     Policy that mostly takes care of how and when things should be showed on
@@ -55,6 +56,7 @@ class FlowShowingPolicy(GObject.Object):
         self._album_manager = album_manager
         self._model = album_manager.model
 
+
 class CoverFlowView(AbstractView):
     __gtype_name__ = "CoverFlowView"
 
@@ -69,59 +71,60 @@ class CoverFlowView(AbstractView):
     flow_appearance = GObject.property(type=str, default='coverflow')
     flow_max = GObject.property(type=int, default=100)
     panedposition = PanedCollapsible.Paned.EXPAND
-    
+
     def __init__(self):
         super(CoverFlowView, self).__init__()
-        
+
         self.show_policy = FlowShowingPolicy(self)
         if webkit_support():
             from gi.repository import WebKit
+
             self.view = WebKit.WebView()
         else:
             self.view = None
-            
+
         self._last_album = None
         self._has_initialised = False
         self._filter_changed_inprogress = False
         self._on_first_use = True
-        
+
     def _connect_properties(self):
         gs = GSetting()
         settings = gs.get_setting(gs.Path.PLUGIN)
         settings.bind(gs.PluginKey.FLOW_APPEARANCE, self,
-            'flow_appearance', Gio.SettingsBindFlags.GET)
+                      'flow_appearance', Gio.SettingsBindFlags.GET)
         settings.bind(gs.PluginKey.FLOW_HIDE_CAPTION, self,
-            'flow_hide', Gio.SettingsBindFlags.GET)
+                      'flow_hide', Gio.SettingsBindFlags.GET)
         settings.bind(gs.PluginKey.FLOW_SCALE, self,
-            'flow_scale', Gio.SettingsBindFlags.GET)
+                      'flow_scale', Gio.SettingsBindFlags.GET)
         settings.bind(gs.PluginKey.FLOW_AUTOMATIC, self,
-            'flow_automatic', Gio.SettingsBindFlags.GET)
+                      'flow_automatic', Gio.SettingsBindFlags.GET)
         settings.bind(gs.PluginKey.FLOW_BACKGROUND_COLOUR, self,
-            'flow_background', Gio.SettingsBindFlags.GET)
+                      'flow_background', Gio.SettingsBindFlags.GET)
         settings.bind(gs.PluginKey.FLOW_WIDTH, self,
-            'flow_width', Gio.SettingsBindFlags.GET)
+                      'flow_width', Gio.SettingsBindFlags.GET)
         settings.bind(gs.PluginKey.FLOW_MAX, self,
-            'flow_max', Gio.SettingsBindFlags.GET)
-            
+                      'flow_max', Gio.SettingsBindFlags.GET)
+
     def _connect_signals(self, source):
         self.connect('notify::flow-background',
-            self.filter_changed)
+                     self.filter_changed)
         self.connect('notify::flow-scale',
-            self.filter_changed)
+                     self.filter_changed)
         self.connect('notify::flow-hide',
-            self.filter_changed)
+                     self.filter_changed)
         self.connect('notify::flow-width',
-            self.filter_changed)
+                     self.filter_changed)
         self.connect('notify::flow-appearance',
-            self.filter_changed)
+                     self.filter_changed)
         self.connect('notify::flow-max',
-            self.filter_changed)
+                     self.filter_changed)
 
     def filter_changed(self, *args):
         # we can get several filter_changed calls per second
         # lets simplify the processing & potential flickering when the
         # call to this method has slowed stopped
-        
+
         self._filter_changed_event = True
 
         if self._filter_changed_inprogress:
@@ -136,16 +139,16 @@ class CoverFlowView(AbstractView):
             else:
                 self._filter_changed_event = False
                 return True
-                
+
         Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250, filter_events, None)
-        
-    
+
+
     def _filter_changed(self, *args):
         path = rb.find_plugin_file(self.plugin, 'coverflow/index.html')
         f = open(path)
         string = f.read()
         f.close()
-    
+
         if self.flow_background == 'W':
             background_colour = 'white'
             if len(self.album_manager.model.store) <= self.flow_max:
@@ -161,13 +164,13 @@ class CoverFlowView(AbstractView):
 
         string = string.replace('#BACKGROUND_COLOUR', background_colour)
         string = string.replace('#FOREGROUND_COLOUR', foreground_colour)
-        string = string.replace('#FACTOR', str(float(self.flow_scale)/100))
+        string = string.replace('#FACTOR', str(float(self.flow_scale) / 100))
 
-        if  self.flow_hide:
+        if self.flow_hide:
             caption = ""
         else:
             caption = '<div class="globalCaption"></div>'
-            
+
         string = string.replace('#GLOBAL_CAPTION', caption)
 
         addon = background_colour
@@ -187,46 +190,46 @@ class CoverFlowView(AbstractView):
             identifier = "'start'"
         else:
             identifier = str(identifier)
-            
+
         string = string.replace('#START', identifier)
-        
+
         #TRANSLATORS: for example 'Number of covers limited to 150'
         display_message = _("Number of covers limited to %d") % self.flow_max
         string = string.replace('#MAXCOVERS',
-          '<p>' + display_message + '</p>')
+                                '<p>' + display_message + '</p>')
 
         items = self.flow.initialise(self.album_manager.model, self.flow_max)
 
         string = string.replace('#ITEMS', items)
-        
-        base =  os.path.dirname(path) + "/"
+
+        base = os.path.dirname(path) + "/"
         Gdk.threads_enter()
-        print (string)
+        print(string)
         self.view.load_string(string, "text/html", "UTF-8", "file://" + base)
         Gdk.threads_leave()
 
         if self._on_first_use:
             self._on_first_use = False
             Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
-                    self.source.show_hide_pane, (self.last_album, PanedCollapsible.Paned.EXPAND))
+                                    self.source.show_hide_pane, (self.last_album, PanedCollapsible.Paned.EXPAND))
 
     def get_view_icon_name(self):
         return "flowview.png"
-        
+
     def initialise(self, source):
         if self._has_initialised:
             return
-            
+
         self._has_initialised = True
 
-        super(CoverFlowView,self).initialise(source)
-        
+        super(CoverFlowView, self).initialise(source)
+
         self.album_manager = source.album_manager
         self.ext_menu_pos = 6
-        
+
         self._connect_properties()
         self._connect_signals(source)
-        
+
         # lets check that all covers have finished loading before
         # initialising the flowcontrol and other signals
         if not self.album_manager.cover_man.has_finished_loading:
@@ -243,7 +246,7 @@ class CoverFlowView(AbstractView):
         self.album_manager.model.connect('album-updated', self.filter_changed)
         self.album_manager.model.connect('visual-updated', self.filter_changed)
         self.album_manager.model.connect('filter-changed', self.filter_changed)
-        
+
         self.filter_changed()
 
     @property
@@ -270,12 +273,12 @@ class CoverFlowView(AbstractView):
         # to expand the entry view
         if self.flow_automatic:
             self.source.click_count += 1
-            
+
         self.last_album = album
 
         if self.source.click_count == 1:
             Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
-                self.source.show_hide_pane, album)
+                                    self.source.show_hide_pane, album)
 
     def item_activated_callback(self, album):
         '''
@@ -291,8 +294,8 @@ class CoverFlowView(AbstractView):
         Callback called when something is dropped onto the flow view - hopefully a webpath
         to a picture
         '''
-        print ("item_drop_callback %s" % webpath)
-        print ("dropped on album %s" % album)
+        print("item_drop_callback %s" % webpath)
+        print("dropped on album %s" % album)
         self.album_manager.cover_man.update_cover(album, uri=webpath)
 
     def get_selected_objects(self):
@@ -309,22 +312,22 @@ class CoverFlowView(AbstractView):
     def switch_to_view(self, source, album):
         self.initialise(source)
         self.show_policy.initialise(source.album_manager)
-        
+
         self.last_album = album
         self.scroll_to_album(self.last_album)
-        
+
     def grab_focus(self):
         self.view.grab_focus()
-        
+
     def scroll_to_album(self, album):
         self.flow.scroll_to_album(album, self.view)
 
+
 class FlowControl(object):
-    
     def __init__(self, callback_view):
         self.callback_view = callback_view
         self.album_identifier = {}
-        
+
     def get_identifier(self, album):
         index = -1
         for row in self.album_identifier:
@@ -355,11 +358,11 @@ class FlowControl(object):
         obj['identifier'] = str(index)
 
         webview.execute_script("update_album('%s')" % json.dumps(obj))
-                 
+
     def receive_message_signal(self, webview, param):
         # this will be key to passing stuff back and forth - need
         # to develop some-sort of message protocol to distinguish "events"
-        
+
         title = webview.get_title()
         if (not title) or (title == '"clear"'):
             return
@@ -368,7 +371,7 @@ class FlowControl(object):
         try:
             signal = args["signal"]
         except:
-            print ("unhandled: %s " % title)
+            print("unhandled: %s " % title)
             return
 
         if signal == 'clickactive':
@@ -380,9 +383,9 @@ class FlowControl(object):
             self.callback_view.item_activated_callback(self.album_identifier[int(args['param'][0])])
         elif signal == 'dropactive':
             self.callback_view.item_drop_callback(self.album_identifier[int(args['param'][0])],
-                args['param'][1])
+                                                  args['param'][1])
         else:
-            print ("unhandled signal: %s" % signal)
+            print("unhandled signal: %s" % signal)
 
     def scroll_to_album(self, album, webview):
         for row in self.album_identifier:
@@ -396,14 +399,14 @@ class FlowControl(object):
         index = 0
         items = ""
         self.album_identifier = {}
-        
+
         def html_elements(fullfilename, title, caption, identifier):
 
-            return '<div class="item"><img class="content" src="' +\
-                escape(fullfilename) + '" title="' +\
-                escape(title) + '" identifier="' +\
-                identifier + '"/> <div class="caption">' +\
-                escape(caption) + '</div> </div>'
+            return '<div class="item"><img class="content" src="' + \
+                   escape(fullfilename) + '" title="' + \
+                   escape(title) + '" identifier="' + \
+                   identifier + '"/> <div class="caption">' + \
+                   escape(caption) + '</div> </div>'
 
 
         for row in model.store:
@@ -415,7 +418,7 @@ class FlowControl(object):
 
             self.album_identifier[index] = row[album_col]
             items += html_elements(
-                fullfilename = cover,
+                fullfilename=cover,
                 caption=row[album_col].name,
                 title=row[album_col].artist,
                 identifier=str(index))

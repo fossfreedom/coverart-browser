@@ -29,10 +29,12 @@ from coverart_rb3compat import ApplicationShell
 from coverart_rb3compat import Menu
 from coverart_utils import CaseInsensitiveDict
 
+
 class ExternalPlugin(GObject.Object):
     '''
     class for all supported ExternalPlugins
     '''
+
     def __init__(self, **kargs):
         super(ExternalPlugin, self).__init__(**kargs)
 
@@ -50,7 +52,7 @@ class ExternalPlugin(GObject.Object):
         :param key: `str` name of attribute
         :param val: `str` value of attribute
         '''
-        
+
         if key == 'is_album_menu':
             if val == 'yes':
                 self.attributes[key] = True
@@ -67,16 +69,16 @@ class ExternalPlugin(GObject.Object):
         loaded_plugins = peas.get_loaded_plugins()
 
         if self.attributes['plugin_name'] in CaseInsensitiveDict(loaded_plugins):
-            print ("found %s" % self.attributes['plugin_name'])
+            print("found %s" % self.attributes['plugin_name'])
             return True
 
-        print ("search for %s" % self.attributes['plugin_name'])
-        print (loaded_plugins)
-        
+        print("search for %s" % self.attributes['plugin_name'])
+        print(loaded_plugins)
+
         return False
 
     def create_menu_item(self, menubar, section_name, at_position,
-        save_actiongroup, save_menu, for_album = False):
+                         save_actiongroup, save_menu, for_album=False):
         '''
         method to create the menu item appropriate to the plugin.
         A plugin can have many menu items - all menuitems are enclosed
@@ -92,34 +94,35 @@ class ExternalPlugin(GObject.Object):
         '''
         if for_album and not self.attributes['is_album_menu']:
             return False
-            
+
         if not self.is_activated():
             return False
 
         action = ApplicationShell(save_menu.shell).lookup_action(self.attributes['action_group_name'],
-            self.attributes['action_name'], self.attributes['action_type'])
+                                                                 self.attributes['action_name'],
+                                                                 self.attributes['action_type'])
 
         if action:
-            self.attributes['action']=action
-            
+            self.attributes['action'] = action
+
             if self.attributes['new_menu_name'] != '':
                 self.attributes['label'] = self.attributes['new_menu_name']
             else:
-                self.attributes['label']=action.label
-            #self.attributes['sensitive']=action.get_sensitive()
+                self.attributes['label'] = action.label
+                #self.attributes['sensitive']=action.get_sensitive()
         else:
-            print ("action not found")
-            print (self.attributes)
+            print("action not found")
+            print(self.attributes)
             return False
 
         action = save_actiongroup.add_action(func=self.menuitem_callback,
-            action_name=self.attributes['action_name'], album=for_album,
-            shell=save_menu.shell, label=self.attributes['label'])
-        
+                                             action_name=self.attributes['action_name'], album=for_album,
+                                             shell=save_menu.shell, label=self.attributes['label'])
+
         new_menu_item = save_menu.insert_menu_item(menubar, section_name,
-            at_position, action)
+                                                   at_position, action)
         return new_menu_item
-        
+
     def do_deactivate(self):
         pass
 
@@ -149,8 +152,9 @@ class ExternalPlugin(GObject.Object):
         shell = args['shell']
         if for_album:
             self.set_entry_view_selected_entries(shell)
-            
+
         self.attributes['action'].activate()
+
 
 class CreateExternalPluginMenu(GObject.Object):
     '''
@@ -160,22 +164,23 @@ class CreateExternalPluginMenu(GObject.Object):
     :param at_position: `int` position within the GtkMenu to create menu - ignored for RB2.99
     :param popup: `Menu` whole popupmenu including sub-menus
     '''
+
     def __init__(self, section_name, at_position, popup, **kargs):
         super(CreateExternalPluginMenu, self).__init__(**kargs)
 
         self.menu = popup
         self.section_name = section_name
         self.at_position = at_position
-        
+
         self._actiongroup = ActionGroup(popup.shell, section_name + '_externalplugins')
-        
+
         # all supported plugins will be defined in the following array by parsing
         # the plugins XML file for the definition.  Supported plugins are split between
         # rb2.99 and later and rb2.98 and earlier due to the likelihood that earlier
         # plugins may never be updated by their authors
-        
+
         self.supported_plugins = []
-        
+
         extplugins = rb.find_plugin_file(popup.plugin, 'ui/coverart_external_plugins.xml')
         root = ET.parse(open(extplugins)).getroot()
 
@@ -188,7 +193,7 @@ class CreateExternalPluginMenu(GObject.Object):
             pluginname = elem.attrib['name']
 
             basemenu = base + "[@name='" + pluginname + "']/menu"
-            
+
             for menuelem in root.xpath(basemenu):
                 ext = ExternalPlugin()
                 ext.appendattribute('plugin_name', pluginname)
@@ -206,8 +211,8 @@ class CreateExternalPluginMenu(GObject.Object):
                     ext.appendattribute(key, val)
 
                 self.supported_plugins.append(ext)
-        
-    def create_menu(self, menu_name, for_album = False):
+
+    def create_menu(self, menu_name, for_album=False):
         '''
         method to create the menu items for all supported plugins
 
@@ -217,18 +222,18 @@ class CreateExternalPluginMenu(GObject.Object):
           EntryView
         '''
         self.menu_name = menu_name
-        
-        self._actiongroup.remove_actions()        
+
+        self._actiongroup.remove_actions()
         self.menu.remove_menu_items(self.menu_name, self.section_name)
-        
+
         items_added = False
 
         for plugin in self.supported_plugins:
             new_menu_item = plugin.create_menu_item(self.menu_name, self.section_name,
-                self.at_position, self._actiongroup, self.menu, for_album)
+                                                    self.at_position, self._actiongroup, self.menu, for_album)
 
             if (not items_added) and new_menu_item:
-                items_added = True 
+                items_added = True
 
         if items_added:
             self.menu.insert_separator(self.menu_name, self.at_position)

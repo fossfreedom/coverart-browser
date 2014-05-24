@@ -61,7 +61,7 @@ class CoverArtBrowserSource(RB.Source):
     rating_threshold = GObject.property(type=float, default=0)
     artist_paned_pos = GObject.property(type=str)
     min_paned_pos = 40
-    
+
     # unique instance of the source
     instance = None
 
@@ -83,7 +83,7 @@ class CoverArtBrowserSource(RB.Source):
         self.favourites = False
         self.follow_song = False
         self.task_progress = None
-        
+
     def _connect_properties(self):
         '''
         Connects the source properties to the saved preferences.
@@ -107,14 +107,14 @@ class CoverArtBrowserSource(RB.Source):
         show the selected album info.
         Also, it makes sure to show the progress on the album loading
         '''
-        
+
         try:
             # this will only work for RB3.0 and later
             if not self.task_progress:
                 self.task_progress = RB.TaskProgressSimple.new()
         except:
             pass
-            
+
         try:
             progress = self.album_manager.progress
             progress_text = _('Loading...') if progress < 1 else ''
@@ -123,9 +123,9 @@ class CoverArtBrowserSource(RB.Source):
                 if progress < 1:
                     if self.props.shell.props.task_list.get_model().n_items() == 0:
                         self.props.shell.props.task_list.add_task(self.task_progress)
-            
+
                     self.task_progress.props.task_progress = progress
-                    self.task_progress.props.task_label=progress_text
+                    self.task_progress.props.task_label = progress_text
                 else:
                     self.task_progress.props.task_outcome = RB.TaskOutcome.COMPLETE
             except:
@@ -173,7 +173,7 @@ class CoverArtBrowserSource(RB.Source):
         self.actiongroup = ActionGroup(self.shell, 'coverplaylist_submenu')
         self._browser_preferences = None
         self._search_preferences = None
-        
+
         # indicate that the source was activated before
         self.hasActivated = True
 
@@ -198,7 +198,7 @@ class CoverArtBrowserSource(RB.Source):
         ui = Gtk.Builder()
         ui.set_translation_domain(cl.Locale.LOCALE_DOMAIN)
         ui.add_from_file(rb.find_plugin_file(self.plugin,
-            'ui/coverart_browser.ui'))
+                                             'ui/coverart_browser.ui'))
         ui.connect_signals(self)
 
         # load the page and put it in the source
@@ -208,9 +208,9 @@ class CoverArtBrowserSource(RB.Source):
         # get widgets for main icon-view
         self.status_label = ui.get_object('status_label')
         window = ui.get_object('scrolled_window')
-        
+
         self.viewmgr = ViewManager(self, window)
-                
+
         # get widgets for the artist paned
         self.artist_paned = ui.get_object('vertical_paned')
         Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 50, self._change_artist_paned_pos, self.viewmgr.view_name)
@@ -221,22 +221,22 @@ class CoverArtBrowserSource(RB.Source):
         # define menu's
         self.popup_menu = Menu(self.plugin, self.shell)
         self.popup_menu.load_from_file('ui/coverart_browser_pop_rb2.ui',
-            'ui/coverart_browser_pop_rb3.ui')
+                                       'ui/coverart_browser_pop_rb3.ui')
         self._external_plugins = None
-        
+
         signals = \
-            { 'play_album_menu_item' : self.play_album_menu_item_callback,
-              'queue_album_menu_item' : self.queue_album_menu_item_callback,
-              'add_to_playing_menu_item' : self.add_to_playing_menu_item_callback,
-              'new_playlist' : self.add_playlist_menu_item_callback,
-              'cover_search_menu_item' : self.cover_search_menu_item_callback,
-              'export_embed_menu_item' : self.export_embed_menu_item_callback,
-              'show_properties_menu_item' : self.show_properties_menu_item_callback,
-              'play_similar_artist_menu_item' : self.play_similar_artist_menu_item_callback}
-              
+            {'play_album_menu_item': self.play_album_menu_item_callback,
+             'queue_album_menu_item': self.queue_album_menu_item_callback,
+             'add_to_playing_menu_item': self.add_to_playing_menu_item_callback,
+             'new_playlist': self.add_playlist_menu_item_callback,
+             'cover_search_menu_item': self.cover_search_menu_item_callback,
+             'export_embed_menu_item': self.export_embed_menu_item_callback,
+             'show_properties_menu_item': self.show_properties_menu_item_callback,
+             'play_similar_artist_menu_item': self.play_similar_artist_menu_item_callback}
+
         self.popup_menu.connect_signals(signals)
         self.popup_menu.connect('pre-popup', self.pre_popup_menu_callback)
-        
+
         self.status_label = ui.get_object('status_label')
         self.request_status_box = ui.get_object('request_status_box')
         self.request_spinner = ui.get_object('request_spinner')
@@ -248,24 +248,24 @@ class CoverArtBrowserSource(RB.Source):
         #setup Track Pane
         setting = self.gs.get_setting(self.gs.Path.PLUGIN)
         setting.bind(self.gs.PluginKey.PANED_POSITION,
-            self.paned, 'collapsible-y', Gio.SettingsBindFlags.DEFAULT)
+                     self.paned, 'collapsible-y', Gio.SettingsBindFlags.DEFAULT)
         setting.bind(self.gs.PluginKey.DISPLAY_BOTTOM,
-            self.paned.get_child2(), 'visible', Gio.SettingsBindFlags.DEFAULT)
+                     self.paned.get_child2(), 'visible', Gio.SettingsBindFlags.DEFAULT)
         self.entryviewpane = EntryViewPane(self.shell,
                                            self.plugin,
                                            self,
                                            self.entry_view_grid,
                                            self.viewmgr)
-        
+
         #---- set up info pane -----#
         info_stack = ui.get_object('info_stack')
         info_button_box = ui.get_object('info_button_box')
         artist_info_paned = ui.get_object('vertical_info_paned')
-        
+
         self.artist_info = ArtistInfoPane(info_button_box,
-            info_stack,
-            artist_info_paned,
-            self)
+                                          info_stack,
+                                          artist_info_paned,
+                                          self)
 
         # quick search
         self.quick_search = ui.get_object('quick_search_entry')
@@ -278,7 +278,7 @@ class CoverArtBrowserSource(RB.Source):
         by the user. It also creates and configure some custom widgets.
         '''
         print("CoverArtBrowser DEBUG - _setup_source")
-        
+
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
 
@@ -287,7 +287,7 @@ class CoverArtBrowserSource(RB.Source):
 
         # create an album manager
         self.album_manager = AlbumManager(self.plugin, self.viewmgr.current_view)
-            
+
         self.viewmgr.current_view.initialise(self)
         # setup cover search pane
         self.entryviewpane.setup_source()
@@ -306,24 +306,24 @@ class CoverArtBrowserSource(RB.Source):
         self.quick_search_controller.connect_quick_search(self.quick_search)
 
         # set sensitivity of export menu item for iconview
-        self.popup_menu.set_sensitive('export_embed_menu_item', 
-            CoverArtExport(self.plugin,
-                self.shell, self.album_manager).is_search_plugin_enabled())
-        
+        self.popup_menu.set_sensitive('export_embed_menu_item',
+                                      CoverArtExport(self.plugin,
+                                                     self.shell, self.album_manager).is_search_plugin_enabled())
+
         # setup the statusbar component
         self.statusbar = Statusbar(self)
 
         # initialise the toolbar manager
         self.toolbar_manager = ToolbarManager(self.plugin, self.page,
-            self.viewmgr)
+                                              self.viewmgr)
         self.viewmgr.current_view.emit('update-toolbar')
 
         cl.switch_locale(cl.Locale.RB)
         # setup the artist paned
         artist_pview = None
         for view in self.shell.props.library_source.get_property_views():
-            print (view.props.title)
-            print (_("Artist"))
+            print(view.props.title)
+            print(_("Artist"))
             if view.props.title == _("Artist"):
                 artist_pview = view
                 break
@@ -333,11 +333,11 @@ class CoverArtBrowserSource(RB.Source):
         self.artist_treeview.set_model(artist_pview.get_model())
         setting = self.gs.get_setting(self.gs.Path.PLUGIN)
         setting.bind(self.gs.PluginKey.ARTIST_PANED_POSITION,
-            self, 'artist-paned-pos', Gio.SettingsBindFlags.DEFAULT)
+                     self, 'artist-paned-pos', Gio.SettingsBindFlags.DEFAULT)
 
-        self.artist_paned.connect('button-release-event', 
-            self.artist_paned_button_release_callback)
-            
+        self.artist_paned.connect('button-release-event',
+                                  self.artist_paned_button_release_callback)
+
         # intercept JumpToPlaying Song action so that we can scroll to the playing album
         appshell = rb3compat.ApplicationShell(self.shell)
         action = appshell.lookup_action("", "jump-to-playing", "win")
@@ -347,9 +347,9 @@ class CoverArtBrowserSource(RB.Source):
         # should be automatically selected
 
         self.shell.props.shell_player.connect('playing-song-changed', self.playing_song_callback)
-        
+
         self.echonest_similar_playlist = None
-            
+
         print("CoverArtBrowser DEBUG - end _setup_source")
 
     def playing_song_callback(self, *args):
@@ -363,7 +363,7 @@ class CoverArtBrowserSource(RB.Source):
         Callback when the popup menu is about to be displayed
         '''
 
-        state,sensitive = self.shell.props.shell_player.get_playing()
+        state, sensitive = self.shell.props.shell_player.get_playing()
         if not state:
             sensitive = False
 
@@ -373,12 +373,12 @@ class CoverArtBrowserSource(RB.Source):
         if not self._external_plugins:
             # initialise external plugin menu support
             self._external_plugins = \
-            CreateExternalPluginMenu("ca_covers_view",
-                8, self.popup_menu)
+                CreateExternalPluginMenu("ca_covers_view",
+                                         8, self.popup_menu)
             self._external_plugins.create_menu('popup_menu', True)
 
         self.playlist_menu_item_callback()
-        
+
     def jump_to_playing(self, *args):
         '''
         Callback when the JumpToPlaying action is invoked
@@ -389,14 +389,14 @@ class CoverArtBrowserSource(RB.Source):
             # if the source page that was played from is not the plugin then
             # nothing to do
             return
-            
+
         album = None
-        
+
         entry = self.shell.props.shell_player.get_playing_entry()
-        
+
         if entry:
             album = self.album_manager.model.get_from_dbentry(entry)
-        
+
         self.viewmgr.current_view.scroll_to_album(album)
 
     def artist_paned_button_release_callback(self, *args):
@@ -404,45 +404,45 @@ class CoverArtBrowserSource(RB.Source):
         Callback when the artist paned handle is released from its mouse click.
         '''
         child_width = self._get_child_width()
-        
+
         paned_positions = eval(self.artist_paned_pos)
-        
+
         found = None
         for viewpos in paned_positions:
             if self.viewmgr.view_name in viewpos:
                 found = viewpos
                 break
-                
+
         if not found:
             return
-            
+
         paned_positions.remove(found)
         if child_width <= self.min_paned_pos:
             child_width = 0
             self.artist_paned.set_position(child_width)
-            
+
         paned_positions.append(self.viewmgr.view_name + ":" + str(child_width))
-        
+
         self.artist_paned_pos = repr(paned_positions)
-        
+
     def on_view_changed(self, widget, view_name):
         self._change_artist_paned_pos(view_name)
-        
+
     def _change_artist_paned_pos(self, view_name):
         paned_positions = eval(self.artist_paned_pos)
-        print (paned_positions)
+        print(paned_positions)
         found = None
         for viewpos in paned_positions:
             if view_name in viewpos:
                 found = viewpos
                 break
-        print (found)
+        print(found)
         if not found:
             return
-            
+
         child_width = int(found.split(":")[1])
-        print (child_width)
-        
+        print(child_width)
+
         # odd case - if the pane is not visible but the position is zero
         # then the paned position on visible=true is some large arbitary value
         # hence - set it to be 1 px larger than the real value, then set it back
@@ -450,11 +450,11 @@ class CoverArtBrowserSource(RB.Source):
         self.artist_paned.set_position(child_width + 1)
         self.artist_paned.set_visible(True)
         self.artist_paned.set_position(child_width)
-        
+
     def _get_child_width(self):
         child = self.artist_paned.get_child1()
         return child.get_allocated_width()
-        
+
     def on_artist_treeview_selection_changed(self, view):
         model, artist_iter = view.get_selected()
         if artist_iter:
@@ -469,7 +469,7 @@ class CoverArtBrowserSource(RB.Source):
                 self.album_manager.model.replace_filter('quick_artist', artist)
 
             cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
-            
+
     def _apply_settings(self):
         '''
         Applies all the settings related to the source and connects those that
@@ -480,8 +480,8 @@ class CoverArtBrowserSource(RB.Source):
 
         # connect some signals to the loader to keep the source informed
         self.album_mod_id = self.album_manager.model.connect('album-updated',
-            self.on_album_updated)
-        
+                                                             self.on_album_updated)
+
         self.notify_prog_id = self.album_manager.connect(
             'notify::progress', lambda *args: self.notify_status_changed())
 
@@ -495,8 +495,8 @@ class CoverArtBrowserSource(RB.Source):
         print("CoverArtBrowser DEBUG - load_finished_callback")
 
         #if not self.request_status_box.get_visible():
-            # it should only be enabled if no cover request is going on
-            #self.source_menu_search_all_item.set_sensitive(True)
+        # it should only be enabled if no cover request is going on
+        #self.source_menu_search_all_item.set_sensitive(True)
 
         # enable sorting on the entryview
         self.entry_view.set_columns_clickable(True)
@@ -529,19 +529,20 @@ class CoverArtBrowserSource(RB.Source):
         Callback called when the play similar artist option is selected from
         the cover view popup. It plays similar artists music.
         '''
+
     def play_similar_artist_menu_item_callback(self, *args):
         if not self.echonest_similar_playlist:
             self.echonest_similar_playlist = \
-                EchoNestPlaylist(   self.shell,
-                                    self.shell.props.queue_source)
-                                    
+                EchoNestPlaylist(self.shell,
+                                 self.shell.props.queue_source)
+
         selected_albums = self.viewmgr.current_view.get_selected_objects()
         album = selected_albums[0]
         tracks = album.get_tracks()
-        
+
         entry = tracks[0].entry
         self.echonest_similar_playlist.start(entry, reinitialise=True)
-        
+
     def show_properties_menu_item_callback(self, *args):
         '''
         Callback called when the show album properties option is selected from
@@ -594,7 +595,7 @@ class CoverArtBrowserSource(RB.Source):
         selected_albums = self.viewmgr.current_view.get_selected_objects()
         threshold = self.rating_threshold if favourites else 0
 
-        total = 0        
+        total = 0
         for album in selected_albums:
             # Retrieve and sort the entries of the album
             tracks = album.get_tracks(threshold)
@@ -605,10 +606,11 @@ class CoverArtBrowserSource(RB.Source):
 
         if total == 0 and threshold:
             dialog = Gtk.MessageDialog(None,
-                Gtk.DialogFlags.MODAL,
-                Gtk.MessageType.INFO,
-                Gtk.ButtonsType.OK,
-                _("No tracks have been added because no tracks meet the favourite rating threshold"))
+                                       Gtk.DialogFlags.MODAL,
+                                       Gtk.MessageType.INFO,
+                                       Gtk.ButtonsType.OK,
+                                       _(
+                                           "No tracks have been added because no tracks meet the favourite rating threshold"))
 
             dialog.run()
             dialog.destroy()
@@ -652,7 +654,7 @@ class CoverArtBrowserSource(RB.Source):
                                self.favourites)
 
     def playlist_fillmenu(self, popup_menu, menubar, section_name,
-        actiongroup, func, favourite=False):
+                          actiongroup, func, favourite=False):
         print("CoverArtBrowser DEBUG - playlist_fillmenu")
 
         playlist_manager = self.shell.props.playlist_manager
@@ -665,32 +667,32 @@ class CoverArtBrowserSource(RB.Source):
         if playlists_entries:
             for playlist in playlists_entries:
                 if playlist.props.is_local and \
-                    isinstance(playlist, RB.StaticPlaylistSource):
+                        isinstance(playlist, RB.StaticPlaylistSource):
+                    args = (playlist, favourite)
 
-                    args=(playlist, favourite)
-                    
                     # take the name of the playlist, strip out non-english characters and reduce the string
                     # to just a-to-z characters i.e. this will make the action_name valid in RB3
-                    
+
                     ascii_name = unicodedata.normalize('NFKD', \
-                        rb3compat.unicodestr(playlist.props.name, 'utf-8')).encode('ascii','ignore')
+                                                       rb3compat.unicodestr(playlist.props.name, 'utf-8')).encode(
+                        'ascii', 'ignore')
                     ascii_name = ascii_name.decode(encoding='UTF-8')
                     ascii_name = re.sub(r'[^a-zA-Z]', '', ascii_name)
                     action = actiongroup.add_action(func=func,
-                        action_name=ascii_name,
-                        playlist=playlist,favourite=favourite,
-                        label=playlist.props.name)
-                        
-                    popup_menu.add_menu_item( menubar, section_name,
-                        action )
+                                                    action_name=ascii_name,
+                                                    playlist=playlist, favourite=favourite,
+                                                    label=playlist.props.name)
+
+                    popup_menu.add_menu_item(menubar, section_name,
+                                             action)
 
     def add_to_static_playlist_menu_item_callback(self, action, param, args):
         print('''CoverArtBrowser DEBUG -
             add_to_static_playlist_menu_item_callback''')
-            
-        playlist=args['playlist']
+
+        playlist = args['playlist']
         favourite = args['favourite']
-        
+
         self.queue_selected_album(playlist, favourite)
 
     def add_playlist_menu_item_callback(self, *args):
@@ -710,27 +712,27 @@ class CoverArtBrowserSource(RB.Source):
         selected_albums = []
 
         gs = GSetting()
-        settings = gs.get_setting(gs.Path.PLUGIN)        
+        settings = gs.get_setting(gs.Path.PLUGIN)
         to_queue = settings[gs.PluginKey.RANDOM]
 
         if num_albums <= to_queue:
             dialog = Gtk.MessageDialog(None,
-                    Gtk.DialogFlags.MODAL,
-                    Gtk.MessageType.INFO,
-                    Gtk.ButtonsType.OK,
-                    _("The number of albums to randomly play is less than that displayed."))
+                                       Gtk.DialogFlags.MODAL,
+                                       Gtk.MessageType.INFO,
+                                       Gtk.ButtonsType.OK,
+                                       _("The number of albums to randomly play is less than that displayed."))
 
             dialog.run()
             dialog.destroy()
             return
-            
+
         album_col = self.album_manager.model.columns['album']
 
         chosen = {}
 
         # now loop through finding unique random albums
         # i.e. ensure we dont queue the same album twice
-        
+
         for loop in range(0, to_queue):
             while True:
                 pos = random.randint(0, num_albums - 1)
@@ -752,14 +754,15 @@ class CoverArtBrowserSource(RB.Source):
 
         if total == 0 and threshold:
             dialog = Gtk.MessageDialog(None,
-                Gtk.DialogFlags.MODAL,
-                Gtk.MessageType.INFO,
-                Gtk.ButtonsType.OK,
-                _("No tracks have been added because no tracks meet the favourite rating threshold"))
+                                       Gtk.DialogFlags.MODAL,
+                                       Gtk.MessageType.INFO,
+                                       Gtk.ButtonsType.OK,
+                                       _(
+                                           "No tracks have been added because no tracks meet the favourite rating threshold"))
 
             dialog.run()
             dialog.destroy()
-            
+
         self.props.query_model = query_model
 
         # Start the music
@@ -781,7 +784,7 @@ class CoverArtBrowserSource(RB.Source):
         self.request_status_box.show_all()
 
         self.album_manager.cover_man.search_covers(selected_albums,
-            self.update_request_status_bar)
+                                                   self.update_request_status_bar)
 
         print("CoverArtBrowser DEBUG - end cover_search_menu_item_callback()")
 
@@ -795,7 +798,7 @@ class CoverArtBrowserSource(RB.Source):
         selected_albums = self.viewmgr.current_view.get_selected_objects()
 
         CoverArtExport(self.plugin,
-            self.shell, self.album_manager).embed_albums(selected_albums)
+                       self.shell, self.album_manager).embed_albums(selected_albums)
 
         print("CoverArtBrowser DEBUG - export_embed_menu_item_callback()")
 
@@ -837,15 +840,15 @@ class CoverArtBrowserSource(RB.Source):
         then if necessary scroll the view to the last selected album
         params is "album" or a tuple of "album" and "force_expand" boolean
         '''
-        
+
         if isinstance(params, tuple):
             album, force = params
         else:
             album = params
             force = PanedCollapsible.Paned.DEFAULT
-        
+
         if (album and self.click_count == 1 \
-            and self.last_selected_album is album) or force != PanedCollapsible.Paned.DEFAULT:
+                    and self.last_selected_album is album) or force != PanedCollapsible.Paned.DEFAULT:
             # check if it's a second or third click on the album and expand
             # or collapse the entry view accordingly
             self.paned.expand(force)
@@ -866,7 +869,7 @@ class CoverArtBrowserSource(RB.Source):
         self.statusbar.emit('display-status', self.viewmgr.current_view)
 
     def propertiesbutton_callback(self, choice):
-        
+
         if choice == 'download':
             self.request_status_box.show_all()
             self._cover_search_manager = self.viewmgr.current_view.get_default_manager()
@@ -884,12 +887,13 @@ class CoverArtBrowserSource(RB.Source):
         elif choice == 'browser prefs':
             if not self._browser_preferences:
                 self._browser_preferences = Preferences()
-                
+
             self._browser_preferences.display_preferences_dialog(self.plugin)
         elif choice == 'search prefs':
             try:
-                if not self._search_preferences:                
+                if not self._search_preferences:
                     from gi.repository import Peas
+
                     peas = Peas.Engine.get_default()
                     plugin_info = peas.get_plugin_info('coverart_search_providers')
                     module_name = plugin_info.get_module_name()
@@ -901,15 +905,16 @@ class CoverArtBrowserSource(RB.Source):
                 self._search_preferences.display_preferences_dialog(self._search_preferences)
             except:
                 dialog = Gtk.MessageDialog(None,
-                    Gtk.DialogFlags.MODAL,
-                    Gtk.MessageType.INFO,
-                    Gtk.ButtonsType.OK,
-                    _("Please install and activate the latest version of the Coverart Search Providers plugin"))
+                                           Gtk.DialogFlags.MODAL,
+                                           Gtk.MessageType.INFO,
+                                           Gtk.ButtonsType.OK,
+                                           _(
+                                               "Please install and activate the latest version of the Coverart Search Providers plugin"))
 
                 dialog.run()
                 dialog.destroy()
         else:
-            assert 1==2, ("unknown choice %s", choice)
+            assert 1 == 2, ("unknown choice %s", choice)
 
     @classmethod
     def get_instance(cls, **kwargs):
@@ -921,12 +926,13 @@ class CoverArtBrowserSource(RB.Source):
 
         return cls.instance
 
+
 class Statusbar(GObject.Object):
     # signals
     __gsignals__ = {
         'display-status': (GObject.SIGNAL_RUN_LAST, None, (object,))
     }
-    
+
     custom_statusbar_enabled = GObject.property(type=bool, default=False)
 
     def __init__(self, source):
@@ -946,11 +952,11 @@ class Statusbar(GObject.Object):
         settings = gs.get_setting(gs.Path.PLUGIN)
 
         settings.bind(gs.PluginKey.CUSTOM_STATUSBAR, self,
-            'custom_statusbar_enabled', Gio.SettingsBindFlags.GET)
+                      'custom_statusbar_enabled', Gio.SettingsBindFlags.GET)
 
     def _connect_signals(self, source):
         self.connect('notify::custom-statusbar-enabled',
-            self._custom_statusbar_enabled_changed)
+                     self._custom_statusbar_enabled_changed)
         self.connect('display-status', self._update)
 
     def _custom_statusbar_enabled_changed(self, *args):
@@ -980,30 +986,31 @@ class Statusbar(GObject.Object):
             # 'interesting stuff' about the album
             if len(albums) == 1:
                 #. TRANSLATORS - for example "abba's greatest hits by ABBA"
-                self.status = rb3compat.unicodedecode(_('%s by %s') % 
-                        (album.name, album.artist), 'UTF-8')
+                self.status = rb3compat.unicodedecode(_('%s by %s') %
+                                                      (album.name, album.artist), 'UTF-8')
             else:
                 #. TRANSLATORS - the number of albums that have been selected/highlighted
-                self.status = rb3compat.unicodedecode(_('%d selected albums') % 
-                        (len(albums)), 'UTF-8')
+                self.status = rb3compat.unicodedecode(_('%d selected albums') %
+                                                      (len(albums)), 'UTF-8')
 
             if track_count == 1:
                 self.status += rb3compat.unicodedecode(_(' with 1 track'), 'UTF-8')
             else:
-                self.status += rb3compat.unicodedecode(_(' with %d tracks') % 
-                        track_count, 'UTF-8')
+                self.status += rb3compat.unicodedecode(_(' with %d tracks') %
+                                                       track_count, 'UTF-8')
 
             if duration == 1:
                 self.status += rb3compat.unicodedecode(_(' and a duration of 1 minute'), 'UTF-8')
             else:
-                self.status += rb3compat.unicodedecode(_(' and a duration of %d minutes') % 
-                        duration, 'UTF-8')
+                self.status += rb3compat.unicodedecode(_(' and a duration of %d minutes') %
+                                                       duration, 'UTF-8')
 
     def _update(self, widget, current_view):
         albums = current_view.get_selected_objects()
         self._generate_status(albums)
         self.current_statusbar.update(self.status)
-        
+
+
 class SourceStatusBar(object):
     def __init__(self, source):
         self._source = source
@@ -1031,7 +1038,8 @@ class CustomStatusBar(object):
 
     def update(self, status):
         self._label.set_text(status)
-        
+
+
 class Views:
     '''
     This class describes the different views available
@@ -1061,40 +1069,40 @@ class Views:
             queue_name = shell.props.queue_source.props.name
 
             self._values = OrderedDict()
-            
-            cl = CoverLocale()
-            cl.switch_locale(cl.Locale.LOCALE_DOMAIN)        
 
-            self._values[CoverIconView.name] = [_('Tiles'), 
-                GLib.Variant.new_string('coverart-browser-tile')]
+            cl = CoverLocale()
+            cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+
+            self._values[CoverIconView.name] = [_('Tiles'),
+                                                GLib.Variant.new_string('coverart-browser-tile')]
             if webkit_support():
-                self._values[CoverFlowView.name] = [_('Flow'), 
-                GLib.Variant.new_string('coverart-browser-coverflow')]
-            self._values[ArtistView.name] = [_('Artist'), 
-                GLib.Variant.new_string('coverart-browser-artist')]
-            self._values[ListView.name] = [library_name, 
-                GLib.Variant.new_string('coverart-browser-list')]
+                self._values[CoverFlowView.name] = [_('Flow'),
+                                                    GLib.Variant.new_string('coverart-browser-coverflow')]
+            self._values[ArtistView.name] = [_('Artist'),
+                                             GLib.Variant.new_string('coverart-browser-artist')]
+            self._values[ListView.name] = [library_name,
+                                           GLib.Variant.new_string('coverart-browser-list')]
             self._values[QueueView.name] = [queue_name,
-                GLib.Variant.new_string('coverart-browser-queue')]
-            cl.switch_locale(cl.Locale.RB)   
-            print (self._values)     
-            
+                                            GLib.Variant.new_string('coverart-browser-queue')]
+            cl.switch_locale(cl.Locale.RB)
+            print(self._values)
+
         def get_view_names(self):
             return list(self._values.keys())
-            
+
         def get_view_name_for_action(self, action_name):
             for view_name in self.get_view_names():
                 if self.get_action_name(view_name) == action_name:
                     return view_name
-                    
+
             return None
-            
+
         def get_menu_name(self, view_name):
             return self._values[view_name][0]
-                        
+
         def get_action_name(self, view_name):
             return self._values[view_name][1]
-            
+
     def __init__(self, plugin):
         """ Create singleton instance """
         # Check whether we already have an instance
@@ -1118,33 +1126,33 @@ class ViewManager(GObject.Object):
     # signals
     __gsignals__ = {
         'new-view': (GObject.SIGNAL_RUN_LAST, None, (str,))
-        }
-    
+    }
+
     # properties
     view_name = GObject.property(type=str, default=CoverIconView.name)
-    
+
     def __init__(self, source, window):
         super(ViewManager, self).__init__()
 
         self.source = source
         self.window = window
-        
+
         # initialize views
         self._views = {}
         ui = Gtk.Builder()
         ui.add_from_file(rb.find_plugin_file(source.plugin,
-            'ui/coverart_iconview.ui'))
+                                             'ui/coverart_iconview.ui'))
         self._views[CoverIconView.name] = ui.get_object('covers_view')
         self._views[CoverFlowView.name] = CoverFlowView()
         self._views[ListView.name] = ListView()
         self._views[QueueView.name] = QueueView()
         ui.add_from_file(rb.find_plugin_file(source.plugin,
-            'ui/coverart_artistview.ui'))
+                                             'ui/coverart_artistview.ui'))
         self._views[ArtistView.name] = ui.get_object('artist_view')
         self._lastview = None
 
         self.controller = ViewController(source.shell, self)
-        
+
         # connect signal and properties
         self._connect_signals()
         self._connect_properties()
@@ -1152,22 +1160,22 @@ class ViewManager(GObject.Object):
         if self.current_view.use_plugin_window:
             window.add(self.current_view.view)
             window.show_all()
-        
+
     @property
     def current_view(self):
         return self._views[self.view_name]
-        
+
     def get_view(self, view_name):
         return self._views[view_name]
 
     def _connect_signals(self):
         self.connect('notify::view-name', self.on_notify_view_name)
-        
+
     def _connect_properties(self):
         gs = GSetting()
         setting = gs.get_setting(gs.Path.PLUGIN)
         setting.bind(gs.PluginKey.VIEW_NAME, self, 'view_name',
-            Gio.SettingsBindFlags.DEFAULT)
+                     Gio.SettingsBindFlags.DEFAULT)
 
     def on_notify_view_name(self, *args):
         if self._lastview and self.view_name != self._lastview:
@@ -1175,42 +1183,42 @@ class ViewManager(GObject.Object):
             current_album = None
             if len(selected) > 0:
                 current_album = self._views[self._lastview].get_selected_objects()[0]
-                
+
             if self._views[self.view_name].use_plugin_window:
                 child = self.window.get_child()
-                
+
                 if child:
                     self.window.remove(child)
                 self.window.add(self._views[self.view_name].view)
                 self.window.show_all()
                 self.click_count = 0
-            
+
                 self._views[self._lastview].panedposition = self.source.paned.get_expansion_status()
-            
+
             self._views[self.view_name].switch_to_view(self.source, current_album)
             self._views[self.view_name].emit('update-toolbar')
             self._views[self.view_name].get_default_manager().emit('sort', None)
-            
+
             if self._views[self.view_name].use_plugin_window:
                 self.source.paned.expand(self._views[self.view_name].panedposition)
-            
+
             self.current_view.set_popup_menu(self.source.popup_menu)
             self.source.album_manager.current_view = self.current_view
-            
+
             if self._views[self.view_name].use_plugin_window:
                 # we only ever save plugin views not external views
                 saved_view = self.view_name
             else:
                 saved_view = self._lastview
-            
+
             self._lastview = self.view_name
-                
+
             gs = GSetting()
             setting = gs.get_setting(gs.Path.PLUGIN)
             setting[gs.PluginKey.VIEW_NAME] = saved_view
-            
+
         self.emit('new-view', self.view_name)
-            
+
     def get_view_icon_name(self, view_name):
         return self._views[view_name].get_view_icon_name()
 
@@ -1226,5 +1234,6 @@ class ViewManager(GObject.Object):
             colour = '#0000FF'
 
         return colour
-        
+
+
 GObject.type_register(CoverArtBrowserSource)

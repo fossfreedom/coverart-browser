@@ -57,6 +57,7 @@ class ShapeStar():
         coords = []
 
         from math import cos, pi, sin
+
         step = pi / points
 
         for i in range(2 * points):
@@ -72,7 +73,7 @@ class ShapeStar():
 
     def layout(self, cr, x, y, w, h):
         points = [(sx_sy[0] * w + x, sx_sy[1] * h + y)
-            for sx_sy in self.coords]
+                  for sx_sy in self.coords]
         cr.move_to(*points[0])
 
         for p in points[1:]:
@@ -82,7 +83,6 @@ class ShapeStar():
 
 
 class StarRenderer(ShapeStar):
-
     def __init__(self):
         ShapeStar.__init__(self, 5, 0.6)
 
@@ -107,7 +107,7 @@ class StarRenderer(ShapeStar):
 
     # public
     def create_normal_surfaces(self,
-                    context, vis_width, vis_height, star_width):
+                               context, vis_width, vis_height, star_width):
 
         rgba1 = context.get_border_color(Gtk.StateFlags.NORMAL)
         rgba0 = context.get_color(Gtk.StateFlags.ACTIVE)
@@ -118,7 +118,7 @@ class StarRenderer(ShapeStar):
 
         # paint full
         full_surf = cairo.ImageSurface(
-                        cairo.FORMAT_ARGB32, vis_width, vis_height)
+            cairo.FORMAT_ARGB32, vis_width, vis_height)
 
         cr = cairo.Context(full_surf)
         cr.set_source(lin)
@@ -136,7 +136,7 @@ class StarRenderer(ShapeStar):
 
         # paint empty
         empty_surf = cairo.ImageSurface(
-                        cairo.FORMAT_ARGB32, vis_width, vis_height)
+            cairo.FORMAT_ARGB32, vis_width, vis_height)
 
         cr = cairo.Context(empty_surf)
         cr.set_source(lin)
@@ -154,11 +154,11 @@ class StarRenderer(ShapeStar):
         return full_surf, empty_surf
 
     def create_reactive_surfaces(self,
-                    context, vis_width, vis_height, star_width):
+                                 context, vis_width, vis_height, star_width):
 
         # paint full
         full_surf = cairo.ImageSurface(
-                        cairo.FORMAT_ARGB32, vis_width, vis_height)
+            cairo.FORMAT_ARGB32, vis_width, vis_height)
 
         cr = cairo.Context(full_surf)
         if self.rounded:
@@ -196,7 +196,7 @@ class StarRenderer(ShapeStar):
 
         # paint empty
         empty_surf = cairo.ImageSurface(
-                        cairo.FORMAT_ARGB32, vis_width, vis_height)
+            cairo.FORMAT_ARGB32, vis_width, vis_height)
 
         cr = cairo.Context(empty_surf)
         if self.rounded:
@@ -230,8 +230,8 @@ class StarRenderer(ShapeStar):
 
         elif self.hints == StarRenderHints.REACTIVE:
             surfs = self.create_reactive_surfaces(
-                                    context, vis_width,
-                                    vis_height, star_width)
+                context, vis_width,
+                vis_height, star_width)
 
         # dict keys
         full_key, empty_key = self._get_mangled_keys(size)
@@ -319,13 +319,13 @@ class Star(Gtk.EventBox, StarRenderer):
         self.yalign = yalign
         self.queue_draw()
 
-    #~ def set_padding(*args):
+        #~ def set_padding(*args):
         #~ return
 
     def get_alignment(self):
         return self.xalign, self.yalign
 
-    #~ def get_padding(*args):
+        #~ def get_padding(*args):
         #~ return
 
     def on_style_updated(self, widget):
@@ -396,7 +396,6 @@ class Star(Gtk.EventBox, StarRenderer):
 
 
 class StarRatingsWidget(Gtk.HBox):
-
     def __init__(self):
         Gtk.Box.__init__(self)
         self.set_spacing(StockEms.SMALL)
@@ -423,12 +422,11 @@ class StarRatingsWidget(Gtk.HBox):
 
 
 class ReactiveStar(Star):
-
     __gsignals__ = {
         "changed": (GObject.SignalFlags.RUN_LAST,
                     None,
                     (),)
-        }
+    }
 
     def __init__(self, size=StarSize.SMALL):
         Star.__init__(self, size)
@@ -469,7 +467,7 @@ class ReactiveStar(Star):
 
         if self.get_rating() == 1 and star_index == 1:
             star_index = 0
-            
+
         self.set_rating(star_index)
         self.emit('changed')
 

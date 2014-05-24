@@ -35,14 +35,17 @@ from coverart_search_providers import lastfm_connected
 from coverart_search_providers import get_search_providers
 from collections import namedtuple
 
+
 class FauxTb(object):
     def __init__(self, tb_frame, tb_lineno, tb_next):
         self.tb_frame = tb_frame
         self.tb_lineno = tb_lineno
         self.tb_next = tb_next
 
+
 def current_stack(skip=0):
-    try: 1/0
+    try:
+        1 / 0
     except ZeroDivisionError:
         f = sys.exc_info()[2].tb_frame
     for i in range(skip + 2):
@@ -53,6 +56,7 @@ def current_stack(skip=0):
         f = f.f_back
     return lst
 
+
 def extend_traceback(tb, stack):
     """Extend traceback with stack info."""
     head = tb
@@ -60,16 +64,19 @@ def extend_traceback(tb, stack):
         head = FauxTb(tb_frame, tb_lineno, head)
     return head
 
+
 def full_exc_info():
     """Like sys.exc_info, but includes the full traceback."""
     t, v, tb = sys.exc_info()
     full_tb = extend_traceback(tb, current_stack(1))
     return t, v, full_tb
 
+
 def dumpstack(message):
     ''' dumps the current stack - useful of debugging
     '''
     logging.error(message, exc_info=full_exc_info())
+
 
 def uniquify_and_sort(iterable):
     ''' Removes duplicates of an iterables and returns a list of unique
@@ -86,6 +93,7 @@ def uniquify_and_sort(iterable):
 
 GenreType = namedtuple("GenreType", ["name", "genre_type"])
 
+
 class NaturalString(str):
     '''
     this class implements an object that can naturally compare
@@ -97,7 +105,7 @@ class NaturalString(str):
         super(NaturalString, self).__init__()
         convert = lambda text: int(text) if text.isdigit() else text.lower()
         alphanum_key = lambda key: [convert(c) for c in re.split('([0-9]+)',
-            key)]
+                                                                 key)]
 
         self._string_elements = alphanum_key(string)
 
@@ -298,7 +306,6 @@ class SortedCollection(object):
 
 
 class ReversedSortedCollection(object):
-
     def __init__(self, sorted_collection):
         self._sorted_collection = sorted_collection
 
@@ -354,7 +361,6 @@ class ReversedSortedCollection(object):
 
 
 class IdleCallIterator(object):
-
     def __init__(self, chunk, process, after=None, error=None, finish=None):
         default = lambda *_: None
 
@@ -403,6 +409,7 @@ def idle_iterator(func):
 
     return iter_function
 
+
 class Theme:
     '''
     This class manages the theme details
@@ -421,7 +428,7 @@ class Theme:
         '''
         __gsignals__ = {
             'theme_changed': (GObject.SIGNAL_RUN_LAST, None, ())
-            }
+        }
         # below public variables and methods that can be called for Theme
         def __init__(self, plugin):
             '''
@@ -453,11 +460,11 @@ class Theme:
 
         def _connect_properties(self):
             self.setting.bind(self.gs.PluginKey.THEME, self,
-                'theme', Gio.SettingsBindFlags.GET)
+                              'theme', Gio.SettingsBindFlags.GET)
 
         def _connect_signals(self):
             self.connect('notify::theme', self._on_theme_changed,
-                None)
+                         None)
 
         def _on_theme_changed(self, *args):
             self.emit('theme_changed')
@@ -480,11 +487,11 @@ class Theme:
         """ Delegate access to implementation """
         return setattr(self.__instance, attr, value)
 
-class SpriteSheet(object):
 
+class SpriteSheet(object):
     def __init__(self, image, icon_width, icon_height, x_spacing, y_spacing,
-        x_start, y_start, across_dimension, down_dimension,
-        alpha_color=None, size=None):
+                 x_start, y_start, across_dimension, down_dimension,
+                 alpha_color=None, size=None):
         # load the image
         base_image = GdkPixbuf.Pixbuf.new_from_file(image)
 
@@ -499,15 +506,15 @@ class SpriteSheet(object):
         for y in range(0, down_dimension):
             for x in range(0, across_dimension):
                 sprite = GdkPixbuf.Pixbuf.new(GdkPixbuf.Colorspace.RGB, True,
-                    8, icon_width, icon_height)
+                                              8, icon_width, icon_height)
 
                 base_image.copy_area(x_start + (x * delta_x),
-                    y_start + (y * delta_y), icon_width, icon_height,
-                    sprite, 0, 0)
+                                     y_start + (y * delta_y), icon_width, icon_height,
+                                     sprite, 0, 0)
 
                 if size:
                     sprite = sprite.scale_simple(size[0], size[1],
-                        GdkPixbuf.InterpType.BILINEAR)
+                                                 GdkPixbuf.InterpType.BILINEAR)
 
                 self._sprites.append(sprite)
 
@@ -517,14 +524,15 @@ class SpriteSheet(object):
     def __getitem__(self, index):
         return self._sprites[index]
 
+
 class ConfiguredSpriteSheet(object):
     def __init__(self, plugin, sprite_name, size=None):
         popups = rb.find_plugin_file(plugin, 'img/popups.xml')
         root = ET.parse(open(popups)).getroot()
-        base = 'theme/theme[@folder_name="' + Theme(plugin).current\
-            + '"]/spritesheet[@name="' + sprite_name + '"]/'
-        image = rb.find_plugin_file(plugin, 'img/' + Theme(plugin).current\
-            + '/' + root.xpath(base + 'image')[0].text)
+        base = 'theme/theme[@folder_name="' + Theme(plugin).current \
+               + '"]/spritesheet[@name="' + sprite_name + '"]/'
+        image = rb.find_plugin_file(plugin, 'img/' + Theme(plugin).current \
+                                            + '/' + root.xpath(base + 'image')[0].text)
         icon_width = int(root.xpath(base + 'icon')[0].attrib['width'])
         icon_height = int(root.xpath(base + 'icon')[0].attrib['height'])
         x_spacing = int(root.xpath(base + 'spacing')[0].attrib['x'])
@@ -536,7 +544,7 @@ class ConfiguredSpriteSheet(object):
 
         try:
             alpha_color = list(map(int,
-                    root.xpath(base + 'alpha')[0].text.split(' ')))
+                                   root.xpath(base + 'alpha')[0].text.split(' ')))
         except:
             alpha_color = None
 
@@ -547,7 +555,7 @@ class ConfiguredSpriteSheet(object):
         lang = cl.get_locale()
 
         base = sprite_name + '/' + sprite_name + \
-            '[@spritesheet="' + sprite_name + '"]'
+               '[@spritesheet="' + sprite_name + '"]'
 
         for elem in root.xpath(base + '[not(@xml:lang)]'):
             self.names.append(elem.text)
@@ -557,12 +565,12 @@ class ConfiguredSpriteSheet(object):
 
         if (not self.locale_names) and len(lang) > 2:
             for elem in root.xpath(base + '[@xml:lang="' + \
-                lang[0:2] + '"]'):
+                    lang[0:2] + '"]'):
                 self.locale_names[elem.text] = elem.attrib['name']
 
         self._sheet = SpriteSheet(image, icon_width, icon_height, x_spacing,
-            y_spacing, x_start, y_start, across_dimension, down_dimension,
-            alpha_color, size)
+                                  y_spacing, x_start, y_start, across_dimension, down_dimension,
+                                  alpha_color, size)
 
         self._genre_db = RB.ExtDB(name='cb_genre')
 
@@ -580,6 +588,7 @@ class ConfiguredSpriteSheet(object):
 
     def keys(self):
         return self.names
+
 
 class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
     '''
@@ -602,7 +611,7 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
 
     def __init__(self, plugin, sprite_name, size=None):
         super(GenreConfiguredSpriteSheet, self).__init__(plugin, sprite_name,
-            size)
+                                                         size)
         self.genre_alternate = {}  # contains GenreType tuples
         self._alt_icons = {}
         self._sprite_name = sprite_name
@@ -626,7 +635,7 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
                 sprite = GdkPixbuf.Pixbuf.new_from_file(icon_location)
                 if self._size:
                     sprite = sprite.scale_simple(self._size[0], self._size[1],
-                        GdkPixbuf.InterpType.BILINEAR)
+                                                 GdkPixbuf.InterpType.BILINEAR)
 
                 self._alt_icons[str(index)] = sprite
                 self.names.append(str(index))
@@ -654,7 +663,7 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
         # if (not self.locale_alternate) and len(lang) > 2:
         if len(lang) > 2:
             for elem in root.xpath(base + '[@xml:lang="' + \
-                lang[0:2] + '"]/alt'):
+                    lang[0:2] + '"]/alt'):
                 self.genre_alternate[GenreType(name=elem.text, genre_type=self.GENRE_LOCALE)] = elem.attrib['genre']
 
     def add_genre_icon(self, filename):
@@ -667,7 +676,7 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
 
         key = RB.ExtDBKey.create_storage('icon', str(next_index))
         uri = "file://" + rb3compat.pathname2url(filename)
-        
+
         self._genre_db.store_uri(key, RB.ExtDBSourceType.USER_EXPLICIT, uri)
 
         pixbuf = GdkPixbuf.Pixbuf.new_from_file(filename)
@@ -675,7 +684,7 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
 
         if self._size:
             pixbuf = pixbuf.scale_simple(self._size[0], self._size[1],
-                GdkPixbuf.InterpType.BILINEAR)
+                                         GdkPixbuf.InterpType.BILINEAR)
 
         self._alt_icons[new_genre.name] = pixbuf
         self.names.append(new_genre.name)
@@ -731,6 +740,7 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
             print("nothing found to amend")
             return None
 
+
 def get_stock_size():
     what, width, height = Gtk.icon_size_lookup(Gtk.IconSize.BUTTON)
 
@@ -742,30 +752,38 @@ def create_pixbuf_from_file_at_size(filename, width, height):
 
     if pixbuf.get_width() != width or pixbuf.get_height() != height:
         pixbuf = pixbuf.scale_simple(width, height,
-            GdkPixbuf.InterpType.BILINEAR)
+                                     GdkPixbuf.InterpType.BILINEAR)
 
     return pixbuf
+
 
 '''
 class to search through a dict without case-sensitivity nor
 unicode vs string issues
 '''
 
+
 class CaseInsensitiveDict(collections.Mapping):
     def __init__(self, d):
         self._d = d
         self._s = dict((RB.search_fold(k), k) for k in d)
+
     def __contains__(self, k):
         return RB.search_fold(k) in self._s
+
     def __len__(self):
         return len(self._s)
+
     def __iter__(self):
         return iter(self._s)
+
     def __getitem__(self, k):
         return self._d[self._s[RB.search_fold(k)]]
+
     def actual_key_case(self, k):
         return self._s.get(RB.search_fold(k))
-        
+
+
 def check_lastfm(force_check=False):
     '''
     check validity of lastfm connection
@@ -774,26 +792,27 @@ def check_lastfm(force_check=False):
     
     Also returns True if lastFM is not in the list of search providers
     '''
-    
+
     providers = get_search_providers()
-    print (providers)
-    print (force_check)
-    
+    print(providers)
+    print(force_check)
+
     if force_check or 'lastfm-search' in providers:
         connected = lastfm_connected()
-        print (connected)
+        print(connected)
         return connected
     elif not 'lastfm-search' in providers:
-        print ("not lastm-search")
+        print("not lastm-search")
         return True
     else:
-        print ("returning default")
+        print("returning default")
         return False
-        
+
+
 def create_button_image(plugin, icon_name):
     'create a pixbuf for the given icon_name sized according to the stock icon size'
     path = 'img/'
-        
+
     return create_pixbuf_from_file_at_size(
-            rb.find_plugin_file(plugin, path + icon_name),
-            *get_stock_size())
+        rb.find_plugin_file(plugin, path + icon_name),
+        *get_stock_size())

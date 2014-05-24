@@ -39,6 +39,7 @@ from coverart_browser_prefs import webkit_support
 
 import rb
 
+
 class Toolbar(GObject.Object):
     def __init__(self, plugin, mainbox, controllers):
         super(Toolbar, self).__init__()
@@ -81,10 +82,10 @@ class Toolbar(GObject.Object):
         search_entry.controller = controllers['search']
 
         Theme(self.plugin).connect('theme_changed', self._theme_changed,
-            controllers)
+                                   controllers)
 
         self.builder = builder.get_object('toolbar')
-        
+
         #now theme the toolbar including child objects such as the button popups
         style_context = self.builder.get_style_context()
         style_context.add_class(Gtk.STYLE_CLASS_TOOLBAR)
@@ -92,6 +93,7 @@ class Toolbar(GObject.Object):
     def _theme_changed(self, toolbar, controllers):
         for controller in list(controllers.values()):
             controller.update_images(True)
+
 
 class TopToolbar(Toolbar):
     ui = 'ui/coverart_topbar.ui'
@@ -115,11 +117,11 @@ class LeftToolbar(Toolbar):
         if self.builder.get_visible():
             self.builder.hide()
             self.plugin.shell.remove_widget(self.builder,
-                RB.ShellUILocation.SIDEBAR)
+                                            RB.ShellUILocation.SIDEBAR)
 
     def show(self):
         self.plugin.shell.add_widget(self.builder,
-            RB.ShellUILocation.SIDEBAR, expand=False, fill=False)
+                                     RB.ShellUILocation.SIDEBAR, expand=False, fill=False)
         self.builder.show()
 
 
@@ -131,32 +133,33 @@ class RightToolbar(Toolbar):
         if self.builder.get_visible():
             self.builder.hide()
             self.plugin.shell.remove_widget(self.builder,
-                RB.ShellUILocation.RIGHT_SIDEBAR)
+                                            RB.ShellUILocation.RIGHT_SIDEBAR)
 
     def show(self):
         self.plugin.shell.add_widget(self.builder,
-            RB.ShellUILocation.RIGHT_SIDEBAR, expand=False, fill=False)
+                                     RB.ShellUILocation.RIGHT_SIDEBAR, expand=False, fill=False)
         self.builder.show()
+
 
 class ToolbarObject(object):
     #properties
-    
-    PROPERTIES='properties_button'
-    SORT_BY='sort_by'
-    SORT_ORDER='sort_order'
-    SORT_BY_ARTIST='sort_by_artist'
-    SORT_ORDER_ARTIST='sort_order_artist'
-    GENRE='genre_button'
-    PLAYLIST='playlist_button'
-    DECADE='decade_button'
-    SEARCH='search'
-    VIEW='view_button'
-    
+
+    PROPERTIES = 'properties_button'
+    SORT_BY = 'sort_by'
+    SORT_ORDER = 'sort_order'
+    SORT_BY_ARTIST = 'sort_by_artist'
+    SORT_ORDER_ARTIST = 'sort_order_artist'
+    GENRE = 'genre_button'
+    PLAYLIST = 'playlist_button'
+    DECADE = 'decade_button'
+    SEARCH = 'search'
+    VIEW = 'view_button'
+
 
 class ToolbarManager(GObject.Object):
     # properties
     toolbar_pos = GObject.property(type=str, default=TopToolbar.name)
-    
+
     def __init__(self, plugin, main_box, viewmgr):
         super(ToolbarManager, self).__init__()
         self.plugin = plugin
@@ -166,19 +169,19 @@ class ToolbarManager(GObject.Object):
         # initialize toolbars
         self._bars = {}
         self._bars[TopToolbar.name] = TopToolbar(plugin, main_box,
-            controllers)
+                                                 controllers)
         self._bars[LeftToolbar.name] = LeftToolbar(plugin, main_box,
-            controllers)
+                                                   controllers)
         self._bars[RightToolbar.name] = RightToolbar(plugin, main_box,
-            controllers)
+                                                     controllers)
 
         self.last_toolbar_pos = None
         # connect signal and properties
         self._connect_signals()
         self._connect_properties()
-        
+
         self._controllers = controllers
-        
+
     def set_enabled(self, enabled, toolbar_object=None):
         '''
         enable or disable the toolbar object.
@@ -193,7 +196,7 @@ class ToolbarManager(GObject.Object):
         else:
             for controller in self._controllers:
                 self._controllers[controller].enabled = enabled
-                
+
     def _connect_signals(self):
         self.connect('notify::toolbar-pos', self._on_notify_toolbar_pos)
 
@@ -201,12 +204,12 @@ class ToolbarManager(GObject.Object):
         gs = GSetting()
         setting = gs.get_setting(gs.Path.PLUGIN)
         setting.bind(gs.PluginKey.TOOLBAR_POS, self, 'toolbar_pos',
-            Gio.SettingsBindFlags.GET)
-            
+                     Gio.SettingsBindFlags.GET)
+
     def _create_controllers(self, plugin, viewmgr):
         controllers = {}
-        
-        album_model=viewmgr.source.album_manager.model
+
+        album_model = viewmgr.source.album_manager.model
         controllers[ToolbarObject.PROPERTIES] = \
             PropertiesMenuController(plugin, viewmgr.source)
         controllers[ToolbarObject.SORT_BY] = \
@@ -225,7 +228,7 @@ class ToolbarManager(GObject.Object):
             DecadePopupController(plugin, album_model)
         controllers[ToolbarObject.SEARCH] = \
             AlbumSearchEntryController(album_model)
-        
+
         controllers[ToolbarObject.VIEW] = viewmgr.controller
 
         return controllers

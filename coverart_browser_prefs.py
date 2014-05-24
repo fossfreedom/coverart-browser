@@ -33,6 +33,7 @@ from stars import ReactiveStar
 from stars import StarSize
 import coverart_rb3compat as rb3compat
 
+
 def webkit_support():
     '''
     function that returns True/False if webkit technology is supported
@@ -40,6 +41,7 @@ def webkit_support():
     gs = GSetting()
     settings = gs.get_setting(gs.Path.PLUGIN)
     return settings[gs.PluginKey.WEBKIT]
+
 
 class CoverLocale:
     '''
@@ -238,7 +240,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         GObject.Object.__init__(self)
         gs = GSetting()
         self.settings = gs.get_setting(gs.Path.PLUGIN)
-        
+
         self._first_run = True
 
     def do_create_configure_widget(self):
@@ -246,39 +248,39 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         Creates the plugin's preferences dialog
         '''
         return self._create_display_contents(self)
-        
+
     def display_preferences_dialog(self, plugin):
         if self._first_run:
             self._first_run = False
-             
+
             cl = CoverLocale()
             cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
 
             self._dialog = Gtk.Dialog(modal=True, destroy_with_parent=True)
             self._dialog.add_button(Gtk.STOCK_OK, Gtk.ResponseType.OK)
-            self._dialog.set_title(_('Browser Preferences')) 
+            self._dialog.set_title(_('Browser Preferences'))
             content_area = self._dialog.get_content_area()
             content_area.pack_start(self._create_display_contents(plugin), True, True, 0)
-            
+
             helpbutton = self._dialog.add_button(Gtk.STOCK_HELP, Gtk.ResponseType.HELP)
             helpbutton.connect('clicked', self._display_help)
-            
+
         self._dialog.show_all()
-        
+
         while True:
             response = self._dialog.run()
-            
+
             if response != Gtk.ResponseType.HELP:
                 break
-        
+
         self._dialog.hide()
-        
+
     def _display_help(self, *args):
         peas = Peas.Engine.get_default()
         uri = peas.get_plugin_info('coverart_browser').get_help_uri()
-        
+
         webbrowser.open(uri)
-        
+
     def _create_display_contents(self, plugin):
         # create the ui
         cl = CoverLocale()
@@ -286,10 +288,10 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         builder = Gtk.Builder()
         builder.set_translation_domain(cl.Locale.LOCALE_DOMAIN)
         builder.add_from_file(rb.find_plugin_file(plugin,
-            'ui/coverart_browser_prefs.ui'))
+                                                  'ui/coverart_browser_prefs.ui'))
         self.launchpad_button = builder.get_object('show_launchpad')
         self.launchpad_label = builder.get_object('launchpad_label')
-        
+
         builder.connect_signals(self)
 
         #. TRANSLATORS: Do not translate this string.  
@@ -299,25 +301,25 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
             self.launchpad_label.set_text(translators)
         else:
             self.launchpad_button.set_visible(False)
-        
+
         gs = GSetting()
         # bind the toggles to the settings
         toggle_statusbar = builder.get_object('custom_statusbar_checkbox')
         self.settings.bind(gs.PluginKey.CUSTOM_STATUSBAR,
-            toggle_statusbar, 'active', Gio.SettingsBindFlags.DEFAULT)
+                           toggle_statusbar, 'active', Gio.SettingsBindFlags.DEFAULT)
 
         toggle_bottom = builder.get_object('display_bottom_checkbox')
         self.settings.bind(gs.PluginKey.DISPLAY_BOTTOM, toggle_bottom,
-        'active', Gio.SettingsBindFlags.DEFAULT)
+                           'active', Gio.SettingsBindFlags.DEFAULT)
 
         toggle_text = builder.get_object('display_text_checkbox')
         self.settings.bind(gs.PluginKey.DISPLAY_TEXT, toggle_text, 'active',
-            Gio.SettingsBindFlags.DEFAULT)
+                           Gio.SettingsBindFlags.DEFAULT)
 
         box_text = builder.get_object('display_text_box')
         self.settings.bind(gs.PluginKey.DISPLAY_TEXT, box_text, 'sensitive',
-            Gio.SettingsBindFlags.GET)
-            
+                           Gio.SettingsBindFlags.GET)
+
         self.display_text_pos = self.settings[gs.PluginKey.DISPLAY_TEXT_POS]
         self.display_text_under_radiobutton = builder.get_object('display_text_under_radiobutton')
         self.display_text_within_radiobutton = builder.get_object('display_text_within_radiobutton')
@@ -327,40 +329,39 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         else:
             self.display_text_within_radiobutton.set_active(True)
 
-
         random_scale = builder.get_object('random_adjustment')
         self.settings.bind(gs.PluginKey.RANDOM, random_scale, 'value',
-            Gio.SettingsBindFlags.DEFAULT)
+                           Gio.SettingsBindFlags.DEFAULT)
 
         toggle_text_ellipsize = builder.get_object(
             'display_text_ellipsize_checkbox')
         self.settings.bind(gs.PluginKey.DISPLAY_TEXT_ELLIPSIZE,
-            toggle_text_ellipsize, 'active', Gio.SettingsBindFlags.DEFAULT)
+                           toggle_text_ellipsize, 'active', Gio.SettingsBindFlags.DEFAULT)
 
         box_text_ellipsize_length = builder.get_object(
             'display_text_ellipsize_length_box')
         self.settings.bind(gs.PluginKey.DISPLAY_TEXT_ELLIPSIZE,
-            box_text_ellipsize_length, 'sensitive', Gio.SettingsBindFlags.GET)
+                           box_text_ellipsize_length, 'sensitive', Gio.SettingsBindFlags.GET)
 
         spinner_text_ellipsize_length = builder.get_object(
             'display_text_ellipsize_length_spin')
         self.settings.bind(gs.PluginKey.DISPLAY_TEXT_ELLIPSIZE_LENGTH,
-            spinner_text_ellipsize_length, 'value',
-            Gio.SettingsBindFlags.DEFAULT)
+                           spinner_text_ellipsize_length, 'value',
+                           Gio.SettingsBindFlags.DEFAULT)
 
         spinner_font_size = builder.get_object(
             'display_font_spin')
         self.settings.bind(gs.PluginKey.DISPLAY_FONT_SIZE,
-            spinner_font_size, 'value',
-            Gio.SettingsBindFlags.DEFAULT)
+                           spinner_font_size, 'value',
+                           Gio.SettingsBindFlags.DEFAULT)
 
         cover_size_scale = builder.get_object('cover_size_adjustment')
         self.settings.bind(gs.PluginKey.COVER_SIZE, cover_size_scale, 'value',
-            Gio.SettingsBindFlags.DEFAULT)
+                           Gio.SettingsBindFlags.DEFAULT)
 
         add_shadow = builder.get_object('add_shadow_checkbox')
         self.settings.bind(gs.PluginKey.ADD_SHADOW, add_shadow, 'active',
-            Gio.SettingsBindFlags.DEFAULT)
+                           Gio.SettingsBindFlags.DEFAULT)
 
         rated_box = builder.get_object('rated_box')
         self.stars = ReactiveStar(size=StarSize.BIG)
@@ -375,53 +376,53 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
 
         autostart = builder.get_object('autostart_checkbox')
         self.settings.bind(gs.PluginKey.AUTOSTART,
-            autostart, 'active', Gio.SettingsBindFlags.DEFAULT)
+                           autostart, 'active', Gio.SettingsBindFlags.DEFAULT)
 
         toolbar_pos_combo = builder.get_object('show_in_combobox')
         renderer = Gtk.CellRendererText()
         toolbar_pos_combo.pack_start(renderer, True)
         toolbar_pos_combo.add_attribute(renderer, 'text', 1)
         self.settings.bind(gs.PluginKey.TOOLBAR_POS, toolbar_pos_combo,
-            'active-id', Gio.SettingsBindFlags.DEFAULT)
+                           'active-id', Gio.SettingsBindFlags.DEFAULT)
 
         light_source_combo = builder.get_object('light_source_combobox')
         renderer = Gtk.CellRendererText()
         light_source_combo.pack_start(renderer, True)
         light_source_combo.add_attribute(renderer, 'text', 1)
         self.settings.bind(gs.PluginKey.SHADOW_IMAGE, light_source_combo,
-            'active-id', Gio.SettingsBindFlags.DEFAULT)
+                           'active-id', Gio.SettingsBindFlags.DEFAULT)
 
         combo_liststore = builder.get_object('combo_liststore')
 
         from coverart_utils import Theme
-        
+
         for theme in Theme(self).themes:
             combo_liststore.append([theme, theme])
-             
+
         theme_combo = builder.get_object('theme_combobox')
         renderer = Gtk.CellRendererText()
         theme_combo.pack_start(renderer, True)
         theme_combo.add_attribute(renderer, 'text', 1)
         self.settings.bind(gs.PluginKey.THEME, theme_combo,
-            'active-id', Gio.SettingsBindFlags.DEFAULT)
+                           'active-id', Gio.SettingsBindFlags.DEFAULT)
 
         button_relief = builder.get_object('button_relief_checkbox')
         self.settings.bind(gs.PluginKey.BUTTON_RELIEF, button_relief, 'active',
-            Gio.SettingsBindFlags.DEFAULT)
+                           Gio.SettingsBindFlags.DEFAULT)
 
         # create user data files
         cachedir = RB.user_cache_dir() + "/coverart_browser/usericons"
         if not os.path.exists(cachedir):
             os.makedirs(cachedir)
-            
+
         popup = cachedir + "/popups.xml"
-        
+
         temp = RB.find_user_data_file('plugins/coverart_browser/img/usericons/popups.xml')
-        
+
         # lets see if there is a legacy file - if necessary copy it to the cache dir
         if os.path.isfile(temp) and not os.path.isfile(popup):
             shutil.copyfile(temp, popup)
-        
+
         if not os.path.isfile(popup):
             template = rb.find_plugin_file(plugin, 'template/popups.xml')
             folder = os.path.split(popup)[0]
@@ -441,13 +442,13 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         self._iters = {}
         for key in list(self._sheet.keys()):
             store_iter = self.alt_liststore.append([key, self._sheet[key]])
-            self._iters[(key,self.GENRE_POPUP)] = store_iter
+            self._iters[(key, self.GENRE_POPUP)] = store_iter
 
         for key, value in self._sheet.genre_alternate.items():
             if key.genre_type == GenreConfiguredSpriteSheet.GENRE_USER:
                 store_iter = self.alt_user_liststore.append([key.name,
-                    self._sheet[self._sheet.genre_alternate[key]],
-                    self._sheet.genre_alternate[key]])
+                                                             self._sheet[self._sheet.genre_alternate[key]],
+                                                             self._sheet.genre_alternate[key]])
                 self._iters[(key.name, self.GENRE_LIST)] = store_iter
 
         self.amend_mode = False
@@ -463,15 +464,15 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
 
         padding_scale = builder.get_object('padding_adjustment')
         self.settings.bind(gs.PluginKey.ICON_PADDING, padding_scale, 'value',
-            Gio.SettingsBindFlags.DEFAULT)
+                           Gio.SettingsBindFlags.DEFAULT)
 
         spacing_scale = builder.get_object('spacing_adjustment')
         self.settings.bind(gs.PluginKey.ICON_SPACING, spacing_scale, 'value',
-            Gio.SettingsBindFlags.DEFAULT)
+                           Gio.SettingsBindFlags.DEFAULT)
 
         icon_automatic = builder.get_object('icon_automatic_checkbox')
         self.settings.bind(gs.PluginKey.ICON_AUTOMATIC,
-            icon_automatic, 'active', Gio.SettingsBindFlags.DEFAULT)
+                           icon_automatic, 'active', Gio.SettingsBindFlags.DEFAULT)
 
         #flow tab
         flow_combo = builder.get_object('flow_combobox')
@@ -479,27 +480,27 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         flow_combo.pack_start(renderer, True)
         flow_combo.add_attribute(renderer, 'text', 1)
         self.settings.bind(gs.PluginKey.FLOW_APPEARANCE, flow_combo,
-            'active-id', Gio.SettingsBindFlags.DEFAULT)
+                           'active-id', Gio.SettingsBindFlags.DEFAULT)
 
         flow_hide = builder.get_object('hide_caption_checkbox')
         self.settings.bind(gs.PluginKey.FLOW_HIDE_CAPTION,
-            flow_hide, 'active', Gio.SettingsBindFlags.DEFAULT)
+                           flow_hide, 'active', Gio.SettingsBindFlags.DEFAULT)
 
         flow_scale = builder.get_object('cover_scale_adjustment')
         self.settings.bind(gs.PluginKey.FLOW_SCALE, flow_scale, 'value',
-            Gio.SettingsBindFlags.DEFAULT)
+                           Gio.SettingsBindFlags.DEFAULT)
 
         flow_width = builder.get_object('cover_width_adjustment')
         self.settings.bind(gs.PluginKey.FLOW_WIDTH, flow_width, 'value',
-            Gio.SettingsBindFlags.DEFAULT)
+                           Gio.SettingsBindFlags.DEFAULT)
 
         flow_max = builder.get_object('flow_max_adjustment')
         self.settings.bind(gs.PluginKey.FLOW_MAX, flow_max, 'value',
-            Gio.SettingsBindFlags.DEFAULT)
+                           Gio.SettingsBindFlags.DEFAULT)
 
         flow_automatic = builder.get_object('automatic_checkbox')
         self.settings.bind(gs.PluginKey.FLOW_AUTOMATIC,
-            flow_automatic, 'active', Gio.SettingsBindFlags.DEFAULT)
+                           flow_automatic, 'active', Gio.SettingsBindFlags.DEFAULT)
 
         self.background_colour = self.settings[gs.PluginKey.FLOW_BACKGROUND_COLOUR]
         self.white_radiobutton = builder.get_object('white_radiobutton')
@@ -509,13 +510,13 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
             self.white_radiobutton.set_active(True)
         else:
             self.black_radiobutton.set_active(True)
-            
+
         # return the dialog
         return builder.get_object('main_notebook')
 
     def on_flow_combobox_changed(self, combobox):
         current_val = combobox.get_model()[combobox.get_active()][0]
-        gs=GSetting()
+        gs = GSetting()
         if self.settings[gs.PluginKey.FLOW_APPEARANCE] != current_val:
             if current_val == 'flow-vert':
                 default_size = 150
@@ -523,10 +524,10 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
                 default_size = 600
 
             self.settings[gs.PluginKey.FLOW_WIDTH] = default_size
-            
+
             if current_val == 'carousel':
                 self.settings[gs.PluginKey.FLOW_HIDE_CAPTION] = True
-                
+
     def on_background_radio_toggled(self, button):
         if button.get_active():
             gs = GSetting()
@@ -534,7 +535,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
                 self.settings[gs.PluginKey.FLOW_BACKGROUND_COLOUR] = 'W'
             else:
                 self.settings[gs.PluginKey.FLOW_BACKGROUND_COLOUR] = 'B'
-                
+
     def on_display_text_pos_radio_toggled(self, button):
         if button.get_active():
             gs = GSetting()
@@ -543,7 +544,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
             else:
                 self.settings[gs.PluginKey.DISPLAY_TEXT_POS] = False
                 self.settings[gs.PluginKey.ADD_SHADOW] = False
-                
+
     def on_add_shadow_checkbox_toggled(self, button):
         if button.get_active():
             #gs = GSetting()
@@ -559,32 +560,32 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         '''
         action when genre edit area is saved
         '''
-        entry_value = self.genre_entry.get_text()        
+        entry_value = self.genre_entry.get_text()
         treeiter = self.genre_combobox.get_active_iter()
         icon_value = self.alt_liststore[treeiter][0]
         # model 0 is the icon name, model 1 is the pixbuf
-        
+
         if self.amend_mode:
             key = self._sheet.amend_genre_info(self.current_genre,
-            entry_value, icon_value)
+                                               entry_value, icon_value)
 
             self.alt_user_liststore[self._iters[(self.current_genre,
-                self.GENRE_LIST)]][1]=self._sheet[self._sheet.genre_alternate[key]]
+                                                 self.GENRE_LIST)]][1] = self._sheet[self._sheet.genre_alternate[key]]
             self.alt_user_liststore[self._iters[(self.current_genre,
-                self.GENRE_LIST)]][0]=key.name
+                                                 self.GENRE_LIST)]][0] = key.name
             store_iter = self._iters[(self.current_genre, self.GENRE_LIST)]
             del self._iters[(self.current_genre, self.GENRE_LIST)]
             self._iters[(key.name, self.GENRE_LIST)] = store_iter
-            
+
         else:
             self.amend_mode = True
             key = self._sheet.amend_genre_info('',
-            entry_value, icon_value)
+                                               entry_value, icon_value)
             self.current_genre = key.name
 
             store_iter = self.alt_user_liststore.append([key.name,
-                            self._sheet[self._sheet.genre_alternate[key]],
-                            self._sheet.genre_alternate[key]])
+                                                         self._sheet[self._sheet.genre_alternate[key]],
+                                                         self._sheet.genre_alternate[key]])
             self._iters[(key.name, self.GENRE_LIST)] = store_iter
             selection = self.genre_view.get_selection()
             selection.select_iter(store_iter)
@@ -592,23 +593,23 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         self.save_button.set_sensitive(False)
         self._toggle_new_genre_state()
 
-        
+
     def on_genre_filechooserbutton_file_set(self, filechooser):
         '''
         action when genre new icon button is pressed
         '''
-        key = self._sheet.add_genre_icon( self.filechooserdialog.get_filename() )
+        key = self._sheet.add_genre_icon(self.filechooserdialog.get_filename())
         store_iter = self.alt_liststore.append([key.name, self._sheet[key.name]])
-        self._iters[(key.name,self.GENRE_POPUP)] = store_iter
-        
+        self._iters[(key.name, self.GENRE_POPUP)] = store_iter
+
         gs = GSetting()
         last_genre_folder = self.filechooserdialog.get_current_folder()
-        
-        print (last_genre_folder)
-        print (self.filechooserdialog.get_filename())
+
+        print(last_genre_folder)
+        print(self.filechooserdialog.get_filename())
         if last_genre_folder:
             self.settings[gs.PluginKey.LAST_GENRE_FOLDER] = last_genre_folder
-        
+
     def on_genre_view_selection_changed(self, view):
         '''
         action when user selects a row in the list of genres
@@ -620,7 +621,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
             if index != '':
                 self.genre_combobox.set_active_iter(self._iters[(index, self.GENRE_POPUP)])
                 self.amend_mode = True
-                self.current_genre=rb3compat.unicodestr(model[genre_iter][0], 'utf-8')
+                self.current_genre = rb3compat.unicodestr(model[genre_iter][0], 'utf-8')
         else:
             self.genre_entry.set_text('')
             self.genre_combobox.set_active_iter(None)
@@ -634,7 +635,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
                     self.blank_iter = None
             except:
                 self.blank_iter = None
-            
+
     def on_add_button_clicked(self, button):
         '''
         action when a new genre is added to the table
@@ -645,8 +646,8 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         self.blank_iter = self.alt_user_liststore.append(['', None, ''])
         selection = self.genre_view.get_selection()
         selection.select_iter(self.blank_iter)
-        
-        
+
+
     def on_delete_button_clicked(self, button):
         '''
         action when a genre is to be deleted
@@ -655,7 +656,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
 
         model, genre_iter = selection.get_selected()
         if genre_iter:
-            index = rb3compat.unicodestr(model[genre_iter][0],'utf-8')
+            index = rb3compat.unicodestr(model[genre_iter][0], 'utf-8')
             model.remove(genre_iter)
 
             if index:
@@ -663,7 +664,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
                 self._sheet.delete_genre(index)
 
                 self._toggle_new_genre_state()
-            
+
     def set_save_sensitivity(self, _):
         '''
         action to toggle the state of the save button depending
@@ -703,8 +704,8 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         else:
             test = True
 
-        self.settings[gs.PluginKey.NEW_GENRE_ICON]=test
-            
+        self.settings[gs.PluginKey.NEW_GENRE_ICON] = test
+
     def on_show_launchpad_toggled(self, button):
         self.launchpad_label.set_visible(button.get_active())
 

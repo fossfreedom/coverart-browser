@@ -30,8 +30,10 @@ from coverart_browser_prefs import GSetting
 
 import rb
 
+
 def enum(**enums):
     return type('Enum', (object,), enums)
+
 
 class OptionsWidget(Gtk.Widget):
     def __init__(self, *args, **kwargs):
@@ -54,7 +56,7 @@ class OptionsWidget(Gtk.Widget):
 
         # connect signals
         self._options_changed_id = self._controller.connect('notify::options',
-            self._update_options)
+                                                            self._update_options)
         self._current_key_changed_id = self._controller.connect(
             'notify::current-key', self._update_current_key)
         self._update_image_changed_id = self._controller.connect(
@@ -68,7 +70,7 @@ class OptionsWidget(Gtk.Widget):
 
     def _update_visibility(self, *args):
         self.set_visible(self._controller.enabled)
-        
+
     def _update_options(self, *args):
         self.update_options()
 
@@ -86,14 +88,14 @@ class OptionsWidget(Gtk.Widget):
 
     def update_image(self):
         pass
-        
+
     def calc_popup_position(self, widget):
         # this calculates the popup positioning - algorithm taken
         # from Gtk3.8 gtk/gtkmenubutton.c
-        
+
         toplevel = self.get_toplevel()
         toplevel.set_type_hint(Gdk.WindowTypeHint.DROPDOWN_MENU)
-        
+
         menu_req, pref_req = widget.get_preferred_size()
         align = widget.get_halign()
         direction = self.get_direction()
@@ -107,7 +109,7 @@ class OptionsWidget(Gtk.Widget):
 
         allocation = self.get_allocation()
 
-        ret, x,y = window.get_origin()
+        ret, x, y = window.get_origin()
         x += allocation.x
         y += allocation.y
 
@@ -120,15 +122,15 @@ class OptionsWidget(Gtk.Widget):
             y -= menu_req.height
         else:
             y -= menu_req.height
-        
+
         return x, y
 
-class OptionsPopupWidget(OptionsWidget):
 
+class OptionsPopupWidget(OptionsWidget):
     # signals
     __gsignals__ = {
         'item-clicked': (GObject.SIGNAL_RUN_LAST, None, (str,))
-        }
+    }
 
     def __init__(self, *args, **kwargs):
         OptionsWidget.__init__(self, *args, **kwargs)
@@ -189,31 +191,30 @@ class OptionsPopupWidget(OptionsWidget):
         if self._controller:
             # inform the controller
             self._controller.option_selected(key)
-        
+
     def _popup_callback(self, *args):
         x, y = self.calc_popup_position(self._popup_menu)
-        
+
         return x, y, False, None
-        
+
     def show_popup(self, align=True):
         '''
         show the current popup menu
         '''
-        
+
         if align:
             self._popup_menu.popup(None, None, self._popup_callback, self, 0,
-                Gtk.get_current_event_time())
+                                   Gtk.get_current_event_time())
         else:
             self._popup_menu.popup(None, None, None, None, 0,
-                Gtk.get_current_event_time())
-    
+                                   Gtk.get_current_event_time())
+
     def do_delete_thyself(self):
         self.clear_popupmenu()
         del self._popupmenu
 
 
 class EnhancedButton(Gtk.ToggleButton):
-
     button_relief = GObject.property(type=bool, default=False)
 
     def __init__(self, *args, **kwargs):
@@ -222,10 +223,10 @@ class EnhancedButton(Gtk.ToggleButton):
         gs = GSetting()
         setting = gs.get_setting(gs.Path.PLUGIN)
         setting.bind(gs.PluginKey.BUTTON_RELIEF, self,
-            'button_relief', Gio.SettingsBindFlags.GET)
+                     'button_relief', Gio.SettingsBindFlags.GET)
 
         self.connect('notify::button-relief',
-            self.on_notify_button_relief)
+                     self.on_notify_button_relief)
 
     def on_notify_button_relief(self, *arg):
         if self.button_relief:
@@ -235,7 +236,6 @@ class EnhancedButton(Gtk.ToggleButton):
 
 
 class PixbufButton(EnhancedButton):
-
     button_relief = GObject.property(type=bool, default=False)
 
     def __init__(self, *args, **kwargs):
@@ -250,7 +250,7 @@ class PixbufButton(EnhancedButton):
 
         if hasattr(self, "controller.enabled") and not self.controller.enabled:
             pixbuf = self._getBlendedPixbuf(pixbuf)
-        
+
         self.get_image().set_from_pixbuf(pixbuf)
 
         self.on_notify_button_relief()
@@ -259,12 +259,12 @@ class PixbufButton(EnhancedButton):
         """Turn a pixbuf into a blended version of the pixbuf by drawing a
         transparent alpha blend on it."""
         pixbuf = pixbuf.copy()
-        
-        w,h = pixbuf.get_width(), pixbuf.get_height()
+
+        w, h = pixbuf.get_width(), pixbuf.get_height()
         surface = cairo.ImageSurface(
             cairo.FORMAT_ARGB32, pixbuf.get_width(), pixbuf.get_height())
         context = cairo.Context(surface)
-        
+
         Gdk.cairo_set_source_pixbuf(context, pixbuf, 0, 0)
         context.paint()
 
@@ -284,7 +284,7 @@ class PopupButton(PixbufButton, OptionsPopupWidget):
     # signals
     __gsignals__ = {
         'item-clicked': (GObject.SIGNAL_RUN_LAST, None, (str,))
-        }
+    }
 
     def __init__(self, *args, **kwargs):
         '''
@@ -292,13 +292,13 @@ class PopupButton(PixbufButton, OptionsPopupWidget):
         '''
         PixbufButton.__init__(self, *args, **kwargs)
         OptionsPopupWidget.__init__(self, *args, **kwargs)
-        
-        self._popup_menu.attach_to_widget(self, None) #critical to ensure theming works
+
+        self._popup_menu.attach_to_widget(self, None)  #critical to ensure theming works
         self._popup_menu.connect('deactivate', self.popup_deactivate)
 
         # initialise some variables
         self._first_menu_item = None
-        
+
     def popup_deactivate(self, *args):
         self.set_active(False)
 
@@ -321,14 +321,15 @@ class PopupButton(PixbufButton, OptionsPopupWidget):
         if (event.button == Gdk.BUTTON_PRIMARY):
             self.show_popup()
             self.set_active(True)
-            
+
+
 class TextPopupButton(EnhancedButton, OptionsPopupWidget):
     __gtype_name__ = "TextPopupButton"
 
     # signals
     __gsignals__ = {
         'item-clicked': (GObject.SIGNAL_RUN_LAST, None, (str,))
-        }
+    }
 
     def __init__(self, *args, **kwargs):
         '''
@@ -336,8 +337,8 @@ class TextPopupButton(EnhancedButton, OptionsPopupWidget):
         '''
         EnhancedButton.__init__(self, *args, **kwargs)
         OptionsPopupWidget.__init__(self, *args, **kwargs)
-        
-        self._popup_menu.attach_to_widget(self, None) #critical to ensure theming works
+
+        self._popup_menu.attach_to_widget(self, None)  #critical to ensure theming works
         self._popup_menu.connect('deactivate', self.popup_deactivate)
 
         # initialise some variables
@@ -362,7 +363,7 @@ class MenuButton(PixbufButton, OptionsPopupWidget):
     # signals
     __gsignals__ = {
         'item-clicked': (GObject.SIGNAL_RUN_LAST, None, (str,))
-        }
+    }
 
     def __init__(self, *args, **kwargs):
         '''
@@ -370,11 +371,11 @@ class MenuButton(PixbufButton, OptionsPopupWidget):
         '''
         PixbufButton.__init__(self, *args, **kwargs)
         OptionsPopupWidget.__init__(self, *args, **kwargs)
-        
-        self._popup_menu.attach_to_widget(self, None) #critical to ensure theming works
+
+        self._popup_menu.attach_to_widget(self, None)  #critical to ensure theming works
         self._popup_menu.connect('deactivate', self.popup_deactivate)
         self._states = {}
-        
+
     def popup_deactivate(self, *args):
         self.set_active(False)
 
@@ -382,11 +383,11 @@ class MenuButton(PixbufButton, OptionsPopupWidget):
         '''
         add a new menu item to the popup
         '''
-        
+
         label = key.label
         menutype = key.menutype
         typevalue = key.typevalue
-        
+
         if menutype and menutype == 'separator':
             new_menu_item = Gtk.SeparatorMenuItem().new()
         elif menutype and menutype == 'check':
@@ -399,7 +400,7 @@ class MenuButton(PixbufButton, OptionsPopupWidget):
 
         new_menu_item.show()
         self._popup_menu.append(new_menu_item)
-        
+
     def clear_popupmenu(self):
         '''
         reinitialises/clears the current popup menu and associated actions
@@ -416,7 +417,7 @@ class MenuButton(PixbufButton, OptionsPopupWidget):
 
         for key in self._controller.options:
             self.add_menuitem(key)
-            
+
         self._states = {}
 
     def _fire_item_clicked(self, menu_item):
@@ -426,7 +427,7 @@ class MenuButton(PixbufButton, OptionsPopupWidget):
         value of the selected item.
         '''
         self.emit('item-clicked', menu_item.get_label())
-        
+
     def update_image(self):
         super(MenuButton, self).update_image()
         self.set_image(self._controller.get_current_image())
@@ -484,8 +485,8 @@ class ImageToggleButton(PixbufButton, OptionsWidget):
 
 
 class ImageRadioButton(Gtk.RadioButton, OptionsWidget):
-# this is legacy code that will not as yet work with
-# the new toolbar - consider removing this later
+    # this is legacy code that will not as yet work with
+    # the new toolbar - consider removing this later
 
     __gtype_name__ = "ImageRadioButton"
 
@@ -501,10 +502,10 @@ class ImageRadioButton(Gtk.RadioButton, OptionsWidget):
         gs = GSetting()
         setting = gs.get_setting(gs.Path.PLUGIN)
         setting.bind(gs.PluginKey.BUTTON_RELIEF, self,
-            'button_relief', Gio.SettingsBindFlags.GET)
+                     'button_relief', Gio.SettingsBindFlags.GET)
 
         self.connect('notify::button-relief',
-            self.on_notify_button_relief)
+                     self.on_notify_button_relief)
 
         # initialise some variables
         self.image_display = False
@@ -545,9 +546,10 @@ class ImageRadioButton(Gtk.RadioButton, OptionsWidget):
     def update_current_key(self):
         # update the current image and tooltip
         #self.set_image(self._controller.get_current_image(Gtk.Buildable.get_name(self)))
-        self.set_tooltip_text("") #self._controller.get_current_description())
+        self.set_tooltip_text("")  #self._controller.get_current_description())
 
         from gi.repository import Gdk
+
         if self.controller.current_key == Gtk.Buildable.get_name(self):
             self.set_active(True)
             self._set_colour(Gtk.StateFlags.NORMAL)
@@ -555,14 +557,14 @@ class ImageRadioButton(Gtk.RadioButton, OptionsWidget):
             self._set_colour(Gtk.StateFlags.INSENSITIVE)
 
     def _set_colour(self, state_flag):
-    
+
         if len(self.get_children()) == 0:
             return
 
-        def get_standard_colour(label, state_flag):        
+        def get_standard_colour(label, state_flag):
             context = label.get_style_context()
             return context.get_color(state_flag)
-    
+
         label0 = self.get_children()[0]
 
         if not self._not_active_colour:
@@ -571,10 +573,11 @@ class ImageRadioButton(Gtk.RadioButton, OptionsWidget):
         if not self._active_colour:
             self._active_colour = get_standard_colour(label0, Gtk.StateFlags.NORMAL)
 
-        if state_flag ==  Gtk.StateFlags.INSENSITIVE:            
+        if state_flag == Gtk.StateFlags.INSENSITIVE:
             label0.override_color(Gtk.StateType.NORMAL, self._not_active_colour)
         else:
             label0.override_color(Gtk.StateType.NORMAL, self._active_colour)
+
 
 class SearchEntry(RB.SearchEntry, OptionsPopupWidget):
     __gtype_name__ = "SearchEntry"
@@ -582,13 +585,13 @@ class SearchEntry(RB.SearchEntry, OptionsPopupWidget):
     # signals
     __gsignals__ = {
         'item-clicked': (GObject.SIGNAL_RUN_LAST, None, (str,))
-        }
+    }
 
     def __init__(self, *args, **kwargs):
         RB.SearchEntry.__init__(self, *args, **kwargs)
         OptionsPopupWidget.__init__(self)
         #self.props.explicit_mode = True
-        
+
     @OptionsPopupWidget.controller.setter
     def controller(self, controller):
         if self._controller:
@@ -613,7 +616,7 @@ class SearchEntry(RB.SearchEntry, OptionsPopupWidget):
         super(SearchEntry, self).update_current_key()
 
         self.set_placeholder(self._controller.get_current_description())
-        
+
     def do_show_popup(self):
         '''
         Callback called by the search entry when the magnifier is clicked.
@@ -637,7 +640,7 @@ class QuickSearchEntry(Gtk.Frame):
     __gsignals__ = {
         'quick-search': (GObject.SIGNAL_RUN_LAST, None, (str,)),
         'arrow-pressed': (GObject.SIGNAL_RUN_LAST, None, (object,))
-        }
+    }
 
     def __init__(self, *args, **kwargs):
         super(QuickSearchEntry, self).__init__(*args, **kwargs)
@@ -645,7 +648,7 @@ class QuickSearchEntry(Gtk.Frame):
 
         # text entry for the quick search input
         text_entry = Gtk.Entry(halign='center', valign='center',
-            margin=5)
+                               margin=5)
 
         self.add(text_entry)
 
@@ -677,7 +680,7 @@ class QuickSearchEntry(Gtk.Frame):
             return False
 
         Gdk.threads_add_timeout_seconds(GLib.PRIORITY_DEFAULT_IDLE, 4,
-            hide_on_timeout, None)
+                                        hide_on_timeout, None)
 
     def do_parent_set(self, old_parent, *args):
         if old_parent:
@@ -685,12 +688,12 @@ class QuickSearchEntry(Gtk.Frame):
 
         parent = self.get_parent()
         self._on_parent_key_press_id = parent.connect('key-press-event',
-            self._on_parent_key_press, self.get_child())
+                                                      self._on_parent_key_press, self.get_child())
 
     def _on_parent_key_press(self, parent, event, entry):
         if not self.get_visible() and \
-            event.keyval not in [Gdk.KEY_Shift_L, Gdk.KEY_Shift_R,
-            Gdk.KEY_Control_L, Gdk.KEY_Control_R, Gdk.KEY_Escape]:
+                        event.keyval not in [Gdk.KEY_Shift_L, Gdk.KEY_Shift_R,
+                                             Gdk.KEY_Control_L, Gdk.KEY_Control_R, Gdk.KEY_Escape]:
             # grab focus, redirect the pressed key and make the quick search
             # entry visible
             entry.set_text('')
@@ -758,12 +761,11 @@ class ProxyPopupButton(Gtk.Frame):
 
 
 class OptionsListViewWidget(OptionsWidget):
-
     # signals
     __gsignals__ = {
         'item-clicked': (GObject.SIGNAL_RUN_LAST, None, (str,)),
         'deactivate': (GObject.SIGNAL_RUN_LAST, None, ())
-        }
+    }
 
     def __init__(self, *args, **kwargs):
         OptionsWidget.__init__(self, *args, **kwargs)
@@ -773,7 +775,7 @@ class OptionsListViewWidget(OptionsWidget):
     def controller(self, controller):
         ui = Gtk.Builder()
         ui.add_from_file(rb.find_plugin_file(controller.plugin,
-            'ui/coverart_listwindow.ui'))
+                                             'ui/coverart_listwindow.ui'))
         ui.connect_signals(self)
         self._listwindow = ui.get_object('listwindow')
         self._liststore = ui.get_object('liststore')
@@ -838,10 +840,10 @@ class OptionsListViewWidget(OptionsWidget):
             if self._increment:
                 if button is self._scrolldown_button:
                     adjustment.set_value(adjustment.get_value()
-                        + self._step)
+                                         + self._step)
                 else:
                     adjustment.set_value(adjustment.get_value()
-                        - self._step)
+                                         - self._step)
 
             return self._increment
 
@@ -851,7 +853,7 @@ class OptionsListViewWidget(OptionsWidget):
         self.on_scroll_button_released()
 
         Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 50,
-                            scroll, None)
+                                scroll, None)
 
     def on_scroll_button_leave(self, *args):
         self._increment = False
@@ -884,7 +886,7 @@ class ListViewButton(PixbufButton, OptionsListViewWidget):
     __gsignals__ = {
         'item-clicked': (GObject.SIGNAL_RUN_LAST, None, (str,)),
         'deactivate': (GObject.SIGNAL_RUN_LAST, None, ())
-        }
+    }
 
     def __init__(self, *args, **kwargs):
         '''
@@ -892,19 +894,19 @@ class ListViewButton(PixbufButton, OptionsListViewWidget):
         '''
         PixbufButton.__init__(self, *args, **kwargs)
         OptionsListViewWidget.__init__(self, *args, **kwargs)
-        
+
         self._popup.connect('deactivate', self.popup_deactivate)
-        
+
     def popup_deactivate(self, *args):
         # add a slight delay to allow the click of button to occur
         # before the deactivation of the button - this will allow
         # us to toggle the popup via the button correctly
-        
+
         def deactivate(*args):
             self.set_active(False)
-    
+
         Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 50, deactivate, None)
-        
+
     def update_image(self):
         super(ListViewButton, self).update_image()
         self.set_image(self._controller.get_current_image())
@@ -934,9 +936,9 @@ class EnhancedIconView(Gtk.IconView):
     # signals
     __gsignals__ = {
         'item-clicked': (GObject.SIGNAL_RUN_LAST, None, (object, object))
-        }
+    }
 
-    object_column = GObject.property(type=int, default= -1)
+    object_column = GObject.property(type=int, default=-1)
 
     def __init__(self, *args, **kwargs):
         super(EnhancedIconView, self).__init__(*args, **kwargs)
@@ -957,7 +959,7 @@ class EnhancedIconView(Gtk.IconView):
             # don't need to reaccommodate if it's a vertical change
             self._reallocate_count += 1
             Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 500,
-                        self._reallocate_columns, None)
+                                    self._reallocate_columns, None)
 
         Gtk.IconView.do_size_allocate(self, allocation)
 
@@ -983,7 +985,7 @@ class EnhancedIconView(Gtk.IconView):
                 # if the item being clicked isn't selected, we should clear
                 # the current selection
                 if len(self.get_selected_objects()) > 0 and \
-                    not self.path_is_selected(current_path):
+                        not self.path_is_selected(current_path):
                     self.unselect_all()
 
                 self.select_path(current_path)
@@ -1011,7 +1013,7 @@ class EnhancedIconView(Gtk.IconView):
 
         model = self.get_model()
         selected_objects = list(reversed([model[selected][self.object_column]
-            for selected in selected_items]))
+                                          for selected in selected_items]))
 
         return selected_objects
 
@@ -1037,7 +1039,7 @@ class PanedCollapsible(Gtk.Paned):
 
     # values for expand method
     Paned = enum(DEFAULT=1, EXPAND=2, COLLAPSE=3)
-    
+
     # this indicates the latest position for the handle before a child was
     # collapsed
     collapsible_y = GObject.property(type=int, default=0)
@@ -1048,7 +1050,7 @@ class PanedCollapsible(Gtk.Paned):
     # signals
     __gsignals__ = {
         'expanded': (GObject.SIGNAL_RUN_LAST, None, (bool,))
-        }
+    }
 
     def __init__(self, *args, **kwargs):
         super(PanedCollapsible, self).__init__(*args, **kwargs)
@@ -1059,7 +1061,7 @@ class PanedCollapsible(Gtk.Paned):
         self.connect('notify::collapsible1', self._on_collapsible1_changed)
         self.connect('notify::collapsible2', self._on_collapsible2_changed)
         self.connect('notify::collapsible_label',
-            self._on_collapsible_label_changed)
+                     self._on_collapsible_label_changed)
 
     def _on_collapsible1_changed(self, *args):
         if self.collapsible1 and self.collapsible2:
@@ -1072,7 +1074,7 @@ class PanedCollapsible(Gtk.Paned):
 
     def _on_collapsible2_changed(self, *args):
         if self.collapsible1 and self.collapsible2:
-             # check consistency, only one collapsible at a time
+            # check consistency, only one collapsible at a time
             self.collapsible1 = False
 
         child = self.get_child2()
@@ -1193,16 +1195,16 @@ class PanedCollapsible(Gtk.Paned):
 
     def _create_expander(self, widget):
         self._expander = Gtk.Expander(label=self.collapsible_label,
-            visible=True)
+                                      visible=True)
         self._expander.add(widget)
 
         # connect the expanded signal
         self._expander.connect('notify::expanded',
-            self._on_collapsible_expanded)
+                               self._on_collapsible_expanded)
 
         # connect the initial collapse
         self._allocate_id = self._expander.connect('size-allocate',
-            self._initial_collapse)
+                                                   self._initial_collapse)
 
         return self._expander
 
@@ -1213,8 +1215,8 @@ class PanedCollapsible(Gtk.Paned):
 
     def _collapse(self):
         new_y = self.get_allocated_height() - \
-            self.get_handle_window().get_height() - \
-            self._expander.get_label_widget().get_allocated_height()
+                self.get_handle_window().get_height() - \
+                self._expander.get_label_widget().get_allocated_height()
 
         self.set_position(new_y)
 
@@ -1228,9 +1230,9 @@ class PanedCollapsible(Gtk.Paned):
                 self._expander.set_expanded(True)
             elif force == PanedCollapsible.Paned.COLLAPSE:
                 self._expander.set_expanded(False)
-            elif force==PanedCollapsible.Paned.DEFAULT:
+            elif force == PanedCollapsible.Paned.DEFAULT:
                 self._expander.set_expanded(not self._expander.get_expanded())
-                    
+
     def get_expansion_status(self):
         '''
         returns the position of the expander i.e. expanded or not
@@ -1240,6 +1242,7 @@ class PanedCollapsible(Gtk.Paned):
             value = PanedCollapsible.Paned.EXPAND
 
         return value
+
 
 class AbstractView(GObject.Object):
     '''
@@ -1255,28 +1258,29 @@ class AbstractView(GObject.Object):
     # where abstractview is part of multiple inheritance
     __gsignals__ = {
         'update-toolbar': (GObject.SIGNAL_RUN_LAST, None, ())
-        }
-    
+    }
+
     def __init__(self):
         super(AbstractView, self).__init__()
 
     def initialise(self, source):
         self.source = source
         self.plugin = source.plugin
-        
+
         self.connect('update-toolbar', self.do_update_toolbar)
-        
+
     def do_update_toolbar(self, *args):
         '''
             called when update-toolbar signal is emitted
             by default the toolbar objects are made visible
         '''
         from coverart_toolbar import ToolbarObject
+
         self.source.toolbar_manager.set_enabled(True, ToolbarObject.SORT_BY)
         self.source.toolbar_manager.set_enabled(True, ToolbarObject.SORT_ORDER)
         self.source.toolbar_manager.set_enabled(False, ToolbarObject.SORT_BY_ARTIST)
         self.source.toolbar_manager.set_enabled(False, ToolbarObject.SORT_ORDER_ARTIST)
-        
+
     def resize_icon(self, cover_size):
         '''
         resize the view main picture icon
@@ -1304,7 +1308,7 @@ class AbstractView(GObject.Object):
         find a path and highlight (select) that object
         '''
         pass
-        
+
     def scroll_to_album(self, album):
         '''
         scroll to the album in the view
@@ -1332,33 +1336,33 @@ class AbstractView(GObject.Object):
         consistent
         '''
         pass
-        
+
     def get_view_icon_name(self):
         '''
         every view should have an icon - subject to removal
         since we'll probably just have text buttons for the view
         '''
         return ""
-        
+
     def get_default_manager(self):
         '''
         every view should have a default manager
         for example an AlbumManager or ArtistManager
         by default - use the AlbumManager from the source
         '''
-        
+
         return self.source.album_manager
-        
+
     def switch_to_coverpane(self, cover_search_pane):
         '''
         called from the source to update the coverpane when
         it is switched from the track pane
         '''
-        
+
         selected = self.get_selected_objects()
 
         if selected:
             manager = self.get_default_manager()
             cover_search_pane.do_search(selected[0],
-                manager.cover_man.update_cover)
+                                        manager.cover_man.update_cover)
 

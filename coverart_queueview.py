@@ -21,6 +21,7 @@ from coverart_widgets import AbstractView
 from gi.repository import GObject
 from gi.repository import GLib
 
+
 class QueueShowingPolicy(GObject.Object):
     '''
     Policy that mostly takes care of how and when things should be showed on
@@ -38,37 +39,37 @@ class QueueShowingPolicy(GObject.Object):
             return
 
         self._has_initialised = True
- 
+
+
 class QueueView(AbstractView):
-    
     __gtype_name__ = "QueueView"
 
     name = 'queueview'
     use_plugin_window = False
-    
+
     def __init__(self):
         super(QueueView, self).__init__()
         self.view = self
-        self._has_initialised = False 
+        self._has_initialised = False
         self.show_policy = QueueShowingPolicy(self)
-        
+
     def initialise(self, source):
         if self._has_initialised:
             return
-            
+
         self._has_initialised = True
 
         self.view_name = "queue_view"
         super(QueueView, self).initialise(source)
         #self.album_manager = source.album_manager
         self.shell = source.shell
-        
+
     def switch_to_view(self, source, album):
         self.initialise(source)
-        
+
         GLib.idle_add(self.shell.props.display_page_tree.select,
-                self.shell.props.queue_source)
-                
+                      self.shell.props.queue_source)
+
     def get_selected_objects(self):
         '''
         finds what has been selected

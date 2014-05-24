@@ -32,132 +32,134 @@ from coverart_browser_prefs import GSetting
 from coverart_album import AlbumsModel
 from coverart_widgets import AbstractView
 from coverart_widgets import PanedCollapsible
-import coverart_rb3compat as rb3compat 
+import coverart_rb3compat as rb3compat
 import rb
 
 PLAY_SIZE_X = 30
 PLAY_SIZE_Y = 30
 
+
 class CellRendererThumb(Gtk.CellRendererPixbuf):
-    markup=GObject.property(type=str, default="")
-    
+    markup = GObject.property(type=str, default="")
+
     def __init__(self, font_description, cell_area_source):
         super(CellRendererThumb, self).__init__()
         self.font_description = font_description
         self.cell_area_source = cell_area_source
         ypad = 0
-        
-    def do_render(self, cr, widget,  
-                background_area,
-                cell_area,
-                flags):
-        
-        
+
+    def do_render(self, cr, widget,
+                  background_area,
+                  cell_area,
+                  flags):
+
+
         x_offset = cell_area.x + 1
         y_offset = cell_area.y + 1
         wi = 0
         he = 0
         #IMAGE
-        pixbuf = self.props.pixbuf.scale_simple(cell_area.width-2, cell_area.height-2,
-            GdkPixbuf.InterpType.NEAREST)
+        pixbuf = self.props.pixbuf.scale_simple(cell_area.width - 2, cell_area.height - 2,
+                                                GdkPixbuf.InterpType.NEAREST)
         Gdk.cairo_set_source_pixbuf(cr, pixbuf, x_offset, y_offset)
         cr.paint()
-        
+
         alpha = 0.40
-        
-        if((flags & Gtk.CellRendererState.PRELIT) == Gtk.CellRendererState.PRELIT):
+
+        if ((flags & Gtk.CellRendererState.PRELIT) == Gtk.CellRendererState.PRELIT):
             alpha -= 0.15
-            
+
             if hasattr(Gtk.IconView, "get_cell_rect") and self.cell_area_source.hover_pixbuf:
                 # this only works on Gtk+3.6 and later
-                Gdk.cairo_set_source_pixbuf(cr, 
-                    self.cell_area_source.hover_pixbuf, x_offset, y_offset)
+                Gdk.cairo_set_source_pixbuf(cr,
+                                            self.cell_area_source.hover_pixbuf, x_offset, y_offset)
                 cr.paint()
-        
+
         #if((flags & Gtk.CellRendererState.SELECTED) == Gtk.CellRendererState.SELECTED or \
         #   (flags & Gtk.CellRendererState.FOCUSED) == Gtk.CellRendererState.FOCUSED):
         #    alpha -= 0.15
-        
-        
-        if not(self.cell_area_source.display_text and self.cell_area_source.display_text_pos==False):
+
+
+        if not (self.cell_area_source.display_text and self.cell_area_source.display_text_pos == False):
             return
-        
+
         #PANGO LAYOUT
-        layout_width  = cell_area.width - 2
+        layout_width = cell_area.width - 2
         pango_layout = PangoCairo.create_layout(cr)
-        pango_layout.set_markup(self.markup , -1)
+        pango_layout.set_markup(self.markup, -1)
         pango_layout.set_alignment(Pango.Alignment.CENTER)
         pango_layout.set_font_description(self.font_description)
-        pango_layout.set_width( int(layout_width  * Pango.SCALE))
+        pango_layout.set_width(int(layout_width * Pango.SCALE))
         pango_layout.set_wrap(Pango.WrapMode.WORD_CHAR)
-        wi,he = pango_layout.get_pixel_size()
-        
+        wi, he = pango_layout.get_pixel_size()
+
         rect_offset = y_offset + (int((2.0 * self.cell_area_source.cover_size) / 3.0))
         rect_height = int(self.cell_area_source.cover_size / 3.0)
         was_to_large = False;
-        if(he > rect_height):
+        if (he > rect_height):
             was_to_large = True
             pango_layout.set_ellipsize(Pango.EllipsizeMode.END)
-            pango_layout.set_height( int((self.cell_area_source.cover_size / 3.0) * Pango.SCALE))
+            pango_layout.set_height(int((self.cell_area_source.cover_size / 3.0) * Pango.SCALE))
             wi, he = pango_layout.get_pixel_size()
-        
+
         #RECTANGLE
         cr.set_source_rgba(0.0, 0.0, 0.0, alpha)
         cr.set_line_width(0)
-        cr.rectangle(x_offset, 
+        cr.rectangle(x_offset,
                      rect_offset,
                      cell_area.width - 1,
                      rect_height - 1)
         cr.fill()
-        
+
         #DRAW FONT
         cr.set_source_rgba(1.0, 1.0, 1.0, 1.0)
         cr.move_to(x_offset,
-                   y_offset 
-                    + 2.0 * self.cell_area_source.cover_size / 3.0 
-                    + (((self.cell_area_source.cover_size/3.0) -  he) / 2.0)
-                    )
+                   y_offset
+                   + 2.0 * self.cell_area_source.cover_size / 3.0
+                   + (((self.cell_area_source.cover_size / 3.0) - he) / 2.0)
+        )
         PangoCairo.show_layout(cr, pango_layout)
 
+
 class AlbumArtCellArea(Gtk.CellAreaBox):
-    
     font_family = GObject.property(type=str, default="Sans")
     font_size = GObject.property(type=int, default=10)
     cover_size = GObject.property(type=int, default=0)
     display_text_pos = GObject.property(type=bool, default=False)
     display_text = GObject.property(type=bool, default=False)
     hover_pixbuf = GObject.property(type=object, default=None)
-    
+
     def __init__(self, ):
         super(AlbumArtCellArea, self).__init__()
-    
+
         self.font_description = Pango.FontDescription.new()
         self.font_description.set_family(self.font_family)
         self.font_description.set_size(int(self.font_size * Pango.SCALE))
-        
+
         self._connect_properties()
-        
+
         #Add own cellrenderer
         renderer_thumb = CellRendererThumb(self.font_description, self)
-        
+
         self.pack_start(renderer_thumb, False, False, False)
-        self.attribute_connect(renderer_thumb, "pixbuf", AlbumsModel.columns['pixbuf'])  
+        self.attribute_connect(renderer_thumb, "pixbuf", AlbumsModel.columns['pixbuf'])
         self.attribute_connect(renderer_thumb, "markup", AlbumsModel.columns['markup'])
         self.props.spacing = 2
-        
+
     def _connect_properties(self):
         gs = GSetting()
         setting = gs.get_setting(gs.Path.PLUGIN)
 
         setting.bind(gs.PluginKey.COVER_SIZE, self, 'cover-size',
-            Gio.SettingsBindFlags.GET)
-            
+                     Gio.SettingsBindFlags.GET)
+
         setting.bind(gs.PluginKey.DISPLAY_TEXT_POS, self, 'display-text-pos',
-            Gio.SettingsBindFlags.GET)
-            
+                     Gio.SettingsBindFlags.GET)
+
         setting.bind(gs.PluginKey.DISPLAY_TEXT, self, 'display-text',
-            Gio.SettingsBindFlags.GET)
-            
+                     Gio.SettingsBindFlags.GET)
+
+
 class AlbumShowingPolicy(GObject.Object):
     '''
     Policy that mostly takes care of how and when things should be showed on
@@ -182,7 +184,7 @@ class AlbumShowingPolicy(GObject.Object):
 
     def _connect_signals(self):
         self._cover_view.props.vadjustment.connect('value-changed',
-            self._viewport_changed)
+                                                   self._viewport_changed)
         self._model.connect('album-updated', self._album_updated)
         self._model.connect('visual-updated', self._album_updated)
 
@@ -215,6 +217,7 @@ class AlbumShowingPolicy(GObject.Object):
             # if our path is on the viewport, emit the signal to update it
             self._cover_view.queue_draw()
 
+
 class CoverIconView(EnhancedIconView, AbstractView):
     __gtype_name__ = "CoverIconView"
 
@@ -226,11 +229,11 @@ class CoverIconView(EnhancedIconView, AbstractView):
     display_text_pos = GObject.property(type=bool, default=False)
     name = 'coverview'
     panedposition = PanedCollapsible.Paned.COLLAPSE
-    
+
     __gsignals__ = {
         'update-toolbar': (GObject.SIGNAL_RUN_LAST, None, ())
-        }
-    
+    }
+
 
     def __init__(self, *args, **kwargs):
         if not rb3compat.compare_pygobject_version("3.9"):
@@ -238,8 +241,8 @@ class CoverIconView(EnhancedIconView, AbstractView):
         else:
             # this works in trusty but not in earlier versions - define in the super above
             super(CoverIconView, self).__init__(*args, **kwargs)
-            self.props.cell_area = AlbumArtCellArea() 
-            
+            self.props.cell_area = AlbumArtCellArea()
+
         self.gs = GSetting()
         # custom text renderer
         self._text_renderer = None
@@ -249,19 +252,19 @@ class CoverIconView(EnhancedIconView, AbstractView):
         self._last_play_path = None
         self._recheck_in_progress = False
         self._current_hover_path = None
-        
+
     def initialise(self, source):
         if self._has_initialised:
             return
-            
+
         self._has_initialised = True
 
         self.view_name = "covers_view"
-        super(CoverIconView,self).initialise(source)
-        
+        super(CoverIconView, self).initialise(source)
+
         self.shell = source.shell
         self.album_manager = source.album_manager
-        
+
         # setup iconview drag&drop support
         # first drag and drop on the coverart view to receive coverart
         self.enable_model_drag_dest([], Gdk.DragAction.COPY)
@@ -269,7 +272,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
         self.drag_dest_add_text_targets()
         self.connect('drag-drop', self.on_drag_drop)
         self.connect('drag-data-received',
-            self.on_drag_data_received)
+                     self.on_drag_data_received)
         self.source.paned.connect("expanded", self.bottom_expander_expanded_callback)
 
         # lastly support drag-drop from coverart to devices/nautilus etc
@@ -278,34 +281,34 @@ class CoverIconView(EnhancedIconView, AbstractView):
             [], Gdk.DragAction.COPY)
         #targets = Gtk.TargetList.new([Gtk.TargetEntry.new("application/x-rhythmbox-entry", 0, 0),
         #    Gtk.TargetEntry.new("text/uri-list", 0, 1) ])
-        targets = Gtk.TargetList.new([Gtk.TargetEntry.new("text/uri-list", 0, 0) ])
+        targets = Gtk.TargetList.new([Gtk.TargetEntry.new("text/uri-list", 0, 0)])
         # N.B. values taken from rhythmbox v2.97 widgets/rb_entry_view.c
         targets.add_uri_targets(1)
-        
+
         self.drag_source_set_target_list(targets)
         self.connect("drag-data-get", self.on_drag_data_get)
 
         # set the model to the view
         #self.set_pixbuf_column(AlbumsModel.columns['pixbuf'])
         self.set_model(self.album_manager.model.store)
-        
+
         # setup view to monitor mouse movements
         self.add_events(Gdk.EventMask.POINTER_MOTION_MASK)
-        
+
         self.hover_pixbufs = {
-            'button_play':None, 
-            'button_play_hover':None,
-            'button_playpause':None,
-            'button_playpause_hover':None,
-            'button_queue':None,
-            'button_queue_hover':None }
-            
+            'button_play': None,
+            'button_play_hover': None,
+            'button_playpause': None,
+            'button_playpause_hover': None,
+            'button_queue': None,
+            'button_queue_hover': None}
+
         for pixbuf_type in self.hover_pixbufs:
             filename = 'img/' + pixbuf_type + '.png'
             filename = rb.find_plugin_file(self.plugin, filename)
-            self.hover_pixbufs[pixbuf_type] = GdkPixbuf.Pixbuf.new_from_file_at_size(filename, 
-                PLAY_SIZE_X, PLAY_SIZE_Y)
-        
+            self.hover_pixbufs[pixbuf_type] = GdkPixbuf.Pixbuf.new_from_file_at_size(filename,
+                                                                                     PLAY_SIZE_X, PLAY_SIZE_Y)
+
         self._connect_properties()
         self._connect_signals()
 
@@ -327,32 +330,32 @@ class CoverIconView(EnhancedIconView, AbstractView):
             Gio.SettingsBindFlags.GET)
 
         setting.bind(self.gs.PluginKey.DISPLAY_TEXT, self,
-            'display_text_enabled', Gio.SettingsBindFlags.GET)
+                     'display_text_enabled', Gio.SettingsBindFlags.GET)
 
         setting.bind(self.gs.PluginKey.ICON_AUTOMATIC, self,
-            'icon_automatic', Gio.SettingsBindFlags.GET)
-            
-        setting.bind(self.gs.PluginKey.DISPLAY_TEXT_POS, self, 
-            'display-text-pos', Gio.SettingsBindFlags.GET)
+                     'icon_automatic', Gio.SettingsBindFlags.GET)
+
+        setting.bind(self.gs.PluginKey.DISPLAY_TEXT_POS, self,
+                     'display-text-pos', Gio.SettingsBindFlags.GET)
 
     def _connect_signals(self):
         self.connect("item-clicked", self.item_clicked_callback)
         self.connect("selection-changed", self.selectionchanged_callback)
-        self.connect("item-activated", self.item_activated_callback)        
+        self.connect("item-activated", self.item_activated_callback)
         self.connect('notify::icon-spacing',
-            self.on_notify_icon_spacing)
+                     self.on_notify_icon_spacing)
         self.connect('notify::icon-padding',
-            self.on_notify_icon_padding)
+                     self.on_notify_icon_padding)
         self.connect('notify::display-text-enabled',
-            self._activate_markup)
+                     self._activate_markup)
         self.connect('notify::display-text-pos',
-            self._activate_markup)
+                     self._activate_markup)
         self.connect("motion-notify-event", self.on_pointer_motion)
-                
+
     def get_view_icon_name(self):
         return "iconview.png"
 
-    def resize_icon(self, cover_size): 
+    def resize_icon(self, cover_size):
         '''
         Callback called when to resize the icon
         [common to all views]
@@ -383,7 +386,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
         return result
 
     def on_drag_data_received(self, widget, drag_context, x, y, data, info,
-        time):
+                              time):
         '''
         Callback called when the drag source has prepared the data (pixbuf)
         for us to use.
@@ -446,62 +449,61 @@ class CoverIconView(EnhancedIconView, AbstractView):
             widget.stop_emission_by_name('drag-begin')
         else:
             widget.stop_emission('drag-begin')
-            
+
     def _cover_play_hotspot(self, path, in_vacinity=False):
-        
+
         if path and hasattr(self, "get_cell_rect"):
             # get_cell_rect only exists in Gtk+3.6 and later
-            valid, rect = self.get_cell_rect(path, None) # rect of widget coords
-            
-            cursor_x, cursor_y = self.get_pointer() # returns widget coords
+            valid, rect = self.get_cell_rect(path, None)  # rect of widget coords
+
+            cursor_x, cursor_y = self.get_pointer()  # returns widget coords
             c_x = cursor_x - rect.x
             c_y = cursor_y - rect.y
-            
-            sizing = (rect.width / 2) if in_vacinity else 0
-            if  c_x < (PLAY_SIZE_X + sizing) and \
-                c_y < (PLAY_SIZE_Y + sizing) and \
-                c_x > (self.icon_padding + self.icon_spacing) and \
-                c_y > (self.icon_padding + self.icon_spacing):
 
+            sizing = (rect.width / 2) if in_vacinity else 0
+            if c_x < (PLAY_SIZE_X + sizing) and \
+                            c_y < (PLAY_SIZE_Y + sizing) and \
+                            c_x > (self.icon_padding + self.icon_spacing) and \
+                            c_y > (self.icon_padding + self.icon_spacing):
                 return True
-                
+
         return False
-        
+
     def on_pointer_motion(self, widget, event):
         self._calculate_hotspot(event)
-    
+
     def _calculate_hotspot(self, event):
         path = self.get_path_at_pos(event.x, event.y)
         (_, playing) = self.shell.props.shell_player.get_playing()
-        
+
         if playing and not self._last_play_path:
             entry = self.shell.props.shell_player.get_playing_entry()
             album = self.album_manager.model.get_from_dbentry(entry)
             self._last_play_path = self.album_manager.model.get_path(album)
-            
+
         if playing and self._last_play_path == path:
             icon = 'button_playpause'
         elif playing:
             icon = 'button_queue'
         else:
             icon = 'button_play'
-            
+
         def recheck_hotspot(args):
             path = args[0]
             in_vacinity = args[1]
-                    
+
             if self._cover_play_hotspot(path, in_vacinity):
                 current_path = self.get_path_at_pos(event.x, event.y)
                 if current_path == path:
                     self._current_hover_path = path
-                    
+
             else:
                 self._current_hover_path = None
-                
+
             self._recheck_in_progress = False
             self._calculate_hotspot(event)
             self.queue_draw()
-        
+
         if self._cover_play_hotspot(path, in_vacinity=True):
             exact_hotspot = self._cover_play_hotspot(path)
             if path == self._current_hover_path:
@@ -512,39 +514,39 @@ class CoverIconView(EnhancedIconView, AbstractView):
                 if not self._recheck_in_progress:
                     self._recheck_in_progress = True
                     Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 150,
-                                    recheck_hotspot, (path, False))
-                hover = None 
+                                            recheck_hotspot, (path, False))
+                hover = None
             else:
                 hover = None
                 if not self._recheck_in_progress:
                     self._recheck_in_progress = True
                     Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 450,
-                                recheck_hotspot, (path, True))
+                                            recheck_hotspot, (path, True))
         else:
             hover = None
-                    
+
         self.props.cell_area.hover_pixbuf = hover
         if hover and path:
             valid, rect = self.get_cell_rect(path, None)
             self.props.window.invalidate_rect(rect, True)
             self.queue_draw()
-            
+
     def item_clicked_callback(self, iconview, event, path):
         '''
         Callback called when the user clicks somewhere on the cover_view.
         Along with source "show_hide_pane", takes care of showing/hiding the bottom
         pane after a second click on a selected album.
         '''
-        
+
         # first test if we've clicked on the cover-play icon
         if self._cover_play_hotspot(path):
             (_, playing) = self.shell.props.shell_player.get_playing()
-            
+
             # first see if anything is playing...
             if playing:
                 entry = self.shell.props.shell_player.get_playing_entry()
                 album = self.album_manager.model.get_from_dbentry(entry)
-            
+
                 # if the current playing entry corresponds to the album
                 # we are hovering over then we are requesting to pause
                 if self.album_manager.model.get_from_path(path) == album:
@@ -552,33 +554,33 @@ class CoverIconView(EnhancedIconView, AbstractView):
                     self.shell.props.shell_player.pause()
                     self.on_pointer_motion(self, event)
                     return
-            
+
             # if we are not playing and the last thing played is what
             # we are still hovering over then we must be requesting to play
-            
+
             if self._last_play_path and self._last_play_path == path:
                 self.shell.props.shell_player.play()
                 self.on_pointer_motion(self, event)
                 return
-                
+
             # otherwise, this must be a new album so we are asking just
             # to play this new album ... just need a short interval
             # for the selection event to kick in first
             def delay(*args):
-                if playing: # if we are playing then queue up the next album
+                if playing:  # if we are playing then queue up the next album
                     self.source.queue_selected_album(None, self.source.favourites)
-                else: # otherwise just play it
+                else:  # otherwise just play it
                     self._last_play_path = path
                     self.source.play_selected_album(self.source.favourites)
-                    
-                self.props.cell_area.hover_pixbuf= \
-                        self.hover_pixbufs['button_play_hover']
-                
+
+                self.props.cell_area.hover_pixbuf = \
+                    self.hover_pixbufs['button_play_hover']
+
             Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
-                delay, None)
-            
+                                    delay, None)
+
             return
-            
+
         # to expand the entry view
         ctrl = event.state & Gdk.ModifierType.CONTROL_MASK
         shift = event.state & Gdk.ModifierType.SHIFT_MASK
@@ -587,10 +589,10 @@ class CoverIconView(EnhancedIconView, AbstractView):
             self.source.click_count += 1 if not ctrl and not shift else 0
 
         if self.source.click_count == 1:
-            album = self.album_manager.model.get_from_path(path)\
+            album = self.album_manager.model.get_from_path(path) \
                 if path else None
             Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
-                self.source.show_hide_pane, album)
+                                    self.source.show_hide_pane, album)
 
     def item_activated_callback(self, iconview, path):
         '''
@@ -640,16 +642,16 @@ class CoverIconView(EnhancedIconView, AbstractView):
             # set the renderer
             self.pack_end(self._text_renderer, False)
             self.add_attribute(self._text_renderer,
-                'markup', AlbumsModel.columns['markup'])
+                               'markup', AlbumsModel.columns['markup'])
         elif self._text_renderer:
             # remove the cell renderer
             self.props.cell_area.remove(self._text_renderer)
-            
+
         if self.display_text_enabled:
-            self.set_tooltip_column(-1) # turnoff tooltips
+            self.set_tooltip_column(-1)  # turnoff tooltips
         else:
             self.set_tooltip_column(AlbumsModel.columns['tooltip'])
-            
+
     def bottom_expander_expanded_callback(self, paned, expand):
         '''
         Callback connected to expanded signal of the paned GtkExpander
@@ -663,17 +665,17 @@ class CoverIconView(EnhancedIconView, AbstractView):
                         self.source.last_selected_album)
 
                     self.scroll_to_path(path, False, 0, 0)
-                    
+
                     return False
 
                 Gdk.threads_add_idle(GObject.PRIORITY_DEFAULT_IDLE,
-                    scroll_to_album, None)
+                                     scroll_to_album, None)
 
 
     def switch_to_view(self, source, album):
         self.initialise(source)
         self.show_policy.initialise(source.album_manager)
-        
+
         self.scroll_to_album(album)
 
     def grab_focus(self):
