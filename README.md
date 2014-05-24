@@ -38,6 +38,7 @@ Browse your coverart albums in Rhythmbox v3 and later
  - Introduce type-ahead filtering to improve searching usability
  - Single click add-another-album-to-playing if another album is already playing
  - Right-click add-to-playing option for albums and tracks if tracks are already playing
+ - Optional support for [SmallWindow](https://github.com/fossfreedom/smallwindow) plugin - allows Rhythmbox to be toggled between its standard application window and its smaller counterpart
  - Translated into 26 languages and locales
  - for developers - doxygen documentation: http://fossfreedom.github.io/coverart-browser/classes.html
 

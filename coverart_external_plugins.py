@@ -19,14 +19,11 @@
 
 from gi.repository import Peas
 from gi.repository import GObject
-from gi.repository import Gtk
 import lxml.etree as ET
 import rb
 import coverart_rb3compat as rb3compat
 from coverart_rb3compat import ActionGroup
-from coverart_rb3compat import Action
 from coverart_rb3compat import ApplicationShell
-from coverart_rb3compat import Menu
 from coverart_utils import CaseInsensitiveDict
 
 
@@ -138,6 +135,19 @@ class ExternalPlugin(GObject.Object):
             return
 
         page.get_entry_view().select_all()
+
+    def activate(self, shell):
+        '''
+        method called to initiate the external plugin action
+        the action is defined by defining the action_group_name, action_name and action_type
+        '''
+
+        action = ApplicationShell(shell).lookup_action(self.attributes['action_group_name'],
+                                                         self.attributes['action_name'],
+                                                         self.attributes['action_type'])
+
+        if action:
+            action.activate()
 
     def menuitem_callback(self, action, param, args):
         '''

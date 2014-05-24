@@ -33,6 +33,7 @@ from coverart_playlists import LastFMTrackPlaylist
 from coverart_playlists import EchoNestPlaylist
 from coverart_playlists import EchoNestGenrePlaylist
 from coverart_utils import create_button_image
+from coverart_external_plugins import ExternalPlugin
 from stars import ReactiveStar
 from coverart_search import CoverSearchPane
 from coverart_widgets import PixbufButton
@@ -89,7 +90,6 @@ class EntryViewPane(object):
         self.entry_view_grid.attach(stack_switcher, 0, 1, 1, 1)
         viewtoggle = PixbufButton()
         viewtoggle.set_image(create_button_image(self.plugin, "entryview.png"))
-        viewtoggle.props.halign = Gtk.Align.END
         self.viewtoggle_id = None
 
         setting = self.gs.get_setting(self.gs.Path.PLUGIN)
@@ -97,11 +97,33 @@ class EntryViewPane(object):
         self.entry_view_toggled(viewtoggle, True)
         viewtoggle.connect('toggled', self.entry_view_toggled)
 
-        self.entry_view_grid.attach_next_to(viewtoggle, self.stars, Gtk.PositionType.RIGHT, 1, 1)
+        smallwindowbutton = PixbufButton()
+        smallwindowbutton.set_image(create_button_image(self.plugin, "view-restore.png"))
+        smallwindowbutton.connect('toggled', self.smallwindowbutton_callback)
+
+        self.smallwindowext = ExternalPlugin()
+        self.smallwindowext.appendattribute('plugin_name', 'smallwindow')
+        self.smallwindowext.appendattribute('action_group_name', 'small window actions')
+        self.smallwindowext.appendattribute('action_name', 'SmallWindow')
+        self.smallwindowext.appendattribute('action_type', 'app')
+
+        rightgrid = Gtk.Grid()
+        rightgrid.props.halign = Gtk.Align.END
+
+        rightgrid.attach(viewtoggle, 0, 0, 1, 1)
+        rightgrid.attach(smallwindowbutton, 1, 0, 1, 1)
+
+        self.entry_view_grid.attach_next_to(rightgrid, self.stars, Gtk.PositionType.RIGHT, 1, 1)
         self.stack.set_visible_child(self.entry_view_results)
         self.stack.connect('notify::visible-child-name', self.notebook_switch_page_callback)
 
         self.entry_view_grid.show_all()
+        smallwindowbutton.set_visible(self.smallwindowext.is_activated())
+
+    def smallwindowbutton_callback(self, widget):
+        if widget.get_active():
+            self.smallwindowext.activate(self.shell)
+            widget.emit('clicked')
 
     def entry_view_toggled(self, widget, initialised=False):
         print("DEBUG - entry_view_toggled")
