@@ -23,19 +23,20 @@ Browse your coverart albums in Rhythmbox v3 and later
  - Compact & Full track view toggle option:
     1. Compact: fixed track view showing the key album track fields & ratings together with an enlarged album cover
     1. Full: Standard track view configurable via the preferences window
- - Play Similar Artists as recommended by EchoNest
- - Play Similar Genres as recommended by EchoNest
- - Play Similar Tracks as recommended by LastFM
+ - Smart continuous playlist: Play Similar Artists as recommended by EchoNest
+ - Smart continuous playlist: Play Similar Genres as recommended by EchoNest
+ - Smart continuous playlist: Play Similar Tracks as recommended by LastFM
  - New optional theme: darker toolbar icons
  - Introduce more modern look & feel through subtle animations
  - Views button now can navigate to Play Queue.  Allows navigation of key views without the side-bar (F9) being visible
  - Artist & Album information pane with LastFM & EchoNest data
+ - Information pane can be made visible or hidden by dragging the pane-handle
  - Track Artist Filter and Artist & Album Information panes individually displayed per view
  - Support Jump To Playing CTRL+J to scroll to the playing album
  - Follow playing song option automatically selects playing album
  - Custom Genres are now saved in an alternative folder location to survive re-installation of the plugin
- - Filter by Composer
- - Introduce type-ahead filtering to improve searching usability
+ - Search Filter by Composer
+ - Introduce type-ahead Search filtering to improve searching usability
  - Single click add-another-album-to-playing if another album is already playing
  - Right-click add-to-playing option for albums and tracks if tracks are already playing
  - Optional support for [SmallWindow](https://github.com/fossfreedom/smallwindow) plugin - allows Rhythmbox to be toggled between its standard application window and its smaller counterpart
@@ -74,6 +75,13 @@ rm -rf ~/.local/share/rhythmbox/plugins/coverart_browser
 git clone https://github.com/fossfreedom/coverart-browser.git -b master
 cd coverart-browser
 ./install.sh
+</pre>
+
+To uninstall the plugin:
+
+<pre>
+cd coverart-browser
+./install.sh --uninstall
 </pre>
 
 Note 1 - the CoverArt Browser plugin also requires installing the following plugin:
