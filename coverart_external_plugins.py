@@ -194,10 +194,7 @@ class CreateExternalPluginMenu(GObject.Object):
         extplugins = rb.find_plugin_file(popup.plugin, 'ui/coverart_external_plugins.xml')
         root = ET.parse(open(extplugins)).getroot()
 
-        if rb3compat.is_rb3(popup.shell):
-            base = 'rb3/plugin'
-        else:
-            base = 'rb2/plugin'
+        base = 'rb3/plugin'
 
         for elem in root.xpath(base):
             pluginname = elem.attrib['name']

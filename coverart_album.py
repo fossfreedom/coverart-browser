@@ -1201,12 +1201,7 @@ class AlbumLoader(GObject.Object):
 
     def _entry_changed_callback(self, db, entry, changes):
         print("CoverArtBrowser DEBUG - entry_changed_callback")
-        # NOTE: changes are packed on a GValueArray for RB 2.96 & 2.97
-        # changes are a GArray in 2.98 and 2.99.  Currently
-        # this will silently fail - thus changes are never reflected
-        # in the plugin until RB is restarted.
-        # note for RB3.00 an array of rhythmdbentrychange is used thus 
-        # this now works correctly
+        # NOTE: changes are packed in array of rhythmdbentrychange
 
         def analyse_change(change):
             print(change.prop)
@@ -1232,31 +1227,13 @@ class AlbumLoader(GObject.Object):
                     self._allocate_track(track)
 
         # look at all the changes and update the albums accordingly
-        try:
-            track = self._tracks[Track(entry).location]
+        track = self._tracks[Track(entry).location]
 
-            if rb3compat.is_rb3():
-                #RB3 has a simple rhythmdbentrychange array to deal with so we
-                #just need to loop each element of the array
+        #RB3 has a simple rhythmdbentrychange array to deal with so we
+        #just need to loop each element of the array
 
-                for change in changes:
-                    analyse_change(change)
-            else:
-                #RB2.96 and RB2.97 use a GValueArray structure so need
-                #to grab each rhythmdbentrychange from the structure
-                while changes.n_values != 0:
-                    change = changes.values
-                    analyse_change(change)
-
-                    # removes the last change from the GValueArray
-                    changes.remove(0)
-        except:
-            # we have a problem houston ... RB2.98 and 2.99 cant cope
-            # lets just assume something has just changed
-
-            track = self._tracks[Track(entry).location]
-            print("except")
-            track.emit('modified')
+        for change in changes:
+            analyse_change(change)
 
         print("CoverArtBrowser DEBUG - end entry_changed_callback")
 

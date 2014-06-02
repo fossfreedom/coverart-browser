@@ -370,10 +370,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
         '''
 
         # stop the propagation of the signal (deactivates superclass callback)
-        if rb3compat.is_rb3(self.shell):
-            widget.stop_emission_by_name('drag-drop')
-        else:
-            widget.stop_emission('drag-drop')
+        widget.stop_emission_by_name('drag-drop')
 
         # obtain the path of the icon over which the drag operation finished
         path, pos = widget.get_dest_item_at_pos(x, y)
@@ -393,10 +390,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
         '''
 
         # stop the propagation of the signal (deactivates superclass callback)
-        if rb3compat.is_rb3(self.shell):
-            widget.stop_emission_by_name('drag-data-received')
-        else:
-            widget.stop_emission('drag-data-received')
+        widget.stop_emission_by_name('drag-data-received')
 
         # get the album and the info and ask the loader to update the cover
         path, pos = widget.get_dest_item_at_pos(x, y)
@@ -427,10 +421,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
 
         sel = data.set_uris(uris)
         # stop the propagation of the signal (deactivates superclass callback)
-        if rb3compat.is_rb3(self.shell):
-            widget.stop_emission_by_name('drag-data-get')
-        else:
-            widget.stop_emission('drag-data-get')
+        widget.stop_emission_by_name('drag-data-get')
 
     def on_drag_begin(self, widget, context):
         '''
@@ -445,10 +436,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
             item = Gtk.STOCK_DND_MULTIPLE
 
         widget.drag_source_set_icon_stock(item)
-        if rb3compat.is_rb3(self.shell):
-            widget.stop_emission_by_name('drag-begin')
-        else:
-            widget.stop_emission('drag-begin')
+        widget.stop_emission_by_name('drag-begin')
 
     def _cover_play_hotspot(self, path, in_vacinity=False):
 

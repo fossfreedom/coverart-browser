@@ -67,8 +67,6 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         Initialises the plugin object.
         '''
         GObject.Object.__init__(self)
-        if not rb3compat.compare_pygobject_version('3.9'):
-            GObject.threads_init()
 
     def do_activate(self):
         '''
@@ -81,12 +79,8 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         self.shell = self.object
         self.db = self.shell.props.db
 
-        try:
-            entry_type = CoverArtBrowserEntryType()
-            self.db.register_entry_type(entry_type)
-        except NotImplementedError:
-            entry_type = self.db.entry_register_type(
-                'CoverArtBrowserEntryType')
+        entry_type = CoverArtBrowserEntryType()
+        self.db.register_entry_type(entry_type)
 
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
@@ -98,37 +92,22 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         theme = Gtk.IconTheme.get_default()
         rb.append_plugin_source_path(theme, '/icons')
 
-        # lets assume that python3 versions of RB only has the new icon attribute in the source
-        if rb3compat.PYVER >= 3:
-            iconfile = Gio.File.new_for_path(
-                rb.find_plugin_file(self, 'img/covermgr_rb3.png'))
+        iconfile = Gio.File.new_for_path(
+            rb.find_plugin_file(self, 'img/covermgr_rb3.png'))
 
-            self.source = CoverArtBrowserSource(
-                shell=self.shell,
-                name=_("CoverArt"),
-                entry_type=entry_type,
-                plugin=self,
-                icon=Gio.FileIcon.new(iconfile),
-                query_model=self.shell.props.library_source.props.base_query_model)
-        else:
-            what, width, height = Gtk.icon_size_lookup(Gtk.IconSize.LARGE_TOOLBAR)
-            pxbf = GdkPixbuf.Pixbuf.new_from_file_at_size(
-                rb.find_plugin_file(self, 'img/covermgr.png'), width, height)
-
-            self.source = CoverArtBrowserSource(
-                shell=self.shell,
-                name=_("CoverArt"), entry_type=entry_type,
-                plugin=self, pixbuf=pxbf,
-                query_model=self.shell.props.library_source.props.base_query_model)
+        self.source = CoverArtBrowserSource(
+            shell=self.shell,
+            name=_("CoverArt"),
+            entry_type=entry_type,
+            plugin=self,
+            icon=Gio.FileIcon.new(iconfile),
+            query_model=self.shell.props.library_source.props.base_query_model)
 
         self.shell.register_entry_type_for_source(self.source, entry_type)
         self.shell.append_display_page(self.source, group)
 
         self.source.props.query_model.connect('complete', self.load_complete)
-        if rb3compat.PYVER >= 3:
-            self._externalmenu = ExternalPluginMenu(self)
-        else:
-            self._externalmenu = None
+        self._externalmenu = ExternalPluginMenu(self)
 
         cl.switch_locale(cl.Locale.RB)
         print("CoverArtBrowser DEBUG - end do_activate")
@@ -292,4 +271,3 @@ class ExternalPluginMenu(GObject.Object):
         elif view_name == QueueView.name:
             GLib.idle_add(self.shell.props.display_page_tree.select,
                           self.shell.props.queue_source)
-    

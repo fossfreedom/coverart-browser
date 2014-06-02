@@ -108,36 +108,27 @@ class CoverArtBrowserSource(RB.Source):
         Also, it makes sure to show the progress on the album loading
         '''
 
-        try:
-            # this will only work for RB3.0 and later
-            if not self.task_progress:
-                self.task_progress = RB.TaskProgressSimple.new()
-        except:
-            pass
+        if not self.task_progress:
+            self.task_progress = RB.TaskProgressSimple.new()
 
         try:
             progress = self.album_manager.progress
             progress_text = _('Loading...') if progress < 1 else ''
-            try:
-                # this will only work for RB3.0 and later
-                if progress < 1:
-                    if self.props.shell.props.task_list.get_model().n_items() == 0:
-                        self.props.shell.props.task_list.add_task(self.task_progress)
 
-                    self.task_progress.props.task_progress = progress
-                    self.task_progress.props.task_label = progress_text
-                else:
-                    self.task_progress.props.task_outcome = RB.TaskOutcome.COMPLETE
-            except:
-                pass
+            if progress < 1:
+                if self.props.shell.props.task_list.get_model().n_items() == 0:
+                    self.props.shell.props.task_list.add_task(self.task_progress)
+
+                self.task_progress.props.task_progress = progress
+                self.task_progress.props.task_label = progress_text
+            else:
+                self.task_progress.props.task_outcome = RB.TaskOutcome.COMPLETE
+
         except:
             progress = 1
             progress_text = ''
-            try:
-                # this will only work for RB3.0 and later
-                self.task_progress.props.task_outcome = RB.TaskOutcome.COMPLETE
-            except:
-                pass
+
+            self.task_progress.props.task_outcome = RB.TaskOutcome.COMPLETE
 
         return (self.status, progress_text, progress)
 

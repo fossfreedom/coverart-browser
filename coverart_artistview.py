@@ -598,6 +598,7 @@ class ArtistLoader(GObject.Object):
         self.model = artist_manager.model
 
     def load_artists(self):
+        print ("load_artists")
         albums = self._album_manager.model.get_all()
         model = list(set(album.artist for album in albums))
 
@@ -646,6 +647,7 @@ class ArtistLoader(GObject.Object):
         def finish(data):
             self._album_manager.progress = 1
             self.emit('model-load-finished')
+            print ("finished")
             #return False
 
         return ARTIST_LOAD_CHUNK, process, after, error, finish
@@ -1115,10 +1117,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
         '''
 
         # stop the propagation of the signal (deactivates superclass callback)
-        if rb3compat.is_rb3(self.shell):
-            widget.stop_emission_by_name('drag-drop')
-        else:
-            widget.stop_emission('drag-drop')
+        widget.stop_emission_by_name('drag-drop')
 
         # obtain the path of the icon over which the drag operation finished
         drop_info = self.get_dest_row_at_pos(x, y)
@@ -1142,10 +1141,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
         '''
 
         # stop the propagation of the signal (deactivates superclass callback)
-        if rb3compat.is_rb3(self.shell):
-            widget.stop_emission_by_name('drag-data-received')
-        else:
-            widget.stop_emission('drag-data-received')
+        widget.stop_emission_by_name('drag-data-received')
 
         # get the artist and the info and ask the loader to update the cover
         path, position = self.get_dest_row_at_pos(x, y)
@@ -1180,10 +1176,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
 
         data.set_uris(uris)
         # stop the propagation of the signal (deactivates superclass callback)
-        if rb3compat.is_rb3(self.shell):
-            widget.stop_emission_by_name('drag-data-get')
-        else:
-            widget.stop_emission('drag-data-get')
+        widget.stop_emission_by_name('drag-data-get')
 
     def on_drag_begin(self, widget, context):
         '''
@@ -1198,11 +1191,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
             item = Gtk.STOCK_DND_MULTIPLE
 
         widget.drag_source_set_icon_stock(item)
-        if rb3compat.is_rb3(self.shell):
-            widget.stop_emission_by_name('drag-begin')
-        else:
-            widget.stop_emission('drag-begin')
-
+        widget.stop_emission_by_name('drag-begin')
 
     def get_default_manager(self):
         '''

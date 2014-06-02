@@ -126,11 +126,7 @@ class PlaylistPopupController(OptionsController):
         self._update_options(shell)
 
         # get the playlist model so we can monitor changes
-        if rb3compat.is_rb3(shell):
-            playlist_model = shell.props.display_page_model
-        else:
-            playlist_manager = shell.props.playlist_manager
-            playlist_model = playlist_manager.props.display_page_model
+        playlist_model = shell.props.display_page_model
 
         # connect signals to update playlists
         playlist_model.connect('row-inserted', self._update_options, shell)
