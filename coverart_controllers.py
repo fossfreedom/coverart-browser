@@ -17,6 +17,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
+from datetime import date
+from collections import OrderedDict
+from collections import namedtuple
+
 from gi.repository import GObject
 from gi.repository import Gdk
 from gi.repository import RB
@@ -31,12 +35,8 @@ from coverart_utils import ConfiguredSpriteSheet
 from coverart_utils import get_stock_size
 from coverart_utils import CaseInsensitiveDict
 from coverart_utils import Theme
-from datetime import date
-from collections import OrderedDict
 import rb
-import coverart_rb3compat as rb3compat
 
-from collections import namedtuple
 
 MenuNodeT = namedtuple('MenuNode', 'label menutype typevalue')
 

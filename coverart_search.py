@@ -18,9 +18,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
-import rb
 from gi.repository import Gtk
 from mako.template import Template
+
+import rb
 import coverart_rb3compat as rb3compat
 from coverart_album import Album
 from coverart_browser_prefs import webkit_support

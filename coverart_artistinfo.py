@@ -19,14 +19,12 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
 import os
-import urllib.request, urllib.parse
+import urllib.request
+import urllib.parse
 import json
+import gettext
 
 from mako.template import Template
-
-import rb
-import rb_lastfm as LastFM  # from coverart-search-providers
-
 from gi.repository import WebKit
 from gi.repository import GObject
 from gi.repository import Gtk
@@ -34,12 +32,13 @@ from gi.repository import Gdk
 from gi.repository import GLib
 from gi.repository import RB
 from gi.repository import Gio
+
+import rb
+import rb_lastfm as LastFM  # from coverart-search-providers
 from coverart_utils import get_stock_size
-from coverart_widgets import PixbufButton
 from coverart_browser_prefs import GSetting
 from coverart_utils import create_button_image
 
-import gettext
 
 gettext.install('rhythmbox', RB.locale_dir())
 

@@ -18,29 +18,20 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
 # define plugin
-import rb
-import locale
-import gettext
-
 from gi.repository import GObject
 from gi.repository import Gtk
 from gi.repository import RB
-from gi.repository import GdkPixbuf
 from gi.repository import Peas
 from gi.repository import Gio
 from gi.repository import GLib
 
-from coverart_browser_prefs import Preferences
+import rb
 from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import CoverLocale
 from coverart_browser_source import CoverArtBrowserSource
-from coverart_utils import Theme
 from coverart_listview import ListView
 from coverart_queueview import QueueView
 from coverart_toolbar import TopToolbar
-
-import coverart_rb3compat as rb3compat
-
 
 class CoverArtBrowserEntryType(RB.RhythmDBEntryType):
     '''

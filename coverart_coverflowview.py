@@ -17,22 +17,21 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
+import json
+import os
+from xml.sax.saxutils import escape
+
 from gi.repository import Gdk
 from gi.repository import Gtk
 from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import Gio
+
 from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import webkit_support
-from coverart_album import AlbumsModel
 from coverart_widgets import AbstractView
 from coverart_widgets import PanedCollapsible
 import rb
-import json
-import os
-from os.path import expanduser
-from xml.sax.saxutils import escape
-from collections import namedtuple
 
 
 class FlowShowingPolicy(GObject.Object):

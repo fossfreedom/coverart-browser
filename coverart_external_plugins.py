@@ -20,8 +20,8 @@
 from gi.repository import Peas
 from gi.repository import GObject
 import lxml.etree as ET
+
 import rb
-import coverart_rb3compat as rb3compat
 from coverart_rb3compat import ActionGroup
 from coverart_rb3compat import ApplicationShell
 from coverart_utils import CaseInsensitiveDict
@@ -185,9 +185,7 @@ class CreateExternalPluginMenu(GObject.Object):
         self._actiongroup = ActionGroup(popup.shell, section_name + '_externalplugins')
 
         # all supported plugins will be defined in the following array by parsing
-        # the plugins XML file for the definition.  Supported plugins are split between
-        # rb2.99 and later and rb2.98 and earlier due to the likelihood that earlier
-        # plugins may never be updated by their authors
+        # the plugins XML file for the definition.
 
         self.supported_plugins = []
 

@@ -36,7 +36,6 @@ from coverart_controllers import ArtistSortOrderToggleController
 from coverart_controllers import AlbumSearchEntryController
 from coverart_widgets import SearchEntry
 from coverart_browser_prefs import webkit_support
-
 import rb
 
 

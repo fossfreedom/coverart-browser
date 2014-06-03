@@ -17,6 +17,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
+from collections import OrderedDict
+
 from gi.repository import RB
 from gi.repository import Gtk
 from gi.repository import GObject
@@ -28,7 +30,6 @@ from coverart_rb3compat import ActionGroup
 from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import CoverLocale
 from coverart_external_plugins import CreateExternalPluginMenu
-from collections import OrderedDict
 from coverart_playlists import LastFMTrackPlaylist
 from coverart_playlists import EchoNestPlaylist
 from coverart_playlists import EchoNestGenrePlaylist
@@ -37,6 +38,7 @@ from coverart_external_plugins import ExternalPlugin
 from stars import ReactiveStar
 from coverart_search import CoverSearchPane
 from coverart_widgets import PixbufButton
+
 
 MIN_IMAGE_SIZE = 100
 

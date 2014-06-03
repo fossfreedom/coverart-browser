@@ -17,14 +17,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
-from gi.repository import RB
-from gi.repository import Gtk
-from coverart_utils import idle_iterator
-import rb
 import urllib.parse
 import json
 import os
 import random
+
+from gi.repository import RB
+from gi.repository import Gtk
+
+from coverart_utils import idle_iterator
+import rb
+
 
 LOAD_CHUNK = 50
 

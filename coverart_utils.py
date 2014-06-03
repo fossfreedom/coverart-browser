@@ -15,6 +15,12 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
 from bisect import bisect_left, bisect_right
+import collections
+import re
+import logging
+import sys
+from collections import namedtuple
+
 from gi.repository import GdkPixbuf
 from gi.repository import Gdk
 from gi.repository import Gtk
@@ -23,17 +29,13 @@ from gi.repository import RB
 from gi.repository import GObject
 from gi.repository import Gio
 import lxml.etree as ET
+
 import rb
 from coverart_browser_prefs import CoverLocale
 from coverart_browser_prefs import GSetting
-import collections
-import re
 import coverart_rb3compat as rb3compat
-import logging
-import sys
 from coverart_search_providers import lastfm_connected
 from coverart_search_providers import get_search_providers
-from collections import namedtuple
 
 
 class FauxTb(object):

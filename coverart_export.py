@@ -17,6 +17,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
+import shutil
+import os
+import sys
+import subprocess
+
 from gi.repository import GObject
 from gi.repository import Gtk
 from gi.repository import GLib
@@ -25,15 +30,9 @@ from gi.repository import Gdk
 from gi.repository import Peas
 from gi.repository import Gst
 
-from coverart_album import Album
 from coverart_utils import NaturalString
 import rb
-import shutil
 import coverart_rb3compat as rb3compat
-import os.path
-import os
-import sys
-import subprocess
 
 
 class CoverArtExport(GObject.Object):

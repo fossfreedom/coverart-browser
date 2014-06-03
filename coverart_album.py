@@ -22,6 +22,12 @@ Structures and managers to work with albums on Rhythmbox. This module provides
 the base model for the plugin to work on top of.
 '''
 
+from datetime import datetime, date
+import os
+import cgi
+import tempfile
+import gc
+
 from gi.repository import RB
 from gi.repository import GObject
 from gi.repository import Gio
@@ -40,13 +46,8 @@ import coverart_rb3compat as rb3compat
 from coverart_utils import uniquify_and_sort
 from coverart_utils import dumpstack
 from coverart_utils import check_lastfm
-from datetime import datetime, date
-
-import os
-import cgi
-import tempfile
 import rb
-import gc
+
 
 
 # default chunk of entries to process when loading albums

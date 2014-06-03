@@ -25,8 +25,7 @@ from gi.repository import Gio
 from gi.repository import Pango
 from gi.repository import PangoCairo
 from gi.repository import GdkPixbuf
-from gi.repository import RB
-from gi.repository.GdkPixbuf import Pixbuf
+
 from coverart_widgets import EnhancedIconView
 from coverart_browser_prefs import GSetting
 from coverart_album import AlbumsModel
@@ -34,6 +33,7 @@ from coverart_widgets import AbstractView
 from coverart_widgets import PanedCollapsible
 import coverart_rb3compat as rb3compat
 import rb
+
 
 PLAY_SIZE_X = 30
 PLAY_SIZE_Y = 30

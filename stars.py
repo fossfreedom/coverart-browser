@@ -16,12 +16,10 @@
 # this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 
-import cairo
-
 import logging
 import gettext
-from gettext import gettext as _
 
+import cairo
 from gi.repository import Gtk, Gdk, GObject
 
 from em import StockEms, em, small_em, big_em

@@ -16,6 +16,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
+import locale
+import gettext
+import os
+import shutil
+import webbrowser
+
 from gi.repository import Gio
 from gi.repository import GObject
 from gi.repository import Gtk
@@ -24,11 +30,6 @@ from gi.repository import Peas
 from gi.repository import RB
 
 import rb
-import locale
-import gettext
-import os
-import shutil
-import webbrowser
 from stars import ReactiveStar
 from stars import StarSize
 import coverart_rb3compat as rb3compat
@@ -433,7 +434,6 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         # now prepare the genre tab
         from coverart_utils import GenreConfiguredSpriteSheet
         from coverart_utils import get_stock_size
-        from coverart_utils import GenreType
 
         self._sheet = GenreConfiguredSpriteSheet(plugin, "genre", get_stock_size())
 

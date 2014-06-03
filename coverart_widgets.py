@@ -23,11 +23,9 @@ from gi.repository import Gdk
 from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import Gio
-
 import cairo
 
 from coverart_browser_prefs import GSetting
-
 import rb
 
 
@@ -547,8 +545,6 @@ class ImageRadioButton(Gtk.RadioButton, OptionsWidget):
         # update the current image and tooltip
         #self.set_image(self._controller.get_current_image(Gtk.Buildable.get_name(self)))
         self.set_tooltip_text("")  #self._controller.get_current_description())
-
-        from gi.repository import Gdk
 
         if self.controller.current_key == Gtk.Buildable.get_name(self):
             self.set_active(True)

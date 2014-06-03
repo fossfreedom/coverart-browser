@@ -17,7 +17,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
-import rb
+import random
+from collections import OrderedDict
+import unicodedata
+import re
 
 from gi.repository import GObject
 from gi.repository import GLib
@@ -26,8 +29,8 @@ from gi.repository import Gdk
 from gi.repository import Gtk
 from gi.repository import RB
 
+import rb
 from coverart_album import AlbumManager
-
 from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import CoverLocale
 from coverart_browser_prefs import Preferences
@@ -47,11 +50,7 @@ from coverart_artistinfo import ArtistInfoPane
 from coverart_external_plugins import CreateExternalPluginMenu
 from coverart_playlists import EchoNestPlaylist
 from coverart_entryview import EntryViewPane
-
 import coverart_rb3compat as rb3compat
-import random
-from collections import OrderedDict
-import unicodedata, re
 
 
 class CoverArtBrowserSource(RB.Source):

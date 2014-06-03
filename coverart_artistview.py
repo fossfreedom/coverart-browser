@@ -17,6 +17,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
+import os
+import tempfile
+import shutil
+
 from gi.repository import Gdk
 from gi.repository import Gtk
 from gi.repository import GLib
@@ -26,7 +30,6 @@ from gi.repository import GdkPixbuf
 from gi.repository import RB
 
 from coverart_browser_prefs import GSetting
-from coverart_album import Cover
 from coverart_album import Album
 from coverart_album import AlbumsModel
 from coverart_album import CoverManager
@@ -40,13 +43,7 @@ from coverart_utils import create_pixbuf_from_file_at_size
 from coverart_extdb import CoverArtExtDB
 import coverart_rb3compat as rb3compat
 from coverart_rb3compat import Menu
-
 import rb
-import os
-
-from collections import namedtuple
-
-import tempfile, shutil
 
 
 def create_temporary_copy(path):
