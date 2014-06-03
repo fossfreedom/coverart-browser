@@ -2,7 +2,7 @@
 
 Browse your coverart albums in Rhythmbox v3 and later.  
 
-**Feedback, testers & code - patches required**
+**Feedback, testers & code patches required**
 
 ![Imgur](http://i.imgur.com/YoEQ8fc.png)
 
@@ -89,7 +89,7 @@ Note 1 - the CoverArt Browser plugin also requires installing the following plug
 
  - https://github.com/fossfreedom/coverart-search-providers
 
-*For Ubuntu 14.04 and later:*
+*For Ubuntu 14.04 and later:... only on release of v2!*
 
 V2.0 is now available in my rhythmbox PPA - installation instructions in this AskUbuntu Q&A:
 
