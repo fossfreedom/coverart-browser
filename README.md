@@ -1,7 +1,8 @@
-#coverart-browser v2.0
-================
+#coverart-browser v2.0 Beta 1
 
-Browse your coverart albums in Rhythmbox v3 and later
+Browse your coverart albums in Rhythmbox v3 and later.  
+
+**Feedback, testers & code - patches required**
 
 ![Imgur](http://i.imgur.com/YoEQ8fc.png)
 
