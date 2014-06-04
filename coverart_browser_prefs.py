@@ -131,7 +131,6 @@ class GSetting:
 
             self.PluginKey = self._enum(
                 CUSTOM_STATUSBAR='custom-statusbar',
-                DISPLAY_BOTTOM='display-bottom',
                 DISPLAY_TEXT='display-text',
                 DISPLAY_TEXT_POS='display-text-pos',
                 RANDOM='random-queue',
@@ -308,10 +307,6 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         toggle_statusbar = builder.get_object('custom_statusbar_checkbox')
         self.settings.bind(gs.PluginKey.CUSTOM_STATUSBAR,
                            toggle_statusbar, 'active', Gio.SettingsBindFlags.DEFAULT)
-
-        toggle_bottom = builder.get_object('display_bottom_checkbox')
-        self.settings.bind(gs.PluginKey.DISPLAY_BOTTOM, toggle_bottom,
-                           'active', Gio.SettingsBindFlags.DEFAULT)
 
         toggle_text = builder.get_object('display_text_checkbox')
         self.settings.bind(gs.PluginKey.DISPLAY_TEXT, toggle_text, 'active',

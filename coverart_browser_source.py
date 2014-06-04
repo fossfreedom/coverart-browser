@@ -239,8 +239,6 @@ class CoverArtBrowserSource(RB.Source):
         setting = self.gs.get_setting(self.gs.Path.PLUGIN)
         setting.bind(self.gs.PluginKey.PANED_POSITION,
                      self.paned, 'collapsible-y', Gio.SettingsBindFlags.DEFAULT)
-        setting.bind(self.gs.PluginKey.DISPLAY_BOTTOM,
-                     self.paned.get_child2(), 'visible', Gio.SettingsBindFlags.DEFAULT)
         self.entryviewpane = EntryViewPane(self.shell,
                                            self.plugin,
                                            self,

@@ -21,11 +21,6 @@
             <summary>If the plugin source's custom status bar should be used.</summary>
             <description>Determines if the plugin should use the source's custom statusbar to show the current selected album's related information instead of the global Rhythmbox's statusbar.</description>
         </key>
-        <key type="b" name="display-bottom">
-            <default>true</default>
-            <summary>Display tracks and covers pane</summary>
-            <description>Add a toggle-option to the coverart view to display a tracks and covers pane where you can see these for the chosen album</description>
-        </key>
         <key type="b" name="display-text">
             <default>true</default>
             <summary>Display album's information</summary>
