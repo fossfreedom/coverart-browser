@@ -28,6 +28,7 @@ from gi.repository import GLib
 import rb
 from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import CoverLocale
+from coverart_browser_prefs import Preferences
 from coverart_browser_source import CoverArtBrowserSource
 from coverart_listview import ListView
 from coverart_queueview import QueueView
@@ -149,6 +150,9 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
 
         #. TRANSLATORS: percentage size that the image will be expanded
         scale = _('Scale by %:')
+
+        # stop PyCharm removing the Preference import on optimisation
+        pref = Preferences()
 
 
 class ExternalPluginMenu(GObject.Object):
