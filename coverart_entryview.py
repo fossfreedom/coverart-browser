@@ -86,6 +86,7 @@ class EntryViewPane(object):
         self.stars = ReactiveStar()
         self.stars.set_rating(0)
         self.stars.connect('changed', self.rating_changed_callback)
+        self.stars.props.valign = Gtk.Align.CENTER
         self.entry_view_grid.attach(self.stars, 1, 1, 1, 1)
         stack_switcher = Gtk.StackSwitcher()
         stack_switcher.set_stack(self.stack)
@@ -109,11 +110,17 @@ class EntryViewPane(object):
         self.smallwindowext.appendattribute('action_name', 'SmallWindow')
         self.smallwindowext.appendattribute('action_type', 'app')
 
+        whatsplayingtoggle = PixbufButton()
+        whatsplayingtoggle.props.visible = False # hide for the moment
+        whatsplayingtoggle.set_image(create_button_image(self.plugin, "whatsplaying.png"))
+        whatsplayingtoggle.connect('toggled', self.whatsplayingtoggle_callback)
+
         rightgrid = Gtk.Grid()
         rightgrid.props.halign = Gtk.Align.END
 
-        rightgrid.attach(viewtoggle, 0, 0, 1, 1)
-        rightgrid.attach(smallwindowbutton, 1, 0, 1, 1)
+        rightgrid.attach(whatsplayingtoggle, 0, 0, 1, 1)
+        rightgrid.attach(viewtoggle, 1, 0, 1, 1)
+        rightgrid.attach(smallwindowbutton, 2, 0, 1, 1)
 
         self.entry_view_grid.attach_next_to(rightgrid, self.stars, Gtk.PositionType.RIGHT, 1, 1)
         self.stack.set_visible_child(self.entry_view_results)
@@ -121,6 +128,10 @@ class EntryViewPane(object):
 
         self.entry_view_grid.show_all()
         smallwindowbutton.set_visible(self.smallwindowext.is_activated())
+
+    def whatsplayingtoggle_callback(self, widget):
+        self.entry_view_results.emit('whats-playing', widget.get_active())
+
 
     def smallwindowbutton_callback(self, widget):
         if widget.get_active():
@@ -257,7 +268,8 @@ class EntryViewPane(object):
 class ResultsGrid(Gtk.Grid):
     # signals
     __gsignals__ = {
-        'update-cover': (GObject.SIGNAL_RUN_LAST, None, (GObject.Object, RB.RhythmDBEntry))
+        'update-cover': (GObject.SIGNAL_RUN_LAST, None, (GObject.Object, RB.RhythmDBEntry)),
+        'whats-playing': (GObject.SIGNAL_RUN_LAST, None, (bool,))
     }
     image_width = 0
 
@@ -294,6 +306,7 @@ class ResultsGrid(Gtk.Grid):
 
         self.attach(self.frame, 6, 0, 1, 1)
         self.connect('update-cover', self.update_cover)
+        self.connect('whats-playing', self.display_whats_playing)
 
         #lets fix the situation where some-themes background colour is incorrectly defined
         #in these cases the background colour is black
@@ -319,6 +332,11 @@ class ResultsGrid(Gtk.Grid):
             self.image1.queue_draw()
         else:
             self.image2.queue_draw()
+
+    def display_whats_playing(self, show_playing):
+        view = self.get_child_at(0, 0)
+
+        view.display_playing_tracks(show_playing)
 
     def window_resize(self, widget):
         alloc = self.get_allocation()
@@ -431,6 +449,9 @@ class BaseView(RB.EntryView):
         del self.action_group
         del self.play_action
         del self.queue_action
+
+    def display_playing_tracks(self, show_playing):
+        pass
 
     def define_menu(self):
         pass
