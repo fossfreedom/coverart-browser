@@ -111,14 +111,13 @@ class EntryViewPane(object):
         self.smallwindowext.appendattribute('action_type', 'app')
 
         whatsplayingtoggle = PixbufButton()
-        whatsplayingtoggle.props.visible = False # hide for the moment
         whatsplayingtoggle.set_image(create_button_image(self.plugin, "whatsplaying.png"))
         whatsplayingtoggle.connect('toggled', self.whatsplayingtoggle_callback)
 
         rightgrid = Gtk.Grid()
         rightgrid.props.halign = Gtk.Align.END
 
-        rightgrid.attach(whatsplayingtoggle, 0, 0, 1, 1)
+        #rightgrid.attach(whatsplayingtoggle, 0, 0, 1, 1)
         rightgrid.attach(viewtoggle, 1, 0, 1, 1)
         rightgrid.attach(smallwindowbutton, 2, 0, 1, 1)
 
