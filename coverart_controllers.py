@@ -368,6 +368,8 @@ class GenrePopupController(OptionsController):
 
 
     def get_current_description(self):
+        cl = CoverLocale()
+        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
         if self.current_key == self._initial_genre:
             return _('All Genres')
         else:
