@@ -203,6 +203,7 @@ class CoverArtBrowserSource(RB.Source):
 
         # get widgets for the artist paned
         self.artist_paned = ui.get_object('vertical_paned')
+        self.artist_paned.set_name('vertical_paned')
         Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 50, self._change_artist_paned_pos, self.viewmgr.view_name)
         self.viewmgr.connect('new-view', self.on_view_changed)
         self.artist_treeview = ui.get_object('artist_treeview')
@@ -249,6 +250,7 @@ class CoverArtBrowserSource(RB.Source):
         info_stack = ui.get_object('info_stack')
         info_button_box = ui.get_object('info_button_box')
         artist_info_paned = ui.get_object('vertical_info_paned')
+        artist_info_paned.set_name('vertical_paned')
 
         self.artist_info = ArtistInfoPane(info_button_box,
                                           info_stack,
@@ -257,6 +259,15 @@ class CoverArtBrowserSource(RB.Source):
 
         # quick search
         self.quick_search = ui.get_object('quick_search_entry')
+
+        # theme override option
+        cssProvider = Gtk.CssProvider()
+        css = rb.find_plugin_file(self.plugin, 'ui/gtkthemeoverride.css')
+        cssProvider.load_from_path(css)
+        screen = Gdk.Screen.get_default()
+        styleContext = Gtk.StyleContext()
+        styleContext.add_provider_for_screen(screen, cssProvider,
+                                             Gtk.STYLE_PROVIDER_PRIORITY_USER)
 
         print("CoverArtBrowser DEBUG - end _create_ui")
 
