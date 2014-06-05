@@ -1,0 +1,5 @@
+.pane-separator:prelight#vertical_paned {
+/*  background-image: linear-gradient(transparent, transparent 1px, #555 1px, #555 4px, transparent 4px);*/
+  background-color: @selected_bg_color;
+}
+
