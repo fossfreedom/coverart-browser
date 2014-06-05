@@ -270,6 +270,8 @@ class GenrePopupController(OptionsController):
         row_num = 0
         for row in genres_model:
             if row_num == 0:
+                cl = CoverLocale()
+                cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
                 genre = _('All Genres')
                 row_num = row_num + 1
             else:

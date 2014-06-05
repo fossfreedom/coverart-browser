@@ -23,6 +23,7 @@ from gi.repository import Gdk
 from gi.repository import GLib
 from gi.repository import GObject
 from gi.repository import Gio
+from gi.repository import Notify
 import cairo
 
 from coverart_browser_prefs import GSetting
@@ -1263,6 +1264,8 @@ class AbstractView(GObject.Object):
         self.source = source
         self.plugin = source.plugin
 
+        Notify.init("coverart_browser")
+
         self.connect('update-toolbar', self.do_update_toolbar)
 
     def do_update_toolbar(self, *args):
@@ -1276,6 +1279,11 @@ class AbstractView(GObject.Object):
         self.source.toolbar_manager.set_enabled(True, ToolbarObject.SORT_ORDER)
         self.source.toolbar_manager.set_enabled(False, ToolbarObject.SORT_BY_ARTIST)
         self.source.toolbar_manager.set_enabled(False, ToolbarObject.SORT_ORDER_ARTIST)
+
+    def display_notification(self, title, text):
+
+        n = Notify.Notification(title, text, "")
+        n.show()
 
     def resize_icon(self, cover_size):
         '''

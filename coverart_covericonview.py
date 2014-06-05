@@ -557,6 +557,10 @@ class CoverIconView(EnhancedIconView, AbstractView):
             def delay(*args):
                 if playing:  # if we are playing then queue up the next album
                     self.source.queue_selected_album(None, self.source.favourites)
+                    album = self.get_selected_objects()[0]
+                    print (album.name)
+                    #. TRANSLATORS - s is the music album name e.g. Album-name has been queued to play
+                    #self.display_notification(("%s" % album.name), _("Album has been queued to play"))
                 else:  # otherwise just play it
                     self._last_play_path = path
                     self.source.play_selected_album(self.source.favourites)
