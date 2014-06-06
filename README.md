@@ -2,7 +2,8 @@
 
 Browse your coverart albums in Rhythmbox v3 and later.  
 
-**Feedback, testers & code patches required**
+##**Feedback, testers & code patches required**
+##**wiki editors required - https://github.com/fossfreedom/coverart-browser/issues/304**
 
 ![Imgur](http://i.imgur.com/YoEQ8fc.png)
 
