@@ -108,6 +108,7 @@ class CoverArtBrowserSource(RB.Source):
         '''
 
         if not self.task_progress:
+
             self.task_progress = RB.TaskProgressSimple.new()
 
         try:
@@ -429,6 +430,9 @@ class CoverArtBrowserSource(RB.Source):
         '''
         print ("artist_paned_button_release_callback")
         child_width = self._get_child_width()
+        print (child_width)
+        print (self.artist_paned.get_position())
+        child_width = self.artist_paned.get_position()
         paned_positions = eval(self.artist_paned_pos)
 
         found = None
@@ -445,9 +449,16 @@ class CoverArtBrowserSource(RB.Source):
         paned_positions.remove(found)
         print ("Child Width %d" % child_width)
         if child_width <= self.min_paned_pos:
-            child_width = 0
+            print (found)
+            print (found.split(':')[1])
+            if int(found.split(':')[1]) == 0:
+                child_width = self.min_paned_pos + 1
+                print ("opening")
+            else:
+                child_width = 0
+                print ("smaller")
             self.artist_paned.set_position(child_width)
-            print ("smaller")
+
 
         print ("Child Width2 %d" % child_width)
 
