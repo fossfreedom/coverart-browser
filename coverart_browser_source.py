@@ -59,7 +59,7 @@ class CoverArtBrowserSource(RB.Source):
     '''
     rating_threshold = GObject.property(type=float, default=0)
     artist_paned_pos = GObject.property(type=str)
-    min_paned_pos = 40
+    min_paned_pos = 80
 
     # unique instance of the source
     instance = None
@@ -427,8 +427,8 @@ class CoverArtBrowserSource(RB.Source):
         '''
         Callback when the artist paned handle is released from its mouse click.
         '''
+        print ("artist_paned_button_release_callback")
         child_width = self._get_child_width()
-
         paned_positions = eval(self.artist_paned_pos)
 
         found = None
@@ -438,21 +438,30 @@ class CoverArtBrowserSource(RB.Source):
                 break
 
         if not found:
+            print ("not found %s" % self.viewmgr.view_name)
             return
 
+        print ("current paned_positions %s" % paned_positions)
         paned_positions.remove(found)
+        print ("Child Width %d" % child_width)
         if child_width <= self.min_paned_pos:
             child_width = 0
             self.artist_paned.set_position(child_width)
+            print ("smaller")
+
+        print ("Child Width2 %d" % child_width)
 
         paned_positions.append(self.viewmgr.view_name + ":" + str(child_width))
 
+        print ("after paned positions %s" % paned_positions)
         self.artist_paned_pos = repr(paned_positions)
+        print ("artist_paned_pos %s" % self.artist_paned_pos)
 
     def on_view_changed(self, widget, view_name):
         self._change_artist_paned_pos(view_name)
 
     def _change_artist_paned_pos(self, view_name):
+        print ("change artist paned")
         paned_positions = eval(self.artist_paned_pos)
         print(paned_positions)
         found = None
@@ -462,6 +471,7 @@ class CoverArtBrowserSource(RB.Source):
                 break
         print(found)
         if not found:
+            print ("not found %s" % view_name)
             return
 
         child_width = int(found.split(":")[1])
