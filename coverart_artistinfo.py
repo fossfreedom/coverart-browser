@@ -265,8 +265,16 @@ class ArtistInfoPane(GObject.GObject):
 
         paned_positions.remove(found)
         if child_width <= self.min_paned_pos:
-            child_width = 0
-            self.info_paned.set_position(self.source.page.get_allocated_width())
+            if int(found.split(':')[1]) == 0:
+                child_width = self.min_paned_pos + 1
+                calc_pos = self.source.page.get_allocated_width() - child_width
+                print ("opening")
+            else:
+                child_width = 0
+                calc_pos = self.source.page.get_allocated_width()
+                print ("smaller")
+
+            self.info_paned.set_position(calc_pos)
 
         paned_positions.append(self.source.viewmgr.view_name + ":" + str(child_width))
 
