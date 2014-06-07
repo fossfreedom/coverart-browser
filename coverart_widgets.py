@@ -27,6 +27,7 @@ from gi.repository import Notify
 import cairo
 
 from coverart_browser_prefs import GSetting
+from coverart_external_plugins import ExternalPlugin
 import rb
 
 
@@ -1264,6 +1265,7 @@ class AbstractView(GObject.Object):
         self.source = source
         self.plugin = source.plugin
 
+        self._notification_displayed = 0
         Notify.init("coverart_browser")
 
         self.connect('update-toolbar', self.do_update_toolbar)
@@ -1280,10 +1282,38 @@ class AbstractView(GObject.Object):
         self.source.toolbar_manager.set_enabled(False, ToolbarObject.SORT_BY_ARTIST)
         self.source.toolbar_manager.set_enabled(False, ToolbarObject.SORT_ORDER_ARTIST)
 
-    def display_notification(self, title, text):
+    def display_notification(self, title, text, file):
 
-        n = Notify.Notification(title, text, "")
-        n.show()
+        # first see if the notification plugin is enabled
+        # if it is, we use standard notifications
+        # if it is not, we use the infobar
+
+        def hide_notification(*args):
+            if self._notification_displayed > 7:
+                self.source.notification_infobar.response(0)
+                self._notification_displayed = 0
+                return False
+
+            self._notification_displayed = self._notification_displayed + 1
+            return True
+
+        notifyext = ExternalPlugin()
+        notifyext.appendattribute('plugin_name', 'notification')
+
+        if notifyext.is_activated():
+            n = Notify.Notification.new(title, text, file)
+            n.show()
+        else:
+            self.source.notification_text.set_text(title + " : " + text)
+            #self.source.notification_infobar.set_visible(True)#reveal_notification.set_reveal_child(True)
+            self.source.notification_infobar.show()#reveal_notification.set_reveal_child(True)
+
+            if self._notification_displayed == 0:
+                Gdk.threads_add_timeout_seconds(GLib.PRIORITY_DEFAULT_IDLE, 1,
+                                            hide_notification, None)
+            else:
+                self._notification_displayed = 1 # reset notification for new label
+
 
     def resize_icon(self, cover_size):
         '''

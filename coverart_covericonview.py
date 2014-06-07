@@ -560,7 +560,9 @@ class CoverIconView(EnhancedIconView, AbstractView):
                     album = self.get_selected_objects()[0]
                     print (album.name)
                     #. TRANSLATORS - s is the music album name e.g. Album-name has been queued to play
-                    #self.display_notification(("%s" % album.name), _("Album has been queued to play"))
+                    self.display_notification(album.name,
+                                            "Album appended to current playing queue",
+                                            album.cover.original)
                 else:  # otherwise just play it
                     self._last_play_path = path
                     self.source.play_selected_album(self.source.favourites)

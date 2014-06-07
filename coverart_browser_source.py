@@ -192,8 +192,33 @@ class CoverArtBrowserSource(RB.Source):
         ui.connect_signals(self)
 
         # load the page and put it in the source
+        # first setup the notification stuff
+
+        def hide_infobar(widget, *args):
+            widget.hide()
+
+        overlay = Gtk.Overlay()
+        overlay.show_all()
+        self.notification_infobar = Gtk.InfoBar.new()
+
+        self.notification_infobar.set_message_type(Gtk.MessageType.INFO)
+        self.notification_infobar.set_valign(Gtk.Align.START)
+        self.notification_infobar.connect('response', hide_infobar)
+
+        self.notification_text = Gtk.Label.new("")
+        area = self.notification_infobar.get_content_area()
+        area.props.halign = Gtk.Align.CENTER
+        area.add(self.notification_text)
+
+        self.notification_infobar.show_all()
+        self.notification_infobar.set_visible(False)
+
         self.page = ui.get_object('main_box')
-        self.pack_start(self.page, True, True, 0)
+        overlay.add(self.page)
+        overlay.add_overlay(self.notification_infobar)
+
+        self.pack_start(overlay, True, True, 0)
+        self.page.reorder_child(overlay, 0)
 
         # get widgets for main icon-view
         self.status_label = ui.get_object('status_label')
@@ -860,7 +885,6 @@ class CoverArtBrowserSource(RB.Source):
         self.click_count = 0
 
     def update_with_selection(self):
-
         self.last_selected_album, self.click_count = \
             self.entryviewpane.update_selection(self.last_selected_album,
                                                 self.click_count)
