@@ -690,8 +690,12 @@ class QuickSearchEntry(Gtk.Frame):
 
     def _on_parent_key_press(self, parent, event, entry):
         if not self.get_visible() and \
-                        event.keyval not in [Gdk.KEY_Shift_L, Gdk.KEY_Shift_R,
-                                             Gdk.KEY_Control_L, Gdk.KEY_Control_R, Gdk.KEY_Escape]:
+                        event.keyval not in [Gdk.KEY_Shift_L,
+                                             Gdk.KEY_Shift_R,
+                                             Gdk.KEY_Control_L,
+                                             Gdk.KEY_Control_R,
+                                             Gdk.KEY_Escape,
+                                             Gdk.KEY_Alt_L]:
             # grab focus, redirect the pressed key and make the quick search
             # entry visible
             entry.set_text('')
