@@ -249,9 +249,8 @@ class CoverIconView(EnhancedIconView, AbstractView):
         self.show_policy = AlbumShowingPolicy(self)
         self.view = self
         self._has_initialised = False
-        self._last_play_path = None
-        self._recheck_in_progress = False
-        self._current_hover_path = None
+        self._last_path = None
+        self._calc_motion_step = 0
 
     def initialise(self, source):
         if self._has_initialised:
@@ -458,66 +457,93 @@ class CoverIconView(EnhancedIconView, AbstractView):
         return False
 
     def on_pointer_motion(self, widget, event):
-        self._calculate_hotspot(event)
+        self._current_mouse_x = event.x
+        self._current_mouse_y = event.y
 
-    def _calculate_hotspot(self, event):
-        path = self.get_path_at_pos(event.x, event.y)
+        if self._calc_motion_step == 0:
+            self._calc_motion_step = 1
+            Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 100,
+                                    self._calculate_hotspot)
+
+    def _display_icon(self, icon, path):
+        #Gdk.threads_enter()
+        #print ("about to display icon")
+        self.props.cell_area.hover_pixbuf = icon
+        if path:
+            valid, rect = self.get_cell_rect(path, None)
+            self.props.window.invalidate_rect(rect, True)
+
+        self.queue_draw()
+        #Gdk.threads_leave()
+        #print ("and leaving display icon")
+
+
+    def _calculate_hotspot(self, *args):
+
+
+        path = self.get_path_at_pos(self._current_mouse_x,
+                                    self._current_mouse_y)
+
+        print (path)
+
+        # if the current path was not the same as the last path then
+        # reset the counter
+        if not self._last_path or self._last_path != path:
+            print ("not last path")
+            self._display_icon(None, self._last_path)
+            self._last_path = path
+            self._calc_motion_step = 0
+            return False
+
+        self._calc_motion_step = self._calc_motion_step + 1
+
+        # if havent yet reached the requisite number of steps then
+        # let the thread roll to the next increment
+        if self._calc_motion_step < 8:
+            print (self._calc_motion_step)
+            return True
+
+        if not self._cover_play_hotspot(path, in_vacinity = True):
+            # we are not near the hot-spot so decrement the counter
+            # hoping next time around we are near
+            print ("not in vacinity")
+            self._calc_motion_step = self._calc_motion_step - 1
+            self._display_icon(None, self._last_path)
+            return True
+
+        # from  here on in, we are going to display a hotspot icon
+        # so lets decide which one
+
         (_, playing) = self.shell.props.shell_player.get_playing()
 
-        if playing and not self._last_play_path:
+        calc_path = -1
+        if playing:
+            print ("we are playing")
             entry = self.shell.props.shell_player.get_playing_entry()
             album = self.album_manager.model.get_from_dbentry(entry)
-            self._last_play_path = self.album_manager.model.get_path(album)
+            calc_path = self.album_manager.model.get_path(album)
 
-        if playing and self._last_play_path == path:
+        if playing and calc_path == path:
             icon = 'button_playpause'
         elif playing:
             icon = 'button_queue'
         else:
             icon = 'button_play'
 
-        def recheck_hotspot(args):
-            path = args[0]
-            in_vacinity = args[1]
+        # now we've got the icon - lets double check that we are
+        # actually hovering exactly on the hotspot because the icon will visually change
 
-            if self._cover_play_hotspot(path, in_vacinity):
-                current_path = self.get_path_at_pos(event.x, event.y)
-                if current_path == path:
-                    self._current_hover_path = path
+        exact_hotspot = self._cover_play_hotspot(path)
+        if exact_hotspot:
+            icon = icon + '_hover'
 
-            else:
-                self._current_hover_path = None
+        hover = self.hover_pixbufs[icon]
 
-            self._recheck_in_progress = False
-            self._calculate_hotspot(event)
-            self.queue_draw()
+        self._display_icon(hover, path)
+        self._calc_motion_step = self._calc_motion_step - 1
 
-        if self._cover_play_hotspot(path, in_vacinity=True):
-            exact_hotspot = self._cover_play_hotspot(path)
-            if path == self._current_hover_path:
-                if exact_hotspot:
-                    icon = icon + '_hover'
-                hover = self.hover_pixbufs[icon]
-            elif exact_hotspot:
-                if not self._recheck_in_progress:
-                    self._recheck_in_progress = True
-                    Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 150,
-                                            recheck_hotspot, (path, False))
-                hover = None
-            else:
-                hover = None
-                if not self._recheck_in_progress:
-                    self._recheck_in_progress = True
-                    Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 450,
-                                            recheck_hotspot, (path, True))
-        else:
-            hover = None
-
-        self.props.cell_area.hover_pixbuf = hover
-        if hover and path:
-            valid, rect = self.get_cell_rect(path, None)
-            self.props.window.invalidate_rect(rect, True)
-            self.queue_draw()
+        print ("we are at the end")
+        return True
 
     def item_clicked_callback(self, iconview, event, path):
         '''
@@ -538,7 +564,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
                 # if the current playing entry corresponds to the album
                 # we are hovering over then we are requesting to pause
                 if self.album_manager.model.get_from_path(path) == album:
-                    self._last_play_path = path
+                    self._last_path = path
                     self.shell.props.shell_player.pause()
                     self.on_pointer_motion(self, event)
                     return
@@ -546,10 +572,10 @@ class CoverIconView(EnhancedIconView, AbstractView):
             # if we are not playing and the last thing played is what
             # we are still hovering over then we must be requesting to play
 
-            if self._last_play_path and self._last_play_path == path:
-                self.shell.props.shell_player.play()
-                self.on_pointer_motion(self, event)
-                return
+            #if self._last_path and self._last_path == path:
+            #    self.shell.props.shell_player.play()
+            #    self.on_pointer_motion(self, event)
+            #    return
 
             # otherwise, this must be a new album so we are asking just
             # to play this new album ... just need a short interval
@@ -564,7 +590,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
                                             "Album appended to current playing queue",
                                             album.cover.original)
                 else:  # otherwise just play it
-                    self._last_play_path = path
+                    self._last_path = path
                     self.source.play_selected_album(self.source.favourites)
 
                 self.props.cell_area.hover_pixbuf = \
