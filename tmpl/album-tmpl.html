@@ -16,8 +16,10 @@
         mn = time / 60
         sec = time % 60
         if hr > 0:
+            # TRANSLATORS: album duration (length) in the format hour:minute:second
             return _("%d:%02d:%02d") % (hr,mn,sec)
         else:
+            # TRANSLATORS: album duration (length) in the format minute:second
             return _("%d:%02d") %(mn,sec)
 
     def format_year(date):
@@ -62,7 +64,9 @@
 <%  
     num_albums = len(albums)
 %>
-    <h1>${ _("Top albums by %s") % ("<em>" + cgi.escape(artist, True) + "</em>") }</h1>
+    <h1>
+    ## TRANSLATORS: where %s is the artist name - for example "Top Albums by Michael Jackson"
+    ${ _("Top albums by %s") % ("<em>" + cgi.escape(artist, True) + "</em>") }</h1>
 %for i, entry in enumerate(albums) :
     <%
     if 'tracklist' not in entry or len(entry['tracklist']) == 0:
@@ -79,6 +83,7 @@
     <% 
         album_time = sec2hms(entry['duration'])
 	tracks = len(entry['tracklist'])
+    # TRANSLATORS: %s is just a string and is not translated, %d is a number and is the number of track(s)
 	s = ngettext("%s (%d track)", "%s (%d tracks)", tracks)
     %>
     <p class="duration">${ s % (album_time, tracks) }</p>

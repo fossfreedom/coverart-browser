@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-14 12:05+0100\n"
+"POT-Creation-Date: 2014-06-14 23:18+0100\n"
 "PO-Revision-Date: 2013-08-28 10:55+0000\n"
 "Last-Translator: Xiaoxing Ye <Unknown>\n"
 "Language-Team: Chinese (Simplified) <zh_CN@li.org>\n"
@@ -18,43 +18,49 @@ msgstr ""
 "X-Launchpad-Export-Date: 2014-01-16 21:56+0000\n"
 "X-Generator: Launchpad (build 16901)\n"
 
-#: tmpl/album-tmpl.html:19
+#. TRANSLATORS: album duration (length) in the format hour:minute:second
+#: tmpl/album-tmpl.html:20
 #, python-format
 msgid "%d:%02d:%02d"
 msgstr ""
 
-#: tmpl/album-tmpl.html:21
+#. TRANSLATORS: album duration (length) in the format minute:second
+#: tmpl/album-tmpl.html:23
 #, python-format
 msgid "%d:%02d"
 msgstr ""
 
-#: tmpl/album-tmpl.html:46
+#: tmpl/album-tmpl.html:48
 #, fuzzy
 msgid "Hide all tracks"
 msgstr "搜索音轨"
 
-#: tmpl/album-tmpl.html:47 tmpl/album-tmpl.html:88
+#: tmpl/album-tmpl.html:49 tmpl/album-tmpl.html:93
 #, fuzzy
 msgid "Show all tracks"
 msgstr "搜索音轨"
 
-#: tmpl/album-tmpl.html:65
+#. TRANSLATORS: where %s is the artist name - for example "Top Albums by
+#. Michael Jackson"
+#: tmpl/album-tmpl.html:69
 #, python-format
 msgid "Top albums by %s"
 msgstr ""
 
-#: tmpl/album-tmpl.html:82
+#. TRANSLATORS: %s is just a string and is not translated, %d is a number and
+#. is the number of track(s)
+#: tmpl/album-tmpl.html:87
 #, fuzzy, python-format
 msgid "%s (%d track)"
 msgid_plural "%s (%d tracks)"
 msgstr[0] " 共有 %d 首歌曲"
 msgstr[1] " 共有 %d 首歌曲"
 
-#: tmpl/album-tmpl.html:101
+#: tmpl/album-tmpl.html:106
 msgid "Track list not available"
 msgstr ""
 
-#: tmpl/album-tmpl.html:114
+#: tmpl/album-tmpl.html:119
 msgid "Unable to retrieve album information:"
 msgstr ""
 
@@ -136,9 +142,10 @@ msgstr ""
 msgid "Filter"
 msgstr ""
 
+#. TRANSLATORS: Links for artist-name e.g. Links for Michael Jackson
 #: tmpl/artist-tmpl.html:80 tmpl/artist-tmpl.html:87
 #: tmpl/echoartist-tmpl.html:49 tmpl/echoartist-tmpl.html:56
-#: tmpl/links-tmpl.html:13 tmpl/links-tmpl.html:19
+#: tmpl/links-tmpl.html:15 tmpl/links-tmpl.html:21
 #, python-format
 msgid "Links for %s:"
 msgstr ""
@@ -163,7 +170,7 @@ msgstr ""
 msgid "Biography provided by: "
 msgstr ""
 
-#: tmpl/links-tmpl.html:26
+#: tmpl/links-tmpl.html:28
 msgid "Unable to get links"
 msgstr ""
 

@@ -10,7 +10,9 @@
 </head>
 <body>
 %if error is None:
-<h1>${ _("Links for %s:") % ("<em>" + artist + "</em>")}</h1>
+<h1>
+## TRANSLATORS: Links for artist-name e.g. Links for Michael Jackson
+${ _("Links for %s:") % ("<em>" + artist + "</em>")}</h1>
 <ul>
 %for k, v in art_links.items() :
     <li><img src="${images}${k}16x16.png" /><a href="${v}">${k}</a></li>
