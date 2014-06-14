@@ -1,4 +1,5 @@
 coverart_album.py
+coverart_artistinfo.py
 coverart_artistview.py
 coverart_browser_prefs.py
 coverart_browser.py
@@ -10,6 +11,8 @@ coverart_entryview.py
 coverart_export.py
 coverart_external_plugins.py
 coverart_listview.py
+coverart_playlists.py
+coverart_queueview.py
 coverart_rb3compat.py
 coverart_search.py
 coverart_toolbar.py

@@ -82,7 +82,7 @@
         <genre spritesheet="genre" name="classical">classical</genre>
         <genre xml:lang="ast" spritesheet="genre" name="classical">clásica</genre>
         <genre xml:lang="az" spritesheet="genre" name="classical">klassik</genre>
-        <genre xml:lang="bg" spritesheet="genre" name="classical">класическа</genre>
+        <genre xml:lang="bg" spritesheet="genre" name="classical">класика</genre>
         <genre xml:lang="bs" spritesheet="genre" name="classical">classical</genre>
         <genre xml:lang="ca" spritesheet="genre" name="classical">Clàssica</genre>
         <genre xml:lang="cs" spritesheet="genre" name="classical">classical</genre>
@@ -305,7 +305,7 @@
         <genre spritesheet="genre" name="metal">metal</genre>
         <genre xml:lang="ast" spritesheet="genre" name="metal">metal</genre>
         <genre xml:lang="az" spritesheet="genre" name="metal">metal</genre>
-        <genre xml:lang="bg" spritesheet="genre" name="metal">метал</genre>
+        <genre xml:lang="bg" spritesheet="genre" name="metal">метъл</genre>
         <genre xml:lang="bs" spritesheet="genre" name="metal">metal</genre>
         <genre xml:lang="ca" spritesheet="genre" name="metal">metal</genre>
         <genre xml:lang="cs" spritesheet="genre" name="metal">metal</genre>
@@ -330,7 +330,7 @@
         <genre spritesheet="genre" name="karaoke">karaoke</genre>
         <genre xml:lang="ast" spritesheet="genre" name="karaoke">karaoke</genre>
         <genre xml:lang="az" spritesheet="genre" name="karaoke">karaoke</genre>
-        <genre xml:lang="bg" spritesheet="genre" name="karaoke">метал</genre>
+        <genre xml:lang="bg" spritesheet="genre" name="karaoke">караоке</genre>
         <genre xml:lang="bs" spritesheet="genre" name="karaoke">karaoke</genre>
         <genre xml:lang="ca" spritesheet="genre" name="karaoke">karaoke</genre>
         <genre xml:lang="cs" spritesheet="genre" name="karaoke">karaoke</genre>
@@ -382,6 +382,7 @@
         <genre spritesheet="genre" name="ragtime">ragtime</genre>
         <genre xml:lang="ast" spritesheet="genre" name="ragtime">ragtime</genre>
         <genre xml:lang="az" spritesheet="genre" name="ragtime">ragtime</genre>
+        <genre xml:lang="bg" spritesheet="genre" name="ragtime">рагтайм</genre>
         <genre xml:lang="bs" spritesheet="genre" name="ragtime">ragtime</genre>
         <genre xml:lang="ca" spritesheet="genre" name="ragtime">ragtime</genre>
         <genre xml:lang="cs" spritesheet="genre" name="ragtime">ragtime</genre>
@@ -506,7 +507,6 @@
         <genre xml:lang="ast" spritesheet="genre" name="soundtrack">banda sonora</genre>
         <genre xml:lang="az" spritesheet="genre" name="soundtrack">soundtrak</genre>
         <genre xml:lang="bg" spritesheet="genre" name="soundtrack">саундтрак</genre>
-        <genre xml:lang="bs" spritesheet="genre" name="soundtrack">muzika iz filma</genre>
         <genre xml:lang="ca" spritesheet="genre" name="soundtrack">banda sonora</genre>
         <genre xml:lang="cs" spritesheet="genre" name="soundtrack">soundtrack</genre>
         <genre xml:lang="de" spritesheet="genre" name="soundtrack">Soundtrack</genre>
@@ -525,7 +525,6 @@
         <genre xml:lang="pt" spritesheet="genre" name="soundtrack">banda sonora</genre>
         <genre xml:lang="pt_BR" spritesheet="genre" name="soundtrack">trilha sonora</genre>
         <genre xml:lang="ro" spritesheet="genre" name="soundtrack">soundtrack</genre>
-        <genre xml:lang="sk" spritesheet="genre" name="soundtrack">soundtrack</genre>
         <genre xml:lang="tr" spritesheet="genre" name="soundtrack">film müziği</genre>
         <genre xml:lang="zh_CN" spritesheet="genre" name="soundtrack">音轨</genre>
         <genre spritesheet="genre" name="latin">latin</genre>
@@ -556,6 +555,7 @@
         <genre spritesheet="genre" name="alternative">alternative</genre>
         <genre xml:lang="ast" spritesheet="genre" name="alternative">alternativa</genre>
         <genre xml:lang="az" spritesheet="genre" name="alternative">alternativ</genre>
+        <genre xml:lang="bg" spritesheet="genre" name="alternative">алтернативна</genre>
         <genre xml:lang="bs" spritesheet="genre" name="alternative">alternative</genre>
         <genre xml:lang="ca" spritesheet="genre" name="alternative">alternative</genre>
         <genre xml:lang="cs" spritesheet="genre" name="alternative">alternativní</genre>
@@ -756,6 +756,7 @@
         <genre spritesheet="genre" name="soul">soul</genre>
         <genre xml:lang="ast" spritesheet="genre" name="soul">soul</genre>
         <genre xml:lang="az" spritesheet="genre" name="soul">könül</genre>
+        <genre xml:lang="bg" spritesheet="genre" name="soul">соул</genre>
         <genre xml:lang="bs" spritesheet="genre" name="soul">soul</genre>
         <genre xml:lang="ca" spritesheet="genre" name="soul">soul</genre>
         <genre xml:lang="cs" spritesheet="genre" name="soul">soul</genre>
@@ -947,6 +948,7 @@
         <decade spritesheet="decade" name="80s">80s</decade>
         <decade spritesheet="decade" name="90s">90s</decade>
     </decade>
+    
     <theme>
         <theme folder_name="standard">
             <spritesheet name="genre">

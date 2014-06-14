@@ -58,7 +58,7 @@ def lastfm_datasource_link(path):
 
 
 LASTFM_NO_ACCOUNT_ERROR = _(
-    "This information is only available to Last.fm users. Ensure the Last.fm plugin is enabled, select Last.fm in the side pane, and log in.")
+    "Enable LastFM plugin and log in first")
 
 
 class ArtistInfoWebView(WebKit.WebView):

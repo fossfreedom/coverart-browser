@@ -1,12 +1,10 @@
-tmp/coverart_artist_pop_rb2.ui.h
 tmp/coverart_artist_pop_rb3.ui.h
 tmp/coverart_artistview.ui.h
-tmp/coverart_browser_pop_rb2.ui.h
 tmp/coverart_browser_pop_rb3.ui.h
 tmp/coverart_browser_prefs.ui.h
 tmp/coverart_browser.ui.h
-tmp/coverart_entryview_pop_rb2.ui.h
-tmp/coverart_entryview_pop_rb3.ui.h
+tmp/coverart_entryview_compact_pop_rb3.ui.h
+tmp/coverart_entryview_full_pop_rb3.ui.h
 tmp/coverart_exportembed.ui.h
 tmp/coverart_iconview.ui.h
 tmp/coverart_leftsidebar.ui.h

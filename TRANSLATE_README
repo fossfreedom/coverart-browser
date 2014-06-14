@@ -6,14 +6,12 @@
 #+++++++++++++++++++++++++++
 #for each ui file run the following to create translation .h files
 intltool-extract --local --type=gettext/glade ui/coverart_artistview.ui
-intltool-extract --local --type=gettext/glade ui/coverart_artist_pop_rb2.ui
 intltool-extract --local --type=gettext/glade ui/coverart_artist_pop_rb3.ui
-intltool-extract --local --type=gettext/glade ui/coverart_browser_pop_rb2.ui
 intltool-extract --local --type=gettext/glade ui/coverart_browser_pop_rb3.ui
 intltool-extract --local --type=gettext/glade ui/coverart_browser_prefs.ui
 intltool-extract --local --type=gettext/glade ui/coverart_browser.ui
-intltool-extract --local --type=gettext/glade ui/coverart_entryview_pop_rb2.ui
-intltool-extract --local --type=gettext/glade ui/coverart_entryview_pop_rb3.ui
+intltool-extract --local --type=gettext/glade ui/coverart_entryview_compact_pop_rb3.ui
+intltool-extract --local --type=gettext/glade ui/coverart_entryview_full_pop_rb3.ui
 intltool-extract --local --type=gettext/glade ui/coverart_exportembed.ui
 intltool-extract --local --type=gettext/glade ui/coverart_iconview.ui
 intltool-extract --local --type=gettext/glade ui/coverart_leftsidebar.ui
