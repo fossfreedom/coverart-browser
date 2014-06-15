@@ -484,12 +484,9 @@ class CoverIconView(EnhancedIconView, AbstractView):
         path = self.get_path_at_pos(self._current_mouse_x,
                                     self._current_mouse_y)
 
-        print (path)
-
         # if the current path was not the same as the last path then
         # reset the counter
         if not self._last_path or self._last_path != path:
-            print ("not last path")
             self._display_icon(None, self._last_path)
             self._last_path = path
             self._calc_motion_step = 0
@@ -500,13 +497,11 @@ class CoverIconView(EnhancedIconView, AbstractView):
         # if havent yet reached the requisite number of steps then
         # let the thread roll to the next increment
         if self._calc_motion_step < 8:
-            print (self._calc_motion_step)
             return True
 
         if not self._cover_play_hotspot(path, in_vacinity = True):
             # we are not near the hot-spot so decrement the counter
             # hoping next time around we are near
-            print ("not in vacinity")
             self._calc_motion_step = self._calc_motion_step - 1
             self._display_icon(None, self._last_path)
             return True
@@ -518,7 +513,6 @@ class CoverIconView(EnhancedIconView, AbstractView):
 
         calc_path = -1
         if playing:
-            print ("we are playing")
             entry = self.shell.props.shell_player.get_playing_entry()
             album = self.album_manager.model.get_from_dbentry(entry)
             calc_path = self.album_manager.model.get_path(album)
@@ -542,7 +536,6 @@ class CoverIconView(EnhancedIconView, AbstractView):
         self._display_icon(hover, path)
         self._calc_motion_step = self._calc_motion_step - 1
 
-        print ("we are at the end")
         return True
 
     def item_clicked_callback(self, iconview, event, path):
@@ -584,7 +577,6 @@ class CoverIconView(EnhancedIconView, AbstractView):
                 if playing:  # if we are playing then queue up the next album
                     self.source.queue_selected_album(None, self.source.favourites)
                     album = self.get_selected_objects()[0]
-                    print (album.name)
                     #. TRANSLATORS - s is the music album name e.g. Album-name has been queued to play
                     self.display_notification(album.name,
                                             "Album appended to current playing queue",

@@ -913,6 +913,7 @@ class CoverArtBrowserSource(RB.Source):
         self.statusbar.emit('display-status', self.viewmgr.current_view)
 
     def propertiesbutton_callback(self, choice):
+        print ("properties chosen: %s" % choice)
 
         if choice == 'download':
             self.request_status_box.show_all()

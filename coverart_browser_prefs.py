@@ -250,6 +250,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         return self._create_display_contents(self)
 
     def display_preferences_dialog(self, plugin):
+        print ("DEBUG - display_preferences_dialog")
         if self._first_run:
             self._first_run = False
 
@@ -267,13 +268,19 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
 
         self._dialog.show_all()
 
+        print ("shown")
+
         while True:
             response = self._dialog.run()
+
+            print ("and run")
 
             if response != Gtk.ResponseType.HELP:
                 break
 
         self._dialog.hide()
+
+        print ("DEBUG - display_preferences_dialog end")
 
     def _display_help(self, *args):
         peas = Peas.Engine.get_default()
@@ -282,6 +289,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         webbrowser.open(uri)
 
     def _create_display_contents(self, plugin):
+        print ("DEBUG - create_display_contents")
         # create the ui
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
@@ -507,6 +515,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
             self.black_radiobutton.set_active(True)
 
         # return the dialog
+        print ("end create dialog contents")
         return builder.get_object('main_notebook')
 
     def on_flow_combobox_changed(self, combobox):
