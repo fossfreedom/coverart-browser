@@ -37,6 +37,7 @@ import rb
 import rb_lastfm as LastFM  # from coverart-search-providers
 from coverart_utils import get_stock_size
 from coverart_browser_prefs import GSetting
+from coverart_browser_prefs import CoverLocale
 from coverart_utils import create_button_image
 
 
@@ -382,6 +383,9 @@ class ArtistInfoView(BaseInfoView):
         self.link_ds = link_ds
 
     def loading(self, current_artist, current_album_title):
+        cl = CoverLocale()
+        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+
         self.link_ds.set_artist(current_artist)
         self.link_ds.set_album(current_album_title)
         self.loading_file = self.loading_template.render(
@@ -392,6 +396,9 @@ class ArtistInfoView(BaseInfoView):
         self.webview.load_string(self.loading_file, 'text/html', 'utf-8', self.basepath)
 
     def load_tmpl(self):
+        cl = CoverLocale()
+        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+
         path = rb.find_plugin_file(self.plugin, 'tmpl/artist-tmpl.html')
         empty_path = rb.find_plugin_file(self.plugin, 'tmpl/artist_empty-tmpl.html')
         loading_path = rb.find_plugin_file(self.plugin, 'tmpl/loading.html')
@@ -681,6 +688,9 @@ class AlbumInfoView(BaseInfoView):
         self.ds.connect('albums-ready', self.album_list_ready)
 
     def loading(self, current_artist, current_album_title):
+        cl = CoverLocale()
+        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+
         self.loading_file = self.loading_template.render(
             artist=current_artist,
             # Translators: 'top' here means 'most popular'.  %s is replaced by the artist name.
@@ -690,6 +700,9 @@ class AlbumInfoView(BaseInfoView):
         self.webview.load_string(self.loading_file, 'text/html', 'utf-8', self.basepath)
 
     def load_tmpl(self):
+        cl = CoverLocale()
+        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+
         path = rb.find_plugin_file(self.plugin, 'tmpl/album-tmpl.html')
         empty_path = rb.find_plugin_file(self.plugin, 'tmpl/album_empty-tmpl.html')
         self.loading_path = rb.find_plugin_file(self.plugin, 'tmpl/loading.html')
@@ -858,6 +871,9 @@ class EchoArtistInfoView(BaseInfoView):
         self.link_ds = link_ds
 
     def load_tmpl(self):
+        cl = CoverLocale()
+        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+
         path = rb.find_plugin_file(self.plugin, 'tmpl/echoartist-tmpl.html')
         empty_path = rb.find_plugin_file(self.plugin, 'tmpl/artist_empty-tmpl.html')
         loading_path = rb.find_plugin_file(self.plugin, 'tmpl/loading.html')
@@ -869,7 +885,6 @@ class EchoArtistInfoView(BaseInfoView):
 
     def connect_signals(self):
         self.air_id = self.ds.connect('artist-info-ready', self.artist_info_ready)
-
 
     def artist_info_ready(self, ds):
         # Can only be called after the artist-info-ready signal has fired.
