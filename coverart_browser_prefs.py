@@ -291,6 +291,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
     def _create_display_contents(self, plugin):
         print ("DEBUG - create_display_contents")
         # create the ui
+        self._first_run = True
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
         builder = Gtk.Builder()
@@ -319,6 +320,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         toggle_text = builder.get_object('display_text_checkbox')
         self.settings.bind(gs.PluginKey.DISPLAY_TEXT, toggle_text, 'active',
                            Gio.SettingsBindFlags.DEFAULT)
+
 
         box_text = builder.get_object('display_text_box')
         self.settings.bind(gs.PluginKey.DISPLAY_TEXT, box_text, 'sensitive',
@@ -515,6 +517,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
             self.black_radiobutton.set_active(True)
 
         # return the dialog
+        self._first_run = False
         print ("end create dialog contents")
         return builder.get_object('main_notebook')
 
@@ -541,6 +544,9 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
                 self.settings[gs.PluginKey.FLOW_BACKGROUND_COLOUR] = 'B'
 
     def on_display_text_pos_radio_toggled(self, button):
+        if self._first_run:
+            return
+
         if button.get_active():
             gs = GSetting()
             if button == self.display_text_under_radiobutton:
