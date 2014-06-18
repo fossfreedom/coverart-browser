@@ -464,22 +464,22 @@ class CoverIconView(EnhancedIconView, AbstractView):
             self._calc_motion_step = 1
             Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 100,
                                     self._calculate_hotspot)
+        else:
+            path = self.get_path_at_pos(self._current_mouse_x,
+                                    self._current_mouse_y)
+
+            if not self._last_path or self._last_path != path:
+                self._display_icon(None, self._last_path)
 
     def _display_icon(self, icon, path):
-        #Gdk.threads_enter()
-        #print ("about to display icon")
         self.props.cell_area.hover_pixbuf = icon
         if path:
             valid, rect = self.get_cell_rect(path, None)
             self.props.window.invalidate_rect(rect, True)
 
         self.queue_draw()
-        #Gdk.threads_leave()
-        #print ("and leaving display icon")
-
 
     def _calculate_hotspot(self, *args):
-
 
         path = self.get_path_at_pos(self._current_mouse_x,
                                     self._current_mouse_y)
