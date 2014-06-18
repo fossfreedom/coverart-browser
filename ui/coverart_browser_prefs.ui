@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.16.1 -->
 <interface>
-  <!-- interface-requires gtk+ 3.0 -->
+  <requires lib="gtk+" version="3.0"/>
   <object class="GtkImage" id="add_image">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -70,79 +71,6 @@
       <mime-type>image/jpeg</mime-type>
       <mime-type>image/gif</mime-type>
     </mime-types>
-  </object>
-  <object class="GtkFileChooserDialog" id="filechooserdialog">
-    <property name="can_focus">False</property>
-    <property name="border_width">5</property>
-    <property name="title" translatable="yes">Select a picture</property>
-    <property name="role">GtkFileChooserDialog</property>
-    <property name="type_hint">dialog</property>
-    <property name="create_folders">False</property>
-    <property name="filter">filefilter1</property>
-    <child internal-child="vbox">
-      <object class="GtkBox" id="genre_filechooserdialog">
-        <property name="can_focus">False</property>
-        <child internal-child="action_area">
-          <object class="GtkButtonBox" id="filechooserdialog-action_area1">
-            <property name="can_focus">False</property>
-            <child>
-              <object class="GtkButton" id="fc_cancel_button">
-                <property name="label">gtk-cancel</property>
-                <property name="use_action_appearance">False</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="use_action_appearance">False</property>
-                <property name="use_stock">True</property>
-                <property name="xalign">0</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="fc_ok_button">
-                <property name="related_action">ok_action</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="can_default">True</property>
-                <property name="receives_default">False</property>
-                <property name="tooltip_text" translatable="yes">Select picture to add to Edit Genre icon drop-down list</property>
-                <property name="related_action">ok_action</property>
-                <property name="use_stock">True</property>
-                <property name="xalign">0</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="pack_type">end</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-    <action-widgets>
-      <action-widget response="0">fc_cancel_button</action-widget>
-      <action-widget response="-3">fc_ok_button</action-widget>
-    </action-widgets>
   </object>
   <object class="GtkAdjustment" id="flow_max_adjustment">
     <property name="lower">50</property>
@@ -223,6 +151,77 @@
   <object class="GtkAction" id="ok_action">
     <property name="stock_id">gtk-ok</property>
   </object>
+  <object class="GtkFileChooserDialog" id="filechooserdialog">
+    <property name="can_focus">False</property>
+    <property name="border_width">5</property>
+    <property name="title" translatable="yes">Select a picture</property>
+    <property name="role">GtkFileChooserDialog</property>
+    <property name="type_hint">dialog</property>
+    <property name="create_folders">False</property>
+    <property name="filter">filefilter1</property>
+    <child internal-child="vbox">
+      <object class="GtkBox" id="genre_filechooserdialog">
+        <property name="can_focus">False</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox" id="filechooserdialog-action_area1">
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkButton" id="fc_cancel_button">
+                <property name="label">gtk-cancel</property>
+                <property name="use_action_appearance">False</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="use_stock">True</property>
+                <property name="xalign">0</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="fc_ok_button">
+                <property name="related_action">ok_action</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="can_default">True</property>
+                <property name="receives_default">False</property>
+                <property name="tooltip_text" translatable="yes">Select picture to add to Edit Genre icon drop-down list</property>
+                <property name="use_stock">True</property>
+                <property name="xalign">0</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack_type">end</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="0">fc_cancel_button</action-widget>
+      <action-widget response="-3">fc_ok_button</action-widget>
+    </action-widgets>
+  </object>
   <object class="GtkAdjustment" id="padding_adjustment">
     <property name="upper">50</property>
     <property name="step_increment">1</property>
@@ -293,7 +292,6 @@
             <property name="margin_right">5</property>
             <property name="margin_top">5</property>
             <property name="margin_bottom">5</property>
-            <property name="use_action_appearance">False</property>
             <property name="xalign">0</property>
             <property name="draw_indicator">True</property>
           </object>
@@ -316,7 +314,6 @@
             <property name="margin_right">5</property>
             <property name="margin_top">5</property>
             <property name="margin_bottom">5</property>
-            <property name="use_action_appearance">False</property>
             <property name="xalign">0</property>
             <property name="draw_indicator">True</property>
           </object>
@@ -354,7 +351,6 @@ albums to play</property>
                 <property name="max_length">3</property>
                 <property name="invisible_char">•</property>
                 <property name="width_chars">3</property>
-                <property name="invisible_char_set">True</property>
                 <property name="adjustment">random_adjustment</property>
                 <property name="climb_rate">1</property>
                 <property name="snap_to_ticks">True</property>
@@ -382,7 +378,6 @@ albums to play</property>
             <property name="margin_left">5</property>
             <property name="margin_top">5</property>
             <property name="margin_bottom">5</property>
-            <property name="orientation">horizontal</property>
             <property name="spacing">10</property>
             <child>
               <object class="GtkLabel" id="rated_label">
@@ -421,7 +416,6 @@ albums to play</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="has_tooltip">True</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="image">howitworks_image</property>
                     <property name="relief">none</property>
                     <property name="uri">https://github.com/fossfreedom/coverart-browser/wiki/How-the-plugin-works</property>
@@ -439,7 +433,6 @@ albums to play</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="no_show_all">True</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="image">launchpad_image</property>
                     <signal name="toggled" handler="on_show_launchpad_toggled" swapped="no"/>
                   </object>
@@ -525,7 +518,6 @@ albums to play</property>
             <property name="margin_right">5</property>
             <property name="margin_top">5</property>
             <property name="margin_bottom">5</property>
-            <property name="use_action_appearance">False</property>
             <property name="xalign">0</property>
             <property name="draw_indicator">True</property>
           </object>
@@ -599,7 +591,6 @@ albums to play</property>
                 <property name="margin_right">5</property>
                 <property name="margin_top">5</property>
                 <property name="margin_bottom">5</property>
-                <property name="use_action_appearance">False</property>
                 <property name="xalign">0</property>
                 <property name="draw_indicator">True</property>
               </object>
@@ -637,7 +628,6 @@ albums to play</property>
                     <property name="max_length">3</property>
                     <property name="invisible_char">•</property>
                     <property name="width_chars">3</property>
-                    <property name="invisible_char_set">True</property>
                     <property name="adjustment">display_text_ellipsize_length_adjustment</property>
                     <property name="climb_rate">5</property>
                     <property name="numeric">True</property>
@@ -666,7 +656,6 @@ albums to play</property>
                 <property name="margin_left">20</property>
                 <property name="margin_right">5</property>
                 <property name="margin_top">5</property>
-                <property name="use_action_appearance">False</property>
                 <property name="xalign">0</property>
                 <property name="active">True</property>
                 <property name="draw_indicator">True</property>
@@ -689,7 +678,6 @@ albums to play</property>
                 <property name="margin_right">5</property>
                 <property name="margin_top">5</property>
                 <property name="margin_bottom">5</property>
-                <property name="use_action_appearance">False</property>
                 <property name="xalign">0</property>
                 <property name="draw_indicator">True</property>
                 <property name="group">display_text_under_radiobutton</property>
@@ -742,7 +730,6 @@ albums to play</property>
                 <property name="margin_right">5</property>
                 <property name="margin_top">5</property>
                 <property name="margin_bottom">5</property>
-                <property name="use_action_appearance">False</property>
                 <property name="xalign">0</property>
                 <property name="draw_indicator">True</property>
                 <signal name="toggled" handler="on_add_shadow_checkbox_toggled" swapped="no"/>
@@ -852,7 +839,7 @@ albums to play</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="margin_left">10</property>
-            <property name="margin_top">3</property>
+            <property name="margin_top">5</property>
             <property name="xalign">0</property>
             <property name="label" translatable="yes">Tracks Pane</property>
             <attributes>
@@ -871,9 +858,9 @@ albums to play</property>
             <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="margin_left">30</property>
             <property name="receives_default">False</property>
-            <property name="use_action_appearance">False</property>
+            <property name="margin_left">30</property>
+            <property name="margin_top">5</property>
             <property name="xalign">0</property>
             <property name="draw_indicator">True</property>
           </object>
@@ -888,7 +875,7 @@ albums to play</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="margin_left">10</property>
-            <property name="margin_top">10</property>
+            <property name="margin_top">5</property>
             <property name="xalign">0</property>
             <property name="label" translatable="yes">Advanced Options</property>
             <attributes>
@@ -906,11 +893,14 @@ albums to play</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="margin_left">30</property>
+            <property name="margin_top">5</property>
+            <property name="margin_bottom">5</property>
             <child>
               <object class="GtkSpinButton" id="padding_spin">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="tooltip_text" translatable="yes">Padding (space) around the cover and its highlight</property>
+                <property name="margin_bottom">5</property>
                 <property name="max_length">2</property>
                 <property name="invisible_char">•</property>
                 <property name="adjustment">padding_adjustment</property>
@@ -972,7 +962,7 @@ albums to play</property>
               <object class="GtkLabel" id="label12">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="no">: </property>
+                <property name="label">: </property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -985,7 +975,7 @@ albums to play</property>
               <object class="GtkLabel" id="label13">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="no">: </property>
+                <property name="label">: </property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -1027,8 +1017,9 @@ albums to play</property>
           <object class="GtkLabel" id="label10">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="xalign">0</property>
             <property name="margin_left">10</property>
+            <property name="margin_top">5</property>
+            <property name="xalign">0</property>
             <property name="label" translatable="yes">Flow Appearance</property>
             <attributes>
               <attribute name="weight" value="bold"/>
@@ -1044,8 +1035,9 @@ albums to play</property>
           <object class="GtkComboBox" id="flow_combobox">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="margin_left">30</property>
             <property name="halign">start</property>
+            <property name="margin_left">30</property>
+            <property name="margin_top">5</property>
             <property name="model">flow_model</property>
             <property name="active">0</property>
             <property name="id_column">0</property>
@@ -1062,6 +1054,8 @@ albums to play</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="margin_left">30</property>
+            <property name="margin_top">5</property>
+            <property name="margin_bottom">5</property>
             <property name="orientation">vertical</property>
             <child>
               <object class="GtkBox" id="box11">
@@ -1087,7 +1081,6 @@ albums to play</property>
                     <property name="max_length">4</property>
                     <property name="invisible_char">•</property>
                     <property name="width_chars">4</property>
-                    <property name="invisible_char_set">True</property>
                     <property name="adjustment">cover_width_adjustment</property>
                     <property name="climb_rate">50</property>
                     <property name="snap_to_ticks">True</property>
@@ -1119,6 +1112,8 @@ albums to play</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="margin_left">30</property>
+            <property name="margin_top">5</property>
+            <property name="margin_bottom">5</property>
             <child>
               <object class="GtkLabel" id="label14">
                 <property name="visible">True</property>
@@ -1139,7 +1134,6 @@ albums to play</property>
                 <property name="max_length">3</property>
                 <property name="invisible_char">•</property>
                 <property name="width_chars">3</property>
-                <property name="invisible_char_set">True</property>
                 <property name="adjustment">cover_scale_adjustment</property>
                 <property name="climb_rate">10</property>
                 <property name="snap_to_ticks">True</property>
@@ -1165,9 +1159,8 @@ albums to play</property>
             <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="margin_left">30</property>
             <property name="receives_default">False</property>
-            <property name="use_action_appearance">False</property>
+            <property name="margin_left">30</property>
             <property name="xalign">0</property>
             <property name="draw_indicator">True</property>
           </object>
@@ -1202,7 +1195,6 @@ albums to play</property>
                 <property name="max_length">3</property>
                 <property name="invisible_char">•</property>
                 <property name="width_chars">3</property>
-                <property name="invisible_char_set">True</property>
                 <property name="adjustment">flow_max_adjustment</property>
                 <property name="climb_rate">10</property>
                 <property name="snap_to_ticks">True</property>
@@ -1227,7 +1219,7 @@ albums to play</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="margin_left">10</property>
-            <property name="margin_top">3</property>
+            <property name="margin_top">5</property>
             <property name="xalign">0</property>
             <property name="label" translatable="yes">Background Colour</property>
             <attributes>
@@ -1246,9 +1238,9 @@ albums to play</property>
             <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="margin_left">30</property>
             <property name="receives_default">False</property>
-            <property name="use_action_appearance">False</property>
+            <property name="margin_left">30</property>
+            <property name="margin_top">5</property>
             <property name="xalign">0</property>
             <property name="draw_indicator">True</property>
             <signal name="toggled" handler="on_background_radio_toggled" swapped="no"/>
@@ -1265,9 +1257,8 @@ albums to play</property>
             <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="margin_left">30</property>
             <property name="receives_default">False</property>
-            <property name="use_action_appearance">False</property>
+            <property name="margin_left">30</property>
             <property name="xalign">0</property>
             <property name="draw_indicator">True</property>
             <property name="group">white_radiobutton</property>
@@ -1284,7 +1275,7 @@ albums to play</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="margin_left">10</property>
-            <property name="margin_top">3</property>
+            <property name="margin_top">5</property>
             <property name="xalign">0</property>
             <property name="label" translatable="yes">Tracks Pane</property>
             <attributes>
@@ -1303,9 +1294,9 @@ albums to play</property>
             <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="margin_left">30</property>
             <property name="receives_default">False</property>
-            <property name="use_action_appearance">False</property>
+            <property name="margin_left">30</property>
+            <property name="margin_top">5</property>
             <property name="xalign">0</property>
             <property name="draw_indicator">True</property>
           </object>
@@ -1369,7 +1360,6 @@ albums to play</property>
                 <property name="margin_left">20</property>
                 <property name="margin_right">5</property>
                 <property name="margin_top">5</property>
-                <property name="margin_bottom">5</property>
                 <child>
                   <object class="GtkLabel" id="show_in_label">
                     <property name="visible">True</property>
@@ -1417,13 +1407,11 @@ albums to play</property>
             <property name="margin_left">10</property>
             <property name="margin_right">5</property>
             <property name="margin_top">5</property>
-            <property name="margin_bottom">5</property>
             <property name="orientation">vertical</property>
             <child>
               <object class="GtkLabel" id="look_and_feel_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="margin_top">5</property>
                 <property name="xalign">0</property>
                 <property name="label" translatable="yes">Look &amp; Feel</property>
                 <attributes>
@@ -1451,7 +1439,6 @@ albums to play</property>
                     <property name="margin_right">5</property>
                     <property name="margin_top">5</property>
                     <property name="margin_bottom">5</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="xalign">0</property>
                     <property name="draw_indicator">True</property>
                   </object>
@@ -1587,7 +1574,6 @@ albums to play</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="tooltip_text" translatable="yes">Select a new genre icon</property>
-                        <property name="orientation">vertical</property>
                         <property name="create_folders">False</property>
                         <property name="filter">filefilter1</property>
                         <property name="dialog">filechooserdialog</property>
@@ -1633,7 +1619,6 @@ albums to play</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
                         <property name="tooltip_text" translatable="yes">Save changes</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="image">save_image</property>
                         <signal name="clicked" handler="on_save_button_clicked" swapped="no"/>
                       </object>
@@ -1687,8 +1672,8 @@ albums to play</property>
                       <object class="GtkComboBox" id="genre_combobox">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="model">alt_liststore</property>
                         <property name="margin_left">3</property>
+                        <property name="model">alt_liststore</property>
                         <property name="wrap_width">5</property>
                         <signal name="changed" handler="set_save_sensitivity" swapped="no"/>
                         <child>
@@ -1725,75 +1710,75 @@ albums to play</property>
                 <property name="margin_left">20</property>
                 <property name="orientation">vertical</property>
                 <child>
-                    <object class="GtkBox" id="user_defined_box">
+                  <object class="GtkBox" id="user_defined_box">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkLabel" id="label7">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="orientation">horizontal</property>
+                        <property name="margin_right">20</property>
+                        <property name="margin_bottom">3</property>
+                        <property name="xalign">0</property>
+                        <property name="label" translatable="yes">Current user-defined Genres:</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkBox" id="genre_action_box">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
                         <child>
-                          <object class="GtkLabel" id="label7">
+                          <object class="GtkButton" id="add_button">
+                            <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="margin_bottom">3</property>
-                            <property name="margin_right">20</property>
-                            <property name="xalign">0</property>
-                            <property name="label" translatable="yes">Current user-defined Genres:</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <property name="tooltip_text" translatable="yes">Add a new alternative genre</property>
+                            <property name="image">add_image</property>
+                            <signal name="clicked" handler="on_add_button_clicked" swapped="no"/>
                           </object>
                           <packing>
                             <property name="expand">False</property>
                             <property name="fill">True</property>
+                            <property name="pack_type">end</property>
                             <property name="position">1</property>
                           </packing>
                         </child>
-                        
                         <child>
-                          <object class="GtkBox" id="genre_action_box">
+                          <object class="GtkButton" id="delete_button">
+                            <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <child>
-                              <object class="GtkButton" id="add_button">
-                                <property name="use_action_appearance">False</property>
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">True</property>
-                                <property name="tooltip_text" translatable="yes">Add a new alternative genre</property>
-                                <property name="use_action_appearance">False</property>
-                                <property name="image">add_image</property>
-                                <signal name="clicked" handler="on_add_button_clicked" swapped="no"/>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="pack_type">end</property>
-                                <property name="position">1</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkButton" id="delete_button">
-                                <property name="use_action_appearance">False</property>
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">True</property>
-                                <property name="tooltip_text" translatable="yes">Delete an alternative genre</property>
-                                <property name="use_action_appearance">False</property>
-                                <property name="image">remove_image</property>
-                                <signal name="clicked" handler="on_delete_button_clicked" swapped="no"/>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="pack_type">end</property>
-                                <property name="position">2</property>
-                              </packing>
-                            </child>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <property name="tooltip_text" translatable="yes">Delete an alternative genre</property>
+                            <property name="image">remove_image</property>
+                            <signal name="clicked" handler="on_delete_button_clicked" swapped="no"/>
                           </object>
                           <packing>
                             <property name="expand">False</property>
-                            <property name="fill">False</property>
-                            <property name="position">5</property>
+                            <property name="fill">True</property>
+                            <property name="pack_type">end</property>
+                            <property name="position">2</property>
                           </packing>
                         </child>
-                        
-                    </object>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">5</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
                 </child>
                 <child>
                   <object class="GtkScrolledWindow" id="scrolledwindow1">
