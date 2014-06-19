@@ -1,69 +1,69 @@
-# French Canadian translations for coverart-browser package.
-# Copyright (C) 2013 ORGANIZATION
-# Automatically generated, 2013.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 #
+# Translators:
+# Automatically generated, 2013
+# fossfreedom <foss.freedom@gmail.com>, 2014
+# jrbastien <jrbastien@yahoo.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.1\n"
+"Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-06-14 23:18+0100\n"
-"PO-Revision-Date: 2014-01-14 21:13+0000\n"
-"Last-Translator: Jean-Rene Bastien <Unknown>\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2014-06-19 19:17+0000\n"
+"Last-Translator: fossfreedom <foss.freedom@gmail.com>\n"
+"Language-Team: French (Canada) (http://www.transifex.com/projects/p/"
+"coverartbrowser/language/fr_CA/)\n"
 "Language: fr_CA\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-01-16 21:56+0000\n"
-"X-Generator: Launchpad (build 16901)\n"
-"Generated-By: pygettext.py 1.5\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. TRANSLATORS: album duration (length) in the format hour:minute:second
 #: tmpl/album-tmpl.html:20
 #, python-format
 msgid "%d:%02d:%02d"
-msgstr ""
+msgstr "%d:%02d:%02d"
 
 #. TRANSLATORS: album duration (length) in the format minute:second
 #: tmpl/album-tmpl.html:23
 #, python-format
 msgid "%d:%02d"
-msgstr ""
+msgstr "%d:%02d"
 
 #: tmpl/album-tmpl.html:48
-#, fuzzy
 msgid "Hide all tracks"
-msgstr "Rechercher les pistes"
+msgstr "Cacher toutes les pistes"
 
 #: tmpl/album-tmpl.html:49 tmpl/album-tmpl.html:93
-#, fuzzy
 msgid "Show all tracks"
-msgstr "Rechercher les pistes"
+msgstr "Afficher toutes les pistes"
 
 #. TRANSLATORS: where %s is the artist name - for example "Top Albums by
 #. Michael Jackson"
 #: tmpl/album-tmpl.html:69
 #, python-format
 msgid "Top albums by %s"
-msgstr ""
+msgstr "Les meilleurs alabums de %s"
 
 #. TRANSLATORS: %s is just a string and is not translated, %d is a number and
 #. is the number of track(s)
 #: tmpl/album-tmpl.html:87
-#, fuzzy, python-format
+#, python-format
 msgid "%s (%d track)"
 msgid_plural "%s (%d tracks)"
-msgstr[0] " avec %d pistes"
-msgstr[1] " avec %d pistes"
+msgstr[0] "%s (%d piste)"
+msgstr[1] "%s (%d pistes)"
 
 #: tmpl/album-tmpl.html:106
 msgid "Track list not available"
-msgstr ""
+msgstr "La liste des pistes n'est pas disponible"
 
 #: tmpl/album-tmpl.html:119
-#, fuzzy
 msgid "Unable to retrieve album information:"
-msgstr "Afficher l'information de l'album"
+msgstr "Impossible de retrouver les informations de l'album"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 #: tmpl/artistartsearch-tmpl.html:135
@@ -135,15 +135,15 @@ msgstr "Afficher plus de résultats"
 
 #: tmpl/artist-tmpl.html:9 tmpl/echoartist-tmpl.html:10
 msgid "No information available"
-msgstr ""
+msgstr "Aucune information disponible"
 
 #: tmpl/artist-tmpl.html:28
 msgid "Unfilter"
-msgstr ""
+msgstr "De-filtrer"
 
 #: tmpl/artist-tmpl.html:29 tmpl/artist-tmpl.html:114
 msgid "Filter"
-msgstr ""
+msgstr "Filtrer"
 
 #. TRANSLATORS: Links for artist-name e.g. Links for Michael Jackson
 #: tmpl/artist-tmpl.html:80 tmpl/artist-tmpl.html:87
@@ -151,19 +151,19 @@ msgstr ""
 #: tmpl/links-tmpl.html:15 tmpl/links-tmpl.html:21
 #, python-format
 msgid "Links for %s:"
-msgstr ""
+msgstr "Liens pour %s:"
 
 #: tmpl/artist-tmpl.html:97
 msgid "Similar Artists"
-msgstr ""
+msgstr "Artistes similaires"
 
 #: tmpl/artist-tmpl.html:108
 msgid "similar"
-msgstr ""
+msgstr "similaire"
 
 #: tmpl/artist-tmpl.html:124 tmpl/echoartist-tmpl.html:69
 msgid "Unable to retrieve artist information:"
-msgstr ""
+msgstr "Impossible de retrouver les informations de l'artiste:"
 
 #: tmpl/artistartsearch-tmpl.html:180
 msgid "Tip: doubleclick or drag a cover to use it as the artist cover"
@@ -173,11 +173,11 @@ msgstr ""
 
 #: tmpl/echoartist-tmpl.html:66
 msgid "Biography provided by: "
-msgstr ""
+msgstr "Biographie fournie par:"
 
 #: tmpl/links-tmpl.html:28
 msgid "Unable to get links"
-msgstr ""
+msgstr "Impossible d'obtenir les liens"
 
 #: tmp/coverart_artist_pop_rb3.ui.h:1
 msgid "Play All"
@@ -190,9 +190,8 @@ msgstr "Tout mettre en attente"
 #: tmp/coverart_artist_pop_rb3.ui.h:3 tmp/coverart_browser_pop_rb3.ui.h:3
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:3
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:3
-#, fuzzy
 msgid "Add to playing"
-msgstr "Ajouter à une liste de lecture"
+msgstr "Ajouter à la liste de lecture"
 
 #: tmp/coverart_artist_pop_rb3.ui.h:4 tmp/coverart_browser_pop_rb3.ui.h:5
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:8
@@ -221,7 +220,7 @@ msgstr "Mettre l'album en attente"
 
 #: tmp/coverart_browser_pop_rb3.ui.h:4
 msgid "Play Similar Artist"
-msgstr ""
+msgstr "Jouer les artites similaires"
 
 #: tmp/coverart_browser_pop_rb3.ui.h:8
 msgid "Export and embed coverart"
@@ -317,9 +316,8 @@ msgid "Album Information"
 msgstr "Informations sur l'album"
 
 #: tmp/coverart_browser_prefs.ui.h:20
-#, fuzzy
 msgid "Display album information"
-msgstr "Afficher l'info de l'album sur la pochette"
+msgstr "Afficher les informations de l'album"
 
 #: tmp/coverart_browser_prefs.ui.h:21
 msgid "Font size for the text below the cover-art."
@@ -555,21 +553,18 @@ msgstr "Mettre la piste en attente"
 
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:4
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:4
-#, fuzzy
 msgid "Play Similar"
-msgstr "Tout jouer"
+msgstr "Jouer les sémilaires"
 
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:5
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:5
-#, fuzzy
 msgid "Track"
-msgstr "Pistes"
+msgstr "Piste"
 
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:7
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:7
-#, fuzzy
 msgid "Genre"
-msgstr "Tous les genres"
+msgstr "Genre"
 
 #: tmp/coverart_exportembed.ui.h:1
 msgid "Choose folder to save tracks:"
@@ -788,17 +783,17 @@ msgstr "%s par %s"
 #: coverart_artistinfo.py:389
 #, python-format
 msgid "Loading biography for %s"
-msgstr ""
+msgstr "Chargement de la biographie pour %s"
 
 #: coverart_artistinfo.py:670
 msgid "No artist specified."
-msgstr ""
+msgstr "Aucun artiste de spécifié."
 
 #. Translators: 'top' here means 'most popular'.  %s is replaced by the artist name.
 #: coverart_artistinfo.py:687
 #, python-format
 msgid "Loading top albums for %s"
-msgstr ""
+msgstr "Chargement des meilleurs albums de %s"
 
 #: coverart_artistview.py:375 coverart_browser_source.py:1041
 msgid " with 1 track"
@@ -909,7 +904,7 @@ msgstr "Jouer un album au hasard"
 
 #: coverart_controllers.py:501 coverart_controllers.py:555
 msgid "Follow playing song"
-msgstr ""
+msgstr "Suivre la chanson en lecture"
 
 #: coverart_controllers.py:504 coverart_controllers.py:552
 msgid "Use favourites only"
@@ -996,18 +991,16 @@ msgid "Search track artists"
 msgstr "Rechercher les artistes de la piste"
 
 #: coverart_controllers.py:716
-#, fuzzy
 msgid "Search composers"
-msgstr "Rechercher les pochettes"
+msgstr "Rechercher les compositeurs"
 
 #: coverart_controllers.py:717
 msgid "Search albums"
 msgstr "Rechercher les albums"
 
 #: coverart_controllers.py:718
-#, fuzzy
 msgid "Search titles"
-msgstr "Texte de recherche"
+msgstr "Rechercher les titres"
 
 #. TRANSLATORS: for example 'Number of covers limited to 150'
 #: coverart_coverflowview.py:196
@@ -1021,27 +1014,4 @@ msgstr "Pistes"
 
 #: coverart_playlists.py:165
 msgid "No matching tracks have been found"
-msgstr ""
-
-#~ msgid "Display tracks and covers pane"
-#~ msgstr "Afficher les pistes et le volet pochettes"
-
-#~ msgid ""
-#~ "Add a toggle-option to the coverart view to display the tracks and covers "
-#~ "for the chosen album"
-#~ msgstr ""
-#~ "Ajouter une option pour basculer entre l'affichage des pochettes seules "
-#~ "et l'affichage des pistes et des pochettes pour l'album choisi"
-
-#~ msgid ""
-#~ "Tip: Drag and Drop exported tracks from file-manager to a playlist or "
-#~ "telephone/other device"
-#~ msgstr ""
-#~ "Astuce: Glisser-déposer les pistes exportées du gestionnaire de fichiers "
-#~ "vers une liste de lecture ou un téléphone/autre appareil"
-
-#~ msgid "size in pixels"
-#~ msgstr "taille en pixels"
-
-#~ msgid "Quick artist filter"
-#~ msgstr "Filtre rapide par artiste"
+msgstr "Aucune piste correspondante a été trouvé."
