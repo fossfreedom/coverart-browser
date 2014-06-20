@@ -966,6 +966,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
         '''
         event called when clicking on a row
         '''
+        print ('_row_click')
 
         try:
             treepath, treecolumn, cellx, celly = self.get_path_at_pos(event.x, event.y)
@@ -994,6 +995,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
 
                     self.artist_popup_menu.popup(self.source, 'popup_menu', 3,
                                                  Gtk.get_current_event_time())
+            print ('_row click artist exit')
             return
 
         if event.button == 1:
@@ -1017,6 +1019,9 @@ class ArtistView(Gtk.TreeView, AbstractView):
                              Gtk.get_current_event_time())
 
         self._last_row_was_artist = False
+
+        print ('_row_click album exit')
+        return
 
     def get_view_icon_name(self):
         return "artistview.png"

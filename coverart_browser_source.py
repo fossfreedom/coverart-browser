@@ -82,6 +82,7 @@ class CoverArtBrowserSource(RB.Source):
         self.favourites = False
         self.follow_song = False
         self.task_progress = None
+        self._from_paned_handle = False
 
     def _connect_properties(self):
         '''
@@ -360,6 +361,8 @@ class CoverArtBrowserSource(RB.Source):
         setting.bind(self.gs.PluginKey.ARTIST_PANED_POSITION,
                      self, 'artist-paned-pos', Gio.SettingsBindFlags.DEFAULT)
 
+        self.artist_paned.connect('button-press-event',
+                                  self.artist_paned_button_press_callback)
         self.artist_paned.connect('button-release-event',
                                   self.artist_paned_button_release_callback)
 
@@ -424,10 +427,18 @@ class CoverArtBrowserSource(RB.Source):
 
         self.viewmgr.current_view.scroll_to_album(album)
 
+    def artist_paned_button_press_callback(self, widget, *args):
+        self._from_paned_handle = True
+
     def artist_paned_button_release_callback(self, widget, *args):
         '''
         Callback when the artist paned handle is released from its mouse click.
         '''
+        if not self._from_paned_handle:
+            return False
+        else:
+            self._from_paned_handle = False
+
         print ("artist_paned_button_release_callback")
         child_width = self._get_child_width()
         print (child_width)
@@ -885,7 +896,7 @@ class CoverArtBrowserSource(RB.Source):
         then if necessary scroll the view to the last selected album
         params is "album" or a tuple of "album" and "force_expand" boolean
         '''
-
+        print ('show_hide_pane')
         if isinstance(params, tuple):
             album, force = params
         else:
@@ -904,6 +915,8 @@ class CoverArtBrowserSource(RB.Source):
 
         # clear the click count
         self.click_count = 0
+
+        print ('show_hide_pane end')
 
     def update_with_selection(self):
         self.last_selected_album, self.click_count = \

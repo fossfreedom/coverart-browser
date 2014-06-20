@@ -133,6 +133,7 @@ class ArtistInfoPane(GObject.GObject):
         self.current_artist = None
         self.current_album_title = None
         self.current = 'artist'
+        self._from_paned_handle = False
 
         self.stack = stack
         self.stack.set_transition_type(Gtk.StackTransitionType.SLIDE_LEFT_RIGHT)
@@ -227,6 +228,8 @@ class ArtistInfoPane(GObject.GObject):
         self.connect('selected', self.select_artist)
 
         # lets remember info paned click
+        self.info_paned.connect('button_press_event',
+                                self.paned_button_press_callback)
         self.info_paned.connect('button-release-event',
                                 self.paned_button_release_callback)
 
@@ -259,11 +262,20 @@ class ArtistInfoPane(GObject.GObject):
         child = self.info_paned.get_child2()
         return child.get_allocated_width()
 
+    def paned_button_press_callback(self, *args):
+        print ('paned_button_press_callback')
+        self._from_paned_handle = True
+
     def paned_button_release_callback(self, widget, *args):
         '''
         Callback when the artist paned handle is released from its mouse click.
         '''
-        print ("artist_info_paned_button_release_callback")
+        if not self._from_paned_handle:
+            return False
+        else:
+            self._from_paned_handle = False
+
+        print ("paned_button_release_callback")
         child_width = self._get_child_width()
 
         paned_positions = eval(self.paned_pos)
