@@ -6,13 +6,14 @@
 # Automatically generated, 2013
 # fossfreedom <foss.freedom@gmail.com>, 2014
 # jrbastien <jrbastien@yahoo.com>, 2014
+# jrbastien <jrbastien@yahoo.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-06-14 23:18+0100\n"
-"PO-Revision-Date: 2014-06-19 19:17+0000\n"
-"Last-Translator: fossfreedom <foss.freedom@gmail.com>\n"
+"PO-Revision-Date: 2014-06-19 19:44+0000\n"
+"Last-Translator: jrbastien <jrbastien@yahoo.com>\n"
 "Language-Team: French (Canada) (http://www.transifex.com/projects/p/"
 "coverartbrowser/language/fr_CA/)\n"
 "Language: fr_CA\n"
@@ -46,7 +47,7 @@ msgstr "Afficher toutes les pistes"
 #: tmpl/album-tmpl.html:69
 #, python-format
 msgid "Top albums by %s"
-msgstr "Les meilleurs alabums de %s"
+msgstr "Les meilleurs albums de %s"
 
 #. TRANSLATORS: %s is just a string and is not translated, %d is a number and
 #. is the number of track(s)
