@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-14 23:18+0100\n"
+"POT-Creation-Date: 2014-06-20 13:07+0100\n"
 "PO-Revision-Date: 2014-02-21 13:09+0000\n"
 "Last-Translator: Atanas Kovachki <Unknown>\n"
 "Language-Team: Bulgarian <bg@li.org>\n"
@@ -84,7 +84,7 @@ msgstr "Режим за търсенето"
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:6
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:6 coverart_artistview.py:823
 #: coverart_browser_source.py:351 coverart_browser_source.py:352
-#: coverart_browser_source.py:1125
+#: coverart_browser_source.py:1125 coverart_browser_source.py:1126
 msgid "Artist"
 msgstr "Изпълнител"
 
@@ -233,29 +233,29 @@ msgstr "Експортиране и вграждане на обложки"
 msgid "Properties"
 msgstr "Характеристики"
 
-#: tmp/coverart_browser_prefs.ui.h:1
+#: tmp/coverart_browser_prefs.ui.h:1 tmp/coverart_browser_prefs.ui.h:5
 msgid "Select a picture"
 msgstr "Изберете изображение"
 
-#: tmp/coverart_browser_prefs.ui.h:2
+#: tmp/coverart_browser_prefs.ui.h:2 tmp/coverart_browser_prefs.ui.h:6
 msgid "Select picture to add to Edit Genre icon drop-down list"
 msgstr ""
 "Изберете изображение, за да добавите икона в падащия списък «Редактирай "
 "жанра»"
 
-#: tmp/coverart_browser_prefs.ui.h:3
+#: tmp/coverart_browser_prefs.ui.h:3 tmp/coverart_browser_prefs.ui.h:1
 msgid "Above"
 msgstr "Отгоре"
 
-#: tmp/coverart_browser_prefs.ui.h:4
+#: tmp/coverart_browser_prefs.ui.h:4 tmp/coverart_browser_prefs.ui.h:2
 msgid "Top Left"
 msgstr "Горе вляво"
 
-#: tmp/coverart_browser_prefs.ui.h:5
+#: tmp/coverart_browser_prefs.ui.h:5 tmp/coverart_browser_prefs.ui.h:3
 msgid "Top Center"
 msgstr "Горе в центъра"
 
-#: tmp/coverart_browser_prefs.ui.h:6
+#: tmp/coverart_browser_prefs.ui.h:6 tmp/coverart_browser_prefs.ui.h:4
 msgid "Top Right"
 msgstr "Горе вдясно"
 
@@ -412,7 +412,7 @@ msgstr "Отстояние"
 
 #. . TRANSLATORS: This is the icon-grid view that the user sees
 #: tmp/coverart_browser_prefs.ui.h:42 coverart_browser.py:146
-#: coverart_browser_source.py:1120
+#: coverart_browser_source.py:1120 coverart_browser_source.py:1121
 msgid "Tiles"
 msgstr "Плочки"
 
@@ -452,7 +452,7 @@ msgstr "Черен"
 
 #. . TRANSLATORS: This is the cover-flow view the user sees - they can swipe album covers from side-to-side
 #: tmp/coverart_browser_prefs.ui.h:52 coverart_browser.py:149
-#: coverart_browser_source.py:1123
+#: coverart_browser_source.py:1123 coverart_browser_source.py:1124
 msgid "Flow"
 msgstr "Поток"
 
@@ -776,45 +776,50 @@ msgstr "хип-хоп"
 msgid "children"
 msgstr "детска"
 
-#: coverart_album.py:1519 coverart_artistinfo.py:61
+#: coverart_album.py:1519 coverart_artistinfo.py:61 coverart_artistinfo.py:62
 msgid "Enable LastFM plugin and log in first"
 msgstr "Активирайте LastFM плъгина и влезте първи"
 
 #. . TRANSLATORS - for example "abba's greatest hits by ABBA"
 #: coverart_album.py:1763 coverart_browser_source.py:1033
+#: coverart_browser_source.py:1034
 #, python-format
 msgid "%s by %s"
 msgstr "%s, на %s"
 
-#: coverart_artistinfo.py:389
+#: coverart_artistinfo.py:389 coverart_artistinfo.py:393
 #, python-format
 msgid "Loading biography for %s"
 msgstr ""
 
-#: coverart_artistinfo.py:670
+#: coverart_artistinfo.py:670 coverart_artistinfo.py:677
 msgid "No artist specified."
 msgstr ""
 
 #. Translators: 'top' here means 'most popular'.  %s is replaced by the artist name.
-#: coverart_artistinfo.py:687
+#: coverart_artistinfo.py:687 coverart_artistinfo.py:697
 #, python-format
 msgid "Loading top albums for %s"
 msgstr ""
 
 #: coverart_artistview.py:375 coverart_browser_source.py:1041
+#: coverart_browser_source.py:1042
 msgid " with 1 track"
 msgstr " с един трак"
 
 #: coverart_artistview.py:377 coverart_browser_source.py:1043
+#: coverart_browser_source.py:1044
 #, python-format
 msgid " with %d tracks"
 msgstr " с %d трака"
 
 #: coverart_artistview.py:383 coverart_browser_source.py:1047
+#: coverart_browser_source.py:1048
 msgid " and a duration of 1 minute"
 msgstr " и продължителност от 1 минута"
 
 #: coverart_artistview.py:385 coverart_browser_source.py:1049
+#: coverart_browser_source.py:1050
 #, python-format
 msgid " and a duration of %d minutes"
 msgstr " и продължителност от %d минути"
@@ -826,11 +831,12 @@ msgid "Covers"
 msgstr "Обложки"
 
 #: coverart_browser_prefs.py:261 coverart_controllers.py:507
+#: coverart_browser_prefs.py:262
 msgid "Browser Preferences"
 msgstr "Предпочитания на браузъра"
 
 #. . TRANSLATORS: Do not translate this string.
-#: coverart_browser_prefs.py:298
+#: coverart_browser_prefs.py:298 coverart_browser_prefs.py:307
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -867,14 +873,14 @@ msgstr ""
 msgid "Requesting cover for %s..."
 msgstr ""
 
-#: coverart_browser_source.py:956
+#: coverart_browser_source.py:956 coverart_browser_source.py:957
 msgid ""
 "Please install and activate the latest version of the Coverart Search "
 "Providers plugin"
 msgstr ""
 
 #. . TRANSLATORS - the number of albums that have been selected/highlighted
-#: coverart_browser_source.py:1037
+#: coverart_browser_source.py:1037 coverart_browser_source.py:1038
 #, python-format
 msgid "%d selected albums"
 msgstr "%d избрани албуми"
@@ -1017,6 +1023,10 @@ msgstr "Тракове"
 
 #: coverart_playlists.py:165
 msgid "No matching tracks have been found"
+msgstr ""
+
+#: coverart_covericonview.py:581
+msgid "Album has been queued to play"
 msgstr ""
 
 #~ msgid "Display tracks and covers pane"
