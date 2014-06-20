@@ -74,8 +74,11 @@ class ArtistInfoWebView(WebKit.WebView):
         self.connect("notify::title", self.view_title_change)
 
     def view_title_change(self, webview, param):
+        print ("view_title_change")
         title = webview.get_title()
+
         if title:
+            print ("title %s" % title)
             args = json.loads(title)
             artist = args['artist']
 
@@ -84,10 +87,13 @@ class ArtistInfoWebView(WebKit.WebView):
             else:
                 self.source.album_manager.model.remove_filter('similar_artist')
         else:
+            print ("removing filter")
             self.source.album_manager.model.remove_filter('similar_artist')
+        print ("end view_title_change")
 
     def navigation_request_cb(self, view, frame, request):
         # open HTTP URIs externally.  this isn't a web browser.
+        print ("navigation_request_cb")
         if request.get_uri().startswith('http'):
             print("opening uri %s" % request.get_uri())
             Gtk.show_uri(self.shell.props.window.get_screen(), request.get_uri(), Gdk.CURRENT_TIME)
@@ -96,6 +102,12 @@ class ArtistInfoWebView(WebKit.WebView):
         else:
             return 0  # WEBKIT_NAVIGATION_RESPONSE_ACCEPT
 
+    def do_button_release_event(self, *args):
+        print ("do_release_button")
+        WebKit.WebView.do_button_release_event(self, *args)
+
+        return True
+
 
 class ArtistInfoPane(GObject.GObject):
     __gsignals__ = {
@@ -103,7 +115,7 @@ class ArtistInfoPane(GObject.GObject):
                      (GObject.TYPE_STRING, GObject.TYPE_STRING))
     }
 
-    artist_info_paned_pos = GObject.property(type=str)
+    paned_pos = GObject.property(type=str)
 
     min_paned_pos = 100
 
@@ -196,7 +208,7 @@ class ArtistInfoPane(GObject.GObject):
         setting.bind(
             self.gs.PluginKey.ARTIST_INFO_PANED_POSITION,
             self,
-            'artist-info-paned-pos',
+            'paned-pos',
             Gio.SettingsBindFlags.DEFAULT)
 
     def connect_signals(self):
@@ -216,7 +228,7 @@ class ArtistInfoPane(GObject.GObject):
 
         # lets remember info paned click
         self.info_paned.connect('button-release-event',
-                                self.artist_info_paned_button_release_callback)
+                                self.paned_button_release_callback)
 
         # lets also listen for changes to the view to set the paned position
         self.source.viewmgr.connect('new-view', self.on_view_changed)
@@ -225,7 +237,8 @@ class ArtistInfoPane(GObject.GObject):
         self._change_paned_pos(view_name)
 
     def _change_paned_pos(self, view_name):
-        paned_positions = eval(self.artist_info_paned_pos)
+        print (self.paned_pos)
+        paned_positions = eval(self.paned_pos)
 
         found = None
         for viewpos in paned_positions:
@@ -246,14 +259,14 @@ class ArtistInfoPane(GObject.GObject):
         child = self.info_paned.get_child2()
         return child.get_allocated_width()
 
-    def artist_info_paned_button_release_callback(self, *args):
+    def paned_button_release_callback(self, widget, *args):
         '''
         Callback when the artist paned handle is released from its mouse click.
         '''
-
+        print ("artist_info_paned_button_release_callback")
         child_width = self._get_child_width()
 
-        paned_positions = eval(self.artist_info_paned_pos)
+        paned_positions = eval(self.paned_pos)
 
         found = None
         for viewpos in paned_positions:
@@ -262,7 +275,7 @@ class ArtistInfoPane(GObject.GObject):
                 break
 
         if not found:
-            return
+            return True
 
         paned_positions.remove(found)
         if child_width <= self.min_paned_pos:
@@ -279,9 +292,11 @@ class ArtistInfoPane(GObject.GObject):
 
         paned_positions.append(self.source.viewmgr.view_name + ":" + str(child_width))
 
-        self.artist_info_paned_pos = repr(paned_positions)
+        self.paned_pos = repr(paned_positions)
+        print ("End artist_info_paned_button_release_callback")
 
     def select_artist(self, widget, artist, album_title):
+        print ("artist %s title %s" % (artist, album_title))
         if self._get_child_width() > self.min_paned_pos:
             self.view[self.current].reload(artist, album_title)
         else:
@@ -352,7 +367,9 @@ class BaseInfoView(GObject.Object):
         pass
 
     def load_view(self):
+        print ("load_view")
         self.webview.load_string(self.file, 'text/html', 'utf-8', self.basepath)
+        print ("end load_view")
 
     def blank_view(self):
         render_file = self.empty_template.render(stylesheet=self.styles)
@@ -363,13 +380,11 @@ class BaseInfoView(GObject.Object):
 
     def activate(self, artist=None, album_title=None):
         print("activating Artist Tab")
-        #self.button.set_active(True)
         self.active = True
         self.reload(artist, album_title)
 
     def deactivate(self):
         print("deactivating Artist Tab")
-        #self.button.set_active(False)
         self.active = False
 
 
@@ -712,6 +727,7 @@ class AlbumInfoView(BaseInfoView):
         self.styles = self.basepath + '/tmpl/artistmain.css'
 
     def album_list_ready(self, ds):
+        print ("album_list_ready")
         self.file = self.album_template.render(error=ds.get_error(),
                                                albums=ds.get_top_albums(),
                                                artist=ds.get_artist(),
@@ -720,6 +736,7 @@ class AlbumInfoView(BaseInfoView):
         self.load_view()
 
     def reload(self, artist, album_title):
+        print ("reload")
         if not artist:
             return
 

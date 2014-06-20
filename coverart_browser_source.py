@@ -424,7 +424,7 @@ class CoverArtBrowserSource(RB.Source):
 
         self.viewmgr.current_view.scroll_to_album(album)
 
-    def artist_paned_button_release_callback(self, *args):
+    def artist_paned_button_release_callback(self, widget, *args):
         '''
         Callback when the artist paned handle is released from its mouse click.
         '''
@@ -443,7 +443,7 @@ class CoverArtBrowserSource(RB.Source):
 
         if not found:
             print ("not found %s" % self.viewmgr.view_name)
-            return
+            return True
 
         print ("current paned_positions %s" % paned_positions)
         paned_positions.remove(found)
