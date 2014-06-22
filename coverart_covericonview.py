@@ -28,12 +28,13 @@ from gi.repository import GdkPixbuf
 
 from coverart_widgets import EnhancedIconView
 from coverart_browser_prefs import GSetting
+from coverart_browser_prefs import CoverLocale
 from coverart_album import AlbumsModel
 from coverart_widgets import AbstractView
 from coverart_widgets import PanedCollapsible
 import coverart_rb3compat as rb3compat
 import rb
-
+import gettext
 
 PLAY_SIZE_X = 30
 PLAY_SIZE_Y = 30
