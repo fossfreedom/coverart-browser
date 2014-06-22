@@ -577,8 +577,11 @@ class CoverIconView(EnhancedIconView, AbstractView):
                 if playing:  # if we are playing then queue up the next album
                     self.source.queue_selected_album(None, self.source.favourites)
                     album = self.get_selected_objects()[0]
+                    cl = CoverLocale()
+                    cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+                    message  = gettext.gettext('Album has added to list of playing albums')
                     self.display_notification(album.name,
-                                            _("Album has been queued to play"),
+                                            message,
                                             album.cover.original)
                 else:  # otherwise just play it
                     self._last_path = path

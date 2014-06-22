@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-20 13:07+0100\n"
+"POT-Creation-Date: 2014-06-22 10:29+0100\n"
 "PO-Revision-Date: 2014-01-17 14:54+0000\n"
 "Last-Translator: VPablo <villumar@gmail.com>\n"
 "Language-Team: none\n"
@@ -83,8 +83,8 @@ msgstr "Modo de búsqueda"
 #: tmpl/albumartsearch-tmpl.html:191
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:6
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:6 coverart_artistview.py:823
-#: coverart_browser_source.py:351 coverart_browser_source.py:352
-#: coverart_browser_source.py:1125 coverart_browser_source.py:1126
+#: coverart_browser_source.py:352 coverart_browser_source.py:353
+#: coverart_browser_source.py:1139
 msgid "Artist"
 msgstr "Artista"
 
@@ -125,7 +125,7 @@ msgid "Extra Large"
 msgstr "Muy grande"
 
 #: tmpl/albumartsearch-tmpl.html:211 tmpl/artistartsearch-tmpl.html:197
-#: coverart_browser_source.py:116
+#: coverart_browser_source.py:117
 msgid "Loading..."
 msgstr "Cargando…"
 
@@ -202,7 +202,7 @@ msgstr "Añadir a una lista de reproducción"
 
 #: tmp/coverart_artist_pop_rb3.ui.h:5 tmp/coverart_browser_pop_rb3.ui.h:6
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:9
-#: tmp/coverart_entryview_full_pop_rb3.ui.h:9 coverart_browser_source.py:746
+#: tmp/coverart_entryview_full_pop_rb3.ui.h:9 coverart_browser_source.py:757
 #: coverart_entryview.py:638
 msgid "New Playlist"
 msgstr "Lista de reproducción nueva"
@@ -233,29 +233,29 @@ msgstr "Exportar e incrustar carátula"
 msgid "Properties"
 msgstr "Propiedades"
 
-#: tmp/coverart_browser_prefs.ui.h:1 tmp/coverart_browser_prefs.ui.h:5
-msgid "Select a picture"
-msgstr "Seleccione una imagen"
-
-#: tmp/coverart_browser_prefs.ui.h:2 tmp/coverart_browser_prefs.ui.h:6
-msgid "Select picture to add to Edit Genre icon drop-down list"
-msgstr "Seleccione la imagen a añadir a la lista de iconos Editar género"
-
-#: tmp/coverart_browser_prefs.ui.h:3 tmp/coverart_browser_prefs.ui.h:1
+#: tmp/coverart_browser_prefs.ui.h:1
 msgid "Above"
 msgstr "Frente"
 
-#: tmp/coverart_browser_prefs.ui.h:4 tmp/coverart_browser_prefs.ui.h:2
+#: tmp/coverart_browser_prefs.ui.h:2
 msgid "Top Left"
 msgstr "Arriba a la izquierda"
 
-#: tmp/coverart_browser_prefs.ui.h:5 tmp/coverart_browser_prefs.ui.h:3
+#: tmp/coverart_browser_prefs.ui.h:3
 msgid "Top Center"
 msgstr "Arriba"
 
-#: tmp/coverart_browser_prefs.ui.h:6 tmp/coverart_browser_prefs.ui.h:4
+#: tmp/coverart_browser_prefs.ui.h:4
 msgid "Top Right"
 msgstr "Arriba a la derecha"
+
+#: tmp/coverart_browser_prefs.ui.h:5
+msgid "Select a picture"
+msgstr "Seleccione una imagen"
+
+#: tmp/coverart_browser_prefs.ui.h:6
+msgid "Select picture to add to Edit Genre icon drop-down list"
+msgstr "Seleccione la imagen a añadir a la lista de iconos Editar género"
 
 #: tmp/coverart_browser_prefs.ui.h:7
 msgid "Above Cover View"
@@ -410,7 +410,7 @@ msgstr "Espaciado"
 
 #. . TRANSLATORS: This is the icon-grid view that the user sees
 #: tmp/coverart_browser_prefs.ui.h:42 coverart_browser.py:146
-#: coverart_browser_source.py:1120 coverart_browser_source.py:1121
+#: coverart_browser_source.py:1134
 msgid "Tiles"
 msgstr "Mosaicos"
 
@@ -450,7 +450,7 @@ msgstr "Negro"
 
 #. . TRANSLATORS: This is the cover-flow view the user sees - they can swipe album covers from side-to-side
 #: tmp/coverart_browser_prefs.ui.h:52 coverart_browser.py:149
-#: coverart_browser_source.py:1123 coverart_browser_source.py:1124
+#: coverart_browser_source.py:1137
 msgid "Flow"
 msgstr "Flujo"
 
@@ -772,50 +772,45 @@ msgstr "hip-hop"
 msgid "children"
 msgstr "niños"
 
-#: coverart_album.py:1519 coverart_artistinfo.py:61 coverart_artistinfo.py:62
+#: coverart_album.py:1519 coverart_artistinfo.py:62
 msgid "Enable LastFM plugin and log in first"
 msgstr "Activa el plugin de LastFM e inicia sesión antes"
 
 #. . TRANSLATORS - for example "abba's greatest hits by ABBA"
-#: coverart_album.py:1763 coverart_browser_source.py:1033
-#: coverart_browser_source.py:1034
+#: coverart_album.py:1763 coverart_browser_source.py:1047
 #, python-format
 msgid "%s by %s"
 msgstr "%s por %s"
 
-#: coverart_artistinfo.py:389 coverart_artistinfo.py:393
+#: coverart_artistinfo.py:420
 #, python-format
 msgid "Loading biography for %s"
 msgstr ""
 
-#: coverart_artistinfo.py:670 coverart_artistinfo.py:677
+#: coverart_artistinfo.py:704
 msgid "No artist specified."
 msgstr ""
 
 #. Translators: 'top' here means 'most popular'.  %s is replaced by the artist name.
-#: coverart_artistinfo.py:687 coverart_artistinfo.py:697
+#: coverart_artistinfo.py:724
 #, python-format
 msgid "Loading top albums for %s"
 msgstr ""
 
-#: coverart_artistview.py:375 coverart_browser_source.py:1041
-#: coverart_browser_source.py:1042
+#: coverart_artistview.py:375 coverart_browser_source.py:1055
 msgid " with 1 track"
 msgstr " con una canción"
 
-#: coverart_artistview.py:377 coverart_browser_source.py:1043
-#: coverart_browser_source.py:1044
+#: coverart_artistview.py:377 coverart_browser_source.py:1057
 #, python-format
 msgid " with %d tracks"
 msgstr " con %d canciones"
 
-#: coverart_artistview.py:383 coverart_browser_source.py:1047
-#: coverart_browser_source.py:1048
+#: coverart_artistview.py:383 coverart_browser_source.py:1061
 msgid " and a duration of 1 minute"
 msgstr " y una duración de un minuto"
 
-#: coverart_artistview.py:385 coverart_browser_source.py:1049
-#: coverart_browser_source.py:1050
+#: coverart_artistview.py:385 coverart_browser_source.py:1063
 #, python-format
 msgid " and a duration of %d minutes"
 msgstr " y una duración de %d minutos"
@@ -826,13 +821,12 @@ msgstr " y una duración de %d minutos"
 msgid "Covers"
 msgstr "Carátulas"
 
-#: coverart_browser_prefs.py:261 coverart_controllers.py:507
-#: coverart_browser_prefs.py:262
+#: coverart_browser_prefs.py:262 coverart_controllers.py:507
 msgid "Browser Preferences"
 msgstr "Preferencias del navegador"
 
 #. . TRANSLATORS: Do not translate this string.
-#: coverart_browser_prefs.py:298 coverart_browser_prefs.py:307
+#: coverart_browser_prefs.py:307
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -857,11 +851,11 @@ msgid "Browse and play your albums through their covers"
 msgstr "Navegue y reproduzca sus álbumes mediante sus carátulas"
 
 #. . TRANSLATORS - "All" is used in the context of "All artist names"
-#: coverart_browser_source.py:511
+#: coverart_browser_source.py:522
 msgid "All"
 msgstr "Todos"
 
-#: coverart_browser_source.py:658 coverart_browser_source.py:806
+#: coverart_browser_source.py:669 coverart_browser_source.py:817
 msgid ""
 "No tracks have been added because no tracks meet the favourite rating "
 "threshold"
@@ -869,18 +863,18 @@ msgstr ""
 "Cero pistas han sido añadidas porque ninguna de las pistas coincidió con el "
 "umbral de calificación favorita"
 
-#: coverart_browser_source.py:768
+#: coverart_browser_source.py:779
 msgid "The number of albums to randomly play is less than that displayed."
 msgstr ""
 "El número de álbumes a reproducir aleatoriamente es menor que aquél mostrado."
 
 #. for example "Requesting the picture cover for the music artist Michael Jackson"
-#: coverart_browser_source.py:860 coverart_browser_source.py:862
+#: coverart_browser_source.py:871 coverart_browser_source.py:873
 #, python-format
 msgid "Requesting cover for %s..."
 msgstr "Cargando car'atula para %s..."
 
-#: coverart_browser_source.py:956 coverart_browser_source.py:957
+#: coverart_browser_source.py:970
 msgid ""
 "Please install and activate the latest version of the Coverart Search "
 "Providers plugin"
@@ -889,7 +883,7 @@ msgstr ""
 "Providers"
 
 #. . TRANSLATORS - the number of albums that have been selected/highlighted
-#: coverart_browser_source.py:1037 coverart_browser_source.py:1038
+#: coverart_browser_source.py:1051
 #, python-format
 msgid "%d selected albums"
 msgstr "%d álbumes seleccionados"
@@ -1026,16 +1020,16 @@ msgstr "Buscar texto"
 msgid "Number of covers limited to %d"
 msgstr "Número de carátulas limitadas a %d"
 
+#: coverart_covericonview.py:582
+msgid "Album has added to list of playing albums"
+msgstr ""
+
 #: coverart_entryview.py:75
 msgid "Tracks"
 msgstr "Pistas"
 
 #: coverart_playlists.py:165
 msgid "No matching tracks have been found"
-msgstr ""
-
-#: coverart_covericonview.py:581
-msgid "Album has been queued to play"
 msgstr ""
 
 #~ msgid "Display tracks and covers pane"
