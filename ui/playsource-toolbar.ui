@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<interface>
+  <menu id="playsource-toolbar">
+    <section>
+      <item>
+	<attribute name="label" translatable="yes">Shuffle</attribute>
+	<attribute name="action">app.playsource-shuffle</attribute>
+      </item>
+      <item>
+	<attribute name="label" translatable="yes">Clear</attribute>
+	<attribute name="action">app.playsource-clear</attribute>
+      </item>
+    </section>
+    <section>
+      <attribute name="rb-plugin-menu-link">playsource-toolbar</attribute>
+    </section>
+  </menu>
+</interface>

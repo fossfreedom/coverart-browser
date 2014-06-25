@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- RB 2.99 and later -->
+  <menu id="play_popup_menu">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Remove from Playlist</attribute>
+        <attribute name="action">win.remove_from_playlist_menu_item</attribute>
+      </item>
+    </section>
+    <section>
+        <attribute name="rb-plugin-menu-link">playlist_entry_view</attribute>
+    </section>   
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Properties</attribute>
+        <attribute name="action">win.show_properties_menu_item</attribute>
+      </item>
+    </section>
+  </menu>
+</interface>
