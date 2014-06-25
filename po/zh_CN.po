@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-22 10:29+0100\n"
+"POT-Creation-Date: 2014-06-23 21:31+0100\n"
 "PO-Revision-Date: 2013-08-28 10:55+0000\n"
 "Last-Translator: Xiaoxing Ye <Unknown>\n"
 "Language-Team: Chinese (Simplified) <zh_CN@li.org>\n"
@@ -80,8 +80,8 @@ msgstr "搜索模式"
 #: tmpl/albumartsearch-tmpl.html:191
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:6
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:6 coverart_artistview.py:823
-#: coverart_browser_source.py:352 coverart_browser_source.py:353
-#: coverart_browser_source.py:1139
+#: coverart_browser_source.py:364 coverart_browser_source.py:365
+#: coverart_browser_source.py:1151
 msgid "Artist"
 msgstr "艺术家"
 
@@ -122,7 +122,7 @@ msgid "Extra Large"
 msgstr "超大"
 
 #: tmpl/albumartsearch-tmpl.html:211 tmpl/artistartsearch-tmpl.html:197
-#: coverart_browser_source.py:117
+#: coverart_browser_source.py:118
 msgid "Loading..."
 msgstr "正在加载..."
 
@@ -199,8 +199,8 @@ msgstr "添加到播放列表"
 
 #: tmp/coverart_artist_pop_rb3.ui.h:5 tmp/coverart_browser_pop_rb3.ui.h:6
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:9
-#: tmp/coverart_entryview_full_pop_rb3.ui.h:9 coverart_browser_source.py:757
-#: coverart_entryview.py:638
+#: tmp/coverart_entryview_full_pop_rb3.ui.h:9 coverart_browser_source.py:769
+#: coverart_entryview.py:643
 msgid "New Playlist"
 msgstr "新建播放列表"
 
@@ -226,7 +226,8 @@ msgstr "导出并嵌入封面"
 
 #: tmp/coverart_browser_pop_rb3.ui.h:9
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:10
-#: tmp/coverart_entryview_full_pop_rb3.ui.h:10 coverart_controllers.py:565
+#: tmp/coverart_entryview_full_pop_rb3.ui.h:10
+#: tmp/coverart_play_pop_rb3.ui.h:2 coverart_controllers.py:565
 msgid "Properties"
 msgstr "属性"
 
@@ -404,7 +405,7 @@ msgstr "间距"
 
 #. . TRANSLATORS: This is the icon-grid view that the user sees
 #: tmp/coverart_browser_prefs.ui.h:42 coverart_browser.py:146
-#: coverart_browser_source.py:1134
+#: coverart_browser_source.py:1146
 msgid "Tiles"
 msgstr "拼贴"
 
@@ -444,7 +445,7 @@ msgstr "黑色"
 
 #. . TRANSLATORS: This is the cover-flow view the user sees - they can swipe album covers from side-to-side
 #: tmp/coverart_browser_prefs.ui.h:52 coverart_browser.py:149
-#: coverart_browser_source.py:1137
+#: coverart_browser_source.py:1149
 msgid "Flow"
 msgstr "专辑流"
 
@@ -625,6 +626,11 @@ msgstr "全部年代"
 msgid "Views"
 msgstr ""
 
+#: tmp/coverart_play_pop_rb3.ui.h:1
+#, fuzzy
+msgid "Remove from Playlist"
+msgstr "添加到播放列表"
+
 #: tmp/popups.xml.in.h:1
 msgid "rock"
 msgstr "摇滚"
@@ -770,7 +776,7 @@ msgid "Enable LastFM plugin and log in first"
 msgstr ""
 
 #. . TRANSLATORS - for example "abba's greatest hits by ABBA"
-#: coverart_album.py:1763 coverart_browser_source.py:1047
+#: coverart_album.py:1763 coverart_browser_source.py:1059
 #, python-format
 msgid "%s by %s"
 msgstr "%s 作者 %s"
@@ -790,20 +796,20 @@ msgstr ""
 msgid "Loading top albums for %s"
 msgstr ""
 
-#: coverart_artistview.py:375 coverart_browser_source.py:1055
+#: coverart_artistview.py:375 coverart_browser_source.py:1067
 msgid " with 1 track"
 msgstr " 共有 1 首歌曲"
 
-#: coverart_artistview.py:377 coverart_browser_source.py:1057
+#: coverart_artistview.py:377 coverart_browser_source.py:1069
 #, python-format
 msgid " with %d tracks"
 msgstr " 共有 %d 首歌曲"
 
-#: coverart_artistview.py:383 coverart_browser_source.py:1061
+#: coverart_artistview.py:383 coverart_browser_source.py:1073
 msgid " and a duration of 1 minute"
 msgstr " 且计 1 分钟时长"
 
-#: coverart_artistview.py:385 coverart_browser_source.py:1063
+#: coverart_artistview.py:385 coverart_browser_source.py:1075
 #, python-format
 msgid " and a duration of %d minutes"
 msgstr " 且计 %d 分钟时长"
@@ -837,35 +843,40 @@ msgstr "封面浏览器"
 msgid "Browse and play your albums through their covers"
 msgstr "浏览封面并播放专辑"
 
+#: coverart_browser_source.py:179
+#, fuzzy
+msgid "CoverArt Playlist"
+msgstr "新建播放列表"
+
 #. . TRANSLATORS - "All" is used in the context of "All artist names"
-#: coverart_browser_source.py:522
+#: coverart_browser_source.py:534
 msgid "All"
 msgstr "所有"
 
-#: coverart_browser_source.py:669 coverart_browser_source.py:817
+#: coverart_browser_source.py:681 coverart_browser_source.py:829
 msgid ""
 "No tracks have been added because no tracks meet the favourite rating "
 "threshold"
 msgstr ""
 
-#: coverart_browser_source.py:779
+#: coverart_browser_source.py:791
 msgid "The number of albums to randomly play is less than that displayed."
 msgstr "随机播放的音乐数目将少于显示的。"
 
 #. for example "Requesting the picture cover for the music artist Michael Jackson"
-#: coverart_browser_source.py:871 coverart_browser_source.py:873
+#: coverart_browser_source.py:883 coverart_browser_source.py:885
 #, python-format
 msgid "Requesting cover for %s..."
 msgstr ""
 
-#: coverart_browser_source.py:970
+#: coverart_browser_source.py:982
 msgid ""
 "Please install and activate the latest version of the Coverart Search "
 "Providers plugin"
 msgstr "请安装并激活最新版本的封面搜索提供商插件"
 
 #. . TRANSLATORS - the number of albums that have been selected/highlighted
-#: coverart_browser_source.py:1051
+#: coverart_browser_source.py:1063
 #, python-format
 msgid "%d selected albums"
 msgstr "已选择 %d 张专辑"
@@ -1002,7 +1013,7 @@ msgstr "搜索文本"
 msgid "Number of covers limited to %d"
 msgstr "封面数量限制为 %d"
 
-#: coverart_covericonview.py:582
+#: coverart_covericonview.py:583
 msgid "Album has added to list of playing albums"
 msgstr ""
 

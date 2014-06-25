@@ -32,6 +32,7 @@ from coverart_browser_prefs import Preferences
 from coverart_browser_source import CoverArtBrowserSource
 from coverart_listview import ListView
 from coverart_queueview import QueueView
+from coverart_playsourceview import PlaySourceView
 from coverart_toolbar import TopToolbar
 
 class CoverArtBrowserEntryType(RB.RhythmDBEntryType):
@@ -44,7 +45,6 @@ class CoverArtBrowserEntryType(RB.RhythmDBEntryType):
         Initializes the entry type.
         '''
         RB.RhythmDBEntryType.__init__(self, name='CoverArtBrowserEntryType')
-
 
 class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
     '''
@@ -71,15 +71,16 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         self.shell = self.object
         self.db = self.shell.props.db
 
-        entry_type = CoverArtBrowserEntryType()
-        self.db.register_entry_type(entry_type)
+        self.entry_type = CoverArtBrowserEntryType()
+        self.db.register_entry_type(self.entry_type)
 
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
 
-        entry_type.category = RB.RhythmDBEntryCategory.NORMAL
+        self.entry_type.category = RB.RhythmDBEntryCategory.NORMAL
 
         group = RB.DisplayPageGroup.get_by_id('library')
+
         # load plugin icon
         theme = Gtk.IconTheme.get_default()
         rb.append_plugin_source_path(theme, '/icons')
@@ -90,12 +91,12 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         self.source = CoverArtBrowserSource(
             shell=self.shell,
             name=_("CoverArt"),
-            entry_type=entry_type,
+            entry_type=self.entry_type,
             plugin=self,
             icon=Gio.FileIcon.new(iconfile),
             query_model=self.shell.props.library_source.props.base_query_model)
 
-        self.shell.register_entry_type_for_source(self.source, entry_type)
+        self.shell.register_entry_type_for_source(self.source, self.entry_type)
         self.shell.append_display_page(self.source, group)
 
         self.source.props.query_model.connect('complete', self.load_complete)
@@ -203,7 +204,7 @@ class ExternalPluginMenu(GObject.Object):
         app = Gio.Application.get_default()
         self.app_id = 'coverart-browser'
 
-        self.locations = ['library-toolbar', 'queue-toolbar']
+        self.locations = ['library-toolbar', 'queue-toolbar', 'playsource-toolbar']
         action_name = 'coverart-browser-views'
         self.action = Gio.SimpleAction.new_stateful(
             action_name, GLib.VariantType.new('s'),
@@ -246,6 +247,9 @@ class ExternalPluginMenu(GObject.Object):
             self.action.set_state(self._views.get_action_name(ListView.name))
         elif page == self.shell.props.queue_source:
             self.action.set_state(self._views.get_action_name(QueueView.name))
+        #elif page == self.source.playlist_source:
+        #    self.action.set_state(self._views.get_action_name(PlaySourceView.name))
+
 
     def view_change_cb(self, action, current):
         '''
@@ -254,7 +258,9 @@ class ExternalPluginMenu(GObject.Object):
         '''
         action.set_state(current)
         view_name = self._views.get_view_name_for_action(current)
-        if view_name != ListView.name and view_name != QueueView.name:
+        if view_name != ListView.name and \
+           view_name != QueueView.name:# and \
+            #view_name != PlaySourceView.name:
             gs = GSetting()
             setting = gs.get_setting(gs.Path.PLUGIN)
             setting[gs.PluginKey.VIEW_NAME] = view_name
@@ -266,3 +272,14 @@ class ExternalPluginMenu(GObject.Object):
         elif view_name == QueueView.name:
             GLib.idle_add(self.shell.props.display_page_tree.select,
                           self.shell.props.queue_source)
+        #elif view_name == PlaySourceView.name:
+        #    if not hasattr(self.source, 'playlist_source'):
+        #        return
+
+        #    print ("test selectable")
+        #    path = self.shell.props.display_page_tree.props.model
+        #        #self.source.activate()
+        #    overlay = self.source.get_children()[0]
+
+        #   GLib.idle_add(self.shell.props.display_page_tree.select,
+        #                  self.source.playlist_source)

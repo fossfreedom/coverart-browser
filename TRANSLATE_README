@@ -16,6 +16,7 @@ intltool-extract --local --type=gettext/glade ui/coverart_exportembed.ui
 intltool-extract --local --type=gettext/glade ui/coverart_iconview.ui
 intltool-extract --local --type=gettext/glade ui/coverart_leftsidebar.ui
 intltool-extract --local --type=gettext/glade ui/coverart_listwindow.ui
+intltool-extract --local --type=gettext/glade ui/coverart_play_pop_rb3.ui
 intltool-extract --local --type=gettext/glade ui/coverart_rightsidebar.ui
 intltool-extract --local --type=gettext/glade ui/coverart_topbar.ui
 intltool-extract --local --type=gettext/xml img/popups.xml.in

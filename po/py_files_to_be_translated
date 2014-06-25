@@ -12,6 +12,7 @@ coverart_export.py
 coverart_external_plugins.py
 coverart_listview.py
 coverart_playlists.py
+coverart_play_source.py
 coverart_queueview.py
 coverart_rb3compat.py
 coverart_search.py

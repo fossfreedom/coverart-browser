@@ -247,6 +247,8 @@ class EntryViewPane(object):
                                          selected[0].artist,
                                          selected[0].name)
 
+        self.entry_view.set_sorting_order('track-number', Gtk.SortType.ASCENDING)
+
         for album in selected:
             # add the album to the entry_view
             self.entry_view.add_album(album)
@@ -388,6 +390,7 @@ class ResultsGrid(Gtk.Grid):
 
 
 class BaseView(RB.EntryView):
+
     def __init__(self, shell, source):
         '''
         Initializes the entryview.
@@ -423,6 +426,23 @@ class BaseView(RB.EntryView):
         self.qm = RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
         self.set_model(self.qm)
 
+        self.connect_library_signals()
+        self.echonest_similar_playlist = None
+        self.echonest_similar_genre_playlist = None
+        self.lastfm_similar_playlist = None
+
+        self.connect('selection-changed', self.selection_changed)
+
+        self.artists = ""
+
+        print ("end constructor")
+
+    def __del__(self):
+        del self.action_group
+        del self.play_action
+        del self.queue_action
+
+    def connect_library_signals(self):
         # connect the sort-order to the library source sort
         library_view = self.shell.props.library_source.get_entry_view()
         library_view.connect('notify::sort-order',
@@ -434,20 +454,8 @@ class BaseView(RB.EntryView):
         self.connect('notify::sort-order', self._notify_sort_order,
                      library_view)
 
-        self.echonest_similar_playlist = None
-        self.echonest_similar_genre_playlist = None
-        self.lastfm_similar_playlist = None
-
         self.set_columns_clickable(False)
 
-        self.connect('selection-changed', self.selection_changed)
-
-        self.artists = ""
-
-    def __del__(self):
-        del self.action_group
-        del self.play_action
-        del self.queue_action
 
     def display_playing_tracks(self, show_playing):
         pass
@@ -483,7 +491,7 @@ class BaseView(RB.EntryView):
 
     def clear(self):
         print("CoverArtBrowser DEBUG - clear()")
-        # self.set_model(RB.RhythmDBQueryModel.new_empty(self.shell.props.db))
+
         for row in self.qm:
             self.qm.remove_entry(row[0])
 
@@ -556,6 +564,10 @@ class BaseView(RB.EntryView):
             self.add_tracks_to_source(self.source_query_model)
 
         self.source.props.query_model = self.source_query_model
+
+        #library_view = self.shell.props.library_source.get_entry_view()
+        #library_view.set_sorting_order('track-number', Gtk.SortType.ASCENDING)
+        #self.set_sorting_order('track-number', Gtk.SortType.ASCENDING)
 
         # Start the music
         player = self.shell.props.shell_player

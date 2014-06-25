@@ -9,6 +9,7 @@ tmp/coverart_exportembed.ui.h
 tmp/coverart_iconview.ui.h
 tmp/coverart_leftsidebar.ui.h
 tmp/coverart_listwindow.ui.h
+tmp/coverart_play_pop_rb3.ui.h
 tmp/coverart_rightsidebar.ui.h
 tmp/coverart_topbar.ui.h
 tmp/popups.xml.in.h
