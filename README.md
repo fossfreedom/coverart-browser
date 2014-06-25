@@ -28,7 +28,8 @@ Browse your coverart albums in Rhythmbox v3 and later.
  - Smart continuous playlist: Play Similar Artists as recommended by EchoNest
  - Smart continuous playlist: Play Similar Genres as recommended by EchoNest
  - Smart continuous playlist: Play Similar Tracks as recommended by LastFM
- - New optional theme: darker toolbar icons
+ - New optional theme: darker toolbar icons by the graphics artist [jrbastien](https://github.com/jrbastien)
+ - New subtle hover, play & queue icons by the graphics artist [jrbastien](https://github.com/jrbastien)
  - Introduce more modern look & feel through subtle animations
  - Views button now can navigate to Play Queue.  Allows navigation of key views without the side-bar (F9) being visible
  - Artist & Album information pane with LastFM & EchoNest data
