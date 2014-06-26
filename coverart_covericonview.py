@@ -441,18 +441,19 @@ class CoverIconView(EnhancedIconView, AbstractView):
     def _cover_play_hotspot(self, path, in_vacinity=False):
 
         if path and hasattr(self, "get_cell_rect"):
-            # get_cell_rect only exists in Gtk+3.6 and later
             valid, rect = self.get_cell_rect(path, None)  # rect of widget coords
 
             cursor_x, cursor_y = self.get_pointer()  # returns widget coords
-            c_x = cursor_x - rect.x
-            c_y = cursor_y - rect.y
+            c_x = cursor_x - rect.x - (self.icon_padding / 2) - (self.icon_spacing / 2)
+            c_y = cursor_y - rect.y - (self.icon_padding / 2) - (self.icon_spacing / 2)
 
-            sizing = (rect.width / 2) if in_vacinity else 0
-            if c_x < (PLAY_SIZE_X + sizing) and \
-                            c_y < (PLAY_SIZE_Y + sizing) and \
-                            c_x > (self.icon_padding + self.icon_spacing) and \
-                            c_y > (self.icon_padding + self.icon_spacing):
+            sizing_x = (rect.width / 2) if in_vacinity else 0
+            sizing_y = (rect.width / 2) if in_vacinity else 0
+
+            if c_x < (PLAY_SIZE_X + sizing_x) and \
+                            c_y < (PLAY_SIZE_Y + sizing_y) and \
+                            c_x > 0 and \
+                            c_y > 0:
                 return True
 
         return False
