@@ -8,62 +8,60 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-06-23 21:31+0100\n"
-"PO-Revision-Date: 2014-01-16 19:14+0000\n"
+"PO-Revision-Date: 2014-06-28 17:58+0000\n"
 "Last-Translator: VPablo <villumar@gmail.com>\n"
 "Language-Team: Catalan <ca@li.org>\n"
-"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-01-16 21:56+0000\n"
-"X-Generator: Launchpad (build 16901)\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2014-06-28 20:48+0000\n"
+"X-Generator: Launchpad (build 17077)\n"
+"Language: ca\n"
 
 #. TRANSLATORS: album duration (length) in the format hour:minute:second
 #: tmpl/album-tmpl.html:20
 #, python-format
 msgid "%d:%02d:%02d"
-msgstr ""
+msgstr "%d:%02d:%02d"
 
 #. TRANSLATORS: album duration (length) in the format minute:second
 #: tmpl/album-tmpl.html:23
 #, python-format
 msgid "%d:%02d"
-msgstr ""
+msgstr "%d:%02d"
 
 #: tmpl/album-tmpl.html:48
-#, fuzzy
 msgid "Hide all tracks"
-msgstr "Cerca cançons"
+msgstr "Amaga totes les peces"
 
 #: tmpl/album-tmpl.html:49 tmpl/album-tmpl.html:93
-#, fuzzy
 msgid "Show all tracks"
-msgstr "Cerca cançons"
+msgstr "Mostra totes les peces"
 
 #. TRANSLATORS: where %s is the artist name - for example "Top Albums by
 #. Michael Jackson"
 #: tmpl/album-tmpl.html:69
 #, python-format
 msgid "Top albums by %s"
-msgstr ""
+msgstr "Els millors àlbums de %s"
 
 #. TRANSLATORS: %s is just a string and is not translated, %d is a number and
 #. is the number of track(s)
 #: tmpl/album-tmpl.html:87
-#, fuzzy, python-format
+#, python-format
 msgid "%s (%d track)"
 msgid_plural "%s (%d tracks)"
-msgstr[0] " amb %d cançons"
-msgstr[1] " amb %d cançons"
+msgstr[0] "%s (%d peça)"
+msgstr[1] "%s (%d peces)"
 
 #: tmpl/album-tmpl.html:106
 msgid "Track list not available"
-msgstr ""
+msgstr "La llista de peces no està disponible"
 
 #: tmpl/album-tmpl.html:119
-#, fuzzy
 msgid "Unable to retrieve album information:"
-msgstr "Mostra informació de l'àlbum"
+msgstr "No s'ha pogut obtenir la informació de l'àlbum:"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 #: tmpl/artistartsearch-tmpl.html:135
@@ -135,15 +133,15 @@ msgstr "Mostra més resultats"
 
 #: tmpl/artist-tmpl.html:9 tmpl/echoartist-tmpl.html:10
 msgid "No information available"
-msgstr ""
+msgstr "No hi ha informació disponible"
 
 #: tmpl/artist-tmpl.html:28
 msgid "Unfilter"
-msgstr ""
+msgstr "Sense filtre"
 
 #: tmpl/artist-tmpl.html:29 tmpl/artist-tmpl.html:114
 msgid "Filter"
-msgstr ""
+msgstr "Filtre"
 
 #. TRANSLATORS: Links for artist-name e.g. Links for Michael Jackson
 #: tmpl/artist-tmpl.html:80 tmpl/artist-tmpl.html:87
@@ -151,19 +149,19 @@ msgstr ""
 #: tmpl/links-tmpl.html:15 tmpl/links-tmpl.html:21
 #, python-format
 msgid "Links for %s:"
-msgstr ""
+msgstr "Enllaços per a %s:"
 
 #: tmpl/artist-tmpl.html:97
 msgid "Similar Artists"
-msgstr ""
+msgstr "Artistes semblants"
 
 #: tmpl/artist-tmpl.html:108
 msgid "similar"
-msgstr ""
+msgstr "semblant"
 
 #: tmpl/artist-tmpl.html:124 tmpl/echoartist-tmpl.html:69
 msgid "Unable to retrieve artist information:"
-msgstr ""
+msgstr "No s'ha pogut obtenir la informació de l'artista:"
 
 #: tmpl/artistartsearch-tmpl.html:180
 msgid "Tip: doubleclick or drag a cover to use it as the artist cover"
@@ -173,11 +171,11 @@ msgstr ""
 
 #: tmpl/echoartist-tmpl.html:66
 msgid "Biography provided by: "
-msgstr ""
+msgstr "Biografia proporcionada per: "
 
 #: tmpl/links-tmpl.html:28
 msgid "Unable to get links"
-msgstr ""
+msgstr "No s'han pogut obtindre els enllaços"
 
 #: tmp/coverart_artist_pop_rb3.ui.h:1
 msgid "Play All"
@@ -190,9 +188,8 @@ msgstr "Posa-ho tot a la cua"
 #: tmp/coverart_artist_pop_rb3.ui.h:3 tmp/coverart_browser_pop_rb3.ui.h:3
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:3
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:3
-#, fuzzy
 msgid "Add to playing"
-msgstr "Afegeix a la llista de reproducció"
+msgstr "Afegir a la reproducció"
 
 #: tmp/coverart_artist_pop_rb3.ui.h:4 tmp/coverart_browser_pop_rb3.ui.h:5
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:8
@@ -221,7 +218,7 @@ msgstr "Afegeix l'àlbum a la cua"
 
 #: tmp/coverart_browser_pop_rb3.ui.h:4
 msgid "Play Similar Artist"
-msgstr ""
+msgstr "Reprodueix Artistes Similars"
 
 #: tmp/coverart_browser_pop_rb3.ui.h:8
 msgid "Export and embed coverart"
@@ -303,7 +300,8 @@ msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:16
 msgid "Level above which is regarded as being a favourite track or album"
-msgstr "nivell a partir del qual es considera una pista o àlbum com a favorit."
+msgstr ""
+"nivell a partir del qual es considera una pista o àlbum com a favorit."
 
 #: tmp/coverart_browser_prefs.ui.h:17
 msgid "Favourite Threshold"
@@ -318,9 +316,8 @@ msgid "Album Information"
 msgstr "Informació de l'àlbum"
 
 #: tmp/coverart_browser_prefs.ui.h:20
-#, fuzzy
 msgid "Display album information"
-msgstr "Mostra informació de l'àlbum dins la caràtula"
+msgstr "Mostra informació de l'àlbum"
 
 #: tmp/coverart_browser_prefs.ui.h:21
 msgid "Font size for the text below the cover-art."
@@ -556,21 +553,18 @@ msgstr "Afegeix la cançó a la cua"
 
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:4
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:4
-#, fuzzy
 msgid "Play Similar"
-msgstr "Reprodueix tot"
+msgstr "Reprodueix Similars"
 
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:5
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:5
-#, fuzzy
 msgid "Track"
-msgstr "Cançons"
+msgstr "Pista"
 
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:7
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:7
-#, fuzzy
 msgid "Genre"
-msgstr "Tots els gèneres"
+msgstr "Gènere"
 
 #: tmp/coverart_exportembed.ui.h:1
 msgid "Choose folder to save tracks:"
@@ -635,9 +629,8 @@ msgid "Views"
 msgstr "Vistes"
 
 #: tmp/coverart_play_pop_rb3.ui.h:1
-#, fuzzy
 msgid "Remove from Playlist"
-msgstr "Afegeix a la llista de reproducció"
+msgstr "Suprimeix de la llista de reproducció"
 
 #: tmp/popups.xml.in.h:1
 msgid "rock"
@@ -792,17 +785,17 @@ msgstr "%s per %s"
 #: coverart_artistinfo.py:420
 #, python-format
 msgid "Loading biography for %s"
-msgstr ""
+msgstr "S'està carregant la biografia de %s"
 
 #: coverart_artistinfo.py:704
 msgid "No artist specified."
-msgstr ""
+msgstr "No s'ha especificat cap artista."
 
 #. Translators: 'top' here means 'most popular'.  %s is replaced by the artist name.
 #: coverart_artistinfo.py:724
 #, python-format
 msgid "Loading top albums for %s"
-msgstr ""
+msgstr "S'estan carregant els millors àlbums de %s"
 
 #: coverart_artistview.py:375 coverart_browser_source.py:1067
 msgid " with 1 track"
@@ -837,7 +830,7 @@ msgstr "Preferències de Navegador"
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  Adolfo Jayme https://launchpad.net/~fitoschido\n"
+"  Adolfo Jayme https://launchpad.net/~fitojb\n"
 "  VPablo https://launchpad.net/~villumar\n"
 "  fossfreedom https://launchpad.net/~fossfreedom"
 
@@ -851,9 +844,8 @@ msgid "Browse and play your albums through their covers"
 msgstr "Navega i reprodueix els àlbums mitjançant les seues portades"
 
 #: coverart_browser_source.py:179
-#, fuzzy
 msgid "CoverArt Playlist"
-msgstr "Llista de reproducció nova"
+msgstr "Llista de l'Àlbum"
 
 #. . TRANSLATORS - "All" is used in the context of "All artist names"
 #: coverart_browser_source.py:534
@@ -920,7 +912,7 @@ msgstr "Executa un àlbum aleatori"
 
 #: coverart_controllers.py:501 coverart_controllers.py:555
 msgid "Follow playing song"
-msgstr ""
+msgstr "Segueix tocant la peça"
 
 #: coverart_controllers.py:504 coverart_controllers.py:552
 msgid "Use favourites only"
@@ -1007,18 +999,16 @@ msgid "Search track artists"
 msgstr "Cerca per artista de la cançó"
 
 #: coverart_controllers.py:716
-#, fuzzy
 msgid "Search composers"
-msgstr "Cerca portades"
+msgstr "Cerca compositors"
 
 #: coverart_controllers.py:717
 msgid "Search albums"
 msgstr "Cerca els àlbums"
 
 #: coverart_controllers.py:718
-#, fuzzy
 msgid "Search titles"
-msgstr "Busca text"
+msgstr "Cerca els títols"
 
 #. TRANSLATORS: for example 'Number of covers limited to 150'
 #: coverart_coverflowview.py:196
@@ -1028,7 +1018,7 @@ msgstr "La quantitat de colors s'ha limitat a %d"
 
 #: coverart_covericonview.py:583
 msgid "Album has added to list of playing albums"
-msgstr ""
+msgstr "L'àlbum s'ha afegit a la llista d'àlbums a reproduir"
 
 #: coverart_entryview.py:75
 msgid "Tracks"
@@ -1036,27 +1026,4 @@ msgstr "Cançons"
 
 #: coverart_playlists.py:165
 msgid "No matching tracks have been found"
-msgstr ""
-
-#~ msgid "Display tracks and covers pane"
-#~ msgstr "Mostra el panel de cançons i portades"
-
-#~ msgid ""
-#~ "Add a toggle-option to the coverart view to display the tracks and covers "
-#~ "for the chosen album"
-#~ msgstr ""
-#~ "Afegís una finestra desplegable a la vista de portades per mostrar les "
-#~ "cançons i portades de l'àlbum seleccionat"
-
-#~ msgid ""
-#~ "Tip: Drag and Drop exported tracks from file-manager to a playlist or "
-#~ "telephone/other device"
-#~ msgstr ""
-#~ "Consell: Arrossega i desa les pistes exportades des del navegador "
-#~ "d'arxius a una llista o un telèfon/altres dispositius"
-
-#~ msgid "size in pixels"
-#~ msgstr "mida en pixels"
-
-#~ msgid "Quick artist filter"
-#~ msgstr "Filtre d'artista ràpid"
+msgstr "No s'han trobat pistes que coincidisquen"

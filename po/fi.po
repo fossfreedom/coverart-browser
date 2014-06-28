@@ -8,61 +8,60 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-06-23 21:31+0100\n"
-"PO-Revision-Date: 2014-01-16 08:45+0000\n"
+"PO-Revision-Date: 2014-06-28 19:17+0000\n"
 "Last-Translator: Jiri Grönroos <Unknown>\n"
 "Language-Team: Finnish <fi@li.org>\n"
-"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-01-16 21:56+0000\n"
-"X-Generator: Launchpad (build 16901)\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2014-06-28 20:48+0000\n"
+"X-Generator: Launchpad (build 17077)\n"
+"Language: fi\n"
 
 #. TRANSLATORS: album duration (length) in the format hour:minute:second
 #: tmpl/album-tmpl.html:20
 #, python-format
 msgid "%d:%02d:%02d"
-msgstr ""
+msgstr "%d:%02d:%02d"
 
 #. TRANSLATORS: album duration (length) in the format minute:second
 #: tmpl/album-tmpl.html:23
 #, python-format
 msgid "%d:%02d"
-msgstr ""
+msgstr "%d:%02d"
 
 #: tmpl/album-tmpl.html:48
-#, fuzzy
 msgid "Hide all tracks"
-msgstr "Etsi kappaleita"
+msgstr "Piilota kaikki kappaleet"
 
 #: tmpl/album-tmpl.html:49 tmpl/album-tmpl.html:93
-#, fuzzy
 msgid "Show all tracks"
-msgstr "Etsi kappaleita"
+msgstr "Näytä kaikki kappaleet"
 
 #. TRANSLATORS: where %s is the artist name - for example "Top Albums by
 #. Michael Jackson"
 #: tmpl/album-tmpl.html:69
 #, python-format
 msgid "Top albums by %s"
-msgstr ""
+msgstr "Esittäjän %s parhaat levyt"
 
 #. TRANSLATORS: %s is just a string and is not translated, %d is a number and
 #. is the number of track(s)
 #: tmpl/album-tmpl.html:87
-#, fuzzy, python-format
+#, python-format
 msgid "%s (%d track)"
 msgid_plural "%s (%d tracks)"
-msgstr[0] " %d kappaleella"
-msgstr[1] " %d kappaleella"
+msgstr[0] "%s (%d kappale)"
+msgstr[1] "%s (%d kappaletta)"
 
 #: tmpl/album-tmpl.html:106
 msgid "Track list not available"
-msgstr ""
+msgstr "Kappalelista ei ole saatavilla"
 
 #: tmpl/album-tmpl.html:119
 msgid "Unable to retrieve album information:"
-msgstr ""
+msgstr "Levytietojen nouto ei onnistunut:"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 #: tmpl/artistartsearch-tmpl.html:135
@@ -133,7 +132,7 @@ msgstr "Näytä lisää tuloksia"
 
 #: tmpl/artist-tmpl.html:9 tmpl/echoartist-tmpl.html:10
 msgid "No information available"
-msgstr ""
+msgstr "Tietoja ei ole saatavilla"
 
 #: tmpl/artist-tmpl.html:28
 msgid "Unfilter"
@@ -149,11 +148,11 @@ msgstr ""
 #: tmpl/links-tmpl.html:15 tmpl/links-tmpl.html:21
 #, python-format
 msgid "Links for %s:"
-msgstr ""
+msgstr "Linkit esittäjälle %s:"
 
 #: tmpl/artist-tmpl.html:97
 msgid "Similar Artists"
-msgstr ""
+msgstr "Samankaltaiset esittäjät"
 
 #: tmpl/artist-tmpl.html:108
 msgid "similar"
@@ -161,7 +160,7 @@ msgstr ""
 
 #: tmpl/artist-tmpl.html:124 tmpl/echoartist-tmpl.html:69
 msgid "Unable to retrieve artist information:"
-msgstr ""
+msgstr "Esittäjätietojen nouto ei onnistunut:"
 
 #: tmpl/artistartsearch-tmpl.html:180
 msgid "Tip: doubleclick or drag a cover to use it as the artist cover"
@@ -173,7 +172,7 @@ msgstr ""
 
 #: tmpl/links-tmpl.html:28
 msgid "Unable to get links"
-msgstr ""
+msgstr "Linkkien saaminen epäonnistui"
 
 #: tmp/coverart_artist_pop_rb3.ui.h:1
 msgid "Play All"
@@ -186,9 +185,8 @@ msgstr "Aseta kaikki jonoon"
 #: tmp/coverart_artist_pop_rb3.ui.h:3 tmp/coverart_browser_pop_rb3.ui.h:3
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:3
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:3
-#, fuzzy
 msgid "Add to playing"
-msgstr "Lisää soittolistaan"
+msgstr ""
 
 #: tmp/coverart_artist_pop_rb3.ui.h:4 tmp/coverart_browser_pop_rb3.ui.h:5
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:8
@@ -212,9 +210,8 @@ msgid "Play Album"
 msgstr "Toista levy"
 
 #: tmp/coverart_browser_pop_rb3.ui.h:2
-#, fuzzy
 msgid "Queue Album"
-msgstr "Aseta kaikki jonoon"
+msgstr ""
 
 #: tmp/coverart_browser_pop_rb3.ui.h:4
 msgid "Play Similar Artist"
@@ -308,9 +305,8 @@ msgid "Album Information"
 msgstr "Levyn tiedot"
 
 #: tmp/coverart_browser_prefs.ui.h:20
-#, fuzzy
 msgid "Display album information"
-msgstr "Levyn tiedot"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:21
 msgid "Font size for the text below the cover-art."
@@ -343,9 +339,8 @@ msgid "Display album's info under cover"
 msgstr "Näytä levyn tiedot kansikuvan alla"
 
 #: tmp/coverart_browser_prefs.ui.h:28
-#, fuzzy
 msgid "Display album's info within cover"
-msgstr "Näytä levyn tiedot kansikuvan alla"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:29
 msgid "Cover Appearance"
@@ -372,9 +367,8 @@ msgid "Size (in pixels):"
 msgstr "Koko (pikseleissä):"
 
 #: tmp/coverart_browser_prefs.ui.h:35
-#, fuzzy
 msgid "Tracks Pane"
-msgstr "Kappaleet"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:36
 msgid "open or close on click of cover"
@@ -479,9 +473,8 @@ msgid "Load New Icon: "
 msgstr "Lataa uusi kuvake: "
 
 #: tmp/coverart_browser_prefs.ui.h:61
-#, fuzzy
 msgid "Select a new genre icon"
-msgstr "Poista vaihtoehtoinen tyylilaji"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:62
 msgid "Edit Genre Details:"
@@ -528,9 +521,8 @@ msgid "Tracks & Covers"
 msgstr "Kappaleet ja kannet"
 
 #: tmp/coverart_browser.ui.h:2
-#, fuzzy
 msgid "Track Artist"
-msgstr "Esittäjä"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:3
 msgid "Stop coverart fetch."
@@ -548,25 +540,22 @@ msgstr "Lisää kappale jonoon"
 
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:4
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:4
-#, fuzzy
 msgid "Play Similar"
-msgstr "Toista kaikki"
+msgstr ""
 
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:5
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:5
-#, fuzzy
 msgid "Track"
-msgstr "Kappaleet"
+msgstr "Kappale"
 
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:7
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:7
-#, fuzzy
 msgid "Genre"
-msgstr "Kaikki tyylilajit"
+msgstr "Tyylilaji"
 
 #: tmp/coverart_exportembed.ui.h:1
 msgid "Choose folder to save tracks:"
-msgstr ""
+msgstr "Valitse kansio, johon kappaleet tallennetaan:"
 
 #: tmp/coverart_exportembed.ui.h:2
 msgid "Select a Folder to export to"
@@ -624,12 +613,11 @@ msgstr "Kaikki vuosikymmenet"
 #: tmp/coverart_leftsidebar.ui.h:4 tmp/coverart_rightsidebar.ui.h:4
 #: tmp/coverart_topbar.ui.h:4 coverart_browser.py:231
 msgid "Views"
-msgstr ""
+msgstr "Näkymät"
 
 #: tmp/coverart_play_pop_rb3.ui.h:1
-#, fuzzy
 msgid "Remove from Playlist"
-msgstr "Lisää soittolistaan"
+msgstr "Poista soittolistalta"
 
 #: tmp/popups.xml.in.h:1
 msgid "rock"
@@ -652,9 +640,8 @@ msgid "world"
 msgstr ""
 
 #: tmp/popups.xml.in.h:6
-#, fuzzy
 msgid "bluegrass"
-msgstr "blues"
+msgstr ""
 
 #: tmp/popups.xml.in.h:7
 msgid "oldies"
@@ -713,18 +700,16 @@ msgid "electronic"
 msgstr ""
 
 #: tmp/popups.xml.in.h:21
-#, fuzzy
 msgid "soundtrack"
-msgstr " %d kappaleella"
+msgstr ""
 
 #: tmp/popups.xml.in.h:22
 msgid "latin"
 msgstr ""
 
 #: tmp/popups.xml.in.h:23
-#, fuzzy
 msgid "alternative"
-msgstr "Vaihtoehtoiset tyylilajit:"
+msgstr ""
 
 #: tmp/popups.xml.in.h:24
 msgid "disco"
@@ -791,7 +776,7 @@ msgstr ""
 
 #: coverart_artistinfo.py:704
 msgid "No artist specified."
-msgstr ""
+msgstr "Esittäjää ei määritelty."
 
 #. Translators: 'top' here means 'most popular'.  %s is replaced by the artist name.
 #: coverart_artistinfo.py:724
@@ -845,9 +830,8 @@ msgid "Browse and play your albums through their covers"
 msgstr "Selaa ja toista levyjäsi kansikuvien kautta"
 
 #: coverart_browser_source.py:179
-#, fuzzy
 msgid "CoverArt Playlist"
-msgstr "Uusi soittolista"
+msgstr ""
 
 #. . TRANSLATORS - "All" is used in the context of "All artist names"
 #: coverart_browser_source.py:534
@@ -995,18 +979,16 @@ msgid "Search track artists"
 msgstr ""
 
 #: coverart_controllers.py:716
-#, fuzzy
 msgid "Search composers"
-msgstr "Etsi kansikuvia"
+msgstr "Etsi säveltäjiä"
 
 #: coverart_controllers.py:717
 msgid "Search albums"
 msgstr "Etsi levyjä"
 
 #: coverart_controllers.py:718
-#, fuzzy
 msgid "Search titles"
-msgstr "Etsi tekstiä"
+msgstr ""
 
 #. TRANSLATORS: for example 'Number of covers limited to 150'
 #: coverart_coverflowview.py:196
@@ -1024,8 +1006,4 @@ msgstr "Kappaleet"
 
 #: coverart_playlists.py:165
 msgid "No matching tracks have been found"
-msgstr ""
-
-#, fuzzy
-#~ msgid "size in pixels"
-#~ msgstr "Koko (pikseleissä):"
+msgstr "Vastaavia kappaleita ei löytynyt"

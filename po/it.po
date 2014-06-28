@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-06-23 21:31+0100\n"
-"PO-Revision-Date: 2014-06-16 06:46+0000\n"
+"PO-Revision-Date: 2014-06-28 17:56+0000\n"
 "Last-Translator: Gianfranco Frisani <gfrisani@libero.it>\n"
 "Language-Team: Italian <it@li.org>\n"
-"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-06-16 09:08+0000\n"
-"X-Generator: Launchpad (build 17045)\n"
+"X-Launchpad-Export-Date: 2014-06-28 20:48+0000\n"
+"X-Generator: Launchpad (build 17077)\n"
+"Language: it\n"
 
 #. TRANSLATORS: album duration (length) in the format hour:minute:second
 #: tmpl/album-tmpl.html:20
@@ -195,14 +195,14 @@ msgstr "Aggiungi alla riproduzione"
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:8
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:8
 msgid "Add to Playlist"
-msgstr "Aggiungi alla Playlist"
+msgstr "Aggiungi alla playlist"
 
 #: tmp/coverart_artist_pop_rb3.ui.h:5 tmp/coverart_browser_pop_rb3.ui.h:6
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:9
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:9 coverart_browser_source.py:769
 #: coverart_entryview.py:643
 msgid "New Playlist"
-msgstr "Nuova Playlist"
+msgstr "Nuova playlist"
 
 #: tmp/coverart_artist_pop_rb3.ui.h:6 tmp/coverart_browser_pop_rb3.ui.h:7
 msgid "Search for covers"
@@ -634,9 +634,8 @@ msgid "Views"
 msgstr "Visualizzazioni"
 
 #: tmp/coverart_play_pop_rb3.ui.h:1
-#, fuzzy
 msgid "Remove from Playlist"
-msgstr "Aggiungi alla Playlist"
+msgstr "Rimuovi dalla playlist"
 
 #: tmp/popups.xml.in.h:1
 msgid "rock"
@@ -849,9 +848,8 @@ msgid "Browse and play your albums through their covers"
 msgstr "Sfoglia e riproduce gli album per copertina"
 
 #: coverart_browser_source.py:179
-#, fuzzy
 msgid "CoverArt Playlist"
-msgstr "Nuova Playlist"
+msgstr "Playlist CoverArt"
 
 #. . TRANSLATORS - "All" is used in the context of "All artist names"
 #: coverart_browser_source.py:534
@@ -1022,7 +1020,7 @@ msgstr "Numero di copertine limitato a %d"
 
 #: coverart_covericonview.py:583
 msgid "Album has added to list of playing albums"
-msgstr ""
+msgstr "L'album è stato aggiunto all'elenco degli album in esecuzione"
 
 #: coverart_entryview.py:75
 msgid "Tracks"
