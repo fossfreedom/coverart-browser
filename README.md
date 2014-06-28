@@ -1,11 +1,11 @@
-#coverart-browser v2.0 Beta 1
+#coverart-browser v2.0 Beta 2
 
 Browse your coverart albums in Rhythmbox v3 and later.  
 
 ##**Feedback, testers & code patches required**
 ##**wiki editors required - https://github.com/fossfreedom/coverart-browser/issues/304**
 
-![Imgur](http://i.imgur.com/YoEQ8fc.png)
+![Imgur](http://i.imgur.com/5POncDw.png)
 
 -----------
 
@@ -117,7 +117,7 @@ Credits:
  - thanks to Luqman Aden <laden@uwaterloo.ca> for the coverart-search plugin which our cover-search pane is based upon
  - thanks to Canonical for the Star widget which the ratings capabilities use
  - our Translators: Launchpad Translation team - individual credits for each locale is shown in the plugin preferences dialog
- - Button Icons - jrbastien for the four toolbar icon-sets (standard, light, lighter & dark)
+ - Button Icons - [jrbastien](https://github.com/jrbastien) for the five toolbar icon-sets
  - Flow view is based upon [Contentflow](http://jacksasylum.eu/ContentFlow)
  - Chief Tester and all-round good egg - jrbastien!
 
