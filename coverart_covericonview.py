@@ -448,19 +448,17 @@ class CoverIconView(EnhancedIconView, AbstractView):
         widget.stop_emission_by_name('drag-begin')
 
     def _cover_play_hotspot(self, path, in_vacinity=False):
-
-        if path and hasattr(self, "get_cell_rect"):
+        if path:
             valid, rect = self.get_cell_rect(path, None)  # rect of widget coords
 
             cursor_x, cursor_y = self.get_pointer()  # returns widget coords
             c_x = cursor_x - rect.x - (self.icon_padding / 2) - (self.icon_spacing / 2)
             c_y = cursor_y - rect.y - (self.icon_padding / 2) - (self.icon_spacing / 2)
 
-            sizing_x = (rect.width / 2) if in_vacinity else 0
-            sizing_y = (rect.width / 2) if in_vacinity else 0
+            sizing = (rect.width / 2) if in_vacinity else 0
 
-            if c_x < (PLAY_SIZE_X + sizing_x) and \
-                            c_y < (PLAY_SIZE_Y + sizing_y) and \
+            if c_x < (PLAY_SIZE_X + sizing) and \
+                            c_y < (PLAY_SIZE_Y + sizing) and \
                             c_x > 0 and \
                             c_y > 0:
                 return True
@@ -576,15 +574,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
                     self.on_pointer_motion(self, event)
                     return
 
-            # if we are not playing and the last thing played is what
-            # we are still hovering over then we must be requesting to play
-
-            #if self._last_path and self._last_path == path:
-            #    self.shell.props.shell_player.play()
-            #    self.on_pointer_motion(self, event)
-            #    return
-
-            # otherwise, this must be a new album so we are asking just
+            # this must be a new album so we are asking just
             # to play this new album ... just need a short interval
             # for the selection event to kick in first
             def delay(*args):
@@ -601,8 +591,11 @@ class CoverIconView(EnhancedIconView, AbstractView):
                     self._last_path = path
                     self.source.play_selected_album(self.source.favourites)
 
+                icon = 'button_play_hover'
+                if self.shadow_cover:
+                    icon = 'solid_' + icon
                 self.props.cell_area.hover_pixbuf = \
-                    self.hover_pixbufs['button_play_hover']
+                    self.hover_pixbufs[icon]
 
             Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
                                     delay, None)

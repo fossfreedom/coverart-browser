@@ -24,6 +24,7 @@ from gi.repository import Gtk
 from gi.repository import GObject
 from gi.repository import GdkPixbuf
 from gi.repository import Gdk
+from gi.repository import GLib
 
 from coverart_rb3compat import Menu
 from coverart_rb3compat import ActionGroup
@@ -223,7 +224,6 @@ class EntryViewPane(object):
                 self.cover_search_pane.clear()
 
             self.entry_view_results.emit('update-cover', self.source, None)
-
             return last_selected_album, click_count
         elif len(selected) == 1:
             self.stars.set_rating(selected[0].rating)
@@ -254,9 +254,15 @@ class EntryViewPane(object):
             self.entry_view.add_album(album)
 
         if len(selected) > 0:
-            self.entry_view_results.emit('update-cover',
+
+            def cover_update(*args):
+                print ("emitting")
+                self.entry_view_results.emit('update-cover',
                                          self.source,
                                          selected[0].get_tracks()[0].entry)
+
+            # add a short delay to give the entry-pane time to expand etc.
+            Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250, cover_update, None)
 
         # update the cover search pane with the first selected album
         if cover_search_pane_visible:
@@ -319,13 +325,16 @@ class ResultsGrid(Gtk.Grid):
 
     def update_cover(self, widget, source, entry):
 
+        print ('update_cover')
         self.oldval = 0  # force a redraw
         if entry:
+            print ('entry')
             album = source.album_manager.model.get_from_dbentry(entry)
             self.pixbuf = GdkPixbuf.Pixbuf().new_from_file(album.cover.original)
             self.window_resize(None)
             self.frame.set_shadow_type(Gtk.ShadowType.NONE)
         else:
+            print ('no pixbuf')
             self.pixbuf = None
             self.frame.set_shadow_type(Gtk.ShadowType.ETCHED_OUT)
 
@@ -342,6 +351,7 @@ class ResultsGrid(Gtk.Grid):
     def window_resize(self, widget):
         alloc = self.get_allocation()
         if alloc.height < 10:
+            print ('less than')
             return
 
         if (alloc.width / 3) <= (MIN_IMAGE_SIZE + 30) or \
@@ -353,8 +363,11 @@ class ResultsGrid(Gtk.Grid):
         framealloc = self.frame.get_allocation()
         minval = min(framealloc.width - 30, framealloc.height - 30)
         if self.oldval == minval:
+            print (self.oldval)
             return
         print("resizing")
+        print (self.pixbuf)
+        print (minval)
         self.oldval = minval
         if self.pixbuf:
             p = self.pixbuf.scale_simple(minval, minval, GdkPixbuf.InterpType.BILINEAR)
