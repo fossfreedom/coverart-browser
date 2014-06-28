@@ -228,7 +228,6 @@ class CoverIconView(EnhancedIconView, AbstractView):
 
     display_text_enabled = GObject.property(type=bool, default=False)
     display_text_pos = GObject.property(type=bool, default=False)
-    shadow_cover = GObject.property(type=bool, default=False)
     name = 'coverview'
     panedposition = PanedCollapsible.Paned.COLLAPSE
 
@@ -303,12 +302,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
             'button_playpause_hover': None,
             'button_queue': None,
             'button_queue_hover': None,
-            'solid_button_play': None,
-            'solid_button_play_hover': None,
-            'solid_button_playpause': None,
-            'solid_button_playpause_hover': None,
-            'solid_button_queue': None,
-            'solid_button_queue_hover': None}
+            }
 
         for pixbuf_type in self.hover_pixbufs:
             filename = 'img/' + pixbuf_type + '.png'
@@ -344,8 +338,6 @@ class CoverIconView(EnhancedIconView, AbstractView):
 
         setting.bind(self.gs.PluginKey.DISPLAY_TEXT_POS, self,
                      'display-text-pos', Gio.SettingsBindFlags.GET)
-        setting.bind(self.gs.PluginKey.ADD_SHADOW, self,
-                     'shadow_cover', Gio.SettingsBindFlags.GET)
 
     def _connect_signals(self):
         self.connect("item-clicked", self.item_clicked_callback)
@@ -540,9 +532,6 @@ class CoverIconView(EnhancedIconView, AbstractView):
         if exact_hotspot:
             icon = icon + '_hover'
 
-        if self.shadow_cover:
-            icon = 'solid_' + icon
-
         hover = self.hover_pixbufs[icon]
 
         self._display_icon(hover, path)
@@ -592,8 +581,6 @@ class CoverIconView(EnhancedIconView, AbstractView):
                     self.source.play_selected_album(self.source.favourites)
 
                 icon = 'button_play_hover'
-                if self.shadow_cover:
-                    icon = 'solid_' + icon
                 self.props.cell_area.hover_pixbuf = \
                     self.hover_pixbufs[icon]
 
