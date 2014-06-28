@@ -1,0 +1,28 @@
+var classcoverart__artistinfo_1_1_artist_info_pane =
+[
+    [ "__init__", "classcoverart__artistinfo_1_1_artist_info_pane.html#a0b74af590e485c0a9f865e37407c0d3f", null ],
+    [ "change_stack", "classcoverart__artistinfo_1_1_artist_info_pane.html#aa988205db357b7435dec5d896fcb9244", null ],
+    [ "connect_properties", "classcoverart__artistinfo_1_1_artist_info_pane.html#a89bff0adefdafa449de580192b71e9ca", null ],
+    [ "connect_signals", "classcoverart__artistinfo_1_1_artist_info_pane.html#a2d38f3be6f25960646c17a964ccb91b3", null ],
+    [ "on_view_changed", "classcoverart__artistinfo_1_1_artist_info_pane.html#a9755c29fff1a4aef982f3d7805583ac2", null ],
+    [ "paned_button_press_callback", "classcoverart__artistinfo_1_1_artist_info_pane.html#ad283bd92224e2475d439ec26b26d5c3f", null ],
+    [ "paned_button_release_callback", "classcoverart__artistinfo_1_1_artist_info_pane.html#a666efe4404b91634a7458b24e740e29e", null ],
+    [ "select_artist", "classcoverart__artistinfo_1_1_artist_info_pane.html#a510e45c9af5584fa3472b784fd75db73", null ],
+    [ "current", "classcoverart__artistinfo_1_1_artist_info_pane.html#a391824f3e3117da85b2bc03caec25918", null ],
+    [ "current_album_title", "classcoverart__artistinfo_1_1_artist_info_pane.html#abca1051f019fb1c2607c87653182565b", null ],
+    [ "current_artist", "classcoverart__artistinfo_1_1_artist_info_pane.html#a588cae32ff0e42176e8c93e6b5f5c735", null ],
+    [ "ds", "classcoverart__artistinfo_1_1_artist_info_pane.html#a2454ecdfb975c369d77485416c200ea3", null ],
+    [ "gs", "classcoverart__artistinfo_1_1_artist_info_pane.html#af2f613c94bca02bea8fdb87828b5939a", null ],
+    [ "info_cache", "classcoverart__artistinfo_1_1_artist_info_pane.html#aa4a2f877b107a4fcdc0979bc6049bb6d", null ],
+    [ "info_paned", "classcoverart__artistinfo_1_1_artist_info_pane.html#abbda2d9f83c8d8eca30779128db9673c", null ],
+    [ "min_paned_pos", "classcoverart__artistinfo_1_1_artist_info_pane.html#afa07e875524b0c846d60f3cfe469bbc8", null ],
+    [ "paned_pos", "classcoverart__artistinfo_1_1_artist_info_pane.html#a897bd6650f130f0f17a71deaeaf8ce6a", null ],
+    [ "paned_pos", "classcoverart__artistinfo_1_1_artist_info_pane.html#ab638ce8cde35a61e2bddd34c2f182ddb", null ],
+    [ "plugin", "classcoverart__artistinfo_1_1_artist_info_pane.html#afd8faff257fa660dffbb17f8bf8a764f", null ],
+    [ "ranking_cache", "classcoverart__artistinfo_1_1_artist_info_pane.html#aa76de1a4e5ec686cb29b64eae3e30403", null ],
+    [ "shell", "classcoverart__artistinfo_1_1_artist_info_pane.html#a4fe6083880c52115ea60bbd4e53d2bd7", null ],
+    [ "source", "classcoverart__artistinfo_1_1_artist_info_pane.html#aa49ccc27314506768f882cdba1a1eae4", null ],
+    [ "stack", "classcoverart__artistinfo_1_1_artist_info_pane.html#ada4301f6a27c98c9c35b5b6ab30b0a3a", null ],
+    [ "tab_cb_ids", "classcoverart__artistinfo_1_1_artist_info_pane.html#a874a9042bfd23b1dc3f01689ecd76149", null ],
+    [ "view", "classcoverart__artistinfo_1_1_artist_info_pane.html#a07079c0b710030b499fdb8a958537d0b", null ]
+];
