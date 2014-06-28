@@ -28,6 +28,8 @@ from gi.repository import Gtk
 from gi.repository import PeasGtk
 from gi.repository import Peas
 from gi.repository import RB
+from gi.repository import Gdk
+from gi.repository import GLib
 
 import rb
 from stars import ReactiveStar
@@ -229,6 +231,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
     '''
     __gtype_name__ = 'CoverArtBrowserPreferences'
     object = GObject.property(type=GObject.Object)
+
     GENRE_POPUP = 1
     GENRE_LIST = 2
 
@@ -242,6 +245,8 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         self.settings = gs.get_setting(gs.Path.PLUGIN)
 
         self._first_run = True
+        self._cover_size = 0
+        self._cover_size_delay = 0
 
     def do_create_configure_widget(self):
         '''
@@ -362,8 +367,12 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
                            Gio.SettingsBindFlags.DEFAULT)
 
         cover_size_scale = builder.get_object('cover_size_adjustment')
-        self.settings.bind(gs.PluginKey.COVER_SIZE, cover_size_scale, 'value',
-                           Gio.SettingsBindFlags.DEFAULT)
+
+        #self.settings.bind(gs.PluginKey.COVER_SIZE, cover_size_scale, 'value',
+        #                   Gio.SettingsBindFlags.DEFAULT)
+        self._cover_size = self.settings[gs.PluginKey.COVER_SIZE]
+        cover_size_scale.set_value(self._cover_size)
+        cover_size_scale.connect('value-changed', self.on_cover_size_scale_changed)
 
         add_shadow = builder.get_object('add_shadow_checkbox')
         self.settings.bind(gs.PluginKey.ADD_SHADOW, add_shadow, 'active',
@@ -520,6 +529,27 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         self._first_run = False
         print ("end create dialog contents")
         return builder.get_object('main_notebook')
+
+    def on_cover_size_scale_changed(self, scale):
+        self._cover_size = scale.get_value()
+
+        def delay(*args):
+            print ('delay')
+            print (self._cover_size_delay)
+            self._cover_size_delay = self._cover_size_delay + 1
+
+            if self._cover_size_delay >=8:
+                gs = GSetting()
+                self.settings[gs.PluginKey.COVER_SIZE] = self._cover_size
+                self._cover_size_delay = 0
+                return False
+
+            return True
+
+        if self._cover_size_delay == 0:
+            Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 100, delay, None)
+        else:
+            self._cover_size_delay = 1
 
     def on_flow_combobox_changed(self, combobox):
         current_val = combobox.get_model()[combobox.get_active()][0]
