@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['rating_5fchanged_5fcallback',['rating_changed_callback',['../classcoverart__browser__source_1_1_cover_art_browser_source.html#adfcf97176a5fdcf0c5cd3900bc4a240c',1,'coverart_browser_source::CoverArtBrowserSource']]],
+  ['rating_5fchanged_5fcallback',['rating_changed_callback',['../classcoverart__entryview_1_1_entry_view_pane.html#a050679b1c7e8b93fd003e82f83ca550a',1,'coverart_entryview::EntryViewPane']]],
   ['real_5fyear',['real_year',['../classcoverart__album_1_1_album.html#ac653010be339b78c20136bfd1b547998',1,'coverart_album::Album']]],
   ['recreate_5ftext',['recreate_text',['../classcoverart__album_1_1_albums_model.html#a28ac52a0668842a1f0a9cec8b34c2775',1,'coverart_album::AlbumsModel']]],
   ['remove',['remove',['../classcoverart__album_1_1_albums_model.html#a1f475795177b44e3c3f11e52f1d2e0fb',1,'coverart_album::AlbumsModel.remove()'],['../classcoverart__artistview_1_1_artists_model.html#a69b99bdd97f4bde87747fabfd66ebcb7',1,'coverart_artistview::ArtistsModel.remove()']]],

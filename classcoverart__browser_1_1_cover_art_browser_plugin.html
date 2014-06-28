@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Coverart Browser: coverart_browser.CoverArtBrowserPlugin Class Reference</title>
+<title>CoverArt Browser: coverart_browser.CoverArtBrowserPlugin Class Reference</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -32,8 +32,8 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Coverart Browser
-   &#160;<span id="projectnumber">v1.0</span>
+   <div id="projectname">CoverArt Browser
+   &#160;<span id="projectnumber">v2.0</span>
    </div>
    <div id="projectbrief">Browse your cover-art albums in Rhythmbox</div>
   </td>
@@ -118,6 +118,8 @@ Public Attributes</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>shell</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a818e614602323c4fadf9a73f1617ac07"></a><!-- doxytag: member="coverart_browser::CoverArtBrowserPlugin::db" ref="a818e614602323c4fadf9a73f1617ac07" args="" -->
 &#160;</td><td class="memItemRight" valign="bottom"><b>db</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acfabf41cfb21ec584a1745be80eedb20"></a><!-- doxytag: member="coverart_browser::CoverArtBrowserPlugin::entry_type" ref="acfabf41cfb21ec584a1745be80eedb20" args="" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>entry_type</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a71481350e879f97e9d2a08503e099d9e"></a><!-- doxytag: member="coverart_browser::CoverArtBrowserPlugin::source" ref="a71481350e879f97e9d2a08503e099d9e" args="" -->
 &#160;</td><td class="memItemRight" valign="bottom"><b>source</b></td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-attribs"></a>
@@ -130,7 +132,7 @@ tuple&#160;</td><td class="memItemRight" valign="bottom"><b>object</b> = GObject
 Main class of the plugin. Manages the activation and deactivation of the
 plugin.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser_8py_source.html#l00054">54</a> of file <a class="el" href="coverart__browser_8py_source.html">coverart_browser.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser_8py_source.html#l00049">49</a> of file <a class="el" href="coverart__browser_8py_source.html">coverart_browser.py</a>.</p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aff994210366d97f35e85115ced66a165"></a><!-- doxytag: member="coverart_browser::CoverArtBrowserPlugin::__init__" ref="aff994210366d97f35e85115ced66a165" args="" -->
 <div class="memitem">
@@ -149,7 +151,7 @@ plugin.
 <div class="fragment"><pre class="fragment">
 Initialises the plugin object.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser_8py_source.html#l00062">62</a> of file <a class="el" href="coverart__browser_8py_source.html">coverart_browser.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser_8py_source.html#l00057">57</a> of file <a class="el" href="coverart__browser_8py_source.html">coverart_browser.py</a>.</p>
 
 </div>
 </div>
@@ -173,7 +175,7 @@ Called by Rhythmbox when the plugin is activated. It creates the
 plugin's source and connects signals to manage the plugin's
 preferences.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser_8py_source.html#l00070">70</a> of file <a class="el" href="coverart__browser_8py_source.html">coverart_browser.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser_8py_source.html#l00063">63</a> of file <a class="el" href="coverart__browser_8py_source.html">coverart_browser.py</a>.</p>
 
 </div>
 </div>
@@ -195,7 +197,7 @@ preferences.
 Called by Rhythmbox when the plugin is deactivated. It makes sure to
 free all the resources used by the plugin.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser_8py_source.html#l00133">133</a> of file <a class="el" href="coverart__browser_8py_source.html">coverart_browser.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser_8py_source.html#l00108">108</a> of file <a class="el" href="coverart__browser_8py_source.html">coverart_browser.py</a>.</p>
 
 </div>
 </div>
@@ -234,7 +236,7 @@ Called by Rhythmbox when it has completed loading all data
 Used to automatically switch to the browser if the user
 has set in the preferences
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__browser_8py_source.html#l00148">148</a> of file <a class="el" href="coverart__browser_8py_source.html">coverart_browser.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__browser_8py_source.html#l00123">123</a> of file <a class="el" href="coverart__browser_8py_source.html">coverart_browser.py</a>.</p>
 
 </div>
 </div>
@@ -262,7 +264,7 @@ has set in the preferences
       <li class="navelem"><b>coverart_browser</b>      </li>
       <li class="navelem"><a class="el" href="classcoverart__browser_1_1_cover_art_browser_plugin.html">CoverArtBrowserPlugin</a>      </li>
 
-    <li class="footer">Generated on Fri Jan 24 2014 21:22:27 for Coverart Browser by
+    <li class="footer">Generated on Sat Jun 28 2014 11:18:07 for CoverArt Browser by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
    </ul>

@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Coverart Browser: coverart_external_plugins.ExternalPlugin Class Reference</title>
+<title>CoverArt Browser: coverart_external_plugins.ExternalPlugin Class Reference</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -32,8 +32,8 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Coverart Browser
-   &#160;<span id="projectnumber">v1.0</span>
+   <div id="projectname">CoverArt Browser
+   &#160;<span id="projectnumber">v2.0</span>
    </div>
    <div id="projectbrief">Browse your cover-art albums in Rhythmbox</div>
   </td>
@@ -115,6 +115,7 @@ def&#160;</td><td class="memItemRight" valign="bottom"><b>__init__</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a173ffaa8d280608cbad2d97393ca4bb2"></a><!-- doxytag: member="coverart_external_plugins::ExternalPlugin::do_deactivate" ref="a173ffaa8d280608cbad2d97393ca4bb2" args="" -->
 def&#160;</td><td class="memItemRight" valign="bottom"><b>do_deactivate</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__external__plugins_1_1_external_plugin.html#a4eb30a857779f10b4a9d4ba6d9ca5beb">set_entry_view_selected_entries</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__external__plugins_1_1_external_plugin.html#a428beecb3f0071ae7bb55003431c4d21">activate</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__external__plugins_1_1_external_plugin.html#a0ed6a9d290551b29b52b1e69b2032e67">menuitem_callback</a></td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -125,8 +126,40 @@ Public Attributes</h2></td></tr>
 <div class="textblock"><div class="fragment"><pre class="fragment">
 class for all supported ExternalPlugins
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__external__plugins_8py_source.html#l00032">32</a> of file <a class="el" href="coverart__external__plugins_8py_source.html">coverart_external_plugins.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__external__plugins_8py_source.html#l00030">30</a> of file <a class="el" href="coverart__external__plugins_8py_source.html">coverart_external_plugins.py</a>.</p>
 </div><hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a428beecb3f0071ae7bb55003431c4d21"></a><!-- doxytag: member="coverart_external_plugins::ExternalPlugin::activate" ref="a428beecb3f0071ae7bb55003431c4d21" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__external__plugins_1_1_external_plugin.html#a428beecb3f0071ae7bb55003431c4d21">coverart_external_plugins.ExternalPlugin.activate</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>shell</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">
+method called to initiate the external plugin action
+the action is defined by defining the action_group_name, action_name and action_type
+</pre></div> 
+<p>Definition at line <a class="el" href="coverart__external__plugins_8py_source.html#l00139">139</a> of file <a class="el" href="coverart__external__plugins_8py_source.html">coverart_external_plugins.py</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a37a088d6bfe8a0cbf625be9f43863f57"></a><!-- doxytag: member="coverart_external_plugins::ExternalPlugin::appendattribute" ref="a37a088d6bfe8a0cbf625be9f43863f57" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -163,7 +196,7 @@ append another attribute to the dict
 :param key: `str` name of attribute
 :param val: `str` value of attribute
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__external__plugins_8py_source.html#l00046">46</a> of file <a class="el" href="coverart__external__plugins_8py_source.html">coverart_external_plugins.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__external__plugins_8py_source.html#l00045">45</a> of file <a class="el" href="coverart__external__plugins_8py_source.html">coverart_external_plugins.py</a>.</p>
 
 </div>
 </div>
@@ -234,7 +267,7 @@ in a section.
 :param for_album: `bool` create the menu for the album - if not given
   then its assumed the menu item is appropriate just for tracks
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__external__plugins_8py_source.html#l00078">78</a> of file <a class="el" href="coverart__external__plugins_8py_source.html">coverart_external_plugins.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__external__plugins_8py_source.html#l00077">77</a> of file <a class="el" href="coverart__external__plugins_8py_source.html">coverart_external_plugins.py</a>.</p>
 
 </div>
 </div>
@@ -255,7 +288,7 @@ in a section.
 <div class="fragment"><pre class="fragment">
 method to test whether the plugin is actually loaded. Returns a bool
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__external__plugins_8py_source.html#l00062">62</a> of file <a class="el" href="coverart__external__plugins_8py_source.html">coverart_external_plugins.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__external__plugins_8py_source.html#l00061">61</a> of file <a class="el" href="coverart__external__plugins_8py_source.html">coverart_external_plugins.py</a>.</p>
 
 </div>
 </div>
@@ -303,7 +336,7 @@ is activated by the user
 :param param: Not used
 :param args: dict associated with the action
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__external__plugins_8py_source.html#l00137">137</a> of file <a class="el" href="coverart__external__plugins_8py_source.html">coverart_external_plugins.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__external__plugins_8py_source.html#l00152">152</a> of file <a class="el" href="coverart__external__plugins_8py_source.html">coverart_external_plugins.py</a>.</p>
 
 </div>
 </div>
@@ -337,7 +370,7 @@ method called just before the external plugin action is activated
 Normally only called for album menus to mimic selecting all the
 EntryView rows
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__external__plugins_8py_source.html#l00124">124</a> of file <a class="el" href="coverart__external__plugins_8py_source.html">coverart_external_plugins.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__external__plugins_8py_source.html#l00126">126</a> of file <a class="el" href="coverart__external__plugins_8py_source.html">coverart_external_plugins.py</a>.</p>
 
 </div>
 </div>
@@ -365,7 +398,7 @@ EntryView rows
       <li class="navelem"><b>coverart_external_plugins</b>      </li>
       <li class="navelem"><a class="el" href="classcoverart__external__plugins_1_1_external_plugin.html">ExternalPlugin</a>      </li>
 
-    <li class="footer">Generated on Fri Jan 24 2014 21:22:28 for Coverart Browser by
+    <li class="footer">Generated on Sat Jun 28 2014 11:18:08 for CoverArt Browser by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
    </ul>

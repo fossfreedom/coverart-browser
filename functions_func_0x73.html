@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Coverart Browser: Class Members - Functions</title>
+<title>CoverArt Browser: Class Members - Functions</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -32,8 +32,8 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Coverart Browser
-   &#160;<span id="projectnumber">v1.0</span>
+   <div id="projectname">CoverArt Browser
+   &#160;<span id="projectnumber">v2.0</span>
    </div>
    <div id="projectbrief">Browse your cover-art albums in Rhythmbox</div>
   </td>
@@ -94,8 +94,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions_func_0x63.html#index_c"><span>c</span></a></li>
       <li><a href="functions_func_0x64.html#index_d"><span>d</span></a></li>
       <li><a href="functions_func_0x65.html#index_e"><span>e</span></a></li>
+      <li><a href="functions_func_0x66.html#index_f"><span>f</span></a></li>
       <li><a href="functions_func_0x67.html#index_g"><span>g</span></a></li>
       <li><a href="functions_func_0x69.html#index_i"><span>i</span></a></li>
+      <li><a href="functions_func_0x6a.html#index_j"><span>j</span></a></li>
       <li><a href="functions_func_0x6c.html#index_l"><span>l</span></a></li>
       <li><a href="functions_func_0x6d.html#index_m"><span>m</span></a></li>
       <li><a href="functions_func_0x6e.html#index_n"><span>n</span></a></li>
@@ -126,13 +128,18 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 &#160;
 
 <h3><a class="anchor" id="index_s"></a>- s -</h3><ul>
+<li>scroll_to_album()
+: <a class="el" href="classcoverart__artistview_1_1_artist_view.html#aebd6754350a4de0b5284219e03d810ac">coverart_artistview.ArtistView</a>
+, <a class="el" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a9e9b84d457a39eb72fdd500a605afb25">coverart_coverflowview.CoverFlowView</a>
+, <a class="el" href="classcoverart__widgets_1_1_abstract_view.html#a5672ab2dc8622c19791a154f71be7b2e">coverart_widgets.AbstractView</a>
+</li>
 <li>search_covers()
 : <a class="el" href="classcoverart__album_1_1_cover_manager.html#a760d400f95b436f987de568a9ef4e3ad">coverart_album.CoverManager</a>
 </li>
 <li>select_and_scroll_to_path()
 : <a class="el" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a4a1990543789c93f80aeb703dca65b6d">coverart_coverflowview.CoverFlowView</a>
-, <a class="el" href="classcoverart__widgets_1_1_abstract_view.html#ad23cdb51528d17d1d857ee1617a6ac2a">coverart_widgets.AbstractView</a>
 , <a class="el" href="classcoverart__widgets_1_1_enhanced_icon_view.html#ab115fcc6ce39b779b9f8e676ee8cce2a">coverart_widgets.EnhancedIconView</a>
+, <a class="el" href="classcoverart__widgets_1_1_abstract_view.html#ad23cdb51528d17d1d857ee1617a6ac2a">coverart_widgets.AbstractView</a>
 </li>
 <li>selectionchanged_callback()
 : <a class="el" href="classcoverart__widgets_1_1_abstract_view.html#a9807036c59b969e6a1ae8877c6c9a8bf">coverart_widgets.AbstractView</a>
@@ -165,8 +172,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="classcoverart__browser__prefs_1_1_g_setting_1_1____impl.html#a72a1f0743db7f84ae68d809b0f3e81b6">coverart_browser_prefs.GSetting.__impl</a>
 </li>
 <li>show()
-: <a class="el" href="classcoverart__artistview_1_1_artists_model.html#a73f59d9d1d41073fc0fec79756216cea">coverart_artistview.ArtistsModel</a>
-, <a class="el" href="classcoverart__album_1_1_albums_model.html#ac924ddb12ce50c328fa74a8709db0df1">coverart_album.AlbumsModel</a>
+: <a class="el" href="classcoverart__album_1_1_albums_model.html#ac924ddb12ce50c328fa74a8709db0df1">coverart_album.AlbumsModel</a>
+, <a class="el" href="classcoverart__artistview_1_1_artists_model.html#a73f59d9d1d41073fc0fec79756216cea">coverart_artistview.ArtistsModel</a>
 </li>
 <li>show_hide_pane()
 : <a class="el" href="classcoverart__browser__source_1_1_cover_art_browser_source.html#a9fe84ca32ea0ba58549b0ff7702e3fe0">coverart_browser_source.CoverArtBrowserSource</a>
@@ -188,15 +195,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="classcoverart__browser__prefs_1_1_cover_locale_1_1____impl.html#ac290de8e8c3e92f0bfdf8c31ebb4e2cd">coverart_browser_prefs.CoverLocale.__impl</a>
 </li>
 <li>switch_to_coverpane()
-: <a class="el" href="classcoverart__widgets_1_1_abstract_view.html#ae591ccccfd9b6733bd9ce45dce30f758">coverart_widgets.AbstractView</a>
-, <a class="el" href="classcoverart__artistview_1_1_artist_view.html#a16aa63092791aff7616decafb9be91f8">coverart_artistview.ArtistView</a>
+: <a class="el" href="classcoverart__artistview_1_1_artist_view.html#a16aa63092791aff7616decafb9be91f8">coverart_artistview.ArtistView</a>
+, <a class="el" href="classcoverart__widgets_1_1_abstract_view.html#ae591ccccfd9b6733bd9ce45dce30f758">coverart_widgets.AbstractView</a>
 </li>
 <li>switch_to_view()
 : <a class="el" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a349c59525447d91339440fcdf86c2629">coverart_coverflowview.CoverFlowView</a>
-, <a class="el" href="classcoverart__listview_1_1_list_view.html#ab0bc072b7fffee423cfd71a2afa11f32">coverart_listview.ListView</a>
 , <a class="el" href="classcoverart__artistview_1_1_artist_view.html#ac868fe4d14e7238c32a99cae79668ce6">coverart_artistview.ArtistView</a>
-, <a class="el" href="classcoverart__widgets_1_1_abstract_view.html#a821d8d78725782956aff40eba35dc628">coverart_widgets.AbstractView</a>
 , <a class="el" href="classcoverart__covericonview_1_1_cover_icon_view.html#a9faa9ae2f7496207d8a9b57d3234a79a">coverart_covericonview.CoverIconView</a>
+, <a class="el" href="classcoverart__widgets_1_1_abstract_view.html#a821d8d78725782956aff40eba35dc628">coverart_widgets.AbstractView</a>
+, <a class="el" href="classcoverart__queueview_1_1_queue_view.html#a8b833211864a382e8ab1b0964b95f6c0">coverart_queueview.QueueView</a>
+, <a class="el" href="classcoverart__playsourceview_1_1_play_source_view.html#a2dfbd77847740927cae608b483e7fd4e">coverart_playsourceview.PlaySourceView</a>
+, <a class="el" href="classcoverart__listview_1_1_list_view.html#ab0bc072b7fffee423cfd71a2afa11f32">coverart_listview.ListView</a>
 </li>
 </ul>
 </div><!-- contents -->
@@ -218,7 +227,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="nav-path" class="navpath">
     <ul>
 
-    <li class="footer">Generated on Fri Jan 24 2014 21:22:28 for Coverart Browser by
+    <li class="footer">Generated on Sat Jun 28 2014 11:18:08 for CoverArt Browser by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
    </ul>

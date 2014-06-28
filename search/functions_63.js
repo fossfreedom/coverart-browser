@@ -7,6 +7,7 @@ var searchData=
   ['clear',['clear',['../classcoverart__search_1_1_cover_search_pane.html#a0a57f51993e59b4f7455e74944bfeef6',1,'coverart_search::CoverSearchPane']]],
   ['clear_5ffilters',['clear_filters',['../classcoverart__album_1_1_albums_model.html#ab2c99bf99820dd0cc823d349237e3ddc',1,'coverart_album::AlbumsModel']]],
   ['clear_5fpopupmenu',['clear_popupmenu',['../classcoverart__widgets_1_1_options_popup_widget.html#aa2f25b77c36889cce14567f409933890',1,'coverart_widgets::OptionsPopupWidget.clear_popupmenu()'],['../classcoverart__widgets_1_1_menu_button.html#a2bbdf6396fb2249932e50d8faf54b3af',1,'coverart_widgets::MenuButton.clear_popupmenu()']]],
+  ['connect_5fproperties',['connect_properties',['../classcoverart__artistinfo_1_1_artist_info_pane.html#a89bff0adefdafa449de580192b71e9ca',1,'coverart_artistinfo::ArtistInfoPane']]],
   ['connect_5fsignals',['connect_signals',['../classcoverart__rb3compat_1_1_menu.html#a3e2a4c658f7fcbc1ec333332a55ebb3e',1,'coverart_rb3compat::Menu']]],
   ['contains',['contains',['../classcoverart__album_1_1_albums_model.html#a07d599fd2b94a01c1a4f21fea8e5e333',1,'coverart_album::AlbumsModel.contains()'],['../classcoverart__artistview_1_1_artists_model.html#aec92f10d8c2be42e8c0dabaf6c46bb7c',1,'coverart_artistview::ArtistsModel.contains()']]],
   ['cover_5fsearch_5fmenu_5fitem_5fcallback',['cover_search_menu_item_callback',['../classcoverart__browser__source_1_1_cover_art_browser_source.html#a8ee80b82d74da803104539a57d579e6e',1,'coverart_browser_source::CoverArtBrowserSource']]],

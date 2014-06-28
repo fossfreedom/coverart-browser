@@ -1,6 +1,7 @@
 var files =
 [
     [ "/home/foss/Downloads/coverart-browser/coverart_album.py", null, null ],
+    [ "/home/foss/Downloads/coverart-browser/coverart_artistinfo.py", null, null ],
     [ "/home/foss/Downloads/coverart-browser/coverart_artistview.py", null, null ],
     [ "/home/foss/Downloads/coverart-browser/coverart_browser.py", null, null ],
     [ "/home/foss/Downloads/coverart-browser/coverart_browser_prefs.py", null, null ],
@@ -12,6 +13,10 @@ var files =
     [ "/home/foss/Downloads/coverart-browser/coverart_export.py", null, null ],
     [ "/home/foss/Downloads/coverart-browser/coverart_external_plugins.py", null, null ],
     [ "/home/foss/Downloads/coverart-browser/coverart_listview.py", null, null ],
+    [ "/home/foss/Downloads/coverart-browser/coverart_play_source.py", null, null ],
+    [ "/home/foss/Downloads/coverart-browser/coverart_playlists.py", null, null ],
+    [ "/home/foss/Downloads/coverart-browser/coverart_playsourceview.py", null, null ],
+    [ "/home/foss/Downloads/coverart-browser/coverart_queueview.py", null, null ],
     [ "/home/foss/Downloads/coverart-browser/coverart_rb3compat.py", null, null ],
     [ "/home/foss/Downloads/coverart-browser/coverart_search.py", null, null ],
     [ "/home/foss/Downloads/coverart-browser/coverart_toolbar.py", null, null ],

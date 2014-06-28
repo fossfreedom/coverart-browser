@@ -1,6 +1,6 @@
 var NAVTREE =
 [
-  [ "Coverart Browser", "index.html", [
+  [ "CoverArt Browser", "index.html", [
     [ "Classes", null, [
       [ "Class List", "annotated.html", "annotated" ],
       [ "Class Index", "classes.html", null ],

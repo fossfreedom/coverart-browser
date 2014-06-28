@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Coverart Browser: /home/foss/Downloads/coverart-browser/coverart_coverflowview.py Source File</title>
+<title>CoverArt Browser: /home/foss/Downloads/coverart-browser/coverart_coverflowview.py Source File</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -32,8 +32,8 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Coverart Browser
-   &#160;<span id="projectnumber">v1.0</span>
+   <div id="projectname">CoverArt Browser
+   &#160;<span id="projectnumber">v2.0</span>
    </div>
    <div id="projectbrief">Browse your cover-art albums in Rhythmbox</div>
   </td>
@@ -115,44 +115,44 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00017"></a>00017 <span class="comment"># along with this program; if not, write to the Free Software</span>
 <a name="l00018"></a>00018 <span class="comment"># Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.</span>
 <a name="l00019"></a>00019 
-<a name="l00020"></a>00020 <span class="keyword">from</span> coverart_external_plugins <span class="keyword">import</span> CreateExternalPluginMenu
-<a name="l00021"></a>00021 <span class="keyword">from</span> gi.repository <span class="keyword">import</span> Gdk
-<a name="l00022"></a>00022 <span class="keyword">from</span> gi.repository <span class="keyword">import</span> Gtk
-<a name="l00023"></a>00023 <span class="keyword">from</span> gi.repository <span class="keyword">import</span> GLib
-<a name="l00024"></a>00024 <span class="keyword">from</span> gi.repository <span class="keyword">import</span> GObject
-<a name="l00025"></a>00025 <span class="keyword">from</span> gi.repository <span class="keyword">import</span> Gio
-<a name="l00026"></a>00026 <span class="keyword">from</span> coverart_browser_prefs <span class="keyword">import</span> GSetting
-<a name="l00027"></a>00027 <span class="keyword">from</span> coverart_browser_prefs <span class="keyword">import</span> webkit_support
-<a name="l00028"></a>00028 <span class="keyword">from</span> coverart_album <span class="keyword">import</span> AlbumsModel
-<a name="l00029"></a>00029 <span class="keyword">from</span> coverart_widgets <span class="keyword">import</span> AbstractView
-<a name="l00030"></a>00030 <span class="keyword">from</span> coverart_widgets <span class="keyword">import</span> PanedCollapsible
-<a name="l00031"></a>00031 <span class="keyword">import</span> rb
-<a name="l00032"></a>00032 <span class="keyword">import</span> json
-<a name="l00033"></a>00033 <span class="keyword">import</span> os
-<a name="l00034"></a>00034 <span class="keyword">from</span> os.path <span class="keyword">import</span> expanduser
-<a name="l00035"></a>00035 <span class="keyword">from</span> xml.sax.saxutils <span class="keyword">import</span> escape
-<a name="l00036"></a>00036 <span class="keyword">from</span> collections <span class="keyword">import</span> namedtuple
-<a name="l00037"></a>00037 
-<a name="l00038"></a><a class="code" href="classcoverart__coverflowview_1_1_flow_showing_policy.html">00038</a> <span class="keyword">class </span><a class="code" href="classcoverart__coverflowview_1_1_flow_showing_policy.html">FlowShowingPolicy</a>(GObject.Object):
-<a name="l00039"></a>00039     <span class="stringliteral">&#39;&#39;&#39;</span>
-<a name="l00040"></a>00040 <span class="stringliteral">    Policy that mostly takes care of how and when things should be showed on</span>
-<a name="l00041"></a>00041 <span class="stringliteral">    the view that makes use of the `AlbumsModel`.</span>
-<a name="l00042"></a>00042 <span class="stringliteral">    &#39;&#39;&#39;</span>
-<a name="l00043"></a>00043 
-<a name="l00044"></a>00044     <span class="keyword">def </span>__init__(self, flow_view):
-<a name="l00045"></a>00045         super(FlowShowingPolicy, self).__init__()
-<a name="l00046"></a>00046 
-<a name="l00047"></a>00047         self.<a class="code" href="classcoverart__coverflowview_1_1_flow_showing_policy.html#ae923e7c6005d64f859ac79c591f803f0">_flow_view</a> = flow_view
-<a name="l00048"></a>00048         self.<a class="code" href="classcoverart__coverflowview_1_1_flow_showing_policy.html#adffbf0a0da57e26a1cc5728a1eeaccb9">counter</a> = 0
-<a name="l00049"></a>00049         self.<a class="code" href="classcoverart__coverflowview_1_1_flow_showing_policy.html#a7036901fe85b1dda3af367d8ad3ec195">_has_initialised</a> = <span class="keyword">False</span>
-<a name="l00050"></a>00050 
-<a name="l00051"></a>00051     <span class="keyword">def </span>initialise(self, album_manager):
-<a name="l00052"></a>00052         <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__coverflowview_1_1_flow_showing_policy.html#a7036901fe85b1dda3af367d8ad3ec195">_has_initialised</a>:
-<a name="l00053"></a>00053             <span class="keywordflow">return</span>
-<a name="l00054"></a>00054 
-<a name="l00055"></a>00055         self.<a class="code" href="classcoverart__coverflowview_1_1_flow_showing_policy.html#a7036901fe85b1dda3af367d8ad3ec195">_has_initialised</a> = <span class="keyword">True</span>
-<a name="l00056"></a>00056         self.<a class="code" href="classcoverart__coverflowview_1_1_flow_showing_policy.html#aa77e50860651140bf57c7a2923383417">_album_manager</a> = album_manager
-<a name="l00057"></a>00057         self.<a class="code" href="classcoverart__coverflowview_1_1_flow_showing_policy.html#a69a3064c6cbfd2a3135d034310f4b9f9">_model</a> = album_manager.model
+<a name="l00020"></a>00020 <span class="keyword">import</span> json
+<a name="l00021"></a>00021 <span class="keyword">import</span> os
+<a name="l00022"></a>00022 <span class="keyword">from</span> xml.sax.saxutils <span class="keyword">import</span> escape
+<a name="l00023"></a>00023 
+<a name="l00024"></a>00024 <span class="keyword">from</span> gi.repository <span class="keyword">import</span> Gdk
+<a name="l00025"></a>00025 <span class="keyword">from</span> gi.repository <span class="keyword">import</span> Gtk
+<a name="l00026"></a>00026 <span class="keyword">from</span> gi.repository <span class="keyword">import</span> GLib
+<a name="l00027"></a>00027 <span class="keyword">from</span> gi.repository <span class="keyword">import</span> GObject
+<a name="l00028"></a>00028 <span class="keyword">from</span> gi.repository <span class="keyword">import</span> Gio
+<a name="l00029"></a>00029 
+<a name="l00030"></a>00030 <span class="keyword">from</span> coverart_browser_prefs <span class="keyword">import</span> GSetting
+<a name="l00031"></a>00031 <span class="keyword">from</span> coverart_browser_prefs <span class="keyword">import</span> webkit_support
+<a name="l00032"></a>00032 <span class="keyword">from</span> coverart_widgets <span class="keyword">import</span> AbstractView
+<a name="l00033"></a>00033 <span class="keyword">from</span> coverart_widgets <span class="keyword">import</span> PanedCollapsible
+<a name="l00034"></a>00034 <span class="keyword">import</span> rb
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036 
+<a name="l00037"></a><a class="code" href="classcoverart__coverflowview_1_1_flow_showing_policy.html">00037</a> <span class="keyword">class </span><a class="code" href="classcoverart__coverflowview_1_1_flow_showing_policy.html">FlowShowingPolicy</a>(GObject.Object):
+<a name="l00038"></a>00038     <span class="stringliteral">&#39;&#39;&#39;</span>
+<a name="l00039"></a>00039 <span class="stringliteral">    Policy that mostly takes care of how and when things should be showed on</span>
+<a name="l00040"></a>00040 <span class="stringliteral">    the view that makes use of the `AlbumsModel`.</span>
+<a name="l00041"></a>00041 <span class="stringliteral">    &#39;&#39;&#39;</span>
+<a name="l00042"></a>00042 
+<a name="l00043"></a>00043     <span class="keyword">def </span>__init__(self, flow_view):
+<a name="l00044"></a>00044         super(FlowShowingPolicy, self).__init__()
+<a name="l00045"></a>00045 
+<a name="l00046"></a>00046         self.<a class="code" href="classcoverart__coverflowview_1_1_flow_showing_policy.html#ae923e7c6005d64f859ac79c591f803f0">_flow_view</a> = flow_view
+<a name="l00047"></a>00047         self.<a class="code" href="classcoverart__coverflowview_1_1_flow_showing_policy.html#adffbf0a0da57e26a1cc5728a1eeaccb9">counter</a> = 0
+<a name="l00048"></a>00048         self.<a class="code" href="classcoverart__coverflowview_1_1_flow_showing_policy.html#a7036901fe85b1dda3af367d8ad3ec195">_has_initialised</a> = <span class="keyword">False</span>
+<a name="l00049"></a>00049 
+<a name="l00050"></a>00050     <span class="keyword">def </span>initialise(self, album_manager):
+<a name="l00051"></a>00051         <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__coverflowview_1_1_flow_showing_policy.html#a7036901fe85b1dda3af367d8ad3ec195">_has_initialised</a>:
+<a name="l00052"></a>00052             <span class="keywordflow">return</span>
+<a name="l00053"></a>00053 
+<a name="l00054"></a>00054         self.<a class="code" href="classcoverart__coverflowview_1_1_flow_showing_policy.html#a7036901fe85b1dda3af367d8ad3ec195">_has_initialised</a> = <span class="keyword">True</span>
+<a name="l00055"></a>00055         self.<a class="code" href="classcoverart__coverflowview_1_1_flow_showing_policy.html#aa77e50860651140bf57c7a2923383417">_album_manager</a> = album_manager
+<a name="l00056"></a>00056         self.<a class="code" href="classcoverart__coverflowview_1_1_flow_showing_policy.html#a69a3064c6cbfd2a3135d034310f4b9f9">_model</a> = album_manager.model
+<a name="l00057"></a>00057 
 <a name="l00058"></a>00058 
 <a name="l00059"></a><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html">00059</a> <span class="keyword">class </span><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html">CoverFlowView</a>(<a class="code" href="classcoverart__widgets_1_1_abstract_view.html">AbstractView</a>):
 <a name="l00060"></a>00060     __gtype_name__ = <span class="stringliteral">&quot;CoverFlowView&quot;</span>
@@ -168,277 +168,277 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00070"></a>00070     flow_appearance = GObject.property(type=str, default=<span class="stringliteral">&#39;coverflow&#39;</span>)
 <a name="l00071"></a>00071     flow_max = GObject.property(type=int, default=100)
 <a name="l00072"></a>00072     panedposition = PanedCollapsible.Paned.EXPAND
-<a name="l00073"></a>00073     
+<a name="l00073"></a>00073 
 <a name="l00074"></a>00074     <span class="keyword">def </span>__init__(self):
 <a name="l00075"></a>00075         super(CoverFlowView, self).__init__()
-<a name="l00076"></a>00076         
-<a name="l00077"></a>00077         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a3fedfa6d6fe5f3eb7a038c547b463971">ext_menu_pos</a> = 0
-<a name="l00078"></a>00078         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a73a7d691ee84e63c2486c4827bd31cd0">_external_plugins</a> = <span class="keywordtype">None</span>
-<a name="l00079"></a>00079         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a066ea41258b7e2ec4c297c32a1f2aa78">show_policy</a> = <a class="code" href="classcoverart__coverflowview_1_1_flow_showing_policy.html">FlowShowingPolicy</a>(self)
-<a name="l00080"></a>00080         <span class="keywordflow">if</span> webkit_support():
-<a name="l00081"></a>00081             <span class="keyword">from</span> gi.repository <span class="keyword">import</span> WebKit
-<a name="l00082"></a>00082             self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a4ef1f8a2b0aae9352abd29092263b397">view</a> = WebKit.WebView()
-<a name="l00083"></a>00083         <span class="keywordflow">else</span>:
-<a name="l00084"></a>00084             self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a4ef1f8a2b0aae9352abd29092263b397">view</a> = <span class="keywordtype">None</span>
-<a name="l00085"></a>00085             
-<a name="l00086"></a>00086         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a86d1618fd979ceeae05b39607a1e85d0">_last_album</a> = <span class="keywordtype">None</span>
-<a name="l00087"></a>00087         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a9ba7931bb7242dd7da48ca7d9a47457d">_has_initialised</a> = <span class="keyword">False</span>
-<a name="l00088"></a>00088         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a4a93af0180e4105456277efe3a804f51">_filter_changed_inprogress</a> = <span class="keyword">False</span>
-<a name="l00089"></a>00089         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a1ef75a5f55e9a237d5344878c89030b3">_on_first_use</a> = <span class="keyword">True</span>
-<a name="l00090"></a>00090         
-<a name="l00091"></a>00091     <span class="keyword">def </span>_connect_properties(self):
-<a name="l00092"></a>00092         gs = <a class="code" href="classcoverart__browser__prefs_1_1_g_setting.html">GSetting</a>()
-<a name="l00093"></a>00093         settings = gs.get_setting(gs.Path.PLUGIN)
-<a name="l00094"></a>00094         settings.bind(gs.PluginKey.FLOW_APPEARANCE, self,
-<a name="l00095"></a>00095             <span class="stringliteral">&#39;flow_appearance&#39;</span>, Gio.SettingsBindFlags.GET)
-<a name="l00096"></a>00096         settings.bind(gs.PluginKey.FLOW_HIDE_CAPTION, self,
-<a name="l00097"></a>00097             <span class="stringliteral">&#39;flow_hide&#39;</span>, Gio.SettingsBindFlags.GET)
-<a name="l00098"></a>00098         settings.bind(gs.PluginKey.FLOW_SCALE, self,
-<a name="l00099"></a>00099             <span class="stringliteral">&#39;flow_scale&#39;</span>, Gio.SettingsBindFlags.GET)
-<a name="l00100"></a>00100         settings.bind(gs.PluginKey.FLOW_AUTOMATIC, self,
-<a name="l00101"></a>00101             <span class="stringliteral">&#39;flow_automatic&#39;</span>, Gio.SettingsBindFlags.GET)
-<a name="l00102"></a>00102         settings.bind(gs.PluginKey.FLOW_BACKGROUND_COLOUR, self,
-<a name="l00103"></a>00103             <span class="stringliteral">&#39;flow_background&#39;</span>, Gio.SettingsBindFlags.GET)
-<a name="l00104"></a>00104         settings.bind(gs.PluginKey.FLOW_WIDTH, self,
-<a name="l00105"></a>00105             <span class="stringliteral">&#39;flow_width&#39;</span>, Gio.SettingsBindFlags.GET)
-<a name="l00106"></a>00106         settings.bind(gs.PluginKey.FLOW_MAX, self,
-<a name="l00107"></a>00107             <span class="stringliteral">&#39;flow_max&#39;</span>, Gio.SettingsBindFlags.GET)
-<a name="l00108"></a>00108             
-<a name="l00109"></a>00109     <span class="keyword">def </span>_connect_signals(self, source):
-<a name="l00110"></a>00110         self.connect(<span class="stringliteral">&#39;notify::flow-background&#39;</span>,
-<a name="l00111"></a>00111             self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#aca3235ea783d287beb384a709db65490">filter_changed</a>)
-<a name="l00112"></a>00112         self.connect(<span class="stringliteral">&#39;notify::flow-scale&#39;</span>,
-<a name="l00113"></a>00113             self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#aca3235ea783d287beb384a709db65490">filter_changed</a>)
-<a name="l00114"></a>00114         self.connect(<span class="stringliteral">&#39;notify::flow-hide&#39;</span>,
-<a name="l00115"></a>00115             self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#aca3235ea783d287beb384a709db65490">filter_changed</a>)
-<a name="l00116"></a>00116         self.connect(<span class="stringliteral">&#39;notify::flow-width&#39;</span>,
-<a name="l00117"></a>00117             self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#aca3235ea783d287beb384a709db65490">filter_changed</a>)
-<a name="l00118"></a>00118         self.connect(<span class="stringliteral">&#39;notify::flow-appearance&#39;</span>,
-<a name="l00119"></a>00119             self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#aca3235ea783d287beb384a709db65490">filter_changed</a>)
-<a name="l00120"></a>00120         self.connect(<span class="stringliteral">&#39;notify::flow-max&#39;</span>,
-<a name="l00121"></a>00121             self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#aca3235ea783d287beb384a709db65490">filter_changed</a>)
-<a name="l00122"></a>00122 
-<a name="l00123"></a>00123     <span class="keyword">def </span>filter_changed(self, *args):
-<a name="l00124"></a>00124         <span class="comment"># we can get several filter_changed calls per second</span>
-<a name="l00125"></a>00125         <span class="comment"># lets simplify the processing &amp; potential flickering when the</span>
-<a name="l00126"></a>00126         <span class="comment"># call to this method has slowed stopped</span>
-<a name="l00127"></a>00127         
-<a name="l00128"></a>00128         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a6e9f533ee119e65815a2cd1861513968">_filter_changed_event</a> = <span class="keyword">True</span>
-<a name="l00129"></a>00129 
-<a name="l00130"></a>00130         <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a4a93af0180e4105456277efe3a804f51">_filter_changed_inprogress</a>:
-<a name="l00131"></a>00131             <span class="keywordflow">return</span>
-<a name="l00132"></a>00132 
-<a name="l00133"></a>00133         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a4a93af0180e4105456277efe3a804f51">_filter_changed_inprogress</a> = <span class="keyword">True</span>
-<a name="l00134"></a>00134 
-<a name="l00135"></a>00135         <span class="keyword">def </span>filter_events(*args):
-<a name="l00136"></a>00136             <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a6e9f533ee119e65815a2cd1861513968">_filter_changed_event</a>:
-<a name="l00137"></a>00137                 self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#acb9de994031aa39fce67402234166189">_filter_changed</a>()
-<a name="l00138"></a>00138                 self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a4a93af0180e4105456277efe3a804f51">_filter_changed_inprogress</a> = <span class="keyword">False</span>
-<a name="l00139"></a>00139             <span class="keywordflow">else</span>:
-<a name="l00140"></a>00140                 self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a6e9f533ee119e65815a2cd1861513968">_filter_changed_event</a> = <span class="keyword">False</span>
-<a name="l00141"></a>00141                 <span class="keywordflow">return</span> <span class="keyword">True</span>
-<a name="l00142"></a>00142                 
-<a name="l00143"></a>00143         Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250, filter_events, <span class="keywordtype">None</span>)
-<a name="l00144"></a>00144         
-<a name="l00145"></a>00145     
-<a name="l00146"></a>00146     <span class="keyword">def </span>_filter_changed(self, *args):
-<a name="l00147"></a>00147         path = rb.find_plugin_file(self.plugin, <span class="stringliteral">&#39;coverflow/index.html&#39;</span>)
-<a name="l00148"></a>00148         f = open(path)
-<a name="l00149"></a>00149         string = f.read()
-<a name="l00150"></a>00150         f.close()
-<a name="l00151"></a>00151     
-<a name="l00152"></a>00152         <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a9fe547f851f57b52b18b151303376e00">flow_background</a> == <span class="stringliteral">&#39;W&#39;</span>:
-<a name="l00153"></a>00153             background_colour = <span class="stringliteral">&#39;white&#39;</span>
-<a name="l00154"></a>00154             <span class="keywordflow">if</span> len(self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a2e83d0377f293343dae236e57a595acc">album_manager</a>.model.store) &lt;= self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a5d20adea93abff220576fa8b93919a25">flow_max</a>:
-<a name="l00155"></a>00155                 foreground_colour = <span class="stringliteral">&#39;white&#39;</span>
-<a name="l00156"></a>00156             <span class="keywordflow">else</span>:
-<a name="l00157"></a>00157                 foreground_colour = <span class="stringliteral">&#39;black&#39;</span>
-<a name="l00158"></a>00158         <span class="keywordflow">else</span>:
-<a name="l00159"></a>00159             background_colour = <span class="stringliteral">&#39;black&#39;</span>
-<a name="l00160"></a>00160             <span class="keywordflow">if</span> len(self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a2e83d0377f293343dae236e57a595acc">album_manager</a>.model.store) &lt;= self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a5d20adea93abff220576fa8b93919a25">flow_max</a>:
-<a name="l00161"></a>00161                 foreground_colour = <span class="stringliteral">&#39;black&#39;</span>
-<a name="l00162"></a>00162             <span class="keywordflow">else</span>:
-<a name="l00163"></a>00163                 foreground_colour = <span class="stringliteral">&#39;white&#39;</span>
-<a name="l00164"></a>00164 
-<a name="l00165"></a>00165         string = string.replace(<span class="stringliteral">&#39;#BACKGROUND_COLOUR&#39;</span>, background_colour)
-<a name="l00166"></a>00166         string = string.replace(<span class="stringliteral">&#39;#FOREGROUND_COLOUR&#39;</span>, foreground_colour)
-<a name="l00167"></a>00167         string = string.replace(<span class="stringliteral">&#39;#FACTOR&#39;</span>, str(float(self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a93853b5c611f05c9501e58be6b35b221">flow_scale</a>)/100))
-<a name="l00168"></a>00168 
-<a name="l00169"></a>00169         <span class="keywordflow">if</span>  self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#ad0728355b90d9904acb168e8c32d9814">flow_hide</a>:
-<a name="l00170"></a>00170             caption = <span class="stringliteral">&quot;&quot;</span>
-<a name="l00171"></a>00171         <span class="keywordflow">else</span>:
-<a name="l00172"></a>00172             caption = <span class="stringliteral">&#39;&lt;div class=&quot;globalCaption&quot;&gt;&lt;/div&gt;&#39;</span>
-<a name="l00173"></a>00173             
-<a name="l00174"></a>00174         string = string.replace(<span class="stringliteral">&#39;#GLOBAL_CAPTION&#39;</span>, caption)
-<a name="l00175"></a>00175 
-<a name="l00176"></a>00176         addon = background_colour
-<a name="l00177"></a>00177         <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a1cf4eb16f518ca6092662e5d6f95eef7">flow_appearance</a> == <span class="stringliteral">&#39;flow-vert&#39;</span>:
-<a name="l00178"></a>00178             addon += <span class="stringliteral">&quot; vertical&quot;</span>
-<a name="l00179"></a>00179         <span class="keywordflow">elif</span> self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a1cf4eb16f518ca6092662e5d6f95eef7">flow_appearance</a> == <span class="stringliteral">&#39;carousel&#39;</span>:
-<a name="l00180"></a>00180             addon += <span class="stringliteral">&quot; carousel&quot;</span>
-<a name="l00181"></a>00181         <span class="keywordflow">elif</span> self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a1cf4eb16f518ca6092662e5d6f95eef7">flow_appearance</a> == <span class="stringliteral">&#39;roundabout&#39;</span>:
-<a name="l00182"></a>00182             addon += <span class="stringliteral">&quot; roundabout&quot;</span>
-<a name="l00183"></a>00183 
-<a name="l00184"></a>00184         string = string.replace(<span class="stringliteral">&#39;#ADDON&#39;</span>, addon)
-<a name="l00185"></a>00185 
-<a name="l00186"></a>00186         string = string.replace(<span class="stringliteral">&#39;#WIDTH&#39;</span>, str(self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#ae646b6db403331ee04fab2c32288182d">flow_width</a>))
-<a name="l00187"></a>00187 
-<a name="l00188"></a>00188         identifier = self.flow.get_identifier(self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#ab1ac206bf6c18d54d90a03614e6e6f7d">last_album</a>)
-<a name="l00189"></a>00189         <span class="keywordflow">if</span> <span class="keywordflow">not</span> identifier:
-<a name="l00190"></a>00190             identifier = <span class="stringliteral">&quot;&#39;start&#39;&quot;</span>
-<a name="l00191"></a>00191         <span class="keywordflow">else</span>:
-<a name="l00192"></a>00192             identifier = str(identifier)
-<a name="l00193"></a>00193             
-<a name="l00194"></a>00194         string = string.replace(<span class="stringliteral">&#39;#START&#39;</span>, identifier)
-<a name="l00195"></a>00195         
-<a name="l00196"></a>00196         <span class="comment">#TRANSLATORS: for example &#39;Number of covers limited to 150&#39;</span>
-<a name="l00197"></a>00197         display_message = _(<span class="stringliteral">&quot;Number of covers limited to %d&quot;</span>) % self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a5d20adea93abff220576fa8b93919a25">flow_max</a>
-<a name="l00198"></a>00198         string = string.replace(<span class="stringliteral">&#39;#MAXCOVERS&#39;</span>,
-<a name="l00199"></a>00199           <span class="stringliteral">&#39;&lt;p&gt;&#39;</span> + display_message + <span class="stringliteral">&#39;&lt;/p&gt;&#39;</span>)
-<a name="l00200"></a>00200 
-<a name="l00201"></a>00201         items = self.flow.initialise(self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a2e83d0377f293343dae236e57a595acc">album_manager</a>.model, self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a5d20adea93abff220576fa8b93919a25">flow_max</a>)
-<a name="l00202"></a>00202 
-<a name="l00203"></a>00203         string = string.replace(<span class="stringliteral">&#39;#ITEMS&#39;</span>, items)
-<a name="l00204"></a>00204         
-<a name="l00205"></a>00205         base =  os.path.dirname(path) + <span class="stringliteral">&quot;/&quot;</span>
-<a name="l00206"></a>00206         Gdk.threads_enter()
-<a name="l00207"></a>00207         <span class="keywordflow">print</span> (string)
-<a name="l00208"></a>00208         self.view.load_string(string, <span class="stringliteral">&quot;text/html&quot;</span>, <span class="stringliteral">&quot;UTF-8&quot;</span>, <span class="stringliteral">&quot;file://&quot;</span> + base)
-<a name="l00209"></a>00209         Gdk.threads_leave()
-<a name="l00210"></a>00210 
-<a name="l00211"></a>00211         <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a1ef75a5f55e9a237d5344878c89030b3">_on_first_use</a>:
-<a name="l00212"></a>00212             self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a1ef75a5f55e9a237d5344878c89030b3">_on_first_use</a> = <span class="keyword">False</span>
-<a name="l00213"></a>00213             Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
-<a name="l00214"></a>00214                     self.source.show_hide_pane, (self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#ab1ac206bf6c18d54d90a03614e6e6f7d">last_album</a>, PanedCollapsible.Paned.EXPAND))
-<a name="l00215"></a>00215 
-<a name="l00216"></a><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a7e7db5eee3175cf8a24d089b59ed9289">00216</a>     <span class="keyword">def </span><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a7e7db5eee3175cf8a24d089b59ed9289">get_view_icon_name</a>(self):
-<a name="l00217"></a>00217         <span class="keywordflow">return</span> <span class="stringliteral">&quot;flowview.png&quot;</span>
-<a name="l00218"></a>00218 
-<a name="l00219"></a>00219     <span class="keyword">def </span>scroll_to_album(self):
-<a name="l00220"></a>00220         self.flow.scroll_to_album(self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#ab1ac206bf6c18d54d90a03614e6e6f7d">last_album</a>, self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a4ef1f8a2b0aae9352abd29092263b397">view</a>)
-<a name="l00221"></a>00221         
-<a name="l00222"></a>00222     <span class="keyword">def </span>initialise(self, source):
-<a name="l00223"></a>00223         <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a9ba7931bb7242dd7da48ca7d9a47457d">_has_initialised</a>:
-<a name="l00224"></a>00224             <span class="keywordflow">return</span>
-<a name="l00225"></a>00225             
-<a name="l00226"></a>00226         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a9ba7931bb7242dd7da48ca7d9a47457d">_has_initialised</a> = <span class="keyword">True</span>
-<a name="l00227"></a>00227 
-<a name="l00228"></a>00228         super(CoverFlowView,self).initialise(source)
-<a name="l00229"></a>00229         
-<a name="l00230"></a>00230         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a2e83d0377f293343dae236e57a595acc">album_manager</a> = source.album_manager
-<a name="l00231"></a>00231         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a3fedfa6d6fe5f3eb7a038c547b463971">ext_menu_pos</a> = 6
-<a name="l00232"></a>00232         
-<a name="l00233"></a>00233         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a385391c8e97179ff094d8b0d3f958f78">_connect_properties</a>()
-<a name="l00234"></a>00234         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#abd98b8b82f106e880569f68fbd789808">_connect_signals</a>(source)
-<a name="l00235"></a>00235         
-<a name="l00236"></a>00236         <span class="comment"># lets check that all covers have finished loading before</span>
-<a name="l00237"></a>00237         <span class="comment"># initialising the flowcontrol and other signals</span>
-<a name="l00238"></a>00238         <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a2e83d0377f293343dae236e57a595acc">album_manager</a>.cover_man.has_finished_loading:
-<a name="l00239"></a>00239             self.album_manager.cover_man.connect(<span class="stringliteral">&#39;load-finished&#39;</span>, self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#af3f306e343d435714336bd139c2ce23d">_covers_loaded</a>)
-<a name="l00240"></a>00240         <span class="keywordflow">else</span>:
-<a name="l00241"></a>00241             self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#af3f306e343d435714336bd139c2ce23d">_covers_loaded</a>()
+<a name="l00076"></a>00076 
+<a name="l00077"></a>00077         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a066ea41258b7e2ec4c297c32a1f2aa78">show_policy</a> = <a class="code" href="classcoverart__coverflowview_1_1_flow_showing_policy.html">FlowShowingPolicy</a>(self)
+<a name="l00078"></a>00078         <span class="keywordflow">if</span> webkit_support():
+<a name="l00079"></a>00079             <span class="keyword">from</span> gi.repository <span class="keyword">import</span> WebKit
+<a name="l00080"></a>00080 
+<a name="l00081"></a>00081             self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a4ef1f8a2b0aae9352abd29092263b397">view</a> = WebKit.WebView()
+<a name="l00082"></a>00082         <span class="keywordflow">else</span>:
+<a name="l00083"></a>00083             self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a4ef1f8a2b0aae9352abd29092263b397">view</a> = <span class="keywordtype">None</span>
+<a name="l00084"></a>00084 
+<a name="l00085"></a>00085         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a86d1618fd979ceeae05b39607a1e85d0">_last_album</a> = <span class="keywordtype">None</span>
+<a name="l00086"></a>00086         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a9ba7931bb7242dd7da48ca7d9a47457d">_has_initialised</a> = <span class="keyword">False</span>
+<a name="l00087"></a>00087         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a4a93af0180e4105456277efe3a804f51">_filter_changed_inprogress</a> = <span class="keyword">False</span>
+<a name="l00088"></a>00088         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a1ef75a5f55e9a237d5344878c89030b3">_on_first_use</a> = <span class="keyword">True</span>
+<a name="l00089"></a>00089 
+<a name="l00090"></a>00090     <span class="keyword">def </span>_connect_properties(self):
+<a name="l00091"></a>00091         gs = <a class="code" href="classcoverart__browser__prefs_1_1_g_setting.html">GSetting</a>()
+<a name="l00092"></a>00092         settings = gs.get_setting(gs.Path.PLUGIN)
+<a name="l00093"></a>00093         settings.bind(gs.PluginKey.FLOW_APPEARANCE, self,
+<a name="l00094"></a>00094                       <span class="stringliteral">&#39;flow_appearance&#39;</span>, Gio.SettingsBindFlags.GET)
+<a name="l00095"></a>00095         settings.bind(gs.PluginKey.FLOW_HIDE_CAPTION, self,
+<a name="l00096"></a>00096                       <span class="stringliteral">&#39;flow_hide&#39;</span>, Gio.SettingsBindFlags.GET)
+<a name="l00097"></a>00097         settings.bind(gs.PluginKey.FLOW_SCALE, self,
+<a name="l00098"></a>00098                       <span class="stringliteral">&#39;flow_scale&#39;</span>, Gio.SettingsBindFlags.GET)
+<a name="l00099"></a>00099         settings.bind(gs.PluginKey.FLOW_AUTOMATIC, self,
+<a name="l00100"></a>00100                       <span class="stringliteral">&#39;flow_automatic&#39;</span>, Gio.SettingsBindFlags.GET)
+<a name="l00101"></a>00101         settings.bind(gs.PluginKey.FLOW_BACKGROUND_COLOUR, self,
+<a name="l00102"></a>00102                       <span class="stringliteral">&#39;flow_background&#39;</span>, Gio.SettingsBindFlags.GET)
+<a name="l00103"></a>00103         settings.bind(gs.PluginKey.FLOW_WIDTH, self,
+<a name="l00104"></a>00104                       <span class="stringliteral">&#39;flow_width&#39;</span>, Gio.SettingsBindFlags.GET)
+<a name="l00105"></a>00105         settings.bind(gs.PluginKey.FLOW_MAX, self,
+<a name="l00106"></a>00106                       <span class="stringliteral">&#39;flow_max&#39;</span>, Gio.SettingsBindFlags.GET)
+<a name="l00107"></a>00107 
+<a name="l00108"></a>00108     <span class="keyword">def </span>_connect_signals(self, source):
+<a name="l00109"></a>00109         self.connect(<span class="stringliteral">&#39;notify::flow-background&#39;</span>,
+<a name="l00110"></a>00110                      self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#aca3235ea783d287beb384a709db65490">filter_changed</a>)
+<a name="l00111"></a>00111         self.connect(<span class="stringliteral">&#39;notify::flow-scale&#39;</span>,
+<a name="l00112"></a>00112                      self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#aca3235ea783d287beb384a709db65490">filter_changed</a>)
+<a name="l00113"></a>00113         self.connect(<span class="stringliteral">&#39;notify::flow-hide&#39;</span>,
+<a name="l00114"></a>00114                      self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#aca3235ea783d287beb384a709db65490">filter_changed</a>)
+<a name="l00115"></a>00115         self.connect(<span class="stringliteral">&#39;notify::flow-width&#39;</span>,
+<a name="l00116"></a>00116                      self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#aca3235ea783d287beb384a709db65490">filter_changed</a>)
+<a name="l00117"></a>00117         self.connect(<span class="stringliteral">&#39;notify::flow-appearance&#39;</span>,
+<a name="l00118"></a>00118                      self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#aca3235ea783d287beb384a709db65490">filter_changed</a>)
+<a name="l00119"></a>00119         self.connect(<span class="stringliteral">&#39;notify::flow-max&#39;</span>,
+<a name="l00120"></a>00120                      self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#aca3235ea783d287beb384a709db65490">filter_changed</a>)
+<a name="l00121"></a>00121 
+<a name="l00122"></a>00122     <span class="keyword">def </span>filter_changed(self, *args):
+<a name="l00123"></a>00123         <span class="comment"># we can get several filter_changed calls per second</span>
+<a name="l00124"></a>00124         <span class="comment"># lets simplify the processing &amp; potential flickering when the</span>
+<a name="l00125"></a>00125         <span class="comment"># call to this method has slowed stopped</span>
+<a name="l00126"></a>00126 
+<a name="l00127"></a>00127         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a6e9f533ee119e65815a2cd1861513968">_filter_changed_event</a> = <span class="keyword">True</span>
+<a name="l00128"></a>00128 
+<a name="l00129"></a>00129         <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a4a93af0180e4105456277efe3a804f51">_filter_changed_inprogress</a>:
+<a name="l00130"></a>00130             <span class="keywordflow">return</span>
+<a name="l00131"></a>00131 
+<a name="l00132"></a>00132         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a4a93af0180e4105456277efe3a804f51">_filter_changed_inprogress</a> = <span class="keyword">True</span>
+<a name="l00133"></a>00133 
+<a name="l00134"></a>00134         <span class="keyword">def </span>filter_events(*args):
+<a name="l00135"></a>00135             <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a6e9f533ee119e65815a2cd1861513968">_filter_changed_event</a>:
+<a name="l00136"></a>00136                 self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#acb9de994031aa39fce67402234166189">_filter_changed</a>()
+<a name="l00137"></a>00137                 self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a4a93af0180e4105456277efe3a804f51">_filter_changed_inprogress</a> = <span class="keyword">False</span>
+<a name="l00138"></a>00138             <span class="keywordflow">else</span>:
+<a name="l00139"></a>00139                 self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a6e9f533ee119e65815a2cd1861513968">_filter_changed_event</a> = <span class="keyword">False</span>
+<a name="l00140"></a>00140                 <span class="keywordflow">return</span> <span class="keyword">True</span>
+<a name="l00141"></a>00141 
+<a name="l00142"></a>00142         Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250, filter_events, <span class="keywordtype">None</span>)
+<a name="l00143"></a>00143 
+<a name="l00144"></a>00144 
+<a name="l00145"></a>00145     <span class="keyword">def </span>_filter_changed(self, *args):
+<a name="l00146"></a>00146         path = rb.find_plugin_file(self.plugin, <span class="stringliteral">&#39;coverflow/index.html&#39;</span>)
+<a name="l00147"></a>00147         f = open(path)
+<a name="l00148"></a>00148         string = f.read()
+<a name="l00149"></a>00149         f.close()
+<a name="l00150"></a>00150 
+<a name="l00151"></a>00151         <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a9fe547f851f57b52b18b151303376e00">flow_background</a> == <span class="stringliteral">&#39;W&#39;</span>:
+<a name="l00152"></a>00152             background_colour = <span class="stringliteral">&#39;white&#39;</span>
+<a name="l00153"></a>00153             <span class="keywordflow">if</span> len(self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a2e83d0377f293343dae236e57a595acc">album_manager</a>.model.store) &lt;= self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a5d20adea93abff220576fa8b93919a25">flow_max</a>:
+<a name="l00154"></a>00154                 foreground_colour = <span class="stringliteral">&#39;white&#39;</span>
+<a name="l00155"></a>00155             <span class="keywordflow">else</span>:
+<a name="l00156"></a>00156                 foreground_colour = <span class="stringliteral">&#39;black&#39;</span>
+<a name="l00157"></a>00157         <span class="keywordflow">else</span>:
+<a name="l00158"></a>00158             background_colour = <span class="stringliteral">&#39;black&#39;</span>
+<a name="l00159"></a>00159             <span class="keywordflow">if</span> len(self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a2e83d0377f293343dae236e57a595acc">album_manager</a>.model.store) &lt;= self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a5d20adea93abff220576fa8b93919a25">flow_max</a>:
+<a name="l00160"></a>00160                 foreground_colour = <span class="stringliteral">&#39;black&#39;</span>
+<a name="l00161"></a>00161             <span class="keywordflow">else</span>:
+<a name="l00162"></a>00162                 foreground_colour = <span class="stringliteral">&#39;white&#39;</span>
+<a name="l00163"></a>00163 
+<a name="l00164"></a>00164         string = string.replace(<span class="stringliteral">&#39;#BACKGROUND_COLOUR&#39;</span>, background_colour)
+<a name="l00165"></a>00165         string = string.replace(<span class="stringliteral">&#39;#FOREGROUND_COLOUR&#39;</span>, foreground_colour)
+<a name="l00166"></a>00166         string = string.replace(<span class="stringliteral">&#39;#FACTOR&#39;</span>, str(float(self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a93853b5c611f05c9501e58be6b35b221">flow_scale</a>) / 100))
+<a name="l00167"></a>00167 
+<a name="l00168"></a>00168         <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#ad0728355b90d9904acb168e8c32d9814">flow_hide</a>:
+<a name="l00169"></a>00169             caption = <span class="stringliteral">&quot;&quot;</span>
+<a name="l00170"></a>00170         <span class="keywordflow">else</span>:
+<a name="l00171"></a>00171             caption = <span class="stringliteral">&#39;&lt;div class=&quot;globalCaption&quot;&gt;&lt;/div&gt;&#39;</span>
+<a name="l00172"></a>00172 
+<a name="l00173"></a>00173         string = string.replace(<span class="stringliteral">&#39;#GLOBAL_CAPTION&#39;</span>, caption)
+<a name="l00174"></a>00174 
+<a name="l00175"></a>00175         addon = background_colour
+<a name="l00176"></a>00176         <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a1cf4eb16f518ca6092662e5d6f95eef7">flow_appearance</a> == <span class="stringliteral">&#39;flow-vert&#39;</span>:
+<a name="l00177"></a>00177             addon += <span class="stringliteral">&quot; vertical&quot;</span>
+<a name="l00178"></a>00178         <span class="keywordflow">elif</span> self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a1cf4eb16f518ca6092662e5d6f95eef7">flow_appearance</a> == <span class="stringliteral">&#39;carousel&#39;</span>:
+<a name="l00179"></a>00179             addon += <span class="stringliteral">&quot; carousel&quot;</span>
+<a name="l00180"></a>00180         <span class="keywordflow">elif</span> self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a1cf4eb16f518ca6092662e5d6f95eef7">flow_appearance</a> == <span class="stringliteral">&#39;roundabout&#39;</span>:
+<a name="l00181"></a>00181             addon += <span class="stringliteral">&quot; roundabout&quot;</span>
+<a name="l00182"></a>00182 
+<a name="l00183"></a>00183         string = string.replace(<span class="stringliteral">&#39;#ADDON&#39;</span>, addon)
+<a name="l00184"></a>00184 
+<a name="l00185"></a>00185         string = string.replace(<span class="stringliteral">&#39;#WIDTH&#39;</span>, str(self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#ae646b6db403331ee04fab2c32288182d">flow_width</a>))
+<a name="l00186"></a>00186 
+<a name="l00187"></a>00187         identifier = self.flow.get_identifier(self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#ab1ac206bf6c18d54d90a03614e6e6f7d">last_album</a>)
+<a name="l00188"></a>00188         <span class="keywordflow">if</span> <span class="keywordflow">not</span> identifier:
+<a name="l00189"></a>00189             identifier = <span class="stringliteral">&quot;&#39;start&#39;&quot;</span>
+<a name="l00190"></a>00190         <span class="keywordflow">else</span>:
+<a name="l00191"></a>00191             identifier = str(identifier)
+<a name="l00192"></a>00192 
+<a name="l00193"></a>00193         string = string.replace(<span class="stringliteral">&#39;#START&#39;</span>, identifier)
+<a name="l00194"></a>00194 
+<a name="l00195"></a>00195         <span class="comment">#TRANSLATORS: for example &#39;Number of covers limited to 150&#39;</span>
+<a name="l00196"></a>00196         display_message = _(<span class="stringliteral">&quot;Number of covers limited to %d&quot;</span>) % self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a5d20adea93abff220576fa8b93919a25">flow_max</a>
+<a name="l00197"></a>00197         string = string.replace(<span class="stringliteral">&#39;#MAXCOVERS&#39;</span>,
+<a name="l00198"></a>00198                                 <span class="stringliteral">&#39;&lt;p&gt;&#39;</span> + display_message + <span class="stringliteral">&#39;&lt;/p&gt;&#39;</span>)
+<a name="l00199"></a>00199 
+<a name="l00200"></a>00200         items = self.flow.initialise(self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a2e83d0377f293343dae236e57a595acc">album_manager</a>.model, self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a5d20adea93abff220576fa8b93919a25">flow_max</a>)
+<a name="l00201"></a>00201 
+<a name="l00202"></a>00202         string = string.replace(<span class="stringliteral">&#39;#ITEMS&#39;</span>, items)
+<a name="l00203"></a>00203 
+<a name="l00204"></a>00204         base = os.path.dirname(path) + <span class="stringliteral">&quot;/&quot;</span>
+<a name="l00205"></a>00205         Gdk.threads_enter()
+<a name="l00206"></a>00206         print(string)
+<a name="l00207"></a>00207         self.view.load_string(string, <span class="stringliteral">&quot;text/html&quot;</span>, <span class="stringliteral">&quot;UTF-8&quot;</span>, <span class="stringliteral">&quot;file://&quot;</span> + base)
+<a name="l00208"></a>00208         Gdk.threads_leave()
+<a name="l00209"></a>00209 
+<a name="l00210"></a>00210         <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a1ef75a5f55e9a237d5344878c89030b3">_on_first_use</a>:
+<a name="l00211"></a>00211             self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a1ef75a5f55e9a237d5344878c89030b3">_on_first_use</a> = <span class="keyword">False</span>
+<a name="l00212"></a>00212             Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
+<a name="l00213"></a>00213                                     self.source.show_hide_pane, (self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#ab1ac206bf6c18d54d90a03614e6e6f7d">last_album</a>, PanedCollapsible.Paned.EXPAND))
+<a name="l00214"></a>00214 
+<a name="l00215"></a><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a7e7db5eee3175cf8a24d089b59ed9289">00215</a>     <span class="keyword">def </span><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a7e7db5eee3175cf8a24d089b59ed9289">get_view_icon_name</a>(self):
+<a name="l00216"></a>00216         <span class="keywordflow">return</span> <span class="stringliteral">&quot;flowview.png&quot;</span>
+<a name="l00217"></a>00217 
+<a name="l00218"></a>00218     <span class="keyword">def </span>initialise(self, source):
+<a name="l00219"></a>00219         <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a9ba7931bb7242dd7da48ca7d9a47457d">_has_initialised</a>:
+<a name="l00220"></a>00220             <span class="keywordflow">return</span>
+<a name="l00221"></a>00221 
+<a name="l00222"></a>00222         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a9ba7931bb7242dd7da48ca7d9a47457d">_has_initialised</a> = <span class="keyword">True</span>
+<a name="l00223"></a>00223 
+<a name="l00224"></a>00224         super(CoverFlowView, self).initialise(source)
+<a name="l00225"></a>00225 
+<a name="l00226"></a>00226         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a2e83d0377f293343dae236e57a595acc">album_manager</a> = source.album_manager
+<a name="l00227"></a>00227         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a3fedfa6d6fe5f3eb7a038c547b463971">ext_menu_pos</a> = 6
+<a name="l00228"></a>00228 
+<a name="l00229"></a>00229         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a385391c8e97179ff094d8b0d3f958f78">_connect_properties</a>()
+<a name="l00230"></a>00230         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#abd98b8b82f106e880569f68fbd789808">_connect_signals</a>(source)
+<a name="l00231"></a>00231 
+<a name="l00232"></a>00232         <span class="comment"># lets check that all covers have finished loading before</span>
+<a name="l00233"></a>00233         <span class="comment"># initialising the flowcontrol and other signals</span>
+<a name="l00234"></a>00234         <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a2e83d0377f293343dae236e57a595acc">album_manager</a>.cover_man.has_finished_loading:
+<a name="l00235"></a>00235             self.album_manager.cover_man.connect(<span class="stringliteral">&#39;load-finished&#39;</span>, self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#af3f306e343d435714336bd139c2ce23d">_covers_loaded</a>)
+<a name="l00236"></a>00236         <span class="keywordflow">else</span>:
+<a name="l00237"></a>00237             self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#af3f306e343d435714336bd139c2ce23d">_covers_loaded</a>()
+<a name="l00238"></a>00238 
+<a name="l00239"></a>00239     <span class="keyword">def </span>_covers_loaded(self, *args):
+<a name="l00240"></a>00240         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a0a24860c68680b9ca8feb07bd5b2d268">flow</a> = <a class="code" href="classcoverart__coverflowview_1_1_flow_control.html">FlowControl</a>(self)
+<a name="l00241"></a>00241         self.view.connect(<span class="stringliteral">&quot;notify::title&quot;</span>, self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a0a24860c68680b9ca8feb07bd5b2d268">flow</a>.receive_message_signal)
 <a name="l00242"></a>00242 
-<a name="l00243"></a>00243     <span class="keyword">def </span>_covers_loaded(self, *args):
-<a name="l00244"></a>00244         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a0a24860c68680b9ca8feb07bd5b2d268">flow</a> = <a class="code" href="classcoverart__coverflowview_1_1_flow_control.html">FlowControl</a>(self)
-<a name="l00245"></a>00245         self.view.connect(<span class="stringliteral">&quot;notify::title&quot;</span>, self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a0a24860c68680b9ca8feb07bd5b2d268">flow</a>.receive_message_signal)
-<a name="l00246"></a>00246 
-<a name="l00247"></a>00247         <span class="comment">#self.album_manager.model.connect(&#39;album-updated&#39;, self.flow.update_album, self.view)</span>
-<a name="l00248"></a>00248         <span class="comment">#self.album_manager.model.connect(&#39;visual-updated&#39;, self.flow.update_album, self.view)</span>
-<a name="l00249"></a>00249         self.album_manager.model.connect(<span class="stringliteral">&#39;album-updated&#39;</span>, self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#aca3235ea783d287beb384a709db65490">filter_changed</a>)
-<a name="l00250"></a>00250         self.album_manager.model.connect(<span class="stringliteral">&#39;visual-updated&#39;</span>, self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#aca3235ea783d287beb384a709db65490">filter_changed</a>)
-<a name="l00251"></a>00251         self.album_manager.model.connect(<span class="stringliteral">&#39;filter-changed&#39;</span>, self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#aca3235ea783d287beb384a709db65490">filter_changed</a>)
-<a name="l00252"></a>00252         
-<a name="l00253"></a>00253         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#aca3235ea783d287beb384a709db65490">filter_changed</a>()
+<a name="l00243"></a>00243         <span class="comment">#self.album_manager.model.connect(&#39;album-updated&#39;, self.flow.update_album, self.view)</span>
+<a name="l00244"></a>00244         <span class="comment">#self.album_manager.model.connect(&#39;visual-updated&#39;, self.flow.update_album, self.view)</span>
+<a name="l00245"></a>00245         self.album_manager.model.connect(<span class="stringliteral">&#39;album-updated&#39;</span>, self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#aca3235ea783d287beb384a709db65490">filter_changed</a>)
+<a name="l00246"></a>00246         self.album_manager.model.connect(<span class="stringliteral">&#39;visual-updated&#39;</span>, self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#aca3235ea783d287beb384a709db65490">filter_changed</a>)
+<a name="l00247"></a>00247         self.album_manager.model.connect(<span class="stringliteral">&#39;filter-changed&#39;</span>, self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#aca3235ea783d287beb384a709db65490">filter_changed</a>)
+<a name="l00248"></a>00248 
+<a name="l00249"></a>00249         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#aca3235ea783d287beb384a709db65490">filter_changed</a>()
+<a name="l00250"></a>00250 
+<a name="l00251"></a>00251     @property
+<a name="l00252"></a>00252     <span class="keyword">def </span>last_album(self):
+<a name="l00253"></a>00253         <span class="keywordflow">return</span> self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a86d1618fd979ceeae05b39607a1e85d0">_last_album</a>
 <a name="l00254"></a>00254 
-<a name="l00255"></a>00255     @property
-<a name="l00256"></a>00256     <span class="keyword">def </span>last_album(self):
-<a name="l00257"></a>00257         <span class="keywordflow">return</span> self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a86d1618fd979ceeae05b39607a1e85d0">_last_album</a>
-<a name="l00258"></a>00258 
-<a name="l00259"></a>00259     @last_album.setter
-<a name="l00260"></a>00260     <span class="keyword">def </span>last_album(self, new_album):
-<a name="l00261"></a>00261         <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a86d1618fd979ceeae05b39607a1e85d0">_last_album</a> != new_album:
-<a name="l00262"></a>00262             self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a86d1618fd979ceeae05b39607a1e85d0">_last_album</a> = new_album
-<a name="l00263"></a>00263             self.source.click_count = 0
-<a name="l00264"></a>00264             self.selectionchanged_callback()
+<a name="l00255"></a>00255     @last_album.setter
+<a name="l00256"></a>00256     <span class="keyword">def </span>last_album(self, new_album):
+<a name="l00257"></a>00257         <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a86d1618fd979ceeae05b39607a1e85d0">_last_album</a> != new_album:
+<a name="l00258"></a>00258             self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a86d1618fd979ceeae05b39607a1e85d0">_last_album</a> = new_album
+<a name="l00259"></a>00259             self.source.click_count = 0
+<a name="l00260"></a>00260             self.selectionchanged_callback()
+<a name="l00261"></a>00261 
+<a name="l00262"></a>00262     <span class="keyword">def </span>item_rightclicked_callback(self, album):
+<a name="l00263"></a>00263         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#ab1ac206bf6c18d54d90a03614e6e6f7d">last_album</a> = album
+<a name="l00264"></a>00264         self.popup.popup(self.source, <span class="stringliteral">&#39;popup_menu&#39;</span>, 3, Gtk.get_current_event_time())
 <a name="l00265"></a>00265 
-<a name="l00266"></a>00266     <span class="keyword">def </span>item_rightclicked_callback(self, album):
-<a name="l00267"></a>00267         <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a73a7d691ee84e63c2486c4827bd31cd0">_external_plugins</a>:
-<a name="l00268"></a>00268             <span class="comment"># initialise external plugin menu support</span>
-<a name="l00269"></a>00269             self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a73a7d691ee84e63c2486c4827bd31cd0">_external_plugins</a> = \
-<a name="l00270"></a>00270             <a class="code" href="classcoverart__external__plugins_1_1_create_external_plugin_menu.html">CreateExternalPluginMenu</a>(<span class="stringliteral">&quot;ca_covers_view&quot;</span>,
-<a name="l00271"></a>00271                 self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a3fedfa6d6fe5f3eb7a038c547b463971">ext_menu_pos</a>, self.popup)
-<a name="l00272"></a>00272             self._external_plugins.create_menu(<span class="stringliteral">&#39;popup_menu&#39;</span>, <span class="keyword">True</span>)
-<a name="l00273"></a>00273             
-<a name="l00274"></a>00274         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#ab1ac206bf6c18d54d90a03614e6e6f7d">last_album</a> = album
-<a name="l00275"></a>00275         self.popup.get_gtkmenu(self.source, <span class="stringliteral">&#39;popup_menu&#39;</span>).popup(<span class="keywordtype">None</span>,
-<a name="l00276"></a>00276                         <span class="keywordtype">None</span>, 
-<a name="l00277"></a>00277                         <span class="keywordtype">None</span>,
-<a name="l00278"></a>00278                         <span class="keywordtype">None</span>,
-<a name="l00279"></a>00279                         3,
-<a name="l00280"></a>00280                         Gtk.get_current_event_time())
+<a name="l00266"></a><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a5ed7f476b9e3d4f232094071195470c4">00266</a>     <span class="keyword">def </span><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a5ed7f476b9e3d4f232094071195470c4">item_clicked_callback</a>(self, album):
+<a name="l00267"></a>00267         <span class="stringliteral">&#39;&#39;&#39;</span>
+<a name="l00268"></a>00268 <span class="stringliteral">        Callback called when the user clicks somewhere on the flow_view.</span>
+<a name="l00269"></a>00269 <span class="stringliteral">        Along with source &quot;show_hide_pane&quot;, takes care of showing/hiding the bottom</span>
+<a name="l00270"></a>00270 <span class="stringliteral">        pane after a second click on a selected album.</span>
+<a name="l00271"></a>00271 <span class="stringliteral">        &#39;&#39;&#39;</span>
+<a name="l00272"></a>00272         <span class="comment"># to expand the entry view</span>
+<a name="l00273"></a>00273         <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#abe6b34fc5cbe0c70ca4d4f9f05a3d11d">flow_automatic</a>:
+<a name="l00274"></a>00274             self.source.click_count += 1
+<a name="l00275"></a>00275 
+<a name="l00276"></a>00276         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#ab1ac206bf6c18d54d90a03614e6e6f7d">last_album</a> = album
+<a name="l00277"></a>00277 
+<a name="l00278"></a>00278         <span class="keywordflow">if</span> self.source.click_count == 1:
+<a name="l00279"></a>00279             Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
+<a name="l00280"></a>00280                                     self.source.show_hide_pane, album)
 <a name="l00281"></a>00281 
-<a name="l00282"></a><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a5ed7f476b9e3d4f232094071195470c4">00282</a>     <span class="keyword">def </span><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a5ed7f476b9e3d4f232094071195470c4">item_clicked_callback</a>(self, album):
+<a name="l00282"></a><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a08869f37e4b992f72218adc1a3453c07">00282</a>     <span class="keyword">def </span><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a08869f37e4b992f72218adc1a3453c07">item_activated_callback</a>(self, album):
 <a name="l00283"></a>00283         <span class="stringliteral">&#39;&#39;&#39;</span>
-<a name="l00284"></a>00284 <span class="stringliteral">        Callback called when the user clicks somewhere on the flow_view.</span>
-<a name="l00285"></a>00285 <span class="stringliteral">        Along with source &quot;show_hide_pane&quot;, takes care of showing/hiding the bottom</span>
-<a name="l00286"></a>00286 <span class="stringliteral">        pane after a second click on a selected album.</span>
-<a name="l00287"></a>00287 <span class="stringliteral">        &#39;&#39;&#39;</span>
-<a name="l00288"></a>00288         <span class="comment"># to expand the entry view</span>
-<a name="l00289"></a>00289         <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#abe6b34fc5cbe0c70ca4d4f9f05a3d11d">flow_automatic</a>:
-<a name="l00290"></a>00290             self.source.click_count += 1
-<a name="l00291"></a>00291             
-<a name="l00292"></a>00292         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#ab1ac206bf6c18d54d90a03614e6e6f7d">last_album</a> = album
-<a name="l00293"></a>00293 
-<a name="l00294"></a>00294         <span class="keywordflow">if</span> self.source.click_count == 1:
-<a name="l00295"></a>00295             Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
-<a name="l00296"></a>00296                 self.source.show_hide_pane, album)
-<a name="l00297"></a>00297 
-<a name="l00298"></a><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a08869f37e4b992f72218adc1a3453c07">00298</a>     <span class="keyword">def </span><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a08869f37e4b992f72218adc1a3453c07">item_activated_callback</a>(self, album):
-<a name="l00299"></a>00299         <span class="stringliteral">&#39;&#39;&#39;</span>
-<a name="l00300"></a>00300 <span class="stringliteral">        Callback called when the flow view is double clicked. It plays the selected album</span>
-<a name="l00301"></a>00301 <span class="stringliteral">        &#39;&#39;&#39;</span>
-<a name="l00302"></a>00302         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#ab1ac206bf6c18d54d90a03614e6e6f7d">last_album</a> = album
-<a name="l00303"></a>00303         self.source.play_selected_album()
-<a name="l00304"></a>00304 
-<a name="l00305"></a>00305         <span class="keywordflow">return</span> <span class="keyword">True</span>
-<a name="l00306"></a>00306 
-<a name="l00307"></a><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a7f5db5bea2371f076948c04ed4fd0d21">00307</a>     <span class="keyword">def </span><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a7f5db5bea2371f076948c04ed4fd0d21">item_drop_callback</a>(self, album, webpath):
-<a name="l00308"></a>00308         <span class="stringliteral">&#39;&#39;&#39;</span>
-<a name="l00309"></a>00309 <span class="stringliteral">        Callback called when something is dropped onto the flow view - hopefully a webpath</span>
-<a name="l00310"></a>00310 <span class="stringliteral">        to a picture</span>
-<a name="l00311"></a>00311 <span class="stringliteral">        &#39;&#39;&#39;</span>
-<a name="l00312"></a>00312         <span class="keywordflow">print</span> (<span class="stringliteral">&quot;item_drop_callback %s&quot;</span> % webpath)
-<a name="l00313"></a>00313         <span class="keywordflow">print</span> (<span class="stringliteral">&quot;dropped on album %s&quot;</span> % album)
-<a name="l00314"></a>00314         self.album_manager.cover_man.update_cover(album, uri=webpath)
-<a name="l00315"></a>00315 
-<a name="l00316"></a><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a805eedfe0ff7f49e4bf7578a040217e7">00316</a>     <span class="keyword">def </span><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a805eedfe0ff7f49e4bf7578a040217e7">get_selected_objects</a>(self):
-<a name="l00317"></a>00317         <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#ab1ac206bf6c18d54d90a03614e6e6f7d">last_album</a>:
-<a name="l00318"></a>00318             <span class="keywordflow">return</span> [self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#ab1ac206bf6c18d54d90a03614e6e6f7d">last_album</a>]
-<a name="l00319"></a>00319         <span class="keywordflow">else</span>:
-<a name="l00320"></a>00320             <span class="keywordflow">return</span> []
-<a name="l00321"></a>00321 
-<a name="l00322"></a><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a4a1990543789c93f80aeb703dca65b6d">00322</a>     <span class="keyword">def </span><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a4a1990543789c93f80aeb703dca65b6d">select_and_scroll_to_path</a>(self, path):
-<a name="l00323"></a>00323         album = self.source.album_manager.model.get_from_path(path)
-<a name="l00324"></a>00324         self.flow.scroll_to_album(album, self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a4ef1f8a2b0aae9352abd29092263b397">view</a>)
-<a name="l00325"></a>00325         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a5ed7f476b9e3d4f232094071195470c4">item_clicked_callback</a>(album)
-<a name="l00326"></a>00326 
-<a name="l00327"></a><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a349c59525447d91339440fcdf86c2629">00327</a>     <span class="keyword">def </span><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a349c59525447d91339440fcdf86c2629">switch_to_view</a>(self, source, album):
-<a name="l00328"></a>00328         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a53894778d09de37becc6008fd45313e2">initialise</a>(source)
-<a name="l00329"></a>00329         self.show_policy.initialise(source.album_manager)
-<a name="l00330"></a>00330         
-<a name="l00331"></a>00331         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#ab1ac206bf6c18d54d90a03614e6e6f7d">last_album</a> = album
-<a name="l00332"></a>00332         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a9e9b84d457a39eb72fdd500a605afb25">scroll_to_album</a>()
-<a name="l00333"></a>00333         
-<a name="l00334"></a><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#ac655040c6aabcd43a860f6d8c072b9bf">00334</a>     <span class="keyword">def </span><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#ac655040c6aabcd43a860f6d8c072b9bf">grab_focus</a>(self):
-<a name="l00335"></a>00335         self.view.grab_focus()
+<a name="l00284"></a>00284 <span class="stringliteral">        Callback called when the flow view is double clicked. It plays the selected album</span>
+<a name="l00285"></a>00285 <span class="stringliteral">        &#39;&#39;&#39;</span>
+<a name="l00286"></a>00286         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#ab1ac206bf6c18d54d90a03614e6e6f7d">last_album</a> = album
+<a name="l00287"></a>00287         self.source.play_selected_album()
+<a name="l00288"></a>00288 
+<a name="l00289"></a>00289         <span class="keywordflow">return</span> <span class="keyword">True</span>
+<a name="l00290"></a>00290 
+<a name="l00291"></a><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a7f5db5bea2371f076948c04ed4fd0d21">00291</a>     <span class="keyword">def </span><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a7f5db5bea2371f076948c04ed4fd0d21">item_drop_callback</a>(self, album, webpath):
+<a name="l00292"></a>00292         <span class="stringliteral">&#39;&#39;&#39;</span>
+<a name="l00293"></a>00293 <span class="stringliteral">        Callback called when something is dropped onto the flow view - hopefully a webpath</span>
+<a name="l00294"></a>00294 <span class="stringliteral">        to a picture</span>
+<a name="l00295"></a>00295 <span class="stringliteral">        &#39;&#39;&#39;</span>
+<a name="l00296"></a>00296         print(<span class="stringliteral">&quot;item_drop_callback %s&quot;</span> % webpath)
+<a name="l00297"></a>00297         print(<span class="stringliteral">&quot;dropped on album %s&quot;</span> % album)
+<a name="l00298"></a>00298         self.album_manager.cover_man.update_cover(album, uri=webpath)
+<a name="l00299"></a>00299 
+<a name="l00300"></a><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a805eedfe0ff7f49e4bf7578a040217e7">00300</a>     <span class="keyword">def </span><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a805eedfe0ff7f49e4bf7578a040217e7">get_selected_objects</a>(self):
+<a name="l00301"></a>00301         <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#ab1ac206bf6c18d54d90a03614e6e6f7d">last_album</a>:
+<a name="l00302"></a>00302             <span class="keywordflow">return</span> [self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#ab1ac206bf6c18d54d90a03614e6e6f7d">last_album</a>]
+<a name="l00303"></a>00303         <span class="keywordflow">else</span>:
+<a name="l00304"></a>00304             <span class="keywordflow">return</span> []
+<a name="l00305"></a>00305 
+<a name="l00306"></a><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a4a1990543789c93f80aeb703dca65b6d">00306</a>     <span class="keyword">def </span><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a4a1990543789c93f80aeb703dca65b6d">select_and_scroll_to_path</a>(self, path):
+<a name="l00307"></a>00307         album = self.source.album_manager.model.get_from_path(path)
+<a name="l00308"></a>00308         self.flow.scroll_to_album(album, self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a4ef1f8a2b0aae9352abd29092263b397">view</a>)
+<a name="l00309"></a>00309         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a5ed7f476b9e3d4f232094071195470c4">item_clicked_callback</a>(album)
+<a name="l00310"></a>00310 
+<a name="l00311"></a><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a349c59525447d91339440fcdf86c2629">00311</a>     <span class="keyword">def </span><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a349c59525447d91339440fcdf86c2629">switch_to_view</a>(self, source, album):
+<a name="l00312"></a>00312         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a53894778d09de37becc6008fd45313e2">initialise</a>(source)
+<a name="l00313"></a>00313         self.show_policy.initialise(source.album_manager)
+<a name="l00314"></a>00314 
+<a name="l00315"></a>00315         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#ab1ac206bf6c18d54d90a03614e6e6f7d">last_album</a> = album
+<a name="l00316"></a>00316         self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a9e9b84d457a39eb72fdd500a605afb25">scroll_to_album</a>(self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#ab1ac206bf6c18d54d90a03614e6e6f7d">last_album</a>)
+<a name="l00317"></a>00317 
+<a name="l00318"></a><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#ac655040c6aabcd43a860f6d8c072b9bf">00318</a>     <span class="keyword">def </span><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#ac655040c6aabcd43a860f6d8c072b9bf">grab_focus</a>(self):
+<a name="l00319"></a>00319         self.view.grab_focus()
+<a name="l00320"></a>00320 
+<a name="l00321"></a><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a9e9b84d457a39eb72fdd500a605afb25">00321</a>     <span class="keyword">def </span><a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a9e9b84d457a39eb72fdd500a605afb25">scroll_to_album</a>(self, album):
+<a name="l00322"></a>00322         self.flow.scroll_to_album(album, self.<a class="code" href="classcoverart__coverflowview_1_1_cover_flow_view.html#a4ef1f8a2b0aae9352abd29092263b397">view</a>)
+<a name="l00323"></a>00323 
+<a name="l00324"></a>00324 
+<a name="l00325"></a><a class="code" href="classcoverart__coverflowview_1_1_flow_control.html">00325</a> <span class="keyword">class </span><a class="code" href="classcoverart__coverflowview_1_1_flow_control.html">FlowControl</a>(object):
+<a name="l00326"></a>00326     <span class="keyword">def </span>__init__(self, callback_view):
+<a name="l00327"></a>00327         self.<a class="code" href="classcoverart__coverflowview_1_1_flow_control.html#aae5e7fa6636fd676c10676c51f93ed64">callback_view</a> = callback_view
+<a name="l00328"></a>00328         self.<a class="code" href="classcoverart__coverflowview_1_1_flow_control.html#a5a5614b1a2bf509bbc1702bbd8cf8ecb">album_identifier</a> = {}
+<a name="l00329"></a>00329 
+<a name="l00330"></a>00330     <span class="keyword">def </span>get_identifier(self, album):
+<a name="l00331"></a>00331         index = -1
+<a name="l00332"></a>00332         <span class="keywordflow">for</span> row <span class="keywordflow">in</span> self.<a class="code" href="classcoverart__coverflowview_1_1_flow_control.html#a5a5614b1a2bf509bbc1702bbd8cf8ecb">album_identifier</a>:
+<a name="l00333"></a>00333             <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__coverflowview_1_1_flow_control.html#a5a5614b1a2bf509bbc1702bbd8cf8ecb">album_identifier</a>[row] == album:
+<a name="l00334"></a>00334                 index = row
+<a name="l00335"></a>00335                 <span class="keywordflow">break</span>
 <a name="l00336"></a>00336 
-<a name="l00337"></a><a class="code" href="classcoverart__coverflowview_1_1_flow_control.html">00337</a> <span class="keyword">class </span><a class="code" href="classcoverart__coverflowview_1_1_flow_control.html">FlowControl</a>(object):
-<a name="l00338"></a>00338     
-<a name="l00339"></a>00339     <span class="keyword">def </span>__init__(self, callback_view):
-<a name="l00340"></a>00340         self.<a class="code" href="classcoverart__coverflowview_1_1_flow_control.html#aae5e7fa6636fd676c10676c51f93ed64">callback_view</a> = callback_view
-<a name="l00341"></a>00341         self.<a class="code" href="classcoverart__coverflowview_1_1_flow_control.html#a5a5614b1a2bf509bbc1702bbd8cf8ecb">album_identifier</a> = {}
-<a name="l00342"></a>00342         
-<a name="l00343"></a>00343     <span class="keyword">def </span>get_identifier(self, album):
+<a name="l00337"></a>00337         <span class="keywordflow">if</span> index == -1:
+<a name="l00338"></a>00338             <span class="keywordflow">return</span> <span class="keywordtype">None</span>
+<a name="l00339"></a>00339         <span class="keywordflow">else</span>:
+<a name="l00340"></a>00340             <span class="keywordflow">return</span> row
+<a name="l00341"></a>00341 
+<a name="l00342"></a>00342     <span class="keyword">def </span>update_album(self, model, album_path, album_iter, webview):
+<a name="l00343"></a>00343         album = model.get_from_path(album_path)
 <a name="l00344"></a>00344         index = -1
 <a name="l00345"></a>00345         <span class="keywordflow">for</span> row <span class="keywordflow">in</span> self.<a class="code" href="classcoverart__coverflowview_1_1_flow_control.html#a5a5614b1a2bf509bbc1702bbd8cf8ecb">album_identifier</a>:
 <a name="l00346"></a>00346             <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__coverflowview_1_1_flow_control.html#a5a5614b1a2bf509bbc1702bbd8cf8ecb">album_identifier</a>[row] == album:
@@ -446,105 +446,92 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00348"></a>00348                 <span class="keywordflow">break</span>
 <a name="l00349"></a>00349 
 <a name="l00350"></a>00350         <span class="keywordflow">if</span> index == -1:
-<a name="l00351"></a>00351             <span class="keywordflow">return</span> <span class="keywordtype">None</span>
-<a name="l00352"></a>00352         <span class="keywordflow">else</span>:
-<a name="l00353"></a>00353             <span class="keywordflow">return</span> row
-<a name="l00354"></a>00354 
-<a name="l00355"></a>00355     <span class="keyword">def </span>update_album(self, model, album_path, album_iter, webview):
-<a name="l00356"></a>00356         album = model.get_from_path(album_path)
-<a name="l00357"></a>00357         index = -1
-<a name="l00358"></a>00358         <span class="keywordflow">for</span> row <span class="keywordflow">in</span> self.<a class="code" href="classcoverart__coverflowview_1_1_flow_control.html#a5a5614b1a2bf509bbc1702bbd8cf8ecb">album_identifier</a>:
-<a name="l00359"></a>00359             <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__coverflowview_1_1_flow_control.html#a5a5614b1a2bf509bbc1702bbd8cf8ecb">album_identifier</a>[row] == album:
-<a name="l00360"></a>00360                 index = row
-<a name="l00361"></a>00361                 <span class="keywordflow">break</span>
-<a name="l00362"></a>00362 
-<a name="l00363"></a>00363         <span class="keywordflow">if</span> index == -1:
-<a name="l00364"></a>00364             <span class="keywordflow">return</span>
-<a name="l00365"></a>00365 
-<a name="l00366"></a>00366         obj = {}
-<a name="l00367"></a>00367         obj[<span class="stringliteral">&#39;filename&#39;</span>] = album.cover.original
-<a name="l00368"></a>00368         obj[<span class="stringliteral">&#39;title&#39;</span>] = album.artist
-<a name="l00369"></a>00369         obj[<span class="stringliteral">&#39;caption&#39;</span>] = album.name
-<a name="l00370"></a>00370         obj[<span class="stringliteral">&#39;identifier&#39;</span>] = str(index)
-<a name="l00371"></a>00371 
-<a name="l00372"></a>00372         webview.execute_script(<span class="stringliteral">&quot;update_album(&#39;%s&#39;)&quot;</span> % json.dumps(obj))
-<a name="l00373"></a>00373                  
-<a name="l00374"></a>00374     <span class="keyword">def </span>receive_message_signal(self, webview, param):
-<a name="l00375"></a>00375         <span class="comment"># this will be key to passing stuff back and forth - need</span>
-<a name="l00376"></a>00376         <span class="comment"># to develop some-sort of message protocol to distinguish &quot;events&quot;</span>
-<a name="l00377"></a>00377         
-<a name="l00378"></a>00378         title = webview.get_title()
-<a name="l00379"></a>00379         <span class="keywordflow">if</span> (<span class="keywordflow">not</span> title) <span class="keywordflow">or</span> (title == <span class="stringliteral">&#39;&quot;clear&quot;&#39;</span>):
-<a name="l00380"></a>00380             <span class="keywordflow">return</span>
-<a name="l00381"></a>00381 
-<a name="l00382"></a>00382         args = json.loads(title)
-<a name="l00383"></a>00383         <span class="keywordflow">try</span>:
-<a name="l00384"></a>00384             signal = args[<span class="stringliteral">&quot;signal&quot;</span>]
-<a name="l00385"></a>00385         <span class="keywordflow">except</span>:
-<a name="l00386"></a>00386             <span class="keywordflow">print</span> (<span class="stringliteral">&quot;unhandled: %s &quot;</span> % title)
-<a name="l00387"></a>00387             <span class="keywordflow">return</span>
+<a name="l00351"></a>00351             <span class="keywordflow">return</span>
+<a name="l00352"></a>00352 
+<a name="l00353"></a>00353         obj = {}
+<a name="l00354"></a>00354         obj[<span class="stringliteral">&#39;filename&#39;</span>] = album.cover.original
+<a name="l00355"></a>00355         obj[<span class="stringliteral">&#39;title&#39;</span>] = album.artist
+<a name="l00356"></a>00356         obj[<span class="stringliteral">&#39;caption&#39;</span>] = album.name
+<a name="l00357"></a>00357         obj[<span class="stringliteral">&#39;identifier&#39;</span>] = str(index)
+<a name="l00358"></a>00358 
+<a name="l00359"></a>00359         webview.execute_script(<span class="stringliteral">&quot;update_album(&#39;%s&#39;)&quot;</span> % json.dumps(obj))
+<a name="l00360"></a>00360 
+<a name="l00361"></a>00361     <span class="keyword">def </span>receive_message_signal(self, webview, param):
+<a name="l00362"></a>00362         <span class="comment"># this will be key to passing stuff back and forth - need</span>
+<a name="l00363"></a>00363         <span class="comment"># to develop some-sort of message protocol to distinguish &quot;events&quot;</span>
+<a name="l00364"></a>00364 
+<a name="l00365"></a>00365         title = webview.get_title()
+<a name="l00366"></a>00366         <span class="keywordflow">if</span> (<span class="keywordflow">not</span> title) <span class="keywordflow">or</span> (title == <span class="stringliteral">&#39;&quot;clear&quot;&#39;</span>):
+<a name="l00367"></a>00367             <span class="keywordflow">return</span>
+<a name="l00368"></a>00368 
+<a name="l00369"></a>00369         args = json.loads(title)
+<a name="l00370"></a>00370         <span class="keywordflow">try</span>:
+<a name="l00371"></a>00371             signal = args[<span class="stringliteral">&quot;signal&quot;</span>]
+<a name="l00372"></a>00372         <span class="keywordflow">except</span>:
+<a name="l00373"></a>00373             print(<span class="stringliteral">&quot;unhandled: %s &quot;</span> % title)
+<a name="l00374"></a>00374             <span class="keywordflow">return</span>
+<a name="l00375"></a>00375 
+<a name="l00376"></a>00376         <span class="keywordflow">if</span> signal == <span class="stringliteral">&#39;clickactive&#39;</span>:
+<a name="l00377"></a>00377             self.callback_view.item_clicked_callback(self.<a class="code" href="classcoverart__coverflowview_1_1_flow_control.html#a5a5614b1a2bf509bbc1702bbd8cf8ecb">album_identifier</a>[int(args[<span class="stringliteral">&#39;param&#39;</span>][0])])
+<a name="l00378"></a>00378         <span class="keywordflow">elif</span> signal == <span class="stringliteral">&#39;rightclickactive&#39;</span>:
+<a name="l00379"></a>00379             self.callback_view.item_rightclicked_callback(
+<a name="l00380"></a>00380                 self.<a class="code" href="classcoverart__coverflowview_1_1_flow_control.html#a5a5614b1a2bf509bbc1702bbd8cf8ecb">album_identifier</a>[int(args[<span class="stringliteral">&#39;param&#39;</span>][0])])
+<a name="l00381"></a>00381         <span class="keywordflow">elif</span> signal == <span class="stringliteral">&#39;doubleclickactive&#39;</span>:
+<a name="l00382"></a>00382             self.callback_view.item_activated_callback(self.<a class="code" href="classcoverart__coverflowview_1_1_flow_control.html#a5a5614b1a2bf509bbc1702bbd8cf8ecb">album_identifier</a>[int(args[<span class="stringliteral">&#39;param&#39;</span>][0])])
+<a name="l00383"></a>00383         <span class="keywordflow">elif</span> signal == <span class="stringliteral">&#39;dropactive&#39;</span>:
+<a name="l00384"></a>00384             self.callback_view.item_drop_callback(self.<a class="code" href="classcoverart__coverflowview_1_1_flow_control.html#a5a5614b1a2bf509bbc1702bbd8cf8ecb">album_identifier</a>[int(args[<span class="stringliteral">&#39;param&#39;</span>][0])],
+<a name="l00385"></a>00385                                                   args[<span class="stringliteral">&#39;param&#39;</span>][1])
+<a name="l00386"></a>00386         <span class="keywordflow">else</span>:
+<a name="l00387"></a>00387             print(<span class="stringliteral">&quot;unhandled signal: %s&quot;</span> % signal)
 <a name="l00388"></a>00388 
-<a name="l00389"></a>00389         <span class="keywordflow">if</span> signal == <span class="stringliteral">&#39;clickactive&#39;</span>:
-<a name="l00390"></a>00390             self.callback_view.item_clicked_callback(self.<a class="code" href="classcoverart__coverflowview_1_1_flow_control.html#a5a5614b1a2bf509bbc1702bbd8cf8ecb">album_identifier</a>[int(args[<span class="stringliteral">&#39;param&#39;</span>][0])])
-<a name="l00391"></a>00391         <span class="keywordflow">elif</span> signal == <span class="stringliteral">&#39;rightclickactive&#39;</span>:
-<a name="l00392"></a>00392             self.callback_view.item_rightclicked_callback(
-<a name="l00393"></a>00393                 self.<a class="code" href="classcoverart__coverflowview_1_1_flow_control.html#a5a5614b1a2bf509bbc1702bbd8cf8ecb">album_identifier</a>[int(args[<span class="stringliteral">&#39;param&#39;</span>][0])])
-<a name="l00394"></a>00394         <span class="keywordflow">elif</span> signal == <span class="stringliteral">&#39;doubleclickactive&#39;</span>:
-<a name="l00395"></a>00395             self.callback_view.item_activated_callback(self.<a class="code" href="classcoverart__coverflowview_1_1_flow_control.html#a5a5614b1a2bf509bbc1702bbd8cf8ecb">album_identifier</a>[int(args[<span class="stringliteral">&#39;param&#39;</span>][0])])
-<a name="l00396"></a>00396         <span class="keywordflow">elif</span> signal == <span class="stringliteral">&#39;dropactive&#39;</span>:
-<a name="l00397"></a>00397             self.callback_view.item_drop_callback(self.<a class="code" href="classcoverart__coverflowview_1_1_flow_control.html#a5a5614b1a2bf509bbc1702bbd8cf8ecb">album_identifier</a>[int(args[<span class="stringliteral">&#39;param&#39;</span>][0])],
-<a name="l00398"></a>00398                 args[<span class="stringliteral">&#39;param&#39;</span>][1])
-<a name="l00399"></a>00399         <span class="keywordflow">else</span>:
-<a name="l00400"></a>00400             <span class="keywordflow">print</span> (<span class="stringliteral">&quot;unhandled signal: %s&quot;</span> % signal)
+<a name="l00389"></a>00389     <span class="keyword">def </span>scroll_to_album(self, album, webview):
+<a name="l00390"></a>00390         <span class="keywordflow">for</span> row <span class="keywordflow">in</span> self.<a class="code" href="classcoverart__coverflowview_1_1_flow_control.html#a5a5614b1a2bf509bbc1702bbd8cf8ecb">album_identifier</a>:
+<a name="l00391"></a>00391             <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__coverflowview_1_1_flow_control.html#a5a5614b1a2bf509bbc1702bbd8cf8ecb">album_identifier</a>[row] == album:
+<a name="l00392"></a>00392                 webview.execute_script(<span class="stringliteral">&quot;scroll_to_identifier(&#39;%s&#39;)&quot;</span> % str(row))
+<a name="l00393"></a>00393                 <span class="keywordflow">break</span>
+<a name="l00394"></a>00394 
+<a name="l00395"></a>00395     <span class="keyword">def </span>initialise(self, model, max_covers):
+<a name="l00396"></a>00396 
+<a name="l00397"></a>00397         album_col = model.columns[<span class="stringliteral">&#39;album&#39;</span>]
+<a name="l00398"></a>00398         index = 0
+<a name="l00399"></a>00399         items = <span class="stringliteral">&quot;&quot;</span>
+<a name="l00400"></a>00400         self.<a class="code" href="classcoverart__coverflowview_1_1_flow_control.html#a5a5614b1a2bf509bbc1702bbd8cf8ecb">album_identifier</a> = {}
 <a name="l00401"></a>00401 
-<a name="l00402"></a>00402     <span class="keyword">def </span>scroll_to_album(self, album, webview):
-<a name="l00403"></a>00403         <span class="keywordflow">for</span> row <span class="keywordflow">in</span> self.<a class="code" href="classcoverart__coverflowview_1_1_flow_control.html#a5a5614b1a2bf509bbc1702bbd8cf8ecb">album_identifier</a>:
-<a name="l00404"></a>00404             <span class="keywordflow">if</span> self.<a class="code" href="classcoverart__coverflowview_1_1_flow_control.html#a5a5614b1a2bf509bbc1702bbd8cf8ecb">album_identifier</a>[row] == album:
-<a name="l00405"></a>00405                 webview.execute_script(<span class="stringliteral">&quot;scroll_to_identifier(&#39;%s&#39;)&quot;</span> % str(row))
-<a name="l00406"></a>00406                 <span class="keywordflow">break</span>
-<a name="l00407"></a>00407 
-<a name="l00408"></a>00408     <span class="keyword">def </span>initialise(self, model, max_covers):
+<a name="l00402"></a>00402         <span class="keyword">def </span>html_elements(fullfilename, title, caption, identifier):
+<a name="l00403"></a>00403 
+<a name="l00404"></a>00404             <span class="keywordflow">return</span> <span class="stringliteral">&#39;&lt;div class=&quot;item&quot;&gt;&lt;img class=&quot;content&quot; src=&quot;&#39;</span> + \
+<a name="l00405"></a>00405                    escape(fullfilename) + <span class="stringliteral">&#39;&quot; title=&quot;&#39;</span> + \
+<a name="l00406"></a>00406                    escape(title) + <span class="stringliteral">&#39;&quot; identifier=&quot;&#39;</span> + \
+<a name="l00407"></a>00407                    identifier + <span class="stringliteral">&#39;&quot;/&gt; &lt;div class=&quot;caption&quot;&gt;&#39;</span> + \
+<a name="l00408"></a>00408                    escape(caption) + <span class="stringliteral">&#39;&lt;/div&gt; &lt;/div&gt;&#39;</span>
 <a name="l00409"></a>00409 
-<a name="l00410"></a>00410         album_col = model.columns[<span class="stringliteral">&#39;album&#39;</span>]
-<a name="l00411"></a>00411         index = 0
-<a name="l00412"></a>00412         items = <span class="stringliteral">&quot;&quot;</span>
-<a name="l00413"></a>00413         self.<a class="code" href="classcoverart__coverflowview_1_1_flow_control.html#a5a5614b1a2bf509bbc1702bbd8cf8ecb">album_identifier</a> = {}
-<a name="l00414"></a>00414         
-<a name="l00415"></a>00415         <span class="keyword">def </span>html_elements(fullfilename, title, caption, identifier):
-<a name="l00416"></a>00416 
-<a name="l00417"></a>00417             <span class="keywordflow">return</span> <span class="stringliteral">&#39;&lt;div class=&quot;item&quot;&gt;&lt;img class=&quot;content&quot; src=&quot;&#39;</span> +\
-<a name="l00418"></a>00418                 escape(fullfilename) + <span class="stringliteral">&#39;&quot; title=&quot;&#39;</span> +\
-<a name="l00419"></a>00419                 escape(title) + <span class="stringliteral">&#39;&quot; identifier=&quot;&#39;</span> +\
-<a name="l00420"></a>00420                 identifier + <span class="stringliteral">&#39;&quot;/&gt; &lt;div class=&quot;caption&quot;&gt;&#39;</span> +\
-<a name="l00421"></a>00421                 escape(caption) + <span class="stringliteral">&#39;&lt;/div&gt; &lt;/div&gt;&#39;</span>
-<a name="l00422"></a>00422 
-<a name="l00423"></a>00423 
-<a name="l00424"></a>00424         <span class="keywordflow">for</span> row <span class="keywordflow">in</span> model.store:
-<a name="l00425"></a>00425 
-<a name="l00426"></a>00426             cover = row[album_col].cover.original
-<a name="l00427"></a>00427             cover = cover.replace(
-<a name="l00428"></a>00428                 <span class="stringliteral">&#39;rhythmbox-missing-artwork.svg&#39;</span>,
-<a name="l00429"></a>00429                 <span class="stringliteral">&#39;rhythmbox-missing-artwork.png&#39;</span>)  <span class="comment">## need a white vs black when we change the background colour</span>
-<a name="l00430"></a>00430 
-<a name="l00431"></a>00431             self.<a class="code" href="classcoverart__coverflowview_1_1_flow_control.html#a5a5614b1a2bf509bbc1702bbd8cf8ecb">album_identifier</a>[index] = row[album_col]
-<a name="l00432"></a>00432             items += html_elements(
-<a name="l00433"></a>00433                 fullfilename = cover,
-<a name="l00434"></a>00434                 caption=row[album_col].name,
-<a name="l00435"></a>00435                 title=row[album_col].artist,
-<a name="l00436"></a>00436                 identifier=str(index))
-<a name="l00437"></a>00437 
-<a name="l00438"></a>00438             index += 1
-<a name="l00439"></a>00439 
-<a name="l00440"></a>00440             <span class="keywordflow">if</span> index == max_covers:
-<a name="l00441"></a>00441                 <span class="keywordflow">break</span>
-<a name="l00442"></a>00442 
-<a name="l00443"></a>00443         <span class="keywordflow">if</span> index != 0:
-<a name="l00444"></a>00444             <span class="comment">#self.callback_view.last_album = self.album_identifier[0]</span>
-<a name="l00445"></a>00445             <span class="keywordflow">pass</span>
-<a name="l00446"></a>00446         <span class="keywordflow">else</span>:
-<a name="l00447"></a>00447             self.<a class="code" href="classcoverart__coverflowview_1_1_flow_control.html#aae5e7fa6636fd676c10676c51f93ed64">callback_view</a>.last_album = <span class="keywordtype">None</span>
-<a name="l00448"></a>00448 
-<a name="l00449"></a>00449         <span class="keywordflow">return</span> items
+<a name="l00410"></a>00410 
+<a name="l00411"></a>00411         <span class="keywordflow">for</span> row <span class="keywordflow">in</span> model.store:
+<a name="l00412"></a>00412 
+<a name="l00413"></a>00413             cover = row[album_col].cover.original
+<a name="l00414"></a>00414             cover = cover.replace(
+<a name="l00415"></a>00415                 <span class="stringliteral">&#39;rhythmbox-missing-artwork.svg&#39;</span>,
+<a name="l00416"></a>00416                 <span class="stringliteral">&#39;rhythmbox-missing-artwork.png&#39;</span>)  <span class="comment">## need a white vs black when we change the background colour</span>
+<a name="l00417"></a>00417 
+<a name="l00418"></a>00418             self.<a class="code" href="classcoverart__coverflowview_1_1_flow_control.html#a5a5614b1a2bf509bbc1702bbd8cf8ecb">album_identifier</a>[index] = row[album_col]
+<a name="l00419"></a>00419             items += html_elements(
+<a name="l00420"></a>00420                 fullfilename=cover,
+<a name="l00421"></a>00421                 caption=row[album_col].name,
+<a name="l00422"></a>00422                 title=row[album_col].artist,
+<a name="l00423"></a>00423                 identifier=str(index))
+<a name="l00424"></a>00424 
+<a name="l00425"></a>00425             index += 1
+<a name="l00426"></a>00426 
+<a name="l00427"></a>00427             <span class="keywordflow">if</span> index == max_covers:
+<a name="l00428"></a>00428                 <span class="keywordflow">break</span>
+<a name="l00429"></a>00429 
+<a name="l00430"></a>00430         <span class="keywordflow">if</span> index != 0:
+<a name="l00431"></a>00431             <span class="comment">#self.callback_view.last_album = self.album_identifier[0]</span>
+<a name="l00432"></a>00432             <span class="keywordflow">pass</span>
+<a name="l00433"></a>00433         <span class="keywordflow">else</span>:
+<a name="l00434"></a>00434             self.<a class="code" href="classcoverart__coverflowview_1_1_flow_control.html#aae5e7fa6636fd676c10676c51f93ed64">callback_view</a>.last_album = <span class="keywordtype">None</span>
+<a name="l00435"></a>00435 
+<a name="l00436"></a>00436         <span class="keywordflow">return</span> items
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -565,7 +552,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>coverart_coverflowview.py</b>      </li>
 
-    <li class="footer">Generated on Fri Jan 24 2014 21:22:27 for Coverart Browser by
+    <li class="footer">Generated on Sat Jun 28 2014 11:18:07 for CoverArt Browser by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
    </ul>

@@ -7,6 +7,7 @@ var classcoverart__album_1_1_track =
     [ "album_artist_sort", "classcoverart__album_1_1_track.html#a7bb3c20a9975c9daa3b9e3691f3c5c4f", null ],
     [ "album_sort", "classcoverart__album_1_1_track.html#a68f30a8cd7126a2ea68f4da92a56db01", null ],
     [ "artist", "classcoverart__album_1_1_track.html#a1739a45d2a3d0b7c1da4b19f54d5bd22", null ],
+    [ "composer", "classcoverart__album_1_1_track.html#a0a91046497ee166a3baf0d5fbba66072", null ],
     [ "create_ext_db_key", "classcoverart__album_1_1_track.html#a38d449643e9566c4a1262ed4105089eb", null ],
     [ "disc_number", "classcoverart__album_1_1_track.html#a78106b24c874bddfefedf51d8cdda765", null ],
     [ "duration", "classcoverart__album_1_1_track.html#abe896dd7d80b3133bdc45bf3ab3e5728", null ],

@@ -1,28 +1,12 @@
 var classcoverart__entryview_1_1_cover_art_entry_view =
 [
     [ "__init__", "classcoverart__entryview_1_1_cover_art_entry_view.html#aa41ddf95918cf8e316546b1604334ac1", null ],
-    [ "__del__", "classcoverart__entryview_1_1_cover_art_entry_view.html#acd6e67211fe28a8a734266c7f2abdac6", null ],
-    [ "add_album", "classcoverart__entryview_1_1_cover_art_entry_view.html#acc4c036f53776e5dd3b1b9b3ef24b008", null ],
-    [ "add_playlist_menu_item_callback", "classcoverart__entryview_1_1_cover_art_entry_view.html#a7bc84d2f2ff087ebcfa606c53d5d4b81", null ],
-    [ "add_to_static_playlist_menu_item_callback", "classcoverart__entryview_1_1_cover_art_entry_view.html#a67db9effd605f403d1a7d83716ae8f6b", null ],
-    [ "add_tracks_to_source", "classcoverart__entryview_1_1_cover_art_entry_view.html#a60b45c1bd53c5cbacb266f7cbeb28761", null ],
-    [ "clear", "classcoverart__entryview_1_1_cover_art_entry_view.html#ace4d69fa155c78e1fffe38fea6e177bb", null ],
-    [ "do_entry_activated", "classcoverart__entryview_1_1_cover_art_entry_view.html#a8344d2c58b555bef05febd172fca8780", null ],
-    [ "do_show_popup", "classcoverart__entryview_1_1_cover_art_entry_view.html#aa2ed15278ff21133d4254a7d91a53d56", null ],
-    [ "love_track", "classcoverart__entryview_1_1_cover_art_entry_view.html#ad4231ea8ec6a171e7620698af0251338", null ],
+    [ "define_menu", "classcoverart__entryview_1_1_cover_art_entry_view.html#a35b62937edc36de5c6c5335e7a2b56f4", null ],
+    [ "display_columns", "classcoverart__entryview_1_1_cover_art_entry_view.html#aebe3a8fc47e096352ce5afbb317b071a", null ],
     [ "on_visible_columns_changed", "classcoverart__entryview_1_1_cover_art_entry_view.html#a10175222d00cd19e0c2cb517066cda70", null ],
-    [ "play_track_menu_item_callback", "classcoverart__entryview_1_1_cover_art_entry_view.html#a41c21004ca098288ae463f4265869436", null ],
-    [ "playing_changed", "classcoverart__entryview_1_1_cover_art_entry_view.html#ab18055641ce3cde76669de256c09c387", null ],
-    [ "playing_song_changed", "classcoverart__entryview_1_1_cover_art_entry_view.html#a5f883330ec96f7d0f74fede48effa47f", null ],
     [ "playlist_menu_item_callback", "classcoverart__entryview_1_1_cover_art_entry_view.html#afd63b73df92eeca377a7e7dcc31bce0e", null ],
-    [ "queue_track_menu_item_callback", "classcoverart__entryview_1_1_cover_art_entry_view.html#a4a653deed2922bc61a3166a4a50ce27f", null ],
-    [ "show_properties_menu_item_callback", "classcoverart__entryview_1_1_cover_art_entry_view.html#ae9b90682d0c3e2c8607ca9121038f22c", null ],
-    [ "actiongroup", "classcoverart__entryview_1_1_cover_art_entry_view.html#a20da3b3cfd53d77713283aec9959186d", null ],
+    [ "pre_popup_menu_callback", "classcoverart__entryview_1_1_cover_art_entry_view.html#a3f0fd2dce3b4370794f610eab3349d77", null ],
     [ "col_map", "classcoverart__entryview_1_1_cover_art_entry_view.html#a8c5dbb86cfa03ad3891b4c722b81d5c5", null ],
     [ "external_plugins", "classcoverart__entryview_1_1_cover_art_entry_view.html#a29f65154eeca9f18ac92ddd1b95f1173", null ],
-    [ "plugin", "classcoverart__entryview_1_1_cover_art_entry_view.html#a0dc0ca88cfd65205df8a24f23c9044a5", null ],
-    [ "popup", "classcoverart__entryview_1_1_cover_art_entry_view.html#a57ed87cbf7ea5c82bfeb34ae7dddf489", null ],
-    [ "qm", "classcoverart__entryview_1_1_cover_art_entry_view.html#a31ebc056853cc312bea4e58a89c27c58", null ],
-    [ "shell", "classcoverart__entryview_1_1_cover_art_entry_view.html#a392309657cf261ba0c43dcda70cc1725", null ],
-    [ "source", "classcoverart__entryview_1_1_cover_art_entry_view.html#a66b8aa252e9a2bb3793dce144b848fd1", null ]
+    [ "popup", "classcoverart__entryview_1_1_cover_art_entry_view.html#a57ed87cbf7ea5c82bfeb34ae7dddf489", null ]
 ];

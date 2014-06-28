@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Coverart Browser: coverart_artistview.ArtistView Class Reference</title>
+<title>CoverArt Browser: coverart_artistview.ArtistView Class Reference</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -32,8 +32,8 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Coverart Browser
-   &#160;<span id="projectnumber">v1.0</span>
+   <div id="projectname">CoverArt Browser
+   &#160;<span id="projectnumber">v2.0</span>
    </div>
    <div id="projectbrief">Browse your cover-art albums in Rhythmbox</div>
   </td>
@@ -123,10 +123,12 @@ def&#160;</td><td class="memItemRight" valign="bottom"><b>__init__</b></td></tr>
 def&#160;</td><td class="memItemRight" valign="bottom"><b>initialise</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1a9cd607b7992d4c6eabc578f1ff4382"></a><!-- doxytag: member="coverart_artistview::ArtistView::cover_search_menu_item_callback" ref="a1a9cd607b7992d4c6eabc578f1ff4382" args="" -->
 def&#160;</td><td class="memItemRight" valign="bottom"><b>cover_search_menu_item_callback</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__artistview_1_1_artist_view.html#a1ae253e5d59625370cfefd75b908b4ac">pre_popup_menu_callback</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__artistview_1_1_artist_view.html#aba893fe2a5ff0eb83b863a87f4f34611">get_view_icon_name</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__artistview_1_1_artist_view.html#a16aa63092791aff7616decafb9be91f8">switch_to_coverpane</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__artistview_1_1_artist_view.html#a7f4ec63dab4c59b82c801e99dfd11823">get_selected_objects</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__artistview_1_1_artist_view.html#ac868fe4d14e7238c32a99cae79668ce6">switch_to_view</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__artistview_1_1_artist_view.html#aebd6754350a4de0b5284219e03d810ac">scroll_to_album</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__artistview_1_1_artist_view.html#abb82e4ddd4ef238a498b0fa70f350cad">do_update_toolbar</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__artistview_1_1_artist_view.html#ae0434f9d2914a138c015565cb4a88acf">on_drag_drop</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__artistview_1_1_artist_view.html#a47ec9f022db83512eb008dd9ca86f5aa">on_drag_data_received</a></td></tr>
@@ -135,8 +137,6 @@ def&#160;</td><td class="memItemRight" valign="bottom"><b>cover_search_menu_item
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__artistview_1_1_artist_view.html#afb3c668d5a80e41d2edfc96205418a61">get_default_manager</a></td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a054b5b1648ea03df56a87e5f5625c8e6"></a><!-- doxytag: member="coverart_artistview::ArtistView::ext_menu_pos" ref="a054b5b1648ea03df56a87e5f5625c8e6" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>ext_menu_pos</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa24f4b89ce0acd936b7658f8fd4742e2"></a><!-- doxytag: member="coverart_artistview::ArtistView::gs" ref="aa24f4b89ce0acd936b7658f8fd4742e2" args="" -->
 &#160;</td><td class="memItemRight" valign="bottom"><b>gs</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a672ca522df1ce17f8db59fad1bec3f3b"></a><!-- doxytag: member="coverart_artistview::ArtistView::show_policy" ref="a672ca522df1ce17f8db59fad1bec3f3b" args="" -->
@@ -164,7 +164,7 @@ tuple&#160;</td><td class="memItemRight" valign="bottom"><b>icon_automatic</b> =
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock">
-<p>Definition at line <a class="el" href="coverart__artistview_8py_source.html#l00775">775</a> of file <a class="el" href="coverart__artistview_8py_source.html">coverart_artistview.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__artistview_8py_source.html#l00779">779</a> of file <a class="el" href="coverart__artistview_8py_source.html">coverart_artistview.py</a>.</p>
 </div><hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="abb82e4ddd4ef238a498b0fa70f350cad"></a><!-- doxytag: member="coverart_artistview::ArtistView::do_update_toolbar" ref="abb82e4ddd4ef238a498b0fa70f350cad" args="" -->
 <div class="memitem">
@@ -219,7 +219,7 @@ the default manager for this view is the artist_manager
 </pre></div> 
 <p>Reimplemented from <a class="el" href="classcoverart__widgets_1_1_abstract_view.html#a8d85cbcb1dcd1bc65b4c8f24286a2550">coverart_widgets.AbstractView</a>.</p>
 
-<p>Definition at line <a class="el" href="coverart__artistview_8py_source.html#l01211">1211</a> of file <a class="el" href="coverart__artistview_8py_source.html">coverart_artistview.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__artistview_8py_source.html#l01198">1198</a> of file <a class="el" href="coverart__artistview_8py_source.html">coverart_artistview.py</a>.</p>
 
 </div>
 </div>
@@ -252,7 +252,7 @@ finds what has been selected
 
 returns an array of `Album`
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__artistview_8py_source.html#l01068">1068</a> of file <a class="el" href="coverart__artistview_8py_source.html">coverart_artistview.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__artistview_8py_source.html#l01065">1065</a> of file <a class="el" href="coverart__artistview_8py_source.html">coverart_artistview.py</a>.</p>
 
 </div>
 </div>
@@ -276,7 +276,7 @@ since we'll probably just have text buttons for the view
 </pre></div> 
 <p>Reimplemented from <a class="el" href="classcoverart__widgets_1_1_abstract_view.html#a39b7a614696d1175bd797eed8aed01c7">coverart_widgets.AbstractView</a>.</p>
 
-<p>Definition at line <a class="el" href="coverart__artistview_8py_source.html#l01018">1018</a> of file <a class="el" href="coverart__artistview_8py_source.html">coverart_artistview.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__artistview_8py_source.html#l01026">1026</a> of file <a class="el" href="coverart__artistview_8py_source.html">coverart_artistview.py</a>.</p>
 
 </div>
 </div>
@@ -314,7 +314,7 @@ since we'll probably just have text buttons for the view
 Callback called when the drag-drop from coverview has started
 Changes the drag icon as appropriate
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__artistview_8py_source.html#l01192">1192</a> of file <a class="el" href="coverart__artistview_8py_source.html">coverart_artistview.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__artistview_8py_source.html#l01183">1183</a> of file <a class="el" href="coverart__artistview_8py_source.html">coverart_artistview.py</a>.</p>
 
 </div>
 </div>
@@ -370,7 +370,7 @@ Changes the drag icon as appropriate
 Callback called when the drag destination (playlist) has
 requested what album (icon) has been dragged
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__artistview_8py_source.html#l01174">1174</a> of file <a class="el" href="coverart__artistview_8py_source.html">coverart_artistview.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__artistview_8py_source.html#l01168">1168</a> of file <a class="el" href="coverart__artistview_8py_source.html">coverart_artistview.py</a>.</p>
 
 </div>
 </div>
@@ -438,7 +438,7 @@ requested what album (icon) has been dragged
 Callback called when the drag source has prepared the data (pixbuf)
 for us to use.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__artistview_8py_source.html#l01141">1141</a> of file <a class="el" href="coverart__artistview_8py_source.html">coverart_artistview.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__artistview_8py_source.html#l01138">1138</a> of file <a class="el" href="coverart__artistview_8py_source.html">coverart_artistview.py</a>.</p>
 
 </div>
 </div>
@@ -499,6 +499,70 @@ an image to use as a cover.
 
 </div>
 </div>
+<a class="anchor" id="a1ae253e5d59625370cfefd75b908b4ac"></a><!-- doxytag: member="coverart_artistview::ArtistView::pre_popup_menu_callback" ref="a1ae253e5d59625370cfefd75b908b4ac" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__artistview_1_1_artist_view.html#a1ae253e5d59625370cfefd75b908b4ac">coverart_artistview.ArtistView.pre_popup_menu_callback</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">
+  callback when artist popup menu is about to be displayed
+</pre></div> 
+<p>Definition at line <a class="el" href="coverart__artistview_8py_source.html#l00951">951</a> of file <a class="el" href="coverart__artistview_8py_source.html">coverart_artistview.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aebd6754350a4de0b5284219e03d810ac"></a><!-- doxytag: member="coverart_artistview::ArtistView::scroll_to_album" ref="aebd6754350a4de0b5284219e03d810ac" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def <a class="el" href="classcoverart__artistview_1_1_artist_view.html#aebd6754350a4de0b5284219e03d810ac">coverart_artistview.ArtistView.scroll_to_album</a> </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>album</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<div class="fragment"><pre class="fragment">
+scroll to the album in the view
+</pre></div> 
+<p>Reimplemented from <a class="el" href="classcoverart__widgets_1_1_abstract_view.html#a5672ab2dc8622c19791a154f71be7b2e">coverart_widgets.AbstractView</a>.</p>
+
+<p>Definition at line <a class="el" href="coverart__artistview_8py_source.html#l01093">1093</a> of file <a class="el" href="coverart__artistview_8py_source.html">coverart_artistview.py</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a16aa63092791aff7616decafb9be91f8"></a><!-- doxytag: member="coverart_artistview::ArtistView::switch_to_coverpane" ref="a16aa63092791aff7616decafb9be91f8" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -530,7 +594,7 @@ This overrides the base method
 </pre></div> 
 <p>Reimplemented from <a class="el" href="classcoverart__widgets_1_1_abstract_view.html#ae591ccccfd9b6733bd9ce45dce30f758">coverart_widgets.AbstractView</a>.</p>
 
-<p>Definition at line <a class="el" href="coverart__artistview_8py_source.html#l01054">1054</a> of file <a class="el" href="coverart__artistview_8py_source.html">coverart_artistview.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__artistview_8py_source.html#l01051">1051</a> of file <a class="el" href="coverart__artistview_8py_source.html">coverart_artistview.py</a>.</p>
 
 </div>
 </div>
@@ -570,7 +634,7 @@ consistent
 </pre></div> 
 <p>Reimplemented from <a class="el" href="classcoverart__widgets_1_1_abstract_view.html#a821d8d78725782956aff40eba35dc628">coverart_widgets.AbstractView</a>.</p>
 
-<p>Definition at line <a class="el" href="coverart__artistview_8py_source.html#l01090">1090</a> of file <a class="el" href="coverart__artistview_8py_source.html">coverart_artistview.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__artistview_8py_source.html#l01087">1087</a> of file <a class="el" href="coverart__artistview_8py_source.html">coverart_artistview.py</a>.</p>
 
 </div>
 </div>
@@ -598,7 +662,7 @@ consistent
       <li class="navelem"><b>coverart_artistview</b>      </li>
       <li class="navelem"><a class="el" href="classcoverart__artistview_1_1_artist_view.html">ArtistView</a>      </li>
 
-    <li class="footer">Generated on Fri Jan 24 2014 21:22:27 for Coverart Browser by
+    <li class="footer">Generated on Sat Jun 28 2014 11:18:07 for CoverArt Browser by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
    </ul>

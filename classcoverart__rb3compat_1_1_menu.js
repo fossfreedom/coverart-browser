@@ -8,6 +8,7 @@ var classcoverart__rb3compat_1_1_menu =
     [ "insert_menu_item", "classcoverart__rb3compat_1_1_menu.html#a7c1a0e0c7015ca18ffa7e4ca97c11ffe", null ],
     [ "insert_separator", "classcoverart__rb3compat_1_1_menu.html#a3a9d28a4a92163a8be50c956eb38021f", null ],
     [ "load_from_file", "classcoverart__rb3compat_1_1_menu.html#afb9d2b743b57965f8999061b8078f9cb", null ],
+    [ "popup", "classcoverart__rb3compat_1_1_menu.html#a56b198acb4179dace152004d58b0ae0f", null ],
     [ "remove_menu_items", "classcoverart__rb3compat_1_1_menu.html#a806591862adf87550a74d25a96d461cc", null ],
     [ "set_sensitive", "classcoverart__rb3compat_1_1_menu.html#a070e43832b4a3b72329e30b055ef8c19", null ],
     [ "builder", "classcoverart__rb3compat_1_1_menu.html#a15795bc841ee4dd8edb3f7e19b8c40e4", null ],

@@ -9,5 +9,5 @@ var searchData=
   ['load_5ffrom_5ffile',['load_from_file',['../classcoverart__rb3compat_1_1_menu.html#afb9d2b743b57965f8999061b8078f9cb',1,'coverart_rb3compat::Menu']]],
   ['load_5ftemplates',['load_templates',['../classcoverart__search_1_1_cover_search_pane.html#aa45a2540317083820ff637fac7c54d6f',1,'coverart_search::CoverSearchPane']]],
   ['lookup_5faction',['lookup_action',['../classcoverart__rb3compat_1_1_application_shell_1_1____impl.html#a7f9b972513d22e06514b013f4b320e3c',1,'coverart_rb3compat::ApplicationShell::__impl']]],
-  ['love_5ftrack',['love_track',['../classcoverart__entryview_1_1_cover_art_entry_view.html#ad4231ea8ec6a171e7620698af0251338',1,'coverart_entryview::CoverArtEntryView']]]
+  ['love_5ftrack',['love_track',['../classcoverart__entryview_1_1_base_view.html#a7a18dfe7e75fe51491c66f7e4503d54a',1,'coverart_entryview::BaseView']]]
 ];

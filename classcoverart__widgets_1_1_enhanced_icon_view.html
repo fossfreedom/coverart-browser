@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Coverart Browser: coverart_widgets.EnhancedIconView Class Reference</title>
+<title>CoverArt Browser: coverart_widgets.EnhancedIconView Class Reference</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -32,8 +32,8 @@
   
   
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Coverart Browser
-   &#160;<span id="projectnumber">v1.0</span>
+   <div id="projectname">CoverArt Browser
+   &#160;<span id="projectnumber">v2.0</span>
    </div>
    <div id="projectbrief">Browse your cover-art albums in Rhythmbox</div>
   </td>
@@ -120,7 +120,6 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab4d5ca33bda0cd89d7fbba54d81b6d90"></a><!-- doxytag: member="coverart_widgets::EnhancedIconView::__init__" ref="ab4d5ca33bda0cd89d7fbba54d81b6d90" args="" -->
 def&#160;</td><td class="memItemRight" valign="bottom"><b>__init__</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__widgets_1_1_enhanced_icon_view.html#ab7333f97a75f012cd4e5bb81aa2f8259">do_size_allocate</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__widgets_1_1_enhanced_icon_view.html#ac656b80a246e9b59cadc72c7146e1f3d">pre_display_popup</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__widgets_1_1_enhanced_icon_view.html#abe7820c6751703015a397893fc5729f1">do_button_press_event</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__widgets_1_1_enhanced_icon_view.html#ac07f5f09183c913b2584dc7b72589f95">get_selected_objects</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcoverart__widgets_1_1_enhanced_icon_view.html#ab115fcc6ce39b779b9f8e676ee8cce2a">select_and_scroll_to_path</a></td></tr>
@@ -135,11 +134,11 @@ Public Attributes</h2></td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8f737f10667723538ce44c5097e5dbc9"></a><!-- doxytag: member="coverart_widgets::EnhancedIconView::object_column" ref="a8f737f10667723538ce44c5097e5dbc9" args="" -->
-tuple&#160;</td><td class="memItemRight" valign="bottom"><b>object_column</b> = GObject.property(type=int, default= -1)</td></tr>
+tuple&#160;</td><td class="memItemRight" valign="bottom"><b>object_column</b> = GObject.property(type=int, default=-1)</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock">
-<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l00928">928</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l00937">937</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
 </div><hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="abe7820c6751703015a397893fc5729f1"></a><!-- doxytag: member="coverart_widgets::EnhancedIconView::do_button_press_event" ref="abe7820c6751703015a397893fc5729f1" args="" -->
 <div class="memitem">
@@ -170,7 +169,7 @@ Other than the default behavior, adds an event firing when the mouse
 has clicked on top of a current item, informing the listeners of the
 path of the clicked item.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l00974">974</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l00977">977</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
 
 </div>
 </div>
@@ -204,7 +203,7 @@ widgets changes. Neverthless, it takes into account that multiple
 reallocations could happen in a short amount of time, so it avoids
 trying to refresh until the user has stopped resizing the component.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l00946">946</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l00955">955</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
 
 </div>
 </div>
@@ -228,30 +227,7 @@ selected items, givent that the object_column property is setted.
 This way there's no need for the client class to repeateadly access the
 correct column to retrieve the object from the raw rows.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l01004">1004</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ac656b80a246e9b59cadc72c7146e1f3d"></a><!-- doxytag: member="coverart_widgets::EnhancedIconView::pre_display_popup" ref="ac656b80a246e9b59cadc72c7146e1f3d" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def <a class="el" href="classcoverart__widgets_1_1_enhanced_icon_view.html#ac656b80a246e9b59cadc72c7146e1f3d">coverart_widgets.EnhancedIconView.pre_display_popup</a> </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<div class="fragment"><pre class="fragment">
-called just before popup is displayed
-</pre></div> 
-<p>Reimplemented in <a class="el" href="classcoverart__covericonview_1_1_cover_icon_view.html#a8c9055c88def93a0569aadecbedf8783">coverart_covericonview.CoverIconView</a>.</p>
-
-<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l00968">968</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l01005">1005</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
 
 </div>
 </div>
@@ -282,7 +258,7 @@ called just before popup is displayed
 <div class="fragment"><pre class="fragment">
 Helper method to select and scroll to a given path on the IconView.
 </pre></div> 
-<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l01023">1023</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
+<p>Definition at line <a class="el" href="coverart__widgets_8py_source.html#l01024">1024</a> of file <a class="el" href="coverart__widgets_8py_source.html">coverart_widgets.py</a>.</p>
 
 </div>
 </div>
@@ -310,7 +286,7 @@ Helper method to select and scroll to a given path on the IconView.
       <li class="navelem"><b>coverart_widgets</b>      </li>
       <li class="navelem"><a class="el" href="classcoverart__widgets_1_1_enhanced_icon_view.html">EnhancedIconView</a>      </li>
 
-    <li class="footer">Generated on Fri Jan 24 2014 21:22:28 for Coverart Browser by
+    <li class="footer">Generated on Sat Jun 28 2014 11:18:08 for CoverArt Browser by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
    </ul>

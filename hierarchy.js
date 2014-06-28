@@ -1,20 +1,23 @@
 var hierarchy =
 [
     [ "coverart_browser_prefs.CoverLocale.__impl", "classcoverart__browser__prefs_1_1_cover_locale_1_1____impl.html", null ],
-    [ "coverart_rb3compat.ApplicationShell.__impl", "classcoverart__rb3compat_1_1_application_shell_1_1____impl.html", null ],
     [ "coverart_browser_prefs.GSetting.__impl", "classcoverart__browser__prefs_1_1_g_setting_1_1____impl.html", null ],
+    [ "coverart_rb3compat.ApplicationShell.__impl", "classcoverart__rb3compat_1_1_application_shell_1_1____impl.html", null ],
     [ "coverart_browser_source.Views._impl", "classcoverart__browser__source_1_1_views_1_1__impl.html", null ],
     [ "coverart_utils.Theme._impl", "classcoverart__utils_1_1_theme_1_1__impl.html", null ],
     [ "coverart_widgets.AbstractView", "classcoverart__widgets_1_1_abstract_view.html", [
       [ "coverart_artistview.ArtistView", "classcoverart__artistview_1_1_artist_view.html", null ],
       [ "coverart_coverflowview.CoverFlowView", "classcoverart__coverflowview_1_1_cover_flow_view.html", null ],
       [ "coverart_covericonview.CoverIconView", "classcoverart__covericonview_1_1_cover_icon_view.html", null ],
-      [ "coverart_listview.ListView", "classcoverart__listview_1_1_list_view.html", null ]
+      [ "coverart_listview.ListView", "classcoverart__listview_1_1_list_view.html", null ],
+      [ "coverart_playsourceview.PlaySourceView", "classcoverart__playsourceview_1_1_play_source_view.html", null ],
+      [ "coverart_queueview.QueueView", "classcoverart__queueview_1_1_queue_view.html", null ]
     ] ],
     [ "coverart_rb3compat.Action", "classcoverart__rb3compat_1_1_action.html", null ],
     [ "coverart_rb3compat.ActionGroup", "classcoverart__rb3compat_1_1_action_group.html", null ],
     [ "coverart_album.Album", "classcoverart__album_1_1_album.html", null ],
     [ "coverart_covericonview.AlbumArtCellArea", "classcoverart__covericonview_1_1_album_art_cell_area.html", null ],
+    [ "coverart_artistinfo.AlbumDataSource", "classcoverart__artistinfo_1_1_album_data_source.html", null ],
     [ "coverart_album.AlbumFilters", "classcoverart__album_1_1_album_filters.html", null ],
     [ "coverart_album.AlbumLoader", "classcoverart__album_1_1_album_loader.html", null ],
     [ "coverart_album.AlbumManager", "classcoverart__album_1_1_album_manager.html", null ],
@@ -24,10 +27,24 @@ var hierarchy =
     [ "coverart_rb3compat.ApplicationShell", "classcoverart__rb3compat_1_1_application_shell.html", null ],
     [ "coverart_artistview.Artist", "classcoverart__artistview_1_1_artist.html", null ],
     [ "coverart_artistview.ArtistCellRenderer", "classcoverart__artistview_1_1_artist_cell_renderer.html", null ],
+    [ "coverart_artistinfo.ArtistDataSource", "classcoverart__artistinfo_1_1_artist_data_source.html", null ],
+    [ "coverart_artistinfo.ArtistInfoPane", "classcoverart__artistinfo_1_1_artist_info_pane.html", null ],
+    [ "coverart_artistinfo.ArtistInfoWebView", "classcoverart__artistinfo_1_1_artist_info_web_view.html", null ],
     [ "coverart_artistview.ArtistLoader", "classcoverart__artistview_1_1_artist_loader.html", null ],
     [ "coverart_artistview.ArtistManager", "classcoverart__artistview_1_1_artist_manager.html", null ],
     [ "coverart_artistview.ArtistShowingPolicy", "classcoverart__artistview_1_1_artist_showing_policy.html", null ],
     [ "coverart_artistview.ArtistsModel", "classcoverart__artistview_1_1_artists_model.html", null ],
+    [ "coverart_artistinfo.BaseInfoView", "classcoverart__artistinfo_1_1_base_info_view.html", [
+      [ "coverart_artistinfo.AlbumInfoView", "classcoverart__artistinfo_1_1_album_info_view.html", null ],
+      [ "coverart_artistinfo.ArtistInfoView", "classcoverart__artistinfo_1_1_artist_info_view.html", null ],
+      [ "coverart_artistinfo.EchoArtistInfoView", "classcoverart__artistinfo_1_1_echo_artist_info_view.html", null ]
+    ] ],
+    [ "coverart_entryview.BaseView", "classcoverart__entryview_1_1_base_view.html", [
+      [ "coverart_entryview.CoverArtCompactEntryView", "classcoverart__entryview_1_1_cover_art_compact_entry_view.html", null ],
+      [ "coverart_entryview.CoverArtEntryView", "classcoverart__entryview_1_1_cover_art_entry_view.html", [
+        [ "coverart_play_source.CoverArtPlayEntryView", "classcoverart__play__source_1_1_cover_art_play_entry_view.html", null ]
+      ] ]
+    ] ],
     [ "coverart_utils.CaseInsensitiveDict", "classcoverart__utils_1_1_case_insensitive_dict.html", null ],
     [ "coverart_covericonview.CellRendererThumb", "classcoverart__covericonview_1_1_cell_renderer_thumb.html", null ],
     [ "coverart_utils.ConfiguredSpriteSheet", "classcoverart__utils_1_1_configured_sprite_sheet.html", [
@@ -40,8 +57,8 @@ var hierarchy =
     [ "coverart_browser.CoverArtBrowserEntryType", "classcoverart__browser_1_1_cover_art_browser_entry_type.html", null ],
     [ "coverart_browser.CoverArtBrowserPlugin", "classcoverart__browser_1_1_cover_art_browser_plugin.html", null ],
     [ "coverart_browser_source.CoverArtBrowserSource", "classcoverart__browser__source_1_1_cover_art_browser_source.html", null ],
-    [ "coverart_entryview.CoverArtEntryView", "classcoverart__entryview_1_1_cover_art_entry_view.html", null ],
     [ "coverart_export.CoverArtExport", "classcoverart__export_1_1_cover_art_export.html", null ],
+    [ "coverart_play_source.CoverArtPlaySource", "classcoverart__play__source_1_1_cover_art_play_source.html", null ],
     [ "coverart_browser_prefs.CoverLocale", "classcoverart__browser__prefs_1_1_cover_locale.html", null ],
     [ "coverart_album.CoverManager", "classcoverart__album_1_1_cover_manager.html", [
       [ "coverart_album.AlbumCoverManager", "classcoverart__album_1_1_album_cover_manager.html", null ],
@@ -51,6 +68,7 @@ var hierarchy =
     [ "coverart_search.CoverSearchPane", "classcoverart__search_1_1_cover_search_pane.html", null ],
     [ "coverart_external_plugins.CreateExternalPluginMenu", "classcoverart__external__plugins_1_1_create_external_plugin_menu.html", null ],
     [ "coverart_browser_source.CustomStatusBar", "classcoverart__browser__source_1_1_custom_status_bar.html", null ],
+    [ "coverart_artistinfo.EchoArtistDataSource", "classcoverart__artistinfo_1_1_echo_artist_data_source.html", null ],
     [ "coverart_widgets.EnhancedButton", "classcoverart__widgets_1_1_enhanced_button.html", [
       [ "coverart_widgets.PixbufButton", "classcoverart__widgets_1_1_pixbuf_button.html", [
         [ "coverart_widgets.ImageToggleButton", "classcoverart__widgets_1_1_image_toggle_button.html", null ],
@@ -63,6 +81,7 @@ var hierarchy =
     [ "coverart_widgets.EnhancedIconView", "classcoverart__widgets_1_1_enhanced_icon_view.html", [
       [ "coverart_covericonview.CoverIconView", "classcoverart__covericonview_1_1_cover_icon_view.html", null ]
     ] ],
+    [ "coverart_entryview.EntryViewPane", "classcoverart__entryview_1_1_entry_view_pane.html", null ],
     [ "coverart_external_plugins.ExternalPlugin", "classcoverart__external__plugins_1_1_external_plugin.html", null ],
     [ "coverart_browser.ExternalPluginMenu", "classcoverart__browser_1_1_external_plugin_menu.html", null ],
     [ "coverart_utils.FauxTb", "classcoverart__utils_1_1_faux_tb.html", null ],
@@ -70,6 +89,7 @@ var hierarchy =
     [ "coverart_coverflowview.FlowShowingPolicy", "classcoverart__coverflowview_1_1_flow_showing_policy.html", null ],
     [ "coverart_browser_prefs.GSetting", "classcoverart__browser__prefs_1_1_g_setting.html", null ],
     [ "coverart_utils.IdleCallIterator", "classcoverart__utils_1_1_idle_call_iterator.html", null ],
+    [ "coverart_artistinfo.LinksDataSource", "classcoverart__artistinfo_1_1_links_data_source.html", null ],
     [ "coverart_listview.ListShowingPolicy", "classcoverart__listview_1_1_list_showing_policy.html", null ],
     [ "coverart_rb3compat.Menu", "classcoverart__rb3compat_1_1_menu.html", null ],
     [ "coverart_utils.NaturalString", "classcoverart__utils_1_1_natural_string.html", null ],
@@ -100,9 +120,12 @@ var hierarchy =
       ] ]
     ] ],
     [ "coverart_widgets.PanedCollapsible", "classcoverart__widgets_1_1_paned_collapsible.html", null ],
+    [ "coverart_playsourceview.PlaySourceShowingPolicy", "classcoverart__playsourceview_1_1_play_source_showing_policy.html", null ],
     [ "coverart_browser_prefs.Preferences", "classcoverart__browser__prefs_1_1_preferences.html", null ],
     [ "coverart_widgets.ProxyPopupButton", "classcoverart__widgets_1_1_proxy_popup_button.html", null ],
+    [ "coverart_queueview.QueueShowingPolicy", "classcoverart__queueview_1_1_queue_showing_policy.html", null ],
     [ "coverart_widgets.QuickSearchEntry", "classcoverart__widgets_1_1_quick_search_entry.html", null ],
+    [ "coverart_entryview.ResultsGrid", "classcoverart__entryview_1_1_results_grid.html", null ],
     [ "coverart_utils.ReversedSortedCollection", "classcoverart__utils_1_1_reversed_sorted_collection.html", null ],
     [ "stars.ShapeStar", "classstars_1_1_shape_star.html", [
       [ "stars.StarRenderer", "classstars_1_1_star_renderer.html", [
@@ -131,5 +154,10 @@ var hierarchy =
     [ "coverart_toolbar.ToolbarObject", "classcoverart__toolbar_1_1_toolbar_object.html", null ],
     [ "coverart_album.Track", "classcoverart__album_1_1_track.html", null ],
     [ "coverart_browser_source.ViewManager", "classcoverart__browser__source_1_1_view_manager.html", null ],
-    [ "coverart_browser_source.Views", "classcoverart__browser__source_1_1_views.html", null ]
+    [ "coverart_browser_source.Views", "classcoverart__browser__source_1_1_views.html", null ],
+    [ "coverart_playlists.WebPlaylist", "classcoverart__playlists_1_1_web_playlist.html", [
+      [ "coverart_playlists.EchoNestGenrePlaylist", "classcoverart__playlists_1_1_echo_nest_genre_playlist.html", null ],
+      [ "coverart_playlists.EchoNestPlaylist", "classcoverart__playlists_1_1_echo_nest_playlist.html", null ],
+      [ "coverart_playlists.LastFMTrackPlaylist", "classcoverart__playlists_1_1_last_f_m_track_playlist.html", null ]
+    ] ]
 ];

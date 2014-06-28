@@ -16,6 +16,5 @@ var classcoverart__artistview_1_1_artists_model =
     [ "sort", "classcoverart__artistview_1_1_artists_model.html#a549ea763b8073db454636984f2f80f44", null ],
     [ "store", "classcoverart__artistview_1_1_artists_model.html#a633cee03d0f31b77b8ddf23dad330fc8", null ],
     [ "album_manager", "classcoverart__artistview_1_1_artists_model.html#a08ed4a7ba87d29d7d560218cbcd16052", null ],
-    [ "columns", "classcoverart__artistview_1_1_artists_model.html#a399638557511992ace6bc968bfdfb386", null ],
-    [ "force_lastfm_check", "classcoverart__artistview_1_1_artists_model.html#ad48cd8e387b776bf291c545c18f9a57f", null ]
+    [ "columns", "classcoverart__artistview_1_1_artists_model.html#a399638557511992ace6bc968bfdfb386", null ]
 ];
