@@ -380,6 +380,7 @@ class BaseInfoView(GObject.Object):
 
     def load_view(self):
         print ("load_view")
+        print (self.file)
         self.webview.load_string(self.file, 'text/html', 'utf-8', self.basepath)
         print ("end load_view")
 
@@ -411,7 +412,7 @@ class ArtistInfoView(BaseInfoView):
 
     def loading(self, current_artist, current_album_title):
         cl = CoverLocale()
-        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+        #cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
 
         self.link_ds.set_artist(current_artist)
         self.link_ds.set_album(current_album_title)
@@ -440,35 +441,38 @@ class ArtistInfoView(BaseInfoView):
     def artist_info_ready(self, ds):
         # Can only be called after the artist-info-ready signal has fired.
         # If called any other time, the behavior is undefined
-        try:
-            info = ds.get_artist_info()
+        #try:
+        info = ds.get_artist_info()
 
-            small, med, big = info['images'] or (None, None, None)
-            summary, full_bio = info['bio'] or (None, None)
+        small, med, big = info['images'] or (None, None, None)
+        summary, full_bio = info['bio'] or (None, None)
 
-            link_album = self.link_ds.get_album()
-            if not link_album:
-                link_album = ""
+        link_album = self.link_ds.get_album()
+        if not link_album:
+            link_album = ""
 
-            links = self.link_ds.get_album_links()
-            if not links:
-                links = {}
+        links = self.link_ds.get_album_links()
+        if not links:
+            links = {}
 
-            self.file = self.template.render(artist=ds.get_current_artist(),
-                                             error=ds.get_error(),
-                                             image=med,
-                                             fullbio=full_bio,
-                                             shortbio=summary,
-                                             datasource=lastfm_datasource_link(self.basepath),
-                                             stylesheet=self.styles,
-                                             album=link_album,
-                                             art_links=self.link_ds.get_artist_links(),
-                                             alb_links=links,
-                                             link_images=self.link_images,
-                                             similar=ds.get_similar_info())
-            self.load_view()
-        except Exception as e:
-            print("Problem in info ready: %s" % e)
+        cl = CoverLocale()
+        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+
+        self.file = self.template.render(artist=ds.get_current_artist(),
+                                         error=ds.get_error(),
+                                         image=med,
+                                         fullbio=full_bio,
+                                         shortbio=summary,
+                                         datasource=lastfm_datasource_link(self.basepath),
+                                         stylesheet=self.styles,
+                                         album=link_album,
+                                         art_links=self.link_ds.get_artist_links(),
+                                         alb_links=links,
+                                         link_images=self.link_images,
+                                         similar=ds.get_similar_info())
+        self.load_view()
+        #except Exception as e:
+        #    print("Problem in info ready: %s" % e)
 
 
     def reload(self, artist, album_title):
@@ -506,23 +510,45 @@ class ArtistDataSource(GObject.GObject):
 
         self.current_artist = None
         self.error = None
-        #'                'signal'    : 'artist-info-ready', '
+        cl = CoverLocale()
+        lang = cl.get_locale()[:2]
+
         self.artist = {
-            'info': {
+            'info_en': {
                 'data': None,
                 'function': 'getinfo',
                 'cache': info_cache,
                 'signal': 'artist-info-ready',
-                'parsed': False
+                'parsed': False,
+                'lang': 'en'
             },
-            'similar': {
+            'similar_en': {
                 'data': None,
                 'function': 'getsimilar',
                 'cache': info_cache,
                 'signal': 'artist-info-ready',
-                'parsed': False
+                'parsed': False,
+                'lang': 'en'
             }
         }
+
+        if lang != 'en':
+            self.artist['info_'+lang] = {
+                'data': None,
+                'function': 'getinfo',
+                'cache': info_cache,
+                'signal': 'artist-info-ready',
+                'parsed': False,
+                'lang': lang
+            }
+            self.artist['similar_'+lang] = {
+                'data': None,
+                'function': 'getsimilar',
+                'cache': info_cache,
+                'signal': 'artist-info-ready',
+                'parsed': False,
+                'lang': lang
+            }
 
     def fetch_artist_data(self, artist):
         """
@@ -542,10 +568,11 @@ class ArtistDataSource(GObject.GObject):
         self.fetched = 0
         for key, value in self.artist.items():
             print("search")
-            cachekey = "lastfm:artist:%sjson:%s" % (value['function'], artist)
-            url = '%s?method=artist.%s&artist=%s&limit=10&api_key=%s&format=json' % (LastFM.API_URL,
+            cachekey = "lastfm:artist:%sjson:%s:%s" % (value['function'], artist, value['lang'])
+            url = '%s?method=artist.%s&artist=%s&limit=10&api_key=%s&format=json&lang=%s' % (LastFM.API_URL,
                                                                                      value['function'], artist,
-                                                                                     LastFM.API_KEY)
+                                                                                     LastFM.API_KEY,
+                                                                                     value['lang'])
             print("fetching %s" % url)
             value['cache'].fetch(cachekey, url, self.fetch_artist_data_cb, value)
 
@@ -576,10 +603,15 @@ class ArtistDataSource(GObject.GObject):
         """
         Returns tuple of image url's for small, medium, and large images.
         """
-        data = self.artist['info']['data']
+        print ('get_artist_images')
+        data = self.artist['info_en']['data']
         if data is None:
             return None
 
+        if 'artist' not in data:
+            return None
+
+        print (list(data.keys()))
         images = [img['#text'] for img in data['artist'].get('image', ())]
         return images[:3]
 
@@ -587,52 +619,83 @@ class ArtistDataSource(GObject.GObject):
         """
         Returns tuple of summary and full bio
         """
-        data = self.artist['info']['data']
-        if data is None:
-            return None
+        cl = CoverLocale()
+        lang = cl.get_locale()[:2]
 
-        if not self.artist['info']['parsed']:
-            content = data['artist']['bio']['content']
-            summary = data['artist']['bio']['summary']
-            return summary, content
+        def get_bio(lang):
+            data = self.artist['info_' + lang]['data']
+            if data is None:
+                return None
 
-        return self.artist['info']['data']['bio']
+            if not self.artist['info_' + lang]['parsed']:
+                content = data['artist']['bio']['content']
+                summary = data['artist']['bio']['summary']
+                return summary, content
+
+            if lang != 'en':
+                return None
+            else:
+                return self.artist['info_' + lang]['data']['bio']
+
+
+        arg = get_bio(lang)
+        if not arg or arg[0] == '':
+            arg = get_bio('en')
+
+        return arg
 
     def get_similar_info(self):
         """
         Returns the dictionary { 'images', 'bio' }
         """
-        if not self.artist['similar']['parsed']:
-            json_artists_data = self.artist['similar']['data']['similarartists']
+        cl = CoverLocale()
+        lang = cl.get_locale()[:2]
 
-            results = []
-            for json_artist in json_artists_data["artist"]:
-                name = json_artist["name"]
-                image_url = json_artist["image"][1]["#text"]
-                similarity = int(100 * float(json_artist["match"]))
+        try:
+            if not self.artist['similar_' + lang]['parsed']:
+                json_artists_data = self.artist['similar_' + lang]['data']['similarartists']
 
-                results.append({'name': name,
-                                'image_url': image_url,
-                                'similarity': similarity})
+                results = []
+                print (json_artists_data)
+                for json_artist in json_artists_data["artist"]:
+                    print (json_artist)
+                    name = json_artist["name"]
+                    image_url = json_artist["image"][1]["#text"]
+                    similarity = int(100 * float(json_artist["match"]))
 
-            self.artist['similar']['data'] = results
-            self.artist['similar']['parsed'] = True
+                    results.append({'name': name,
+                                    'image_url': image_url,
+                                    'similarity': similarity})
 
-        return self.artist['similar']['data']
+                self.artist['similar_' + lang]['data'] = results
+                self.artist['similar_' + lang]['parsed'] = True
+
+            return self.artist['similar_' + lang]['data']
+        except Exception as e:
+            print("Error parsing similar_infot: %s" % e)
+            return ""
+
 
     def get_artist_info(self):
         """
         Returns the dictionary { 'images', 'bio' }
         """
-        if not self.artist['info']['parsed']:
-            images = self.get_artist_images()
-            bio = self.get_artist_bio()
-            self.artist['info']['data'] = {'images': images,
-                                           'bio': bio}
-            self.artist['info']['parsed'] = True
+        cl = CoverLocale()
+        lang = cl.get_locale()[:2]
 
-        return self.artist['info']['data']
+        images = self.get_artist_images()
 
+        def fill_info(lang):
+            if not self.artist['info_' + lang]['parsed']:
+                bio = self.get_artist_bio()
+                self.artist['info_' + lang]['data'] = {'images': images,
+                                                       'bio': bio}
+                self.artist['info_' + lang]['parsed'] = True
+
+            return self.artist['info_' + lang]['data']
+
+        fill_info('en')
+        return fill_info(lang)
 
 class LinksDataSource(GObject.GObject):
     def __init__(self):
@@ -716,7 +779,7 @@ class AlbumInfoView(BaseInfoView):
 
     def loading(self, current_artist, current_album_title):
         cl = CoverLocale()
-        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+        #cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
 
         self.loading_file = self.loading_template.render(
             artist=current_artist,
@@ -728,7 +791,7 @@ class AlbumInfoView(BaseInfoView):
 
     def load_tmpl(self):
         cl = CoverLocale()
-        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+        #cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
 
         path = rb.find_plugin_file(self.plugin, 'tmpl/album-tmpl.html')
         empty_path = rb.find_plugin_file(self.plugin, 'tmpl/album_empty-tmpl.html')
@@ -740,6 +803,9 @@ class AlbumInfoView(BaseInfoView):
 
     def album_list_ready(self, ds):
         print ("album_list_ready")
+        cl = CoverLocale()
+        #cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+
         self.file = self.album_template.render(error=ds.get_error(),
                                                albums=ds.get_top_albums(),
                                                artist=ds.get_artist(),
@@ -794,11 +860,14 @@ class AlbumDataSource(GObject.GObject):
             self.emit('albums-ready')
             return
 
+        cl = CoverLocale()
+        lang = cl.get_locale()[:2]
+
         self.artist = artist
         qartist = urllib.parse.quote_plus(artist)
         self.error = None
-        url = "%s?method=artist.gettopalbums&artist=%s&api_key=%s&format=json" % (
-            LastFM.API_URL, qartist, LastFM.API_KEY)
+        url = "%s?method=artist.gettopalbums&artist=%s&api_key=%s&format=json&lang=%s" % (
+            LastFM.API_URL, qartist, LastFM.API_KEY, lang)
         print(url)
         cachekey = 'lastfm:artist:gettopalbumsjson:%s' % qartist
         self.ranking_cache.fetch(cachekey, url, self.parse_album_list, artist)
@@ -830,9 +899,11 @@ class AlbumDataSource(GObject.GObject):
             return True
         print(albums)
         self.albums = []
+        print ("max number of albums to process")
         print(len(albums))
         #albums = parsed['topalbums'].get('album', [])[:self.max_albums_fetched]
         self.fetching = len(albums)
+
         for i, a in enumerate(albums):
             try:
                 images = [img['#text'] for img in a.get('image', [])]
@@ -847,36 +918,62 @@ class AlbumDataSource(GObject.GObject):
         return self.albums
 
     def fetch_album_info(self, artist, album, index):
+        print ('start fetch_album_info')
+        cl = CoverLocale()
+        lang = cl.get_locale()[:2]
         qartist = urllib.parse.quote_plus(artist)
         qalbum = urllib.parse.quote_plus(album)
-        cachekey = "lastfm:album:getinfojson:%s:%s" % (qartist, qalbum)
-        url = "%s?method=album.getinfo&artist=%s&album=%s&api_key=%s&format=json" % (
-            LastFM.API_URL, qartist, qalbum, LastFM.API_KEY)
-        self.info_cache.fetch(cachekey, url, self.parse_album_info, album, index)
+        self.fetched = 2
 
-    def parse_album_info(self, data, album, index):
+        def fetch_information(lang):
+            cachekey = "lastfm:album:getinfojson:%s:%s:%s" % (qartist, qalbum, lang)
+            url = "%s?method=album.getinfo&artist=%s&album=%s&api_key=%s&format=json&lang=%s" % (
+                LastFM.API_URL, qartist, qalbum, LastFM.API_KEY, lang)
+            print (url)
+
+            self.info_cache.fetch(cachekey, url, self.parse_album_info, album, index, lang)
+
+        self.album_data = {}
+        fetch_information('en')
+        fetch_information(lang)
+        print ('end fetch_album_info')
+
+    def parse_album_info(self, data, album, index, lang):
+        print ('parse_album_info %s' % lang)
+        self.fetched = self.fetched - 1
+        self.album_data[lang] = data
+        if self.fetched > 0:
+            print ('return %d' % self.fetched)
+            return
+
+        cl = CoverLocale()
+        lang = cl.get_locale()[:2]
         rv = True
         try:
-            parsed = json.loads(data.decode('utf-8'))
+            print ('decoding')
+            parsed = json.loads(self.album_data[lang].decode('utf-8'))
+            print ('decoded')
             self.albums[index]['id'] = parsed['album']['id']
-
             for k in ('releasedate', 'summary'):
                 self.albums[index][k] = parsed['album'].get(k)
-
             tracklist = []
+            print (parsed['album'])
             tracks = parsed['album']['tracks'].get('track', [])
             for i, t in enumerate(tracks):
                 title = t['name']
                 duration = int(t['duration'])
                 tracklist.append((i, title, duration))
-
             self.albums[index]['tracklist'] = tracklist
             self.albums[index]['duration'] = sum([t[2] for t in tracklist])
 
             if 'wiki' in parsed['album']:
                 self.albums[index]['wiki-summary'] = parsed['album']['wiki']['summary']
                 self.albums[index]['wiki-content'] = parsed['album']['wiki']['content']
-
+            elif lang != 'en':
+                parsed = json.loads(self.album_data['en'].decode('utf-8'))
+                if 'wiki' in parsed['album']:
+                    self.albums[index]['wiki-summary'] = parsed['album']['wiki']['summary']
+                    self.albums[index]['wiki-content'] = parsed['album']['wiki']['content']
         except Exception as e:
             print("Error parsing album tracklist: %s" % e)
             rv = False
@@ -885,7 +982,6 @@ class AlbumDataSource(GObject.GObject):
         print("%s albums left to process" % self.fetching)
         if self.fetching == 0:
             self.emit('albums-ready')
-
         return rv
 
 
@@ -901,7 +997,7 @@ class EchoArtistInfoView(BaseInfoView):
 
     def load_tmpl(self):
         cl = CoverLocale()
-        cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+        #cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
 
         path = rb.find_plugin_file(self.plugin, 'tmpl/echoartist-tmpl.html')
         empty_path = rb.find_plugin_file(self.plugin, 'tmpl/artist_empty-tmpl.html')
@@ -927,15 +1023,15 @@ class EchoArtistInfoView(BaseInfoView):
         if not links:
             links = {}
 
-        print("#############")
-        print(ds.get_current_artist())
-        print(self.ds.get_artist_bio())
-        print(self.styles)
-        print(self.link_ds.get_artist_links())
-        print(links)
-        print(self.link_images)
-        print(lastfm_datasource_link(self.basepath))
-        print("##############")
+        print (ds.get_current_artist())
+        print (ds.get_error())
+        print (self.ds.get_artist_bio())
+        print (self.styles)
+        print (link_album)
+        print (self.link_ds.get_artist_links())
+        print (links)
+        print (self.link_images)
+        print (ds.get_attribution())
         self.file = self.template.render(artist=ds.get_current_artist(),
                                          error=ds.get_error(),
                                          bio=self.ds.get_artist_bio(),
@@ -1013,8 +1109,6 @@ class EchoArtistDataSource(GObject.GObject):
             url = '%sartist/biographies?api_key=%s&name=%s&format=json&results=1&start=0' % (api_url,
                                                                                              api_key, artist)
 
-            #http://developer.echonest.com/api/v4/artist/biographies?api_key=N685TONJGZSHBDZMP&name=queen&format=json&results=1&start=0
-            #http://developer.echonest.com/api/v4/artist/biographies?api_key=N685TONJGZSHBDZMP?name=ABBA&format=json&results=1&start=0
             print("fetching %s" % url)
             value['cache'].fetch(cachekey, url, self.fetch_artist_data_cb, value)
 
@@ -1032,7 +1126,7 @@ class EchoArtistDataSource(GObject.GObject):
                 self.emit(category['signal'])
 
         except Exception as e:
-            print("Error parsing artist")
+            print("Error parsing artist %s" % e)
             return False
 
     def get_current_artist(self):
@@ -1042,10 +1136,11 @@ class EchoArtistDataSource(GObject.GObject):
         return self.error
 
     def get_attribution(self):
+        print ('get_attribution')
         data = self.artist['info']['data']
         if data is None:
+            print ('nothing here')
             return None
-
         content = ""
 
         if not self.artist['info']['parsed']:
@@ -1064,6 +1159,7 @@ class EchoArtistDataSource(GObject.GObject):
         """
         data = self.artist['info']['data']
         if data is None:
+            print ('nothing here')
             return None
 
         if not self.artist['info']['parsed']:
