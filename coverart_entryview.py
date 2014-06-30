@@ -301,7 +301,7 @@ class ResultsGrid(Gtk.Grid):
         self.image2.props.vexpand = True
         self.stack.add_named(self.image2, "image2")
 
-        self.frame = Gtk.AspectFrame.new("", 0.5, 0.5, 1, False)
+        self.frame = Gtk.Frame.new() #"", 0.5, 0.5, 1, False)
         self.update_cover(None, None, None)
         scroll = Gtk.ScrolledWindow()
         scroll.add_with_viewport(self.stack)
