@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-06-23 21:31+0100\n"
-"PO-Revision-Date: 2014-06-22 13:27+0000\n"
+"PO-Revision-Date: 2014-06-30 02:29+0000\n"
 "Last-Translator: Jean-Rene Bastien <Unknown>\n"
 "Language-Team: French (Canada) "
 "(http://www.transifex.com/projects/p/coverartbrowser/language/fr_CA/)\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2014-06-28 20:48+0000\n"
+"X-Launchpad-Export-Date: 2014-06-30 09:08+0000\n"
 "X-Generator: Launchpad (build 17077)\n"
 "Language: fr_CA\n"
 
@@ -637,7 +637,7 @@ msgstr "Affichages"
 
 #: tmp/coverart_play_pop_rb3.ui.h:1
 msgid "Remove from Playlist"
-msgstr ""
+msgstr "Retirer de la liste de lecture"
 
 #: tmp/popups.xml.in.h:1
 msgid "rock"
@@ -853,7 +853,7 @@ msgstr "Parcourir les pochettes de vos albums et les jouer"
 
 #: coverart_browser_source.py:179
 msgid "CoverArt Playlist"
-msgstr ""
+msgstr "Liste de lecture"
 
 #. . TRANSLATORS - "All" is used in the context of "All artist names"
 #: coverart_browser_source.py:534
