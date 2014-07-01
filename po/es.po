@@ -8,22 +8,22 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-06-23 21:31+0100\n"
-"PO-Revision-Date: 2014-06-22 00:00+0000\n"
-"Last-Translator: Gerson Alvarado <Unknown>\n"
+"PO-Revision-Date: 2014-07-01 18:25+0000\n"
+"Last-Translator: Kevin Rodríguez Román <kevin94rdgz@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-06-28 20:48+0000\n"
-"X-Generator: Launchpad (build 17077)\n"
+"X-Launchpad-Export-Date: 2014-07-01 22:00+0000\n"
+"X-Generator: Launchpad (build 17082)\n"
 "Language: es\n"
 
 #. TRANSLATORS: album duration (length) in the format hour:minute:second
 #: tmpl/album-tmpl.html:20
 #, python-format
 msgid "%d:%02d:%02d"
-msgstr ""
+msgstr "%d:%02d:%02d"
 
 #. TRANSLATORS: album duration (length) in the format minute:second
 #: tmpl/album-tmpl.html:23
@@ -44,7 +44,7 @@ msgstr "Mostrar todas las pistas"
 #: tmpl/album-tmpl.html:69
 #, python-format
 msgid "Top albums by %s"
-msgstr ""
+msgstr "Mejores álbunes por %s"
 
 #. TRANSLATORS: %s is just a string and is not translated, %d is a number and
 #. is the number of track(s)
@@ -133,11 +133,11 @@ msgstr "Mostrar más resultados"
 
 #: tmpl/artist-tmpl.html:9 tmpl/echoartist-tmpl.html:10
 msgid "No information available"
-msgstr ""
+msgstr "No existe información disponible"
 
 #: tmpl/artist-tmpl.html:28
 msgid "Unfilter"
-msgstr ""
+msgstr "Sin filtrar"
 
 #: tmpl/artist-tmpl.html:29 tmpl/artist-tmpl.html:114
 msgid "Filter"
@@ -153,15 +153,15 @@ msgstr ""
 
 #: tmpl/artist-tmpl.html:97
 msgid "Similar Artists"
-msgstr ""
+msgstr "Artistas similares"
 
 #: tmpl/artist-tmpl.html:108
 msgid "similar"
-msgstr ""
+msgstr "Similar"
 
 #: tmpl/artist-tmpl.html:124 tmpl/echoartist-tmpl.html:69
 msgid "Unable to retrieve artist information:"
-msgstr ""
+msgstr "No se pudo obtener la información del artista:"
 
 #: tmpl/artistartsearch-tmpl.html:180
 msgid "Tip: doubleclick or drag a cover to use it as the artist cover"
@@ -175,7 +175,7 @@ msgstr ""
 
 #: tmpl/links-tmpl.html:28
 msgid "Unable to get links"
-msgstr ""
+msgstr "Imposible obtener los enlaces"
 
 #: tmp/coverart_artist_pop_rb3.ui.h:1
 msgid "Play All"
@@ -189,7 +189,7 @@ msgstr "Poner todo en cola"
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:3
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:3
 msgid "Add to playing"
-msgstr ""
+msgstr "Añadir a la lista de reproducción"
 
 #: tmp/coverart_artist_pop_rb3.ui.h:4 tmp/coverart_browser_pop_rb3.ui.h:5
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:8
@@ -218,7 +218,7 @@ msgstr "Encolar el álbum"
 
 #: tmp/coverart_browser_pop_rb3.ui.h:4
 msgid "Play Similar Artist"
-msgstr ""
+msgstr "Reproducir artistas similares"
 
 #: tmp/coverart_browser_pop_rb3.ui.h:8
 msgid "Export and embed coverart"
@@ -554,17 +554,17 @@ msgstr "Encolar pista"
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:4
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:4
 msgid "Play Similar"
-msgstr ""
+msgstr "Reproducir similares"
 
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:5
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:5
 msgid "Track"
-msgstr ""
+msgstr "Pista"
 
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:7
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:7
 msgid "Genre"
-msgstr ""
+msgstr "Género"
 
 #: tmp/coverart_exportembed.ui.h:1
 msgid "Choose folder to save tracks:"
@@ -630,7 +630,7 @@ msgstr "Vistas"
 
 #: tmp/coverart_play_pop_rb3.ui.h:1
 msgid "Remove from Playlist"
-msgstr ""
+msgstr "Quitar de la lista de reproducción"
 
 #: tmp/popups.xml.in.h:1
 msgid "rock"
@@ -785,11 +785,11 @@ msgstr "%s por %s"
 #: coverart_artistinfo.py:420
 #, python-format
 msgid "Loading biography for %s"
-msgstr ""
+msgstr "Cargando la biografía de %s"
 
 #: coverart_artistinfo.py:704
 msgid "No artist specified."
-msgstr ""
+msgstr "No se especificó ningún artista."
 
 #. Translators: 'top' here means 'most popular'.  %s is replaced by the artist name.
 #: coverart_artistinfo.py:724
@@ -836,6 +836,7 @@ msgstr ""
 "  Alfredo Hernández https://launchpad.net/~aldomann\n"
 "  Eduardo Battaglia https://launchpad.net/~eduardo-battaglia\n"
 "  Gerson Alvarado https://launchpad.net/~lewatoto\n"
+"  Kevin Rodríguez Román https://launchpad.net/~kevin94rdgz\n"
 "  Lucio https://launchpad.net/~lucio-martinez\n"
 "  Rashid Aliyev https://launchpad.net/~rashid\n"
 "  VPablo https://launchpad.net/~villumar\n"

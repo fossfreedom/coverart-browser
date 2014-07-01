@@ -14,15 +14,15 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-06-23 21:31+0100\n"
-"PO-Revision-Date: 2014-06-26 05:31+0000\n"
-"Last-Translator: londumas <helion331990@gmail.com>\n"
+"PO-Revision-Date: 2014-07-01 20:14+0000\n"
+"Last-Translator: Jean Marc <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2014-06-28 20:48+0000\n"
-"X-Generator: Launchpad (build 17077)\n"
+"X-Launchpad-Export-Date: 2014-07-01 22:00+0000\n"
+"X-Generator: Launchpad (build 17082)\n"
 "Language: fr\n"
 "Generated-By: Babel 0.9.6\n"
 
@@ -30,13 +30,13 @@ msgstr ""
 #: tmpl/album-tmpl.html:20
 #, python-format
 msgid "%d:%02d:%02d"
-msgstr ""
+msgstr "%d:%02d:%02d"
 
 #. TRANSLATORS: album duration (length) in the format minute:second
 #: tmpl/album-tmpl.html:23
 #, python-format
 msgid "%d:%02d"
-msgstr ""
+msgstr "%d:%02d"
 
 #: tmpl/album-tmpl.html:48
 msgid "Hide all tracks"
@@ -196,7 +196,7 @@ msgstr "Ajouter tout à la liste d'attente"
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:3
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:3
 msgid "Add to playing"
-msgstr ""
+msgstr "Ajouter à la lecture"
 
 #: tmp/coverart_artist_pop_rb3.ui.h:4 tmp/coverart_browser_pop_rb3.ui.h:5
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:8
@@ -225,7 +225,7 @@ msgstr "Mettre l'album en attente"
 
 #: tmp/coverart_browser_pop_rb3.ui.h:4
 msgid "Play Similar Artist"
-msgstr ""
+msgstr "Lire un artiste similaire"
 
 #: tmp/coverart_browser_pop_rb3.ui.h:8
 msgid "Export and embed coverart"
@@ -567,17 +567,17 @@ msgstr "Mettre la piste en attente"
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:4
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:4
 msgid "Play Similar"
-msgstr ""
+msgstr "Lire le même"
 
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:5
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:5
 msgid "Track"
-msgstr ""
+msgstr "Piste"
 
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:7
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:7
 msgid "Genre"
-msgstr ""
+msgstr "Genre"
 
 #: tmp/coverart_exportembed.ui.h:1
 msgid "Choose folder to save tracks:"
@@ -645,7 +645,7 @@ msgstr "Affichages"
 
 #: tmp/coverart_play_pop_rb3.ui.h:1
 msgid "Remove from Playlist"
-msgstr ""
+msgstr "Retirer de la liste de lecture"
 
 #: tmp/popups.xml.in.h:1
 msgid "rock"
@@ -800,17 +800,17 @@ msgstr "%s par %s"
 #: coverart_artistinfo.py:420
 #, python-format
 msgid "Loading biography for %s"
-msgstr ""
+msgstr "Chargement de la biographie de %s"
 
 #: coverart_artistinfo.py:704
 msgid "No artist specified."
-msgstr ""
+msgstr "Aucun artiste indiqué."
 
 #. Translators: 'top' here means 'most popular'.  %s is replaced by the artist name.
 #: coverart_artistinfo.py:724
 #, python-format
 msgid "Loading top albums for %s"
-msgstr ""
+msgstr "Chargement des albums les plus populaires de %s"
 
 #: coverart_artistview.py:375 coverart_browser_source.py:1067
 msgid " with 1 track"
@@ -850,7 +850,8 @@ msgstr ""
 "  Pierre Soulat https://launchpad.net/~pierre-soulat\n"
 "  fossfreedom https://launchpad.net/~fossfreedom\n"
 "  lann https://launchpad.net/~lann\n"
-"  londumas https://launchpad.net/~helion331990"
+"  londumas https://launchpad.net/~helion331990\n"
+"  Éfrit https://launchpad.net/~efrit"
 
 #. define .plugin text strings used for translation
 #: coverart_browser.py:142
@@ -863,7 +864,7 @@ msgstr "Parcourir les jaquettes de vos albums et les jouer"
 
 #: coverart_browser_source.py:179
 msgid "CoverArt Playlist"
-msgstr ""
+msgstr "Liste de lecture CoverArt"
 
 #. . TRANSLATORS - "All" is used in the context of "All artist names"
 #: coverart_browser_source.py:534
@@ -1017,7 +1018,7 @@ msgstr "Rechercher les artistes de la piste"
 
 #: coverart_controllers.py:716
 msgid "Search composers"
-msgstr ""
+msgstr "Rechercher les compositeurs"
 
 #: coverart_controllers.py:717
 msgid "Search albums"
@@ -1025,7 +1026,7 @@ msgstr "Rechercher les albums"
 
 #: coverart_controllers.py:718
 msgid "Search titles"
-msgstr ""
+msgstr "Rechercher les titres"
 
 #. TRANSLATORS: for example 'Number of covers limited to 150'
 #: coverart_coverflowview.py:196
@@ -1035,7 +1036,7 @@ msgstr "Nombre de pochettes limité à %d"
 
 #: coverart_covericonview.py:583
 msgid "Album has added to list of playing albums"
-msgstr ""
+msgstr "L'album a été ajouté à la liste d'albums en lecture"
 
 #: coverart_entryview.py:75
 msgid "Tracks"
@@ -1043,4 +1044,4 @@ msgstr "Pistes"
 
 #: coverart_playlists.py:165
 msgid "No matching tracks have been found"
-msgstr ""
+msgstr "Aucune piste apparentée n’a été trouvé"
