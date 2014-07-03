@@ -71,7 +71,7 @@ class EntryViewPane(object):
             False)
 
         self.entry_view_results = ResultsGrid()
-        self.entry_view_results.initialise()
+        self.entry_view_results.initialise(self.entry_view_grid)
 
         self.stack.add_titled(self.entry_view_results, "notebook_tracks", _("Tracks"))
         self.entry_view_grid.attach(self.stack, 0, 0, 3, 1)
@@ -283,8 +283,10 @@ class ResultsGrid(Gtk.Grid):
     def __init__(self, *args, **kwargs):
         super(ResultsGrid, self).__init__(*args, **kwargs)
 
-    def initialise(self):
+    def initialise(self, entry_view_grid):
         self.pixbuf = None
+
+        self.entry_view_grid = entry_view_grid
 
         self.oldval = 0
         self.stack = Gtk.Stack()
@@ -303,12 +305,13 @@ class ResultsGrid(Gtk.Grid):
 
         self.frame = Gtk.Frame.new() #"", 0.5, 0.5, 1, False)
         self.update_cover(None, None, None)
-        scroll = Gtk.ScrolledWindow()
-        scroll.add_with_viewport(self.stack)
-        scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER)
-        scroll.set_resize_mode(Gtk.ResizeMode.QUEUE)
+        self.scroll = Gtk.ScrolledWindow()
+        self.scroll.add(self.stack)
+        self.scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
 
-        self.frame.add(scroll)
+        self.scroll.set_resize_mode(Gtk.ResizeMode.QUEUE)
+
+        self.frame.add(self.scroll)
         self._signal_connected = None
 
         self.attach(self.frame, 6, 0, 1, 1)
@@ -351,24 +354,28 @@ class ResultsGrid(Gtk.Grid):
     def window_resize(self, widget):
         alloc = self.get_allocation()
         if alloc.height < 10:
-            print ('less than')
             return
+
+        entry_grid_alloc = self.entry_view_grid.get_allocation()
 
         if (alloc.width / 3) <= (MIN_IMAGE_SIZE + 30) or \
-                        (alloc.height) <= (MIN_IMAGE_SIZE + 30):
+                        (entry_grid_alloc.height) <= (MIN_IMAGE_SIZE + 30):
             self.frame.props.visible = False
+            return
         else:
             self.frame.props.visible = True
+            vbar = self.scroll.get_vscrollbar()
+            vbar.set_visible(False)
+            hbar = self.scroll.get_hscrollbar()
+            hbar.set_visible(False)
 
-        framealloc = self.frame.get_allocation()
-        minval = min(framealloc.width - 30, framealloc.height - 30)
+        minval = min((alloc.width / 3), alloc.height)
         if self.oldval == minval:
-            print (self.oldval)
             return
-        print("resizing")
-        print (self.pixbuf)
-        print (minval)
         self.oldval = minval
+        if minval < MIN_IMAGE_SIZE:
+            minval = MIN_IMAGE_SIZE
+
         if self.pixbuf:
             p = self.pixbuf.scale_simple(minval, minval, GdkPixbuf.InterpType.BILINEAR)
         else:
