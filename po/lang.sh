@@ -1,8 +1,15 @@
 #!/bin/sh
 echo "installing languages to $1"
-for i in *.po; do
-	lang=`basename $i .po`
-	echo "installing $lang"
-	install -d $1$lang/LC_MESSAGES
-	msgfmt -c $lang.po -o $1$lang/LC_MESSAGES/coverart_browser.mo
-done
+lang=`echo $LANG | cut -d'.' -f 1`
+
+if [ ! -f $lang.po ]; then
+   lang=`echo $lang | cut -d'_' -f 1`
+fi
+
+if [ ! -f $lang.po ]; then
+   lang="en_US"
+fi
+
+echo "installing $lang"
+install -d $1$lang/LC_MESSAGES
+msgfmt -c $lang.po -o $1$lang/LC_MESSAGES/coverart_browser.mo
