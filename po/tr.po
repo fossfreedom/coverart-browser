@@ -8,61 +8,60 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-06-23 21:31+0100\n"
-"PO-Revision-Date: 2013-08-30 11:37+0000\n"
-"Last-Translator: Şâkir Aşçı <Unknown>\n"
+"PO-Revision-Date: 2014-07-03 21:36+0000\n"
+"Last-Translator: Muhammet Kara <Unknown>\n"
 "Language-Team: Turkish <tr@li.org>\n"
-"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-01-16 21:56+0000\n"
-"X-Generator: Launchpad (build 16901)\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2014-07-04 18:44+0000\n"
+"X-Generator: Launchpad (build 17086)\n"
+"Language: tr\n"
 
 #. TRANSLATORS: album duration (length) in the format hour:minute:second
 #: tmpl/album-tmpl.html:20
 #, python-format
 msgid "%d:%02d:%02d"
-msgstr ""
+msgstr "%d:%02d:%02d"
 
 #. TRANSLATORS: album duration (length) in the format minute:second
 #: tmpl/album-tmpl.html:23
 #, python-format
 msgid "%d:%02d"
-msgstr ""
+msgstr "%d:%02d"
 
 #: tmpl/album-tmpl.html:48
-#, fuzzy
 msgid "Hide all tracks"
-msgstr "Parçaları ara"
+msgstr "Tüm parçaları gizle"
 
 #: tmpl/album-tmpl.html:49 tmpl/album-tmpl.html:93
-#, fuzzy
 msgid "Show all tracks"
-msgstr "Parçaları ara"
+msgstr "Tüm parçaları göster"
 
 #. TRANSLATORS: where %s is the artist name - for example "Top Albums by
 #. Michael Jackson"
 #: tmpl/album-tmpl.html:69
 #, python-format
 msgid "Top albums by %s"
-msgstr ""
+msgstr "%s'in gözde albümleri"
 
 #. TRANSLATORS: %s is just a string and is not translated, %d is a number and
 #. is the number of track(s)
 #: tmpl/album-tmpl.html:87
-#, fuzzy, python-format
+#, python-format
 msgid "%s (%d track)"
 msgid_plural "%s (%d tracks)"
-msgstr[0] " ve %d parça"
-msgstr[1] " ve %d parça"
+msgstr[0] "%s (%d parça)"
+msgstr[1] "%s (%d parça)"
 
 #: tmpl/album-tmpl.html:106
 msgid "Track list not available"
-msgstr ""
+msgstr "Parça listesi mevcut değil"
 
 #: tmpl/album-tmpl.html:119
 msgid "Unable to retrieve album information:"
-msgstr ""
+msgstr "Albüm bilgisi alınamadı:"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 #: tmpl/artistartsearch-tmpl.html:135
@@ -134,7 +133,7 @@ msgstr "Daha fazla sonuç göster"
 
 #: tmpl/artist-tmpl.html:9 tmpl/echoartist-tmpl.html:10
 msgid "No information available"
-msgstr ""
+msgstr "Kullanılabilir bilgi yok"
 
 #: tmpl/artist-tmpl.html:28
 msgid "Unfilter"
@@ -154,15 +153,15 @@ msgstr ""
 
 #: tmpl/artist-tmpl.html:97
 msgid "Similar Artists"
-msgstr ""
+msgstr "Benzer Sanatçılar"
 
 #: tmpl/artist-tmpl.html:108
 msgid "similar"
-msgstr ""
+msgstr "benzer"
 
 #: tmpl/artist-tmpl.html:124 tmpl/echoartist-tmpl.html:69
 msgid "Unable to retrieve artist information:"
-msgstr ""
+msgstr "Sanatçı bilgisi alınamadı:"
 
 #: tmpl/artistartsearch-tmpl.html:180
 msgid "Tip: doubleclick or drag a cover to use it as the artist cover"
@@ -177,21 +176,18 @@ msgid "Unable to get links"
 msgstr ""
 
 #: tmp/coverart_artist_pop_rb3.ui.h:1
-#, fuzzy
 msgid "Play All"
-msgstr "Albümü Çal"
+msgstr "Tümünü Oynat"
 
 #: tmp/coverart_artist_pop_rb3.ui.h:2
-#, fuzzy
 msgid "Queue All"
-msgstr "Albüm Kuyruğu"
+msgstr ""
 
 #: tmp/coverart_artist_pop_rb3.ui.h:3 tmp/coverart_browser_pop_rb3.ui.h:3
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:3
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:3
-#, fuzzy
 msgid "Add to playing"
-msgstr "Çalma Listesine Ekle"
+msgstr ""
 
 #: tmp/coverart_artist_pop_rb3.ui.h:4 tmp/coverart_browser_pop_rb3.ui.h:5
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:8
@@ -275,7 +271,8 @@ msgstr "Otomatik Başlat"
 
 #: tmp/coverart_browser_prefs.ui.h:11
 msgid "When rhythmbox starts, switch automatically to the coverart browser."
-msgstr "Rhythmbox başlatıldığında otomatik olarak coverart browser'a geçiş yap"
+msgstr ""
+"Rhythmbox başlatıldığında otomatik olarak coverart browser'a geçiş yap"
 
 #: tmp/coverart_browser_prefs.ui.h:12
 msgid "Use source's custom statusbar"
@@ -310,9 +307,8 @@ msgid "Album Information"
 msgstr "Albüm Bilgisi"
 
 #: tmp/coverart_browser_prefs.ui.h:20
-#, fuzzy
 msgid "Display album information"
-msgstr "Albüm Bilgisi"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:21
 msgid "Font size for the text below the cover-art."
@@ -345,9 +341,8 @@ msgid "Display album's info under cover"
 msgstr "Albüm bilgisini kapağın altında göster"
 
 #: tmp/coverart_browser_prefs.ui.h:28
-#, fuzzy
 msgid "Display album's info within cover"
-msgstr "Albüm bilgisini kapağın altında göster"
+msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:29
 msgid "Cover Appearance"
@@ -524,9 +519,8 @@ msgid "Toolbar"
 msgstr "Araç Çubuğu"
 
 #: tmp/coverart_browser.ui.h:1
-#, fuzzy
 msgid "Tracks & Covers"
-msgstr "Mahnılar paneli"
+msgstr ""
 
 #: tmp/coverart_browser.ui.h:2
 msgid "Track Artist"
@@ -553,15 +547,13 @@ msgstr ""
 
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:5
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:5
-#, fuzzy
 msgid "Track"
-msgstr "Parçalar"
+msgstr ""
 
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:7
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:7
-#, fuzzy
 msgid "Genre"
-msgstr "Tüm Türler"
+msgstr ""
 
 #: tmp/coverart_exportembed.ui.h:1
 msgid "Choose folder to save tracks:"
@@ -626,9 +618,8 @@ msgid "Views"
 msgstr ""
 
 #: tmp/coverart_play_pop_rb3.ui.h:1
-#, fuzzy
 msgid "Remove from Playlist"
-msgstr "Çalma Listesine Ekle"
+msgstr ""
 
 #: tmp/popups.xml.in.h:1
 msgid "rock"
@@ -719,9 +710,8 @@ msgid "latin"
 msgstr ""
 
 #: tmp/popups.xml.in.h:23
-#, fuzzy
 msgid "alternative"
-msgstr "Değişik Türler:"
+msgstr ""
 
 #: tmp/popups.xml.in.h:24
 msgid "disco"
@@ -829,6 +819,7 @@ msgstr ""
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
+"  Muhammet Kara https://launchpad.net/~muhammet-k\n"
 "  Osman Karagöz https://launchpad.net/~osmank3\n"
 "  Rashid Aliyev https://launchpad.net/~rashid\n"
 "  fossfreedom https://launchpad.net/~fossfreedom\n"
@@ -844,9 +835,8 @@ msgid "Browse and play your albums through their covers"
 msgstr ""
 
 #: coverart_browser_source.py:179
-#, fuzzy
 msgid "CoverArt Playlist"
-msgstr "Yeni Çalma Listesi"
+msgstr ""
 
 #. . TRANSLATORS - "All" is used in the context of "All artist names"
 #: coverart_browser_source.py:534
@@ -994,18 +984,16 @@ msgid "Search track artists"
 msgstr "Parça sanatçılarını ara"
 
 #: coverart_controllers.py:716
-#, fuzzy
 msgid "Search composers"
-msgstr "Kapakları ara"
+msgstr ""
 
 #: coverart_controllers.py:717
 msgid "Search albums"
 msgstr "Albümleri ara"
 
 #: coverart_controllers.py:718
-#, fuzzy
 msgid "Search titles"
-msgstr "Arama metni"
+msgstr ""
 
 #. TRANSLATORS: for example 'Number of covers limited to 150'
 #: coverart_coverflowview.py:196
@@ -1024,10 +1012,3 @@ msgstr "Parçalar"
 #: coverart_playlists.py:165
 msgid "No matching tracks have been found"
 msgstr ""
-
-#~ msgid "Display tracks and covers pane"
-#~ msgstr "Mahnıları və üzlük panelini göstər"
-
-#, fuzzy
-#~ msgid "size in pixels"
-#~ msgstr "Boyut (piksel olarak):"

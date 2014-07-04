@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-06-23 21:31+0100\n"
-"PO-Revision-Date: 2014-07-01 18:25+0000\n"
+"PO-Revision-Date: 2014-07-02 12:08+0000\n"
 "Last-Translator: Kevin Rodríguez Román <kevin94rdgz@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-07-01 22:00+0000\n"
-"X-Generator: Launchpad (build 17082)\n"
+"X-Launchpad-Export-Date: 2014-07-04 18:44+0000\n"
+"X-Generator: Launchpad (build 17086)\n"
 "Language: es\n"
 
 #. TRANSLATORS: album duration (length) in the format hour:minute:second
@@ -171,7 +171,7 @@ msgstr ""
 
 #: tmpl/echoartist-tmpl.html:66
 msgid "Biography provided by: "
-msgstr ""
+msgstr "La biografía se obtuvo de: "
 
 #: tmpl/links-tmpl.html:28
 msgid "Unable to get links"
@@ -854,7 +854,7 @@ msgstr "Navegue y reproduzca sus álbumes mediante sus carátulas"
 
 #: coverart_browser_source.py:179
 msgid "CoverArt Playlist"
-msgstr ""
+msgstr "CovertArt"
 
 #. . TRANSLATORS - "All" is used in the context of "All artist names"
 #: coverart_browser_source.py:534
@@ -1016,7 +1016,7 @@ msgstr "Buscar álbumes"
 
 #: coverart_controllers.py:718
 msgid "Search titles"
-msgstr ""
+msgstr "Buscar títulos"
 
 #. TRANSLATORS: for example 'Number of covers limited to 150'
 #: coverart_coverflowview.py:196
@@ -1026,7 +1026,7 @@ msgstr "Número de carátulas limitadas a %d"
 
 #: coverart_covericonview.py:583
 msgid "Album has added to list of playing albums"
-msgstr ""
+msgstr "El albun ha sido agregado a la lista de reproducción"
 
 #: coverart_entryview.py:75
 msgid "Tracks"
