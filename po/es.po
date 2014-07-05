@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-06-23 21:31+0100\n"
-"PO-Revision-Date: 2014-07-02 12:08+0000\n"
-"Last-Translator: Kevin Rodríguez Román <kevin94rdgz@gmail.com>\n"
+"PO-Revision-Date: 2014-07-05 19:34+0000\n"
+"Last-Translator: VPablo <villumar@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-07-04 18:44+0000\n"
+"X-Launchpad-Export-Date: 2014-07-05 20:56+0000\n"
 "X-Generator: Launchpad (build 17086)\n"
 "Language: es\n"
 
@@ -57,7 +57,7 @@ msgstr[1] "%s (%d pistas)"
 
 #: tmpl/album-tmpl.html:106
 msgid "Track list not available"
-msgstr ""
+msgstr "La lista de pistas no está disponible"
 
 #: tmpl/album-tmpl.html:119
 msgid "Unable to retrieve album information:"
@@ -141,7 +141,7 @@ msgstr "Sin filtrar"
 
 #: tmpl/artist-tmpl.html:29 tmpl/artist-tmpl.html:114
 msgid "Filter"
-msgstr ""
+msgstr "Filtro"
 
 #. TRANSLATORS: Links for artist-name e.g. Links for Michael Jackson
 #: tmpl/artist-tmpl.html:80 tmpl/artist-tmpl.html:87
@@ -149,7 +149,7 @@ msgstr ""
 #: tmpl/links-tmpl.html:15 tmpl/links-tmpl.html:21
 #, python-format
 msgid "Links for %s:"
-msgstr ""
+msgstr "Enlaces para %s:"
 
 #: tmpl/artist-tmpl.html:97
 msgid "Similar Artists"
@@ -795,7 +795,7 @@ msgstr "No se especificó ningún artista."
 #: coverart_artistinfo.py:724
 #, python-format
 msgid "Loading top albums for %s"
-msgstr ""
+msgstr "Cargando mejores álbumes de %s"
 
 #: coverart_artistview.py:375 coverart_browser_source.py:1067
 msgid " with 1 track"
@@ -920,7 +920,7 @@ msgstr "Reproducir un álbum al azar"
 
 #: coverart_controllers.py:501 coverart_controllers.py:555
 msgid "Follow playing song"
-msgstr ""
+msgstr "Sigue tocando la canción"
 
 #: coverart_controllers.py:504 coverart_controllers.py:552
 msgid "Use favourites only"
@@ -1008,7 +1008,7 @@ msgstr "Buscar por artista de canción"
 
 #: coverart_controllers.py:716
 msgid "Search composers"
-msgstr ""
+msgstr "Buscar compositores"
 
 #: coverart_controllers.py:717
 msgid "Search albums"
@@ -1034,4 +1034,4 @@ msgstr "Pistas"
 
 #: coverart_playlists.py:165
 msgid "No matching tracks have been found"
-msgstr ""
+msgstr "No se han encontrado pistas que coincidan"

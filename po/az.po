@@ -8,62 +8,60 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-06-23 21:31+0100\n"
-"PO-Revision-Date: 2014-01-14 22:49+0000\n"
+"PO-Revision-Date: 2014-07-05 19:05+0000\n"
 "Last-Translator: Rashid Aliyev <Unknown>\n"
 "Language-Team: Azerbaijani <az@li.org>\n"
-"Language: az\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-01-16 21:56+0000\n"
-"X-Generator: Launchpad (build 16901)\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2014-07-05 21:00+0000\n"
+"X-Generator: Launchpad (build 17086)\n"
+"Language: az\n"
 
 #. TRANSLATORS: album duration (length) in the format hour:minute:second
 #: tmpl/album-tmpl.html:20
 #, python-format
 msgid "%d:%02d:%02d"
-msgstr ""
+msgstr "%d:%02d:%02d"
 
 #. TRANSLATORS: album duration (length) in the format minute:second
 #: tmpl/album-tmpl.html:23
 #, python-format
 msgid "%d:%02d"
-msgstr ""
+msgstr "%d:%02d"
 
 #: tmpl/album-tmpl.html:48
-#, fuzzy
 msgid "Hide all tracks"
-msgstr "Mahnılarda axtar"
+msgstr "Bütün yazıları gizlət"
 
 #: tmpl/album-tmpl.html:49 tmpl/album-tmpl.html:93
-#, fuzzy
 msgid "Show all tracks"
-msgstr "Mahnılarda axtar"
+msgstr "Bütün yazıları göstər"
 
 #. TRANSLATORS: where %s is the artist name - for example "Top Albums by
 #. Michael Jackson"
 #: tmpl/album-tmpl.html:69
 #, python-format
 msgid "Top albums by %s"
-msgstr ""
+msgstr "%s görə ən yüksək albomlar"
 
 #. TRANSLATORS: %s is just a string and is not translated, %d is a number and
 #. is the number of track(s)
 #: tmpl/album-tmpl.html:87
-#, fuzzy, python-format
+#, python-format
 msgid "%s (%d track)"
 msgid_plural "%s (%d tracks)"
-msgstr[0] " %d mahnısı ilə birgə"
-msgstr[1] " %d mahnısı ilə birgə"
+msgstr[0] "%s (%d mahnı)"
+msgstr[1] "%s (%d mahnılar)"
 
 #: tmpl/album-tmpl.html:106
 msgid "Track list not available"
-msgstr ""
+msgstr "Mahnı siyahısı mövcüd deyil"
 
 #: tmpl/album-tmpl.html:119
-#, fuzzy
 msgid "Unable to retrieve album information:"
-msgstr "Albom haqda məlumatı göstər"
+msgstr "Albom haqda məlumat əldə etmək mümkün olmadı:"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 #: tmpl/artistartsearch-tmpl.html:135
@@ -135,15 +133,15 @@ msgstr "Daha çox nəticə göstər"
 
 #: tmpl/artist-tmpl.html:9 tmpl/echoartist-tmpl.html:10
 msgid "No information available"
-msgstr ""
+msgstr "Məlumat yoxdur"
 
 #: tmpl/artist-tmpl.html:28
 msgid "Unfilter"
-msgstr ""
+msgstr "Filteri təmizlə"
 
 #: tmpl/artist-tmpl.html:29 tmpl/artist-tmpl.html:114
 msgid "Filter"
-msgstr ""
+msgstr "Süzgəc"
 
 #. TRANSLATORS: Links for artist-name e.g. Links for Michael Jackson
 #: tmpl/artist-tmpl.html:80 tmpl/artist-tmpl.html:87
@@ -151,19 +149,19 @@ msgstr ""
 #: tmpl/links-tmpl.html:15 tmpl/links-tmpl.html:21
 #, python-format
 msgid "Links for %s:"
-msgstr ""
+msgstr "%s üçün liklər:"
 
 #: tmpl/artist-tmpl.html:97
 msgid "Similar Artists"
-msgstr ""
+msgstr "Bənzər Müğənnilər"
 
 #: tmpl/artist-tmpl.html:108
 msgid "similar"
-msgstr ""
+msgstr "bənzər"
 
 #: tmpl/artist-tmpl.html:124 tmpl/echoartist-tmpl.html:69
 msgid "Unable to retrieve artist information:"
-msgstr ""
+msgstr "Müğənni haqda məlumatı əldə etmək mümkün olmadı:"
 
 #: tmpl/artistartsearch-tmpl.html:180
 msgid "Tip: doubleclick or drag a cover to use it as the artist cover"
@@ -173,11 +171,11 @@ msgstr ""
 
 #: tmpl/echoartist-tmpl.html:66
 msgid "Biography provided by: "
-msgstr ""
+msgstr "Bioqrafiyanı təqdim etdi: "
 
 #: tmpl/links-tmpl.html:28
 msgid "Unable to get links"
-msgstr ""
+msgstr "Linklər yüklənmədi"
 
 #: tmp/coverart_artist_pop_rb3.ui.h:1
 msgid "Play All"
@@ -190,9 +188,8 @@ msgstr "Hamısını növbəyə sal"
 #: tmp/coverart_artist_pop_rb3.ui.h:3 tmp/coverart_browser_pop_rb3.ui.h:3
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:3
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:3
-#, fuzzy
 msgid "Add to playing"
-msgstr "Mahnı siyahsına əlavə et"
+msgstr "Oxunanlara əlavə et"
 
 #: tmp/coverart_artist_pop_rb3.ui.h:4 tmp/coverart_browser_pop_rb3.ui.h:5
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:8
@@ -221,7 +218,7 @@ msgstr "Albomu növbəyə sal"
 
 #: tmp/coverart_browser_pop_rb3.ui.h:4
 msgid "Play Similar Artist"
-msgstr ""
+msgstr "Bənzər Müğənniləri Dinlət"
 
 #: tmp/coverart_browser_pop_rb3.ui.h:8
 msgid "Export and embed coverart"
@@ -318,9 +315,8 @@ msgid "Album Information"
 msgstr "Albom haqda məlumat"
 
 #: tmp/coverart_browser_prefs.ui.h:20
-#, fuzzy
 msgid "Display album information"
-msgstr "Albom haqda məlumatı üzlüklə bir yerdə göstər"
+msgstr "Albom haqda məlumatı göstər"
 
 #: tmp/coverart_browser_prefs.ui.h:21
 msgid "Font size for the text below the cover-art."
@@ -558,21 +554,18 @@ msgstr "Mahnını növbəyə sal"
 
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:4
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:4
-#, fuzzy
 msgid "Play Similar"
-msgstr "Hamısını dinlət"
+msgstr "Bənzərlərini Dinlət"
 
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:5
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:5
-#, fuzzy
 msgid "Track"
-msgstr "Mahnılar"
+msgstr "Parça"
 
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:7
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:7
-#, fuzzy
 msgid "Genre"
-msgstr "Bütün Janrlar"
+msgstr "Janr"
 
 #: tmp/coverart_exportembed.ui.h:1
 msgid "Choose folder to save tracks:"
@@ -637,9 +630,8 @@ msgid "Views"
 msgstr "Görünüşlər"
 
 #: tmp/coverart_play_pop_rb3.ui.h:1
-#, fuzzy
 msgid "Remove from Playlist"
-msgstr "Mahnı siyahsına əlavə et"
+msgstr "Oxunanlar siyahısından çıxart"
 
 #: tmp/popups.xml.in.h:1
 msgid "rock"
@@ -794,17 +786,17 @@ msgstr "%s - %s"
 #: coverart_artistinfo.py:420
 #, python-format
 msgid "Loading biography for %s"
-msgstr ""
+msgstr "%s üçün bioqrafiya yüklənir"
 
 #: coverart_artistinfo.py:704
 msgid "No artist specified."
-msgstr ""
+msgstr "Müğənni göstərilməyib"
 
 #. Translators: 'top' here means 'most popular'.  %s is replaced by the artist name.
 #: coverart_artistinfo.py:724
 #, python-format
 msgid "Loading top albums for %s"
-msgstr ""
+msgstr "%s ümün ən popular albomlar yüklənir"
 
 #: coverart_artistview.py:375 coverart_browser_source.py:1067
 msgid " with 1 track"
@@ -853,9 +845,8 @@ msgid "Browse and play your albums through their covers"
 msgstr "Üz şəklinə görə albomlara bax və oxud"
 
 #: coverart_browser_source.py:179
-#, fuzzy
 msgid "CoverArt Playlist"
-msgstr "Yeni müsiqi siyahısı"
+msgstr "CoverArt Sİyahı"
 
 #. . TRANSLATORS - "All" is used in the context of "All artist names"
 #: coverart_browser_source.py:534
@@ -920,7 +911,7 @@ msgstr "Albomları qarşıq dinlət"
 
 #: coverart_controllers.py:501 coverart_controllers.py:555
 msgid "Follow playing song"
-msgstr ""
+msgstr "Oxunan mahnını izlə"
 
 #: coverart_controllers.py:504 coverart_controllers.py:552
 msgid "Use favourites only"
@@ -1007,18 +998,16 @@ msgid "Search track artists"
 msgstr "Mahnıların ifaçısına görə axtar"
 
 #: coverart_controllers.py:716
-#, fuzzy
 msgid "Search composers"
-msgstr "Üzlkülər axtarışı"
+msgstr "Bəstəkarları axtar"
 
 #: coverart_controllers.py:717
 msgid "Search albums"
 msgstr "Albomlarda axtar"
 
 #: coverart_controllers.py:718
-#, fuzzy
 msgid "Search titles"
-msgstr "Axtarış mətni"
+msgstr "Başlıqları axtar"
 
 #. TRANSLATORS: for example 'Number of covers limited to 150'
 #: coverart_coverflowview.py:196
@@ -1028,7 +1017,7 @@ msgstr "Üzlüklərin sayı %d ilə məhdudlanıb"
 
 #: coverart_covericonview.py:583
 msgid "Album has added to list of playing albums"
-msgstr ""
+msgstr "Albom oxunanlar siyahısına əlavə edildi"
 
 #: coverart_entryview.py:75
 msgid "Tracks"
@@ -1036,25 +1025,4 @@ msgstr "Mahnılar"
 
 #: coverart_playlists.py:165
 msgid "No matching tracks have been found"
-msgstr ""
-
-#~ msgid "Display tracks and covers pane"
-#~ msgstr "Yollar və üz panelini əks etdir"
-
-#~ msgid ""
-#~ "Add a toggle-option to the coverart view to display the tracks and covers "
-#~ "for the chosen album"
-#~ msgstr ""
-#~ "Coverart gprünüşünə seçilmiş albomun mahnılarının və üzlüyünün görünüb-"
-#~ "görünməməsi seçənəyi əlavə et"
-
-#~ msgid ""
-#~ "Tip: Drag and Drop exported tracks from file-manager to a playlist or "
-#~ "telephone/other device"
-#~ msgstr "Qeyd: Çək-və-Burax"
-
-#~ msgid "size in pixels"
-#~ msgstr "ölçü piksellər ilə"
-
-#~ msgid "Quick artist filter"
-#~ msgstr "Cəld müğənni filterləri"
+msgstr "Uyğun parça tapılmadı"
