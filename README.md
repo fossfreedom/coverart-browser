@@ -31,7 +31,7 @@ Browse your coverart albums in Rhythmbox v3 and later.
  - New optional theme: darker toolbar icons by the graphics artist [jrbastien](https://github.com/jrbastien)
  - New subtle hover, play & queue icons by the graphics artist [jrbastien](https://github.com/jrbastien)
  - Introduce more modern look & feel through subtle animations
- - Views button now can navigate to Play Queue.  Allows navigation of key views without the side-bar (F9) being visible
+ - Views button ("…") now can navigate to Play Queue.  Allows navigation of key views without the side-bar (F9) being visible
  - Artist & Album information pane with LastFM & EchoNest data
  - Artist & Album information is fully localised (in your native language) if LastFM returns information in your locale
  - Information pane can be made visible or hidden by dragging the pane-handle
