@@ -1220,7 +1220,8 @@ class AlbumLoader(GObject.Object):
             elif change.prop is RB.RhythmDBPropType.HIDDEN:
                 # called when an entry gets hidden (e.g.:the sound file is
                 # removed.
-                if changes.new:
+                print (change)
+                if change.new:
                     print("change prop new")
                     track.emit('deleted')
                 else:

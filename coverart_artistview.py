@@ -554,7 +554,8 @@ class ArtistsModel(GObject.Object):
                     next_iter = self._tree_store.iter_next(next_iter)
 
         # now we have finished sorting, reapply the sort
-        self.store.set_sort_column_id(*sortSettings)
+        if sortSettings[0]:
+            self.store.set_sort_column_id(*sortSettings)
 
 
 class ArtistCellRenderer(Gtk.CellRendererPixbuf):
