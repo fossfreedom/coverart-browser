@@ -229,7 +229,7 @@ class ExternalPluginMenu(GObject.Object):
 
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
-        toolbar_item.set_label(_('Views'))
+        toolbar_item.set_label('…')
         cl.switch_locale(cl.Locale.RB)
 
         toolbar_item.set_submenu(menu)

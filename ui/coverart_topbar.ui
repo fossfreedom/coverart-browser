@@ -185,7 +185,7 @@
         </child>
         <child>
           <object class="TextPopupButton" id="view_button">
-            <property name="label" translatable="yes" comments="This is the different view modes e.g. Music Library, CoverFlow, Tiles or Album Artist">Views</property>
+            <property name="label" translatable="no">…</property>
             <property name="use_action_appearance">False</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
