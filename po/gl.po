@@ -11,13 +11,13 @@ msgstr ""
 "PO-Revision-Date: 2014-06-28 17:31+0000\n"
 "Last-Translator: Marcos Lans <Unknown>\n"
 "Language-Team: Galician <gl@li.org>\n"
+"Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Launchpad-Export-Date: 2014-06-28 20:48+0000\n"
 "X-Generator: Launchpad (build 17077)\n"
-"Language: gl\n"
 
 #. TRANSLATORS: album duration (length) in the format hour:minute:second
 #: tmpl/album-tmpl.html:20
@@ -301,8 +301,7 @@ msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:16
 msgid "Level above which is regarded as being a favourite track or album"
-msgstr ""
-"Nivel a partir do que unha pista ou álbum é considerada como preferida"
+msgstr "Nivel a partir do que unha pista ou álbum é considerada como preferida"
 
 #: tmp/coverart_browser_prefs.ui.h:17
 msgid "Favourite Threshold"
@@ -342,8 +341,7 @@ msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:25
 msgid "Maximum allowed length for an album's name before being ellipsized."
-msgstr ""
-"Lonxitude máxima permitida para o nome dun álbum antes de ser reducido"
+msgstr "Lonxitude máxima permitida para o nome dun álbum antes de ser reducido"
 
 #: tmp/coverart_browser_prefs.ui.h:26
 msgid "Maximum length:"
@@ -858,8 +856,7 @@ msgstr "Todos"
 msgid ""
 "No tracks have been added because no tracks meet the favourite rating "
 "threshold"
-msgstr ""
-"Non se engadiron pistas porque ningunha cumpre a valoración requirida"
+msgstr "Non se engadiron pistas porque ningunha cumpre a valoración requirida"
 
 #: coverart_browser_source.py:791
 msgid "The number of albums to randomly play is less than that displayed."

@@ -11,13 +11,13 @@ msgstr ""
 "PO-Revision-Date: 2014-07-05 19:34+0000\n"
 "Last-Translator: VPablo <villumar@gmail.com>\n"
 "Language-Team: none\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Launchpad-Export-Date: 2014-07-05 20:56+0000\n"
 "X-Generator: Launchpad (build 17086)\n"
-"Language: es\n"
 
 #. TRANSLATORS: album duration (length) in the format hour:minute:second
 #: tmpl/album-tmpl.html:20
@@ -299,8 +299,7 @@ msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:16
 msgid "Level above which is regarded as being a favourite track or album"
-msgstr ""
-"Nivel a partir del cual se considera a una pista o álbum como favorito"
+msgstr "Nivel a partir del cual se considera a una pista o álbum como favorito"
 
 #: tmp/coverart_browser_prefs.ui.h:17
 msgid "Favourite Threshold"
@@ -340,8 +339,7 @@ msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:25
 msgid "Maximum allowed length for an album's name before being ellipsized."
-msgstr ""
-"Lago máximo permitido para el nombre del álbum antes de ser acortado."
+msgstr "Lago máximo permitido para el nombre del álbum antes de ser acortado."
 
 #: tmp/coverart_browser_prefs.ui.h:26
 msgid "Maximum length:"

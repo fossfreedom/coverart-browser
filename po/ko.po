@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-06-23 21:31+0100\n"
-"PO-Revision-Date: 2013-11-07 11:54+0000\n"
-"Last-Translator: Kim Boram <boramism@gmail.com>\n"
+"PO-Revision-Date: 2014-07-08 01:09+0000\n"
+"Last-Translator: Litty <Unknown>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-01-16 21:56+0000\n"
-"X-Generator: Launchpad (build 16901)\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Launchpad-Export-Date: 2014-07-08 06:17+0000\n"
+"X-Generator: Launchpad (build 17086)\n"
 
 #. TRANSLATORS: album duration (length) in the format hour:minute:second
 #: tmpl/album-tmpl.html:20
@@ -31,14 +32,12 @@ msgid "%d:%02d"
 msgstr ""
 
 #: tmpl/album-tmpl.html:48
-#, fuzzy
 msgid "Hide all tracks"
-msgstr "트랙 검색"
+msgstr "모든 트랙 감추기"
 
 #: tmpl/album-tmpl.html:49 tmpl/album-tmpl.html:93
-#, fuzzy
 msgid "Show all tracks"
-msgstr "트랙 검색"
+msgstr "모든 트랙 보기"
 
 #. TRANSLATORS: where %s is the artist name - for example "Top Albums by
 #. Michael Jackson"
@@ -50,19 +49,19 @@ msgstr ""
 #. TRANSLATORS: %s is just a string and is not translated, %d is a number and
 #. is the number of track(s)
 #: tmpl/album-tmpl.html:87
-#, fuzzy, python-format
+#, python-format
 msgid "%s (%d track)"
 msgid_plural "%s (%d tracks)"
-msgstr[0] " 트랙 %d개"
-msgstr[1] " 트랙 %d개"
+msgstr[0] ""
+msgstr[1] ""
 
 #: tmpl/album-tmpl.html:106
 msgid "Track list not available"
-msgstr ""
+msgstr "트랙 목록 사용 불가"
 
 #: tmpl/album-tmpl.html:119
 msgid "Unable to retrieve album information:"
-msgstr ""
+msgstr "앨범 정보 다시 읽기 사용 불가:"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 #: tmpl/artistartsearch-tmpl.html:135
@@ -132,7 +131,7 @@ msgstr "더 많은 결과 보이기"
 
 #: tmpl/artist-tmpl.html:9 tmpl/echoartist-tmpl.html:10
 msgid "No information available"
-msgstr ""
+msgstr "정보 없음"
 
 #: tmpl/artist-tmpl.html:28
 msgid "Unfilter"
@@ -175,21 +174,18 @@ msgid "Unable to get links"
 msgstr ""
 
 #: tmp/coverart_artist_pop_rb3.ui.h:1
-#, fuzzy
 msgid "Play All"
-msgstr "앨범 연주"
+msgstr "모두 재생"
 
 #: tmp/coverart_artist_pop_rb3.ui.h:2
-#, fuzzy
 msgid "Queue All"
-msgstr "앨범 대기열에 추가"
+msgstr "모두 대기"
 
 #: tmp/coverart_artist_pop_rb3.ui.h:3 tmp/coverart_browser_pop_rb3.ui.h:3
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:3
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:3
-#, fuzzy
 msgid "Add to playing"
-msgstr "연주 목록에 추가"
+msgstr ""
 
 #: tmp/coverart_artist_pop_rb3.ui.h:4 tmp/coverart_browser_pop_rb3.ui.h:5
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:8
@@ -312,9 +308,8 @@ msgid "Album Information"
 msgstr "앨범 정보"
 
 #: tmp/coverart_browser_prefs.ui.h:20
-#, fuzzy
 msgid "Display album information"
-msgstr "앨범 정보"
+msgstr "앨범 정보 보이기"
 
 #: tmp/coverart_browser_prefs.ui.h:21
 msgid "Font size for the text below the cover-art."
@@ -347,9 +342,8 @@ msgid "Display album's info under cover"
 msgstr "표지 아래에 앨범 정보 표시"
 
 #: tmp/coverart_browser_prefs.ui.h:28
-#, fuzzy
 msgid "Display album's info within cover"
-msgstr "표지 아래에 앨범 정보 표시"
+msgstr "표지와 함께 앨범 정보 보이기"
 
 #: tmp/coverart_browser_prefs.ui.h:29
 msgid "Cover Appearance"
@@ -554,15 +548,13 @@ msgstr ""
 
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:5
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:5
-#, fuzzy
 msgid "Track"
 msgstr "트랙"
 
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:7
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:7
-#, fuzzy
 msgid "Genre"
-msgstr "모든 장르"
+msgstr "장르"
 
 #: tmp/coverart_exportembed.ui.h:1
 msgid "Choose folder to save tracks:"
@@ -627,9 +619,8 @@ msgid "Views"
 msgstr ""
 
 #: tmp/coverart_play_pop_rb3.ui.h:1
-#, fuzzy
 msgid "Remove from Playlist"
-msgstr "연주 목록에 추가"
+msgstr "재생 목록에서 제거"
 
 #: tmp/popups.xml.in.h:1
 msgid "rock"
@@ -829,7 +820,8 @@ msgstr "찾아보기 기본 설정"
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  Kim Boram https://launchpad.net/~boramism"
+"  Kim Boram https://launchpad.net/~boramism\n"
+"  Litty https://launchpad.net/~litty"
 
 #. define .plugin text strings used for translation
 #: coverart_browser.py:142
@@ -841,9 +833,8 @@ msgid "Browse and play your albums through their covers"
 msgstr "앨범을 표지로 찾아보고 연주합니다."
 
 #: coverart_browser_source.py:179
-#, fuzzy
 msgid "CoverArt Playlist"
-msgstr "새 연주 목록"
+msgstr ""
 
 #. . TRANSLATORS - "All" is used in the context of "All artist names"
 #: coverart_browser_source.py:534
@@ -993,18 +984,16 @@ msgid "Search track artists"
 msgstr "트랙 음악가 검색"
 
 #: coverart_controllers.py:716
-#, fuzzy
 msgid "Search composers"
-msgstr "앨범 표지 검색"
+msgstr "작곡가 검색"
 
 #: coverart_controllers.py:717
 msgid "Search albums"
 msgstr "앨범 검색"
 
 #: coverart_controllers.py:718
-#, fuzzy
 msgid "Search titles"
-msgstr "텍스트 검색"
+msgstr "제목 검색"
 
 #. TRANSLATORS: for example 'Number of covers limited to 150'
 #: coverart_coverflowview.py:196
@@ -1023,27 +1012,3 @@ msgstr "트랙"
 #: coverart_playlists.py:165
 msgid "No matching tracks have been found"
 msgstr ""
-
-#~ msgid "Display tracks and covers pane"
-#~ msgstr "트랙과 표지 창 표시"
-
-#~ msgid ""
-#~ "Add a toggle-option to the coverart view to display the tracks and covers "
-#~ "for the chosen album"
-#~ msgstr ""
-#~ "표지 보기에 선택한 앨범의 트랙과 표지를 표시하고 끌 수 있는 옵션을 추가합"
-#~ "니다."
-
-#~ msgid ""
-#~ "Tip: Drag and Drop exported tracks from file-manager to a playlist or "
-#~ "telephone/other device"
-#~ msgstr ""
-#~ "팁: 파일 관리자에서 내보낼 트랙을 연주 목록이나 스마트폰 등의 장치에 끌어 "
-#~ "놓으십시오."
-
-#, fuzzy
-#~ msgid "size in pixels"
-#~ msgstr "크기(단위: 픽셀):"
-
-#~ msgid "Quick artist filter"
-#~ msgstr "빠른 음악가 검색"
