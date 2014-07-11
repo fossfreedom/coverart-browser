@@ -772,7 +772,7 @@ class AlbumInfoView(BaseInfoView):
         super(AlbumInfoView, self).__init__(self, *args, **kwargs)
 
     def initialise(self, source, shell, plugin, stack, ds):
-        super(AlbumInfoView, self).initialise(source, shell, plugin, stack, ds, "album", "covermgr.png")
+        super(AlbumInfoView, self).initialise(source, shell, plugin, stack, ds, "album", "covermgr_std.png")
 
     def connect_signals(self):
         self.ds.connect('albums-ready', self.album_list_ready)
@@ -991,7 +991,7 @@ class EchoArtistInfoView(BaseInfoView):
 
     def initialise(self, source, shell, plugin, stack, ds, link_ds):
         super(EchoArtistInfoView, self).initialise(source, shell, plugin, stack, ds, "echoartist",
-                                                   "echonest_minilogo.gif")
+                                                   "echonest_minilogo.png")
 
         self.link_ds = link_ds
 
