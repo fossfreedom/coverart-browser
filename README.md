@@ -2,9 +2,6 @@
 
 Browse your coverart albums in Rhythmbox v3 and later.  
 
-##**Feedback, testers & code patches required**
-##**wiki editors required - https://github.com/fossfreedom/coverart-browser/issues/304**
-
 ![Imgur](http://i.imgur.com/sUgX7d7.png)
 
 -----------
@@ -60,7 +57,7 @@ Browse your coverart albums in Rhythmbox v3 and later.
 
 *How to install - Rhythmbox 3.0 and later:*
 
-N.B. for earlier Rhythmbox versions use version 1.1
+N.B. for earlier Rhythmbox versions use version 1.x
 
 Prerequisite is to use a distribution supporting GTK 3.10 or later - for example, Ubuntu 14.04, Arch or Fedora 20
 
@@ -77,7 +74,7 @@ To install the plugin:
 
 <pre>
 rm -rf ~/.local/share/rhythmbox/plugins/coverart_browser
-git clone https://github.com/fossfreedom/coverart-browser.git -b master
+git clone https://github.com/fossfreedom/coverart-browser.git
 cd coverart-browser
 ./install.sh
 </pre>
@@ -93,7 +90,7 @@ Note 1 - the CoverArt Browser plugin also requires installing the following plug
 
  - https://github.com/fossfreedom/coverart-search-providers
 
-*For Ubuntu 14.04 and later:... only on release of v2!*
+*For Ubuntu 14.04 and later:*
 
 V2.0 is now available in my rhythmbox PPA - installation instructions in this AskUbuntu Q&A:
 
