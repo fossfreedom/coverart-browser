@@ -69,6 +69,7 @@
         <genre xml:lang="pt" spritesheet="genre" name="pop">pop</genre>
         <genre xml:lang="pt_BR" spritesheet="genre" name="pop">pop</genre>
         <genre xml:lang="ro" spritesheet="genre" name="pop">pop</genre>
+        <genre xml:lang="ru" spritesheet="genre" name="pop">поп</genre>
         <genre xml:lang="zh_CN" spritesheet="genre" name="pop">流行</genre>
         <genre spritesheet="genre" name="classical">classical</genre>
         <genre xml:lang="ast" spritesheet="genre" name="classical">clásica</genre>
@@ -244,6 +245,7 @@
         <genre xml:lang="pt" spritesheet="genre" name="jazz">jazz</genre>
         <genre xml:lang="pt_BR" spritesheet="genre" name="jazz">jazz</genre>
         <genre xml:lang="ro" spritesheet="genre" name="jazz">jazz</genre>
+        <genre xml:lang="ru" spritesheet="genre" name="jazz">джаз</genre>
         <genre xml:lang="zh_CN" spritesheet="genre" name="jazz">爵士</genre>
         <genre spritesheet="genre" name="blues">blues</genre>
         <genre xml:lang="ast" spritesheet="genre" name="blues">blues</genre>
@@ -267,6 +269,7 @@
         <genre xml:lang="pt" spritesheet="genre" name="blues">blues</genre>
         <genre xml:lang="pt_BR" spritesheet="genre" name="blues">blues</genre>
         <genre xml:lang="ro" spritesheet="genre" name="blues">blues</genre>
+        <genre xml:lang="ru" spritesheet="genre" name="blues">блюз</genre>
         <genre xml:lang="zh_CN" spritesheet="genre" name="blues">蓝调</genre>
         <genre spritesheet="genre" name="metal">metal</genre>
         <genre xml:lang="ast" spritesheet="genre" name="metal">metal</genre>
@@ -289,6 +292,7 @@
         <genre xml:lang="pt" spritesheet="genre" name="metal">metal</genre>
         <genre xml:lang="pt_BR" spritesheet="genre" name="metal">metal</genre>
         <genre xml:lang="ro" spritesheet="genre" name="metal">metal</genre>
+        <genre xml:lang="ru" spritesheet="genre" name="metal">металл</genre>
         <genre xml:lang="zh_CN" spritesheet="genre" name="metal">金属乐</genre>
         <genre spritesheet="genre" name="karaoke">karaoke</genre>
         <genre xml:lang="ast" spritesheet="genre" name="karaoke">karaoke</genre>
@@ -312,6 +316,7 @@
         <genre xml:lang="pt" spritesheet="genre" name="karaoke">karaoke</genre>
         <genre xml:lang="pt_BR" spritesheet="genre" name="karaoke">karaokê</genre>
         <genre xml:lang="ro" spritesheet="genre" name="karaoke">karaoke</genre>
+        <genre xml:lang="ru" spritesheet="genre" name="karaoke">караоке</genre>
         <genre xml:lang="zh_CN" spritesheet="genre" name="karaoke">卡拉 OK</genre>
         <genre spritesheet="genre" name="rap">rap</genre>
         <genre xml:lang="ast" spritesheet="genre" name="rap">rap</genre>
@@ -335,6 +340,7 @@
         <genre xml:lang="pt" spritesheet="genre" name="rap">rap</genre>
         <genre xml:lang="pt_BR" spritesheet="genre" name="rap">rap</genre>
         <genre xml:lang="ro" spritesheet="genre" name="rap">rap</genre>
+        <genre xml:lang="ru" spritesheet="genre" name="rap">рэп</genre>
         <genre xml:lang="zh_CN" spritesheet="genre" name="rap">说唱</genre>
         <genre spritesheet="genre" name="ragtime">ragtime</genre>
         <genre xml:lang="ast" spritesheet="genre" name="ragtime">ragtime</genre>
@@ -467,6 +473,7 @@
         <genre xml:lang="pt" spritesheet="genre" name="soundtrack">banda sonora</genre>
         <genre xml:lang="pt_BR" spritesheet="genre" name="soundtrack">trilha sonora</genre>
         <genre xml:lang="ro" spritesheet="genre" name="soundtrack">soundtrack</genre>
+        <genre xml:lang="ru" spritesheet="genre" name="soundtrack">саундтрек</genre>
         <genre xml:lang="tr" spritesheet="genre" name="soundtrack">film müziği</genre>
         <genre xml:lang="zh_CN" spritesheet="genre" name="soundtrack">音轨</genre>
         <genre spritesheet="genre" name="latin">latin</genre>
@@ -535,6 +542,7 @@
         <genre xml:lang="pt" spritesheet="genre" name="disco">disco</genre>
         <genre xml:lang="pt_BR" spritesheet="genre" name="disco">discoteca</genre>
         <genre xml:lang="ro" spritesheet="genre" name="disco">disco</genre>
+        <genre xml:lang="ru" spritesheet="genre" name="disco">диско</genre>
         <genre xml:lang="zh_CN" spritesheet="genre" name="disco">迪斯科</genre>
         <genre spritesheet="genre" name="folk">folk</genre>
         <genre xml:lang="ast" spritesheet="genre" name="folk">folk</genre>
@@ -557,6 +565,7 @@
         <genre xml:lang="pt" spritesheet="genre" name="folk">folk</genre>
         <genre xml:lang="pt_BR" spritesheet="genre" name="folk">folk</genre>
         <genre xml:lang="ro" spritesheet="genre" name="folk">folk</genre>
+        <genre xml:lang="ru" spritesheet="genre" name="folk">фолк</genre>
         <genre xml:lang="zh_CN" spritesheet="genre" name="folk">民俗</genre>
         <genre spritesheet="genre" name="gospel">gospel</genre>
         <genre xml:lang="ast" spritesheet="genre" name="gospel">gospel</genre>
@@ -645,6 +654,7 @@
         <genre xml:lang="pt" spritesheet="genre" name="opera">ópera</genre>
         <genre xml:lang="pt_BR" spritesheet="genre" name="opera">ópera</genre>
         <genre xml:lang="ro" spritesheet="genre" name="opera">opera</genre>
+        <genre xml:lang="ru" spritesheet="genre" name="opera">опера</genre>
         <genre xml:lang="zh_CN" spritesheet="genre" name="opera">歌剧</genre>
         <genre spritesheet="genre" name="anime">anime</genre>
         <genre xml:lang="ast" spritesheet="genre" name="anime">anime</genre>
@@ -668,6 +678,7 @@
         <genre xml:lang="pt" spritesheet="genre" name="anime">anime</genre>
         <genre xml:lang="pt_BR" spritesheet="genre" name="anime">anime</genre>
         <genre xml:lang="ro" spritesheet="genre" name="anime">anime</genre>
+        <genre xml:lang="ru" spritesheet="genre" name="anime">аниме</genre>
         <genre xml:lang="zh_CN" spritesheet="genre" name="anime">动漫</genre>
         <genre spritesheet="genre" name="soul">soul</genre>
         <genre xml:lang="ast" spritesheet="genre" name="soul">soul</genre>
@@ -756,6 +767,7 @@
         <genre xml:lang="pt" spritesheet="genre" name="hip-hop">hip-hop</genre>
         <genre xml:lang="pt_BR" spritesheet="genre" name="hip-hop">hip-hop</genre>
         <genre xml:lang="ro" spritesheet="genre" name="hip-hop">hip-hop</genre>
+        <genre xml:lang="ru" spritesheet="genre" name="hip-hop">хип-хоп</genre>
         <genre xml:lang="zh_CN" spritesheet="genre" name="hip-hop">嘻哈</genre>
         <genre spritesheet="genre" name="children">children</genre>
         <genre xml:lang="ast" spritesheet="genre" name="children">infantil</genre>
