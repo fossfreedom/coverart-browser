@@ -1,11 +1,11 @@
-#coverart-browser v2.0 Beta 2
+#coverart-browser v2.0 release candidate
 
 Browse your coverart albums in Rhythmbox v3 and later.  
 
 ##**Feedback, testers & code patches required**
 ##**wiki editors required - https://github.com/fossfreedom/coverart-browser/issues/304**
 
-![Imgur](http://i.imgur.com/5POncDw.png)
+![Imgur](http://i.imgur.com/sUgX7d7.png)
 
 -----------
 
@@ -45,7 +45,7 @@ Browse your coverart albums in Rhythmbox v3 and later.
  - Right-click to append album to list of playing albums
  - View and modify the list of album tracks being played 
  - Optional support for [SmallWindow](https://github.com/fossfreedom/smallwindow) plugin - allows Rhythmbox to be toggled between its standard application window and its smaller counterpart
- - Translated into 23 languages and locales
+ - Translated into 24 languages and locales
  - for developers - doxygen documentation: http://fossfreedom.github.io/coverart-browser/classes.html
 
 *How it works:*
