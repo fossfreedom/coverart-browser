@@ -1,6 +1,11 @@
-#coverart-browser v2.0 release candidate
+#coverart-browser - development
 
 Browse your coverart albums in Rhythmbox v3 and later.  
+
+If you have reached here looking for the stable version of the plugin please read the README files for
+
+ - rhythmbox 2.96 - 2.99: https://github.com/fossfreedom/coverart-browser/tree/release-1.1
+ - rhythmbox 3.0+: https://github.com/fossfreedom/coverart-browser/tree/release-2.0
 
 ![Imgur](http://i.imgur.com/sUgX7d7.png)
 
@@ -19,29 +24,7 @@ Browse your coverart albums in Rhythmbox v3 and later.
 
 ##Summary: whats new in this release
 
- - Compact & Full track view toggle option:
-    1. Compact: fixed track view showing the key album track fields & ratings together with an enlarged album cover
-    1. Full: Standard track view configurable via the preferences window
- - Smart continuous playlist: Play Similar Artists as recommended by EchoNest
- - Smart continuous playlist: Play Similar Genres as recommended by EchoNest
- - Smart continuous playlist: Play Similar Tracks as recommended by LastFM
- - New optional theme: darker toolbar icons by the graphics artist [jrbastien](https://github.com/jrbastien)
- - New subtle hover, play & queue icons by the graphics artist [jrbastien](https://github.com/jrbastien)
- - Introduce more modern look & feel through subtle animations
- - Views button ("…") now can navigate to Play Queue.  Allows navigation of key views without the side-bar (F9) being visible
- - Artist & Album information pane with LastFM & EchoNest data
- - Artist & Album information is fully localised (in your native language) if LastFM returns information in your locale
- - Information pane can be made visible or hidden by dragging the pane-handle
- - Track Artist Filter and Artist & Album Information panes individually displayed per view
- - Support Jump To Playing CTRL+J to scroll to the playing album
- - Follow playing song option automatically selects playing album
- - Custom Genres are now saved in an alternative folder location to survive re-installation of the plugin
- - Search Filter by Composer
- - Introduce type-ahead Search filtering to improve searching usability
- - Single click to append album to list of playing albums
- - Right-click to append album to list of playing albums
- - View and modify the list of album tracks being played 
- - Optional support for [SmallWindow](https://github.com/fossfreedom/smallwindow) plugin - allows Rhythmbox to be toggled between its standard application window and its smaller counterpart
+ - To be completed
  - Translated into 24 languages and locales
  - for developers - doxygen documentation: http://fossfreedom.github.io/coverart-browser/classes.html
 
