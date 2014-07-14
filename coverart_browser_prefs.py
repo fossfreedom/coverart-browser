@@ -278,6 +278,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         
     def _create_display_contents(self, plugin):
         # create the ui
+        self._first_run = True
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
         builder = Gtk.Builder()
@@ -495,6 +496,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
             self.black_radiobutton.set_active(True)
             
         # return the dialog
+        self._first_run = False
         return builder.get_object('main_notebook')
 
     def on_flow_combobox_changed(self, combobox):
@@ -520,6 +522,9 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
                 self.settings[gs.PluginKey.FLOW_BACKGROUND_COLOUR] = 'B'
                 
     def on_display_text_pos_radio_toggled(self, button):
+        if self._first_run:
+            return
+        
         if button.get_active():
             gs = GSetting()
             if button == self.display_text_under_radiobutton:
