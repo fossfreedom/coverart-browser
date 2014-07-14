@@ -1,9 +1,9 @@
-#coverart-browser v1.1
+#coverart-browser v1.2
 ================
 
 Browse your coverart albums in Rhythmbox v2.96 and later
 
-![Imgur](http://i.imgur.com/YoEQ8fc.png)
+![Imgur](http://i.imgur.com/JxQhO6k.png)
 
 -----------
 
@@ -17,6 +17,15 @@ Browse your coverart albums in Rhythmbox v2.96 and later
 
 [![Flattr Button](http://api.flattr.com/button/button-compact-static-100x17.png "Flattr This!")](http://flattr.com/thing/1811704/ "fossfreedom")  [![paypaldonate](https://www.paypalobjects.com/en_GB/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KBV682WJ3BDGL)
 -----------
+##Summary: whats new in this release 1.2
+ - This is primarily a bug-fix release
+ - replace views label with an ellipsis
+ - stop inadvertent refresh of tile display when first display preferences window
+ - display hover icon correctly when spacing and padding is increased
+ - fix focus crash with some graphics cards
+ - fix locale display of preferences window title
+ - fix search edit placement when resizing rhythmbox
+
 ##Summary: whats new in this release 1.1
  - This is primarily a bug-fix release
  - fix for right-click playlist support for Ubuntu 14.04
