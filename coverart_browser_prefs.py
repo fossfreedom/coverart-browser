@@ -247,9 +247,10 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
     def display_preferences_dialog(self, plugin):
         if self._first_run:
             self._first_run = False
-            #self._dialog = Gtk.Dialog(_('Browser Preferences'), None, 
-            #    Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT, (Gtk.STOCK_OK, Gtk.ResponseType.OK))
              
+            cl = CoverLocale()
+            cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+
             self._dialog = Gtk.Dialog(modal=True, destroy_with_parent=True)
             self._dialog.add_button(Gtk.STOCK_OK, Gtk.ResponseType.OK)
             self._dialog.set_title(_('Browser Preferences')) 
