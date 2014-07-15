@@ -1,9 +1,8 @@
 #!/bin/sh
-default="/usr/share/locale/"
-echo "installing languages to $default"
+echo "installing languages to $1"
 for i in *.po; do
 	lang=`basename $i .po`
 	echo "installing $lang"
-	install -d $default$lang/LC_MESSAGES
-	msgfmt -c $lang.po -o $default$lang/LC_MESSAGES/coverart_browser.mo
+	install -d $1$lang/LC_MESSAGES
+	msgfmt -c $lang.po -o $1$lang/LC_MESSAGES/coverart_browser.mo
 done
