@@ -18,6 +18,8 @@ install:
 	install -m 644 img/*.png $(DESTDIR)$(DATADIR)img/
 	install -m 644 img/*.svg $(DESTDIR)$(DATADIR)img/
 	install -m 644 img/*.xml $(DESTDIR)$(DATADIR)img/
+	install -d $(DESTDIR)$(DATADIR)img/darker
+	install -m 644 img/darker/*.png $(DESTDIR)$(DATADIR)img/darker
 	install -d $(DESTDIR)$(DATADIR)img/dark
 	install -m 644 img/dark/*.png $(DESTDIR)$(DATADIR)img/dark
 	install -d $(DESTDIR)$(DATADIR)img/light
@@ -31,6 +33,7 @@ install:
 	install -d $(DESTDIR)$(DATADIR)ui
 	install -m 644 ui/*.ui $(DESTDIR)$(DATADIR)ui/
 	install -m 644 ui/*.xml $(DESTDIR)$(DATADIR)ui/
+	install -m 644 ui/*.css $(DESTDIR)$(DATADIR)ui/
 	install -d $(DESTDIR)$(DATADIR)coverflow
 	install -d $(DESTDIR)$(DATADIR)coverflow/img
 	install -m 644 coverflow/*.css $(DESTDIR)$(DATADIR)coverflow/
