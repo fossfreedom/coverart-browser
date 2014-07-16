@@ -28,6 +28,8 @@ install:
 	install -m 644 img/lighter/*.png $(DESTDIR)$(DATADIR)img/lighter
 	install -d $(DESTDIR)$(DATADIR)img/standard
 	install -m 644 img/standard/*.png $(DESTDIR)$(DATADIR)img/standard
+	install -d $(DESTDIR)$(DATADIR)img/links
+	install -m 644 img/links/*.png $(DESTDIR)$(DATADIR)img/links
 	install -d $(DESTDIR)$(DATADIR)template
 	install -m 644 template/*.xml $(DESTDIR)$(DATADIR)template
 	install -d $(DESTDIR)$(DATADIR)ui
