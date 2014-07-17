@@ -1,4 +1,4 @@
-#coverart-browser v2.0 release candidate
+#coverart-browser v2.0
 
 Browse your coverart albums in Rhythmbox v3 and later.  
 
