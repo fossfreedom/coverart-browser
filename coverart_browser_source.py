@@ -84,7 +84,7 @@ class CoverArtBrowserSource(RB.Source):
         self.favourites = False
         self.follow_song = False
         self.task_progress = None
-        self._from_paned_handle = False
+        self._from_paned_handle = 0
 
     def _connect_properties(self):
         '''
@@ -439,23 +439,27 @@ class CoverArtBrowserSource(RB.Source):
 
         self.viewmgr.current_view.scroll_to_album(album)
 
-    def artist_paned_button_press_callback(self, widget, *args):
-        self._from_paned_handle = True
+    def artist_paned_button_press_callback(self, widget, event):
+        self._from_paned_handle = 1
+
+        if event.type == Gdk.EventType._2BUTTON_PRESS:
+            self._from_paned_handle = 2
 
     def artist_paned_button_release_callback(self, widget, *args):
         '''
         Callback when the artist paned handle is released from its mouse click.
         '''
-        if not self._from_paned_handle:
+        if self._from_paned_handle == 0:
             return False
-        else:
-            self._from_paned_handle = False
 
         print ("artist_paned_button_release_callback")
-        child_width = self._get_child_width()
-        print (child_width)
+
         print (self.artist_paned.get_position())
         child_width = self.artist_paned.get_position()
+
+        if child_width == 0 and self._from_paned_handle == 1:
+            return
+
         paned_positions = eval(self.artist_paned_pos)
 
         found = None
@@ -471,25 +475,51 @@ class CoverArtBrowserSource(RB.Source):
         print ("current paned_positions %s" % paned_positions)
         paned_positions.remove(found)
         print ("Child Width %d" % child_width)
-        if child_width <= self.min_paned_pos:
+
+        open_type = "closed"
+        if self._from_paned_handle == 2:
+            # we are dealing with a double click situation
+            new_width = child_width
+            if new_width == 0:
+                if int(found.split(':')[1]) == 0:
+                    new_width = self.min_paned_pos + 1
+                else:
+                    new_width = int(found.split(':')[1])
+
+                open_type = "opened"
+                child_width = new_width
+            else:
+                new_width = 0
+
+            self.artist_paned.set_position(new_width)
+
+        if child_width <= self.min_paned_pos and self._from_paned_handle == 1:
             print (found)
             print (found.split(':')[1])
             if int(found.split(':')[1]) == 0:
                 child_width = self.min_paned_pos + 1
-                print ("opening")
+                open_type = "opened"
             else:
                 child_width = 0
                 print ("smaller")
             self.artist_paned.set_position(child_width)
 
+        if self._from_paned_handle == 1 and child_width != 0:
+            open_type = "opened"
 
         print ("Child Width2 %d" % child_width)
 
-        paned_positions.append(self.viewmgr.view_name + ":" + str(child_width))
+        paned_positions.append(self.viewmgr.view_name +  \
+                               ":" + \
+                               str(child_width) + \
+                               ":" + \
+                               open_type )
 
         print ("after paned positions %s" % paned_positions)
         self.artist_paned_pos = repr(paned_positions)
         print ("artist_paned_pos %s" % self.artist_paned_pos)
+
+        self._from_paned_handle = 0
 
     def on_view_changed(self, widget, view_name):
         self._change_artist_paned_pos(view_name)
@@ -508,13 +538,23 @@ class CoverArtBrowserSource(RB.Source):
             print ("not found %s" % view_name)
             return
 
-        child_width = int(found.split(":")[1])
+        values = found.split(":")
+        child_width = int(values[1])
         print(child_width)
 
         # odd case - if the pane is not visible but the position is zero
         # then the paned position on visible=true is some large arbitary value
         # hence - set it to be 1 px larger than the real value, then set it back
         # to its expected value
+        open_type = "closed"
+        if len(values) > 2:
+            open_type = values[2]
+        elif child_width > 0:
+            open_type = "opened"
+
+        if open_type == "closed":
+            child_width = 0
+
         self.artist_paned.set_position(child_width + 1)
         self.artist_paned.set_visible(True)
         self.artist_paned.set_position(child_width)
