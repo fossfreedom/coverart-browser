@@ -133,7 +133,7 @@ class ArtistInfoPane(GObject.GObject):
         self.current_artist = None
         self.current_album_title = None
         self.current = 'artist'
-        self._from_paned_handle = False
+        self._from_paned_handle = 0
 
         self.stack = stack
         self.stack.set_transition_type(Gtk.StackTransitionType.SLIDE_LEFT_RIGHT)
@@ -252,7 +252,17 @@ class ArtistInfoPane(GObject.GObject):
         if not found:
             return
 
-        child_width = int(found.split(":")[1])
+        values = found.split(":")
+        child_width = int(values[1])
+
+        open_type = "closed"
+        if len(values) > 2:
+            open_type = values[2]
+        elif child_width > 0:
+            open_type = "opened"
+
+        if open_type == "closed":
+            child_width = 0
 
         calc_pos = self.source.page.get_allocated_width() - child_width
         self.info_paned.set_position(calc_pos)
@@ -262,21 +272,21 @@ class ArtistInfoPane(GObject.GObject):
         child = self.info_paned.get_child2()
         return child.get_allocated_width()
 
-    def paned_button_press_callback(self, *args):
+    def paned_button_press_callback(self, widget, event):
         print ('paned_button_press_callback')
-        self._from_paned_handle = True
+        self._from_paned_handle = 1
 
-    def paned_button_release_callback(self, widget, *args):
+        if event.type == Gdk.EventType._2BUTTON_PRESS:
+            self._from_paned_handle = 2
+
+    def paned_button_release_callback(self, *args):
         '''
         Callback when the artist paned handle is released from its mouse click.
         '''
-        if not self._from_paned_handle:
+        if self._from_paned_handle == 0:
             return False
-        else:
-            self._from_paned_handle = False
 
         print ("paned_button_release_callback")
-        child_width = self._get_child_width()
 
         paned_positions = eval(self.paned_pos)
 
@@ -287,24 +297,71 @@ class ArtistInfoPane(GObject.GObject):
                 break
 
         if not found:
+            print ("cannot find")
             return True
 
+        values = found.split(':')
+
+        child_width = self.source.page.get_allocated_width() - self.info_paned.get_position()
+        print (child_width)
+        open_type = "closed"
+        print (values)
+        if len(values) > 2:
+            open_type = values[2]
+
+        if child_width <= self.min_paned_pos and \
+                        self._from_paned_handle == 1 and \
+                        open_type == "closed":
+            # we are dealing with a situation where the pane is already closed
+            # or almost closed - just shut the door
+            print ("we are closed")
+            calc_pos = self.source.page.get_allocated_width()
+            self.info_paned.set_position(calc_pos)
+            return False
+
+        open_type = "closed"
         paned_positions.remove(found)
-        if child_width <= self.min_paned_pos:
-            if int(found.split(':')[1]) == 0:
-                child_width = self.min_paned_pos + 1
-                calc_pos = self.source.page.get_allocated_width() - child_width
-                print ("opening")
+
+        if self._from_paned_handle == 2:
+            # we are dealing with a double click situation
+            new_width = child_width
+            if new_width <= self.min_paned_pos:
+                if int(values[1]) == 0:
+                    new_width = self.min_paned_pos + 1
+                else:
+                    new_width = int(values[1])
+
+                open_type = "opened"
+                child_width = new_width
             else:
-                child_width = 0
-                calc_pos = self.source.page.get_allocated_width()
-                print ("smaller")
+                new_width = 0
+
+            calc_pos = self.source.page.get_allocated_width() - new_width
 
             self.info_paned.set_position(calc_pos)
 
-        paned_positions.append(self.source.viewmgr.view_name + ":" + str(child_width))
+        if child_width <= self.min_paned_pos and self._from_paned_handle == 1:
+            if int(values[1]) == 0:
+                child_width = self.min_paned_pos + 1
+                open_type = "opened"
+            else:
+                child_width = 0
+
+            calc_pos = self.source.page.get_allocated_width() - child_width
+            self.info_paned.set_position(calc_pos)
+
+        if self._from_paned_handle == 1 and child_width != 0:
+            open_type = "opened"
+
+        paned_positions.append(self.source.viewmgr.view_name + \
+                               ":" + \
+                               str(child_width) + \
+                               ":" + \
+                               open_type)
 
         self.paned_pos = repr(paned_positions)
+
+        self._from_paned_handle = 0
         print ("End artist_info_paned_button_release_callback")
 
     def select_artist(self, widget, artist, album_title):

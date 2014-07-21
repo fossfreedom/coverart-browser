@@ -25,6 +25,7 @@ If you have reached here looking for the stable version of the plugin please rea
 ##Summary: whats new in this release
 
  - To be completed
+ - Track Artist and Artist Information Panes can be opened and closed via double-click of the pane-handle
  - Translated into 24 languages and locales
  - for developers - doxygen documentation: http://fossfreedom.github.io/coverart-browser/classes.html
 
