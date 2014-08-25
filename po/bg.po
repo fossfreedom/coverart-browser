@@ -8,62 +8,60 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-06-23 21:31+0100\n"
-"PO-Revision-Date: 2014-02-21 13:09+0000\n"
+"PO-Revision-Date: 2014-08-23 08:06+0000\n"
 "Last-Translator: Atanas Kovachki <Unknown>\n"
 "Language-Team: Bulgarian <bg@li.org>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-02-21 14:36+0000\n"
-"X-Generator: Launchpad (build 16926)\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Launchpad-Export-Date: 2014-08-25 16:00+0000\n"
+"X-Generator: Launchpad (build 17163)\n"
 
 #. TRANSLATORS: album duration (length) in the format hour:minute:second
 #: tmpl/album-tmpl.html:20
 #, python-format
 msgid "%d:%02d:%02d"
-msgstr ""
+msgstr "%d:%02d:%02d"
 
 #. TRANSLATORS: album duration (length) in the format minute:second
 #: tmpl/album-tmpl.html:23
 #, python-format
 msgid "%d:%02d"
-msgstr ""
+msgstr "%d:%02d"
 
 #: tmpl/album-tmpl.html:48
-#, fuzzy
 msgid "Hide all tracks"
-msgstr "Търси тракове"
+msgstr "Скрий всички песни"
 
 #: tmpl/album-tmpl.html:49 tmpl/album-tmpl.html:93
-#, fuzzy
 msgid "Show all tracks"
-msgstr "Търси тракове"
+msgstr "Покажи всички песни"
 
 #. TRANSLATORS: where %s is the artist name - for example "Top Albums by
 #. Michael Jackson"
 #: tmpl/album-tmpl.html:69
 #, python-format
 msgid "Top albums by %s"
-msgstr ""
+msgstr "Най-популярните албуми от %s"
 
 #. TRANSLATORS: %s is just a string and is not translated, %d is a number and
 #. is the number of track(s)
 #: tmpl/album-tmpl.html:87
-#, fuzzy, python-format
+#, python-format
 msgid "%s (%d track)"
 msgid_plural "%s (%d tracks)"
-msgstr[0] " с %d трака"
-msgstr[1] " с %d трака"
+msgstr[0] "%s (%d песен)"
+msgstr[1] "%s (%d песни)"
 
 #: tmpl/album-tmpl.html:106
 msgid "Track list not available"
-msgstr ""
+msgstr "Списъкът с песни е недостъпен"
 
 #: tmpl/album-tmpl.html:119
-#, fuzzy
 msgid "Unable to retrieve album information:"
-msgstr "Показвай информацията за албума"
+msgstr "Информацията за албума не може да бъде получена:"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 #: tmpl/artistartsearch-tmpl.html:135
@@ -190,9 +188,8 @@ msgstr "Добави всички към опашката за слушане"
 #: tmp/coverart_artist_pop_rb3.ui.h:3 tmp/coverart_browser_pop_rb3.ui.h:3
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:3
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:3
-#, fuzzy
 msgid "Add to playing"
-msgstr "Добави към плейлист"
+msgstr ""
 
 #: tmp/coverart_artist_pop_rb3.ui.h:4 tmp/coverart_browser_pop_rb3.ui.h:5
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:8
@@ -317,9 +314,8 @@ msgid "Album Information"
 msgstr "Информация за албума"
 
 #: tmp/coverart_browser_prefs.ui.h:20
-#, fuzzy
 msgid "Display album information"
-msgstr "Показвай информацията за албума в рамките на обложката"
+msgstr "Показвай информацията за албума"
 
 #: tmp/coverart_browser_prefs.ui.h:21
 msgid "Font size for the text below the cover-art."
@@ -557,21 +553,18 @@ msgstr "Добави трака към опашката за слушане"
 
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:4
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:4
-#, fuzzy
 msgid "Play Similar"
-msgstr "Възпроизвеждай всички"
+msgstr ""
 
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:5
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:5
-#, fuzzy
 msgid "Track"
-msgstr "Тракове"
+msgstr ""
 
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:7
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:7
-#, fuzzy
 msgid "Genre"
-msgstr "Всички жанрове"
+msgstr ""
 
 #: tmp/coverart_exportembed.ui.h:1
 msgid "Choose folder to save tracks:"
@@ -636,9 +629,8 @@ msgid "Views"
 msgstr "Преглед"
 
 #: tmp/coverart_play_pop_rb3.ui.h:1
-#, fuzzy
 msgid "Remove from Playlist"
-msgstr "Добави към плейлист"
+msgstr ""
 
 #: tmp/popups.xml.in.h:1
 msgid "rock"
@@ -661,9 +653,8 @@ msgid "world"
 msgstr "световна"
 
 #: tmp/popups.xml.in.h:6
-#, fuzzy
 msgid "bluegrass"
-msgstr "блус"
+msgstr ""
 
 #: tmp/popups.xml.in.h:7
 msgid "oldies"
@@ -706,9 +697,8 @@ msgid "ragtime"
 msgstr "рагтайм"
 
 #: tmp/popups.xml.in.h:17
-#, fuzzy
 msgid "musical"
-msgstr "класика"
+msgstr ""
 
 #: tmp/popups.xml.in.h:18
 msgid "dance"
@@ -853,9 +843,8 @@ msgid "Browse and play your albums through their covers"
 msgstr "Търсете и слушайте албумите си посредством обложките им"
 
 #: coverart_browser_source.py:179
-#, fuzzy
 msgid "CoverArt Playlist"
-msgstr "Нов плейлист"
+msgstr ""
 
 #. . TRANSLATORS - "All" is used in the context of "All artist names"
 #: coverart_browser_source.py:534
@@ -1003,18 +992,16 @@ msgid "Search track artists"
 msgstr "Търси тракове на изпънители"
 
 #: coverart_controllers.py:716
-#, fuzzy
 msgid "Search composers"
-msgstr "Търси обложки"
+msgstr ""
 
 #: coverart_controllers.py:717
 msgid "Search albums"
 msgstr "Търси по албуми"
 
 #: coverart_controllers.py:718
-#, fuzzy
 msgid "Search titles"
-msgstr "Търси текст"
+msgstr ""
 
 #. TRANSLATORS: for example 'Number of covers limited to 150'
 #: coverart_coverflowview.py:196
@@ -1033,19 +1020,3 @@ msgstr "Тракове"
 #: coverart_playlists.py:165
 msgid "No matching tracks have been found"
 msgstr ""
-
-#~ msgid "Display tracks and covers pane"
-#~ msgstr "Показвай траковете и панела за обложките"
-
-#~ msgid ""
-#~ "Add a toggle-option to the coverart view to display the tracks and covers "
-#~ "for the chosen album"
-#~ msgstr ""
-#~ "Добави опция за превключване към режима за преглед на обложката, за да се "
-#~ "покажат траковете и обложките на избраният албум"
-
-#~ msgid "size in pixels"
-#~ msgstr "размер в пиксели"
-
-#~ msgid "Quick artist filter"
-#~ msgstr "Бърз филтър за изпълнител"
