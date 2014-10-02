@@ -273,6 +273,7 @@ class CoverArtBrowserSource(RB.Source):
         self.request_statusbar = ui.get_object('request_statusbar')
         self.request_cancel_button = ui.get_object('request_cancel_button')
         self.paned = ui.get_object('paned')
+        self.paned.set_name('horizontal_paned')
         self.entry_view_grid = ui.get_object('bottom_grid')
 
         #setup Track Pane

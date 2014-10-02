@@ -23,7 +23,7 @@
     <child>
       <object class="PanedCollapsible" id="paned">
         <property name="collapsible2">True</property>
-        <property name="collapsible_label" translatable="yes">Tracks &amp; Covers</property>
+        <property name="collapsible_label" translatable="no">Tracks &amp; Covers</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="orientation">vertical</property>

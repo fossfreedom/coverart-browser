@@ -1030,6 +1030,23 @@ class EnhancedIconView(Gtk.IconView):
         self.set_cursor(path, None, False)
         self.scroll_to_path(path, True, 0.5, 0.5)
 
+class HiddenExpander(Gtk.Bin):
+    __gtype_name__ = "HiddenExpander"
+
+    expanded = GObject.property(type=bool, default=False)
+    label = GObject.property(type=str, default='')
+
+    def __init__(self, label='', visible=False):
+        super(HiddenExpander, self).__init__() #*args, **kwargs)
+        self.label = label
+        self.set_visible(visible)
+
+    def get_expanded(self):
+        return self.expanded
+
+    def set_expanded(self, expanded):
+        self.expanded = expanded
+
 
 class PanedCollapsible(Gtk.Paned):
     __gtype_name__ = "PanedCollapsible"
@@ -1058,7 +1075,6 @@ class PanedCollapsible(Gtk.Paned):
 
     def __init__(self, *args, **kwargs):
         super(PanedCollapsible, self).__init__(*args, **kwargs)
-
         self._connect_properties()
 
     def _connect_properties(self):
@@ -1198,8 +1214,11 @@ class PanedCollapsible(Gtk.Paned):
         Gtk.Paned.pack2(self, widget, *args, **kwargs)
 
     def _create_expander(self, widget):
-        self._expander = Gtk.Expander(label=self.collapsible_label,
-                                      visible=True)
+        #self._expander = Gtk.Expander(label=self.collapsible_label,
+        #                              visible=True)
+        self._expander = HiddenExpander(label=self.collapsible_label,
+                                       visible=True)
+
         self._expander.add(widget)
 
         # connect the expanded signal
@@ -1219,8 +1238,8 @@ class PanedCollapsible(Gtk.Paned):
 
     def _collapse(self):
         new_y = self.get_allocated_height() - \
-                self.get_handle_window().get_height() - \
-                self._expander.get_label_widget().get_allocated_height()
+                self.get_handle_window().get_height()# - \
+        #        self._expander.get_label_widget().get_allocated_height()
 
         self.set_position(new_y)
 
