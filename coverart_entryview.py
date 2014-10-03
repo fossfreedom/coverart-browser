@@ -304,6 +304,12 @@ class ResultsGrid(Gtk.Grid):
         self.stack.add_named(self.image2, "image2")
 
         self.frame = Gtk.Frame.new() #"", 0.5, 0.5, 1, False)
+        try:
+            # correct from Gtk 3.12 onwards
+            self.frame.set_margin_end(5)
+        except:
+            self.frame.set_margin_right(5)
+
         self.update_cover(None, None, None)
         self.scroll = Gtk.ScrolledWindow()
         self.scroll.add(self.stack)
@@ -358,7 +364,7 @@ class ResultsGrid(Gtk.Grid):
 
         entry_grid_alloc = self.entry_view_grid.get_allocation()
 
-        if (alloc.width / 3) <= (MIN_IMAGE_SIZE + 30) or \
+        if (alloc.width / 4) <= (MIN_IMAGE_SIZE + 30) or \
                         (entry_grid_alloc.height) <= (MIN_IMAGE_SIZE + 30):
             self.frame.props.visible = False
             return
@@ -369,7 +375,7 @@ class ResultsGrid(Gtk.Grid):
             hbar = self.scroll.get_hscrollbar()
             hbar.set_visible(False)
 
-        minval = min((alloc.width / 3), alloc.height)
+        minval = min((alloc.width / 4), (alloc.height))
         if self.oldval == minval:
             return
         self.oldval = minval
@@ -377,7 +383,7 @@ class ResultsGrid(Gtk.Grid):
             minval = MIN_IMAGE_SIZE
 
         if self.pixbuf:
-            p = self.pixbuf.scale_simple(minval, minval, GdkPixbuf.InterpType.BILINEAR)
+            p = self.pixbuf.scale_simple(minval - 15, minval - 15, GdkPixbuf.InterpType.BILINEAR)
         else:
             p = None
 
