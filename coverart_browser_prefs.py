@@ -171,7 +171,8 @@ class GSetting:
                 ARTIST_INFO_PANED_POSITION='artist-info-paned-pos',
                 LAST_GENRE_FOLDER='last-genre-folder',
                 ENTRY_VIEW_MODE='entry-view-mode',
-                FOLLOWING='following')
+                FOLLOWING='following',
+                ACTIVATIONS='activations')
 
             self.setting = {}
 

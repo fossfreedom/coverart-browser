@@ -301,8 +301,17 @@ class CoverArtBrowserSource(RB.Source):
         self.quick_search = ui.get_object('quick_search_entry')
 
         # theme override option
+        activations = setting[self.gs.PluginKey.ACTIVATIONS]
+        activations = activations + 1
+        setting[self.gs.PluginKey.ACTIVATIONS] = activations
+
+        if activations > 4:
+            override = 'ui/gtkthemeoverride_min.css'
+        else:
+            override = 'ui/gtkthemeoverride_max.css'
+
         cssProvider = Gtk.CssProvider()
-        css = rb.find_plugin_file(self.plugin, 'ui/gtkthemeoverride.css')
+        css = rb.find_plugin_file(self.plugin, override)
         cssProvider.load_from_path(css)
         screen = Gdk.Screen.get_default()
         styleContext = Gtk.StyleContext()

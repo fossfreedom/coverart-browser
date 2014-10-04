@@ -221,5 +221,10 @@
             <summary>Album selection changes automatically when the playing song changes</summary>
             <description>Album selection changes automatically when the playing song changes</description>
         </key>
+        <key type="i" name="activations">
+            <default>0</default>
+            <summary>number of times the plugin has been activated</summary>
+            <description>number of times the plugin has been activated</description>
+        </key>
     </schema>
 </schemalist>
