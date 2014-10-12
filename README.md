@@ -26,6 +26,8 @@ If you have reached here looking for the stable version of the plugin please rea
 
  - To be completed
  - Track Artist and Artist Information Panes can be opened and closed via double-click of the pane-handle
+ - Bottom Track & Cover Pane has more space - the expander & label has been removed
+ - Visible Pane Handles disappear after the plugin has been run 5 times 
  - Translated into 24 languages and locales
  - for developers - doxygen documentation: http://fossfreedom.github.io/coverart-browser/classes.html
 
