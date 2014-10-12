@@ -1073,6 +1073,8 @@ class PanedCollapsible(Gtk.Paned):
         'expanded': (GObject.SIGNAL_RUN_LAST, None, (bool,))
     }
 
+    Min_Paned_Size = 80
+
     def __init__(self, *args, **kwargs):
         super(PanedCollapsible, self).__init__(*args, **kwargs)
         self._connect_properties()
@@ -1131,6 +1133,15 @@ class PanedCollapsible(Gtk.Paned):
                 new_y = self.get_allocated_height() / 2
                 self.collapsible_y = new_y
 
+            # if the calculated new position is less than the minimum then
+            # use half the space
+
+            current_pos = self.get_allocated_height() - \
+                self.get_handle_window().get_height()
+
+            if ((current_pos - self.collapsible_y) < self.Min_Paned_Size):
+                self.collapsible_y = self.get_allocated_height() / 2
+
             self.set_position(self.collapsible_y)
 
         self.emit('expanded', expand)
@@ -1150,6 +1161,13 @@ class PanedCollapsible(Gtk.Paned):
         if not self._expander or self._expander.get_expanded():
             Gtk.Paned.do_button_release_event(self, *args)
             self.collapsible_y = self.get_position()
+
+            # if the current paned handle pos is less than the minimum the force a collapse
+            current_pos = self.get_allocated_height() - \
+                self.get_handle_window().get_height()
+
+            if ((current_pos - self.collapsible_y) < self.Min_Paned_Size):
+                self.expand(PanedCollapsible.Paned.COLLAPSE)
 
     def do_remove(self, widget):
         '''
