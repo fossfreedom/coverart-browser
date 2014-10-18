@@ -237,12 +237,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
 
 
     def __init__(self, *args, **kwargs):
-        if not rb3compat.compare_pygobject_version("3.9"):
-            super(CoverIconView, self).__init__(cell_area=AlbumArtCellArea(), *args, **kwargs)
-        else:
-            # this works in trusty but not in earlier versions - define in the super above
-            super(CoverIconView, self).__init__(*args, **kwargs)
-            self.props.cell_area = AlbumArtCellArea()
+        super(CoverIconView, self).__init__(cell_area=AlbumArtCellArea(), *args, **kwargs)
 
         self.gs = GSetting()
         # custom text renderer
@@ -252,6 +247,8 @@ class CoverIconView(EnhancedIconView, AbstractView):
         self._has_initialised = False
         self._last_path = None
         self._calc_motion_step = 0
+        self.set_selection_mode(Gtk.SelectionMode.MULTIPLE)
+        self.object_column = AlbumsModel.columns['album']
 
     def initialise(self, source):
         if self._has_initialised:

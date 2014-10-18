@@ -1263,9 +1263,7 @@ class ViewManager(GObject.Object):
         # initialize views
         self._views = {}
         ui = Gtk.Builder()
-        ui.add_from_file(rb.find_plugin_file(source.plugin,
-                                             'ui/coverart_iconview.ui'))
-        self._views[CoverIconView.name] = ui.get_object('covers_view')
+        self._views[CoverIconView.name] = CoverIconView()
         self._views[CoverFlowView.name] = CoverFlowView()
         self._views[ListView.name] = ListView()
         self._views[QueueView.name] = QueueView()
