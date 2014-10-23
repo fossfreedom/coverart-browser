@@ -256,6 +256,7 @@ class CoverArtBrowserSource(RB.Source):
 
         signals = \
             {'play_album_menu_item': self.play_album_menu_item_callback,
+             'play_next_menu_item': self.play_next_menu_item_callback,
              'queue_album_menu_item': self.queue_album_menu_item_callback,
              'add_to_playing_menu_item': self.add_to_playing_menu_item_callback,
              'new_playlist': self.add_playlist_menu_item_callback,
@@ -419,12 +420,14 @@ class CoverArtBrowserSource(RB.Source):
 
         #self.popup_menu.get_menu_object('add_to_playing_menu_item')
         self.popup_menu.set_sensitive('add_to_playing_menu_item', sensitive)
+        self.popup_menu.set_sensitive('play_next_menu_item', sensitive)
+
 
         if not self._external_plugins:
             # initialise external plugin menu support
             self._external_plugins = \
                 CreateExternalPluginMenu("ca_covers_view",
-                                         8, self.popup_menu)
+                                         9, self.popup_menu)
             self._external_plugins.create_menu('popup_menu', True)
 
         self.playlist_menu_item_callback()
@@ -700,7 +703,7 @@ class CoverArtBrowserSource(RB.Source):
 
         print("CoverArtBrowser DEBUG - end play_selected_album")
 
-    def queue_selected_album(self, source, favourites=False):
+    def queue_selected_album(self, source, favourites=False, index=-1):
         '''
         Utilitary method that queues all entries from an album into the play
         queue.
@@ -720,7 +723,9 @@ class CoverArtBrowserSource(RB.Source):
             total = total + len(tracks)
             # Add the songs to the play queue
             for track in tracks:
-                source.add_entry(track.entry, -1)
+                source.add_entry(track.entry, index)
+                if index != -1:
+                    index = index + 1
 
         if total == 0 and threshold:
             dialog = Gtk.MessageDialog(None,
@@ -742,6 +747,47 @@ class CoverArtBrowserSource(RB.Source):
         print("CoverArtBrowser DEBUG - play_album_menu_item_callback")
 
         self.play_selected_album(self.favourites)
+
+        print("CoverArtBrowser DEBUG - end play_album_menu_item_callback")
+
+    def play_next_menu_item_callback(self, *args):
+        '''
+        Callback called when the play next item from the cover view popup is
+        selected. It adds to the play queue immediately after the last track of the playing album
+        '''
+        print("CoverArtBrowser DEBUG - play_album_menu_item_callback")
+
+        entry = self.shell.props.shell_player.get_playing_entry()
+
+        if not entry:
+            return
+
+        index = 0
+
+        source = self.source_query_model
+
+        # the API doesnt provide a method to find the index position of the entry that is playing
+        # so lets reverse through the model calculating the position
+
+        while entry is not None:
+            index = index + 1
+            entry = source.get_previous_from_entry(entry)
+
+        entry = self.shell.props.shell_player.get_playing_entry()
+
+        # lets move forward from the current playing entry and find the last album entry
+        final_index = index
+        current_album = self.album_manager.model.get_from_dbentry(entry)
+        while entry is not None:
+            entry = source.get_next_from_entry(entry)
+            index = index + 1
+            if entry:
+                album = self.album_manager.model.get_from_dbentry(entry)
+                print (entry.get_string(RB.RhythmDBPropType.TITLE))
+                if album == current_album:
+                    final_index = index
+
+        self.queue_selected_album(None, self.favourites, final_index)
 
         print("CoverArtBrowser DEBUG - end play_album_menu_item_callback")
 
