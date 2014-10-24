@@ -574,6 +574,35 @@ class BaseView(RB.EntryView):
         entry = selected[0]
         self.lastfm_similar_playlist.start(entry, reinitialise=True)
 
+    def play_next_track_menu_item_callback(self, *args):
+        source = self.source_query_model
+
+        selected = self.get_selected_entries()
+        selected.reverse()
+
+        selected = sorted(selected,
+                          key=lambda song: song.get_ulong(RB.RhythmDBPropType.TRACK_NUMBER))
+
+        entry = self.shell.props.shell_player.get_playing_entry()
+
+        if not entry:
+            return
+
+        index = 0
+
+        source = self.source_query_model
+
+        # the API doesnt provide a method to find the index position of the entry that is playing
+        # so lets reverse through the model calculating the position
+
+        while entry is not None:
+            index = index + 1
+            entry = source.get_previous_from_entry(entry)
+
+
+        for entry in selected:
+            source.add_entry(entry, index)
+            index = index + 1
 
     def play_track_menu_item_callback(self, *args):
         print("CoverArtBrowser DEBUG - play_track_menu_item_callback()")
@@ -737,6 +766,7 @@ class CoverArtCompactEntryView(BaseView):
                              'ui/coverart_entryview_compact_pop_rb3.ui')
         signals = {
             'ev_compact_play_track_menu_item': self.play_track_menu_item_callback,
+            'ev_compact_play_next_track_menu_item': self.play_next_track_menu_item_callback,
             'ev_compact_queue_track_menu_item': self.queue_track_menu_item_callback,
             'ev_compact_add_to_playing_menu_item': self.add_to_playing_menu_item_callback,
             'ev_compact_new_playlist': self.add_playlist_menu_item_callback,
@@ -765,10 +795,11 @@ class CoverArtCompactEntryView(BaseView):
             sensitive = False
 
         self.popup.set_sensitive('ev_compact_add_to_playing_menu_item', sensitive)
+        self.popup.set_sensitive('ev_compact_play_next_track_menu_item', sensitive)
 
         if not self.external_plugins:
             self.external_plugins = \
-                CreateExternalPluginMenu("ev_compact_entryview", 5, self.popup)
+                CreateExternalPluginMenu("ev_compact_entryview", 6, self.popup)
             self.external_plugins.create_menu('entryview_compact_popup_menu')
 
         self.playlist_menu_item_callback()
@@ -835,6 +866,7 @@ class CoverArtEntryView(BaseView):
                              'ui/coverart_entryview_full_pop_rb3.ui')
         signals = {
             'ev_full_play_track_menu_item': self.play_track_menu_item_callback,
+            'ev_full_play_next_track_menu_item': self.play_next_track_menu_item_callback,
             'ev_full_queue_track_menu_item': self.queue_track_menu_item_callback,
             'ev_full_add_to_playing_menu_item': self.add_to_playing_menu_item_callback,
             'ev_full_new_playlist': self.add_playlist_menu_item_callback,
@@ -863,10 +895,11 @@ class CoverArtEntryView(BaseView):
             sensitive = False
 
         self.popup.set_sensitive('ev_full_add_to_playing_menu_item', sensitive)
+        self.popup.set_sensitive('ev_full_play_next_track_menu_item', sensitive)
 
         if not self.external_plugins:
             self.external_plugins = \
-                CreateExternalPluginMenu("ev_full_entryview", 5, self.popup)
+                CreateExternalPluginMenu("ev_full_entryview", 6, self.popup)
             self.external_plugins.create_menu('entryview_full_popup_menu')
 
         self.playlist_menu_item_callback()

@@ -25,6 +25,8 @@ If you have reached here looking for the stable version of the plugin please rea
 ##Summary: whats new in this release
 
  - To be completed
+ - Play Next (album)- add the selected album(s) to be the next album after the current playing album
+ - Play Next (track)- add the selected track(s) to be the next track after the current playing track
  - Track Artist and Artist Information Panes can be opened and closed via double-click of the pane-handle
  - Bottom Track & Cover Pane has more space - the expander & label has been removed
  - Visible Pane Handles disappear after the plugin has been run 5 times 

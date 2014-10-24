@@ -7,6 +7,10 @@
         <attribute name="action">win.ev_compact_play_track_menu_item</attribute>
       </item>
       <item>
+        <attribute name="label" translatable="yes">Play Next</attribute>
+        <attribute name="action">win.ev_compact_play_next_track_menu_item</attribute>
+      </item>
+      <item>
         <attribute name="label" translatable="yes">Queue Track</attribute>
         <attribute name="action">win.ev_compact_queue_track_menu_item</attribute>
       </item>

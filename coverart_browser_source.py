@@ -651,7 +651,6 @@ class CoverArtBrowserSource(RB.Source):
         the cover view popup. It plays similar artists music.
         '''
 
-    def play_similar_artist_menu_item_callback(self, *args):
         if not self.echonest_similar_playlist:
             self.echonest_similar_playlist = \
                 EchoNestPlaylist(self.shell,
