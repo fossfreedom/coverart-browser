@@ -1078,6 +1078,7 @@ class PanedCollapsible(Gtk.Paned):
     def __init__(self, *args, **kwargs):
         super(PanedCollapsible, self).__init__(*args, **kwargs)
         self._connect_properties()
+        self._from_paned_handle = 0
 
     def _connect_properties(self):
         self.connect('notify::collapsible1', self._on_collapsible1_changed)
@@ -1146,20 +1147,28 @@ class PanedCollapsible(Gtk.Paned):
 
         self.emit('expanded', expand)
 
-    def do_button_press_event(self, *args):
+    def do_button_press_event(self, event):
         '''
         This callback allows or denies the paned handle to move depending on
         the expanded expander
         '''
-        if not self._expander or self._expander.get_expanded():
-            Gtk.Paned.do_button_press_event(self, *args)
+        #if not self._expander or self._expander.get_expanded():
+        self._from_paned_handle = 1
+
+        if event.type == Gdk.EventType._2BUTTON_PRESS:
+            self._from_paned_handle = 2
+
+        Gtk.Paned.do_button_press_event(self, event)
 
     def do_button_release_event(self, *args):
         '''
         Callback when the paned handle is released from its mouse click.
         '''
-        if not self._expander or self._expander.get_expanded():
+        if self._from_paned_handle != 0:
             Gtk.Paned.do_button_release_event(self, *args)
+
+        if (not self._expander or self._expander.get_expanded()) and self._from_paned_handle == 1:
+            print ("in an expanded situation")
             self.collapsible_y = self.get_position()
 
             # if the current paned handle pos is less than the minimum the force a collapse
@@ -1168,6 +1177,21 @@ class PanedCollapsible(Gtk.Paned):
 
             if ((current_pos - self.collapsible_y) < self.Min_Paned_Size):
                 self.expand(PanedCollapsible.Paned.COLLAPSE)
+
+        if self._from_paned_handle == 2:
+            # we are dealing with a double click situation
+
+            if self._expander.get_expanded():
+                # if we are in an expanded position - lets collapse the pane
+                print ("collapsing")
+                self.expand(PanedCollapsible.Paned.COLLAPSE)
+            else:
+                # the current paned position is closed, so lets open the pane fully
+                self.expand(PanedCollapsible.Paned.EXPAND)
+                print ("expanding")
+                self.set_position(0)
+        print (self.get_position())
+        self._from_paned_handle = 0
 
     def do_remove(self, widget):
         '''
