@@ -17,6 +17,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
+import gettext
+
 from gi.repository import Gdk
 from gi.repository import Gtk
 from gi.repository import GLib
@@ -32,9 +34,8 @@ from coverart_browser_prefs import CoverLocale
 from coverart_album import AlbumsModel
 from coverart_widgets import AbstractView
 from coverart_widgets import PanedCollapsible
-import coverart_rb3compat as rb3compat
 import rb
-import gettext
+
 
 PLAY_SIZE_X = 30
 PLAY_SIZE_Y = 30
@@ -47,7 +48,6 @@ class CellRendererThumb(Gtk.CellRendererPixbuf):
         super(CellRendererThumb, self).__init__()
         self.font_description = font_description
         self.cell_area_source = cell_area_source
-        ypad = 0
 
     def do_render(self, cr, widget,
                   background_area,
@@ -57,9 +57,7 @@ class CellRendererThumb(Gtk.CellRendererPixbuf):
 
         x_offset = cell_area.x + 1
         y_offset = cell_area.y + 1
-        wi = 0
-        he = 0
-        #IMAGE
+        # first paint the cover
         pixbuf = self.props.pixbuf.scale_simple(cell_area.width - 2, cell_area.height - 2,
                                                 GdkPixbuf.InterpType.NEAREST)
         Gdk.cairo_set_source_pixbuf(cr, pixbuf, x_offset, y_offset)
@@ -68,23 +66,21 @@ class CellRendererThumb(Gtk.CellRendererPixbuf):
         alpha = 0.40
 
         if ((flags & Gtk.CellRendererState.PRELIT) == Gtk.CellRendererState.PRELIT):
+            # if the cursor is over the cell then slightly dim
             alpha -= 0.15
 
-            if hasattr(Gtk.IconView, "get_cell_rect") and self.cell_area_source.hover_pixbuf:
-                # this only works on Gtk+3.6 and later
+            if self.cell_area_source.hover_pixbuf:
+                # if a hover pixbuf is given then paint this as well
                 Gdk.cairo_set_source_pixbuf(cr,
                                             self.cell_area_source.hover_pixbuf, x_offset, y_offset)
                 cr.paint()
 
-        #if((flags & Gtk.CellRendererState.SELECTED) == Gtk.CellRendererState.SELECTED or \
-        #   (flags & Gtk.CellRendererState.FOCUSED) == Gtk.CellRendererState.FOCUSED):
-        #    alpha -= 0.15
-
-
         if not (self.cell_area_source.display_text and self.cell_area_source.display_text_pos == False):
             return
 
-        #PANGO LAYOUT
+        # the rest of the routine paints the contents of text within a cover if specified
+
+        # PANGO LAYOUT
         layout_width = cell_area.width - 2
         pango_layout = PangoCairo.create_layout(cr)
         pango_layout.set_markup(self.markup, -1)
@@ -96,14 +92,13 @@ class CellRendererThumb(Gtk.CellRendererPixbuf):
 
         rect_offset = y_offset + (int((2.0 * self.cell_area_source.cover_size) / 3.0))
         rect_height = int(self.cell_area_source.cover_size / 3.0)
-        was_to_large = False;
-        if (he > rect_height):
-            was_to_large = True
+
+        if he > rect_height:
             pango_layout.set_ellipsize(Pango.EllipsizeMode.END)
             pango_layout.set_height(int((self.cell_area_source.cover_size / 3.0) * Pango.SCALE))
             wi, he = pango_layout.get_pixel_size()
 
-        #RECTANGLE
+        # RECTANGLE
         cr.set_source_rgba(0.0, 0.0, 0.0, alpha)
         cr.set_line_width(0)
         cr.rectangle(x_offset,
@@ -139,7 +134,7 @@ class AlbumArtCellArea(Gtk.CellAreaBox):
 
         self._connect_properties()
 
-        #Add own cellrenderer
+        # Add own cellrenderer
         renderer_thumb = CellRendererThumb(self.font_description, self)
 
         self.pack_start(renderer_thumb, False, False, False)
@@ -235,7 +230,6 @@ class CoverIconView(EnhancedIconView, AbstractView):
         'update-toolbar': (GObject.SIGNAL_RUN_LAST, None, ())
     }
 
-
     def __init__(self, *args, **kwargs):
         super(CoverIconView, self).__init__(cell_area=AlbumArtCellArea(), *args, **kwargs)
 
@@ -276,8 +270,8 @@ class CoverIconView(EnhancedIconView, AbstractView):
         self.connect('drag-begin', self.on_drag_begin)
         self.enable_model_drag_source(Gdk.ModifierType.BUTTON1_MASK,
             [], Gdk.DragAction.COPY)
-        #targets = Gtk.TargetList.new([Gtk.TargetEntry.new("application/x-rhythmbox-entry", 0, 0),
-        #    Gtk.TargetEntry.new("text/uri-list", 0, 1) ])
+        # targets = Gtk.TargetList.new([Gtk.TargetEntry.new("application/x-rhythmbox-entry", 0, 0),
+        # Gtk.TargetEntry.new("text/uri-list", 0, 1) ])
         targets = Gtk.TargetList.new([Gtk.TargetEntry.new("text/uri-list", 0, 0)])
         # N.B. values taken from rhythmbox v2.97 widgets/rb_entry_view.c
         targets.add_uri_targets(1)
@@ -299,7 +293,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
             'button_playpause_hover': None,
             'button_queue': None,
             'button_queue_hover': None,
-            }
+        }
 
         for pixbuf_type in self.hover_pixbufs:
             filename = 'img/' + pixbuf_type + '.png'
@@ -464,7 +458,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
                                     self._calculate_hotspot)
         else:
             path = self.get_path_at_pos(self._current_mouse_x,
-                                    self._current_mouse_y)
+                                        self._current_mouse_y)
 
             if not self._last_path or self._last_path != path:
                 self._display_icon(None, self._last_path)
@@ -497,7 +491,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
         if self._calc_motion_step < 8:
             return True
 
-        if not self._cover_play_hotspot(path, in_vacinity = True):
+        if not self._cover_play_hotspot(path, in_vacinity=True):
             # we are not near the hot-spot so decrement the counter
             # hoping next time around we are near
             self._calc_motion_step = self._calc_motion_step - 1
@@ -569,10 +563,10 @@ class CoverIconView(EnhancedIconView, AbstractView):
                     album = self.get_selected_objects()[0]
                     cl = CoverLocale()
                     cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
-                    message  = gettext.gettext('Album has added to list of playing albums')
+                    message = gettext.gettext('Album has added to list of playing albums')
                     self.display_notification(album.name,
-                                            message,
-                                            album.cover.original)
+                                              message,
+                                              album.cover.original)
                 else:  # otherwise just play it
                     self._last_path = path
                     self.source.play_selected_album(self.source.favourites)
@@ -622,7 +616,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
         self.set_column_spacing(self.icon_spacing)
 
     def _create_and_configure_renderer(self):
-        #Add own cellrenderer
+        # Add own cellrenderer
         self._text_renderer = Gtk.CellRendererText()
 
         self._text_renderer.props.alignment = Pango.Alignment.CENTER
