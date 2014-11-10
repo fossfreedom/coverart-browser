@@ -25,6 +25,7 @@ If you have reached here looking for the stable version of the plugin please rea
 ##Summary: whats new in this release
 
  - To be completed
+ - single click icon display position changes consistently depending upon the cover-tile style (shadow/no shadow etc.)
  - Double click track & cover pane to open full height or to close
  - Play Next (album)- add the selected album(s) to be the next album after the current playing album
  - Play Next (track)- add the selected track(s) to be the next track after the current playing track

@@ -44,7 +44,7 @@
     <property name="text">170</property>
   </object>
   <object class="GtkAdjustment" id="cover_size_adjustment">
-    <property name="lower">5</property>
+    <property name="lower">50</property>
     <property name="upper">200</property>
     <property name="value">92</property>
     <property name="step_increment">1</property>

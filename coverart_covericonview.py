@@ -40,7 +40,6 @@ import rb
 PLAY_SIZE_X = 30
 PLAY_SIZE_Y = 30
 
-
 class CellRendererThumb(Gtk.CellRendererPixbuf):
     markup = GObject.property(type=str, default="")
 
@@ -53,7 +52,6 @@ class CellRendererThumb(Gtk.CellRendererPixbuf):
                   background_area,
                   cell_area,
                   flags):
-
 
         x_offset = cell_area.x + 1
         y_offset = cell_area.y + 1
@@ -70,9 +68,14 @@ class CellRendererThumb(Gtk.CellRendererPixbuf):
             alpha -= 0.15
 
             if self.cell_area_source.hover_pixbuf:
-                # if a hover pixbuf is given then paint this as well
+                # if a hover pixbuf is given then paint this as well either just above the cover album info
+                # of at the bottom of the cell area if album info is not within the cover area
+                full, calc_x_offset, calc_y_offset = self.cell_area_source.calc_play_icon_offset(x_offset, y_offset)
+
                 Gdk.cairo_set_source_pixbuf(cr,
-                                            self.cell_area_source.hover_pixbuf, x_offset, y_offset)
+                                            self.cell_area_source.hover_pixbuf,
+                                            calc_x_offset,
+                                            calc_y_offset - PLAY_SIZE_Y)
                 cr.paint()
 
         if not (self.cell_area_source.display_text and self.cell_area_source.display_text_pos == False):
@@ -123,6 +126,7 @@ class AlbumArtCellArea(Gtk.CellAreaBox):
     cover_size = GObject.property(type=int, default=0)
     display_text_pos = GObject.property(type=bool, default=False)
     display_text = GObject.property(type=bool, default=False)
+    add_shadow = GObject.property(type=bool, default=False)
     hover_pixbuf = GObject.property(type=object, default=None)
 
     def __init__(self, ):
@@ -154,6 +158,30 @@ class AlbumArtCellArea(Gtk.CellAreaBox):
 
         setting.bind(gs.PluginKey.DISPLAY_TEXT, self, 'display-text',
                      Gio.SettingsBindFlags.GET)
+
+        setting.bind(gs.PluginKey.ADD_SHADOW, self, 'add-shadow',
+                     Gio.SettingsBindFlags.GET)
+
+    def calc_play_icon_offset(self, initial_x_offset, initial_y_offset):
+        '''
+        calculates the x & y offset for the play hover icon
+        :param initial_x_offset: current x_offset
+        :param initial_y_offset: current y_offset
+        :return: bool, x & y offset where bool is the full cover position
+        '''
+        full_cover = False
+        if not (self.display_text and self.display_text_pos == False):
+            y_offset = initial_y_offset + self.cover_size - 10
+            full_cover = True
+        else:
+            y_offset = initial_y_offset + (int((2.0 * self.cover_size) / 3.0))
+
+        x_offset = initial_x_offset
+        if self.add_shadow:
+            x_offset = initial_x_offset + 10
+            y_offset = y_offset - 10
+
+        return full_cover, x_offset, y_offset
 
 
 class AlbumShowingPolicy(GObject.Object):
@@ -299,7 +327,8 @@ class CoverIconView(EnhancedIconView, AbstractView):
             filename = 'img/' + pixbuf_type + '.png'
             filename = rb.find_plugin_file(self.plugin, filename)
             self.hover_pixbufs[pixbuf_type] = GdkPixbuf.Pixbuf.new_from_file_at_size(filename,
-                                                                                     PLAY_SIZE_X, PLAY_SIZE_Y)
+                                                                                     PLAY_SIZE_X,
+                                                                                     PLAY_SIZE_Y)
 
         self._connect_properties()
         self._connect_signals()
@@ -438,14 +467,24 @@ class CoverIconView(EnhancedIconView, AbstractView):
             c_x = cursor_x - rect.x - (self.icon_padding / 2) - (self.icon_spacing / 2)
             c_y = cursor_y - rect.y - (self.icon_padding / 2) - (self.icon_spacing / 2)
 
-            sizing = (rect.width / 2) if in_vacinity else 0
+            sizing = (rect.width / 3) if in_vacinity else 0
 
-            if c_x < (PLAY_SIZE_X + sizing) and \
-                            c_y < (PLAY_SIZE_Y + sizing) and \
-                            c_x > 0 and \
-                            c_y > 0:
+            full, x_offset, y_offset = self.props.cell_area.calc_play_icon_offset(0, 0)
+            if full and c_y > y_offset:
+                return False
+
+            y_offset = y_offset - PLAY_SIZE_Y
+
+            if (y_offset - PLAY_SIZE_Y) < 0:
+                return False
+
+            if c_x < (PLAY_SIZE_X + sizing + x_offset) and \
+                            c_y < (PLAY_SIZE_Y + sizing + y_offset) and \
+                            c_x > x_offset and \
+                            c_y > (y_offset - sizing):
                 return True
 
+                # c_y 0 value at top - largest at bottom of the cover
         return False
 
     def on_pointer_motion(self, widget, event):
@@ -465,7 +504,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
 
     def _display_icon(self, icon, path):
         self.props.cell_area.hover_pixbuf = icon
-        if path:
+        if path and self.props.window:
             valid, rect = self.get_cell_rect(path, None)
             self.props.window.invalidate_rect(rect, True)
 
