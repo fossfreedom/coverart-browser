@@ -330,8 +330,8 @@ class ResultsGrid(Gtk.Grid):
           Also a peculiarity is that moving the pointer over the overlay zoom icon causes
           enter and leave events ... so we need to monitor the mouse over for the icon as well
         '''
-        overlay = Gtk.Overlay()
-        overlay.add(self.frame)
+        self.overlay = Gtk.Overlay()
+        self.overlay.add(self.frame)
 
         image = Gtk.Image(stock=Gtk.STOCK_FIND)
         self.cw_btn = Gtk.Button(label=None, image=image)
@@ -340,9 +340,9 @@ class ResultsGrid(Gtk.Grid):
         self.cw_btn.set_halign(Gtk.Align.CENTER)
         self.cw_btn_state = False
         self.hover = False
-        overlay.add_overlay(self.cw_btn)
+        self.overlay.add_overlay(self.cw_btn)
 
-        self.attach(overlay, 6, 0, 1, 1)
+        self.attach(self.overlay, 6, 0, 1, 1)
 
         self.stack.add_events(Gdk.EventMask.ENTER_NOTIFY_MASK)
         self.stack.add_events(Gdk.EventMask.LEAVE_NOTIFY_MASK)
@@ -366,8 +366,6 @@ class ResultsGrid(Gtk.Grid):
         if bg_colour == Gdk.RGBA(0, 0, 0, 0):
             color = context.get_color(Gtk.StateFlags.NORMAL)
             self.override_background_color(Gtk.StateType.NORMAL, color)
-
-        print(self.entry_view_grid)
 
     '''
       when a show, show_all is used lets make sure we set the icon visibility correctly
@@ -457,14 +455,16 @@ class ResultsGrid(Gtk.Grid):
 
         if (alloc.width / 4) <= (MIN_IMAGE_SIZE + 30) or \
                         (entry_grid_alloc.height) <= (MIN_IMAGE_SIZE + 30):
-            self.frame.props.visible = False
+            self.overlay.set_visible(False)
             return
         else:
-            self.frame.props.visible = True
+            self.overlay.set_visible(True)
             vbar = self.scroll.get_vscrollbar()
-            vbar.set_visible(False)
+            if vbar:
+                vbar.set_visible(False)
             hbar = self.scroll.get_hscrollbar()
-            hbar.set_visible(False)
+            if hbar:
+                hbar.set_visible(False)
 
         minval = min((alloc.width / 4), (alloc.height))
         if self.oldval == minval:
@@ -501,7 +501,7 @@ class ResultsGrid(Gtk.Grid):
         self.attach(entry_view, 0, 0, 3, 1)
 
         if show_coverart:
-            self.attach(self.frame, 6, 0, 1, 1)
+            self.attach(self.overlay, 6, 0, 1, 1)
 
         self.show_all()
         self.cw_btn.set_visible(self.hover)
