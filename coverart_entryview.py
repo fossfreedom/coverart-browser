@@ -39,10 +39,10 @@ from coverart_external_plugins import ExternalPlugin
 from stars import ReactiveStar
 from coverart_search import CoverSearchPane
 from coverart_widgets import PixbufButton
-
+from coverart_window import CoverWindow
+from os.path import expanduser
 
 MIN_IMAGE_SIZE = 100
-
 
 class EntryViewPane(object):
     '''
@@ -71,7 +71,7 @@ class EntryViewPane(object):
             False)
 
         self.entry_view_results = ResultsGrid()
-        self.entry_view_results.initialise(self.entry_view_grid)
+        self.entry_view_results.initialise(self.entry_view_grid, source)
 
         self.stack.add_titled(self.entry_view_results, "notebook_tracks", _("Tracks"))
         self.entry_view_grid.attach(self.stack, 0, 0, 3, 1)
@@ -118,7 +118,7 @@ class EntryViewPane(object):
         rightgrid = Gtk.Grid()
         rightgrid.props.halign = Gtk.Align.END
 
-        #rightgrid.attach(whatsplayingtoggle, 0, 0, 1, 1)
+        # rightgrid.attach(whatsplayingtoggle, 0, 0, 1, 1)
         rightgrid.attach(viewtoggle, 1, 0, 1, 1)
         rightgrid.attach(smallwindowbutton, 2, 0, 1, 1)
 
@@ -254,12 +254,11 @@ class EntryViewPane(object):
             self.entry_view.add_album(album)
 
         if len(selected) > 0:
-
             def cover_update(*args):
-                print ("emitting")
+                print("emitting")
                 self.entry_view_results.emit('update-cover',
-                                         self.source,
-                                         selected[0].get_tracks()[0].entry)
+                                             self.source,
+                                             selected[0].get_tracks()[0].entry)
 
             # add a short delay to give the entry-pane time to expand etc.
             Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250, cover_update, None)
@@ -283,10 +282,11 @@ class ResultsGrid(Gtk.Grid):
     def __init__(self, *args, **kwargs):
         super(ResultsGrid, self).__init__(*args, **kwargs)
 
-    def initialise(self, entry_view_grid):
+    def initialise(self, entry_view_grid, source):
         self.pixbuf = None
 
         self.entry_view_grid = entry_view_grid
+        self.source = source
 
         self.oldval = 0
         self.stack = Gtk.Stack()
@@ -303,7 +303,7 @@ class ResultsGrid(Gtk.Grid):
         self.image2.props.vexpand = True
         self.stack.add_named(self.image2, "image2")
 
-        self.frame = Gtk.Frame.new() #"", 0.5, 0.5, 1, False)
+        self.frame = Gtk.Frame.new()  # "", 0.5, 0.5, 1, False)
         try:
             # correct from Gtk 3.12 onwards
             self.frame.set_margin_end(5)
@@ -320,11 +320,46 @@ class ResultsGrid(Gtk.Grid):
         self.frame.add(self.scroll)
         self._signal_connected = None
 
-        self.attach(self.frame, 6, 0, 1, 1)
+        '''
+          when we hover over the coverart then a zoom icon is overlayed with the coverart
+          when we move the mouse pointer from the coverart then the zoom icon is hidden
+
+          this is achieved by a GtkOverlay - the stack doesnt normally have a mouse over event so
+          we need to understand when a mouse pointer enters or leaves the stack.
+
+          Also a peculiarity is that moving the pointer over the overlay zoom icon causes
+          enter and leave events ... so we need to monitor the mouse over for the icon as well
+        '''
+        overlay = Gtk.Overlay()
+        overlay.add(self.frame)
+
+        image = Gtk.Image(stock=Gtk.STOCK_FIND)
+        self.cw_btn = Gtk.Button(label=None, image=image)
+
+        self.cw_btn.set_valign(Gtk.Align.END)
+        self.cw_btn.set_halign(Gtk.Align.CENTER)
+        self.cw_btn_state = False
+        self.hover = False
+        overlay.add_overlay(self.cw_btn)
+
+        self.attach(overlay, 6, 0, 1, 1)
+
+        self.stack.add_events(Gdk.EventMask.ENTER_NOTIFY_MASK)
+        self.stack.add_events(Gdk.EventMask.LEAVE_NOTIFY_MASK)
+        self.stack.add_events(Gdk.EventMask.POINTER_MOTION_MASK)
+        self.cw_btn.add_events(Gdk.EventMask.POINTER_MOTION_MASK)
+        self.stack.connect('enter-notify-event', self.stack_notify_event)
+        self.stack.connect('leave-notify-event', self.stack_notify_event)
+        self.stack.connect('motion-notify-event', self.motion_notify_event)
+        self.cw_btn.connect('clicked', self.cw_btn_clicked)
+        self.cw_btn.connect('motion-notify-event', self.motion_notify_event)
+        self.cw_btn.connect('show', self.cw_btn_show_event)
+        self.cw = None
+        self.hover_time_out = None
         self.connect('update-cover', self.update_cover)
         self.connect('whats-playing', self.display_whats_playing)
 
-        #lets fix the situation where some-themes background colour is incorrectly defined
+        # lets fix the situation where some-themes background colour is incorrectly defined
         #in these cases the background colour is black
         context = self.get_style_context()
         bg_colour = context.get_background_color(Gtk.StateFlags.NORMAL)
@@ -332,18 +367,74 @@ class ResultsGrid(Gtk.Grid):
             color = context.get_color(Gtk.StateFlags.NORMAL)
             self.override_background_color(Gtk.StateType.NORMAL, color)
 
+        print(self.entry_view_grid)
+
+    '''
+      when a show, show_all is used lets make sure we set the icon visibility correctly
+    '''
+
+    def cw_btn_show_event(self, *args):
+        self.cw_btn.set_visible(self.hover)
+
+    '''
+      when mousing over the stack/icon we need to remember that we are hovering ... so the visibility
+      is set correctly - in the stack notify event
+    '''
+
+    def motion_notify_event(self, *args):
+        self.hover = True
+
+    def cw_btn_clicked(self, *args):
+        def cleanup(arg):
+            del self.cw
+            self.cw = None
+
+        if not self.cw:
+            home = expanduser("~")
+            self.cw = CoverWindow(self.source.plugin, self.cw_btn.get_toplevel(), home)
+            self.cw.connect('close-window', cleanup)
+
+        self.cw.show_all(' ', self.pixbuf)
+
+    '''
+      when entering and leaving the stack (also the icon) then we assume the icon is to be invisible
+      Use a short delay to allow the motion events to kick in - if we are still in the stack/icon
+      then the hover visibility will be changed
+    '''
+
+    def stack_notify_event(self, widget, event_crossing):
+
+        if self.hover_time_out:
+            GLib.source_remove(self.hover_time_out)
+            self.hover_time_out = None
+
+        def set_hover():
+            if self.pixbuf:
+                self.cw_btn.set_visible(self.hover)
+            else:
+                self.cw_btn.set_visible(False)
+
+            self.hover_time_out = None
+            return False
+
+        self.hover = False
+
+        self.hover_time_out = GLib.timeout_add(350, set_hover)
+
+        return False
+
     def update_cover(self, widget, source, entry):
 
-        print ('update_cover')
+        print('update_cover')
         self.oldval = 0  # force a redraw
         if entry:
-            print ('entry')
+            print('entry')
             album = source.album_manager.model.get_from_dbentry(entry)
             self.pixbuf = GdkPixbuf.Pixbuf().new_from_file(album.cover.original)
             self.window_resize(None)
             self.frame.set_shadow_type(Gtk.ShadowType.NONE)
         else:
-            print ('no pixbuf')
+            print('no pixbuf')
             self.pixbuf = None
             self.frame.set_shadow_type(Gtk.ShadowType.ETCHED_OUT)
 
@@ -413,10 +504,10 @@ class ResultsGrid(Gtk.Grid):
             self.attach(self.frame, 6, 0, 1, 1)
 
         self.show_all()
+        self.cw_btn.set_visible(self.hover)
 
 
 class BaseView(RB.EntryView):
-
     def __init__(self, shell, source):
         '''
         Initializes the entryview.
@@ -461,7 +552,7 @@ class BaseView(RB.EntryView):
 
         self.artists = ""
 
-        print ("end constructor")
+        print("end constructor")
 
     def __del__(self):
         del self.action_group
@@ -599,7 +690,6 @@ class BaseView(RB.EntryView):
             index = index + 1
             entry = source.get_previous_from_entry(entry)
 
-
         for entry in selected:
             source.add_entry(entry, index)
             index = index + 1
@@ -620,7 +710,7 @@ class BaseView(RB.EntryView):
 
         self.source.props.query_model = self.source_query_model
 
-        #library_view = self.shell.props.library_source.get_entry_view()
+        # library_view = self.shell.props.library_source.get_entry_view()
         #library_view.set_sorting_order('track-number', Gtk.SortType.ASCENDING)
         #self.set_sorting_order('track-number', Gtk.SortType.ASCENDING)
 

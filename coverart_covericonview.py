@@ -34,6 +34,7 @@ from coverart_browser_prefs import CoverLocale
 from coverart_album import AlbumsModel
 from coverart_widgets import AbstractView
 from coverart_widgets import PanedCollapsible
+
 import rb
 
 
