@@ -1,11 +1,13 @@
-#coverart-browser - development
+#coverart-browser - development (Penfold)
 
 Browse your coverart albums in Rhythmbox v3 and later.  
 
 If you have reached here looking for the stable version of the plugin please read the README files for
 
- - rhythmbox 2.96 - 2.99: https://github.com/fossfreedom/coverart-browser/tree/release-1.1
+ - rhythmbox 2.96 - 2.99: https://github.com/fossfreedom/coverart-browser/tree/release-1.2
  - rhythmbox 3.0+: https://github.com/fossfreedom/coverart-browser/tree/release-2.0
+ 
+DISTRO PACKAGERS: Please do not package this branch since it is a development branch and stuff is constantly changing.  Testers should git clone from this branch.  I cannot support testers if they are dependent upon outdated packages.  Thanks
 
 ![Imgur](http://i.imgur.com/sUgX7d7.png)
 
@@ -25,6 +27,7 @@ If you have reached here looking for the stable version of the plugin please rea
 ##Summary: whats new in this release
 
  - To be completed
+ - Single click icon display position changes consistently depending upon the cover-tile style (shadow/no shadow etc.)
  - view/zoom/save the chosen cover - hover over the coverart on the track pane to reveal
  - single click icon display position changes consistently depending upon the cover-tile style (shadow/no shadow etc.)
  - Double click track & cover pane to open full height or to close
@@ -65,7 +68,7 @@ To install the plugin:
 
 <pre>
 rm -rf ~/.local/share/rhythmbox/plugins/coverart_browser
-git clone https://github.com/fossfreedom/coverart-browser.git
+git clone https://github.com/fossfreedom/coverart-browser.git -b master
 cd coverart-browser
 ./install.sh
 </pre>
