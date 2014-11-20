@@ -333,7 +333,7 @@ class ResultsGrid(Gtk.Grid):
         self.overlay = Gtk.Overlay()
         self.overlay.add(self.frame)
 
-        image = Gtk.Image(stock=Gtk.STOCK_FIND)
+        image = Gtk.Image.new_from_icon_name(Gtk.STOCK_ZOOM_FIT, Gtk.IconSize.SMALL_TOOLBAR)
         self.cw_btn = Gtk.Button(label=None, image=image)
 
         self.cw_btn.set_valign(Gtk.Align.END)
