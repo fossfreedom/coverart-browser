@@ -172,7 +172,8 @@ class GSetting:
                 LAST_GENRE_FOLDER='last-genre-folder',
                 ENTRY_VIEW_MODE='entry-view-mode',
                 FOLLOWING='following',
-                ACTIVATIONS='activations')
+                ACTIVATIONS='activations',
+                TEXT_ALIGNMENT='text-alignment')
 
             self.setting = {}
 
@@ -526,6 +527,18 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         else:
             self.black_radiobutton.set_active(True)
 
+        self.text_alignment = self.settings[gs.PluginKey.TEXT_ALIGNMENT]
+        self.text_alignment_left_radiobutton = builder.get_object('left_alignment_radiobutton')
+        self.text_alignment_centre_radiobutton = builder.get_object('centre_alignment_radiobutton')
+        self.text_alignment_right_radiobutton = builder.get_object('right_alignment_radiobutton')
+
+        if self.text_alignment == 0:
+            self.text_alignment_left_radiobutton.set_active(True)
+        elif self.text_alignment == 1:
+            self.text_alignment_centre_radiobutton.set_active(True)
+        else:
+            self.text_alignment_right_radiobutton.set_active(True)
+
         # return the dialog
         self._first_run = False
         print ("end create dialog contents")
@@ -585,6 +598,19 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
             else:
                 self.settings[gs.PluginKey.DISPLAY_TEXT_POS] = False
                 self.settings[gs.PluginKey.ADD_SHADOW] = False
+
+    def on_text_alignment_radiobutton_toggled(self, button):
+        if self._first_run:
+            return
+
+        if button.get_active():
+            gs = GSetting()
+            if button == self.text_alignment_left_radiobutton:
+                self.settings[gs.PluginKey.TEXT_ALIGNMENT] = 0
+            elif button == self.text_alignment_centre_radiobutton:
+                self.settings[gs.PluginKey.TEXT_ALIGNMENT] = 1
+            else:
+                self.settings[gs.PluginKey.TEXT_ALIGNMENT] = 2
 
     def on_add_shadow_checkbox_toggled(self, button):
         if button.get_active():

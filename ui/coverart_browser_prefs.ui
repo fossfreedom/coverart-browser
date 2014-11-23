@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Generated with glade 3.16.1 -->
 <interface>
-  <requires lib="gtk+" version="3.0"/>
+  <requires lib="gtk+" version="3.10"/>
   <object class="GtkImage" id="add_image">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -689,6 +689,78 @@ albums to play</property>
                 <property name="position">4</property>
               </packing>
             </child>
+            <child>
+              <object class="GtkBox" id="box13">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">center</property>
+                <child>
+                  <object class="GtkRadioButton" id="left_alignment_radiobutton">
+                    <property name="label">gtk-justify-left</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="use_stock">True</property>
+                    <property name="xalign">0</property>
+                    <property name="image_position">top</property>
+                    <property name="always_show_image">True</property>
+                    <property name="draw_indicator">False</property>
+                    <signal name="toggled" handler="on_text_alignment_radiobutton_toggled" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkRadioButton" id="centre_alignment_radiobutton">
+                    <property name="label">gtk-justify-center</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="use_stock">True</property>
+                    <property name="xalign">0</property>
+                    <property name="image_position">top</property>
+                    <property name="always_show_image">True</property>
+                    <property name="active">True</property>
+                    <property name="draw_indicator">False</property>
+                    <property name="group">left_alignment_radiobutton</property>
+                    <signal name="toggled" handler="on_text_alignment_radiobutton_toggled" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkRadioButton" id="right_alignment_radiobutton">
+                    <property name="label">gtk-justify-right</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="use_stock">True</property>
+                    <property name="xalign">0</property>
+                    <property name="image_position">top</property>
+                    <property name="always_show_image">True</property>
+                    <property name="draw_indicator">False</property>
+                    <property name="group">left_alignment_radiobutton</property>
+                    <signal name="toggled" handler="on_text_alignment_radiobutton_toggled" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">5</property>
+              </packing>
+            </child>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -985,6 +1057,11 @@ albums to play</property>
               </packing>
             </child>
           </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">9</property>
+          </packing>
         </child>
       </object>
       <packing>

@@ -88,7 +88,7 @@ class CellRendererThumb(Gtk.CellRendererPixbuf):
         layout_width = cell_area.width - 2
         pango_layout = PangoCairo.create_layout(cr)
         pango_layout.set_markup(self.markup, -1)
-        pango_layout.set_alignment(Pango.Alignment.CENTER)
+        pango_layout.set_alignment(self.cell_area_source.text_alignment)
         pango_layout.set_font_description(self.font_description)
         pango_layout.set_width(int(layout_width * Pango.SCALE))
         pango_layout.set_wrap(Pango.WrapMode.WORD_CHAR)
@@ -129,6 +129,7 @@ class AlbumArtCellArea(Gtk.CellAreaBox):
     display_text = GObject.property(type=bool, default=False)
     add_shadow = GObject.property(type=bool, default=False)
     hover_pixbuf = GObject.property(type=object, default=None)
+    text_alignment = GObject.property(type=int, default=1)
 
     def __init__(self, ):
         super(AlbumArtCellArea, self).__init__()
@@ -162,6 +163,10 @@ class AlbumArtCellArea(Gtk.CellAreaBox):
 
         setting.bind(gs.PluginKey.ADD_SHADOW, self, 'add-shadow',
                      Gio.SettingsBindFlags.GET)
+
+        setting.bind(gs.PluginKey.TEXT_ALIGNMENT, self, 'text-alignment',
+                     Gio.SettingsBindFlags.GET)
+
 
     def calc_play_icon_offset(self, initial_x_offset, initial_y_offset):
         '''
@@ -254,6 +259,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
     display_text_pos = GObject.property(type=bool, default=False)
     name = 'coverview'
     panedposition = PanedCollapsible.Paned.COLLAPSE
+    text_alignment = GObject.property(type=int, default=1)
 
     __gsignals__ = {
         'update-toolbar': (GObject.SIGNAL_RUN_LAST, None, ())
@@ -360,6 +366,9 @@ class CoverIconView(EnhancedIconView, AbstractView):
         setting.bind(self.gs.PluginKey.DISPLAY_TEXT_POS, self,
                      'display-text-pos', Gio.SettingsBindFlags.GET)
 
+        setting.bind(self.gs.PluginKey.TEXT_ALIGNMENT, self,
+                     'text-alignment', Gio.SettingsBindFlags.GET)
+
     def _connect_signals(self):
         self.connect("item-clicked", self.item_clicked_callback)
         self.connect("selection-changed", self.selectionchanged_callback)
@@ -372,6 +381,8 @@ class CoverIconView(EnhancedIconView, AbstractView):
                      self._activate_markup)
         self.connect('notify::display-text-pos',
                      self._activate_markup)
+        self.connect('notify::text-alignment',
+                     self._create_and_configure_renderer)
         self.connect("motion-notify-event", self.on_pointer_motion)
 
     def get_view_icon_name(self):
@@ -655,13 +666,20 @@ class CoverIconView(EnhancedIconView, AbstractView):
         self.set_row_spacing(self.icon_spacing)
         self.set_column_spacing(self.icon_spacing)
 
-    def _create_and_configure_renderer(self):
-        # Add own cellrenderer
-        self._text_renderer = Gtk.CellRendererText()
+    def _create_and_configure_renderer(self, *args):
+        if not self._text_renderer:
+            # Add own cellrenderer
+            self._text_renderer = Gtk.CellRendererText()
 
-        self._text_renderer.props.alignment = Pango.Alignment.CENTER
+        self._text_renderer.props.alignment = self.text_alignment
         self._text_renderer.props.wrap_mode = Pango.WrapMode.WORD
-        self._text_renderer.props.xalign = 0.5
+        if self.text_alignment == 1:
+            self._text_renderer.props.xalign = 0.5
+        elif self.text_alignment == 0:
+            self._text_renderer.props.xalign = 0
+        else:
+            self._text_renderer.props.xalign = 1
+
         self._text_renderer.props.yalign = 0
         self._text_renderer.props.width = \
             self.album_manager.cover_man.cover_size

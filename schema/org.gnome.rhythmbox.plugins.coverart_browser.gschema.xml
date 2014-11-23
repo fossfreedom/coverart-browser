@@ -226,5 +226,10 @@
             <summary>number of times the plugin has been activated</summary>
             <description>number of times the plugin has been activated</description>
         </key>
+        <key type="i" name="text-alignment">
+            <default>1</default>
+            <summary>alignment of coverart info</summary>
+            <description>Pango Alignment value</description>
+        </key>
     </schema>
 </schemalist>
