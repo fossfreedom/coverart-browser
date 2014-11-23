@@ -29,6 +29,7 @@ DISTRO PACKAGERS: Please do not package this branch since it is a development br
  - To be completed
  - Single click icon display position changes consistently depending upon the cover-tile style (shadow/no shadow etc.)
  - view/zoom/save the chosen cover - hover over the coverart on the track pane to reveal
+ - coverart information in tile-view can be now left/centre & right aligned
  - Double click track & cover pane to open full height or to close
  - Play Next (album)- add the selected album(s) to be the next album after the current playing album
  - Play Next (track)- add the selected track(s) to be the next track after the current playing track
