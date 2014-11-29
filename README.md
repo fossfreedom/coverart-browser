@@ -27,15 +27,16 @@ DISTRO PACKAGERS: Please do not package this branch since it is a development br
 ##Summary: whats new in this release
 
  - To be completed
+ - Support for GTK 3.14
  - Single click icon display position changes consistently depending upon the cover-tile style (shadow/no shadow etc.)
  - view/zoom/save the chosen cover - hover over the coverart on the track pane to reveal
  - coverart information in tile-view can be now left/centre & right aligned
- - Double click track & cover pane to open full height or to close
+ - Double click track & cover pane handle to open full height or to close
  - Play Next (album)- add the selected album(s) to be the next album after the current playing album
  - Play Next (track)- add the selected track(s) to be the next track after the current playing track
  - Track Artist and Artist Information Panes can be opened and closed via double-click of the pane-handle
  - Bottom Track & Cover Pane has more space - the expander & label has been removed
- - Visible Pane Handles disappear after the plugin has been run 5 times 
+ - Tidied display - visible pane handles disappear after the plugin has been run 5 times 
  - Translated into 24 languages and locales
  - for developers - doxygen documentation: http://fossfreedom.github.io/coverart-browser/classes.html
 
@@ -55,11 +56,11 @@ N.B. for earlier Rhythmbox versions use version 1.x
 
 Prerequisite is to use a distribution supporting GTK 3.10 or later - for example, Ubuntu 14.04, Arch or Fedora 20
 
-for debian & debian-based distros such as Ubuntu & Mint:
+for Debian & Debian-based distros such as Ubuntu & Mint:
 
     sudo apt-get install git gettext python3-mako python3-lxml python3-gi-cairo python3-cairo gstreamer1.0-plugins-ugly gstreamer1.0-plugins-good gstreamer1.0-plugins-bad rhythmbox-plugins
 
-for fedora and similar:
+for Fedora and similar:
 
     sudo yum install git gettext python3-mako python3-lxml python3-cairo
 
