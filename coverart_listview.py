@@ -62,7 +62,7 @@ class ListView(AbstractView):
 
         self.view_name = "list_view"
         super(ListView, self).initialise(source)
-        #self.album_manager = source.album_manager
+        # self.album_manager = source.album_manager
         self.shell = source.shell
 
     def switch_to_view(self, source, album):

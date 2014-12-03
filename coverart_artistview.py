@@ -89,7 +89,7 @@ class Artist(GObject.Object):
 
     @cover.setter
     def cover(self, new_cover):
-        #if self._cover:
+        # if self._cover:
         #    self._cover.disconnect(self._cover_resized_id)
 
         self._cover = new_cover
@@ -151,7 +151,7 @@ class ArtistsModel(GObject.Object):
         self._filtered_store.set_visible_column(ArtistsModel.columns['show'])
 
         self._tree_sort = Gtk.TreeModelSort(model=self._filtered_store)
-        #self._tree_sort.set_default_sort_func(lambda *unused: 0)       
+        # self._tree_sort.set_default_sort_func(lambda *unused: 0)
         self._tree_sort.set_sort_func(0, self._compare, None)
 
         self._connect_signals()
@@ -187,7 +187,7 @@ class ArtistsModel(GObject.Object):
 
     @property
     def store(self):
-        #return self._filtered_store
+        # return self._filtered_store
         return self._tree_sort
 
     def add(self, artist):
@@ -442,7 +442,7 @@ class ArtistsModel(GObject.Object):
         while next_iter != None:
             albums.append(self._tree_store[next_iter][self.columns['artist_album']])
             next_iter = self._tree_store.iter_next(next_iter)
-        #if 'album' in self._iters[artist_name]:
+        # if 'album' in self._iters[artist_name]:
         #    for album_iter in self._iters[artist_name]['album']:
         #        path = self._tree_store.get_path(album_iter)
         #        if path:
@@ -566,8 +566,8 @@ class ArtistCellRenderer(Gtk.CellRendererPixbuf):
                   background_area,
                   cell_area,
                   flags):
-        newpix = self.props.pixbuf  #.copy()
-        #newpix = newpix.scale_simple(48,48,GdkPixbuf.InterpType.BILINEAR)
+        newpix = self.props.pixbuf  # .copy()
+        # newpix = newpix.scale_simple(48,48,GdkPixbuf.InterpType.BILINEAR)
 
         Gdk.cairo_set_source_pixbuf(cr, newpix, 0, 0)
         cr.paint()
@@ -596,7 +596,7 @@ class ArtistLoader(GObject.Object):
         self.model = artist_manager.model
 
     def load_artists(self):
-        print ("load_artists")
+        print("load_artists")
         albums = self._album_manager.model.get_all()
         model = list(set(album.artist for album in albums))
 
@@ -645,14 +645,14 @@ class ArtistLoader(GObject.Object):
         def finish(data):
             self._album_manager.progress = 1
             self.emit('model-load-finished')
-            print ("finished")
-            #return False
+            print("finished")
+            # return False
 
         return ARTIST_LOAD_CHUNK, process, after, error, finish
 
     def _connect_signals(self):
         # connect signals for updating the albums
-        #self.entry_changed_id = self._album_manager.db.connect('entry-changed',
+        # self.entry_changed_id = self._album_manager.db.connect('entry-changed',
         #    self._entry_changed_callback)
         pass
 
@@ -905,7 +905,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
             treepath, treecolumn, cellx, celly = self.get_path_at_pos(winx, winy)
             active_object = self.artist_manager.model.get_from_path(treepath)
 
-            #active_object=self.artist_manager.model.store[treepath][self.artist_manager.model.columns['artist_album']]
+            # active_object=self.artist_manager.model.store[treepath][self.artist_manager.model.columns['artist_album']]
 
             if isinstance(active_object, Artist) and \
                             treecolumn.get_title() == _('Covers') and \
@@ -946,7 +946,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
         if isinstance(active_object, Artist):
             self.artist_manager.model.emit('update-path', treepath)
         else:
-            #we need to play this album
+            # we need to play this album
             self.source.play_selected_album(self.source.favourites)
 
     def pre_popup_menu_callback(self, *args):
@@ -958,7 +958,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
         if not state:
             sensitive = False
 
-        #self.popup_menu.get_menu_object('add_to_playing_menu_item')
+        # self.popup_menu.get_menu_object('add_to_playing_menu_item')
         self.artist_popup_menu.set_sensitive('add_to_playing_menu_item', sensitive)
 
         self.source.playlist_menu_item_callback()
@@ -967,7 +967,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
         '''
         event called when clicking on a row
         '''
-        print ('_row_click')
+        print('_row_click')
 
         try:
             treepath, treecolumn, cellx, celly = self.get_path_at_pos(event.x, event.y)
@@ -996,7 +996,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
 
                     self.artist_popup_menu.popup(self.source, 'popup_menu', 3,
                                                  Gtk.get_current_event_time())
-            print ('_row click artist exit')
+            print('_row click artist exit')
             return
 
         if event.button == 1:
@@ -1021,7 +1021,7 @@ class ArtistView(Gtk.TreeView, AbstractView):
 
         self._last_row_was_artist = False
 
-        print ('_row_click album exit')
+        print('_row_click album exit')
         return
 
     def get_view_icon_name(self):

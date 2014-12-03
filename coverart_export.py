@@ -102,7 +102,7 @@ class CoverArtExport(GObject.Object):
             embeddialog.destroy()
             return
 
-        #ok pressed - now fetch values from the dialog
+        # ok pressed - now fetch values from the dialog
         final_folder_store = folderchooserbutton.get_current_folder()
         use_album_name = use_album_name_checkbutton.get_active()
         open_filemanager = open_filemanager_checkbutton.get_active()
@@ -230,7 +230,7 @@ class CoverArtExport(GObject.Object):
             convert = pipeline.get_by_name('convert')
             decode.link(convert)
 
-        #we are going to mimic the following
+        # we are going to mimic the following
         # gst-launch-1.0 filesrc location="02 - ABBA - Knowing Me, Knowing You.ogg" ! 
         # decodebin ! audioconvert ! audioresample ! lamemp3enc target=bitrate bitrate=128 ! 
         # xingmux ! id3v2mux ! filesink location="mytrack.mp3"

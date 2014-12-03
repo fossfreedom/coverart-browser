@@ -61,7 +61,7 @@ class CoverFlowView(AbstractView):
 
     name = 'coverflowview'
 
-    #properties
+    # properties
     flow_background = GObject.property(type=str, default='W')
     flow_automatic = GObject.property(type=bool, default=False)
     flow_scale = GObject.property(type=int, default=100)
@@ -413,7 +413,7 @@ class FlowControl(object):
             cover = row[album_col].cover.original
             cover = cover.replace(
                 'rhythmbox-missing-artwork.svg',
-                'rhythmbox-missing-artwork.png')  ## need a white vs black when we change the background colour
+                'rhythmbox-missing-artwork.png')  # # need a white vs black when we change the background colour
 
             self.album_identifier[index] = row[album_col]
             items += html_elements(
@@ -428,7 +428,7 @@ class FlowControl(object):
                 break
 
         if index != 0:
-            #self.callback_view.last_album = self.album_identifier[0]
+            # self.callback_view.last_album = self.album_identifier[0]
             pass
         else:
             self.callback_view.last_album = None

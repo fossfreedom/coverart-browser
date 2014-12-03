@@ -45,7 +45,6 @@ from coverart_coverflowview import CoverFlowView
 from coverart_artistview import ArtistView
 from coverart_listview import ListView
 from coverart_queueview import QueueView
-from coverart_playsourceview import PlaySourceView
 from coverart_toolbar import ToolbarManager
 from coverart_artistinfo import ArtistInfoPane
 from coverart_external_plugins import CreateExternalPluginMenu
@@ -111,7 +110,6 @@ class CoverArtBrowserSource(RB.Source):
         '''
 
         if not self.task_progress:
-
             self.task_progress = RB.TaskProgressSimple.new()
 
         try:
@@ -176,11 +174,11 @@ class CoverArtBrowserSource(RB.Source):
 
         # define the associated playsource so we can interact with this query model
         self.playlist_source = GObject.new(
-                CoverArtPlaySource,
-                name=_("CoverArt Playlist"),
-                shell=self.shell,
-                plugin=self.plugin,
-                entry_type=self.plugin.entry_type)
+            CoverArtPlaySource,
+            name=_("CoverArt Playlist"),
+            shell=self.shell,
+            plugin=self.plugin,
+            entry_type=self.plugin.entry_type)
         self.playlist_source.initialise(self.plugin, self.shell, self)
         self.shell.append_display_page(self.playlist_source, self.plugin.source)
 
@@ -277,7 +275,7 @@ class CoverArtBrowserSource(RB.Source):
         self.paned.set_name('horizontal_paned')
         self.entry_view_grid = ui.get_object('bottom_grid')
 
-        #setup Track Pane
+        # setup Track Pane
         setting = self.gs.get_setting(self.gs.Path.PLUGIN)
         setting.bind(self.gs.PluginKey.PANED_POSITION,
                      self.paned, 'collapsible-y', Gio.SettingsBindFlags.DEFAULT)
@@ -418,10 +416,9 @@ class CoverArtBrowserSource(RB.Source):
         if not state:
             sensitive = False
 
-        #self.popup_menu.get_menu_object('add_to_playing_menu_item')
+        # self.popup_menu.get_menu_object('add_to_playing_menu_item')
         self.popup_menu.set_sensitive('add_to_playing_menu_item', sensitive)
         self.popup_menu.set_sensitive('play_next_menu_item', sensitive)
-
 
         if not self._external_plugins:
             # initialise external plugin menu support
@@ -465,9 +462,9 @@ class CoverArtBrowserSource(RB.Source):
         if self._from_paned_handle == 0:
             return False
 
-        print ("artist_paned_button_release_callback")
+        print("artist_paned_button_release_callback")
 
-        print (self.artist_paned.get_position())
+        print(self.artist_paned.get_position())
         child_width = self.artist_paned.get_position()
 
         if child_width == 0 and self._from_paned_handle == 1:
@@ -482,12 +479,12 @@ class CoverArtBrowserSource(RB.Source):
                 break
 
         if not found:
-            print ("not found %s" % self.viewmgr.view_name)
+            print("not found %s" % self.viewmgr.view_name)
             return True
 
-        print ("current paned_positions %s" % paned_positions)
+        print("current paned_positions %s" % paned_positions)
         paned_positions.remove(found)
-        print ("Child Width %d" % child_width)
+        print("Child Width %d" % child_width)
 
         open_type = "closed"
         if self._from_paned_handle == 2:
@@ -507,30 +504,30 @@ class CoverArtBrowserSource(RB.Source):
             self.artist_paned.set_position(new_width)
 
         if child_width <= self.min_paned_pos and self._from_paned_handle == 1:
-            print (found)
-            print (found.split(':')[1])
+            print(found)
+            print(found.split(':')[1])
             if int(found.split(':')[1]) == 0:
                 child_width = self.min_paned_pos + 1
                 open_type = "opened"
             else:
                 child_width = 0
-                print ("smaller")
+                print("smaller")
             self.artist_paned.set_position(child_width)
 
         if self._from_paned_handle == 1 and child_width != 0:
             open_type = "opened"
 
-        print ("Child Width2 %d" % child_width)
+        print("Child Width2 %d" % child_width)
 
-        paned_positions.append(self.viewmgr.view_name +  \
+        paned_positions.append(self.viewmgr.view_name + \
                                ":" + \
                                str(child_width) + \
                                ":" + \
-                               open_type )
+                               open_type)
 
-        print ("after paned positions %s" % paned_positions)
+        print("after paned positions %s" % paned_positions)
         self.artist_paned_pos = repr(paned_positions)
-        print ("artist_paned_pos %s" % self.artist_paned_pos)
+        print("artist_paned_pos %s" % self.artist_paned_pos)
 
         self._from_paned_handle = 0
 
@@ -538,7 +535,7 @@ class CoverArtBrowserSource(RB.Source):
         self._change_artist_paned_pos(view_name)
 
     def _change_artist_paned_pos(self, view_name):
-        print ("change artist paned")
+        print("change artist paned")
         paned_positions = eval(self.artist_paned_pos)
         print(paned_positions)
         found = None
@@ -548,7 +545,7 @@ class CoverArtBrowserSource(RB.Source):
                 break
         print(found)
         if not found:
-            print ("not found %s" % view_name)
+            print("not found %s" % view_name)
             return
 
         values = found.split(":")
@@ -583,7 +580,7 @@ class CoverArtBrowserSource(RB.Source):
 
             cl = CoverLocale()
             cl.switch_locale(cl.Locale.RB)
-            #. TRANSLATORS - "All" is used in the context of "All artist names"
+            # . TRANSLATORS - "All" is used in the context of "All artist names"
             if artist == _('All'):
                 self.album_manager.model.remove_filter('quick_artist')
             else:
@@ -615,7 +612,7 @@ class CoverArtBrowserSource(RB.Source):
         '''
         print("CoverArtBrowser DEBUG - load_finished_callback")
 
-        #if not self.request_status_box.get_visible():
+        # if not self.request_status_box.get_visible():
         # it should only be enabled if no cover request is going on
         #self.source_menu_search_all_item.set_sensitive(True)
 
@@ -782,7 +779,7 @@ class CoverArtBrowserSource(RB.Source):
             index = index + 1
             if entry:
                 album = self.album_manager.model.get_from_dbentry(entry)
-                print (entry.get_string(RB.RhythmDBPropType.TITLE))
+                print(entry.get_string(RB.RhythmDBPropType.TITLE))
                 if album == current_album:
                     final_index = index
 
@@ -871,7 +868,7 @@ class CoverArtBrowserSource(RB.Source):
 
         num_albums = len(self.album_manager.model.store)
 
-        #random_list = []
+        # random_list = []
         selected_albums = []
 
         gs = GSetting()
@@ -1003,7 +1000,7 @@ class CoverArtBrowserSource(RB.Source):
         then if necessary scroll the view to the last selected album
         params is "album" or a tuple of "album" and "force_expand" boolean
         '''
-        print ('show_hide_pane')
+        print('show_hide_pane')
         if isinstance(params, tuple):
             album, force = params
         else:
@@ -1023,7 +1020,7 @@ class CoverArtBrowserSource(RB.Source):
         # clear the click count
         self.click_count = 0
 
-        print ('show_hide_pane end')
+        print('show_hide_pane end')
 
     def update_with_selection(self):
         self.last_selected_album, self.click_count = \
@@ -1033,7 +1030,7 @@ class CoverArtBrowserSource(RB.Source):
         self.statusbar.emit('display-status', self.viewmgr.current_view)
 
     def propertiesbutton_callback(self, choice):
-        print ("properties chosen: %s" % choice)
+        print("properties chosen: %s" % choice)
 
         if choice == 'download':
             self.request_status_box.show_all()
@@ -1150,11 +1147,11 @@ class Statusbar(GObject.Object):
             # now lets build up a status label containing some
             # 'interesting stuff' about the album
             if len(albums) == 1:
-                #. TRANSLATORS - for example "abba's greatest hits by ABBA"
+                # . TRANSLATORS - for example "abba's greatest hits by ABBA"
                 self.status = rb3compat.unicodedecode(_('%s by %s') %
                                                       (album.name, album.artist), 'UTF-8')
             else:
-                #. TRANSLATORS - the number of albums that have been selected/highlighted
+                # . TRANSLATORS - the number of albums that have been selected/highlighted
                 self.status = rb3compat.unicodedecode(_('%d selected albums') %
                                                       (len(albums)), 'UTF-8')
 
@@ -1228,7 +1225,6 @@ class Views:
             from coverart_artistview import ArtistView
             from coverart_listview import ListView
             from coverart_queueview import QueueView
-            from coverart_playsourceview import PlaySourceView
             from coverart_browser_prefs import webkit_support
 
             library_name = shell.props.library_source.props.name
@@ -1250,7 +1246,7 @@ class Views:
                                            GLib.Variant.new_string('coverart-browser-list')]
             self._values[QueueView.name] = [queue_name,
                                             GLib.Variant.new_string('coverart-browser-queue')]
-            #self._values[PlaySourceView.name] = [_('CoverArt Playlist'),
+            # self._values[PlaySourceView.name] = [_('CoverArt Playlist'),
             #                                GLib.Variant.new_string('coverart-browser-playsource')]
             cl.switch_locale(cl.Locale.RB)
             print(self._values)
@@ -1312,7 +1308,7 @@ class ViewManager(GObject.Object):
         self._views[CoverFlowView.name] = CoverFlowView()
         self._views[ListView.name] = ListView()
         self._views[QueueView.name] = QueueView()
-        #self._views[PlaySourceView.name] = PlaySourceView()
+        # self._views[PlaySourceView.name] = PlaySourceView()
         ui.add_from_file(rb.find_plugin_file(source.plugin,
                                              'ui/coverart_artistview.ui'))
         self._views[ArtistView.name] = ui.get_object('artist_view')

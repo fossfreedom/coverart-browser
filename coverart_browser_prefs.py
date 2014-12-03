@@ -257,7 +257,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         return self._create_display_contents(self)
 
     def display_preferences_dialog(self, plugin):
-        print ("DEBUG - display_preferences_dialog")
+        print("DEBUG - display_preferences_dialog")
         if self._first_run:
             self._first_run = False
 
@@ -275,19 +275,19 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
 
         self._dialog.show_all()
 
-        print ("shown")
+        print("shown")
 
         while True:
             response = self._dialog.run()
 
-            print ("and run")
+            print("and run")
 
             if response != Gtk.ResponseType.HELP:
                 break
 
         self._dialog.hide()
 
-        print ("DEBUG - display_preferences_dialog end")
+        print("DEBUG - display_preferences_dialog end")
 
     def _display_help(self, *args):
         peas = Peas.Engine.get_default()
@@ -296,7 +296,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         webbrowser.open(uri)
 
     def _create_display_contents(self, plugin):
-        print ("DEBUG - create_display_contents")
+        print("DEBUG - create_display_contents")
         # create the ui
         self._first_run = True
         cl = CoverLocale()
@@ -310,7 +310,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
 
         builder.connect_signals(self)
 
-        #. TRANSLATORS: Do not translate this string.  
+        # . TRANSLATORS: Do not translate this string.
         translators = _('translator-credits')
 
         if translators != "translator-credits":
@@ -327,7 +327,6 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         toggle_text = builder.get_object('display_text_checkbox')
         self.settings.bind(gs.PluginKey.DISPLAY_TEXT, toggle_text, 'active',
                            Gio.SettingsBindFlags.DEFAULT)
-
 
         box_text = builder.get_object('display_text_box')
         self.settings.bind(gs.PluginKey.DISPLAY_TEXT, box_text, 'sensitive',
@@ -541,18 +540,18 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
 
         # return the dialog
         self._first_run = False
-        print ("end create dialog contents")
+        print("end create dialog contents")
         return builder.get_object('main_notebook')
 
     def on_cover_size_scale_changed(self, scale):
         self._cover_size = scale.get_value()
 
         def delay(*args):
-            print ('delay')
-            print (self._cover_size_delay)
+            print('delay')
+            print(self._cover_size_delay)
             self._cover_size_delay = self._cover_size_delay + 1
 
-            if self._cover_size_delay >=8:
+            if self._cover_size_delay >= 8:
                 gs = GSetting()
                 self.settings[gs.PluginKey.COVER_SIZE] = self._cover_size
                 self._cover_size_delay = 0
@@ -614,7 +613,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
 
     def on_add_shadow_checkbox_toggled(self, button):
         if button.get_active():
-            #gs = GSetting()
+            # gs = GSetting()
             #self.settings[gs.PluginKey.DISPLAY_TEXT_POS] = True
             self.display_text_under_radiobutton.set_active(True)
 
@@ -745,7 +744,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         try:
             test = self._iters[(entry_value, self.GENRE_LIST)]
             if RB.search_fold(self.current_genre) == RB.search_fold(entry_value):
-                #if the current entry is the same then could save
+                # if the current entry is the same then could save
                 enable = True
         except:
             # reach here if this is a brand new entry

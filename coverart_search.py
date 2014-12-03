@@ -57,7 +57,7 @@ class CoverSearchPane(Gtk.Box):
         '''
         Loads the templates and stylesheets to be used by the pane.
         '''
-        #            input_encoding='utf-8',
+        # input_encoding='utf-8',
 
         path = rb.find_plugin_file(plugin,
                                    'tmpl/albumartsearch-tmpl.html')
@@ -83,7 +83,7 @@ class CoverSearchPane(Gtk.Box):
         '''
         Initializes the pane ui.
         '''
-        #---- set up webkit pane -----#
+        # ---- set up webkit pane -----#
         from gi.repository import WebKit
 
         self.webview = WebKit.WebView()
@@ -183,6 +183,6 @@ class CoverSearchPane(Gtk.Box):
 
         print(title)
         if title:
-            #self.album_manager.cover_man.update_cover(self.current_searchobject,
+            # self.album_manager.cover_man.update_cover(self.current_searchobject,
             #    uri=title)
             self.callback(self.current_searchobject, uri=title)

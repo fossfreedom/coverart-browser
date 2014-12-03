@@ -50,6 +50,7 @@ import rb
 
 
 
+
 # default chunk of entries to process when loading albums
 ALBUM_LOAD_CHUNK = 50
 
@@ -464,7 +465,7 @@ class Album(GObject.Object):
         print("_track_deleted")
         self._tracks.remove(track)
 
-        #list(map(track.disconnect, self._signals_id[track]))
+        # list(map(track.disconnect, self._signals_id[track]))
         for signal_id in self._signals_id[track]:
             track.disconnect(signal_id)
 
@@ -877,7 +878,7 @@ class AlbumsModel(GObject.Object):
         :param album_name: `str` name of the album.
         '''
         return album_name in self._iters \
-            and album_artist in self._iters[album_name]
+               and album_artist in self._iters[album_name]
 
     def get(self, album_name, album_artist):
         '''
@@ -1220,7 +1221,7 @@ class AlbumLoader(GObject.Object):
             elif change.prop is RB.RhythmDBPropType.HIDDEN:
                 # called when an entry gets hidden (e.g.:the sound file is
                 # removed.
-                print (change)
+                print(change)
                 if change.new:
                     print("change prop new")
                     track.emit('deleted')
@@ -1231,7 +1232,7 @@ class AlbumLoader(GObject.Object):
         # look at all the changes and update the albums accordingly
         track = self._tracks[Track(entry).location]
 
-        #RB3 has a simple rhythmdbentrychange array to deal with so we
+        # RB3 has a simple rhythmdbentrychange array to deal with so we
         #just need to loop each element of the array
 
         for change in changes:
@@ -1420,7 +1421,7 @@ class CoverManager(GObject.Object):
 
     def __init__(self, plugin, manager):
         super(CoverManager, self).__init__()
-        #self.cover_db = None to be defined by inherited class
+        # self.cover_db = None to be defined by inherited class
         self._manager = manager
         self._requester = CoverRequester(self.cover_db)
 
@@ -1620,7 +1621,7 @@ class AlbumCoverManager(CoverManager):
         # create the unknown cover
         self._shadow = Shadow(self.cover_size,
                               rb.find_plugin_file(plugin, 'img/album-shadow-%s.png' %
-                                                          self.shadow_image))
+                                                  self.shadow_image))
         self.unknown_cover = self.create_cover(
             rb.find_plugin_file(plugin, 'img/rhythmbox-missing-artwork.svg'))
 

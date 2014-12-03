@@ -61,7 +61,7 @@ class Toolbar(GObject.Object):
                 builder.get_object(button).controller = controller
 
         if not webkit_support():
-            #button = builder.get_object('flowview_button')
+            # button = builder.get_object('flowview_button')
             #button.set_visible(False)
             separator = builder.get_object('properties_separator')
             if separator:
@@ -85,7 +85,7 @@ class Toolbar(GObject.Object):
 
         self.builder = builder.get_object('toolbar')
 
-        #now theme the toolbar including child objects such as the button popups
+        # now theme the toolbar including child objects such as the button popups
         style_context = self.builder.get_style_context()
         style_context.add_class(Gtk.STYLE_CLASS_TOOLBAR)
 
@@ -141,7 +141,7 @@ class RightToolbar(Toolbar):
 
 
 class ToolbarObject(object):
-    #properties
+    # properties
 
     PROPERTIES = 'properties_button'
     SORT_BY = 'sort_by'

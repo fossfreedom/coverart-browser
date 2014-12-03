@@ -18,6 +18,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
 from collections import OrderedDict
+from os.path import expanduser
 
 from gi.repository import RB
 from gi.repository import Gtk
@@ -40,9 +41,9 @@ from stars import ReactiveStar
 from coverart_search import CoverSearchPane
 from coverart_widgets import PixbufButton
 from coverart_window import CoverWindow
-from os.path import expanduser
 
 MIN_IMAGE_SIZE = 100
+
 
 class EntryViewPane(object):
     '''
@@ -360,7 +361,7 @@ class ResultsGrid(Gtk.Grid):
         self.connect('whats-playing', self.display_whats_playing)
 
         # lets fix the situation where some-themes background colour is incorrectly defined
-        #in these cases the background colour is black
+        # in these cases the background colour is black
         context = self.get_style_context()
         bg_colour = context.get_background_color(Gtk.StateFlags.NORMAL)
         if bg_colour == Gdk.RGBA(0, 0, 0, 0):
@@ -711,7 +712,7 @@ class BaseView(RB.EntryView):
         self.source.props.query_model = self.source_query_model
 
         # library_view = self.shell.props.library_source.get_entry_view()
-        #library_view.set_sorting_order('track-number', Gtk.SortType.ASCENDING)
+        # library_view.set_sorting_order('track-number', Gtk.SortType.ASCENDING)
         #self.set_sorting_order('track-number', Gtk.SortType.ASCENDING)
 
         # Start the music

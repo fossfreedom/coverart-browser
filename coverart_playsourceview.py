@@ -62,7 +62,7 @@ class PlaySourceView(AbstractView):
 
         self.view_name = "playsource_view"
         super(PlaySourceView, self).initialise(source)
-        #self.album_manager = source.album_manager
+        # self.album_manager = source.album_manager
         self.shell = source.shell
 
     def switch_to_view(self, source, album):

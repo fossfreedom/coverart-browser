@@ -41,7 +41,7 @@ class WebPlaylist(object):
     def __init__(self, shell, source, playlist_name):
 
         self.shell = shell
-        #lets fill up the queue with artists
+        # lets fill up the queue with artists
         self.candidate_artist = {}
         self.shell.props.shell_player.connect('playing-song-changed', self.playing_song_changed)
         self.source = source

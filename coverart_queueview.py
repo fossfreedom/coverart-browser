@@ -62,7 +62,7 @@ class QueueView(AbstractView):
 
         self.view_name = "queue_view"
         super(QueueView, self).initialise(source)
-        #self.album_manager = source.album_manager
+        # self.album_manager = source.album_manager
         self.shell = source.shell
 
     def switch_to_view(self, source, album):

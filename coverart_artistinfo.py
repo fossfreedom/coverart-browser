@@ -74,11 +74,11 @@ class ArtistInfoWebView(WebKit.WebView):
         self.connect("notify::title", self.view_title_change)
 
     def view_title_change(self, webview, param):
-        print ("view_title_change")
+        print("view_title_change")
         title = webview.get_title()
 
         if title:
-            print ("title %s" % title)
+            print("title %s" % title)
             args = json.loads(title)
             artist = args['artist']
 
@@ -87,13 +87,13 @@ class ArtistInfoWebView(WebKit.WebView):
             else:
                 self.source.album_manager.model.remove_filter('similar_artist')
         else:
-            print ("removing filter")
+            print("removing filter")
             self.source.album_manager.model.remove_filter('similar_artist')
-        print ("end view_title_change")
+        print("end view_title_change")
 
     def navigation_request_cb(self, view, frame, request):
         # open HTTP URIs externally.  this isn't a web browser.
-        print ("navigation_request_cb")
+        print("navigation_request_cb")
         if request.get_uri().startswith('http'):
             print("opening uri %s" % request.get_uri())
             Gtk.show_uri(self.shell.props.window.get_screen(), request.get_uri(), Gdk.CURRENT_TIME)
@@ -103,7 +103,7 @@ class ArtistInfoWebView(WebKit.WebView):
             return 0  # WEBKIT_NAVIGATION_RESPONSE_ACCEPT
 
     def do_button_release_event(self, *args):
-        print ("do_release_button")
+        print("do_release_button")
         WebKit.WebView.do_button_release_event(self, *args)
 
         return True
@@ -125,7 +125,7 @@ class ArtistInfoPane(GObject.GObject):
         self.ds = {}
         self.view = {}
 
-        #self.buttons = button_box
+        # self.buttons = button_box
         self.source = source
         self.plugin = source.plugin
         self.shell = source.shell
@@ -240,7 +240,7 @@ class ArtistInfoPane(GObject.GObject):
         self._change_paned_pos(view_name)
 
     def _change_paned_pos(self, view_name):
-        print (self.paned_pos)
+        print(self.paned_pos)
         paned_positions = eval(self.paned_pos)
 
         found = None
@@ -273,7 +273,7 @@ class ArtistInfoPane(GObject.GObject):
         return child.get_allocated_width()
 
     def paned_button_press_callback(self, widget, event):
-        print ('paned_button_press_callback')
+        print('paned_button_press_callback')
         self._from_paned_handle = 1
 
         if event.type == Gdk.EventType._2BUTTON_PRESS:
@@ -286,7 +286,7 @@ class ArtistInfoPane(GObject.GObject):
         if self._from_paned_handle == 0:
             return False
 
-        print ("paned_button_release_callback")
+        print("paned_button_release_callback")
 
         paned_positions = eval(self.paned_pos)
 
@@ -297,15 +297,15 @@ class ArtistInfoPane(GObject.GObject):
                 break
 
         if not found:
-            print ("cannot find")
+            print("cannot find")
             return True
 
         values = found.split(':')
 
         child_width = self.source.page.get_allocated_width() - self.info_paned.get_position()
-        print (child_width)
+        print(child_width)
         open_type = "closed"
-        print (values)
+        print(values)
         if len(values) > 2:
             open_type = values[2]
 
@@ -314,7 +314,7 @@ class ArtistInfoPane(GObject.GObject):
                         open_type == "closed":
             # we are dealing with a situation where the pane is already closed
             # or almost closed - just shut the door
-            print ("we are closed")
+            print("we are closed")
             calc_pos = self.source.page.get_allocated_width()
             self.info_paned.set_position(calc_pos)
             return False
@@ -362,10 +362,10 @@ class ArtistInfoPane(GObject.GObject):
         self.paned_pos = repr(paned_positions)
 
         self._from_paned_handle = 0
-        print ("End artist_info_paned_button_release_callback")
+        print("End artist_info_paned_button_release_callback")
 
     def select_artist(self, widget, artist, album_title):
-        print ("artist %s title %s" % (artist, album_title))
+        print("artist %s title %s" % (artist, album_title))
         if self._get_child_width() > self.min_paned_pos:
             self.view[self.current].reload(artist, album_title)
         else:
@@ -436,10 +436,10 @@ class BaseInfoView(GObject.Object):
         pass
 
     def load_view(self):
-        print ("load_view")
-        print (self.file)
+        print("load_view")
+        print(self.file)
         self.webview.load_string(self.file, 'text/html', 'utf-8', self.basepath)
-        print ("end load_view")
+        print("end load_view")
 
     def blank_view(self):
         render_file = self.empty_template.render(stylesheet=self.styles)
@@ -469,7 +469,7 @@ class ArtistInfoView(BaseInfoView):
 
     def loading(self, current_artist, current_album_title):
         cl = CoverLocale()
-        #cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+        # cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
 
         self.link_ds.set_artist(current_artist)
         self.link_ds.set_album(current_album_title)
@@ -498,7 +498,7 @@ class ArtistInfoView(BaseInfoView):
     def artist_info_ready(self, ds):
         # Can only be called after the artist-info-ready signal has fired.
         # If called any other time, the behavior is undefined
-        #try:
+        # try:
         info = ds.get_artist_info()
 
         small, med, big = info['images'] or (None, None, None)
@@ -541,7 +541,7 @@ class ArtistInfoView(BaseInfoView):
             self.blank_view()
             return
 
-        #self.stack.set_visible_child_name(self.view_name)
+        # self.stack.set_visible_child_name(self.view_name)
         if self.active and (   (not self.artist or self.artist != artist)
                                or (not self.album_title or self.album_title != album_title)
         ):
@@ -590,7 +590,7 @@ class ArtistDataSource(GObject.GObject):
         }
 
         if lang != 'en':
-            self.artist['info_'+lang] = {
+            self.artist['info_' + lang] = {
                 'data': None,
                 'function': 'getinfo',
                 'cache': info_cache,
@@ -598,7 +598,7 @@ class ArtistDataSource(GObject.GObject):
                 'parsed': False,
                 'lang': lang
             }
-            self.artist['similar_'+lang] = {
+            self.artist['similar_' + lang] = {
                 'data': None,
                 'function': 'getsimilar',
                 'cache': info_cache,
@@ -627,9 +627,9 @@ class ArtistDataSource(GObject.GObject):
             print("search")
             cachekey = "lastfm:artist:%sjson:%s:%s" % (value['function'], artist, value['lang'])
             url = '%s?method=artist.%s&artist=%s&limit=10&api_key=%s&format=json&lang=%s' % (LastFM.API_URL,
-                                                                                     value['function'], artist,
-                                                                                     LastFM.API_KEY,
-                                                                                     value['lang'])
+                                                                                             value['function'], artist,
+                                                                                             LastFM.API_KEY,
+                                                                                             value['lang'])
             print("fetching %s" % url)
             value['cache'].fetch(cachekey, url, self.fetch_artist_data_cb, value)
 
@@ -660,7 +660,7 @@ class ArtistDataSource(GObject.GObject):
         """
         Returns tuple of image url's for small, medium, and large images.
         """
-        print ('get_artist_images')
+        print('get_artist_images')
         data = self.artist['info_en']['data']
         if data is None:
             return None
@@ -668,7 +668,7 @@ class ArtistDataSource(GObject.GObject):
         if 'artist' not in data:
             return None
 
-        print (list(data.keys()))
+        print(list(data.keys()))
         images = [img['#text'] for img in data['artist'].get('image', ())]
         return images[:3]
 
@@ -713,9 +713,9 @@ class ArtistDataSource(GObject.GObject):
                 json_artists_data = self.artist['similar_' + lang]['data']['similarartists']
 
                 results = []
-                print (json_artists_data)
+                print(json_artists_data)
                 for json_artist in json_artists_data["artist"]:
-                    print (json_artist)
+                    print(json_artist)
                     name = json_artist["name"]
                     image_url = json_artist["image"][1]["#text"]
                     similarity = int(100 * float(json_artist["match"]))
@@ -753,6 +753,7 @@ class ArtistDataSource(GObject.GObject):
 
         fill_info('en')
         return fill_info(lang)
+
 
 class LinksDataSource(GObject.GObject):
     def __init__(self):
@@ -836,7 +837,7 @@ class AlbumInfoView(BaseInfoView):
 
     def loading(self, current_artist, current_album_title):
         cl = CoverLocale()
-        #cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+        # cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
 
         self.loading_file = self.loading_template.render(
             artist=current_artist,
@@ -848,7 +849,7 @@ class AlbumInfoView(BaseInfoView):
 
     def load_tmpl(self):
         cl = CoverLocale()
-        #cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+        # cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
 
         path = rb.find_plugin_file(self.plugin, 'tmpl/album-tmpl.html')
         empty_path = rb.find_plugin_file(self.plugin, 'tmpl/album_empty-tmpl.html')
@@ -859,9 +860,9 @@ class AlbumInfoView(BaseInfoView):
         self.styles = self.basepath + '/tmpl/artistmain.css'
 
     def album_list_ready(self, ds):
-        print ("album_list_ready")
+        print("album_list_ready")
         cl = CoverLocale()
-        #cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+        # cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
 
         self.file = self.album_template.render(error=ds.get_error(),
                                                albums=ds.get_top_albums(),
@@ -871,7 +872,7 @@ class AlbumInfoView(BaseInfoView):
         self.load_view()
 
     def reload(self, artist, album_title):
-        print ("reload")
+        print("reload")
         if not artist:
             return
 
@@ -956,9 +957,9 @@ class AlbumDataSource(GObject.GObject):
             return True
         print(albums)
         self.albums = []
-        print ("max number of albums to process")
+        print("max number of albums to process")
         print(len(albums))
-        #albums = parsed['topalbums'].get('album', [])[:self.max_albums_fetched]
+        # albums = parsed['topalbums'].get('album', [])[:self.max_albums_fetched]
         self.fetching = len(albums)
 
         for i, a in enumerate(albums):
@@ -975,7 +976,7 @@ class AlbumDataSource(GObject.GObject):
         return self.albums
 
     def fetch_album_info(self, artist, album, index):
-        print ('start fetch_album_info')
+        print('start fetch_album_info')
         cl = CoverLocale()
         lang = cl.get_locale()[:2]
         qartist = urllib.parse.quote_plus(artist)
@@ -986,35 +987,35 @@ class AlbumDataSource(GObject.GObject):
             cachekey = "lastfm:album:getinfojson:%s:%s:%s" % (qartist, qalbum, lang)
             url = "%s?method=album.getinfo&artist=%s&album=%s&api_key=%s&format=json&lang=%s" % (
                 LastFM.API_URL, qartist, qalbum, LastFM.API_KEY, lang)
-            print (url)
+            print(url)
 
             self.info_cache.fetch(cachekey, url, self.parse_album_info, album, index, lang)
 
         self.album_data = {}
         fetch_information('en')
         fetch_information(lang)
-        print ('end fetch_album_info')
+        print('end fetch_album_info')
 
     def parse_album_info(self, data, album, index, lang):
-        print ('parse_album_info %s' % lang)
+        print('parse_album_info %s' % lang)
         self.fetched = self.fetched - 1
         self.album_data[lang] = data
         if self.fetched > 0:
-            print ('return %d' % self.fetched)
+            print('return %d' % self.fetched)
             return
 
         cl = CoverLocale()
         lang = cl.get_locale()[:2]
         rv = True
         try:
-            print ('decoding')
+            print('decoding')
             parsed = json.loads(self.album_data[lang].decode('utf-8'))
-            print ('decoded')
+            print('decoded')
             self.albums[index]['id'] = parsed['album']['id']
             for k in ('releasedate', 'summary'):
                 self.albums[index][k] = parsed['album'].get(k)
             tracklist = []
-            print (parsed['album'])
+            print(parsed['album'])
             tracks = parsed['album']['tracks'].get('track', [])
             for i, t in enumerate(tracks):
                 title = t['name']
@@ -1054,7 +1055,7 @@ class EchoArtistInfoView(BaseInfoView):
 
     def load_tmpl(self):
         cl = CoverLocale()
-        #cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
+        # cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
 
         path = rb.find_plugin_file(self.plugin, 'tmpl/echoartist-tmpl.html')
         empty_path = rb.find_plugin_file(self.plugin, 'tmpl/artist_empty-tmpl.html')
@@ -1071,7 +1072,7 @@ class EchoArtistInfoView(BaseInfoView):
     def artist_info_ready(self, ds):
         # Can only be called after the artist-info-ready signal has fired.
         # If called any other time, the behavior is undefined
-        #try:
+        # try:
         link_album = self.link_ds.get_album()
         if not link_album:
             link_album = ""
@@ -1080,15 +1081,15 @@ class EchoArtistInfoView(BaseInfoView):
         if not links:
             links = {}
 
-        print (ds.get_current_artist())
-        print (ds.get_error())
-        print (self.ds.get_artist_bio())
-        print (self.styles)
-        print (link_album)
-        print (self.link_ds.get_artist_links())
-        print (links)
-        print (self.link_images)
-        print (ds.get_attribution())
+        print(ds.get_current_artist())
+        print(ds.get_error())
+        print(self.ds.get_artist_bio())
+        print(self.styles)
+        print(link_album)
+        print(self.link_ds.get_artist_links())
+        print(links)
+        print(self.link_images)
+        print(ds.get_attribution())
         self.file = self.template.render(artist=ds.get_current_artist(),
                                          error=ds.get_error(),
                                          bio=self.ds.get_artist_bio(),
@@ -1111,7 +1112,7 @@ class EchoArtistInfoView(BaseInfoView):
             self.blank_view()
             return
 
-        #self.stack.set_visible_child_name(self.view_name)
+        # self.stack.set_visible_child_name(self.view_name)
         if self.active and (   (not self.artist or self.artist != artist)
                                or (not self.album_title or self.album_title != album_title)
         ):
@@ -1193,10 +1194,10 @@ class EchoArtistDataSource(GObject.GObject):
         return self.error
 
     def get_attribution(self):
-        print ('get_attribution')
+        print('get_attribution')
         data = self.artist['info']['data']
         if data is None:
-            print ('nothing here')
+            print('nothing here')
             return None
         content = ""
 
@@ -1216,7 +1217,7 @@ class EchoArtistDataSource(GObject.GObject):
         """
         data = self.artist['info']['data']
         if data is None:
-            print ('nothing here')
+            print('nothing here')
             return None
 
         if not self.artist['info']['parsed']:

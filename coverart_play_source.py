@@ -21,6 +21,7 @@
 from gi.repository import Gtk
 from gi.repository import RB
 from gi.repository import GObject
+
 from coverart_rb3compat import Menu
 from coverart_external_plugins import CreateExternalPluginMenu
 from coverart_entryview import CoverArtEntryView
@@ -28,6 +29,7 @@ from coverart_rb3compat import ActionGroup
 from coverart_rb3compat import ApplicationShell
 from coverart_browser_prefs import CoverLocale
 import rb
+
 
 class CoverArtPlayEntryView(CoverArtEntryView):
     __hash__ = GObject.__hash__
@@ -44,7 +46,7 @@ class CoverArtPlayEntryView(CoverArtEntryView):
                              'ui/coverart_play_pop_rb3.ui')
         signals = {
             'remove_from_playlist_menu_item': self.remove_from_playlist_menu_item_callback
-            }
+        }
 
         popup.connect_signals(signals)
         popup.connect('pre-popup', self.pre_popup_menu_callback)
@@ -61,10 +63,10 @@ class CoverArtPlayEntryView(CoverArtEntryView):
             self.external_plugins.create_menu('play_popup_menu')
 
     def remove_from_playlist_menu_item_callback(self, *args):
-        print ("remove_from_playlist_menu_item_callback")
+        print("remove_from_playlist_menu_item_callback")
         entries = self.get_selected_entries()
         for entry in entries:
-            print (entry)
+            print(entry)
             self.source.source_query_model.remove_entry(entry)
 
     def do_show_popup(self, over_entry):
@@ -132,7 +134,7 @@ class CoverArtPlaySource(RB.Source):
         It creates all the source ui and connects the necessary signals for it
         correct behavior.
         '''
-        print ('do_impl_activate')
+        print('do_impl_activate')
         self.hasActivated = True
 
         self.entryview = CoverArtPlayEntryView(self.shell, self.source)
@@ -144,7 +146,7 @@ class CoverArtPlaySource(RB.Source):
         self.entryview.set_model(self.source.source_query_model)
 
         # enable sorting on the entryview
-        #entryview.set_columns_clickable(True)
+        # entryview.set_columns_clickable(True)
         self.shell.props.library_source.get_entry_view().set_columns_clickable(
             True)
 
@@ -166,11 +168,11 @@ class CoverArtPlaySource(RB.Source):
         appshell = ApplicationShell(self.shell)
         action_group = ActionGroup(self.shell, 'PlaySourceActions')
         action_group.add_action(func=self.clear_playsource,
-            action_name='playsource-clear', action_state=ActionGroup.STANDARD,
-            action_type='app')
+                                action_name='playsource-clear', action_state=ActionGroup.STANDARD,
+                                action_type='app')
         action_group.add_action(func=self.shuffle_playsource,
-            action_name='playsource-shuffle', action_state=ActionGroup.STANDARD,
-            action_type='app')
+                                action_name='playsource-shuffle', action_state=ActionGroup.STANDARD,
+                                action_type='app')
         appshell.insert_action_group(action_group)
 
     def clear_playsource(self, *args):

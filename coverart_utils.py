@@ -534,7 +534,7 @@ class ConfiguredSpriteSheet(object):
         base = 'theme/theme[@folder_name="' + Theme(plugin).current \
                + '"]/spritesheet[@name="' + sprite_name + '"]/'
         image = rb.find_plugin_file(plugin, 'img/' + Theme(plugin).current \
-                                            + '/' + root.xpath(base + 'image')[0].text)
+                                    + '/' + root.xpath(base + 'image')[0].text)
         icon_width = int(root.xpath(base + 'icon')[0].attrib['width'])
         icon_height = int(root.xpath(base + 'icon')[0].attrib['height'])
         x_spacing = int(root.xpath(base + 'spacing')[0].attrib['x'])
@@ -624,7 +624,7 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
         self._parse_popups(plugin, root, self.GENRE_SYSTEM)
 
         try:
-            #self._user_popups = RB.find_user_data_file('plugins/coverart_browser/img/usericons/popups.xml')
+            # self._user_popups = RB.find_user_data_file('plugins/coverart_browser/img/usericons/popups.xml')
             self._user_popups = RB.user_cache_dir() + "/coverart_browser/usericons/popups.xml"
             root = ET.parse(open(self._user_popups)).getroot()
             self._parse_popups(plugin, root, self.GENRE_USER)

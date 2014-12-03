@@ -106,7 +106,7 @@ class ExternalPlugin(GObject.Object):
                 self.attributes['label'] = self.attributes['new_menu_name']
             else:
                 self.attributes['label'] = action.label
-                #self.attributes['sensitive']=action.get_sensitive()
+                # self.attributes['sensitive']=action.get_sensitive()
         else:
             print("action not found")
             print(self.attributes)
@@ -143,8 +143,8 @@ class ExternalPlugin(GObject.Object):
         '''
 
         action = ApplicationShell(shell).lookup_action(self.attributes['action_group_name'],
-                                                         self.attributes['action_name'],
-                                                         self.attributes['action_type'])
+                                                       self.attributes['action_name'],
+                                                       self.attributes['action_type'])
 
         if action:
             action.activate()

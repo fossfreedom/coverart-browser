@@ -19,8 +19,9 @@
 
 from gi.repository import Gtk
 from gi.repository import GdkPixbuf
-from coverart_browser_prefs import CoverLocale
 from gi.repository import GObject
+
+from coverart_browser_prefs import CoverLocale
 import rb
 
 
@@ -116,7 +117,7 @@ class CoverWindow(GObject.Object):
     def update_widgets(self):
         """Updates image, layout, scrolled window, tool bar and status bar"""
         # if self.cover_window.window:
-        #    self.cover_window.window.freeze_updates()
+        # self.cover_window.window.freeze_updates()
         self.apply_zoom()
         self.layout.set_size(self.image_pixbuf.get_width(), \
                              self.image_pixbuf.get_height())

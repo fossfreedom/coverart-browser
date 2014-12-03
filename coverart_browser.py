@@ -32,8 +32,8 @@ from coverart_browser_prefs import Preferences
 from coverart_browser_source import CoverArtBrowserSource
 from coverart_listview import ListView
 from coverart_queueview import QueueView
-from coverart_playsourceview import PlaySourceView
 from coverart_toolbar import TopToolbar
+
 
 class CoverArtBrowserEntryType(RB.RhythmDBEntryType):
     '''
@@ -45,6 +45,7 @@ class CoverArtBrowserEntryType(RB.RhythmDBEntryType):
         Initializes the entry type.
         '''
         RB.RhythmDBEntryType.__init__(self, name='CoverArtBrowserEntryType')
+
 
 class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
     '''
@@ -143,7 +144,7 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         plugin = _('CoverArt Browser')
         desc = _('Browse and play your albums through their covers')
 
-        #. TRANSLATORS: This is the icon-grid view that the user sees
+        # . TRANSLATORS: This is the icon-grid view that the user sees
         tile = _('Tiles')
 
         #. TRANSLATORS: This is the cover-flow view the user sees - they can swipe album covers from side-to-side
@@ -247,8 +248,8 @@ class ExternalPluginMenu(GObject.Object):
             self.action.set_state(self._views.get_action_name(ListView.name))
         elif page == self.shell.props.queue_source:
             self.action.set_state(self._views.get_action_name(QueueView.name))
-        #elif page == self.source.playlist_source:
-        #    self.action.set_state(self._views.get_action_name(PlaySourceView.name))
+            # elif page == self.source.playlist_source:
+            #    self.action.set_state(self._views.get_action_name(PlaySourceView.name))
 
 
     def view_change_cb(self, action, current):
@@ -259,8 +260,8 @@ class ExternalPluginMenu(GObject.Object):
         action.set_state(current)
         view_name = self._views.get_view_name_for_action(current)
         if view_name != ListView.name and \
-           view_name != QueueView.name:# and \
-            #view_name != PlaySourceView.name:
+                        view_name != QueueView.name:  # and \
+            # view_name != PlaySourceView.name:
             gs = GSetting()
             setting = gs.get_setting(gs.Path.PLUGIN)
             setting[gs.PluginKey.VIEW_NAME] = view_name
@@ -272,14 +273,14 @@ class ExternalPluginMenu(GObject.Object):
         elif view_name == QueueView.name:
             GLib.idle_add(self.shell.props.display_page_tree.select,
                           self.shell.props.queue_source)
-        #elif view_name == PlaySourceView.name:
-        #    if not hasattr(self.source, 'playlist_source'):
-        #        return
+            # elif view_name == PlaySourceView.name:
+            #    if not hasattr(self.source, 'playlist_source'):
+            #        return
 
-        #    print ("test selectable")
-        #    path = self.shell.props.display_page_tree.props.model
-        #        #self.source.activate()
-        #    overlay = self.source.get_children()[0]
+            #    print ("test selectable")
+            #    path = self.shell.props.display_page_tree.props.model
+            #        #self.source.activate()
+            #    overlay = self.source.get_children()[0]
 
-        #   GLib.idle_add(self.shell.props.display_page_tree.select,
-        #                  self.source.playlist_source)
+            #   GLib.idle_add(self.shell.props.display_page_tree.select,
+            #                  self.source.playlist_source)

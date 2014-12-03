@@ -293,7 +293,7 @@ class PopupButton(PixbufButton, OptionsPopupWidget):
         PixbufButton.__init__(self, *args, **kwargs)
         OptionsPopupWidget.__init__(self, *args, **kwargs)
 
-        self._popup_menu.attach_to_widget(self, None)  #critical to ensure theming works
+        self._popup_menu.attach_to_widget(self, None)  # critical to ensure theming works
         self._popup_menu.connect('deactivate', self.popup_deactivate)
 
         # initialise some variables
@@ -338,7 +338,7 @@ class TextPopupButton(EnhancedButton, OptionsPopupWidget):
         EnhancedButton.__init__(self, *args, **kwargs)
         OptionsPopupWidget.__init__(self, *args, **kwargs)
 
-        self._popup_menu.attach_to_widget(self, None)  #critical to ensure theming works
+        self._popup_menu.attach_to_widget(self, None)  # critical to ensure theming works
         self._popup_menu.connect('deactivate', self.popup_deactivate)
 
         # initialise some variables
@@ -372,7 +372,7 @@ class MenuButton(PixbufButton, OptionsPopupWidget):
         PixbufButton.__init__(self, *args, **kwargs)
         OptionsPopupWidget.__init__(self, *args, **kwargs)
 
-        self._popup_menu.attach_to_widget(self, None)  #critical to ensure theming works
+        self._popup_menu.attach_to_widget(self, None)  # critical to ensure theming works
         self._popup_menu.connect('deactivate', self.popup_deactivate)
         self._states = {}
 
@@ -434,7 +434,7 @@ class MenuButton(PixbufButton, OptionsPopupWidget):
 
     def update_current_key(self):
         # select the item if it isn't already
-        #item = self.get_menuitems()[self._controller.get_current_key_index()]
+        # item = self.get_menuitems()[self._controller.get_current_key_index()]
 
         # update the current image and tooltip
         self.set_image(self._controller.get_current_image())
@@ -511,7 +511,7 @@ class ImageRadioButton(Gtk.RadioButton, OptionsWidget):
         self.image_display = False
         self.initialised = False
 
-        #ensure button appearance rather than standard radio toggle
+        # ensure button appearance rather than standard radio toggle
         self.set_mode(False)
 
         #label colours
@@ -520,7 +520,7 @@ class ImageRadioButton(Gtk.RadioButton, OptionsWidget):
 
     def update_image(self):
         super(ImageRadioButton, self).update_image()
-        #self.set_image(self._controller.get_current_image(Gtk.Buildable.get_name(self)))
+        # self.set_image(self._controller.get_current_image(Gtk.Buildable.get_name(self)))
 
     def do_toggled(self):
         if self.get_active():
@@ -545,7 +545,7 @@ class ImageRadioButton(Gtk.RadioButton, OptionsWidget):
 
     def update_current_key(self):
         # update the current image and tooltip
-        #self.set_image(self._controller.get_current_image(Gtk.Buildable.get_name(self)))
+        # self.set_image(self._controller.get_current_image(Gtk.Buildable.get_name(self)))
         self.set_tooltip_text("")  #self._controller.get_current_description())
 
         if self.controller.current_key == Gtk.Buildable.get_name(self):
@@ -588,7 +588,7 @@ class SearchEntry(RB.SearchEntry, OptionsPopupWidget):
     def __init__(self, *args, **kwargs):
         RB.SearchEntry.__init__(self, *args, **kwargs)
         OptionsPopupWidget.__init__(self)
-        #self.props.explicit_mode = True
+        # self.props.explicit_mode = True
 
     @OptionsPopupWidget.controller.setter
     def controller(self, controller):
@@ -1030,6 +1030,7 @@ class EnhancedIconView(Gtk.IconView):
         self.set_cursor(path, None, False)
         self.scroll_to_path(path, True, 0.5, 0.5)
 
+
 class HiddenExpander(Gtk.Bin):
     __gtype_name__ = "HiddenExpander"
 
@@ -1037,7 +1038,7 @@ class HiddenExpander(Gtk.Bin):
     label = GObject.property(type=str, default='')
 
     def __init__(self, label='', visible=False):
-        super(HiddenExpander, self).__init__() #*args, **kwargs)
+        super(HiddenExpander, self).__init__()  # *args, **kwargs)
         self.label = label
         self.set_visible(visible)
 
@@ -1138,7 +1139,7 @@ class PanedCollapsible(Gtk.Paned):
             # use half the space
 
             current_pos = self.get_allocated_height() - \
-                self.get_handle_window().get_height()
+                          self.get_handle_window().get_height()
 
             if ((current_pos - self.collapsible_y) < self.Min_Paned_Size):
                 self.collapsible_y = self.get_allocated_height() / 2
@@ -1152,7 +1153,7 @@ class PanedCollapsible(Gtk.Paned):
         This callback allows or denies the paned handle to move depending on
         the expanded expander
         '''
-        #if not self._expander or self._expander.get_expanded():
+        # if not self._expander or self._expander.get_expanded():
         self._from_paned_handle = 1
 
         if event.type == Gdk.EventType._2BUTTON_PRESS:
@@ -1168,12 +1169,12 @@ class PanedCollapsible(Gtk.Paned):
             Gtk.Paned.do_button_release_event(self, *args)
 
         if (not self._expander or self._expander.get_expanded()) and self._from_paned_handle == 1:
-            print ("in an expanded situation")
+            print("in an expanded situation")
             self.collapsible_y = self.get_position()
 
             # if the current paned handle pos is less than the minimum the force a collapse
             current_pos = self.get_allocated_height() - \
-                self.get_handle_window().get_height()
+                          self.get_handle_window().get_height()
 
             if ((current_pos - self.collapsible_y) < self.Min_Paned_Size):
                 self.expand(PanedCollapsible.Paned.COLLAPSE)
@@ -1183,14 +1184,14 @@ class PanedCollapsible(Gtk.Paned):
 
             if self._expander.get_expanded():
                 # if we are in an expanded position - lets collapse the pane
-                print ("collapsing")
+                print("collapsing")
                 self.expand(PanedCollapsible.Paned.COLLAPSE)
             else:
                 # the current paned position is closed, so lets open the pane fully
                 self.expand(PanedCollapsible.Paned.EXPAND)
-                print ("expanding")
+                print("expanding")
                 self.set_position(0)
-        print (self.get_position())
+        print(self.get_position())
         self._from_paned_handle = 0
 
     def do_remove(self, widget):
@@ -1256,10 +1257,10 @@ class PanedCollapsible(Gtk.Paned):
         Gtk.Paned.pack2(self, widget, *args, **kwargs)
 
     def _create_expander(self, widget):
-        #self._expander = Gtk.Expander(label=self.collapsible_label,
+        # self._expander = Gtk.Expander(label=self.collapsible_label,
         #                              visible=True)
         self._expander = HiddenExpander(label=self.collapsible_label,
-                                       visible=True)
+                                        visible=True)
 
         self._expander.add(widget)
 
@@ -1280,8 +1281,8 @@ class PanedCollapsible(Gtk.Paned):
 
     def _collapse(self):
         new_y = self.get_allocated_height() - \
-                self.get_handle_window().get_height()# - \
-        #        self._expander.get_label_widget().get_allocated_height()
+                self.get_handle_window().get_height()  # - \
+        # self._expander.get_label_widget().get_allocated_height()
 
         self.set_position(new_y)
 
@@ -1372,14 +1373,14 @@ class AbstractView(GObject.Object):
             n.show()
         else:
             self.source.notification_text.set_text(title + " : " + text)
-            #self.source.notification_infobar.set_visible(True)#reveal_notification.set_reveal_child(True)
-            self.source.notification_infobar.show()#reveal_notification.set_reveal_child(True)
+            # self.source.notification_infobar.set_visible(True)#reveal_notification.set_reveal_child(True)
+            self.source.notification_infobar.show()  #reveal_notification.set_reveal_child(True)
 
             if self._notification_displayed == 0:
                 Gdk.threads_add_timeout_seconds(GLib.PRIORITY_DEFAULT_IDLE, 1,
-                                            hide_notification, None)
+                                                hide_notification, None)
             else:
-                self._notification_displayed = 1 # reset notification for new label
+                self._notification_displayed = 1  # reset notification for new label
 
 
     def resize_icon(self, cover_size):

@@ -34,12 +34,12 @@ from coverart_browser_prefs import CoverLocale
 from coverart_album import AlbumsModel
 from coverart_widgets import AbstractView
 from coverart_widgets import PanedCollapsible
-
 import rb
 
 
 PLAY_SIZE_X = 30
 PLAY_SIZE_Y = 30
+
 
 class CellRendererThumb(Gtk.CellRendererPixbuf):
     markup = GObject.property(type=str, default="")
@@ -111,7 +111,7 @@ class CellRendererThumb(Gtk.CellRendererPixbuf):
                      rect_height - 1)
         cr.fill()
 
-        #DRAW FONT
+        # DRAW FONT
         cr.set_source_rgba(1.0, 1.0, 1.0, 1.0)
         cr.move_to(x_offset,
                    y_offset
@@ -315,7 +315,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
         self.connect("drag-data-get", self.on_drag_data_get)
 
         # set the model to the view
-        #self.set_pixbuf_column(AlbumsModel.columns['pixbuf'])
+        # self.set_pixbuf_column(AlbumsModel.columns['pixbuf'])
         self.set_model(self.album_manager.model.store)
 
         # setup view to monitor mouse movements

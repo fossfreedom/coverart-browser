@@ -90,14 +90,14 @@ def responses():
 
 def unicodestr(param, charset):
     if PYVER >= 3:
-        return param  #str(param, charset)
+        return param  # str(param, charset)
     else:
         return unicode(param, charset)
 
 
 def unicodeencode(param, charset):
     if PYVER >= 3:
-        return param  #str(param).encode(charset)
+        return param  # str(param).encode(charset)
     else:
         return unicode(param).encode(charset)
 

@@ -581,7 +581,7 @@ class DecadePopupController(OptionsController):
         self.values = OrderedDict()
 
         self.values[_('All Decades')] = [-1, 'All Decades']
-        #'20s' as in the decade 2010
+        # '20s' as in the decade 2010
         self.values[_('20s')] = [2020, '20s']
         #'10s' as in the decade 2010
         self.values[_('10s')] = [2010, '10s']
@@ -743,7 +743,7 @@ class AlbumSearchEntryController(OptionsController):
         return self._typing
 
     def _change_filter(self, search_text, force):
-        #self.search_text = search_text
+        # self.search_text = search_text
         self._current_search_text = search_text
 
         if search_text:
@@ -764,7 +764,7 @@ class AlbumSearchEntryController(OptionsController):
                 self._album_model.remove_filter(self._filter_type)
 
         '''
-        #self.search_text = search_text
+        # self.search_text = search_text
         if force:
             self._typing_counter = 99
             self._typing = False
