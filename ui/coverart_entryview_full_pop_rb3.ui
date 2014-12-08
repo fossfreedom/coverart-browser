@@ -11,14 +11,30 @@
         <attribute name="action">win.ev_full_play_next_track_menu_item</attribute>
       </item>
       <item>
-        <attribute name="label" translatable="yes">Queue Track</attribute>
-        <attribute name="action">win.ev_full_queue_track_menu_item</attribute>
-      </item>
-      <item>
         <attribute name="label" translatable="yes">Add to playing</attribute>
         <attribute name="action">win.ev_full_add_to_playing_menu_item</attribute>
       </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Queue Track</attribute>
+        <attribute name="action">win.ev_full_queue_track_menu_item</attribute>
+      </item>
       <submenu>
+        <attribute name="label" translatable="yes">Add to Playlist</attribute>
+        <section>
+            <item>
+                <attribute name="label" translatable="yes">New Playlist</attribute>
+                <attribute name="action">win.ev_full_new_playlist</attribute>
+            </item>
+        </section>
+        <section>
+            <attribute name="rb-plugin-menu-link">ev_full_playlist_section</attribute>
+        </section> 
+      </submenu>
+     </section>
+     <section>
+     <submenu>
         <attribute name="label" translatable="yes">Play Similar</attribute>
         <section>
             <item>
@@ -34,18 +50,6 @@
                 <attribute name="action">win.ev_full_similar_genre_menu_item</attribute>
             </item>
         </section>
-      </submenu>
-      <submenu>
-        <attribute name="label" translatable="yes">Add to Playlist</attribute>
-        <section>
-            <item>
-                <attribute name="label" translatable="yes">New Playlist</attribute>
-                <attribute name="action">win.ev_full_new_playlist</attribute>
-            </item>
-        </section>
-        <section>
-            <attribute name="rb-plugin-menu-link">ev_full_playlist_section</attribute>
-        </section> 
       </submenu>
      </section>
      <section>

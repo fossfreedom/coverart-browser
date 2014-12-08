@@ -11,30 +11,15 @@
         <attribute name="action">win.ev_compact_play_next_track_menu_item</attribute>
       </item>
       <item>
-        <attribute name="label" translatable="yes">Queue Track</attribute>
-        <attribute name="action">win.ev_compact_queue_track_menu_item</attribute>
-      </item>
-      <item>
         <attribute name="label" translatable="yes">Add to playing</attribute>
         <attribute name="action">win.ev_compact_add_to_playing_menu_item</attribute>
       </item>
-      <submenu>
-        <attribute name="label" translatable="yes">Play Similar</attribute>
-        <section>
-            <item>
-                <attribute name="label" translatable="yes">Track</attribute>
-                <attribute name="action">win.ev_compact_similar_track_menu_item</attribute>
-            </item>
-            <item>
-                <attribute name="label" translatable="yes">Artist</attribute>
-                <attribute name="action">win.ev_compact_similar_artist_menu_item</attribute>
-            </item>
-            <item>
-                <attribute name="label" translatable="yes">Genre</attribute>
-                <attribute name="action">win.ev_compact_similar_genre_menu_item</attribute>
-            </item>
-        </section>
-      </submenu>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Queue Track</attribute>
+        <attribute name="action">win.ev_compact_queue_track_menu_item</attribute>
+      </item>
       <submenu>
         <attribute name="label" translatable="yes">Add to Playlist</attribute>
         <section>
@@ -47,6 +32,25 @@
             <attribute name="rb-plugin-menu-link">ev_compact_playlist_section</attribute>
         </section> 
       </submenu>
+     </section>
+     <section>
+         <submenu>
+            <attribute name="label" translatable="yes">Play Similar</attribute>
+            <section>
+                <item>
+                    <attribute name="label" translatable="yes">Track</attribute>
+                    <attribute name="action">win.ev_compact_similar_track_menu_item</attribute>
+                </item>
+                <item>
+                    <attribute name="label" translatable="yes">Artist</attribute>
+                    <attribute name="action">win.ev_compact_similar_artist_menu_item</attribute>
+                </item>
+                <item>
+                    <attribute name="label" translatable="yes">Genre</attribute>
+                    <attribute name="action">win.ev_compact_similar_genre_menu_item</attribute>
+                </item>
+            </section>
+          </submenu>
      </section>
      <section>
         <attribute name="rb-plugin-menu-link">ev_compact_entryview</attribute>

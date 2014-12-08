@@ -8,12 +8,14 @@
         <attribute name="action">win.play_album_menu_item</attribute>
       </item>
       <item>
-        <attribute name="label" translatable="yes">Queue All</attribute>
-        <attribute name="action">win.queue_album_menu_item</attribute>
-      </item>
-      <item>
         <attribute name="label" translatable="yes">Add to playing</attribute>
         <attribute name="action">win.add_to_playing_menu_item</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Queue All</attribute>
+        <attribute name="action">win.queue_album_menu_item</attribute>
       </item>
       <submenu>
           <attribute name="label" translatable="yes">Add to Playlist</attribute>

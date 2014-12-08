@@ -12,29 +12,33 @@
         <attribute name="action">win.play_next_menu_item</attribute>
       </item>
       <item>
-        <attribute name="label" translatable="yes">Queue Album</attribute>
-        <attribute name="action">win.queue_album_menu_item</attribute>
-      </item>
-      <item>
         <attribute name="label" translatable="yes">Add to playing</attribute>
         <attribute name="action">win.add_to_playing_menu_item</attribute>
       </item>
+    </section>
+    <section>
       <item>
+        <attribute name="label" translatable="yes">Queue Album</attribute>
+        <attribute name="action">win.queue_album_menu_item</attribute>
+      </item>
+      <submenu>
+            <attribute name="label" translatable="yes">Add to Playlist</attribute>
+            <section>
+              <item>
+                <attribute name="label" translatable="yes">New Playlist</attribute>
+                <attribute name="action">win.new_playlist</attribute>
+              </item>
+            </section>
+            <section>
+                <attribute name="rb-plugin-menu-link">playlist_section</attribute>
+            </section>         
+      </submenu>
+    </section>
+    <section>
+    <item>
         <attribute name="label" translatable="yes">Play Similar Artist</attribute>
         <attribute name="action">win.play_similar_artist_menu_item</attribute>
       </item>
-      <submenu>
-          <attribute name="label" translatable="yes">Add to Playlist</attribute>
-        <section>
-          <item>
-            <attribute name="label" translatable="yes">New Playlist</attribute>
-            <attribute name="action">win.new_playlist</attribute>
-          </item>
-        </section>
-        <section>
-            <attribute name="rb-plugin-menu-link">playlist_section</attribute>
-        </section>         
-      </submenu>
     </section>
     <section>
       <item>
