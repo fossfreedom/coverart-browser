@@ -60,6 +60,7 @@ Browse your coverart albums in Rhythmbox v3 and later.
 N.B. for earlier Rhythmbox versions use version 1.x
 
 Prerequisite is to use a distribution supporting GTK 3.10 or later - for example, Ubuntu 14.04, Arch or Fedora 20
+IMPORTANT: For GTK 3.14 users (Fedora 21/Arch etc) please look at https://github.com/fossfreedom/coverart-browser/issues/338 first
 
 for debian & debian-based distros such as Ubuntu & Mint:
 
