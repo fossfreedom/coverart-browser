@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-23 21:31+0100\n"
+"POT-Creation-Date: 2014-12-21 23:10+0000\n"
 "PO-Revision-Date: 2014-06-30 02:29+0000\n"
 "Last-Translator: Jean-Rene Bastien <Unknown>\n"
 "Language-Team: French (Canada) (http://www.transifex.com/projects/p/"
@@ -84,10 +84,10 @@ msgid "Search Mode"
 msgstr "Mode de recherche"
 
 #: tmpl/albumartsearch-tmpl.html:191
-#: tmp/coverart_entryview_compact_pop_rb3.ui.h:6
-#: tmp/coverart_entryview_full_pop_rb3.ui.h:6 coverart_artistview.py:823
-#: coverart_browser_source.py:364 coverart_browser_source.py:365
-#: coverart_browser_source.py:1151
+#: tmp/coverart_entryview_compact_pop_rb3.ui.h:9
+#: tmp/coverart_entryview_full_pop_rb3.ui.h:9 coverart_artistview.py:824
+#: coverart_browser_source.py:373 coverart_browser_source.py:374
+#: coverart_browser_source.py:1243
 msgid "Artist"
 msgstr "Artiste"
 
@@ -128,7 +128,7 @@ msgid "Extra Large"
 msgstr "Énorme"
 
 #: tmpl/albumartsearch-tmpl.html:211 tmpl/artistartsearch-tmpl.html:197
-#: coverart_browser_source.py:118
+#: coverart_browser_source.py:117
 msgid "Loading..."
 msgstr "Chargement..."
 
@@ -186,30 +186,30 @@ msgstr "Impossible d'obtenir les liens"
 msgid "Play All"
 msgstr "Tout jouer"
 
-#: tmp/coverart_artist_pop_rb3.ui.h:2
-msgid "Queue All"
-msgstr "Tout mettre en attente"
-
-#: tmp/coverart_artist_pop_rb3.ui.h:3 tmp/coverart_browser_pop_rb3.ui.h:3
+#: tmp/coverart_artist_pop_rb3.ui.h:2 tmp/coverart_browser_pop_rb3.ui.h:3
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:3
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:3
 msgid "Add to playing"
 msgstr "Ajouter à la liste de lecture"
 
+#: tmp/coverart_artist_pop_rb3.ui.h:3
+msgid "Queue All"
+msgstr "Tout mettre en attente"
+
 #: tmp/coverart_artist_pop_rb3.ui.h:4 tmp/coverart_browser_pop_rb3.ui.h:5
-#: tmp/coverart_entryview_compact_pop_rb3.ui.h:8
-#: tmp/coverart_entryview_full_pop_rb3.ui.h:8
+#: tmp/coverart_entryview_compact_pop_rb3.ui.h:5
+#: tmp/coverart_entryview_full_pop_rb3.ui.h:5
 msgid "Add to Playlist"
 msgstr "Ajouter à une liste de lecture"
 
 #: tmp/coverart_artist_pop_rb3.ui.h:5 tmp/coverart_browser_pop_rb3.ui.h:6
-#: tmp/coverart_entryview_compact_pop_rb3.ui.h:9
-#: tmp/coverart_entryview_full_pop_rb3.ui.h:9 coverart_browser_source.py:769
-#: coverart_entryview.py:643
+#: tmp/coverart_entryview_compact_pop_rb3.ui.h:6
+#: tmp/coverart_entryview_full_pop_rb3.ui.h:6 coverart_browser_source.py:861
+#: coverart_entryview.py:796
 msgid "New Playlist"
 msgstr "Nouvelle liste de lecture"
 
-#: tmp/coverart_artist_pop_rb3.ui.h:6 tmp/coverart_browser_pop_rb3.ui.h:7
+#: tmp/coverart_artist_pop_rb3.ui.h:6 tmp/coverart_browser_pop_rb3.ui.h:8
 msgid "Search for covers"
 msgstr "Rechercher les pochettes"
 
@@ -218,20 +218,26 @@ msgid "Play Album"
 msgstr "Jouer l'album"
 
 #: tmp/coverart_browser_pop_rb3.ui.h:2
+#: tmp/coverart_entryview_compact_pop_rb3.ui.h:2
+#: tmp/coverart_entryview_full_pop_rb3.ui.h:2
+msgid "Play Next"
+msgstr ""
+
+#: tmp/coverart_browser_pop_rb3.ui.h:4
 msgid "Queue Album"
 msgstr "Mettre l'album en attente"
 
-#: tmp/coverart_browser_pop_rb3.ui.h:4
+#: tmp/coverart_browser_pop_rb3.ui.h:7
 msgid "Play Similar Artist"
 msgstr "Jouer les artites similaires"
 
-#: tmp/coverart_browser_pop_rb3.ui.h:8
+#: tmp/coverart_browser_pop_rb3.ui.h:9
 msgid "Export and embed coverart"
 msgstr "Exporter et imbriquer la pochette"
 
-#: tmp/coverart_browser_pop_rb3.ui.h:9
-#: tmp/coverart_entryview_compact_pop_rb3.ui.h:10
-#: tmp/coverart_entryview_full_pop_rb3.ui.h:10
+#: tmp/coverart_browser_pop_rb3.ui.h:10
+#: tmp/coverart_entryview_compact_pop_rb3.ui.h:11
+#: tmp/coverart_entryview_full_pop_rb3.ui.h:11
 #: tmp/coverart_play_pop_rb3.ui.h:2 coverart_controllers.py:565
 msgid "Properties"
 msgstr "Propriétés"
@@ -412,8 +418,8 @@ msgid "Spacing"
 msgstr "Espacement"
 
 #. . TRANSLATORS: This is the icon-grid view that the user sees
-#: tmp/coverart_browser_prefs.ui.h:42 coverart_browser.py:146
-#: coverart_browser_source.py:1146
+#: tmp/coverart_browser_prefs.ui.h:42 coverart_browser.py:148
+#: coverart_browser_source.py:1238
 msgid "Tiles"
 msgstr "Mosaïque"
 
@@ -426,7 +432,7 @@ msgid "Width (px):"
 msgstr "Largeur (px) :"
 
 #. . TRANSLATORS: percentage size that the image will be expanded
-#: tmp/coverart_browser_prefs.ui.h:46 coverart_browser.py:152
+#: tmp/coverart_browser_prefs.ui.h:46 coverart_browser.py:154
 #, no-c-format
 msgid "Scale by %:"
 msgstr "Échelle %"
@@ -452,8 +458,8 @@ msgid "Black"
 msgstr "Noir"
 
 #. . TRANSLATORS: This is the cover-flow view the user sees - they can swipe album covers from side-to-side
-#: tmp/coverart_browser_prefs.ui.h:52 coverart_browser.py:149
-#: coverart_browser_source.py:1149
+#: tmp/coverart_browser_prefs.ui.h:52 coverart_browser.py:151
+#: coverart_browser_source.py:1241
 msgid "Flow"
 msgstr "Flux"
 
@@ -534,14 +540,10 @@ msgid "Toolbar"
 msgstr "Barre d'outils"
 
 #: tmp/coverart_browser.ui.h:1
-msgid "Tracks & Covers"
-msgstr "Pistes & Pochettes"
-
-#: tmp/coverart_browser.ui.h:2
 msgid "Track Artist"
 msgstr "Artiste de la piste"
 
-#: tmp/coverart_browser.ui.h:3
+#: tmp/coverart_browser.ui.h:2
 msgid "Stop coverart fetch."
 msgstr "Arrêter de chercher les pochettes"
 
@@ -550,23 +552,23 @@ msgstr "Arrêter de chercher les pochettes"
 msgid "Play Track"
 msgstr "Jouer la piste"
 
-#: tmp/coverart_entryview_compact_pop_rb3.ui.h:2
-#: tmp/coverart_entryview_full_pop_rb3.ui.h:2
+#: tmp/coverart_entryview_compact_pop_rb3.ui.h:4
+#: tmp/coverart_entryview_full_pop_rb3.ui.h:4
 msgid "Queue Track"
 msgstr "Mettre la piste en attente"
 
-#: tmp/coverart_entryview_compact_pop_rb3.ui.h:4
-#: tmp/coverart_entryview_full_pop_rb3.ui.h:4
+#: tmp/coverart_entryview_compact_pop_rb3.ui.h:7
+#: tmp/coverart_entryview_full_pop_rb3.ui.h:7
 msgid "Play Similar"
 msgstr "Jouer les sémilaires"
 
-#: tmp/coverart_entryview_compact_pop_rb3.ui.h:5
-#: tmp/coverart_entryview_full_pop_rb3.ui.h:5
+#: tmp/coverart_entryview_compact_pop_rb3.ui.h:8
+#: tmp/coverart_entryview_full_pop_rb3.ui.h:8
 msgid "Track"
 msgstr "Piste"
 
-#: tmp/coverart_entryview_compact_pop_rb3.ui.h:7
-#: tmp/coverart_entryview_full_pop_rb3.ui.h:7
+#: tmp/coverart_entryview_compact_pop_rb3.ui.h:10
+#: tmp/coverart_entryview_full_pop_rb3.ui.h:10
 msgid "Genre"
 msgstr "Genre"
 
@@ -612,7 +614,7 @@ msgid "(px)"
 msgstr "(px)"
 
 #: tmp/coverart_leftsidebar.ui.h:1 tmp/coverart_rightsidebar.ui.h:1
-#: coverart_browser.py:92
+#: coverart_browser.py:94
 msgid "CoverArt"
 msgstr "Pochettes"
 
@@ -627,12 +629,6 @@ msgstr "Tous les genres"
 #: tmp/coverart_topbar.ui.h:2 coverart_controllers.py:583
 msgid "All Decades"
 msgstr "Toutes les décennies"
-
-#. This is the different view modes e.g. Music Library, CoverFlow, Tiles or Album Artist
-#: tmp/coverart_leftsidebar.ui.h:4 tmp/coverart_rightsidebar.ui.h:4
-#: tmp/coverart_topbar.ui.h:4 coverart_browser.py:231
-msgid "Views"
-msgstr "Affichages"
 
 #: tmp/coverart_play_pop_rb3.ui.h:1
 msgid "Remove from Playlist"
@@ -778,61 +774,61 @@ msgstr "hip-hop"
 msgid "children"
 msgstr "enfants"
 
-#: coverart_album.py:1519 coverart_artistinfo.py:62
+#: coverart_album.py:1521 coverart_artistinfo.py:62
 msgid "Enable LastFM plugin and log in first"
 msgstr "Activez le greffon LastFM et connectez-vous d'abord."
 
 #. . TRANSLATORS - for example "abba's greatest hits by ABBA"
-#: coverart_album.py:1763 coverart_browser_source.py:1059
+#: coverart_album.py:1765 coverart_browser_source.py:1151
 #, python-format
 msgid "%s by %s"
 msgstr "%s par %s"
 
-#: coverart_artistinfo.py:420
+#: coverart_artistinfo.py:478
 #, python-format
 msgid "Loading biography for %s"
 msgstr "Chargement de la biographie pour %s"
 
-#: coverart_artistinfo.py:704
+#: coverart_artistinfo.py:825
 msgid "No artist specified."
 msgstr "Aucun artiste de spécifié."
 
 #. Translators: 'top' here means 'most popular'.  %s is replaced by the artist name.
-#: coverart_artistinfo.py:724
+#: coverart_artistinfo.py:845
 #, python-format
 msgid "Loading top albums for %s"
 msgstr "Chargement des meilleurs albums de %s"
 
-#: coverart_artistview.py:375 coverart_browser_source.py:1067
+#: coverart_artistview.py:375 coverart_browser_source.py:1159
 msgid " with 1 track"
 msgstr " avec 1 piste"
 
-#: coverart_artistview.py:377 coverart_browser_source.py:1069
+#: coverart_artistview.py:377 coverart_browser_source.py:1161
 #, python-format
 msgid " with %d tracks"
 msgstr " avec %d pistes"
 
-#: coverart_artistview.py:383 coverart_browser_source.py:1073
+#: coverart_artistview.py:383 coverart_browser_source.py:1165
 msgid " and a duration of 1 minute"
 msgstr " et une durée de 1 minute"
 
-#: coverart_artistview.py:385 coverart_browser_source.py:1075
+#: coverart_artistview.py:385 coverart_browser_source.py:1167
 #, python-format
 msgid " and a duration of %d minutes"
 msgstr " et une durée de %d minutes"
 
 #. active_object=self.artist_manager.model.store[treepath][self.artist_manager.model.columns['artist_album']]
-#: coverart_artistview.py:819 coverart_artistview.py:910
-#: coverart_entryview.py:83
+#: coverart_artistview.py:820 coverart_artistview.py:911
+#: coverart_entryview.py:85
 msgid "Covers"
 msgstr "Pochettes"
 
-#: coverart_browser_prefs.py:262 coverart_controllers.py:507
+#: coverart_browser_prefs.py:269 coverart_controllers.py:507
 msgid "Browser Preferences"
 msgstr "Préférences du navigateur"
 
 #. . TRANSLATORS: Do not translate this string.
-#: coverart_browser_prefs.py:307
+#: coverart_browser_prefs.py:314
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -842,24 +838,24 @@ msgstr ""
 "  londumas https://launchpad.net/~helion331990"
 
 #. define .plugin text strings used for translation
-#: coverart_browser.py:142
+#: coverart_browser.py:144
 msgid "CoverArt Browser"
 msgstr "Navigateur de pochettes"
 
-#: coverart_browser.py:143
+#: coverart_browser.py:145
 msgid "Browse and play your albums through their covers"
 msgstr "Parcourir les pochettes de vos albums et les jouer"
 
-#: coverart_browser_source.py:179
+#: coverart_browser_source.py:178
 msgid "CoverArt Playlist"
 msgstr "Liste de lecture"
 
 #. . TRANSLATORS - "All" is used in the context of "All artist names"
-#: coverart_browser_source.py:534
+#: coverart_browser_source.py:584
 msgid "All"
 msgstr "Tous"
 
-#: coverart_browser_source.py:681 coverart_browser_source.py:829
+#: coverart_browser_source.py:732 coverart_browser_source.py:921
 msgid ""
 "No tracks have been added because no tracks meet the favourite rating "
 "threshold"
@@ -867,17 +863,17 @@ msgstr ""
 "Aucune piste n'a été ajouté car aucune a une note supérieure au seuil des "
 "favorites"
 
-#: coverart_browser_source.py:791
+#: coverart_browser_source.py:883
 msgid "The number of albums to randomly play is less than that displayed."
 msgstr "Le nombre d'albums à jouer aléatoirement est moindre qu'affiché."
 
 #. for example "Requesting the picture cover for the music artist Michael Jackson"
-#: coverart_browser_source.py:883 coverart_browser_source.py:885
+#: coverart_browser_source.py:975 coverart_browser_source.py:977
 #, python-format
 msgid "Requesting cover for %s..."
 msgstr "Recherche d'image pour %s..."
 
-#: coverart_browser_source.py:982
+#: coverart_browser_source.py:1074
 msgid ""
 "Please install and activate the latest version of the Coverart Search "
 "Providers plugin"
@@ -886,7 +882,7 @@ msgstr ""
 "pochettes - Moteurs de recherche\""
 
 #. . TRANSLATORS - the number of albums that have been selected/highlighted
-#: coverart_browser_source.py:1063
+#: coverart_browser_source.py:1155
 #, python-format
 msgid "%d selected albums"
 msgstr "%d albums sélectionnés"
@@ -1021,14 +1017,20 @@ msgstr "Rechercher les titres"
 msgid "Number of covers limited to %d"
 msgstr "Nombre de pochettes limité à %d"
 
-#: coverart_covericonview.py:583
+#: coverart_covericonview.py:617
 msgid "Album has added to list of playing albums"
 msgstr "L'album a été ajouté à la liste d'albums en lecture"
 
-#: coverart_entryview.py:75
+#: coverart_entryview.py:77
 msgid "Tracks"
 msgstr "Pistes"
 
 #: coverart_playlists.py:165
 msgid "No matching tracks have been found"
 msgstr "Aucune piste correspondante a été trouvé."
+
+#~ msgid "Tracks & Covers"
+#~ msgstr "Pistes & Pochettes"
+
+#~ msgid "Views"
+#~ msgstr "Affichages"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-23 21:31+0100\n"
+"POT-Creation-Date: 2014-12-21 23:10+0000\n"
 "PO-Revision-Date: 2014-06-28 17:58+0000\n"
 "Last-Translator: VPablo <villumar@gmail.com>\n"
 "Language-Team: Catalan <ca@li.org>\n"
@@ -79,10 +79,10 @@ msgid "Search Mode"
 msgstr "Mode de recerca"
 
 #: tmpl/albumartsearch-tmpl.html:191
-#: tmp/coverart_entryview_compact_pop_rb3.ui.h:6
-#: tmp/coverart_entryview_full_pop_rb3.ui.h:6 coverart_artistview.py:823
-#: coverart_browser_source.py:364 coverart_browser_source.py:365
-#: coverart_browser_source.py:1151
+#: tmp/coverart_entryview_compact_pop_rb3.ui.h:9
+#: tmp/coverart_entryview_full_pop_rb3.ui.h:9 coverart_artistview.py:824
+#: coverart_browser_source.py:373 coverart_browser_source.py:374
+#: coverart_browser_source.py:1243
 msgid "Artist"
 msgstr "Artista"
 
@@ -123,7 +123,7 @@ msgid "Extra Large"
 msgstr "Extra gran"
 
 #: tmpl/albumartsearch-tmpl.html:211 tmpl/artistartsearch-tmpl.html:197
-#: coverart_browser_source.py:118
+#: coverart_browser_source.py:117
 msgid "Loading..."
 msgstr "S'està carregant…"
 
@@ -181,30 +181,30 @@ msgstr "No s'han pogut obtindre els enllaços"
 msgid "Play All"
 msgstr "Reprodueix tot"
 
-#: tmp/coverart_artist_pop_rb3.ui.h:2
-msgid "Queue All"
-msgstr "Posa-ho tot a la cua"
-
-#: tmp/coverart_artist_pop_rb3.ui.h:3 tmp/coverart_browser_pop_rb3.ui.h:3
+#: tmp/coverart_artist_pop_rb3.ui.h:2 tmp/coverart_browser_pop_rb3.ui.h:3
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:3
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:3
 msgid "Add to playing"
 msgstr "Afegir a la reproducció"
 
+#: tmp/coverart_artist_pop_rb3.ui.h:3
+msgid "Queue All"
+msgstr "Posa-ho tot a la cua"
+
 #: tmp/coverart_artist_pop_rb3.ui.h:4 tmp/coverart_browser_pop_rb3.ui.h:5
-#: tmp/coverart_entryview_compact_pop_rb3.ui.h:8
-#: tmp/coverart_entryview_full_pop_rb3.ui.h:8
+#: tmp/coverart_entryview_compact_pop_rb3.ui.h:5
+#: tmp/coverart_entryview_full_pop_rb3.ui.h:5
 msgid "Add to Playlist"
 msgstr "Afegeix a la llista de reproducció"
 
 #: tmp/coverart_artist_pop_rb3.ui.h:5 tmp/coverart_browser_pop_rb3.ui.h:6
-#: tmp/coverart_entryview_compact_pop_rb3.ui.h:9
-#: tmp/coverart_entryview_full_pop_rb3.ui.h:9 coverart_browser_source.py:769
-#: coverart_entryview.py:643
+#: tmp/coverart_entryview_compact_pop_rb3.ui.h:6
+#: tmp/coverart_entryview_full_pop_rb3.ui.h:6 coverart_browser_source.py:861
+#: coverart_entryview.py:796
 msgid "New Playlist"
 msgstr "Llista de reproducció nova"
 
-#: tmp/coverart_artist_pop_rb3.ui.h:6 tmp/coverart_browser_pop_rb3.ui.h:7
+#: tmp/coverart_artist_pop_rb3.ui.h:6 tmp/coverart_browser_pop_rb3.ui.h:8
 msgid "Search for covers"
 msgstr "Cerca portades"
 
@@ -213,20 +213,26 @@ msgid "Play Album"
 msgstr "Reprodueix l'àlbum"
 
 #: tmp/coverart_browser_pop_rb3.ui.h:2
+#: tmp/coverart_entryview_compact_pop_rb3.ui.h:2
+#: tmp/coverart_entryview_full_pop_rb3.ui.h:2
+msgid "Play Next"
+msgstr ""
+
+#: tmp/coverart_browser_pop_rb3.ui.h:4
 msgid "Queue Album"
 msgstr "Afegeix l'àlbum a la cua"
 
-#: tmp/coverart_browser_pop_rb3.ui.h:4
+#: tmp/coverart_browser_pop_rb3.ui.h:7
 msgid "Play Similar Artist"
 msgstr "Reprodueix Artistes Similars"
 
-#: tmp/coverart_browser_pop_rb3.ui.h:8
+#: tmp/coverart_browser_pop_rb3.ui.h:9
 msgid "Export and embed coverart"
 msgstr "Exporta i incrusta cobertes"
 
-#: tmp/coverart_browser_pop_rb3.ui.h:9
-#: tmp/coverart_entryview_compact_pop_rb3.ui.h:10
-#: tmp/coverart_entryview_full_pop_rb3.ui.h:10
+#: tmp/coverart_browser_pop_rb3.ui.h:10
+#: tmp/coverart_entryview_compact_pop_rb3.ui.h:11
+#: tmp/coverart_entryview_full_pop_rb3.ui.h:11
 #: tmp/coverart_play_pop_rb3.ui.h:2 coverart_controllers.py:565
 msgid "Properties"
 msgstr "Propietats"
@@ -407,8 +413,8 @@ msgid "Spacing"
 msgstr "Espaiat"
 
 #. . TRANSLATORS: This is the icon-grid view that the user sees
-#: tmp/coverart_browser_prefs.ui.h:42 coverart_browser.py:146
-#: coverart_browser_source.py:1146
+#: tmp/coverart_browser_prefs.ui.h:42 coverart_browser.py:148
+#: coverart_browser_source.py:1238
 msgid "Tiles"
 msgstr "Mosaic"
 
@@ -421,7 +427,7 @@ msgid "Width (px):"
 msgstr "Amplada (px):"
 
 #. . TRANSLATORS: percentage size that the image will be expanded
-#: tmp/coverart_browser_prefs.ui.h:46 coverart_browser.py:152
+#: tmp/coverart_browser_prefs.ui.h:46 coverart_browser.py:154
 #, no-c-format
 msgid "Scale by %:"
 msgstr "Escalat per %:"
@@ -447,8 +453,8 @@ msgid "Black"
 msgstr "Negre"
 
 #. . TRANSLATORS: This is the cover-flow view the user sees - they can swipe album covers from side-to-side
-#: tmp/coverart_browser_prefs.ui.h:52 coverart_browser.py:149
-#: coverart_browser_source.py:1149
+#: tmp/coverart_browser_prefs.ui.h:52 coverart_browser.py:151
+#: coverart_browser_source.py:1241
 msgid "Flow"
 msgstr "Flux"
 
@@ -529,14 +535,10 @@ msgid "Toolbar"
 msgstr "Barra d'eines"
 
 #: tmp/coverart_browser.ui.h:1
-msgid "Tracks & Covers"
-msgstr "Pistes i Cobertes"
-
-#: tmp/coverart_browser.ui.h:2
 msgid "Track Artist"
 msgstr "Artista de la peça"
 
-#: tmp/coverart_browser.ui.h:3
+#: tmp/coverart_browser.ui.h:2
 msgid "Stop coverart fetch."
 msgstr "Para la cerca de portades."
 
@@ -545,23 +547,23 @@ msgstr "Para la cerca de portades."
 msgid "Play Track"
 msgstr "Reprodueix la cançó"
 
-#: tmp/coverart_entryview_compact_pop_rb3.ui.h:2
-#: tmp/coverart_entryview_full_pop_rb3.ui.h:2
+#: tmp/coverart_entryview_compact_pop_rb3.ui.h:4
+#: tmp/coverart_entryview_full_pop_rb3.ui.h:4
 msgid "Queue Track"
 msgstr "Afegeix la cançó a la cua"
 
-#: tmp/coverart_entryview_compact_pop_rb3.ui.h:4
-#: tmp/coverart_entryview_full_pop_rb3.ui.h:4
+#: tmp/coverart_entryview_compact_pop_rb3.ui.h:7
+#: tmp/coverart_entryview_full_pop_rb3.ui.h:7
 msgid "Play Similar"
 msgstr "Reprodueix Similars"
 
-#: tmp/coverart_entryview_compact_pop_rb3.ui.h:5
-#: tmp/coverart_entryview_full_pop_rb3.ui.h:5
+#: tmp/coverart_entryview_compact_pop_rb3.ui.h:8
+#: tmp/coverart_entryview_full_pop_rb3.ui.h:8
 msgid "Track"
 msgstr "Pista"
 
-#: tmp/coverart_entryview_compact_pop_rb3.ui.h:7
-#: tmp/coverart_entryview_full_pop_rb3.ui.h:7
+#: tmp/coverart_entryview_compact_pop_rb3.ui.h:10
+#: tmp/coverart_entryview_full_pop_rb3.ui.h:10
 msgid "Genre"
 msgstr "Gènere"
 
@@ -605,7 +607,7 @@ msgid "(px)"
 msgstr "(px)"
 
 #: tmp/coverart_leftsidebar.ui.h:1 tmp/coverart_rightsidebar.ui.h:1
-#: coverart_browser.py:92
+#: coverart_browser.py:94
 msgid "CoverArt"
 msgstr "CoverArt"
 
@@ -620,12 +622,6 @@ msgstr "Tots els gèneres"
 #: tmp/coverart_topbar.ui.h:2 coverart_controllers.py:583
 msgid "All Decades"
 msgstr "Totes les dècades"
-
-#. This is the different view modes e.g. Music Library, CoverFlow, Tiles or Album Artist
-#: tmp/coverart_leftsidebar.ui.h:4 tmp/coverart_rightsidebar.ui.h:4
-#: tmp/coverart_topbar.ui.h:4 coverart_browser.py:231
-msgid "Views"
-msgstr "Vistes"
 
 #: tmp/coverart_play_pop_rb3.ui.h:1
 msgid "Remove from Playlist"
@@ -771,61 +767,61 @@ msgstr "hip-hop"
 msgid "children"
 msgstr "xiquets"
 
-#: coverart_album.py:1519 coverart_artistinfo.py:62
+#: coverart_album.py:1521 coverart_artistinfo.py:62
 msgid "Enable LastFM plugin and log in first"
 msgstr "Activa el plugin de LastFM i entra primer"
 
 #. . TRANSLATORS - for example "abba's greatest hits by ABBA"
-#: coverart_album.py:1763 coverart_browser_source.py:1059
+#: coverart_album.py:1765 coverart_browser_source.py:1151
 #, python-format
 msgid "%s by %s"
 msgstr "%s per %s"
 
-#: coverart_artistinfo.py:420
+#: coverart_artistinfo.py:478
 #, python-format
 msgid "Loading biography for %s"
 msgstr "S'està carregant la biografia de %s"
 
-#: coverart_artistinfo.py:704
+#: coverart_artistinfo.py:825
 msgid "No artist specified."
 msgstr "No s'ha especificat cap artista."
 
 #. Translators: 'top' here means 'most popular'.  %s is replaced by the artist name.
-#: coverart_artistinfo.py:724
+#: coverart_artistinfo.py:845
 #, python-format
 msgid "Loading top albums for %s"
 msgstr "S'estan carregant els millors àlbums de %s"
 
-#: coverart_artistview.py:375 coverart_browser_source.py:1067
+#: coverart_artistview.py:375 coverart_browser_source.py:1159
 msgid " with 1 track"
 msgstr " amb 1 cançó"
 
-#: coverart_artistview.py:377 coverart_browser_source.py:1069
+#: coverart_artistview.py:377 coverart_browser_source.py:1161
 #, python-format
 msgid " with %d tracks"
 msgstr " amb %d cançons"
 
-#: coverart_artistview.py:383 coverart_browser_source.py:1073
+#: coverart_artistview.py:383 coverart_browser_source.py:1165
 msgid " and a duration of 1 minute"
 msgstr " i una duració d'un minut"
 
-#: coverart_artistview.py:385 coverart_browser_source.py:1075
+#: coverart_artistview.py:385 coverart_browser_source.py:1167
 #, python-format
 msgid " and a duration of %d minutes"
 msgstr " i una duració de %d minuts"
 
 #. active_object=self.artist_manager.model.store[treepath][self.artist_manager.model.columns['artist_album']]
-#: coverart_artistview.py:819 coverart_artistview.py:910
-#: coverart_entryview.py:83
+#: coverart_artistview.py:820 coverart_artistview.py:911
+#: coverart_entryview.py:85
 msgid "Covers"
 msgstr "Portades"
 
-#: coverart_browser_prefs.py:262 coverart_controllers.py:507
+#: coverart_browser_prefs.py:269 coverart_controllers.py:507
 msgid "Browser Preferences"
 msgstr "Preferències de Navegador"
 
 #. . TRANSLATORS: Do not translate this string.
-#: coverart_browser_prefs.py:307
+#: coverart_browser_prefs.py:314
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -834,24 +830,24 @@ msgstr ""
 "  fossfreedom https://launchpad.net/~fossfreedom"
 
 #. define .plugin text strings used for translation
-#: coverart_browser.py:142
+#: coverart_browser.py:144
 msgid "CoverArt Browser"
 msgstr "Navegador de Portades"
 
-#: coverart_browser.py:143
+#: coverart_browser.py:145
 msgid "Browse and play your albums through their covers"
 msgstr "Navega i reprodueix els àlbums mitjançant les seues portades"
 
-#: coverart_browser_source.py:179
+#: coverart_browser_source.py:178
 msgid "CoverArt Playlist"
 msgstr "Llista de l'Àlbum"
 
 #. . TRANSLATORS - "All" is used in the context of "All artist names"
-#: coverart_browser_source.py:534
+#: coverart_browser_source.py:584
 msgid "All"
 msgstr "Tots"
 
-#: coverart_browser_source.py:681 coverart_browser_source.py:829
+#: coverart_browser_source.py:732 coverart_browser_source.py:921
 msgid ""
 "No tracks have been added because no tracks meet the favourite rating "
 "threshold"
@@ -859,19 +855,19 @@ msgstr ""
 "No s'han afegit pistes perquè cap pista coincideix amb l'umbracle de "
 "qualificació favorita"
 
-#: coverart_browser_source.py:791
+#: coverart_browser_source.py:883
 msgid "The number of albums to randomly play is less than that displayed."
 msgstr ""
 "La quantitat d'àlbums a executar de forma aleatòria es menor que els "
 "mostrats."
 
 #. for example "Requesting the picture cover for the music artist Michael Jackson"
-#: coverart_browser_source.py:883 coverart_browser_source.py:885
+#: coverart_browser_source.py:975 coverart_browser_source.py:977
 #, python-format
 msgid "Requesting cover for %s..."
 msgstr "Carregant caràtula per %s..."
 
-#: coverart_browser_source.py:982
+#: coverart_browser_source.py:1074
 msgid ""
 "Please install and activate the latest version of the Coverart Search "
 "Providers plugin"
@@ -880,7 +876,7 @@ msgstr ""
 "de Coverart"
 
 #. . TRANSLATORS - the number of albums that have been selected/highlighted
-#: coverart_browser_source.py:1063
+#: coverart_browser_source.py:1155
 #, python-format
 msgid "%d selected albums"
 msgstr "%d àlbums seleccionats"
@@ -1015,14 +1011,20 @@ msgstr "Cerca els títols"
 msgid "Number of covers limited to %d"
 msgstr "La quantitat de colors s'ha limitat a %d"
 
-#: coverart_covericonview.py:583
+#: coverart_covericonview.py:617
 msgid "Album has added to list of playing albums"
 msgstr "L'àlbum s'ha afegit a la llista d'àlbums a reproduir"
 
-#: coverart_entryview.py:75
+#: coverart_entryview.py:77
 msgid "Tracks"
 msgstr "Cançons"
 
 #: coverart_playlists.py:165
 msgid "No matching tracks have been found"
 msgstr "No s'han trobat pistes que coincidisquen"
+
+#~ msgid "Tracks & Covers"
+#~ msgstr "Pistes i Cobertes"
+
+#~ msgid "Views"
+#~ msgstr "Vistes"
