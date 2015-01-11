@@ -181,6 +181,18 @@ class ToolbarManager(GObject.Object):
 
         self._controllers = controllers
 
+        # if the alternative-toolbar is loaded then lets connect to the toolbar-visibility signal
+        # to control our sources toolbar visibility
+
+        if hasattr(self.plugin.shell, 'alternative_toolbar'):
+            self.plugin.shell.alternative_toolbar.connect('toolbar-visibility', self._visibility)
+
+    def _visibility(self, altplugin, value):
+        if value:
+            self._bars[self.toolbar_pos].show()
+        else:
+            self._bars[self.toolbar_pos].hide()
+
     def set_enabled(self, enabled, toolbar_object=None):
         '''
         enable or disable the toolbar object.

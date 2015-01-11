@@ -27,6 +27,7 @@ DISTRO PACKAGERS: Please do not package this branch since it is a development br
 ##Summary: whats new in this release
 
  - To be completed
+ - Support the [alternative-toolbar](https://github.com/fossfreedom/alternative-toolbar) capability to hide/show the coverart-toolbar
  - Support for GTK 3.14
  - Single click icon display position changes consistently depending upon the cover-tile style (shadow/no shadow etc.)
  - view/zoom/save the chosen cover - hover over the coverart on the track pane to reveal
