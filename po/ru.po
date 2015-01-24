@@ -6,19 +6,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: coverartbrowser\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-12-21 23:10+0000\n"
-"PO-Revision-Date: 2014-07-11 09:29+0000\n"
-"Last-Translator: Andrey Olykainen <Unknown>\n"
+"PO-Revision-Date: 2015-01-23 08:26+0000\n"
+"Last-Translator: ☠Jay ZDLin☠ <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2014-07-11 12:28+0000\n"
-"X-Generator: Launchpad (build 17111)\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Launchpad-Export-Date: 2015-01-24 18:36+0000\n"
+"X-Generator: Launchpad (build 17306)\n"
 
 #. TRANSLATORS: album duration (length) in the format hour:minute:second
 #: tmpl/album-tmpl.html:20
@@ -34,18 +33,18 @@ msgstr "%d:%02d"
 
 #: tmpl/album-tmpl.html:48
 msgid "Hide all tracks"
-msgstr ""
+msgstr "Скрыть все композиции"
 
 #: tmpl/album-tmpl.html:49 tmpl/album-tmpl.html:93
 msgid "Show all tracks"
-msgstr ""
+msgstr "Показать все композиции"
 
 #. TRANSLATORS: where %s is the artist name - for example "Top Albums by
 #. Michael Jackson"
 #: tmpl/album-tmpl.html:69
 #, python-format
 msgid "Top albums by %s"
-msgstr ""
+msgstr "Популярные альбомы %s"
 
 #. TRANSLATORS: %s is just a string and is not translated, %d is a number and
 #. is the number of track(s)
@@ -53,12 +52,13 @@ msgstr ""
 #, python-format
 msgid "%s (%d track)"
 msgid_plural "%s (%d tracks)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s (%d композиция)"
+msgstr[1] "%s (%d композиции)"
+msgstr[2] "%s (%d композиций)"
 
 #: tmpl/album-tmpl.html:106
 msgid "Track list not available"
-msgstr ""
+msgstr "Список композиций недоступен"
 
 #: tmpl/album-tmpl.html:119
 msgid "Unable to retrieve album information:"
@@ -162,7 +162,7 @@ msgstr "похожие"
 
 #: tmpl/artist-tmpl.html:124 tmpl/echoartist-tmpl.html:69
 msgid "Unable to retrieve artist information:"
-msgstr ""
+msgstr "Не удалось получить информацию об исполнителе:"
 
 #: tmpl/artistartsearch-tmpl.html:180
 msgid "Tip: doubleclick or drag a cover to use it as the artist cover"
@@ -172,11 +172,11 @@ msgstr ""
 
 #: tmpl/echoartist-tmpl.html:66
 msgid "Biography provided by: "
-msgstr ""
+msgstr "Биография предоставлена: "
 
 #: tmpl/links-tmpl.html:28
 msgid "Unable to get links"
-msgstr ""
+msgstr "Не удалось получить ссылки"
 
 #: tmp/coverart_artist_pop_rb3.ui.h:1
 msgid "Play All"
@@ -186,7 +186,7 @@ msgstr "Влспроизвести всё"
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:3
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:3
 msgid "Add to playing"
-msgstr ""
+msgstr "Добавить к проигрываемым"
 
 #: tmp/coverart_artist_pop_rb3.ui.h:3
 msgid "Queue All"
@@ -217,7 +217,7 @@ msgstr "Воспроизвести альбом"
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:2
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:2
 msgid "Play Next"
-msgstr ""
+msgstr "Воспроизвести следующую"
 
 #: tmp/coverart_browser_pop_rb3.ui.h:4
 msgid "Queue Album"
@@ -280,7 +280,8 @@ msgstr "Запустить автоматически"
 
 #: tmp/coverart_browser_prefs.ui.h:11
 msgid "When rhythmbox starts, switch automatically to the coverart browser."
-msgstr "Автоматически переключаться на coverart browser при запуске rhythmbox."
+msgstr ""
+"Автоматически переключаться на coverart browser при запуске rhythmbox."
 
 #: tmp/coverart_browser_prefs.ui.h:12
 msgid "Use source's custom statusbar"
@@ -396,7 +397,7 @@ msgstr ""
 
 #: tmp/coverart_browser_prefs.ui.h:39
 msgid "Spacing between columns and rows"
-msgstr ""
+msgstr "Расстояние между колонками и рядами"
 
 #: tmp/coverart_browser_prefs.ui.h:40
 msgid "Padding"
@@ -424,7 +425,7 @@ msgstr "Ширина (px):"
 #: tmp/coverart_browser_prefs.ui.h:46 coverart_browser.py:154
 #, no-c-format
 msgid "Scale by %:"
-msgstr ""
+msgstr "Увеличить на %:"
 
 #: tmp/coverart_browser_prefs.ui.h:47
 msgid "Hide Caption"
@@ -549,12 +550,12 @@ msgstr "Добавить в очередь"
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:7
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:7
 msgid "Play Similar"
-msgstr ""
+msgstr "Воспроизвести похожие"
 
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:8
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:8
 msgid "Track"
-msgstr ""
+msgstr "Композиция"
 
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:10
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:10
@@ -563,24 +564,24 @@ msgstr "Жанр"
 
 #: tmp/coverart_exportembed.ui.h:1
 msgid "Choose folder to save tracks:"
-msgstr ""
+msgstr "Выберите папку для сохранения композиций:"
 
 #: tmp/coverart_exportembed.ui.h:2
 msgid "Select a Folder to export to"
-msgstr ""
+msgstr "Выберите папку для экспорта"
 
 #: tmp/coverart_exportembed.ui.h:3
 msgid "Save tracks within folder using album name"
-msgstr ""
+msgstr "Сохранить композиции в папке по названию альбома"
 
 #: tmp/coverart_exportembed.ui.h:4
 msgid "Open embedded track folder in file-manager"
-msgstr ""
+msgstr "Открыть вложенную папку с композициями в диспетчере файлов"
 
 #. This is a label describing the different options to save the picture artwork in the music file i.e. embed - to insert picture artwork into a music file
 #: tmp/coverart_exportembed.ui.h:6
 msgid "Embed:"
-msgstr ""
+msgstr "Вложить:"
 
 #: tmp/coverart_exportembed.ui.h:7
 msgid "convert to mp3"
@@ -588,12 +589,12 @@ msgstr "преобразовать в MP3"
 
 #: tmp/coverart_exportembed.ui.h:8
 msgid "bitrate (kbit/s)"
-msgstr ""
+msgstr "битрейт (кбит/с)"
 
 #. This is a label describing the size of the picture that will be inserted into the music file e.g. change the size from 800x800 pixels to 128x128 pixels
 #: tmp/coverart_exportembed.ui.h:10
 msgid "resize art"
-msgstr ""
+msgstr "изменить размер изображения"
 
 #. size in pixels
 #: tmp/coverart_exportembed.ui.h:12
@@ -603,7 +604,7 @@ msgstr "(px)"
 #: tmp/coverart_leftsidebar.ui.h:1 tmp/coverart_rightsidebar.ui.h:1
 #: coverart_browser.py:94
 msgid "CoverArt"
-msgstr ""
+msgstr "Обложка"
 
 #. initial genre
 #: tmp/coverart_leftsidebar.ui.h:2 tmp/coverart_rightsidebar.ui.h:2
@@ -623,11 +624,11 @@ msgstr "Удалить из списка воспроизведения"
 
 #: tmp/popups.xml.in.h:1
 msgid "rock"
-msgstr ""
+msgstr "рок"
 
 #: tmp/popups.xml.in.h:2
 msgid "country"
-msgstr ""
+msgstr "кантри"
 
 #: tmp/popups.xml.in.h:3
 msgid "pop"
@@ -635,7 +636,7 @@ msgstr "поп"
 
 #: tmp/popups.xml.in.h:4
 msgid "classical"
-msgstr ""
+msgstr "классическая музыка"
 
 #: tmp/popups.xml.in.h:5
 msgid "world"
@@ -655,7 +656,7 @@ msgstr ""
 
 #: tmp/popups.xml.in.h:9
 msgid "comedy"
-msgstr ""
+msgstr "комедия"
 
 #: tmp/popups.xml.in.h:10
 msgid "spoken"
@@ -695,11 +696,11 @@ msgstr ""
 
 #: tmp/popups.xml.in.h:19
 msgid "reggae"
-msgstr ""
+msgstr "регги"
 
 #: tmp/popups.xml.in.h:20
 msgid "electronic"
-msgstr ""
+msgstr "электронная музыка"
 
 #: tmp/popups.xml.in.h:21
 msgid "soundtrack"
@@ -707,11 +708,11 @@ msgstr "саундтрек"
 
 #: tmp/popups.xml.in.h:22
 msgid "latin"
-msgstr ""
+msgstr "латино"
 
 #: tmp/popups.xml.in.h:23
 msgid "alternative"
-msgstr ""
+msgstr "альтернатива"
 
 #: tmp/popups.xml.in.h:24
 msgid "disco"
@@ -743,7 +744,7 @@ msgstr "аниме"
 
 #: tmp/popups.xml.in.h:31
 msgid "soul"
-msgstr ""
+msgstr "соул"
 
 #: tmp/popups.xml.in.h:32
 msgid "workout"
@@ -784,7 +785,7 @@ msgstr "Исполнитель не определён."
 #: coverart_artistinfo.py:845
 #, python-format
 msgid "Loading top albums for %s"
-msgstr ""
+msgstr "Загрузка популярных альбомов %s"
 
 #: coverart_artistview.py:375 coverart_browser_source.py:1159
 msgid " with 1 track"
@@ -812,7 +813,7 @@ msgstr "Обложки"
 
 #: coverart_browser_prefs.py:269 coverart_controllers.py:507
 msgid "Browser Preferences"
-msgstr ""
+msgstr "Настройки браузера"
 
 #. . TRANSLATORS: Do not translate this string.
 #: coverart_browser_prefs.py:314
@@ -823,16 +824,17 @@ msgstr ""
 "  Andrey Olykainen https://launchpad.net/~andrey.olykainen\n"
 "  Pasha. P. Komar https://launchpad.net/~cellachain\n"
 "  Rashid Aliyev https://launchpad.net/~rashid\n"
-"  Stanislav V. Kroter https://launchpad.net/~krotersv"
+"  Stanislav V. Kroter https://launchpad.net/~krotersv\n"
+"  ☠Jay ZDLin☠ https://launchpad.net/~black-buddha666"
 
 #. define .plugin text strings used for translation
 #: coverart_browser.py:144
 msgid "CoverArt Browser"
-msgstr ""
+msgstr "Браузер обложек"
 
 #: coverart_browser.py:145
 msgid "Browse and play your albums through their covers"
-msgstr ""
+msgstr "Просматривайте и воспроизводите альбомы по обложкам"
 
 #: coverart_browser_source.py:178
 msgid "CoverArt Playlist"
@@ -857,7 +859,7 @@ msgstr ""
 #: coverart_browser_source.py:975 coverart_browser_source.py:977
 #, python-format
 msgid "Requesting cover for %s..."
-msgstr ""
+msgstr "Запрос обложки для %s..."
 
 #: coverart_browser_source.py:1074
 msgid ""
@@ -869,7 +871,7 @@ msgstr ""
 #: coverart_browser_source.py:1155
 #, python-format
 msgid "%d selected albums"
-msgstr ""
+msgstr "%d альбомов выбрано"
 
 #: coverart_controllers.py:391 coverart_controllers.py:440
 msgid "Sort by album name"
@@ -877,7 +879,7 @@ msgstr "Сортировать по названию альбомов"
 
 #: coverart_controllers.py:392
 msgid "Sort by album artist"
-msgstr ""
+msgstr "Сортировать по исполнителю альбома"
 
 #: coverart_controllers.py:393 coverart_controllers.py:441
 msgid "Sort by year"
@@ -893,7 +895,7 @@ msgstr "Скачать все обложки"
 
 #: coverart_controllers.py:500
 msgid "Play random album"
-msgstr ""
+msgstr "Воспроизвести случайный альбом"
 
 #: coverart_controllers.py:501 coverart_controllers.py:555
 msgid "Follow playing song"
@@ -901,11 +903,11 @@ msgstr ""
 
 #: coverart_controllers.py:504 coverart_controllers.py:552
 msgid "Use favourites only"
-msgstr ""
+msgstr "Только избранное"
 
 #: coverart_controllers.py:508
 msgid "Search Preferences"
-msgstr ""
+msgstr "Параметры поиска"
 
 #. '20s' as in the decade 2010
 #: coverart_controllers.py:585 coverart_controllers.py:611
@@ -960,54 +962,54 @@ msgstr "30-е"
 #. 'Older' as in 'older than the year 1930'
 #: coverart_controllers.py:605
 msgid "Older"
-msgstr ""
+msgstr "Более ранние"
 
 #. options
 #: coverart_controllers.py:651
 msgid "Sort in descending order"
-msgstr ""
+msgstr "Сортировать по убыванию"
 
 #: coverart_controllers.py:652
 msgid "Sort in ascending order"
-msgstr ""
+msgstr "Сортировать по возрастанию"
 
 #: coverart_controllers.py:713
 msgid "Search all fields"
-msgstr ""
+msgstr "Искать по всем полям"
 
 #: coverart_controllers.py:714
 msgid "Search album artists"
-msgstr ""
+msgstr "Искать по исполнителю альбома"
 
 #: coverart_controllers.py:715
 msgid "Search track artists"
-msgstr ""
+msgstr "Искать по исполнителю композиции"
 
 #: coverart_controllers.py:716
 msgid "Search composers"
-msgstr ""
+msgstr "Искать по комозитору"
 
 #: coverart_controllers.py:717
 msgid "Search albums"
-msgstr ""
+msgstr "Искать по альбому"
 
 #: coverart_controllers.py:718
 msgid "Search titles"
-msgstr ""
+msgstr "Искать по названию"
 
 #. TRANSLATORS: for example 'Number of covers limited to 150'
 #: coverart_coverflowview.py:196
 #, python-format
 msgid "Number of covers limited to %d"
-msgstr ""
+msgstr "Максимальное количество обложек: %d"
 
 #: coverart_covericonview.py:617
 msgid "Album has added to list of playing albums"
-msgstr ""
+msgstr "Альбом добавлен в список проигрываемых"
 
 #: coverart_entryview.py:77
 msgid "Tracks"
-msgstr ""
+msgstr "Композиции"
 
 #: coverart_playlists.py:165
 msgid "No matching tracks have been found"
