@@ -40,6 +40,7 @@ from coverart_external_plugins import ExternalPlugin
 from stars import ReactiveStar
 from coverart_search import CoverSearchPane
 from coverart_widgets import PixbufButton
+from coverart_widgets import PressButton
 from coverart_window import CoverWindow
 
 MIN_IMAGE_SIZE = 100
@@ -92,7 +93,17 @@ class EntryViewPane(object):
         self.entry_view_grid.attach(self.stars, 1, 1, 1, 1)
         stack_switcher = Gtk.StackSwitcher()
         stack_switcher.set_stack(self.stack)
-        self.entry_view_grid.attach(stack_switcher, 0, 1, 1, 1)
+
+        whatsplayingbutton = PressButton()
+        whatsplayingbutton.set_image(create_button_image(self.plugin, "whatsplaying.png"))
+        whatsplayingbutton.connect('clicked', self.whatsplayingbutton_callback)
+        whatsplayingbutton.props.halign = Gtk.Align.START
+
+        leftgrid = Gtk.Grid()
+        leftgrid.attach(whatsplayingbutton, 0, 0, 1, 1)
+        leftgrid.attach(stack_switcher, 1, 0, 1, 1)
+        self.entry_view_grid.attach(leftgrid, 0, 1, 1, 1)
+        
         viewtoggle = PixbufButton()
         viewtoggle.set_image(create_button_image(self.plugin, "entryview.png"))
         self.viewtoggle_id = None
@@ -112,14 +123,9 @@ class EntryViewPane(object):
         self.smallwindowext.appendattribute('action_name', 'SmallWindow')
         self.smallwindowext.appendattribute('action_type', 'app')
 
-        whatsplayingtoggle = PixbufButton()
-        whatsplayingtoggle.set_image(create_button_image(self.plugin, "whatsplaying.png"))
-        whatsplayingtoggle.connect('toggled', self.whatsplayingtoggle_callback)
-
         rightgrid = Gtk.Grid()
         rightgrid.props.halign = Gtk.Align.END
 
-        # rightgrid.attach(whatsplayingtoggle, 0, 0, 1, 1)
         rightgrid.attach(viewtoggle, 1, 0, 1, 1)
         rightgrid.attach(smallwindowbutton, 2, 0, 1, 1)
 
@@ -130,9 +136,8 @@ class EntryViewPane(object):
         self.entry_view_grid.show_all()
         smallwindowbutton.set_visible(self.smallwindowext.is_activated())
 
-    def whatsplayingtoggle_callback(self, widget):
-        self.entry_view_results.emit('whats-playing', widget.get_active())
-
+    def whatsplayingbutton_callback(self, widget):
+        self.entry_view_results.emit('whats-playing')
 
     def smallwindowbutton_callback(self, widget):
         if widget.get_active():
@@ -276,7 +281,7 @@ class ResultsGrid(Gtk.Grid):
     # signals
     __gsignals__ = {
         'update-cover': (GObject.SIGNAL_RUN_LAST, None, (GObject.Object, RB.RhythmDBEntry)),
-        'whats-playing': (GObject.SIGNAL_RUN_LAST, None, (bool,))
+        'whats-playing': (GObject.SIGNAL_RUN_LAST, None, ())
     }
     image_width = 0
 
@@ -442,10 +447,47 @@ class ResultsGrid(Gtk.Grid):
         else:
             self.image2.queue_draw()
 
-    def display_whats_playing(self, show_playing):
-        view = self.get_child_at(0, 0)
+    def display_whats_playing(self, *args):
+        '''
+          switch to the coverart_play_source
 
-        view.display_playing_tracks(show_playing)
+          to do this we need to first expand the source tree to allow the select method to work
+
+          Unfortunately, rhythmbox api does not allow us to do this directly - there is only a toggle
+          method. Also - no direct access to the source tree-view.
+
+          Use a trick from alternative-toolbar to search for objects beneath other objects i.e.
+          tree-view is below the model
+
+        '''
+
+        def find(node, search_id, search_type):
+            if isinstance(node, Gtk.Buildable):
+                if search_type == 'by_id':
+                    if Gtk.Buildable.get_name(node) == search_id:
+                        return node
+                elif search_type == 'by_name':
+                    if node.get_name() == search_id:
+                        return node
+
+            if isinstance(node, Gtk.Container):
+                for child in node.get_children():
+                    ret = find(child, search_id, search_type)
+                    if ret:
+                        return ret
+            return None
+
+        tree_view = find(self.source.shell.props.display_page_tree, "GtkTreeView", "by_name")
+        print (tree_view)
+
+        iter = Gtk.TreeIter()
+        self.source.shell.props.display_page_tree.props.model.find_page(self.source, iter)
+        path = self.source.shell.props.display_page_tree.props.model.get_path(iter)
+
+        if not tree_view.row_expanded(path):
+            tree_view.expand_row(path, False)
+
+        GLib.idle_add( self.source.shell.props.display_page_tree.select, self.source.playlist_source)
 
     def window_resize(self, widget):
         alloc = self.get_allocation()

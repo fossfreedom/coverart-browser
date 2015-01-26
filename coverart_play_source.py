@@ -21,6 +21,7 @@
 from gi.repository import Gtk
 from gi.repository import RB
 from gi.repository import GObject
+from gi.repository import GLib
 
 from coverart_rb3compat import Menu
 from coverart_external_plugins import CreateExternalPluginMenu
@@ -28,6 +29,9 @@ from coverart_entryview import CoverArtEntryView
 from coverart_rb3compat import ActionGroup
 from coverart_rb3compat import ApplicationShell
 from coverart_browser_prefs import CoverLocale
+from coverart_widgets import PressButton
+from coverart_utils import create_button_image
+
 import rb
 
 
@@ -141,7 +145,7 @@ class CoverArtPlaySource(RB.Source):
         self.entryview.props.hexpand = True
         self.entryview.props.vexpand = True
         grid = Gtk.Grid()
-        grid.attach(self.entryview, 0, 1, 1, 1)
+        grid.attach(self.entryview, 0, 1, 3, 1)
 
         self.entryview.set_model(self.source.source_query_model)
 
@@ -160,7 +164,14 @@ class CoverArtPlaySource(RB.Source):
         app = self.shell.props.application
         app.link_shared_menus(toolbar_menu)
         bar = RB.ButtonBar.new(toolbar_menu, toolbar_menu)
-        grid.attach(bar, 0, 0, 1, 1)
+        bar.props.hexpand_set = False
+        grid.attach(bar, 1, 0, 1, 1)
+
+        coverartbutton = PressButton()
+        coverartbutton.props.halign = Gtk.Align.START
+        coverartbutton.set_image(create_button_image(self.plugin, "covermgr_std.png"))
+        coverartbutton.connect('clicked', self.coverartbutton_callback)
+        grid.attach(coverartbutton, 0, 0, 1, 1)
 
         grid.show_all()
         self.pack_start(grid, True, True, 0)
@@ -174,6 +185,10 @@ class CoverArtPlaySource(RB.Source):
                                 action_name='playsource-shuffle', action_state=ActionGroup.STANDARD,
                                 action_type='app')
         appshell.insert_action_group(action_group)
+
+    def coverartbutton_callback(self, *args):
+        GLib.idle_add( self.source.shell.props.display_page_tree.select, self.source)
+
 
     def clear_playsource(self, *args):
         for row in self.entryview.props.model:

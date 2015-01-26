@@ -213,6 +213,61 @@ class OptionsPopupWidget(OptionsWidget):
         self.clear_popupmenu()
         del self._popupmenu
 
+class PressButton(Gtk.Button):
+    button_relief = GObject.property(type=bool, default=False)
+
+    def __init__(self, *args, **kwargs):
+        super(PressButton, self).__init__(*args, **kwargs)
+
+        gs = GSetting()
+        setting = gs.get_setting(gs.Path.PLUGIN)
+        setting.bind(gs.PluginKey.BUTTON_RELIEF, self,
+                     'button_relief', Gio.SettingsBindFlags.GET)
+
+        self.connect('notify::button-relief',
+                     self.on_notify_button_relief)
+
+    def on_notify_button_relief(self, *arg):
+        if self.button_relief:
+            self.set_relief(Gtk.ReliefStyle.NONE)
+        else:
+            self.set_relief(Gtk.ReliefStyle.HALF)
+
+    def set_image(self, pixbuf):
+        image = self.get_image()
+
+        if not image:
+            image = Gtk.Image()
+            super(PressButton, self).set_image(image)
+
+        if hasattr(self, "controller.enabled") and not self.controller.enabled:
+            pixbuf = self._getBlendedPixbuf(pixbuf)
+
+        self.get_image().set_from_pixbuf(pixbuf)
+
+        self.on_notify_button_relief()
+
+    def _getBlendedPixbuf(self, pixbuf):
+        """Turn a pixbuf into a blended version of the pixbuf by drawing a
+        transparent alpha blend on it."""
+        pixbuf = pixbuf.copy()
+
+        w, h = pixbuf.get_width(), pixbuf.get_height()
+        surface = cairo.ImageSurface(
+            cairo.FORMAT_ARGB32, pixbuf.get_width(), pixbuf.get_height())
+        context = cairo.Context(surface)
+
+        Gdk.cairo_set_source_pixbuf(context, pixbuf, 0, 0)
+        context.paint()
+
+        context.set_source_rgba(32, 32, 32, 0.4)
+        context.set_line_width(0)
+        context.rectangle(0, 0, w, h)
+        context.fill()
+
+        pixbuf = Gdk.pixbuf_get_from_surface(surface, 0, 0, w, h)
+
+        return pixbuf
 
 class EnhancedButton(Gtk.ToggleButton):
     button_relief = GObject.property(type=bool, default=False)

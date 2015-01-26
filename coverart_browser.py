@@ -132,7 +132,7 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
 
         if setting[gs.PluginKey.AUTOSTART]:
             GLib.idle_add(self.shell.props.display_page_tree.select,
-                          self.source)
+                          self.playlist_source)
 
     def _translation_helper(self):
         '''
