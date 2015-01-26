@@ -23,6 +23,7 @@
         <genre xml:lang="pt" spritesheet="genre" name="rock">rock</genre>
         <genre xml:lang="pt_BR" spritesheet="genre" name="rock">rock</genre>
         <genre xml:lang="ro" spritesheet="genre" name="rock">rock</genre>
+        <genre xml:lang="ru" spritesheet="genre" name="rock">рок</genre>
         <genre xml:lang="tr" spritesheet="genre" name="rock">rock</genre>
         <genre xml:lang="zh_CN" spritesheet="genre" name="rock">摇滚</genre>
         <genre spritesheet="genre" name="country">country</genre>
@@ -46,6 +47,7 @@
         <genre xml:lang="pt" spritesheet="genre" name="country">country</genre>
         <genre xml:lang="pt_BR" spritesheet="genre" name="country">country</genre>
         <genre xml:lang="ro" spritesheet="genre" name="country">country</genre>
+        <genre xml:lang="ru" spritesheet="genre" name="country">кантри</genre>
         <genre xml:lang="zh_CN" spritesheet="genre" name="country">乡村</genre>
         <genre spritesheet="genre" name="pop">pop</genre>
         <genre xml:lang="ast" spritesheet="genre" name="pop">pop</genre>
@@ -92,6 +94,7 @@
         <genre xml:lang="pt" spritesheet="genre" name="classical">clássica</genre>
         <genre xml:lang="pt_BR" spritesheet="genre" name="classical">clássico</genre>
         <genre xml:lang="ro" spritesheet="genre" name="classical">clasic</genre>
+        <genre xml:lang="ru" spritesheet="genre" name="classical">классическая музыка</genre>
         <genre xml:lang="zh_CN" spritesheet="genre" name="classical">古典</genre>
         <genre spritesheet="genre" name="world">world</genre>
         <genre xml:lang="ast" spritesheet="genre" name="world">mundu</genre>
@@ -201,6 +204,7 @@
         <genre xml:lang="pt" spritesheet="genre" name="comedy">comédia</genre>
         <genre xml:lang="pt_BR" spritesheet="genre" name="comedy">comédia</genre>
         <genre xml:lang="ro" spritesheet="genre" name="comedy">comedy</genre>
+        <genre xml:lang="ru" spritesheet="genre" name="comedy">комедия</genre>
         <genre xml:lang="zh_CN" spritesheet="genre" name="comedy">喜剧</genre>
         <genre spritesheet="genre" name="spoken">spoken</genre>
         <genre xml:lang="ast" spritesheet="genre" name="spoken">faláu</genre>
@@ -429,6 +433,7 @@
         <genre xml:lang="pt" spritesheet="genre" name="reggae">reggae</genre>
         <genre xml:lang="pt_BR" spritesheet="genre" name="reggae">reggae</genre>
         <genre xml:lang="ro" spritesheet="genre" name="reggae">reggae</genre>
+        <genre xml:lang="ru" spritesheet="genre" name="reggae">регги</genre>
         <genre xml:lang="zh_CN" spritesheet="genre" name="reggae">雷鬼</genre>
         <genre spritesheet="genre" name="electronic">electronic</genre>
         <genre xml:lang="ast" spritesheet="genre" name="electronic">electrónica</genre>
@@ -451,6 +456,7 @@
         <genre xml:lang="pt" spritesheet="genre" name="electronic">eletrónica</genre>
         <genre xml:lang="pt_BR" spritesheet="genre" name="electronic">eletrônico</genre>
         <genre xml:lang="ro" spritesheet="genre" name="electronic">electronic</genre>
+        <genre xml:lang="ru" spritesheet="genre" name="electronic">электронная музыка</genre>
         <genre xml:lang="zh_CN" spritesheet="genre" name="electronic">电子</genre>
         <genre spritesheet="genre" name="soundtrack">soundtrack</genre>
         <genre xml:lang="ast" spritesheet="genre" name="soundtrack">banda sonora</genre>
@@ -497,6 +503,7 @@
         <genre xml:lang="pt" spritesheet="genre" name="latin">latina</genre>
         <genre xml:lang="pt_BR" spritesheet="genre" name="latin">latina</genre>
         <genre xml:lang="ro" spritesheet="genre" name="latin">latin</genre>
+        <genre xml:lang="ru" spritesheet="genre" name="latin">латино</genre>
         <genre xml:lang="zh_CN" spritesheet="genre" name="latin">拉丁</genre>
         <genre spritesheet="genre" name="alternative">alternative</genre>
         <genre xml:lang="ast" spritesheet="genre" name="alternative">alternativa</genre>
@@ -519,6 +526,7 @@
         <genre xml:lang="pt" spritesheet="genre" name="alternative">alternativa</genre>
         <genre xml:lang="pt_BR" spritesheet="genre" name="alternative">alternativa</genre>
         <genre xml:lang="ro" spritesheet="genre" name="alternative">alternative</genre>
+        <genre xml:lang="ru" spritesheet="genre" name="alternative">альтернатива</genre>
         <genre xml:lang="zh_CN" spritesheet="genre" name="alternative">另类</genre>
         <genre spritesheet="genre" name="disco">disco</genre>
         <genre xml:lang="ast" spritesheet="genre" name="disco">disco</genre>
@@ -702,6 +710,7 @@
         <genre xml:lang="pt" spritesheet="genre" name="soul">soul</genre>
         <genre xml:lang="pt_BR" spritesheet="genre" name="soul">soul</genre>
         <genre xml:lang="ro" spritesheet="genre" name="soul">soul</genre>
+        <genre xml:lang="ru" spritesheet="genre" name="soul">соул</genre>
         <genre xml:lang="zh_CN" spritesheet="genre" name="soul">灵歌</genre>
         <genre spritesheet="genre" name="workout">workout</genre>
         <genre xml:lang="ast" spritesheet="genre" name="workout">exerciciu</genre>
