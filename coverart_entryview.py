@@ -103,7 +103,7 @@ class EntryViewPane(object):
         leftgrid.attach(whatsplayingbutton, 0, 0, 1, 1)
         leftgrid.attach(stack_switcher, 1, 0, 1, 1)
         self.entry_view_grid.attach(leftgrid, 0, 1, 1, 1)
-        
+
         viewtoggle = PixbufButton()
         viewtoggle.set_image(create_button_image(self.plugin, "entryview.png"))
         self.viewtoggle_id = None
