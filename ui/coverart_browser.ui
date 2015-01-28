@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <!-- interface-requires gtk+ 3.0 -->
   <!-- interface-requires coverart_widgets 1.0 -->
   <object class="GtkImage" id="cancel-icon">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="stock">gtk-cancel</property>
+    <property name="icon_name">gtk-cancel</property>
   </object>
   <object class="GtkListStore" id="liststore1">
     <columns>

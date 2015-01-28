@@ -52,7 +52,7 @@ class Toolbar(GObject.Object):
         # create the toolbar
         builder = Gtk.Builder()
         builder.set_translation_domain(cl.Locale.LOCALE_DOMAIN)
-
+        print (ui_file)
         builder.add_from_file(ui_file)
 
         # assign the controllers to the buttons

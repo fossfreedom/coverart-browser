@@ -83,6 +83,7 @@ class CoverArtExport(GObject.Object):
                                              'ui/coverart_exportembed.ui'))
         ui.connect_signals(self)
         embeddialog = ui.get_object('exportembeddialog')
+        embeddialog.set_transient_for(self.shell.props.window)
         folderchooserbutton = ui.get_object('folderchooserbutton')
         use_album_name_checkbutton = ui.get_object('use_album_name_checkbutton')
         open_filemanager_checkbutton = ui.get_object('open_filemanager_checkbutton')

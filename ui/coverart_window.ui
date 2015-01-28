@@ -1,23 +1,59 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.18.3 -->
 <interface>
-  <!-- interface-naming-policy project-wide -->
+  <requires lib="gtk+" version="3.10"/>
   <object class="GtkWindow" id="CoverWindow">
+    <property name="can_focus">False</property>
     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
     <property name="window_position">center-on-parent</property>
     <property name="destroy_with_parent">True</property>
     <child>
-      <object class="GtkVBox" id="vbox">
+      <object class="GtkBox" id="vbox">
         <property name="visible">True</property>
+        <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkScrolledWindow" id="scrolledwindow">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="vexpand">True</property>
+            <child>
+              <object class="GtkLayout" id="layout">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="has_focus">True</property>
+                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                <property name="width">400</property>
+                <property name="height">400</property>
+                <child>
+                  <object class="GtkImage" id="image">
+                    <property name="width_request">0</property>
+                    <property name="height_request">0</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="icon_name">gtk-missing-image</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
         <child>
           <object class="GtkToolbar" id="toolbar">
             <property name="visible">True</property>
-            <property name="toolbar_style">text</property>
+            <property name="can_focus">False</property>
+            <property name="toolbar_style">icons</property>
             <child>
               <object class="GtkToolButton" id="save_as_button">
                 <property name="visible">True</property>
-                <property name="stock_id">gtk-save-as</property>
-                <signal name="clicked" handler="on_save_as_button_clicked"/>
+                <property name="can_focus">False</property>
+                <property name="icon_name">gtk-save-as</property>
+                <signal name="clicked" handler="on_save_as_button_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -27,8 +63,9 @@
             <child>
               <object class="GtkToolButton" id="zoom_in_button">
                 <property name="visible">True</property>
-                <property name="stock_id">gtk-zoom-in</property>
-                <signal name="clicked" handler="on_zoom_in_button_clicked"/>
+                <property name="can_focus">False</property>
+                <property name="icon_name">gtk-zoom-in</property>
+                <signal name="clicked" handler="on_zoom_in_button_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -38,8 +75,9 @@
             <child>
               <object class="GtkToolButton" id="zoom_out_button">
                 <property name="visible">True</property>
-                <property name="stock_id">gtk-zoom-out</property>
-                <signal name="clicked" handler="on_zoom_out_button_clicked"/>
+                <property name="can_focus">False</property>
+                <property name="icon_name">gtk-zoom-out</property>
+                <signal name="clicked" handler="on_zoom_out_button_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -49,8 +87,9 @@
             <child>
               <object class="GtkToolButton" id="zoom_100_button">
                 <property name="visible">True</property>
-                <property name="stock_id">gtk-zoom-100</property>
-                <signal name="clicked" handler="on_zoom_100_button_clicked"/>
+                <property name="can_focus">False</property>
+                <property name="icon_name">gtk-zoom-100</property>
+                <signal name="clicked" handler="on_zoom_100_button_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -60,8 +99,9 @@
             <child>
               <object class="GtkToolButton" id="zoom_fit_button">
                 <property name="visible">True</property>
-                <property name="stock_id">gtk-zoom-fit</property>
-                <signal name="clicked" handler="on_zoom_fit_button_clicked"/>
+                <property name="can_focus">False</property>
+                <property name="icon_name">gtk-zoom-fit</property>
+                <signal name="clicked" handler="on_zoom_fit_button_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -71,10 +111,11 @@
             <child>
               <object class="GtkToolButton" id="close_button">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="use_underline">True</property>
-                <property name="stock_id">gtk-close</property>
+                <property name="icon_name">gtk-close</property>
+                <signal name="clicked" handler="on_close_button_clicked" swapped="no"/>
                 <accelerator key="Escape" signal="clicked"/>
-                <signal name="clicked" handler="on_close_button_clicked"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -89,39 +130,13 @@
           </packing>
         </child>
         <child>
-          <object class="GtkScrolledWindow" id="scrolledwindow">
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="hscrollbar_policy">automatic</property>
-            <property name="vscrollbar_policy">automatic</property>
-            <child>
-              <object class="GtkLayout" id="layout">
-                <property name="visible">True</property>
-                <property name="has_focus">True</property>
-                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                <property name="width">400</property>
-                <property name="height">400</property>
-                <child>
-                  <object class="GtkImage" id="image">
-                    <property name="width_request">0</property>
-                    <property name="height_request">0</property>
-                    <property name="visible">True</property>
-                    <property name="stock">gtk-missing-image</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkStatusbar" id="statusbar">
             <property name="visible">True</property>
+            <property name="can_focus">False</property>
           </object>
           <packing>
             <property name="expand">False</property>
+            <property name="fill">True</property>
             <property name="position">2</property>
           </packing>
         </child>
