@@ -132,7 +132,7 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
 
         if setting[gs.PluginKey.AUTOSTART]:
             GLib.idle_add(self.shell.props.display_page_tree.select,
-                          self.playlist_source)
+                          self.source)
 
     def _translation_helper(self):
         '''
@@ -273,14 +273,3 @@ class ExternalPluginMenu(GObject.Object):
         elif view_name == QueueView.name:
             GLib.idle_add(self.shell.props.display_page_tree.select,
                           self.shell.props.queue_source)
-            # elif view_name == PlaySourceView.name:
-            #    if not hasattr(self.source, 'playlist_source'):
-            #        return
-
-            #    print ("test selectable")
-            #    path = self.shell.props.display_page_tree.props.model
-            #        #self.source.activate()
-            #    overlay = self.source.get_children()[0]
-
-            #   GLib.idle_add(self.shell.props.display_page_tree.select,
-            #                  self.source.playlist_source)
