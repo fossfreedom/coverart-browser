@@ -405,10 +405,16 @@ class CoverIconView(EnhancedIconView, AbstractView):
             if scroll_event.direction == Gdk.ScrollDirection.UP:
                 if cover_size < 195:
                     settings[self.gs.PluginKey.COVER_SIZE] = cover_size + 5
-
             elif scroll_event.direction == Gdk.ScrollDirection.DOWN:
                 if cover_size > 105:
                     settings[self.gs.PluginKey.COVER_SIZE] = cover_size - 5
+            elif scroll_event.direction == Gdk.ScrollDirection.SMOOTH:
+                delta = scroll_event.delta_y
+                print (delta)
+                if delta < 0 and cover_size < 190: # negative delta means scroll up
+                    settings[self.gs.PluginKey.COVER_SIZE] = cover_size - int(delta * 10)
+                if delta > 0 and cover_size > 110: # positive delta means scroll down
+                    settings[self.gs.PluginKey.COVER_SIZE] = cover_size - int(delta * 10)
 
             GLib.idle_add(self.queue_draw)
 
