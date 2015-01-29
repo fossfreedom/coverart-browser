@@ -385,6 +385,9 @@ class CoverIconView(EnhancedIconView, AbstractView):
                      self._create_and_configure_renderer)
         self.connect("motion-notify-event", self.on_pointer_motion)
 
+        self.add_events(Gdk.EventMask.SCROLL_MASK)
+        self.connect("scroll-event", self.on_scroll_event)
+
     def get_view_icon_name(self):
         return "iconview.png"
 
@@ -394,6 +397,22 @@ class CoverIconView(EnhancedIconView, AbstractView):
         [common to all views]
         '''
         self.set_item_width(cover_size)
+
+    def on_scroll_event(self, widget, scroll_event):
+        if scroll_event.state & Gdk.ModifierType.CONTROL_MASK:
+            settings = self.gs.get_setting(self.gs.Path.PLUGIN)
+            cover_size = settings[self.gs.PluginKey.COVER_SIZE]
+            if scroll_event.direction == Gdk.ScrollDirection.UP:
+                if cover_size < 195:
+                    settings[self.gs.PluginKey.COVER_SIZE] = cover_size + 5
+
+            elif scroll_event.direction == Gdk.ScrollDirection.DOWN:
+                if cover_size > 105:
+                    settings[self.gs.PluginKey.COVER_SIZE] = cover_size - 5
+
+            GLib.idle_add(self.queue_draw)
+
+            return True
 
     def on_drag_drop(self, widget, context, x, y, time):
         '''
