@@ -1,4 +1,4 @@
-#coverart-browser - development (Penfold)
+#coverart-browser - v2.1 beta 1 (Penfold)
 
 Browse your coverart albums in Rhythmbox v3 and later.  
 
@@ -7,9 +7,7 @@ If you have reached here looking for the stable version of the plugin please rea
  - rhythmbox 2.96 - 2.99: https://github.com/fossfreedom/coverart-browser/tree/release-1.2
  - rhythmbox 3.0+: https://github.com/fossfreedom/coverart-browser/tree/release-2.0
  
-DISTRO PACKAGERS: Please do not package this branch since it is a development branch and stuff is constantly changing.  Testers should git clone from this branch.  I cannot support testers if they are dependent upon outdated packages.  Thanks
-
-![Imgur](http://i.imgur.com/sUgX7d7.png)
+![Imgur](http://i.imgur.com/o1zo6P4.png)
 
 -----------
 
@@ -26,8 +24,6 @@ DISTRO PACKAGERS: Please do not package this branch since it is a development br
 
 ##Summary: whats new in this release
 
- - To be completed
- - Add ability to resize Icon-view with CTRL+mouse wheel scroll 
  - Allow switching between coverart-browser and the coverart-playlist sources via picture buttons on each source
  - Support the [alternative-toolbar](https://github.com/fossfreedom/alternative-toolbar) capability to hide/show the coverart-toolbar
  - Support for GTK 3.14
@@ -40,6 +36,7 @@ DISTRO PACKAGERS: Please do not package this branch since it is a development br
  - Track Artist and Artist Information Panes can be opened and closed via double-click of the pane-handle
  - Bottom Track & Cover Pane has more space - the expander & label has been removed
  - Tidied display - visible pane handles disappear after the plugin has been run 5 times 
+ - Add ability to resize Icon-view with CTRL+mouse wheel scroll 
  - Translated into 24 languages and locales
  - for developers - doxygen documentation: http://fossfreedom.github.io/coverart-browser/classes.html
 
@@ -72,7 +69,7 @@ To install the plugin:
 
 <pre>
 rm -rf ~/.local/share/rhythmbox/plugins/coverart_browser
-git clone https://github.com/fossfreedom/coverart-browser.git -b master
+git clone https://github.com/fossfreedom/coverart-browser.git
 cd coverart-browser
 ./install.sh
 </pre>
@@ -115,7 +112,6 @@ Credits:
  - our Translators: Launchpad Translation team - individual credits for each locale is shown in the plugin preferences dialog
  - Button Icons - [jrbastien](https://github.com/jrbastien) for the five toolbar icon-sets
  - Flow view is based upon [Contentflow](http://jacksasylum.eu/ContentFlow)
- - Chief Tester and all-round good egg - jrbastien!
 
  Licenses:
 
