@@ -163,15 +163,15 @@ class CoverArtPlaySource(RB.Source):
         toolbar_menu = ui.get_object('playsource-toolbar')
         app = self.shell.props.application
         app.link_shared_menus(toolbar_menu)
-        bar = RB.ButtonBar.new(toolbar_menu, toolbar_menu)
-        bar.props.hexpand_set = False
-        grid.attach(bar, 1, 0, 1, 1)
+        self.toolbar = RB.ButtonBar.new(toolbar_menu, toolbar_menu)
+        self.toolbar.props.hexpand_set = False
+        grid.attach(self.toolbar, 1, 0, 1, 1)
 
-        coverartbutton = PressButton()
-        coverartbutton.props.halign = Gtk.Align.START
-        coverartbutton.set_image(create_button_image(self.plugin, "covermgr_std.png"))
-        coverartbutton.connect('clicked', self.coverartbutton_callback)
-        grid.attach(coverartbutton, 0, 0, 1, 1)
+        self.coverartbutton = PressButton()
+        self.coverartbutton.props.halign = Gtk.Align.START
+        self.coverartbutton.set_image(create_button_image(self.plugin, "covermgr_std.png"))
+        self.coverartbutton.connect('clicked', self.coverartbutton_callback)
+        grid.attach(self.coverartbutton, 0, 0, 1, 1)
 
         grid.show_all()
         self.pack_start(grid, True, True, 0)
@@ -185,6 +185,21 @@ class CoverArtPlaySource(RB.Source):
                                 action_name='playsource-shuffle', action_state=ActionGroup.STANDARD,
                                 action_type='app')
         appshell.insert_action_group(action_group)
+
+        # if the alternative-toolbar is loaded then lets connect to the toolbar-visibility signal
+        # to control our sources toolbar visibility
+
+        if hasattr(self.plugin.shell, 'alternative_toolbar'):
+            self.plugin.shell.alternative_toolbar.connect('toolbar-visibility', self._visibility)
+
+    def _visibility(self, altplugin, value):
+        if value:
+            self.toolbar.show()
+            self.coverartbutton.show()
+        else:
+            self.toolbar.hide()
+            self.coverartbutton.hide()
+
 
     def coverartbutton_callback(self, *args):
         GLib.idle_add( self.source.shell.props.display_page_tree.select, self.source)
