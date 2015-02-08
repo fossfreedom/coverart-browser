@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-21 23:10+0000\n"
-"PO-Revision-Date: 2015-01-23 08:26+0000\n"
-"Last-Translator: ☠Jay ZDLin☠ <Unknown>\n"
+"PO-Revision-Date: 2015-02-07 11:27+0000\n"
+"Last-Translator: Цымбарович Петр <mentaljam119@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-01-24 18:36+0000\n"
-"X-Generator: Launchpad (build 17306)\n"
+"X-Launchpad-Export-Date: 2015-02-08 00:24+0000\n"
+"X-Generator: Launchpad (build 17331)\n"
 
 #. TRANSLATORS: album duration (length) in the format hour:minute:second
 #: tmpl/album-tmpl.html:20
@@ -139,7 +139,7 @@ msgstr "Информация недоступна"
 
 #: tmpl/artist-tmpl.html:28
 msgid "Unfilter"
-msgstr ""
+msgstr "Отключить фильтр"
 
 #: tmpl/artist-tmpl.html:29 tmpl/artist-tmpl.html:114
 msgid "Filter"
@@ -226,7 +226,7 @@ msgstr "Добавить альбом в очередь"
 
 #: tmp/coverart_browser_pop_rb3.ui.h:7
 msgid "Play Similar Artist"
-msgstr ""
+msgstr "Играть похожего исполнителя"
 
 #: tmp/coverart_browser_pop_rb3.ui.h:9
 msgid "Export and embed coverart"
@@ -385,7 +385,7 @@ msgstr "Панель треков"
 
 #: tmp/coverart_browser_prefs.ui.h:36
 msgid "open or close on click of cover"
-msgstr ""
+msgstr "открывать и закрывать при клике на обложке"
 
 #: tmp/coverart_browser_prefs.ui.h:37
 msgid "Advanced Options"
@@ -429,11 +429,11 @@ msgstr "Увеличить на %:"
 
 #: tmp/coverart_browser_prefs.ui.h:47
 msgid "Hide Caption"
-msgstr ""
+msgstr "Спрятать заголовок"
 
 #: tmp/coverart_browser_prefs.ui.h:48
 msgid "Maximum covers to display:"
-msgstr ""
+msgstr "Макс. число отображаемых обложек:"
 
 #: tmp/coverart_browser_prefs.ui.h:49
 msgid "Background Colour"
@@ -507,7 +507,7 @@ msgstr "Значок"
 
 #: tmp/coverart_browser_prefs.ui.h:66
 msgid "Current user-defined Genres:"
-msgstr ""
+msgstr "Текущие жанры пользователя:"
 
 #: tmp/coverart_browser_prefs.ui.h:67
 msgid "Add a new alternative genre"
@@ -825,6 +825,7 @@ msgstr ""
 "  Pasha. P. Komar https://launchpad.net/~cellachain\n"
 "  Rashid Aliyev https://launchpad.net/~rashid\n"
 "  Stanislav V. Kroter https://launchpad.net/~krotersv\n"
+"  Цымбарович Петр https://launchpad.net/~mentaljam119\n"
 "  ☠Jay ZDLin☠ https://launchpad.net/~black-buddha666"
 
 #. define .plugin text strings used for translation
@@ -838,7 +839,7 @@ msgstr "Просматривайте и воспроизводите альбо�
 
 #: coverart_browser_source.py:178
 msgid "CoverArt Playlist"
-msgstr ""
+msgstr "Список воспроизведения"
 
 #. . TRANSLATORS - "All" is used in the context of "All artist names"
 #: coverart_browser_source.py:584
