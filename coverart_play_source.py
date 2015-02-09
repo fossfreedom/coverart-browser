@@ -112,6 +112,9 @@ class CoverArtPlaySource(RB.Source):
         self.plugin = plugin
         self.shell = shell
         self.source = source
+        player = self.shell.props.shell_player
+        player.set_playing_source(self)
+        player.set_selected_source(self)
 
     def do_selected(self):
         '''

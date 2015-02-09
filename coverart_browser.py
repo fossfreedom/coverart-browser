@@ -265,6 +265,9 @@ class ExternalPluginMenu(GObject.Object):
             gs = GSetting()
             setting = gs.get_setting(gs.Path.PLUGIN)
             setting[gs.PluginKey.VIEW_NAME] = view_name
+            player = self.shell.props.shell_player
+            player.set_selected_source(self.source.playlist_source)
+
             GLib.idle_add(self.shell.props.display_page_tree.select,
                           self.source)
         elif view_name == ListView.name:
