@@ -252,7 +252,7 @@ class Track(GObject.Object):
 
     def create_ext_db_key(self):
         '''
-        Returns an `RB.ExtDBKey` that can be used to acces/write some other
+        Returns an `RB.ExtDBKey` that can be used to access/write some other
         track specific data on an `RB.ExtDB`.
         '''
         return self.entry.create_ext_db_key(RB.RhythmDBPropType.ALBUM)
@@ -1370,7 +1370,7 @@ class CoverRequester(GObject.Object):
 
     def _search_for_cover(self, coverobject, search_id):
         '''
-        Activelly requests a cover to the cover_db, calling
+        Actively requests a cover to the cover_db, calling
         the callback given once the process finishes (since it generally is
         asynchronous).
         For more information on the callback arguments, check
@@ -1484,6 +1484,9 @@ class CoverManager(GObject.Object):
         # create a key and look for the art location
         key = coverobject.create_ext_db_key()
         art_location = self.cover_db.lookup(key)
+
+        if not isinstance(art_location, str):
+            art_location = art_location[0]
 
         # try to create a cover
         if art_location:
