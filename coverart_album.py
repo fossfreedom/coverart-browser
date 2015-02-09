@@ -1485,7 +1485,8 @@ class CoverManager(GObject.Object):
         key = coverobject.create_ext_db_key()
         art_location = self.cover_db.lookup(key)
 
-        if not isinstance(art_location, str):
+        if art_location and not isinstance(art_location, str):
+            # RB 3.2 returns a tuple (path, key)
             art_location = art_location[0]
 
         # try to create a cover
