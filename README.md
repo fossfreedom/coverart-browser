@@ -25,6 +25,7 @@ If you have reached here looking for the stable version of the plugin please rea
 ##Summary: whats new in this release
 
  - Allow switching between coverart-browser and the coverart-playlist sources via picture buttons on each source
+ - tighter integration with Rhythmbox - addition of select and play using Rhythmbox's own toolbar play button 
  - Support the [alternative-toolbar](https://github.com/fossfreedom/alternative-toolbar) capability to hide/show the coverart-toolbar
  - Support for GTK 3.14
  - Single click icon display position changes consistently depending upon the cover-tile style (shadow/no shadow etc.)
