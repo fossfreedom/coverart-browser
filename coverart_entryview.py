@@ -255,11 +255,31 @@ class EntryViewPane(object):
 
         self.entry_view.set_sorting_order('track-number', Gtk.SortType.ASCENDING)
 
+        player = self.shell.props.shell_player
+
+        # add album tracks automatically to the playlist if current playsource is not ours
+        # or if it is ours, then add automatically when nothing is playing
+        autoplaylist = False
+
+        if player.get_playing_source() != self.source.playlist_source and player.get_playing_source() != self.source:
+            autoplaylist = True
+        elif not player.get_playing_entry():
+            autoplaylist = True
+
+        if autoplaylist:
+            # cleardown current playlist
+            for row in self.source.source_query_model:
+                self.source.source_query_model.remove_entry(row[0])
+
         for album in selected:
             # add the album to the entry_view
-            self.entry_view.add_album(album)
+            self.entry_view.add_album(album, autoplaylist)
 
         if len(selected) > 0:
+            if autoplaylist:
+                self.source.props.query_model = self.source.source_query_model
+                player.set_playing_source(self.source)
+
             def cover_update(*args):
                 print("emitting")
                 self.entry_view_results.emit('update-cover',
@@ -631,12 +651,15 @@ class BaseView(RB.EntryView):
         if entries and len(entries) > 0:
             self.source.entryviewpane.entry_view_results.emit('update-cover', self.source, entries[0])
 
-    def add_album(self, album):
+    def add_album(self, album, autoplaylist):
         print("CoverArtBrowser DEBUG - add_album()")
         tracks = album.get_tracks()
 
         for track in tracks:
             self.qm.add_entry(track.entry, -1)
+
+            if autoplaylist:
+                self.source.source_query_model.add_entry(track.entry, -1)
 
         (_, playing) = self.shell.props.shell_player.get_playing()
         self.playing_changed(self.shell.props.shell_player, playing)
@@ -885,8 +908,8 @@ class CoverArtCompactEntryView(BaseView):
             visible = False if entry == 'artist' else True
             self.append_column(self.col_map[entry], visible)
 
-    def add_album(self, album):
-        super(CoverArtCompactEntryView, self).add_album(album)
+    def add_album(self, album, autoplaylist):
+        super(CoverArtCompactEntryView, self).add_album(album, autoplaylist)
 
         if len(self.artists) > 1:
             self.get_column(RB.EntryViewColumn.ARTIST).set_visible(True)
