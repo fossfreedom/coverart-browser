@@ -1,11 +1,11 @@
-#coverart-browser - v2.1 beta 1 (Penfold)
+#coverart-browser - v2.2 development (Colonel K)
 
 Browse your coverart albums in Rhythmbox v3 and later.  
 
 If you have reached here looking for the stable version of the plugin please read the README files for
 
  - rhythmbox 2.96 - 2.99: https://github.com/fossfreedom/coverart-browser/tree/release-1.2
- - rhythmbox 3.0+: https://github.com/fossfreedom/coverart-browser/tree/release-2.0
+ - rhythmbox 3.0+: https://github.com/fossfreedom/coverart-browser/tree/release-2.1
  
 ![Imgur](http://i.imgur.com/o1zo6P4.png)
 
@@ -24,20 +24,7 @@ If you have reached here looking for the stable version of the plugin please rea
 
 ##Summary: whats new in this release
 
- - Allow switching between coverart-browser and the coverart-playlist sources via picture buttons on each source
- - tighter integration with Rhythmbox - addition of select and play using Rhythmbox's own toolbar play button 
- - Support the [alternative-toolbar](https://github.com/fossfreedom/alternative-toolbar) capability to hide/show the coverart-toolbar
- - Support for GTK 3.14
- - Single click icon display position changes consistently depending upon the cover-tile style (shadow/no shadow etc.)
- - view/zoom/save the chosen cover - hover over the coverart on the track pane to reveal
- - coverart information in tile-view can be now left/centre & right aligned
- - Double click track & cover pane handle to open full height or to close
- - Play Next (album)- add the selected album(s) to be the next album after the current playing album
- - Play Next (track)- add the selected track(s) to be the next track after the current playing track
- - Track Artist and Artist Information Panes can be opened and closed via double-click of the pane-handle
- - Bottom Track & Cover Pane has more space - the expander & label has been removed
- - Tidied display - visible pane handles disappear after the plugin has been run 5 times 
- - Add ability to resize Icon-view with CTRL+mouse wheel scroll 
+ - TODO 
  - Translated into 24 languages and locales
  - for developers - doxygen documentation: http://fossfreedom.github.io/coverart-browser/classes.html
 
@@ -70,7 +57,7 @@ To install the plugin:
 
 <pre>
 rm -rf ~/.local/share/rhythmbox/plugins/coverart_browser
-git clone https://github.com/fossfreedom/coverart-browser.git
+git clone https://github.com/fossfreedom/coverart-browser.git -b master
 cd coverart-browser
 ./install.sh
 </pre>
