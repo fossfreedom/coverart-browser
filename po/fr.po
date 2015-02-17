@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-21 23:10+0000\n"
-"PO-Revision-Date: 2014-07-04 11:59+0000\n"
+"PO-Revision-Date: 2015-02-13 19:33+0000\n"
 "Last-Translator: Jean Marc <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fr\n"
@@ -22,8 +22,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2014-07-04 18:44+0000\n"
-"X-Generator: Launchpad (build 17086)\n"
+"X-Launchpad-Export-Date: 2015-02-13 20:24+0000\n"
+"X-Generator: Launchpad (build 17341)\n"
 "Generated-By: Babel 0.9.6\n"
 
 #. TRANSLATORS: album duration (length) in the format hour:minute:second
@@ -217,13 +217,13 @@ msgstr "Rechercher les jaquettes"
 
 #: tmp/coverart_browser_pop_rb3.ui.h:1
 msgid "Play Album"
-msgstr "Jouer l'album"
+msgstr "Lire l'album"
 
 #: tmp/coverart_browser_pop_rb3.ui.h:2
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:2
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:2
 msgid "Play Next"
-msgstr ""
+msgstr "Lire la suivante"
 
 #: tmp/coverart_browser_pop_rb3.ui.h:4
 msgid "Queue Album"
@@ -1041,9 +1041,3 @@ msgstr "Pistes"
 #: coverart_playlists.py:165
 msgid "No matching tracks have been found"
 msgstr "Aucune piste apparentée n’a été trouvé"
-
-#~ msgid "Tracks & Covers"
-#~ msgstr "Pistes & Jaquettes"
-
-#~ msgid "Views"
-#~ msgstr "Affichages"

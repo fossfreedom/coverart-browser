@@ -717,6 +717,7 @@
         <genre xml:lang="az" spritesheet="genre" name="workout">iş gedir</genre>
         <genre xml:lang="ca" spritesheet="genre" name="workout">workout</genre>
         <genre xml:lang="cs" spritesheet="genre" name="workout">workout</genre>
+        <genre xml:lang="de" spritesheet="genre" name="workout">Training</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="workout">workout</genre>
         <genre xml:lang="en_US" spritesheet="genre" name="workout">workout</genre>
         <genre xml:lang="es" spritesheet="genre" name="workout">ejercicio</genre>

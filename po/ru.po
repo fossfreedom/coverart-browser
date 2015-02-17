@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-21 23:10+0000\n"
-"PO-Revision-Date: 2015-02-07 11:27+0000\n"
-"Last-Translator: Цымбарович Петр <mentaljam119@gmail.com>\n"
+"PO-Revision-Date: 2015-02-16 08:38+0000\n"
+"Last-Translator: ☠Jay ZDLin☠ <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-02-08 00:24+0000\n"
-"X-Generator: Launchpad (build 17331)\n"
+"X-Launchpad-Export-Date: 2015-02-17 20:16+0000\n"
+"X-Generator: Launchpad (build 17341)\n"
 
 #. TRANSLATORS: album duration (length) in the format hour:minute:second
 #: tmpl/album-tmpl.html:20
@@ -151,7 +151,7 @@ msgstr "Фильтр"
 #: tmpl/links-tmpl.html:15 tmpl/links-tmpl.html:21
 #, python-format
 msgid "Links for %s:"
-msgstr ""
+msgstr "Ссылки на %s:"
 
 #: tmpl/artist-tmpl.html:97
 msgid "Similar Artists"
@@ -338,10 +338,12 @@ msgid ""
 "Ellipsizes the albums names to a fixed length when the display text option "
 "is enabled."
 msgstr ""
+"Сокращает названия альбомов до заданной длины, если включена опция "
+"отображения текста."
 
 #: tmp/coverart_browser_prefs.ui.h:25
 msgid "Maximum allowed length for an album's name before being ellipsized."
-msgstr ""
+msgstr "Максимально допустимая длина названия альбома без сокращения."
 
 #: tmp/coverart_browser_prefs.ui.h:26
 msgid "Maximum length:"
