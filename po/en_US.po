@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-21 23:10+0000\n"
-"PO-Revision-Date: 2014-06-26 12:13+0000\n"
+"PO-Revision-Date: 2015-02-22 10:21+0000\n"
 "Last-Translator: fossfreedom <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: en_US\n"
@@ -22,8 +22,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-06-28 20:48+0000\n"
-"X-Generator: Launchpad (build 17077)\n"
+"X-Launchpad-Export-Date: 2015-02-22 10:24+0000\n"
+"X-Generator: Launchpad (build 17355)\n"
 "Generated-By: Babel 0.9.6\n"
 
 #. TRANSLATORS: album duration (length) in the format hour:minute:second
@@ -219,7 +219,7 @@ msgstr "Play Album"
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:2
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:2
 msgid "Play Next"
-msgstr ""
+msgstr "Play Next"
 
 #: tmp/coverart_browser_pop_rb3.ui.h:4
 msgid "Queue Album"
@@ -1018,9 +1018,3 @@ msgstr "Tracks"
 #: coverart_playlists.py:165
 msgid "No matching tracks have been found"
 msgstr "No matching tracks have been found"
-
-#~ msgid "Tracks & Covers"
-#~ msgstr "Tracks & Covers"
-
-#~ msgid "Views"
-#~ msgstr "Views"
