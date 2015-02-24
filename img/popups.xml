@@ -8,6 +8,7 @@
         <genre xml:lang="ca" spritesheet="genre" name="rock">rock</genre>
         <genre xml:lang="cs" spritesheet="genre" name="rock">rock</genre>
         <genre xml:lang="de" spritesheet="genre" name="rock">Rock</genre>
+        <genre xml:lang="en_AU" spritesheet="genre" name="rock">rock</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="rock">rock</genre>
         <genre xml:lang="en_US" spritesheet="genre" name="rock">rock</genre>
         <genre xml:lang="es" spritesheet="genre" name="rock">rock</genre>
@@ -33,6 +34,7 @@
         <genre xml:lang="ca" spritesheet="genre" name="country">country</genre>
         <genre xml:lang="cs" spritesheet="genre" name="country">country</genre>
         <genre xml:lang="de" spritesheet="genre" name="country">Land</genre>
+        <genre xml:lang="en_AU" spritesheet="genre" name="country">country</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="country">country</genre>
         <genre xml:lang="en_US" spritesheet="genre" name="country">country</genre>
         <genre xml:lang="es" spritesheet="genre" name="country">country</genre>
@@ -56,6 +58,7 @@
         <genre xml:lang="ca" spritesheet="genre" name="pop">pop</genre>
         <genre xml:lang="cs" spritesheet="genre" name="pop">pop</genre>
         <genre xml:lang="de" spritesheet="genre" name="pop">Pop</genre>
+        <genre xml:lang="en_AU" spritesheet="genre" name="pop">pop</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="pop">pop</genre>
         <genre xml:lang="en_US" spritesheet="genre" name="pop">pop</genre>
         <genre xml:lang="es" spritesheet="genre" name="pop">pop</genre>
@@ -80,6 +83,7 @@
         <genre xml:lang="ca" spritesheet="genre" name="classical">Clàssica</genre>
         <genre xml:lang="cs" spritesheet="genre" name="classical">classical</genre>
         <genre xml:lang="de" spritesheet="genre" name="classical">Klassik</genre>
+        <genre xml:lang="en_AU" spritesheet="genre" name="classical">classical</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="classical">classical</genre>
         <genre xml:lang="en_US" spritesheet="genre" name="classical">classical</genre>
         <genre xml:lang="es" spritesheet="genre" name="classical">clásica</genre>
@@ -103,6 +107,7 @@
         <genre xml:lang="ca" spritesheet="genre" name="world">món</genre>
         <genre xml:lang="cs" spritesheet="genre" name="world">world</genre>
         <genre xml:lang="de" spritesheet="genre" name="world">Welt</genre>
+        <genre xml:lang="en_AU" spritesheet="genre" name="world">world</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="world">world</genre>
         <genre xml:lang="en_US" spritesheet="genre" name="world">world</genre>
         <genre xml:lang="es" spritesheet="genre" name="world">mundo</genre>
@@ -124,6 +129,7 @@
         <genre xml:lang="ca" spritesheet="genre" name="bluegrass">bluegrass</genre>
         <genre xml:lang="cs" spritesheet="genre" name="bluegrass">bluegrass</genre>
         <genre xml:lang="de" spritesheet="genre" name="bluegrass">Bluegrass</genre>
+        <genre xml:lang="en_AU" spritesheet="genre" name="bluegrass">bluegrass</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="bluegrass">bluegrass</genre>
         <genre xml:lang="en_US" spritesheet="genre" name="bluegrass">bluegrass</genre>
         <genre xml:lang="es" spritesheet="genre" name="bluegrass">bluegrass</genre>
@@ -146,6 +152,7 @@
         <genre xml:lang="ca" spritesheet="genre" name="oldies">antigues</genre>
         <genre xml:lang="cs" spritesheet="genre" name="oldies">oldies</genre>
         <genre xml:lang="de" spritesheet="genre" name="oldies">Oldies</genre>
+        <genre xml:lang="en_AU" spritesheet="genre" name="oldies">oldies</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="oldies">oldies</genre>
         <genre xml:lang="en_US" spritesheet="genre" name="oldies">oldies</genre>
         <genre xml:lang="es" spritesheet="genre" name="oldies">antiguo</genre>
@@ -168,6 +175,7 @@
         <genre xml:lang="ca" spritesheet="genre" name="holiday">festa</genre>
         <genre xml:lang="cs" spritesheet="genre" name="holiday">prázdniny</genre>
         <genre xml:lang="de" spritesheet="genre" name="holiday">Ferien</genre>
+        <genre xml:lang="en_AU" spritesheet="genre" name="holiday">holiday</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="holiday">holiday</genre>
         <genre xml:lang="en_US" spritesheet="genre" name="holiday">holiday</genre>
         <genre xml:lang="es" spritesheet="genre" name="holiday">feriado</genre>
@@ -190,6 +198,7 @@
         <genre xml:lang="ca" spritesheet="genre" name="comedy">comèdia</genre>
         <genre xml:lang="cs" spritesheet="genre" name="comedy">komedie</genre>
         <genre xml:lang="de" spritesheet="genre" name="comedy">Comedy</genre>
+        <genre xml:lang="en_AU" spritesheet="genre" name="comedy">comedy</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="comedy">comedy</genre>
         <genre xml:lang="en_US" spritesheet="genre" name="comedy">comedy</genre>
         <genre xml:lang="es" spritesheet="genre" name="comedy">comedia</genre>
@@ -212,6 +221,7 @@
         <genre xml:lang="ca" spritesheet="genre" name="spoken">parlat</genre>
         <genre xml:lang="cs" spritesheet="genre" name="spoken">mluvené slovo</genre>
         <genre xml:lang="de" spritesheet="genre" name="spoken">gesprochen</genre>
+        <genre xml:lang="en_AU" spritesheet="genre" name="spoken">spoken</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="spoken">spoken</genre>
         <genre xml:lang="en_US" spritesheet="genre" name="spoken">spoken</genre>
         <genre xml:lang="es" spritesheet="genre" name="spoken">hablado</genre>
@@ -234,6 +244,7 @@
         <genre xml:lang="ca" spritesheet="genre" name="jazz">jazz</genre>
         <genre xml:lang="cs" spritesheet="genre" name="jazz">jazz</genre>
         <genre xml:lang="de" spritesheet="genre" name="jazz">Jazz</genre>
+        <genre xml:lang="en_AU" spritesheet="genre" name="jazz">jazz</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="jazz">jazz</genre>
         <genre xml:lang="en_US" spritesheet="genre" name="jazz">jazz</genre>
         <genre xml:lang="es" spritesheet="genre" name="jazz">jazz</genre>
@@ -258,6 +269,7 @@
         <genre xml:lang="ca" spritesheet="genre" name="blues">blues</genre>
         <genre xml:lang="cs" spritesheet="genre" name="blues">blues</genre>
         <genre xml:lang="de" spritesheet="genre" name="blues">Blues</genre>
+        <genre xml:lang="en_AU" spritesheet="genre" name="blues">blues</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="blues">blues</genre>
         <genre xml:lang="en_US" spritesheet="genre" name="blues">blues</genre>
         <genre xml:lang="es" spritesheet="genre" name="blues">blues</genre>
@@ -282,6 +294,7 @@
         <genre xml:lang="ca" spritesheet="genre" name="metal">metal</genre>
         <genre xml:lang="cs" spritesheet="genre" name="metal">metal</genre>
         <genre xml:lang="de" spritesheet="genre" name="metal">Metall</genre>
+        <genre xml:lang="en_AU" spritesheet="genre" name="metal">metal</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="metal">metal</genre>
         <genre xml:lang="en_US" spritesheet="genre" name="metal">metal</genre>
         <genre xml:lang="es" spritesheet="genre" name="metal">metal</genre>
@@ -305,6 +318,7 @@
         <genre xml:lang="ca" spritesheet="genre" name="karaoke">karaoke</genre>
         <genre xml:lang="cs" spritesheet="genre" name="karaoke">karaoke</genre>
         <genre xml:lang="de" spritesheet="genre" name="karaoke">Karaoke</genre>
+        <genre xml:lang="en_AU" spritesheet="genre" name="karaoke">karaoke</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="karaoke">karaoke</genre>
         <genre xml:lang="en_US" spritesheet="genre" name="karaoke">karaoke</genre>
         <genre xml:lang="es" spritesheet="genre" name="karaoke">karaoke</genre>
@@ -329,6 +343,7 @@
         <genre xml:lang="ca" spritesheet="genre" name="rap">rap</genre>
         <genre xml:lang="cs" spritesheet="genre" name="rap">rap</genre>
         <genre xml:lang="de" spritesheet="genre" name="rap">Rap</genre>
+        <genre xml:lang="en_AU" spritesheet="genre" name="rap">rap</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="rap">rap</genre>
         <genre xml:lang="en_US" spritesheet="genre" name="rap">rap</genre>
         <genre xml:lang="es" spritesheet="genre" name="rap">rap</genre>
@@ -353,6 +368,7 @@
         <genre xml:lang="ca" spritesheet="genre" name="ragtime">ragtime</genre>
         <genre xml:lang="cs" spritesheet="genre" name="ragtime">ragtime</genre>
         <genre xml:lang="de" spritesheet="genre" name="ragtime">Ragtime</genre>
+        <genre xml:lang="en_AU" spritesheet="genre" name="ragtime">ragtime</genre>
         <genre xml:lang="en_GB" spritesheet="genre" name="ragtime">ragtime</genre>
         <genre xml:lang="en_US" spritesheet="genre" name="ragtime">ragtime</genre>
         <genre xml:lang="es" spritesheet="genre" name="ragtime">ragtime</genre>
