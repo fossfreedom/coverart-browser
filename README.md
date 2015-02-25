@@ -38,7 +38,7 @@ If you have reached here looking for the stable version of the plugin please rea
  - Bottom Track & Cover Pane has more space - the expander & label has been removed
  - Tidied display - visible pane handles disappear after the plugin has been run 5 times 
  - Add ability to resize Icon-view with CTRL+mouse wheel scroll 
- - Translated into 24 languages and locales
+ - Translated into 25 languages and locales
  - for developers - doxygen documentation: http://fossfreedom.github.io/coverart-browser/classes.html
 
 *How it works:*
