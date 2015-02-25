@@ -1229,15 +1229,18 @@ class AlbumLoader(GObject.Object):
                     print("change prop dunno")
                     self._allocate_track(track)
 
-        # look at all the changes and update the albums accordingly
-        track = self._tracks[Track(entry).location]
+        try:
+            # look at all the changes and update the albums accordingly
+            track = self._tracks[Track(entry).location]
 
-        # RB3 has a simple rhythmdbentrychange array to deal with so we
-        #just need to loop each element of the array
+            # RB3 has a simple rhythmdbentrychange array to deal with so we
+            #just need to loop each element of the array
 
-        for change in changes:
-            analyse_change(change)
-
+            for change in changes:
+                analyse_change(change)
+        except:
+            pass
+            
         print("CoverArtBrowser DEBUG - end entry_changed_callback")
 
     def _entry_added_callback(self, db, entry):
