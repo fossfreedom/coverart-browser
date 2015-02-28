@@ -1,4 +1,4 @@
-#coverart-browser - v2.1 beta 2 (Penfold)
+#coverart-browser - v2.1 release-candidate (Penfold)
 
 Browse your coverart albums in Rhythmbox v3 and later.  
 
@@ -28,6 +28,7 @@ If you have reached here looking for the stable version of the plugin please rea
  - tighter integration with Rhythmbox - addition of select and play using Rhythmbox's own toolbar play button 
  - Support the [alternative-toolbar](https://github.com/fossfreedom/alternative-toolbar) capability to hide/show the coverart-toolbar
  - Support for GTK 3.14
+ - Support for the upcoming release of Rhythmbox (3.2?)
  - Single click icon display position changes consistently depending upon the cover-tile style (shadow/no shadow etc.)
  - view/zoom/save the chosen cover - hover over the coverart on the track pane to reveal
  - coverart information in tile-view can be now left/centre & right aligned
