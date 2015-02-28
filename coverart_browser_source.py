@@ -84,6 +84,7 @@ class CoverArtBrowserSource(RB.Source):
         self.follow_song = False
         self.task_progress = None
         self._from_paned_handle = 0
+        self._coverartexport = None
 
     def _connect_properties(self):
         '''
@@ -957,8 +958,10 @@ class CoverArtBrowserSource(RB.Source):
         print("CoverArtBrowser DEBUG - export_embed_menu_item_callback()")
         selected_albums = self.viewmgr.current_view.get_selected_objects()
 
-        CoverArtExport(self.plugin,
-                       self.shell, self.album_manager).embed_albums(selected_albums)
+        if not self._coverartexport:
+            self._coverartexport = CoverArtExport(self.plugin, self.shell, self.album_manager)
+
+        self._coverartexport.embed_albums(selected_albums)
 
         print("CoverArtBrowser DEBUG - export_embed_menu_item_callback()")
 

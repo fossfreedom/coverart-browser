@@ -48,6 +48,8 @@ class CoverArtExport(GObject.Object):
         self.album_manager = album_manager
 
         self._gstreamer_has_initialised = False
+        self.has_opened_previously = False
+        self._values = {}
 
     def is_search_plugin_enabled(self):
         peas = Peas.Engine.get_default()
@@ -65,7 +67,7 @@ class CoverArtExport(GObject.Object):
 
     def embed_albums(self, selected_albums):
         '''
-        method to create the menu items for all supported plugins
+        method to export and embed coverart to chosen albums
 
         :selected_albums: `Album` - array of albums
         '''
@@ -91,11 +93,32 @@ class CoverArtExport(GObject.Object):
         bitrate_spinbutton = ui.get_object('bitrate_spinbutton')
         resize_checkbutton = ui.get_object('resize_checkbutton')
         resize_spinbutton = ui.get_object('resize_spinbutton')
-        bitrate_spinbutton.set_value(self.TARGET_BITRATE)
-        resize_spinbutton.set_value(128)
 
-        downloads_dir = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DOWNLOAD)
-        folderchooserbutton.set_current_folder(downloads_dir)
+        # predefine values if not previously opened the dialog
+        if self.has_opened_previously:
+            print (self._values)
+            if not self._values['toresize']:
+                resize_spinbutton.set_value(128)
+            else:
+                resize_spinbutton.set_value(self._values['resize'])
+
+            if not self._values['convert']:
+                bitrate_spinbutton.set_value(self.TARGET_BITRATE)
+            else:
+                bitrate_spinbutton.set_value(self._values['bitrate'])
+
+            folderchooserbutton.set_current_folder(self._values['final_folder_store'])
+            use_album_name_checkbutton.set_active(self._values['use_album_name'])
+            open_filemanager_checkbutton.set_active(self._values['open_filemanager'])
+            convert_checkbutton.set_active(self._values['convert'])
+            resize_checkbutton.set_active(self._values['toresize'])
+
+        else:
+            bitrate_spinbutton.set_value(self.TARGET_BITRATE)
+            resize_spinbutton.set_value(128)
+
+            downloads_dir = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DOWNLOAD)
+            folderchooserbutton.set_current_folder(downloads_dir)
 
         response = embeddialog.run()
 
@@ -103,6 +126,7 @@ class CoverArtExport(GObject.Object):
             embeddialog.destroy()
             return
 
+        self.has_opened_previously = True
         # ok pressed - now fetch values from the dialog
         final_folder_store = folderchooserbutton.get_current_folder()
         use_album_name = use_album_name_checkbutton.get_active()
@@ -115,6 +139,15 @@ class CoverArtExport(GObject.Object):
         else:
             resize = -1
 
+        self._values['bitrate'] = bitrate
+        self._values['resize'] = resize
+        self._values['final_folder_store'] = final_folder_store
+        self._values['use_album_name'] = use_album_name
+        self._values['open_filemanager'] = open_filemanager
+        self._values['convert'] = convert
+        self._values['toresize'] = toresize
+
+        print (self._values)
         embeddialog.destroy()
 
         albums = {}

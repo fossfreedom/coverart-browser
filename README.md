@@ -24,7 +24,7 @@ If you have reached here looking for the stable version of the plugin please rea
 
 ##Summary: whats new in this release
 
- - TODO 
+ - Export and Embed dialog remembers field values between openings
  - Translated into 25 languages and locales
  - for developers - doxygen documentation: http://fossfreedom.github.io/coverart-browser/classes.html
 
