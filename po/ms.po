@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-21 23:10+0000\n"
-"PO-Revision-Date: 2014-07-11 03:30+0000\n"
+"PO-Revision-Date: 2015-02-24 15:20+0000\n"
 "Last-Translator: abuyop <Unknown>\n"
 "Language-Team: Malay <ms@li.org>\n"
 "Language: ms\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-07-11 06:08+0000\n"
-"X-Generator: Launchpad (build 17111)\n"
+"X-Launchpad-Export-Date: 2015-02-24 19:52+0000\n"
+"X-Generator: Launchpad (build 17355)\n"
 
 #. TRANSLATORS: album duration (length) in the format hour:minute:second
 #: tmpl/album-tmpl.html:20
@@ -213,7 +213,7 @@ msgstr "Main Album"
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:2
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:2
 msgid "Play Next"
-msgstr ""
+msgstr "Main Berikutnya"
 
 #: tmp/coverart_browser_pop_rb3.ui.h:4
 msgid "Queue Album"
@@ -1013,9 +1013,3 @@ msgstr "Trek"
 #: coverart_playlists.py:165
 msgid "No matching tracks have been found"
 msgstr "Tiada trek sepadan ditemui"
-
-#~ msgid "Tracks & Covers"
-#~ msgstr "Trek & Kulit Album"
-
-#~ msgid "Views"
-#~ msgstr "Lihat"

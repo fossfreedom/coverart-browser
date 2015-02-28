@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-21 23:10+0000\n"
-"PO-Revision-Date: 2014-06-28 17:31+0000\n"
+"PO-Revision-Date: 2015-02-13 20:47+0000\n"
 "Last-Translator: Marcos Lans <Unknown>\n"
 "Language-Team: Galician <gl@li.org>\n"
 "Language: gl\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-06-28 20:48+0000\n"
-"X-Generator: Launchpad (build 17077)\n"
+"X-Launchpad-Export-Date: 2015-02-13 20:48+0000\n"
+"X-Generator: Launchpad (build 17341)\n"
 
 #. TRANSLATORS: album duration (length) in the format hour:minute:second
 #: tmpl/album-tmpl.html:20
@@ -216,7 +216,7 @@ msgstr "Reproducir o álbum"
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:2
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:2
 msgid "Play Next"
-msgstr ""
+msgstr "Seguinte reprodución"
 
 #: tmp/coverart_browser_pop_rb3.ui.h:4
 msgid "Queue Album"
@@ -228,7 +228,7 @@ msgstr "Reproducir artista similar"
 
 #: tmp/coverart_browser_pop_rb3.ui.h:9
 msgid "Export and embed coverart"
-msgstr "Exportar e incrustar as portadas"
+msgstr "Exportar e encaixar as cubertas"
 
 #: tmp/coverart_browser_pop_rb3.ui.h:10
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:11
@@ -282,7 +282,7 @@ msgstr "Comezar automáticamente"
 #: tmp/coverart_browser_prefs.ui.h:11
 msgid "When rhythmbox starts, switch automatically to the coverart browser."
 msgstr ""
-"Cando se inicie Rhythmbox, conmutar automaticamente co navegador de cubertas."
+"Cando se inicie Rhythmbox, cambiar automaticamente ao navegador de cubertas."
 
 #: tmp/coverart_browser_prefs.ui.h:12
 msgid "Use source's custom statusbar"
@@ -342,8 +342,8 @@ msgid ""
 "Ellipsizes the albums names to a fixed length when the display text option "
 "is enabled."
 msgstr ""
-"Reduce a unha lonxitude fixa os nomes dos álbumsL cando a está activada a "
-"opción de amosar o texto"
+"Reduce a unha lonxitude fixa os nomes dos álbums cando está activada a "
+"opción de amosar o texto."
 
 #: tmp/coverart_browser_prefs.ui.h:25
 msgid "Maximum allowed length for an album's name before being ellipsized."
@@ -837,11 +837,11 @@ msgstr "Navegador de cubertas"
 
 #: coverart_browser.py:145
 msgid "Browse and play your albums through their covers"
-msgstr "Examinar e reproducir os seus álbums a través das súas cubertas"
+msgstr "Buscar e reproducir os álbums a través das cubertas"
 
 #: coverart_browser_source.py:178
 msgid "CoverArt Playlist"
-msgstr "Lista de reprodución de portadas"
+msgstr "Lista de reprodución de cubertas"
 
 #. . TRANSLATORS - "All" is used in the context of "All artist names"
 #: coverart_browser_source.py:584
@@ -1020,9 +1020,3 @@ msgstr "Pistas"
 #: coverart_playlists.py:165
 msgid "No matching tracks have been found"
 msgstr "Non se atoparon pistas coincidentes"
-
-#~ msgid "Tracks & Covers"
-#~ msgstr "Pistas e cubertas"
-
-#~ msgid "Views"
-#~ msgstr "Vistas"

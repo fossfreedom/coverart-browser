@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-21 23:10+0000\n"
-"PO-Revision-Date: 2014-06-28 21:17+0000\n"
-"Last-Translator: Phillip Sz <Unknown>\n"
+"PO-Revision-Date: 2015-02-13 21:08+0000\n"
+"Last-Translator: jus <Unknown>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-06-28 22:12+0000\n"
-"X-Generator: Launchpad (build 17077)\n"
+"X-Launchpad-Export-Date: 2015-02-13 21:20+0000\n"
+"X-Generator: Launchpad (build 17341)\n"
 
 #. TRANSLATORS: album duration (length) in the format hour:minute:second
 #: tmpl/album-tmpl.html:20
@@ -61,7 +61,7 @@ msgstr "Titelliste ist nicht verfügbar"
 
 #: tmpl/album-tmpl.html:119
 msgid "Unable to retrieve album information:"
-msgstr "Informationen zum Album konnten nicht geholt werden:"
+msgstr "Informationen zum Album konnten nicht abgerufen werden"
 
 #: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
 #: tmpl/artistartsearch-tmpl.html:135
@@ -84,7 +84,7 @@ msgstr "Suchmodus"
 #: coverart_browser_source.py:373 coverart_browser_source.py:374
 #: coverart_browser_source.py:1243
 msgid "Artist"
-msgstr "Künstler"
+msgstr "Interpret"
 
 #: tmpl/albumartsearch-tmpl.html:192
 msgid "Album"
@@ -92,7 +92,7 @@ msgstr "Album"
 
 #: tmpl/albumartsearch-tmpl.html:193
 msgid "Artist and album"
-msgstr "Künstler und Album"
+msgstr "Interpret und Album"
 
 #: tmpl/albumartsearch-tmpl.html:196 tmpl/artistartsearch-tmpl.html:182
 msgid "Search text"
@@ -137,7 +137,7 @@ msgstr "Keine Informationen vorhanden"
 
 #: tmpl/artist-tmpl.html:28
 msgid "Unfilter"
-msgstr ""
+msgstr "Filter entfernen"
 
 #: tmpl/artist-tmpl.html:29 tmpl/artist-tmpl.html:114
 msgid "Filter"
@@ -149,7 +149,7 @@ msgstr "Filter"
 #: tmpl/links-tmpl.html:15 tmpl/links-tmpl.html:21
 #, python-format
 msgid "Links for %s:"
-msgstr ""
+msgstr "Links für %s:"
 
 #: tmpl/artist-tmpl.html:97
 msgid "Similar Artists"
@@ -166,14 +166,16 @@ msgstr "Informationen zum Interpreten konnten nicht abgerufen werden:"
 #: tmpl/artistartsearch-tmpl.html:180
 msgid "Tip: doubleclick or drag a cover to use it as the artist cover"
 msgstr ""
+"Tipp: Sie können ein Cover mit einem Doppelklick oder per Drag-and-Drop als "
+"Interpretencover einrichten"
 
 #: tmpl/echoartist-tmpl.html:66
 msgid "Biography provided by: "
-msgstr ""
+msgstr "Biografie bereitgestellt von: "
 
 #: tmpl/links-tmpl.html:28
 msgid "Unable to get links"
-msgstr ""
+msgstr "Links konnten nicht abgerufen werden"
 
 #: tmp/coverart_artist_pop_rb3.ui.h:1
 msgid "Play All"
@@ -187,7 +189,7 @@ msgstr ""
 
 #: tmp/coverart_artist_pop_rb3.ui.h:3
 msgid "Queue All"
-msgstr ""
+msgstr "Alle in Warteschlange stellen"
 
 #: tmp/coverart_artist_pop_rb3.ui.h:4 tmp/coverart_browser_pop_rb3.ui.h:5
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:5
@@ -214,19 +216,19 @@ msgstr "Album wiedergeben"
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:2
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:2
 msgid "Play Next"
-msgstr ""
+msgstr "Nächsten wiedergeben"
 
 #: tmp/coverart_browser_pop_rb3.ui.h:4
 msgid "Queue Album"
-msgstr "Album-Warteschlange"
+msgstr "Album in Warteschlange stellen"
 
 #: tmp/coverart_browser_pop_rb3.ui.h:7
 msgid "Play Similar Artist"
-msgstr ""
+msgstr "Ähnlichen Interpreten wiedergeben"
 
 #: tmp/coverart_browser_pop_rb3.ui.h:9
 msgid "Export and embed coverart"
-msgstr "Coverart exportieren und einbinden"
+msgstr "Coverart exportieren und einbetten"
 
 #: tmp/coverart_browser_pop_rb3.ui.h:10
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:11
@@ -277,7 +279,7 @@ msgstr "Automatisch starten"
 
 #: tmp/coverart_browser_prefs.ui.h:11
 msgid "When rhythmbox starts, switch automatically to the coverart browser."
-msgstr "Wenn Rhythmbox startet, automatisch zum Coverart browser wechseln."
+msgstr "Wenn Rhythmbox startet, automatisch zum Coverart Browser wechseln."
 
 #: tmp/coverart_browser_prefs.ui.h:12
 msgid "Use source's custom statusbar"
@@ -313,11 +315,11 @@ msgstr "Albuminformationen"
 
 #: tmp/coverart_browser_prefs.ui.h:20
 msgid "Display album information"
-msgstr ""
+msgstr "Album-Informationen anzeigen"
 
 #: tmp/coverart_browser_prefs.ui.h:21
 msgid "Font size for the text below the cover-art."
-msgstr ""
+msgstr "Schriftgröße für den Text unterhalb der Cover."
 
 #: tmp/coverart_browser_prefs.ui.h:22
 msgid "Font Size:"
@@ -347,7 +349,7 @@ msgstr "Album-Informationen unter dem Cover anzeigen"
 
 #: tmp/coverart_browser_prefs.ui.h:28
 msgid "Display album's info within cover"
-msgstr ""
+msgstr "Album-Informationen innerhalb des Covers anzeigen"
 
 #: tmp/coverart_browser_prefs.ui.h:29
 msgid "Cover Appearance"
@@ -359,7 +361,7 @@ msgstr "Schlagschatten"
 
 #: tmp/coverart_browser_prefs.ui.h:31
 msgid "Indicates if the albums should drop a shadow on the cover view"
-msgstr ""
+msgstr "Gibt an ob das Album in der Cover-Ansicht einen Schatten werfen soll"
 
 #: tmp/coverart_browser_prefs.ui.h:32
 msgid "Light Source: "
@@ -367,7 +369,7 @@ msgstr "Lichtquelle: "
 
 #: tmp/coverart_browser_prefs.ui.h:33
 msgid "Defines the size for the covers showed on the source."
-msgstr ""
+msgstr "Legt die Größe der in der Quelle angezeigten Cover fest"
 
 #: tmp/coverart_browser_prefs.ui.h:34
 msgid "Size (in pixels):"
@@ -375,11 +377,11 @@ msgstr "Größe (in Pixeln):"
 
 #: tmp/coverart_browser_prefs.ui.h:35
 msgid "Tracks Pane"
-msgstr ""
+msgstr "Titel-Bereich"
 
 #: tmp/coverart_browser_prefs.ui.h:36
 msgid "open or close on click of cover"
-msgstr ""
+msgstr "Öffnen oder Schliessen beim Klick auf Cover"
 
 #: tmp/coverart_browser_prefs.ui.h:37
 msgid "Advanced Options"
@@ -387,19 +389,19 @@ msgstr "Erweiterte Optionen"
 
 #: tmp/coverart_browser_prefs.ui.h:38
 msgid "Padding (space) around the cover and its highlight"
-msgstr ""
+msgstr "Innenabstand (Raum) um das Cover und sein Highlight"
 
 #: tmp/coverart_browser_prefs.ui.h:39
 msgid "Spacing between columns and rows"
-msgstr ""
+msgstr "Abstand zwischen Spalten und Zeilen"
 
 #: tmp/coverart_browser_prefs.ui.h:40
 msgid "Padding"
-msgstr ""
+msgstr "Innenabstand"
 
 #: tmp/coverart_browser_prefs.ui.h:41
 msgid "Spacing"
-msgstr ""
+msgstr "Abstand"
 
 #. . TRANSLATORS: This is the icon-grid view that the user sees
 #: tmp/coverart_browser_prefs.ui.h:42 coverart_browser.py:148
@@ -409,7 +411,7 @@ msgstr "Kacheln"
 
 #: tmp/coverart_browser_prefs.ui.h:43
 msgid "Flow Appearance"
-msgstr ""
+msgstr "Flow-Darstellung"
 
 #: tmp/coverart_browser_prefs.ui.h:44
 msgid "Width (px):"
@@ -419,15 +421,15 @@ msgstr "Breite (px):"
 #: tmp/coverart_browser_prefs.ui.h:46 coverart_browser.py:154
 #, no-c-format
 msgid "Scale by %:"
-msgstr ""
+msgstr "Skala von %:"
 
 #: tmp/coverart_browser_prefs.ui.h:47
 msgid "Hide Caption"
-msgstr ""
+msgstr "Beschriftung ausblenden"
 
 #: tmp/coverart_browser_prefs.ui.h:48
 msgid "Maximum covers to display:"
-msgstr ""
+msgstr "Maximal anzuzeigende Cover:"
 
 #: tmp/coverart_browser_prefs.ui.h:49
 msgid "Background Colour"
@@ -465,7 +467,7 @@ msgstr "Erscheinungsbild & Verhalten"
 
 #: tmp/coverart_browser_prefs.ui.h:57
 msgid "Flat-button style"
-msgstr ""
+msgstr "Flacher Schaltflächenstil"
 
 #: tmp/coverart_browser_prefs.ui.h:58
 msgid "Icon Theme: "
@@ -525,11 +527,11 @@ msgstr "Werkzeugleiste"
 
 #: tmp/coverart_browser.ui.h:1
 msgid "Track Artist"
-msgstr "Interpret"
+msgstr "Titel-Interpret"
 
 #: tmp/coverart_browser.ui.h:2
 msgid "Stop coverart fetch."
-msgstr ""
+msgstr "Abrufen der Coverart stoppen."
 
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:1
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:1
@@ -539,17 +541,17 @@ msgstr "Titel wiedergeben"
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:4
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:4
 msgid "Queue Track"
-msgstr "Titel in Warteschlange"
+msgstr "Titel in Warteschlange stellen"
 
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:7
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:7
 msgid "Play Similar"
-msgstr ""
+msgstr "Ähnlichen wiedergeben"
 
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:8
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:8
 msgid "Track"
-msgstr ""
+msgstr "Titel"
 
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:10
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:10
@@ -562,33 +564,33 @@ msgstr "Wählen Sie einen Ordner um Ihre Titel zu speichern:"
 
 #: tmp/coverart_exportembed.ui.h:2
 msgid "Select a Folder to export to"
-msgstr ""
+msgstr "Wählen Sie einen Ordner für den Export"
 
 #: tmp/coverart_exportembed.ui.h:3
 msgid "Save tracks within folder using album name"
-msgstr ""
+msgstr "Titel in Ordner mit Name des Albums speichern"
 
 #: tmp/coverart_exportembed.ui.h:4
 msgid "Open embedded track folder in file-manager"
-msgstr ""
+msgstr "Ordern der eingebetteten Titel in Dateimanager öffnen"
 
 #. This is a label describing the different options to save the picture artwork in the music file i.e. embed - to insert picture artwork into a music file
 #: tmp/coverart_exportembed.ui.h:6
 msgid "Embed:"
-msgstr ""
+msgstr "Einbetten:"
 
 #: tmp/coverart_exportembed.ui.h:7
 msgid "convert to mp3"
-msgstr ""
+msgstr "Nach mp3 konvertieren"
 
 #: tmp/coverart_exportembed.ui.h:8
 msgid "bitrate (kbit/s)"
-msgstr ""
+msgstr "Bitrate (kbit/s)"
 
 #. This is a label describing the size of the picture that will be inserted into the music file e.g. change the size from 800x800 pixels to 128x128 pixels
 #: tmp/coverart_exportembed.ui.h:10
 msgid "resize art"
-msgstr ""
+msgstr "Skaliertes Cover"
 
 #. size in pixels
 #: tmp/coverart_exportembed.ui.h:12
@@ -742,7 +744,7 @@ msgstr "Soul"
 
 #: tmp/popups.xml.in.h:32
 msgid "workout"
-msgstr ""
+msgstr "Training"
 
 #: tmp/popups.xml.in.h:33
 msgid "easy listening"
@@ -758,7 +760,7 @@ msgstr "Kinder"
 
 #: coverart_album.py:1521 coverart_artistinfo.py:62
 msgid "Enable LastFM plugin and log in first"
-msgstr ""
+msgstr "Aktivieren Sie das LastFM-Plugin und melden sich zuerst an"
 
 #. . TRANSLATORS - for example "abba's greatest hits by ABBA"
 #: coverart_album.py:1765 coverart_browser_source.py:1151
@@ -807,7 +809,7 @@ msgstr "Cover"
 
 #: coverart_browser_prefs.py:269 coverart_controllers.py:507
 msgid "Browser Preferences"
-msgstr ""
+msgstr "Browsereinstellungen"
 
 #. . TRANSLATORS: Do not translate this string.
 #: coverart_browser_prefs.py:314
@@ -821,6 +823,7 @@ msgstr ""
 "  Spencer Young https://launchpad.net/~spenceryoung\n"
 "  Tobias Bannert https://launchpad.net/~toba\n"
 "  fossfreedom https://launchpad.net/~fossfreedom\n"
+"  jus https://launchpad.net/~jus\n"
 "  quaec https://launchpad.net/~quaec"
 
 #. define .plugin text strings used for translation
@@ -830,11 +833,11 @@ msgstr "CoverArt Browser"
 
 #: coverart_browser.py:145
 msgid "Browse and play your albums through their covers"
-msgstr ""
+msgstr "Durchsuchen und geben Sie Ihre Alben über deren Cover wieder"
 
 #: coverart_browser_source.py:178
 msgid "CoverArt Playlist"
-msgstr ""
+msgstr "CoverArt Wiedergabeliste"
 
 #. . TRANSLATORS - "All" is used in the context of "All artist names"
 #: coverart_browser_source.py:584
@@ -855,7 +858,7 @@ msgstr ""
 #: coverart_browser_source.py:975 coverart_browser_source.py:977
 #, python-format
 msgid "Requesting cover for %s..."
-msgstr ""
+msgstr "Fordere Cover an für %s..."
 
 #: coverart_browser_source.py:1074
 msgid ""
@@ -887,11 +890,11 @@ msgstr "Nach Bewertung sortieren"
 
 #: coverart_controllers.py:499
 msgid "Download all covers"
-msgstr ""
+msgstr "Alle Cover herunterladen"
 
 #: coverart_controllers.py:500
 msgid "Play random album"
-msgstr ""
+msgstr "Zufälliges Album wiedergeben"
 
 #: coverart_controllers.py:501 coverart_controllers.py:555
 msgid "Follow playing song"
@@ -899,7 +902,7 @@ msgstr ""
 
 #: coverart_controllers.py:504 coverart_controllers.py:552
 msgid "Use favourites only"
-msgstr ""
+msgstr "Nur Favoriten benutzen"
 
 #: coverart_controllers.py:508
 msgid "Search Preferences"
@@ -997,7 +1000,7 @@ msgstr "Titel durchsuchen"
 #: coverart_coverflowview.py:196
 #, python-format
 msgid "Number of covers limited to %d"
-msgstr ""
+msgstr "Anzahl der Cover limitiert auf %d"
 
 #: coverart_covericonview.py:617
 msgid "Album has added to list of playing albums"
@@ -1009,10 +1012,4 @@ msgstr "Titel"
 
 #: coverart_playlists.py:165
 msgid "No matching tracks have been found"
-msgstr ""
-
-#~ msgid "Tracks & Covers"
-#~ msgstr "Titel & Cover"
-
-#~ msgid "Views"
-#~ msgstr "Ansichten"
+msgstr "Keine passenden Titel gefunden"

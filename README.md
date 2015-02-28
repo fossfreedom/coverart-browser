@@ -7,7 +7,7 @@ If you have reached here looking for the stable version of the plugin please rea
  - rhythmbox 2.96 - 2.99: https://github.com/fossfreedom/coverart-browser/tree/release-1.2
  - rhythmbox 3.0+: https://github.com/fossfreedom/coverart-browser/tree/release-2.1
  
-![Imgur](http://i.imgur.com/o1zo6P4.png)
+![Imgur](http://i.imgur.com/tTnHbE1.png)
 
 -----------
 
@@ -25,7 +25,7 @@ If you have reached here looking for the stable version of the plugin please rea
 ##Summary: whats new in this release
 
  - TODO 
- - Translated into 24 languages and locales
+ - Translated into 25 languages and locales
  - for developers - doxygen documentation: http://fossfreedom.github.io/coverart-browser/classes.html
 
 *How it works:*

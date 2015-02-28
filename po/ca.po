@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-21 23:10+0000\n"
-"PO-Revision-Date: 2014-06-28 17:58+0000\n"
+"PO-Revision-Date: 2015-02-13 21:12+0000\n"
 "Last-Translator: VPablo <villumar@gmail.com>\n"
 "Language-Team: Catalan <ca@li.org>\n"
 "Language: ca\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2014-06-28 20:48+0000\n"
-"X-Generator: Launchpad (build 17077)\n"
+"X-Launchpad-Export-Date: 2015-02-13 21:20+0000\n"
+"X-Generator: Launchpad (build 17341)\n"
 
 #. TRANSLATORS: album duration (length) in the format hour:minute:second
 #: tmpl/album-tmpl.html:20
@@ -216,7 +216,7 @@ msgstr "Reprodueix l'àlbum"
 #: tmp/coverart_entryview_compact_pop_rb3.ui.h:2
 #: tmp/coverart_entryview_full_pop_rb3.ui.h:2
 msgid "Play Next"
-msgstr ""
+msgstr "Següent"
 
 #: tmp/coverart_browser_pop_rb3.ui.h:4
 msgid "Queue Album"
@@ -1022,9 +1022,3 @@ msgstr "Cançons"
 #: coverart_playlists.py:165
 msgid "No matching tracks have been found"
 msgstr "No s'han trobat pistes que coincidisquen"
-
-#~ msgid "Tracks & Covers"
-#~ msgstr "Pistes i Cobertes"
-
-#~ msgid "Views"
-#~ msgstr "Vistes"
