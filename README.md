@@ -1,13 +1,10 @@
-#coverart-browser - v2.1 release-candidate (Penfold)
+#coverart-browser - v2.1 rc (Penfold)
 
 Browse your coverart albums in Rhythmbox v3 and later.  
 
-If you have reached here looking for the stable version of the plugin please read the README files for
-
  - rhythmbox 2.96 - 2.99: https://github.com/fossfreedom/coverart-browser/tree/release-1.2
- - rhythmbox 3.0+: https://github.com/fossfreedom/coverart-browser/tree/release-2.0
- 
-![Imgur](http://i.imgur.com/o1zo6P4.png)
+
+![Imgur](http://i.imgur.com/tTnHbE1.png)
 
 -----------
 
