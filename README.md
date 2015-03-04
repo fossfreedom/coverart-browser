@@ -1,4 +1,4 @@
-#coverart-browser - v2.1 rc (Penfold)
+#coverart-browser - v2.1 (Penfold)
 
 Browse your coverart albums in Rhythmbox v3 and later.  
 
