@@ -22,6 +22,7 @@ from gi.repository import Gtk
 from gi.repository import RB
 from gi.repository import GObject
 from gi.repository import GLib
+from gi.repository import Gdk
 
 from coverart_rb3compat import Menu
 from coverart_external_plugins import CreateExternalPluginMenu
@@ -31,9 +32,10 @@ from coverart_rb3compat import ApplicationShell
 from coverart_browser_prefs import CoverLocale
 from coverart_widgets import PressButton
 from coverart_utils import create_button_image
+import xml.etree.ElementTree as ET
 
 import rb
-
+import os
 
 class CoverArtPlayEntryView(CoverArtEntryView):
     __hash__ = GObject.__hash__
@@ -115,6 +117,68 @@ class CoverArtPlaySource(RB.Source):
         player = self.shell.props.shell_player
         player.set_playing_source(self)
         player.set_selected_source(self)
+
+        self.save_in_progress = False
+        self.save_interrupt = False
+        self.filename = RB.user_cache_dir() + "/coverart_browser/playlist.xml"
+
+        self._load_model()
+
+        self.source.source_query_model.connect('row-inserted', self.save_changed_model)
+        self.source.source_query_model.connect('row-changed', self.save_changed_model)
+        self.source.source_query_model.connect('row-deleted', self.save_changed_model)
+
+    def _load_model(self):
+        if not os.path.isfile(self.filename):
+            return
+
+        parser = ET.XMLParser(encoding="utf-8")
+        tree = ET.parse(self.filename, parser=parser)
+
+        root = tree.getroot()
+
+        for child in root.findall('./entry/text'):
+            location = child.text
+            entry = self.source.shell.props.db.entry_lookup_by_location(location)
+            if entry:
+                self.source.source_query_model.add_entry(entry, -1)
+
+
+    def save_changed_model(self, *args):
+
+        if self.save_in_progress:
+            self.save_interrupt = True
+            return
+
+        self.save_in_progress = True
+
+        Gdk.threads_add_timeout_seconds(GLib.PRIORITY_DEFAULT_IDLE, 1, self._save_model, None)
+
+    def _save_model(self, *args):
+        print ("enter save model")
+        if self.save_interrupt:
+            self.save_interrupt = False
+            print ("interupted")
+            return True
+
+        index = 0
+        root = ET.Element('root')
+        element = ET.SubElement(root, 'entry')
+        print (element)
+        for row in self.source.source_query_model:
+            location = row[0].get_string(RB.RhythmDBPropType.LOCATION)
+            subelement = ET.SubElement(element, 'text')
+            #subelement.set('index', str(index))
+            subelement.text = location
+            index = index + 1
+
+        print ('saving')
+        tree = ET.ElementTree(root)
+        tree.write(self.filename)#, pretty_print=True, xml_declaration=True)
+
+        self.save_in_progress = False
+        print ("finished model")
+        return False
 
     def do_selected(self):
         '''
