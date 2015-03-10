@@ -143,6 +143,7 @@ class CoverArtPlaySource(RB.Source):
             if entry:
                 self.source.source_query_model.add_entry(entry, -1)
 
+        self.props.query_model = self.source.source_query_model
 
     def save_changed_model(self, *args):
 
@@ -155,29 +156,21 @@ class CoverArtPlaySource(RB.Source):
         Gdk.threads_add_timeout_seconds(GLib.PRIORITY_DEFAULT_IDLE, 1, self._save_model, None)
 
     def _save_model(self, *args):
-        print ("enter save model")
         if self.save_interrupt:
             self.save_interrupt = False
-            print ("interupted")
             return True
 
-        index = 0
         root = ET.Element('root')
         element = ET.SubElement(root, 'entry')
-        print (element)
         for row in self.source.source_query_model:
             location = row[0].get_string(RB.RhythmDBPropType.LOCATION)
             subelement = ET.SubElement(element, 'text')
-            #subelement.set('index', str(index))
             subelement.text = location
-            index = index + 1
 
-        print ('saving')
         tree = ET.ElementTree(root)
-        tree.write(self.filename)#, pretty_print=True, xml_declaration=True)
+        tree.write(self.filename)
 
         self.save_in_progress = False
-        print ("finished model")
         return False
 
     def do_selected(self):
@@ -278,6 +271,7 @@ class CoverArtPlaySource(RB.Source):
 
     def shuffle_playsource(self, *args):
         self.entryview.props.model.shuffle_entries()
+        self._save_model()
 
 
 GObject.type_register(CoverArtPlayEntryView)
