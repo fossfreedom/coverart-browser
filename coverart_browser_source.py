@@ -1035,7 +1035,9 @@ class CoverArtBrowserSource(RB.Source):
     def propertiesbutton_callback(self, choice):
         print("properties chosen: %s" % choice)
 
-        if choice == 'download':
+        if choice == 'playlist':
+            self.entryviewpane.entry_view_results.display_whats_playing()
+        elif choice == 'download':
             self.request_status_box.show_all()
             self._cover_search_manager = self.viewmgr.current_view.get_default_manager()
             self._cover_search_manager.cover_man.search_covers(

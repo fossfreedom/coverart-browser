@@ -496,6 +496,8 @@ class PropertiesMenuController(OptionsController):
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
         # options
         self.values = OrderedDict()
+        self.values[MenuNode(_('CoverArt Playlist'))] = 'playlist'
+        self.values[MenuNode('separator0', 'separator')] = ''
         self.values[MenuNode(_('Download all covers'))] = 'download'
         self.values[MenuNode(_('Play random album'))] = 'random'
         self.values[MenuNode(_('Follow playing song'), 'check',
