@@ -14,7 +14,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="entryview.svg.2014_06_17b.svg"
+   sodipodi:docname="entryview.svg"
    inkscape:export-filename="/home/jrbastien/Dropbox/CoverArt/2.0/entryview17b.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
@@ -26,15 +26,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="16"
-     inkscape:cx="16.65625"
+     inkscape:cx="-5.40625"
      inkscape:cy="9.34375"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
-     inkscape:window-width="1440"
-     inkscape:window-height="838"
-     inkscape:window-x="1272"
-     inkscape:window-y="-8"
+     inkscape:window-width="1313"
+     inkscape:window-height="744"
+     inkscape:window-x="53"
+     inkscape:window-y="24"
      inkscape:window-maximized="1">
     <inkscape:grid
        snapvisiblegridlinesonly="true"
@@ -54,7 +54,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -64,7 +64,7 @@
      inkscape:groupmode="layer"
      inkscape:label="Calque 1">
     <path
-       style="color:#000000;fill:#4d4d4d;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.31058297000000001;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       style="color:#000000;fill:#bebebe;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;stroke-miterlimit:4;stroke-dasharray:none"
        d="M 1 4 L 1 20 L 17 20 L 17 16 L 16 16 L 16 19 L 2 19 L 2 5 L 16 5 L 16 9 L 17 9 L 17 4 L 1 4 z "
        transform="translate(0,1028.3622)"
        id="rect3048" />
@@ -83,7 +83,7 @@
        sodipodi:cx="28.101141"
        sodipodi:sides="3"
        id="path3765-3-7"
-       style="color:#000000;fill:#4d4d4d;stroke:none;stroke-width:3;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       style="color:#000000;fill:#bebebe;stroke:none;stroke-width:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;fill-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
        sodipodi:type="star"
        inkscape:transform-center-y="4.6976063e-005" />
     <rect
@@ -92,7 +92,7 @@
        height="1"
        width="9.629981"
        id="rect3090"
-       style="color:#000000;fill:#4d4d4d;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.31058297000000001;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+       style="color:#000000;fill:#bebebe;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;stroke-miterlimit:4;stroke-dasharray:none" />
     <path
        inkscape:transform-center-x="1.3333345"
        transform="matrix(-0.34143645,0,0,0.3696158,21.26142,1033.6309)"
@@ -108,7 +108,7 @@
        sodipodi:cx="28.101141"
        sodipodi:sides="3"
        id="path3765-3-7-4"
-       style="color:#000000;fill:#4d4d4d;stroke:none;stroke-width:3;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       style="color:#000000;fill:#bebebe;stroke:none;stroke-width:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;fill-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
        sodipodi:type="star"
        inkscape:transform-center-y="4.6976063e-005" />
   </g>

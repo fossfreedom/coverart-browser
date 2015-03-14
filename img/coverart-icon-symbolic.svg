@@ -27,14 +27,14 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1280"
-     inkscape:window-height="1000"
+     inkscape:window-width="1313"
+     inkscape:window-height="744"
      id="base"
      showgrid="false"
-     inkscape:zoom="5.6568542"
-     inkscape:cx="15.634519"
-     inkscape:cy="-2.5039949"
-     inkscape:window-x="0"
+     inkscape:zoom="22.627417"
+     inkscape:cx="7.8121502"
+     inkscape:cy="8.1026068"
+     inkscape:window-x="53"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg7384">
@@ -59,15 +59,15 @@
   <title
      id="title9167">Gnome Symbolic Icon Theme</title>
   <path
-     style="color:#000000;fill:#3c3c3c;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+     style="color:#000000;fill:#bebebe;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;stroke-miterlimit:4;stroke-dasharray:none"
      d="M 0 1 L 0 15 L 16 15 L 16 1 L 0 1 z M 3 2 L 15 2 L 15 14 L 3 14 L 3 2 z "
      id="path3049" />
   <path
      id="path3145"
-     style="color:#000000;fill:#3c3c3c;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+     style="color:#000000;fill:#bebebe;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;stroke-miterlimit:4;stroke-dasharray:none"
      d="m 8.49454,6.9999998 c -0.1963888,0 -0.2708736,0.00458 -0.421926,0.075312 C 7.8492631,7.1799014 7.6954236,7.3410447 7.5904128,7.5573095 7.5112238,7.7203905 7.5,7.8010382 7.5,7.9941194 c 0,0.1930808 0.011222,0.2737261 0.090413,0.4368099 0.1405533,0.2894579 0.401828,0.4949454 0.7233017,0.557309 0.1058087,0.020535 0.330263,0.013347 0.4369949,-0.015065 C 8.9273383,8.9261648 9.1300999,8.8031091 9.2479793,8.6719249 9.3497026,8.558718 9.4316453,8.391306 9.4740114,8.235115 c 0.034652,-0.1277581 0.034652,-0.3693021 0,-0.4970598 C 9.393561,7.4414403 9.2029191,7.2229953 8.9315348,7.0903743 8.7670195,7.0099746 8.6978322,6.9999998 8.49454,6.9999998 z m 0.00546,-3.2619392 c 0.3435847,0 0.6929605,0.032658 1.0213496,0.1135478 1.5301191,0.3769006 2.7439931,1.5920313 3.1207921,3.1225655 0.161741,0.6569562 0.161741,1.3868971 0,2.0438611 -0.413142,1.678183 -1.83062,2.926869 -3.5463542,3.179339 -0.2588467,0.03813 -0.7345973,0.05226 -0.9646085,0.02839 C 7.0640041,12.114865 6.1115479,11.676536 5.4075798,10.919964 4.646015,10.101478 4.2443755,9.103245 4.2443755,7.9961045 4.2443755,7.312468 4.3736153,6.7297403 4.6699382,6.1225653 5.2189083,4.9976584 6.2624431,4.1511883 7.4786511,3.8516084 7.8070437,3.7707188 8.1564165,3.7380606 8.5000013,3.7380606 z m 0,-0.738061 c -0.2467741,0 -0.4911568,0.00498 -0.6525293,0.028388 C 6.7061092,3.193961 5.780077,3.6778426 4.9820172,4.4761218 4.1839582,5.2743991 3.700631,6.2015307 3.5351045,7.3432048 c -0.046806,0.3228327 -0.046806,0.9829673 0,1.3058001 0.1655265,1.1416745 0.6488537,2.0688051 1.4469127,2.8670811 0.855663,0.855896 1.9055518,1.365449 3.1207923,1.476123 0.2703983,0.02463 0.8115804,-0.0132 1.1064627,-0.05677 1.0961058,-0.161943 2.0226018,-0.633028 2.8087138,-1.419348 0.798063,-0.798276 1.28138,-1.7254067 1.446912,-2.8670813 0.0468,-0.3228328 0.0468,-0.9829675 0,-1.3058001 C 13.299366,6.2015304 12.816049,5.2743988 12.017986,4.4761215 11.219926,3.6778423 10.293899,3.1939607 9.1525306,3.0283866 8.991163,3.0049817 8.7467754,2.9999996 8.5000013,2.9999996 z" />
   <rect
-     style="color:#000000;fill:#3c3c3c;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+     style="color:#000000;fill:#bebebe;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;stroke-miterlimit:4;stroke-dasharray:none"
      id="rect3809"
      width="1.4146408"
      height="13.103647"
@@ -75,7 +75,7 @@
      y="2.1104977"
      transform="matrix(0,-1,0.99999431,0.00337266,0,0)" />
   <rect
-     style="color:#000000;fill:#3c3c3c;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+     style="color:#000000;fill:#bebebe;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;stroke-miterlimit:4;stroke-dasharray:none"
      id="rect3809-0"
      width="1.1411272"
      height="13.103621"
@@ -83,7 +83,7 @@
      y="2.1503386"
      transform="matrix(0,-1,0.9999963,0.00272058,0,0)" />
   <rect
-     style="color:#000000;fill:#3c3c3c;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+     style="color:#000000;fill:#bebebe;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;stroke-miterlimit:4;stroke-dasharray:none"
      id="rect3809-0-7"
      width="1.1411272"
      height="13.103621"

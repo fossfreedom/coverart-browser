@@ -810,11 +810,28 @@ def check_lastfm(force_check=False):
         print("returning default")
         return False
 
+def create_button_image_symbolic(style_context, icon_name):
+    '''
+    create a pixbuf for the given symbolic icon_name sized according to the stock icon size
+    '''
+    theme = Gtk.IconTheme()
+    default = theme.get_default()
+    iconinfo = default.lookup_icon(icon_name, 128, 0)
+    pixbuf, symbool = iconinfo.load_symbolic_for_context(style_context)
+    
+    width, height = get_stock_size()
+    pixbuf = pixbuf.scale_simple(width, height,
+                                 GdkPixbuf.InterpType.BILINEAR)
+                                 
+    return pixbuf
+        
 
-def create_button_image(plugin, icon_name):
-    'create a pixbuf for the given icon_name sized according to the stock icon size'
+def create_button_image(plugin, image_filename):
+    '''
+    create a pixbuf for the given image_filename sized according to the stock icon size
+    '''
     path = 'img/'
 
     return create_pixbuf_from_file_at_size(
-        rb.find_plugin_file(plugin, path + icon_name),
+        rb.find_plugin_file(plugin, path + image_filename),
         *get_stock_size())

@@ -26,6 +26,7 @@ from gi.repository import GObject
 from gi.repository import GdkPixbuf
 from gi.repository import Gdk
 from gi.repository import GLib
+from gi.repository import Gio
 
 from coverart_rb3compat import Menu
 from coverart_rb3compat import ActionGroup
@@ -35,7 +36,7 @@ from coverart_external_plugins import CreateExternalPluginMenu
 from coverart_playlists import LastFMTrackPlaylist
 from coverart_playlists import EchoNestPlaylist
 from coverart_playlists import EchoNestGenrePlaylist
-from coverart_utils import create_button_image
+from coverart_utils import create_button_image_symbolic
 from coverart_external_plugins import ExternalPlugin
 from stars import ReactiveStar
 from coverart_search import CoverSearchPane
@@ -94,8 +95,10 @@ class EntryViewPane(object):
         stack_switcher = Gtk.StackSwitcher()
         stack_switcher.set_stack(self.stack)
 
+        style_context = self.stack.get_style_context()
+        
         whatsplayingbutton = PressButton()
-        whatsplayingbutton.set_image(create_button_image(self.plugin, "whatsplaying.png"))
+        whatsplayingbutton.set_image(create_button_image_symbolic(style_context, 'whatsplaying-symbolic'))
         whatsplayingbutton.connect('clicked', self.whatsplayingbutton_callback)
         whatsplayingbutton.props.halign = Gtk.Align.START
 
@@ -105,7 +108,8 @@ class EntryViewPane(object):
         self.entry_view_grid.attach(leftgrid, 0, 1, 1, 1)
 
         viewtoggle = PixbufButton()
-        viewtoggle.set_image(create_button_image(self.plugin, "entryview.png"))
+        viewtoggle.set_image(create_button_image_symbolic(style_context, 'entryview-symbolic'))
+        
         self.viewtoggle_id = None
 
         setting = self.gs.get_setting(self.gs.Path.PLUGIN)
@@ -114,7 +118,7 @@ class EntryViewPane(object):
         viewtoggle.connect('toggled', self.entry_view_toggled)
 
         smallwindowbutton = PixbufButton()
-        smallwindowbutton.set_image(create_button_image(self.plugin, "view-restore.png"))
+        smallwindowbutton.set_image(create_button_image_symbolic(style_context, 'view-restore-symbolic'))
         smallwindowbutton.connect('toggled', self.smallwindowbutton_callback)
 
         self.smallwindowext = ExternalPlugin()

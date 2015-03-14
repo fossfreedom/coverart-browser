@@ -83,14 +83,17 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         group = RB.DisplayPageGroup.get_by_id('library')
 
         # load plugin icon
-        try:
-            theme = Gtk.IconTheme.get_default()
-            rb.append_plugin_source_path(theme, '/icons') # prior to rb3.2
-        except:
-            rb.append_plugin_source_path(self, '/icons') # rb3.2
-            
+        #try:
+        #    theme = Gtk.IconTheme.get_default()
+        #    rb.append_plugin_source_path(theme, '/icons') # prior to rb3.2
+        #except:
+        #    rb.append_plugin_source_path(self, '/icons') # rb3.2
+         
+        theme = Gtk.IconTheme.get_default()
+        theme.append_search_path(rb.find_plugin_file(self, 'img'))
+        
         iconfile = Gio.File.new_for_path(
-            rb.find_plugin_file(self, 'img/covermgr_rb3.png'))
+            rb.find_plugin_file(self, 'img/coverart-icon-symbolic.svg'))
 
         self.source = CoverArtBrowserSource(
             shell=self.shell,
