@@ -27,6 +27,7 @@ If you have reached here looking for the stable version of the plugin please rea
  - Export and Embed dialog remembers field values between openings
  - chosen playlist are persistent between rhythmbox sessions
  - Add switch to CoverArt Playlist via properties button menu
+ - various icons display correctly for both light and dark themes
  - Translated into 25 languages and locales
  - for developers - doxygen documentation: http://fossfreedom.github.io/coverart-browser/classes.html
 
