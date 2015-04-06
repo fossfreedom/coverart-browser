@@ -245,10 +245,12 @@ class ExternalPluginMenu(GObject.Object):
         for location in self.locations:
             app.add_plugin_menu_item(location, self.app_id, toolbar_item)
         
+        print ("here")
         if hasattr(self.shell, "alternative_toolbar"):
             from alttoolbar_type import AltToolbarHeaderBar
-    
+            print ("here2")
             if isinstance(self.shell.alternative_toolbar.toolbar_type, AltToolbarHeaderBar):
+                print ("and finally here")
                 self._add_coverart_header_switch()
         
     def _add_coverart_header_switch(self):
@@ -302,6 +304,7 @@ class ExternalPluginMenu(GObject.Object):
         
         stack.show_all()
             
+        print ("the end of the header add proc")
         
     def on_page_change(self, display_page_tree, page):
         '''
