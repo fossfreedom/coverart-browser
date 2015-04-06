@@ -33,7 +33,9 @@ from coverart_browser_source import CoverArtBrowserSource
 from coverart_listview import ListView
 from coverart_queueview import QueueView
 from coverart_toolbar import TopToolbar
-
+from coverart_utils import get_stock_size
+from coverart_utils import create_button_image_symbolic
+        
 
 class CoverArtBrowserEntryType(RB.RhythmDBEntryType):
     '''
@@ -242,8 +244,65 @@ class ExternalPluginMenu(GObject.Object):
         toolbar_item.set_submenu(menu)
         for location in self.locations:
             app.add_plugin_menu_item(location, self.app_id, toolbar_item)
+        
+        if hasattr(self.shell, "alternative_toolbar"):
+            from alttoolbar_type import AltToolbarHeaderBar
+    
+            if isinstance(self.shell.alternative_toolbar.toolbar_type, AltToolbarHeaderBar):
+                self._add_coverart_header_switch()
+        
+    def _add_coverart_header_switch(self):
+        stack = Gtk.Stack()
+        stack.set_transition_type(Gtk.StackTransitionType.SLIDE_LEFT_RIGHT)
+        stack.set_transition_duration(1000)
+        
+        theme = Gtk.IconTheme()
+        default = theme.get_default()
+        image_name = 'view-list-symbolic'
 
-
+        box_listview = Gtk.Box()
+        stack.add_named(box_listview, "listview")
+        stack.child_set_property(box_listview, "icon-name", image_name)
+        
+        box_coverview = Gtk.Box()
+        
+        image_name = 'view-cover-symbolic'
+        width, height = get_stock_size()
+        
+        pixbuf = create_button_image_symbolic(stack.get_style_context(), image_name)
+        default.add_builtin_icon('coverart_browser_'+image_name, width, pixbuf)
+        stack.add_named(box_coverview, "coverview")
+        stack.child_set_property(box_coverview, "icon-name", 'coverart_browser_'+image_name)
+        
+        self.stack_switcher = Gtk.StackSwitcher()
+        self.stack_switcher.set_stack(stack)
+        self.stack_switcher.show_all()
+        
+        self.shell.alternative_toolbar.toolbar_type.headerbar.pack_start(self.stack_switcher)
+        
+        # now move current RBDisplayPageTree to listview stack
+        display_tree = self.shell.alternative_toolbar.find(self.shell.props.window, 'RBDisplayPageTree', 'by_name')
+        parent = display_tree.get_parent()
+        print (parent)
+        parent.remove(display_tree)
+        box_listview.pack_start(display_tree, True, True, 0)
+        box_listview.show_all()
+        parent.pack1(stack, True, True)
+        
+        store = Gtk.ListStore(str, str)
+        for view_name in self._views.get_view_names():
+            list_iter = store.append([self._views.get_menu_name(view_name), view_name])
+            
+        tree = Gtk.TreeView(store)
+        renderer = Gtk.CellRendererText()
+        column = Gtk.TreeViewColumn(_("CoverArt"), renderer, text=0)
+        tree.append_column(column)
+        
+        box_coverview.pack_start(tree, True, True, 0)
+        
+        stack.show_all()
+            
+        
     def on_page_change(self, display_page_tree, page):
         '''
         Called when the display page changes. Grabs query models and sets the 

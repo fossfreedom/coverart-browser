@@ -817,7 +817,7 @@ def create_button_image_symbolic(style_context, icon_name):
     theme = Gtk.IconTheme()
     default = theme.get_default()
     iconinfo = default.lookup_icon(icon_name, 128, 0)
-    pixbuf, symbool = iconinfo.load_symbolic_for_context(style_context)
+    pixbuf, symbol = iconinfo.load_symbolic_for_context(style_context)
     
     width, height = get_stock_size()
     pixbuf = pixbuf.scale_simple(width, height,
