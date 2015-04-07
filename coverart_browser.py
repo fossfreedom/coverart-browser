@@ -35,6 +35,7 @@ from coverart_queueview import QueueView
 from coverart_toolbar import TopToolbar
 from coverart_utils import get_stock_size
 from coverart_utils import create_button_image_symbolic
+from coverart_utils import create_button_image
         
 
 class CoverArtBrowserEntryType(RB.RhythmDBEntryType):
@@ -109,8 +110,7 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         self.shell.append_display_page(self.source, group)
 
         self.source.props.query_model.connect('complete', self.load_complete)
-        self._externalmenu = ExternalPluginMenu(self)
-
+        
         cl.switch_locale(cl.Locale.RB)
         print("CoverArtBrowser DEBUG - end do_activate")
 
@@ -135,6 +135,8 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         Used to automatically switch to the browser if the user
         has set in the preferences
         '''
+        self._externalmenu = ExternalPluginMenu(self)
+
         gs = GSetting()
         setting = gs.get_setting(gs.Path.PLUGIN)
 
@@ -175,34 +177,54 @@ class ExternalPluginMenu(GObject.Object):
         self.shell = plugin.shell
         self.source = plugin.source
         self.app_id = None
+        self.locations = ['library-toolbar', 'queue-toolbar', 'playsource-toolbar']
+        
         from coverart_browser_source import Views
 
         self._views = Views(self.shell)
 
-        self._connect_properties()
-        self._connect_signals()
-
-        self._create_menu()
-
-    def _connect_signals(self):
-        self.connect('notify::toolbar-pos', self._on_notify_toolbar_pos)
-        self.shell.props.display_page_tree.connect(
-            "selected", self.on_page_change
-        )
-
-    def _connect_properties(self):
-        gs = GSetting()
-        setting = gs.get_setting(gs.Path.PLUGIN)
-        setting.bind(gs.PluginKey.TOOLBAR_POS, self, 'toolbar_pos',
-                     Gio.SettingsBindFlags.GET)
+        self._use_standard_control = True
+        if hasattr(self.shell, "alternative_toolbar"):
+            from alttoolbar_type import AltToolbarHeaderBar
+            if isinstance(self.shell.alternative_toolbar.toolbar_type, AltToolbarHeaderBar):
+                self._use_standard_control = False
+        
+        if not self._use_standard_control:
+            # if we are using the alternative_toolbar and headerbar then setup the switch
+            # which will control access to the various views
+            self.shell.alternative_toolbar.toolbar_type.connect('song-category-clicked', 
+                                                                self._headerbar_category_clicked)
+            self._add_coverart_header_switch()
+            
+            sources = { self.shell.props.queue_source,
+                        self.shell.props.library_source,
+                        self.source }
+                        
+            for source in sources:
+                self.shell.alternative_toolbar.toolbar_type.add_always_visible_source(source)
+        else:
+            # ... otherwise just use the standard menubutton approach
+            gs = GSetting()
+            setting = gs.get_setting(gs.Path.PLUGIN)
+            setting.bind(gs.PluginKey.TOOLBAR_POS, self, 'toolbar_pos',
+                         Gio.SettingsBindFlags.GET)
+                         
+            self.connect('notify::toolbar-pos', self._on_notify_toolbar_pos)
+            self.shell.props.display_page_tree.connect(
+                "selected", self.on_page_change
+            )
+            
+            self._create_menu()
 
     def _on_notify_toolbar_pos(self, *args):
+        # for standard menu control ... when moving the toolbar position reposition the menubutton
         if self.toolbar_pos == TopToolbar.name:
             self._create_menu()
         else:
             self.cleanup()
 
     def cleanup(self):
+        # for standard menu control, cleanup where necessary
         if self.app_id:
             app = Gio.Application.get_default()
             for location in self.locations:
@@ -210,10 +232,11 @@ class ExternalPluginMenu(GObject.Object):
             self.app_id = None
 
     def _create_menu(self):
+        # for the standard menu control button add the button
+        # to all supported view types
         app = Gio.Application.get_default()
         self.app_id = 'coverart-browser'
 
-        self.locations = ['library-toolbar', 'queue-toolbar', 'playsource-toolbar']
         action_name = 'coverart-browser-views'
         self.action = Gio.SimpleAction.new_stateful(
             action_name, GLib.VariantType.new('s'),
@@ -244,16 +267,10 @@ class ExternalPluginMenu(GObject.Object):
         toolbar_item.set_submenu(menu)
         for location in self.locations:
             app.add_plugin_menu_item(location, self.app_id, toolbar_item)
-        
-        print ("here")
-        if hasattr(self.shell, "alternative_toolbar"):
-            from alttoolbar_type import AltToolbarHeaderBar
-            print ("here2")
-            if isinstance(self.shell.alternative_toolbar.toolbar_type, AltToolbarHeaderBar):
-                print ("and finally here")
-                self._add_coverart_header_switch()
+            
         
     def _add_coverart_header_switch(self):
+        # define the header switch control
         stack = Gtk.Stack()
         stack.set_transition_type(Gtk.StackTransitionType.SLIDE_LEFT_RIGHT)
         stack.set_transition_duration(1000)
@@ -271,7 +288,8 @@ class ExternalPluginMenu(GObject.Object):
         image_name = 'view-cover-symbolic'
         width, height = get_stock_size()
         
-        pixbuf = create_button_image_symbolic(stack.get_style_context(), image_name)
+        #pixbuf = create_button_image_symbolic(stack.get_style_context(), image_name)
+        pixbuf = create_button_image(self.plugin, image_name+".svg")
         default.add_builtin_icon('coverart_browser_'+image_name, width, pixbuf)
         stack.add_named(box_coverview, "coverview")
         stack.child_set_property(box_coverview, "icon-name", 'coverart_browser_'+image_name)
@@ -279,6 +297,7 @@ class ExternalPluginMenu(GObject.Object):
         self.stack_switcher = Gtk.StackSwitcher()
         self.stack_switcher.set_stack(stack)
         self.stack_switcher.show_all()
+        self.stack_switcher.set_sensitive(False)
         
         self.shell.alternative_toolbar.toolbar_type.headerbar.pack_start(self.stack_switcher)
         
@@ -291,24 +310,72 @@ class ExternalPluginMenu(GObject.Object):
         box_listview.show_all()
         parent.pack1(stack, True, True)
         
-        store = Gtk.ListStore(str, str)
+        self._store = Gtk.ListStore(str, str)
         for view_name in self._views.get_view_names():
-            list_iter = store.append([self._views.get_menu_name(view_name), view_name])
+            self._store.append([self._views.get_menu_name(view_name), view_name])
             
-        tree = Gtk.TreeView(store)
+        tree = Gtk.TreeView(self._store)
         renderer = Gtk.CellRendererText()
         column = Gtk.TreeViewColumn(_("CoverArt"), renderer, text=0)
         tree.append_column(column)
+        tree.connect('button-press-event', self._tree_row_click)
+        self.tree = tree
         
         box_coverview.pack_start(tree, True, True, 0)
         
+        stack.connect('notify::visible-child-name', self._change_stack)
         stack.show_all()
+        self.stack = stack
+        
+    def _change_stack(self, widget, value):
+        child_name = self.stack.get_visible_child_name()
+        print (child_name)
+        if child_name != "coverview":
+            return
             
-        print ("the end of the header add proc")
+        selection = self.tree.get_selection()
+        print ("hi")
+        liststore, list_iter = selection.get_selected()
+        if not list_iter:
+            print ("view")
+            view_name = self._select_view(None)
+            print (view_name)
+            for row in liststore:
+                if row[1] == view_name:
+                    print (row)
+                    print (row.path)
+                    #self.tree.row_activated(1, 1)
+        else:
+            path = liststore.get_path(list_iter)
+            self._select_view(liststore[path][1])
+        
+    def _headerbar_category_clicked(self, headerbar, song_category):
+            
+        if song_category and self.stack.get_visible_child_name() == 'coverview':
+            # if we've clicked song then go back to the music library
+            self.stack.set_visible_child_name('listview')
+            if self.shell.props.display_page_tree.select != self.shell.props.library_source:
+                self._select_view(ListView.name)
+        
+        self.stack_switcher.set_sensitive(not song_category)
+            
+    def _tree_row_click(self, widget, event):
+        '''
+        event called when clicking on a row in the header treeview
+        '''
+        print('_tree_row_click')
+
+        try:
+            treepath, treecolumn, cellx, celly = widget.get_path_at_pos(event.x, event.y)
+        except:
+            return
+
+        self._select_view(self._store[treepath][1])
+        
         
     def on_page_change(self, display_page_tree, page):
         '''
-        Called when the display page changes. Grabs query models and sets the 
+        standard menubutton - Called when the display page changes. Grabs query models and sets the 
         active view.
         '''
 
@@ -322,19 +389,31 @@ class ExternalPluginMenu(GObject.Object):
 
     def view_change_cb(self, action, current):
         '''
-        Called when the view state on a page is changed. Sets the new 
+        standard menubutton - Called when the view state on a page is changed. Sets the new 
         state.
         '''
         action.set_state(current)
         view_name = self._views.get_view_name_for_action(current)
+        self._select_view(view_name)
+        
+    def _select_view(self, view_name):
+        '''
+          with the view_name decide which view to be displayed
+          or if view_name is None then use the last remembered view_name
+          
+          return view_name
+        '''
         if view_name != ListView.name and \
                         view_name != QueueView.name:  # and \
             # view_name != PlaySourceView.name:
             gs = GSetting()
             setting = gs.get_setting(gs.Path.PLUGIN)
-            setting[gs.PluginKey.VIEW_NAME] = view_name
+            if view_name:
+                setting[gs.PluginKey.VIEW_NAME] = view_name
+            else:
+                view_name = setting[gs.PluginKey.VIEW_NAME]
             player = self.shell.props.shell_player
-            player.set_selected_source(self.source.playlist_source)
+            player.set_selected_source(self.source) #.playlist_source)
 
             GLib.idle_add(self.shell.props.display_page_tree.select,
                           self.source)
@@ -344,3 +423,5 @@ class ExternalPluginMenu(GObject.Object):
         elif view_name == QueueView.name:
             GLib.idle_add(self.shell.props.display_page_tree.select,
                           self.shell.props.queue_source)
+
+        return view_name
