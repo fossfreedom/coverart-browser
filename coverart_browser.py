@@ -280,11 +280,12 @@ class ExternalPluginMenu(GObject.Object):
         image_name = 'view-list-symbolic'
 
         box_listview = Gtk.Box()
+        #box_listview.set_tooltip_text(_("List View"))
         stack.add_named(box_listview, "listview")
         stack.child_set_property(box_listview, "icon-name", image_name)
         
         box_coverview = Gtk.Box()
-        
+        #box_coverview.set_tooltip_text(_("CoverArt View"))
         image_name = 'view-cover-symbolic'
         width, height = get_stock_size()
         
@@ -327,37 +328,73 @@ class ExternalPluginMenu(GObject.Object):
         stack.show_all()
         self.stack = stack
         
+        self._current_tree_view = None
+        
     def _change_stack(self, widget, value):
+        print ("changed stack")
         child_name = self.stack.get_visible_child_name()
         print (child_name)
-        if child_name != "coverview":
+        if child_name == "listview":
+            # if we've toggled to listview then we are no longer in coverart so reset back to songview
+            self._current_tree_view = None
+            self._select_view(ListView.name)
+            if self.shell.alternative_toolbar.toolbar_type.library_song_radiobutton.get_active():
+                self.stack_switcher.set_sensitive(False)
             return
             
+        # so we are in coverview so we need to reset the coverview to what was last selected when in this mode
         selection = self.tree.get_selection()
-        print ("hi")
         liststore, list_iter = selection.get_selected()
         if not list_iter:
-            print ("view")
-            view_name = self._select_view(None)
-            print (view_name)
-            for row in liststore:
-                if row[1] == view_name:
-                    print (row)
-                    print (row.path)
-                    #self.tree.row_activated(1, 1)
+            # nothing was selected to set the view back to what was remembered
+            self._current_tree_view = self._select_view(None)
+            treeiter = liststore.get_iter_first()
+            
+            while treeiter != None:
+                if liststore[treeiter][1] == self._current_tree_view:
+                    print ("about to set treeview")
+                    print (treeiter)
+                    path = liststore.get_path(treeiter)
+                    print (path)
+                    #self.tree.row_activated(liststore.get_path(treeiter), 0)
+                    self.tree.set_cursor(path)
+                    break
+                treeiter = liststore.iter_next(treeiter)
         else:
+            # we have been here before so set the view correctly
             path = liststore.get_path(list_iter)
+            self._current_tree_view = liststore[path][1]
             self._select_view(liststore[path][1])
         
     def _headerbar_category_clicked(self, headerbar, song_category):
             
-        if song_category and self.stack.get_visible_child_name() == 'coverview':
-            # if we've clicked song then go back to the music library
-            self.stack.set_visible_child_name('listview')
-            if self.shell.props.display_page_tree.select != self.shell.props.library_source:
-                self._select_view(ListView.name)
+        print ("clicked headerbar song-category buttons")
+        if self.stack.get_visible_child_name() == 'coverview' and song_category:
+            # if we've clicked song when in coverview then we disable the switcher
+            # and set the view back to song
+            
+            #self.stack.set_visible_child_name('listview')
+            
+            #if self.shell.props.display_page_tree.select != self.shell.props.library_source:
+            #    self._select_view(ListView.name)
         
-        self.stack_switcher.set_sensitive(not song_category)
+            #self.stack_switcher.set_sensitive(not song_category)
+            #self.stack_switcher.set_sensitive(False)
+            self._select_view(ListView.name)
+            
+        if self.stack.get_visible_child_name() == 'listview' and not song_category:
+            # if we've clicked category when in listview then we enable the switcher
+            self.stack_switcher.set_sensitive(True)
+            
+        if self.stack.get_visible_child_name() == 'listview' and song_category:
+            # if we've clicked song when in listview then we disable the switcher
+            self.stack_switcher.set_sensitive(False)
+            
+        if self.stack.get_visible_child_name() == 'coverview' and not song_category:
+            # if we've clicked category when in coverview then we move to the last coverart view
+            # and ensure the switcher is still enabled
+            self._select_view(None)
+            self.stack_switcher.set_sensitive(True)
             
     def _tree_row_click(self, widget, event):
         '''
@@ -370,6 +407,8 @@ class ExternalPluginMenu(GObject.Object):
         except:
             return
 
+        print (self._store[treepath][1])
+        self._current_tree_view = self._store[treepath][1]
         self._select_view(self._store[treepath][1])
         
         
@@ -378,7 +417,7 @@ class ExternalPluginMenu(GObject.Object):
         standard menubutton - Called when the display page changes. Grabs query models and sets the 
         active view.
         '''
-
+        print ("on_page_change")
         if page == self.shell.props.library_source:
             self.action.set_state(self._views.get_action_name(ListView.name))
         elif page == self.shell.props.queue_source:
@@ -392,6 +431,7 @@ class ExternalPluginMenu(GObject.Object):
         standard menubutton - Called when the view state on a page is changed. Sets the new 
         state.
         '''
+        print ("view_change_cb")
         action.set_state(current)
         view_name = self._views.get_view_name_for_action(current)
         self._select_view(view_name)
@@ -403,6 +443,12 @@ class ExternalPluginMenu(GObject.Object):
           
           return view_name
         '''
+        
+        if not self.shell.props.display_page_tree:
+            return
+            
+        print ("_select_view")
+        print (view_name)
         if view_name != ListView.name and \
                         view_name != QueueView.name:  # and \
             # view_name != PlaySourceView.name:
