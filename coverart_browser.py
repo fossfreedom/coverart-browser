@@ -287,13 +287,9 @@ class ExternalPluginMenu(GObject.Object):
         box_coverview = Gtk.Box()
         #box_coverview.set_tooltip_text(_("CoverArt View"))
         image_name = 'view-cover-symbolic'
-        width, height = get_stock_size()
         
-        #pixbuf = create_button_image_symbolic(stack.get_style_context(), image_name)
-        pixbuf = create_button_image(self.plugin, image_name+".svg")
-        default.add_builtin_icon('coverart_browser_'+image_name, width, pixbuf)
         stack.add_named(box_coverview, "coverview")
-        stack.child_set_property(box_coverview, "icon-name", 'coverart_browser_'+image_name)
+        stack.child_set_property(box_coverview, "icon-name", image_name)
         
         self.stack_switcher = Gtk.StackSwitcher()
         self.stack_switcher.set_stack(stack)
