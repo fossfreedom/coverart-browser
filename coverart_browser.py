@@ -107,6 +107,7 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
             query_model=self.shell.props.library_source.props.base_query_model)
 
         self.shell.register_entry_type_for_source(self.source, self.entry_type)
+        self.source.props.visibility = False
         self.shell.append_display_page(self.source, group)
 
         self.source.props.query_model.connect('complete', self.load_complete)
@@ -204,6 +205,7 @@ class ExternalPluginMenu(GObject.Object):
                 self.shell.alternative_toolbar.toolbar_type.add_always_visible_source(source)
         else:
             # ... otherwise just use the standard menubutton approach
+            self.source.props.visibility = True # make the source visible
             gs = GSetting()
             setting = gs.get_setting(gs.Path.PLUGIN)
             setting.bind(gs.PluginKey.TOOLBAR_POS, self, 'toolbar_pos',
@@ -303,7 +305,7 @@ class ExternalPluginMenu(GObject.Object):
         self.shell.alternative_toolbar.toolbar_type.headerbar.pack_start(self.stack_switcher)
         
         # now move current RBDisplayPageTree to listview stack
-        display_tree = self.shell.alternative_toolbar.find(self.shell.props.window, 'RBDisplayPageTree', 'by_name')
+        display_tree = self.shell.props.display_page_tree 
         parent = display_tree.get_parent()
         print (parent)
         parent.remove(display_tree)
@@ -335,13 +337,15 @@ class ExternalPluginMenu(GObject.Object):
         child_name = self.stack.get_visible_child_name()
         print (child_name)
         if child_name == "listview":
+            self.source.props.visibility = False
             # if we've toggled to listview then we are no longer in coverart so reset back to songview
             self._current_tree_view = None
             self._select_view(ListView.name)
             if self.shell.alternative_toolbar.toolbar_type.library_song_radiobutton.get_active():
                 self.stack_switcher.set_sensitive(False)
             return
-            
+        self.source.props.visibility = True
+        
         # so we are in coverview so we need to reset the coverview to what was last selected when in this mode
         selection = self.tree.get_selection()
         liststore, list_iter = selection.get_selected()
@@ -380,19 +384,26 @@ class ExternalPluginMenu(GObject.Object):
         
             #self.stack_switcher.set_sensitive(not song_category)
             #self.stack_switcher.set_sensitive(False)
+            self.source.props.visibility = True
+        
             self._select_view(ListView.name)
             
         if self.stack.get_visible_child_name() == 'listview' and not song_category:
             # if we've clicked category when in listview then we enable the switcher
             self.stack_switcher.set_sensitive(True)
+            self.source.props.visibility = False
+        
             
         if self.stack.get_visible_child_name() == 'listview' and song_category:
             # if we've clicked song when in listview then we disable the switcher
             self.stack_switcher.set_sensitive(False)
-            
+            self.source.props.visibility = False
+        
         if self.stack.get_visible_child_name() == 'coverview' and not song_category:
             # if we've clicked category when in coverview then we move to the last coverart view
             # and ensure the switcher is still enabled
+            self.source.props.visibility = True
+        
             self._select_view(None)
             self.stack_switcher.set_sensitive(True)
             
