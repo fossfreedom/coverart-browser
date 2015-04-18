@@ -63,6 +63,7 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         Initialises the plugin object.
         '''
         GObject.Object.__init__(self)
+        self._externalmenu = None
 
     def do_activate(self):
         '''
@@ -84,13 +85,6 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         self.entry_type.category = RB.RhythmDBEntryCategory.NORMAL
 
         group = RB.DisplayPageGroup.get_by_id('library')
-
-        # load plugin icon
-        #try:
-        #    theme = Gtk.IconTheme.get_default()
-        #    rb.append_plugin_source_path(theme, '/icons') # prior to rb3.2
-        #except:
-        #    rb.append_plugin_source_path(self, '/icons') # rb3.2
          
         theme = Gtk.IconTheme.get_default()
         theme.append_search_path(rb.find_plugin_file(self, 'img'))
@@ -111,6 +105,7 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         self.shell.append_display_page(self.source, group)
 
         self.source.props.query_model.connect('complete', self.load_complete)
+        GLib.timeout_add_seconds(3, self.load_complete) # kludge - if plugin activated after RB has loaded then do stuff
         
         cl.switch_locale(cl.Locale.RB)
         print("CoverArtBrowser DEBUG - end do_activate")
@@ -136,8 +131,12 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         Used to automatically switch to the browser if the user
         has set in the preferences
         '''
+        
+        if self._externalmenu:
+            return False # we've been through here before so nothing to do
+            
         self._externalmenu = ExternalPluginMenu(self)
-
+        
         gs = GSetting()
         setting = gs.get_setting(gs.Path.PLUGIN)
 
@@ -185,25 +184,19 @@ class ExternalPluginMenu(GObject.Object):
         self._views = Views(self.shell)
 
         self._use_standard_control = True
+        print ("1")
         if hasattr(self.shell, "alternative_toolbar"):
+            print ("2")
             from alttoolbar_type import AltToolbarHeaderBar
+        
             if isinstance(self.shell.alternative_toolbar.toolbar_type, AltToolbarHeaderBar):
                 self._use_standard_control = False
-        
-        if not self._use_standard_control:
-            # if we are using the alternative_toolbar and headerbar then setup the switch
-            # which will control access to the various views
-            self.shell.alternative_toolbar.toolbar_type.connect('song-category-clicked', 
-                                                                self._headerbar_category_clicked)
-            self._add_coverart_header_switch()
-            
-            sources = { self.shell.props.queue_source,
-                        self.shell.props.library_source,
-                        self.source }
-                        
-            for source in sources:
-                self.shell.alternative_toolbar.toolbar_type.add_always_visible_source(source)
-        else:
+    
+                # register with headerbar to complete the setup for coverart-browser
+                print ("registering")
+                self.shell.alternative_toolbar.toolbar_type.setup_completed_async(self._headerbar_toolbar_completed) 
+                    
+        if self._use_standard_control:
             # ... otherwise just use the standard menubutton approach
             self.source.props.visibility = True # make the source visible
             gs = GSetting()
@@ -217,7 +210,22 @@ class ExternalPluginMenu(GObject.Object):
             )
             
             self._create_menu()
-
+            
+    def _headerbar_toolbar_completed(self, *args):
+        print ("headerbar_toolbar_completed")
+        # if we are using the alternative_toolbar and headerbar then setup the switch
+        # which will control access to the various views
+        self.shell.alternative_toolbar.toolbar_type.connect('song-category-clicked', 
+                                                            self._headerbar_category_clicked)
+        self._add_coverart_header_switch()
+        
+        sources = { self.shell.props.queue_source,
+                    self.shell.props.library_source,
+                    self.source }
+                    
+        for source in sources:
+            self.shell.alternative_toolbar.toolbar_type.add_always_visible_source(source)
+    
     def _on_notify_toolbar_pos(self, *args):
         # for standard menu control ... when moving the toolbar position reposition the menubutton
         if self.toolbar_pos == TopToolbar.name:
@@ -272,24 +280,10 @@ class ExternalPluginMenu(GObject.Object):
             
         
     def _add_coverart_header_switch(self):
-        # define the header switch control
-        stack = Gtk.Stack()
-        stack.set_transition_type(Gtk.StackTransitionType.SLIDE_LEFT_RIGHT)
-        stack.set_transition_duration(1000)
-        
-        theme = Gtk.IconTheme()
-        default = theme.get_default()
-        image_name = 'view-list-symbolic'
-
-        box_listview = Gtk.Box()
-        #box_listview.set_tooltip_text(_("List View"))
-        stack.add_named(box_listview, "listview")
-        stack.child_set_property(box_listview, "icon-name", image_name)
-        
+        # define the header switch control + stack control for coverart
         box_coverview = Gtk.Box()
-        #box_coverview.set_tooltip_text(_("CoverArt View"))
         image_name = 'view-cover-symbolic'
-        
+        stack = self.shell.alternative_toolbar.toolbar_type.stack
         stack.add_named(box_coverview, "coverview")
         stack.child_set_property(box_coverview, "icon-name", image_name)
         
@@ -300,15 +294,7 @@ class ExternalPluginMenu(GObject.Object):
         
         self.shell.alternative_toolbar.toolbar_type.headerbar.pack_start(self.stack_switcher)
         
-        # now move current RBDisplayPageTree to listview stack
-        display_tree = self.shell.props.display_page_tree 
-        parent = display_tree.get_parent()
-        print (parent)
-        parent.remove(display_tree)
-        box_listview.pack_start(display_tree, True, True, 0)
-        box_listview.show_all()
-        parent.pack1(stack, True, True)
-        
+        # create a treeview and store for all views coverart supports
         self._store = Gtk.ListStore(str, str)
         for view_name in self._views.get_view_names():
             self._store.append([self._views.get_menu_name(view_name), view_name])
