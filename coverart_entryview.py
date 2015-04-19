@@ -491,6 +491,7 @@ class ResultsGrid(Gtk.Grid):
                     if Gtk.Buildable.get_name(node) == search_id:
                         return node
                 elif search_type == 'by_name':
+                    print (node.get_name())
                     if node.get_name() == search_id:
                         return node
 
@@ -502,11 +503,14 @@ class ResultsGrid(Gtk.Grid):
             return None
 
         tree_view = find(self.source.shell.props.display_page_tree, "GtkTreeView", "by_name")
-        print (tree_view)
+        if not tree_view:
+            tree_view = find(self.source.shell.props.display_page_tree, "AltToolbarSideBar", "by_name")
 
         iter = Gtk.TreeIter()
         self.source.shell.props.display_page_tree.props.model.find_page(self.source, iter)
         path = self.source.shell.props.display_page_tree.props.model.get_path(iter)
+        print (iter)
+        print (path)
 
         if not tree_view.row_expanded(path):
             tree_view.expand_row(path, False)
