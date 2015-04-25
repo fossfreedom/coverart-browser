@@ -32,10 +32,10 @@ from coverart_browser_prefs import Preferences
 from coverart_browser_source import CoverArtBrowserSource
 from coverart_listview import ListView
 from coverart_queueview import QueueView
+from coverart_playsourceview import PlaySourceView
 from coverart_toolbar import TopToolbar
-from coverart_utils import get_stock_size
-from coverart_utils import create_button_image_symbolic
-from coverart_utils import create_button_image
+from coverart_play_source import CoverArtPlaySource
+
         
 
 class CoverArtBrowserEntryType(RB.RhythmDBEntryType):
@@ -92,6 +92,9 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         iconfile = Gio.File.new_for_path(
             rb.find_plugin_file(self, 'img/coverart-icon-symbolic.svg'))
 
+        # our plugin model shared between sources
+        self.source_query_model = RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
+
         self.source = CoverArtBrowserSource(
             shell=self.shell,
             name=_("CoverArt"),
@@ -103,6 +106,15 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         self.shell.register_entry_type_for_source(self.source, self.entry_type)
         self.source.props.visibility = False
         self.shell.append_display_page(self.source, group)
+
+        self.playlist_source = GObject.new(
+            CoverArtPlaySource,
+            name=_("CoverArt Playlist"),
+            shell=self.shell,
+            plugin=self,
+            entry_type=self.entry_type)
+
+        self.shell.append_display_page(self.playlist_source, self.source)
 
         self.source.props.query_model.connect('complete', self.load_complete)
         GLib.timeout_add_seconds(3, self.load_complete) # kludge - if plugin activated after RB has loaded then do stuff
@@ -415,8 +427,8 @@ class ExternalPluginMenu(GObject.Object):
             self.action.set_state(self._views.get_action_name(ListView.name))
         elif page == self.shell.props.queue_source:
             self.action.set_state(self._views.get_action_name(QueueView.name))
-            # elif page == self.source.playlist_source:
-            #    self.action.set_state(self._views.get_action_name(PlaySourceView.name))
+        elif page == self.plugin.playlist_source:
+            self.action.set_state(self._views.get_action_name(PlaySourceView.name))
 
 
     def view_change_cb(self, action, current):
@@ -443,8 +455,8 @@ class ExternalPluginMenu(GObject.Object):
         print ("_select_view")
         print (view_name)
         if view_name != ListView.name and \
-                        view_name != QueueView.name:  # and \
-            # view_name != PlaySourceView.name:
+                        view_name != QueueView.name and \
+                        view_name != PlaySourceView.name:
             gs = GSetting()
             setting = gs.get_setting(gs.Path.PLUGIN)
             if view_name:
@@ -462,5 +474,8 @@ class ExternalPluginMenu(GObject.Object):
         elif view_name == QueueView.name:
             GLib.idle_add(self.shell.props.display_page_tree.select,
                           self.shell.props.queue_source)
+        elif view_name == PlaySourceView.name:
+            GLib.idle_add(self.shell.props.display_page_tree.select,
+                          self.plugin.playlist_source)
 
         return view_name

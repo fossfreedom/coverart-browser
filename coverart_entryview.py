@@ -96,14 +96,8 @@ class EntryViewPane(object):
         stack_switcher.set_stack(self.stack)
 
         style_context = self.stack.get_style_context()
-        
-        whatsplayingbutton = PressButton()
-        whatsplayingbutton.set_image(create_button_image_symbolic(style_context, 'whatsplaying-symbolic'))
-        whatsplayingbutton.connect('clicked', self.whatsplayingbutton_callback)
-        whatsplayingbutton.props.halign = Gtk.Align.START
 
         leftgrid = Gtk.Grid()
-        leftgrid.attach(whatsplayingbutton, 0, 0, 1, 1)
         leftgrid.attach(stack_switcher, 1, 0, 1, 1)
         self.entry_view_grid.attach(leftgrid, 0, 1, 1, 1)
 
@@ -139,9 +133,6 @@ class EntryViewPane(object):
 
         self.entry_view_grid.show_all()
         smallwindowbutton.set_visible(self.smallwindowext.is_activated())
-
-    def whatsplayingbutton_callback(self, widget):
-        self.entry_view_results.emit('whats-playing')
 
     def smallwindowbutton_callback(self, widget):
         if widget.get_active():
@@ -265,7 +256,7 @@ class EntryViewPane(object):
         # or if it is ours, then add automatically when nothing is playing
         autoplaylist = False
 
-        if player.get_playing_source() != self.source.playlist_source and player.get_playing_source() != self.source:
+        if player.get_playing_source() != self.plugin.playlist_source and player.get_playing_source() != self.source:
             autoplaylist = True
         elif not player.get_playing_entry():
             autoplaylist = True
@@ -304,8 +295,7 @@ class EntryViewPane(object):
 class ResultsGrid(Gtk.Grid):
     # signals
     __gsignals__ = {
-        'update-cover': (GObject.SIGNAL_RUN_LAST, None, (GObject.Object, RB.RhythmDBEntry)),
-        'whats-playing': (GObject.SIGNAL_RUN_LAST, None, ())
+        'update-cover': (GObject.SIGNAL_RUN_LAST, None, (GObject.Object, RB.RhythmDBEntry))
     }
     image_width = 0
 
@@ -387,7 +377,6 @@ class ResultsGrid(Gtk.Grid):
         self.cw = None
         self.hover_time_out = None
         self.connect('update-cover', self.update_cover)
-        self.connect('whats-playing', self.display_whats_playing)
 
         # lets fix the situation where some-themes background colour is incorrectly defined
         # in these cases the background colour is black
@@ -471,51 +460,6 @@ class ResultsGrid(Gtk.Grid):
         else:
             self.image2.queue_draw()
 
-    def display_whats_playing(self, *args):
-        '''
-          switch to the coverart_play_source
-
-          to do this we need to first expand the source tree to allow the select method to work
-
-          Unfortunately, rhythmbox api does not allow us to do this directly - there is only a toggle
-          method. Also - no direct access to the source tree-view.
-
-          Use a trick from alternative-toolbar to search for objects beneath other objects i.e.
-          tree-view is below the model
-
-        '''
-
-        def find(node, search_id, search_type):
-            if isinstance(node, Gtk.Buildable):
-                if search_type == 'by_id':
-                    if Gtk.Buildable.get_name(node) == search_id:
-                        return node
-                elif search_type == 'by_name':
-                    print (node.get_name())
-                    if node.get_name() == search_id:
-                        return node
-
-            if isinstance(node, Gtk.Container):
-                for child in node.get_children():
-                    ret = find(child, search_id, search_type)
-                    if ret:
-                        return ret
-            return None
-
-        tree_view = find(self.source.shell.props.display_page_tree, "GtkTreeView", "by_name")
-        if not tree_view:
-            tree_view = find(self.source.shell.props.display_page_tree, "AltToolbarSideBar", "by_name")
-
-        iter = Gtk.TreeIter()
-        self.source.shell.props.display_page_tree.props.model.find_page(self.source, iter)
-        path = self.source.shell.props.display_page_tree.props.model.get_path(iter)
-        print (iter)
-        print (path)
-
-        if not tree_view.row_expanded(path):
-            tree_view.expand_row(path, False)
-
-        GLib.idle_add( self.source.shell.props.display_page_tree.select, self.source.playlist_source)
 
     def window_resize(self, widget):
         alloc = self.get_allocation()

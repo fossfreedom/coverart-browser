@@ -69,7 +69,7 @@ class PlaySourceView(AbstractView):
         self.initialise(source)
 
         GLib.idle_add(self.shell.props.display_page_tree.select,
-                      source.playlist_source)
+                      source.plugin.playlist_source)
 
     def get_selected_objects(self):
         '''

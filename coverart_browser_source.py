@@ -45,6 +45,7 @@ from coverart_coverflowview import CoverFlowView
 from coverart_artistview import ArtistView
 from coverart_listview import ListView
 from coverart_queueview import QueueView
+from coverart_playsourceview import PlaySourceView
 from coverart_toolbar import ToolbarManager
 from coverart_artistinfo import ArtistInfoPane
 from coverart_external_plugins import CreateExternalPluginMenu
@@ -171,9 +172,10 @@ class CoverArtBrowserSource(RB.Source):
         self.hasActivated = True
 
         # define a query model that we'll use for playing
-        self.source_query_model = RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
+        self.source_query_model = self.plugin.source_query_model#RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
 
         # define the associated playsource so we can interact with this query model
+        '''
         self.playlist_source = GObject.new(
             CoverArtPlaySource,
             name=_("CoverArt Playlist"),
@@ -183,6 +185,7 @@ class CoverArtBrowserSource(RB.Source):
         self.playlist_source.initialise(self.plugin, self.shell, self)
         self.shell.append_display_page(self.playlist_source, self.plugin.source)
 
+        '''
         self._create_ui()
         self._setup_source()
         self._apply_settings()
@@ -1035,9 +1038,7 @@ class CoverArtBrowserSource(RB.Source):
     def propertiesbutton_callback(self, choice):
         print("properties chosen: %s" % choice)
 
-        if choice == 'playlist':
-            self.entryviewpane.entry_view_results.display_whats_playing()
-        elif choice == 'download':
+        if choice == 'download':
             self.request_status_box.show_all()
             self._cover_search_manager = self.viewmgr.current_view.get_default_manager()
             self._cover_search_manager.cover_man.search_covers(
@@ -1230,6 +1231,7 @@ class Views:
             from coverart_artistview import ArtistView
             from coverart_listview import ListView
             from coverart_queueview import QueueView
+            from coverart_playsourceview import PlaySourceView
             from coverart_browser_prefs import webkit_support
 
             library_name = shell.props.library_source.props.name
@@ -1251,8 +1253,8 @@ class Views:
                                            GLib.Variant.new_string('coverart-browser-list')]
             self._values[QueueView.name] = [queue_name,
                                             GLib.Variant.new_string('coverart-browser-queue')]
-            # self._values[PlaySourceView.name] = [_('CoverArt Playlist'),
-            #                                GLib.Variant.new_string('coverart-browser-playsource')]
+            self._values[PlaySourceView.name] = [_('CoverArt Playlist'),
+                                            GLib.Variant.new_string('coverart-browser-playsource')]
             cl.switch_locale(cl.Locale.RB)
             print(self._values)
 
@@ -1313,7 +1315,7 @@ class ViewManager(GObject.Object):
         self._views[CoverFlowView.name] = CoverFlowView()
         self._views[ListView.name] = ListView()
         self._views[QueueView.name] = QueueView()
-        # self._views[PlaySourceView.name] = PlaySourceView()
+        self._views[PlaySourceView.name] = PlaySourceView()
         ui.add_from_file(rb.find_plugin_file(source.plugin,
                                              'ui/coverart_artistview.ui'))
         self._views[ArtistView.name] = ui.get_object('artist_view')
