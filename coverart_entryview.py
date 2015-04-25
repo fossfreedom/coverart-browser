@@ -41,7 +41,6 @@ from coverart_external_plugins import ExternalPlugin
 from stars import ReactiveStar
 from coverart_search import CoverSearchPane
 from coverart_widgets import PixbufButton
-from coverart_widgets import PressButton
 from coverart_window import CoverWindow
 
 MIN_IMAGE_SIZE = 100
@@ -102,7 +101,8 @@ class EntryViewPane(object):
         self.entry_view_grid.attach(leftgrid, 0, 1, 1, 1)
 
         viewtoggle = PixbufButton()
-        viewtoggle.set_image(create_button_image_symbolic(style_context, 'entryview-symbolic'))
+        viewtoggle.set_image(symbolic='entryview-symbolic')
+        viewtoggle.set_margin_right(6)
         
         self.viewtoggle_id = None
 
@@ -112,7 +112,8 @@ class EntryViewPane(object):
         viewtoggle.connect('toggled', self.entry_view_toggled)
 
         smallwindowbutton = PixbufButton()
-        smallwindowbutton.set_image(create_button_image_symbolic(style_context, 'view-restore-symbolic'))
+        smallwindowbutton.set_image(symbolic='view-restore-symbolic')
+        smallwindowbutton.set_margin_right(6)
         smallwindowbutton.connect('toggled', self.smallwindowbutton_callback)
 
         self.smallwindowext = ExternalPlugin()

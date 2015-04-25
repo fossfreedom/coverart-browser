@@ -233,17 +233,28 @@ class PressButton(Gtk.Button):
         else:
             self.set_relief(Gtk.ReliefStyle.HALF)
 
-    def set_image(self, pixbuf):
+    def set_image(self, pixbuf=None, symbolic=None):
+        '''
+          set the image for the button
+        :param pixbuf: if given the image is set via a pixbuf
+        :param symbolic: if given, the image is set via a themed icon
+        :return:
+        '''
         image = self.get_image()
 
         if not image:
             image = Gtk.Image()
             super(PressButton, self).set_image(image)
 
-        if hasattr(self, "controller.enabled") and not self.controller.enabled:
-            pixbuf = self._getBlendedPixbuf(pixbuf)
+        if pixbuf:
+            if hasattr(self, "controller.enabled") and not self.controller.enabled:
+                pixbuf = self._getBlendedPixbuf(pixbuf)
 
-        self.get_image().set_from_pixbuf(pixbuf)
+            self.get_image().set_from_pixbuf(pixbuf)
+
+        if symbolic:
+            icon = Gio.ThemedIcon(name=symbolic)
+            self.get_image().set_from_gicon(icon, Gtk.IconSize.BUTTON)
 
         self.on_notify_button_relief()
 
@@ -296,17 +307,27 @@ class PixbufButton(EnhancedButton):
     def __init__(self, *args, **kwargs):
         super(PixbufButton, self).__init__(*args, **kwargs)
 
-    def set_image(self, pixbuf):
+    def set_image(self, pixbuf=None, symbolic=None):
+        '''
+         set the image for the button
+        :param pixbuf: if given, image is set from a pixbuf
+        :param symbolic: if given image is set from a symbolic name
+        :return:
+        '''
         image = self.get_image()
 
         if not image:
             image = Gtk.Image()
             super(PixbufButton, self).set_image(image)
 
-        if hasattr(self, "controller.enabled") and not self.controller.enabled:
-            pixbuf = self._getBlendedPixbuf(pixbuf)
+        if pixbuf:
+            if hasattr(self, "controller.enabled") and not self.controller.enabled:
+                pixbuf = self._getBlendedPixbuf(pixbuf)
 
-        self.get_image().set_from_pixbuf(pixbuf)
+            self.get_image().set_from_pixbuf(pixbuf)
+        if symbolic:
+            icon = Gio.ThemedIcon(name=symbolic)
+            self.get_image().set_from_gicon(icon, Gtk.IconSize.BUTTON)
 
         self.on_notify_button_relief()
 

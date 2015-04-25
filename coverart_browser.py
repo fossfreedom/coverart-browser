@@ -89,8 +89,7 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         theme = Gtk.IconTheme.get_default()
         theme.append_search_path(rb.find_plugin_file(self, 'img'))
         
-        iconfile = Gio.File.new_for_path(
-            rb.find_plugin_file(self, 'img/coverart-icon-symbolic.svg'))
+        iconfile = Gio.ThemedIcon(name = 'coverart-icon-symbolic')
 
         # our plugin model shared between sources
         self.source_query_model = RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
@@ -100,7 +99,7 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
             name=_("CoverArt"),
             entry_type=self.entry_type,
             plugin=self,
-            icon=Gio.FileIcon.new(iconfile),
+            icon=iconfile,
             query_model=self.shell.props.library_source.props.base_query_model)
 
         self.shell.register_entry_type_for_source(self.source, self.entry_type)
