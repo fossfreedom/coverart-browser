@@ -323,7 +323,7 @@ class ResultsGrid(Gtk.Grid):
         self.image2.props.vexpand = True
         self.stack.add_named(self.image2, "image2")
 
-        self.frame = Gtk.Frame.new()  # "", 0.5, 0.5, 1, False)
+        self.frame = Gtk.Frame.new()
         try:
             # correct from Gtk 3.12 onwards
             self.frame.set_margin_end(5)
@@ -385,6 +385,8 @@ class ResultsGrid(Gtk.Grid):
         if bg_colour == Gdk.RGBA(0, 0, 0, 0):
             color = context.get_color(Gtk.StateFlags.NORMAL)
             self.override_background_color(Gtk.StateType.NORMAL, color)
+            
+        context.add_class(Gtk.STYLE_CLASS_SIDEBAR)
 
     '''
       when a show, show_all is used lets make sure we set the icon visibility correctly
