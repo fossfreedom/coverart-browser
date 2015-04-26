@@ -376,7 +376,8 @@ class IdleCallIterator(object):
     def __call__(self, iterator, **data):
         self._iter = iterator
 
-        Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE, self._idle_call, data)
+        #Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE, self._idle_call, data)
+        GLib.idle_add(self._idle_call, data)
 
     def _idle_call(self, data):
         if self._stop:

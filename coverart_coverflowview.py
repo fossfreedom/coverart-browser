@@ -139,7 +139,7 @@ class CoverFlowView(AbstractView):
                 self._filter_changed_event = False
                 return True
 
-        Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250, filter_events, None)
+        GLib.timeout_add(250, filter_events, None)
 
 
     def _filter_changed(self, *args):
@@ -202,15 +202,14 @@ class CoverFlowView(AbstractView):
         string = string.replace('#ITEMS', items)
 
         base = os.path.dirname(path) + "/"
-        Gdk.threads_enter()
+        #Gdk.threads_enter()
         print(string)
         self.view.load_string(string, "text/html", "UTF-8", "file://" + base)
-        Gdk.threads_leave()
+        #Gdk.threads_leave()
 
         if self._on_first_use:
             self._on_first_use = False
-            Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
-                                    self.source.show_hide_pane, (self.last_album, PanedCollapsible.Paned.EXPAND))
+            GLib.timeout_add(250, self.source.show_hide_pane, (self.last_album, PanedCollapsible.Paned.EXPAND))
 
     def get_view_icon_name(self):
         return "flowview.png"
@@ -276,8 +275,7 @@ class CoverFlowView(AbstractView):
         self.last_album = album
 
         if self.source.click_count == 1:
-            Gdk.threads_add_timeout(GLib.PRIORITY_DEFAULT_IDLE, 250,
-                                    self.source.show_hide_pane, album)
+            GLib.timeout_add(250, self.source.show_hide_pane, album)
 
     def item_activated_callback(self, album):
         '''
