@@ -129,7 +129,7 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         print("CoverArtBrowser DEBUG - do_deactivate")
         self.source.delete_thyself()
         if self._externalmenu:
-            self._externalmenu.cleanup()
+            self._externalmenu.cleanup(full_cleanup=True)
         del self.shell
         del self.db
         del self.source
@@ -226,7 +226,7 @@ class ExternalPluginMenu(GObject.Object):
         print ("headerbar_toolbar_completed")
         # if we are using the alternative_toolbar and headerbar then setup the switch
         # which will control access to the various views
-        self.shell.alternative_toolbar.toolbar_type.connect('song-category-clicked', 
+        self._sh_hcc = self.shell.alternative_toolbar.toolbar_type.connect('song-category-clicked',
                                                             self._headerbar_category_clicked)
         self._add_coverart_header_switch()
         
@@ -244,13 +244,23 @@ class ExternalPluginMenu(GObject.Object):
         else:
             self.cleanup()
 
-    def cleanup(self):
+    def cleanup(self, full_cleanup = False):
         # for standard menu control, cleanup where necessary
         if self.app_id:
             app = Gio.Application.get_default()
             for location in self.locations:
                 app.remove_plugin_menu_item(location, self.app_id)
             self.app_id = None
+
+        if not self._use_standard_control and full_cleanup:
+            self.shell.alternative_toolbar.toolbar_type.stack.remove(self._box_coverview)
+            self.shell.alternative_toolbar.toolbar_type.stack.disconnect(self._sh_stack_id)
+            self.shell.alternative_toolbar.toolbar_type.disconnect(self._sh_hcc)
+            self.shell.alternative_toolbar.toolbar_type.headerbar.remove(self.stack_switcher)
+            self.stack_switcher = None
+            self._sh_stack_id = None
+            self._sh_hcc = None
+
 
     def _create_menu(self):
         # for the standard menu control button add the button
@@ -292,17 +302,17 @@ class ExternalPluginMenu(GObject.Object):
         
     def _add_coverart_header_switch(self):
         # define the header switch control + stack control for coverart
-        box_coverview = Gtk.Box()
+        self._box_coverview = Gtk.Box()
         image_name = 'view-cover-symbolic'
         stack = self.shell.alternative_toolbar.toolbar_type.stack
-        stack.add_named(box_coverview, "coverview")
-        stack.child_set_property(box_coverview, "icon-name", image_name)
+        stack.add_named(self._box_coverview, "coverview")
+        stack.child_set_property(self._box_coverview, "icon-name", image_name)
         
         self.stack_switcher = Gtk.StackSwitcher()
         self.stack_switcher.set_stack(stack)
         self.stack_switcher.show_all()
         self.stack_switcher.set_sensitive(False)
-        
+
         self.shell.alternative_toolbar.toolbar_type.headerbar.pack_start(self.stack_switcher)
         
         # create a treeview and store for all views coverart supports
@@ -317,9 +327,9 @@ class ExternalPluginMenu(GObject.Object):
         tree.connect('button-press-event', self._tree_row_click)
         self.tree = tree
         
-        box_coverview.pack_start(tree, True, True, 0)
+        self._box_coverview.pack_start(tree, True, True, 0)
         
-        stack.connect('notify::visible-child-name', self._change_stack)
+        self._sh_stack_id = stack.connect('notify::visible-child-name', self._change_stack)
         stack.show_all()
         self.stack = stack
         
