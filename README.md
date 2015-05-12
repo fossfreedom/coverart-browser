@@ -24,6 +24,8 @@ If you have reached here looking for the stable version of the plugin please rea
 
 ##Summary: whats new in this release
 
+ - Support for Alternative-Toolbar & Headerbar - add view switcher to headerbar and remove from source toolbars
+ - Support for Alternative-Toolbar - Toggle between views and sources in sidepane
  - Export and Embed dialog remembers field values between openings
  - chosen playlist are persistent between rhythmbox sessions
  - Add CoverArt Playlist to the same menu-button as other views
