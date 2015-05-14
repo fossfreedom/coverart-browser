@@ -25,6 +25,7 @@ If you have reached here looking for the stable version of the plugin please rea
 ##Summary: whats new in this release
 
  - Export and Embed dialog remembers field values between openings
+ - Quicker startup of plugin
  - chosen playlist are persistent between rhythmbox sessions
  - Add CoverArt Playlist to the same menu-button as other views
  - Remove separate CoverArt Playlist icon on track-view

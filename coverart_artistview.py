@@ -803,11 +803,17 @@ class ArtistView(Gtk.TreeView, AbstractView):
         if self._has_initialised:
             return
 
+        print ("##########")
         self._has_initialised = True
 
         self.view_name = "artist_view"
         super(ArtistView, self).initialise(source)
         self.album_manager = source.album_manager
+        if self.album_manager.has_loaded:
+            self.album_manager.artist_man.loader.load_artists()
+        else:
+            self.album_manager.connect('has-loaded', self._load_artists)
+
         self.shell = source.shell
         self.props.has_tooltip = True
 
@@ -884,6 +890,9 @@ class ArtistView(Gtk.TreeView, AbstractView):
         self.connect('button-press-event', self._row_click)
         self.get_selection().connect('changed', self._selection_changed)
         self.connect('query-tooltip', self._query_tooltip)
+
+    def _load_artists(self, *args):
+        self.album_manager.artist_man.loader.load_artists()
 
     def _artist_sort_clicked(self, *args):
         # in the absence of an apparent way to remove the unsorted default_sort_func

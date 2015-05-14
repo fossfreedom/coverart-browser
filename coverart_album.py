@@ -1818,7 +1818,8 @@ class AlbumManager(GObject.Object):
 
     # signals
     __gsignals__ = {
-        'sort': (GObject.SIGNAL_RUN_LAST, None, (object,))
+        'sort': (GObject.SIGNAL_RUN_LAST, None, (object,)),
+        'has-loaded': (GObject.SIGNAL_RUN_LAST, None, ())
     }
 
 
@@ -1828,6 +1829,7 @@ class AlbumManager(GObject.Object):
         self.current_view = current_view
         self.db = plugin.shell.props.db
 
+        self.has_loaded = False
         self.model = AlbumsModel()
 
         # initialize managers
@@ -1858,5 +1860,7 @@ class AlbumManager(GObject.Object):
             self.model.sort()
 
     def _load_finished_callback(self, *args):
-        self.artist_man.loader.load_artists()
+        #self.artist_man.loader.load_artists()
+        self.emit('has-loaded')
+        self.has_loaded = True
         self.cover_man.load_covers()
