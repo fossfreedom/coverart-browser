@@ -115,8 +115,16 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
 
         self.shell.append_display_page(self.playlist_source, self.source)
 
-        self.source.props.query_model.connect('complete', self.load_complete)
-        GLib.timeout_add_seconds(3, self.load_complete) # kludge - if plugin activated after RB has loaded then do stuff
+        self.shell.props.db.connect('load-complete', self.load_complete)
+        # GLib.timeout_add_seconds(3, self.load_complete) # kludge - if plugin activated after RB has loaded then do stuff
+        def delayed(*args):
+            if self.shell.props.selected_page:
+                self._externalmenu = ExternalPluginMenu(self)
+                return False
+            else:
+                return True
+
+        GLib.timeout_add(100, delayed)
         
         cl.switch_locale(cl.Locale.RB)
         print("CoverArtBrowser DEBUG - end do_activate")
@@ -143,17 +151,11 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         has set in the preferences
         '''
         
-        if self._externalmenu:
-            return False # we've been through here before so nothing to do
-            
-        self._externalmenu = ExternalPluginMenu(self)
-        
         gs = GSetting()
         setting = gs.get_setting(gs.Path.PLUGIN)
 
         if setting[gs.PluginKey.AUTOSTART]:
-            GLib.idle_add(self.shell.props.display_page_tree.select,
-                          self.source)
+            self._externalmenu.autostart_source()
 
     def _translation_helper(self):
         '''
@@ -221,6 +223,18 @@ class ExternalPluginMenu(GObject.Object):
             )
             
             self._create_menu()
+
+    def autostart_source(self):
+        self.source.props.visibility = True
+
+        if self._use_standard_control:
+            GLib.timeout_add(1000, self.shell.props.display_page_tree.select,
+                             self.source)
+
+        else:
+            # mimic user clicking category button and cover switch
+            self.shell.alternative_toolbar.toolbar_type.library_browser_radiobutton.set_active(True)
+            self.shell.alternative_toolbar.toolbar_type.stack.set_visible_child_name("coverview")
             
     def _headerbar_toolbar_completed(self, *args):
         print ("headerbar_toolbar_completed")
