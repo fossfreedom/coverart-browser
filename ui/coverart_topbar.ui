@@ -179,8 +179,9 @@
           <object class="TextPopupButton" id="view_button">
             <property name="label" translatable="no">…</property>
             <property name="use_action_appearance">False</property>
-            <property name="visible">True</property>
+            <property name="visible">False</property>
             <property name="can_focus">True</property>
+            <property name="no_show_all">True</property>
             <property name="receives_default">False</property>
             <property name="halign">center</property>
             <property name="use_action_appearance">False</property>

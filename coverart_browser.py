@@ -79,6 +79,14 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         self.entry_type = CoverArtBrowserEntryType()
         self.db.register_entry_type(self.entry_type)
 
+        # we do some specific functionality when working with alternative toolbar
+        self.using_alternative_toolbar = hasattr(self.shell, 'alternative_toolbar')
+        self.using_headerbar = False
+        if self.using_alternative_toolbar:
+            from alttoolbar_type import AltToolbarHeaderBar
+            self.using_headerbar = isinstance(self.shell.alternative_toolbar.toolbar_type, AltToolbarHeaderBar)
+
+
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
 
@@ -197,17 +205,12 @@ class ExternalPluginMenu(GObject.Object):
         self._views = Views(self.shell)
 
         self._use_standard_control = True
-        print ("1")
-        if hasattr(self.shell, "alternative_toolbar"):
-            print ("2")
-            from alttoolbar_type import AltToolbarHeaderBar
-        
-            if isinstance(self.shell.alternative_toolbar.toolbar_type, AltToolbarHeaderBar):
-                self._use_standard_control = False
+        if self.plugin.using_headerbar:
+            self._use_standard_control = False
     
-                # register with headerbar to complete the setup for coverart-browser
-                print ("registering")
-                self.shell.alternative_toolbar.toolbar_type.setup_completed_async(self._headerbar_toolbar_completed) 
+            # register with headerbar to complete the setup for coverart-browser
+            print ("registering")
+            self.shell.alternative_toolbar.toolbar_type.setup_completed_async(self._headerbar_toolbar_completed)
                     
         if self._use_standard_control:
             # ... otherwise just use the standard menubutton approach

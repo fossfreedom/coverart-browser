@@ -89,6 +89,9 @@ class Toolbar(GObject.Object):
         style_context = self.builder.get_style_context()
         style_context.add_class(Gtk.STYLE_CLASS_TOOLBAR)
 
+        view_button = builder.get_object(ToolbarObject.VIEW)
+        view_button.set_visible(not self.plugin.using_headerbar)
+
     def _theme_changed(self, toolbar, controllers):
         for controller in list(controllers.values()):
             controller.update_images(True)
@@ -175,17 +178,22 @@ class ToolbarManager(GObject.Object):
                                                      controllers)
 
         self.last_toolbar_pos = None
+
+        # if the alternative-toolbar is loaded then lets connect to the toolbar-visibility signal
+        # to control our sources toolbar visibility
+
+        if self.plugin.using_alternative_toolbar:
+            if self.plugin.using_headerbar:
+                self.toolbar_pos = TopToolbar.name # we dont allow other toolbar position with headerbar
+                self._on_notify_toolbar_pos()
+
+            self.plugin.shell.alternative_toolbar.connect('toolbar-visibility', self._visibility)
+
         # connect signal and properties
         self._connect_signals()
         self._connect_properties()
 
         self._controllers = controllers
-
-        # if the alternative-toolbar is loaded then lets connect to the toolbar-visibility signal
-        # to control our sources toolbar visibility
-
-        if hasattr(self.plugin.shell, 'alternative_toolbar'):
-            self.plugin.shell.alternative_toolbar.connect('toolbar-visibility', self._visibility)
 
     def _visibility(self, altplugin, value):
         if value:
@@ -209,13 +217,15 @@ class ToolbarManager(GObject.Object):
                 self._controllers[controller].enabled = enabled
 
     def _connect_signals(self):
-        self.connect('notify::toolbar-pos', self._on_notify_toolbar_pos)
+        if not self.plugin.using_headerbar:
+            self.connect('notify::toolbar-pos', self._on_notify_toolbar_pos)
 
     def _connect_properties(self):
-        gs = GSetting()
-        setting = gs.get_setting(gs.Path.PLUGIN)
-        setting.bind(gs.PluginKey.TOOLBAR_POS, self, 'toolbar_pos',
-                     Gio.SettingsBindFlags.GET)
+        if not self.plugin.using_headerbar:
+            gs = GSetting()
+            setting = gs.get_setting(gs.Path.PLUGIN)
+            setting.bind(gs.PluginKey.TOOLBAR_POS, self, 'toolbar_pos',
+                         Gio.SettingsBindFlags.GET)
 
     def _create_controllers(self, plugin, viewmgr):
         controllers = {}
