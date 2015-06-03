@@ -80,12 +80,9 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         self.db.register_entry_type(self.entry_type)
 
         # we do some specific functionality when working with alternative toolbar
-        self.using_alternative_toolbar = hasattr(self.shell, 'alternative_toolbar')
+        # variables defined by the externalpluginmenu
+        self.using_alternative_toolbar = False
         self.using_headerbar = False
-        if self.using_alternative_toolbar:
-            from alttoolbar_type import AltToolbarHeaderBar
-            self.using_headerbar = isinstance(self.shell.alternative_toolbar.toolbar_type, AltToolbarHeaderBar)
-
 
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
@@ -205,6 +202,11 @@ class ExternalPluginMenu(GObject.Object):
         self._views = Views(self.shell)
 
         self._use_standard_control = True
+        self.plugin.using_alternative_toolbar = hasattr(self.shell, 'alternative_toolbar')
+        if self.plugin.using_alternative_toolbar:
+            from alttoolbar_type import AltToolbarHeaderBar
+            self.plugin.using_headerbar = isinstance(self.shell.alternative_toolbar.toolbar_type, AltToolbarHeaderBar)
+
         if self.plugin.using_headerbar:
             self._use_standard_control = False
     
@@ -270,8 +272,8 @@ class ExternalPluginMenu(GObject.Object):
             self.app_id = None
 
         if not self._use_standard_control and full_cleanup:
-            self.shell.alternative_toolbar.toolbar_type.stack.remove(self._box_coverview)
             self.shell.alternative_toolbar.toolbar_type.stack.disconnect(self._sh_stack_id)
+            self.shell.alternative_toolbar.toolbar_type.stack.remove(self._box_coverview)
             self.shell.alternative_toolbar.toolbar_type.disconnect(self._sh_hcc)
             self.shell.alternative_toolbar.toolbar_type.headerbar.remove(self.stack_switcher)
             self.stack_switcher = None
