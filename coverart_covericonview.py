@@ -121,7 +121,7 @@ class CellRendererThumb(Gtk.CellRendererPixbuf):
         PangoCairo.show_layout(cr, pango_layout)
 
 
-class AlbumArtCellArea(Gtk.CellAreaBox):
+class CoverArtCellArea(Gtk.CellAreaBox):
     font_family = GObject.property(type=str, default="Sans")
     font_size = GObject.property(type=int, default=10)
     cover_size = GObject.property(type=int, default=0)
@@ -130,22 +130,31 @@ class AlbumArtCellArea(Gtk.CellAreaBox):
     add_shadow = GObject.property(type=bool, default=False)
     hover_pixbuf = GObject.property(type=object, default=None)
     text_alignment = GObject.property(type=int, default=1)
+    display_text_enabled = GObject.property(type=bool, default=False)
 
-    def __init__(self, ):
-        super(AlbumArtCellArea, self).__init__()
+    def __init__(self, pixbuf_column, markup_column):
+        super(CoverArtCellArea, self).__init__()
 
         self.font_description = Pango.FontDescription.new()
         self.font_description.set_family(self.font_family)
         self.font_description.set_size(int(self.font_size * Pango.SCALE))
 
+        # custom text renderer
+        self._text_renderer = None
+
         self._connect_properties()
+        self._connect_signals()
 
         # Add own cellrenderer
         renderer_thumb = CellRendererThumb(self.font_description, self)
 
         self.pack_start(renderer_thumb, False, False, False)
-        self.attribute_connect(renderer_thumb, "pixbuf", AlbumsModel.columns['pixbuf'])
-        self.attribute_connect(renderer_thumb, "markup", AlbumsModel.columns['markup'])
+        self.attribute_connect(renderer_thumb, "pixbuf", pixbuf_column)
+        self.attribute_connect(renderer_thumb, "markup", markup_column)
+
+        self._markup_column = markup_column
+
+        self._activate_markup()
         self.props.spacing = 2
 
     def _connect_properties(self):
@@ -167,6 +176,55 @@ class AlbumArtCellArea(Gtk.CellAreaBox):
         setting.bind(gs.PluginKey.TEXT_ALIGNMENT, self, 'text-alignment',
                      Gio.SettingsBindFlags.GET)
 
+        setting.bind(gs.PluginKey.DISPLAY_TEXT, self,
+                     'display_text_enabled', Gio.SettingsBindFlags.GET)
+
+    def _connect_signals(self):
+        self.connect('notify::display-text-enabled',
+                     self._activate_markup)
+        self.connect('notify::display-text-pos',
+                     self._activate_markup)
+        self.connect('notify::text-alignment',
+                     self._create_and_configure_renderer)
+
+
+    def _create_and_configure_renderer(self, *args):
+        if not self._text_renderer:
+            # Add own cellrenderer
+            self._text_renderer = Gtk.CellRendererText()
+
+        self._text_renderer.props.alignment = self.text_alignment
+        self._text_renderer.props.wrap_mode = Pango.WrapMode.WORD
+        if self.text_alignment == 1:
+            self._text_renderer.props.xalign = 0.5
+        elif self.text_alignment == 0:
+            self._text_renderer.props.xalign = 0
+        else:
+            self._text_renderer.props.xalign = 1
+
+        self._text_renderer.props.yalign = 0
+        self._text_renderer.props.width = \
+            self.cover_size
+        self._text_renderer.props.wrap_width = \
+            self.cover_size
+
+    def _activate_markup(self, *args):
+        '''
+        Utility method to activate/deactivate the markup text on the
+        cover view.
+        '''
+        if self.display_text_enabled and self.display_text_pos:
+            if not self._text_renderer:
+                # create and configure the custom cell renderer
+                self._create_and_configure_renderer()
+
+            # set the renderer
+            self.pack_end(self._text_renderer, False,  False, False)
+            self.add_attribute(self._text_renderer,
+                               'markup', self._markup_column)
+        elif self._text_renderer:
+            # remove the cell renderer
+            self.remove(self._text_renderer)
 
     def calc_play_icon_offset(self, initial_x_offset, initial_y_offset):
         '''
@@ -257,6 +315,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
 
     display_text_enabled = GObject.property(type=bool, default=False)
     display_text_pos = GObject.property(type=bool, default=False)
+
     name = 'coverview'
     panedposition = PanedCollapsible.Paned.COLLAPSE
     text_alignment = GObject.property(type=int, default=1)
@@ -266,11 +325,12 @@ class CoverIconView(EnhancedIconView, AbstractView):
     }
 
     def __init__(self, *args, **kwargs):
-        super(CoverIconView, self).__init__(cell_area=AlbumArtCellArea(), *args, **kwargs)
+        super(CoverIconView, self).__init__(cell_area=CoverArtCellArea(
+            AlbumsModel.columns['pixbuf'],
+            AlbumsModel.columns['markup']
+        ), *args, **kwargs)
 
         self.gs = GSetting()
-        # custom text renderer
-        self._text_renderer = None
         self.show_policy = AlbumShowingPolicy(self)
         self.view = self
         self._has_initialised = False
@@ -377,13 +437,9 @@ class CoverIconView(EnhancedIconView, AbstractView):
                      self.on_notify_icon_spacing)
         self.connect('notify::icon-padding',
                      self.on_notify_icon_padding)
+        self.connect("motion-notify-event", self.on_pointer_motion)
         self.connect('notify::display-text-enabled',
                      self._activate_markup)
-        self.connect('notify::display-text-pos',
-                     self._activate_markup)
-        self.connect('notify::text-alignment',
-                     self._create_and_configure_renderer)
-        self.connect("motion-notify-event", self.on_pointer_motion)
 
         self.add_events(Gdk.EventMask.SCROLL_MASK)
         self.connect("scroll-event", self.on_scroll_event)
@@ -691,43 +747,11 @@ class CoverIconView(EnhancedIconView, AbstractView):
         self.set_row_spacing(self.icon_spacing)
         self.set_column_spacing(self.icon_spacing)
 
-    def _create_and_configure_renderer(self, *args):
-        if not self._text_renderer:
-            # Add own cellrenderer
-            self._text_renderer = Gtk.CellRendererText()
-
-        self._text_renderer.props.alignment = self.text_alignment
-        self._text_renderer.props.wrap_mode = Pango.WrapMode.WORD
-        if self.text_alignment == 1:
-            self._text_renderer.props.xalign = 0.5
-        elif self.text_alignment == 0:
-            self._text_renderer.props.xalign = 0
-        else:
-            self._text_renderer.props.xalign = 1
-
-        self._text_renderer.props.yalign = 0
-        self._text_renderer.props.width = \
-            self.album_manager.cover_man.cover_size
-        self._text_renderer.props.wrap_width = \
-            self.album_manager.cover_man.cover_size
-
     def _activate_markup(self, *args):
         '''
         Utility method to activate/deactivate the markup text on the
         cover view.
         '''
-        if self.display_text_enabled and self.display_text_pos:
-            if not self._text_renderer:
-                # create and configure the custom cell renderer
-                self._create_and_configure_renderer()
-
-            # set the renderer
-            self.pack_end(self._text_renderer, False)
-            self.add_attribute(self._text_renderer,
-                               'markup', AlbumsModel.columns['markup'])
-        elif self._text_renderer:
-            # remove the cell renderer
-            self.props.cell_area.remove(self._text_renderer)
 
         if self.display_text_enabled:
             self.set_tooltip_column(-1)  # turnoff tooltips

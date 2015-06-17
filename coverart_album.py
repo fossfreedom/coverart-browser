@@ -48,15 +48,11 @@ from coverart_utils import dumpstack
 from coverart_utils import check_lastfm
 import rb
 
-
-
-
 # default chunk of entries to process when loading albums
 ALBUM_LOAD_CHUNK = 50
 
 # default chunk of albums to process when loading covers
 COVER_LOAD_CHUNK = 5
-
 
 class Cover(GObject.Object):
     '''
@@ -1420,7 +1416,10 @@ class CoverManager(GObject.Object):
     # properties
     has_finished_loading = False
     force_lastfm_check = False
+
     cover_size = GObject.property(type=int, default=0)
+    add_shadow = GObject.property(type=bool, default=False)
+    shadow_image = GObject.property(type=str, default="above")
 
     def __init__(self, plugin, manager):
         super(CoverManager, self).__init__()
@@ -1429,12 +1428,36 @@ class CoverManager(GObject.Object):
         self._requester = CoverRequester(self.cover_db)
 
         self.unknown_cover = None  #to be defined by inherited class
-        self.album_manager = None  #to be defined by inherited class
+
+        self._connect_properties()
+        self._connect_signals(plugin)
+
+        # create unknown cover and shadow for covers
+        self.create_unknown_cover(plugin)
+
+
+    def _connect_signals(self, plugin):
+        self.connect('notify::cover-size', self._on_cover_size_changed)
+        self.connect('notify::add-shadow', self._on_add_shadow_changed, plugin)
+        self.connect('notify::shadow-image', self._on_add_shadow_changed,
+                     plugin)
 
         # connect the signal to update cover arts when added
         self.req_id = self.cover_db.connect('added',
                                             self.coverart_added_callback)
         self.connect('load-finished', self._on_load_finished)
+
+
+    def _connect_properties(self):
+        gs = GSetting()
+        setting = gs.get_setting(gs.Path.PLUGIN)
+
+        setting.bind(gs.PluginKey.COVER_SIZE, self, 'cover_size',
+                     Gio.SettingsBindFlags.GET)
+        setting.bind(gs.PluginKey.ADD_SHADOW, self, 'add_shadow',
+                     Gio.SettingsBindFlags.GET)
+        setting.bind(gs.PluginKey.SHADOW_IMAGE, self, 'shadow_image',
+                     Gio.SettingsBindFlags.GET)
 
     def _on_load_finished(self, *args):
         self.has_finished_loading = True
@@ -1445,7 +1468,7 @@ class CoverManager(GObject.Object):
             self.load_cover(coverobject)
 
         def finish(data):
-            self.album_manager.progress = 1
+            self._manager.progress = 1
             gc.collect()
             self.emit('load-finished')
 
@@ -1456,16 +1479,25 @@ class CoverManager(GObject.Object):
             data['progress'] += COVER_LOAD_CHUNK
 
             # update the progress
-            self.album_manager.progress = data['progress'] / data['total']
+            self._manager.progress = data['progress'] / data['total']
 
         return COVER_LOAD_CHUNK, process, after, error, finish
+
+    def create_cover(self, image):
+        if self.add_shadow:
+            print ("add shadow")
+            cover = ShadowedCover(self.shadow, image)
+        else:
+            cover = Cover(self.cover_size, image)
+
+        return cover
 
     def create_unknown_cover(self, plugin):
         # set the unknown cover to the requester to make comparisons
         self._requester.unknown_cover = self.unknown_cover
 
-    def create_cover(self, image):
-        return Cover(self.cover_size, image)
+    #def create_cover(self, image):
+    #    return Cover(self.cover_size, image)
 
     def coverart_added_callback(self, ext_db, key, path, pixbuf):
         # use the name to get the album and update it's cover
@@ -1477,12 +1509,12 @@ class CoverManager(GObject.Object):
 
     def load_cover(self, coverobject):
         '''
-        Tries to load an Album's cover. If no cover is found upon lookup,
+        Tries to load a cover. If no cover is found upon lookup,
         the unknown cover is used.
         This method doesn't actively tries to find a cover, for that you should
         use the search_cover method.
 
-        :param album: `Album` for which load the cover.
+        :param coverobject: cover type for which load the cover e.g. Album.
         '''
         # create a key and look for the art location
         key = coverobject.create_ext_db_key()
@@ -1500,7 +1532,7 @@ class CoverManager(GObject.Object):
 
     def load_covers(self):
         '''
-        Loads all the covers for the model's albums.
+        Loads all the covers for the model.
         '''
         # get all the coverobjects
         coverobjects = self._manager.model.get_all()
@@ -1509,14 +1541,14 @@ class CoverManager(GObject.Object):
 
     def search_covers(self, coverobjects=None, callback=lambda *_: None):
         '''
-        Request all the albums' covers, one by one, periodically calling a
+        Request all the covers, one by one, periodically calling a
         callback to inform the status of the process.
-        The callback should accept one argument: the album which cover is
+        The callback should accept one argument: the coverobject (e.g. album) which cover is
         being requested. When the argument passed is None, it means the
         process has finished.
 
-        :param albums: `list` of `Album` for which look for covers.
-        :param callback: `callable` to periodically inform when an album's
+        :param coverobjects: `list` of coverobjects for which look for covers.
+        :param callback: `callable` to periodically inform when a coverobject
             cover is being searched.
         '''
         if not check_lastfm(self.force_lastfm_check):
@@ -1547,6 +1579,35 @@ class CoverManager(GObject.Object):
     def update_pixbuf_cover(self, coverobject, pixbuf):
         pass
 
+    def _on_add_shadow_changed(self, obj, prop, plugin):
+        # update the unknown_cover
+        self.shadow = Shadow(self.cover_size,
+                              rb.find_plugin_file(plugin, 'img/album-shadow-%s.png' %
+                                                  self.shadow_image))
+
+        self.create_unknown_cover(plugin)
+
+        # recreate all the covers
+        self.load_covers()
+
+    def _on_cover_size_changed(self, *args):
+        '''
+        Updates the showing cover size.
+        '''
+        # update the shadow
+        self.shadow.resize(self.cover_size)
+
+        # update coverview item width
+        self.update_item_width()
+
+        # update the covers
+        coverobjects = self._manager.model.get_all()
+
+        self._resize_covers(iter(coverobjects), total=len(coverobjects), progress=0.)
+
+    def update_item_width(self):
+        self._manager.current_view.resize_icon(self.cover_size)
+
     def update_cover(self, coverobject, pixbuf=None, uri=None):
         '''
         Updates the cover database, inserting the pixbuf as the cover art for
@@ -1555,7 +1616,7 @@ class CoverManager(GObject.Object):
         retrieve an image from the uri, then recall this method with the
         obtained pixbuf.
 
-        :param album: `Album` for which the cover is.
+        :param coverobject: object for which the cover is a type of e.g. album.
         :param pixbuf: `GkdPixbuf.Pixbuf` to use as a cover.
         :param uri: `str` from where we should try to retrieve an image.
         '''
@@ -1590,82 +1651,43 @@ class CoverManager(GObject.Object):
                 async = rb.Loader()
                 async.get_url(uri, cover_update, coverobject)
 
+    @idle_iterator
+    def _resize_covers(self):
+        def process(coverobject, data):
+            coverobject.cover.resize(self.cover_size)
+
+        def finish(data):
+            self._manager.progress = 1
+            self.emit('load-finished')
+
+        def error(exception):
+            print("Error while resizing covers: " + str(exception))
+
+        def after(data):
+            data['progress'] += COVER_LOAD_CHUNK
+
+            # update the progress
+            self._manager.progress = data['progress'] / data['total']
+
+        return COVER_LOAD_CHUNK, process, after, error, finish
+
 
 class AlbumCoverManager(CoverManager):
-    # properties
-    add_shadow = GObject.property(type=bool, default=False)
-    shadow_image = GObject.property(type=str, default="above")
 
     def __init__(self, plugin, album_manager):
         self.cover_db = RB.ExtDB(name='album-art')
         super(AlbumCoverManager, self).__init__(plugin, album_manager)
 
-        self.album_manager = album_manager
-        self._connect_properties()
-        self._connect_signals(plugin)
-
-        # create unknown cover and shadow for covers
-        self.create_unknown_cover(plugin)
-
-    def _connect_signals(self, plugin):
-        self.connect('notify::cover-size', self._on_cover_size_changed)
-        self.connect('notify::add-shadow', self._on_add_shadow_changed, plugin)
-        self.connect('notify::shadow-image', self._on_add_shadow_changed,
-                     plugin)
-
-    def _connect_properties(self):
-        gs = GSetting()
-        setting = gs.get_setting(gs.Path.PLUGIN)
-
-        setting.bind(gs.PluginKey.COVER_SIZE, self, 'cover_size',
-                     Gio.SettingsBindFlags.GET)
-        setting.bind(gs.PluginKey.ADD_SHADOW, self, 'add_shadow',
-                     Gio.SettingsBindFlags.GET)
-        setting.bind(gs.PluginKey.SHADOW_IMAGE, self, 'shadow_image',
-                     Gio.SettingsBindFlags.GET)
-
     def create_unknown_cover(self, plugin):
         # create the unknown cover
-        self._shadow = Shadow(self.cover_size,
+        self.shadow = Shadow(self.cover_size,
                               rb.find_plugin_file(plugin, 'img/album-shadow-%s.png' %
                                                   self.shadow_image))
+
         self.unknown_cover = self.create_cover(
             rb.find_plugin_file(plugin, 'img/rhythmbox-missing-artwork.svg'))
 
         super(AlbumCoverManager, self).create_unknown_cover(plugin)
-
-    def create_cover(self, image):
-        if self.add_shadow:
-            cover = ShadowedCover(self._shadow, image)
-        else:
-            cover = Cover(self.cover_size, image)
-
-        return cover
-
-    def _on_add_shadow_changed(self, obj, prop, plugin):
-        # update the unknown_cover
-        self.create_unknown_cover(plugin)
-
-        # recreate all the covers
-        self.load_covers()
-
-    def _on_cover_size_changed(self, *args):
-        '''
-        Updates the showing albums cover size.
-        '''
-        # update the shadow
-        self._shadow.resize(self.cover_size)
-
-        # update coverview item width
-        self.update_item_width()
-
-        # update the album's covers
-        albums = self.album_manager.model.get_all()
-
-        self._resize_covers(iter(albums), total=len(albums), progress=0.)
-
-    def update_item_width(self):
-        self.album_manager.current_view.resize_icon(self.cover_size)
 
     def update_pixbuf_cover(self, coverobject, pixbuf):
         # if it's a pixbuf, assign it to all the artist for the album
@@ -1682,44 +1704,22 @@ class AlbumCoverManager(CoverManager):
             self.cover_db.store(key, RB.ExtDBSourceType.USER_EXPLICIT,
                                 pixbuf)
 
-    @idle_iterator
-    def _resize_covers(self):
-        def process(coverobject, data):
-            coverobject.cover.resize(self.cover_size)
-
-        def finish(data):
-            self.album_manager.progress = 1
-            self.emit('load-finished')
-
-        def error(exception):
-            print("Error while resizing covers: " + str(exception))
-
-        def after(data):
-            data['progress'] += COVER_LOAD_CHUNK
-
-            # update the progress
-            self.album_manager.progress = data['progress'] / data['total']
-
-        return COVER_LOAD_CHUNK, process, after, error, finish
-
-
-class TextManager(GObject.Object):
+class BaseTextManager(GObject.Object):
     '''
     Manager that keeps control of the text options for the model's markup text.
     It takes care of creating the text for the model when requested to do it.
 
-    :param album_manager: `AlbumManager` responsible for this manager.
+    :param manager: the responsible manager.
     '''
     # properties
     display_text_ellipsize_enabled = GObject.property(type=bool, default=False)
     display_text_ellipsize_length = GObject.property(type=int, default=0)
     display_font_size = GObject.property(type=int, default=0)
 
-    def __init__(self, album_manager):
-        super(TextManager, self).__init__()
+    def __init__(self, manager):
+        super(BaseTextManager, self).__init__()
 
-        self._album_manager = album_manager
-        self._current_view = self._album_manager.current_view
+        self._manager = manager
 
         # connect properties and signals
         self._connect_signals()
@@ -1731,16 +1731,16 @@ class TextManager(GObject.Object):
         '''
         # connect signals for the loader properties
         self.connect('notify::display-text-ellipsize-enabled',
-                     self._on_notify_display_text_ellipsize)
+                     self.on_notify_display_text_ellipsize)
         self.connect('notify::display-text-ellipsize-length',
-                     self._on_notify_display_text_ellipsize)
+                     self.on_notify_display_text_ellipsize)
         self.connect('notify::display-font-size',
-                     self._on_notify_display_text_ellipsize)
+                     self.on_notify_display_text_ellipsize)
 
-        self._album_manager.model.connect('generate-tooltip',
-                                          self._generate_tooltip)
-        self._album_manager.model.connect('generate-markup',
-                                          self._generate_markup_text)
+        self._manager.model.connect('generate-tooltip',
+                                          self.generate_tooltip)
+        self._manager.model.connect('generate-markup',
+                                          self.generate_markup_text)
 
     def _connect_properties(self):
         '''
@@ -1757,14 +1757,39 @@ class TextManager(GObject.Object):
         setting.bind(gs.PluginKey.DISPLAY_FONT_SIZE, self, 'display_font_size',
                      Gio.SettingsBindFlags.GET)
 
-    def _on_notify_display_text_ellipsize(self, *args):
+    def on_notify_display_text_ellipsize(self, *args):
         '''
         Callback called when one of the properties related with the ellipsize
         option is changed.
         '''
-        self._album_manager.model.recreate_text()
+        self._manager.model.recreate_text()
 
-    def _generate_tooltip(self, model, album):
+    def generate_tooltip(self, model, coverobject):
+        '''
+        Utility function that creates the tooltip for an object set into
+        the model.
+        '''
+        return ''
+
+    def generate_markup_text(self, model, coverobject):
+        '''
+        Utility function that creates the markup text for an object to set in a model
+        '''
+
+        return ''
+
+class AlbumTextManager(BaseTextManager):
+    '''
+    Manager that keeps control of the text options for the model's markup text.
+    It takes care of creating the text for the model when requested to do it.
+
+    :param album_manager: `AlbumManager` responsible for this manager.
+    '''
+
+    def __init__(self, manager):
+        super(AlbumTextManager, self).__init__(manager)
+
+    def generate_tooltip(self, model, album):
         '''
         Utility function that creates the tooltip for this album to set into
         the model.
@@ -1772,7 +1797,7 @@ class TextManager(GObject.Object):
         return cgi.escape(rb3compat.unicodeencode(_('%s by %s'), 'utf-8') % (album.name,
                                                                              album.artists))
 
-    def _generate_markup_text(self, model, album):
+    def generate_markup_text(self, model, album):
         '''
         Utility function that creates the markup text for this album to set
         into the model.
@@ -1838,7 +1863,7 @@ class AlbumManager(GObject.Object):
         from coverart_artistview import ArtistManager
 
         self.artist_man = ArtistManager(plugin, self, plugin.shell)
-        self.text_man = TextManager(self)
+        self.text_man = AlbumTextManager(self)
         self._show_policy = current_view.show_policy.initialise(self)
 
         # connect signals
