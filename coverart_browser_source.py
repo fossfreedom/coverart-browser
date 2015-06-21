@@ -1316,9 +1316,7 @@ class ViewManager(GObject.Object):
         self._views[ListView.name] = ListView()
         self._views[QueueView.name] = QueueView()
         self._views[PlaySourceView.name] = PlaySourceView()
-        ui.add_from_file(rb.find_plugin_file(source.plugin,
-                                             'ui/coverart_artistview.ui'))
-        self._views[ArtistView.name] = ui.get_object('artist_view')
+        self._views[ArtistView.name] = ArtistView()
         self._lastview = None
 
         self.controller = ViewController(source.shell, self)
@@ -1356,9 +1354,11 @@ class ViewManager(GObject.Object):
 
             if self._views[self.view_name].use_plugin_window:
                 child = self.window.get_child()
-
                 if child:
+                    if isinstance(child, Gtk.Viewport):
+                        child.remove(child.get_child()) # Gtk adds a viewport automatically for a Gtk.Stack
                     self.window.remove(child)
+
                 self.window.add(self._views[self.view_name].view)
                 self.window.show_all()
                 self.click_count = 0

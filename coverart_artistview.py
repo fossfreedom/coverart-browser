@@ -530,6 +530,8 @@ class ArtistsModel(GObject.Object):
             'rating_artist': ('rating', 'album_sort')
         }
 
+        print (key, order)
+
         props = sort_keys[key]
 
         def key_function(album):
@@ -538,9 +540,9 @@ class ArtistsModel(GObject.Object):
 
         # remember the current sort then remove the sort order
         # because sorting will only work in unsorted lists
-        sortSettings = self.store.get_sort_column_id()
+        #sortSettings = self.store.get_sort_column_id()
 
-        self.store.set_sort_column_id(-1, Gtk.SortType.ASCENDING)
+        #self.store.set_sort_column_id(-1, Gtk.SortType.ASCENDING)
 
         for artist in self._iters:
             albums.clear()
@@ -569,8 +571,9 @@ class ArtistsModel(GObject.Object):
                     next_iter = self._tree_store.iter_next(next_iter)
 
         # now we have finished sorting, reapply the sort
-        if sortSettings[0]:
-            self.store.set_sort_column_id(*sortSettings)
+        #if sortSettings[0]:
+        #    self.store.set_sort_column_id(*sortSettings)
+
 
     @idle_iterator
     def _recreate_text(self):
@@ -852,8 +855,8 @@ class ArtistView(Gtk.Stack, AbstractView):
     }
 
 
-    def __init__(self, *args, **kwargs):
-        super(ArtistView, self).__init__(*args, **kwargs)
+    def __init__(self):
+        super(ArtistView, self).__init__()
 
         self._external_plugins = None
         self.gs = GSetting()
@@ -863,6 +866,7 @@ class ArtistView(Gtk.Stack, AbstractView):
 
     def initialise(self, source):
         if self._has_initialised:
+            print ("already initialised")
             return
 
         self._has_initialised = True
@@ -934,7 +938,9 @@ class ArtistView(Gtk.Stack, AbstractView):
         self.initialise(source)
         self.show_policy.initialise(source.album_manager)
 
-        self.iconview.scroll_to_album(album)
+        print(self.get_visible_child_name())#'iconview')
+        print (self.get_children())
+        #self.iconview.scroll_to_album(album)
 
 
     def do_update_toolbar(self, *args):
@@ -1014,6 +1020,9 @@ class ArtistIconView(EnhancedIconView, AbstractView):
         # connect properties and signals
         self._connect_properties()
         self._connect_signals()
+
+        self.emit('initialise')
+
 
     def _connect_properties(self):
         setting = self.gs.get_setting(self.gs.Path.PLUGIN)

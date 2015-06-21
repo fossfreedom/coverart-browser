@@ -309,12 +309,9 @@ class AlbumShowingPolicy(GObject.Object):
 class CoverIconView(EnhancedIconView, AbstractView):
     __gtype_name__ = "CoverIconView"
 
-    icon_spacing = GObject.property(type=int, default=0)
-    icon_padding = GObject.property(type=int, default=0)
-    icon_automatic = GObject.property(type=bool, default=True)
-
     display_text_enabled = GObject.property(type=bool, default=False)
     display_text_pos = GObject.property(type=bool, default=False)
+    icon_automatic = GObject.property(type=bool, default=True)
 
     name = 'coverview'
     panedposition = PanedCollapsible.Paned.COLLAPSE
@@ -401,21 +398,11 @@ class CoverIconView(EnhancedIconView, AbstractView):
         self._connect_signals()
 
         self._activate_markup()
-        self.on_notify_icon_padding()
-        self.on_notify_icon_spacing()
+
+        self.emit('initialise')
 
     def _connect_properties(self):
         setting = self.gs.get_setting(self.gs.Path.PLUGIN)
-        setting.bind(
-            self.gs.PluginKey.ICON_SPACING,
-            self,
-            'icon_spacing',
-            Gio.SettingsBindFlags.GET)
-        setting.bind(
-            self.gs.PluginKey.ICON_PADDING,
-            self,
-            'icon_padding',
-            Gio.SettingsBindFlags.GET)
 
         setting.bind(self.gs.PluginKey.DISPLAY_TEXT, self,
                      'display_text_enabled', Gio.SettingsBindFlags.GET)
@@ -433,10 +420,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
         self.connect("item-clicked", self.item_clicked_callback)
         self.connect("selection-changed", self.selectionchanged_callback)
         self.connect("item-activated", self.item_activated_callback)
-        self.connect('notify::icon-spacing',
-                     self.on_notify_icon_spacing)
-        self.connect('notify::icon-padding',
-                     self.on_notify_icon_padding)
+
         self.connect("motion-notify-event", self.on_pointer_motion)
         self.connect('notify::display-text-enabled',
                      self._activate_markup)
@@ -734,18 +718,6 @@ class CoverIconView(EnhancedIconView, AbstractView):
 
         return True
 
-    def on_notify_icon_padding(self, *args):
-        '''
-        Callback called when the icon-padding gsetting value is changed
-        '''
-        self.set_item_padding(self.icon_padding)
-
-    def on_notify_icon_spacing(self, *args):
-        '''
-        Callback called when the icon-spacing gsetting value is changed
-        '''
-        self.set_row_spacing(self.icon_spacing)
-        self.set_column_spacing(self.icon_spacing)
 
     def _activate_markup(self, *args):
         '''

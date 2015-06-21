@@ -1015,10 +1015,14 @@ class EnhancedIconView(Gtk.IconView):
 
     # signals
     __gsignals__ = {
-        'item-clicked': (GObject.SIGNAL_RUN_LAST, None, (object, object))
+        'item-clicked': (GObject.SIGNAL_RUN_LAST, None, (object, object)),
+        'initialise': (GObject.SIGNAL_RUN_FIRST, None, ())
     }
 
     object_column = GObject.property(type=int, default=-1)
+    icon_spacing = GObject.property(type=int, default=0)
+    icon_padding = GObject.property(type=int, default=0)
+
 
     def __init__(self, *args, **kwargs):
         super(EnhancedIconView, self).__init__(*args, **kwargs)
@@ -1027,6 +1031,40 @@ class EnhancedIconView(Gtk.IconView):
         self.view_name = None
         self.source = None
         self.ext_menu_pos = 0
+
+    def do_initialise(self):
+        setting = self.gs.get_setting(self.gs.Path.PLUGIN)
+        setting.bind(
+            self.gs.PluginKey.ICON_SPACING,
+            self,
+            'icon_spacing',
+            Gio.SettingsBindFlags.GET)
+        setting.bind(
+            self.gs.PluginKey.ICON_PADDING,
+            self,
+            'icon_padding',
+            Gio.SettingsBindFlags.GET)
+
+        self.connect('notify::icon-spacing',
+                     self.on_notify_icon_spacing)
+        self.connect('notify::icon-padding',
+                     self.on_notify_icon_padding)
+
+        self.on_notify_icon_padding()
+        self.on_notify_icon_spacing()
+
+    def on_notify_icon_padding(self, *args):
+        '''
+        Callback called when the icon-padding gsetting value is changed
+        '''
+        self.set_item_padding(self.icon_padding)
+
+    def on_notify_icon_spacing(self, *args):
+        '''
+        Callback called when the icon-spacing gsetting value is changed
+        '''
+        self.set_row_spacing(self.icon_spacing)
+        self.set_column_spacing(self.icon_spacing)
 
     def do_size_allocate(self, allocation):
         '''
