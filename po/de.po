@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-21 23:10+0000\n"
-"PO-Revision-Date: 2015-02-13 21:08+0000\n"
-"Last-Translator: jus <Unknown>\n"
+"PO-Revision-Date: 2015-08-01 15:50+0000\n"
+"Last-Translator: Tobias Bannert <Unknown>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-02-13 21:20+0000\n"
-"X-Generator: Launchpad (build 17341)\n"
+"X-Launchpad-Export-Date: 2015-08-02 21:00+0000\n"
+"X-Generator: Launchpad (build 17656)\n"
 
 #. TRANSLATORS: album duration (length) in the format hour:minute:second
 #: tmpl/album-tmpl.html:20
@@ -44,7 +44,7 @@ msgstr "Alle Titel anzeigen"
 #: tmpl/album-tmpl.html:69
 #, python-format
 msgid "Top albums by %s"
-msgstr "Top-Alben von %s"
+msgstr "Beliebteste Alben von %s"
 
 #. TRANSLATORS: %s is just a string and is not translated, %d is a number and
 #. is the number of track(s)
@@ -781,7 +781,7 @@ msgstr "Kein Interpret angegeben."
 #: coverart_artistinfo.py:845
 #, python-format
 msgid "Loading top albums for %s"
-msgstr "Top-Alben von %s werden geladen"
+msgstr "Beliebteste Alben von %s werden geladen"
 
 #: coverart_artistview.py:375 coverart_browser_source.py:1159
 msgid " with 1 track"
@@ -874,7 +874,7 @@ msgstr "%d ausgewählte Alben"
 
 #: coverart_controllers.py:391 coverart_controllers.py:440
 msgid "Sort by album name"
-msgstr "Sortiere nach Album-Name"
+msgstr "Nach Albumname sortieren"
 
 #: coverart_controllers.py:392
 msgid "Sort by album artist"
