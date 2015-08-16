@@ -617,7 +617,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
         # from  here on in, we are going to display a hotspot icon
         # so lets decide which one
 
-        (_, playing) = self.shell.props.shell_player.get_playing()
+        playing = True if self.shell.props.shell_player.get_playing_entry() else False
 
         calc_path = -1
         if playing:
@@ -655,7 +655,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
 
         # first test if we've clicked on the cover-play icon
         if self._cover_play_hotspot(path):
-            (_, playing) = self.shell.props.shell_player.get_playing()
+            playing = True if self.shell.props.shell_player.get_playing_entry() else False
 
             # first see if anything is playing...
             if playing:
