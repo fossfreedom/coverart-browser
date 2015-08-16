@@ -49,10 +49,10 @@ from coverart_utils import check_lastfm
 import rb
 
 # default chunk of entries to process when loading albums
-ALBUM_LOAD_CHUNK = 50
+ALBUM_LOAD_CHUNK = 250
 
 # default chunk of albums to process when loading covers
-COVER_LOAD_CHUNK = 5
+COVER_LOAD_CHUNK = 50
 
 class Cover(GObject.Object):
     '''

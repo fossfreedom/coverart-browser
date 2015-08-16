@@ -330,7 +330,7 @@ class ExternalPluginMenu(GObject.Object):
         self.stack_switcher = Gtk.StackSwitcher()
         self.stack_switcher.set_stack(stack)
         self.stack_switcher.show_all()
-        self.stack_switcher.set_sensitive(False)
+        self.stack_switcher.set_sensitive(not self.shell.alternative_toolbar.toolbar_type.library_song_radiobutton.get_active())
 
         self.shell.alternative_toolbar.toolbar_type.headerbar.pack_start(self.stack_switcher)
         
