@@ -109,6 +109,18 @@ class CoverArtPlaySource(RB.BrowserSource):
         self.save_in_progress = False
         self.save_interrupt = False
         self.filename = RB.user_cache_dir() + "/coverart_browser/playlist.xml"
+        
+    def load_model(self, plugin):
+        # define a query model that we'll use for playing and then load previous music
+        self.source_query_model = plugin.source_query_model 
+        self.shell = plugin.shell       
+        self._load_model()
+        
+        self.get_entry_view().set_model(self.source_query_model)
+        
+        self.source_query_model.connect('row-inserted', self.save_changed_model)
+        self.source_query_model.connect('row-changed', self.save_changed_model)
+        self.source_query_model.connect('row-deleted', self.save_changed_model)
 
     def do_selected(self):
         '''
@@ -139,16 +151,18 @@ class CoverArtPlaySource(RB.BrowserSource):
         self.shell = self.props.shell
 
         player = self.shell.props.shell_player
-        player.set_playing_source(self)
-        player.set_selected_source(self)
-
-
-        # define a query model that we'll use for playing
-        self.source_query_model = self.plugin.source_query_model
+        ret, playing_state = player.get_playing()
+        if not playing_state: 
+            # if nothing is previously playing then lets assume we want to start playing 
+            # from this source if we hit play controls
+            print ("Here")
+            player.set_playing_source(self)
+            player.set_selected_source(self)
 
         grid = Gtk.Grid()
 
         self.entryview = self.get_entry_view()
+        self.get_entry_view().set_model(self.source_query_model)
 
         child = self.get_children()
         print (child)
@@ -157,7 +171,6 @@ class CoverArtPlaySource(RB.BrowserSource):
         self.rbsourcetoolbar = grid.get_children()[1] # need to remember the reference to stop crashes when python cleans up unlinked objects
         grid.remove(grid.get_children()[1])
 
-        self.get_entry_view().set_model(self.source_query_model)
         '''
         # enable sorting on the entryview
          entryview.set_columns_clickable(True)
@@ -196,11 +209,6 @@ class CoverArtPlaySource(RB.BrowserSource):
         #if hasattr(self.shell, 'alternative_toolbar'):
         #    self.shell.alternative_toolbar.connect('toolbar-visibility', self._visibility)
 
-        self._load_model()
-
-        self.source_query_model.connect('row-inserted', self.save_changed_model)
-        self.source_query_model.connect('row-changed', self.save_changed_model)
-        self.source_query_model.connect('row-deleted', self.save_changed_model)
 
     def _load_model(self):
         if not os.path.isfile(self.filename):

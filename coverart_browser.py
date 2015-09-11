@@ -117,7 +117,7 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
             shell=self.shell,
             plugin=self,
             entry_type=self.entry_type)
-
+            
         self.shell.append_display_page(self.playlist_source, self.source)
 
         self.shell.props.db.connect('load-complete', self.load_complete)
@@ -125,6 +125,7 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         def delayed(*args):
             if self.shell.props.selected_page:
                 self._externalmenu = ExternalPluginMenu(self)
+                self.playlist_source.load_model(self)
                 return False
             else:
                 return True
@@ -492,7 +493,7 @@ class ExternalPluginMenu(GObject.Object):
             else:
                 view_name = setting[gs.PluginKey.VIEW_NAME]
             player = self.shell.props.shell_player
-            player.set_selected_source(self.source) #.playlist_source)
+            #player.set_selected_source(self.source) #.playlist_source)
 
             GLib.idle_add(self.shell.props.display_page_tree.select,
                           self.source)

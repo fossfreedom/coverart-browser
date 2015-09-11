@@ -274,7 +274,7 @@ class EntryViewPane(object):
         if len(selected) > 0:
             if autoplaylist:
                 self.source.props.query_model = self.source.source_query_model
-                player.set_playing_source(self.source)
+                #player.set_playing_source(self.source)
 
             def cover_update(*args):
                 print("emitting")

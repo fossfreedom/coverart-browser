@@ -51,7 +51,6 @@ from coverart_artistinfo import ArtistInfoPane
 from coverart_external_plugins import CreateExternalPluginMenu
 from coverart_playlists import EchoNestPlaylist
 from coverart_entryview import EntryViewPane
-from coverart_play_source import CoverArtPlaySource
 import coverart_rb3compat as rb3compat
 
 
@@ -172,23 +171,21 @@ class CoverArtBrowserSource(RB.Source):
         self.hasActivated = True
 
         # define a query model that we'll use for playing
-        self.source_query_model = self.plugin.source_query_model#RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
+        self.source_query_model = self.plugin.source_query_model
 
-        # define the associated playsource so we can interact with this query model
-        '''
-        self.playlist_source = GObject.new(
-            CoverArtPlaySource,
-            name=_("CoverArt Playlist"),
-            shell=self.shell,
-            plugin=self.plugin,
-            entry_type=self.plugin.entry_type)
-        self.playlist_source.initialise(self.plugin, self.shell, self)
-        self.shell.append_display_page(self.playlist_source, self.plugin.source)
-
-        '''
         self._create_ui()
         self._setup_source()
         self._apply_settings()
+        
+        player = self.shell.props.shell_player
+        ret, playing_state = player.get_playing()
+        
+        if not playing_state: 
+            # if nothing is previously playing then lets assume we want to start playing 
+            # from this source if we hit play controls
+            self.props.query_model = self.source_query_model
+            player.set_playing_source(self)
+            player.set_selected_source(self)
 
         print("CoverArtBrowser DEBUG - end do_impl_activate")
 
