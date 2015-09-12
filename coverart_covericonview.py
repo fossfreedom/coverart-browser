@@ -207,10 +207,10 @@ class CoverArtCellArea(Gtk.CellAreaBox):
             self.cover_size
 
     def _activate_markup(self, *args):
-        '''
+        """
         Utility method to activate/deactivate the markup text on the
         cover view.
-        '''
+        """
         if self.display_text_enabled and self.display_text_pos:
             if not self._text_renderer:
                 # create and configure the custom cell renderer
@@ -225,12 +225,12 @@ class CoverArtCellArea(Gtk.CellAreaBox):
             self.remove(self._text_renderer)
 
     def calc_play_icon_offset(self, initial_x_offset, initial_y_offset):
-        '''
+        """
         calculates the x & y offset for the play hover icon
         :param initial_x_offset: current x_offset
         :param initial_y_offset: current y_offset
         :return: bool, x & y offset where bool is the full cover position
-        '''
+        """
         full_cover = False
         if not (self.display_text and self.display_text_pos == False):
             y_offset = initial_y_offset + self.cover_size - 10
@@ -247,10 +247,10 @@ class CoverArtCellArea(Gtk.CellAreaBox):
 
 
 class AlbumShowingPolicy(GObject.Object):
-    '''
+    """
     Policy that mostly takes care of how and when things should be showed on
     the view that makes use of the `AlbumsModel`.
-    '''
+    """
 
     def __init__(self, cover_view):
         super(AlbumShowingPolicy, self).__init__()
@@ -430,10 +430,10 @@ class CoverIconView(EnhancedIconView, AbstractView):
         return "iconview.png"
 
     def resize_icon(self, cover_size):
-        '''
+        """
         Callback called when to resize the icon
         [common to all views]
-        '''
+        """
         self.set_item_width(cover_size)
 
     def on_scroll_event(self, widget, scroll_event):
@@ -459,11 +459,11 @@ class CoverIconView(EnhancedIconView, AbstractView):
             return True
 
     def on_drag_drop(self, widget, context, x, y, time):
-        '''
+        """
         Callback called when a drag operation finishes over the cover view
         of the source. It decides if the dropped item can be processed as
         an image to use as a cover.
-        '''
+        """
 
         # stop the propagation of the signal (deactivates superclass callback)
         widget.stop_emission_by_name('drag-drop')
@@ -480,10 +480,10 @@ class CoverIconView(EnhancedIconView, AbstractView):
 
     def on_drag_data_received(self, widget, drag_context, x, y, data, info,
                               time):
-        '''
+        """
         Callback called when the drag source has prepared the data (pixbuf)
         for us to use.
-        '''
+        """
 
         # stop the propagation of the signal (deactivates superclass callback)
         widget.stop_emission_by_name('drag-data-received')
@@ -504,10 +504,10 @@ class CoverIconView(EnhancedIconView, AbstractView):
         drag_context.finish(True, False, time)
 
     def on_drag_data_get(self, widget, drag_context, data, info, time):
-        '''
+        """
         Callback called when the drag destination (playlist) has
         requested what album (icon) has been dragged
-        '''
+        """
 
         uris = []
         for album in widget.get_selected_objects():
@@ -519,10 +519,10 @@ class CoverIconView(EnhancedIconView, AbstractView):
         widget.stop_emission_by_name('drag-data-get')
 
     def on_drag_begin(self, widget, context):
-        '''
+        """
         Callback called when the drag-drop from coverview has started
         Changes the drag icon as appropriate
-        '''
+        """
         album_number = len(widget.get_selected_objects())
 
         if album_number == 1:
@@ -650,11 +650,11 @@ class CoverIconView(EnhancedIconView, AbstractView):
         return True
 
     def item_clicked_callback(self, iconview, event, path):
-        '''
+        """
         Callback called when the user clicks somewhere on the cover_view.
         Along with source "show_hide_pane", takes care of showing/hiding the bottom
         pane after a second click on a selected album.
-        '''
+        """
 
         # first test if we've clicked on the cover-play icon
         if self._cover_play_hotspot(path):
@@ -720,19 +720,19 @@ class CoverIconView(EnhancedIconView, AbstractView):
                                     self.source.show_hide_pane, album)
 
     def item_activated_callback(self, iconview, path):
-        '''
+        """
         Callback called when the cover view is double clicked or space-bar
         is pressed. It plays the selected album
-        '''
+        """
         self.source.play_selected_album(self.source.favourites)
 
         return True
 
     def _activate_markup(self, *args):
-        '''
+        """
         Utility method to activate/deactivate the markup text on the
         cover view.
-        '''
+        """
 
         if self.display_text_enabled:
             self.set_tooltip_column(-1)  # turnoff tooltips
@@ -740,9 +740,9 @@ class CoverIconView(EnhancedIconView, AbstractView):
             self.set_tooltip_column(AlbumsModel.columns['tooltip'])
 
     def bottom_expander_expanded_callback(self, paned, expand):
-        '''
+        """
         Callback connected to expanded signal of the paned GtkExpander
-        '''
+        """
         if expand:
             # accommodate the viewport if there's an album selected
             if self.source.last_selected_album:

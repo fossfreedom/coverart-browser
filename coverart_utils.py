@@ -75,15 +75,15 @@ def full_exc_info():
 
 
 def dumpstack(message):
-    ''' dumps the current stack - useful of debugging
-    '''
+    """ dumps the current stack - useful of debugging
+    """
     logging.error(message, exc_info=full_exc_info())
 
 
 def uniquify_and_sort(iterable):
-    ''' Removes duplicates of an iterables and returns a list of unique
+    """ Removes duplicates of an iterables and returns a list of unique
     elements.
-    '''
+    """
     uniques = []
 
     for element in iterable:
@@ -97,11 +97,11 @@ GenreType = namedtuple("GenreType", ["name", "genre_type"])
 
 
 class NaturalString(str):
-    '''
+    """
     this class implements an object that can naturally compare
     strings
     i.e. "15 album" < "100 album"
-    '''
+    """
 
     def __init__(self, string):
         super(NaturalString, self).__init__()
@@ -137,7 +137,7 @@ class NaturalString(str):
 
 
 class SortedCollection(object):
-    '''Sequence sorted by a key function.
+    """Sequence sorted by a key function.
 
     SortedCollection() is much easier to work with than using bisect() directly.
     It supports key functions like those use in sorted(), min(), and max().
@@ -203,7 +203,7 @@ class SortedCollection(object):
      ('david', 'thomas', 32),
      ('roger', 'young', 30)]
 
-    '''
+    """
 
     def __init__(self, iterable=(), key=None):
         self._given_key = key
@@ -283,8 +283,8 @@ class SortedCollection(object):
         return i
 
     def reorder(self, item):
-        '''Reorder an item. If its key changed, then the item is
-        repositioned, otherwise the item stays untouched'''
+        """Reorder an item. If its key changed, then the item is
+        repositioned, otherwise the item stays untouched"""
         index = self._items.index(item)
         new_index = -1
 
@@ -413,9 +413,9 @@ def idle_iterator(func):
 
 
 class Theme:
-    '''
+    """
     This class manages the theme details
-    '''
+    """
     # storage for the instance reference
     __instance = None
 
@@ -425,18 +425,18 @@ class Theme:
         theme = GObject.property(type=str, default="standard")
 
         # signals
-        '''
+        """
         changed = signal emitted when a theme has changed
-        '''
+        """
         __gsignals__ = {
             'theme_changed': (GObject.SIGNAL_RUN_LAST, None, ())
         }
         # below public variables and methods that can be called for Theme
         def __init__(self, plugin):
-            '''
+            """
             Initializes the singleton interface, assigning all the constants
             used to access the plugin's settings.
-            '''
+            """
             super(Theme._impl, self).__init__()
 
             self.plugin = plugin
@@ -593,7 +593,7 @@ class ConfiguredSpriteSheet(object):
 
 
 class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
-    '''
+    """
     A sprite-sheet of genres. Creates a pixbuf representation of a picture
     that has several icons in a regular pattern.  This uses the file
     'popups.xml' for its definition
@@ -605,7 +605,7 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
 
     output:
     :names: `str` array  of sprite names
-    '''
+    """
     # types of genre
     GENRE_USER = 1
     GENRE_SYSTEM = 2
@@ -758,10 +758,10 @@ def create_pixbuf_from_file_at_size(filename, width, height):
     return pixbuf
 
 
-'''
+"""
 class to search through a dict without case-sensitivity nor
 unicode vs string issues
-'''
+"""
 
 
 class CaseInsensitiveDict(collections.Mapping):
@@ -786,13 +786,13 @@ class CaseInsensitiveDict(collections.Mapping):
 
 
 def check_lastfm(force_check=False):
-    '''
+    """
     check validity of lastfm connection
     
     returns True if connected with an account 
     
     Also returns True if lastFM is not in the list of search providers
-    '''
+    """
 
     providers = get_search_providers()
     print(providers)
@@ -811,9 +811,9 @@ def check_lastfm(force_check=False):
 
 
 def create_button_image_symbolic(style_context, icon_name):
-    '''
+    """
     create a pixbuf for the given symbolic icon_name sized according to the stock icon size
-    '''
+    """
     theme = Gtk.IconTheme()
     default = theme.get_default()
     iconinfo = default.lookup_icon(icon_name, 128, 0)
@@ -827,9 +827,9 @@ def create_button_image_symbolic(style_context, icon_name):
 
 
 def create_button_image(plugin, image_filename):
-    '''
+    """
     create a pixbuf for the given image_filename sized according to the stock icon size
-    '''
+    """
     path = 'img/'
 
     return create_pixbuf_from_file_at_size(

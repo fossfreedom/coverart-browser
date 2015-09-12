@@ -200,9 +200,9 @@ class ArtistInfoPane(GObject.GObject):
         self.view[self.current].activate()
 
     def connect_properties(self):
-        '''
+        """
         Connects the source properties to the saved preferences.
-        '''
+        """
         setting = self.gs.get_setting(self.gs.Path.PLUGIN)
 
         setting.bind(
@@ -215,13 +215,13 @@ class ArtistInfoPane(GObject.GObject):
         self.tab_cb_ids = []
 
         # Listen for switch-tab signal from each tab
-        '''
+        """
         for key, value in self.tab.items():
             self.tab_cb_ids.append(( key, 
                                     self.tab[key].connect ('switch-tab', 
                                                             self.change_tab)
                                     ))
-        '''
+        """
 
         # Listen for selected signal from the views
         self.connect('selected', self.select_artist)
@@ -279,9 +279,9 @@ class ArtistInfoPane(GObject.GObject):
             self._from_paned_handle = 2
 
     def paned_button_release_callback(self, *args):
-        '''
+        """
         Callback when the artist paned handle is released from its mouse click.
-        '''
+        """
         if self._from_paned_handle == 0:
             return False
 

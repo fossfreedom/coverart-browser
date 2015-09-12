@@ -28,9 +28,9 @@ from coverart_utils import CaseInsensitiveDict
 
 
 class ExternalPlugin(GObject.Object):
-    '''
+    """
     class for all supported ExternalPlugins
-    '''
+    """
 
     def __init__(self, **kargs):
         super(ExternalPlugin, self).__init__(**kargs)
@@ -43,12 +43,12 @@ class ExternalPlugin(GObject.Object):
         self.attributes['action_group_name'] = ''
 
     def appendattribute(self, key, val):
-        '''
+        """
         append another attribute to the dict
         
         :param key: `str` name of attribute
         :param val: `str` value of attribute
-        '''
+        """
 
         if key == 'is_album_menu':
             if val == 'yes':
@@ -59,9 +59,9 @@ class ExternalPlugin(GObject.Object):
             self.attributes[key] = val
 
     def is_activated(self):
-        '''
+        """
         method to test whether the plugin is actually loaded. Returns a bool
-        '''
+        """
         peas = Peas.Engine.get_default()
         loaded_plugins = peas.get_loaded_plugins()
 
@@ -76,7 +76,7 @@ class ExternalPlugin(GObject.Object):
 
     def create_menu_item(self, menubar, section_name, at_position,
                          save_actiongroup, save_menu, for_album=False):
-        '''
+        """
         method to create the menu item appropriate to the plugin.
         A plugin can have many menu items - all menuitems are enclosed
         in a section.
@@ -88,7 +88,7 @@ class ExternalPlugin(GObject.Object):
         :param save_menu: `Menu` whole popupmenu including sub-menus
         :param for_album: `bool` create the menu for the album - if not given
           then its assumed the menu item is appropriate just for tracks
-        '''
+        """
         if for_album and not self.attributes['is_album_menu']:
             return False
 
@@ -124,12 +124,12 @@ class ExternalPlugin(GObject.Object):
         pass
 
     def set_entry_view_selected_entries(self, shell):
-        '''
+        """
         method called just before the external plugin action is activated
 
         Normally only called for album menus to mimic selecting all the
         EntryView rows
-        '''
+        """
         page = shell.props.selected_page
         if not hasattr(page, "get_entry_view"):
             return
@@ -137,10 +137,10 @@ class ExternalPlugin(GObject.Object):
         page.get_entry_view().select_all()
 
     def activate(self, shell):
-        '''
+        """
         method called to initiate the external plugin action
         the action is defined by defining the action_group_name, action_name and action_type
-        '''
+        """
 
         action = ApplicationShell(shell).lookup_action(self.attributes['action_group_name'],
                                                        self.attributes['action_name'],
@@ -150,14 +150,14 @@ class ExternalPlugin(GObject.Object):
             action.activate()
 
     def menuitem_callback(self, action, param, args):
-        '''
+        """
         method called when a menu-item is clicked.  Basically, an Action
         is activated by the user
         
         :param action: `Gio.SimpleAction` or `Gtk.Action`
         :param param: Not used
         :param args: dict associated with the action
-        '''
+        """
         for_album = args['album']
         shell = args['shell']
         if for_album:
@@ -167,13 +167,13 @@ class ExternalPlugin(GObject.Object):
 
 
 class CreateExternalPluginMenu(GObject.Object):
-    '''
+    """
     This is the key class called to initialise all supported plugins
     
     :param section_name: `str` unique name of the section holding the menu items
     :param at_position: `int` position within the GtkMenu to create menu - ignored for RB2.99
     :param popup: `Menu` whole popupmenu including sub-menus
-    '''
+    """
 
     def __init__(self, section_name, at_position, popup, **kargs):
         super(CreateExternalPluginMenu, self).__init__(**kargs)
@@ -218,14 +218,14 @@ class CreateExternalPluginMenu(GObject.Object):
                 self.supported_plugins.append(ext)
 
     def create_menu(self, menu_name, for_album=False):
-        '''
+        """
         method to create the menu items for all supported plugins
 
         :param menu_name: `str` unique name (GtkMenu) id for the menu to create
         :for_album: `bool` - create a menu applicable for Albums
           by default a menu is assumed to be applicable to a track in an
           EntryView
-        '''
+        """
         self.menu_name = menu_name
 
         self._actiongroup.remove_actions()

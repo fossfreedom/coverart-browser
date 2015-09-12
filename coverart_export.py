@@ -36,10 +36,10 @@ import coverart_rb3compat as rb3compat
 
 
 class CoverArtExport(GObject.Object):
-    '''
+    """
     This class provides for various export routines
     
-    '''
+    """
     TARGET_BITRATE = 128
 
     def __init__(self, plugin, shell, album_manager):
@@ -66,11 +66,11 @@ class CoverArtExport(GObject.Object):
         return result
 
     def embed_albums(self, selected_albums):
-        '''
+        """
         method to export and embed coverart to chosen albums
 
         :selected_albums: `Album` - array of albums
-        '''
+        """
 
         self._initialise_gstreamer()
 

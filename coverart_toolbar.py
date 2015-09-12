@@ -202,14 +202,14 @@ class ToolbarManager(GObject.Object):
             self._bars[self.toolbar_pos].hide()
 
     def set_enabled(self, enabled, toolbar_object=None):
-        '''
+        """
         enable or disable the toolbar object.
         
         :param enabled: `bool` value.
         :param toolbar_object: `ToolbarObject` 
            None if enabled is to apply to all objects in the toolbar
         
-        '''
+        """
         if toolbar_object:
             self._controllers[toolbar_object].enabled = enabled
         else:

@@ -35,10 +35,10 @@ import rb
 
 
 class FlowShowingPolicy(GObject.Object):
-    '''
+    """
     Policy that mostly takes care of how and when things should be showed on
     the view that makes use of the `AlbumsModel`.
-    '''
+    """
 
     def __init__(self, flow_view):
         super(FlowShowingPolicy, self).__init__()
@@ -262,11 +262,11 @@ class CoverFlowView(AbstractView):
         self.popup.popup(self.source, 'popup_menu', 3, Gtk.get_current_event_time())
 
     def item_clicked_callback(self, album):
-        '''
+        """
         Callback called when the user clicks somewhere on the flow_view.
         Along with source "show_hide_pane", takes care of showing/hiding the bottom
         pane after a second click on a selected album.
-        '''
+        """
         # to expand the entry view
         if self.flow_automatic:
             self.source.click_count += 1
@@ -277,19 +277,19 @@ class CoverFlowView(AbstractView):
             GLib.timeout_add(250, self.source.show_hide_pane, album)
 
     def item_activated_callback(self, album):
-        '''
+        """
         Callback called when the flow view is double clicked. It plays the selected album
-        '''
+        """
         self.last_album = album
         self.source.play_selected_album()
 
         return True
 
     def item_drop_callback(self, album, webpath):
-        '''
+        """
         Callback called when something is dropped onto the flow view - hopefully a webpath
         to a picture
-        '''
+        """
         print("item_drop_callback %s" % webpath)
         print("dropped on album %s" % album)
         self.album_manager.cover_man.update_cover(album, uri=webpath)

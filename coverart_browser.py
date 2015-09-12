@@ -38,38 +38,38 @@ from coverart_play_source import CoverArtPlaySource
 
 
 class CoverArtBrowserEntryType(RB.RhythmDBEntryType):
-    '''
+    """
     Entry type for our source.
-    '''
+    """
 
     def __init__(self):
-        '''
+        """
         Initializes the entry type.
-        '''
+        """
         RB.RhythmDBEntryType.__init__(self, name='CoverArtBrowserEntryType')
 
 
 class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
-    '''
+    """
     Main class of the plugin. Manages the activation and deactivation of the
     plugin.
-    '''
+    """
     __gtype_name = 'CoverArtBrowserPlugin'
     object = GObject.property(type=GObject.Object)
 
     def __init__(self):
-        '''
+        """
         Initialises the plugin object.
-        '''
+        """
         GObject.Object.__init__(self)
         self._externalmenu = None
 
     def do_activate(self):
-        '''
+        """
         Called by Rhythmbox when the plugin is activated. It creates the
         plugin's source and connects signals to manage the plugin's
         preferences.
-        '''
+        """
 
         print("CoverArtBrowser DEBUG - do_activate")
         self.shell = self.object
@@ -135,10 +135,10 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         print("CoverArtBrowser DEBUG - end do_activate")
 
     def do_deactivate(self):
-        '''
+        """
         Called by Rhythmbox when the plugin is deactivated. It makes sure to
         free all the resources used by the plugin.
-        '''
+        """
         print("CoverArtBrowser DEBUG - do_deactivate")
         self.source.delete_thyself()
         if self._externalmenu:
@@ -150,11 +150,11 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
         print("CoverArtBrowser DEBUG - end do_deactivate")
 
     def load_complete(self, *args, **kwargs):
-        '''
+        """
         Called by Rhythmbox when it has completed loading all data
         Used to automatically switch to the browser if the user
         has set in the preferences
-        '''
+        """
 
         gs = GSetting()
         setting = gs.get_setting(gs.Path.PLUGIN)
@@ -163,10 +163,10 @@ class CoverArtBrowserPlugin(GObject.Object, Peas.Activatable):
             self._externalmenu.autostart_source()
 
     def _translation_helper(self):
-        '''
+        """
         a method just to help out with translation strings
         it is not meant to be called by itself
-        '''
+        """
 
         # define .plugin text strings used for translation
         plugin = _('CoverArt Browser')
@@ -428,9 +428,9 @@ class ExternalPluginMenu(GObject.Object):
             self.stack_switcher.set_sensitive(True)
 
     def _tree_row_click(self, widget, event):
-        '''
+        """
         event called when clicking on a row in the header treeview
-        '''
+        """
         print('_tree_row_click')
 
         try:
@@ -443,10 +443,10 @@ class ExternalPluginMenu(GObject.Object):
         self._select_view(self._store[treepath][1])
 
     def on_page_change(self, display_page_tree, page):
-        '''
+        """
         standard menubutton - Called when the display page changes. Grabs query models and sets the 
         active view.
-        '''
+        """
         print("on_page_change")
         if page == self.shell.props.library_source:
             self.action.set_state(self._views.get_action_name(ListView.name))
@@ -456,22 +456,22 @@ class ExternalPluginMenu(GObject.Object):
             self.action.set_state(self._views.get_action_name(PlaySourceView.name))
 
     def view_change_cb(self, action, current):
-        '''
+        """
         standard menubutton - Called when the view state on a page is changed. Sets the new 
         state.
-        '''
+        """
         print("view_change_cb")
         action.set_state(current)
         view_name = self._views.get_view_name_for_action(current)
         self._select_view(view_name)
 
     def _select_view(self, view_name):
-        '''
+        """
           with the view_name decide which view to be displayed
           or if view_name is None then use the last remembered view_name
           
           return view_name
-        '''
+        """
 
         if not self.shell.props.display_page_tree:
             return

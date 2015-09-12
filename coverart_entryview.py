@@ -47,9 +47,9 @@ MIN_IMAGE_SIZE = 100
 
 
 class EntryViewPane(object):
-    '''
+    """
         encapulates all of the Track Pane objects
-    '''
+    """
 
     def __init__(self, shell, plugin, source, entry_view_grid, viewmgr):
         self.gs = GSetting()
@@ -162,10 +162,10 @@ class EntryViewPane(object):
             self.source.update_with_selection()
 
     def notebook_switch_page_callback(self, *args):
-        '''
+        """
         Callback called when the notebook page gets switched. It initiates
         the cover search when the cover search pane's page is selected.
-        '''
+        """
         print("CoverArtBrowser DEBUG - notebook_switch_page_callback")
 
         if self.stack.get_visible_child_name() == 'notebook_covers':
@@ -182,9 +182,9 @@ class EntryViewPane(object):
         print("CoverArtBrowser DEBUG - end notebook_switch_page_callback")
 
     def rating_changed_callback(self, widget):
-        '''
+        """
         Callback called when the Rating stars is changed
-        '''
+        """
         print("CoverArtBrowser DEBUG - rating_changed_callback")
 
         rating = widget.get_rating()
@@ -209,9 +209,9 @@ class EntryViewPane(object):
                                          manager.cover_man.update_cover)
 
     def update_selection(self, last_selected_album, click_count):
-        '''
+        """
         Update the source view when an item gets selected.
-        '''
+        """
         print("DEBUG - update_with_selection")
         selected = self.viewmgr.current_view.get_selected_objects()
 
@@ -341,7 +341,7 @@ class ResultsGrid(Gtk.Grid):
         self.frame.add(self.scroll)
         self._signal_connected = None
 
-        '''
+        """
           when we hover over the coverart then a zoom icon is overlayed with the coverart
           when we move the mouse pointer from the coverart then the zoom icon is hidden
 
@@ -350,7 +350,7 @@ class ResultsGrid(Gtk.Grid):
 
           Also a peculiarity is that moving the pointer over the overlay zoom icon causes
           enter and leave events ... so we need to monitor the mouse over for the icon as well
-        '''
+        """
         self.overlay = Gtk.Overlay()
         self.overlay.add(self.frame)
 
@@ -389,17 +389,17 @@ class ResultsGrid(Gtk.Grid):
 
         context.add_class(Gtk.STYLE_CLASS_SIDEBAR)
 
-    '''
+    """
       when a show, show_all is used lets make sure we set the icon visibility correctly
-    '''
+    """
 
     def cw_btn_show_event(self, *args):
         self.cw_btn.set_visible(self.hover)
 
-    '''
+    """
       when mousing over the stack/icon we need to remember that we are hovering ... so the visibility
       is set correctly - in the stack notify event
-    '''
+    """
 
     def motion_notify_event(self, *args):
         self.hover = True
@@ -416,11 +416,11 @@ class ResultsGrid(Gtk.Grid):
 
         self.cw.show_all(' ', self.pixbuf)
 
-    '''
+    """
       when entering and leaving the stack (also the icon) then we assume the icon is to be invisible
       Use a short delay to allow the motion events to kick in - if we are still in the stack/icon
       then the hover visibility will be changed
-    '''
+    """
 
     def stack_notify_event(self, widget, event_crossing):
 
@@ -526,9 +526,9 @@ class ResultsGrid(Gtk.Grid):
 
 class BaseView(RB.EntryView):
     def __init__(self, shell, source):
-        '''
+        """
         Initializes the entryview.
-        '''
+        """
         self.shell = shell
         self.source = source
         self.plugin = self.source.props.plugin
@@ -765,9 +765,9 @@ class BaseView(RB.EntryView):
         print("CoverArtBrowser DEBUG - queue_track_menu_item_callback()")
 
     def love_track(self, rating):
-        '''
+        """
         utility function to set the rating for selected tracks
-        '''
+        """
         selected = self.get_selected_entries()
 
         for entry in selected:
@@ -842,9 +842,9 @@ class CoverArtCompactEntryView(BaseView):
     __hash__ = GObject.__hash__
 
     def __init__(self, shell, source):
-        '''
+        """
         Initializes the entryview.
-        '''
+        """
         super(CoverArtCompactEntryView, self).__init__(shell, source)
 
     def display_columns(self):
@@ -895,9 +895,9 @@ class CoverArtCompactEntryView(BaseView):
                                       self.actiongroup, self.add_to_static_playlist_menu_item_callback)
 
     def pre_popup_menu_callback(self, *args):
-        '''
+        """
         Callback when the popup menu is about to be displayed
-        '''
+        """
 
         state, sensitive = self.shell.props.shell_player.get_playing()
         if not state:
@@ -918,9 +918,9 @@ class CoverArtEntryView(BaseView):
     __hash__ = GObject.__hash__
 
     def __init__(self, shell, source):
-        '''
+        """
         Initializes the entryview.
-        '''
+        """
         super(CoverArtEntryView, self).__init__(shell, source)
 
     def display_columns(self):
@@ -995,9 +995,9 @@ class CoverArtEntryView(BaseView):
                                       self.actiongroup, self.add_to_static_playlist_menu_item_callback)
 
     def pre_popup_menu_callback(self, *args):
-        '''
+        """
         Callback when the popup menu is about to be displayed
-        '''
+        """
 
         state, sensitive = self.shell.props.shell_player.get_playing()
         if not state:

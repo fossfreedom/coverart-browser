@@ -55,9 +55,9 @@ import coverart_rb3compat as rb3compat
 
 
 class CoverArtBrowserSource(RB.Source):
-    '''
+    """
     Source utilized by the plugin to show all it's ui.
-    '''
+    """
     rating_threshold = GObject.property(type=float, default=0)
     artist_paned_pos = GObject.property(type=str)
     min_paned_pos = 80
@@ -66,9 +66,9 @@ class CoverArtBrowserSource(RB.Source):
     instance = None
 
     def __init__(self, **kargs):
-        '''
+        """
         Initializes the source.
-        '''
+        """
         super(CoverArtBrowserSource, self).__init__(**kargs)
 
         # create source_source_settings and connect the source's properties
@@ -87,9 +87,9 @@ class CoverArtBrowserSource(RB.Source):
         self._coverartexport = None
 
     def _connect_properties(self):
-        '''
+        """
         Connects the source properties to the saved preferences.
-        '''
+        """
         print("CoverArtBrowser DEBUG - _connect_properties")
         setting = self.gs.get_setting(self.gs.Path.PLUGIN)
 
@@ -102,13 +102,13 @@ class CoverArtBrowserSource(RB.Source):
         print("CoverArtBrowser DEBUG - end _connect_properties")
 
     def do_get_status(self, *args):
-        '''
+        """
         Method called by Rhythmbox to figure out what to show on this source
         statusbar.
         If the custom statusbar is disabled, the source will
         show the selected album info.
         Also, it makes sure to show the progress on the album loading
-        '''
+        """
 
         if not self.task_progress:
             self.task_progress = RB.TaskProgressSimple.new()
@@ -135,10 +135,10 @@ class CoverArtBrowserSource(RB.Source):
         return (self.status, progress_text, progress)
 
     def do_selected(self):
-        '''
+        """
         Called by Rhythmbox when the source is selected. It makes sure to
         create the ui the first time the source is showed.
-        '''
+        """
         print("CoverArtBrowser DEBUG - do_selected")
 
         # first time of activation -> add graphical stuff
@@ -151,11 +151,11 @@ class CoverArtBrowserSource(RB.Source):
         print("CoverArtBrowser DEBUG - end do_selected")
 
     def do_impl_activate(self):
-        '''
+        """
         Called by do_selected the first time the source is activated.
         It creates all the source ui and connects the necessary signals for it
         correct behavior.
-        '''
+        """
         print("CoverArtBrowser DEBUG - do_impl_activate")
 
         # initialise some variables
@@ -190,10 +190,10 @@ class CoverArtBrowserSource(RB.Source):
         print("CoverArtBrowser DEBUG - end do_impl_activate")
 
     def _create_ui(self):
-        '''
+        """
         Creates the ui for the source and saves the important widgets onto
         properties.
-        '''
+        """
         print("CoverArtBrowser DEBUG - _create_ui")
 
         # dialog has not been created so lets do so.
@@ -321,10 +321,10 @@ class CoverArtBrowserSource(RB.Source):
         print("CoverArtBrowser DEBUG - end _create_ui")
 
     def _setup_source(self):
-        '''
+        """
         Setup the different parts of the source so they are ready to be used
         by the user. It also creates and configure some custom widgets.
-        '''
+        """
         print("CoverArtBrowser DEBUG - _setup_source")
 
         cl = CoverLocale()
@@ -409,9 +409,9 @@ class CoverArtBrowserSource(RB.Source):
         self.jump_to_playing()
 
     def pre_popup_menu_callback(self, *args):
-        '''
+        """
         Callback when the popup menu is about to be displayed
-        '''
+        """
 
         state, sensitive = self.shell.props.shell_player.get_playing()
         if not state:
@@ -431,10 +431,10 @@ class CoverArtBrowserSource(RB.Source):
         self.playlist_menu_item_callback()
 
     def jump_to_playing(self, *args):
-        '''
+        """
         Callback when the JumpToPlaying action is invoked
         This will scroll the view to the playing song
-        '''
+        """
 
         if not self.shell.props.selected_page.props.name == self.props.name:
             # if the source page that was played from is not the plugin then
@@ -457,9 +457,9 @@ class CoverArtBrowserSource(RB.Source):
             self._from_paned_handle = 2
 
     def artist_paned_button_release_callback(self, widget, *args):
-        '''
+        """
         Callback when the artist paned handle is released from its mouse click.
-        '''
+        """
         if self._from_paned_handle == 0:
             return False
 
@@ -590,11 +590,11 @@ class CoverArtBrowserSource(RB.Source):
             cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
 
     def _apply_settings(self):
-        '''
+        """
         Applies all the settings related to the source and connects those that
         must be updated when the preferences dialog changes it's values. Also
         enables differents parts of the ui if the settings says so.
-        '''
+        """
         print("CoverArtBrowser DEBUG - _apply_settings")
 
         # connect some signals to the loader to keep the source informed
@@ -607,10 +607,10 @@ class CoverArtBrowserSource(RB.Source):
         print("CoverArtBrowser DEBUG - end _apply_settings")
 
     def load_finished_callback(self, _):
-        '''
+        """
         Callback called when the loader finishes loading albums into the
         covers view model.
-        '''
+        """
         print("CoverArtBrowser DEBUG - load_finished_callback")
 
         # if not self.request_status_box.get_visible():
@@ -628,10 +628,10 @@ class CoverArtBrowserSource(RB.Source):
         return self.entry_view
 
     def on_album_updated(self, model, path, tree_iter):
-        '''
+        """
         Callback called by the album loader when one of the albums managed
         by him gets modified in some way.
-        '''
+        """
         album = model.get_from_path(path)
         selected = self.viewmgr.current_view.get_selected_objects()
 
@@ -644,10 +644,10 @@ class CoverArtBrowserSource(RB.Source):
                                                 self.album_manager)
 
     def play_similar_artist_menu_item_callback(self, *args):
-        '''
+        """
         Callback called when the play similar artist option is selected from
         the cover view popup. It plays similar artists music.
-        '''
+        """
 
         if not self.echonest_similar_playlist:
             self.echonest_similar_playlist = \
@@ -662,11 +662,11 @@ class CoverArtBrowserSource(RB.Source):
         self.echonest_similar_playlist.start(entry, reinitialise=True)
 
     def show_properties_menu_item_callback(self, *args):
-        '''
+        """
         Callback called when the show album properties option is selected from
         the cover view popup. It shows a SongInfo dialog showing the selected
         albums' entries info, which can be modified.
-        '''
+        """
         print("CoverArtBrowser DEBUG - show_properties_menu_item_callback")
 
         self.entry_view.select_all()
@@ -678,10 +678,10 @@ class CoverArtBrowserSource(RB.Source):
         print("CoverArtBrowser DEBUG - end show_properties_menu_item_callback")
 
     def play_selected_album(self, favourites=False):
-        '''
+        """
         Utilitary method that plays all entries from an album into the play
         queue.
-        '''
+        """
         # callback when play an album
         print("CoverArtBrowser DEBUG - play_selected_album")
 
@@ -701,10 +701,10 @@ class CoverArtBrowserSource(RB.Source):
         print("CoverArtBrowser DEBUG - end play_selected_album")
 
     def queue_selected_album(self, source, favourites=False, index=-1):
-        '''
+        """
         Utilitary method that queues all entries from an album into the play
         queue.
-        '''
+        """
         print("CoverArtBrowser DEBUG - queue_selected_album")
 
         if source == None:
@@ -737,10 +737,10 @@ class CoverArtBrowserSource(RB.Source):
         print("CoverArtBrowser DEBUG - end queue_select_album")
 
     def play_album_menu_item_callback(self, *args):
-        '''
+        """
         Callback called when the play album item from the cover view popup is
         selected. It cleans the play queue and queues the selected album.
-        '''
+        """
         print("CoverArtBrowser DEBUG - play_album_menu_item_callback")
 
         self.play_selected_album(self.favourites)
@@ -748,10 +748,10 @@ class CoverArtBrowserSource(RB.Source):
         print("CoverArtBrowser DEBUG - end play_album_menu_item_callback")
 
     def play_next_menu_item_callback(self, *args):
-        '''
+        """
         Callback called when the play next item from the cover view popup is
         selected. It adds to the play queue immediately after the last track of the playing album
-        '''
+        """
         print("CoverArtBrowser DEBUG - play_album_menu_item_callback")
 
         entry = self.shell.props.shell_player.get_playing_entry()
@@ -789,18 +789,18 @@ class CoverArtBrowserSource(RB.Source):
         print("CoverArtBrowser DEBUG - end play_album_menu_item_callback")
 
     def add_to_playing_menu_item_callback(self, *args):
-        '''
+        """
         Callback called when the add-to-playing item from the cover view popup is
         selected. It adds the selected album at the end of the currently playing source.
-        '''
+        """
 
         self.queue_selected_album(None, self.favourites)
 
     def queue_album_menu_item_callback(self, *args):
-        '''
+        """
         Callback called when the queue album item from the cover view popup is
         selected. It queues the selected album at the end of the play queue.
-        '''
+        """
         print("CoverArtBrowser DEBUG - queue_album_menu_item_callback()")
         self.queue_selected_album(self.shell.props.queue_source, self.favourites)
 
@@ -848,8 +848,8 @@ class CoverArtBrowserSource(RB.Source):
                                              action)
 
     def add_to_static_playlist_menu_item_callback(self, action, param, args):
-        print('''CoverArtBrowser DEBUG -
-            add_to_static_playlist_menu_item_callback''')
+        print("""CoverArtBrowser DEBUG -
+            add_to_static_playlist_menu_item_callback""")
 
         playlist = args['playlist']
         favourite = args['favourite']
@@ -857,14 +857,14 @@ class CoverArtBrowserSource(RB.Source):
         self.queue_selected_album(playlist, favourite)
 
     def add_playlist_menu_item_callback(self, *args):
-        print('''CoverArtBrowser DEBUG - add_playlist_menu_item_callback''')
+        print("""CoverArtBrowser DEBUG - add_playlist_menu_item_callback""")
         playlist_manager = self.shell.props.playlist_manager
         playlist = playlist_manager.new_playlist(_('New Playlist'), False)
 
         self.queue_selected_album(playlist, self.favourites)
 
     def play_random_album_menu_item_callback(self, favourites=False):
-        print('''CoverArtBrowser DEBUG - play_random_album_menu_item_callback''')
+        print("""CoverArtBrowser DEBUG - play_random_album_menu_item_callback""")
         query_model = RB.RhythmDBQueryModel.new_empty(self.shell.props.db)
 
         num_albums = len(self.album_manager.model.store)
@@ -934,11 +934,11 @@ class CoverArtBrowserSource(RB.Source):
         print("CoverArtBrowser DEBUG - end play_selected_album")
 
     def cover_search_menu_item_callback(self, *args):
-        '''
+        """
         Callback called when the search cover option is selected from the
         cover view popup. It prompts the album loader to retrieve the selected
         album cover
-        '''
+        """
         print("CoverArtBrowser DEBUG - cover_search_menu_item_callback()")
         selected_albums = self.viewmgr.current_view.get_selected_objects()
 
@@ -950,11 +950,11 @@ class CoverArtBrowserSource(RB.Source):
         print("CoverArtBrowser DEBUG - end cover_search_menu_item_callback()")
 
     def export_embed_menu_item_callback(self, *args):
-        '''
+        """
         Callback called when the export and embed coverart option
         is selected from the cover view popup.
         It prompts the exporter to copy and embed art for the albums chosen
-        '''
+        """
         print("CoverArtBrowser DEBUG - export_embed_menu_item_callback()")
         selected_albums = self.viewmgr.current_view.get_selected_objects()
 
@@ -966,11 +966,11 @@ class CoverArtBrowserSource(RB.Source):
         print("CoverArtBrowser DEBUG - export_embed_menu_item_callback()")
 
     def update_request_status_bar(self, coverobject):
-        '''
+        """
         Callback called by the album loader starts performing a new cover
         request. It prompts the source to change the content of the request
         statusbar.
-        '''
+        """
         print("CoverArtBrowser DEBUG - update_request_status_bar")
 
         if coverobject:
@@ -985,11 +985,11 @@ class CoverArtBrowserSource(RB.Source):
         print("CoverArtBrowser DEBUG - end update_request_status_bar")
 
     def cancel_request_callback(self, _):
-        '''
+        """
         Callback connected to the cancel button on the request statusbar.
         When called, it prompts the album loader to cancel the full cover
         search after the current cover.
-        '''
+        """
         print("CoverArtBrowser DEBUG - cancel_request_callback")
 
         self.request_cancel_button.set_sensitive(False)
@@ -998,11 +998,11 @@ class CoverArtBrowserSource(RB.Source):
         print("CoverArtBrowser DEBUG - end cancel_request_callback")
 
     def show_hide_pane(self, params):
-        '''
+        """
         helper function - if the entry is manually expanded
         then if necessary scroll the view to the last selected album
         params is "album" or a tuple of "album" and "force_expand" boolean
-        '''
+        """
         print('show_hide_pane')
         if isinstance(params, tuple):
             album, force = params
@@ -1083,9 +1083,9 @@ class CoverArtBrowserSource(RB.Source):
 
     @classmethod
     def get_instance(cls, **kwargs):
-        '''
+        """
         Returns the unique instance of the manager.
-        '''
+        """
         if not cls.instance:
             cls.instance = CoverArtBrowserSource(**kwargs)
 
@@ -1206,9 +1206,9 @@ class CustomStatusBar(object):
 
 
 class Views:
-    '''
+    """
     This class describes the different views available
-    '''
+    """
     # storage for the instance reference
     __instance = None
 
@@ -1217,10 +1217,10 @@ class Views:
 
         # below public variables and methods that can be called for Views
         def __init__(self, shell):
-            '''
+            """
             Initializes the singleton interface, assigning all the constants
             used to access the plugin's settings.
-            '''
+            """
             super(Views._impl, self).__init__()
 
             from coverart_covericonview import CoverIconView

@@ -151,9 +151,9 @@ class OptionsPopupWidget(OptionsWidget):
             item.set_active(True)
 
     def add_menuitem(self, label):
-        '''
+        """
         add a new menu item to the popup
-        '''
+        """
         if not self._first_menu_item:
             new_menu_item = Gtk.RadioMenuItem(label=label)
             self._first_menu_item = new_menu_item
@@ -170,20 +170,20 @@ class OptionsPopupWidget(OptionsWidget):
         return self._popup_menu.get_children()
 
     def clear_popupmenu(self):
-        '''
+        """
         reinitialises/clears the current popup menu and associated actions
-        '''
+        """
         for menu_item in self._popup_menu:
             self._popup_menu.remove(menu_item)
 
         self._first_menu_item = None
 
     def _fire_item_clicked(self, menu_item):
-        '''
+        """
         Fires the item-clicked signal if the item is selected, passing the
         given value as a parameter. Also updates the current value with the
         value of the selected item.
-        '''
+        """
         if menu_item.get_active():
             self.emit('item-clicked', menu_item.get_label())
 
@@ -198,9 +198,9 @@ class OptionsPopupWidget(OptionsWidget):
         return x, y, False, None
 
     def show_popup(self, align=True):
-        '''
+        """
         show the current popup menu
-        '''
+        """
 
         if align:
             self._popup_menu.popup(None, None, self._popup_callback, self, 0,
@@ -235,12 +235,12 @@ class PressButton(Gtk.Button):
             self.set_relief(Gtk.ReliefStyle.HALF)
 
     def set_image(self, pixbuf=None, symbolic=None):
-        '''
+        """
           set the image for the button
         :param pixbuf: if given the image is set via a pixbuf
         :param symbolic: if given, the image is set via a themed icon
         :return:
-        '''
+        """
         image = self.get_image()
 
         if not image:
@@ -310,12 +310,12 @@ class PixbufButton(EnhancedButton):
         super(PixbufButton, self).__init__(*args, **kwargs)
 
     def set_image(self, pixbuf=None, symbolic=None):
-        '''
+        """
          set the image for the button
         :param pixbuf: if given, image is set from a pixbuf
         :param symbolic: if given image is set from a symbolic name
         :return:
-        '''
+        """
         image = self.get_image()
 
         if not image:
@@ -365,9 +365,9 @@ class PopupButton(PixbufButton, OptionsPopupWidget):
     }
 
     def __init__(self, *args, **kwargs):
-        '''
+        """
         Initializes the button.
-        '''
+        """
         PixbufButton.__init__(self, *args, **kwargs)
         OptionsPopupWidget.__init__(self, *args, **kwargs)
 
@@ -392,10 +392,10 @@ class PopupButton(PixbufButton, OptionsPopupWidget):
         self.set_tooltip_text(self._controller.get_current_description())
 
     def do_button_press_event(self, event):
-        '''
+        """
         when button is clicked, update the popup with the sorting options
         before displaying the popup
-        '''
+        """
         if (event.button == Gdk.BUTTON_PRIMARY):
             self.show_popup()
             self.set_active(True)
@@ -410,9 +410,9 @@ class TextPopupButton(EnhancedButton, OptionsPopupWidget):
     }
 
     def __init__(self, *args, **kwargs):
-        '''
+        """
         Initializes the button.
-        '''
+        """
         EnhancedButton.__init__(self, *args, **kwargs)
         OptionsPopupWidget.__init__(self, *args, **kwargs)
 
@@ -426,10 +426,10 @@ class TextPopupButton(EnhancedButton, OptionsPopupWidget):
         self.set_active(False)
 
     def do_button_press_event(self, event):
-        '''
+        """
         when button is clicked, update the popup with the sorting options
         before displaying the popup
-        '''
+        """
         if (event.button == Gdk.BUTTON_PRIMARY):
             self.show_popup()
             self.set_active(True)
@@ -444,9 +444,9 @@ class MenuButton(PixbufButton, OptionsPopupWidget):
     }
 
     def __init__(self, *args, **kwargs):
-        '''
+        """
         Initializes the button.
-        '''
+        """
         PixbufButton.__init__(self, *args, **kwargs)
         OptionsPopupWidget.__init__(self, *args, **kwargs)
 
@@ -458,9 +458,9 @@ class MenuButton(PixbufButton, OptionsPopupWidget):
         self.set_active(False)
 
     def add_menuitem(self, key):
-        '''
+        """
         add a new menu item to the popup
-        '''
+        """
 
         label = key.label
         menutype = key.menutype
@@ -480,9 +480,9 @@ class MenuButton(PixbufButton, OptionsPopupWidget):
         self._popup_menu.append(new_menu_item)
 
     def clear_popupmenu(self):
-        '''
+        """
         reinitialises/clears the current popup menu and associated actions
-        '''
+        """
         for menu_item in self._popup_menu:
             if isinstance(menu_item, Gtk.CheckMenuItem):
                 self._states[menu_item.get_label()] = menu_item.get_active()
@@ -499,11 +499,11 @@ class MenuButton(PixbufButton, OptionsPopupWidget):
         self._states = {}
 
     def _fire_item_clicked(self, menu_item):
-        '''
+        """
         Fires the item-clicked signal if the item is selected, passing the
         given value as a parameter. Also updates the current value with the
         value of the selected item.
-        '''
+        """
         self.emit('item-clicked', menu_item.get_label())
 
     def update_image(self):
@@ -519,10 +519,10 @@ class MenuButton(PixbufButton, OptionsPopupWidget):
         self.set_tooltip_text(self._controller.get_current_description())
 
     def do_button_press_event(self, event):
-        '''
+        """
         when button is clicked, update the popup with the sorting options
         before displaying the popup
-        '''
+        """
         if (event.button == Gdk.BUTTON_PRIMARY):
             self.show_popup()
             self.set_active(True)
@@ -532,9 +532,9 @@ class ImageToggleButton(PixbufButton, OptionsWidget):
     __gtype_name__ = "ImageToggleButton"
 
     def __init__(self, *args, **kwargs):
-        '''
+        """
         Initializes the button.
-        '''
+        """
         PixbufButton.__init__(self, *args, **kwargs)
         OptionsWidget.__init__(self, *args, **kwargs)
 
@@ -570,9 +570,9 @@ class ImageRadioButton(Gtk.RadioButton, OptionsWidget):
     button_relief = GObject.property(type=bool, default=False)
 
     def __init__(self, *args, **kwargs):
-        '''
+        """
         Initializes the button.
-        '''
+        """
         Gtk.RadioButton.__init__(self, *args, **kwargs)
         OptionsWidget.__init__(self, *args, **kwargs)
 
@@ -693,17 +693,17 @@ class SearchEntry(RB.SearchEntry, OptionsPopupWidget):
         self.set_placeholder(self._controller.get_current_description())
 
     def do_show_popup(self):
-        '''
+        """
         Callback called by the search entry when the magnifier is clicked.
         It prompts the user through a popup to select a filter type.
-        '''
+        """
         self.show_popup(False)
 
     def do_search(self, text):
-        '''
+        """
         Callback called by the search entry when a new search must
         be performed.
-        '''
+        """
         if self._controller:
             self._controller.do_search(text)
 
@@ -881,12 +881,12 @@ class OptionsListViewWidget(OptionsWidget):
             self._controller.option_selected(key)
 
     def show_popup(self):
-        '''
+        """
         show the listview window either above or below the controlling
         widget depending upon where the cursor position is relative to the
         screen
         params - x & y is the cursor position
-        '''
+        """
         pos_x, pos_y = self.calc_popup_position(self._listwindow)
 
         self._listwindow.move(pos_x, pos_y)
@@ -970,9 +970,9 @@ class ListViewButton(PixbufButton, OptionsListViewWidget):
     }
 
     def __init__(self, *args, **kwargs):
-        '''
+        """
         Initializes the button.
-        '''
+        """
         PixbufButton.__init__(self, *args, **kwargs)
         OptionsListViewWidget.__init__(self, *args, **kwargs)
 
@@ -1000,10 +1000,10 @@ class ListViewButton(PixbufButton, OptionsListViewWidget):
         self.set_tooltip_text(self._controller.get_current_description())
 
     def do_button_press_event(self, event):
-        '''
+        """
         when button is clicked, update the popup with the sorting options
         before displaying the popup
-        '''
+        """
         if (event.button == Gdk.BUTTON_PRIMARY and not self.get_active()):
             self.show_popup()
             self.set_active(True)
@@ -1054,25 +1054,25 @@ class EnhancedIconView(Gtk.IconView):
         self.on_notify_icon_spacing()
 
     def on_notify_icon_padding(self, *args):
-        '''
+        """
         Callback called when the icon-padding gsetting value is changed
-        '''
+        """
         self.set_item_padding(self.icon_padding)
 
     def on_notify_icon_spacing(self, *args):
-        '''
+        """
         Callback called when the icon-spacing gsetting value is changed
-        '''
+        """
         self.set_row_spacing(self.icon_spacing)
         self.set_column_spacing(self.icon_spacing)
 
     def do_size_allocate(self, allocation):
-        '''
+        """
         Forces the reallocation of the IconView columns when the width of the
         widgets changes. Neverthless, it takes into account that multiple
         reallocations could happen in a short amount of time, so it avoids
         trying to refresh until the user has stopped resizing the component.
-        '''
+        """
         if self.get_allocated_width() != allocation.width:
             # don't need to reaccommodate if it's a vertical change
             self._reallocate_count += 1
@@ -1089,11 +1089,11 @@ class EnhancedIconView(Gtk.IconView):
             self.set_columns(-1)
 
     def do_button_press_event(self, event):
-        '''
+        """
         Other than the default behavior, adds an event firing when the mouse
         has clicked on top of a current item, informing the listeners of the
         path of the clicked item.
-        '''
+        """
         x = int(event.x)
         y = int(event.y)
         current_path = self.get_path_at_pos(x, y)
@@ -1117,12 +1117,12 @@ class EnhancedIconView(Gtk.IconView):
         Gtk.IconView.do_button_press_event(self, event)
 
     def get_selected_objects(self):
-        '''
+        """
         Helper method that simplifies getting the objects stored on the
         selected items, givent that the object_column property is setted.
         This way there's no need for the client class to repeateadly access the
         correct column to retrieve the object from the raw rows.
-        '''
+        """
         selected_items = self.get_selected_items()
 
         if not self.object_column:
@@ -1136,9 +1136,9 @@ class EnhancedIconView(Gtk.IconView):
         return selected_objects
 
     def select_and_scroll_to_path(self, path):
-        '''
+        """
         Helper method to select and scroll to a given path on the IconView.
-        '''
+        """
         self.unselect_all()
         self.select_path(path)
         self.set_cursor(path, None, False)
@@ -1263,10 +1263,10 @@ class PanedCollapsible(Gtk.Paned):
         self.emit('expanded', expand)
 
     def do_button_press_event(self, event):
-        '''
+        """
         This callback allows or denies the paned handle to move depending on
         the expanded expander
-        '''
+        """
         # if not self._expander or self._expander.get_expanded():
         self._from_paned_handle = 1
 
@@ -1276,9 +1276,9 @@ class PanedCollapsible(Gtk.Paned):
         Gtk.Paned.do_button_press_event(self, event)
 
     def do_button_release_event(self, *args):
-        '''
+        """
         Callback when the paned handle is released from its mouse click.
-        '''
+        """
         if self._from_paned_handle != 0:
             Gtk.Paned.do_button_release_event(self, *args)
 
@@ -1309,10 +1309,10 @@ class PanedCollapsible(Gtk.Paned):
         self._from_paned_handle = 0
 
     def do_remove(self, widget):
-        '''
+        """
         Overwrites the super class remove method, taking care of removing the
         child even if it's wrapped inside an Expander.
-        '''
+        """
         if self.collapsible1 and self.get_child1().get_child() is widget:
             expander = self.get_child1()
             expander.remove(widget)
@@ -1327,10 +1327,10 @@ class PanedCollapsible(Gtk.Paned):
         Gtk.Paned.remove(self, widget)
 
     def do_add(self, widget):
-        '''
+        """
         This method had to be overridden to allow the add and packs method to
         work with Glade.
-        '''
+        """
         if not self.get_child1():
             self.do_add1(widget)
         elif not self.get_child2():
@@ -1339,32 +1339,32 @@ class PanedCollapsible(Gtk.Paned):
             print("GtkPaned cannot have more than 2 children")
 
     def do_add1(self, widget):
-        '''
+        """
         Overrides the add1 superclass' method for pack1 to work correctly.
-        '''
+        """
         self.do_pack1(widget, True, True)
 
     def do_pack1(self, widget, *args, **kwargs):
-        '''
+        """
         Packs the widget into the first paned child, adding a GtkExpander
         around the packed widget if the collapsible1 property is True.
-        '''
+        """
         if self.collapsible1:
             widget = self._create_expander(widget)
 
         Gtk.Paned.pack1(self, widget, *args, **kwargs)
 
     def do_add2(self, widget):
-        '''
+        """
         Overrides the add2 superclass' method for pack2 to work correctly.
-        '''
+        """
         self.do_pack2(widget, True, True)
 
     def do_pack2(self, widget, *args, **kwargs):
-        '''
+        """
         Packs the widget into the second paned child, adding a GtkExpander
         around the packed widget if the collapsible2 property is True.
-        '''
+        """
         if self.collapsible2:
             widget = self._create_expander(widget)
 
@@ -1401,10 +1401,10 @@ class PanedCollapsible(Gtk.Paned):
         self.set_position(new_y)
 
     def expand(self, force):
-        '''
+        """
         Toggles the expanded property of the collapsible children.
         unless requested to force expansion
-        '''
+        """
         if self._expander:
             if force == PanedCollapsible.Paned.EXPAND:
                 self._expander.set_expanded(True)
@@ -1414,9 +1414,9 @@ class PanedCollapsible(Gtk.Paned):
                 self._expander.set_expanded(not self._expander.get_expanded())
 
     def get_expansion_status(self):
-        '''
+        """
         returns the position of the expander i.e. expanded or not
-        '''
+        """
         value = PanedCollapsible.Paned.COLLAPSE
         if self._expander and self._expander.get_expanded():
             value = PanedCollapsible.Paned.EXPAND
@@ -1425,11 +1425,11 @@ class PanedCollapsible(Gtk.Paned):
 
 
 class AbstractView(GObject.Object):
-    '''
+    """
     intention is to document 'the must have' methods all views should define
     N.B. this is preliminary and will change as and when
     coverflow view is added with lessons learned
-    '''
+    """
     view = None
     panedposition = PanedCollapsible.Paned.DEFAULT
     use_plugin_window = True
@@ -1453,10 +1453,10 @@ class AbstractView(GObject.Object):
         self.connect('update-toolbar', self.do_update_toolbar)
 
     def do_update_toolbar(self, *args):
-        '''
+        """
             called when update-toolbar signal is emitted
             by default the toolbar objects are made visible
-        '''
+        """
         from coverart_toolbar import ToolbarObject
 
         self.source.toolbar_manager.set_enabled(True, ToolbarObject.SORT_BY)
@@ -1497,82 +1497,82 @@ class AbstractView(GObject.Object):
                 self._notification_displayed = 1  # reset notification for new label
 
     def resize_icon(self, cover_size):
-        '''
+        """
         resize the view main picture icon
 
         :param cover_size: `int` icon size
-        '''
+        """
         pass
 
     def get_selected_objects(self):
-        '''
+        """
         finds what has been selected
 
         returns an array of `Album`
-        '''
+        """
         pass
 
     def selectionchanged_callback(self, *args):
-        '''
+        """
         callback when a selection has changed
-        '''
+        """
         self.source.update_with_selection()
 
     def select_and_scroll_to_path(self, path):
-        '''
+        """
         find a path and highlight (select) that object
-        '''
+        """
         pass
 
     def scroll_to_album(self, album):
-        '''
+        """
         scroll to the album in the view
-        '''
+        """
         if album:
             path = self.source.album_manager.model.get_path(album)
             if path:
                 self.select_and_scroll_to_path(path)
 
     def set_popup_menu(self, popup):
-        '''
+        """
         define the popup menu (right click) used for the view
-        '''
+        """
         self.popup = popup
 
     def grab_focus(self):
-        '''
+        """
         ensures main view object retains the focus
-        '''
+        """
         pass
 
     def switch_to_view(self, source, album):
-        '''
+        """
         ensures that when the user toggles to a view stuff remains
         consistent
-        '''
+        """
         pass
 
     def get_view_icon_name(self):
-        '''
+        """
         every view should have an icon - subject to removal
         since we'll probably just have text buttons for the view
-        '''
+        """
         return ""
 
     def get_default_manager(self):
-        '''
+        """
         every view should have a default manager
         for example an AlbumManager or ArtistManager
         by default - use the AlbumManager from the source
-        '''
+        """
 
         return self.source.album_manager
 
     def switch_to_coverpane(self, cover_search_pane):
-        '''
+        """
         called from the source to update the coverpane when
         it is switched from the track pane
-        '''
+        """
 
         selected = self.get_selected_objects()
 

@@ -17,10 +17,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA.
 
-'''
+"""
 Structures and managers to work with albums on Rhythmbox. This module provides
 the base model for the plugin to work on top of.
-'''
+"""
 
 from datetime import datetime, date
 import os
@@ -56,7 +56,7 @@ COVER_LOAD_CHUNK = 50
 
 
 class Cover(GObject.Object):
-    '''
+    """
     Cover of an Album. It may be initialized either by a file path to the image
     to use or by a previously allocated pixbuf.
 
@@ -64,7 +64,7 @@ class Cover(GObject.Object):
         square-shapped cover).
     :param image: `str` containing a path of an image from where to create
         the cover.
-    '''
+    """
     # signals
     __gsignals__ = {
         'resized': (GObject.SIGNAL_RUN_LAST, None, ())
@@ -80,9 +80,9 @@ class Cover(GObject.Object):
         self._create_pixbuf(size)
 
     def resize(self, size):
-        '''
+        """
         Resizes the cover's pixbuf.
-        '''
+        """
         if self.size != size:
             self._create_pixbuf(size)
             self.emit('resized')
@@ -149,14 +149,14 @@ class ShadowedCover(Cover):
 
 
 class Track(GObject.Object):
-    '''
+    """
     A music track. Provides methods to access to most of the tracks data from
     Rhythmbox's database.
 
     :param entry: `RB.RhythmbDBEntry` rhythmbox's database entry for the track.
     :param db: `RB.RhythmbDB` instance. It's needed to update the track's
         values.
-    '''
+    """
     # signals
     __gsignals__ = {
         'modified': (GObject.SIGNAL_RUN_LAST, None, ()),
@@ -248,21 +248,21 @@ class Track(GObject.Object):
         return self.entry.get_entry_type().props.save_to_disk
 
     def create_ext_db_key(self):
-        '''
+        """
         Returns an `RB.ExtDBKey` that can be used to access/write some other
         track specific data on an `RB.ExtDB`.
-        '''
+        """
         return self.entry.create_ext_db_key(RB.RhythmDBPropType.ALBUM)
 
 
 class Album(GObject.Object):
-    '''
+    """
     An album. It's conformed from one or more tracks, and many of it's
     information is deduced from them.
 
     :param name: `str` name of the album.
     :param cover: `Cover` cover for this album.
-    '''
+    """
     # signals
     __gsignals__ = {
         'modified': (GObject.SIGNAL_RUN_FIRST, None, ()),
@@ -347,9 +347,9 @@ class Album(GObject.Object):
 
     @property
     def real_year(self):
-        ''' 
+        """
         return the calculated year e.g. 1989
-        '''
+        """
         calc_year = self.year
 
         if calc_year == 0:
@@ -361,9 +361,9 @@ class Album(GObject.Object):
 
     @property
     def calc_year_sort(self):
-        ''' 
+        """
         returns a str combinationi of real_year + album name
-        '''
+        """
 
         return str(self.real_year) + self.name
 
@@ -420,14 +420,14 @@ class Album(GObject.Object):
         self.emit('cover-updated')
 
     def get_tracks(self, rating_threshold=0):
-        '''
+        """
         Returns the tracks on this album. If rating_threshold is provided,
         only those tracks over the threshold will be returned. The track list
         returned is ordered by track number.
 
         :param rating_threshold: `float` threshold over which the rating of the
             track should be to be returned.
-        '''
+        """
         if not rating_threshold:
             # if no threshold is set, return all
             tracks = self._tracks
@@ -439,11 +439,11 @@ class Album(GObject.Object):
         return sorted(tracks, key=lambda track: (track.disc_number, track.track_number))
 
     def add_track(self, track):
-        '''
+        """
         Adds a track to the album.
 
         :param track: `Track` track to be added.
-        '''
+        """
         self._tracks.append(track)
         ids = (track.connect('modified', self._track_modified),
                track.connect('deleted', self._track_deleted))
@@ -474,9 +474,9 @@ class Album(GObject.Object):
             self.emit('modified')
 
     def create_ext_db_key(self):
-        '''
+        """
         Creates a `RB.ExtDBKey` from this album's tracks.
-        '''
+        """
         return self._tracks[0].create_ext_db_key()
 
     def do_modified(self):
@@ -648,13 +648,13 @@ class AlbumFilters(object):
 
     @classmethod
     def decade_filter(cls, searchdecade=None):
-        '''
+        """
         The year is in RATA DIE format so need to extract the year
 
         The searchdecade param can be None meaning all results
         or -1 for all albums older than our standard range which is 1930
         or an actual decade for 1930 to 2020
-        '''
+        """
 
         def filt(album):
             if not searchdecade:
@@ -699,7 +699,7 @@ sort_keys = {
 
 
 class AlbumsModel(GObject.Object):
-    '''
+    """
     Model that contains albums, keeps them sorted, filtered and provides an
     external `Gtk.TreeModel` interface to use as part of a Gtk interface.
 
@@ -709,7 +709,7 @@ class AlbumsModel(GObject.Object):
     column 2 -> instance of the album itself.
     column 3 -> markup text showed under the cover.
     column 4 -> boolean that indicates if the row should be shown
-    '''
+    """
     # signals
     __gsignals__ = {
         'generate-tooltip': (GObject.SIGNAL_RUN_LAST, str, (object,)),
@@ -822,11 +822,11 @@ class AlbumsModel(GObject.Object):
             self.emit(signal, tree_path, tree_iter)
 
     def add(self, album):
-        '''
+        """
         Add an album to the model.
 
         :param album: `Album` to be added to the model.
-        '''
+        """
 
         # generate necessary values
         values = self._generate_values(album)
@@ -852,11 +852,11 @@ class AlbumsModel(GObject.Object):
         return tooltip, pixbuf, album, markup, hidden
 
     def remove(self, album):
-        '''
+        """
         Removes this album from the model.
 
         :param album: `Album` to be removed from the model.
-        '''
+        """
         print("album model remove")
         print(album)
         self._albums.remove(album)
@@ -869,28 +869,28 @@ class AlbumsModel(GObject.Object):
         del self._iters[album.name][album.artist]
 
     def contains(self, album_name, album_artist):
-        '''
+        """
         Indicates if the model contains a specific album.
 
         :param album_name: `str` name of the album.
-        '''
+        """
         return album_name in self._iters \
                and album_artist in self._iters[album_name]
 
     def get(self, album_name, album_artist):
-        '''
+        """
         Returns the requested album.
 
         :param album_name: `str` name of the album.
-        '''
+        """
         return self._iters[album_name][album_artist]['album']
 
     def get_from_dbentry(self, entry):
-        '''
+        """
         Returns the album containing the track corresponding to rhythmdbentry
         
         :param entry: `RhythmDBEntry`
-        '''
+        """
 
         album_artist = entry.get_string(RB.RhythmDBPropType.ALBUM_ARTIST)
         album_artist = album_artist if album_artist else entry.get_string(RB.RhythmDBPropType.ARTIST)
@@ -899,25 +899,25 @@ class AlbumsModel(GObject.Object):
         return self._iters[album_name][album_artist]['album']
 
     def get_all(self):
-        '''
+        """
         Returns a collection of all the albums in this model.
-        '''
+        """
         return self._albums
 
     def get_from_path(self, path):
-        '''
+        """
         Returns an album referenced by a `Gtk.TreeModel` path.
 
         :param path: `Gtk.TreePath` referencing the album.
-        '''
+        """
         return self._filtered_store[path][self.columns['album']]
 
     def get_from_ext_db_key(self, key):
-        '''
+        """
         Returns the requested album.
 
         :param key: ext_db_key
-        '''
+        """
         # get the album name and artist
         name = key.get_field('album')
         artist = key.get_field('artist')
@@ -957,14 +957,14 @@ class AlbumsModel(GObject.Object):
         return None
 
     def show(self, album, show):
-        '''
+        """
         Unfilters an album, making it visible to the publicly available model's
         `Gtk.TreeModel`
 
         :param album: `Album` to show or hide.
         :param show: `bool` indcating whether to show(True) or hide(False) the
             album.
-        '''
+        """
         album_iter = self._iters[album.name][album.artist]['iter']
 
         if self._tree_store.iter_is_valid(album_iter):
@@ -988,9 +988,9 @@ class AlbumsModel(GObject.Object):
         return ALBUM_LOAD_CHUNK, process, None, error, finish
 
     def sort(self):
-        '''
+        """
         Changes the sorting strategy for the model.
-        '''
+        """
 
         gs = GSetting()
         source_settings = gs.get_setting(gs.Path.PLUGIN)
@@ -1045,7 +1045,7 @@ class AlbumsModel(GObject.Object):
         self._sort_process = self._sort(iter(self._albums))
 
     def replace_filter(self, filter_key, filter_arg=None, refilter=True):
-        '''
+        """
         Adds or replaces a filter by it's filter_key.
 
         :param filter_key: `str` key of the filter method to use. This should
@@ -1054,21 +1054,21 @@ class AlbumsModel(GObject.Object):
             method may need to perform the filtering process.
         :param refilter: `bool` indicating whether to force a refilter and
         emit the 'filter-changed' signal(True) or not(False).
-        '''
+        """
         self._filters[filter_key] = AlbumFilters.keys[filter_key](filter_arg)
 
         if refilter:
             self.emit('filter-changed')
 
     def remove_filter(self, filter_key, refilter=True):
-        '''
+        """
         Removes a filter by it's filter_key
 
         :param filter_key: `str` key of the filter method to use. This should
             be one of the available keys on the `AlbumFilters` class.
         :param refilter: `bool` indicating whether to force a refilter and
         emit the 'filter-changed' signal(True) or not(False).
-        '''
+        """
         if filter_key in self._filters:
             del self._filters[filter_key]
 
@@ -1076,9 +1076,9 @@ class AlbumsModel(GObject.Object):
                 self.emit('filter-changed')
 
     def clear_filters(self):
-        '''
+        """
         Clears all filters on the model.
-        '''
+        """
         if self._filters:
             self._filters.clear()
 
@@ -1098,19 +1098,19 @@ class AlbumsModel(GObject.Object):
         return True
 
     def recreate_text(self):
-        '''
+        """
         Forces the recreation and update of the markup text for each album.
-        '''
+        """
         self._recreate_text(iter(self._albums))
 
 
 class AlbumLoader(GObject.Object):
-    '''
+    """
     Loads and updates Rhythmbox's tracks and albums, updating the model
     accordingly.
 
     :param album_manager: `AlbumManager` responsible for this loader.
-    '''
+    """
     # signals
     __gsignals__ = {
         'albums-load-finished': (GObject.SIGNAL_RUN_LAST, None, (object,)),
@@ -1283,10 +1283,10 @@ class AlbumLoader(GObject.Object):
                 self._album_manager.model.add(album)
 
     def load_albums(self, query_model):
-        '''
+        """
         Loads and creates `Track` instances for all entries on query_model,
         assigning them into their correspondant `Album`.
-        '''
+        """
         print("CoverArtBrowser DEBUG - load_albums")
 
         self._load_albums(iter(query_model), albums={}, model=query_model,
@@ -1316,33 +1316,33 @@ class CoverRequester(GObject.Object):
         self._stop = False
 
     def add_to_queue(self, coverobjects, callback):
-        ''' Adds coverobjects to the queue if they're not already there. '''
+        """ Adds coverobjects to the queue if they're not already there. """
         self._queue.extend(
             [coverobject for coverobject in coverobjects if coverobject not in self._queue])
 
         self._start_process(callback)
 
     def replace_queue(self, coverobjects, callback):
-        ''' Completely replace the current queue. '''
+        """ Completely replace the current queue. """
         self._queue = coverobjects
 
         self._start_process(callback)
 
     def _start_process(self, callback):
-        ''' Starts the queue processing if it isn't running already '''
+        """ Starts the queue processing if it isn't running already """
         if not self._running:
             self._callback = callback
             self._running = True
             self._process_queue()
 
     def _process_queue(self):
-        '''
+        """
         Main method that process the queue.
         First, it tries to adquire a lock on the queue, and if it can, pops
         the next element of the queue and process it.
         The lock makes sure that only one request is done at a time, and
         successfully ignores false timeouts or strand callbacks.
-        '''
+        """
         # process the next element in the queue
         while self._queue:
             coverobject = self._queue.pop(0)
@@ -1369,7 +1369,7 @@ class CoverRequester(GObject.Object):
             self._callback(None)
 
     def _search_for_cover(self, coverobject, search_id):
-        '''
+        """
         Actively requests a cover to the cover_db, calling
         the callback given once the process finishes (since it generally is
         asynchronous).
@@ -1377,7 +1377,7 @@ class CoverRequester(GObject.Object):
         `RB.ExtDB.request` documentation.
 
         :param coverobject: covertype for which search the cover.
-        '''
+        """
         # create a key and request the cover
         key = coverobject.create_ext_db_key()
         provides = self._cover_db.request(key, self._next, search_id)
@@ -1387,7 +1387,7 @@ class CoverRequester(GObject.Object):
             self._next(search_id)
 
     def _next(self, *args):
-        ''' Advances to the next coverobject to process. '''
+        """ Advances to the next coverobject to process. """
         # get the id of the search
         search_id = args[-1]
         if search_id == self._queue_id:
@@ -1396,18 +1396,18 @@ class CoverRequester(GObject.Object):
             self._process_queue()
 
     def stop(self):
-        ''' Clears the queue, forcing the requester to stop. '''
+        """ Clears the queue, forcing the requester to stop. """
         del self._queue[:]
 
 
 class CoverManager(GObject.Object):
-    '''
+    """
     Manager that takes care of cover loading and updating.
 
     :param plugin: `Peas.PluginInfo` instance used to have access to the
         predefined unknown cover.
     :param album_manager: `AlbumManager` responsible for this manager.
-    '''
+    """
 
     # signals
     __gsignals__ = {
@@ -1507,14 +1507,14 @@ class CoverManager(GObject.Object):
                 coverobject.cover = self.create_cover(path)
 
     def load_cover(self, coverobject):
-        '''
+        """
         Tries to load a cover. If no cover is found upon lookup,
         the unknown cover is used.
         This method doesn't actively tries to find a cover, for that you should
         use the search_cover method.
 
         :param coverobject: cover type for which load the cover e.g. Album.
-        '''
+        """
         # create a key and look for the art location
         key = coverobject.create_ext_db_key()
         art_location = self.cover_db.lookup(key)
@@ -1530,16 +1530,16 @@ class CoverManager(GObject.Object):
             coverobject.cover = self.unknown_cover
 
     def load_covers(self):
-        '''
+        """
         Loads all the covers for the model.
-        '''
+        """
         # get all the coverobjects
         coverobjects = self._manager.model.get_all()
 
         self._load_covers(iter(coverobjects), total=len(coverobjects), progress=0.)
 
     def search_covers(self, coverobjects=None, callback=lambda *_: None):
-        '''
+        """
         Request all the covers, one by one, periodically calling a
         callback to inform the status of the process.
         The callback should accept one argument: the coverobject (e.g. album) which cover is
@@ -1549,7 +1549,7 @@ class CoverManager(GObject.Object):
         :param coverobjects: `list` of coverobjects for which look for covers.
         :param callback: `callable` to periodically inform when a coverobject
             cover is being searched.
-        '''
+        """
         if not check_lastfm(self.force_lastfm_check):
             # display error message and quit
             dialog = Gtk.MessageDialog(None,
@@ -1570,9 +1570,9 @@ class CoverManager(GObject.Object):
             self._requester.add_to_queue(coverobjects, callback)
 
     def cancel_cover_request(self):
-        '''
+        """
         Cancel the current cover request, if there is one running.
-        '''
+        """
         self._requester.stop()
 
     def update_pixbuf_cover(self, coverobject, pixbuf):
@@ -1590,9 +1590,9 @@ class CoverManager(GObject.Object):
         self.load_covers()
 
     def _on_cover_size_changed(self, *args):
-        '''
+        """
         Updates the showing cover size.
-        '''
+        """
         # update the shadow
         self.shadow.resize(self.cover_size)
 
@@ -1608,7 +1608,7 @@ class CoverManager(GObject.Object):
         self._manager.current_view.resize_icon(self.cover_size)
 
     def update_cover(self, coverobject, pixbuf=None, uri=None):
-        '''
+        """
         Updates the cover database, inserting the pixbuf as the cover art for
         all the entries on the album.
         In the case a uri is given instead of the pixbuf, it will first try to
@@ -1618,7 +1618,7 @@ class CoverManager(GObject.Object):
         :param coverobject: object for which the cover is a type of e.g. album.
         :param pixbuf: `GkdPixbuf.Pixbuf` to use as a cover.
         :param uri: `str` from where we should try to retrieve an image.
-        '''
+        """
         if pixbuf:
             self.update_pixbuf_cover(coverobject, pixbuf)
         elif uri:
@@ -1704,12 +1704,12 @@ class AlbumCoverManager(CoverManager):
 
 
 class BaseTextManager(GObject.Object):
-    '''
+    """
     Manager that keeps control of the text options for the model's markup text.
     It takes care of creating the text for the model when requested to do it.
 
     :param manager: the responsible manager.
-    '''
+    """
     # properties
     display_text_ellipsize_enabled = GObject.property(type=bool, default=False)
     display_text_ellipsize_length = GObject.property(type=int, default=0)
@@ -1725,9 +1725,9 @@ class BaseTextManager(GObject.Object):
         self._connect_properties()
 
     def _connect_signals(self):
-        '''
+        """
         Connects the loader to all the needed signals for it to work.
-        '''
+        """
         # connect signals for the loader properties
         self.connect('notify::display-text-ellipsize-enabled',
                      self.on_notify_display_text_ellipsize)
@@ -1742,9 +1742,9 @@ class BaseTextManager(GObject.Object):
                                     self.generate_markup_text)
 
     def _connect_properties(self):
-        '''
+        """
         Connects the loader properties to the saved preferences.
-        '''
+        """
         gs = GSetting()
         setting = gs.get_setting(gs.Path.PLUGIN)
 
@@ -1757,51 +1757,51 @@ class BaseTextManager(GObject.Object):
                      Gio.SettingsBindFlags.GET)
 
     def on_notify_display_text_ellipsize(self, *args):
-        '''
+        """
         Callback called when one of the properties related with the ellipsize
         option is changed.
-        '''
+        """
         self._manager.model.recreate_text()
 
     def generate_tooltip(self, model, coverobject):
-        '''
+        """
         Utility function that creates the tooltip for an object set into
         the model.
-        '''
+        """
         return ''
 
     def generate_markup_text(self, model, coverobject):
-        '''
+        """
         Utility function that creates the markup text for an object to set in a model
-        '''
+        """
 
         return ''
 
 
 class AlbumTextManager(BaseTextManager):
-    '''
+    """
     Manager that keeps control of the text options for the model's markup text.
     It takes care of creating the text for the model when requested to do it.
 
     :param album_manager: `AlbumManager` responsible for this manager.
-    '''
+    """
 
     def __init__(self, manager):
         super(AlbumTextManager, self).__init__(manager)
 
     def generate_tooltip(self, model, album):
-        '''
+        """
         Utility function that creates the tooltip for this album to set into
         the model.
-        '''
+        """
         return cgi.escape(rb3compat.unicodeencode(_('%s by %s'), 'utf-8') % (album.name,
                                                                              album.artists))
 
     def generate_markup_text(self, model, album):
-        '''
+        """
         Utility function that creates the markup text for this album to set
         into the model.
-        '''
+        """
         # we use unicode to avoid problems with non ascii albums
         name = rb3compat.unicodestr(album.name, 'utf-8')
         artist = rb3compat.unicodestr(album.artist, 'utf-8')
@@ -1828,13 +1828,13 @@ class AlbumTextManager(BaseTextManager):
 
 
 class AlbumManager(GObject.Object):
-    '''
+    """
     Main construction that glues together the different managers, the loader
     and the model. It takes care of initializing all the system.
 
     :param plugin: `Peas.PluginInfo` instance.
     :param current_view: `AlbumView` where the album's cover are shown.
-    '''
+    """
     # singleton instance
     instance = None
 
@@ -1869,9 +1869,9 @@ class AlbumManager(GObject.Object):
         self._connect_signals()
 
     def _connect_signals(self):
-        '''
+        """
         Connects the manager to all the needed signals for it to work.
-        '''
+        """
         # connect signal to the loader so it shows the albums when it finishes
         self._load_finished_id = self.loader.connect('model-load-finished',
                                                      self._load_finished_callback)

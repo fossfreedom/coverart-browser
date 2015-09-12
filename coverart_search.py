@@ -28,17 +28,17 @@ from coverart_browser_prefs import webkit_support
 
 
 class CoverSearchPane(Gtk.Box):
-    '''
+    """
     This UI represents a pane where different covers can be presented
     given an album or artist to look for. It also allows to make custom image searchs,
     customize the default search and select covers from the pane and use them
     as the covers (either with a double click or dragging them).
-    '''
+    """
 
     def __init__(self, plugin, selection_color):
-        '''
+        """
         Initializes the pane, loading it's html templates and it's ui.
-        '''
+        """
         super(CoverSearchPane, self).__init__()
         self.set_orientation(Gtk.Orientation.VERTICAL)
         self.selection_color = selection_color
@@ -54,9 +54,9 @@ class CoverSearchPane(Gtk.Box):
             self.clear()
 
     def load_templates(self, plugin):
-        '''
+        """
         Loads the templates and stylesheets to be used by the pane.
-        '''
+        """
         # input_encoding='utf-8',
 
         path = rb.find_plugin_file(plugin,
@@ -80,9 +80,9 @@ class CoverSearchPane(Gtk.Box):
         self.styles = rb.find_plugin_file(plugin, 'tmpl/main.css')
 
     def init_gui(self):
-        '''
+        """
         Initializes the pane ui.
-        '''
+        """
         # ---- set up webkit pane -----#
         from gi.repository import WebKit
 
@@ -101,11 +101,11 @@ class CoverSearchPane(Gtk.Box):
         self.webview.connect('notify::title', self.set_cover)
 
     def do_search(self, coverobject, callback):
-        '''
+        """
         When this method is called, the webview gets refreshed with the info
         of the album or artist passed.
         
-        '''
+        """
         print("coverart-search do_search")
         if coverobject is self.current_searchobject:
             return
@@ -140,9 +140,9 @@ class CoverSearchPane(Gtk.Box):
                 self.render_artist_art_search(artist)
 
     def render_album_art_search(self, artist, album_name):
-        '''
+        """
         Renders the template on the webview.
-        '''
+        """
         temp_file = self.template.render(artist=artist, album=album_name,
                                          stylesheet=self.styles, selection_color=self.selection_color)
 
@@ -151,9 +151,9 @@ class CoverSearchPane(Gtk.Box):
                                  self.basepath)
 
     def render_artist_art_search(self, artist):
-        '''
+        """
         Renders the template on the webview.
-        '''
+        """
         temp_file = self.artist_template.render(artist=artist,
                                                 stylesheet=self.styles, selection_color=self.selection_color)
 
@@ -162,9 +162,9 @@ class CoverSearchPane(Gtk.Box):
                                  self.basepath)
 
     def clear(self):
-        '''
+        """
         Clears the webview of any specific info/covers.
-        '''
+        """
         self.current_searchobject = None
         temp_file = self.empty_template.render(stylesheet=self.styles)
 
@@ -172,11 +172,11 @@ class CoverSearchPane(Gtk.Box):
                                  self.basepath)
 
     def set_cover(self, webview, arg):
-        '''
+        """
         Callback called when a image in the pane is double-clicked. It takes
         care of updating the searched object cover.
         Some titles have spurious characters beginning with % - remove these
-        '''
+        """
         # update the cover
         title = webview.get_title()
 

@@ -24,10 +24,10 @@ from coverart_widgets import AbstractView
 
 
 class ListShowingPolicy(GObject.Object):
-    '''
+    """
     Policy that mostly takes care of how and when things should be showed on
     the view that makes use of the `AlbumsModel`.
-    '''
+    """
 
     def __init__(self, list_view):
         super(ListShowingPolicy, self).__init__()
@@ -72,9 +72,9 @@ class ListView(AbstractView):
                       self.shell.props.library_source)
 
     def get_selected_objects(self):
-        '''
+        """
         finds what has been selected
 
         returns an array of `Album`
-        '''
+        """
         return []

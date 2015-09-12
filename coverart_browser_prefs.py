@@ -38,18 +38,18 @@ import coverart_rb3compat as rb3compat
 
 
 def webkit_support():
-    '''
+    """
     function that returns True/False if webkit technology is supported
-    '''
+    """
     gs = GSetting()
     settings = gs.get_setting(gs.Path.PLUGIN)
     return settings[gs.PluginKey.WEBKIT]
 
 
 class CoverLocale:
-    '''
+    """
     This class manages the locale
-    '''
+    """
     # storage for the instance reference
     __instance = None
 
@@ -57,18 +57,18 @@ class CoverLocale:
         """ Implementation of the singleton interface """
         # below public variables and methods that can be called for CoverLocale
         def __init__(self):
-            '''
+            """
             Initializes the singleton interface, assigning all the constants
             used to access the plugin's settings.
-            '''
+            """
             self.Locale = self._enum(
                 RB='rhythmbox',
                 LOCALE_DOMAIN='coverart_browser')
 
         def switch_locale(self, locale_type):
-            '''
+            """
             Change the locale
-            '''
+            """
             locale.setlocale(locale.LC_ALL, '')
             locale.bindtextdomain(locale_type, RB.locale_dir())
             locale.textdomain(locale_type)
@@ -77,17 +77,17 @@ class CoverLocale:
             gettext.install(locale_type)
 
         def get_locale(self):
-            '''
+            """
             return the string representation of the users locale
             for example
             en_US
-            '''
+            """
             return locale.getdefaultlocale()[0]
 
         def _enum(self, **enums):
-            '''
+            """
             Create an enumn.
-            '''
+            """
             return type('Enum', (), enums)
 
     def __init__(self):
@@ -110,10 +110,10 @@ class CoverLocale:
 
 
 class GSetting:
-    '''
+    """
     This class manages the different settings that the plugin has to
     access to read or write.
-    '''
+    """
     # storage for the instance reference
     __instance = None
 
@@ -121,10 +121,10 @@ class GSetting:
         """ Implementation of the singleton interface """
         # below public variables and methods that can be called for GSetting
         def __init__(self):
-            '''
+            """
             Initializes the singleton interface, assigning all the constants
             used to access the plugin's settings.
-            '''
+            """
             self.Path = self._enum(
                 PLUGIN='org.gnome.rhythmbox.plugins.coverart_browser',
                 RBSOURCE='org.gnome.rhythmbox.sources')
@@ -178,9 +178,9 @@ class GSetting:
             self.setting = {}
 
         def get_setting(self, path):
-            '''
+            """
             Return an instance of Gio.Settings pointing at the selected path.
-            '''
+            """
             try:
                 setting = self.setting[path]
             except:
@@ -190,21 +190,21 @@ class GSetting:
             return setting
 
         def get_value(self, path, key):
-            '''
+            """
             Return the value saved on key from the settings path.
-            '''
+            """
             return self.get_setting(path)[key]
 
         def set_value(self, path, key, value):
-            '''
+            """
             Set the passed value to key in the settings path.
-            '''
+            """
             self.get_setting(path)[key] = value
 
         def _enum(self, **enums):
-            '''
+            """
             Create an enumn.
-            '''
+            """
             return type('Enum', (), enums)
 
     def __init__(self):
@@ -227,10 +227,10 @@ class GSetting:
 
 
 class Preferences(GObject.Object, PeasGtk.Configurable):
-    '''
+    """
     Preferences for the CoverArt Browser Plugins. It holds the settings for
     the plugin and also is the responsible of creating the preferences dialog.
-    '''
+    """
     __gtype_name__ = 'CoverArtBrowserPreferences'
     object = GObject.property(type=GObject.Object)
 
@@ -238,10 +238,10 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
     GENRE_LIST = 2
 
     def __init__(self):
-        '''
+        """
         Initialises the preferences, getting an instance of the settings saved
         by Gio.
-        '''
+        """
         GObject.Object.__init__(self)
         gs = GSetting()
         self.settings = gs.get_setting(gs.Path.PLUGIN)
@@ -251,9 +251,9 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         self._cover_size_delay = 0
 
     def do_create_configure_widget(self):
-        '''
+        """
         Creates the plugin's preferences dialog
-        '''
+        """
         return self._create_display_contents(self)
 
     def display_preferences_dialog(self, plugin):
@@ -623,9 +623,9 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         self.settings[gs.PluginKey.RATING] = self.stars.get_rating()
 
     def on_save_button_clicked(self, button):
-        '''
+        """
         action when genre edit area is saved
-        '''
+        """
         entry_value = self.genre_entry.get_text()
         treeiter = self.genre_combobox.get_active_iter()
         icon_value = self.alt_liststore[treeiter][0]
@@ -660,9 +660,9 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         self._toggle_new_genre_state()
 
     def on_genre_filechooserbutton_file_set(self, filechooser):
-        '''
+        """
         action when genre new icon button is pressed
-        '''
+        """
         key = self._sheet.add_genre_icon(self.filechooserdialog.get_filename())
         store_iter = self.alt_liststore.append([key.name, self._sheet[key.name]])
         self._iters[(key.name, self.GENRE_POPUP)] = store_iter
@@ -676,9 +676,9 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
             self.settings[gs.PluginKey.LAST_GENRE_FOLDER] = last_genre_folder
 
     def on_genre_view_selection_changed(self, view):
-        '''
+        """
         action when user selects a row in the list of genres
-        '''
+        """
         model, genre_iter = view.get_selected()
         if genre_iter:
             self.genre_entry.set_text(model[genre_iter][0])
@@ -702,9 +702,9 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
                 self.blank_iter = None
 
     def on_add_button_clicked(self, button):
-        '''
+        """
         action when a new genre is added to the table
-        '''
+        """
         self.genre_entry.set_text('')
         self.genre_combobox.set_active(-1)
         self.amend_mode = False
@@ -713,9 +713,9 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         selection.select_iter(self.blank_iter)
 
     def on_delete_button_clicked(self, button):
-        '''
+        """
         action when a genre is to be deleted
-        '''
+        """
         selection = self.genre_view.get_selection()
 
         model, genre_iter = selection.get_selected()
@@ -730,10 +730,10 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
                 self._toggle_new_genre_state()
 
     def set_save_sensitivity(self, _):
-        '''
+        """
         action to toggle the state of the save button depending
         upon the values entered in the genre edit fields
-        '''
+        """
         entry_value = self.genre_entry.get_text()
         treeiter = self.genre_combobox.get_active_iter()
 
@@ -755,11 +755,11 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         self.save_button.set_sensitive(enable)
 
     def _toggle_new_genre_state(self):
-        '''
+        """
         fire an event - uses gsettings and an object such as a
         controller connects to receive the signal that a new or amended
         genre has been made
-        '''
+        """
         gs = GSetting()
         test = self.settings[gs.PluginKey.NEW_GENRE_ICON]
 

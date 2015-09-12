@@ -42,9 +42,9 @@ class CoverArtPlayEntryView(CoverArtEntryView):
     __hash__ = GObject.__hash__
 
     def __init__(self, shell, source):
-        '''
+        """
         Initializes the entryview.
-        '''
+        """
         super(CoverArtPlayEntryView, self).__init__(shell, source)
 
     def define_menu(self):
@@ -60,9 +60,9 @@ class CoverArtPlayEntryView(CoverArtEntryView):
         self.popup = popup
 
     def pre_popup_menu_callback(self, *args):
-        '''
+        """
         Callback when the popup menu is about to be displayed
-        '''
+        """
 
         if not self.external_plugins:
             self.external_plugins = \
@@ -100,9 +100,9 @@ class CoverArtPlayEntryView(CoverArtEntryView):
 
 class CoverArtPlaySource(RB.BrowserSource):
     def __init__(self, **kwargs):
-        '''
+        """
         Initializes the source.
-        '''
+        """
         super(CoverArtPlaySource, self).__init__(**kwargs)
         # self.external_plugins = None
         self.hasActivated = False
@@ -124,10 +124,10 @@ class CoverArtPlaySource(RB.BrowserSource):
         self.source_query_model.connect('row-deleted', self.save_changed_model)
 
     def do_selected(self):
-        '''
+        """
         Called by Rhythmbox when the source is selected. It makes sure to
         create the ui the first time the source is showed.
-        '''
+        """
         print("CoverArtBrowser DEBUG - do_selected")
 
         # first time of activation -> add graphical stuff
@@ -140,11 +140,11 @@ class CoverArtPlaySource(RB.BrowserSource):
         print("CoverArtBrowser DEBUG - end do_selected")
 
     def do_impl_activate(self):
-        '''
+        """
         Called by do_selected the first time the source is activated.
         It creates all the source ui and connects the necessary signals for it
         correct behavior.
-        '''
+        """
         print('do_impl_activate')
 
         self.plugin = self.props.plugin
@@ -172,12 +172,12 @@ class CoverArtPlaySource(RB.BrowserSource):
             1]  # need to remember the reference to stop crashes when python cleans up unlinked objects
         grid.remove(grid.get_children()[1])
 
-        '''
+        """
         # enable sorting on the entryview
          entryview.set_columns_clickable(True)
         self.shell.props.library_source.get_entry_view().set_columns_clickable(
             True)
-        '''
+        """
         cl = CoverLocale()
         cl.switch_locale(cl.Locale.LOCALE_DOMAIN)
         location = rb.find_plugin_file(self.plugin, 'ui/playsource-toolbar.ui')

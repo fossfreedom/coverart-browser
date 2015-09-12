@@ -62,13 +62,13 @@ ARTIST_LOAD_CHUNK = 50
 
 
 class Artist(GObject.Object):
-    '''
+    """
     An album. It's conformed from one or more tracks, and many of it's
     information is deduced from them.
 
     :param name: `str` name of the artist.
     :param cover: `Cover` cover for this artist.
-    '''
+    """
     # signals
     __gsignals__ = {
         'modified': (GObject.SIGNAL_RUN_FIRST, None, ()),
@@ -103,15 +103,15 @@ class Artist(GObject.Object):
         self.emit('cover-updated')
 
     def create_ext_db_key(self):
-        '''
+        """
         Returns an `RB.ExtDBKey` 
-        '''
+        """
         key = RB.ExtDBKey.create_lookup('artist', self.name)
         return key
 
 
 class ArtistsModel(GObject.Object):
-    '''
+    """
     Model that contains artists, keeps them sorted, filtered and provides an
     external `Gtk.TreeModel` interface to use as part of a Gtk interface.
 
@@ -121,7 +121,7 @@ class ArtistsModel(GObject.Object):
     column 2 -> instance of the artist itself.
     column 3 -> boolean that indicates if the row should be shown
     column 4 -> markup containing formatted text
-    '''
+    """
     # signals
     __gsignals__ = {
         'generate-tooltip': (GObject.SIGNAL_RUN_LAST, str, (object,)),
@@ -195,11 +195,11 @@ class ArtistsModel(GObject.Object):
         return self._tree_sort
 
     def add(self, artist):
-        '''
+        """
         Add an artist to the model.
 
         :param artist: `Artist` to be added to the model.
-        '''
+        """
         # generate necessary values
         values = self._generate_artist_values(artist)
         # insert the values
@@ -250,22 +250,22 @@ class ArtistsModel(GObject.Object):
         print("artist modified")
 
     def _on_update_path(self, widget, treepath):
-        '''
+        """
            called when update-path signal is called
-        '''
+        """
         pass
         # artist = self.get_from_path(treepath)
         # albums = self.album_manager.model.get_all()
         # self.add_album_to_artist(artist, albums)
 
     def add_album_to_artist(self, artist, albums):
-        '''
+        """
         Add an album to the artist in the model.
 
         :param artist: `Artist` for the album to be added to (i.e. the parent)
         :param album: array of `Album` which are the children of the Artist
 
-        '''
+        """
         # get the artist iter
         return  # TODO probably move this to a different model
         artist_iter = self._iters[artist.name]['iter']
@@ -323,11 +323,11 @@ class ArtistsModel(GObject.Object):
             self.sort()  # ensure the added albums are sorted correctly
 
     def _album_emptied(self, album):
-        '''
+        """
         Removes this album from the model.
 
         :param album: `Album` to be removed from the model.
-        '''
+        """
         return  # TODO
         print('album emptied')
         print(album)
@@ -414,38 +414,38 @@ class ArtistsModel(GObject.Object):
         return tooltip, pixbuf, album, show, '', formatted, ''
 
     def remove(self, artist):
-        '''
+        """
         Removes this artist from the model.
 
         :param artist: `Artist` to be removed from the model.
-        '''
+        """
         self._artists.remove(artist)
         self._tree_store.remove(self._iters[artist.name]['iter'])
 
         del self._iters[artist.name]
 
     def contains(self, artist_name):
-        '''
+        """
         Indicates if the model contains a specific artist.
 
         :param artist_name: `str` name of the artist.
-        '''
+        """
         return artist_name in self._iters
 
     def get(self, artist_name):
-        '''
+        """
         Returns the requested Artist.
 
         :param artist_name: `str` name of the artist.
-        '''
+        """
         return self._iters[artist_name]['artist']
 
     def get_albums(self, artist_name):
-        '''
+        """
         Returns the displayed albums for the requested artist
 
         :param artist_name: `str` name of the artist.
-        '''
+        """
 
         albums = []
 
@@ -467,17 +467,17 @@ class ArtistsModel(GObject.Object):
         return albums
 
     def get_all(self):
-        '''
+        """
         Returns a collection of all the artists in this model.
-        '''
+        """
         return self._artists
 
     def get_from_path(self, path):
-        '''
+        """
         Returns the Artist referenced by a `Gtk.TreeModelSort` path.
 
         :param path: `Gtk.TreePath` referencing the artist.
-        '''
+        """
         return self.store[path][self.columns['artist']]
 
     def get_path(self, artist):
@@ -487,11 +487,11 @@ class ArtistsModel(GObject.Object):
             self._iters[artist.name]['iter'])
 
     def get_from_ext_db_key(self, key):
-        '''
+        """
         Returns the requested artist.
 
         :param key: ext_db_key
-        '''
+        """
         # get the album name and artist
         name = key.get_field('artist')
 
@@ -500,14 +500,14 @@ class ArtistsModel(GObject.Object):
         return artist
 
     def show(self, artist_name, show):
-        '''
+        """
         filters/unfilters an artist, making it visible to the publicly available model's
         `Gtk.TreeModel`
 
         :param artist: str containing the name of the artist to show or hide.
         :param show: `bool` indcating whether to show(True) or hide(False) the
             artist.
-        '''
+        """
 
         artist_iter = self._iters[artist_name]['iter']
 
@@ -590,18 +590,18 @@ class ArtistsModel(GObject.Object):
         return ARTIST_LOAD_CHUNK, process, None, error, None
 
     def recreate_text(self):
-        '''
+        """
         Forces the recreation and update of the markup text for each album.
-        '''
+        """
         self._recreate_text(iter(self._artists))
 
 
 class ArtistLoader(GObject.Object):
-    '''
+    """
     Loads Artists - updating the model accordingly.
 
     :param artist_manager: `artist_manager` responsible for this loader.
-    '''
+    """
     # signals
     __gsignals__ = {
         'artists-load-finished': (GObject.SIGNAL_RUN_LAST, None, (object,)),
@@ -684,9 +684,9 @@ class ArtistLoader(GObject.Object):
         self._album_manager.model.connect('album-added', self._on_album_added)
 
     def _on_album_added(self, album_model, album):
-        '''
+        """
           called when album-manager album-added signal is invoked
-        '''
+        """
         print(album.artist)
         if self._artist_manager.model.contains(album.artist):
             print("contains artist")
@@ -728,28 +728,27 @@ class ArtistCoverManager(CoverManager):
 
 
 class ArtistTextManager(BaseTextManager):
-    '''
-    Manager that keeps control of the text options for the model's markup text.
-    It takes care of creating the text for the model when requested to do it.
-
-    :param album_manager: `AlbumManager` responsible for this manager.
-    '''
-
     def __init__(self, manager):
+        """
+        Manager that keeps control of the text options for the model's markup text.
+        It takes care of creating the text for the model when requested to do it.
+    
+        :param manager: `AlbumManager` responsible for this manager.
+        """
         super(ArtistTextManager, self).__init__(manager)
 
     def generate_tooltip(self, model, artist):
-        '''
+        """
         Utility function that creates the tooltip for this artist to set into
         the model.
-        '''
+        """
         return cgi.escape(rb3compat.unicodeencode('%s', 'utf-8') % artist.name)
 
     def generate_markup_text(self, model, artist):
-        '''
+        """
         Utility function that creates the markup text for this artist to set
         into the model.
-        '''
+        """
         # we use unicode to avoid problems with non ascii albums
         artist = rb3compat.unicodestr(artist.name, 'utf-8')
 
@@ -770,13 +769,13 @@ class ArtistTextManager(BaseTextManager):
 
 
 class ArtistManager(GObject.Object):
-    '''
+    """
     Main construction that glues together the different managers, the loader
     and the model. It takes care of initializing all the system.
 
     :param plugin: `Peas.PluginInfo` instance.
     :param current_view: `ArtistView` where the Artists are shown.
-    '''
+    """
     # singleton instance
     instance = None
 
@@ -807,9 +806,9 @@ class ArtistManager(GObject.Object):
         self._connect_signals()
 
     def _connect_signals(self):
-        '''
+        """
         Connects the manager to all the needed signals for it to work.
-        '''
+        """
         self.loader.connect('model-load-finished', self._load_finished_callback)
         self.connect('sort', self._sort_artist)
 
@@ -824,10 +823,10 @@ class ArtistManager(GObject.Object):
 
 
 class ArtistShowingPolicy(GObject.Object):
-    '''
+    """
     Policy that mostly takes care of how and when things should be showed on
     the view that makes use of the `AlbumsModel`.
-    '''
+    """
 
     def __init__(self, flow_view):
         super(ArtistShowingPolicy, self).__init__()
@@ -912,11 +911,11 @@ class ArtistView(Gtk.Stack, AbstractView):
         return "artistview.png"
 
     def switch_to_coverpane(self, cover_search_pane):
-        '''
+        """
         called from the source to update the coverpane when
         it is switched from the track pane
         This overrides the base method
-        '''
+        """
 
         selected = self.get_selected_objects(just_artist=True)
 
@@ -926,11 +925,11 @@ class ArtistView(Gtk.Stack, AbstractView):
                                                    manager)
 
     def get_selected_objects(self, just_artist=False):
-        '''
+        """
         finds what has been selected
 
         returns an array of `Album`
-        '''
+        """
 
         return []
 
@@ -949,9 +948,9 @@ class ArtistView(Gtk.Stack, AbstractView):
         self.source.toolbar_manager.set_enabled(True, ToolbarObject.SORT_ORDER_ARTIST)
 
     def get_default_manager(self):
-        '''
+        """
         the default manager for this view is the artist_manager
-        '''
+        """
         return self.artist_manager
 
 
@@ -1038,9 +1037,9 @@ class ArtistIconView(EnhancedIconView, AbstractView):
                                                     callback=self.source.update_request_status_bar)
 
     def _row_activated(self, treeview, treepath, treeviewcolumn):
-        '''
+        """
         event called when double clicking on the tree-view or by keyboard ENTER
-        '''
+        """
         active_object = self.artist_manager.model.get_from_path(treepath)
         if isinstance(active_object, Artist):
             self.artist_manager.model.emit('update-path', treepath)
@@ -1049,9 +1048,9 @@ class ArtistIconView(EnhancedIconView, AbstractView):
             self.source.play_selected_album(self.source.favourites)
 
     def pre_popup_menu_callback(self, *args):
-        '''
+        """
           callback when artist popup menu is about to be displayed
-        '''
+        """
 
         state, sensitive = self.shell.props.shell_player.get_playing()
         if not state:
@@ -1062,9 +1061,9 @@ class ArtistIconView(EnhancedIconView, AbstractView):
         self.source.playlist_menu_item_callback()
 
     def _row_click(self, widget, event):
-        '''
+        """
         event called when clicking on a row
-        '''
+        """
         print('_row_click')
 
         try:
@@ -1117,11 +1116,11 @@ class ArtistIconView(EnhancedIconView, AbstractView):
             self.drag_source_set_target_list(self._targets)
 
     def get_selected_objects(self, just_artist=False):
-        '''
+        """
         finds what has been selected
 
         returns an array of `Album`
-        '''
+        """
         selection = self.get_selection()
         model, treeiter = selection.get_selected()
         if treeiter:
@@ -1154,11 +1153,11 @@ class ArtistIconView(EnhancedIconView, AbstractView):
                 self.set_cursor(path)
 
     def on_drag_drop(self, widget, context, x, y, time):
-        '''
+        """
         Callback called when a drag operation finishes over the view
         of the source. It decides if the dropped item can be processed as
         an image to use as a cover.
-        '''
+        """
 
         # stop the propagation of the signal (deactivates superclass callback)
         widget.stop_emission_by_name('drag-drop')
@@ -1179,10 +1178,10 @@ class ArtistIconView(EnhancedIconView, AbstractView):
 
     def on_drag_data_received(self, widget, drag_context, x, y, data, info,
                               time):
-        '''
+        """
         Callback called when the drag source has prepared the data (pixbuf)
         for us to use.
-        '''
+        """
 
         # stop the propagation of the signal (deactivates superclass callback)
         widget.stop_emission_by_name('drag-data-received')
@@ -1205,10 +1204,10 @@ class ArtistIconView(EnhancedIconView, AbstractView):
         drag_context.finish(True, False, time)
 
     def on_drag_data_get(self, widget, drag_context, data, info, time):
-        '''
+        """
         Callback called when the drag destination (playlist) has
         requested what album (icon) has been dragged
-        '''
+        """
 
         uris = []
         for album in widget.get_selected_objects():
@@ -1220,10 +1219,10 @@ class ArtistIconView(EnhancedIconView, AbstractView):
         widget.stop_emission_by_name('drag-data-get')
 
     def on_drag_begin(self, widget, context):
-        '''
+        """
         Callback called when the drag-drop from coverview has started
         Changes the drag icon as appropriate
-        '''
+        """
         album_number = len(widget.get_selected_objects())
 
         if album_number == 1:

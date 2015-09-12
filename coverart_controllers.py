@@ -81,18 +81,18 @@ class OptionsController(GObject.Object):
         pass
 
     def create_spritesheet(self, plugin, sheet, typestr):
-        '''
+        """
         helper function to create a specific spritesheet
-        '''
+        """
         if sheet:
             del sheet
 
         return ConfiguredSpriteSheet(plugin, typestr, get_stock_size())
 
     def create_button_image(self, plugin, image, icon_name):
-        '''
+        """
         helper function to create a button image
-        '''
+        """
         if image:
             del image
 
@@ -286,10 +286,10 @@ class GenrePopupController(OptionsController):
             self._initial_genre
 
     def do_action(self):
-        '''
+        """
         called when genre popup menu item chosen
         return None if the first entry in popup returned
-        '''
+        """
         if self.current_key == self._initial_genre:
             self._album_model.remove_filter('genre')
         else:
@@ -751,7 +751,7 @@ class AlbumSearchEntryController(OptionsController):
             self._album_model.remove_filter(self._filter_type)
 
     def do_search(self, search_text, force=False):
-        '''
+        """
         if self.search_text != search_text or force:
             self.search_text = search_text
 
@@ -761,7 +761,7 @@ class AlbumSearchEntryController(OptionsController):
             elif not force:
                 self._album_model.remove_filter(self._filter_type)
 
-        '''
+        """
         # self.search_text = search_text
         if force:
             self._typing_counter = 99

@@ -24,10 +24,10 @@ from coverart_widgets import AbstractView
 
 
 class PlaySourceShowingPolicy(GObject.Object):
-    '''
+    """
     Policy that mostly takes care of how and when things should be showed on
     the view that makes use of the `AlbumsModel`.
-    '''
+    """
 
     def __init__(self, list_view):
         super(PlaySourceShowingPolicy, self).__init__()
@@ -72,9 +72,9 @@ class PlaySourceView(AbstractView):
                       source.plugin.playlist_source)
 
     def get_selected_objects(self):
-        '''
+        """
         finds what has been selected
 
         returns an array of `Album`
-        '''
+        """
         return []
