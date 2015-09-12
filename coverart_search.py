@@ -139,7 +139,6 @@ class CoverSearchPane(Gtk.Box):
                                               'utf-8')
                 self.render_artist_art_search(artist)
 
-
     def render_album_art_search(self, artist, album_name):
         '''
         Renders the template on the webview.

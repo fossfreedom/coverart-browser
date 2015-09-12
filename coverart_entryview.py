@@ -103,7 +103,7 @@ class EntryViewPane(object):
         viewtoggle = PixbufButton()
         viewtoggle.set_image(symbolic='entryview-symbolic')
         viewtoggle.set_margin_right(6)
-        
+
         self.viewtoggle_id = None
 
         setting = self.gs.get_setting(self.gs.Path.PLUGIN)
@@ -274,7 +274,7 @@ class EntryViewPane(object):
         if len(selected) > 0:
             if autoplaylist:
                 self.source.props.query_model = self.source.source_query_model
-                #player.set_playing_source(self.source)
+                # player.set_playing_source(self.source)
 
             def cover_update(*args):
                 print("emitting")
@@ -386,7 +386,7 @@ class ResultsGrid(Gtk.Grid):
         if bg_colour == Gdk.RGBA(0, 0, 0, 0):
             color = context.get_color(Gtk.StateFlags.NORMAL)
             self.override_background_color(Gtk.StateType.NORMAL, color)
-            
+
         context.add_class(Gtk.STYLE_CLASS_SIDEBAR)
 
     '''
@@ -462,7 +462,6 @@ class ResultsGrid(Gtk.Grid):
             self.image1.queue_draw()
         else:
             self.image2.queue_draw()
-
 
     def window_resize(self, widget):
         alloc = self.get_allocation()
@@ -590,7 +589,6 @@ class BaseView(RB.EntryView):
                      library_view)
 
         self.set_columns_clickable(False)
-
 
     def display_playing_tracks(self, show_playing):
         pass
@@ -733,7 +731,7 @@ class BaseView(RB.EntryView):
 
         # library_view = self.shell.props.library_source.get_entry_view()
         # library_view.set_sorting_order('track-number', Gtk.SortType.ASCENDING)
-        #self.set_sorting_order('track-number', Gtk.SortType.ASCENDING)
+        # self.set_sorting_order('track-number', Gtk.SortType.ASCENDING)
 
         # Start the music
         player = self.shell.props.shell_player
@@ -1018,4 +1016,3 @@ class CoverArtEntryView(BaseView):
 
 GObject.type_register(CoverArtEntryView)
 GObject.type_register(CoverArtCompactEntryView)
-

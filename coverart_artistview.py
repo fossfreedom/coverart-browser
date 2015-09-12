@@ -49,6 +49,7 @@ import coverart_rb3compat as rb3compat
 from coverart_rb3compat import Menu
 import rb
 
+
 def create_temporary_copy(path):
     temp_dir = tempfile.gettempdir()
     filename = tempfile.mktemp()
@@ -93,11 +94,11 @@ class Artist(GObject.Object):
     @cover.setter
     def cover(self, new_cover):
         if self._cover:
-           self._cover.disconnect(self._cover_resized_id)
+            self._cover.disconnect(self._cover_resized_id)
 
         self._cover = new_cover
         self._cover_resized_id = self._cover.connect('resized',
-            lambda *args: self.emit('cover-updated'))
+                                                     lambda *args: self.emit('cover-updated'))
 
         self.emit('cover-updated')
 
@@ -174,7 +175,7 @@ class ArtistsModel(GObject.Object):
 
     def _compare(self, model, row1, row2, user_data):
 
-        #if not model.iter_has_child(row1) or \
+        # if not model.iter_has_child(row1) or \
         #        not model.iter_has_child(row2):
         #    return 0
 
@@ -205,7 +206,7 @@ class ArtistsModel(GObject.Object):
         pos = self._artists.insert(artist)
         tree_iter = self._tree_store.insert(pos, values)
 
-        #child_iter = self._tree_store.insert(tree_iter, pos, values)  # dummy child row so that the expand is available
+        # child_iter = self._tree_store.insert(tree_iter, pos, values)  # dummy child row so that the expand is available
         # connect signals
         ids = (artist.connect('modified', self._artist_modified),
                artist.connect('cover-updated', self._cover_updated),
@@ -253,9 +254,9 @@ class ArtistsModel(GObject.Object):
            called when update-path signal is called
         '''
         pass
-        #artist = self.get_from_path(treepath)
-        #albums = self.album_manager.model.get_all()
-        #self.add_album_to_artist(artist, albums)
+        # artist = self.get_from_path(treepath)
+        # albums = self.album_manager.model.get_all()
+        # self.add_album_to_artist(artist, albums)
 
     def add_album_to_artist(self, artist, albums):
         '''
@@ -266,7 +267,7 @@ class ArtistsModel(GObject.Object):
 
         '''
         # get the artist iter
-        return #TODO probably move this to a different model
+        return  # TODO probably move this to a different model
         artist_iter = self._iters[artist.name]['iter']
 
         # now remove the dummy_iter - if this fails, we've removed this
@@ -301,7 +302,7 @@ class ArtistsModel(GObject.Object):
         self.sort()  # ensure the added albums are sorted correctly
 
     def _album_modified(self, album):
-        return #TODO - probably move to a different model
+        return  # TODO - probably move to a different model
         print("album modified")
         print(album)
         if not (album in self._albumiters):
@@ -327,7 +328,7 @@ class ArtistsModel(GObject.Object):
 
         :param album: `Album` to be removed from the model.
         '''
-        return #TODO
+        return  # TODO
         print('album emptied')
         print(album)
         print(album.artist)
@@ -353,7 +354,7 @@ class ArtistsModel(GObject.Object):
             self._on_album_filter_changed(_)
 
     def _album_coverupdate(self, album):
-        return #TODO
+        return  # TODO
         tooltip, pixbuf, album, show, blank, markup, empty = self._generate_album_values(album)
         self._tree_store.set_value(self._albumiters[album]['iter'],
                                    self.columns['pixbuf'], pixbuf)
@@ -362,14 +363,14 @@ class ArtistsModel(GObject.Object):
         tooltip = self.emit('generate-tooltip', artist)
         markup = self.emit('generate-markup', artist)
 
-        #tooltip = artist.name
+        # tooltip = artist.name
         pixbuf = artist.cover.pixbuf
         show = True
 
         return tooltip, pixbuf, artist, show, markup
 
     def _generate_album_values(self, album):
-        return #TODO
+        return  # TODO
         tooltip = album.name
         pixbuf = album.cover.pixbuf.scale_simple(48, 48, GdkPixbuf.InterpType.BILINEAR)
         show = True
@@ -448,7 +449,7 @@ class ArtistsModel(GObject.Object):
 
         albums = []
 
-        return albums #TODO
+        return albums  # TODO
         artist_iter = self._iters[artist_name]['iter']
         next_iter = self._tree_store.iter_children(artist_iter)
 
@@ -513,10 +514,9 @@ class ArtistsModel(GObject.Object):
         if self._tree_store.iter_is_valid(artist_iter):
             self._tree_store.set_value(artist_iter, self.columns['show'], show)
 
-
     def sort(self):
 
-        return #TODO
+        return  # TODO
         albums = SortedCollection(key=lambda album: getattr(album, 'name'))
 
         gs = GSetting()
@@ -530,7 +530,7 @@ class ArtistsModel(GObject.Object):
             'rating_artist': ('rating', 'album_sort')
         }
 
-        print (key, order)
+        print(key, order)
 
         props = sort_keys[key]
 
@@ -540,9 +540,9 @@ class ArtistsModel(GObject.Object):
 
         # remember the current sort then remove the sort order
         # because sorting will only work in unsorted lists
-        #sortSettings = self.store.get_sort_column_id()
+        # sortSettings = self.store.get_sort_column_id()
 
-        #self.store.set_sort_column_id(-1, Gtk.SortType.ASCENDING)
+        # self.store.set_sort_column_id(-1, Gtk.SortType.ASCENDING)
 
         for artist in self._iters:
             albums.clear()
@@ -570,10 +570,9 @@ class ArtistsModel(GObject.Object):
                         next_iter = self._albumiters[album]['iter']
                     next_iter = self._tree_store.iter_next(next_iter)
 
-        # now we have finished sorting, reapply the sort
-        #if sortSettings[0]:
-        #    self.store.set_sort_column_id(*sortSettings)
-
+                    # now we have finished sorting, reapply the sort
+                    # if sortSettings[0]:
+                    #    self.store.set_sort_column_id(*sortSettings)
 
     @idle_iterator
     def _recreate_text(self):
@@ -590,12 +589,12 @@ class ArtistsModel(GObject.Object):
 
         return ARTIST_LOAD_CHUNK, process, None, error, None
 
-
     def recreate_text(self):
         '''
         Forces the recreation and update of the markup text for each album.
         '''
         self._recreate_text(iter(self._artists))
+
 
 class ArtistLoader(GObject.Object):
     '''
@@ -712,8 +711,8 @@ class ArtistCoverManager(CoverManager):
     def create_unknown_cover(self, plugin):
         # create the unknown cover
         self.shadow = Shadow(self.cover_size,
-                              rb.find_plugin_file(plugin, 'img/album-shadow-%s.png' %
-                                                  self.shadow_image))
+                             rb.find_plugin_file(plugin, 'img/album-shadow-%s.png' %
+                                                 self.shadow_image))
 
         self.unknown_cover = self.create_cover(
             rb.find_plugin_file(plugin, 'img/microphone.png'))
@@ -726,6 +725,7 @@ class ArtistCoverManager(CoverManager):
 
         self.cover_db.store(key, RB.ExtDBSourceType.USER_EXPLICIT,
                             pixbuf)
+
 
 class ArtistTextManager(BaseTextManager):
     '''
@@ -844,6 +844,7 @@ class ArtistShowingPolicy(GObject.Object):
         self._album_manager = album_manager
         self._model = album_manager.model
 
+
 class ArtistView(Gtk.Stack, AbstractView):
     __gtype_name__ = "ArtistView"
 
@@ -853,7 +854,6 @@ class ArtistView(Gtk.Stack, AbstractView):
     __gsignals__ = {
         'update-toolbar': (GObject.SIGNAL_RUN_LAST, None, ())
     }
-
 
     def __init__(self):
         super(ArtistView, self).__init__()
@@ -866,7 +866,7 @@ class ArtistView(Gtk.Stack, AbstractView):
 
     def initialise(self, source):
         if self._has_initialised:
-            print ("already initialised")
+            print("already initialised")
             return
 
         self._has_initialised = True
@@ -938,10 +938,9 @@ class ArtistView(Gtk.Stack, AbstractView):
         self.initialise(source)
         self.show_policy.initialise(source.album_manager)
 
-        print(self.get_visible_child_name())#'iconview')
-        print (self.get_children())
-        #self.iconview.scroll_to_album(album)
-
+        print(self.get_visible_child_name())  # 'iconview')
+        print(self.get_children())
+        # self.iconview.scroll_to_album(album)
 
     def do_update_toolbar(self, *args):
         self.source.toolbar_manager.set_enabled(False, ToolbarObject.SORT_BY)
@@ -1023,16 +1022,15 @@ class ArtistIconView(EnhancedIconView, AbstractView):
 
         self.emit('initialise')
 
-
     def _connect_properties(self):
         setting = self.gs.get_setting(self.gs.Path.PLUGIN)
         setting.bind(self.gs.PluginKey.ICON_AUTOMATIC, self,
                      'icon_automatic', Gio.SettingsBindFlags.GET)
 
     def _connect_signals(self):
-        #self.connect('row-activated', self._row_activated)
-        #self.connect('button-press-event', self._row_click)
-        #self.get_selection().connect('changed', self._selection_changed)
+        # self.connect('row-activated', self._row_activated)
+        # self.connect('button-press-event', self._row_click)
+        # self.get_selection().connect('changed', self._selection_changed)
         pass
 
     def cover_search_menu_item_callback(self, *args):
@@ -1115,7 +1113,7 @@ class ArtistIconView(EnhancedIconView, AbstractView):
             self.source.update_with_selection()
             # now turnon drag-drop for album.
             self.enable_model_drag_source(Gdk.ModifierType.BUTTON1_MASK,
-                [], Gdk.DragAction.COPY)
+                                          [], Gdk.DragAction.COPY)
             self.drag_source_set_target_list(self._targets)
 
     def get_selected_objects(self, just_artist=False):
@@ -1235,4 +1233,3 @@ class ArtistIconView(EnhancedIconView, AbstractView):
 
         widget.drag_source_set_icon_stock(item)
         widget.stop_emission_by_name('drag-begin')
-

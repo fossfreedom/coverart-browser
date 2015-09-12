@@ -141,7 +141,6 @@ class CoverFlowView(AbstractView):
 
         GLib.timeout_add(250, filter_events, None)
 
-
     def _filter_changed(self, *args):
         path = rb.find_plugin_file(self.plugin, 'coverflow/index.html')
         f = open(path)
@@ -192,7 +191,7 @@ class CoverFlowView(AbstractView):
 
         string = string.replace('#START', identifier)
 
-        #TRANSLATORS: for example 'Number of covers limited to 150'
+        # TRANSLATORS: for example 'Number of covers limited to 150'
         display_message = _("Number of covers limited to %d") % self.flow_max
         string = string.replace('#MAXCOVERS',
                                 '<p>' + display_message + '</p>')
@@ -202,10 +201,10 @@ class CoverFlowView(AbstractView):
         string = string.replace('#ITEMS', items)
 
         base = os.path.dirname(path) + "/"
-        #Gdk.threads_enter()
+        # Gdk.threads_enter()
         print(string)
         self.view.load_string(string, "text/html", "UTF-8", "file://" + base)
-        #Gdk.threads_leave()
+        # Gdk.threads_leave()
 
         if self._on_first_use:
             self._on_first_use = False
@@ -239,8 +238,8 @@ class CoverFlowView(AbstractView):
         self.flow = FlowControl(self)
         self.view.connect("notify::title", self.flow.receive_message_signal)
 
-        #self.album_manager.model.connect('album-updated', self.flow.update_album, self.view)
-        #self.album_manager.model.connect('visual-updated', self.flow.update_album, self.view)
+        # self.album_manager.model.connect('album-updated', self.flow.update_album, self.view)
+        # self.album_manager.model.connect('visual-updated', self.flow.update_album, self.view)
         self.album_manager.model.connect('album-updated', self.filter_changed)
         self.album_manager.model.connect('visual-updated', self.filter_changed)
         self.album_manager.model.connect('filter-changed', self.filter_changed)
@@ -404,7 +403,6 @@ class FlowControl(object):
                    escape(title) + '" identifier="' + \
                    identifier + '"/> <div class="caption">' + \
                    escape(caption) + '</div> </div>'
-
 
         for row in model.store:
 

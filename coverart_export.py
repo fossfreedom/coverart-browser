@@ -96,7 +96,7 @@ class CoverArtExport(GObject.Object):
 
         # predefine values if not previously opened the dialog
         if self.has_opened_previously:
-            print (self._values)
+            print(self._values)
             if not self._values['toresize']:
                 resize_spinbutton.set_value(128)
             else:
@@ -147,7 +147,7 @@ class CoverArtExport(GObject.Object):
         self._values['convert'] = convert
         self._values['toresize'] = toresize
 
-        print (self._values)
+        print(self._values)
         embeddialog.destroy()
 
         albums = {}
@@ -163,7 +163,7 @@ class CoverArtExport(GObject.Object):
             self.album_manager.progress = 1
 
             if open_filemanager:
-                #code taken from http://stackoverflow.com/questions/1795111/is-there-a-cross-platform-way-to-open-a-file-browser-in-python
+                # code taken from http://stackoverflow.com/questions/1795111/is-there-a-cross-platform-way-to-open-a-file-browser-in-python
                 if sys.platform == 'win32':
                     import winreg
 
@@ -298,8 +298,8 @@ class CoverArtExport(GObject.Object):
         converter.add(sink)
 
         Gst.Element.link(source, decoder)
-        #note - a decodebin cannot be linked at compile since
-        #it doesnt have source-pads (http://stackoverflow.com/questions/2993777/gstreamer-of-pythons-gst-linkerror-problem)
+        # note - a decodebin cannot be linked at compile since
+        # it doesnt have source-pads (http://stackoverflow.com/questions/2993777/gstreamer-of-pythons-gst-linkerror-problem)
 
         decoder.connect("pad-added", on_new_decoded_pad)
 

@@ -37,6 +37,7 @@ import xml.etree.ElementTree as ET
 import rb
 import os
 
+
 class CoverArtPlayEntryView(CoverArtEntryView):
     __hash__ = GObject.__hash__
 
@@ -103,21 +104,21 @@ class CoverArtPlaySource(RB.BrowserSource):
         Initializes the source.
         '''
         super(CoverArtPlaySource, self).__init__(**kwargs)
-        #self.external_plugins = None
+        # self.external_plugins = None
         self.hasActivated = False
 
         self.save_in_progress = False
         self.save_interrupt = False
         self.filename = RB.user_cache_dir() + "/coverart_browser/playlist.xml"
-        
+
     def load_model(self, plugin):
         # define a query model that we'll use for playing and then load previous music
-        self.source_query_model = plugin.source_query_model 
-        self.shell = plugin.shell       
+        self.source_query_model = plugin.source_query_model
+        self.shell = plugin.shell
         self._load_model()
-        
+
         self.get_entry_view().set_model(self.source_query_model)
-        
+
         self.source_query_model.connect('row-inserted', self.save_changed_model)
         self.source_query_model.connect('row-changed', self.save_changed_model)
         self.source_query_model.connect('row-deleted', self.save_changed_model)
@@ -138,7 +139,6 @@ class CoverArtPlaySource(RB.BrowserSource):
 
         print("CoverArtBrowser DEBUG - end do_selected")
 
-
     def do_impl_activate(self):
         '''
         Called by do_selected the first time the source is activated.
@@ -152,10 +152,10 @@ class CoverArtPlaySource(RB.BrowserSource):
 
         player = self.shell.props.shell_player
         ret, playing_state = player.get_playing()
-        if not playing_state: 
+        if not playing_state:
             # if nothing is previously playing then lets assume we want to start playing 
             # from this source if we hit play controls
-            print ("Here")
+            print("Here")
             player.set_playing_source(self)
             player.set_selected_source(self)
 
@@ -165,10 +165,11 @@ class CoverArtPlaySource(RB.BrowserSource):
         self.get_entry_view().set_model(self.source_query_model)
 
         child = self.get_children()
-        print (child)
+        print(child)
 
         grid = child[0]
-        self.rbsourcetoolbar = grid.get_children()[1] # need to remember the reference to stop crashes when python cleans up unlinked objects
+        self.rbsourcetoolbar = grid.get_children()[
+            1]  # need to remember the reference to stop crashes when python cleans up unlinked objects
         grid.remove(grid.get_children()[1])
 
         '''
@@ -206,9 +207,8 @@ class CoverArtPlaySource(RB.BrowserSource):
         # if the alternative-toolbar is loaded then lets connect to the toolbar-visibility signal
         # to control our sources toolbar visibility
 
-        #if hasattr(self.shell, 'alternative_toolbar'):
+        # if hasattr(self.shell, 'alternative_toolbar'):
         #    self.shell.alternative_toolbar.connect('toolbar-visibility', self._visibility)
-
 
     def _load_model(self):
         if not os.path.isfile(self.filename):
@@ -262,5 +262,6 @@ class CoverArtPlaySource(RB.BrowserSource):
 
         self.save_in_progress = False
         return False
+
 
 GObject.type_register(CoverArtPlayEntryView)

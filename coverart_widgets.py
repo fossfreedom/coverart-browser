@@ -213,6 +213,7 @@ class OptionsPopupWidget(OptionsWidget):
         self.clear_popupmenu()
         del self._popupmenu
 
+
 class PressButton(Gtk.Button):
     button_relief = GObject.property(type=bool, default=False)
 
@@ -279,6 +280,7 @@ class PressButton(Gtk.Button):
         pixbuf = Gdk.pixbuf_get_from_surface(surface, 0, 0, w, h)
 
         return pixbuf
+
 
 class EnhancedButton(Gtk.ToggleButton):
     button_relief = GObject.property(type=bool, default=False)
@@ -544,7 +546,6 @@ class ImageToggleButton(PixbufButton, OptionsWidget):
         super(ImageToggleButton, self).update_image()
         self.set_image(self._controller.get_current_image())
 
-
     def update_current_key(self):
         # update the current image and tooltip
         self.set_image(self._controller.get_current_image())
@@ -590,7 +591,7 @@ class ImageRadioButton(Gtk.RadioButton, OptionsWidget):
         # ensure button appearance rather than standard radio toggle
         self.set_mode(False)
 
-        #label colours
+        # label colours
         self._not_active_colour = None
         self._active_colour = None
 
@@ -622,7 +623,7 @@ class ImageRadioButton(Gtk.RadioButton, OptionsWidget):
     def update_current_key(self):
         # update the current image and tooltip
         # self.set_image(self._controller.get_current_image(Gtk.Buildable.get_name(self)))
-        self.set_tooltip_text("")  #self._controller.get_current_description())
+        self.set_tooltip_text("")  # self._controller.get_current_description())
 
         if self.controller.current_key == Gtk.Buildable.get_name(self):
             self.set_active(True)
@@ -1022,7 +1023,6 @@ class EnhancedIconView(Gtk.IconView):
     object_column = GObject.property(type=int, default=-1)
     icon_spacing = GObject.property(type=int, default=0)
     icon_padding = GObject.property(type=int, default=0)
-
 
     def __init__(self, *args, **kwargs):
         super(EnhancedIconView, self).__init__(*args, **kwargs)
@@ -1488,14 +1488,13 @@ class AbstractView(GObject.Object):
         else:
             self.source.notification_text.set_text(title + " : " + text)
             # self.source.notification_infobar.set_visible(True)#reveal_notification.set_reveal_child(True)
-            self.source.notification_infobar.show()  #reveal_notification.set_reveal_child(True)
+            self.source.notification_infobar.show()  # reveal_notification.set_reveal_child(True)
 
             if self._notification_displayed == 0:
                 Gdk.threads_add_timeout_seconds(GLib.PRIORITY_DEFAULT_IDLE, 1,
                                                 hide_notification, None)
             else:
                 self._notification_displayed = 1  # reset notification for new label
-
 
     def resize_icon(self, cover_size):
         '''
@@ -1581,4 +1580,3 @@ class AbstractView(GObject.Object):
             manager = self.get_default_manager()
             cover_search_pane.do_search(selected[0],
                                         manager.cover_man.update_cover)
-

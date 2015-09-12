@@ -28,7 +28,6 @@ from gi.repository import Gtk
 from coverart_utils import idle_iterator
 import rb
 
-
 LOAD_CHUNK = 50
 
 
@@ -141,7 +140,6 @@ class WebPlaylist(object):
                         'add-to-source': False,
                         'track-title': lookup_title})
                     self.tracks_not_played = self.tracks_not_played + 1
-
 
         def after(data):
             # update the progress

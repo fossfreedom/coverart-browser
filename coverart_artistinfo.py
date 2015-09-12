@@ -40,7 +40,6 @@ from coverart_browser_prefs import GSetting
 from coverart_browser_prefs import CoverLocale
 from coverart_utils import create_button_image
 
-
 gettext.install('rhythmbox', RB.locale_dir())
 
 
@@ -528,9 +527,8 @@ class ArtistInfoView(BaseInfoView):
                                          link_images=self.link_images,
                                          similar=ds.get_similar_info())
         self.load_view()
-        #except Exception as e:
+        # except Exception as e:
         #    print("Problem in info ready: %s" % e)
-
 
     def reload(self, artist, album_title):
         if not artist:
@@ -542,9 +540,9 @@ class ArtistInfoView(BaseInfoView):
             return
 
         # self.stack.set_visible_child_name(self.view_name)
-        if self.active and (   (not self.artist or self.artist != artist)
-                               or (not self.album_title or self.album_title != album_title)
-        ):
+        if self.active and ((not self.artist or self.artist != artist)
+                            or (not self.album_title or self.album_title != album_title)
+                            ):
             print("now loading")
             self.loading(artist, album_title)
             print("active")
@@ -694,7 +692,6 @@ class ArtistDataSource(GObject.GObject):
             else:
                 return self.artist['info_' + lang]['data']['bio']
 
-
         arg = get_bio(lang)
         if not arg or arg[0] == '':
             arg = get_bio('en')
@@ -731,7 +728,6 @@ class ArtistDataSource(GObject.GObject):
         except Exception as e:
             print("Error parsing similar_infot: %s" % e)
             return ""
-
 
     def get_artist_info(self):
         """
@@ -1100,7 +1096,7 @@ class EchoArtistInfoView(BaseInfoView):
                                          link_images=self.link_images,
                                          datasource=ds.get_attribution())
         self.load_view()
-        #except Exception as e:
+        # except Exception as e:
         #    print("Problem in info ready: %s" % e)
 
     def reload(self, artist, album_title):
@@ -1113,9 +1109,9 @@ class EchoArtistInfoView(BaseInfoView):
             return
 
         # self.stack.set_visible_child_name(self.view_name)
-        if self.active and (   (not self.artist or self.artist != artist)
-                               or (not self.album_title or self.album_title != album_title)
-        ):
+        if self.active and ((not self.artist or self.artist != artist)
+                            or (not self.album_title or self.album_title != album_title)
+                            ):
             print("now loading")
             self.loading(artist, album_title)
             print("active")

@@ -176,11 +176,11 @@ class CoverArtBrowserSource(RB.Source):
         self._create_ui()
         self._setup_source()
         self._apply_settings()
-        
+
         player = self.shell.props.shell_player
         ret, playing_state = player.get_playing()
-        
-        if not playing_state: 
+
+        if not playing_state:
             # if nothing is previously playing then lets assume we want to start playing 
             # from this source if we hit play controls
             self.props.query_model = self.source_query_model
@@ -286,7 +286,7 @@ class CoverArtBrowserSource(RB.Source):
                                            self.entry_view_grid,
                                            self.viewmgr)
 
-        #---- set up info pane -----#
+        # ---- set up info pane -----#
         info_stack = ui.get_object('info_stack')
         info_button_box = ui.get_object('info_button_box')
         artist_info_paned = ui.get_object('vertical_info_paned')
@@ -615,7 +615,7 @@ class CoverArtBrowserSource(RB.Source):
 
         # if not self.request_status_box.get_visible():
         # it should only be enabled if no cover request is going on
-        #self.source_menu_search_all_item.set_sensitive(True)
+        # self.source_menu_search_all_item.set_sensitive(True)
 
         # enable sorting on the entryview
         self.entry_view.set_columns_clickable(True)
@@ -1251,7 +1251,7 @@ class Views:
             self._values[QueueView.name] = [queue_name,
                                             GLib.Variant.new_string('coverart-browser-queue')]
             self._values[PlaySourceView.name] = [_('CoverArt Playlist'),
-                                            GLib.Variant.new_string('coverart-browser-playsource')]
+                                                 GLib.Variant.new_string('coverart-browser-playsource')]
             cl.switch_locale(cl.Locale.RB)
             print(self._values)
 
@@ -1353,7 +1353,7 @@ class ViewManager(GObject.Object):
                 child = self.window.get_child()
                 if child:
                     if isinstance(child, Gtk.Viewport):
-                        child.remove(child.get_child()) # Gtk adds a viewport automatically for a Gtk.Stack
+                        child.remove(child.get_child())  # Gtk adds a viewport automatically for a Gtk.Stack
                     self.window.remove(child)
 
                 self.window.add(self._views[self.view_name].view)

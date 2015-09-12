@@ -138,7 +138,7 @@ class CoverWindow(GObject.Object):
         self.statusbar.push(self.statusbar.get_context_id(''), message)
         self.image.set_from_pixbuf(self.image_pixbuf)
         self.center_image()
-        #if self.cover_window.window:
+        # if self.cover_window.window:
         #    self.cover_window.window.thaw_updates()
 
     def apply_zoom(self):

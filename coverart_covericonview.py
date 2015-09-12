@@ -36,7 +36,6 @@ from coverart_widgets import AbstractView
 from coverart_widgets import PanedCollapsible
 import rb
 
-
 PLAY_SIZE_X = 30
 PLAY_SIZE_Y = 30
 
@@ -117,7 +116,7 @@ class CellRendererThumb(Gtk.CellRendererPixbuf):
                    y_offset
                    + 2.0 * self.cell_area_source.cover_size / 3.0
                    + (((self.cell_area_source.cover_size / 3.0) - he) / 2.0)
-        )
+                   )
         PangoCairo.show_layout(cr, pango_layout)
 
 
@@ -187,7 +186,6 @@ class CoverArtCellArea(Gtk.CellAreaBox):
         self.connect('notify::text-alignment',
                      self._create_and_configure_renderer)
 
-
     def _create_and_configure_renderer(self, *args):
         if not self._text_renderer:
             # Add own cellrenderer
@@ -219,7 +217,7 @@ class CoverArtCellArea(Gtk.CellAreaBox):
                 self._create_and_configure_renderer()
 
             # set the renderer
-            self.pack_end(self._text_renderer, False,  False, False)
+            self.pack_end(self._text_renderer, False, False, False)
             self.add_attribute(self._text_renderer,
                                'markup', self._markup_column)
         elif self._text_renderer:
@@ -361,7 +359,7 @@ class CoverIconView(EnhancedIconView, AbstractView):
         # lastly support drag-drop from coverart to devices/nautilus etc
         self.connect('drag-begin', self.on_drag_begin)
         self.enable_model_drag_source(Gdk.ModifierType.BUTTON1_MASK,
-            [], Gdk.DragAction.COPY)
+                                      [], Gdk.DragAction.COPY)
         # targets = Gtk.TargetList.new([Gtk.TargetEntry.new("application/x-rhythmbox-entry", 0, 0),
         # Gtk.TargetEntry.new("text/uri-list", 0, 1) ])
         targets = Gtk.TargetList.new([Gtk.TargetEntry.new("text/uri-list", 0, 0)])
@@ -450,10 +448,10 @@ class CoverIconView(EnhancedIconView, AbstractView):
                     settings[self.gs.PluginKey.COVER_SIZE] = cover_size - 5
             elif scroll_event.direction == Gdk.ScrollDirection.SMOOTH:
                 delta = scroll_event.delta_y
-                print (delta)
-                if delta < 0 and cover_size <= 195: # negative delta means scroll up
+                print(delta)
+                if delta < 0 and cover_size <= 195:  # negative delta means scroll up
                     settings[self.gs.PluginKey.COVER_SIZE] = cover_size - int(delta * 5)
-                if delta > 0 and cover_size >= 55: # positive delta means scroll down
+                if delta > 0 and cover_size >= 55:  # positive delta means scroll down
                     settings[self.gs.PluginKey.COVER_SIZE] = cover_size - int(delta * 5)
 
             GLib.idle_add(self.queue_draw)
@@ -504,7 +502,6 @@ class CoverIconView(EnhancedIconView, AbstractView):
 
         # call the context drag_finished to inform the source about it
         drag_context.finish(True, False, time)
-
 
     def on_drag_data_get(self, widget, drag_context, data, info, time):
         '''
@@ -617,10 +614,10 @@ class CoverIconView(EnhancedIconView, AbstractView):
         # from  here on in, we are going to display a hotspot icon
         # so lets decide which one
 
-        #playing = True if self.shell.props.shell_player.get_playing_entry() else False
+        # playing = True if self.shell.props.shell_player.get_playing_entry() else False
         ret, playing_state = self.shell.props.shell_player.get_playing()
         if playing_state and \
-            self.shell.props.shell_player.get_playing_source() == self.source:
+                        self.shell.props.shell_player.get_playing_source() == self.source:
             playing = True
         else:
             playing = False
@@ -661,11 +658,11 @@ class CoverIconView(EnhancedIconView, AbstractView):
 
         # first test if we've clicked on the cover-play icon
         if self._cover_play_hotspot(path):
-            
-            #playing = True if self.shell.props.shell_player.get_playing_entry() else False
+
+            # playing = True if self.shell.props.shell_player.get_playing_entry() else False
             ret, playing_state = self.shell.props.shell_player.get_playing()
             if playing_state and \
-                self.shell.props.shell_player.get_playing_source() == self.source:
+                            self.shell.props.shell_player.get_playing_source() == self.source:
                 playing = True
             else:
                 playing = False
@@ -731,7 +728,6 @@ class CoverIconView(EnhancedIconView, AbstractView):
 
         return True
 
-
     def _activate_markup(self, *args):
         '''
         Utility method to activate/deactivate the markup text on the
@@ -761,7 +757,6 @@ class CoverIconView(EnhancedIconView, AbstractView):
 
                 Gdk.threads_add_idle(GObject.PRIORITY_DEFAULT_IDLE,
                                      scroll_to_album, None)
-
 
     def switch_to_view(self, source, album):
         self.initialise(source)

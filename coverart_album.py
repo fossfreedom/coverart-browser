@@ -54,6 +54,7 @@ ALBUM_LOAD_CHUNK = 250
 # default chunk of albums to process when loading covers
 COVER_LOAD_CHUNK = 50
 
+
 class Cover(GObject.Object):
     '''
     Cover of an Album. It may be initialized either by a file path to the image
@@ -1230,13 +1231,13 @@ class AlbumLoader(GObject.Object):
             track = self._tracks[Track(entry).location]
 
             # RB3 has a simple rhythmdbentrychange array to deal with so we
-            #just need to loop each element of the array
+            # just need to loop each element of the array
 
             for change in changes:
                 analyse_change(change)
         except:
             pass
-            
+
         print("CoverArtBrowser DEBUG - end entry_changed_callback")
 
     def _entry_added_callback(self, db, entry):
@@ -1427,14 +1428,13 @@ class CoverManager(GObject.Object):
         self._manager = manager
         self._requester = CoverRequester(self.cover_db)
 
-        self.unknown_cover = None  #to be defined by inherited class
+        self.unknown_cover = None  # to be defined by inherited class
 
         self._connect_properties()
         self._connect_signals(plugin)
 
         # create unknown cover and shadow for covers
         self.create_unknown_cover(plugin)
-
 
     def _connect_signals(self, plugin):
         self.connect('notify::cover-size', self._on_cover_size_changed)
@@ -1446,7 +1446,6 @@ class CoverManager(GObject.Object):
         self.req_id = self.cover_db.connect('added',
                                             self.coverart_added_callback)
         self.connect('load-finished', self._on_load_finished)
-
 
     def _connect_properties(self):
         gs = GSetting()
@@ -1485,7 +1484,7 @@ class CoverManager(GObject.Object):
 
     def create_cover(self, image):
         if self.add_shadow:
-            print ("add shadow")
+            print("add shadow")
             cover = ShadowedCover(self.shadow, image)
         else:
             cover = Cover(self.cover_size, image)
@@ -1496,7 +1495,7 @@ class CoverManager(GObject.Object):
         # set the unknown cover to the requester to make comparisons
         self._requester.unknown_cover = self.unknown_cover
 
-    #def create_cover(self, image):
+    # def create_cover(self, image):
     #    return Cover(self.cover_size, image)
 
     def coverart_added_callback(self, ext_db, key, path, pixbuf):
@@ -1582,8 +1581,8 @@ class CoverManager(GObject.Object):
     def _on_add_shadow_changed(self, obj, prop, plugin):
         # update the unknown_cover
         self.shadow = Shadow(self.cover_size,
-                              rb.find_plugin_file(plugin, 'img/album-shadow-%s.png' %
-                                                  self.shadow_image))
+                             rb.find_plugin_file(plugin, 'img/album-shadow-%s.png' %
+                                                 self.shadow_image))
 
         self.create_unknown_cover(plugin)
 
@@ -1673,7 +1672,6 @@ class CoverManager(GObject.Object):
 
 
 class AlbumCoverManager(CoverManager):
-
     def __init__(self, plugin, album_manager):
         self.cover_db = RB.ExtDB(name='album-art')
         super(AlbumCoverManager, self).__init__(plugin, album_manager)
@@ -1681,8 +1679,8 @@ class AlbumCoverManager(CoverManager):
     def create_unknown_cover(self, plugin):
         # create the unknown cover
         self.shadow = Shadow(self.cover_size,
-                              rb.find_plugin_file(plugin, 'img/album-shadow-%s.png' %
-                                                  self.shadow_image))
+                             rb.find_plugin_file(plugin, 'img/album-shadow-%s.png' %
+                                                 self.shadow_image))
 
         self.unknown_cover = self.create_cover(
             rb.find_plugin_file(plugin, 'img/rhythmbox-missing-artwork.svg'))
@@ -1703,6 +1701,7 @@ class AlbumCoverManager(CoverManager):
 
             self.cover_db.store(key, RB.ExtDBSourceType.USER_EXPLICIT,
                                 pixbuf)
+
 
 class BaseTextManager(GObject.Object):
     '''
@@ -1738,9 +1737,9 @@ class BaseTextManager(GObject.Object):
                      self.on_notify_display_text_ellipsize)
 
         self._manager.model.connect('generate-tooltip',
-                                          self.generate_tooltip)
+                                    self.generate_tooltip)
         self._manager.model.connect('generate-markup',
-                                          self.generate_markup_text)
+                                    self.generate_markup_text)
 
     def _connect_properties(self):
         '''
@@ -1777,6 +1776,7 @@ class BaseTextManager(GObject.Object):
         '''
 
         return ''
+
 
 class AlbumTextManager(BaseTextManager):
     '''
@@ -1847,7 +1847,6 @@ class AlbumManager(GObject.Object):
         'has-loaded': (GObject.SIGNAL_RUN_LAST, None, ())
     }
 
-
     def __init__(self, plugin, current_view):
         super(AlbumManager, self).__init__()
 
@@ -1885,7 +1884,7 @@ class AlbumManager(GObject.Object):
             self.model.sort()
 
     def _load_finished_callback(self, *args):
-        #self.artist_man.loader.load_artists()
+        # self.artist_man.loader.load_artists()
         self.emit('has-loaded')
         self.has_loaded = True
         self.cover_man.load_covers()

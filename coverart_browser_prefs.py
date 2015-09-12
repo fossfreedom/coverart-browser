@@ -369,7 +369,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
 
         cover_size_scale = builder.get_object('cover_size_adjustment')
 
-        #self.settings.bind(gs.PluginKey.COVER_SIZE, cover_size_scale, 'value',
+        # self.settings.bind(gs.PluginKey.COVER_SIZE, cover_size_scale, 'value',
         #                   Gio.SettingsBindFlags.DEFAULT)
         self._cover_size = self.settings[gs.PluginKey.COVER_SIZE]
         cover_size_scale.set_value(self._cover_size)
@@ -489,7 +489,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         self.settings.bind(gs.PluginKey.ICON_AUTOMATIC,
                            icon_automatic, 'active', Gio.SettingsBindFlags.DEFAULT)
 
-        #flow tab
+        # flow tab
         flow_combo = builder.get_object('flow_combobox')
         renderer = Gtk.CellRendererText()
         flow_combo.pack_start(renderer, True)
@@ -614,7 +614,7 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
     def on_add_shadow_checkbox_toggled(self, button):
         if button.get_active():
             # gs = GSetting()
-            #self.settings[gs.PluginKey.DISPLAY_TEXT_POS] = True
+            # self.settings[gs.PluginKey.DISPLAY_TEXT_POS] = True
             self.display_text_under_radiobutton.set_active(True)
 
     def rating_changed_callback(self, stars):
@@ -658,7 +658,6 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
 
         self.save_button.set_sensitive(False)
         self._toggle_new_genre_state()
-
 
     def on_genre_filechooserbutton_file_set(self, filechooser):
         '''
@@ -712,7 +711,6 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
         self.blank_iter = self.alt_user_liststore.append(['', None, ''])
         selection = self.genre_view.get_selection()
         selection.select_iter(self.blank_iter)
-
 
     def on_delete_button_clicked(self, button):
         '''
@@ -774,5 +772,3 @@ class Preferences(GObject.Object, PeasGtk.Configurable):
 
     def on_show_launchpad_toggled(self, button):
         self.launchpad_label.set_visible(button.get_active())
-
-    

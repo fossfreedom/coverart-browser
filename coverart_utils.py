@@ -567,7 +567,7 @@ class ConfiguredSpriteSheet(object):
 
         if (not self.locale_names) and len(lang) > 2:
             for elem in root.xpath(base + '[@xml:lang="' + \
-                    lang[0:2] + '"]'):
+                                           lang[0:2] + '"]'):
                 self.locale_names[elem.text] = elem.attrib['name']
 
         self._sheet = SpriteSheet(image, icon_width, icon_height, x_spacing,
@@ -665,7 +665,7 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
         # if (not self.locale_alternate) and len(lang) > 2:
         if len(lang) > 2:
             for elem in root.xpath(base + '[@xml:lang="' + \
-                    lang[0:2] + '"]/alt'):
+                                           lang[0:2] + '"]/alt'):
                 self.genre_alternate[GenreType(name=elem.text, genre_type=self.GENRE_LOCALE)] = elem.attrib['genre']
 
     def add_genre_icon(self, filename):
@@ -710,7 +710,6 @@ class GenreConfiguredSpriteSheet(ConfiguredSpriteSheet):
             tree.write(self._user_popups, pretty_print=True, xml_declaration=True)
         else:
             print("not found to delete")
-
 
     def amend_genre_info(self, current_genre, new_genre, icon_name):
         root = ET.parse(open(self._user_popups)).getroot()
@@ -810,6 +809,7 @@ def check_lastfm(force_check=False):
         print("returning default")
         return False
 
+
 def create_button_image_symbolic(style_context, icon_name):
     '''
     create a pixbuf for the given symbolic icon_name sized according to the stock icon size
@@ -818,13 +818,13 @@ def create_button_image_symbolic(style_context, icon_name):
     default = theme.get_default()
     iconinfo = default.lookup_icon(icon_name, 128, 0)
     pixbuf, symbol = iconinfo.load_symbolic_for_context(style_context)
-    
+
     width, height = get_stock_size()
     pixbuf = pixbuf.scale_simple(width, height,
                                  GdkPixbuf.InterpType.BILINEAR)
-                                 
+
     return pixbuf
-        
+
 
 def create_button_image(plugin, image_filename):
     '''

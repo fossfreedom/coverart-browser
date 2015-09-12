@@ -52,7 +52,7 @@ class Toolbar(GObject.Object):
         # create the toolbar
         builder = Gtk.Builder()
         builder.set_translation_domain(cl.Locale.LOCALE_DOMAIN)
-        print (ui_file)
+        print(ui_file)
         builder.add_from_file(ui_file)
 
         # assign the controllers to the buttons
@@ -62,7 +62,7 @@ class Toolbar(GObject.Object):
 
         if not webkit_support():
             # button = builder.get_object('flowview_button')
-            #button.set_visible(False)
+            # button.set_visible(False)
             separator = builder.get_object('properties_separator')
             if separator:
                 separator.set_visible(False)
@@ -184,7 +184,7 @@ class ToolbarManager(GObject.Object):
 
         if self.plugin.using_alternative_toolbar:
             if self.plugin.using_headerbar:
-                self.toolbar_pos = TopToolbar.name # we dont allow other toolbar position with headerbar
+                self.toolbar_pos = TopToolbar.name  # we dont allow other toolbar position with headerbar
                 self._on_notify_toolbar_pos()
 
             self.plugin.shell.alternative_toolbar.connect('toolbar-visibility', self._visibility)
