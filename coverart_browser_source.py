@@ -132,7 +132,7 @@ class CoverArtBrowserSource(RB.Source):
 
             self.task_progress.props.task_outcome = RB.TaskOutcome.COMPLETE
 
-        return (self.status, progress_text, progress)
+        return self.status, progress_text, progress
 
     def do_selected(self):
         """
@@ -302,7 +302,7 @@ class CoverArtBrowserSource(RB.Source):
 
         # theme override option
         activations = setting[self.gs.PluginKey.ACTIVATIONS]
-        activations = activations + 1
+        activations += 1
         setting[self.gs.PluginKey.ACTIVATIONS] = activations
 
         if activations > 4:
@@ -310,12 +310,12 @@ class CoverArtBrowserSource(RB.Source):
         else:
             override = 'ui/gtkthemeoverride_max.css'
 
-        cssProvider = Gtk.CssProvider()
+        cssprovider = Gtk.CssProvider()
         css = rb.find_plugin_file(self.plugin, override)
-        cssProvider.load_from_path(css)
+        cssprovider.load_from_path(css)
         screen = Gdk.Screen.get_default()
-        styleContext = Gtk.StyleContext()
-        styleContext.add_provider_for_screen(screen, cssProvider,
+        stylecontext = Gtk.StyleContext()
+        stylecontext.add_provider_for_screen(screen, cssprovider,
                                              Gtk.STYLE_PROVIDER_PRIORITY_USER)
 
         print("CoverArtBrowser DEBUG - end _create_ui")
@@ -520,10 +520,10 @@ class CoverArtBrowserSource(RB.Source):
 
         print("Child Width2 %d" % child_width)
 
-        paned_positions.append(self.viewmgr.view_name + \
-                               ":" + \
-                               str(child_width) + \
-                               ":" + \
+        paned_positions.append(self.viewmgr.view_name +
+                               ":" +
+                               str(child_width) +
+                               ":" +
                                open_type)
 
         print("after paned positions %s" % paned_positions)
@@ -707,7 +707,7 @@ class CoverArtBrowserSource(RB.Source):
         """
         print("CoverArtBrowser DEBUG - queue_selected_album")
 
-        if source == None:
+        if source is None:
             source = self.source_query_model
 
         selected_albums = self.viewmgr.current_view.get_selected_objects()
@@ -717,20 +717,20 @@ class CoverArtBrowserSource(RB.Source):
         for album in selected_albums:
             # Retrieve and sort the entries of the album
             tracks = album.get_tracks(threshold)
-            total = total + len(tracks)
+            total += len(tracks)
             # Add the songs to the play queue
             for track in tracks:
                 source.add_entry(track.entry, index)
                 if index != -1:
-                    index = index + 1
+                    index += 1
 
         if total == 0 and threshold:
+            msg = _("No tracks have been added because no tracks meet the favourite rating threshold")
             dialog = Gtk.MessageDialog(None,
                                        Gtk.DialogFlags.MODAL,
                                        Gtk.MessageType.INFO,
                                        Gtk.ButtonsType.OK,
-                                       _(
-                                           "No tracks have been added because no tracks meet the favourite rating threshold"))
+                                       msg)
 
             dialog.run()
             dialog.destroy()
@@ -767,7 +767,7 @@ class CoverArtBrowserSource(RB.Source):
         # so lets reverse through the model calculating the position
 
         while entry is not None:
-            index = index + 1
+            index += 1
             entry = source.get_previous_from_entry(entry)
 
         entry = self.shell.props.shell_player.get_playing_entry()
@@ -777,7 +777,7 @@ class CoverArtBrowserSource(RB.Source):
         current_album = self.album_manager.model.get_from_dbentry(entry)
         while entry is not None:
             entry = source.get_next_from_entry(entry)
-            index = index + 1
+            index += 1
             if entry:
                 album = self.album_manager.model.get_from_dbentry(entry)
                 print(entry.get_string(RB.RhythmDBPropType.TITLE))
@@ -829,12 +829,11 @@ class CoverArtBrowserSource(RB.Source):
             for playlist in playlists_entries:
                 if playlist.props.is_local and \
                         isinstance(playlist, RB.StaticPlaylistSource):
-                    args = (playlist, favourite)
 
                     # take the name of the playlist, strip out non-english characters and reduce the string
                     # to just a-to-z characters i.e. this will make the action_name valid in RB3
 
-                    ascii_name = unicodedata.normalize('NFKD', \
+                    ascii_name = unicodedata.normalize('NFKD',
                                                        rb3compat.unicodestr(playlist.props.name, 'utf-8')).encode(
                         'ascii', 'ignore')
                     ascii_name = ascii_name.decode(encoding='UTF-8')
@@ -1010,7 +1009,7 @@ class CoverArtBrowserSource(RB.Source):
             album = params
             force = PanedCollapsible.Paned.DEFAULT
 
-        if (album and self.click_count == 1 \
+        if (album and self.click_count == 1
                     and self.last_selected_album is album) or force != PanedCollapsible.Paned.DEFAULT:
             # check if it's a second or third click on the album and expand
             # or collapse the entry view accordingly
@@ -1151,6 +1150,7 @@ class Statusbar(GObject.Object):
             # 'interesting stuff' about the album
             if len(albums) == 1:
                 # . TRANSLATORS - for example "abba's greatest hits by ABBA"
+                album = albums[0]
                 self.status = rb3compat.unicodedecode(_('%s by %s') %
                                                       (album.name, album.artist), 'UTF-8')
             else:
@@ -1306,14 +1306,12 @@ class ViewManager(GObject.Object):
         self.window = window
 
         # initialize views
-        self._views = {}
-        ui = Gtk.Builder()
-        self._views[CoverIconView.name] = CoverIconView()
-        self._views[CoverFlowView.name] = CoverFlowView()
-        self._views[ListView.name] = ListView()
-        self._views[QueueView.name] = QueueView()
-        self._views[PlaySourceView.name] = PlaySourceView()
-        self._views[ArtistView.name] = ArtistView()
+        self._views = {CoverIconView.name: CoverIconView(),
+                       CoverFlowView.name: CoverFlowView(),
+                       ListView.name: ListView(),
+                       QueueView.name: QueueView(),
+                       PlaySourceView.name: PlaySourceView(),
+                       ArtistView.name: ArtistView()}
         self._lastview = None
 
         self.controller = ViewController(source.shell, self)

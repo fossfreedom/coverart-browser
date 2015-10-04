@@ -24,9 +24,9 @@ the base model for the plugin to work on top of.
 
 from datetime import datetime, date
 import os
-import cgi
 import tempfile
 import gc
+import html
 
 from gi.repository import RB
 from gi.repository import GObject
@@ -289,6 +289,7 @@ class Album(GObject.Object):
         self._year = None
         self._rating = None
         self._duration = None
+        self._cover_resized_id = None
 
         self._signals_id = {}
 
@@ -714,10 +715,10 @@ class AlbumsModel(GObject.Object):
     __gsignals__ = {
         'generate-tooltip': (GObject.SIGNAL_RUN_LAST, str, (object,)),
         'generate-markup': (GObject.SIGNAL_RUN_LAST, str, (object,)),
-        'album-updated': ((GObject.SIGNAL_RUN_LAST, None, (object, object))),
-        'visual-updated': ((GObject.SIGNAL_RUN_LAST, None, (object, object))),
-        'filter-changed': ((GObject.SIGNAL_RUN_FIRST, None, ())),
-        'album-added': ((GObject.SIGNAL_RUN_LAST, None, (object,)))
+        'album-updated': (GObject.SIGNAL_RUN_LAST, None, (object, object)),
+        'visual-updated': (GObject.SIGNAL_RUN_LAST, None, (object, object)),
+        'filter-changed': (GObject.SIGNAL_RUN_FIRST, None, ()),
+        'album-added': (GObject.SIGNAL_RUN_LAST, None, (object,))
     }
 
     # list of columns names and positions on the TreeModel
@@ -1088,7 +1089,7 @@ class AlbumsModel(GObject.Object):
         pos = 0
         for show_result in list(map(self._album_filter, self._albums)):
             self.show(self._albums[pos], show_result)
-            pos = pos + 1
+            pos += 1
 
     def _album_filter(self, album):
         for f in list(self._filters.values()):
@@ -1401,13 +1402,6 @@ class CoverRequester(GObject.Object):
 
 
 class CoverManager(GObject.Object):
-    """
-    Manager that takes care of cover loading and updating.
-
-    :param plugin: `Peas.PluginInfo` instance used to have access to the
-        predefined unknown cover.
-    :param album_manager: `AlbumManager` responsible for this manager.
-    """
 
     # signals
     __gsignals__ = {
@@ -1423,6 +1417,14 @@ class CoverManager(GObject.Object):
     shadow_image = GObject.property(type=str, default="above")
 
     def __init__(self, plugin, manager):
+        """
+        Manager that takes care of cover loading and updating.
+
+        :param plugin: `Peas.PluginInfo` instance used to have access to the
+            predefined unknown cover.
+        :param manager: `AlbumManager` responsible for this manager.
+        """
+
         super(CoverManager, self).__init__()
         # self.cover_db = None to be defined by inherited class
         self._manager = manager
@@ -1779,14 +1781,14 @@ class BaseTextManager(GObject.Object):
 
 
 class AlbumTextManager(BaseTextManager):
-    """
-    Manager that keeps control of the text options for the model's markup text.
-    It takes care of creating the text for the model when requested to do it.
-
-    :param album_manager: `AlbumManager` responsible for this manager.
-    """
-
     def __init__(self, manager):
+        """
+        Manager that keeps control of the text options for the model's markup text.
+        It takes care of creating the text for the model when requested to do it.
+
+        :param manager: `AlbumManager` responsible for this manager.
+        """
+
         super(AlbumTextManager, self).__init__(manager)
 
     def generate_tooltip(self, model, album):
@@ -1794,8 +1796,8 @@ class AlbumTextManager(BaseTextManager):
         Utility function that creates the tooltip for this album to set into
         the model.
         """
-        return cgi.escape(rb3compat.unicodeencode(_('%s by %s'), 'utf-8') % (album.name,
-                                                                             album.artists))
+        return html.escape(rb3compat.unicodeencode(_('%s by %s'), 'utf-8') % (album.name,
+                                                                              album.artists))
 
     def generate_markup_text(self, model, album):
         """
