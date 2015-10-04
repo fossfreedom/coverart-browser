@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-21 23:10+0000\n"
-"PO-Revision-Date: 2015-10-04 18:38+0000\n"
+"PO-Revision-Date: 2015-10-04 22:28+0000\n"
 "Last-Translator: Tobias Bannert <Unknown>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-10-04 18:40+0000\n"
+"X-Launchpad-Export-Date: 2015-10-04 22:36+0000\n"
 "X-Generator: Launchpad (build 17783)\n"
 
 #. TRANSLATORS: album duration (length) in the format hour:minute:second
@@ -283,19 +283,24 @@ msgstr "Wenn Rhythmbox startet, automatisch zum Titelbildnavigator wechseln."
 
 #: tmp/coverart_browser_prefs.ui.h:12
 msgid "Use source's custom statusbar"
-msgstr ""
+msgstr "Die eigene Statusleiste der Quelle benutzen"
 
 #: tmp/coverart_browser_prefs.ui.h:13
 msgid ""
 "Use the source's custom statusbar to show the current selected album's "
 "related information instead of the global Rhythmbox's statusbar."
 msgstr ""
+"Die eigene Statusleiste der Quelle benutzen, um die zugehörigen "
+"Informationen der aktuell ausgewählten Alben anzuzeigen, anstelle der "
+"globalen Rhythmbox-Statusleiste."
 
 #: tmp/coverart_browser_prefs.ui.h:14
 msgid ""
 "Number of random\n"
 "albums to play"
 msgstr ""
+"Anzahl der zu\n"
+"spielenden Zufallsalben"
 
 #: tmp/coverart_browser_prefs.ui.h:16
 msgid "Level above which is regarded as being a favourite track or album"
@@ -412,7 +417,7 @@ msgstr "Kacheln"
 
 #: tmp/coverart_browser_prefs.ui.h:43
 msgid "Flow Appearance"
-msgstr "Fließende Darstellung"
+msgstr "Flussdarstellung"
 
 #: tmp/coverart_browser_prefs.ui.h:44
 msgid "Width (px):"
