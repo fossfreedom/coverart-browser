@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-21 23:10+0000\n"
-"PO-Revision-Date: 2015-10-04 22:28+0000\n"
+"PO-Revision-Date: 2015-10-05 11:45+0000\n"
 "Last-Translator: Tobias Bannert <Unknown>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2015-10-04 22:36+0000\n"
+"X-Launchpad-Export-Date: 2015-10-05 18:16+0000\n"
 "X-Generator: Launchpad (build 17783)\n"
 
 #. TRANSLATORS: album duration (length) in the format hour:minute:second
@@ -904,7 +904,7 @@ msgstr "Zufälliges Album wiedergeben"
 
 #: coverart_controllers.py:501 coverart_controllers.py:555
 msgid "Follow playing song"
-msgstr ""
+msgstr "Dem wiedergegebenen Lied folgen"
 
 #: coverart_controllers.py:504 coverart_controllers.py:552
 msgid "Use favourites only"
