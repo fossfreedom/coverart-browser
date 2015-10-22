@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: coverartbrowser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-21 23:10+0000\n"
-"PO-Revision-Date: 2015-02-16 08:38+0000\n"
+"PO-Revision-Date: 2015-10-22 08:55+0000\n"
 "Last-Translator: ☠Jay ZDLin☠ <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "Language: ru\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2015-02-17 20:16+0000\n"
-"X-Generator: Launchpad (build 17341)\n"
+"X-Launchpad-Export-Date: 2015-10-22 19:28+0000\n"
+"X-Generator: Launchpad (build 17812)\n"
 
 #. TRANSLATORS: album duration (length) in the format hour:minute:second
 #: tmpl/album-tmpl.html:20
@@ -367,7 +367,7 @@ msgstr "Отбросить тень"
 
 #: tmp/coverart_browser_prefs.ui.h:31
 msgid "Indicates if the albums should drop a shadow on the cover view"
-msgstr ""
+msgstr "Показывает, должны ли альбомы отбрасывать тень в режиме обложек"
 
 #: tmp/coverart_browser_prefs.ui.h:32
 msgid "Light Source: "
@@ -375,7 +375,7 @@ msgstr "Источник света: "
 
 #: tmp/coverart_browser_prefs.ui.h:33
 msgid "Defines the size for the covers showed on the source."
-msgstr ""
+msgstr "Определяет размер обложек, отображаемых в источнике."
 
 #: tmp/coverart_browser_prefs.ui.h:34
 msgid "Size (in pixels):"
@@ -395,7 +395,7 @@ msgstr "Дополнительные параметры"
 
 #: tmp/coverart_browser_prefs.ui.h:38
 msgid "Padding (space) around the cover and its highlight"
-msgstr ""
+msgstr "Отступ (пространство) вокруг обложки и цвет подсветки"
 
 #: tmp/coverart_browser_prefs.ui.h:39
 msgid "Spacing between columns and rows"
@@ -642,19 +642,19 @@ msgstr "классическая музыка"
 
 #: tmp/popups.xml.in.h:5
 msgid "world"
-msgstr ""
+msgstr "мировые"
 
 #: tmp/popups.xml.in.h:6
 msgid "bluegrass"
-msgstr ""
+msgstr "блюграсс"
 
 #: tmp/popups.xml.in.h:7
 msgid "oldies"
-msgstr ""
+msgstr "старые"
 
 #: tmp/popups.xml.in.h:8
 msgid "holiday"
-msgstr ""
+msgstr "праздничные"
 
 #: tmp/popups.xml.in.h:9
 msgid "comedy"
@@ -686,7 +686,7 @@ msgstr "рэп"
 
 #: tmp/popups.xml.in.h:16
 msgid "ragtime"
-msgstr ""
+msgstr "регтайм"
 
 #: tmp/popups.xml.in.h:17
 msgid "musical"
@@ -694,7 +694,7 @@ msgstr ""
 
 #: tmp/popups.xml.in.h:18
 msgid "dance"
-msgstr ""
+msgstr "танцевальные"
 
 #: tmp/popups.xml.in.h:19
 msgid "reggae"
@@ -730,11 +730,11 @@ msgstr ""
 
 #: tmp/popups.xml.in.h:27
 msgid "experimental"
-msgstr ""
+msgstr "экспериментальные"
 
 #: tmp/popups.xml.in.h:28
 msgid "new age"
-msgstr ""
+msgstr "нью эйдж"
 
 #: tmp/popups.xml.in.h:29
 msgid "opera"
@@ -750,11 +750,11 @@ msgstr "соул"
 
 #: tmp/popups.xml.in.h:32
 msgid "workout"
-msgstr ""
+msgstr "тренировка"
 
 #: tmp/popups.xml.in.h:33
 msgid "easy listening"
-msgstr ""
+msgstr "спокойная музыка"
 
 #: tmp/popups.xml.in.h:34
 msgid "hip-hop"
@@ -762,11 +762,11 @@ msgstr "хип-хоп"
 
 #: tmp/popups.xml.in.h:35
 msgid "children"
-msgstr ""
+msgstr "детские"
 
 #: coverart_album.py:1521 coverart_artistinfo.py:62
 msgid "Enable LastFM plugin and log in first"
-msgstr ""
+msgstr "Сначала включить плагин LastFM и войти"
 
 #. . TRANSLATORS - for example "abba's greatest hits by ABBA"
 #: coverart_album.py:1765 coverart_browser_source.py:1151
@@ -791,21 +791,21 @@ msgstr "Загрузка популярных альбомов %s"
 
 #: coverart_artistview.py:375 coverart_browser_source.py:1159
 msgid " with 1 track"
-msgstr ""
+msgstr " с 1 произведением"
 
 #: coverart_artistview.py:377 coverart_browser_source.py:1161
 #, python-format
 msgid " with %d tracks"
-msgstr ""
+msgstr " с %d произведениями"
 
 #: coverart_artistview.py:383 coverart_browser_source.py:1165
 msgid " and a duration of 1 minute"
-msgstr ""
+msgstr " и продолжительностью 1 мин."
 
 #: coverart_artistview.py:385 coverart_browser_source.py:1167
 #, python-format
 msgid " and a duration of %d minutes"
-msgstr ""
+msgstr " и продолжительностью %d мин."
 
 #. active_object=self.artist_manager.model.store[treepath][self.artist_manager.model.columns['artist_album']]
 #: coverart_artistview.py:820 coverart_artistview.py:911
@@ -825,9 +825,9 @@ msgstr ""
 "  Alexander Klinovitskiy https://launchpad.net/~xndr-kl\n"
 "  Andrey Olykainen https://launchpad.net/~andrey.olykainen\n"
 "  Pasha. P. Komar https://launchpad.net/~cellachain\n"
+"  Petr Tsymbarovich https://launchpad.net/~mentaljam\n"
 "  Rashid Aliyev https://launchpad.net/~rashid\n"
 "  Stanislav V. Kroter https://launchpad.net/~krotersv\n"
-"  Цымбарович Петр https://launchpad.net/~mentaljam119\n"
 "  ☠Jay ZDLin☠ https://launchpad.net/~black-buddha666"
 
 #. define .plugin text strings used for translation
@@ -853,10 +853,13 @@ msgid ""
 "No tracks have been added because no tracks meet the favourite rating "
 "threshold"
 msgstr ""
+"Произведения не были добавлены, поскольку ни одно из них не соответствует "
+"параметрам \"избранное\""
 
 #: coverart_browser_source.py:883
 msgid "The number of albums to randomly play is less than that displayed."
 msgstr ""
+"Количество альбомов для случайного воспроизведения меньше, чем отображаемое."
 
 #. for example "Requesting the picture cover for the music artist Michael Jackson"
 #: coverart_browser_source.py:975 coverart_browser_source.py:977
@@ -869,6 +872,7 @@ msgid ""
 "Please install and activate the latest version of the Coverart Search "
 "Providers plugin"
 msgstr ""
+"Установите и активируйте последнюю версию плагина Coverart Search Providers"
 
 #. . TRANSLATORS - the number of albums that have been selected/highlighted
 #: coverart_browser_source.py:1155
@@ -1016,4 +1020,4 @@ msgstr "Композиции"
 
 #: coverart_playlists.py:165
 msgid "No matching tracks have been found"
-msgstr ""
+msgstr "Произведения, соответствующие параметрам, не найдены"

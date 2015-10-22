@@ -127,6 +127,7 @@
         <genre xml:lang="pt" spritesheet="genre" name="world">world</genre>
         <genre xml:lang="pt_BR" spritesheet="genre" name="world">mundo</genre>
         <genre xml:lang="ro" spritesheet="genre" name="world">world</genre>
+        <genre xml:lang="ru" spritesheet="genre" name="world">мировые</genre>
         <genre xml:lang="zh_CN" spritesheet="genre" name="world">世界音乐</genre>
         <genre spritesheet="genre" name="bluegrass">bluegrass</genre>
         <genre xml:lang="ast" spritesheet="genre" name="bluegrass">bluegrass</genre>
@@ -149,6 +150,7 @@
         <genre xml:lang="pt" spritesheet="genre" name="bluegrass">bluegrass</genre>
         <genre xml:lang="pt_BR" spritesheet="genre" name="bluegrass">bluegrass</genre>
         <genre xml:lang="ro" spritesheet="genre" name="bluegrass">bluegrass</genre>
+        <genre xml:lang="ru" spritesheet="genre" name="bluegrass">блюграсс</genre>
         <genre xml:lang="zh_CN" spritesheet="genre" name="bluegrass">蓝草</genre>
         <genre spritesheet="genre" name="oldies">oldies</genre>
         <genre xml:lang="ast" spritesheet="genre" name="oldies">antigües</genre>
@@ -173,6 +175,7 @@
         <genre xml:lang="pt" spritesheet="genre" name="oldies">antigas</genre>
         <genre xml:lang="pt_BR" spritesheet="genre" name="oldies">antigas</genre>
         <genre xml:lang="ro" spritesheet="genre" name="oldies">oldies</genre>
+        <genre xml:lang="ru" spritesheet="genre" name="oldies">старые</genre>
         <genre xml:lang="zh_CN" spritesheet="genre" name="oldies">怀旧</genre>
         <genre spritesheet="genre" name="holiday">holiday</genre>
         <genre xml:lang="ast" spritesheet="genre" name="holiday">fiesta</genre>
@@ -197,6 +200,7 @@
         <genre xml:lang="pt" spritesheet="genre" name="holiday">festiva</genre>
         <genre xml:lang="pt_BR" spritesheet="genre" name="holiday">feriados</genre>
         <genre xml:lang="ro" spritesheet="genre" name="holiday">holiday</genre>
+        <genre xml:lang="ru" spritesheet="genre" name="holiday">праздничные</genre>
         <genre xml:lang="zh_CN" spritesheet="genre" name="holiday">节日</genre>
         <genre spritesheet="genre" name="comedy">comedy</genre>
         <genre xml:lang="ast" spritesheet="genre" name="comedy">comedia</genre>
@@ -398,6 +402,7 @@
         <genre xml:lang="pt" spritesheet="genre" name="ragtime">ragtime</genre>
         <genre xml:lang="pt_BR" spritesheet="genre" name="ragtime">ragtime</genre>
         <genre xml:lang="ro" spritesheet="genre" name="ragtime">ragtime</genre>
+        <genre xml:lang="ru" spritesheet="genre" name="ragtime">регтайм</genre>
         <genre xml:lang="zh_CN" spritesheet="genre" name="ragtime">拉格泰姆音乐</genre>
         <genre spritesheet="genre" name="musical">musical</genre>
         <genre xml:lang="ast" spritesheet="genre" name="musical">musical</genre>
@@ -445,6 +450,7 @@
         <genre xml:lang="pt" spritesheet="genre" name="dance">dance</genre>
         <genre xml:lang="pt_BR" spritesheet="genre" name="dance">dance</genre>
         <genre xml:lang="ro" spritesheet="genre" name="dance">dance</genre>
+        <genre xml:lang="ru" spritesheet="genre" name="dance">танцевальные</genre>
         <genre xml:lang="zh_CN" spritesheet="genre" name="dance">舞蹈</genre>
         <genre spritesheet="genre" name="reggae">reggae</genre>
         <genre xml:lang="ast" spritesheet="genre" name="reggae">reggae</genre>
@@ -671,6 +677,7 @@
         <genre xml:lang="pt" spritesheet="genre" name="experimental">experimental</genre>
         <genre xml:lang="pt_BR" spritesheet="genre" name="experimental">experimental</genre>
         <genre xml:lang="ro" spritesheet="genre" name="experimental">experimental</genre>
+        <genre xml:lang="ru" spritesheet="genre" name="experimental">экспериментальные</genre>
         <genre xml:lang="zh_CN" spritesheet="genre" name="experimental">实验</genre>
         <genre spritesheet="genre" name="new age">new age</genre>
         <genre xml:lang="ast" spritesheet="genre" name="new age">new age</genre>
@@ -694,6 +701,7 @@
         <genre xml:lang="pt" spritesheet="genre" name="new age">new age</genre>
         <genre xml:lang="pt_BR" spritesheet="genre" name="new age">nova era</genre>
         <genre xml:lang="ro" spritesheet="genre" name="new age">new age</genre>
+        <genre xml:lang="ru" spritesheet="genre" name="new age">нью эйдж</genre>
         <genre xml:lang="zh_CN" spritesheet="genre" name="new age">新世纪</genre>
         <genre spritesheet="genre" name="opera">opera</genre>
         <genre xml:lang="ast" spritesheet="genre" name="opera">ópera</genre>
@@ -794,6 +802,7 @@
         <genre xml:lang="pt" spritesheet="genre" name="workout">academia</genre>
         <genre xml:lang="pt_BR" spritesheet="genre" name="workout">academia</genre>
         <genre xml:lang="ro" spritesheet="genre" name="workout">workout</genre>
+        <genre xml:lang="ru" spritesheet="genre" name="workout">тренировка</genre>
         <genre xml:lang="zh_CN" spritesheet="genre" name="workout">健身</genre>
         <genre spritesheet="genre" name="easy listening">easy listening</genre>
         <genre xml:lang="ast" spritesheet="genre" name="easy listening">popular</genre>
@@ -817,6 +826,7 @@
         <genre xml:lang="pt" spritesheet="genre" name="easy listening">easy listening</genre>
         <genre xml:lang="pt_BR" spritesheet="genre" name="easy listening">fácil de se ouvir</genre>
         <genre xml:lang="ro" spritesheet="genre" name="easy listening">easy listening</genre>
+        <genre xml:lang="ru" spritesheet="genre" name="easy listening">спокойная музыка</genre>
         <genre xml:lang="zh_CN" spritesheet="genre" name="easy listening">轻音乐</genre>
         <genre spritesheet="genre" name="hip-hop">hip-hop</genre>
         <genre xml:lang="ast" spritesheet="genre" name="hip-hop">hip-hop</genre>
@@ -867,6 +877,7 @@
         <genre xml:lang="pt" spritesheet="genre" name="children">infantil</genre>
         <genre xml:lang="pt_BR" spritesheet="genre" name="children">infantil</genre>
         <genre xml:lang="ro" spritesheet="genre" name="children">children</genre>
+        <genre xml:lang="ru" spritesheet="genre" name="children">детские</genre>
         <genre xml:lang="zh_CN" spritesheet="genre" name="children">儿童</genre>
         
         
