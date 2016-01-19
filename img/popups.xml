@@ -18,6 +18,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="rock">rock</genre>
         <genre xml:lang="gl" spritesheet="genre" name="rock">rock</genre>
         <genre xml:lang="hr" spritesheet="genre" name="rock">rock</genre>
+        <genre xml:lang="id" spritesheet="genre" name="rock">rock</genre>
         <genre xml:lang="it" spritesheet="genre" name="rock">rock</genre>
         <genre xml:lang="ko" spritesheet="genre" name="rock">락</genre>
         <genre xml:lang="ms" spritesheet="genre" name="rock">rock</genre>
@@ -44,6 +45,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="country">country</genre>
         <genre xml:lang="gl" spritesheet="genre" name="country">country</genre>
         <genre xml:lang="hr" spritesheet="genre" name="country">country</genre>
+        <genre xml:lang="id" spritesheet="genre" name="country">country</genre>
         <genre xml:lang="it" spritesheet="genre" name="country">country</genre>
         <genre xml:lang="ko" spritesheet="genre" name="country">컨츄리</genre>
         <genre xml:lang="ms" spritesheet="genre" name="country">country</genre>
@@ -70,6 +72,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="pop">pop française</genre>
         <genre xml:lang="gl" spritesheet="genre" name="pop">pop</genre>
         <genre xml:lang="hr" spritesheet="genre" name="pop">pop</genre>
+        <genre xml:lang="id" spritesheet="genre" name="pop">pop</genre>
         <genre xml:lang="it" spritesheet="genre" name="pop">pop</genre>
         <genre xml:lang="ko" spritesheet="genre" name="pop">팝</genre>
         <genre xml:lang="ms" spritesheet="genre" name="pop">pop</genre>
@@ -95,6 +98,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="classical">classique</genre>
         <genre xml:lang="gl" spritesheet="genre" name="classical">clásica</genre>
         <genre xml:lang="hr" spritesheet="genre" name="classical">klasika</genre>
+        <genre xml:lang="id" spritesheet="genre" name="classical">klasikal</genre>
         <genre xml:lang="it" spritesheet="genre" name="classical">classica</genre>
         <genre xml:lang="ko" spritesheet="genre" name="classical">클래식</genre>
         <genre xml:lang="ms" spritesheet="genre" name="classical">klasik</genre>
@@ -120,6 +124,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="world">musique du monde</genre>
         <genre xml:lang="gl" spritesheet="genre" name="world">música do mundo</genre>
         <genre xml:lang="hr" spritesheet="genre" name="world">world</genre>
+        <genre xml:lang="id" spritesheet="genre" name="world">dunia</genre>
         <genre xml:lang="it" spritesheet="genre" name="world">world</genre>
         <genre xml:lang="ko" spritesheet="genre" name="world">월드 뮤직</genre>
         <genre xml:lang="ms" spritesheet="genre" name="world">dunia</genre>
@@ -143,6 +148,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="bluegrass">bluegrass</genre>
         <genre xml:lang="gl" spritesheet="genre" name="bluegrass">bluegrass</genre>
         <genre xml:lang="hr" spritesheet="genre" name="bluegrass">bluegrass</genre>
+        <genre xml:lang="id" spritesheet="genre" name="bluegrass">bluegrass</genre>
         <genre xml:lang="it" spritesheet="genre" name="bluegrass">bluegrass</genre>
         <genre xml:lang="ko" spritesheet="genre" name="bluegrass">블루그래스</genre>
         <genre xml:lang="ms" spritesheet="genre" name="bluegrass">bluegrass</genre>
@@ -168,6 +174,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="oldies">oldies</genre>
         <genre xml:lang="gl" spritesheet="genre" name="oldies">vellos éxitos</genre>
         <genre xml:lang="hr" spritesheet="genre" name="oldies">stare</genre>
+        <genre xml:lang="id" spritesheet="genre" name="oldies">lampau</genre>
         <genre xml:lang="it" spritesheet="genre" name="oldies">revival</genre>
         <genre xml:lang="ko" spritesheet="genre" name="oldies">고전</genre>
         <genre xml:lang="ms" spritesheet="genre" name="oldies">lama</genre>
@@ -193,6 +200,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="holiday">noël</genre>
         <genre xml:lang="gl" spritesheet="genre" name="holiday">natividade</genre>
         <genre xml:lang="hr" spritesheet="genre" name="holiday">holiday</genre>
+        <genre xml:lang="id" spritesheet="genre" name="holiday">holiday</genre>
         <genre xml:lang="it" spritesheet="genre" name="holiday">musica per le feste</genre>
         <genre xml:lang="ko" spritesheet="genre" name="holiday">홀리데이</genre>
         <genre xml:lang="ms" spritesheet="genre" name="holiday">perayaan</genre>
@@ -218,6 +226,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="comedy">comédie</genre>
         <genre xml:lang="gl" spritesheet="genre" name="comedy">comedia</genre>
         <genre xml:lang="hr" spritesheet="genre" name="comedy">smiješne</genre>
+        <genre xml:lang="id" spritesheet="genre" name="comedy">komedi</genre>
         <genre xml:lang="it" spritesheet="genre" name="comedy">commedia</genre>
         <genre xml:lang="ko" spritesheet="genre" name="comedy">코미디</genre>
         <genre xml:lang="ms" spritesheet="genre" name="comedy">komedi</genre>
@@ -242,6 +251,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="spoken">parlé</genre>
         <genre xml:lang="gl" spritesheet="genre" name="spoken">falado</genre>
         <genre xml:lang="hr" spritesheet="genre" name="spoken">govoreće</genre>
+        <genre xml:lang="id" spritesheet="genre" name="spoken">spoken</genre>
         <genre xml:lang="it" spritesheet="genre" name="spoken">parlato</genre>
         <genre xml:lang="ko" spritesheet="genre" name="spoken">이야기</genre>
         <genre xml:lang="ms" spritesheet="genre" name="spoken">percakapan</genre>
@@ -267,6 +277,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="jazz">jazz</genre>
         <genre xml:lang="gl" spritesheet="genre" name="jazz">jazz</genre>
         <genre xml:lang="hr" spritesheet="genre" name="jazz">jazz</genre>
+        <genre xml:lang="id" spritesheet="genre" name="jazz">jazz</genre>
         <genre xml:lang="it" spritesheet="genre" name="jazz">jazz</genre>
         <genre xml:lang="ko" spritesheet="genre" name="jazz">재즈</genre>
         <genre xml:lang="ms" spritesheet="genre" name="jazz">jazz</genre>
@@ -293,6 +304,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="blues">blues</genre>
         <genre xml:lang="gl" spritesheet="genre" name="blues">blues</genre>
         <genre xml:lang="hr" spritesheet="genre" name="blues">blues</genre>
+        <genre xml:lang="id" spritesheet="genre" name="blues">blues</genre>
         <genre xml:lang="it" spritesheet="genre" name="blues">blues</genre>
         <genre xml:lang="ko" spritesheet="genre" name="blues">블루스</genre>
         <genre xml:lang="ms" spritesheet="genre" name="blues">blues</genre>
@@ -318,6 +330,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="metal">métal</genre>
         <genre xml:lang="gl" spritesheet="genre" name="metal">metal</genre>
         <genre xml:lang="hr" spritesheet="genre" name="metal">metal</genre>
+        <genre xml:lang="id" spritesheet="genre" name="metal">Metal</genre>
         <genre xml:lang="it" spritesheet="genre" name="metal">metal</genre>
         <genre xml:lang="ko" spritesheet="genre" name="metal">메탈</genre>
         <genre xml:lang="ms" spritesheet="genre" name="metal">metal</genre>
@@ -344,6 +357,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="karaoke">karaoké</genre>
         <genre xml:lang="gl" spritesheet="genre" name="karaoke">karaoke</genre>
         <genre xml:lang="hr" spritesheet="genre" name="karaoke">karaoke</genre>
+        <genre xml:lang="id" spritesheet="genre" name="karaoke">karaoke</genre>
         <genre xml:lang="it" spritesheet="genre" name="karaoke">karaoke</genre>
         <genre xml:lang="ko" spritesheet="genre" name="karaoke">가라오케</genre>
         <genre xml:lang="ms" spritesheet="genre" name="karaoke">karaoke</genre>
@@ -370,6 +384,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="rap">rap</genre>
         <genre xml:lang="gl" spritesheet="genre" name="rap">rap</genre>
         <genre xml:lang="hr" spritesheet="genre" name="rap">rap</genre>
+        <genre xml:lang="id" spritesheet="genre" name="rap">rap</genre>
         <genre xml:lang="it" spritesheet="genre" name="rap">rap</genre>
         <genre xml:lang="ko" spritesheet="genre" name="rap">랩</genre>
         <genre xml:lang="ms" spritesheet="genre" name="rap">rap</genre>
@@ -395,6 +410,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="ragtime">ragtime</genre>
         <genre xml:lang="gl" spritesheet="genre" name="ragtime">ragtime</genre>
         <genre xml:lang="hr" spritesheet="genre" name="ragtime">ragtime</genre>
+        <genre xml:lang="id" spritesheet="genre" name="ragtime">ragtime</genre>
         <genre xml:lang="it" spritesheet="genre" name="ragtime">ragtime</genre>
         <genre xml:lang="ko" spritesheet="genre" name="ragtime">래그타임</genre>
         <genre xml:lang="ms" spritesheet="genre" name="ragtime">ragtime</genre>
@@ -419,6 +435,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="musical">comédie musicale</genre>
         <genre xml:lang="gl" spritesheet="genre" name="musical">musical</genre>
         <genre xml:lang="hr" spritesheet="genre" name="musical">musical</genre>
+        <genre xml:lang="id" spritesheet="genre" name="musical">musikal</genre>
         <genre xml:lang="it" spritesheet="genre" name="musical">musical</genre>
         <genre xml:lang="ko" spritesheet="genre" name="musical">뮤지컬</genre>
         <genre xml:lang="ms" spritesheet="genre" name="musical">muzik</genre>
@@ -443,6 +460,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="dance">danse</genre>
         <genre xml:lang="gl" spritesheet="genre" name="dance">dance</genre>
         <genre xml:lang="hr" spritesheet="genre" name="dance">dance</genre>
+        <genre xml:lang="id" spritesheet="genre" name="dance">dance</genre>
         <genre xml:lang="it" spritesheet="genre" name="dance">dance</genre>
         <genre xml:lang="ko" spritesheet="genre" name="dance">댄스</genre>
         <genre xml:lang="ms" spritesheet="genre" name="dance">dance</genre>
@@ -469,6 +487,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="reggae">reggae</genre>
         <genre xml:lang="gl" spritesheet="genre" name="reggae">reggae</genre>
         <genre xml:lang="hr" spritesheet="genre" name="reggae">reggae</genre>
+        <genre xml:lang="id" spritesheet="genre" name="reggae">reggae</genre>
         <genre xml:lang="it" spritesheet="genre" name="reggae">reggae</genre>
         <genre xml:lang="ko" spritesheet="genre" name="reggae">레게</genre>
         <genre xml:lang="ms" spritesheet="genre" name="reggae">reggae</genre>
@@ -494,6 +513,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="electronic">électronique</genre>
         <genre xml:lang="gl" spritesheet="genre" name="electronic">electrónica</genre>
         <genre xml:lang="hr" spritesheet="genre" name="electronic">electronic</genre>
+        <genre xml:lang="id" spritesheet="genre" name="electronic">elektronik</genre>
         <genre xml:lang="it" spritesheet="genre" name="electronic">elettronica</genre>
         <genre xml:lang="ko" spritesheet="genre" name="electronic">일렉트로닉</genre>
         <genre xml:lang="ms" spritesheet="genre" name="electronic">electronic</genre>
@@ -519,6 +539,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="soundtrack">bande originale</genre>
         <genre xml:lang="gl" spritesheet="genre" name="soundtrack">banda sonora</genre>
         <genre xml:lang="hr" spritesheet="genre" name="soundtrack">soundtrack</genre>
+        <genre xml:lang="id" spritesheet="genre" name="soundtrack">soundtrack</genre>
         <genre xml:lang="it" spritesheet="genre" name="soundtrack">colonna sonora</genre>
         <genre xml:lang="ko" spritesheet="genre" name="soundtrack">사운드트랙</genre>
         <genre xml:lang="ms" spritesheet="genre" name="soundtrack">soundtrack</genre>
@@ -545,6 +566,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="latin">latin</genre>
         <genre xml:lang="gl" spritesheet="genre" name="latin">latino</genre>
         <genre xml:lang="hr" spritesheet="genre" name="latin">latin</genre>
+        <genre xml:lang="id" spritesheet="genre" name="latin">latin</genre>
         <genre xml:lang="it" spritesheet="genre" name="latin">latina</genre>
         <genre xml:lang="ko" spritesheet="genre" name="latin">라틴</genre>
         <genre xml:lang="ms" spritesheet="genre" name="latin">latin</genre>
@@ -570,6 +592,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="alternative">alternatif</genre>
         <genre xml:lang="gl" spritesheet="genre" name="alternative">alternativa</genre>
         <genre xml:lang="hr" spritesheet="genre" name="alternative">alternative</genre>
+        <genre xml:lang="id" spritesheet="genre" name="alternative">alternatif</genre>
         <genre xml:lang="it" spritesheet="genre" name="alternative">alternativa</genre>
         <genre xml:lang="ko" spritesheet="genre" name="alternative">얼터너티브</genre>
         <genre xml:lang="ms" spritesheet="genre" name="alternative">alternative</genre>
@@ -596,6 +619,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="disco">disco</genre>
         <genre xml:lang="gl" spritesheet="genre" name="disco">disco</genre>
         <genre xml:lang="hr" spritesheet="genre" name="disco">disco</genre>
+        <genre xml:lang="id" spritesheet="genre" name="disco">disko</genre>
         <genre xml:lang="it" spritesheet="genre" name="disco">disco</genre>
         <genre xml:lang="ko" spritesheet="genre" name="disco">디스코</genre>
         <genre xml:lang="ms" spritesheet="genre" name="disco">disko</genre>
@@ -621,6 +645,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="folk">acoustique</genre>
         <genre xml:lang="gl" spritesheet="genre" name="folk">folclore</genre>
         <genre xml:lang="hr" spritesheet="genre" name="folk">folk</genre>
+        <genre xml:lang="id" spritesheet="genre" name="folk">folk</genre>
         <genre xml:lang="it" spritesheet="genre" name="folk">folk</genre>
         <genre xml:lang="ko" spritesheet="genre" name="folk">포크</genre>
         <genre xml:lang="ms" spritesheet="genre" name="folk">folk</genre>
@@ -646,6 +671,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="gospel">musique religieuse</genre>
         <genre xml:lang="gl" spritesheet="genre" name="gospel">espiritual</genre>
         <genre xml:lang="hr" spritesheet="genre" name="gospel">gospel</genre>
+        <genre xml:lang="id" spritesheet="genre" name="gospel">gospel</genre>
         <genre xml:lang="it" spritesheet="genre" name="gospel">gospel</genre>
         <genre xml:lang="ko" spritesheet="genre" name="gospel">가스펠</genre>
         <genre xml:lang="ms" spritesheet="genre" name="gospel">gospel</genre>
@@ -670,6 +696,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="experimental">expérimental</genre>
         <genre xml:lang="gl" spritesheet="genre" name="experimental">experimental</genre>
         <genre xml:lang="hr" spritesheet="genre" name="experimental">experimental</genre>
+        <genre xml:lang="id" spritesheet="genre" name="experimental">eksperimental</genre>
         <genre xml:lang="it" spritesheet="genre" name="experimental">sperimentale</genre>
         <genre xml:lang="ko" spritesheet="genre" name="experimental">실험 음악</genre>
         <genre xml:lang="ms" spritesheet="genre" name="experimental">experimental</genre>
@@ -694,6 +721,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="new age">new age</genre>
         <genre xml:lang="gl" spritesheet="genre" name="new age">new age</genre>
         <genre xml:lang="hr" spritesheet="genre" name="new age">new age</genre>
+        <genre xml:lang="id" spritesheet="genre" name="new age">jaman baru</genre>
         <genre xml:lang="it" spritesheet="genre" name="new age">new age</genre>
         <genre xml:lang="ko" spritesheet="genre" name="new age">뉴에이지</genre>
         <genre xml:lang="ms" spritesheet="genre" name="new age">new age</genre>
@@ -720,6 +748,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="opera">opéra</genre>
         <genre xml:lang="gl" spritesheet="genre" name="opera">opera</genre>
         <genre xml:lang="hr" spritesheet="genre" name="opera">opera</genre>
+        <genre xml:lang="id" spritesheet="genre" name="opera">opera</genre>
         <genre xml:lang="it" spritesheet="genre" name="opera">opera</genre>
         <genre xml:lang="ko" spritesheet="genre" name="opera">오페라</genre>
         <genre xml:lang="ms" spritesheet="genre" name="opera">opera</genre>
@@ -746,6 +775,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="anime">anime</genre>
         <genre xml:lang="gl" spritesheet="genre" name="anime">anime</genre>
         <genre xml:lang="hr" spritesheet="genre" name="anime">anime</genre>
+        <genre xml:lang="id" spritesheet="genre" name="anime">anime</genre>
         <genre xml:lang="it" spritesheet="genre" name="anime">anime</genre>
         <genre xml:lang="ko" spritesheet="genre" name="anime">애니메이션 음악</genre>
         <genre xml:lang="ms" spritesheet="genre" name="anime">anime</genre>
@@ -772,6 +802,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="soul">soul</genre>
         <genre xml:lang="gl" spritesheet="genre" name="soul">soul</genre>
         <genre xml:lang="hr" spritesheet="genre" name="soul">soul</genre>
+        <genre xml:lang="id" spritesheet="genre" name="soul">soul</genre>
         <genre xml:lang="it" spritesheet="genre" name="soul">soul</genre>
         <genre xml:lang="ko" spritesheet="genre" name="soul">소울</genre>
         <genre xml:lang="ms" spritesheet="genre" name="soul">soul</genre>
@@ -795,6 +826,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="workout">entraînement</genre>
         <genre xml:lang="gl" spritesheet="genre" name="workout">entretemento</genre>
         <genre xml:lang="hr" spritesheet="genre" name="workout">workout</genre>
+        <genre xml:lang="id" spritesheet="genre" name="workout">workout</genre>
         <genre xml:lang="it" spritesheet="genre" name="workout">fitness e allenamenti</genre>
         <genre xml:lang="ko" spritesheet="genre" name="workout">운동</genre>
         <genre xml:lang="ms" spritesheet="genre" name="workout">workout</genre>
@@ -819,6 +851,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="easy listening">écoute facile</genre>
         <genre xml:lang="gl" spritesheet="genre" name="easy listening">música lixeira</genre>
         <genre xml:lang="hr" spritesheet="genre" name="easy listening">easy listening</genre>
+        <genre xml:lang="id" spritesheet="genre" name="easy listening">easy listening</genre>
         <genre xml:lang="it" spritesheet="genre" name="easy listening">easy listening</genre>
         <genre xml:lang="ko" spritesheet="genre" name="easy listening">이지 리스닝</genre>
         <genre xml:lang="ms" spritesheet="genre" name="easy listening">sedap didengar</genre>
@@ -845,6 +878,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="hip-hop">hip-hop</genre>
         <genre xml:lang="gl" spritesheet="genre" name="hip-hop">hip-hop</genre>
         <genre xml:lang="hr" spritesheet="genre" name="hip-hop">hip-hop</genre>
+        <genre xml:lang="id" spritesheet="genre" name="hip-hop">hip-hop</genre>
         <genre xml:lang="it" spritesheet="genre" name="hip-hop">hip-hop</genre>
         <genre xml:lang="ko" spritesheet="genre" name="hip-hop">힙합</genre>
         <genre xml:lang="ms" spritesheet="genre" name="hip-hop">hip-hop</genre>
@@ -870,6 +904,7 @@
         <genre xml:lang="fr_CA" spritesheet="genre" name="children">enfants</genre>
         <genre xml:lang="gl" spritesheet="genre" name="children">infantil</genre>
         <genre xml:lang="hr" spritesheet="genre" name="children">children</genre>
+        <genre xml:lang="id" spritesheet="genre" name="children">anak-anak</genre>
         <genre xml:lang="it" spritesheet="genre" name="children">per bambini</genre>
         <genre xml:lang="ko" spritesheet="genre" name="children">아동</genre>
         <genre xml:lang="ms" spritesheet="genre" name="children">kanak-kanak</genre>

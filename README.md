@@ -1,4 +1,4 @@
-#coverart-browser - v2.1.1 (Penfold)
+#coverart-browser - v2.1.2 (Penfold)
 
 Browse your coverart albums in Rhythmbox v3 and later.  
 
@@ -36,9 +36,9 @@ Browse your coverart albums in Rhythmbox v3 and later.
  - Bottom Track & Cover Pane has more space - the expander & label has been removed
  - Tidied display - visible pane handles disappear after the plugin has been run 5 times 
  - Add ability to resize Icon-view with CTRL+mouse wheel scroll 
- - Translated into 25 languages and locales
+ - Translated into 27 languages and locales
  - for developers - doxygen documentation: http://fossfreedom.github.io/coverart-browser/classes.html
- - v2.1.1 - translation updates
+ - v2.1.1 - v2.1.2 - translation updates
 
 *How it works:*
 
@@ -58,7 +58,7 @@ Prerequisite is to use a distribution supporting GTK 3.10 or later - for example
 
 for Debian & Debian-based distros such as Ubuntu & Mint:
 
-    sudo apt-get install git gettext python3-mako python3-lxml python3-gi-cairo python3-cairo gstreamer1.0-plugins-ugly gstreamer1.0-plugins-good gstreamer1.0-plugins-bad rhythmbox-plugins
+    sudo apt-get install git gettext python3-mako gir1.2-notify-0.7 python3-lxml python3-gi-cairo python3-cairo gstreamer1.0-plugins-ugly gstreamer1.0-plugins-good gstreamer1.0-plugins-bad rhythmbox-plugins
 
 for Fedora and similar:
 
@@ -87,7 +87,7 @@ Note 1 - the CoverArt Browser plugin also requires installing the following plug
 
 *For Ubuntu 14.04 and later:*
 
-V2.0 is now available in my rhythmbox PPA - installation instructions in this AskUbuntu Q&A:
+V2.1.2 is now available in my rhythmbox PPA - installation instructions in this AskUbuntu Q&A:
 
 http://askubuntu.com/questions/147942/how-do-i-install-third-party-rhythmbox-plugins
 

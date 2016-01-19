@@ -1,0 +1,1018 @@
+# Indonesian translation for coverartbrowser
+# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# This file is distributed under the same license as the coverartbrowser package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: coverartbrowser\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-12-21 23:10+0000\n"
+"PO-Revision-Date: 2016-01-19 09:20+0000\n"
+"Last-Translator: Gema Aji Wardian <gema_wardian@hotmail.com>\n"
+"Language-Team: Indonesian <id@li.org>\n"
+"Language: id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Launchpad-Export-Date: 2016-01-19 19:52+0000\n"
+"X-Generator: Launchpad (build 17886)\n"
+
+#. TRANSLATORS: album duration (length) in the format hour:minute:second
+#: tmpl/album-tmpl.html:20
+#, python-format
+msgid "%d:%02d:%02d"
+msgstr "%d:%02d:%02d"
+
+#. TRANSLATORS: album duration (length) in the format minute:second
+#: tmpl/album-tmpl.html:23
+#, python-format
+msgid "%d:%02d"
+msgstr "%d:%02d"
+
+#: tmpl/album-tmpl.html:48
+msgid "Hide all tracks"
+msgstr "Sembunyikan semua trek"
+
+#: tmpl/album-tmpl.html:49 tmpl/album-tmpl.html:93
+msgid "Show all tracks"
+msgstr "Tampilkan semua trek"
+
+#. TRANSLATORS: where %s is the artist name - for example "Top Albums by
+#. Michael Jackson"
+#: tmpl/album-tmpl.html:69
+#, python-format
+msgid "Top albums by %s"
+msgstr "Album top oleh %s"
+
+#. TRANSLATORS: %s is just a string and is not translated, %d is a number and
+#. is the number of track(s)
+#: tmpl/album-tmpl.html:87
+#, python-format
+msgid "%s (%d track)"
+msgid_plural "%s (%d tracks)"
+msgstr[0] "%s (%d trek)"
+
+#: tmpl/album-tmpl.html:106
+msgid "Track list not available"
+msgstr "Daftar trek tidak tersedia"
+
+#: tmpl/album-tmpl.html:119
+msgid "Unable to retrieve album information:"
+msgstr "Tidak dapat mengambil informasi album:"
+
+#: tmpl/albumartsearch-tmpl.html:141 tmpl/albumartsearch-tmpl.html:187
+#: tmpl/artistartsearch-tmpl.html:135
+msgid "Search Options"
+msgstr "Opsi Pencarian"
+
+#: tmpl/albumartsearch-tmpl.html:187
+msgid "Tip: doubleclick or drag a cover to use it as the album cover"
+msgstr ""
+"Tip: dobelklik atau drag kover untuk menggunakannya sebagai sampul album"
+
+#: tmpl/albumartsearch-tmpl.html:189
+msgid "Search Mode"
+msgstr "Mode Pencarian"
+
+#: tmpl/albumartsearch-tmpl.html:191
+#: tmp/coverart_entryview_compact_pop_rb3.ui.h:9
+#: tmp/coverart_entryview_full_pop_rb3.ui.h:9 coverart_artistview.py:824
+#: coverart_browser_source.py:373 coverart_browser_source.py:374
+#: coverart_browser_source.py:1243
+msgid "Artist"
+msgstr "Artis"
+
+#: tmpl/albumartsearch-tmpl.html:192
+msgid "Album"
+msgstr "Album"
+
+#: tmpl/albumartsearch-tmpl.html:193
+msgid "Artist and album"
+msgstr "Artis dan album"
+
+#: tmpl/albumartsearch-tmpl.html:196 tmpl/artistartsearch-tmpl.html:182
+msgid "Search text"
+msgstr "Pencarian teks"
+
+#: tmpl/albumartsearch-tmpl.html:199 tmpl/artistartsearch-tmpl.html:185
+msgid "Search"
+msgstr "Pencarian"
+
+#: tmpl/albumartsearch-tmpl.html:201 tmpl/artistartsearch-tmpl.html:187
+msgid "Image Size"
+msgstr "Ukuran Gambar"
+
+#: tmpl/albumartsearch-tmpl.html:203 tmpl/artistartsearch-tmpl.html:189
+msgid "Small"
+msgstr "Kecil"
+
+#: tmpl/albumartsearch-tmpl.html:204 tmpl/artistartsearch-tmpl.html:190
+msgid "Medium"
+msgstr "Sedang"
+
+#: tmpl/albumartsearch-tmpl.html:205 tmpl/artistartsearch-tmpl.html:191
+msgid "Large"
+msgstr "Besar"
+
+#: tmpl/albumartsearch-tmpl.html:206 tmpl/artistartsearch-tmpl.html:192
+msgid "Extra Large"
+msgstr "Sangat Besar"
+
+#: tmpl/albumartsearch-tmpl.html:211 tmpl/artistartsearch-tmpl.html:197
+#: coverart_browser_source.py:117
+msgid "Loading..."
+msgstr "Memuat..."
+
+#: tmpl/albumartsearch-tmpl.html:213 tmpl/artistartsearch-tmpl.html:199
+msgid "Show more results"
+msgstr "Tampilkan lebih banyak hasil"
+
+#: tmpl/artist-tmpl.html:9 tmpl/echoartist-tmpl.html:10
+msgid "No information available"
+msgstr "Informasi tidak tersedia"
+
+#: tmpl/artist-tmpl.html:28
+msgid "Unfilter"
+msgstr "Nirsaring"
+
+#: tmpl/artist-tmpl.html:29 tmpl/artist-tmpl.html:114
+msgid "Filter"
+msgstr "Saring"
+
+#. TRANSLATORS: Links for artist-name e.g. Links for Michael Jackson
+#: tmpl/artist-tmpl.html:80 tmpl/artist-tmpl.html:87
+#: tmpl/echoartist-tmpl.html:49 tmpl/echoartist-tmpl.html:56
+#: tmpl/links-tmpl.html:15 tmpl/links-tmpl.html:21
+#, python-format
+msgid "Links for %s:"
+msgstr "Tautan untuk %s:"
+
+#: tmpl/artist-tmpl.html:97
+msgid "Similar Artists"
+msgstr "Artis Serupa"
+
+#: tmpl/artist-tmpl.html:108
+msgid "similar"
+msgstr "serupa"
+
+#: tmpl/artist-tmpl.html:124 tmpl/echoartist-tmpl.html:69
+msgid "Unable to retrieve artist information:"
+msgstr "Tidak dapat mengambil informasi artis:"
+
+#: tmpl/artistartsearch-tmpl.html:180
+msgid "Tip: doubleclick or drag a cover to use it as the artist cover"
+msgstr "Tip: klik ganda atau seret kover untuk digunakan sebagai kover artis"
+
+#: tmpl/echoartist-tmpl.html:66
+msgid "Biography provided by: "
+msgstr "Biografi disediakan oleh: "
+
+#: tmpl/links-tmpl.html:28
+msgid "Unable to get links"
+msgstr "Tidak dapat mengambil tautan"
+
+#: tmp/coverart_artist_pop_rb3.ui.h:1
+msgid "Play All"
+msgstr "Putar Semua"
+
+#: tmp/coverart_artist_pop_rb3.ui.h:2 tmp/coverart_browser_pop_rb3.ui.h:3
+#: tmp/coverart_entryview_compact_pop_rb3.ui.h:3
+#: tmp/coverart_entryview_full_pop_rb3.ui.h:3
+msgid "Add to playing"
+msgstr "Tambah ke pemutaran"
+
+#: tmp/coverart_artist_pop_rb3.ui.h:3
+msgid "Queue All"
+msgstr "Antre Semua"
+
+#: tmp/coverart_artist_pop_rb3.ui.h:4 tmp/coverart_browser_pop_rb3.ui.h:5
+#: tmp/coverart_entryview_compact_pop_rb3.ui.h:5
+#: tmp/coverart_entryview_full_pop_rb3.ui.h:5
+msgid "Add to Playlist"
+msgstr "Tambah ke Daftar Putar"
+
+#: tmp/coverart_artist_pop_rb3.ui.h:5 tmp/coverart_browser_pop_rb3.ui.h:6
+#: tmp/coverart_entryview_compact_pop_rb3.ui.h:6
+#: tmp/coverart_entryview_full_pop_rb3.ui.h:6 coverart_browser_source.py:861
+#: coverart_entryview.py:796
+msgid "New Playlist"
+msgstr "Daftar Putar Baru"
+
+#: tmp/coverart_artist_pop_rb3.ui.h:6 tmp/coverart_browser_pop_rb3.ui.h:8
+msgid "Search for covers"
+msgstr "Cari kover"
+
+#: tmp/coverart_browser_pop_rb3.ui.h:1
+msgid "Play Album"
+msgstr "Putar Album"
+
+#: tmp/coverart_browser_pop_rb3.ui.h:2
+#: tmp/coverart_entryview_compact_pop_rb3.ui.h:2
+#: tmp/coverart_entryview_full_pop_rb3.ui.h:2
+msgid "Play Next"
+msgstr "Putar Selanjutnya"
+
+#: tmp/coverart_browser_pop_rb3.ui.h:4
+msgid "Queue Album"
+msgstr "Antre Album"
+
+#: tmp/coverart_browser_pop_rb3.ui.h:7
+msgid "Play Similar Artist"
+msgstr "Putar Artis Serupa"
+
+#: tmp/coverart_browser_pop_rb3.ui.h:9
+msgid "Export and embed coverart"
+msgstr "Ekspor dan benam seni kover"
+
+#: tmp/coverart_browser_pop_rb3.ui.h:10
+#: tmp/coverart_entryview_compact_pop_rb3.ui.h:11
+#: tmp/coverart_entryview_full_pop_rb3.ui.h:11
+#: tmp/coverart_play_pop_rb3.ui.h:2 coverart_controllers.py:565
+msgid "Properties"
+msgstr "Properti"
+
+#: tmp/coverart_browser_prefs.ui.h:1
+msgid "Above"
+msgstr "Atas"
+
+#: tmp/coverart_browser_prefs.ui.h:2
+msgid "Top Left"
+msgstr "Puncak Kiri"
+
+#: tmp/coverart_browser_prefs.ui.h:3
+msgid "Top Center"
+msgstr "Puncak Tengah"
+
+#: tmp/coverart_browser_prefs.ui.h:4
+msgid "Top Right"
+msgstr "Puncak Kanan"
+
+#: tmp/coverart_browser_prefs.ui.h:5
+msgid "Select a picture"
+msgstr "Pilih gambar"
+
+#: tmp/coverart_browser_prefs.ui.h:6
+msgid "Select picture to add to Edit Genre icon drop-down list"
+msgstr ""
+"Pilih gambar untuk menambahkan ke senarai tarik-turun ikon Penyunting Jenis "
+"Musik"
+
+#: tmp/coverart_browser_prefs.ui.h:7
+msgid "Above Cover View"
+msgstr "Diatas Tilikan Kover"
+
+#: tmp/coverart_browser_prefs.ui.h:8
+msgid "Left Sidebar"
+msgstr "Batang Sisi Kiri"
+
+#: tmp/coverart_browser_prefs.ui.h:9
+msgid "Right Sidebar"
+msgstr "Batang Sisi Kanan"
+
+#: tmp/coverart_browser_prefs.ui.h:10
+msgid "Automatically Start"
+msgstr "Mulai Otomatis"
+
+#: tmp/coverart_browser_prefs.ui.h:11
+msgid "When rhythmbox starts, switch automatically to the coverart browser."
+msgstr "Gunakan coverart browser setiap memulai rhythmbox."
+
+#: tmp/coverart_browser_prefs.ui.h:12
+msgid "Use source's custom statusbar"
+msgstr "Gunakan sumber statusbar kustom"
+
+#: tmp/coverart_browser_prefs.ui.h:13
+msgid ""
+"Use the source's custom statusbar to show the current selected album's "
+"related information instead of the global Rhythmbox's statusbar."
+msgstr ""
+"Gunakan sumber statusbar kustom untuk memunculkan informasi album yang "
+"terpilih selain dari seluruh Rhythmbox's statusbar."
+
+#: tmp/coverart_browser_prefs.ui.h:14
+msgid ""
+"Number of random\n"
+"albums to play"
+msgstr ""
+"Nomer dari album\n"
+"acak untuk dimainkan"
+
+#: tmp/coverart_browser_prefs.ui.h:16
+msgid "Level above which is regarded as being a favourite track or album"
+msgstr "Naikan level sebagai album atau track favorit"
+
+#: tmp/coverart_browser_prefs.ui.h:17
+msgid "Favourite Threshold"
+msgstr "Ambang Favorit"
+
+#: tmp/coverart_browser_prefs.ui.h:18
+msgid "General"
+msgstr "Umum"
+
+#: tmp/coverart_browser_prefs.ui.h:19
+msgid "Album Information"
+msgstr "Informasi Album"
+
+#: tmp/coverart_browser_prefs.ui.h:20
+msgid "Display album information"
+msgstr "Tampilkan Informasi Album"
+
+#: tmp/coverart_browser_prefs.ui.h:21
+msgid "Font size for the text below the cover-art."
+msgstr "Ukuran font untuk teks pada cover-art."
+
+#: tmp/coverart_browser_prefs.ui.h:22
+msgid "Font Size:"
+msgstr "Ukuran huruf"
+
+#: tmp/coverart_browser_prefs.ui.h:23
+msgid "Ellipsize albums names"
+msgstr "Perkecil nama album"
+
+#: tmp/coverart_browser_prefs.ui.h:24
+msgid ""
+"Ellipsizes the albums names to a fixed length when the display text option "
+"is enabled."
+msgstr ""
+"Perkecil nama album ke ukuran yang ditentukan pada saat pilihan text "
+"digunakan."
+
+#: tmp/coverart_browser_prefs.ui.h:25
+msgid "Maximum allowed length for an album's name before being ellipsized."
+msgstr "Panjang maksimum untuk nama album sebelum disembunyikan."
+
+#: tmp/coverart_browser_prefs.ui.h:26
+msgid "Maximum length:"
+msgstr "Panjang Maksimum:"
+
+#: tmp/coverart_browser_prefs.ui.h:27
+msgid "Display album's info under cover"
+msgstr "Munculkan info album dibawah cover"
+
+#: tmp/coverart_browser_prefs.ui.h:28
+msgid "Display album's info within cover"
+msgstr "Munculkan info album pada cover"
+
+#: tmp/coverart_browser_prefs.ui.h:29
+msgid "Cover Appearance"
+msgstr "Tampilan cover"
+
+#: tmp/coverart_browser_prefs.ui.h:30
+msgid "Drop shadow"
+msgstr "Bayangan"
+
+#: tmp/coverart_browser_prefs.ui.h:31
+msgid "Indicates if the albums should drop a shadow on the cover view"
+msgstr "Indikasikan apabila album harus memiliki bayangan di tampilan cover"
+
+#: tmp/coverart_browser_prefs.ui.h:32
+msgid "Light Source: "
+msgstr "Sumber Cahaya: "
+
+#: tmp/coverart_browser_prefs.ui.h:33
+msgid "Defines the size for the covers showed on the source."
+msgstr "Menentukan ukuran cover yang dimunculkan pada sumber."
+
+#: tmp/coverart_browser_prefs.ui.h:34
+msgid "Size (in pixels):"
+msgstr "Ukuran (dalam pixels):"
+
+#: tmp/coverart_browser_prefs.ui.h:35
+msgid "Tracks Pane"
+msgstr "Panel Track"
+
+#: tmp/coverart_browser_prefs.ui.h:36
+msgid "open or close on click of cover"
+msgstr "buka atau tutup pada saat cover di klik"
+
+#: tmp/coverart_browser_prefs.ui.h:37
+msgid "Advanced Options"
+msgstr "Opsi Lanjutan"
+
+#: tmp/coverart_browser_prefs.ui.h:38
+msgid "Padding (space) around the cover and its highlight"
+msgstr "Spasi di sekitar kover dan sorotannya"
+
+#: tmp/coverart_browser_prefs.ui.h:39
+msgid "Spacing between columns and rows"
+msgstr "Jarak terhadap kolom dan baris"
+
+#: tmp/coverart_browser_prefs.ui.h:40
+msgid "Padding"
+msgstr "Jarak"
+
+#: tmp/coverart_browser_prefs.ui.h:41
+msgid "Spacing"
+msgstr "Jarak Antara"
+
+#. . TRANSLATORS: This is the icon-grid view that the user sees
+#: tmp/coverart_browser_prefs.ui.h:42 coverart_browser.py:148
+#: coverart_browser_source.py:1238
+msgid "Tiles"
+msgstr "Ubin"
+
+#: tmp/coverart_browser_prefs.ui.h:43
+msgid "Flow Appearance"
+msgstr "Tampilan Alur"
+
+#: tmp/coverart_browser_prefs.ui.h:44
+msgid "Width (px):"
+msgstr "Lebar (px):"
+
+#. . TRANSLATORS: percentage size that the image will be expanded
+#: tmp/coverart_browser_prefs.ui.h:46 coverart_browser.py:154
+#, no-c-format
+msgid "Scale by %:"
+msgstr "Skala oleh %"
+
+#: tmp/coverart_browser_prefs.ui.h:47
+msgid "Hide Caption"
+msgstr "Sembunyikan Keterangan"
+
+#: tmp/coverart_browser_prefs.ui.h:48
+msgid "Maximum covers to display:"
+msgstr "Maksimum cover untuk ditampilkan:"
+
+#: tmp/coverart_browser_prefs.ui.h:49
+msgid "Background Colour"
+msgstr "Warna Latar"
+
+#: tmp/coverart_browser_prefs.ui.h:50
+msgid "White"
+msgstr "Putih"
+
+#: tmp/coverart_browser_prefs.ui.h:51
+msgid "Black"
+msgstr "Hitam"
+
+#. . TRANSLATORS: This is the cover-flow view the user sees - they can swipe album covers from side-to-side
+#: tmp/coverart_browser_prefs.ui.h:52 coverart_browser.py:151
+#: coverart_browser_source.py:1241
+msgid "Flow"
+msgstr "Alur"
+
+#: tmp/coverart_browser_prefs.ui.h:53
+msgid "Where the toolbar should be positioned"
+msgstr "Dimana toolbar harus diposisikan"
+
+#: tmp/coverart_browser_prefs.ui.h:54
+msgid "Position"
+msgstr "Posisi"
+
+#: tmp/coverart_browser_prefs.ui.h:55
+msgid "Show toolbar: "
+msgstr "Tampilkan toolbar: "
+
+#: tmp/coverart_browser_prefs.ui.h:56
+msgid "Look & Feel"
+msgstr "Tampilan"
+
+#: tmp/coverart_browser_prefs.ui.h:57
+msgid "Flat-button style"
+msgstr "Gaya tombol flat"
+
+#: tmp/coverart_browser_prefs.ui.h:58
+msgid "Icon Theme: "
+msgstr "Tema Icon: "
+
+#: tmp/coverart_browser_prefs.ui.h:59
+msgid "Alternative Genres:"
+msgstr "Jenis Alternative:"
+
+#: tmp/coverart_browser_prefs.ui.h:60
+msgid "Load New Icon: "
+msgstr "Buka Icon baru: "
+
+#: tmp/coverart_browser_prefs.ui.h:61
+msgid "Select a new genre icon"
+msgstr "Pilih icon jenis musik baru"
+
+#: tmp/coverart_browser_prefs.ui.h:62
+msgid "Edit Genre Details:"
+msgstr "Edit Detail Jenis Musik:"
+
+#: tmp/coverart_browser_prefs.ui.h:63
+msgid "Save changes"
+msgstr "Simpan perubahan"
+
+#: tmp/coverart_browser_prefs.ui.h:64
+msgid "Name:"
+msgstr "Nama:"
+
+#: tmp/coverart_browser_prefs.ui.h:65
+msgid "Icon:"
+msgstr "Icon:"
+
+#: tmp/coverart_browser_prefs.ui.h:66
+msgid "Current user-defined Genres:"
+msgstr "Jenis musik yang ditentukan user sekarang:"
+
+#: tmp/coverart_browser_prefs.ui.h:67
+msgid "Add a new alternative genre"
+msgstr "Tambah jenis musik alternatif"
+
+#: tmp/coverart_browser_prefs.ui.h:68
+msgid "Delete an alternative genre"
+msgstr "Hapus jenis musik alternatif"
+
+#: tmp/coverart_browser_prefs.ui.h:69
+msgid "Alternate Name"
+msgstr "Nama Alternatif"
+
+#: tmp/coverart_browser_prefs.ui.h:70
+msgid "Icon"
+msgstr "Icon"
+
+#: tmp/coverart_browser_prefs.ui.h:71
+msgid "Toolbar"
+msgstr "Toolbar"
+
+#: tmp/coverart_browser.ui.h:1
+msgid "Track Artist"
+msgstr "Trek Artis"
+
+#: tmp/coverart_browser.ui.h:2
+msgid "Stop coverart fetch."
+msgstr "Hentikan pengambilan coverart."
+
+#: tmp/coverart_entryview_compact_pop_rb3.ui.h:1
+#: tmp/coverart_entryview_full_pop_rb3.ui.h:1
+msgid "Play Track"
+msgstr "Mainkan Track"
+
+#: tmp/coverart_entryview_compact_pop_rb3.ui.h:4
+#: tmp/coverart_entryview_full_pop_rb3.ui.h:4
+msgid "Queue Track"
+msgstr "Antri Track"
+
+#: tmp/coverart_entryview_compact_pop_rb3.ui.h:7
+#: tmp/coverart_entryview_full_pop_rb3.ui.h:7
+msgid "Play Similar"
+msgstr "Mainkan yang sama"
+
+#: tmp/coverart_entryview_compact_pop_rb3.ui.h:8
+#: tmp/coverart_entryview_full_pop_rb3.ui.h:8
+msgid "Track"
+msgstr "Track"
+
+#: tmp/coverart_entryview_compact_pop_rb3.ui.h:10
+#: tmp/coverart_entryview_full_pop_rb3.ui.h:10
+msgid "Genre"
+msgstr "Jenis Musik"
+
+#: tmp/coverart_exportembed.ui.h:1
+msgid "Choose folder to save tracks:"
+msgstr "Pilih folder untuk menyimpan track:"
+
+#: tmp/coverart_exportembed.ui.h:2
+msgid "Select a Folder to export to"
+msgstr "Pilih folder untuk mengeksport"
+
+#: tmp/coverart_exportembed.ui.h:3
+msgid "Save tracks within folder using album name"
+msgstr "Simpan track didalam folder menggunakan nama album"
+
+#: tmp/coverart_exportembed.ui.h:4
+msgid "Open embedded track folder in file-manager"
+msgstr "Buka folder track bawaan di file-manager"
+
+#. This is a label describing the different options to save the picture artwork in the music file i.e. embed - to insert picture artwork into a music file
+#: tmp/coverart_exportembed.ui.h:6
+msgid "Embed:"
+msgstr "Tanam:"
+
+#: tmp/coverart_exportembed.ui.h:7
+msgid "convert to mp3"
+msgstr "konversi ke mp3"
+
+#: tmp/coverart_exportembed.ui.h:8
+msgid "bitrate (kbit/s)"
+msgstr "bitrate (kbit/s)"
+
+#. This is a label describing the size of the picture that will be inserted into the music file e.g. change the size from 800x800 pixels to 128x128 pixels
+#: tmp/coverart_exportembed.ui.h:10
+msgid "resize art"
+msgstr "sesuaikan ukuran cover"
+
+#. size in pixels
+#: tmp/coverart_exportembed.ui.h:12
+msgid "(px)"
+msgstr "(px)"
+
+#: tmp/coverart_leftsidebar.ui.h:1 tmp/coverart_rightsidebar.ui.h:1
+#: coverart_browser.py:94
+msgid "CoverArt"
+msgstr "CoverArt"
+
+#. initial genre
+#: tmp/coverart_leftsidebar.ui.h:2 tmp/coverart_rightsidebar.ui.h:2
+#: tmp/coverart_topbar.ui.h:1 coverart_controllers.py:221
+#: coverart_controllers.py:275 coverart_controllers.py:376
+msgid "All Genres"
+msgstr "Semua Aliran"
+
+#: tmp/coverart_leftsidebar.ui.h:3 tmp/coverart_rightsidebar.ui.h:3
+#: tmp/coverart_topbar.ui.h:2 coverart_controllers.py:583
+msgid "All Decades"
+msgstr "Semua Dekade"
+
+#: tmp/coverart_play_pop_rb3.ui.h:1
+msgid "Remove from Playlist"
+msgstr "Hapus dari Daftar Putar"
+
+#: tmp/popups.xml.in.h:1
+msgid "rock"
+msgstr "rock"
+
+#: tmp/popups.xml.in.h:2
+msgid "country"
+msgstr "country"
+
+#: tmp/popups.xml.in.h:3
+msgid "pop"
+msgstr "pop"
+
+#: tmp/popups.xml.in.h:4
+msgid "classical"
+msgstr "klasikal"
+
+#: tmp/popups.xml.in.h:5
+msgid "world"
+msgstr "dunia"
+
+#: tmp/popups.xml.in.h:6
+msgid "bluegrass"
+msgstr "bluegrass"
+
+#: tmp/popups.xml.in.h:7
+msgid "oldies"
+msgstr "lampau"
+
+#: tmp/popups.xml.in.h:8
+msgid "holiday"
+msgstr "holiday"
+
+#: tmp/popups.xml.in.h:9
+msgid "comedy"
+msgstr "komedi"
+
+#: tmp/popups.xml.in.h:10
+msgid "spoken"
+msgstr "spoken"
+
+#: tmp/popups.xml.in.h:11
+msgid "jazz"
+msgstr "jazz"
+
+#: tmp/popups.xml.in.h:12
+msgid "blues"
+msgstr "blues"
+
+#: tmp/popups.xml.in.h:13
+msgid "metal"
+msgstr "Metal"
+
+#: tmp/popups.xml.in.h:14
+msgid "karaoke"
+msgstr "karaoke"
+
+#: tmp/popups.xml.in.h:15
+msgid "rap"
+msgstr "rap"
+
+#: tmp/popups.xml.in.h:16
+msgid "ragtime"
+msgstr "ragtime"
+
+#: tmp/popups.xml.in.h:17
+msgid "musical"
+msgstr "musikal"
+
+#: tmp/popups.xml.in.h:18
+msgid "dance"
+msgstr "dance"
+
+#: tmp/popups.xml.in.h:19
+msgid "reggae"
+msgstr "reggae"
+
+#: tmp/popups.xml.in.h:20
+msgid "electronic"
+msgstr "elektronik"
+
+#: tmp/popups.xml.in.h:21
+msgid "soundtrack"
+msgstr "soundtrack"
+
+#: tmp/popups.xml.in.h:22
+msgid "latin"
+msgstr "latin"
+
+#: tmp/popups.xml.in.h:23
+msgid "alternative"
+msgstr "alternatif"
+
+#: tmp/popups.xml.in.h:24
+msgid "disco"
+msgstr "disko"
+
+#: tmp/popups.xml.in.h:25
+msgid "folk"
+msgstr "folk"
+
+#: tmp/popups.xml.in.h:26
+msgid "gospel"
+msgstr "gospel"
+
+#: tmp/popups.xml.in.h:27
+msgid "experimental"
+msgstr "eksperimental"
+
+#: tmp/popups.xml.in.h:28
+msgid "new age"
+msgstr "jaman baru"
+
+#: tmp/popups.xml.in.h:29
+msgid "opera"
+msgstr "opera"
+
+#: tmp/popups.xml.in.h:30
+msgid "anime"
+msgstr "anime"
+
+#: tmp/popups.xml.in.h:31
+msgid "soul"
+msgstr "soul"
+
+#: tmp/popups.xml.in.h:32
+msgid "workout"
+msgstr "workout"
+
+#: tmp/popups.xml.in.h:33
+msgid "easy listening"
+msgstr "easy listening"
+
+#: tmp/popups.xml.in.h:34
+msgid "hip-hop"
+msgstr "hip-hop"
+
+#: tmp/popups.xml.in.h:35
+msgid "children"
+msgstr "anak-anak"
+
+#: coverart_album.py:1521 coverart_artistinfo.py:62
+msgid "Enable LastFM plugin and log in first"
+msgstr "Gunakan LastFM plugin dan log in terlebih dahulu"
+
+#. . TRANSLATORS - for example "abba's greatest hits by ABBA"
+#: coverart_album.py:1765 coverart_browser_source.py:1151
+#, python-format
+msgid "%s by %s"
+msgstr "%s oleh %s"
+
+#: coverart_artistinfo.py:478
+#, python-format
+msgid "Loading biography for %s"
+msgstr "Memuat biografi bagi %s"
+
+#: coverart_artistinfo.py:825
+msgid "No artist specified."
+msgstr "Tak ada artis yang ditentukan."
+
+#. Translators: 'top' here means 'most popular'.  %s is replaced by the artist name.
+#: coverart_artistinfo.py:845
+#, python-format
+msgid "Loading top albums for %s"
+msgstr "Memuat album teratas untuk %s"
+
+#: coverart_artistview.py:375 coverart_browser_source.py:1159
+msgid " with 1 track"
+msgstr " dengan 1 track"
+
+#: coverart_artistview.py:377 coverart_browser_source.py:1161
+#, python-format
+msgid " with %d tracks"
+msgstr " mengunakan %d track"
+
+#: coverart_artistview.py:383 coverart_browser_source.py:1165
+msgid " and a duration of 1 minute"
+msgstr " dan durasi oleh 1 menit"
+
+#: coverart_artistview.py:385 coverart_browser_source.py:1167
+#, python-format
+msgid " and a duration of %d minutes"
+msgstr " dan durasi oleh %d menit"
+
+#. active_object=self.artist_manager.model.store[treepath][self.artist_manager.model.columns['artist_album']]
+#: coverart_artistview.py:820 coverart_artistview.py:911
+#: coverart_entryview.py:85
+msgid "Covers"
+msgstr "Sampul"
+
+#: coverart_browser_prefs.py:269 coverart_controllers.py:507
+msgid "Browser Preferences"
+msgstr "Pilihan Browser"
+
+#. . TRANSLATORS: Do not translate this string.
+#: coverart_browser_prefs.py:314
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  Gema Aji Wardian https://launchpad.net/~gema-wardian\n"
+"  Trisno Pamuji https://launchpad.net/~tri.snowman\n"
+"  zmni https://launchpad.net/~zmni"
+
+#. define .plugin text strings used for translation
+#: coverart_browser.py:144
+msgid "CoverArt Browser"
+msgstr "CoverArt Browser"
+
+#: coverart_browser.py:145
+msgid "Browse and play your albums through their covers"
+msgstr "Pilih dan mainkan album melalui sampulnya"
+
+#: coverart_browser_source.py:178
+msgid "CoverArt Playlist"
+msgstr "Daftar Musik CoverArt"
+
+#. . TRANSLATORS - "All" is used in the context of "All artist names"
+#: coverart_browser_source.py:584
+msgid "All"
+msgstr "Semua"
+
+#: coverart_browser_source.py:732 coverart_browser_source.py:921
+msgid ""
+"No tracks have been added because no tracks meet the favourite rating "
+"threshold"
+msgstr ""
+"Tidak ada track yang ditambahkan karena tidak ada track yang memenuhi rating "
+"favorit"
+
+#: coverart_browser_source.py:883
+msgid "The number of albums to randomly play is less than that displayed."
+msgstr ""
+"Nomor dari album untuk dimainkan secara acak dibawah dari yang ditampilkan."
+
+#. for example "Requesting the picture cover for the music artist Michael Jackson"
+#: coverart_browser_source.py:975 coverart_browser_source.py:977
+#, python-format
+msgid "Requesting cover for %s..."
+msgstr "Meminta sampul untuk %s..."
+
+#: coverart_browser_source.py:1074
+msgid ""
+"Please install and activate the latest version of the Coverart Search "
+"Providers plugin"
+msgstr ""
+"Tolong install dan aktifkan versi terbaru dari Coverart Search Providers "
+"plugin"
+
+#. . TRANSLATORS - the number of albums that have been selected/highlighted
+#: coverart_browser_source.py:1155
+#, python-format
+msgid "%d selected albums"
+msgstr "%d album terpilih"
+
+#: coverart_controllers.py:391 coverart_controllers.py:440
+msgid "Sort by album name"
+msgstr "Sortir dengan nama album"
+
+#: coverart_controllers.py:392
+msgid "Sort by album artist"
+msgstr "Sortir dengan artis album"
+
+#: coverart_controllers.py:393 coverart_controllers.py:441
+msgid "Sort by year"
+msgstr "Sortir dengan tahun"
+
+#: coverart_controllers.py:394 coverart_controllers.py:442
+msgid "Sort by rating"
+msgstr "Sortir dengan rating"
+
+#: coverart_controllers.py:499
+msgid "Download all covers"
+msgstr "Unduh semua sampul"
+
+#: coverart_controllers.py:500
+msgid "Play random album"
+msgstr "Mainkan album secara acak"
+
+#: coverart_controllers.py:501 coverart_controllers.py:555
+msgid "Follow playing song"
+msgstr "Ikuti lagu yang dimainkan"
+
+#: coverart_controllers.py:504 coverart_controllers.py:552
+msgid "Use favourites only"
+msgstr "Hanya gunakan favorit"
+
+#: coverart_controllers.py:508
+msgid "Search Preferences"
+msgstr "Preferensi Pencarian"
+
+#. '20s' as in the decade 2010
+#: coverart_controllers.py:585 coverart_controllers.py:611
+msgid "20s"
+msgstr "20s"
+
+#. '10s' as in the decade 2010
+#: coverart_controllers.py:587
+msgid "10s"
+msgstr "10an"
+
+#. '00s' as in the decade 2000
+#: coverart_controllers.py:589
+msgid "00s"
+msgstr "2000an"
+
+#. '90s' as in the decade 1990
+#: coverart_controllers.py:591
+msgid "90s"
+msgstr "90an"
+
+#. '80s' as in the decade 1980
+#: coverart_controllers.py:593
+msgid "80s"
+msgstr "80an"
+
+#. '70s' as in the decade 1970
+#: coverart_controllers.py:595
+msgid "70s"
+msgstr "70an"
+
+#. '60s' as in the decade 1960
+#: coverart_controllers.py:597
+msgid "60s"
+msgstr "60an"
+
+#. '50s' as in the decade 1950
+#: coverart_controllers.py:599
+msgid "50s"
+msgstr "50an"
+
+#. '40s' as in the decade 1940
+#: coverart_controllers.py:601
+msgid "40s"
+msgstr "40an"
+
+#. '30s' as in the decade 1930
+#: coverart_controllers.py:603
+msgid "30s"
+msgstr "30an"
+
+#. 'Older' as in 'older than the year 1930'
+#: coverart_controllers.py:605
+msgid "Older"
+msgstr "Lawas"
+
+#. options
+#: coverart_controllers.py:651
+msgid "Sort in descending order"
+msgstr "Sortir dengan urutan menurun"
+
+#: coverart_controllers.py:652
+msgid "Sort in ascending order"
+msgstr "Sortir dengan urutan menaik"
+
+#: coverart_controllers.py:713
+msgid "Search all fields"
+msgstr "Cari di semua bagian"
+
+#: coverart_controllers.py:714
+msgid "Search album artists"
+msgstr "Cari artis dari album"
+
+#: coverart_controllers.py:715
+msgid "Search track artists"
+msgstr "Cari artis dari track"
+
+#: coverart_controllers.py:716
+msgid "Search composers"
+msgstr "Cari komponis"
+
+#: coverart_controllers.py:717
+msgid "Search albums"
+msgstr "Cari album"
+
+#: coverart_controllers.py:718
+msgid "Search titles"
+msgstr "Cari judul"
+
+#. TRANSLATORS: for example 'Number of covers limited to 150'
+#: coverart_coverflowview.py:196
+#, python-format
+msgid "Number of covers limited to %d"
+msgstr "Nomor dari cover dibatasi sampai %d"
+
+#: coverart_covericonview.py:617
+msgid "Album has added to list of playing albums"
+msgstr "Album telah ditambahkan ke daftar album"
+
+#: coverart_entryview.py:77
+msgid "Tracks"
+msgstr "Track"
+
+#: coverart_playlists.py:165
+msgid "No matching tracks have been found"
+msgstr "Tidak ada track yang sama"
