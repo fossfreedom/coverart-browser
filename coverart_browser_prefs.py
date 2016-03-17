@@ -40,10 +40,14 @@ import coverart_rb3compat as rb3compat
 def webkit_support():
     '''
     function that returns True/False if webkit technology is supported
+    we assume GTK3.18 and later versions no longer support webkit
     '''
-    gs = GSetting()
-    settings = gs.get_setting(gs.Path.PLUGIN)
-    return settings[gs.PluginKey.WEBKIT]
+    if rb3compat.pygobject_version() < 3.18:
+        gs = GSetting()
+        settings = gs.get_setting(gs.Path.PLUGIN)
+        return settings[gs.PluginKey.WEBKIT]
+    else:
+        return False
 
 
 class CoverLocale:
