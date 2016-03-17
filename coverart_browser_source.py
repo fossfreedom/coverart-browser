@@ -46,7 +46,6 @@ from coverart_artistview import ArtistView
 from coverart_listview import ListView
 from coverart_queueview import QueueView
 from coverart_toolbar import ToolbarManager
-from coverart_artistinfo import ArtistInfoPane
 from coverart_external_plugins import CreateExternalPluginMenu
 from coverart_playlists import EchoNestPlaylist
 from coverart_entryview import EntryViewPane
@@ -231,13 +230,14 @@ class CoverArtBrowserSource(RB.Source):
 
         self.pack_start(overlay, True, True, 0)
         self.page.reorder_child(overlay, 0)
-
+        print ("1")
         # get widgets for main icon-view
         self.status_label = ui.get_object('status_label')
+        print ("2a")
         window = ui.get_object('scrolled_window')
-
+        print ("2b")
         self.viewmgr = ViewManager(self, window)
-
+        print ("2")
         # get widgets for the artist paned
         self.artist_paned = ui.get_object('vertical_paned')
         self.artist_paned.set_name('vertical_paned')
@@ -245,7 +245,7 @@ class CoverArtBrowserSource(RB.Source):
         self.viewmgr.connect('new-view', self.on_view_changed)
         self.artist_treeview = ui.get_object('artist_treeview')
         self.artist_scrolledwindow = ui.get_object('artist_scrolledwindow')
-
+        print ("3")
         # define menu's
         self.popup_menu = Menu(self.plugin, self.shell)
         self.popup_menu.load_from_file('ui/coverart_browser_pop_rb2.ui',
@@ -262,7 +262,7 @@ class CoverArtBrowserSource(RB.Source):
              'export_embed_menu_item': self.export_embed_menu_item_callback,
              'show_properties_menu_item': self.show_properties_menu_item_callback,
              'play_similar_artist_menu_item': self.play_similar_artist_menu_item_callback}
-
+        print ("4")
         self.popup_menu.connect_signals(signals)
         self.popup_menu.connect('pre-popup', self.pre_popup_menu_callback)
 
@@ -274,7 +274,7 @@ class CoverArtBrowserSource(RB.Source):
         self.paned = ui.get_object('paned')
         self.paned.set_name('horizontal_paned')
         self.entry_view_grid = ui.get_object('bottom_grid')
-
+        print ("5")
         # setup Track Pane
         setting = self.gs.get_setting(self.gs.Path.PLUGIN)
         setting.bind(self.gs.PluginKey.PANED_POSITION,
@@ -284,21 +284,24 @@ class CoverArtBrowserSource(RB.Source):
                                            self,
                                            self.entry_view_grid,
                                            self.viewmgr)
-
+        print ("6")
         #---- set up info pane -----#
         info_stack = ui.get_object('info_stack')
         info_button_box = ui.get_object('info_button_box')
         artist_info_paned = ui.get_object('vertical_info_paned')
         artist_info_paned.set_name('vertical_paned')
 
-        self.artist_info = ArtistInfoPane(info_button_box,
-                                          info_stack,
-                                          artist_info_paned,
-                                          self)
+        from coverart_browser_prefs import webkit_support
+        if webkit_support():
+            from coverart_artistinfo import ArtistInfoPane
+            self.artist_info = ArtistInfoPane(info_button_box,
+                                              info_stack,
+                                              artist_info_paned,
+                                              self)
 
         # quick search
         self.quick_search = ui.get_object('quick_search_entry')
-
+        print ("7")
         # theme override option
         activations = setting[self.gs.PluginKey.ACTIVATIONS]
         activations = activations + 1
@@ -1303,11 +1306,15 @@ class ViewManager(GObject.Object):
 
         # initialize views
         self._views = {}
+        print ("x")
         ui = Gtk.Builder()
         self._views[CoverIconView.name] = CoverIconView()
+        print ("y")
         self._views[CoverFlowView.name] = CoverFlowView()
+        print ("z1")
         self._views[ListView.name] = ListView()
         self._views[QueueView.name] = QueueView()
+        print ("z")
         # self._views[PlaySourceView.name] = PlaySourceView()
         ui.add_from_file(rb.find_plugin_file(source.plugin,
                                              'ui/coverart_artistview.ui'))
