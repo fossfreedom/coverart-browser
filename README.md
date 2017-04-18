@@ -1,4 +1,4 @@
-#coverart-browser - v2.1.2 (Penfold)
+# coverart-browser - v2.1.2 (Penfold)
 
 Browse your coverart albums in Rhythmbox v3 and later.  
 
@@ -8,7 +8,7 @@ Browse your coverart albums in Rhythmbox v3 and later.
 
 -----------
 
-##Authors
+## Authors
 
  - asermax <asermax@gmail.com>, website - https://github.com/asermax
 
@@ -19,7 +19,7 @@ Browse your coverart albums in Rhythmbox v3 and later.
 [![Flattr Button](http://api.flattr.com/button/button-compact-static-100x17.png "Flattr This!")](http://flattr.com/thing/1811704/ "fossfreedom")  [![paypaldonate](https://www.paypalobjects.com/en_GB/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KBV682WJ3BDGL)
 -----------
 
-##Summary: whats new in this release
+## Summary: whats new in this release
 
  - Allow switching between coverart-browser and the coverart-playlist sources via picture buttons on each source
  - tighter integration with Rhythmbox - addition of select and play using Rhythmbox's own toolbar play button 
