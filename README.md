@@ -58,7 +58,7 @@ Prerequisite is to use a distribution supporting GTK 3.10 or later - for example
 
 for Debian & Debian-based distros such as Ubuntu & Mint:
 
-    sudo apt-get install git gettext python3-mako gir1.2-notify-0.7 python3-lxml python3-gi-cairo python3-cairo gstreamer1.0-plugins-ugly gstreamer1.0-plugins-good gstreamer1.0-plugins-bad rhythmbox-plugins
+    sudo apt-get install git gettext python3-mako gir1.2-notify-0.7 python3-lxml python3-gi-cairo python3-cairo gstreamer1.0-plugins-ugly gstreamer1.0-plugins-good gstreamer1.0-plugins-bad rhythmbox-plugins gir1.2-webkit-3.0
 
 for Fedora and similar:
 
