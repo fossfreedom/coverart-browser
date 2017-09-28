@@ -62,7 +62,7 @@ for Debian & Debian-based distros such as Ubuntu & Mint:
 
 for Fedora and similar:
 
-    sudo yum install git gettext python3-mako python3-lxml python3-cairo
+    sudo yum install git gettext python3-mako python3-lxml python3-cairo webkitgtk3
 
 NOTE: it is assumed that you have separately installed the patent encumbered codecs found in the good/bad & ugly packages
 To install the plugin:
