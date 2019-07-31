@@ -1587,8 +1587,8 @@ class CoverManager(GObject.Object):
                             print("The URI doesn't point to an image or " + \
                                   "the image couldn't be opened.")
 
-                async = rb.Loader()
-                async.get_url(uri, cover_update, coverobject)
+                asyncLoader = rb.Loader()
+                asyncLoader.get_url(uri, cover_update, coverobject)
 
 
 class AlbumCoverManager(CoverManager):
