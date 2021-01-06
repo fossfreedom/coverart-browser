@@ -74,6 +74,15 @@ cd coverart-browser
 ./install.sh
 </pre>
 
+To make it work on debian buster (10), you need to add the stretch repository (as the necessary packages stopped at stretch). Don't worry, this tip has already been tested and it doesn't break the system.
+
+<pre>
+echo "deb http://ftp.de.debian.org/debian stretch main" | sudo tee -a /etc/apt/sources.list
+sudo apt update
+sudo apt install gir1.2-webkit-3.0
+</pre>
+
+
 To uninstall the plugin:
 
 <pre>
