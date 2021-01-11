@@ -76,7 +76,7 @@ cd coverart-browser
 
 *Support for Debian 10 (Buster):*
 
-To make it work on debian buster (10), you need to add the stretch repository (as the necessary packages stopped at stretch). Don't worry, this tip has already been tested and it doesn't break the system.
+To make it work on Debian 10 (Buster), you need to add the stretch repository (as the necessary packages stopped at stretch). Don't worry, this tip has already been tested and it doesn't break the system.
 
 <pre>
 echo "deb http://ftp.de.debian.org/debian stretch main" | sudo tee -a /etc/apt/sources.list
@@ -87,7 +87,7 @@ sudo apt install gir1.2-webkit-3.0
 
 *Support for Ubuntu 20.04:*
 
-To make it work on Ubuntu 20.04, you need to add the stretch repository (as the necessary packages stopped at stretch) with trusted actived. Don't worry, this tip has already been tested and it doesn't break the system.
+To make it work on Ubuntu 20.04, you need to add the bionic (ubuntu 18.04) repository (as the necessary packages stopped at bionic) with trusted actived. Don't worry, this tip has already been tested and it doesn't break the system.
 
 <pre>
 echo "deb http://de.archive.ubuntu.com/ubuntu/ bionic main universe" | sudo tee -a /etc/apt/sources.list
