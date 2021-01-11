@@ -90,7 +90,7 @@ sudo apt install gir1.2-webkit-3.0
 To make it work on Ubuntu 20.04, you need to add the stretch repository (as the necessary packages stopped at stretch) with trusted actived. Don't worry, this tip has already been tested and it doesn't break the system.
 
 <pre>
-echo "deb [trusted=yes] http://ftp.de.debian.org/debian stretch main" | sudo tee -a /etc/apt/sources.list
+echo "deb http://de.archive.ubuntu.com/ubuntu/ bionic main universe" | sudo tee -a /etc/apt/sources.list
 sudo apt update
 sudo apt-get install git gettext python3-mako gir1.2-notify-0.7 python3-lxml python3-gi-cairo python3-cairo gstreamer1.0-plugins-ugly gstreamer1.0-plugins-good gstreamer1.0-plugins-bad rhythmbox-plugins gir1.2-webkit-3.0
 </pre>
