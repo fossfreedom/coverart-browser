@@ -765,7 +765,7 @@ unicode vs string issues
 '''
 
 
-class CaseInsensitiveDict(collections.Mapping):
+class CaseInsensitiveDict(collections.abc.Mapping):
     def __init__(self, d):
         self._d = d
         self._s = dict((RB.search_fold(k), k) for k in d)
