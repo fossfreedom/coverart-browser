@@ -74,12 +74,12 @@ cd coverart-browser
 ./install.sh
 </pre>
 
-*Support for Debian 10 (Buster):*
+*Support for Debian 12 (Bookworm):*
 
-To make it work on Debian 10 (Buster), you need to add the stretch repository (as the necessary packages stopped at stretch). Don't worry, this tip has already been tested and it doesn't break the system.
+To make it work on Debian 12 (Bookworm), you need to add the stretch repository (as the necessary packages stopped at stretch). Don't worry, this tip has already been tested and it doesn't break the system.
 
 <pre>
-echo "deb http://ftp.de.debian.org/debian stretch main" | sudo tee -a /etc/apt/sources.list
+echo "deb https://archive.debian.org/debian/ stretch main" | sudo tee -a /etc/apt/sources.list
 sudo apt update
 sudo apt install gir1.2-webkit-3.0
 </pre>
